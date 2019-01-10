@@ -16,7 +16,7 @@ namespace PuntoDeVentaV2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormPrincipal());
+            Application.Run(new Login());
         }
     }
 }
