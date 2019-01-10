@@ -70,3 +70,4 @@ C:\Users\Jando\Documents\Visual Studio 2015\Proyectos\pudve\PuntoDeVentaV2\obj\D
 C:\Users\Jando\Documents\Visual Studio 2015\Proyectos\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.exe
 C:\Users\Jando\Documents\Visual Studio 2015\Proyectos\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.pdb
 C:\Users\Jando\Documents\Visual Studio 2015\Proyectos\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.Login.resources
+C:\Users\Jando\Documents\Visual Studio 2015\Proyectos\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.Registro.resources

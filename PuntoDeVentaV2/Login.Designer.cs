@@ -35,8 +35,9 @@
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.btnEntrar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.btnCerrarLogin = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnCrearCuenta = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnCerrarLogin)).BeginInit();
             this.SuspendLayout();
@@ -114,18 +115,6 @@
             this.panel1.Size = new System.Drawing.Size(420, 44);
             this.panel1.TabIndex = 5;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label3.Location = new System.Drawing.Point(148, 12);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(145, 22);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Inicio de sesión";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // btnCerrarLogin
             // 
             this.btnCerrarLogin.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -138,11 +127,37 @@
             this.btnCerrarLogin.TabStop = false;
             this.btnCerrarLogin.Click += new System.EventHandler(this.btnCerrarLogin_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label3.Location = new System.Drawing.Point(148, 12);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(145, 22);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Inicio de sesión";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnCrearCuenta
+            // 
+            this.btnCrearCuenta.AutoSize = true;
+            this.btnCrearCuenta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCrearCuenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCrearCuenta.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnCrearCuenta.Location = new System.Drawing.Point(150, 219);
+            this.btnCrearCuenta.Name = "btnCrearCuenta";
+            this.btnCrearCuenta.Size = new System.Drawing.Size(128, 17);
+            this.btnCrearCuenta.TabIndex = 6;
+            this.btnCrearCuenta.Text = "Crear cuenta nueva";
+            this.btnCrearCuenta.Click += new System.EventHandler(this.btnCrearCuenta_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 250);
+            this.Controls.Add(this.btnCrearCuenta);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnEntrar);
             this.Controls.Add(this.txtPassword);
@@ -171,5 +186,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox btnCerrarLogin;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label btnCrearCuenta;
     }
 }
