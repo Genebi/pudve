@@ -30,22 +30,31 @@ namespace PuntoDeVentaV2
             string usuario = txtUsuario.Text;
             string password = txtPassword.Text;
 
-            cn.Conectarse();
-            bool resultado = cn.Login("SELECT * FROM Usuarios WHERE Usuario = '" + usuario + "' AND Password = '" + password + "'");
-
-            if (resultado == true)
+            if (usuario != "" && password != "")
             {
-                FormPrincipal fp = new FormPrincipal();
+                bool resultado = cn.EjecutarSelect("SELECT * FROM Usuarios WHERE Usuario = '" + usuario + "' AND Password = '" + password + "'");
 
-                this.Hide();
+                if (resultado == true)
+                {
+                    FormPrincipal fp = new FormPrincipal();
 
-                fp.ShowDialog();
+                    this.Hide();
 
-                this.Close();
+                    fp.ShowDialog();
+
+                    this.Close();
+                }
+                else
+                {
+
+                    txtMensaje.Text = "El usuario y/o contraseña son incorrectos";
+                    txtPassword.Text = "";
+                    txtPassword.Focus();
+                }
             }
             else
             {
-                MessageBox.Show("No entro");
+                txtMensaje.Text = "Ingrese sus datos de inicio de sesión";
             }
         }
 

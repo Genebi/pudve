@@ -52,17 +52,21 @@ namespace PuntoDeVentaV2
             sql_con = new SQLiteConnection("Data source=|DataDirectory|\\pudveDB.db; Version=3; New=False;Compress=True;");
         }
 
-        public void EjecutarConsulta(string consulta)
+        //Sirve para los INSERT, UPDATE, DELETE
+        public int EjecutarConsulta(string consulta)
         {
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = consulta;
-            sql_cmd.ExecuteNonQuery();
+            int resultado = sql_cmd.ExecuteNonQuery();
             sql_con.Close();
+
+            return resultado;
         }
 
-        public bool Login(string consulta)
+        //Sirve para los SELECT solamente
+        public bool EjecutarSelect(string consulta)
         {
             Conectarse();
             sql_con.Open();
@@ -79,7 +83,7 @@ namespace PuntoDeVentaV2
                 contador++;
             }
 
-            if (contador == 1)
+            if (contador > 0)
             {
                 return true;
             }
