@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
 
                     this.Hide();
 
+                    fp.nickUsuario = usuario;
                     fp.ShowDialog();
 
                     this.Close();

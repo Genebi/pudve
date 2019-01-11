@@ -12,13 +12,13 @@ namespace PuntoDeVentaV2
 {
     public partial class FormPrincipal : Form
     {
+        public string nickUsuario { get; set; }
+
         public FormPrincipal()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
         }
-
-        Conexion datos = new Conexion();
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
