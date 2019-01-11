@@ -78,5 +78,10 @@ namespace PuntoDeVentaV2
                 e.Cancel = true;
             }
         }
+
+        private void btnMisDatos_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<MisDatos>();
+        }
     }
 }
