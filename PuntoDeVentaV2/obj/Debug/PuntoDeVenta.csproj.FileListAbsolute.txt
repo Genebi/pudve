@@ -100,3 +100,4 @@ C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.Ventas.resources
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVenta.csproj.GenerateResource.Cache
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.MisDatos.resources
+C:\Users\Jando\Documents\Visual Studio 2015\Proyectos\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.MisDatos.resources
