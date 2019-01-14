@@ -57,7 +57,7 @@
             this.panelMaestro.Controls.Add(this.menuVertical);
             this.panelMaestro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMaestro.Location = new System.Drawing.Point(0, 0);
-            this.panelMaestro.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelMaestro.Margin = new System.Windows.Forms.Padding(4);
             this.panelMaestro.Name = "panelMaestro";
             this.panelMaestro.Size = new System.Drawing.Size(1399, 795);
             this.panelMaestro.TabIndex = 0;
@@ -66,7 +66,7 @@
             // 
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(307, 0);
-            this.panelContenedor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panelContenedor.Margin = new System.Windows.Forms.Padding(4);
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(1092, 795);
             this.panelContenedor.TabIndex = 2;
@@ -89,7 +89,7 @@
             this.menuVertical.Controls.Add(this.btnProductos);
             this.menuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuVertical.Location = new System.Drawing.Point(0, 0);
-            this.menuVertical.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.menuVertical.Margin = new System.Windows.Forms.Padding(4);
             this.menuVertical.Name = "menuVertical";
             this.menuVertical.Size = new System.Drawing.Size(307, 795);
             this.menuVertical.TabIndex = 0;
@@ -106,7 +106,7 @@
             this.btnMisDatos.Image = ((System.Drawing.Image)(resources.GetObject("btnMisDatos.Image")));
             this.btnMisDatos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnMisDatos.Location = new System.Drawing.Point(153, 517);
-            this.btnMisDatos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMisDatos.Margin = new System.Windows.Forms.Padding(4);
             this.btnMisDatos.Name = "btnMisDatos";
             this.btnMisDatos.Size = new System.Drawing.Size(153, 87);
             this.btnMisDatos.TabIndex = 12;
@@ -127,7 +127,7 @@
             this.button9.Image = ((System.Drawing.Image)(resources.GetObject("button9.Image")));
             this.button9.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button9.Location = new System.Drawing.Point(0, 612);
-            this.button9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button9.Margin = new System.Windows.Forms.Padding(4);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(153, 85);
             this.button9.TabIndex = 11;
@@ -147,7 +147,7 @@
             this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
             this.button6.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button6.Location = new System.Drawing.Point(153, 426);
-            this.button6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button6.Margin = new System.Windows.Forms.Padding(4);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(153, 84);
             this.button6.TabIndex = 10;
@@ -167,7 +167,7 @@
             this.button7.Image = ((System.Drawing.Image)(resources.GetObject("button7.Image")));
             this.button7.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button7.Location = new System.Drawing.Point(0, 517);
-            this.button7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button7.Margin = new System.Windows.Forms.Padding(4);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(153, 87);
             this.button7.TabIndex = 9;
@@ -187,7 +187,7 @@
             this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
             this.button4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button4.Location = new System.Drawing.Point(153, 334);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(153, 85);
             this.button4.TabIndex = 8;
@@ -207,7 +207,7 @@
             this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
             this.button5.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button5.Location = new System.Drawing.Point(0, 426);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(153, 84);
             this.button5.TabIndex = 7;
@@ -227,7 +227,7 @@
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button1.Location = new System.Drawing.Point(0, 242);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(153, 84);
             this.button1.TabIndex = 6;
@@ -247,7 +247,7 @@
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
             this.button2.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button2.Location = new System.Drawing.Point(153, 242);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(153, 84);
             this.button2.TabIndex = 5;
@@ -267,7 +267,7 @@
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
             this.button3.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button3.Location = new System.Drawing.Point(0, 334);
-            this.button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(153, 85);
             this.button3.TabIndex = 4;
@@ -287,7 +287,7 @@
             this.btnProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnProveedores.Image")));
             this.btnProveedores.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnProveedores.Location = new System.Drawing.Point(153, 146);
-            this.btnProveedores.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProveedores.Margin = new System.Windows.Forms.Padding(4);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Size = new System.Drawing.Size(153, 89);
             this.btnProveedores.TabIndex = 3;
@@ -308,7 +308,7 @@
             this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnClientes.Location = new System.Drawing.Point(0, 150);
-            this.btnClientes.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnClientes.Margin = new System.Windows.Forms.Padding(4);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(153, 85);
             this.btnClientes.TabIndex = 2;
@@ -329,7 +329,7 @@
             this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
             this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnVentas.Location = new System.Drawing.Point(0, 62);
-            this.btnVentas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnVentas.Margin = new System.Windows.Forms.Padding(4);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Size = new System.Drawing.Size(153, 81);
             this.btnVentas.TabIndex = 1;
@@ -350,7 +350,7 @@
             this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnProductos.Location = new System.Drawing.Point(153, 62);
-            this.btnProductos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnProductos.Margin = new System.Windows.Forms.Padding(4);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(153, 78);
             this.btnProductos.TabIndex = 0;
@@ -365,7 +365,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1399, 795);
             this.Controls.Add(this.panelMaestro);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1414, 832);
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

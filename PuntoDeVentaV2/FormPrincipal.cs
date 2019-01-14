@@ -12,7 +12,13 @@ namespace PuntoDeVentaV2
 {
     public partial class FormPrincipal : Form
     {
+        // declaramos la variable que se pasara entre los dos formularios
+        // FormPrincipal y MisDatos
+        public static string userNickName;
+        public static string userPass;
+
         public string nickUsuario { get; set; }
+        public string passwordUsuario { get; set; }
 
         public FormPrincipal()
         {
@@ -24,6 +30,11 @@ namespace PuntoDeVentaV2
         {
             //datos.SincronizarProductos();
             //Temporizador();
+
+            // asignamos el valor de userNickName que sea
+            // el valor que tiene nickUsuario
+            userNickName = nickUsuario;
+            userPass = passwordUsuario;
         }
 
         private void btnProductos_Click(object sender, EventArgs e)

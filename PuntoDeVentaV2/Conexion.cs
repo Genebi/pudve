@@ -93,18 +93,17 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public void CargarDatos()
+        public DataTable CargarDatos(string consulta)
         {
-            /*Conectarse();
+            DataTable db = new DataTable();
+            Conectarse();
             sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            string consulta = "SELECT * FROM Productos";
-            DB = new SQLiteDataAdapter(consulta, sql_con);
-            DS.Reset();
-            DB.Fill(DS);
-            DT = DS.Tables[0];
-            DGV.DataSource = DT;
-            sql_con.Close();*/
+            SQLiteCommand com = new SQLiteCommand(consulta, sql_con);
+            SQLiteDataAdapter adap = new SQLiteDataAdapter(com);
+            adap.Fill(db);
+            sql_con.Close();
+
+            return db;
         }
     }
 }
