@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
 
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
 
         public Productos()
         {
@@ -34,7 +35,7 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos()
         {
-            cn.CargarInformacion("SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '" + FormPrincipal.userID + "'", DGVProductos);
+            cn.CargarInformacion(cs.Productos(FormPrincipal.userID), DGVProductos);
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)

@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="ComboboxItem.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="Consultas.cs" />
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
