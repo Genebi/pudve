@@ -16,6 +16,8 @@ namespace PuntoDeVentaV2
         static public int id = 1;
         static public string precioProducto = "";
 
+        Conexion cn = new Conexion();
+
         public AgregarEditarProducto(string titulo)
         {
             InitializeComponent();
@@ -173,7 +175,27 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Guardar producto");
+
+            var nombre = txtNombreProducto.Text;
+            var stock = txtStockProducto.Text;
+            var precio = txtPrecioProducto.Text;
+            var categoria = txtCategoriaProducto.Text;
+            var claveIn = txtClaveProducto.Text;
+            var codigoB = txtCodigoBarras.Text;
+
+            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, IDUsuario)" +
+                              "VALUES('"+ nombre +"', '"+ stock +"', '"+ precio +"', '"+ categoria +"', '"+ claveIn +"', '"+ codigoB +"', '"+ FormPrincipal.userID +"')";
+
+            int respuesta = cn.EjecutarConsulta(consulta);
+
+            if (respuesta > 0)
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Ha ocurrido un error al intentar registrar el producto");
+            }
         }
     }
 }

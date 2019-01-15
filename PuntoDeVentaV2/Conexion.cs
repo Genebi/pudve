@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SQLite;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
+//using MySql.Data.MySqlClient;
 using System.Runtime.InteropServices;
 
 namespace PuntoDeVentaV2
@@ -66,7 +66,9 @@ namespace PuntoDeVentaV2
         }
 
         //Sirve para los SELECT solamente
-        public bool EjecutarSelect(string consulta)
+        //Tipo 0 es por default solo para verificar si existe algun registro en especifico
+        //Tipo 1 es para obtener un valor en especifico (Login) por ejemplo el ID de usuario
+        public object EjecutarSelect(string consulta, int tipo = 0)
         {
             Conectarse();
             sql_con.Open();
@@ -76,24 +78,38 @@ namespace PuntoDeVentaV2
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
+
+            object respuesta = null;
+
             int contador = 0;
 
             while (dr.Read())
             {
                 contador++;
+
+                if (tipo == 1)
+                {
+                    respuesta = dr["ID"]; //ID del usuario
+                }
             }
 
-            if (contador > 0)
+            if (tipo == 0)
             {
-                return true;
+                if (contador > 0)
+                {
+                    respuesta = true;
+                }
+                else
+                {
+                    respuesta = false;
+                }
             }
-            else
-            {
-                return false;
-            }
+
+            return respuesta;
         }
 
-        public DataTable CargarDatos(string consulta)
+        public DataTable CargarDatos
+            (string consulta)
         {
             DataTable db = new DataTable();
             Conectarse();
@@ -104,6 +120,19 @@ namespace PuntoDeVentaV2
             sql_con.Close();
 
             return db;
+        }
+
+        public void CargarInformacion(string consulta, DataGridView dgv)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            DB = new SQLiteDataAdapter(consulta, sql_con);
+            DS.Reset();
+            DB.Fill(DS);
+            DT = DS.Tables[0];
+            dgv.DataSource = DT;
+            sql_con.Close();
         }
     }
 }

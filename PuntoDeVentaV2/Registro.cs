@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
         private bool VerificarUsuario(string usuario)
         {
             string consulta = "SELECT Usuario FROM Usuarios WHERE Usuario = '"+ usuario +"'";
-            bool respuesta = cn.EjecutarSelect(consulta);
+            bool respuesta = (bool)cn.EjecutarSelect(consulta);
             return respuesta;
         }
 

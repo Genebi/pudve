@@ -14,9 +14,11 @@ namespace PuntoDeVentaV2
     {
         // declaramos la variable que se pasara entre los dos formularios
         // FormPrincipal y MisDatos
+        public static int userID;
         public static string userNickName;
         public static string userPass;
 
+        public int IdUsuario { get; set; }
         public string nickUsuario { get; set; }
         public string passwordUsuario { get; set; }
 
@@ -33,6 +35,7 @@ namespace PuntoDeVentaV2
 
             // asignamos el valor de userNickName que sea
             // el valor que tiene nickUsuario
+            userID = IdUsuario;
             userNickName = nickUsuario;
             userPass = passwordUsuario;
         }

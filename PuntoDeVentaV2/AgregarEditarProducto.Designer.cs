@@ -34,11 +34,11 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtNombreProducto = new System.Windows.Forms.TextBox();
             this.txtPrecioProducto = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtStockProducto = new System.Windows.Forms.TextBox();
+            this.txtClaveProducto = new System.Windows.Forms.TextBox();
+            this.txtCategoriaProducto = new System.Windows.Forms.TextBox();
             this.txtCodigoBarras = new System.Windows.Forms.TextBox();
             this.panelContenedor = new System.Windows.Forms.FlowLayoutPanel();
             this.btnGenerarCB = new System.Windows.Forms.Button();
@@ -111,12 +111,12 @@
             this.label6.TabIndex = 6;
             this.label6.Text = "Stock";
             // 
-            // textBox1
+            // txtNombreProducto
             // 
-            this.textBox1.Location = new System.Drawing.Point(70, 92);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(650, 20);
-            this.textBox1.TabIndex = 7;
+            this.txtNombreProducto.Location = new System.Drawing.Point(70, 92);
+            this.txtNombreProducto.Name = "txtNombreProducto";
+            this.txtNombreProducto.Size = new System.Drawing.Size(650, 20);
+            this.txtNombreProducto.TabIndex = 7;
             // 
             // txtPrecioProducto
             // 
@@ -126,26 +126,26 @@
             this.txtPrecioProducto.TabIndex = 8;
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
             // 
-            // textBox3
+            // txtStockProducto
             // 
-            this.textBox3.Location = new System.Drawing.Point(70, 145);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(165, 20);
-            this.textBox3.TabIndex = 9;
+            this.txtStockProducto.Location = new System.Drawing.Point(70, 145);
+            this.txtStockProducto.Name = "txtStockProducto";
+            this.txtStockProducto.Size = new System.Drawing.Size(165, 20);
+            this.txtStockProducto.TabIndex = 9;
             // 
-            // textBox4
+            // txtClaveProducto
             // 
-            this.textBox4.Location = new System.Drawing.Point(70, 199);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(165, 20);
-            this.textBox4.TabIndex = 10;
+            this.txtClaveProducto.Location = new System.Drawing.Point(70, 199);
+            this.txtClaveProducto.Name = "txtClaveProducto";
+            this.txtClaveProducto.Size = new System.Drawing.Size(165, 20);
+            this.txtClaveProducto.TabIndex = 10;
             // 
-            // textBox5
+            // txtCategoriaProducto
             // 
-            this.textBox5.Location = new System.Drawing.Point(555, 145);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(165, 20);
-            this.textBox5.TabIndex = 11;
+            this.txtCategoriaProducto.Location = new System.Drawing.Point(555, 145);
+            this.txtCategoriaProducto.Name = "txtCategoriaProducto";
+            this.txtCategoriaProducto.Size = new System.Drawing.Size(165, 20);
+            this.txtCategoriaProducto.TabIndex = 11;
             // 
             // txtCodigoBarras
             // 
@@ -300,11 +300,11 @@
             this.Controls.Add(this.btnGenerarCB);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.txtCodigoBarras);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txtCategoriaProducto);
+            this.Controls.Add(this.txtClaveProducto);
+            this.Controls.Add(this.txtStockProducto);
             this.Controls.Add(this.txtPrecioProducto);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtNombreProducto);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -329,11 +329,11 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNombreProducto;
         private System.Windows.Forms.TextBox txtPrecioProducto;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtStockProducto;
+        private System.Windows.Forms.TextBox txtClaveProducto;
+        private System.Windows.Forms.TextBox txtCategoriaProducto;
         private System.Windows.Forms.TextBox txtCodigoBarras;
         private System.Windows.Forms.FlowLayoutPanel panelContenedor;
         private System.Windows.Forms.Button btnGenerarCB;
