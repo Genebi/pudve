@@ -133,6 +133,7 @@
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(216, 22);
             this.txtTelefono.TabIndex = 21;
+            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // label12
             // 
@@ -150,6 +151,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(356, 22);
             this.txtEmail.TabIndex = 19;
+            this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             // 
             // label11
             // 
@@ -167,6 +169,7 @@
             this.txtCodPost.Name = "txtCodPost";
             this.txtCodPost.Size = new System.Drawing.Size(216, 22);
             this.txtCodPost.TabIndex = 17;
+            this.txtCodPost.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodPost_KeyPress);
             // 
             // label10
             // 
@@ -235,6 +238,7 @@
             this.txtNoInt.Name = "txtNoInt";
             this.txtNoInt.Size = new System.Drawing.Size(154, 22);
             this.txtNoInt.TabIndex = 9;
+            this.txtNoInt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNoInt_KeyPress);
             // 
             // label6
             // 
@@ -252,6 +256,7 @@
             this.txtNoExt.Name = "txtNoExt";
             this.txtNoExt.Size = new System.Drawing.Size(120, 22);
             this.txtNoExt.TabIndex = 7;
+            this.txtNoExt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNoExt_KeyPress_1);
             // 
             // label5
             // 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace PuntoDeVentaV2
 {
@@ -172,6 +173,163 @@ namespace PuntoDeVentaV2
 
                 cn.EjecutarConsulta(actualizar);
                 consulta();
+            }
+        }
+        
+        private void txtNoExt_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            // Si No Es Numero  
+            if (!(char.IsNumber(e.KeyChar)) &&
+                // y Si No es Backspace(Borrar)
+                (e.KeyChar != (char)Keys.Back) &&
+                // y si no es Enter(Entrar) 
+                (e.KeyChar != (char)Keys.Enter) &&
+                // y si no es Return(Entrar o Intro del Teclado Numerico) 
+                (e.KeyChar != (char)Keys.Return) &&
+                // y si no es Delete(Del o Suprimir, Supr)  
+                (e.KeyChar != (char)Keys.Delete))
+            {
+                // Entonces 
+                // Lanzamos Mensaje diciendo que solo permite numeros 
+                MessageBox.Show("Solo se permiten numeros en el Campo Numero Exterior",
+                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // Habilitamos el Handled = true para que no escriba nada si no son las teclas validadas 
+                e.Handled = true;
+                //Retornamos return; 
+            }
+            // entonces si las teclas son las permitidas Validamos
+            // si se presiona Enter 
+            else if (e.KeyChar == (char)Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+                // mandamos un Tab para ir al siguiene campo 
+            }
+            // si se presiona Return (Intro del Teclado Numerico) 
+            else if (e.KeyChar == (char)Keys.Return)
+            {
+                SendKeys.Send("{TAB}");
+                // mandamos un Tab para ir al siguiene campo 
+            }
+        }
+
+        private void txtNoInt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Si No Es Numero  
+            if (!(char.IsNumber(e.KeyChar)) &&
+                // y Si No es Backspace(Borrar)
+                (e.KeyChar != (char)Keys.Back) &&
+                // y si no es Enter(Entrar) 
+                (e.KeyChar != (char)Keys.Enter) &&
+                // y si no es Return(Entrar o Intro del Teclado Numerico) 
+                (e.KeyChar != (char)Keys.Return) &&
+                // y si no es Delete(Del o Suprimir, Supr)  
+                (e.KeyChar != (char)Keys.Delete))
+            {
+                // Entonces 
+                // Lanzamos Mensaje diciendo que solo permite numeros 
+                MessageBox.Show("Solo se permiten numeros en el Campo Numero Interior",
+                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // Habilitamos el Handled = true para que no escriba nada si no son las teclas validadas 
+                e.Handled = true;
+                //Retornamos return; 
+            }
+            // entonces si las teclas son las permitidas Validamos
+            // si se presiona Enter 
+            else if (e.KeyChar == (char)Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+                // mandamos un Tab para ir al siguiene campo 
+            }
+            // si se presiona Return (Intro del Teclado Numerico) 
+            else if (e.KeyChar == (char)Keys.Return)
+            {
+                SendKeys.Send("{TAB}");
+                // mandamos un Tab para ir al siguiene campo 
+            }
+        }
+
+        private void txtCodPost_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Si No Es Numero  
+            if (!(char.IsNumber(e.KeyChar)) &&
+                // y Si No es Backspace(Borrar)
+                (e.KeyChar != (char)Keys.Back) &&
+                // y si no es Enter(Entrar) 
+                (e.KeyChar != (char)Keys.Enter) &&
+                // y si no es Return(Entrar o Intro del Teclado Numerico) 
+                (e.KeyChar != (char)Keys.Return) &&
+                // y si no es Delete(Del o Suprimir, Supr)  
+                (e.KeyChar != (char)Keys.Delete))
+            {
+                // Entonces 
+                // Lanzamos Mensaje diciendo que solo permite numeros 
+                MessageBox.Show("Solo se permiten numeros en el Campo Codigo Postal",
+                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // Habilitamos el Handled = true para que no escriba nada si no son las teclas validadas 
+                e.Handled = true;
+                //Retornamos return; 
+            }
+            // entonces si las teclas son las permitidas Validamos
+            // si se presiona Enter 
+            else if (e.KeyChar == (char)Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+                // mandamos un Tab para ir al siguiene campo 
+            }
+            // si se presiona Return (Intro del Teclado Numerico) 
+            else if (e.KeyChar == (char)Keys.Return)
+            {
+                SendKeys.Send("{TAB}");
+                // mandamos un Tab para ir al siguiene campo 
+            }
+        }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Si No Es Numero  
+            if (!(char.IsNumber(e.KeyChar)) &&
+                // y Si No es Backspace(Borrar)
+                (e.KeyChar != (char)Keys.Back) &&
+                // y si no es Enter(Entrar) 
+                (e.KeyChar != (char)Keys.Enter) &&
+                // y si no es Return(Entrar o Intro del Teclado Numerico) 
+                (e.KeyChar != (char)Keys.Return) &&
+                // y si no es Delete(Del o Suprimir, Supr)  
+                (e.KeyChar != (char)Keys.Delete))
+            {
+                // Entonces 
+                // Lanzamos Mensaje diciendo que solo permite numeros 
+                MessageBox.Show("Solo se permiten numeros en el Campo Telefono",
+                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // Habilitamos el Handled = true para que no escriba nada si no son las teclas validadas 
+                e.Handled = true;
+                //Retornamos return; 
+            }
+            // entonces si las teclas son las permitidas Validamos
+            // si se presiona Enter 
+            else if (e.KeyChar == (char)Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+                // mandamos un Tab para ir al siguiene campo 
+            }
+            // si se presiona Return (Intro del Teclado Numerico) 
+            else if (e.KeyChar == (char)Keys.Return)
+            {
+                SendKeys.Send("{TAB}");
+                // mandamos un Tab para ir al siguiene campo 
+            }
+        }
+
+        private void txtEmail_Validating(object sender, CancelEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                Regex reg = new Regex(@"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
+                if (!reg.IsMatch(txtEmail.Text))
+                {
+                    MessageBox.Show("Formato no valido de Email", "Advertencia",
+                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
     }
