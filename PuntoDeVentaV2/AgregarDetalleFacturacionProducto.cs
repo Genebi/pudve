@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 
 namespace PuntoDeVentaV2
 {
@@ -18,6 +18,10 @@ namespace PuntoDeVentaV2
         bool primera = true;
         int previo = 0;
 
+        Conexion cn = new Conexion();
+        private SQLiteConnection sql_con = new SQLiteConnection("Data source=|DataDirectory|\\pudveDB.db; Version=3; New=False;Compress=True;");
+        private SQLiteCommand sql_cmd;
+
         List<string> clavesUnidad = new List<string>();
 
         double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
@@ -27,13 +31,20 @@ namespace PuntoDeVentaV2
             InitializeComponent();
             this.ControlBox = false;
 
-            /*try
+            try
             {
-                conexion = new SqlConnection(cadenaConexion);
-                conexion.Open();
+                sql_con.Open();
+                sql_cmd = sql_con.CreateCommand();
+                sql_cmd.CommandText = "SELECT * FROM CatalogoUnidadesMedida ORDER BY LOWER(Nombre) ASC";
+                sql_cmd.ExecuteNonQuery();
 
-                comando = new SqlCommand("SELECT * FROM dbo.CatalogoUnidadMedida ORDER BY Nombre ASC", conexion);
-                dr = comando.ExecuteReader();
+                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                ComboboxItem item2 = new ComboboxItem();
+                item2.Text = "Selecciona una opción";
+                item2.Value = "";
+                clavesUnidad.Add("");
+                valorDefault = cbUnidadMedida.Items.Add(item2);
 
                 while (dr.Read())
                 {
@@ -47,17 +58,11 @@ namespace PuntoDeVentaV2
                     
                     cbUnidadMedida.Items.Add(item);
                 }
-
-                ComboboxItem item2 = new ComboboxItem();
-                item2.Text = "Selecciona una opción";
-                item2.Value = "";
-                clavesUnidad.Add("");
-                valorDefault = cbUnidadMedida.Items.Add(item2);
             }
             catch (Exception)
             {
                 //Falta agregar una variable para manejar la excepcion en caso de ser requerido
-            }*/
+            }
         }
 
         private void btnCancelarDetalle_Click(object sender, EventArgs e)
@@ -72,7 +77,7 @@ namespace PuntoDeVentaV2
             cbLinea1_3.SelectedIndex = 0;
             cbLinea1_4.SelectedIndex = 0;
 
-            //cbUnidadMedida.SelectedIndex = valorDefault;
+            cbUnidadMedida.SelectedIndex = valorDefault;
 
             cbLinea1_2.Enabled = false;
             cbLinea1_3.Enabled = false;
