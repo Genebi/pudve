@@ -20,12 +20,6 @@ namespace PuntoDeVentaV2
 
         List<string> clavesUnidad = new List<string>();
 
-        SqlConnection conexion;
-        SqlCommand comando;
-        SqlDataReader dr;
-
-        string cadenaConexion = "Data Source=BETARAYBILL\\JANDO;Initial Catalog=PuntoDeVenta;Integrated Security=True";
-
         double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
         public AgregarDetalleFacturacionProducto()
@@ -33,7 +27,7 @@ namespace PuntoDeVentaV2
             InitializeComponent();
             this.ControlBox = false;
 
-            try
+            /*try
             {
                 conexion = new SqlConnection(cadenaConexion);
                 conexion.Open();
@@ -59,13 +53,11 @@ namespace PuntoDeVentaV2
                 item2.Value = "";
                 clavesUnidad.Add("");
                 valorDefault = cbUnidadMedida.Items.Add(item2);
-
-                conexion.Close();
             }
             catch (Exception)
             {
                 //Falta agregar una variable para manejar la excepcion en caso de ser requerido
-            }
+            }*/
         }
 
         private void btnCancelarDetalle_Click(object sender, EventArgs e)
@@ -80,7 +72,7 @@ namespace PuntoDeVentaV2
             cbLinea1_3.SelectedIndex = 0;
             cbLinea1_4.SelectedIndex = 0;
 
-            cbUnidadMedida.SelectedIndex = valorDefault;
+            //cbUnidadMedida.SelectedIndex = valorDefault;
 
             cbLinea1_2.Enabled = false;
             cbLinea1_3.Enabled = false;
@@ -339,29 +331,7 @@ namespace PuntoDeVentaV2
             }
 
             //Realiza la conexion y realiza la consulta para verificar si la clave del producto es válida
-            try
-            {
-                conexion = new SqlConnection(cadenaConexion);
-                conexion.Open();
-
-                comando = new SqlCommand("SELECT * FROM dbo.CatalogoClavesCFDI33 WHERE ClavePS = @clave", conexion);
-                comando.Parameters.AddWithValue("@clave", clavePS);
-                dr = comando.ExecuteReader();
-
-                if (!dr.HasRows)
-                {
-                    MessageBox.Show("La clave de producto no es válida.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                conexion.Close();
-            }
-            catch (Exception)
-            {
-                //Falta agregar una variable para manejar la excepcion en caso de ser requerido
-            }
-
-            //MessageBox.Show("Precio de producto: " + precioProducto.ToString());
+           
         }
 
         private void cbLinea1_1_SelectedIndexChanged(object sender, EventArgs e)

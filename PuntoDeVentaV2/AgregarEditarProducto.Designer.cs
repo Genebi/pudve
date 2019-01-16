@@ -59,7 +59,7 @@
             this.label1.Location = new System.Drawing.Point(68, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 17);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Producto";
             // 
             // label2
@@ -68,7 +68,7 @@
             this.label2.Location = new System.Drawing.Point(312, 179);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(145, 17);
-            this.label2.TabIndex = 2;
+            this.label2.TabIndex = 10;
             this.label2.Text = "Código de Barras";
             // 
             // label3
@@ -78,7 +78,7 @@
             this.label3.Location = new System.Drawing.Point(551, 125);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 17);
-            this.label3.TabIndex = 3;
+            this.label3.TabIndex = 6;
             this.label3.Text = "Categoría";
             // 
             // label4
@@ -98,7 +98,7 @@
             this.label5.Location = new System.Drawing.Point(67, 179);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(96, 17);
-            this.label5.TabIndex = 5;
+            this.label5.TabIndex = 8;
             this.label5.Text = "Clave Interna";
             // 
             // label6
@@ -108,7 +108,7 @@
             this.label6.Location = new System.Drawing.Point(68, 125);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(43, 17);
-            this.label6.TabIndex = 6;
+            this.label6.TabIndex = 2;
             this.label6.Text = "Stock";
             // 
             // txtNombreProducto
@@ -116,14 +116,14 @@
             this.txtNombreProducto.Location = new System.Drawing.Point(70, 92);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(650, 20);
-            this.txtNombreProducto.TabIndex = 7;
+            this.txtNombreProducto.TabIndex = 1;
             // 
             // txtPrecioProducto
             // 
             this.txtPrecioProducto.Location = new System.Drawing.Point(315, 145);
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(165, 20);
-            this.txtPrecioProducto.TabIndex = 8;
+            this.txtPrecioProducto.TabIndex = 5;
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
             // 
             // txtStockProducto
@@ -131,28 +131,28 @@
             this.txtStockProducto.Location = new System.Drawing.Point(70, 145);
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(165, 20);
-            this.txtStockProducto.TabIndex = 9;
+            this.txtStockProducto.TabIndex = 3;
             // 
             // txtClaveProducto
             // 
             this.txtClaveProducto.Location = new System.Drawing.Point(70, 199);
             this.txtClaveProducto.Name = "txtClaveProducto";
             this.txtClaveProducto.Size = new System.Drawing.Size(165, 20);
-            this.txtClaveProducto.TabIndex = 10;
+            this.txtClaveProducto.TabIndex = 9;
             // 
             // txtCategoriaProducto
             // 
             this.txtCategoriaProducto.Location = new System.Drawing.Point(555, 145);
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
             this.txtCategoriaProducto.Size = new System.Drawing.Size(165, 20);
-            this.txtCategoriaProducto.TabIndex = 11;
+            this.txtCategoriaProducto.TabIndex = 7;
             // 
             // txtCodigoBarras
             // 
             this.txtCodigoBarras.Location = new System.Drawing.Point(315, 199);
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(165, 20);
-            this.txtCodigoBarras.TabIndex = 12;
+            this.txtCodigoBarras.TabIndex = 11;
             this.txtCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoBarras_KeyDown);
             // 
             // panelContenedor
@@ -162,7 +162,7 @@
             this.panelContenedor.Location = new System.Drawing.Point(309, 225);
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(411, 95);
-            this.panelContenedor.TabIndex = 13;
+            this.panelContenedor.TabIndex = 20;
             this.panelContenedor.WrapContents = false;
             // 
             // btnGenerarCB
@@ -176,7 +176,7 @@
             this.btnGenerarCB.Location = new System.Drawing.Point(555, 195);
             this.btnGenerarCB.Name = "btnGenerarCB";
             this.btnGenerarCB.Size = new System.Drawing.Size(165, 27);
-            this.btnGenerarCB.TabIndex = 14;
+            this.btnGenerarCB.TabIndex = 12;
             this.btnGenerarCB.Text = "Generar Código";
             this.btnGenerarCB.UseVisualStyleBackColor = false;
             this.btnGenerarCB.Click += new System.EventHandler(this.btnGenerarCB_Click);
@@ -192,7 +192,7 @@
             this.btnAgregarDescuento.Location = new System.Drawing.Point(70, 365);
             this.btnAgregarDescuento.Name = "btnAgregarDescuento";
             this.btnAgregarDescuento.Size = new System.Drawing.Size(180, 28);
-            this.btnAgregarDescuento.TabIndex = 15;
+            this.btnAgregarDescuento.TabIndex = 13;
             this.btnAgregarDescuento.Text = "Agregar Descuento";
             this.btnAgregarDescuento.UseVisualStyleBackColor = false;
             this.btnAgregarDescuento.Click += new System.EventHandler(this.btnAgregarDescuento_Click);
@@ -208,7 +208,7 @@
             this.button2.Location = new System.Drawing.Point(309, 365);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(180, 28);
-            this.button2.TabIndex = 16;
+            this.button2.TabIndex = 14;
             this.button2.Text = "Detalle de producto";
             this.button2.UseVisualStyleBackColor = false;
             // 
@@ -223,7 +223,7 @@
             this.btnDetalleFacturacion.Location = new System.Drawing.Point(540, 365);
             this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
             this.btnDetalleFacturacion.Size = new System.Drawing.Size(180, 28);
-            this.btnDetalleFacturacion.TabIndex = 17;
+            this.btnDetalleFacturacion.TabIndex = 15;
             this.btnDetalleFacturacion.Text = "Detalle de facturación";
             this.btnDetalleFacturacion.UseVisualStyleBackColor = false;
             this.btnDetalleFacturacion.Click += new System.EventHandler(this.btnDetalleFacturacion_Click);
@@ -236,7 +236,7 @@
             this.tituloSeccion.Location = new System.Drawing.Point(300, 33);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(235, 25);
-            this.tituloSeccion.TabIndex = 19;
+            this.tituloSeccion.TabIndex = 21;
             this.tituloSeccion.Text = "AGREGAR PRODUCTO";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
@@ -247,7 +247,7 @@
             this.btnImagenes.Location = new System.Drawing.Point(71, 446);
             this.btnImagenes.Name = "btnImagenes";
             this.btnImagenes.Size = new System.Drawing.Size(180, 28);
-            this.btnImagenes.TabIndex = 21;
+            this.btnImagenes.TabIndex = 16;
             this.btnImagenes.Text = "Seleccionar imagen(es)";
             this.btnImagenes.UseVisualStyleBackColor = true;
             this.btnImagenes.Click += new System.EventHandler(this.btnImagenes_Click);
@@ -263,7 +263,7 @@
             this.btnGuardarProducto.Location = new System.Drawing.Point(540, 446);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(180, 28);
-            this.btnGuardarProducto.TabIndex = 22;
+            this.btnGuardarProducto.TabIndex = 17;
             this.btnGuardarProducto.Text = "Guardar Producto";
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
             this.btnGuardarProducto.Click += new System.EventHandler(this.btnGuardarProducto_Click);
@@ -274,7 +274,7 @@
             this.label8.Location = new System.Drawing.Point(15, 334);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(750, 2);
-            this.label8.TabIndex = 23;
+            this.label8.TabIndex = 19;
             // 
             // label9
             // 
@@ -282,7 +282,7 @@
             this.label9.Location = new System.Drawing.Point(16, 420);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(750, 2);
-            this.label9.TabIndex = 24;
+            this.label9.TabIndex = 18;
             // 
             // AgregarEditarProducto
             // 

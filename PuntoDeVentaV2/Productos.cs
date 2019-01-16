@@ -36,6 +36,14 @@ namespace PuntoDeVentaV2
         private void CargarDatos()
         {
             cn.CargarInformacion(cs.Productos(FormPrincipal.userID), DGVProductos);
+
+            DataGridViewColumn columnaNombre = DGVProductos.Columns[0];
+            DataGridViewColumn columnaClave = DGVProductos.Columns[4];
+            DataGridViewColumn columnaCodigo = DGVProductos.Columns[5];
+
+            columnaNombre.Width = 420;
+            columnaClave.Width = 175;
+            columnaCodigo.Width = 175;
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)

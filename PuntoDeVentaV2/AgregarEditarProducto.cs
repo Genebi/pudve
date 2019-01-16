@@ -132,8 +132,8 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                AgregarDescuentoProducto FormAgregar = new AgregarDescuentoProducto();
-                FormAgregar.ShowDialog();
+                //AgregarDescuentoProducto FormAgregar = new AgregarDescuentoProducto();
+                //FormAgregar.ShowDialog();
             }
         }
 
