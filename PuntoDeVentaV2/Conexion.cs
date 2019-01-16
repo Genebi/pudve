@@ -23,6 +23,13 @@ namespace PuntoDeVentaV2
         private DataSet DS = new DataSet();
         private DataTable DT = new DataTable();
 
+        // pasamos variables entre la calse de conexion con la de consultas
+        public static SQLiteConnection cs_sql_con;
+        public static SQLiteCommand cs_sql_cmd;
+        public static SQLiteDataAdapter cs_DB;
+        public static DataSet cs_DS = new DataSet();
+        public static DataTable cs_DT = new DataTable();
+
         //Se necesita para saber si la computadora tiene conexion a internet
         [DllImport("wininet.dll")]
         private extern static bool InternetGetConnectedState(out int Descripcion, int ValorReservado);
@@ -35,7 +42,11 @@ namespace PuntoDeVentaV2
 
         public Conexion()
         {
-            
+            cs_sql_con = sql_con;
+            cs_sql_cmd = sql_cmd;
+            cs_DB = DB;
+            cs_DS = DS;
+            cs_DT = DT;
         }
 
         public void SincronizarProductos()
@@ -132,6 +143,32 @@ namespace PuntoDeVentaV2
             DT = DS.Tables[0];
             dgv.DataSource = DT;
             sql_con.Close();
+        }
+
+        public DataTable ConsultaRegimenFiscal()
+        {
+            string consulta = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal";
+            DataTable dbcb = new DataTable();
+            Conectarse();
+            sql_con.Open();
+            SQLiteCommand com = new SQLiteCommand(consulta, sql_con);
+            SQLiteDataAdapter adap = new SQLiteDataAdapter(com);
+            adap.Fill(dbcb);
+            sql_con.Close();
+
+            return dbcb;
+        }
+        public DataTable cargarCBRegimen(string consulta)
+        {
+            DataTable dbcbreg = new DataTable();
+            Conectarse();
+            sql_con.Open();
+            SQLiteCommand com = new SQLiteCommand(consulta, sql_con);
+            SQLiteDataAdapter adap = new SQLiteDataAdapter(com);
+            adap.Fill(dbcbreg);
+            sql_con.Close();
+
+            return dbcbreg;
         }
     }
 }
