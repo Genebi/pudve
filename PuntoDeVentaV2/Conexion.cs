@@ -108,8 +108,7 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
-        public DataTable CargarDatos
-            (string consulta)
+        public DataTable CargarDatos(string consulta)
         {
             DataTable db = new DataTable();
             Conectarse();
