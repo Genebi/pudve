@@ -91,7 +91,7 @@ namespace PuntoDeVentaV2
             txtCodPost.Text = codPostal;
             txtEmail.Text = email;
             txtTelefono.Text = telefono;
-            cbRegimen.Text = regimen;
+            LblRegimenActual.Text = regimen;
 
             /********************************
             *   Relleno de los RadioButton  *
@@ -114,6 +114,9 @@ namespace PuntoDeVentaV2
         public void cargarComboBox()
         {
             cbRegimen.Items.Clear();
+
+            cbRegimen.Items.Insert(0,"Selecciona un Regimen");
+            
             /********************************
             *   Relleno de los RadioButton  *
             ********************************/
@@ -121,7 +124,6 @@ namespace PuntoDeVentaV2
             // si es que no estan marcados los radio buttons
             if (rbPersonaFisica.Checked && rbPersonaMoral.Checked)
             {
-                index = 0;
                 /************************************************ 
                 *   hacemos el recorrido para poder agregar     * 
                 *   los registros en el ComboBoxText            *
@@ -135,7 +137,6 @@ namespace PuntoDeVentaV2
             // si es que esta marcado el persona Fisica
             if (rbPersonaFisica.Checked)
             {
-                index = 0;
                 // String para llenar el ComboBox
                 llenarCB = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal WHERE AplicaFisica LIKE 'Sí'";
                 cbreg = cn.cargarCBRegimen(llenarCB);
@@ -152,7 +153,6 @@ namespace PuntoDeVentaV2
             // si es que esta marcado el persona Fisica
             if (rbPersonaMoral.Checked)
             {
-                index = 0;
                 // String para llenar el ComboBox
                 llenarCB = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal WHERE AplicaMoral LIKE 'Sí'";
                 cbreg = cn.cargarCBRegimen(llenarCB);
@@ -165,6 +165,8 @@ namespace PuntoDeVentaV2
                     cbRegimen.Items.Add(cbreg.Rows[index]["Descripcion"].ToString());
                 }
             }
+
+            cbRegimen.SelectedIndex = 0;
         }
     
         public void actualizarVariables()
@@ -183,7 +185,21 @@ namespace PuntoDeVentaV2
             codPostal = txtCodPost.Text;
             email = txtEmail.Text;
             telefono = txtTelefono.Text;
-            regimen = cbRegimen.Text;
+            if (cbRegimen.Text == "Selecciona un Regimen")
+            {
+                if (regimen=="")
+                {
+                    regimen = "";
+                }
+                else
+                {
+                    regimen = LblRegimenActual.Text;
+                }
+            }
+            else
+            {
+                regimen = cbRegimen.Text;
+            }
         }
 
         // funcion para poder cargar los datos segun corresponda en el TxtBox que corresponda
@@ -268,16 +284,6 @@ namespace PuntoDeVentaV2
                 consulta();
             }
         }
-        
-        private void txtNoExt_KeyPress_1(object sender, KeyPressEventArgs e)
-        {
-            
-        }
-
-        private void txtNoInt_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            
-        }
 
         private void rbPersonaFisica_Click(object sender, EventArgs e)
         {
@@ -296,6 +302,11 @@ namespace PuntoDeVentaV2
         private void rbPersonaFisica_CheckedChanged(object sender, EventArgs e)
         {
             cargarComboBox();
+        }
+
+        private void cbRegimen_TextChanged(object sender, EventArgs e)
+        {
+            
         }
 
         private void txtCodPost_KeyPress(object sender, KeyPressEventArgs e)

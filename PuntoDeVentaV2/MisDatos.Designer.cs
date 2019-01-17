@@ -30,6 +30,9 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbPersonaMoral = new System.Windows.Forms.RadioButton();
+            this.rbPersonaFisica = new System.Windows.Forms.RadioButton();
             this.cbRegimen = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
@@ -62,13 +65,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbPersonaFisica = new System.Windows.Forms.RadioButton();
-            this.rbPersonaMoral = new System.Windows.Forms.RadioButton();
+            this.label15 = new System.Windows.Forms.Label();
+            this.LblRegimenActual = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -83,6 +85,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.LblRegimenActual);
+            this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.cbRegimen);
             this.panel1.Controls.Add(this.label13);
@@ -110,27 +114,64 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(41, 83);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(765, 526);
+            this.panel1.Size = new System.Drawing.Size(765, 582);
             this.panel1.TabIndex = 1;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbPersonaMoral);
+            this.groupBox1.Controls.Add(this.rbPersonaFisica);
+            this.groupBox1.Location = new System.Drawing.Point(466, 84);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(281, 72);
+            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tipo de Persona";
+            // 
+            // rbPersonaMoral
+            // 
+            this.rbPersonaMoral.AutoSize = true;
+            this.rbPersonaMoral.Location = new System.Drawing.Point(173, 31);
+            this.rbPersonaMoral.Name = "rbPersonaMoral";
+            this.rbPersonaMoral.Size = new System.Drawing.Size(64, 21);
+            this.rbPersonaMoral.TabIndex = 1;
+            this.rbPersonaMoral.TabStop = true;
+            this.rbPersonaMoral.Text = "Moral";
+            this.rbPersonaMoral.UseVisualStyleBackColor = true;
+            this.rbPersonaMoral.Click += new System.EventHandler(this.rbPersonaMoral_Click);
+            // 
+            // rbPersonaFisica
+            // 
+            this.rbPersonaFisica.AutoSize = true;
+            this.rbPersonaFisica.Location = new System.Drawing.Point(18, 30);
+            this.rbPersonaFisica.Name = "rbPersonaFisica";
+            this.rbPersonaFisica.Size = new System.Drawing.Size(65, 21);
+            this.rbPersonaFisica.TabIndex = 0;
+            this.rbPersonaFisica.TabStop = true;
+            this.rbPersonaFisica.Text = "Física";
+            this.rbPersonaFisica.UseVisualStyleBackColor = true;
+            this.rbPersonaFisica.CheckedChanged += new System.EventHandler(this.rbPersonaFisica_CheckedChanged);
+            this.rbPersonaFisica.Click += new System.EventHandler(this.rbPersonaFisica_Click);
             // 
             // cbRegimen
             // 
             this.cbRegimen.FormattingEnabled = true;
-            this.cbRegimen.Location = new System.Drawing.Point(29, 480);
+            this.cbRegimen.Location = new System.Drawing.Point(29, 540);
             this.cbRegimen.Name = "cbRegimen";
             this.cbRegimen.Size = new System.Drawing.Size(718, 24);
             this.cbRegimen.TabIndex = 23;
+            this.cbRegimen.TextChanged += new System.EventHandler(this.cbRegimen_TextChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(26, 449);
+            this.label13.Location = new System.Drawing.Point(25, 449);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(70, 19);
+            this.label13.Size = new System.Drawing.Size(119, 19);
             this.label13.TabIndex = 22;
-            this.label13.Text = "Regimen";
+            this.label13.Text = "Regimen Actual";
             // 
             // txtTelefono
             // 
@@ -243,7 +284,6 @@
             this.txtNoInt.Name = "txtNoInt";
             this.txtNoInt.Size = new System.Drawing.Size(192, 22);
             this.txtNoInt.TabIndex = 9;
-            this.txtNoInt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNoInt_KeyPress);
             // 
             // label6
             // 
@@ -261,7 +301,6 @@
             this.txtNoExt.Name = "txtNoExt";
             this.txtNoExt.Size = new System.Drawing.Size(146, 22);
             this.txtNoExt.TabIndex = 7;
-            this.txtNoExt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNoExt_KeyPress_1);
             // 
             // label5
             // 
@@ -329,7 +368,7 @@
             this.btnActualizarDatos.BackColor = System.Drawing.Color.Green;
             this.btnActualizarDatos.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarDatos.ForeColor = System.Drawing.Color.SeaShell;
-            this.btnActualizarDatos.Location = new System.Drawing.Point(507, 635);
+            this.btnActualizarDatos.Location = new System.Drawing.Point(639, 682);
             this.btnActualizarDatos.Name = "btnActualizarDatos";
             this.btnActualizarDatos.Size = new System.Drawing.Size(149, 44);
             this.btnActualizarDatos.TabIndex = 2;
@@ -406,47 +445,29 @@
             this.label14.TabIndex = 0;
             this.label14.Text = "Logotipo";
             // 
-            // groupBox1
+            // label15
             // 
-            this.groupBox1.Controls.Add(this.rbPersonaMoral);
-            this.groupBox1.Controls.Add(this.rbPersonaFisica);
-            this.groupBox1.Location = new System.Drawing.Point(466, 84);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(281, 72);
-            this.groupBox1.TabIndex = 24;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tipo de Persona";
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(29, 511);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(116, 17);
+            this.label15.TabIndex = 25;
+            this.label15.Text = "CambiarRegimen";
             // 
-            // rbPersonaFisica
+            // LblRegimenActual
             // 
-            this.rbPersonaFisica.AutoSize = true;
-            this.rbPersonaFisica.Location = new System.Drawing.Point(18, 30);
-            this.rbPersonaFisica.Name = "rbPersonaFisica";
-            this.rbPersonaFisica.Size = new System.Drawing.Size(65, 21);
-            this.rbPersonaFisica.TabIndex = 0;
-            this.rbPersonaFisica.TabStop = true;
-            this.rbPersonaFisica.Text = "Física";
-            this.rbPersonaFisica.UseVisualStyleBackColor = true;
-            this.rbPersonaFisica.CheckedChanged += new System.EventHandler(this.rbPersonaFisica_CheckedChanged);
-            this.rbPersonaFisica.Click += new System.EventHandler(this.rbPersonaFisica_Click);
-            // 
-            // rbPersonaMoral
-            // 
-            this.rbPersonaMoral.AutoSize = true;
-            this.rbPersonaMoral.Location = new System.Drawing.Point(173, 31);
-            this.rbPersonaMoral.Name = "rbPersonaMoral";
-            this.rbPersonaMoral.Size = new System.Drawing.Size(64, 21);
-            this.rbPersonaMoral.TabIndex = 1;
-            this.rbPersonaMoral.TabStop = true;
-            this.rbPersonaMoral.Text = "Moral";
-            this.rbPersonaMoral.UseVisualStyleBackColor = true;
-            this.rbPersonaMoral.Click += new System.EventHandler(this.rbPersonaMoral_Click);
+            this.LblRegimenActual.BackColor = System.Drawing.Color.White;
+            this.LblRegimenActual.Location = new System.Drawing.Point(26, 477);
+            this.LblRegimenActual.Name = "LblRegimenActual";
+            this.LblRegimenActual.Size = new System.Drawing.Size(721, 23);
+            this.LblRegimenActual.TabIndex = 27;
+            this.LblRegimenActual.Text = "label16";
             // 
             // MisDatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1189, 709);
+            this.ClientSize = new System.Drawing.Size(1189, 781);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnActualizarDatos);
             this.Controls.Add(this.panel1);
@@ -456,11 +477,11 @@
             this.Load += new System.EventHandler(this.MisDatos_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -505,5 +526,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbPersonaMoral;
         private System.Windows.Forms.RadioButton rbPersonaFisica;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label LblRegimenActual;
     }
 }
