@@ -9,6 +9,7 @@ using System.Data.SQLite;
 using System.Windows.Forms;
 //using MySql.Data.MySqlClient;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace PuntoDeVentaV2
 {
@@ -16,6 +17,7 @@ namespace PuntoDeVentaV2
     {
         //Variables iniciales
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
@@ -60,7 +62,7 @@ namespace PuntoDeVentaV2
 
         public void Conectarse()
         {
-            sql_con = new SQLiteConnection("Data source=|DataDirectory|\\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source="+ rutaDirectorio +"\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
         }
 
         //Sirve para los INSERT, UPDATE, DELETE
