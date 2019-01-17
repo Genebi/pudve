@@ -52,7 +52,7 @@ namespace PuntoDeVentaV2
         // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg= "";
 
-        OpenFileDialog openFileDialog1 = new OpenFileDialog();
+        Image File;
 
         public MisDatos()
         {
@@ -312,19 +312,18 @@ namespace PuntoDeVentaV2
 
         private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
-            openFileDialog1 = new OpenFileDialog();
-            saveDirectoryImg = openFileDialog1.InitialDirectory = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), @"\imagenesUsuarios\");
-            if (!Directory.Exists(saveDirectoryImg))
+            OpenFileDialog f = new OpenFileDialog();
+            f.Filter = "JPG(*.JPG)|*.jpg";
+            if (f.ShowDialog() == DialogResult.OK)
             {
-                Directory.CreateDirectory(saveDirectoryImg);
+                File = Image.FromFile(f.FileName);
+                pictureBox1.Image = File;
             }
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK )
+            SaveFileDialog fs = new SaveFileDialog();
+            fs.Filter = "JPG(*.JPG)|*.jpg";
+            if (fs.ShowDialog() == DialogResult.OK)
             {
-                string fileName = Path.GetFileName(openFileDialog1.FileName);
-                string fileSavePath = Path.Combine(saveDirectoryImg, fileName);
-                LblLabel16.Text = fileSavePath;
-                // File.Copy(openFileDialog1.FileName, fileSavePath, true);
-                LblFileName.Text = fileName;
+                File.Save(fs.FileName);
             }
         }
 
