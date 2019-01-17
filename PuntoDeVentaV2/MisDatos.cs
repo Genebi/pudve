@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
@@ -47,6 +48,11 @@ namespace PuntoDeVentaV2
         int index;
         DataTable dt, dtcb, cbreg;
         DataRow row, rows;
+
+        // direccion de la carpeta donde se va poner las imagenes
+        string saveDirectoryImg= "";
+
+        OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
         public MisDatos()
         {
@@ -304,9 +310,22 @@ namespace PuntoDeVentaV2
             cargarComboBox();
         }
 
-        private void cbRegimen_TextChanged(object sender, EventArgs e)
+        private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
-            
+            openFileDialog1 = new OpenFileDialog();
+            saveDirectoryImg = openFileDialog1.InitialDirectory = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Application.ExecutablePath), @"\imagenesUsuarios\");
+            if (!Directory.Exists(saveDirectoryImg))
+            {
+                Directory.CreateDirectory(saveDirectoryImg);
+            }
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK )
+            {
+                string fileName = Path.GetFileName(openFileDialog1.FileName);
+                string fileSavePath = Path.Combine(saveDirectoryImg, fileName);
+                LblLabel16.Text = fileSavePath;
+                // File.Copy(openFileDialog1.FileName, fileSavePath, true);
+                LblFileName.Text = fileName;
+            }
         }
 
         private void txtCodPost_KeyPress(object sender, KeyPressEventArgs e)

@@ -51,3 +51,4 @@ C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVenta.csproj.GenerateResource.Cache
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.exe
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.pdb
+C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVenta.csprojResolveAssemblyReference.cache
