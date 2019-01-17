@@ -69,6 +69,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.LblLabel16 = new System.Windows.Forms.Label();
             this.LblFileName = new System.Windows.Forms.Label();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -470,6 +472,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(29, 55);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(327, 231);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -498,6 +501,10 @@
             this.LblFileName.Size = new System.Drawing.Size(326, 23);
             this.LblFileName.TabIndex = 5;
             this.LblFileName.Text = "label16";
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.FileName = "openFileDialog2";
             // 
             // MisDatos
             // 
@@ -568,5 +575,7 @@
         private System.Windows.Forms.Label LblRegimenActual;
         private System.Windows.Forms.Label LblLabel16;
         private System.Windows.Forms.Label LblFileName;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }
 }
