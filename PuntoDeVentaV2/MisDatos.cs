@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
         string mpio; string estado;
         string codPostal; string email;
         string telefono; string regimen;
+        string logoTipo;
 
         // Variable para poder saber que tipo de persona 
         // es el cliente que inicio sesion en el Pudve
@@ -50,9 +51,20 @@ namespace PuntoDeVentaV2
         DataRow row, rows;
 
         // direccion de la carpeta donde se va poner las imagenes
-        string saveDirectoryImg= "";
+        string saveDirectoryImg= @"C:\pudvefiles\";
 
+        // objeto para el manejo de las imagenes
         Image File;
+        FileInfo info;
+
+        // nombre de archivo
+        string fileName;
+        // directorio origen de la imagen
+        string oldDirectory;
+        // directorio para guardar el archivo
+        string fileSavePath;
+        // Nuevo nombre del archivo
+        string NvoFileName;
 
         public MisDatos()
         {
@@ -80,6 +92,7 @@ namespace PuntoDeVentaV2
             telefono = dt.Rows[index]["Telefono"].ToString();
             regimen = dt.Rows[index]["Regimen"].ToString();
             tipoPersona = dt.Rows[index]["TipoPersona"].ToString();
+            logoTipo = dt.Rows[index]["LogoTipo"].ToString();
 
             /****************************************
             *   ponemos los datos en los TxtBox     *
@@ -98,6 +111,12 @@ namespace PuntoDeVentaV2
             txtEmail.Text = email;
             txtTelefono.Text = telefono;
             LblRegimenActual.Text = regimen;
+
+            if (logoTipo != "")
+            {
+                File = Image.FromFile(logoTipo);
+                pictureBox1.Image = File;
+            }
 
             /********************************
             *   Relleno de los RadioButton  *
@@ -191,17 +210,24 @@ namespace PuntoDeVentaV2
             codPostal = txtCodPost.Text;
             email = txtEmail.Text;
             telefono = txtTelefono.Text;
+            // verificamos si el combobox esta en el primer registro
             if (cbRegimen.Text == "Selecciona un Regimen")
             {
+                // si el registro de la base de datos esta en blanco
+                // se deja igual en blanco
                 if (regimen=="")
                 {
                     regimen = "";
                 }
+                // si no se queda igual que el label que esta desde la consulta
+                // inicial y no requiere ningun cambio
                 else
                 {
                     regimen = LblRegimenActual.Text;
                 }
             }
+            // de caso contrario se toma el texto seleccionado
+            // del comboBox para hacer la actualizacion
             else
             {
                 regimen = cbRegimen.Text;
@@ -266,11 +292,13 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Actualizara los datos del registro?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (MessageBox.Show("¿Actualizara los datos del registro?", "Advertencia", 
+                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 // mandamos llamar la funcion actualizarVariables()
                 actualizarVariables();
 
+                // el string para hacer el UPDATE
                 actualizar = "UPDATE Usuarios SET RFC = '"+ rfc 
                                              +"', Telefono = '"+ telefono 
                                              +"', Email = '"+ email 
@@ -286,7 +314,11 @@ namespace PuntoDeVentaV2
                                              + "', TipoPersona = '" + tipoPersona
                                              + "' WHERE ID = '" + id +"'";
 
+                // realizamos la consulta desde el metodo
+                // que esta en la clase Conexion
                 cn.EjecutarConsulta(actualizar);
+
+                // Llamamos a la Funcion consulta
                 consulta();
             }
         }
@@ -312,24 +344,65 @@ namespace PuntoDeVentaV2
 
         private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
+            // abrimos el opneDialog para seleccionar la imagen
             OpenFileDialog f = new OpenFileDialog();
+            // le aplicamos un filtro para solo ver 
+            // imagenes de tipo *.jpg en el openDialog
             f.Filter = "JPG(*.JPG)|*.jpg";
+            // si se abrio correctamente el openDialog
             if (f.ShowDialog() == DialogResult.OK)
             {
+                /************************************************
+                *   usamos el objeto File para almacenar las    *
+                *   propiedades de la imagen                    * 
+                ************************************************/
                 File = Image.FromFile(f.FileName);
+                // obtenemos toda la informacion de la imagen
+                info = new FileInfo(f.FileName);
+                // cargamos el pictureBox con la imagen
                 pictureBox1.Image = File;
+                // obtenemos el nombre de la imagen
+                fileName = Path.GetFileName(f.FileName);
+                // obtenemos el directorio origen de la imagen
+                oldDirectory = info.DirectoryName;
+                /*
+                fileSavePath = Path.Combine(saveDirectoryImg, fileName);
+                logoTipo = fileSavePath;
+                */
             }
-            SaveFileDialog fs = new SaveFileDialog();
-            fs.Filter = "JPG(*.JPG)|*.jpg";
-            if (fs.ShowDialog() == DialogResult.OK)
+
+            // obtenemos el nuevo nombre de la imagen con la 
+            // se va hacer la copia de la imagen
+            NvoFileName = userName + rfc + ".jpg";
+
+            // verificamos que si no existe el directorio
+            if (!Directory.Exists(saveDirectoryImg))
             {
-                File.Save(fs.FileName);
+                Directory.CreateDirectory(saveDirectoryImg);
+            }
+
+            // si el archivo existe
+            if (f.CheckFileExists)
+            {
+                // realizamos la copia de la imagen origen hacia el nuevo destino
+                System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                // obtenemos el nuevo path
+                logoTipo = saveDirectoryImg + NvoFileName;
+                // hacemos la nueva cadena de consulta para hacer el update
+                string insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
+                // hacemos que se ejecute la consulta
+                cn.EjecutarConsulta(insertImagen);
             }
         }
 
         private void cbRegimen_Click(object sender, EventArgs e)
         {
             cbRegimen.DroppedDown = true;
+        }
+
+        private void btnUpImage_Click(object sender, EventArgs e)
+        {
+            
         }
 
         private void txtCodPost_KeyPress(object sender, KeyPressEventArgs e)

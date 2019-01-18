@@ -61,14 +61,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnActualizarDatos = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnUpImage = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.textBox12 = new System.Windows.Forms.TextBox();
             this.btnSubirArchivo = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.LblLabel16 = new System.Windows.Forms.Label();
-            this.LblFileName = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
@@ -416,7 +414,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button4);
+            this.panel2.Controls.Add(this.btnUpImage);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.textBox12);
             this.panel2.Controls.Add(this.btnSubirArchivo);
@@ -427,15 +425,16 @@
             this.panel2.Size = new System.Drawing.Size(382, 528);
             this.panel2.TabIndex = 3;
             // 
-            // button4
+            // btnUpImage
             // 
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(208, 441);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(148, 59);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Subir Imagen";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnUpImage.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpImage.Location = new System.Drawing.Point(208, 441);
+            this.btnUpImage.Name = "btnUpImage";
+            this.btnUpImage.Size = new System.Drawing.Size(148, 59);
+            this.btnUpImage.TabIndex = 6;
+            this.btnUpImage.Text = "Subir Imagen";
+            this.btnUpImage.UseVisualStyleBackColor = true;
+            this.btnUpImage.Click += new System.EventHandler(this.btnUpImage_Click);
             // 
             // button3
             // 
@@ -487,22 +486,6 @@
             this.label14.TabIndex = 0;
             this.label14.Text = "Logotipo";
             // 
-            // LblLabel16
-            // 
-            this.LblLabel16.Location = new System.Drawing.Point(853, 651);
-            this.LblLabel16.Name = "LblLabel16";
-            this.LblLabel16.Size = new System.Drawing.Size(353, 30);
-            this.LblLabel16.TabIndex = 4;
-            this.LblLabel16.Text = "label16";
-            // 
-            // LblFileName
-            // 
-            this.LblFileName.Location = new System.Drawing.Point(854, 701);
-            this.LblFileName.Name = "LblFileName";
-            this.LblFileName.Size = new System.Drawing.Size(326, 23);
-            this.LblFileName.TabIndex = 5;
-            this.LblFileName.Text = "label16";
-            // 
             // openFileDialog2
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
@@ -512,8 +495,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 781);
-            this.Controls.Add(this.LblFileName);
-            this.Controls.Add(this.LblLabel16);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnActualizarDatos);
             this.Controls.Add(this.panel1);
@@ -566,7 +547,7 @@
         private System.Windows.Forms.Button btnSubirArchivo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnUpImage;
         private System.Windows.Forms.Button button3;
         public System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -574,8 +555,6 @@
         private System.Windows.Forms.RadioButton rbPersonaFisica;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label LblRegimenActual;
-        private System.Windows.Forms.Label LblLabel16;
-        private System.Windows.Forms.Label LblFileName;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }

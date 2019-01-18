@@ -9,7 +9,6 @@ C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\bin\Debug\EntityFramework.xml
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\bin\Debug\System.Data.SQLite.xml
-C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVenta.csprojResolveAssemblyReference.cache
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.AgregarDescuentoProducto.resources
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.AgregarDetalleFacturacionProducto.resources
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.AgregarEditarProducto.resources
@@ -25,3 +24,4 @@ C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVenta.csproj.GenerateResource.Cache
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.exe
 C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVentaV2.pdb
+C:\Users\Emmanuel Ruiz\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\obj\Debug\PuntoDeVenta.csprojResolveAssemblyReference.cache
