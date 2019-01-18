@@ -327,6 +327,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cbRegimen_Click(object sender, EventArgs e)
+        {
+            cbRegimen.DroppedDown = true;
+        }
+
         private void txtCodPost_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Si No Es Numero  

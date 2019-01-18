@@ -188,6 +188,7 @@
             this.cbRegimen.Name = "cbRegimen";
             this.cbRegimen.Size = new System.Drawing.Size(718, 30);
             this.cbRegimen.TabIndex = 23;
+            this.cbRegimen.Click += new System.EventHandler(this.cbRegimen_Click);
             // 
             // label13
             // 
