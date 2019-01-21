@@ -63,7 +63,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnUpImage = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.TxtBoxNombreArchivo = new System.Windows.Forms.TextBox();
             this.btnSubirArchivo = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -416,7 +416,7 @@
             // 
             this.panel2.Controls.Add(this.btnUpImage);
             this.panel2.Controls.Add(this.button3);
-            this.panel2.Controls.Add(this.textBox12);
+            this.panel2.Controls.Add(this.TxtBoxNombreArchivo);
             this.panel2.Controls.Add(this.btnSubirArchivo);
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.label14);
@@ -446,13 +446,13 @@
             this.button3.Text = "Borrar imagen";
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // textBox12
+            // TxtBoxNombreArchivo
             // 
-            this.textBox12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox12.Location = new System.Drawing.Point(30, 308);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(326, 28);
-            this.textBox12.TabIndex = 3;
+            this.TxtBoxNombreArchivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxNombreArchivo.Location = new System.Drawing.Point(30, 308);
+            this.TxtBoxNombreArchivo.Name = "TxtBoxNombreArchivo";
+            this.TxtBoxNombreArchivo.Size = new System.Drawing.Size(326, 28);
+            this.TxtBoxNombreArchivo.TabIndex = 3;
             // 
             // btnSubirArchivo
             // 
@@ -543,7 +543,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnActualizarDatos;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox TxtBoxNombreArchivo;
         private System.Windows.Forms.Button btnSubirArchivo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label14;
