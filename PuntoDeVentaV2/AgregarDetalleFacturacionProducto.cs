@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,8 @@ namespace PuntoDeVentaV2
         int previo = 0;
 
         Conexion cn = new Conexion();
-        private SQLiteConnection sql_con = new SQLiteConnection("Data source=|DataDirectory|\\pudveDB.db; Version=3; New=False;Compress=True;");
+        private string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+        private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
 
         List<string> clavesUnidad = new List<string>();
@@ -33,6 +35,7 @@ namespace PuntoDeVentaV2
 
             try
             {
+                sql_con = new SQLiteConnection("Data source=" + rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
                 sql_con.Open();
                 sql_cmd = sql_con.CreateCommand();
                 sql_cmd.CommandText = "SELECT * FROM CatalogoUnidadesMedida ORDER BY LOWER(Nombre) ASC";
