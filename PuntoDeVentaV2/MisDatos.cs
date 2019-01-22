@@ -54,7 +54,7 @@ namespace PuntoDeVentaV2
         string saveDirectoryImg= @"C:\pudvefiles\";
 
         // objeto para el manejo de las imagenes
-        Image File,File1;
+        FileStream File,File1;
         FileInfo info;
 
         // nombre de archivo
@@ -114,10 +114,17 @@ namespace PuntoDeVentaV2
             txtTelefono.Text = telefono;
             LblRegimenActual.Text = regimen;
 
+            // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
             {
-                File = Image.FromFile(logoTipo);
-                pictureBox1.Image = File;
+                // usamos temporalmente el objeto File
+                using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                {
+                    // asignamos la imagen al PictureBox
+                    pictureBox1.Image = Image.FromStream(File);
+                    // destruimos o desactivamos el bjeto File
+                    File.Dispose();
+                }
             }
 
             /********************************
@@ -140,8 +147,10 @@ namespace PuntoDeVentaV2
 
         public void cargarComboBox()
         {
+            // limpiamos los items del comboBox
             cbRegimen.Items.Clear();
 
+            // insertamos en el campo del index 0 el texto Selecciona un Regimen
             cbRegimen.Items.Insert(0,"Selecciona un Regimen");
             
             /********************************
@@ -157,6 +166,8 @@ namespace PuntoDeVentaV2
                 ************************************************/
                 for (index = 0; index < dtcb.Rows.Count; index++)
                 {
+                    // agregamos los valores del los Items en el comboBox
+                    // estos son tomados desde la Tabla RegimenFiscal
                     cbRegimen.Items.Add(dtcb.Rows[index]["Descripcion"].ToString());
                 }
             }
@@ -166,6 +177,7 @@ namespace PuntoDeVentaV2
             {
                 // String para llenar el ComboBox
                 llenarCB = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal WHERE AplicaFisica LIKE 'Sí'";
+                // la consulta realizada la almacenamos en cbreg
                 cbreg = cn.cargarCBRegimen(llenarCB);
                 /************************************************ 
                 *   hacemos el recorrido para poder agregar     * 
@@ -173,6 +185,8 @@ namespace PuntoDeVentaV2
                 ************************************************/
                 for (index = 0; index < cbreg.Rows.Count; index++)
                 {
+                    // agregamos los valores del los Items en el comboBox
+                    // estos son tomados desde la Tabla RegimenFiscal
                     cbRegimen.Items.Add(cbreg.Rows[index]["Descripcion"].ToString());
                 }
             }
@@ -182,6 +196,7 @@ namespace PuntoDeVentaV2
             {
                 // String para llenar el ComboBox
                 llenarCB = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal WHERE AplicaMoral LIKE 'Sí'";
+                // la consulta realizada la almacenamos en cbreg
                 cbreg = cn.cargarCBRegimen(llenarCB);
                 /************************************************ 
                 *   hacemos el recorrido para poder agregar     * 
@@ -189,6 +204,8 @@ namespace PuntoDeVentaV2
                 ************************************************/
                 for (index = 0; index < cbreg.Rows.Count; index++)
                 {
+                    // agregamos los valores del los Items en el comboBox
+                    // estos son tomados desde la Tabla RegimenFiscal
                     cbRegimen.Items.Add(cbreg.Rows[index]["Descripcion"].ToString());
                 }
             }
@@ -352,7 +369,6 @@ namespace PuntoDeVentaV2
                 // le aplicamos un filtro para solo ver 
                 // imagenes de tipo *.jpg en el openDialog
                 f.Filter = "JPG (*.JPG)|*.jpg";
-
                 // si se abrio correctamente el openDialog
                 if (f.ShowDialog() == DialogResult.OK)
                 {
@@ -360,19 +376,19 @@ namespace PuntoDeVentaV2
                     *   usamos el objeto File para almacenar las    *
                     *   propiedades de la imagen                    * 
                     ************************************************/
-                    File = Image.FromFile(f.FileName);
-
-                    // obtenemos toda la informacion de la imagen
-                    info = new FileInfo(f.FileName);
-
-                    // cargamos el pictureBox con la imagen
-                    pictureBox1.Image = File;
-
-                    // obtenemos el nombre de la imagen
-                    fileName = Path.GetFileName(f.FileName);
-
-                    // obtenemos el directorio origen de la imagen
-                    oldDirectory = info.DirectoryName;
+                    using (File = new FileStream(f.FileName, FileMode.Open, FileAccess.Read))
+                    {
+                        // carrgamos la imagen en el PictureBox
+                        pictureBox1.Image = Image.FromStream(File);
+                        // obtenemos toda la informacion de la imagen
+                        info = new FileInfo(f.FileName);
+                        // obtenemos el nombre de la imagen
+                        fileName = Path.GetFileName(f.FileName);
+                        // obtenemos el directorio origen de la imagen
+                        oldDirectory = info.DirectoryName;
+                        // liberamos el objeto File
+                        File.Dispose();
+                    }
                 }
             }
 
@@ -400,59 +416,42 @@ namespace PuntoDeVentaV2
                         TxtBoxNombreArchivo.Text = NvoFileName;
 
                         // si el valor de la vairable es diferente a Null o de ""
-                        if (logoTipo != "" && pictureBox1.Image != null)
+                        if (logoTipo != "")
                         {
-                            // asignamos la imagen existente en la base de datos como referencia
-                            File1 = Image.FromFile(logoTipo);
-
+                            // si file1 diferente a null
                             if (File1 != null)
                             {
                                 // Dasactivamos el objeto File1
                                 File1.Dispose();
-
                                 // hacemos la nueva cadena de consulta para hacer el update
-                                string insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo
-                                                                      + "' WHERE ID = '" + id + "'";
-
+                                string insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
                                 // hacemos que se ejecute la consulta
                                 cn.EjecutarConsulta(insertImagen);
-
                                 // actualizamos las variables
                                 actualizarVariables();
-
                                 // cargamos los datos de nuevo
                                 cargarComboBox();
-
                                 // vereficamos si el pictureBox es Null
-                                if (pictureBox1.Image == null)
+                                if (pictureBox1.Image != null)
                                 {
-                                    // agregamos el nombre de archivo con toda la ruta para ver si se esta haciendo el proceso
-                                    TxtBoxNombreArchivo.Text = saveDirectoryImg + NvoFileName;
-
+                                    // Liberamos el pictureBox para poder borrar su imagen
+                                    pictureBox1.Image.Dispose();                                    
                                     // borramos el archivo de la imagen
                                     System.IO.File.Delete(saveDirectoryImg + NvoFileName);
-
                                     // realizamos la copia de la imagen origen hacia el nuevo destino
                                     System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-
                                     // obtenemos el nuevo path
                                     logoTipo = saveDirectoryImg + NvoFileName;
                                 }
                                 // hacemos la nueva cadena de consulta para hacer el update
-                                insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo
-                                                                      + "' WHERE ID = '" + id + "'";
-
+                                insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
                                 // hacemos que se ejecute la consulta
                                 cn.EjecutarConsulta(insertImagen);
-
-                                // cargamos de nuevo la imagen al pictureBox
-                                pictureBox1.Image = File;
                             }
                             else
                             {
                                 // realizamos la copia de la imagen origen hacia el nuevo destino
                                 System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-
                                 // obtenemos el nuevo path
                                 logoTipo = saveDirectoryImg + NvoFileName;
                             }
@@ -463,13 +462,10 @@ namespace PuntoDeVentaV2
                         {
                             // PictureBox lo dejamos en blanco
                             pictureBox1.Image = null;
-
                             // agregamos el nombre de archivo con toda la ruta para ver si se esta haciendo el proceso
                             TxtBoxNombreArchivo.Text = saveDirectoryImg + NvoFileName;
-                            
                             // realizamos la copia de la imagen origen hacia el nuevo destino
                             System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-
                             // obtenemos el nuevo path
                             logoTipo = saveDirectoryImg + NvoFileName;
                         }
@@ -477,14 +473,14 @@ namespace PuntoDeVentaV2
                 }
                 catch (IOException ex)
                 {
-                    MessageBox.Show("Error al hacer el borrado No: '" + ex + "'", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // si no se borra el archivo muestra este mensaje
+                    MessageBox.Show("Error al hacer el borrado No: "+ex);
                 }
             }
             else if (f.FileName == "")
             {
                 // si no selecciona un archivo valido o ningun archivo muestra este mensaje
-                MessageBox.Show("Formato no valido de Imagen", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Formato no valido de Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
