@@ -442,6 +442,11 @@ namespace PuntoDeVentaV2
                                     System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
                                     // obtenemos el nuevo path
                                     logoTipo = saveDirectoryImg + NvoFileName;
+                                    using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                                    {
+                                        // carrgamos la imagen en el PictureBox
+                                        pictureBox1.Image = Image.FromStream(File);
+                                    }
                                 }
                                 // hacemos la nueva cadena de consulta para hacer el update
                                 insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
@@ -468,6 +473,11 @@ namespace PuntoDeVentaV2
                             System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
                             // obtenemos el nuevo path
                             logoTipo = saveDirectoryImg + NvoFileName;
+                            using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                            {
+                                // carrgamos la imagen en el PictureBox
+                                pictureBox1.Image = Image.FromStream(File);
+                            }
                         }
                     }
                 }
