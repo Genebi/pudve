@@ -61,14 +61,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnActualizarDatos = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnUpImage = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnBorrarImg = new System.Windows.Forms.Button();
             this.TxtBoxNombreArchivo = new System.Windows.Forms.TextBox();
             this.btnSubirArchivo = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label14 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -414,8 +414,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnUpImage);
-            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.btnBorrarImg);
             this.panel2.Controls.Add(this.TxtBoxNombreArchivo);
             this.panel2.Controls.Add(this.btnSubirArchivo);
             this.panel2.Controls.Add(this.pictureBox1);
@@ -425,26 +424,16 @@
             this.panel2.Size = new System.Drawing.Size(382, 528);
             this.panel2.TabIndex = 3;
             // 
-            // btnUpImage
+            // btnBorrarImg
             // 
-            this.btnUpImage.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpImage.Location = new System.Drawing.Point(208, 441);
-            this.btnUpImage.Name = "btnUpImage";
-            this.btnUpImage.Size = new System.Drawing.Size(148, 59);
-            this.btnUpImage.TabIndex = 6;
-            this.btnUpImage.Text = "Subir Imagen";
-            this.btnUpImage.UseVisualStyleBackColor = true;
-            this.btnUpImage.Click += new System.EventHandler(this.btnUpImage_Click);
-            // 
-            // button3
-            // 
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(30, 441);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(153, 59);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Borrar imagen";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnBorrarImg.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBorrarImg.Location = new System.Drawing.Point(121, 437);
+            this.btnBorrarImg.Name = "btnBorrarImg";
+            this.btnBorrarImg.Size = new System.Drawing.Size(153, 59);
+            this.btnBorrarImg.TabIndex = 5;
+            this.btnBorrarImg.Text = "Borrar imagen";
+            this.btnBorrarImg.UseVisualStyleBackColor = true;
+            this.btnBorrarImg.Click += new System.EventHandler(this.btnBorrarImg_Click);
             // 
             // TxtBoxNombreArchivo
             // 
@@ -462,7 +451,7 @@
             this.btnSubirArchivo.Name = "btnSubirArchivo";
             this.btnSubirArchivo.Size = new System.Drawing.Size(326, 62);
             this.btnSubirArchivo.TabIndex = 2;
-            this.btnSubirArchivo.Text = "Selecciona un Archivo";
+            this.btnSubirArchivo.Text = "Subir Archivo";
             this.btnSubirArchivo.UseVisualStyleBackColor = false;
             this.btnSubirArchivo.Click += new System.EventHandler(this.btnSubirArchivo_Click);
             // 
@@ -490,11 +479,20 @@
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(824, 639);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(382, 23);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "label16";
+            // 
             // MisDatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 781);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnActualizarDatos);
             this.Controls.Add(this.panel1);
@@ -547,8 +545,7 @@
         private System.Windows.Forms.Button btnSubirArchivo;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button btnUpImage;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnBorrarImg;
         public System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbPersonaMoral;
@@ -557,5 +554,6 @@
         private System.Windows.Forms.Label LblRegimenActual;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.Label label16;
     }
 }

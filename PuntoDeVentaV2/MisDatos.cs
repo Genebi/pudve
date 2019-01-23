@@ -452,6 +452,7 @@ namespace PuntoDeVentaV2
                                 insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
                                 // hacemos que se ejecute la consulta
                                 cn.EjecutarConsulta(insertImagen);
+                                label16.Text = logoTipo;
                             }
                             else
                             {
@@ -465,19 +466,24 @@ namespace PuntoDeVentaV2
                         // si el valor de la variable es Null o esta ""
                         if (logoTipo == "" || logoTipo == null)
                         {
-                            // PictureBox lo dejamos en blanco
-                            pictureBox1.Image = null;
+                            // Liberamos el pictureBox para poder borrar su imagen
+                            pictureBox1.Image.Dispose();
                             // agregamos el nombre de archivo con toda la ruta para ver si se esta haciendo el proceso
                             TxtBoxNombreArchivo.Text = saveDirectoryImg + NvoFileName;
                             // realizamos la copia de la imagen origen hacia el nuevo destino
                             System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
                             // obtenemos el nuevo path
                             logoTipo = saveDirectoryImg + NvoFileName;
+                            // hacemos la nueva cadena de consulta para hacer el update
+                            string insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
+                            // hacemos que se ejecute la consulta
+                            cn.EjecutarConsulta(insertImagen);
                             using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
                             {
                                 // carrgamos la imagen en el PictureBox
                                 pictureBox1.Image = Image.FromStream(File);
                             }
+                            label16.Text = logoTipo;
                         }
                     }
                 }
@@ -498,6 +504,22 @@ namespace PuntoDeVentaV2
         {
             // al dar clic en el comboBox se despliega la lista de opciones
             cbRegimen.DroppedDown = true;
+        }
+
+        private void btnBorrarImg_Click(object sender, EventArgs e)
+        {
+            // borramos el archivo de la imagen
+            System.IO.File.Delete(logoTipo);
+            // ponemos la ruta del logoTipo en null
+            logoTipo = null;
+            // hacemos la nueva cadena de consulta para hacer el update
+            string consultaUpdate = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
+            // hacemos que se ejecute la consulta
+            cn.EjecutarConsulta(consultaUpdate);
+            //ponemos la imagen en limpio
+            pictureBox1.Image = null;
+            // Llamamos a la Funcion consulta
+            consulta();
         }
 
         private void btnUpImage_Click(object sender, EventArgs e)
