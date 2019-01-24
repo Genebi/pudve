@@ -101,61 +101,30 @@
             this.cbLinea1_1.Name = "cbLinea1_1";
             this.cbLinea1_1.Size = new System.Drawing.Size(100, 21);
             this.cbLinea1_1.TabIndex = 26;
-            this.cbLinea1_1.SelectedIndexChanged += new System.EventHandler(this.cbLinea1_1_SelectedIndexChanged);
             // 
             // cbLinea1_2
             // 
             this.cbLinea1_2.FormattingEnabled = true;
-            this.cbLinea1_2.Items.AddRange(new object[] {
-            "...",
-            "ISR",
-            "IVA",
-            "IEPS"});
             this.cbLinea1_2.Location = new System.Drawing.Point(144, 60);
             this.cbLinea1_2.Name = "cbLinea1_2";
             this.cbLinea1_2.Size = new System.Drawing.Size(100, 21);
             this.cbLinea1_2.TabIndex = 27;
-            this.cbLinea1_2.SelectedIndexChanged += new System.EventHandler(this.cbLinea1_2_SelectedIndexChanged);
             // 
             // cbLinea1_3
             // 
             this.cbLinea1_3.FormattingEnabled = true;
-            this.cbLinea1_3.Items.AddRange(new object[] {
-            "...",
-            "Tasa",
-            "Cuota",
-            "Exento"});
             this.cbLinea1_3.Location = new System.Drawing.Point(264, 60);
             this.cbLinea1_3.Name = "cbLinea1_3";
             this.cbLinea1_3.Size = new System.Drawing.Size(100, 21);
             this.cbLinea1_3.TabIndex = 28;
-            this.cbLinea1_3.SelectedIndexChanged += new System.EventHandler(this.cbLinea1_3_SelectedIndexChanged);
             // 
             // cbLinea1_4
             // 
             this.cbLinea1_4.FormattingEnabled = true;
-            this.cbLinea1_4.Items.AddRange(new object[] {
-            "...",
-            "0%",
-            "16%",
-            "Definir %",
-            "26.5%",
-            "30%",
-            "53%",
-            "50%",
-            "1.60%",
-            "30.4%",
-            "25%",
-            "9%",
-            "8%",
-            "7%",
-            "6%",
-            "3%"});
             this.cbLinea1_4.Location = new System.Drawing.Point(384, 60);
             this.cbLinea1_4.Name = "cbLinea1_4";
             this.cbLinea1_4.Size = new System.Drawing.Size(100, 21);
             this.cbLinea1_4.TabIndex = 29;
-            this.cbLinea1_4.SelectedIndexChanged += new System.EventHandler(this.cbLinea1_4_SelectedIndexChanged);
             // 
             // tbLinea1_2
             // 
@@ -174,7 +143,7 @@
             this.btnExtra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExtra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExtra.ForeColor = System.Drawing.Color.White;
-            this.btnExtra.Location = new System.Drawing.Point(430, 218);
+            this.btnExtra.Location = new System.Drawing.Point(419, 218);
             this.btnExtra.Name = "btnExtra";
             this.btnExtra.Size = new System.Drawing.Size(144, 25);
             this.btnExtra.TabIndex = 31;
@@ -187,7 +156,7 @@
             this.btnImpLocal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImpLocal.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnImpLocal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImpLocal.Location = new System.Drawing.Point(241, 218);
+            this.btnImpLocal.Location = new System.Drawing.Point(229, 218);
             this.btnImpLocal.Name = "btnImpLocal";
             this.btnImpLocal.Size = new System.Drawing.Size(144, 25);
             this.btnImpLocal.TabIndex = 32;
@@ -231,7 +200,7 @@
             this.btnClaveGenerica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClaveGenerica.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClaveGenerica.ForeColor = System.Drawing.Color.White;
-            this.btnClaveGenerica.Location = new System.Drawing.Point(281, 312);
+            this.btnClaveGenerica.Location = new System.Drawing.Point(267, 313);
             this.btnClaveGenerica.Name = "btnClaveGenerica";
             this.btnClaveGenerica.Size = new System.Drawing.Size(170, 25);
             this.btnClaveGenerica.TabIndex = 37;

@@ -14,17 +14,28 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarDetalleFacturacionProducto : Form
     {
-        static private int id = 2;
-        int valorDefault = 0;
+        
         bool primera = true;
-        int previo = 0;
+        int seleccionado = 0;
+        int valorDefault = 0;
+        static private int id = 2;
 
-        Conexion cn = new Conexion();
+        string tipoImpuesto = null;
+        string tipoPorcentaje = null;
+        string porcentajeSeleccionado = null;
+
         private string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
 
         List<string> clavesUnidad = new List<string>();
+        List<string> impuestos = new List<string>();
+        List<string> factores = new List<string>();
+        List<string> tasasCuotas = new List<string>();
+
+        //Impuestos locales
+        List<string> impuestosL = new List<string>();
+        List<string> tasaL = new List<string>();
 
         double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
@@ -75,10 +86,10 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleFacturacionProducto_Load(object sender, EventArgs e)
         {
+            //Se definen los valores que tendran los ComboBox y TextBox por default
+            //al abrir la ventana por primera vez
+
             cbLinea1_1.SelectedIndex = 0;
-            cbLinea1_2.SelectedIndex = 0;
-            cbLinea1_3.SelectedIndex = 0;
-            cbLinea1_4.SelectedIndex = 0;
 
             cbUnidadMedida.SelectedIndex = valorDefault;
 
@@ -96,6 +107,59 @@ namespace PuntoDeVentaV2
             cbLinea1_2.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cbLinea1_3.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
             cbLinea1_4.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+
+            cbLinea1_1.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
+            cbLinea1_2.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
+            cbLinea1_3.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
+            cbLinea1_4.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
+
+            tbLinea1_1.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);
+
+            /***************************
+             *** Para los ComboBoxes ***
+             ***************************/
+
+            impuestos.Add("...");
+            impuestos.Add("ISR");
+            impuestos.Add("IVA");
+            impuestos.Add("IEPS");
+            
+            factores.Add("...");
+            factores.Add("Tasa");
+            factores.Add("Cuota");
+            factores.Add("Exento");
+
+            tasasCuotas.Add("...");
+            tasasCuotas.Add("0 %");
+            tasasCuotas.Add("16 %");
+            tasasCuotas.Add("Definir %");
+            tasasCuotas.Add("26.5 %");
+            tasasCuotas.Add("30 %");
+            tasasCuotas.Add("53 %");
+            tasasCuotas.Add("50 %");
+            tasasCuotas.Add("1.600000");
+            tasasCuotas.Add("30.4 %");
+            tasasCuotas.Add("25 %");
+            tasasCuotas.Add("9 %");
+            tasasCuotas.Add("8 %");
+            tasasCuotas.Add("7 %");
+            tasasCuotas.Add("6 %");
+            tasasCuotas.Add("3 %");
+            
+            //Impuestos locales
+            impuestosL.Add("...");
+            impuestosL.Add("ISH");
+            impuestosL.Add("IMCD");
+            impuestosL.Add("Bienestar Social");
+            impuestosL.Add("Millar");
+            impuestosL.Add("Otro");
+
+            tasaL.Add("...");
+            tasaL.Add("1 %");
+            tasaL.Add("2 %");
+            tasaL.Add("3 %");
+            tasaL.Add("5 %");
+            tasaL.Add("Definir %");
         }
 
         private void btnExtra_Click(object sender, EventArgs e)
@@ -108,6 +172,8 @@ namespace PuntoDeVentaV2
             GenerarCampos(2);
         }
 
+
+        //Genera los campos dinamicamente dependiendo de la opcion seleccionada
         private void GenerarCampos(int tipo)
         {
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
@@ -115,8 +181,22 @@ namespace PuntoDeVentaV2
             panelHijo.Height = 25;
             panelHijo.Width = 750;
 
+            string etiqueta1, etiqueta2 = null;
+
+            if (tipo == 1)
+            {
+                etiqueta1 = "cbLinea";
+                etiqueta2 = "tbLinea";
+            }
+            else
+            {
+                etiqueta1 = "cbLineaL";
+                etiqueta2 = "tbLineaL";
+            }
+
+            //Primer ComboBox
             ComboBox cb1 = new ComboBox();
-            cb1.Name = "cbLinea" + id + "_1";
+            cb1.Name = etiqueta1 + id + "_1";
             
             if (tipo == 1)
             {
@@ -126,110 +206,68 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cb1.Items.Add("Imp. local");
+                cb1.Items.Add("...");
+                cb1.Items.Add("Loc. Traslado");
+                cb1.Items.Add("Loc. Retenido");
             }
 
             cb1.SelectedIndex = 0;
             cb1.DropDownStyle = ComboBoxStyle.DropDownList;
             cb1.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+            cb1.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
             cb1.Width = 100;
             cb1.Margin = new Padding(15, 0, 0, 0);
 
+            //Segundo ComboBox
             ComboBox cb2 = new ComboBox();
-            cb2.Name = "cbLinea" + id + "_2";
-
-            if (tipo == 1)
-            {
-                cb2.Items.Add("...");
-                cb2.Items.Add("ISR");
-                cb2.Items.Add("IVA");
-                cb2.Items.Add("IEPS");
-            }
-            else
-            {
-                cb2.Items.Add("...");
-                cb2.Items.Add("ISH");
-                cb2.Items.Add("IMCD");
-                cb2.Items.Add("Bienestar Social");
-                cb2.Items.Add("Millar");
-            }
-
-            cb2.SelectedIndex = 0;
+            cb2.Name = etiqueta1 + id + "_2";
             cb2.DropDownStyle = ComboBoxStyle.DropDownList;
             cb2.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+            cb2.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
             cb2.Width = 100;
             cb2.Margin = new Padding(20, 0, 0, 0);
+            cb2.Enabled = false;
 
+            //Tercer ComboBox
             ComboBox cb3 = new ComboBox();
-            cb3.Name = "cbLinea" + id + "_3";
-            
-            if (tipo == 1)
-            {
-                cb3.Items.Add("...");
-                cb3.Items.Add("Tasa");
-                cb3.Items.Add("Cuota");
-                cb3.Items.Add("Exento");
-            }
-            else
-            {
-                cb3.Items.Add("...");
-            }
-
-            cb3.SelectedIndex = 0;
+            cb3.Name = etiqueta1 + id + "_3";
             cb3.DropDownStyle = ComboBoxStyle.DropDownList;
             cb3.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+            cb3.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
             cb3.Width = 100;
             cb3.Margin = new Padding(20, 0, 0, 0);
+            cb3.Enabled = false;
 
+            //Cuarto ComboBox
             ComboBox cb4 = new ComboBox();
-            cb4.Name = "cbLinea" + id + "_4";
-            cb4.Items.Add("...");
-            
-            if (tipo == 1)
-            {
-                cb4.Items.Add("0%");
-                cb4.Items.Add("16%");
-                cb4.Items.Add("Definir %");
-                cb4.Items.Add("26.5%");
-                cb4.Items.Add("30%");
-                cb4.Items.Add("53%");
-                cb4.Items.Add("50%");
-                cb4.Items.Add("1.60%");
-                cb4.Items.Add("30.4%");
-                cb4.Items.Add("25%");
-                cb4.Items.Add("9%");
-                cb4.Items.Add("8%");
-                cb4.Items.Add("7%");
-                cb4.Items.Add("6%");
-                cb4.Items.Add("3%");
-            }
-            else
-            {
-                cb4.Items.Add("1%");
-                cb4.Items.Add("2%");
-                cb4.Items.Add("3%");
-                cb4.Items.Add("5%");
-                cb4.Items.Add("Definir %");
-            }
-
-            cb4.SelectedIndex = 0;
+            cb4.Name = etiqueta1 + id + "_4";
             cb4.DropDownStyle = ComboBoxStyle.DropDownList;
             cb4.MouseWheel += new MouseEventHandler(DeshabilitarMouseWheel);
+            cb4.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
             cb4.Width = 100;
             cb4.Margin = new Padding(20, 0, 0, 0);
+            cb4.Enabled = false;
 
+            //TextBox para el porcentaje
             TextBox tb1 = new TextBox();
-            tb1.Name = "tbLinea" + id + "_1";
+            tb1.Name = etiqueta2 + id + "_1";
             tb1.Width = 100;
             tb1.Height = 20;
             tb1.Margin = new Padding(20, 0, 0, 0);
+            tb1.Enabled = false;
+            tb1.TextAlign = HorizontalAlignment.Center;
+            tb1.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);
 
+            //TextBox para el importe
             TextBox tb2 = new TextBox();
-            tb2.Name = "tbLinea" + id + "_2";
+            tb2.Name = etiqueta2 + id + "_2";
             tb2.Width = 100;
             tb2.Height = 20;
             tb2.Margin = new Padding(20, 0, 0, 0);
+            tb2.ReadOnly = true;
+            tb2.TextAlign = HorizontalAlignment.Center;
 
+            //Boton eliminar impuesto
             Button bt = new Button();
             bt.Cursor = Cursors.Hand;
             bt.Text = "X";
@@ -311,7 +349,7 @@ namespace PuntoDeVentaV2
         {
             if (!primera)
             {
-                int seleccionado = cbUnidadMedida.SelectedIndex;
+                seleccionado = cbUnidadMedida.SelectedIndex;
 
                 string[] claves = clavesUnidad.ToArray();
 
@@ -342,101 +380,522 @@ namespace PuntoDeVentaV2
            
         }
 
-        private void cbLinea1_1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!primera)
-            {
-                //Primer ComboBox de los impuestos estaticos
-                int seleccionado = cbLinea1_1.SelectedIndex;
 
-                if (seleccionado > 0)
+        /*****************************************************************************************
+         **** ES LA FUNCION DEL EVENTO QUE SE EJECUTA CUANDO SE ELIGE UNA OPCION DEL COMBOBOX ****
+         *****************************************************************************************/
+        private void ProcesarComboBoxes_selectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = sender as ComboBox;
+            string nombreCB = cb.Name;
+
+            //Identificar tipo impuesto
+            string tipoImpuesto = nombreCB.Substring(0, 8);
+            int rango = 0;
+
+            if (tipoImpuesto == "cbLineaL")
+            {
+                rango = 10;
+            }
+            else
+            {
+                rango = 9;
+            }
+            
+            string subNombreCB = nombreCB.Substring(0, rango);
+            string seleccionado = cb.GetItemText(cb.SelectedItem);
+
+            int indice  = cb.SelectedIndex;
+            int subindice = Convert.ToInt32(nombreCB.Substring(rango));
+
+            //El subindice hace referencia al numero de ComboBox que esta haciendo la operacion
+            //Puede ir desde el 1 al 4
+            if (subindice == 1)
+            {   
+                //El indice es la opcion que selecciono en el ComboBox
+                subNombreCB = subNombreCB + "2";
+                AccederComboBox(subNombreCB, 2, indice, seleccionado);
+            }
+
+            if (subindice == 2)
+            {
+                subNombreCB = subNombreCB + "3";
+                AccederComboBox(subNombreCB, 3, indice, seleccionado);
+            }
+
+            if (subindice == 3)
+            {
+                subNombreCB = subNombreCB + "4";
+                AccederComboBox(subNombreCB, 4, indice, seleccionado);
+            }
+
+            if (subindice == 4)
+            {
+                AccederComboBox(subNombreCB, 5, indice, seleccionado);
+            }
+        }
+
+        private void AccederComboBox(string nombre, int numeroCB, int opcion = 0, string seleccionado = "")
+        {
+
+            ComboBox cbTmp = (ComboBox)this.Controls.Find(nombre, true).FirstOrDefault();
+
+            /****************************
+             **** PARA EL COMBOBOX 2 ****
+             ****************************/
+
+            //Aqui se pone en la condicion el numero del combobox del que se quiere habilitar las opciones
+            if (numeroCB == 2)
+            {
+                tipoImpuesto = seleccionado;
+
+                //Cuando se esta agregando un impuesto local
+                if (tipoImpuesto == "Loc. Retenido" || tipoImpuesto == "Loc. Traslado")
                 {
-                    cbLinea1_2.Enabled = true;
+                    //La opcion es el numero del indice del item seleccionado
+                    if (opcion == 0)
+                    {
+                        LimpiarComboBox(cbTmp, false);
+                    }
+
+                    if (opcion == 1)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(impuestosL[0]); //...
+                        cbTmp.Items.Add(impuestosL[1]); //ISH
+                        cbTmp.Items.Add(impuestosL[5]); //Otro
+                        cbTmp.SelectedIndex = 0;
+                    }
+
+                    if (opcion == 2)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(impuestosL[0]); //...
+                        cbTmp.Items.Add(impuestosL[2]); //IMCD
+                        cbTmp.Items.Add(impuestosL[3]); //Bienestar social
+                        cbTmp.Items.Add(impuestosL[4]); //Millar
+                        cbTmp.Items.Add(impuestosL[5]); // Otro
+                        cbTmp.SelectedIndex = 0;
+                    }
                 }
                 else
                 {
-                    cbLinea1_2.Enabled = false;
-                    cbLinea1_3.Enabled = false;
-                    cbLinea1_4.Enabled = false;
-
-                    cbLinea1_2.SelectedIndex = 0;
-                    cbLinea1_3.SelectedIndex = 0;
-                    cbLinea1_4.SelectedIndex = 0;
-                }
-
-                previo = seleccionado;
-            }
-
-            primera = false;
-        }
-
-        private void cbLinea1_2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Segundo ComboBox de los impuestos estaticos
-            int seleccionado = cbLinea1_2.SelectedIndex;
-
-            if (seleccionado > 0)
-            {
-                cbLinea1_3.Enabled = true;
-
-                //Previo es el valor de la opcion seleccionada del ComboBox anterior a este
-                if (previo == 1)
-                {
-                    if (seleccionado == 1)
+                    //La opcion es el numero del indice del item seleccionado
+                    if (opcion == 0)
                     {
-                        cbLinea1_2.SelectedIndex = 0;
+                        LimpiarComboBox(cbTmp, false);
+                    }
+
+                    if (opcion == 1)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(impuestos[0]); //...
+                        cbTmp.Items.Add(impuestos[2]); //IVA
+                        cbTmp.Items.Add(impuestos[3]); //IEPS
+                        cbTmp.SelectedIndex = 0;
+                    }
+
+                    if (opcion == 2)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(impuestos[0]); //...
+                        cbTmp.Items.Add(impuestos[1]); //ISR
+                        cbTmp.Items.Add(impuestos[2]); //IVA
+                        cbTmp.Items.Add(impuestos[3]); //IEPS
+                        cbTmp.SelectedIndex = 0;
                     }
                 }
             }
-            else
-            {
-                cbLinea1_3.Enabled = false;
-                cbLinea1_4.Enabled = false;
 
-                cbLinea1_3.SelectedIndex = 0;
-                cbLinea1_4.SelectedIndex = 0;
+            /****************************
+             **** PARA EL COMBOBOX 3 ****
+             ****************************/
+
+            if (numeroCB == 3)
+            {
+                
+                if (tipoImpuesto == "Loc. Retenido")
+                {
+                    tipoPorcentaje = seleccionado;
+
+                    LimpiarComboBox(cbTmp, true);
+                    cbTmp.Items.Add("..."); //...
+                    cbTmp.SelectedIndex = 0;
+                }
+
+                if (tipoImpuesto == "Loc. Traslado")
+                {
+                    tipoPorcentaje = seleccionado;
+
+                    LimpiarComboBox(cbTmp, true);
+                    cbTmp.Items.Add("..."); //...
+                    cbTmp.SelectedIndex = 0;
+                }
+
+                if (tipoImpuesto == "Traslado")
+                {
+                    tipoPorcentaje = seleccionado;
+
+                    if (opcion == 1)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(factores[0]); //...
+                        cbTmp.Items.Add(factores[1]); //Tasa
+                        cbTmp.Items.Add(factores[3]); //Exento
+                        cbTmp.SelectedIndex = 0;
+                    }
+
+                    if (opcion == 2)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(factores[0]); //...
+                        cbTmp.Items.Add(factores[1]); //Tasa
+                        cbTmp.Items.Add(factores[2]); //Cuota
+                        cbTmp.SelectedIndex = 0;
+                    }
+                }
+
+                if (tipoImpuesto == "Retención")
+                {
+                    tipoPorcentaje = seleccionado;
+
+                    if (opcion == 1)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(factores[0]); //...
+                        cbTmp.Items.Add(factores[1]); //Tasa
+                        cbTmp.SelectedIndex = 0;
+                    }
+
+                    if (opcion == 2)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(factores[0]); //...
+                        cbTmp.Items.Add(factores[1]); //Tasa
+                        cbTmp.SelectedIndex = 0;
+                    }
+
+                    if (opcion == 3)
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(factores[0]); //...
+                        cbTmp.Items.Add(factores[1]); //Tasa
+                        cbTmp.Items.Add(factores[2]); //Cuota
+                        cbTmp.SelectedIndex = 0;
+                    }
+                }
             }
 
-            previo = seleccionado;
+            /****************************
+             **** PARA EL COMBOBOX 4 ****
+             ****************************/
+
+            if (numeroCB == 4)
+            {
+                if (tipoImpuesto == "Loc. Retenido")
+                {
+                    if (tipoPorcentaje == "IMCD")
+                    {
+                        if (opcion == 0)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasaL[0]); //...
+                            cbTmp.Items.Add(tasaL[1]); //1%
+                            cbTmp.Items.Add(tasaL[5]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+
+                    if (tipoPorcentaje == "Bienestar Social")
+                    {
+                        if (opcion == 0)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasaL[0]); //...
+                            cbTmp.Items.Add(tasaL[1]); //1%
+                            cbTmp.Items.Add(tasaL[5]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+
+                    if (tipoPorcentaje == "Millar")
+                    {
+                        if (opcion == 0)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasaL[0]); //...
+                            cbTmp.Items.Add(tasaL[2]); //2%
+                            cbTmp.Items.Add(tasaL[3]); //3%
+                            cbTmp.Items.Add(tasaL[4]); //5%
+                            cbTmp.Items.Add(tasaL[5]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+
+                    if (tipoPorcentaje == "Otro")
+                    {
+                        if (opcion == 0)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasaL[0]); //...
+                            cbTmp.Items.Add(tasaL[5]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+                }
+
+                if (tipoImpuesto == "Loc. Traslado")
+                {
+                    if (tipoPorcentaje == "ISH")
+                    {
+                        if (opcion == 0)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasaL[0]); //...
+                            cbTmp.Items.Add(tasaL[3]); //3%
+                            cbTmp.Items.Add(tasaL[5]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+
+                    if (tipoPorcentaje == "Otro")
+                    {
+                        LimpiarComboBox(cbTmp, true);
+                        cbTmp.Items.Add(tasaL[0]); //...
+                        cbTmp.Items.Add(tasaL[5]); //Definir %
+                        cbTmp.SelectedIndex = 0;
+                    }
+                }
+
+                if (tipoImpuesto == "Traslado")
+                {
+                    if (tipoPorcentaje == "IVA")
+                    {
+                        if (opcion == 1)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasasCuotas[0]); //...
+                            cbTmp.Items.Add(tasasCuotas[1]); //0%
+                            cbTmp.Items.Add(tasasCuotas[2]); //16%
+                            cbTmp.SelectedIndex = 0;
+                        }
+
+                        if (opcion == 2)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasasCuotas[0]); //...
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+
+                    if (tipoPorcentaje == "IEPS")
+                    {
+                        if (opcion == 1)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasasCuotas[0]); //...
+                            cbTmp.Items.Add(tasasCuotas[1]); //0%
+                            cbTmp.Items.Add(tasasCuotas[4]); //26.5%
+                            cbTmp.Items.Add(tasasCuotas[5]); //30%
+                            cbTmp.Items.Add(tasasCuotas[6]); //53%
+                            cbTmp.Items.Add(tasasCuotas[7]); //50%
+                            cbTmp.Items.Add(tasasCuotas[8]); //1.600000%
+                            cbTmp.Items.Add(tasasCuotas[9]); //30.4%
+                            cbTmp.Items.Add(tasasCuotas[10]); //25%
+                            cbTmp.Items.Add(tasasCuotas[11]); //9%
+                            cbTmp.Items.Add(tasasCuotas[12]); //8%
+                            cbTmp.Items.Add(tasasCuotas[13]); //7%
+                            cbTmp.Items.Add(tasasCuotas[14]); //6%
+                            cbTmp.Items.Add(tasasCuotas[15]); //3%
+                            cbTmp.SelectedIndex = 0;
+                        }
+
+                        if (opcion == 2)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasasCuotas[0]); //...
+                            cbTmp.Items.Add(tasasCuotas[3]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+                }
+
+                if (tipoImpuesto == "Retención")
+                {
+                    if (tipoPorcentaje == "ISR")
+                    {
+                        if (opcion == 1)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasasCuotas[0]); //...
+                            cbTmp.Items.Add(tasasCuotas[3]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+
+                    if (tipoPorcentaje == "IVA")
+                    {
+                        if (opcion == 1)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasasCuotas[0]); //...
+                            cbTmp.Items.Add(tasasCuotas[3]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+
+                    if (tipoPorcentaje == "IEPS")
+                    {
+                        if (opcion == 1)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasasCuotas[0]); //...
+                            cbTmp.Items.Add(tasasCuotas[4]); //26.5%
+                            cbTmp.Items.Add(tasasCuotas[5]); //30%
+                            cbTmp.Items.Add(tasasCuotas[6]); //53%
+                            cbTmp.Items.Add(tasasCuotas[7]); //50%
+                            cbTmp.Items.Add(tasasCuotas[8]); //1.600000%
+                            cbTmp.Items.Add(tasasCuotas[9]); //30.4%
+                            cbTmp.Items.Add(tasasCuotas[10]); //25%
+                            cbTmp.Items.Add(tasasCuotas[11]); //9%
+                            cbTmp.Items.Add(tasasCuotas[12]); //8%
+                            cbTmp.Items.Add(tasasCuotas[13]); //7%
+                            cbTmp.Items.Add(tasasCuotas[14]); //6%
+                            cbTmp.SelectedIndex = 0;
+                        }
+
+                        if (opcion == 2)
+                        {
+                            LimpiarComboBox(cbTmp, true);
+                            cbTmp.Items.Add(tasasCuotas[0]); //...
+                            cbTmp.Items.Add(tasasCuotas[3]); //Definir %
+                            cbTmp.SelectedIndex = 0;
+                        }
+                    }
+                }
+            }
+
+
+            /******************************************************
+             **** PARA LAS OPCIONES INDIVIUALES DEL COMBOBOX 4 ****
+             ******************************************************/
+            if (numeroCB == 5)
+            {
+                porcentajeSeleccionado = seleccionado;
+
+                nombre = nombre.Replace("cbLinea", "tbLinea");
+
+                if (porcentajeSeleccionado == "Definir %")
+                {
+                    nombre += "1";
+
+                    TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
+                    tbTmp.Enabled = true;
+                    tbTmp.Focus();
+                }
+                else
+                {
+                    nombre += "2";
+
+                    string[] cantidadTmp = porcentajeSeleccionado.Split(' ');
+
+                    if (cantidadTmp[0] == "...")
+                    {
+                        cantidadTmp[0] = "0";
+                    }
+
+                    float porcentaje = CantidadPorcentaje(cantidadTmp[0]);
+
+                    double importe = precioProducto * porcentaje;
+
+                    TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
+                    tbTmp.Text = importe.ToString("0.00");
+                }
+            }
         }
 
-        private void cbLinea1_3_SelectedIndexChanged(object sender, EventArgs e)
+        private void LimpiarComboBox(ComboBox cb, bool habilitado = true)
         {
-            //Tercer ComboBox de los impuestos estaticos
-            int seleccionado = cbLinea1_3.SelectedIndex;
+            cb.DataSource = null;
+            cb.Items.Clear();
+            cb.Enabled = habilitado;
+        }
 
-            if (seleccionado > 0)
+        /******************************************************************
+         **** FUNCION PARA CONVERTIR LOS PORCENTAJES AL VALOR CORRECTO ****
+         ******************************************************************/
+
+        private float CantidadPorcentaje(string sCantidad)
+        {
+            int longitud = sCantidad.Length;
+
+            float resultado = 0;
+
+            //Si la cantidad por defecto es una cifra de dos digitos o mas
+            if (longitud > 1)
             {
-                cbLinea1_4.Enabled = true;
-
-                if (previo == 2)
+                //Si contiene punto la convertimos en array
+                if (sCantidad.Contains('.'))
                 {
-                    if (seleccionado == 2)
+                    string[] valorTmp = sCantidad.Split('.');
+
+                    //Si es la cantidad de 1.600000 entrara aqui
+                    if (valorTmp[0] == "1")
                     {
-                        cbLinea1_3.SelectedIndex = 0;
+                        resultado = float.Parse(sCantidad);
+
+                    } else
+                    {
+                        sCantidad = sCantidad.Replace(".", "");
+                        sCantidad = "0." + sCantidad;
+
+                        resultado = float.Parse(sCantidad);
                     }
+                }
+                else
+                {
+                    sCantidad = "0." + sCantidad;
+                    resultado = float.Parse(sCantidad);
                 }
             }
             else
             {
-                cbLinea1_4.Enabled = false;
+                sCantidad = "0.0" + sCantidad;
+                resultado = float.Parse(sCantidad);
             }
+
+            return resultado;
         }
 
-        private void cbLinea1_4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Cuarto ComboBox de los impuestos estaticos
-            int seleccionado = cbLinea1_4.SelectedIndex;
+        /********************************************************
+         **** FUNCION PARA CALCULAR LOS PORCENTAJES MANUALES ****
+         ********************************************************/
 
-            if (seleccionado == 3)
+        private void PorcentajeManual_KeyUp(object sender, KeyEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            var nombre = tb.Name.Remove(tb.Name.Length - 1);
+
+            var cantidad = tb.Text;
+
+            if (cantidad == "")
             {
-                tbLinea1_1.Enabled = true;
+                cantidad = "0";
             }
-            else
+
+            float porcentaje = CantidadPorcentaje(cantidad);
+
+            if (porcentaje < 0 || porcentaje > 0.43770000)
             {
-                tbLinea1_1.Enabled = false;
-                tbLinea1_1.Text = "";
+                MessageBox.Show("El porcentaje debe ser entre 0 % y 43.770000 %", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            double importe = precioProducto * porcentaje;
+
+            TextBox tbImporte = (TextBox)this.Controls.Find(nombre + "2", true).FirstOrDefault();
+            tbImporte.Text = importe.ToString("0.00");
         }
     }
 }
