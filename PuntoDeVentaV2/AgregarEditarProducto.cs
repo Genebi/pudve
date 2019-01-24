@@ -15,8 +15,13 @@ namespace PuntoDeVentaV2
     {
         static public int id = 1;
         static public string precioProducto = "";
+        static public string datosImpuestos = null;
+        static public string claveProducto = null;
+        static public string claveUnidadMedida = null;
 
         Conexion cn = new Conexion();
+
+        AgregarDetalleFacturacionProducto FormDetalle;
 
         public AgregarEditarProducto(string titulo)
         {
@@ -145,8 +150,17 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                AgregarDetalleFacturacionProducto FormDetalle = new AgregarDetalleFacturacionProducto();
-                FormDetalle.ShowDialog();
+                //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
+                if (FormDetalle != null)
+                {
+                    FormDetalle.Show();
+                    FormDetalle.BringToFront();
+                }
+                else
+                {
+                    FormDetalle = new AgregarDetalleFacturacionProducto();
+                    FormDetalle.ShowDialog();
+                }
             }
         }
 
@@ -175,6 +189,8 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
+            //Cerramos la ventana donde se eligen los impuestos
+            FormDetalle.Close();
 
             var nombre = txtNombreProducto.Text;
             var stock = txtStockProducto.Text;
@@ -183,13 +199,40 @@ namespace PuntoDeVentaV2
             var claveIn = txtClaveProducto.Text;
             var codigoB = txtCodigoBarras.Text;
 
-            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, IDUsuario)" +
-                              "VALUES('"+ nombre +"', '"+ stock +"', '"+ precio +"', '"+ categoria +"', '"+ claveIn +"', '"+ codigoB +"', '"+ FormPrincipal.userID +"')";
+            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, IDUsuario)" +
+                              "VALUES('"+ nombre +"', '"+ stock +"', '"+ precio +"', '"+ categoria +"', '"+ claveIn +"', '"+ codigoB +"', '"+ claveProducto +"', '"+ claveUnidadMedida +"', '"+ FormPrincipal.userID +"')";
 
             int respuesta = cn.EjecutarConsulta(consulta);
 
             if (respuesta > 0)
             {
+                int idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+
+                if (datosImpuestos != "")
+                {
+                    string[] listaImpuestos = datosImpuestos.Split('|');
+
+                    int longitud = listaImpuestos.Length;
+
+                    if (longitud > 0)
+                    {
+                        for (int i = 0; i < longitud; i++)
+                        {
+                            string[] imp = listaImpuestos[i].Split(',');
+
+                            if (imp[3] == " - ") { imp[3] = "0";  }
+                            if (imp[4] == " - ") { imp[4] = "0";  }
+                            if (imp[5] == " - ") { imp[5] = "0";  }
+
+                            consulta = "INSERT INTO DetallesFacturacionProductos (Tipo, Impuesto, TipoFactor, TasaCuota, Definir, Importe, IDProducto)";
+                            consulta += "VALUES ('"+ imp[0] +"', '"+ imp[1] +"', '"+ imp[2] +"', '"+ imp[3] +"', '"+ imp[4] +"', '"+ imp[5] +"', '"+ idProducto +"')";
+
+                            cn.EjecutarConsulta(consulta);
+                        }
+                    }
+                }
+
+                //Cierra la ventana donde se agregan los datos del producto
                 this.Close();
             }
             else

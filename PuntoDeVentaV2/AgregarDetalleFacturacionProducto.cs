@@ -376,8 +376,46 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            //Realiza la conexion y realiza la consulta para verificar si la clave del producto es válida
-           
+            //Leer todos los datos de los ComboBox y TextBox que se hayan agregado para el producto
+            if (panelContenedor.Controls.Count > 0)
+            {
+
+                string cadenaImpuestos = null;
+
+                cadenaImpuestos += ValidarCampos(cbLinea1_1.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_2.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_3.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_4.Text) + ",";
+                cadenaImpuestos += ValidarCampos(tbLinea1_1.Text) + ",";
+                cadenaImpuestos += ValidarCampos(tbLinea1_2.Text) + "|";
+
+                foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                {
+                    foreach (Control item in panel.Controls.OfType<Control>())
+                    {
+                        if (item.Name.Contains("cbLinea"))
+                        {
+                            cadenaImpuestos += ValidarCampos(item.Text) + ",";
+                        }
+
+                        if (item.Name.Contains("tbLinea"))
+                        {
+                            cadenaImpuestos += ValidarCampos(item.Text) + ",";
+                        }
+                    }
+
+                    cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
+                    cadenaImpuestos += "|";
+                }
+
+                cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
+
+                AgregarEditarProducto.datosImpuestos = cadenaImpuestos;
+                AgregarEditarProducto.claveProducto = txtClaveProducto.Text;
+                AgregarEditarProducto.claveUnidadMedida = txtClaveUnidad.Text;
+
+                this.Hide();
+            }
         }
 
 
@@ -896,6 +934,16 @@ namespace PuntoDeVentaV2
 
             TextBox tbImporte = (TextBox)this.Controls.Find(nombre + "2", true).FirstOrDefault();
             tbImporte.Text = importe.ToString("0.00");
+        }
+
+        private string ValidarCampos(string campo, int tipo = 0)
+        {
+            if (campo == "" || campo == "...")
+            {
+                campo = " - ";
+            }
+
+            return campo;
         }
     }
 }
