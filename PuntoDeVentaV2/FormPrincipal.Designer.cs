@@ -47,6 +47,7 @@
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
             this.temporizadorConsulta = new System.Windows.Forms.Timer(this.components);
+            this.button8 = new System.Windows.Forms.Button();
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -74,6 +75,7 @@
             // menuVertical
             // 
             this.menuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.menuVertical.Controls.Add(this.button8);
             this.menuVertical.Controls.Add(this.btnMisDatos);
             this.menuVertical.Controls.Add(this.button9);
             this.menuVertical.Controls.Add(this.button6);
@@ -359,6 +361,27 @@
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
+            // button8
+            // 
+            this.button8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button8.FlatAppearance.BorderSize = 0;
+            this.button8.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
+            this.button8.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.ForeColor = System.Drawing.Color.White;
+            this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
+            this.button8.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.button8.Location = new System.Drawing.Point(153, 610);
+            this.button8.Margin = new System.Windows.Forms.Padding(4);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(153, 87);
+            this.button8.TabIndex = 13;
+            this.button8.Text = "Empresas";
+            this.button8.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -397,6 +420,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button8;
     }
 }
 

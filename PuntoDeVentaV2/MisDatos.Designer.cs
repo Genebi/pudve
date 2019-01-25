@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MisDatos));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LblRegimenActual = new System.Windows.Forms.Label();
@@ -68,7 +69,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -404,11 +404,13 @@
             this.btnActualizarDatos.BackColor = System.Drawing.Color.Green;
             this.btnActualizarDatos.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarDatos.ForeColor = System.Drawing.Color.SeaShell;
-            this.btnActualizarDatos.Location = new System.Drawing.Point(525, 701);
+            this.btnActualizarDatos.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizarDatos.Image")));
+            this.btnActualizarDatos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnActualizarDatos.Location = new System.Drawing.Point(609, 701);
             this.btnActualizarDatos.Name = "btnActualizarDatos";
-            this.btnActualizarDatos.Size = new System.Drawing.Size(281, 68);
+            this.btnActualizarDatos.Size = new System.Drawing.Size(197, 68);
             this.btnActualizarDatos.TabIndex = 2;
-            this.btnActualizarDatos.Text = "Actualizar Datos";
+            this.btnActualizarDatos.Text = "Datos";
             this.btnActualizarDatos.UseVisualStyleBackColor = false;
             this.btnActualizarDatos.Click += new System.EventHandler(this.btnActualizarDatos_Click);
             // 
@@ -421,37 +423,41 @@
             this.panel2.Controls.Add(this.label14);
             this.panel2.Location = new System.Drawing.Point(824, 83);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(382, 528);
+            this.panel2.Size = new System.Drawing.Size(494, 598);
             this.panel2.TabIndex = 3;
             // 
             // btnBorrarImg
             // 
             this.btnBorrarImg.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBorrarImg.Location = new System.Drawing.Point(121, 437);
+            this.btnBorrarImg.Image = ((System.Drawing.Image)(resources.GetObject("btnBorrarImg.Image")));
+            this.btnBorrarImg.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBorrarImg.Location = new System.Drawing.Point(260, 501);
             this.btnBorrarImg.Name = "btnBorrarImg";
-            this.btnBorrarImg.Size = new System.Drawing.Size(153, 59);
+            this.btnBorrarImg.Size = new System.Drawing.Size(194, 62);
             this.btnBorrarImg.TabIndex = 5;
-            this.btnBorrarImg.Text = "Borrar imagen";
+            this.btnBorrarImg.Text = "Imagen";
             this.btnBorrarImg.UseVisualStyleBackColor = true;
             this.btnBorrarImg.Click += new System.EventHandler(this.btnBorrarImg_Click);
             // 
             // TxtBoxNombreArchivo
             // 
             this.TxtBoxNombreArchivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBoxNombreArchivo.Location = new System.Drawing.Point(30, 308);
+            this.TxtBoxNombreArchivo.Location = new System.Drawing.Point(29, 440);
             this.TxtBoxNombreArchivo.Name = "TxtBoxNombreArchivo";
-            this.TxtBoxNombreArchivo.Size = new System.Drawing.Size(326, 28);
+            this.TxtBoxNombreArchivo.Size = new System.Drawing.Size(425, 28);
             this.TxtBoxNombreArchivo.TabIndex = 3;
             // 
             // btnSubirArchivo
             // 
             this.btnSubirArchivo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnSubirArchivo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubirArchivo.Location = new System.Drawing.Point(30, 354);
+            this.btnSubirArchivo.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirArchivo.Image")));
+            this.btnSubirArchivo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSubirArchivo.Location = new System.Drawing.Point(29, 501);
             this.btnSubirArchivo.Name = "btnSubirArchivo";
-            this.btnSubirArchivo.Size = new System.Drawing.Size(326, 62);
+            this.btnSubirArchivo.Size = new System.Drawing.Size(195, 62);
             this.btnSubirArchivo.TabIndex = 2;
-            this.btnSubirArchivo.Text = "Subir Archivo";
+            this.btnSubirArchivo.Text = "Imagen";
             this.btnSubirArchivo.UseVisualStyleBackColor = false;
             this.btnSubirArchivo.Click += new System.EventHandler(this.btnSubirArchivo_Click);
             // 
@@ -460,7 +466,7 @@
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.Location = new System.Drawing.Point(29, 55);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(327, 231);
+            this.pictureBox1.Size = new System.Drawing.Size(425, 344);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -479,20 +485,11 @@
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(824, 639);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(382, 23);
-            this.label16.TabIndex = 4;
-            this.label16.Text = "label16";
-            // 
             // MisDatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1232, 781);
-            this.Controls.Add(this.label16);
+            this.ClientSize = new System.Drawing.Size(1352, 781);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnActualizarDatos);
             this.Controls.Add(this.panel1);
@@ -554,6 +551,5 @@
         private System.Windows.Forms.Label LblRegimenActual;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private System.Windows.Forms.Label label16;
     }
 }

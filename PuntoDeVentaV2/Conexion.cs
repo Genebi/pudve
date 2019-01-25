@@ -172,5 +172,15 @@ namespace PuntoDeVentaV2
 
             return dbcbreg;
         }
+
+        public DataTable GetEmpresas(string consulta)
+        {
+            Conectarse();
+            sql_con.Open();
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(consulta, sql_con);
+            sda.Fill(DT);
+            sql_con.Close();
+            return DT;
+        }
     }
 }

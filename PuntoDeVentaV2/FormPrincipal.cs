@@ -97,5 +97,10 @@ namespace PuntoDeVentaV2
         {
             AbrirFormulario<MisDatos>();
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<Empresas>();
+        }
     }
 }

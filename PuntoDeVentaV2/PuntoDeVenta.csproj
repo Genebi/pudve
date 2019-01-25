@@ -96,6 +96,12 @@
     <Compile Include="ComboboxItem.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Consultas.cs" />
+    <Compile Include="Empresas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empresas.Designer.cs">
+      <DependentUpon>Empresas.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,12 @@
     </Compile>
     <Compile Include="MisDatos.Designer.cs">
       <DependentUpon>MisDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NvaEmpresa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NvaEmpresa.Designer.cs">
+      <DependentUpon>NvaEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Productos.cs">
       <SubType>Form</SubType>
@@ -152,6 +164,9 @@
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Empresas.resx">
+      <DependentUpon>Empresas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
@@ -160,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MisDatos.resx">
       <DependentUpon>MisDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NvaEmpresa.resx">
+      <DependentUpon>NvaEmpresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
