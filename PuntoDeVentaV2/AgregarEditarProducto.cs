@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
 
         AgregarDetalleFacturacionProducto FormDetalle;
+        AgregarDescuentoProducto FormAgregar;
 
         public AgregarEditarProducto(string titulo)
         {
@@ -135,10 +136,22 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else if (txtStockProducto.Text == "")
+            {
+                MessageBox.Show("Es necesario agregar el stock del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             else
             {
-                //AgregarDescuentoProducto FormAgregar = new AgregarDescuentoProducto();
-                //FormAgregar.ShowDialog();
+                if (FormAgregar != null)
+                {
+                    FormAgregar.Show();
+                    FormAgregar.BringToFront();
+                }
+                else
+                {
+                    FormAgregar = new AgregarDescuentoProducto();
+                    FormAgregar.ShowDialog();
+                }
             }
         }
 
