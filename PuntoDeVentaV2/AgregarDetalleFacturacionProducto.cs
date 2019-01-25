@@ -81,7 +81,7 @@ namespace PuntoDeVentaV2
 
         private void btnCancelarDetalle_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.Hide();
         }
 
         private void AgregarDetalleFacturacionProducto_Load(object sender, EventArgs e)
