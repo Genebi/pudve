@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         static public string claveUnidadMedida = null;
 
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
 
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
@@ -212,10 +213,9 @@ namespace PuntoDeVentaV2
             var claveIn = txtClaveProducto.Text;
             var codigoB = txtCodigoBarras.Text;
 
-            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, IDUsuario)" +
-                              "VALUES('"+ nombre +"', '"+ stock +"', '"+ precio +"', '"+ categoria +"', '"+ claveIn +"', '"+ codigoB +"', '"+ claveProducto +"', '"+ claveUnidadMedida +"', '"+ FormPrincipal.userID +"')";
-
-            int respuesta = cn.EjecutarConsulta(consulta);
+            string[] guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida };
+    
+            int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
 
             if (respuesta > 0)
             {
@@ -237,10 +237,9 @@ namespace PuntoDeVentaV2
                             if (imp[4] == " - ") { imp[4] = "0";  }
                             if (imp[5] == " - ") { imp[5] = "0";  }
 
-                            consulta = "INSERT INTO DetallesFacturacionProductos (Tipo, Impuesto, TipoFactor, TasaCuota, Definir, Importe, IDProducto)";
-                            consulta += "VALUES ('"+ imp[0] +"', '"+ imp[1] +"', '"+ imp[2] +"', '"+ imp[3] +"', '"+ imp[4] +"', '"+ imp[5] +"', '"+ idProducto +"')";
+                            guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
 
-                            cn.EjecutarConsulta(consulta);
+                            cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
                         }
                     }
                 }

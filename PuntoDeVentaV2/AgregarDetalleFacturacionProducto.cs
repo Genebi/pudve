@@ -376,19 +376,18 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            string cadenaImpuestos = null;
+
+            cadenaImpuestos += ValidarCampos(cbLinea1_1.Text) + ",";
+            cadenaImpuestos += ValidarCampos(cbLinea1_2.Text) + ",";
+            cadenaImpuestos += ValidarCampos(cbLinea1_3.Text) + ",";
+            cadenaImpuestos += ValidarCampos(cbLinea1_4.Text) + ",";
+            cadenaImpuestos += ValidarCampos(tbLinea1_1.Text) + ",";
+            cadenaImpuestos += ValidarCampos(tbLinea1_2.Text) + "|";
+
             //Leer todos los datos de los ComboBox y TextBox que se hayan agregado para el producto
             if (panelContenedor.Controls.Count > 0)
             {
-
-                string cadenaImpuestos = null;
-
-                cadenaImpuestos += ValidarCampos(cbLinea1_1.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_2.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_3.Text) + ",";
-                cadenaImpuestos += ValidarCampos(cbLinea1_4.Text) + ",";
-                cadenaImpuestos += ValidarCampos(tbLinea1_1.Text) + ",";
-                cadenaImpuestos += ValidarCampos(tbLinea1_2.Text) + "|";
-
                 foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                 {
                     foreach (Control item in panel.Controls.OfType<Control>())
@@ -407,15 +406,15 @@ namespace PuntoDeVentaV2
                     cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
                     cadenaImpuestos += "|";
                 }
-
-                cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
-
-                AgregarEditarProducto.datosImpuestos = cadenaImpuestos;
-                AgregarEditarProducto.claveProducto = txtClaveProducto.Text;
-                AgregarEditarProducto.claveUnidadMedida = txtClaveUnidad.Text;
-
-                this.Hide();
             }
+
+            cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
+
+            AgregarEditarProducto.datosImpuestos = cadenaImpuestos;
+            AgregarEditarProducto.claveProducto = txtClaveProducto.Text;
+            AgregarEditarProducto.claveUnidadMedida = txtClaveUnidad.Text;
+
+            this.Hide();
         }
 
 
