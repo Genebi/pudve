@@ -43,38 +43,45 @@ namespace PuntoDeVentaV2
             user = 0;
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            buscar = @"SELECT 
-                            emp.ID_Empresa AS 'Identificador de la Empresa', 
-                            emp.Usuario AS 'Usuario', 
-                            emp.NombreCompleto AS 'Nombre Comercial', 
-                            emp.RFC AS 'R.F.C.' 
-                       FROM 
-                            Usuarios u
-                       LEFT JOIN 
-                            Empresas emp
-                       ON 
-                            u.ID = emp.ID_Usuarios
-                       WHERE 
-                            emp.Usuario LIKE '" + usuario 
-                  + "' AND '"
-                         +"'emp.ID_Usuarios = '" + idUsuario + "'";
+            buscar = @"SELECT
+                        emp.Usuario AS 'Usuario', 
+                        emp.NombreCompleto AS 'Nombre Comercial', 
+                        emp.RFC AS 'R.F.C.' 
+                    FROM 
+                        Usuarios u 
+                    LEFT JOIN 
+                        Empresas emp 
+                    ON 
+                        u.ID = emp.ID_Usuarios 
+                    WHERE 
+                        emp.Usuario LIKE '"+usuario+"' AND emp.ID_Usuarios = '"+idUsuario+ "'";
 
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.GetEmpresas(buscar);
 
             // almacenamos el resultado de la consulta en el dt
-            if (dt.Rows.Count == 1 || dt.Rows.Count >= 1)
+            if (dt.Rows.Count >= 1)
             {
                 row = dt.Rows[0];
                 user = 1;
             }
-            if (dt.Rows.Count == 0 || dt.Rows.Count <= 0)
+            if (dt.Rows.Count <= 0)
             {
                 user = 0;
             }
 
             dt.Clear();
+        }
+
+        public void registrarEmpresa()
+        {
+            agregado = 0;
+
+            insertar = @"INSERT INTO Empresas(Usuario, Password, RazonSocial, Telefono, Email, ID_Usuarios) 
+                                       VALUES('"+usuario+"', '"+password1+"', '"+razonSocial+"', '"+telefono+"', '"+email+"', '"+idUsuario+"')";
+
+            agregado = cn.EjecutarConsulta(insertar);
         }
 
         public void verificarPassWord()
@@ -170,6 +177,19 @@ namespace PuntoDeVentaV2
             if (pass == 0)
             {
                 MessageBox.Show("Los campos coinciden Gracias...", "Contraseñas Iguales", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            if ((user == 0) && (pass == 0))
+            {
+                registrarEmpresa();
+                if (agregado > 0)
+                {
+                    MessageBox.Show("El registro se agrego exitosamente", "Datos Insertados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Ocurrio un error durante \nel resgitro de la Empresa", "Error en el Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

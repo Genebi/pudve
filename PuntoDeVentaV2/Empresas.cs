@@ -135,17 +135,7 @@ namespace PuntoDeVentaV2
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion y tambien saber
             // que empresas son las que ha registrado este usuario
-            buscarempresa = @"  SELECT 
-	                                emp.ID_Empresa AS 'Identificador de la Empresa',
-	                                emp.Usuario AS 'Usuario', 
-	                                emp.NombreCompleto AS 'Nombre Comercial', 
-	                                emp.RFC AS 'R.F.C.' 
-                                FROM 
-	                                Usuarios u 
-                                LEFT JOIN 
-	                                Empresas emp 
-                                ON 
-	                                u.ID LIKE emp.ID_Usuarios AND u.ID = '" + id + "'";
+            buscarempresa = "SELECT emp.ID_Empresa, emp.Usuario, emp.NombreCompleto, emp.RFC, u.ID FROM Usuarios u LEFT JOIN Empresas emp ON u.ID = emp.ID_Usuarios WHERE u.ID = " + id ;
             // Llenamos el contenido del DataGridView
             // con el resultado de la consulta
             DGVListaEmpresas.DataSource = cn.GetEmpresas(buscarempresa);
