@@ -33,8 +33,8 @@ namespace PuntoDeVentaV2
         string password2; string razonSocial;
         string email; string telefono;
 
-        int user;
-        string buscar;
+        int user,pass,agregado;
+        string buscar,mensaje,insertar;
         DataTable dt;
         DataRow row;
 
@@ -43,11 +43,21 @@ namespace PuntoDeVentaV2
             user = 0;
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            buscar = @"SELECT emp.ID_Empresa AS 'Identificador de la Empresa', emp.Usuario AS 'Usuario', emp.NombreCompleto AS 'Nombre Comercial', emp.RFC AS 'R.F.C.' 
-                       FROM Usuarios u
-                       LEFT JOIN Empresas emp
-                       ON u.ID = emp.ID_Usuarios
-                       WHERE emp.Usuario LIKE '" + usuario + "' AND emp.ID_Usuarios = '" + idUsuario + "'";
+            buscar = @"SELECT 
+                            emp.ID_Empresa AS 'Identificador de la Empresa', 
+                            emp.Usuario AS 'Usuario', 
+                            emp.NombreCompleto AS 'Nombre Comercial', 
+                            emp.RFC AS 'R.F.C.' 
+                       FROM 
+                            Usuarios u
+                       LEFT JOIN 
+                            Empresas emp
+                       ON 
+                            u.ID = emp.ID_Usuarios
+                       WHERE 
+                            emp.Usuario LIKE '" + usuario 
+                  + "' AND '"
+                         +"'emp.ID_Usuarios = '" + idUsuario + "'";
 
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
@@ -67,6 +77,53 @@ namespace PuntoDeVentaV2
             dt.Clear();
         }
 
+        public void verificarPassWord()
+        {
+            // iniciamos la variable que es para comprobar
+            // si esta bien o no el password
+            pass = 0;
+            // si el TxtPassword1 no esta en blanco
+            if (txtPassword1.Text != "")
+            {
+                // si el TxtPassword2 no esta en blanco
+                if (txtPassword2.Text != "")
+                {
+                    // si los dos campos de password son iguales
+                    if (txtPassword1.Text == txtPassword2.Text)
+                    {
+                        // si todo esta lleno los campos
+                        // y los dos campos coinciden
+                        // se le da el valor de 0 a la variable
+                        pass = 0;
+                    }
+                    // si no son iguales los dos campos de password
+                    else
+                    {
+                        // la variable le damos el valor de 1
+                        pass = 1;
+                        // enviamos un mensaje segun el error
+                        mensaje = "Los campos de Contraseña no coinciden";
+                    }
+                }
+                // si esta en blanco el TxtPassword2
+                else
+                {
+                    // la variable le damos el valor de 1
+                    pass = 1;
+                    // enviamos un mensaje segun el error
+                    mensaje = "favor de no dejar vacio el campo de Confirma Contraseña";
+                }
+            }
+            // si esta en blanco el TxtPassword1
+            else
+            {
+                // la variable le damos el valor de 1
+                pass = 1;
+                // enviamos un mensaje segun el error
+                mensaje = "favor de no dejar vacio el campo de Contraseña";
+            }
+        }
+
         public NvaEmpresa()
         {
             InitializeComponent();
@@ -82,16 +139,37 @@ namespace PuntoDeVentaV2
             email = txtEmail.Text;
             razonSocial = txtRazonSocial.Text;
             telefono = txtTelefono.Text;
-
+            
+            // mandamos llamar la funcion de verificarUsuario()
             verificaUsuario();
 
+            // si la variable user es igual a 1 tenemos algun error
+            // y arrojaria un mensaje de error
             if (user == 1)
             {
                 MessageBox.Show("El usuario ya existe \nfavor ingresar nuevo Nombre de usuario", "Error en los datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            // si la variable user es igual a 0 todo esta bien
+            // y arrojaria un mensaje de informacion
             if (user == 0)
             {
                 MessageBox.Show("El usuario esta disponible", "Aceptado los Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
+            // mandamos llamar la funsion de verficarPassWord()
+            verificarPassWord();
+
+            // si la variable user es igual a 1 tenemos algun error
+            // y arrojaria un mensaje de error 
+            if (pass == 1)
+            {
+                MessageBox.Show(mensaje + "\nFavor de Verificar Gracias...", "Algo salio Mal...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            // si la variable user es igual a 0 todo esta bien
+            // y arrojaria un mensaje de informacion
+            if (pass == 0)
+            {
+                MessageBox.Show("Los campos coinciden Gracias...", "Contraseñas Iguales", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

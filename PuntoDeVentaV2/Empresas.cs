@@ -116,36 +116,36 @@ namespace PuntoDeVentaV2
         public void consulta()
         {
             index = 0;
+            DGVListaEmpresas.Rows.Clear();
             buscar = "SELECT * FROM Usuarios WHERE Usuario = '" + userName + "' AND Password = '" + passwordUser + "'";
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
+            // almacenamos el resultado de la consulta en el dt
+            if (dt.Rows.Count > 0)
+            {
+                row = dt.Rows[0];
+            }
             // almacenamos el ID del usuario que inicio sesion
             // en el sistema para poder hacer la relacion de
             // el con las empresas dadas de alta con su usuario
             id = dt.Rows[index]["ID"].ToString();
             // llamamos la funcion data()
             data();
-            // almacenamos el resultado de la consulta en el dt
-            if (dt.Rows.Count > 0)
-            {
-                row = dt.Rows[0];
-            }
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion y tambien saber
             // que empresas son las que ha registrado este usuario
-            buscarempresa = @"SELECT 
-                                emp.Usuario AS 'Usuario', 
-                                emp.NombreCompleto AS 'Nombre Comercial', 
-                                emp.RFC AS 'R.F.C.' 
-                            FROM 
-                                Usuarios u
-                            LEFT JOIN 
-                                Empresas emp
-                            ON 
-                                u.ID = emp.ID_Usuarios
-                            WHERE 
-                                u.ID = '" + id + "'";
+            buscarempresa = @"  SELECT 
+	                                emp.ID_Empresa AS 'Identificador de la Empresa',
+	                                emp.Usuario AS 'Usuario', 
+	                                emp.NombreCompleto AS 'Nombre Comercial', 
+	                                emp.RFC AS 'R.F.C.' 
+                                FROM 
+	                                Usuarios u 
+                                LEFT JOIN 
+	                                Empresas emp 
+                                ON 
+	                                u.ID LIKE emp.ID_Usuarios AND u.ID = '" + id + "'";
             // Llenamos el contenido del DataGridView
             // con el resultado de la consulta
             DGVListaEmpresas.DataSource = cn.GetEmpresas(buscarempresa);

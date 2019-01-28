@@ -117,14 +117,22 @@ namespace PuntoDeVentaV2
             // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
             {
-                // usamos temporalmente el objeto File
-                using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                if (System.IO.File.Exists(logoTipo))
                 {
-                    // asignamos la imagen al PictureBox
-                    pictureBox1.Image = Image.FromStream(File);
-                    // destruimos o desactivamos el bjeto File
-                    File.Dispose();
+                    // usamos temporalmente el objeto File
+                    using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                    {
+                        // asignamos la imagen al PictureBox
+                        pictureBox1.Image = Image.FromStream(File);
+                        // destruimos o desactivamos el bjeto File
+                        File.Dispose();
+                    }
                 }
+                else
+                {
+                    pictureBox1.Image = null;
+                }
+                    
             }
 
             /********************************
