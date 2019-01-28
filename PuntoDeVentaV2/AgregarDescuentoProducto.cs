@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
         //1 = por cliente
         //2 = por mayoreo
         int tipoDescuento = 1;
+        double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
         public AgregarDescuentoProducto()
         {
@@ -73,6 +74,7 @@ namespace PuntoDeVentaV2
                 tb1.TextAlign = HorizontalAlignment.Center;
                 tb1.Enabled = false;
                 tb1.BackColor = Color.White;
+                tb1.Text = precioProducto.ToString("0.00");
                 
 
                 Label lb2 = new Label();
@@ -90,6 +92,8 @@ namespace PuntoDeVentaV2
                 tb2.Height = 20;
                 tb2.Margin = new Padding(270, 5, 0, 0);
                 tb2.TextAlign = HorizontalAlignment.Center;
+                tb2.KeyPress += new KeyPressEventHandler(soloDecimales_KeyPress);
+                tb2.KeyUp += new KeyEventHandler(calculoDescuento_KeyUp);
 
                 Label lb3 = new Label();
                 lb3.Text = "Precio con Descuento";
@@ -150,14 +154,103 @@ namespace PuntoDeVentaV2
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
+            txtTituloDescuento.Text = "Descuento por Cliente";
             tipoDescuento = 1;
             CargarFormularios(tipoDescuento);
         }
 
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
         {
+            txtTituloDescuento.Text = "Descuento por Mayoreo";
             tipoDescuento = 2;
             CargarFormularios(tipoDescuento);
+        }
+
+        private void soloDecimales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+        }
+
+        //Este evento es principalmente para los descuentos por Cliente
+        private void calculoDescuento_KeyUp(object sender, KeyEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Name == "txtPorcentaje")
+            {
+                TextBox tbDescuento = (TextBox)this.Controls.Find("txtDescuento", true).FirstOrDefault();
+                TextBox tbPrecioDescuento = (TextBox)this.Controls.Find("txtPrecioDescuento", true).FirstOrDefault();
+
+                var valorPorc = tb.Text;
+                valorPorc = procesarPorcentaje(valorPorc);
+
+                double porcentaje = Convert.ToDouble(valorPorc);
+                
+                if (porcentaje == 0) { tb.Text = ""; }
+
+                double descuento = precioProducto * porcentaje;
+
+                tbDescuento.Text = descuento.ToString("0.00");
+                tbPrecioDescuento.Text = (precioProducto - descuento).ToString("0.00");
+
+            }
+        }
+
+        private string procesarPorcentaje(string porcentaje)
+        {
+            int longitud = porcentaje.Length;
+ 
+            if (longitud > 1)
+            {
+                var porc = float.Parse(porcentaje);
+
+                //Verifica si la cantidad ingresada es el 100 porciento o mas
+                if (porc >= 100)
+                {
+                    return "0.00";
+                }
+
+                if (porcentaje.Contains('.'))
+                {
+                    string[] tmp = porcentaje.Split('.');
+                    porcentaje = porcentaje.Replace(".", "");
+
+                    if (tmp[0].Length > 1)
+                    {
+                        porcentaje = "0." + porcentaje;
+                    }
+                    else
+                    {
+                        porcentaje = "0.0" + porcentaje;
+                    }
+                }
+                else
+                {
+                    porcentaje = "0." + porcentaje;
+                }
+            }
+            else if (longitud == 1)
+            {
+                porcentaje = "0.0" + porcentaje;
+            }
+            else
+            {
+                porcentaje = "0.00";
+            }
+
+            return porcentaje;
         }
     }
 }
