@@ -15,7 +15,9 @@ namespace PuntoDeVentaV2
         //1 = por cliente
         //2 = por mayoreo
         int tipoDescuento = 1;
+        int idGenerado = 2;
         double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+        string rangoInicial = null;
 
         public AgregarDescuentoProducto()
         {
@@ -53,9 +55,9 @@ namespace PuntoDeVentaV2
             if (tipo == 1)
             {
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
-                panelHijo.Name = "panelGeneradoCliente1";
-                panelHijo.Width = 745;
-                panelHijo.Height = 290;
+                panelHijo.Name = "panelGeneradoCliente";
+                panelHijo.Width = 725;
+                panelHijo.Height = 250;
 
                 Label lb1 = new Label();
                 lb1.Text = "Precio de producto";
@@ -92,8 +94,8 @@ namespace PuntoDeVentaV2
                 tb2.Height = 20;
                 tb2.Margin = new Padding(270, 5, 0, 0);
                 tb2.TextAlign = HorizontalAlignment.Center;
-                tb2.KeyPress += new KeyPressEventHandler(soloDecimales_KeyPress);
-                tb2.KeyUp += new KeyEventHandler(calculoDescuento_KeyUp);
+                tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
+                tb2.KeyUp += new KeyEventHandler(calculoDescuento);
 
                 Label lb3 = new Label();
                 lb3.Text = "Precio con Descuento";
@@ -145,10 +147,92 @@ namespace PuntoDeVentaV2
                 panelContenedor.FlowDirection = FlowDirection.TopDown;
             }
 
-            //Descuento por mayoreo
+            //Descuento por mayoreo, campos estaticos
             if (tipo == 2)
             {
+                FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
+                panelHijo1.Name = "panelGeneradoMayoreo1";
+                panelHijo1.Width = 725;
+                panelHijo1.Height = 50;
 
+                Label lb1 = new Label();
+                lb1.Text = "Rango de Productos";
+                lb1.AutoSize = false;
+                lb1.Width = 220;
+                lb1.Height = 20;
+                lb1.Margin = new Padding(150, 20, 0, 0);
+                lb1.Font = new Font("Century Gothic", 11);
+                lb1.TextAlign = ContentAlignment.MiddleCenter;
+
+                Label lb2 = new Label();
+                lb2.Text = "Precios";
+                lb2.AutoSize = false;
+                lb2.Width = 220;
+                lb2.Height = 20;
+                lb2.Margin = new Padding(30, 20, 0, 0);
+                lb2.Font = new Font("Century Gothic", 11);
+                lb2.TextAlign = ContentAlignment.MiddleCenter;
+
+                FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
+                panelHijo2.Name = "panelGeneradoMayoreo2";
+                panelHijo2.Width = 725;
+                panelHijo2.Height = 25;
+
+                TextBox tb1 = new TextBox();
+                tb1.Name = "tbMayoreo1_1";
+                tb1.Width = 100;
+                tb1.Height = 20;
+                tb1.Margin = new Padding(120, 5, 0, 0);
+                tb1.TextAlign = HorizontalAlignment.Center;
+                tb1.Text = "1";
+                tb1.ReadOnly = true;
+                tb1.BackColor = Color.White;
+
+                TextBox tb2 = new TextBox();
+                tb2.Name = "tbMayoreo1_2";
+                tb2.Width = 100;
+                tb2.Height = 20;
+                tb2.Margin = new Padding(50, 5, 0, 0);
+                tb2.TextAlign = HorizontalAlignment.Center;
+                tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+
+                TextBox tb3 = new TextBox();
+                tb3.Name = "tbMayoreo1_3";
+                tb3.Width = 100;
+                tb3.Height = 20;
+                tb3.Margin = new Padding(95, 5, 0, 0);
+                tb3.TextAlign = HorizontalAlignment.Center;
+                tb3.Text = precioProducto.ToString("0.00");
+                tb3.ReadOnly = true;
+                tb3.BackColor = Color.White;
+
+                FlowLayoutPanel panelHijo3 = new FlowLayoutPanel();
+                panelHijo3.Name = "panelGeneradoMayoreo3";
+                panelHijo3.Width = 725;
+                panelHijo3.Height = 25;
+
+                CheckBox cb1 = new CheckBox();
+                cb1.Name = "checkMayoreo1";
+                cb1.Text = "Las primeras siempre costarán " + precioProducto.ToString("0.00");
+                cb1.Margin = new Padding(120, 5, 0, 0);
+                cb1.TextAlign = ContentAlignment.MiddleLeft;
+                cb1.Width = 400;
+
+                panelHijo1.Controls.Add(lb1);
+                panelHijo1.Controls.Add(lb2);
+                panelHijo2.Controls.Add(tb1);
+                panelHijo2.Controls.Add(tb2);
+                panelHijo2.Controls.Add(tb3);
+                panelHijo3.Controls.Add(cb1);
+
+                panelHijo1.FlowDirection = FlowDirection.LeftToRight;
+                panelHijo2.FlowDirection = FlowDirection.LeftToRight;
+                panelHijo3.FlowDirection = FlowDirection.LeftToRight;
+
+                panelContenedor.Controls.Add(panelHijo1);
+                panelContenedor.Controls.Add(panelHijo2);
+                panelContenedor.Controls.Add(panelHijo3);
+                panelContenedor.FlowDirection = FlowDirection.TopDown;
             }
         }
 
@@ -166,7 +250,119 @@ namespace PuntoDeVentaV2
             CargarFormularios(tipoDescuento);
         }
 
-        private void soloDecimales_KeyPress(object sender, KeyPressEventArgs e)
+
+        private void rangoProductosTB(object sender, KeyEventArgs e)
+        {
+
+            //Se hace para obtener el numero de linea al que pertenece el TextBox
+            TextBox tb = sender as TextBox;
+            string nombre = tb.Name.Replace("tbMayoreo", "");
+            string[] tmp = nombre.Split('_');
+
+            //Hace referencia al segundo TextBox
+            TextBox tb1 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_2", true).FirstOrDefault();
+            //Hace referencia al tercer TextBox
+            TextBox tb2 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_3", true).FirstOrDefault();
+            //Se cambia el mensaje del CheckBox
+            CheckBox cb = (CheckBox)this.Controls.Find("checkMayoreo" + tmp[0], true).FirstOrDefault();
+            
+
+            if (tmp[0] == "1")
+            {
+                cb.Text = "Las primeras " + tb1.Text + " siempre costarán " + precioProducto.ToString("0.00");
+            }
+            else
+            {
+                cb.Text = "De entre " + (Convert.ToInt32(rangoInicial) + 1) + " a " + tb1.Text + " siempre costarán " + tb2.Text;
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+
+                rangoInicial = tb.Text;
+
+                generarLineaMayoreo();
+            }
+        }
+
+
+        private void generarLineaMayoreo()
+        {
+            FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
+            panelHijo1.Name = "panelGeneradoMayoreo" + idGenerado;
+            panelHijo1.Width = 725;
+            panelHijo1.Height = 25;
+
+            TextBox tb1 = new TextBox();
+            tb1.Name = "tbMayoreo" + idGenerado + "_1";
+            tb1.Width = 100;
+            tb1.Height = 20;
+            tb1.Margin = new Padding(120, 5, 0, 0);
+            tb1.TextAlign = HorizontalAlignment.Center;
+            tb1.Text = (Convert.ToInt32(rangoInicial) + 1).ToString();
+            tb1.ReadOnly = true;
+            tb1.BackColor = Color.White;
+
+            TextBox tb2 = new TextBox();
+            tb2.Name = "tbMayoreo"+ idGenerado +"_2";
+            tb2.Width = 100;
+            tb2.Height = 20;
+            tb2.Margin = new Padding(50, 5, 0, 0);
+            tb2.TextAlign = HorizontalAlignment.Center;
+            tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+
+            TextBox tb3 = new TextBox();
+            tb3.Name = "tbMayoreo"+ idGenerado +"_3";
+            tb3.Width = 100;
+            tb3.Height = 20;
+            tb3.Margin = new Padding(95, 5, 0, 0);
+            tb3.TextAlign = HorizontalAlignment.Center;
+            tb3.KeyUp += new KeyEventHandler(rangoProductosTB);
+
+            Button bt = new Button();
+            bt.Cursor = Cursors.Hand;
+            bt.Text = "X";
+            bt.Name = "btnGeneradoR" + idGenerado;
+            bt.Width = 20;
+            bt.Height = 20;
+            bt.BackColor = ColorTranslator.FromHtml("#C00000");
+            bt.ForeColor = ColorTranslator.FromHtml("white");
+            bt.FlatStyle = FlatStyle.Flat;
+            //bt.Click += new EventHandler(EliminarImpuesto);
+            bt.Margin = new Padding(5, 5, 0, 0);
+
+
+            FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
+            panelHijo2.Name = "panelGeneradoMayoreo3";
+            panelHijo2.Width = 725;
+            panelHijo2.Height = 25;
+
+            CheckBox cb1 = new CheckBox();
+            cb1.Name = "checkMayoreo" + idGenerado;
+            cb1.Margin = new Padding(120, 5, 0, 0);
+            cb1.TextAlign = ContentAlignment.MiddleLeft;
+            cb1.Width = 400;
+
+
+            panelHijo1.Controls.Add(tb1);
+            panelHijo1.Controls.Add(tb2);
+            panelHijo1.Controls.Add(tb3);
+            panelHijo1.Controls.Add(bt);
+            panelHijo2.Controls.Add(cb1);
+
+            panelHijo1.FlowDirection = FlowDirection.LeftToRight;
+            panelHijo2.FlowDirection = FlowDirection.LeftToRight;
+
+            panelContenedor.Controls.Add(panelHijo1);
+            panelContenedor.Controls.Add(panelHijo2);
+            panelContenedor.FlowDirection = FlowDirection.TopDown;
+
+            tb2.Focus();
+
+            idGenerado++;
+        }
+
+        private void soloDecimales(object sender, KeyPressEventArgs e)
         {
             //permite 0-9, eliminar y decimal
             if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
@@ -184,7 +380,7 @@ namespace PuntoDeVentaV2
         }
 
         //Este evento es principalmente para los descuentos por Cliente
-        private void calculoDescuento_KeyUp(object sender, KeyEventArgs e)
+        private void calculoDescuento(object sender, KeyEventArgs e)
         {
             TextBox tb = sender as TextBox;
 
