@@ -12,11 +12,13 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarDescuentoProducto : Form
     {
+        double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
         //1 = por cliente
         //2 = por mayoreo
         int tipoDescuento = 1;
+        //Para el ID de los controles generados dinamicamente
         int idGenerado = 2;
-        double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+        //Guarda la cantidad del rango inicial del descuento por mayoreo
         string rangoInicial = null;
 
         public AgregarDescuentoProducto()
@@ -278,7 +280,6 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode == Keys.Enter)
             {
-
                 rangoInicial = tb.Text;
 
                 generarLineaMayoreo();

@@ -43,6 +43,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fkosoft.FontAwesome4, Version=1.1.0.15, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fkosoft.FontAwesome.1.1.0.15\lib\net40\Fkosoft.FontAwesome4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
