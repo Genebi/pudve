@@ -93,7 +93,7 @@ namespace PuntoDeVentaV2
 
                 // aqui se aplica los margenes en el icono del boton
                 this.DGVListaEmpresas.Rows[e.RowIndex].Height = icoAtomico.Height + 8;
-                this.DGVListaEmpresas.Columns[e.ColumnIndex].Width = icoAtomico.Width + 8;
+                this.DGVListaEmpresas.Columns[e.ColumnIndex].Width = icoAtomico.Width + 38;
 
                 e.Handled = true;
             }
@@ -145,7 +145,7 @@ namespace PuntoDeVentaV2
         public void consulta()
         {
             index = 0;
-            buscar = "SELECT * FROM Usuarios WHERE Usuario = '" + userName + "' AND Password = '" + passwordUser + "'";
+            buscar = $"SELECT * FROM Usuarios WHERE Usuario = '{userName}' AND Password = '{passwordUser}'";
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
@@ -163,17 +163,7 @@ namespace PuntoDeVentaV2
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion y tambien saber
             // que empresas son las que ha registrado este usuario
-            buscarempresa = @"SELECT 
-                                emp.Usuario AS 'Usuario', 
-                                emp.NombreCompleto AS 'Nombre Comercial', 
-                                emp.RFC AS 'R.F.C.'
-                            FROM 
-                                Usuarios u 
-                            LEFT JOIN
-                                Empresas emp 
-                            ON 
-                                u.ID = emp.ID_Usuarios 
-                            WHERE u.ID = " + id ;
+            buscarempresa = $"SELECT emp.Usuario AS 'Usuario', emp.NombreCompleto AS 'Nombre Comercial', emp.RFC AS 'R.F.C.' FROM Usuarios u LEFT JOIN Empresas emp ON u.ID = emp.ID_Usuarios WHERE u.ID = {id}";
             // Llenamos el contenido del DataGridView
             // con el resultado de la consulta
             DGVListaEmpresas.DataSource = cn.GetEmpresas(buscarempresa);
