@@ -213,7 +213,9 @@ namespace PuntoDeVentaV2
                 cb1.Text = "Las primeras siempre costarán " + precioProducto.ToString("0.00");
                 cb1.Margin = new Padding(120, 5, 0, 0);
                 cb1.TextAlign = ContentAlignment.MiddleLeft;
+                cb1.CheckedChanged += seleccionCheckBoxes;
                 cb1.Width = 400;
+                cb1.Tag = 1;
 
                 panelHijo1.Controls.Add(lb1);
                 panelHijo1.Controls.Add(lb2);
@@ -231,6 +233,11 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(panelHijo2);
                 panelContenedor.FlowDirection = FlowDirection.TopDown;
             }
+        }
+
+        private void Cb1_CheckedChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
@@ -286,7 +293,7 @@ namespace PuntoDeVentaV2
                     bt.Enabled = false;
                 }
 
-                rangoInicial = tb.Text;
+                rangoInicial = tb1.Text;
 
                 generarLineaMayoreo();
             }
@@ -342,7 +349,9 @@ namespace PuntoDeVentaV2
             cb1.Name = $"checkMayoreo{idGenerado}";
             cb1.Margin = new Padding(120, 5, 0, 0);
             cb1.TextAlign = ContentAlignment.MiddleLeft;
+            cb1.CheckedChanged += seleccionCheckBoxes;
             cb1.Width = 400;
+            cb1.Tag = idGenerado;
 
 
             panelHijo.Controls.Add(tb1);
@@ -421,11 +430,11 @@ namespace PuntoDeVentaV2
 
                     if (idGenerado > 2)
                     {
-                        Button btTmp = (Button)this.Controls.Find($"btnEliminarD{idTmp}", true).FirstOrDefault();
+                        Button btTmp   = (Button)this.Controls.Find($"btnEliminarD{idTmp}", true).FirstOrDefault();
                         TextBox tbTmp1 = (TextBox)this.Controls.Find($"tbMayoreo{idTmp}_2", true).FirstOrDefault();
                         TextBox tbTmp2 = (TextBox)this.Controls.Find($"tbMayoreo{idTmp}_3", true).FirstOrDefault();
 
-                        btTmp.Enabled = true;
+                        btTmp.Enabled  = true;
                         tbTmp1.Enabled = true;
                         tbTmp2.Enabled = true;
                     }
@@ -433,6 +442,32 @@ namespace PuntoDeVentaV2
                     {
                         TextBox tbTmp1 = (TextBox)this.Controls.Find($"tbMayoreo{idTmp}_2", true).FirstOrDefault();
                         tbTmp1.Enabled = true;
+                    }
+                }
+            }
+        }
+
+
+        private void seleccionCheckBoxes(object sender, EventArgs e)
+        {
+            CheckBox cb = sender as CheckBox;
+
+            var id = Convert.ToInt32(cb.Name.Replace("checkMayoreo", ""));
+
+            foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+            {
+                foreach (CheckBox item in panel.Controls.OfType<CheckBox>())
+                {
+                    if (Convert.ToInt16(item.Tag) <  id)
+                    {
+                        if (cb.Checked)
+                        {
+                            item.Checked = true;
+                        }
+                        else
+                        {
+                            item.Checked = false;
+                        }
                     }
                 }
             }
