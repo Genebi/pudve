@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Empresas));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.LblNombreUsr = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -37,6 +39,7 @@
             this.LblRFC = new System.Windows.Forms.Label();
             this.DGVListaEmpresas = new System.Windows.Forms.DataGridView();
             this.btnNvaEmpresa = new System.Windows.Forms.Button();
+            this.btnRefrescar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaEmpresas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -110,10 +113,38 @@
             this.DGVListaEmpresas.AllowUserToResizeColumns = false;
             this.DGVListaEmpresas.AllowUserToResizeRows = false;
             this.DGVListaEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DGVListaEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVListaEmpresas.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DGVListaEmpresas.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.DGVListaEmpresas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Century Schoolbook", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.MenuBar;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVListaEmpresas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.DGVListaEmpresas.ColumnHeadersHeight = 30;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.SteelBlue;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Century Gothic", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.InactiveCaption;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DGVListaEmpresas.DefaultCellStyle = dataGridViewCellStyle8;
+            this.DGVListaEmpresas.EnableHeadersVisualStyles = false;
             this.DGVListaEmpresas.Location = new System.Drawing.Point(19, 313);
             this.DGVListaEmpresas.Name = "DGVListaEmpresas";
             this.DGVListaEmpresas.ReadOnly = true;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Century Schoolbook", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVListaEmpresas.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.DGVListaEmpresas.RowTemplate.Height = 24;
             this.DGVListaEmpresas.Size = new System.Drawing.Size(1382, 321);
             this.DGVListaEmpresas.TabIndex = 6;
@@ -121,8 +152,8 @@
             // 
             // btnNvaEmpresa
             // 
+            this.btnNvaEmpresa.BackColor = System.Drawing.Color.Green;
             this.btnNvaEmpresa.Font = new System.Drawing.Font("Century Gothic", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNvaEmpresa.Image = ((System.Drawing.Image)(resources.GetObject("btnNvaEmpresa.Image")));
             this.btnNvaEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNvaEmpresa.Location = new System.Drawing.Point(1171, 668);
             this.btnNvaEmpresa.Name = "btnNvaEmpresa";
@@ -130,14 +161,30 @@
             this.btnNvaEmpresa.TabIndex = 7;
             this.btnNvaEmpresa.Text = "Empresa";
             this.btnNvaEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNvaEmpresa.UseVisualStyleBackColor = true;
+            this.btnNvaEmpresa.UseVisualStyleBackColor = false;
             this.btnNvaEmpresa.Click += new System.EventHandler(this.btnNvaEmpresa_Click);
+            // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btnRefrescar.Font = new System.Drawing.Font("Century Gothic", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnRefrescar.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnRefrescar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefrescar.Location = new System.Drawing.Point(19, 668);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(206, 58);
+            this.btnRefrescar.TabIndex = 8;
+            this.btnRefrescar.Text = "Refrescar";
+            this.btnRefrescar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRefrescar.UseVisualStyleBackColor = false;
+            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
             // 
             // Empresas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1431, 762);
+            this.Controls.Add(this.btnRefrescar);
             this.Controls.Add(this.btnNvaEmpresa);
             this.Controls.Add(this.DGVListaEmpresas);
             this.Controls.Add(this.LblRFC);
@@ -165,5 +212,6 @@
         private System.Windows.Forms.Label LblRFC;
         private System.Windows.Forms.DataGridView DGVListaEmpresas;
         private System.Windows.Forms.Button btnNvaEmpresa;
+        private System.Windows.Forms.Button btnRefrescar;
     }
 }

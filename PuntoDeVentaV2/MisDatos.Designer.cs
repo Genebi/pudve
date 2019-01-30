@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MisDatos));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LblRegimenActual = new System.Windows.Forms.Label();
@@ -404,7 +403,6 @@
             this.btnActualizarDatos.BackColor = System.Drawing.Color.Green;
             this.btnActualizarDatos.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarDatos.ForeColor = System.Drawing.Color.SeaShell;
-            this.btnActualizarDatos.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizarDatos.Image")));
             this.btnActualizarDatos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnActualizarDatos.Location = new System.Drawing.Point(609, 701);
             this.btnActualizarDatos.Name = "btnActualizarDatos";
@@ -429,7 +427,6 @@
             // btnBorrarImg
             // 
             this.btnBorrarImg.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBorrarImg.Image = ((System.Drawing.Image)(resources.GetObject("btnBorrarImg.Image")));
             this.btnBorrarImg.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBorrarImg.Location = new System.Drawing.Point(260, 501);
             this.btnBorrarImg.Name = "btnBorrarImg";
@@ -451,7 +448,6 @@
             // 
             this.btnSubirArchivo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnSubirArchivo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubirArchivo.Image = ((System.Drawing.Image)(resources.GetObject("btnSubirArchivo.Image")));
             this.btnSubirArchivo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSubirArchivo.Location = new System.Drawing.Point(29, 501);
             this.btnSubirArchivo.Name = "btnSubirArchivo";

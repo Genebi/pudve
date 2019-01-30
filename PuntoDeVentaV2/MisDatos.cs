@@ -14,6 +14,12 @@ namespace PuntoDeVentaV2
 {
     public partial class MisDatos : Form
     {
+        // variable de text para poder dirigirnos a la carpeta principal para
+        // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
+        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+        FileStream IconoBtnActualizarDatos, IconoBtnSubirArchivo, IconoBtnBorrarImg;
+
         // creamos un objeto para poder usar las  
         // consultas que estan en esta clase
         Conexion cn = new Conexion();
@@ -315,6 +321,21 @@ namespace PuntoDeVentaV2
             passwordUser = FormPrincipal.userPass;
             // realizamos la carga de los datos del usuario
             consulta();
+            // usamos la variable File para abrir el archivo de imagen, poder leerlo y agregarlo al boton
+            // despues de agregado se libera la imagen para su posterior manipulacion si asi fuera
+            using (IconoBtnActualizarDatos = new FileStream(rutaDirectorio + @"\icon\black\save.png", FileMode.Open, FileAccess.Read))
+            {
+                // Asignamos la imagen al BtnRegistrar
+                btnActualizarDatos.Image = Image.FromStream(IconoBtnActualizarDatos);
+            }
+            using (IconoBtnSubirArchivo = new FileStream(rutaDirectorio + @"\icon\black\cloud-upload.png", FileMode.Open, FileAccess.Read))
+            {
+                btnSubirArchivo.Image = Image.FromStream(IconoBtnSubirArchivo);
+            }
+            using (IconoBtnBorrarImg = new FileStream(rutaDirectorio + @"\icon\black\close.png", FileMode.Open, FileAccess.Read))
+            {
+                btnBorrarImg.Image = Image.FromStream(IconoBtnBorrarImg);
+            }
         }
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)

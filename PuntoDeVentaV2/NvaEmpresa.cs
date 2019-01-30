@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,10 +18,9 @@ namespace PuntoDeVentaV2
         //******************* TODO **************************
         //
 
-        /****************************************************
-        *   Verificar la contraseña que sean iguales        *
-        *   hacer el Insert en la base de datos             * 
-        *****************************************************/
+        // variable de text para poder dirigirnos a la carpeta principal para
+        // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
+        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
         // hacemos la conexion para la DB
         Conexion cn = new Conexion();
@@ -37,6 +37,8 @@ namespace PuntoDeVentaV2
         string buscar,mensaje,insertar;
         DataTable dt;
         DataRow row;
+
+        FileStream File;
 
         public void verificaUsuario()
         {
@@ -74,13 +76,28 @@ namespace PuntoDeVentaV2
             dt.Clear();
         }
 
+        // metodo para poder agregar la nueva empresa
         public void registrarEmpresa()
         {
+            // variable para poder saber si se agrego o no
             agregado = 0;
-
-            insertar = @"INSERT INTO Empresas(Usuario, Password, RazonSocial, Telefono, Email, ID_Usuarios) 
-                                       VALUES('"+usuario+"', '"+password1+"', '"+razonSocial+"', '"+telefono+"', '"+email+"', '"+idUsuario+"')";
-
+            // string para hacer el Query a la consulta de SQLite3
+            insertar = @"INSERT INTO 
+                            Empresas(
+                                Usuario, 
+                                Password, 
+                                RazonSocial, 
+                                Telefono, 
+                                Email, 
+                                ID_Usuarios)
+                            VALUES('"
+                                + usuario + "', '"
+                                + password1 + "', '"
+                                + razonSocial + "', '"
+                                + telefono + "', '"
+                                + email + "', '"
+                                + idUsuario + "')";
+            // segun el resultado del Query se le asigna al agregado
             agregado = cn.EjecutarConsulta(insertar);
         }
 
@@ -156,12 +173,6 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("El usuario ya existe \nfavor ingresar nuevo Nombre de usuario", "Error en los datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            // si la variable user es igual a 0 todo esta bien
-            // y arrojaria un mensaje de informacion
-            if (user == 0)
-            {
-                MessageBox.Show("El usuario esta disponible", "Aceptado los Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
             
             // mandamos llamar la funsion de verficarPassWord()
             verificarPassWord();
@@ -171,12 +182,6 @@ namespace PuntoDeVentaV2
             if (pass == 1)
             {
                 MessageBox.Show(mensaje + "\nFavor de Verificar Gracias...", "Algo salio Mal...", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            // si la variable user es igual a 0 todo esta bien
-            // y arrojaria un mensaje de informacion
-            if (pass == 0)
-            {
-                MessageBox.Show("Los campos coinciden Gracias...", "Contraseñas Iguales", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             if ((user == 0) && (pass == 0))
@@ -246,6 +251,13 @@ namespace PuntoDeVentaV2
         {
             // tomamos el valor de la ID del Usuario principal
             idUsuario = FormPrincipal.userID.ToString();
+            // usamos la variable File para abrir el archivo de imagen, poder leerlo y agregarlo al boton
+            // despues de agregado se libera la imagen para su posterior manipulacion si asi fuera
+            using (File = new FileStream(rutaDirectorio + @"\icon\black\save.png", FileMode.Open, FileAccess.Read))
+            {
+                // Asignamos la imagen al BtnRegistrar
+                btnRegistrar.Image = Image.FromStream(File);
+            }
         }
     }
 }

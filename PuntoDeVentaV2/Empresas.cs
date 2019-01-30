@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,12 @@ namespace PuntoDeVentaV2
 {
     public partial class Empresas : Form
     {
+        // variable de text para poder dirigirnos a la carpeta principal para
+        // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
+        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+        FileStream IconoBtnAddEmpresa, IconoBtnRefrescar;
+
         // creamos un objeto para poder usar las  
         // consultas que estan en esta clase
         Conexion cn = new Conexion();
@@ -55,6 +62,18 @@ namespace PuntoDeVentaV2
 
             // agregamos el boton en la ultima columna
             DGVListaEmpresas.Columns.Add(btnClm);
+
+            // usamos la variable File para abrir el archivo de imagen, poder leerlo y agregarlo al boton
+            // despues de agregado se libera la imagen para su posterior manipulacion si asi fuera
+            using (IconoBtnAddEmpresa = new FileStream(rutaDirectorio + @"\icon\black\plus-square.png", FileMode.Open, FileAccess.Read))
+            {
+                // Asignamos la imagen al BtnRegistrar
+                btnNvaEmpresa.Image = Image.FromStream(IconoBtnAddEmpresa);
+            }
+            using (IconoBtnRefrescar = new FileStream(rutaDirectorio + @"\icon\black\refresh.png", FileMode.Open, FileAccess.Read))
+            {
+                btnRefrescar.Image = Image.FromStream(IconoBtnRefrescar);
+            }
         }
 
         private void DGVListaEmpresas_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -68,13 +87,13 @@ namespace PuntoDeVentaV2
                 DataGridViewButtonCell celBoton = this.DGVListaEmpresas.Rows[e.RowIndex].Cells["Entrar"] as DataGridViewButtonCell;
 
                 // aqui tomamos un archivo .ico y lo insertamos en el boton
-                //Icon icoAtomico = new Icon(Environment.CurrentDirectory + @"\" + "iconfinder_Import.ico");
+                Icon icoAtomico = new Icon(rutaDirectorio + @"\icon\black\iconfinder_Import.ico");
                 // aqui le configuramos los margenes 
-                //e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
+                e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
 
                 // aqui se aplica los margenes en el icono del boton
-                //this.DGVListaEmpresas.Rows[e.RowIndex].Height = icoAtomico.Height + 8;
-                //this.DGVListaEmpresas.Columns[e.ColumnIndex].Width = icoAtomico.Width + 8;
+                this.DGVListaEmpresas.Rows[e.RowIndex].Height = icoAtomico.Height + 8;
+                this.DGVListaEmpresas.Columns[e.ColumnIndex].Width = icoAtomico.Width + 8;
 
                 e.Handled = true;
             }
@@ -84,6 +103,16 @@ namespace PuntoDeVentaV2
         {
             NvaEmpresa nvaEmp = new NvaEmpresa();
             nvaEmp.ShowDialog();
+        }
+
+        private void btnRefrescar_Click(object sender, EventArgs e)
+        {
+            if (DGVListaEmpresas.DataSource is DataTable)
+            {
+                ((DataTable)DGVListaEmpresas.DataSource).Rows.Clear();
+                DGVListaEmpresas.Refresh();
+            }
+            consulta();
         }
 
         // funcion para poder cargar los datos segun corresponda en el TxtBox que corresponda
@@ -116,7 +145,6 @@ namespace PuntoDeVentaV2
         public void consulta()
         {
             index = 0;
-            DGVListaEmpresas.Rows.Clear();
             buscar = "SELECT * FROM Usuarios WHERE Usuario = '" + userName + "' AND Password = '" + passwordUser + "'";
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
@@ -135,7 +163,17 @@ namespace PuntoDeVentaV2
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion y tambien saber
             // que empresas son las que ha registrado este usuario
-            buscarempresa = "SELECT emp.ID_Empresa, emp.Usuario, emp.NombreCompleto, emp.RFC, u.ID FROM Usuarios u LEFT JOIN Empresas emp ON u.ID = emp.ID_Usuarios WHERE u.ID = " + id ;
+            buscarempresa = @"SELECT 
+                                emp.Usuario AS 'Usuario', 
+                                emp.NombreCompleto AS 'Nombre Comercial', 
+                                emp.RFC AS 'R.F.C.'
+                            FROM 
+                                Usuarios u 
+                            LEFT JOIN
+                                Empresas emp 
+                            ON 
+                                u.ID = emp.ID_Usuarios 
+                            WHERE u.ID = " + id ;
             // Llenamos el contenido del DataGridView
             // con el resultado de la consulta
             DGVListaEmpresas.DataSource = cn.GetEmpresas(buscarempresa);
