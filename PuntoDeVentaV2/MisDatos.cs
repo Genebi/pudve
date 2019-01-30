@@ -281,7 +281,7 @@ namespace PuntoDeVentaV2
 
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            buscar = "SELECT * FROM Usuarios WHERE Usuario = '" + userName + "' AND Password = '" + passwordUser + "'";
+            buscar = $"SELECT * FROM Usuarios WHERE Usuario = '{userName}' AND Password = '{passwordUser}'";
 
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
@@ -347,20 +347,7 @@ namespace PuntoDeVentaV2
                 actualizarVariables();
 
                 // el string para hacer el UPDATE
-                actualizar = "UPDATE Usuarios SET RFC = '"+ rfc 
-                                             +"', Telefono = '"+ telefono 
-                                             +"', Email = '"+ email 
-                                             +"', NombreCompleto = '"+ nomComp 
-                                             +"', Calle = '"+ calle 
-                                             +"', NoExterior = '"+ numExt 
-                                             +"', NoInterior = '"+ numInt 
-                                             +"', Colonia = '"+ colonia 
-                                             +"', Municipio = '"+ mpio 
-                                             +"', Estado = '"+ estado 
-                                             +"', CodigoPostal = '"+ codPostal 
-                                             +"', Regimen ='"+ regimen
-                                             + "', TipoPersona = '" + tipoPersona
-                                             + "' WHERE ID = '" + id +"'";
+                actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}' WHERE ID = '{id}'";
 
                 // realizamos la consulta desde el metodo
                 // que esta en la clase Conexion
@@ -453,7 +440,7 @@ namespace PuntoDeVentaV2
                                 // Dasactivamos el objeto File1
                                 File1.Dispose();
                                 // hacemos la nueva cadena de consulta para hacer el update
-                                string insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
+                                string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id} '";
                                 // hacemos que se ejecute la consulta
                                 cn.EjecutarConsulta(insertImagen);
                                 // actualizamos las variables
@@ -478,7 +465,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 // hacemos la nueva cadena de consulta para hacer el update
-                                insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
+                                insertImagen = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
                                 // hacemos que se ejecute la consulta
                                 cn.EjecutarConsulta(insertImagen);
                             }
@@ -503,7 +490,7 @@ namespace PuntoDeVentaV2
                             // obtenemos el nuevo path
                             logoTipo = saveDirectoryImg + NvoFileName;
                             // hacemos la nueva cadena de consulta para hacer el update
-                            string insertImagen = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
+                            string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
                             // hacemos que se ejecute la consulta
                             cn.EjecutarConsulta(insertImagen);
                             using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
@@ -540,7 +527,7 @@ namespace PuntoDeVentaV2
             // ponemos la ruta del logoTipo en null
             logoTipo = null;
             // hacemos la nueva cadena de consulta para hacer el update
-            string consultaUpdate = "UPDATE Usuarios SET LogoTipo = '" + logoTipo + "' WHERE ID = '" + id + "'";
+            string consultaUpdate = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
             // hacemos que se ejecute la consulta
             cn.EjecutarConsulta(consultaUpdate);
             //ponemos la imagen en limpio
