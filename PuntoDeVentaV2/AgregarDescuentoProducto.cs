@@ -153,7 +153,7 @@ namespace PuntoDeVentaV2
             if (tipo == 2)
             {
                 FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
-                panelHijo1.Name = "panelGeneradoMayoreo1";
+                panelHijo1.Name = "panelMayoreoTitulos";
                 panelHijo1.Width = 725;
                 panelHijo1.Height = 50;
 
@@ -176,9 +176,9 @@ namespace PuntoDeVentaV2
                 lb2.TextAlign = ContentAlignment.MiddleCenter;
 
                 FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
-                panelHijo2.Name = "panelGeneradoMayoreo2";
+                panelHijo2.Name = "panelMayoreo1";
                 panelHijo2.Width = 725;
-                panelHijo2.Height = 25;
+                panelHijo2.Height = 50;
 
                 TextBox tb1 = new TextBox();
                 tb1.Name = "tbMayoreo1_1";
@@ -208,11 +208,6 @@ namespace PuntoDeVentaV2
                 tb3.ReadOnly = true;
                 tb3.BackColor = Color.White;
 
-                FlowLayoutPanel panelHijo3 = new FlowLayoutPanel();
-                panelHijo3.Name = "panelGeneradoMayoreo3";
-                panelHijo3.Width = 725;
-                panelHijo3.Height = 25;
-
                 CheckBox cb1 = new CheckBox();
                 cb1.Name = "checkMayoreo1";
                 cb1.Text = "Las primeras siempre costarán " + precioProducto.ToString("0.00");
@@ -222,18 +217,18 @@ namespace PuntoDeVentaV2
 
                 panelHijo1.Controls.Add(lb1);
                 panelHijo1.Controls.Add(lb2);
+
                 panelHijo2.Controls.Add(tb1);
                 panelHijo2.Controls.Add(tb2);
                 panelHijo2.Controls.Add(tb3);
-                panelHijo3.Controls.Add(cb1);
+                panelHijo2.SetFlowBreak(tb3, true);
+                panelHijo2.Controls.Add(cb1);
 
                 panelHijo1.FlowDirection = FlowDirection.LeftToRight;
                 panelHijo2.FlowDirection = FlowDirection.LeftToRight;
-                panelHijo3.FlowDirection = FlowDirection.LeftToRight;
 
                 panelContenedor.Controls.Add(panelHijo1);
                 panelContenedor.Controls.Add(panelHijo2);
-                panelContenedor.Controls.Add(panelHijo3);
                 panelContenedor.FlowDirection = FlowDirection.TopDown;
             }
         }
@@ -280,6 +275,17 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode == Keys.Enter)
             {
+                tb1.Enabled = false;
+                tb2.Enabled = false;
+                tb1.BackColor = Color.White;
+                tb2.BackColor = Color.White;
+
+                if (idGenerado > 2)
+                {
+                    Button bt = (Button)this.Controls.Find("btnEliminarD" + tmp[0], true).FirstOrDefault();
+                    bt.Enabled = false;
+                }
+
                 rangoInicial = tb.Text;
 
                 generarLineaMayoreo();
@@ -289,13 +295,13 @@ namespace PuntoDeVentaV2
 
         private void generarLineaMayoreo()
         {
-            FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
-            panelHijo1.Name = "panelGeneradoMayoreo" + idGenerado;
-            panelHijo1.Width = 725;
-            panelHijo1.Height = 25;
+            FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+            panelHijo.Name = $"panelMayoreo{idGenerado}";
+            panelHijo.Width = 725;
+            panelHijo.Height = 50;
 
             TextBox tb1 = new TextBox();
-            tb1.Name = "tbMayoreo" + idGenerado + "_1";
+            tb1.Name = $"tbMayoreo{idGenerado}_1";
             tb1.Width = 100;
             tb1.Height = 20;
             tb1.Margin = new Padding(120, 5, 0, 0);
@@ -305,7 +311,7 @@ namespace PuntoDeVentaV2
             tb1.BackColor = Color.White;
 
             TextBox tb2 = new TextBox();
-            tb2.Name = "tbMayoreo"+ idGenerado +"_2";
+            tb2.Name = $"tbMayoreo{idGenerado}_2";
             tb2.Width = 100;
             tb2.Height = 20;
             tb2.Margin = new Padding(50, 5, 0, 0);
@@ -313,7 +319,7 @@ namespace PuntoDeVentaV2
             tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
 
             TextBox tb3 = new TextBox();
-            tb3.Name = "tbMayoreo"+ idGenerado +"_3";
+            tb3.Name = $"tbMayoreo{idGenerado}_3";
             tb3.Width = 100;
             tb3.Height = 20;
             tb3.Margin = new Padding(95, 5, 0, 0);
@@ -323,39 +329,31 @@ namespace PuntoDeVentaV2
             Button bt = new Button();
             bt.Cursor = Cursors.Hand;
             bt.Text = "X";
-            bt.Name = "btnGeneradoR" + idGenerado;
+            bt.Name = $"btnEliminarD{idGenerado}";
             bt.Width = 20;
             bt.Height = 20;
             bt.BackColor = ColorTranslator.FromHtml("#C00000");
             bt.ForeColor = ColorTranslator.FromHtml("white");
             bt.FlatStyle = FlatStyle.Flat;
-            //bt.Click += new EventHandler(EliminarImpuesto);
+            bt.Click += new EventHandler(eliminarDescuentos);
             bt.Margin = new Padding(5, 5, 0, 0);
 
-
-            FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
-            panelHijo2.Name = "panelGeneradoMayoreo3";
-            panelHijo2.Width = 725;
-            panelHijo2.Height = 25;
-
             CheckBox cb1 = new CheckBox();
-            cb1.Name = "checkMayoreo" + idGenerado;
+            cb1.Name = $"checkMayoreo{idGenerado}";
             cb1.Margin = new Padding(120, 5, 0, 0);
             cb1.TextAlign = ContentAlignment.MiddleLeft;
             cb1.Width = 400;
 
 
-            panelHijo1.Controls.Add(tb1);
-            panelHijo1.Controls.Add(tb2);
-            panelHijo1.Controls.Add(tb3);
-            panelHijo1.Controls.Add(bt);
-            panelHijo2.Controls.Add(cb1);
+            panelHijo.Controls.Add(tb1);
+            panelHijo.Controls.Add(tb2);
+            panelHijo.Controls.Add(tb3);
+            panelHijo.Controls.Add(bt);
+            panelHijo.SetFlowBreak(bt, true);
+            panelHijo.Controls.Add(cb1);
+            panelHijo.FlowDirection = FlowDirection.LeftToRight;
 
-            panelHijo1.FlowDirection = FlowDirection.LeftToRight;
-            panelHijo2.FlowDirection = FlowDirection.LeftToRight;
-
-            panelContenedor.Controls.Add(panelHijo1);
-            panelContenedor.Controls.Add(panelHijo2);
+            panelContenedor.Controls.Add(panelHijo);
             panelContenedor.FlowDirection = FlowDirection.TopDown;
 
             tb2.Focus();
@@ -402,6 +400,41 @@ namespace PuntoDeVentaV2
                 tbDescuento.Text = descuento.ToString("0.00");
                 tbPrecioDescuento.Text = (precioProducto - descuento).ToString("0.00");
 
+            }
+        }
+
+        private void eliminarDescuentos(object sender, EventArgs e)
+        {
+            Button bt = sender as Button;
+
+            var id = bt.Name.Replace("btnEliminarD", "");
+
+            foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+            {
+                if (panel.Name == "panelMayoreo" + id)
+                {
+                    panelContenedor.Controls.Remove(panel);
+
+                    idGenerado--;
+
+                    var idTmp = Convert.ToInt16(id) - 1;
+
+                    if (idGenerado > 2)
+                    {
+                        Button btTmp = (Button)this.Controls.Find($"btnEliminarD{idTmp}", true).FirstOrDefault();
+                        TextBox tbTmp1 = (TextBox)this.Controls.Find($"tbMayoreo{idTmp}_2", true).FirstOrDefault();
+                        TextBox tbTmp2 = (TextBox)this.Controls.Find($"tbMayoreo{idTmp}_3", true).FirstOrDefault();
+
+                        btTmp.Enabled = true;
+                        tbTmp1.Enabled = true;
+                        tbTmp2.Enabled = true;
+                    }
+                    else
+                    {
+                        TextBox tbTmp1 = (TextBox)this.Controls.Find($"tbMayoreo{idTmp}_2", true).FirstOrDefault();
+                        tbTmp1.Enabled = true;
+                    }
+                }
             }
         }
 
