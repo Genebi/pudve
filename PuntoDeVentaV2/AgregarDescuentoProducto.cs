@@ -46,7 +46,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptarDesc_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Aceptar descuento");
+            MessageBox.Show(tipoDescuento.ToString());
         }
 
         private void CargarFormularios(int tipo)
@@ -250,7 +250,7 @@ namespace PuntoDeVentaV2
         private void rbMayoreo_CheckedChanged(object sender, EventArgs e)
         {
             txtTituloDescuento.Text = "Descuento por Mayoreo";
-            tipoDescuento = 2;
+            tipoDescuento = idGenerado = 2;
             CargarFormularios(tipoDescuento);
         }
 
@@ -456,18 +456,18 @@ namespace PuntoDeVentaV2
 
             foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
             {
-                foreach (CheckBox item in panel.Controls.OfType<CheckBox>())
+                foreach (CheckBox cbm in panel.Controls.OfType<CheckBox>())
                 {
-                    if (Convert.ToInt16(item.Tag) <  id)
+                    if (cb.Checked)
                     {
-                        if (cb.Checked)
+                        if (Convert.ToInt16(cbm.Tag) <= id)
                         {
-                            item.Checked = true;
+                            cbm.Checked = true;
                         }
-                        else
-                        {
-                            item.Checked = false;
-                        }
+                    }
+                    else
+                    {
+                        cbm.Checked = false;
                     }
                 }
             }
