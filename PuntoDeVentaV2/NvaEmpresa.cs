@@ -14,10 +14,6 @@ namespace PuntoDeVentaV2
 {
     public partial class NvaEmpresa : Form
     {
-        //
-        //******************* TODO **************************
-        //
-
         // variable de text para poder dirigirnos a la carpeta principal para
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
@@ -33,11 +29,13 @@ namespace PuntoDeVentaV2
         string password2; string razonSocial;
         string email; string telefono;
 
+        // variables para control de los eventos realizados
         int user,pass,agregado;
         string buscar,mensaje,insertar;
         DataTable dt;
         DataRow row;
 
+        // objeto de tipo FileStream para poder manejar la imagen
         FileStream File;
 
         public void verificaUsuario()
@@ -99,7 +97,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         // la variable le damos el valor de 1
-                        pass = 1;
+                        pass = 3;
                         // enviamos un mensaje segun el error
                         mensaje = "Los campos de Contraseña no coinciden";
                     }
@@ -108,7 +106,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     // la variable le damos el valor de 1
-                    pass = 1;
+                    pass = 2;
                     // enviamos un mensaje segun el error
                     mensaje = "favor de no dejar vacio el campo de Confirma Contraseña";
                 }
@@ -147,29 +145,50 @@ namespace PuntoDeVentaV2
             if (user == 1)
             {
                 MessageBox.Show("El usuario ya existe \nfavor ingresar nuevo Nombre de usuario", "Error en los datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUsuario.Focus();
             }
             
             // mandamos llamar la funsion de verficarPassWord()
             verificarPassWord();
 
-            // si la variable user es igual a 1 tenemos algun error
-            // y arrojaria un mensaje de error 
+            // y arrojaria un mensaje de error
+            // si dejamos limpio el campo Contraseña
             if (pass == 1)
+            {
+                MessageBox.Show(mensaje + "\nFavor de Verificar Gracias...", "Algo salio Mal...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPassword1.Focus();
+            }
+            // si dejamos limpio el campo Confirmar Contraseña
+            if (pass == 2)
+            {
+                MessageBox.Show(mensaje + "\nFavor de Verificar Gracias...", "Algo salio Mal...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtPassword2.Focus();
+            }
+            // si ambos campos no son iguales
+            if (pass == 3)
             {
                 MessageBox.Show(mensaje + "\nFavor de Verificar Gracias...", "Algo salio Mal...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            // si las variables de control si coinciden las dos en el valor 0 
             if ((user == 0) && (pass == 0))
             {
+                // llamamos al metodo registrar
                 registrarEmpresa();
+                // segun lo que regrese el metodo registrarEmpresa
+                // sea mayor a 0 entonces mostramos mensaje y cerramos la ventana
                 if (agregado > 0)
                 {
                     MessageBox.Show("El registro se agrego exitosamente", "Datos Insertados", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
-                else
-                {
-                    MessageBox.Show("Ocurrio un error durante \nel resgitro de la Empresa", "Error en el Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            // si las variables de control no coinciden las dos en el valor 0 
+            // mostramos mensaje y enviamos el cursor al TxtUsuario
+            else
+            {
+                MessageBox.Show("Ocurrio un error durante \nel resgitro de la Empresa", "Error en el Registro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUsuario.Focus();
             }
         }
 
@@ -182,6 +201,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Formato no valido de Email", "Advertencia",
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    txtEmail.Focus();
                 }
             }
         }
@@ -205,7 +225,7 @@ namespace PuntoDeVentaV2
                                 "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 // Habilitamos el Handled = true para que no escriba nada si no son las teclas validadas 
                 e.Handled = true;
-                //Retornamos return; 
+                txtTelefono.Focus();
             }
             // entonces si las teclas son las permitidas Validamos
             // si se presiona Enter 

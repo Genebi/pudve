@@ -17,7 +17,9 @@ namespace PuntoDeVentaV2
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-        FileStream IconoBtnAddEmpresa, IconoBtnRefrescar;
+        // objetos de tipo FileStream para
+        // cargar las imagenes para los botones
+        FileStream IconoBtnAddEmpresa;
 
         // creamos un objeto para poder usar las  
         // consultas que estan en esta clase
@@ -26,6 +28,10 @@ namespace PuntoDeVentaV2
         // creamos un objeto para poder usar las  
         // consultas que estan en esta clase 
         Consultas cs = new Consultas();
+
+        // hacemos el nuevo objeto para poder hacer que la
+        // forma de empresa se muestre y agregar una nueva
+        public NvaEmpresa NuevaEmpresa = new NvaEmpresa();
 
         // declaramos la variable que almacenara el valor de userNickName
         public string userName;
@@ -70,10 +76,6 @@ namespace PuntoDeVentaV2
                 // Asignamos la imagen al BtnRegistrar
                 btnNvaEmpresa.Image = Image.FromStream(IconoBtnAddEmpresa);
             }
-            using (IconoBtnRefrescar = new FileStream(rutaDirectorio + @"\icon\black\refresh.png", FileMode.Open, FileAccess.Read))
-            {
-                btnRefrescar.Image = Image.FromStream(IconoBtnRefrescar);
-            }
         }
 
         private void DGVListaEmpresas_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -93,7 +95,7 @@ namespace PuntoDeVentaV2
 
                 // aqui se aplica los margenes en el icono del boton
                 this.DGVListaEmpresas.Rows[e.RowIndex].Height = icoAtomico.Height + 8;
-                this.DGVListaEmpresas.Columns[e.ColumnIndex].Width = icoAtomico.Width + 38;
+                this.DGVListaEmpresas.Columns[e.ColumnIndex].Width = icoAtomico.Width + 36;
 
                 e.Handled = true;
             }
@@ -101,18 +103,34 @@ namespace PuntoDeVentaV2
 
         private void btnNvaEmpresa_Click(object sender, EventArgs e)
         {
-            NvaEmpresa nvaEmp = new NvaEmpresa();
-            nvaEmp.ShowDialog();
-        }
-
-        private void btnRefrescar_Click(object sender, EventArgs e)
-        {
-            if (DGVListaEmpresas.DataSource is DataTable)
+            // creamos un delegado para el manejo del evento
+            // actualizar los resultados de las empresas
+            NuevaEmpresa.FormClosed += delegate
             {
-                ((DataTable)DGVListaEmpresas.DataSource).Rows.Clear();
-                DGVListaEmpresas.Refresh();
+                // limpiamos el DataGridView y 
+                // lo dejamos sin registros
+                if (DGVListaEmpresas.DataSource is DataTable)
+                {
+                    // dejamos sin registros
+                    ((DataTable)DGVListaEmpresas.DataSource).Rows.Clear();
+                    // refrescamos el DataGridView
+                    DGVListaEmpresas.Refresh();
+                }
+                // llamamos el metodo consultar
+                consulta();
+            };
+            // verificamos si no esta visible la forma
+            if (!NuevaEmpresa.Visible)
+            {
+                // muestra la forma
+                NuevaEmpresa.ShowDialog();
             }
-            consulta();
+            // si ya se formo la forma
+            else
+            {
+                // la traemos hasta el frente
+                NuevaEmpresa.BringToFront();
+            }
         }
 
         // funcion para poder cargar los datos segun corresponda en el TxtBox que corresponda
