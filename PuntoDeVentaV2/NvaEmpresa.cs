@@ -43,19 +43,19 @@ namespace PuntoDeVentaV2
             user = 0;
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            buscar = $"SELECT emp.Usuario AS 'Usuario', emp.NombreCompleto AS 'Nombre Comercial', emp.RFC AS 'R.F.C.' FROM Usuarios u LEFT JOIN Empresas emp ON u.ID = emp.ID_Usuarios WHERE emp.Usuario LIKE '{usuario}' AND emp.ID_Usuarios = '{idUsuario}'";
+            buscar = $"SELECT u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.' FROM Usuarios u WHERE u.Usuario LIKE '{usuario}' AND u.Referencia_ID = '{idUsuario}'";
 
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.GetEmpresas(buscar);
 
             // almacenamos el resultado de la consulta en el dt
-            if (dt.Rows.Count >= 1)
+            if (dt.Rows.Count > 0)
             {
                 row = dt.Rows[0];
                 user = 1;
             }
-            if (dt.Rows.Count <= 0)
+            if (dt.Rows.Count < 0)
             {
                 user = 0;
             }
@@ -69,7 +69,7 @@ namespace PuntoDeVentaV2
             // variable para poder saber si se agrego o no
             agregado = 0;
             // string para hacer el Query a la consulta de SQLite3
-            insertar = $"INSERT INTO Empresas(Usuario,Password,RazonSocial,Telefono,Email,ID_Usuarios)VALUES('{usuario}','{password1}','{razonSocial}','{telefono}','{email}','{idUsuario}')";
+            insertar = $"INSERT INTO Usuarios(Usuario,Password,RazonSocial,Telefono,Email,Referencia_ID)VALUES('{usuario}','{password1}','{razonSocial}','{telefono}','{email}','{idUsuario}')";
             // segun el resultado del Query se le asigna al agregado
             agregado = cn.EjecutarConsulta(insertar);
         }

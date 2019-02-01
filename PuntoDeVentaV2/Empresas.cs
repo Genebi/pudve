@@ -42,12 +42,14 @@ namespace PuntoDeVentaV2
 
         // variables para poder hacer el recorrido y asignacion de los valores que estan el base de datos
         int index;
+        int numfila;
+        int agregado;
         DataTable dt, dtgv;
         DataRow row, rows;
 
         // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
         // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
-        string id;
+        string id, Id_Emp_select,usuario;
         string nomComp; string rfc;
 
         // Variable para poder saber que tipo de persona 
@@ -101,6 +103,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void DGVListaEmpresas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            
+        }
+
         private void btnNvaEmpresa_Click(object sender, EventArgs e)
         {
             // creamos un delegado para el manejo del evento
@@ -130,6 +137,40 @@ namespace PuntoDeVentaV2
             {
                 // la traemos hasta el frente
                 NuevaEmpresa.BringToFront();
+            }
+        }
+
+        private void DGVListaEmpresas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            numfila = DGVListaEmpresas.CurrentRow.Index;
+            Id_Emp_select = DGVListaEmpresas[1,numfila].Value.ToString();
+            usuario = DGVListaEmpresas[2, numfila].Value.ToString();
+            // variable para poder saber si se agrego o no
+            agregado = 0;
+            // string para hacer el Query a la consulta de SQLite3
+            buscarempresa = $"SELECT u.ID AS 'ID de Empresa', u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.', u.Password AS 'Contraseña' FROM Usuarios u WHERE u.Referencia_ID = '{id}'";
+            // segun el resultado del Query se le asigna al agregado
+            agregado = cn.EjecutarConsulta(buscarempresa);
+            // segun lo que regrese el metodo registrarEmpresa
+            // sea mayor a 0 entonces mostramos mensaje y cerramos la ventana
+            //MessageBox.Show($"Algo salio Mal mi estimado: {usuario}", "No sirvo para Programar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            FormPrincipal fp = new FormPrincipal();
+
+            fp.IdUsuario = Convert.ToInt32(Id_Emp_select);
+            fp.nickUsuario = DGVListaEmpresas[2, numfila].Value.ToString();
+            fp.passwordUsuario = DGVListaEmpresas[5, numfila].Value.ToString();
+            // verificamos si no esta visible la forma
+            
+            if (!fp.Visible)
+            {
+                // muestra la forma
+                fp.ShowDialog();
+            }
+            // si ya se formo la forma
+            else
+            {
+                // la traemos hasta el frente
+                fp.BringToFront();
             }
         }
 
@@ -181,7 +222,7 @@ namespace PuntoDeVentaV2
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion y tambien saber
             // que empresas son las que ha registrado este usuario
-            buscarempresa = $"SELECT emp.Usuario AS 'Usuario', emp.NombreCompleto AS 'Nombre Comercial', emp.RFC AS 'R.F.C.' FROM Usuarios u LEFT JOIN Empresas emp ON u.ID = emp.ID_Usuarios WHERE u.ID = {id}";
+            buscarempresa = $"SELECT u.ID AS 'ID de Empresa', u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.', u.Password AS 'Contraseña' FROM Usuarios u WHERE u.Referencia_ID = '{id}'";
             // Llenamos el contenido del DataGridView
             // con el resultado de la consulta
             DGVListaEmpresas.DataSource = cn.GetEmpresas(buscarempresa);
