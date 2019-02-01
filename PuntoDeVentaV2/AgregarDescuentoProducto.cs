@@ -448,6 +448,7 @@ namespace PuntoDeVentaV2
         }
 
 
+        //Seleccion de CheckBoxes para el descuento por Mayoreo
         private void seleccionCheckBoxes(object sender, EventArgs e)
         {
             CheckBox cb = sender as CheckBox;
