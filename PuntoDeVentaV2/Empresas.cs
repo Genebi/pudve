@@ -33,6 +33,10 @@ namespace PuntoDeVentaV2
         // forma de empresa se muestre y agregar una nueva
         public NvaEmpresa NuevaEmpresa = new NvaEmpresa();
 
+        // hacemos el nuevo objeto para poder hacer que la
+        // forma de Principal se muestre y realizar movimientos
+        public FormPrincipal EntrarEmpresa = new FormPrincipal();
+
         // declaramos la variable que almacenara el valor de userNickName
         public string userName;
         public string passwordUser;
@@ -154,24 +158,64 @@ namespace PuntoDeVentaV2
             // segun lo que regrese el metodo registrarEmpresa
             // sea mayor a 0 entonces mostramos mensaje y cerramos la ventana
             //MessageBox.Show($"Algo salio Mal mi estimado: {usuario}", "No sirvo para Programar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            FormPrincipal fp = new FormPrincipal();
 
-            fp.IdUsuario = Convert.ToInt32(Id_Emp_select);
-            fp.nickUsuario = DGVListaEmpresas[2, numfila].Value.ToString();
-            fp.passwordUsuario = DGVListaEmpresas[5, numfila].Value.ToString();
+            EntrarEmpresa.TempIdUsuario = Convert.ToInt32(id);
+            EntrarEmpresa.TempNickUsr = userName;
+            EntrarEmpresa.TempPassUsr = passwordUser;
+
+            EntrarEmpresa.IdUsuario = Convert.ToInt32(Id_Emp_select);
+            EntrarEmpresa.nickUsuario = DGVListaEmpresas[2, numfila].Value.ToString();
+            EntrarEmpresa.passwordUsuario = DGVListaEmpresas[5, numfila].Value.ToString();
+            //verificamos si no esta visible la forma
+
+            EntrarEmpresa.FormClosed += delegate
+            {
+                // limpiamos el DataGridView y 
+                // lo dejamos sin registros
+                if (DGVListaEmpresas.DataSource is DataTable)
+                {
+                    // dejamos sin registros
+                    ((DataTable)DGVListaEmpresas.DataSource).Rows.Clear();
+                    // refrescamos el DataGridView
+                    DGVListaEmpresas.Refresh();
+                }
+                consulta();
+            };
             // verificamos si no esta visible la forma
-            
-            if (!fp.Visible)
+            if (!EntrarEmpresa.Visible)
             {
                 // muestra la forma
-                fp.ShowDialog();
+                EntrarEmpresa.ShowDialog();
             }
             // si ya se formo la forma
             else
             {
                 // la traemos hasta el frente
-                fp.BringToFront();
+                EntrarEmpresa.BringToFront();
             }
+
+            FormPrincipal fp = new FormPrincipal();
+
+            //fp.TempIdUsuario = Convert.ToInt32(id);
+            //fp.TempNickUsr = userName;
+            //fp.TempPassUsr = passwordUser;
+
+            //fp.IdUsuario = Convert.ToInt32(Id_Emp_select);
+            //fp.nickUsuario = DGVListaEmpresas[2, numfila].Value.ToString();
+            //fp.passwordUsuario = DGVListaEmpresas[5, numfila].Value.ToString();
+            //// verificamos si no esta visible la forma
+            
+            //if (!fp.Visible)
+            //{
+            //    // muestra la forma
+            //    fp.ShowDialog();
+            //}
+            //// si ya se formo la forma
+            //else
+            //{
+            //    // la traemos hasta el frente
+            //    fp.BringToFront();
+            //}
         }
 
         // funcion para poder cargar los datos segun corresponda en el TxtBox que corresponda

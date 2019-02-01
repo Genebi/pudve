@@ -22,6 +22,10 @@ namespace PuntoDeVentaV2
         public string nickUsuario { get; set; }
         public string passwordUsuario { get; set; }
 
+        public int TempIdUsuario { get; set; }
+        public string TempNickUsr { get; set; }
+        public string TempPassUsr { get; set; }
+
         public FormPrincipal()
         {
             InitializeComponent();
