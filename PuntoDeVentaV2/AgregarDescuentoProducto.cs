@@ -46,7 +46,28 @@ namespace PuntoDeVentaV2
 
         private void btnAceptarDesc_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(tipoDescuento.ToString());
+            //Cliente
+            if (tipoDescuento == 1)
+            {
+                TextBox precio     = (TextBox)this.Controls.Find("txtPrecio", true).FirstOrDefault();
+                TextBox porcentaje = (TextBox)this.Controls.Find("txtPorcentaje", true).FirstOrDefault();
+                TextBox precioDesc = (TextBox)this.Controls.Find("txtPrecioDescuento", true).FirstOrDefault();
+                TextBox descuento  = (TextBox)this.Controls.Find("txtDescuento", true).FirstOrDefault();
+
+                AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
+                AgregarEditarProducto.descuentos.Add(precio.Text);
+                AgregarEditarProducto.descuentos.Add(porcentaje.Text);
+                AgregarEditarProducto.descuentos.Add(precioDesc.Text);
+                AgregarEditarProducto.descuentos.Add(descuento.Text);
+            }
+
+            //Mayoreo
+            if (tipoDescuento == 2)
+            {
+
+            }
+
+            this.Hide();
         }
 
         private void CargarFormularios(int tipo)

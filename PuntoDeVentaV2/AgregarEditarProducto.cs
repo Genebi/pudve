@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         static public string datosImpuestos = null;
         static public string claveProducto = null;
         static public string claveUnidadMedida = null;
+        static public List<string> descuentos = new List<string>();
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -205,6 +206,8 @@ namespace PuntoDeVentaV2
         {
             //Cerramos la ventana donde se eligen los impuestos
             FormDetalle.Close();
+            //Cerramos la ventana donde se eligen los descuentos
+            FormAgregar.Close();
 
             var nombre = txtNombreProducto.Text;
             var stock = txtStockProducto.Text;
@@ -212,15 +215,24 @@ namespace PuntoDeVentaV2
             var categoria = txtCategoriaProducto.Text;
             var claveIn = txtClaveProducto.Text;
             var codigoB = txtCodigoBarras.Text;
+            var tipoDescuento = "0";
 
-            string[] guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida };
-    
+            if (descuentos.Any())
+            {
+                tipoDescuento = descuentos[0];
+            }
+
+            string[] guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento };
+            
+            //Se guardan los datos principales del producto
             int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
 
             if (respuesta > 0)
             {
+                //Se obtiene la ID del último producto agregado
                 int idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
+                //Se realiza el proceso para guardar los detalles de facturación del producto
                 if (datosImpuestos != "")
                 {
                     string[] listaImpuestos = datosImpuestos.Split('|');
@@ -243,6 +255,25 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+
+                //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                if (descuentos.Any())
+                {
+                    //Descuento por Cliente
+                    if (descuentos[0] == "1")
+                    {
+                        guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
+
+                        cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                    }
+
+                    //Descuento por Mayoreo
+                    if (descuentos[0] == "2")
+                    {
+
+                    }
+                }
+
 
                 //Cierra la ventana donde se agregan los datos del producto
                 this.Close();
