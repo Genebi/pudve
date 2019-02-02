@@ -23,8 +23,8 @@ namespace PuntoDeVentaV2
 
         public string GuardarProducto(string[] datos, int id)
         {
-            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, IDUsuario)";
-                   consulta += "VALUES('" + datos[0] + "', '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', '" + datos[4] + "', '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', '" + id + "')";
+            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario)";
+                   consulta += "VALUES('" + datos[0] + "', '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', '" + datos[4] + "', '" + datos[5] + "', '" + datos[6] + "', '" + datos[7] + "', '"+ datos[8] +"', '" + id + "')";
 
             return consulta;
         }
@@ -33,6 +33,14 @@ namespace PuntoDeVentaV2
         {
             string consulta = "INSERT INTO DetallesFacturacionProductos (Tipo, Impuesto, TipoFactor, TasaCuota, Definir, Importe, IDProducto)";
                    consulta += "VALUES ('" + datos[0] + "', '" + datos[1] + "', '" + datos[2] + "', '" + datos[3] + "', '" + datos[4] + "', '" + datos[5] + "', '" + idProducto + "')";
+
+            return consulta;
+        }
+
+        public string GuardarDescuentoCliente(string[] datos, int idProducto)
+        {
+            string consulta = "INSERT INTO DescuentoCliente (PrecioProducto, PorcentajeDescuento, PrecioDescuento, Descuento, IDProducto)";
+                   consulta += "VALUES ('"+ datos[0] +"', '"+ datos[1] +"', '"+ datos[2] +"', '"+ datos[3] +"', '"+ idProducto +"')";
 
             return consulta;
         }
