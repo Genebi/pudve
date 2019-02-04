@@ -204,11 +204,6 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
-            //Cerramos la ventana donde se eligen los impuestos
-            FormDetalle.Close();
-            //Cerramos la ventana donde se eligen los descuentos
-            FormAgregar.Close();
-
             var nombre = txtNombreProducto.Text;
             var stock = txtStockProducto.Text;
             var precio = txtPrecioProducto.Text;
@@ -219,6 +214,8 @@ namespace PuntoDeVentaV2
 
             if (descuentos.Any())
             {
+                //Cerramos la ventana donde se eligen los descuentos
+                FormAgregar.Close();
                 tipoDescuento = descuentos[0];
             }
 
@@ -233,8 +230,11 @@ namespace PuntoDeVentaV2
                 int idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
                 //Se realiza el proceso para guardar los detalles de facturación del producto
-                if (datosImpuestos != "")
+                if (datosImpuestos != null)
                 {
+                    //Cerramos la ventana donde se eligen los impuestos
+                    FormDetalle.Close();
+
                     string[] listaImpuestos = datosImpuestos.Split('|');
 
                     int longitud = listaImpuestos.Length;
@@ -254,6 +254,8 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
                         }
                     }
+
+                    datosImpuestos = null;
                 }
 
                 //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
