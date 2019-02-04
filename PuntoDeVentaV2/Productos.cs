@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace PuntoDeVentaV2
     {
 
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
+        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -31,19 +33,18 @@ namespace PuntoDeVentaV2
             cbMostrar.SelectedIndex = 0;
             cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
 
+            DataGridViewImageColumn editar = new DataGridViewImageColumn();
+            editar.Image = Image.FromFile(rutaDirectorio + @"\icon\black\pencil.png");
+            editar.Width = 50;
+            DGVProductos.Columns.Add(editar);
+
+            DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
         }
 
         private void CargarDatos()
         {
             cn.CargarInformacion(cs.Productos(FormPrincipal.userID), DGVProductos);
-
-            DataGridViewColumn columnaNombre = DGVProductos.Columns[0];
-            DataGridViewColumn columnaClave = DGVProductos.Columns[4];
-            DataGridViewColumn columnaCodigo = DGVProductos.Columns[5];
-
-            columnaNombre.Width = 420;
-            columnaClave.Width = 175;
-            columnaCodigo.Width = 175;
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
@@ -65,6 +66,28 @@ namespace PuntoDeVentaV2
             else
             {
                 FormAgregar.BringToFront();
+            }
+        }
+
+        private void EditarProducto(object sender, DataGridViewCellEventArgs e)
+        {
+            //Editar producto
+            if (e.ColumnIndex == 0)
+            {
+                btnAgregarProducto.PerformClick();
+            }
+        }
+
+        private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            //Boton editar producto
+            if (e.ColumnIndex == 0)
+            {
+                DGVProductos.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                DGVProductos.Cursor = Cursors.Default;
             }
         }
     }

@@ -28,24 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.tituloSeccion = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // tituloSeccion
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(202, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "VENTAS";
+            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tituloSeccion.AutoSize = true;
+            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSeccion.Location = new System.Drawing.Point(327, 22);
+            this.tituloSeccion.Name = "tituloSeccion";
+            this.tituloSeccion.Size = new System.Drawing.Size(157, 25);
+            this.tituloSeccion.TabIndex = 4;
+            this.tituloSeccion.Text = "NUEVA VENTA";
+            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label9
+            // 
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label9.Location = new System.Drawing.Point(24, 63);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(750, 2);
+            this.label9.TabIndex = 19;
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 261);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(799, 338);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.tituloSeccion);
             this.Name = "Ventas";
             this.Text = "Ventas";
             this.ResumeLayout(false);
@@ -55,6 +68,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label tituloSeccion;
+        private System.Windows.Forms.Label label9;
     }
 }
