@@ -44,5 +44,13 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string GuardarDescuentoMayoreo(string[] datos, int idProducto)
+        {
+            string consulta = "INSERT INTO DescuentoMayoreo (RangoInicial, RangoFinal, Precio, Checkbox, IDProducto)";
+                   consulta += "VALUES ('"+ datos[0] +"', '"+ datos[1] +"', '"+ datos[2] +"', '"+ datos[3] +"', '"+ idProducto +"')";
+
+            return consulta;
+        }
     }
 }

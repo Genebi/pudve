@@ -270,7 +270,14 @@ namespace PuntoDeVentaV2
                     //Descuento por Mayoreo
                     if (descuentos[0] == "2")
                     {
+                        foreach (var descuento in descuentos)
+                        {
+                            if (descuento == "2") { continue;  }
 
+                            string[] tmp = descuento.Split('-');
+
+                            cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                        }
                     }
                 }
 

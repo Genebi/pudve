@@ -64,7 +64,48 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipoDescuento == 2)
             {
+                AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
 
+                foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                {
+                    string descuentoMayoreo = null;
+
+                    if (panel.Name == "panelMayoreoTitulos") { continue; }
+
+                    foreach (Control item in panel.Controls)
+                    {
+                        if (item is TextBox)
+                        {
+                            var tb = item.Text;
+
+                            if (tb == "")
+                            {
+                                tb = "N";
+                            }
+
+                            descuentoMayoreo += tb + "-";
+                        }
+
+                        if (item is CheckBox)
+                        {
+                            CheckBox cb = (CheckBox)item;
+
+                            if (cb.Checked)
+                            {
+                                descuentoMayoreo += "1";
+                            }
+                            else
+                            {
+                                descuentoMayoreo += "0";
+                            }
+                        }
+                    }
+
+                    //MessageBox.Show(descuentoMayoreo);
+                    AgregarEditarProducto.descuentos.Add(descuentoMayoreo);
+
+                    descuentoMayoreo = null;
+                }
             }
 
             this.Hide();
