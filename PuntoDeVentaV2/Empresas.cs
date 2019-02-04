@@ -112,6 +112,46 @@ namespace PuntoDeVentaV2
             
         }
 
+        private void DGVListaEmpresas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            numfila = DGVListaEmpresas.CurrentRow.Index;
+            Id_Emp_select = DGVListaEmpresas[1, numfila].Value.ToString();
+            usuario = DGVListaEmpresas[2, numfila].Value.ToString();
+            // variable para poder saber si se agrego o no
+            agregado = 0;
+            // string para hacer el Query a la consulta de SQLite3
+            buscarempresa = $"SELECT u.ID AS 'ID de Empresa', u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.', u.Password AS 'Contraseña' FROM Usuarios u WHERE u.ID = '{id}' OR u.Referencia_ID = '{FormPrincipal.TempUserID}' OR u.ID = '{FormPrincipal.TempUserID}'";
+            // segun el resultado del Query se le asigna al agregado
+            agregado = cn.EjecutarConsulta(buscarempresa);
+            // segun lo que regrese el metodo registrarEmpresa
+            // sea mayor a 0 entonces mostramos mensaje y cerramos la ventana
+            //MessageBox.Show($"Algo salio Mal mi estimado: {usuario}", "No sirvo para Programar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            EntrarEmpresa.IdUsuario = Convert.ToInt32(Id_Emp_select);
+            EntrarEmpresa.nickUsuario = DGVListaEmpresas[2, numfila].Value.ToString();
+            EntrarEmpresa.passwordUsuario = DGVListaEmpresas[5, numfila].Value.ToString();
+
+            EntrarEmpresa.recargarDatos();
+
+            FormCollection fOpen = Application.OpenForms;
+
+            List<string> tempFormOpen = new List<string>();
+
+            foreach (Form formToClose in fOpen)
+            {
+                if (formToClose.Name != "FormPrincipal" && formToClose.Name != "Login")
+                {
+                    tempFormOpen.Add(formToClose.Name);
+                }
+            }
+
+            foreach (var toClose in tempFormOpen)
+            {
+                Form ventanaAbierta = Application.OpenForms[toClose];
+                ventanaAbierta.Close();
+            }
+        }
+
         private void btnNvaEmpresa_Click(object sender, EventArgs e)
         {
             // creamos un delegado para el manejo del evento
@@ -146,42 +186,7 @@ namespace PuntoDeVentaV2
 
         private void DGVListaEmpresas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            numfila = DGVListaEmpresas.CurrentRow.Index;
-            Id_Emp_select = DGVListaEmpresas[1, numfila].Value.ToString();
-            usuario = DGVListaEmpresas[2, numfila].Value.ToString();
-            // variable para poder saber si se agrego o no
-            agregado = 0;
-            // string para hacer el Query a la consulta de SQLite3
-            buscarempresa = $"SELECT u.ID AS 'ID de Empresa', u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.', u.Password AS 'Contraseña' FROM Usuarios u WHERE u.ID = '{id}' OR u.Referencia_ID = '{FormPrincipal.TempUserID}' OR u.ID = '{FormPrincipal.TempUserID}'";
-            // segun el resultado del Query se le asigna al agregado
-            agregado = cn.EjecutarConsulta(buscarempresa);
-            // segun lo que regrese el metodo registrarEmpresa
-            // sea mayor a 0 entonces mostramos mensaje y cerramos la ventana
-            //MessageBox.Show($"Algo salio Mal mi estimado: {usuario}", "No sirvo para Programar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             
-            EntrarEmpresa.IdUsuario = Convert.ToInt32(Id_Emp_select);
-            EntrarEmpresa.nickUsuario = DGVListaEmpresas[2, numfila].Value.ToString();
-            EntrarEmpresa.passwordUsuario = DGVListaEmpresas[5, numfila].Value.ToString();
-
-            EntrarEmpresa.recargarDatos();
-
-            FormCollection fOpen = Application.OpenForms;
-
-            List<string> tempFormOpen = new List<string>();
-
-            foreach (Form formToClose in fOpen)
-            {
-                if (formToClose.Name != "FormPrincipal" && formToClose.Name != "Login")
-                {
-                    tempFormOpen.Add(formToClose.Name);
-                }
-            }
-            
-            foreach (var toClose in tempFormOpen)
-            {
-                Form ventanaAbierta = Application.OpenForms[toClose];
-                ventanaAbierta.Close();
-            }
         }
 
         // funcion para poder cargar los datos segun corresponda en el TxtBox que corresponda
