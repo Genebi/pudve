@@ -45,6 +45,9 @@ namespace PuntoDeVentaV2
                     fp.IdUsuario = Id;
                     fp.nickUsuario = usuario;
                     fp.passwordUsuario = password;
+                    fp.TempIdUsuario = Id;
+                    fp.TempNickUsr = usuario;
+                    fp.TempPassUsr = password;
                     fp.ShowDialog();
 
                     this.Close();

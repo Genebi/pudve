@@ -147,75 +147,41 @@ namespace PuntoDeVentaV2
         private void DGVListaEmpresas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             numfila = DGVListaEmpresas.CurrentRow.Index;
-            Id_Emp_select = DGVListaEmpresas[1,numfila].Value.ToString();
+            Id_Emp_select = DGVListaEmpresas[1, numfila].Value.ToString();
             usuario = DGVListaEmpresas[2, numfila].Value.ToString();
             // variable para poder saber si se agrego o no
             agregado = 0;
             // string para hacer el Query a la consulta de SQLite3
-            buscarempresa = $"SELECT u.ID AS 'ID de Empresa', u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.', u.Password AS 'Contraseña' FROM Usuarios u WHERE u.Referencia_ID = '{id}'";
+            buscarempresa = $"SELECT u.ID AS 'ID de Empresa', u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.', u.Password AS 'Contraseña' FROM Usuarios u WHERE u.ID = '{id}' OR u.Referencia_ID = '{FormPrincipal.TempUserID}' OR u.ID = '{FormPrincipal.TempUserID}'";
             // segun el resultado del Query se le asigna al agregado
             agregado = cn.EjecutarConsulta(buscarempresa);
             // segun lo que regrese el metodo registrarEmpresa
             // sea mayor a 0 entonces mostramos mensaje y cerramos la ventana
             //MessageBox.Show($"Algo salio Mal mi estimado: {usuario}", "No sirvo para Programar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            EntrarEmpresa.TempIdUsuario = Convert.ToInt32(id);
-            EntrarEmpresa.TempNickUsr = userName;
-            EntrarEmpresa.TempPassUsr = passwordUser;
-
+            
             EntrarEmpresa.IdUsuario = Convert.ToInt32(Id_Emp_select);
             EntrarEmpresa.nickUsuario = DGVListaEmpresas[2, numfila].Value.ToString();
             EntrarEmpresa.passwordUsuario = DGVListaEmpresas[5, numfila].Value.ToString();
-            //verificamos si no esta visible la forma
 
-            EntrarEmpresa.FormClosed += delegate
+            EntrarEmpresa.recargarDatos();
+
+            FormCollection fOpen = Application.OpenForms;
+
+            List<string> tempFormOpen = new List<string>();
+
+            foreach (Form formToClose in fOpen)
             {
-                // limpiamos el DataGridView y 
-                // lo dejamos sin registros
-                if (DGVListaEmpresas.DataSource is DataTable)
+                if (formToClose.Name != "FormPrincipal" && formToClose.Name != "Login")
                 {
-                    // dejamos sin registros
-                    ((DataTable)DGVListaEmpresas.DataSource).Rows.Clear();
-                    // refrescamos el DataGridView
-                    DGVListaEmpresas.Refresh();
+                    tempFormOpen.Add(formToClose.Name);
                 }
-                consulta();
-            };
-            // verificamos si no esta visible la forma
-            if (!EntrarEmpresa.Visible)
-            {
-                // muestra la forma
-                EntrarEmpresa.ShowDialog();
             }
-            // si ya se formo la forma
-            else
-            {
-                // la traemos hasta el frente
-                EntrarEmpresa.BringToFront();
-            }
-
-            FormPrincipal fp = new FormPrincipal();
-
-            //fp.TempIdUsuario = Convert.ToInt32(id);
-            //fp.TempNickUsr = userName;
-            //fp.TempPassUsr = passwordUser;
-
-            //fp.IdUsuario = Convert.ToInt32(Id_Emp_select);
-            //fp.nickUsuario = DGVListaEmpresas[2, numfila].Value.ToString();
-            //fp.passwordUsuario = DGVListaEmpresas[5, numfila].Value.ToString();
-            //// verificamos si no esta visible la forma
             
-            //if (!fp.Visible)
-            //{
-            //    // muestra la forma
-            //    fp.ShowDialog();
-            //}
-            //// si ya se formo la forma
-            //else
-            //{
-            //    // la traemos hasta el frente
-            //    fp.BringToFront();
-            //}
+            foreach (var toClose in tempFormOpen)
+            {
+                Form ventanaAbierta = Application.OpenForms[toClose];
+                ventanaAbierta.Close();
+            }
         }
 
         // funcion para poder cargar los datos segun corresponda en el TxtBox que corresponda
@@ -266,7 +232,7 @@ namespace PuntoDeVentaV2
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion y tambien saber
             // que empresas son las que ha registrado este usuario
-            buscarempresa = $"SELECT u.ID AS 'ID de Empresa', u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.', u.Password AS 'Contraseña' FROM Usuarios u WHERE u.Referencia_ID = '{id}'";
+            buscarempresa = $"SELECT u.ID AS 'ID de Empresa', u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.', u.Password AS 'Contraseña' FROM Usuarios u WHERE u.ID = '{id}' OR u.Referencia_ID = '{FormPrincipal.TempUserID}' OR u.ID = '{FormPrincipal.TempUserID}'";
             // Llenamos el contenido del DataGridView
             // con el resultado de la consulta
             DGVListaEmpresas.DataSource = cn.GetEmpresas(buscarempresa);
