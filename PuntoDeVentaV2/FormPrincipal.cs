@@ -17,14 +17,28 @@ namespace PuntoDeVentaV2
         public static int userID;
         public static string userNickName;
         public static string userPass;
+        public static int TempUserID;
+        public static string TempUserNickName;
+        public static string TempUserPass;
 
+        // variables para poder tomar los datos que se pasaron del login a esta forma
         public int IdUsuario { get; set; }
         public string nickUsuario { get; set; }
         public string passwordUsuario { get; set; }
 
+        // variables usasadas para que sea estatico los valores y asi en empresas
+        // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
         public int TempIdUsuario { get; set; }
         public string TempNickUsr { get; set; }
         public string TempPassUsr { get; set; }
+
+        // funsion para que podamos recargar variables desde otro formulario
+        public void recargarDatos()
+        {
+            userID = IdUsuario;
+            userNickName = nickUsuario;
+            userPass = passwordUsuario;
+        }
 
         public FormPrincipal()
         {
@@ -37,11 +51,12 @@ namespace PuntoDeVentaV2
             //datos.SincronizarProductos();
             //Temporizador();
 
-            // asignamos el valor de userNickName que sea
-            // el valor que tiene nickUsuario
-            userID = IdUsuario;
-            userNickName = nickUsuario;
-            userPass = passwordUsuario;
+            recargarDatos();
+
+            TempUserID = TempIdUsuario;
+            TempUserNickName = TempNickUsr;
+            TempUserPass = TempPassUsr;
+
         }
 
         private void btnProductos_Click(object sender, EventArgs e)

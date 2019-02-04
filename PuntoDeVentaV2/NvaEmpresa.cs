@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
             user = 0;
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            buscar = $"SELECT u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.' FROM Usuarios u WHERE u.Usuario LIKE '{usuario}' AND u.Referencia_ID = '{idUsuario}'";
+            buscar = $"SELECT u.Usuario AS 'Usuario', u.NombreCompleto AS 'Nombre Comercial', u.RFC AS 'R.F.C.' FROM Usuarios u WHERE u.Usuario LIKE '{usuario}' AND u.Referencia_ID = '{FormPrincipal.TempUserID}'";
 
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
@@ -69,7 +69,7 @@ namespace PuntoDeVentaV2
             // variable para poder saber si se agrego o no
             agregado = 0;
             // string para hacer el Query a la consulta de SQLite3
-            insertar = $"INSERT INTO Usuarios(Usuario,Password,RazonSocial,Telefono,Email,Referencia_ID)VALUES('{usuario}','{password1}','{razonSocial}','{telefono}','{email}','{idUsuario}')";
+            insertar = $"INSERT INTO Usuarios(Usuario,Password,RazonSocial,Telefono,Email,Referencia_ID)VALUES('{usuario}','{password1}','{razonSocial}','{telefono}','{email}','{FormPrincipal.TempUserID}')";
             // segun el resultado del Query se le asigna al agregado
             agregado = cn.EjecutarConsulta(insertar);
         }

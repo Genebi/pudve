@@ -416,7 +416,7 @@ namespace PuntoDeVentaV2
             }
 
             // si el archivo existe
-            if ((f.CheckFileExists) && (f.FileName != ""))
+            if (f.CheckFileExists)
             {
                 // hacemos el intento de realizar la actualizacion de la imagen
                 try
@@ -434,7 +434,7 @@ namespace PuntoDeVentaV2
                         // si el valor de la vairable es diferente a Null o de ""
                         if (logoTipo != "")
                         {
-                            // si file1 diferente a null
+                            // si file1 es igual a null
                             if (File1 != null)
                             {
                                 // Dasactivamos el objeto File1
