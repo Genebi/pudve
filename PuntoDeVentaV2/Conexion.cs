@@ -10,6 +10,7 @@ using System.Windows.Forms;
 //using MySql.Data.MySqlClient;
 using System.Runtime.InteropServices;
 using System.IO;
+using System.Collections.Specialized;
 
 namespace PuntoDeVentaV2
 {
@@ -181,6 +182,51 @@ namespace PuntoDeVentaV2
             sda.Fill(DT);
             sql_con.Close();
             return DT;
+        }
+
+        public NameValueCollection ObtenerProductos(int IDUsuario)
+        {
+            NameValueCollection lista = new NameValueCollection();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = "SELECT * FROM Productos WHERE IDUsuario = " + IDUsuario;
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                //dr[0] = ID del producto
+                //dr[1] = Nombre producto
+                lista.Add(dr[0].ToString(), dr[1].ToString().ToLower());
+            }
+
+            return lista;
+        }
+
+        public string[] BuscarProducto(int IDProducto, int IDUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = "SELECT * FROM Productos WHERE ID = "+ IDProducto +" AND IDUsuario = " + IDUsuario;
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[0].ToString()); //ID producto
+                lista.Add(dr[1].ToString()); //Nombre
+                lista.Add(dr[3].ToString()); //Precio
+                lista.Add(dr[9].ToString()); //Tipo descuento
+            }
+
+            return lista.ToArray();
         }
     }
 }

@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.txtBuscadorProducto = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DGVentas = new System.Windows.Forms.DataGridView();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,7 +39,10 @@
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEliminarUltimo = new System.Windows.Forms.Button();
             this.btnEliminarTodos = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.listaProductos = new System.Windows.Forms.ListBox();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -46,7 +50,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(383, 22);
+            this.tituloSeccion.Location = new System.Drawing.Point(470, 22);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(157, 25);
             this.tituloSeccion.TabIndex = 4;
@@ -60,22 +64,25 @@
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
             this.txtBuscadorProducto.Size = new System.Drawing.Size(372, 23);
             this.txtBuscadorProducto.TabIndex = 5;
+            this.txtBuscadorProducto.Text = "Buscar producto...";
+            this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
+            this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
             // 
-            // dataGridView1
+            // DGVentas
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DGVentas.AllowUserToAddRows = false;
+            this.DGVentas.AllowUserToDeleteRows = false;
+            this.DGVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Cantidad,
             this.Precio,
             this.Descripcion,
             this.Descuento,
             this.Importe});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 143);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(597, 177);
-            this.dataGridView1.TabIndex = 6;
+            this.DGVentas.Location = new System.Drawing.Point(12, 137);
+            this.DGVentas.Name = "DGVentas";
+            this.DGVentas.Size = new System.Drawing.Size(597, 177);
+            this.DGVentas.TabIndex = 6;
             // 
             // Cantidad
             // 
@@ -109,7 +116,9 @@
             this.btnEliminarUltimo.Name = "btnEliminarUltimo";
             this.btnEliminarUltimo.Size = new System.Drawing.Size(40, 30);
             this.btnEliminarUltimo.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.btnEliminarUltimo, "Eliminar último agregado");
             this.btnEliminarUltimo.UseVisualStyleBackColor = true;
+            this.btnEliminarUltimo.Click += new System.EventHandler(this.btnEliminarUltimo_Click);
             // 
             // btnEliminarTodos
             // 
@@ -118,22 +127,35 @@
             this.btnEliminarTodos.Name = "btnEliminarTodos";
             this.btnEliminarTodos.Size = new System.Drawing.Size(40, 30);
             this.btnEliminarTodos.TabIndex = 8;
+            this.toolTip2.SetToolTip(this.btnEliminarTodos, "Eliminar todos los agregados");
             this.btnEliminarTodos.UseVisualStyleBackColor = true;
+            // 
+            // listaProductos
+            // 
+            this.listaProductos.FormattingEnabled = true;
+            this.listaProductos.Location = new System.Drawing.Point(12, 128);
+            this.listaProductos.Name = "listaProductos";
+            this.listaProductos.Size = new System.Drawing.Size(372, 56);
+            this.listaProductos.TabIndex = 9;
+            this.listaProductos.Visible = false;
+            this.listaProductos.SelectedIndexChanged += new System.EventHandler(this.listaProductos_SelectedIndexChanged);
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 397);
+            this.ClientSize = new System.Drawing.Size(1084, 611);
+            this.Controls.Add(this.listaProductos);
             this.Controls.Add(this.btnEliminarTodos);
             this.Controls.Add(this.btnEliminarUltimo);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DGVentas);
             this.Controls.Add(this.txtBuscadorProducto);
             this.Controls.Add(this.tituloSeccion);
             this.Name = "Ventas";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ventas";
             this.Load += new System.EventHandler(this.Ventas_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,7 +165,7 @@
 
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.TextBox txtBuscadorProducto;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DGVentas;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Descripcion;
@@ -151,5 +173,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
         private System.Windows.Forms.Button btnEliminarUltimo;
         private System.Windows.Forms.Button btnEliminarTodos;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.ListBox listaProductos;
     }
 }
