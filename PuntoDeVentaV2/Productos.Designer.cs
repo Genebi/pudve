@@ -166,12 +166,6 @@
         #endregion
         private System.Windows.Forms.DataGridView DGVProductos;
         private System.Windows.Forms.Button btnAgregarProducto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombreDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precioDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stockDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn claveInternaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codigoBarrasDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn actualizadoDataGridViewCheckBoxColumn;
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.Label tituloBusqueda;
         private System.Windows.Forms.TextBox txtBusqueda;

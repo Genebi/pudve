@@ -99,25 +99,29 @@ namespace PuntoDeVentaV2
                 //Se obtiene el indice del array donde se encuentra el producto seleccionado
                 int idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
 
-                string[] tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
                 txtBuscadorProducto.Text = "";
                 txtBuscadorProducto.Focus();
                 ocultarResultados();
 
-                //DGVentas.Rows.Insert(tmp[0], tmp[1], tmp[2], tmp[3]);
+                //0 = Sin descuento
+                //1 = Descuento Cliente
+                //2 = Descuento Mayoreo
+                if (datosProducto[3] == "1")
+                {
+                    //MessageBox.Show("Descuento por Cliente");
+                }
+                else if (datosProducto[3] == "2")
+                {
+                    //MessageBox.Show("Descuento por Mayoreo");
+                }
+                else
+                {
+                    //MessageBox.Show("Sin descuento");
+                }
 
-                int rowId = DGVentas.Rows.Add();
-
-                // Grab the new row!
-                DataGridViewRow row = DGVentas.Rows[rowId];
-
-                // Add the data
-                row.Cells["Cantidad"].Value = "1";
-                row.Cells["Precio"].Value = tmp[2];
-                row.Cells["Descripcion"].Value = tmp[1];
-                row.Cells["Descuento"].Value = "0";
-                row.Cells["Importe"].Value = tmp[2];
+                AgregarProducto(datosProducto);
             }
         }
 
@@ -144,15 +148,117 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void btnEliminarUltimo_Click(object sender, EventArgs e)
+        private void AgregarProducto(string[] datosProducto)
         {
-            string[] tmp = new string[datos.Count];
-            datos.CopyTo(tmp, 0);
+            if (DGVentas.Rows.Count > 0)
+            {
+                bool existe = false;
 
-            var d = datos.GetKey(Array.IndexOf(tmp, tmp[1]));
+                foreach (DataGridViewRow fila in DGVentas.Rows)
+                {
+                    //Compara el valor de la celda con el nombre del producto (Descripcion)
+                    if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
+                    {
+                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + 1;
+                        float importe = cantidad * float.Parse(fila.Cells["Precio"].Value.ToString());
 
-            MessageBox.Show(d);
+                        fila.Cells["Cantidad"].Value = cantidad;
+                        fila.Cells["Importe"].Value = importe;
+                        existe = true;
+                    }
+                }
 
+                if (!existe)
+                {
+                    //Se agrega la nueva fila y se obtiene el ID que tendrá
+                    int rowId = DGVentas.Rows.Add();
+
+                    //Obtener la nueva fila
+                    DataGridViewRow row = DGVentas.Rows[rowId];
+
+                    //Agregamos la información
+                    row.Cells["Cantidad"].Value = 1;
+                    row.Cells["Precio"].Value = datosProducto[2];
+                    row.Cells["Descripcion"].Value = datosProducto[1];
+                    row.Cells["Descuento"].Value = 0;
+                    row.Cells["Importe"].Value = datosProducto[2];
+
+                    Image img1 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus-square.png");
+                    Image img2 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
+                    Image img3 = Image.FromFile(rutaDirectorio + @"\icon\black16\minus.png");
+                    Image img4 = Image.FromFile(rutaDirectorio + @"\icon\black16\remove.png");
+
+                    DGVentas.Rows[rowId].Cells["AgregarMultiple"].Value = img1;
+                    DGVentas.Rows[rowId].Cells["AgregarIndividual"].Value = img2;
+                    DGVentas.Rows[rowId].Cells["RestarIndividual"].Value = img3;
+                    DGVentas.Rows[rowId].Cells["EliminarIndividual"].Value = img4;
+                }
+            }
+            else
+            {
+                //Se agrega la nueva fila y se obtiene el ID que tendrá
+                int rowId = DGVentas.Rows.Add();
+
+                //Obtener la nueva fila
+                DataGridViewRow row = DGVentas.Rows[rowId];
+
+                //Agregamos la información
+                row.Cells["Cantidad"].Value = 1;
+                row.Cells["Precio"].Value = datosProducto[2];
+                row.Cells["Descripcion"].Value = datosProducto[1];
+                row.Cells["Descuento"].Value = 0;
+                row.Cells["Importe"].Value = datosProducto[2];
+
+                Image img1 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus-square.png");
+                Image img2 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
+                Image img3 = Image.FromFile(rutaDirectorio + @"\icon\black16\minus.png");
+                Image img4 = Image.FromFile(rutaDirectorio + @"\icon\black16\remove.png");
+
+                DGVentas.Rows[rowId].Cells["AgregarMultiple"].Value = img1;
+                DGVentas.Rows[rowId].Cells["AgregarIndividual"].Value = img2;
+                DGVentas.Rows[rowId].Cells["RestarIndividual"].Value = img3;
+                DGVentas.Rows[rowId].Cells["EliminarIndividual"].Value = img4;
+            }
+        }
+
+        private void DGVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            //Iconos operaciones por producto
+            if (e.ColumnIndex >= 5)
+            {
+                DGVentas.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                DGVentas.Cursor = Cursors.Default;
+            }
+        }
+
+        private void DGVentas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Agregar multiple
+            if (e.ColumnIndex == 5)
+            {
+                MessageBox.Show("Agregar multiple");
+            }
+
+            //Agregar individual
+            if (e.ColumnIndex == 6)
+            {
+                MessageBox.Show("Agregar individual");
+            }
+
+            //Restar individual
+            if (e.ColumnIndex == 7)
+            {
+                MessageBox.Show("Restar individual");
+            }
+
+            //Eliminar individual
+            if (e.ColumnIndex == 8)
+            {
+                MessageBox.Show("Eliminar individual");
+            }
         }
     }
 }
