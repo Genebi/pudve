@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
     {
 
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
+        public AgregarStockXML FormXML = new AgregarStockXML();
         public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         Conexion cn = new Conexion();
@@ -88,6 +89,22 @@ namespace PuntoDeVentaV2
             else
             {
                 DGVProductos.Cursor = Cursors.Default;
+            }
+        }
+
+        private void btnAgregarXML_Click(object sender, EventArgs e)
+        {
+            FormXML.FormClosed += delegate 
+            {
+                CargarDatos();
+            };
+            if (!FormXML.Visible)
+            {
+                FormXML.ShowDialog();
+            }
+            else
+            {
+                FormXML.BringToFront();
             }
         }
     }
