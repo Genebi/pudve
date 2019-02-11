@@ -160,9 +160,16 @@ namespace PuntoDeVentaV2
                             dataGridView1.Rows[renglon].Cells[1].Value = ds.Conceptos[i].Descripcion;
                             dataGridView1.Rows[renglon].Cells[2].Value = ds.Conceptos[i].Cantidad;
                             dataGridView1.Rows[renglon].Cells[3].Value = ds.Conceptos[i].ValorUnitario;
-                            dataGridView1.Rows[renglon].Cells[5].Value = ds.Conceptos[i].NoIdentificacion;
-                            dataGridView1.Rows[renglon].Cells[8].Value = ds.Conceptos[i].Unidad;
+                            dataGridView1.Rows[renglon].Cells[4].Value = ds.Conceptos[i].NoIdentificacion;
+                            dataGridView1.Rows[renglon].Cells[5].Value = ds.Conceptos[i].Unidad;
                         }
+
+                        float IVA;
+                        float subtotal, descuento;
+                        subtotal = float.Parse(ds.SubTotal);
+                        descuento = float.Parse(ds.Descuento);
+                        IVA = (subtotal - descuento) * (float)0.16;
+                        lblIVAFactura.Text =IVA.ToString();
                     }
                 }
                 else
