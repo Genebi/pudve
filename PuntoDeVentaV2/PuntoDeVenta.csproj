@@ -91,19 +91,17 @@
     <Compile Include="AgregarEditarProducto.Designer.cs">
       <DependentUpon>AgregarEditarProducto.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="AgregarStockXML.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AgregarStockXML.Designer.cs">
       <DependentUpon>AgregarStockXML.cs</DependentUpon>
-=======
+    </Compile>
     <Compile Include="AgregarMultiplesProductos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AgregarMultiplesProductos.Designer.cs">
       <DependentUpon>AgregarMultiplesProductos.cs</DependentUpon>
->>>>>>> ventas
     </Compile>
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
@@ -179,13 +177,11 @@
     <EmbeddedResource Include="AgregarEditarProducto.resx">
       <DependentUpon>AgregarEditarProducto.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="AgregarStockXML.resx">
       <DependentUpon>AgregarStockXML.cs</DependentUpon>
-=======
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarMultiplesProductos.resx">
       <DependentUpon>AgregarMultiplesProductos.cs</DependentUpon>
->>>>>>> ventas
     </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
