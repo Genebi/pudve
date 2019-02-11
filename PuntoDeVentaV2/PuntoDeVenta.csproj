@@ -91,6 +91,12 @@
     <Compile Include="AgregarEditarProducto.Designer.cs">
       <DependentUpon>AgregarEditarProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="AgregarMultiplesProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarMultiplesProductos.Designer.cs">
+      <DependentUpon>AgregarMultiplesProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarEditarProducto.resx">
       <DependentUpon>AgregarEditarProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgregarMultiplesProductos.resx">
+      <DependentUpon>AgregarMultiplesProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>

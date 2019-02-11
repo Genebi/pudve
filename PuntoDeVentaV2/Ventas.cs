@@ -14,16 +14,20 @@ namespace PuntoDeVentaV2
 {
     public partial class Ventas : Form
     {
+        string[] productos;
+
+        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+
+        public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
+        public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
+
         Conexion cn = new Conexion();
 
         AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
 
         NameValueCollection datos = new NameValueCollection();
 
-        string[] productos;
-
-        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-
+        
         public Ventas()
         {
             InitializeComponent();
@@ -236,29 +240,68 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            var celda = DGVentas.CurrentCell.RowIndex;
+
             //Agregar multiple
             if (e.ColumnIndex == 5)
             {
-                MessageBox.Show("Agregar multiple");
+                indiceFila = e.RowIndex;
+
+                AgregarMultiplesProductos agregarMultiple = new AgregarMultiplesProductos();
+
+                agregarMultiple.FormClosed += delegate
+                {
+                    AgregarMultiplesProductos();
+                    agregarMultiple.Dispose();
+                };
+
+                agregarMultiple.ShowDialog();
             }
 
             //Agregar individual
             if (e.ColumnIndex == 6)
             {
-                MessageBox.Show("Agregar individual");
+                int cantidad  = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value) + 1;
+                float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
+
+                DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
+                DGVentas.Rows[celda].Cells["Importe"].Value = importe;
             }
 
             //Restar individual
             if (e.ColumnIndex == 7)
             {
-                MessageBox.Show("Restar individual");
+                int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
+
+                if (cantidad > 0)
+                {
+                    cantidad -= 1;
+                    float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
+
+                    DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
+                    DGVentas.Rows[celda].Cells["Importe"].Value = importe;
+                }
             }
 
             //Eliminar individual
             if (e.ColumnIndex == 8)
             {
-                MessageBox.Show("Eliminar individual");
+                DGVentas.Rows.RemoveAt(celda);
             }
+
+            DGVentas.ClearSelection();
+        }
+
+        private void AgregarMultiplesProductos()
+        {
+            int cantidad = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["Cantidad"].Value) + cantidadFila;
+            float importe = cantidad * float.Parse(DGVentas.Rows[indiceFila].Cells["Precio"].Value.ToString());
+
+            DGVentas.Rows[indiceFila].Cells["Cantidad"].Value = cantidad;
+            DGVentas.Rows[indiceFila].Cells["Importe"].Value = importe;
+
+            indiceFila = 0;
+            cantidadFila = 0;   
         }
     }
 }
