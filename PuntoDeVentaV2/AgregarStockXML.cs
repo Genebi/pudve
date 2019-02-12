@@ -159,19 +159,6 @@ namespace PuntoDeVentaV2
             cargarDatos();
         }
 
-        public void LimpiarCargarDataGridView()
-        {
-            // limpiamos el DataGridView y 
-            // lo dejamos sin registros
-            if (DGVConceptoXMLFile.RowCount > 0)
-            {
-                // dejamos sin registros
-                DGVConceptoXMLFile.Rows.Clear();
-                // refrescamos el DataGridView
-                DGVConceptoXMLFile.Refresh();
-            }
-        }
-
         public AgregarStockXML()
         {
             InitializeComponent();
@@ -205,40 +192,10 @@ namespace PuntoDeVentaV2
                         
                         if (ds.Receptor.Rfc == rfc)
                         {
-                            LimpiarCargarDataGridView();
-
-                            lblFolio.Text = ds.Folio;
-                            lblFecha.Text = ds.Fecha;
-                            lblNomEmisor.Text = ds.Emisor.Nombre;
-                            lblRFCEmisor.Text = ds.Emisor.Rfc;
-                            lblNomReceptor.Text = ds.Receptor.Nombre;
-                            lblRFCReceptor.Text = ds.Receptor.Rfc;
-                            lblSubTot.Text = ds.SubTotal;
-                            lblDescuento.Text = ds.Descuento;
-                            lblTotal.Text = ds.Total;
-
-                            for (int i = 0; i < ds.Conceptos.Length; i++)
-                            {
-                                int renglon = DGVConceptoXMLFile.Rows.Add();
-                                int NoProducto = i + 1;
-                                DGVConceptoXMLFile.Rows[renglon].Cells[0].Value = NoProducto.ToString();
-                                DGVConceptoXMLFile.Rows[renglon].Cells[1].Value = ds.Conceptos[i].Descripcion;
-                                DGVConceptoXMLFile.Rows[renglon].Cells[2].Value = ds.Conceptos[i].Cantidad;
-                                DGVConceptoXMLFile.Rows[renglon].Cells[3].Value = ds.Conceptos[i].ValorUnitario;
-                                DGVConceptoXMLFile.Rows[renglon].Cells[4].Value = ds.Conceptos[i].NoIdentificacion;
-                                DGVConceptoXMLFile.Rows[renglon].Cells[5].Value = ds.Conceptos[i].Unidad;
-                            }
-
-                            float IVA;
-                            float subtotal, descuento;
-                            subtotal = float.Parse(ds.SubTotal, System.Globalization.NumberStyles.Float, new System.Globalization.CultureInfo("en-US"));
-                            descuento = float.Parse(ds.Descuento, System.Globalization.NumberStyles.Float, new System.Globalization.CultureInfo("en-US"));
-                            IVA = (subtotal - descuento) * (float)0.16;
-                            lblIVAFactura.Text = IVA.ToString("N2");
+                            
                         }
                         else
                         {
-                            LimpiarCargarDataGridView();
                             MessageBox.Show("El archivo XML seleccionado no tiene la tu RFC,\nDebes seleccionar un archivo XML con tu RFC",
                                     "XML no contiene tu R.F.C.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -271,16 +228,6 @@ namespace PuntoDeVentaV2
 
         private void AgregarStockXML_Load(object sender, EventArgs e)
         {
-            lblFolio.Text = "";
-            lblFecha.Text = "";
-            lblNomEmisor.Text = "";
-            lblRFCEmisor.Text = "";
-            lblNomReceptor.Text = "";
-            lblRFCReceptor.Text = "";
-            lblSubTot.Text = "";
-            lblDescuento.Text = "";
-            lblTotal.Text = "";
-
             groupBox5.BackColor = Color.FromArgb(130, 130, 130);
 
             // asignamos el valor de userName que sea
@@ -294,17 +241,6 @@ namespace PuntoDeVentaV2
         private void label11_Click(object sender, EventArgs e)
         {
             leerXMLFile();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string fecha = DateTime.Now.ToString();
-            fecha = fecha.Replace(" ", "");
-            fecha = fecha.Replace("/", "");
-            fecha = fecha.Replace(":", "");
-            fecha = fecha.Substring(3, 11);
-
-            txtCodigoBarras.Text = fecha;
         }
     }
 }
