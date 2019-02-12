@@ -119,6 +119,8 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
 
+        public RecorrerXMLInventario cicloXML = new RecorrerXMLInventario();
+
         // declaramos la variable que almacenara el valor de userNickName
         public string userName;
         public string passwordUser;
@@ -128,7 +130,7 @@ namespace PuntoDeVentaV2
 
         // variables para poder hacer el recorrido y asignacion de los valores que estan el base de datos
         int index;
-        DataTable dt;
+        public DataTable dt;
 
         // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
         // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
@@ -192,7 +194,20 @@ namespace PuntoDeVentaV2
                         
                         if (ds.Receptor.Rfc == rfc)
                         {
-                            
+                            cicloXML.FormClosed += delegate
+                            {
+                                this.Close();
+                            };
+                            if (!cicloXML.Visible)
+                            {
+                                cicloXML.Productos = dt;
+                                cicloXML.ShowDialog();
+                            }
+                            else
+                            {
+                                cicloXML.Productos = dt;
+                                cicloXML.BringToFront();
+                            }
                         }
                         else
                         {
@@ -216,13 +231,13 @@ namespace PuntoDeVentaV2
 
         private void label11_MouseEnter(object sender, EventArgs e)
         {
-            label11.BackColor = Color.FromArgb(255, 0, 0);
+            //label11.BackColor = Color.FromArgb(255, 0, 0);
             label11.ForeColor = Color.FromArgb(0, 140, 255);
         }
 
         private void label11_MouseLeave(object sender, EventArgs e)
         {
-            label11.BackColor = Color.FromArgb(130, 130, 130);
+            //label11.BackColor = Color.FromArgb(130, 130, 130);
             label11.ForeColor = Color.FromArgb(0, 0, 0);
         }
 

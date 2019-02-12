@@ -65,10 +65,10 @@
             // label11
             // 
             this.label11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label11.Font = new System.Drawing.Font("Times New Roman", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(152, 61);
+            this.label11.Font = new System.Drawing.Font("Times New Roman", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(6, 18);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(284, 167);
+            this.label11.Size = new System.Drawing.Size(573, 275);
             this.label11.TabIndex = 0;
             this.label11.Text = "Click aquí para agregar XML";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
