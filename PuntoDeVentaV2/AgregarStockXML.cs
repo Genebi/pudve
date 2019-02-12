@@ -117,59 +117,131 @@ namespace PuntoDeVentaV2
 
         OpenFileDialog f;
 
+        Conexion cn = new Conexion();
+
+        // declaramos la variable que almacenara el valor de userNickName
+        public string userName;
+        public string passwordUser;
+
+        // variables para poder hacer las consulta y actualizacion
+        string buscar;
+
+        // variables para poder hacer el recorrido y asignacion de los valores que estan el base de datos
+        int index;
+        DataTable dt;
+
+        // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
+        // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
+        string id;
+        string rfc;
+
+        public void cargarDatos()
+        {
+            index = 0;
+            /****************************************************
+            *   obtenemos los datos almacenados en el dt        *
+            *   y se los asignamos a cada uno de los variables  *
+            ****************************************************/
+            id = dt.Rows[index]["ID"].ToString();
+            rfc = dt.Rows[index]["RFC"].ToString();
+        }
+
+        public void consulta()
+        {
+            // String para hacer la consulta filtrada sobre
+            // el usuario que inicia la sesion
+            buscar = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE Usuario = '{userName}' AND Password = '{passwordUser}'";
+
+            // almacenamos el resultado de la Funcion CargarDatos
+            // que esta en la calse Consultas
+            dt = cn.CargarDatos(buscar);
+
+            cargarDatos();
+        }
+
+        public void LimpiarCargarDataGridView()
+        {
+            // limpiamos el DataGridView y 
+            // lo dejamos sin registros
+            if (DGVConceptoXMLFile.RowCount > 0)
+            {
+                // dejamos sin registros
+                DGVConceptoXMLFile.Rows.Clear();
+                // refrescamos el DataGridView
+                DGVConceptoXMLFile.Refresh();
+            }
+        }
+
         public AgregarStockXML()
         {
             InitializeComponent();
         }
 
-        private void btnLoadXML_Click(object sender, EventArgs e)
+        public void leerXMLFile()
         {
+            // ejecutar el openFileDialog
             using (f = new OpenFileDialog())
             {
+                // poner el setup de archivos ver etc
                 f.DefaultExt = "xml";
                 f.Filter = "Archivo XML (*.xml) | *.xml";
                 f.Title = "Selecciona tu archivo XML";
+                // si se le da clic en el boton Ok
                 if (f.ShowDialog() == DialogResult.OK)
                 {
+                    // si es que el usuario pone otra extension no permitida se le pone este mensaje
                     if (!String.Equals(Path.GetExtension(f.FileName), ".xml", StringComparison.OrdinalIgnoreCase))
                     {
                         MessageBox.Show("El tipo de archivo seleccionado no es soportado en esta aplicación,\nDebes seleccionar un archivo con extension XML",
                                         "Tipo de Archivo Invalido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    // si es que todo esta bien se le da el procesamiento del archivo
                     else
                     {
-                        MessageBox.Show("El archivo seleccionado,\nse esta Procesando", "Tipo de Archivo Valido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("El archivo seleccionado,\nse esta Procesando", "Tipo de Archivo Valido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         XmlSerializer serial = new XmlSerializer(typeof(Comprobante));
-                        FileStream fs = new FileStream(@"C:\test.xml", FileMode.Open, FileAccess.Read);
+                        FileStream fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);
                         Comprobante ds = (Comprobante)serial.Deserialize(fs);
-                        lblFolio.Text = ds.Folio;
-                        lblFecha.Text = ds.Fecha;
-                        lblNomEmisor.Text = ds.Emisor.Nombre;
-                        lblRFCEmisor.Text = ds.Emisor.Rfc;
-                        lblNomReceptor.Text = ds.Receptor.Nombre;
-                        lblRFCReceptor.Text = ds.Receptor.Rfc;
-                        lblSubTot.Text = ds.SubTotal;
-                        lblDescuento.Text = ds.Descuento;
-                        lblTotal.Text = ds.Total;
-
-                        for (int i = 0; i < ds.Conceptos.Length; i++)
+                        
+                        if (ds.Receptor.Rfc == rfc)
                         {
-                            int renglon = dataGridView1.Rows.Add();
-                            int NoProducto = i + 1;
-                            dataGridView1.Rows[renglon].Cells[0].Value = NoProducto.ToString();
-                            dataGridView1.Rows[renglon].Cells[1].Value = ds.Conceptos[i].Descripcion;
-                            dataGridView1.Rows[renglon].Cells[2].Value = ds.Conceptos[i].Cantidad;
-                            dataGridView1.Rows[renglon].Cells[3].Value = ds.Conceptos[i].ValorUnitario;
-                            dataGridView1.Rows[renglon].Cells[4].Value = ds.Conceptos[i].NoIdentificacion;
-                            dataGridView1.Rows[renglon].Cells[5].Value = ds.Conceptos[i].Unidad;
-                        }
+                            LimpiarCargarDataGridView();
 
-                        float IVA;
-                        float subtotal, descuento;
-                        subtotal = float.Parse(ds.SubTotal);
-                        descuento = float.Parse(ds.Descuento);
-                        IVA = (subtotal - descuento) * (float)0.16;
-                        lblIVAFactura.Text =IVA.ToString();
+                            lblFolio.Text = ds.Folio;
+                            lblFecha.Text = ds.Fecha;
+                            lblNomEmisor.Text = ds.Emisor.Nombre;
+                            lblRFCEmisor.Text = ds.Emisor.Rfc;
+                            lblNomReceptor.Text = ds.Receptor.Nombre;
+                            lblRFCReceptor.Text = ds.Receptor.Rfc;
+                            lblSubTot.Text = ds.SubTotal;
+                            lblDescuento.Text = ds.Descuento;
+                            lblTotal.Text = ds.Total;
+
+                            for (int i = 0; i < ds.Conceptos.Length; i++)
+                            {
+                                int renglon = DGVConceptoXMLFile.Rows.Add();
+                                int NoProducto = i + 1;
+                                DGVConceptoXMLFile.Rows[renglon].Cells[0].Value = NoProducto.ToString();
+                                DGVConceptoXMLFile.Rows[renglon].Cells[1].Value = ds.Conceptos[i].Descripcion;
+                                DGVConceptoXMLFile.Rows[renglon].Cells[2].Value = ds.Conceptos[i].Cantidad;
+                                DGVConceptoXMLFile.Rows[renglon].Cells[3].Value = ds.Conceptos[i].ValorUnitario;
+                                DGVConceptoXMLFile.Rows[renglon].Cells[4].Value = ds.Conceptos[i].NoIdentificacion;
+                                DGVConceptoXMLFile.Rows[renglon].Cells[5].Value = ds.Conceptos[i].Unidad;
+                            }
+
+                            float IVA;
+                            float subtotal, descuento;
+                            subtotal = float.Parse(ds.SubTotal, System.Globalization.NumberStyles.Float, new System.Globalization.CultureInfo("en-US"));
+                            descuento = float.Parse(ds.Descuento, System.Globalization.NumberStyles.Float, new System.Globalization.CultureInfo("en-US"));
+                            IVA = (subtotal - descuento) * (float)0.16;
+                            lblIVAFactura.Text = IVA.ToString("N2");
+                        }
+                        else
+                        {
+                            LimpiarCargarDataGridView();
+                            MessageBox.Show("El archivo XML seleccionado no tiene la tu RFC,\nDebes seleccionar un archivo XML con tu RFC",
+                                    "XML no contiene tu R.F.C.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else
@@ -178,6 +250,61 @@ namespace PuntoDeVentaV2
                                     "Tipo de Archivo Invalido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void btnLoadXML_Click(object sender, EventArgs e)
+        {
+            leerXMLFile();
+        }
+
+        private void label11_MouseEnter(object sender, EventArgs e)
+        {
+            label11.BackColor = Color.FromArgb(255, 0, 0);
+            label11.ForeColor = Color.FromArgb(0, 140, 255);
+        }
+
+        private void label11_MouseLeave(object sender, EventArgs e)
+        {
+            label11.BackColor = Color.FromArgb(130, 130, 130);
+            label11.ForeColor = Color.FromArgb(0, 0, 0);
+        }
+
+        private void AgregarStockXML_Load(object sender, EventArgs e)
+        {
+            lblFolio.Text = "";
+            lblFecha.Text = "";
+            lblNomEmisor.Text = "";
+            lblRFCEmisor.Text = "";
+            lblNomReceptor.Text = "";
+            lblRFCReceptor.Text = "";
+            lblSubTot.Text = "";
+            lblDescuento.Text = "";
+            lblTotal.Text = "";
+
+            groupBox5.BackColor = Color.FromArgb(130, 130, 130);
+
+            // asignamos el valor de userName que sea
+            // el valor que tiene userNickUsuario en el formulario Principal
+            userName = FormPrincipal.userNickName;
+            passwordUser = FormPrincipal.userPass;
+
+            consulta();
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+            leerXMLFile();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string fecha = DateTime.Now.ToString();
+            fecha = fecha.Replace(" ", "");
+            fecha = fecha.Replace("/", "");
+            fecha = fecha.Replace(":", "");
+            fecha = fecha.Substring(3, 11);
+
+            txtCodigoBarras.Text = fecha;
         }
     }
 }

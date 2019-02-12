@@ -49,7 +49,7 @@
             this.DGVProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVProductos.Location = new System.Drawing.Point(16, 266);
-            this.DGVProductos.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.DGVProductos.Margin = new System.Windows.Forms.Padding(4);
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.Size = new System.Drawing.Size(891, 324);
@@ -69,7 +69,7 @@
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAgregarProducto.Location = new System.Drawing.Point(672, 203);
-            this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(233, 33);
             this.btnAgregarProducto.TabIndex = 1;
@@ -108,7 +108,7 @@
             this.txtBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBusqueda.Location = new System.Drawing.Point(17, 126);
-            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(887, 27);
             this.txtBusqueda.TabIndex = 5;
@@ -127,7 +127,7 @@
             "Mayor precio",
             "Menor precio"});
             this.cbOrden.Location = new System.Drawing.Point(225, 206);
-            this.cbOrden.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbOrden.Margin = new System.Windows.Forms.Padding(4);
             this.cbOrden.Name = "cbOrden";
             this.cbOrden.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbOrden.Size = new System.Drawing.Size(199, 29);
@@ -144,7 +144,7 @@
             "Deshabilitados",
             "Todos"});
             this.cbMostrar.Location = new System.Drawing.Point(449, 206);
-            this.cbMostrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbMostrar.Margin = new System.Windows.Forms.Padding(4);
             this.cbMostrar.Name = "cbMostrar";
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbMostrar.Size = new System.Drawing.Size(199, 29);
@@ -153,6 +153,7 @@
             // btnAgregarXML
             // 
             this.btnAgregarXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
             this.btnAgregarXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -178,7 +179,7 @@
             this.Controls.Add(this.tituloBusqueda);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.DGVProductos);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Productos";
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
