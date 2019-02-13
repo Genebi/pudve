@@ -100,6 +100,7 @@ namespace PuntoDeVentaV2
             };
             if (!FormXML.Visible)
             {
+                FormXML.OcultarPanelRegistro();
                 FormXML.ShowDialog();
             }
             else
