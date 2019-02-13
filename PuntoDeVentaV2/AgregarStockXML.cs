@@ -122,14 +122,16 @@ namespace PuntoDeVentaV2
         // declaramos la variable que almacenara el valor de userNickName
         public string userName;
         public string passwordUser;
+        public string userId;
 
         // variables para poder hacer las consulta y actualizacion
         string buscar;
 
         // variables para poder hacer el recorrido y asignacion de los valores que estan el base de datos
-        int index,cantProductos;
-        public DataTable dt;
+        int index,cantProductos, resultadoSearch;
+        public DataTable dt, dtProductos;
         float importe, descuento, cantidad, precioOriginalSinIVA, precioOriginalConIVA, PrecioRecomendado, importeReal;
+        string ClaveInterna;
 
         // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
         // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
@@ -172,6 +174,8 @@ namespace PuntoDeVentaV2
         public void MostrarPanelCarga()
         {
             panel1.Show();
+            this.Size = new Size(500, 450);
+            this.CenterToScreen();
         }
 
         public void OcultarPanelRegistro()
@@ -188,6 +192,32 @@ namespace PuntoDeVentaV2
             panel2.Show();
             panel12.Show();
             button1.Show();
+            this.Size = new Size(950, 640);
+            this.CenterToScreen();
+        }
+
+        public void limpiarLblProd()
+        {
+            lblDescripcionProd.Text = "";
+            lblClaveInternaProd.Text = "";
+            lblStockProd.Text = "";
+            lblCodigoBarrasProd.Text = "";
+            txtBoxPrecioProd.Text = "";
+        }
+
+        public void searchProd()
+        {
+            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}'";
+            dtProductos = cn.CargarDatos(search);
+            if (dtProductos.Rows.Count > 0)
+            {
+                resultadoSearch = 1;
+            }
+            else if (dtProductos.Rows.Count<=0)
+            {
+                resultadoSearch = 0;
+                limpiarLblProd();
+            }
         }
 
         public void RecorrerXML()
@@ -200,8 +230,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Final del Archivo XML,\nrecorrido con exito", "Archivo XML recorrido en totalidad", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (lblPosicionActualXML.Text == "0")
-            {
-                
+            {   
                 lblPosicionActualXML.Text = (index+1).ToString();
                 lblDescripcionXML.Text = ds.Conceptos[index].Descripcion;
                 lblCantXML.Text = ds.Conceptos[index].Cantidad;
@@ -213,9 +242,32 @@ namespace PuntoDeVentaV2
                 lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
                 importeReal = cantidad * precioOriginalConIVA;
                 lblImpXML.Text = importeReal.ToString("N2");
-                lblNoIdentificacionXML.Text = ds.Conceptos[index].NoIdentificacion;
+                ClaveInterna = ds.Conceptos[index].NoIdentificacion;
+                lblNoIdentificacionXML.Text = ClaveInterna;
                 PrecioRecomendado = precioOriginalConIVA * (float)1.60;
                 lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
+                searchProd();
+                if (resultadoSearch <= 0)
+                {
+                    DialogResult dialogResult = MessageBox.Show("No existe el producto en el Stock,\nDesea Agregarlo a su lista de Productos", "No existe Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        //do something
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                }
+                else if (resultadoSearch>=1)
+                {
+                    lblDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
+                    lblClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
+                    lblStockProd.Text = dtProductos.Rows[0]["Stock"].ToString();
+                    lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
+                    txtBoxPrecioProd.Text = dtProductos.Rows[0]["Precio"].ToString();
+                    //MessageBox.Show("Producto existente,\nen su Stock", "Prodcuto ya Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);         
+                }
                 index++;
             }
             else if(index <= ds.Conceptos.Count())
@@ -231,9 +283,32 @@ namespace PuntoDeVentaV2
                 lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
                 importeReal = cantidad * precioOriginalConIVA;
                 lblImpXML.Text = importeReal.ToString("N2");
-                lblNoIdentificacionXML.Text = ds.Conceptos[index].NoIdentificacion;
+                ClaveInterna = ds.Conceptos[index].NoIdentificacion;
+                lblNoIdentificacionXML.Text = ClaveInterna;
                 PrecioRecomendado = precioOriginalConIVA * (float)1.60;
                 lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
+                searchProd();
+                if (resultadoSearch <= 0)
+                {
+                    DialogResult dialogResult = MessageBox.Show("No existe el producto en el Stock,\nDesea Agregarlo a su lista de Productos", "No existe Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        //do something
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        //do something else
+                    }
+                }
+                else if (resultadoSearch >= 1)
+                {
+                    lblDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
+                    lblClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
+                    lblStockProd.Text = dtProductos.Rows[0]["Stock"].ToString();
+                    lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
+                    txtBoxPrecioProd.Text = dtProductos.Rows[0]["Precio"].ToString();
+                    //MessageBox.Show("Producto existente,\nen su Stock", "Prodcuto ya Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);                    
+                }
                 index++;
             }
             
@@ -281,8 +356,6 @@ namespace PuntoDeVentaV2
                             OcultarPanelCarga();
                             btnLoadXML.Hide();
                             MostrarPanelRegistro();
-                            this.Size = new Size(950, 680);
-                            this.CenterToScreen();
                             for (index = 0; index < ds.Conceptos.Count(); index++)
                             {
                                 cantProductos++;
@@ -314,12 +387,12 @@ namespace PuntoDeVentaV2
 
             // asignamos el valor de userName que sea
             // el valor que tiene userNickUsuario en el formulario Principal
+            userId = FormPrincipal.userID.ToString();
             userName = FormPrincipal.userNickName;
             passwordUser = FormPrincipal.userPass;
 
             consulta();
-            this.Size = new Size(500,450);
-            this.CenterToScreen();
+            MostrarPanelCarga();
             OcultarPanelRegistro();
             //panel1.Hide();
         }

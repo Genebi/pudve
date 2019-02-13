@@ -33,8 +33,6 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.btnLoadXML = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel22 = new System.Windows.Forms.Panel();
             this.label43 = new System.Windows.Forms.Label();
@@ -44,8 +42,6 @@
             this.label26 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
             this.label28 = new System.Windows.Forms.Label();
-            this.panel16 = new System.Windows.Forms.Panel();
-            this.label30 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
             this.label36 = new System.Windows.Forms.Label();
             this.panel20 = new System.Windows.Forms.Panel();
@@ -82,6 +78,15 @@
             this.lblPosicionActualXML = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnLoadXML = new System.Windows.Forms.Button();
+            this.lblDescripcionProd = new System.Windows.Forms.Label();
+            this.lblClaveInternaProd = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblCodigoBarrasProd = new System.Windows.Forms.Label();
+            this.lblImpuestosProd = new System.Windows.Forms.Label();
+            this.lblStockProd = new System.Windows.Forms.Label();
+            this.txtBoxPrecioProd = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel12.SuspendLayout();
@@ -89,7 +94,6 @@
             this.panel13.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel15.SuspendLayout();
-            this.panel16.SuspendLayout();
             this.panel19.SuspendLayout();
             this.panel20.SuspendLayout();
             this.panel21.SuspendLayout();
@@ -153,55 +157,27 @@
             this.label19.Text = "Agregar productos mediante un Archivo XML";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnLoadXML
-            // 
-            this.btnLoadXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnLoadXML.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLoadXML.Font = new System.Drawing.Font("Century Schoolbook", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoadXML.Image = global::PuntoDeVentaV2.Properties.Resources.file_code_o;
-            this.btnLoadXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLoadXML.Location = new System.Drawing.Point(227, 413);
-            this.btnLoadXML.Name = "btnLoadXML";
-            this.btnLoadXML.Size = new System.Drawing.Size(186, 58);
-            this.btnLoadXML.TabIndex = 11;
-            this.btnLoadXML.Text = "XML";
-            this.btnLoadXML.UseVisualStyleBackColor = false;
-            this.btnLoadXML.Click += new System.EventHandler(this.btnLoadXML_Click_1);
-            // 
-            // button1
-            // 
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.arrow_circle_right;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.Location = new System.Drawing.Point(1118, 726);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(118, 42);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Cancelar";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // panel12
             // 
             this.panel12.Controls.Add(this.panel22);
             this.panel12.Controls.Add(this.panel13);
             this.panel12.Controls.Add(this.panel14);
             this.panel12.Controls.Add(this.panel15);
-            this.panel12.Controls.Add(this.panel16);
             this.panel12.Controls.Add(this.panel19);
             this.panel12.Controls.Add(this.panel20);
             this.panel12.Controls.Add(this.panel21);
             this.panel12.Controls.Add(this.label41);
             this.panel12.Location = new System.Drawing.Point(11, 350);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(1226, 363);
+            this.panel12.Size = new System.Drawing.Size(1226, 312);
             this.panel12.TabIndex = 14;
             // 
             // panel22
             // 
             this.panel22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel22.Controls.Add(this.lblImpuestosProd);
             this.panel22.Controls.Add(this.label43);
-            this.panel22.Location = new System.Drawing.Point(22, 302);
+            this.panel22.Location = new System.Drawing.Point(22, 251);
             this.panel22.Name = "panel22";
             this.panel22.Size = new System.Drawing.Size(1183, 44);
             this.panel22.TabIndex = 7;
@@ -220,8 +196,9 @@
             // panel13
             // 
             this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel13.Controls.Add(this.lblCodigoBarrasProd);
             this.panel13.Controls.Add(this.label24);
-            this.panel13.Location = new System.Drawing.Point(21, 252);
+            this.panel13.Location = new System.Drawing.Point(21, 202);
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(1183, 44);
             this.panel13.TabIndex = 6;
@@ -240,10 +217,11 @@
             // panel14
             // 
             this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel14.Controls.Add(this.label6);
             this.panel14.Controls.Add(this.label26);
-            this.panel14.Location = new System.Drawing.Point(446, 201);
+            this.panel14.Location = new System.Drawing.Point(20, 152);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(464, 44);
+            this.panel14.Size = new System.Drawing.Size(413, 43);
             this.panel14.TabIndex = 5;
             // 
             // label26
@@ -260,8 +238,9 @@
             // panel15
             // 
             this.panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel15.Controls.Add(this.lblClaveInternaProd);
             this.panel15.Controls.Add(this.label28);
-            this.panel15.Location = new System.Drawing.Point(21, 202);
+            this.panel15.Location = new System.Drawing.Point(21, 102);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(412, 44);
             this.panel15.TabIndex = 4;
@@ -277,29 +256,10 @@
             this.label28.Text = "No Identificación :";
             this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panel16
-            // 
-            this.panel16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel16.Controls.Add(this.label30);
-            this.panel16.Location = new System.Drawing.Point(917, 100);
-            this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(287, 44);
-            this.panel16.TabIndex = 4;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Century", 12F);
-            this.label30.Location = new System.Drawing.Point(14, 9);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(53, 23);
-            this.label30.TabIndex = 0;
-            this.label30.Text = "Imp:";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // panel19
             // 
             this.panel19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel19.Controls.Add(this.txtBoxPrecioProd);
             this.panel19.Controls.Add(this.label36);
             this.panel19.Location = new System.Drawing.Point(446, 98);
             this.panel19.Name = "panel19";
@@ -320,10 +280,11 @@
             // panel20
             // 
             this.panel20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel20.Controls.Add(this.lblStockProd);
             this.panel20.Controls.Add(this.label38);
-            this.panel20.Location = new System.Drawing.Point(21, 101);
+            this.panel20.Location = new System.Drawing.Point(928, 101);
             this.panel20.Name = "panel20";
-            this.panel20.Size = new System.Drawing.Size(412, 44);
+            this.panel20.Size = new System.Drawing.Size(274, 44);
             this.panel20.TabIndex = 2;
             // 
             // label38
@@ -332,14 +293,15 @@
             this.label38.Font = new System.Drawing.Font("Century", 12F);
             this.label38.Location = new System.Drawing.Point(14, 9);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(61, 23);
+            this.label38.Size = new System.Drawing.Size(100, 23);
             this.label38.TabIndex = 0;
-            this.label38.Text = "Cant:";
+            this.label38.Text = "Cantidad:";
             this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel21
             // 
             this.panel21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel21.Controls.Add(this.lblDescripcionProd);
             this.panel21.Controls.Add(this.label40);
             this.panel21.Location = new System.Drawing.Point(21, 47);
             this.panel21.Name = "panel21";
@@ -456,9 +418,9 @@
             // lblNoIdentificacionXML
             // 
             this.lblNoIdentificacionXML.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.lblNoIdentificacionXML.Location = new System.Drawing.Point(205, 9);
+            this.lblNoIdentificacionXML.Location = new System.Drawing.Point(211, 9);
             this.lblNoIdentificacionXML.Name = "lblNoIdentificacionXML";
-            this.lblNoIdentificacionXML.Size = new System.Drawing.Size(183, 23);
+            this.lblNoIdentificacionXML.Size = new System.Drawing.Size(177, 23);
             this.lblNoIdentificacionXML.TabIndex = 1;
             this.lblNoIdentificacionXML.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -654,11 +616,11 @@
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Century Schoolbook", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.ForeColor = System.Drawing.Color.Red;
-            this.label23.Location = new System.Drawing.Point(1014, 19);
+            this.label23.Location = new System.Drawing.Point(964, 19);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(59, 24);
+            this.label23.Size = new System.Drawing.Size(103, 24);
             this.label23.TabIndex = 2;
-            this.label23.Text = "XML";
+            this.label23.Text = "Producto";
             // 
             // label25
             // 
@@ -670,6 +632,111 @@
             this.label25.Size = new System.Drawing.Size(447, 44);
             this.label25.TabIndex = 1;
             this.label25.Text = "Actualizar Inventario";
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Red;
+            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.close;
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.Location = new System.Drawing.Point(1135, 669);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 42);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "NO";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnLoadXML
+            // 
+            this.btnLoadXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.btnLoadXML.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLoadXML.Font = new System.Drawing.Font("Century Schoolbook", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoadXML.Image = global::PuntoDeVentaV2.Properties.Resources.file_code_o;
+            this.btnLoadXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLoadXML.Location = new System.Drawing.Point(227, 413);
+            this.btnLoadXML.Name = "btnLoadXML";
+            this.btnLoadXML.Size = new System.Drawing.Size(186, 58);
+            this.btnLoadXML.TabIndex = 11;
+            this.btnLoadXML.Text = "XML";
+            this.btnLoadXML.UseVisualStyleBackColor = false;
+            this.btnLoadXML.Click += new System.EventHandler(this.btnLoadXML_Click_1);
+            // 
+            // lblDescripcionProd
+            // 
+            this.lblDescripcionProd.BackColor = System.Drawing.Color.Silver;
+            this.lblDescripcionProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescripcionProd.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lblDescripcionProd.Location = new System.Drawing.Point(156, 11);
+            this.lblDescripcionProd.Name = "lblDescripcionProd";
+            this.lblDescripcionProd.Size = new System.Drawing.Size(1006, 23);
+            this.lblDescripcionProd.TabIndex = 1;
+            this.lblDescripcionProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblClaveInternaProd
+            // 
+            this.lblClaveInternaProd.BackColor = System.Drawing.Color.Silver;
+            this.lblClaveInternaProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClaveInternaProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClaveInternaProd.Location = new System.Drawing.Point(210, 10);
+            this.lblClaveInternaProd.Name = "lblClaveInternaProd";
+            this.lblClaveInternaProd.Size = new System.Drawing.Size(177, 23);
+            this.lblClaveInternaProd.TabIndex = 1;
+            this.lblClaveInternaProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.Color.Silver;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.label6.Location = new System.Drawing.Point(242, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(146, 23);
+            this.label6.TabIndex = 1;
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblCodigoBarrasProd
+            // 
+            this.lblCodigoBarrasProd.BackColor = System.Drawing.Color.Silver;
+            this.lblCodigoBarrasProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCodigoBarrasProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblCodigoBarrasProd.Location = new System.Drawing.Point(531, 9);
+            this.lblCodigoBarrasProd.Name = "lblCodigoBarrasProd";
+            this.lblCodigoBarrasProd.Size = new System.Drawing.Size(358, 23);
+            this.lblCodigoBarrasProd.TabIndex = 1;
+            this.lblCodigoBarrasProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblImpuestosProd
+            // 
+            this.lblImpuestosProd.BackColor = System.Drawing.Color.Silver;
+            this.lblImpuestosProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblImpuestosProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblImpuestosProd.Location = new System.Drawing.Point(530, 9);
+            this.lblImpuestosProd.Name = "lblImpuestosProd";
+            this.lblImpuestosProd.Size = new System.Drawing.Size(358, 23);
+            this.lblImpuestosProd.TabIndex = 1;
+            this.lblImpuestosProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblStockProd
+            // 
+            this.lblStockProd.BackColor = System.Drawing.Color.Silver;
+            this.lblStockProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStockProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblStockProd.Location = new System.Drawing.Point(124, 9);
+            this.lblStockProd.Name = "lblStockProd";
+            this.lblStockProd.Size = new System.Drawing.Size(131, 23);
+            this.lblStockProd.TabIndex = 1;
+            this.lblStockProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtBoxPrecioProd
+            // 
+            this.txtBoxPrecioProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxPrecioProd.Location = new System.Drawing.Point(72, 53);
+            this.txtBoxPrecioProd.Name = "txtBoxPrecioProd";
+            this.txtBoxPrecioProd.Size = new System.Drawing.Size(329, 30);
+            this.txtBoxPrecioProd.TabIndex = 1;
+            this.txtBoxPrecioProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // AgregarStockXML
             // 
@@ -703,8 +770,6 @@
             this.panel14.PerformLayout();
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
-            this.panel16.ResumeLayout(false);
-            this.panel16.PerformLayout();
             this.panel19.ResumeLayout(false);
             this.panel19.PerformLayout();
             this.panel20.ResumeLayout(false);
@@ -751,8 +816,6 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Panel panel15;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Panel panel16;
-        private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Panel panel19;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Panel panel20;
@@ -789,5 +852,12 @@
         private System.Windows.Forms.Label lblPosicionActualXML;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label lblImpuestosProd;
+        private System.Windows.Forms.Label lblCodigoBarrasProd;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblClaveInternaProd;
+        private System.Windows.Forms.TextBox txtBoxPrecioProd;
+        private System.Windows.Forms.Label lblStockProd;
+        private System.Windows.Forms.Label lblDescripcionProd;
     }
 }
