@@ -44,7 +44,6 @@
             this.lblPrecioRecomendadoProd = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
-            this.lblClaveInternaProd = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
             this.txtBoxPrecioProd = new System.Windows.Forms.TextBox();
@@ -53,7 +52,6 @@
             this.lblStockProd = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.panel21 = new System.Windows.Forms.Panel();
-            this.lblDescripcionProd = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -85,8 +83,11 @@
             this.lblPosicionActualXML = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnLoadXML = new System.Windows.Forms.Button();
+            this.txtBoxDescripcionProd = new System.Windows.Forms.TextBox();
+            this.txtBoxClaveInternaProd = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel12.SuspendLayout();
@@ -271,23 +272,12 @@
             // panel15
             // 
             this.panel15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel15.Controls.Add(this.lblClaveInternaProd);
+            this.panel15.Controls.Add(this.txtBoxClaveInternaProd);
             this.panel15.Controls.Add(this.label28);
             this.panel15.Location = new System.Drawing.Point(21, 102);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(412, 44);
             this.panel15.TabIndex = 4;
-            // 
-            // lblClaveInternaProd
-            // 
-            this.lblClaveInternaProd.BackColor = System.Drawing.Color.Silver;
-            this.lblClaveInternaProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClaveInternaProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblClaveInternaProd.Location = new System.Drawing.Point(210, 10);
-            this.lblClaveInternaProd.Name = "lblClaveInternaProd";
-            this.lblClaveInternaProd.Size = new System.Drawing.Size(177, 23);
-            this.lblClaveInternaProd.TabIndex = 1;
-            this.lblClaveInternaProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label28
             // 
@@ -365,23 +355,12 @@
             // panel21
             // 
             this.panel21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel21.Controls.Add(this.lblDescripcionProd);
+            this.panel21.Controls.Add(this.txtBoxDescripcionProd);
             this.panel21.Controls.Add(this.label40);
             this.panel21.Location = new System.Drawing.Point(21, 47);
             this.panel21.Name = "panel21";
             this.panel21.Size = new System.Drawing.Size(1183, 44);
             this.panel21.TabIndex = 1;
-            // 
-            // lblDescripcionProd
-            // 
-            this.lblDescripcionProd.BackColor = System.Drawing.Color.Silver;
-            this.lblDescripcionProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescripcionProd.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lblDescripcionProd.Location = new System.Drawing.Point(156, 11);
-            this.lblDescripcionProd.Name = "lblDescripcionProd";
-            this.lblDescripcionProd.Size = new System.Drawing.Size(1006, 23);
-            this.lblDescripcionProd.TabIndex = 1;
-            this.lblDescripcionProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label40
             // 
@@ -708,6 +687,21 @@
             this.label25.TabIndex = 1;
             this.label25.Text = "Actualizar Inventario";
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.button2.ForeColor = System.Drawing.Color.Red;
+            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.check;
+            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button2.Location = new System.Drawing.Point(1021, 672);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(101, 42);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "SI";
+            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -738,11 +732,32 @@
             this.btnLoadXML.UseVisualStyleBackColor = false;
             this.btnLoadXML.Click += new System.EventHandler(this.btnLoadXML_Click_1);
             // 
+            // txtBoxDescripcionProd
+            // 
+            this.txtBoxDescripcionProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.txtBoxDescripcionProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.txtBoxDescripcionProd.Location = new System.Drawing.Point(155, 5);
+            this.txtBoxDescripcionProd.Name = "txtBoxDescripcionProd";
+            this.txtBoxDescripcionProd.Size = new System.Drawing.Size(1007, 30);
+            this.txtBoxDescripcionProd.TabIndex = 2;
+            this.txtBoxDescripcionProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtBoxClaveInternaProd
+            // 
+            this.txtBoxClaveInternaProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.txtBoxClaveInternaProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.txtBoxClaveInternaProd.Location = new System.Drawing.Point(210, 4);
+            this.txtBoxClaveInternaProd.Name = "txtBoxClaveInternaProd";
+            this.txtBoxClaveInternaProd.Size = new System.Drawing.Size(177, 30);
+            this.txtBoxClaveInternaProd.TabIndex = 2;
+            this.txtBoxClaveInternaProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // AgregarStockXML
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1244, 793);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel12);
             this.Controls.Add(this.panel2);
@@ -855,9 +870,10 @@
         private System.Windows.Forms.Label lblImpuestosProd;
         private System.Windows.Forms.Label lblCodigoBarrasProd;
         private System.Windows.Forms.Label lblPrecioRecomendadoProd;
-        private System.Windows.Forms.Label lblClaveInternaProd;
         private System.Windows.Forms.TextBox txtBoxPrecioProd;
         private System.Windows.Forms.Label lblStockProd;
-        private System.Windows.Forms.Label lblDescripcionProd;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txtBoxDescripcionProd;
+        private System.Windows.Forms.TextBox txtBoxClaveInternaProd;
     }
 }

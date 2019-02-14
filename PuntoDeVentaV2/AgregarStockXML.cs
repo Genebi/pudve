@@ -14,6 +14,12 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarStockXML : Form
     {
+        /************************************************************
+        *                                                           * 
+        *   Se Inicia la clase para el recorrido y lectura del XML  *
+        *   con sus respectivas partial class para hacer los array  *
+        *                                                           *   
+        ************************************************************/
         [XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3")]
         public class Comprobante
         {
@@ -114,9 +120,17 @@ namespace PuntoDeVentaV2
             [XmlAttributeAttribute()]
             public string Importe;
         }
+        /************************************************************
+        *   Termina la clase para leer el XML y sus respectivas     *
+        *   sub class para hacer los array                          *   
+        ************************************************************/
 
+        // se declaran e inicializan las variables para poder hacer validaciones  etc.
+
+        // objeto para poder abrir el openDialog
         OpenFileDialog f;
 
+        // iniciamos un objeto de tipo conexion
         Conexion cn = new Conexion();
 
         // declaramos la variable que almacenara el valor de userNickName
@@ -128,20 +142,23 @@ namespace PuntoDeVentaV2
         string buscar;
 
         // variables para poder hacer el recorrido y asignacion de los valores que estan el base de datos
-        int index,cantProductos, resultadoSearch;
-        public DataTable dt, dtProductos;
-        float importe, descuento, cantidad, precioOriginalSinIVA, precioOriginalConIVA, PrecioRecomendado, importeReal;
-        string ClaveInterna;
+        int index, cantProductos, resultadoSearch, resultadoCambioPrecio, resultadoSearchNoIdentificacion, resultadoSearchCodBar, stockProd, stockProdXML, totalProd;
+        public DataTable dt, dtProductos, dtClaveInterna, dtCodBar;
+        float importe, descuento, cantidad, precioOriginalSinIVA, precioOriginalConIVA, PrecioRecomendado, importeReal, PrecioProd;
+        string ClaveInterna, NoClaveInterna;
+        DialogResult dialogResult;
 
         // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
         // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
         string id;
         string rfc;
 
+        // objetos para poder tratar la informacion del XML
         XmlSerializer serial;
         FileStream fs;
         Comprobante ds;
 
+        // funcion para poder saber que cliente es el que esta iniciando sesion en el sistema
         public void cargarDatos()
         {
             index = 0;
@@ -153,6 +170,8 @@ namespace PuntoDeVentaV2
             rfc = dt.Rows[index]["RFC"].ToString();
         }
 
+        // funcion para hacer la consulta del cliente que inicio sesion y esto
+        // para posteriormente tener sus datos por separado
         public void consulta()
         {
             // String para hacer la consulta filtrada sobre
@@ -166,11 +185,17 @@ namespace PuntoDeVentaV2
             cargarDatos();
         }
 
+        // funcion para ocultar el panel en el que
+        // esta el label que dice click cargar XML 
+        // y el boton de XML
         public void OcultarPanelCarga()
         {
             panel1.Hide();
         }
 
+        // funcion para Mostrar el panel en el que
+        // esta el label que dice click cargar XML 
+        // y el boton de XML
         public void MostrarPanelCarga()
         {
             panel1.Show();
@@ -178,6 +203,9 @@ namespace PuntoDeVentaV2
             this.CenterToScreen();
         }
 
+        // funcion para ocultar los paneles:
+        // 17, 2, 12 y el boton de XML esta hace
+        // que se muestren los datos del XML
         public void OcultarPanelRegistro()
         {
             panel17.Hide();
@@ -186,6 +214,9 @@ namespace PuntoDeVentaV2
             button1.Hide();
         }
 
+        // funcion para Muestra los paneles:
+        // 17, 2, 12 y el boton de XML esta hace
+        // que se muestren los datos del XML
         public void MostrarPanelRegistro()
         {
             panel17.Show();
@@ -196,6 +227,9 @@ namespace PuntoDeVentaV2
             this.CenterToScreen();
         }
 
+        // funcion para limpiar los datos que
+        // provienen del archivo XML en los campos
+        // que pretenecen al XML
         public void limpiarLblXNL()
         {
             lblDescripcionXML.Text = "";
@@ -204,116 +238,221 @@ namespace PuntoDeVentaV2
             lblImpXML.Text = "";
             lblNoIdentificacionXML.Text = "";
             lblPrecioRecomendadoXML.Text = "";
+
+            txtBoxDescripcionProd.Text = "";
+            txtBoxClaveInternaProd.Text = "";
         }
 
+        // funcion para limpiar los datos que
+        // provienen del del Stock en los campos
+        // que pretenecen al stock del producto
         public void limpiarLblProd()
         {
-            lblDescripcionProd.Text = "";
-            lblClaveInternaProd.Text = "";
             lblStockProd.Text = "";
             lblCodigoBarrasProd.Text = "";
             lblPrecioRecomendadoProd.Text = "";
             txtBoxPrecioProd.Text = "";
+
+            txtBoxDescripcionProd.Text = "";
+            txtBoxClaveInternaProd.Text = "";
         }
 
+        // funsion para poder buscar los productos 
+        // que coincidan con los campos de de ClaveInterna o el CodigoBarras
+        // respecto al archivo XML en su campo de NoIdentificacion
         public void searchProd()
         {
+            // preparamos el Query
             string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}'";
+            // alamcenamos el resultado de la busqueda en dtProductos
             dtProductos = cn.CargarDatos(search);
+            // si el resultado arroja al menos una fila
             if (dtProductos.Rows.Count > 0)
             {
-                resultadoSearch = 1;
+                resultadoSearch = 1; // busqueda positiva
+                NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();
             }
+            // si el resultado no arroja ninguna fila
             else if (dtProductos.Rows.Count<=0)
             {
-                resultadoSearch = 0;
-                limpiarLblProd();
+                resultadoSearch = 0; // busqueda negativa
+                limpiarLblProd(); // limpiamos los campos de producto
             }
         }
 
+        // funsion para poder buscar en los productos 
+        // si coincide con los campos de de ClaveInterna
+        // respecto al stock del producto en su campo de NoIdentificacion
+        public void searchClavIntProd()
+        {
+            // preparamos el Query
+            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{txtBoxClaveInternaProd.Text}'";
+            // alamcenamos el resultado de la busqueda en dtClaveInterna
+            dtClaveInterna = cn.CargarDatos(search);
+            // si el resultado arroja al menos una fila
+            if (dtClaveInterna.Rows.Count > 0)
+            {
+                resultadoSearchNoIdentificacion = 1; // busqueda positiva
+            }
+            // si el resultado no arroja ninguna fila
+            else if (dtClaveInterna.Rows.Count <= 0)
+            {
+                resultadoSearchNoIdentificacion = 0; // busqueda negativa
+            }
+        }
+
+        // funsion para poder buscar en los productos 
+        // si coincide con los campos de de CodigoBarras
+        // respecto al stock del producto en su campo de NoIdentificacion
+        public void searchCodBar()
+        {
+            // preparamos el Query
+            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.CodigoBarras = '{txtBoxClaveInternaProd.Text}'";
+            // alamcenamos el resultado de la busqueda en dtClaveInterna
+            dtCodBar = cn.CargarDatos(search);
+            // si el resultado arroja al menos una fila
+            if (dtCodBar.Rows.Count > 0)
+            {
+                resultadoSearchCodBar = 1; // busqueda positiva
+            }
+            // si el resultado no arroja ninguna fila
+            else if (dtCodBar.Rows.Count <= 0)
+            {
+                resultadoSearchCodBar = 0; // busqueda negativa
+            }
+        }
+
+        // funsion para cargar los datos XML
+        // que provienen del archivo XML
         public void datosXML()
         {
             lblPosicionActualXML.Text = (index + 1).ToString();
             lblDescripcionXML.Text = ds.Conceptos[index].Descripcion;
-            lblCantXML.Text = ds.Conceptos[index].Cantidad;
-            importe = float.Parse(ds.Conceptos[index].Importe);
-            descuento = float.Parse(ds.Conceptos[index].Descuento);
-            cantidad = float.Parse(ds.Conceptos[index].Cantidad);
-            precioOriginalSinIVA = (importe - descuento) / cantidad;
-            precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;
+            stockProdXML = int.Parse(ds.Conceptos[index].Cantidad); // convertimos la cantidad del Archivo XML para su posterior manipulacion
+            lblCantXML.Text = stockProdXML.ToString();
+            importe = float.Parse(ds.Conceptos[index].Importe); // convertimos el Importe del Archivo XML para su posterior manipulacion
+            descuento = float.Parse(ds.Conceptos[index].Descuento); // convertimos el Descuento del Archivo XML para su posterior manipulacion
+            cantidad = float.Parse(ds.Conceptos[index].Cantidad); // convertimos la cantidad del Archivo XML para su posterior manipulacion
+            precioOriginalSinIVA = (importe - descuento) / cantidad; // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
+            precioOriginalConIVA = precioOriginalSinIVA * (float)1.16; // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
             lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
-            importeReal = cantidad * precioOriginalConIVA;
+            importeReal = cantidad * precioOriginalConIVA; // calculamos importe real (cantidad * precioOriginalConIVA)
             lblImpXML.Text = importeReal.ToString("N2");
             ClaveInterna = ds.Conceptos[index].NoIdentificacion;
             lblNoIdentificacionXML.Text = ClaveInterna;
-            PrecioRecomendado = precioOriginalConIVA * (float)1.60;
+            PrecioRecomendado = precioOriginalConIVA * (float)1.60; // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
         }
 
+        // funsion para cargar los datos del Producto
+        // que provienen del stock del producto
         public void datosProductos()
         {
-            lblDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
-            lblClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
-            lblStockProd.Text = dtProductos.Rows[0]["Stock"].ToString();
+            txtBoxDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
+            txtBoxClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
+            stockProd = int.Parse(dtProductos.Rows[0]["Stock"].ToString()); // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
+            lblStockProd.Text = stockProd.ToString();
             lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
             lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
-            txtBoxPrecioProd.Text = dtProductos.Rows[0]["Precio"].ToString();
+            PrecioProd = float.Parse(dtProductos.Rows[0]["Precio"].ToString()); // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
+            txtBoxPrecioProd.Text = PrecioProd.ToString("N2");
         }
 
+        // funsion para hacer la lectura del Archivo XML 
         public void RecorrerXML()
         {
+            // variable para saber cuantos concepctos tiene el XML
             int totalRegistroXML;
+            // almacenamos el total de conceptos del XML
             totalRegistroXML = ds.Conceptos.Count();
+            // alamcenamos el valor de la etiqueta lblPosicionActuakXML
+            // nos ayudara para saber en que concepto va del XML
             index = int.Parse(lblPosicionActualXML.Text);
+            // comparamos la posicion actual y vemo si es igual al total de conceptos del XML
             if (index == totalRegistroXML)
             {
                 MessageBox.Show("Final del Archivo XML,\nrecorrido con exito", "Archivo XML recorrido en totalidad", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            // comparamos si la etiqueta lblPosicionActualXML es igual al número 0
             else if (lblPosicionActualXML.Text == "0")
             {
-                datosXML();
-                searchProd();
+                datosXML(); // llamamos la funsion datosXML para llenar datos que tiene el XML
+                searchProd(); // buscamos el producto a ver si ya esta en el Stock
+                // si el resultado es negativo
                 if (resultadoSearch <= 0)
                 {
-                    //DialogResult dialogResult = MessageBox.Show("No existe el producto en el Stock,\nDesea Agregarlo a su lista de Productos", "No existe Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    //if (dialogResult == DialogResult.Yes)
-                    //{
-                    //    // ToDo para agregar productos
-                    //}
-                    //else if (dialogResult == DialogResult.No)
-                    //{
-                    //    // ToDo para No agregar productos
-                    //}
+                   // ToDo si es que no hay producto registrado
                 }
+                // si el resultado es positivo
                 else if (resultadoSearch >= 1)
                 {
-                    datosProductos();
+                    datosProductos(); // mostramos los datos del producto en el stock
                 }
-                index++;
+                index++; // aumentamos en uno la variable index
             }
             else if(index <= ds.Conceptos.Count())
             {
-                datosXML();
-                searchProd();
+                datosXML(); // llamamos la funsion datosXML para llenar datos que tiene el XML
+                searchProd(); // buscamos el producto a ver si ya esta en el Stock
+                // si el resultado es negativo
                 if (resultadoSearch <= 0)
                 {
-                    //DialogResult dialogResult = MessageBox.Show("No existe el producto en el Stock,\nDesea Agregarlo a su lista de Productos", "No existe Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    //if (dialogResult == DialogResult.Yes)
-                    //{
-                    //    // ToDo para agregar productos
-                    //}
-                    //else if (dialogResult == DialogResult.No)
-                    //{
-                    //    // ToDo para No agregar productos
-                    //}
+                    // ToDo si es que no hay producto registrado
                 }
+                // si el resultado es positivo
                 else if (resultadoSearch >= 1)
                 {
-                    datosProductos();
+                    datosProductos(); // mostramos los datos del producto en el stock
                 }
-                index++;
+                index++; // aumentamos en uno la variable index
             }
             
+        }
+
+        // funsion para comprobar que el precio del stock sea
+        // mayor o igual al que esta sugerido por el XML
+        public void comprobarPrecioMayorIgualRecomendado()
+        {
+            PrecioProd = float.Parse(txtBoxClaveInternaProd.Text);
+
+            if (PrecioProd < PrecioRecomendado) // comparamos si el precio es menor
+            {
+                // muestra un mensaje que el precio en stock es menor que el suegerido
+                dialogResult = MessageBox.Show("El Precio del producto en el Stock,\nes Menor que el precio Recomendado\n\n\tDESEA CORREGIRLA...", "El precio del Producto es menor...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // si el usuario selecciona que si quiere modificarlo
+                if (dialogResult == DialogResult.Yes)
+                {
+                    resultadoCambioPrecio = 1; // la variable la ponemos en valor 1 indicando que se hizo el cambio de precio
+                    txtBoxPrecioProd.Focus(); // mandamos el cursor al textBox para el cambio de precio del Stock
+                }
+                // si el usario selecciona que no quiere modificarlo
+                else if (dialogResult == DialogResult.No)
+                {
+                    resultadoCambioPrecio = 0; // la variable la ponemos en valor 0 indicando que no se hizo el cambio de precio
+                }
+            }
+        }
+
+        // funsion para ver cuanto aumentario el stock 
+        public void verNvoStock()
+        {
+            totalProd = stockProd + stockProdXML; // realizamos el caulculo del nvo stock 
+            lblStockProd.Text = totalProd.ToString(); // mostramos el nvo stock del producto
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (NoClaveInterna != txtBoxClaveInternaProd.Text) // si son diferentes los datos osea hubo un cambio
+            {
+                searchClavIntProd(); // hacemos la busqueda que no se repita en CalveInterna
+                searchCodBar();  // hacemos la busqueda que no se repita en CodigoBarra
+            }
+            else
+            {
+                // ToDo 
+            }
+            //comprobarPrecioMayorIgualRecomendado(); // Llamamos la funsion para comparar el precio del producto con el sugerido
+            verNvoStock(); // funsion para ver el nvo stock
         }
 
         public AgregarStockXML()
@@ -385,8 +524,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarStockXML_Load(object sender, EventArgs e)
         {
-
-            limpiarLblXNL();
+            limpiarLblXNL(); // Llamamos la funsion para poner en limpio los datos que vienen del XML
 
             groupBox5.BackColor = Color.FromArgb(130, 130, 130);
 
@@ -396,38 +534,35 @@ namespace PuntoDeVentaV2
             userName = FormPrincipal.userNickName;
             passwordUser = FormPrincipal.userPass;
 
-            consulta();
-            MostrarPanelCarga();
-            OcultarPanelRegistro();
-            //panel1.Hide();
+            consulta(); // Llamamos la funsion de consulta para buscar el producto
+            MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
+            OcultarPanelRegistro(); // ocultamos la ventana de ver registro del Stock
         }
 
         private void btnLoadXML_Click_1(object sender, EventArgs e)
         {
-            leerXMLFile();
+            leerXMLFile(); // mandamos llamar la funsion de leerXML
         }
 
         private void label11_Click(object sender, EventArgs e)
         {
-            leerXMLFile();
+            leerXMLFile(); // mandamos llamar la funsion de leerXML
         }
 
         private void label11_Enter(object sender, EventArgs e)
         {
-            //label11.BackColor = Color.FromArgb(255, 0, 0);
             label11.ForeColor = Color.FromArgb(0, 140, 255);
         }
 
         private void label11_Leave(object sender, EventArgs e)
         {
-            //label11.BackColor = Color.FromArgb(130, 130, 130);
             label11.ForeColor = Color.FromArgb(0, 0, 0);
         }
 
         private void AgregarStockXML_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MostrarPanelCarga();
-            btnLoadXML.Show();
+            MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
+            btnLoadXML.Show(); // hacemos visible el botonXML de la ventana de cargar archivo XML
         }
     }
 }
