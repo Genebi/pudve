@@ -35,18 +35,25 @@
             this.label19 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel22 = new System.Windows.Forms.Panel();
+            this.lblImpuestosProd = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
+            this.lblCodigoBarrasProd = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
+            this.lblPrecioRecomendadoProd = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
+            this.lblClaveInternaProd = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
+            this.txtBoxPrecioProd = new System.Windows.Forms.TextBox();
             this.label36 = new System.Windows.Forms.Label();
             this.panel20 = new System.Windows.Forms.Panel();
+            this.lblStockProd = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.panel21 = new System.Windows.Forms.Panel();
+            this.lblDescripcionProd = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -80,13 +87,6 @@
             this.label25 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btnLoadXML = new System.Windows.Forms.Button();
-            this.lblDescripcionProd = new System.Windows.Forms.Label();
-            this.lblClaveInternaProd = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblCodigoBarrasProd = new System.Windows.Forms.Label();
-            this.lblImpuestosProd = new System.Windows.Forms.Label();
-            this.lblStockProd = new System.Windows.Forms.Label();
-            this.txtBoxPrecioProd = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel12.SuspendLayout();
@@ -182,6 +182,17 @@
             this.panel22.Size = new System.Drawing.Size(1183, 44);
             this.panel22.TabIndex = 7;
             // 
+            // lblImpuestosProd
+            // 
+            this.lblImpuestosProd.BackColor = System.Drawing.Color.Silver;
+            this.lblImpuestosProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblImpuestosProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblImpuestosProd.Location = new System.Drawing.Point(530, 9);
+            this.lblImpuestosProd.Name = "lblImpuestosProd";
+            this.lblImpuestosProd.Size = new System.Drawing.Size(358, 23);
+            this.lblImpuestosProd.TabIndex = 1;
+            this.lblImpuestosProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label43
             // 
             this.label43.AutoSize = true;
@@ -203,6 +214,17 @@
             this.panel13.Size = new System.Drawing.Size(1183, 44);
             this.panel13.TabIndex = 6;
             // 
+            // lblCodigoBarrasProd
+            // 
+            this.lblCodigoBarrasProd.BackColor = System.Drawing.Color.Silver;
+            this.lblCodigoBarrasProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCodigoBarrasProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblCodigoBarrasProd.Location = new System.Drawing.Point(531, 9);
+            this.lblCodigoBarrasProd.Name = "lblCodigoBarrasProd";
+            this.lblCodigoBarrasProd.Size = new System.Drawing.Size(358, 23);
+            this.lblCodigoBarrasProd.TabIndex = 1;
+            this.lblCodigoBarrasProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label24
             // 
             this.label24.AutoSize = true;
@@ -217,12 +239,23 @@
             // panel14
             // 
             this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel14.Controls.Add(this.label6);
+            this.panel14.Controls.Add(this.lblPrecioRecomendadoProd);
             this.panel14.Controls.Add(this.label26);
             this.panel14.Location = new System.Drawing.Point(20, 152);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(413, 43);
             this.panel14.TabIndex = 5;
+            // 
+            // lblPrecioRecomendadoProd
+            // 
+            this.lblPrecioRecomendadoProd.BackColor = System.Drawing.Color.Silver;
+            this.lblPrecioRecomendadoProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecioRecomendadoProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblPrecioRecomendadoProd.Location = new System.Drawing.Point(242, 9);
+            this.lblPrecioRecomendadoProd.Name = "lblPrecioRecomendadoProd";
+            this.lblPrecioRecomendadoProd.Size = new System.Drawing.Size(146, 23);
+            this.lblPrecioRecomendadoProd.TabIndex = 1;
+            this.lblPrecioRecomendadoProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label26
             // 
@@ -245,6 +278,17 @@
             this.panel15.Size = new System.Drawing.Size(412, 44);
             this.panel15.TabIndex = 4;
             // 
+            // lblClaveInternaProd
+            // 
+            this.lblClaveInternaProd.BackColor = System.Drawing.Color.Silver;
+            this.lblClaveInternaProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblClaveInternaProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblClaveInternaProd.Location = new System.Drawing.Point(210, 10);
+            this.lblClaveInternaProd.Name = "lblClaveInternaProd";
+            this.lblClaveInternaProd.Size = new System.Drawing.Size(177, 23);
+            this.lblClaveInternaProd.TabIndex = 1;
+            this.lblClaveInternaProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label28
             // 
             this.label28.AutoSize = true;
@@ -265,6 +309,15 @@
             this.panel19.Name = "panel19";
             this.panel19.Size = new System.Drawing.Size(465, 97);
             this.panel19.TabIndex = 3;
+            // 
+            // txtBoxPrecioProd
+            // 
+            this.txtBoxPrecioProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxPrecioProd.Location = new System.Drawing.Point(72, 53);
+            this.txtBoxPrecioProd.Name = "txtBoxPrecioProd";
+            this.txtBoxPrecioProd.Size = new System.Drawing.Size(329, 30);
+            this.txtBoxPrecioProd.TabIndex = 1;
+            this.txtBoxPrecioProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label36
             // 
@@ -287,6 +340,17 @@
             this.panel20.Size = new System.Drawing.Size(274, 44);
             this.panel20.TabIndex = 2;
             // 
+            // lblStockProd
+            // 
+            this.lblStockProd.BackColor = System.Drawing.Color.Silver;
+            this.lblStockProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStockProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.lblStockProd.Location = new System.Drawing.Point(124, 9);
+            this.lblStockProd.Name = "lblStockProd";
+            this.lblStockProd.Size = new System.Drawing.Size(131, 23);
+            this.lblStockProd.TabIndex = 1;
+            this.lblStockProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label38
             // 
             this.label38.AutoSize = true;
@@ -307,6 +371,17 @@
             this.panel21.Name = "panel21";
             this.panel21.Size = new System.Drawing.Size(1183, 44);
             this.panel21.TabIndex = 1;
+            // 
+            // lblDescripcionProd
+            // 
+            this.lblDescripcionProd.BackColor = System.Drawing.Color.Silver;
+            this.lblDescripcionProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescripcionProd.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lblDescripcionProd.Location = new System.Drawing.Point(156, 11);
+            this.lblDescripcionProd.Name = "lblDescripcionProd";
+            this.lblDescripcionProd.Size = new System.Drawing.Size(1006, 23);
+            this.lblDescripcionProd.TabIndex = 1;
+            this.lblDescripcionProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label40
             // 
@@ -663,81 +738,6 @@
             this.btnLoadXML.UseVisualStyleBackColor = false;
             this.btnLoadXML.Click += new System.EventHandler(this.btnLoadXML_Click_1);
             // 
-            // lblDescripcionProd
-            // 
-            this.lblDescripcionProd.BackColor = System.Drawing.Color.Silver;
-            this.lblDescripcionProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescripcionProd.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lblDescripcionProd.Location = new System.Drawing.Point(156, 11);
-            this.lblDescripcionProd.Name = "lblDescripcionProd";
-            this.lblDescripcionProd.Size = new System.Drawing.Size(1006, 23);
-            this.lblDescripcionProd.TabIndex = 1;
-            this.lblDescripcionProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblClaveInternaProd
-            // 
-            this.lblClaveInternaProd.BackColor = System.Drawing.Color.Silver;
-            this.lblClaveInternaProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblClaveInternaProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblClaveInternaProd.Location = new System.Drawing.Point(210, 10);
-            this.lblClaveInternaProd.Name = "lblClaveInternaProd";
-            this.lblClaveInternaProd.Size = new System.Drawing.Size(177, 23);
-            this.lblClaveInternaProd.TabIndex = 1;
-            this.lblClaveInternaProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label6
-            // 
-            this.label6.BackColor = System.Drawing.Color.Silver;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.label6.Location = new System.Drawing.Point(242, 9);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(146, 23);
-            this.label6.TabIndex = 1;
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblCodigoBarrasProd
-            // 
-            this.lblCodigoBarrasProd.BackColor = System.Drawing.Color.Silver;
-            this.lblCodigoBarrasProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodigoBarrasProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblCodigoBarrasProd.Location = new System.Drawing.Point(531, 9);
-            this.lblCodigoBarrasProd.Name = "lblCodigoBarrasProd";
-            this.lblCodigoBarrasProd.Size = new System.Drawing.Size(358, 23);
-            this.lblCodigoBarrasProd.TabIndex = 1;
-            this.lblCodigoBarrasProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblImpuestosProd
-            // 
-            this.lblImpuestosProd.BackColor = System.Drawing.Color.Silver;
-            this.lblImpuestosProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImpuestosProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblImpuestosProd.Location = new System.Drawing.Point(530, 9);
-            this.lblImpuestosProd.Name = "lblImpuestosProd";
-            this.lblImpuestosProd.Size = new System.Drawing.Size(358, 23);
-            this.lblImpuestosProd.TabIndex = 1;
-            this.lblImpuestosProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblStockProd
-            // 
-            this.lblStockProd.BackColor = System.Drawing.Color.Silver;
-            this.lblStockProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStockProd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.lblStockProd.Location = new System.Drawing.Point(124, 9);
-            this.lblStockProd.Name = "lblStockProd";
-            this.lblStockProd.Size = new System.Drawing.Size(131, 23);
-            this.lblStockProd.TabIndex = 1;
-            this.lblStockProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtBoxPrecioProd
-            // 
-            this.txtBoxPrecioProd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBoxPrecioProd.Location = new System.Drawing.Point(72, 53);
-            this.txtBoxPrecioProd.Name = "txtBoxPrecioProd";
-            this.txtBoxPrecioProd.Size = new System.Drawing.Size(329, 30);
-            this.txtBoxPrecioProd.TabIndex = 1;
-            this.txtBoxPrecioProd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // AgregarStockXML
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -854,7 +854,7 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label lblImpuestosProd;
         private System.Windows.Forms.Label lblCodigoBarrasProd;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblPrecioRecomendadoProd;
         private System.Windows.Forms.Label lblClaveInternaProd;
         private System.Windows.Forms.TextBox txtBoxPrecioProd;
         private System.Windows.Forms.Label lblStockProd;

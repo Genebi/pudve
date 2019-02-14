@@ -196,18 +196,29 @@ namespace PuntoDeVentaV2
             this.CenterToScreen();
         }
 
+        public void limpiarLblXNL()
+        {
+            lblDescripcionXML.Text = "";
+            lblCantXML.Text = "";
+            lblPrecioOriginalXML.Text = "";
+            lblImpXML.Text = "";
+            lblNoIdentificacionXML.Text = "";
+            lblPrecioRecomendadoXML.Text = "";
+        }
+
         public void limpiarLblProd()
         {
             lblDescripcionProd.Text = "";
             lblClaveInternaProd.Text = "";
             lblStockProd.Text = "";
             lblCodigoBarrasProd.Text = "";
+            lblPrecioRecomendadoProd.Text = "";
             txtBoxPrecioProd.Text = "";
         }
 
         public void searchProd()
         {
-            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}'";
+            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}'";
             dtProductos = cn.CargarDatos(search);
             if (dtProductos.Rows.Count > 0)
             {
@@ -220,6 +231,35 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void datosXML()
+        {
+            lblPosicionActualXML.Text = (index + 1).ToString();
+            lblDescripcionXML.Text = ds.Conceptos[index].Descripcion;
+            lblCantXML.Text = ds.Conceptos[index].Cantidad;
+            importe = float.Parse(ds.Conceptos[index].Importe);
+            descuento = float.Parse(ds.Conceptos[index].Descuento);
+            cantidad = float.Parse(ds.Conceptos[index].Cantidad);
+            precioOriginalSinIVA = (importe - descuento) / cantidad;
+            precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;
+            lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
+            importeReal = cantidad * precioOriginalConIVA;
+            lblImpXML.Text = importeReal.ToString("N2");
+            ClaveInterna = ds.Conceptos[index].NoIdentificacion;
+            lblNoIdentificacionXML.Text = ClaveInterna;
+            PrecioRecomendado = precioOriginalConIVA * (float)1.60;
+            lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
+        }
+
+        public void datosProductos()
+        {
+            lblDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
+            lblClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
+            lblStockProd.Text = dtProductos.Rows[0]["Stock"].ToString();
+            lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
+            lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
+            txtBoxPrecioProd.Text = dtProductos.Rows[0]["Precio"].ToString();
+        }
+
         public void RecorrerXML()
         {
             int totalRegistroXML;
@@ -230,84 +270,46 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Final del Archivo XML,\nrecorrido con exito", "Archivo XML recorrido en totalidad", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (lblPosicionActualXML.Text == "0")
-            {   
-                lblPosicionActualXML.Text = (index+1).ToString();
-                lblDescripcionXML.Text = ds.Conceptos[index].Descripcion;
-                lblCantXML.Text = ds.Conceptos[index].Cantidad;
-                importe = float.Parse(ds.Conceptos[index].Importe);
-                descuento = float.Parse(ds.Conceptos[index].Descuento);
-                cantidad = float.Parse(ds.Conceptos[index].Cantidad);
-                precioOriginalSinIVA = (importe - descuento) / cantidad;
-                precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;
-                lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
-                importeReal = cantidad * precioOriginalConIVA;
-                lblImpXML.Text = importeReal.ToString("N2");
-                ClaveInterna = ds.Conceptos[index].NoIdentificacion;
-                lblNoIdentificacionXML.Text = ClaveInterna;
-                PrecioRecomendado = precioOriginalConIVA * (float)1.60;
-                lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
+            {
+                datosXML();
                 searchProd();
                 if (resultadoSearch <= 0)
                 {
-                    DialogResult dialogResult = MessageBox.Show("No existe el producto en el Stock,\nDesea Agregarlo a su lista de Productos", "No existe Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        //do something
-                    }
-                    else if (dialogResult == DialogResult.No)
-                    {
-                        //do something else
-                    }
+                    //DialogResult dialogResult = MessageBox.Show("No existe el producto en el Stock,\nDesea Agregarlo a su lista de Productos", "No existe Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    //if (dialogResult == DialogResult.Yes)
+                    //{
+                    //    // ToDo para agregar productos
+                    //}
+                    //else if (dialogResult == DialogResult.No)
+                    //{
+                    //    // ToDo para No agregar productos
+                    //}
                 }
-                else if (resultadoSearch>=1)
+                else if (resultadoSearch >= 1)
                 {
-                    lblDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
-                    lblClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
-                    lblStockProd.Text = dtProductos.Rows[0]["Stock"].ToString();
-                    lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
-                    txtBoxPrecioProd.Text = dtProductos.Rows[0]["Precio"].ToString();
-                    //MessageBox.Show("Producto existente,\nen su Stock", "Prodcuto ya Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);         
+                    datosProductos();
                 }
                 index++;
             }
             else if(index <= ds.Conceptos.Count())
             {
-                lblPosicionActualXML.Text = (index + 1).ToString();
-                lblDescripcionXML.Text = ds.Conceptos[index].Descripcion;
-                lblCantXML.Text = ds.Conceptos[index].Cantidad;
-                importe = float.Parse(ds.Conceptos[index].Importe);
-                descuento = float.Parse(ds.Conceptos[index].Descuento);
-                cantidad = float.Parse(ds.Conceptos[index].Cantidad);
-                precioOriginalSinIVA = (importe - descuento) / cantidad;
-                precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;
-                lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
-                importeReal = cantidad * precioOriginalConIVA;
-                lblImpXML.Text = importeReal.ToString("N2");
-                ClaveInterna = ds.Conceptos[index].NoIdentificacion;
-                lblNoIdentificacionXML.Text = ClaveInterna;
-                PrecioRecomendado = precioOriginalConIVA * (float)1.60;
-                lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
+                datosXML();
                 searchProd();
                 if (resultadoSearch <= 0)
                 {
-                    DialogResult dialogResult = MessageBox.Show("No existe el producto en el Stock,\nDesea Agregarlo a su lista de Productos", "No existe Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        //do something
-                    }
-                    else if (dialogResult == DialogResult.No)
-                    {
-                        //do something else
-                    }
+                    //DialogResult dialogResult = MessageBox.Show("No existe el producto en el Stock,\nDesea Agregarlo a su lista de Productos", "No existe Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    //if (dialogResult == DialogResult.Yes)
+                    //{
+                    //    // ToDo para agregar productos
+                    //}
+                    //else if (dialogResult == DialogResult.No)
+                    //{
+                    //    // ToDo para No agregar productos
+                    //}
                 }
                 else if (resultadoSearch >= 1)
                 {
-                    lblDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
-                    lblClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
-                    lblStockProd.Text = dtProductos.Rows[0]["Stock"].ToString();
-                    lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
-                    txtBoxPrecioProd.Text = dtProductos.Rows[0]["Precio"].ToString();
-                    //MessageBox.Show("Producto existente,\nen su Stock", "Prodcuto ya Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);                    
+                    datosProductos();
                 }
                 index++;
             }
@@ -383,6 +385,9 @@ namespace PuntoDeVentaV2
 
         private void AgregarStockXML_Load(object sender, EventArgs e)
         {
+
+            limpiarLblXNL();
+
             groupBox5.BackColor = Color.FromArgb(130, 130, 130);
 
             // asignamos el valor de userName que sea
