@@ -144,9 +144,10 @@ namespace PuntoDeVentaV2
         // variables para poder hacer el recorrido y asignacion de los valores que estan el base de datos
         int index, cantProductos, resultadoSearch, resultadoCambioPrecio, resultadoSearchNoIdentificacion, resultadoSearchCodBar, stockProd, stockProdXML, totalProd;
         public DataTable dt, dtProductos, dtClaveInterna, dtCodBar;
-        float importe, descuento, cantidad, precioOriginalSinIVA, precioOriginalConIVA, PrecioRecomendado, importeReal, PrecioProd;
+        float importe, descuento, cantidad, precioOriginalSinIVA, precioOriginalConIVA, PrecioRecomendado, importeReal, PrecioProd, PrecioProdToCompare;
         string ClaveInterna, NoClaveInterna;
         DialogResult dialogResult;
+        string textBoxNoIdentificacion;
 
         // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
         // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
@@ -271,6 +272,7 @@ namespace PuntoDeVentaV2
             {
                 resultadoSearch = 1; // busqueda positiva
                 NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();
+                label1.Text = NoClaveInterna;
             }
             // si el resultado no arroja ninguna fila
             else if (dtProductos.Rows.Count<=0)
@@ -286,18 +288,20 @@ namespace PuntoDeVentaV2
         public void searchClavIntProd()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{txtBoxClaveInternaProd.Text}'";
+            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{textBoxNoIdentificacion}' OR Prod.CodigoBarras = '{textBoxNoIdentificacion}'";
             // alamcenamos el resultado de la busqueda en dtClaveInterna
             dtClaveInterna = cn.CargarDatos(search);
             // si el resultado arroja al menos una fila
             if (dtClaveInterna.Rows.Count > 0)
             {
                 resultadoSearchNoIdentificacion = 1; // busqueda positiva
+                //MessageBox.Show("Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             // si el resultado no arroja ninguna fila
             else if (dtClaveInterna.Rows.Count <= 0)
             {
-                resultadoSearchNoIdentificacion = 0; // busqueda negativa
+                resultadoSearchNoIdentificacion = 1; // busqueda negativa
+                //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -307,18 +311,20 @@ namespace PuntoDeVentaV2
         public void searchCodBar()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.CodigoBarras = '{txtBoxClaveInternaProd.Text}'";
+            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.CodigoBarras = '{textBoxNoIdentificacion}' OR Prod.ClaveInterna = '{textBoxNoIdentificacion}'";
             // alamcenamos el resultado de la busqueda en dtClaveInterna
             dtCodBar = cn.CargarDatos(search);
             // si el resultado arroja al menos una fila
             if (dtCodBar.Rows.Count > 0)
             {
                 resultadoSearchCodBar = 1; // busqueda positiva
+                //MessageBox.Show("Codigo Bar ya en uso", "Este Codigo esta en uso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             // si el resultado no arroja ninguna fila
             else if (dtCodBar.Rows.Count <= 0)
             {
-                resultadoSearchCodBar = 0; // busqueda negativa
+                resultadoSearchCodBar = 1; // busqueda negativa
+                //MessageBox.Show("Codigo Bar Disponible", "Este Codigo libre", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -413,9 +419,9 @@ namespace PuntoDeVentaV2
         // mayor o igual al que esta sugerido por el XML
         public void comprobarPrecioMayorIgualRecomendado()
         {
-            PrecioProd = float.Parse(txtBoxClaveInternaProd.Text);
-
-            if (PrecioProd < PrecioRecomendado) // comparamos si el precio es menor
+            PrecioProd = float.Parse(txtBoxPrecioProd.Text);
+            PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);
+            if (PrecioProd < PrecioProdToCompare) // comparamos si el precio es menor
             {
                 // muestra un mensaje que el precio en stock es menor que el suegerido
                 dialogResult = MessageBox.Show("El Precio del producto en el Stock,\nes Menor que el precio Recomendado\n\n\tDESEA CORREGIRLA...", "El precio del Producto es menor...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -423,6 +429,7 @@ namespace PuntoDeVentaV2
                 if (dialogResult == DialogResult.Yes)
                 {
                     resultadoCambioPrecio = 1; // la variable la ponemos en valor 1 indicando que se hizo el cambio de precio
+                    txtBoxPrecioProd.Text = PrecioProdToCompare.ToString();
                     txtBoxPrecioProd.Focus(); // mandamos el cursor al textBox para el cambio de precio del Stock
                 }
                 // si el usario selecciona que no quiere modificarlo
@@ -442,16 +449,19 @@ namespace PuntoDeVentaV2
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (NoClaveInterna != txtBoxClaveInternaProd.Text) // si son diferentes los datos osea hubo un cambio
+            textBoxNoIdentificacion = txtBoxClaveInternaProd.Text;
+            if (NoClaveInterna != textBoxNoIdentificacion) // si son diferentes los datos osea hubo un cambio
             {
+                //MessageBox.Show("No son Iguales","los textos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 searchClavIntProd(); // hacemos la busqueda que no se repita en CalveInterna
                 searchCodBar();  // hacemos la busqueda que no se repita en CodigoBarra
             }
             else
             {
                 // ToDo 
+                //MessageBox.Show("No esta dentro de lo planeado", "Algo salio Mal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //comprobarPrecioMayorIgualRecomendado(); // Llamamos la funsion para comparar el precio del producto con el sugerido
+            comprobarPrecioMayorIgualRecomendado(); // Llamamos la funsion para comparar el precio del producto con el sugerido
             verNvoStock(); // funsion para ver el nvo stock
         }
 
