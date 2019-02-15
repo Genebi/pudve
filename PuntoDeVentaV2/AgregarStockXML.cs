@@ -142,10 +142,10 @@ namespace PuntoDeVentaV2
         string buscar;
 
         // variables para poder hacer el recorrido y asignacion de los valores que estan el base de datos
-        int index, cantProductos, resultadoSearch, resultadoCambioPrecio, resultadoSearchNoIdentificacion, resultadoSearchCodBar, stockProd, stockProdXML, totalProd;
+        int index, cantProductos, resultadoSearch, resultadoSearchProd, resultadoCambioPrecio, resultadoSearchNoIdentificacion, resultadoSearchCodBar, stockProd, stockProdXML, totalProd;
         public DataTable dt, dtProductos, dtClaveInterna, dtCodBar;
         float importe, descuento, cantidad, precioOriginalSinIVA, precioOriginalConIVA, PrecioRecomendado, importeReal, PrecioProd, PrecioProdToCompare;
-        string ClaveInterna, NoClaveInterna;
+        string ClaveInterna, NoClaveInterna, idProducto, query, NombreProd;
         DialogResult dialogResult;
         string textBoxNoIdentificacion;
 
@@ -264,21 +264,21 @@ namespace PuntoDeVentaV2
         public void searchProd()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}'";
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}'";
             // alamcenamos el resultado de la busqueda en dtProductos
             dtProductos = cn.CargarDatos(search);
             // si el resultado arroja al menos una fila
             if (dtProductos.Rows.Count > 0)
             {
-                resultadoSearch = 1; // busqueda positiva
+                resultadoSearchProd = 1; // busqueda positiva
                 NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();
-                label1.Text = NoClaveInterna;
             }
             // si el resultado no arroja ninguna fila
             else if (dtProductos.Rows.Count<=0)
             {
-                resultadoSearch = 0; // busqueda negativa
+                resultadoSearchProd = 0; // busqueda negativa
                 limpiarLblProd(); // limpiamos los campos de producto
+                MessageBox.Show("Nuevo Producto", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -288,7 +288,7 @@ namespace PuntoDeVentaV2
         public void searchClavIntProd()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{textBoxNoIdentificacion}' OR Prod.CodigoBarras = '{textBoxNoIdentificacion}'";
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{textBoxNoIdentificacion}' OR Prod.CodigoBarras = '{textBoxNoIdentificacion}'";
             // alamcenamos el resultado de la busqueda en dtClaveInterna
             dtClaveInterna = cn.CargarDatos(search);
             // si el resultado arroja al menos una fila
@@ -311,7 +311,7 @@ namespace PuntoDeVentaV2
         public void searchCodBar()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.CodigoBarras = '{textBoxNoIdentificacion}' OR Prod.ClaveInterna = '{textBoxNoIdentificacion}'";
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{userId}' AND Prod.CodigoBarras = '{textBoxNoIdentificacion}' OR Prod.ClaveInterna = '{textBoxNoIdentificacion}'";
             // alamcenamos el resultado de la busqueda en dtClaveInterna
             dtCodBar = cn.CargarDatos(search);
             // si el resultado arroja al menos una fila
@@ -354,6 +354,7 @@ namespace PuntoDeVentaV2
         // que provienen del stock del producto
         public void datosProductos()
         {
+            idProducto = dtProductos.Rows[0]["ID"].ToString();
             txtBoxDescripcionProd.Text = dtProductos.Rows[0]["Nombre"].ToString();
             txtBoxClaveInternaProd.Text = dtProductos.Rows[0]["ClaveInterna"].ToString();
             stockProd = int.Parse(dtProductos.Rows[0]["Stock"].ToString()); // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
@@ -377,7 +378,8 @@ namespace PuntoDeVentaV2
             // comparamos la posicion actual y vemo si es igual al total de conceptos del XML
             if (index == totalRegistroXML)
             {
-                MessageBox.Show("Final del Archivo XML,\nrecorrido con exito", "Archivo XML recorrido en totalidad", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Final del Archivo XML,\nrecorrido con exito", "Archivo XML recorrido en totalidad", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close(); // cerramos la ventana de Actualizar los datos
             }
             // comparamos si la etiqueta lblPosicionActualXML es igual al número 0
             else if (lblPosicionActualXML.Text == "0")
@@ -412,30 +414,28 @@ namespace PuntoDeVentaV2
                 }
                 index++; // aumentamos en uno la variable index
             }
-            
         }
 
         // funsion para comprobar que el precio del stock sea
         // mayor o igual al que esta sugerido por el XML
         public void comprobarPrecioMayorIgualRecomendado()
         {
-            PrecioProd = float.Parse(txtBoxPrecioProd.Text);
-            PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);
+            PrecioProd = float.Parse(txtBoxPrecioProd.Text); // almacenamos el precio que tiene la caja de texto
+            PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text); // almacenamos el precio sugerido para hacer la comparacion
             if (PrecioProd < PrecioProdToCompare) // comparamos si el precio es menor
             {
                 // muestra un mensaje que el precio en stock es menor que el suegerido
                 dialogResult = MessageBox.Show("El Precio del producto en el Stock,\nes Menor que el precio Recomendado\n\n\tDESEA CORREGIRLA...", "El precio del Producto es menor...", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                // si el usuario selecciona que si quiere modificarlo
-                if (dialogResult == DialogResult.Yes)
+                if (dialogResult == DialogResult.Yes) // si el usuario selecciona que si quiere modificarlo
                 {
                     resultadoCambioPrecio = 1; // la variable la ponemos en valor 1 indicando que se hizo el cambio de precio
                     txtBoxPrecioProd.Text = PrecioProdToCompare.ToString();
                     txtBoxPrecioProd.Focus(); // mandamos el cursor al textBox para el cambio de precio del Stock
+                    PrecioProd = float.Parse(txtBoxPrecioProd.Text); // actualizamos el precio de la caja de texto
                 }
-                // si el usario selecciona que no quiere modificarlo
-                else if (dialogResult == DialogResult.No)
+                else if (dialogResult == DialogResult.No) // si el usario selecciona que no quiere modificarlo
                 {
-                    resultadoCambioPrecio = 0; // la variable la ponemos en valor 0 indicando que no se hizo el cambio de precio
+                    resultadoCambioPrecio = 1; // la variable la ponemos en valor 0 indicando que no se hizo el cambio de precio
                 }
             }
         }
@@ -447,9 +447,43 @@ namespace PuntoDeVentaV2
             lblStockProd.Text = totalProd.ToString(); // mostramos el nvo stock del producto
         }
 
+        public void ActualizarStock()
+        {
+            int resultadoConsulta;
+            NombreProd = txtBoxDescripcionProd.Text;
+            if (resultadoSearchProd==1)
+            {
+                query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
+                resultadoConsulta = cn.EjecutarConsulta(query);
+                if (resultadoConsulta == 1)
+                {
+                    //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                }
+            }
+            else if (resultadoSearchProd==0)
+            {
+                //query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
+                //resultadoConsulta = cn.EjecutarConsulta(query);
+                //if (resultadoConsulta == 1)
+                //{
+                //    //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
+                //else
+                //{
+                //    //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                //}
+            }
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
-            textBoxNoIdentificacion = txtBoxClaveInternaProd.Text;
+            comprobarPrecioMayorIgualRecomendado(); // Llamamos la funsion para comparar el precio del producto con el sugerido
+            verNvoStock(); // funsion para ver el nvo stock
+            textBoxNoIdentificacion = txtBoxClaveInternaProd.Text; // tomamos el valor del TextBox para hacer la comparacion
             if (NoClaveInterna != textBoxNoIdentificacion) // si son diferentes los datos osea hubo un cambio
             {
                 //MessageBox.Show("No son Iguales","los textos", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -461,8 +495,9 @@ namespace PuntoDeVentaV2
                 // ToDo 
                 //MessageBox.Show("No esta dentro de lo planeado", "Algo salio Mal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            comprobarPrecioMayorIgualRecomendado(); // Llamamos la funsion para comparar el precio del producto con el sugerido
-            verNvoStock(); // funsion para ver el nvo stock
+            // realizamos la actualizacion si se cumplen que se hubieran hecho las tres validaciones
+            ActualizarStock(); // realizamos la actualizacion
+            RecorrerXML(); // recorrer el archivo XML
         }
 
         public AgregarStockXML()
@@ -472,7 +507,7 @@ namespace PuntoDeVentaV2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RecorrerXML();
+            RecorrerXML(); // recorrer el archivo XML
         }
 
         public void leerXMLFile()
