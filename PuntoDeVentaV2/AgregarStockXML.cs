@@ -160,7 +160,7 @@ namespace PuntoDeVentaV2
         Comprobante ds;
 
         // funcion para poder saber que cliente es el que esta iniciando sesion en el sistema
-        public void cargarDatos()
+        public void cargarDatosXML()
         {
             index = 0;
             /****************************************************
@@ -177,13 +177,13 @@ namespace PuntoDeVentaV2
         {
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            buscar = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE Usuario = '{userName}' AND Password = '{passwordUser}'";
+            buscar = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE u.Usuario = '{userName}' AND u.Password = '{passwordUser}'";
 
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
 
-            cargarDatos();
+            cargarDatosXML();
         }
 
         // funcion para ocultar el panel en el que
@@ -268,18 +268,22 @@ namespace PuntoDeVentaV2
             // alamcenamos el resultado de la busqueda en dtProductos
             dtProductos = cn.CargarDatos(search);
             // si el resultado arroja al menos una fila
-            if (dtProductos.Rows.Count > 0)
+            if (dtProductos.Rows.Count >= 1)
             {
                 resultadoSearchProd = 1; // busqueda positiva
                 NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();
+                //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                datosProductos();
             }
             // si el resultado no arroja ninguna fila
             else if (dtProductos.Rows.Count<=0)
             {
                 resultadoSearchProd = 0; // busqueda negativa
                 limpiarLblProd(); // limpiamos los campos de producto
-                MessageBox.Show("Nuevo Producto", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Nuevo Producto", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            label1.Text = ClaveInterna;
+            label2.Text = userId;
         }
 
         // funsion para poder buscar en los productos 
@@ -451,32 +455,21 @@ namespace PuntoDeVentaV2
         {
             int resultadoConsulta;
             NombreProd = txtBoxDescripcionProd.Text;
-            if (resultadoSearchProd==1)
+            query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
+            resultadoConsulta = cn.EjecutarConsulta(query);
+            if (resultadoConsulta == 1)
             {
-                query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
-                resultadoConsulta = cn.EjecutarConsulta(query);
-                if (resultadoConsulta == 1)
-                {
-                    //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    //MessageBox.Show("se actualizo mas" + resultadoConsulta);
-                }
+                //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (resultadoSearchProd==0)
+            else
             {
-                //query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
-                //resultadoConsulta = cn.EjecutarConsulta(query);
-                //if (resultadoConsulta == 1)
-                //{
-                //    //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //}
-                //else
-                //{
-                //    //MessageBox.Show("se actualizo mas" + resultadoConsulta);
-                //}
+                //MessageBox.Show("se actualizo mas" + resultadoConsulta);
             }
+            label1.Text = NombreProd;
+            label2.Text = totalProd.ToString();
+            label6.Text = textBoxNoIdentificacion;
+            label8.Text = PrecioProd.ToString();
+            label9.Text = idProducto;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -486,14 +479,14 @@ namespace PuntoDeVentaV2
             textBoxNoIdentificacion = txtBoxClaveInternaProd.Text; // tomamos el valor del TextBox para hacer la comparacion
             if (NoClaveInterna != textBoxNoIdentificacion) // si son diferentes los datos osea hubo un cambio
             {
-                //MessageBox.Show("No son Iguales","los textos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No son Iguales", "los textos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 searchClavIntProd(); // hacemos la busqueda que no se repita en CalveInterna
                 searchCodBar();  // hacemos la busqueda que no se repita en CodigoBarra
             }
             else
             {
                 // ToDo 
-                //MessageBox.Show("No esta dentro de lo planeado", "Algo salio Mal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No esta dentro de lo planeado", "Algo salio Mal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             // realizamos la actualizacion si se cumplen que se hubieran hecho las tres validaciones
             ActualizarStock(); // realizamos la actualizacion
