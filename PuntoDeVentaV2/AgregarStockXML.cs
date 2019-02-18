@@ -120,10 +120,13 @@ namespace PuntoDeVentaV2
             [XmlAttributeAttribute()]
             public string Importe;
         }
+
         /************************************************************
         *   Termina la clase para leer el XML y sus respectivas     *
         *   sub class para hacer los array                          *   
         ************************************************************/
+
+        public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
 
         // se declaran e inicializan las variables para poder hacer validaciones  etc.
 
@@ -159,6 +162,15 @@ namespace PuntoDeVentaV2
         FileStream fs;
         Comprobante ds;
 
+        public void datosAgregarNvoProd()
+        {
+            FormAgregar.txtNombreProducto.Text = ds.Conceptos[index - 1].Descripcion;
+            FormAgregar.txtStockProducto.Text = ds.Conceptos[index - 1].Cantidad;
+            FormAgregar.txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+            FormAgregar.lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");
+            FormAgregar.txtClaveProducto.Text = ds.Conceptos[index - 1].NoIdentificacion;
+        }
+
         // funcion para poder saber que cliente es el que esta iniciando sesion en el sistema
         public void cargarDatosXML()
         {
@@ -192,6 +204,30 @@ namespace PuntoDeVentaV2
         public void OcultarPanelCarga()
         {
             panel1.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FormAgregar.FormClosed += delegate
+            {
+                // ToDo Some Thing
+            };
+
+            if (FormAgregar.Text == "")
+            {
+                FormAgregar = new AgregarEditarProducto("Agregar Producto");
+            }
+
+            if (!FormAgregar.Visible)
+            {
+                datosAgregarNvoProd();
+                FormAgregar.ShowDialog();
+            }
+            else
+            {
+                datosAgregarNvoProd();
+                FormAgregar.BringToFront();
+            }
         }
 
         // funcion para Mostrar el panel en el que
