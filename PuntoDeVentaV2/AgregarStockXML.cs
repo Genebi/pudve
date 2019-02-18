@@ -282,8 +282,6 @@ namespace PuntoDeVentaV2
                 limpiarLblProd(); // limpiamos los campos de producto
                 //MessageBox.Show("Nuevo Producto", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            label1.Text = ClaveInterna;
-            label2.Text = userId;
         }
 
         // funsion para poder buscar en los productos 
@@ -465,11 +463,6 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("se actualizo mas" + resultadoConsulta);
             }
-            label1.Text = NombreProd;
-            label2.Text = totalProd.ToString();
-            label6.Text = textBoxNoIdentificacion;
-            label8.Text = PrecioProd.ToString();
-            label9.Text = idProducto;
         }
 
         private void button2_Click(object sender, EventArgs e)
