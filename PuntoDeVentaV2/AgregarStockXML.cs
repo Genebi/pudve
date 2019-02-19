@@ -133,6 +133,8 @@ namespace PuntoDeVentaV2
         ****************************************************/
         // se declara el objeto para poder usarlo y llamar la ventana para agregrar Nvo Producto
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
+        // se declara el objeto para poder usarlo y llamar la ventana para el listado de Productos
+        public ListaProductos ListProd = new ListaProductos();
 
         OpenFileDialog f;   // objeto para poder abrir el openDialog
 
@@ -727,6 +729,23 @@ namespace PuntoDeVentaV2
         {
             MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
             btnLoadXML.Show(); // hacemos visible el botonXML de la ventana de cargar archivo XML
+        }
+
+        private void picBoxBuscar_Click(object sender, EventArgs e)
+        {
+            ListProd.FormClosed += delegate
+            {
+                
+            };
+
+            if (!ListProd.Visible)
+            {
+                ListProd.ShowDialog();
+            }
+            else
+            {
+                ListProd.BringToFront();
+            }
         }
     }
 }

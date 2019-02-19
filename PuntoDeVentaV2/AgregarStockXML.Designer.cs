@@ -86,8 +86,8 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.picBoxBuscar = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -112,7 +112,7 @@
             this.panel3.SuspendLayout();
             this.panel17.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxBuscar)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -715,12 +715,24 @@
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.pictureBox1);
+            this.panel6.Controls.Add(this.picBoxBuscar);
             this.panel6.Controls.Add(this.label1);
             this.panel6.Location = new System.Drawing.Point(10, 350);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1227, 312);
             this.panel6.TabIndex = 18;
+            // 
+            // picBoxBuscar
+            // 
+            this.picBoxBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picBoxBuscar.Image = global::PuntoDeVentaV2.Properties.Resources.magnifying_glass;
+            this.picBoxBuscar.Location = new System.Drawing.Point(494, 63);
+            this.picBoxBuscar.Name = "picBoxBuscar";
+            this.picBoxBuscar.Size = new System.Drawing.Size(224, 221);
+            this.picBoxBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picBoxBuscar.TabIndex = 21;
+            this.picBoxBuscar.TabStop = false;
+            this.picBoxBuscar.Click += new System.EventHandler(this.picBoxBuscar_Click);
             // 
             // label1
             // 
@@ -732,17 +744,6 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "Datos Productos";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Image = global::PuntoDeVentaV2.Properties.Resources.magnifying_glass;
-            this.pictureBox1.Location = new System.Drawing.Point(494, 63);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(224, 221);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 21;
-            this.pictureBox1.TabStop = false;
             // 
             // button3
             // 
@@ -864,7 +865,7 @@
             this.panel17.ResumeLayout(false);
             this.panel17.PerformLayout();
             this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxBuscar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -934,6 +935,6 @@
         private System.Windows.Forms.TextBox txtBoxClaveInternaProd;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picBoxBuscar;
     }
 }

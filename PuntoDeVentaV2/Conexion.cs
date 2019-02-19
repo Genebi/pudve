@@ -184,6 +184,16 @@ namespace PuntoDeVentaV2
             return DT;
         }
 
+        public DataTable GetStockProd(string consulta)
+        {
+            Conectarse();
+            sql_con.Open();
+            SQLiteDataAdapter sda = new SQLiteDataAdapter(consulta, sql_con);
+            sda.Fill(DT);
+            sql_con.Close();
+            return DT;
+        }
+
         public NameValueCollection ObtenerProductos(int IDUsuario)
         {
             NameValueCollection lista = new NameValueCollection();
