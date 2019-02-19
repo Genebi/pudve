@@ -891,7 +891,7 @@
         private System.Windows.Forms.Label lblStockProd;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox txtBoxDescripcionProd;
-        private System.Windows.Forms.TextBox txtBoxClaveInternaProd;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox txtBoxClaveInternaProd;
     }
 }

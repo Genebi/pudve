@@ -26,6 +26,57 @@ namespace PuntoDeVentaV2
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
 
+        /************************
+		*	Codigo de Emmanuel	*
+		************************/
+
+        public DataTable dtClaveInterna;        // almacena el resultado de la funcion de CargarDatos de la funcion searchClavIntProd
+        public DataTable dtCodBar;              // almacena el resultado de la funcion de CargarDatos de la funcion searchCodBar
+
+        int resultadoSearchNoIdentificacion;    // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchClavIntProd()
+        int resultadoSearchCodBar;              // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchCodBar()
+
+        // funsion para poder buscar en los productos 
+        // si coincide con los campos de de ClaveInterna
+        // respecto al stock del producto en su campo de NoIdentificacion
+        public void searchClavIntProd()
+        {
+            // preparamos el Query
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.ClaveInterna = '{txtClaveProducto.Text}' OR Prod.CodigoBarras = '{txtClaveProducto.Text}'";
+            dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
+            if (dtClaveInterna.Rows.Count > 0)  // si el resultado arroja al menos una fila
+            {
+                resultadoSearchNoIdentificacion = 1;    // busqueda positiva
+                //MessageBox.Show("No Identificación Encontrado...\nen la claveInterna del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (dtClaveInterna.Rows.Count <= 0)    // si el resultado no arroja ninguna fila
+            {
+                resultadoSearchNoIdentificacion = 0; // busqueda negativa
+                //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // funsion para poder buscar en los productos 
+        // si coincide con los campos de de CodigoBarras
+        // respecto al stock del producto en su campo de NoIdentificacion
+        public void searchCodBar()
+        {
+            // preparamos el Query
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.CodigoBarras = '{txtCodigoBarras.Text}' OR Prod.ClaveInterna = '{txtCodigoBarras.Text}'";
+            dtCodBar = cn.CargarDatos(search);  // alamcenamos el resultado de la busqueda en dtClaveInterna
+            if (dtCodBar.Rows.Count > 0)        // si el resultado arroja al menos una fila
+            {
+                resultadoSearchCodBar = 1; // busqueda positiva
+                //MessageBox.Show("No Identificación Encontrado...\nen el Código de Barras del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (dtCodBar.Rows.Count <= 0)  // si el resultado no arroja ninguna fila
+            {
+                resultadoSearchCodBar = 0; // busqueda negativa
+                //MessageBox.Show("Codigo Bar Disponible", "Este Codigo libre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        /* Fin del codigo de Emmanuel */
+
         public AgregarEditarProducto(string titulo)
         {
             InitializeComponent();
@@ -204,6 +255,9 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
+            /****************************
+			*	codigo de Alejandro		*
+			****************************/
             var nombre = txtNombreProducto.Text;
             var stock = txtStockProducto.Text;
             var precio = txtPrecioProducto.Text;
@@ -212,85 +266,109 @@ namespace PuntoDeVentaV2
             var codigoB = txtCodigoBarras.Text;
             var tipoDescuento = "0";
 
-            if (descuentos.Any())
+            /*	Fin del codigo de Alejandro	*/
+
+            /************************************
+            *   iniciamos las variables a 0     *
+			*	codigo de Emmanuel				*
+            ************************************/
+            resultadoSearchNoIdentificacion = 0;    // ponemos los valores en 0
+            resultadoSearchCodBar = 0;              // ponemos los valores en 0
+
+            searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
+            searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
+
+            if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
             {
-                //Cerramos la ventana donde se eligen los descuentos
-                FormAgregar.Close();
-                tipoDescuento = descuentos[0];
+                MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-
-            string[] guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento };
-            
-            //Se guardan los datos principales del producto
-            int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
-
-            if (respuesta > 0)
+            else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
             {
-                //Se obtiene la ID del último producto agregado
-                int idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-
-                //Se realiza el proceso para guardar los detalles de facturación del producto
-                if (datosImpuestos != null)
-                {
-                    //Cerramos la ventana donde se eligen los impuestos
-                    FormDetalle.Close();
-
-                    string[] listaImpuestos = datosImpuestos.Split('|');
-
-                    int longitud = listaImpuestos.Length;
-
-                    if (longitud > 0)
-                    {
-                        for (int i = 0; i < longitud; i++)
-                        {
-                            string[] imp = listaImpuestos[i].Split(',');
-
-                            if (imp[3] == " - ") { imp[3] = "0";  }
-                            if (imp[4] == " - ") { imp[4] = "0";  }
-                            if (imp[5] == " - ") { imp[5] = "0";  }
-
-                            guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
-
-                            cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
-                        }
-                    }
-
-                    datosImpuestos = null;
-                }
-
-                //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                /****************************
+				*	codigo de Alejandro		*
+				****************************/
                 if (descuentos.Any())
                 {
-                    //Descuento por Cliente
-                    if (descuentos[0] == "1")
-                    {
-                        guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
-
-                        cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
-                    }
-
-                    //Descuento por Mayoreo
-                    if (descuentos[0] == "2")
-                    {
-                        foreach (var descuento in descuentos)
-                        {
-                            if (descuento == "2") { continue;  }
-
-                            string[] tmp = descuento.Split('-');
-
-                            cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
-                        }
-                    }
+                    //Cerramos la ventana donde se eligen los descuentos
+                    FormAgregar.Close();
+                    tipoDescuento = descuentos[0];
                 }
 
+                string[] guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento };
 
-                //Cierra la ventana donde se agregan los datos del producto
-                this.Close();
+                //Se guardan los datos principales del producto
+                int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
+
+                if (respuesta > 0)
+                {
+                    //Se obtiene la ID del último producto agregado
+                    int idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+
+                    //Se realiza el proceso para guardar los detalles de facturación del producto
+                    if (datosImpuestos != null)
+                    {
+                        //Cerramos la ventana donde se eligen los impuestos
+                        FormDetalle.Close();
+
+                        string[] listaImpuestos = datosImpuestos.Split('|');
+
+                        int longitud = listaImpuestos.Length;
+
+                        if (longitud > 0)
+                        {
+                            for (int i = 0; i < longitud; i++)
+                            {
+                                string[] imp = listaImpuestos[i].Split(',');
+
+                                if (imp[3] == " - ") { imp[3] = "0"; }
+                                if (imp[4] == " - ") { imp[4] = "0"; }
+                                if (imp[5] == " - ") { imp[5] = "0"; }
+
+                                guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
+
+                                cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                            }
+                        }
+
+                        datosImpuestos = null;
+                    }
+
+                    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                    if (descuentos.Any())
+                    {
+                        //Descuento por Cliente
+                        if (descuentos[0] == "1")
+                        {
+                            guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
+
+                            cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                        }
+
+                        //Descuento por Mayoreo
+                        if (descuentos[0] == "2")
+                        {
+                            foreach (var descuento in descuentos)
+                            {
+                                if (descuento == "2") { continue; }
+
+                                string[] tmp = descuento.Split('-');
+
+                                cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                            }
+                        }
+                    }
+
+
+                    //Cierra la ventana donde se agregan los datos del producto
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Ha ocurrido un error al intentar registrar el producto");
+                }
+                /*	Fin del codigo de Alejandro	*/
             }
-            else
-            {
-                MessageBox.Show("Ha ocurrido un error al intentar registrar el producto");
-            }
+            /* Fin del codigo de Emmanuel */
         }
     }
 }
