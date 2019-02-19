@@ -360,7 +360,7 @@ namespace PuntoDeVentaV2
             if (dtClaveInterna.Rows.Count > 0)  // si el resultado arroja al menos una fila
             {
                 resultadoSearchNoIdentificacion = 1;    // busqueda positiva
-                MessageBox.Show("No Identificación Encontrado...\nen la claveInterna del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("No Identificación Encontrado...\nen la claveInterna del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (dtClaveInterna.Rows.Count <= 0)    // si el resultado no arroja ninguna fila
             {
@@ -380,7 +380,7 @@ namespace PuntoDeVentaV2
             if (dtCodBar.Rows.Count > 0)        // si el resultado arroja al menos una fila
             {
                 resultadoSearchCodBar = 1; // busqueda positiva
-                MessageBox.Show("No Identificación Encontrado...\nen el Código de Barras del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("No Identificación Encontrado...\nen el Código de Barras del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (dtCodBar.Rows.Count <= 0)  // si el resultado no arroja ninguna fila
             {
@@ -549,15 +549,15 @@ namespace PuntoDeVentaV2
                     searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
                     searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
                     //MessageBox.Show("No son Iguales", "los textos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (resultadoSearchNoIdentificacion==0 && resultadoSearchCodBar==0)
+                    if (resultadoSearchNoIdentificacion==1 && resultadoSearchCodBar==1)
                     {
-                        MessageBox.Show("Se Actualizaria el Stock", "Actualziacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ActualizarStock();      // realizamos la actualizacion
-                        RecorrerXML();          // recorrer el archivo XML
+                        MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else if (resultadoSearchNoIdentificacion == 1 || resultadoSearchCodBar == 0)
+                    else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                     {
-                        MessageBox.Show("Algo salio mal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ActualizarStock();      // realizamos la actualizacion
+                        MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RecorrerXML();          // recorrer el archivo XML
                     }
                 }
                 else                                                    // si no hubo un cambio
@@ -582,15 +582,15 @@ namespace PuntoDeVentaV2
                     // ToDo 
                     //MessageBox.Show("No esta dentro de lo planeado", "Algo salio Mal", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (resultadoSearchNoIdentificacion == 0 && resultadoSearchCodBar == 0)
+                if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                 {
-                    MessageBox.Show("Se Actualizaria el Stock", "Actualziacion exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ActualizarStock();      // realizamos la actualizacion
-                    RecorrerXML();          // recorrer el archivo XML
+                    MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else if (resultadoSearchNoIdentificacion == 1 || resultadoSearchCodBar == 0)
+                else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
-                    MessageBox.Show("Algo salio mal", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ActualizarStock();      // realizamos la actualizacion
+                    MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    RecorrerXML();          // recorrer el archivo XML
                 }
             }
         }
