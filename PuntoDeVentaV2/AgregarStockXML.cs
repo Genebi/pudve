@@ -272,6 +272,14 @@ namespace PuntoDeVentaV2
             this.CenterToScreen();
         }
 
+        // funcion para mostrar el panel:
+        // No. 6, este se muestra solo si
+        // es que no hay registro del Producto
+        public void MostarPanelSinRegistro()
+        {
+            panel6.Show();
+        }
+
         // funcion para ocultar los paneles:
         // 17, 2, 12 y el boton de XML esta hace
         // que se muestren los datos del XML
@@ -281,6 +289,14 @@ namespace PuntoDeVentaV2
             panel2.Hide();
             panel12.Hide();
             button1.Hide();
+        }
+
+        // funcion para ocultar el panel:
+        // No. 6, este se muestra solo si
+        // es que no hay registro del Producto
+        public void OcultarPanelSinRegistro()
+        {
+            panel6.Hide();
         }
 
         // funcion para Muestra los paneles:
@@ -339,12 +355,14 @@ namespace PuntoDeVentaV2
                 resultadoSearchProd = 1;                                            // busqueda positiva
                 NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();    // almacenamos el valor del NoClaveInterna
                 datosProductos();                                                   // llamamos la funcion de datosProductos
+                OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
                 //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (dtProductos.Rows.Count<=0) // si el resultado no arroja ninguna fila
             {
                 resultadoSearchProd = 0;        // busqueda negativa
                 limpiarLblProd();               // limpiamos los campos de producto
+                MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                 //MessageBox.Show("Nuevo Producto", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -682,6 +700,7 @@ namespace PuntoDeVentaV2
             consulta(); // Llamamos la funsion de consulta para buscar el producto
             MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
             OcultarPanelRegistro(); // ocultamos la ventana de ver registro del Stock
+            OcultarPanelSinRegistro(); // ocultamos la ventana Si no tiene registro del Stock
         }
 
         private void btnLoadXML_Click_1(object sender, EventArgs e)
