@@ -32,6 +32,15 @@ namespace PuntoDeVentaV2
 
         private void txtBoxSearchProd_TextChanged(object sender, EventArgs e)
         {
+            // limpiamos el DataGridView y 
+            // lo dejamos sin registros
+            if (DGVStockProductos.DataSource is DataTable)
+            {
+                // dejamos sin registros
+                ((DataTable)DGVStockProductos.DataSource).Rows.Clear();
+                // refrescamos el DataGridView
+                DGVStockProductos.Refresh();
+            }
             string buscarStock;
             buscarStock = $"SELECT prod.Nombre, prod.Stock, prod.Precio, prod.Categoria, prod.ClaveInterna, prod.CodigoBarras FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Nombre LIKE '%" + txtBoxSearchProd.Text + "%' ";
             DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);
