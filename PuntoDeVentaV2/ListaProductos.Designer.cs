@@ -43,7 +43,7 @@
             // 
             this.panel1.Controls.Add(this.txtBoxSearchProd);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(483, 65);
+            this.panel1.Location = new System.Drawing.Point(546, 60);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(201, 64);
             this.panel1.TabIndex = 0;
@@ -71,7 +71,7 @@
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.label2.Location = new System.Drawing.Point(18, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(1170, 45);
+            this.label2.Size = new System.Drawing.Size(1279, 45);
             this.label2.TabIndex = 1;
             this.label2.Text = "Stock de Productos existente";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -81,29 +81,36 @@
             this.panel2.Controls.Add(this.DGVStockProductos);
             this.panel2.Location = new System.Drawing.Point(18, 144);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1170, 567);
+            this.panel2.Size = new System.Drawing.Size(1279, 648);
             this.panel2.TabIndex = 2;
             // 
             // DGVStockProductos
             // 
             this.DGVStockProductos.AllowUserToAddRows = false;
             this.DGVStockProductos.AllowUserToDeleteRows = false;
+            this.DGVStockProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVStockProductos.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DGVStockProductos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.DGVStockProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVStockProductos.Location = new System.Drawing.Point(15, 14);
             this.DGVStockProductos.Name = "DGVStockProductos";
             this.DGVStockProductos.ReadOnly = true;
             this.DGVStockProductos.RowTemplate.Height = 24;
-            this.DGVStockProductos.Size = new System.Drawing.Size(1138, 538);
+            this.DGVStockProductos.Size = new System.Drawing.Size(1246, 620);
             this.DGVStockProductos.TabIndex = 0;
+            this.DGVStockProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVStockProductos_CellDoubleClick);
+            this.DGVStockProductos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVStockProductos_CellPainting);
             // 
             // ListaProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1208, 747);
+            this.ClientSize = new System.Drawing.Size(1315, 804);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ListaProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListaProductos";

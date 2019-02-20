@@ -733,9 +733,18 @@ namespace PuntoDeVentaV2
 
         private void picBoxBuscar_Click(object sender, EventArgs e)
         {
-            ListProd.FormClosed += delegate
+            ListProd.FormClosing += delegate
             {
-                
+                OcultarPanelSinRegistro(); // ocultamos la ventana Si no tiene registro del Stock
+                idProducto = ListProd.IdProdStrFin;
+                txtBoxDescripcionProd.Text = ListProd.NombreProdStrFin;
+                txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;
+                //stockProd = int.Parse(ListProd.StockProdStrFin);                 // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
+                lblStockProd.Text = ListProd.StockProdStrFin;
+                lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;
+                lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
+                //PrecioProd = float.Parse(ListProd.PrecioDelProdStrFin);             // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
+                txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;
             };
 
             if (!ListProd.Visible)
