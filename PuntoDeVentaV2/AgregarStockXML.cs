@@ -778,6 +778,7 @@ namespace PuntoDeVentaV2
                     idListProd = ListProd.IdProdStrFin;                                 // almacenamos el valor del ID del roducto
                     txtBoxDescripcionProd.Text = ListProd.NombreProdStrFin;             // mostramos los datos ya almacenado del producto
                     txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
+                    txtBoxClaveInternaProd.Text = lblNoIdentificacionXML.Text;          // reasignamos la clave interna del producto al que trae el XML
                     lblStockProd.Text = ListProd.StockProdStrFin;                       // mostramos los datos ya almacenado del producto
                     stockProd = int.Parse(lblStockProd.Text);                           // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
                     lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
