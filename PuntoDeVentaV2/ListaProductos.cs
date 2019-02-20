@@ -13,8 +13,6 @@ namespace PuntoDeVentaV2
 {
     public partial class ListaProductos : Form
     {
-        //public AgregarStockXML ActualizarStock = new AgregarStockXML();
-
         int IdProd, numfila;
 
         Conexion cn = new Conexion();
@@ -22,6 +20,7 @@ namespace PuntoDeVentaV2
 
         string buscarStock;
 
+        public int consultadoDesdeListProdFin { get; set; }
         public string IdProdStrFin { get; set; }
         public string NombreProdStrFin { get; set; }
         public string StockProdStrFin { get; set; }
@@ -30,6 +29,7 @@ namespace PuntoDeVentaV2
         public string ClaveInternaProdStrFin { get; set; }
         public string CodigoBarrasProdStrFin { get; set; }
 
+        public static int consultadoDesdeListProd;
         public static string IdProdStr;
         public static string NombreProdStr;
         public static string StockProdStr;
@@ -76,6 +76,7 @@ namespace PuntoDeVentaV2
 
             //// agregamos el boton en la ultima columna
             //DGVStockProductos.Columns.Add(btnClm);
+            consultadoDesdeListProd = 0;
         }
 
         private void txtBoxSearchProd_TextChanged(object sender, EventArgs e)
@@ -126,12 +127,9 @@ namespace PuntoDeVentaV2
             CategoriaProdStrFin = CategoriaProdStr;
             ClaveInternaProdStrFin = ClaveInternaProdStr;
             CodigoBarrasProdStrFin = CodigoBarrasProdStr;
+            consultadoDesdeListProd = 1;
+            consultadoDesdeListProdFin = consultadoDesdeListProd;
             this.Close();
-        }
-
-        private void DGVStockProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

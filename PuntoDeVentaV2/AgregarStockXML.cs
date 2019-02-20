@@ -136,6 +136,9 @@ namespace PuntoDeVentaV2
         // se declara el objeto para poder usarlo y llamar la ventana para el listado de Productos
         public ListaProductos ListProd = new ListaProductos();
 
+        int consultListProd;    // variable para poder saber si entro a consultar la lista de producto
+        string idListProd;      // para poder almacenar la consulta de la lista
+
         OpenFileDialog f;   // objeto para poder abrir el openDialog
 
         Conexion cn = new Conexion();   // iniciamos un objeto de tipo conexion
@@ -229,7 +232,7 @@ namespace PuntoDeVentaV2
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
 
-            cargarDatosXML();
+            cargarDatosXML();   // metodo para cargar los datos del XML
         }
 
         // funcion para ocultar el panel en el que
@@ -491,7 +494,7 @@ namespace PuntoDeVentaV2
         // mayor o igual al que esta sugerido por el XML
         public void comprobarPrecioMayorIgualRecomendado()
         {
-            if (PrecioProd > 0)
+            if (PrecioProd >= 0)
             {
                 PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el precio que tiene la caja de texto
             }
@@ -547,75 +550,106 @@ namespace PuntoDeVentaV2
             /************************************
             *   iniciamos las variables a 0     *
             ************************************/
-            resultadoSearchNoIdentificacion = 0;    // ponemos los valores en 0
-            resultadoSearchCodBar = 0;              // ponemos los valores en 0
-            textBoxNoIdentificacion = txtBoxClaveInternaProd.Text;  // tomamos el valor del TextBox para hacer la comparacion
+            resultadoSearchNoIdentificacion = 0;                        // ponemos los valores en 0
+            resultadoSearchCodBar = 0;                                  // ponemos los valores en 0
+            textBoxNoIdentificacion = txtBoxClaveInternaProd.Text;      // tomamos el valor del TextBox para hacer la comparacion
 
-            if (resultadoSearchProd == 0)       // si la busqueda del producto da negativo (No esta el producto registrado asi con esa Clave Interna)
+            if (consultListProd == 1)       // si el producto es seleccionado desde la lista del Producto
             {
-                if (txtBoxPrecioProd.Text == "")    // si el TextBox esta sin contenido
+                PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el precio que tiene la caja de texto
+                PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);   // almacenamos el precio sugerido para hacer la comparacion
+                int resultadoConsulta;                                              // almacenamos el resultado sea 1 o 0
+                comprobarPrecioMayorIgualRecomendado();                             // Llamamos la funsion para comparar el precio del producto con el sugerido
+                NombreProd = txtBoxDescripcionProd.Text;                            // almacenamos el contenido del TextBox
+                verNvoStock();                                                      // funsion para ver el nvo stock
+                if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                 {
-                    PrecioProd = 0;     // la variable PrecioProd la iniciamos a 0
-                    //MessageBox.Show("Yes...... valor:"+ PrecioProdToCompare);
+                    //MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
-                if (lblPrecioRecomendadoProd.Text == "")    // si el Label esta sin contenido
+                else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
-                    PrecioProdToCompare = 1;    // la variable la ponemos en 1
-                    lblPrecioRecomendadoProd.Text = PrecioRecomendado.ToString("N2");   // asignamos el valor del lblPrecioRecomendado 
-                    //MessageBox.Show("No...... valor:" + PrecioProdToCompare);
-                }
-                comprobarPrecioMayorIgualRecomendado();                 // Llamamos la funsion para comparar el precio del producto con el sugerido
-                if (lblStockProd.Text == "")    // si el label esta sin contenido
-                {
-                    stockProd = 0;  // la variable la ponemos a 0
-                }
-                verNvoStock();          // funsion para ver el nvo stock
-                if (NoClaveInterna != textBoxNoIdentificacion)          // si son diferentes los datos osea hubo un cambio
-                {
-                    searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
-                    searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
-                    //MessageBox.Show("No son Iguales", "los textos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (resultadoSearchNoIdentificacion==1 && resultadoSearchCodBar==1)     // si es que 
+                    query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
+                    resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                    if (resultadoConsulta == 1)                         // si el resultado es 1
                     {
-                        MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        //MessageBox.Show("Se Acualizo el producto\ndesde la lista de Productos", "Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
+                    else                                                // si el resultado es 0
                     {
-                        ActualizarStock();      // realizamos la actualizacion
-                        MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        RecorrerXML();          // recorrer el archivo XML
+                        //MessageBox.Show("se actualizo mas" + resultadoConsulta);
                     }
-                }
-                else                                                    // si no hubo un cambio
-                {
-                    // ToDo 
-                    //MessageBox.Show("No esta dentro de lo planeado", "Algo salio Mal", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                
-            }
-            else if (resultadoSearchProd == 1)       // si la busqueda del producto da positivo
-            {
-                comprobarPrecioMayorIgualRecomendado();                 // Llamamos la funsion para comparar el precio del producto con el sugerido
-                verNvoStock();                                          // funsion para ver el nvo stock
-                if (NoClaveInterna != textBoxNoIdentificacion)          // si son diferentes los datos osea hubo un cambio
-                {
-                    searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
-                    searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
-                    MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ActualizarStock();      // realizamos la actualizacion
+                    //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     RecorrerXML();          // recorrer el archivo XML
                 }
-                else                                                    // si no hubo un cambio
+            }
+            else if (consultListProd == 0)
+            {
+                if (resultadoSearchProd == 0)       // si la busqueda del producto da negativo (No esta el producto registrado asi con esa Clave Interna)
                 {
-                    if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
+                    if (txtBoxPrecioProd.Text == "")    // si el TextBox esta sin contenido
                     {
-                        MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        PrecioProd = 0;     // la variable PrecioProd la iniciamos a 0
+                        //MessageBox.Show("Yes...... valor:"+ PrecioProdToCompare);
                     }
-                    else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
+                    if (lblPrecioRecomendadoProd.Text == "")    // si el Label esta sin contenido
                     {
+                        PrecioProdToCompare = 1;    // la variable la ponemos en 1
+                        lblPrecioRecomendadoProd.Text = PrecioRecomendado.ToString("N2");   // asignamos el valor del lblPrecioRecomendado 
+                        //MessageBox.Show("No...... valor:" + PrecioProdToCompare);
+                    }
+                    comprobarPrecioMayorIgualRecomendado();                 // Llamamos la funsion para comparar el precio del producto con el sugerido
+                    if (lblStockProd.Text == "")    // si el label esta sin contenido
+                    {
+                        stockProd = 0;  // la variable la ponemos a 0
+                    }
+                    verNvoStock();          // funsion para ver el nvo stock
+                    if (NoClaveInterna != textBoxNoIdentificacion)          // si son diferentes los datos osea hubo un cambio
+                    {
+                        searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
+                        searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
+                        //MessageBox.Show("No son Iguales", "los textos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)     // si es que 
+                        {
+                            //MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+                        else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
+                        {
+                            ActualizarStock();      // realizamos la actualizacion
+                            //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            RecorrerXML();          // recorrer el archivo XML
+                        }
+                    }
+                    else                                                    // si no hubo un cambio
+                    {
+                        // ToDo 
+                        //MessageBox.Show("No esta dentro de lo planeado", "Algo salio Mal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                else if (resultadoSearchProd == 1)       // si la busqueda del producto da positivo
+                {
+                    comprobarPrecioMayorIgualRecomendado();                 // Llamamos la funsion para comparar el precio del producto con el sugerido
+                    verNvoStock();                                          // funsion para ver el nvo stock
+                    if (NoClaveInterna != textBoxNoIdentificacion)          // si son diferentes los datos osea hubo un cambio
+                    {
+                        searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
+                        searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
+                        //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ActualizarStock();      // realizamos la actualizacion
-                        MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         RecorrerXML();          // recorrer el archivo XML
+                    }
+                    else                                                    // si no hubo un cambio
+                    {
+                        if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
+                        {
+                            //MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        }
+                        else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
+                        {
+                            ActualizarStock();      // realizamos la actualizacion
+                            //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            RecorrerXML();          // recorrer el archivo XML
+                        }
                     }
                 }
             }
@@ -703,6 +737,7 @@ namespace PuntoDeVentaV2
             MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
             OcultarPanelRegistro(); // ocultamos la ventana de ver registro del Stock
             OcultarPanelSinRegistro(); // ocultamos la ventana Si no tiene registro del Stock
+            consultListProd = 0;
         }
 
         private void btnLoadXML_Click_1(object sender, EventArgs e)
@@ -729,22 +764,32 @@ namespace PuntoDeVentaV2
         {
             MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
             btnLoadXML.Show(); // hacemos visible el botonXML de la ventana de cargar archivo XML
+            consultListProd = 0;
         }
 
         private void picBoxBuscar_Click(object sender, EventArgs e)
         {
-            ListProd.FormClosing += delegate
+            ListProd.FormClosing += delegate    // dectecta cuando se esta cerrando la forma ListProd
             {
-                OcultarPanelSinRegistro(); // ocultamos la ventana Si no tiene registro del Stock
-                idProducto = ListProd.IdProdStrFin;
-                txtBoxDescripcionProd.Text = ListProd.NombreProdStrFin;
-                txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;
-                //stockProd = int.Parse(ListProd.StockProdStrFin);                 // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
-                lblStockProd.Text = ListProd.StockProdStrFin;
-                lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;
-                lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
-                //PrecioProd = float.Parse(ListProd.PrecioDelProdStrFin);             // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
-                txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;
+                consultListProd = ListProd.consultadoDesdeListProdFin;  // en esta variable almacenamos su valor
+                if (consultListProd == 1)   // si el valor es 1 es positiva la seleccion
+                {
+                    OcultarPanelSinRegistro();                                          // ocultamos la ventana Si tiene registro del Stock
+                    idListProd = ListProd.IdProdStrFin;                                 // almacenamos el valor del ID del roducto
+                    txtBoxDescripcionProd.Text = ListProd.NombreProdStrFin;             // mostramos los datos ya almacenado del producto
+                    txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
+                    lblStockProd.Text = ListProd.StockProdStrFin;                       // mostramos los datos ya almacenado del producto
+                    stockProd = int.Parse(lblStockProd.Text);                           // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
+                    lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
+                    lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;       // mostramos los datos ya almacenado del producto
+                    txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;               // mostramos los datos ya almacenado del producto
+                    PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
+                    //label6.Text = idListProd;
+                }
+                if (consultListProd == 0)   // si el valor es 0 si es que no selecciono nada
+                {
+                    MostarPanelSinRegistro();                                           // Mostramos la ventana Si no tiene registro del Stock
+                }
             };
 
             if (!ListProd.Visible)
