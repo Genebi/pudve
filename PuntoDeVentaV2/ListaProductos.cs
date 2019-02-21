@@ -13,51 +13,53 @@ namespace PuntoDeVentaV2
 {
     public partial class ListaProductos : Form
     {
-        int IdProd, numfila;
+        int IdProd, numfila;        // variables para poder manejar las filas y poder hacer procesos
 
-        Conexion cn = new Conexion();
-        Consultas cs = new Consultas();
+        Conexion cn = new Conexion();       // declaramos objeto para poder manejar los metodos de la clase conexion
+        Consultas cs = new Consultas();     // declaramos objeto para poder manejar los metodos de la clase Consultas
 
-        string buscarStock;
+        string buscarStock;         // cadena de texto para poder hacer el query en la base de datos
 
-        public int consultadoDesdeListProdFin { get; set; }
-        public string IdProdStrFin { get; set; }
-        public string NombreProdStrFin { get; set; }
-        public string StockProdStrFin { get; set; }
-        public string PrecioDelProdStrFin { get; set; }
-        public string CategoriaProdStrFin { get; set; }
-        public string ClaveInternaProdStrFin { get; set; }
-        public string CodigoBarrasProdStrFin { get; set; }
+        // variables las cuales se pasaran a la siguiente ventana
+        public int consultadoDesdeListProdFin { get; set; }         // varaible para ver si el usuario selecciono algun producto de la lista
+        public string IdProdStrFin { get; set; }                    // Alamacenamos el dato en la variable del dato de ID
+        public string NombreProdStrFin { get; set; }                // Alamacenamos el dato en la variable del dato de Nombre(Descripcion)
+        public string StockProdStrFin { get; set; }                 // Alamacenamos el dato en la variable del dato de Stock
+        public string PrecioDelProdStrFin { get; set; }             // Alamacenamos el dato en la variable del dato de Precio
+        public string CategoriaProdStrFin { get; set; }             // Alamacenamos el dato en la variable del dato de Categoria
+        public string ClaveInternaProdStrFin { get; set; }          // Alamacenamos el dato en la variable del dato de Clave Interna
+        public string CodigoBarrasProdStrFin { get; set; }          // Alamacenamos el dato en la variable del dato de Codigo de Barras
+        public int opcionGuardarFin { get; set; }                   // Alamacenamos el dato en la variable cual seria el campo donde se guardaria
 
-        public static int consultadoDesdeListProd;
-        public static string IdProdStr;
-        public static string NombreProdStr;
-        public static string StockProdStr;
-        public static string PrecioDelProdStr;
-        public static string CategoriaProdStr;
-        public static string ClaveInternaProdStr;
-        public static string CodigoBarrasProdStr;
+        public static int consultadoDesdeListProd;                  // Variable interna para poder hacer el manejo de los datos si selecciono algun producto
+        public static string IdProdStr;                             // Variable interna para poder saber que Id es del producto
+        public static string NombreProdStr;                         // Variable interna para poder saber que Nombre(Descripcion)
+        public static string StockProdStr;                          // Variable interna para poder saber que Stock
+        public static string PrecioDelProdStr;                      // Variable interna para poder saber que Precio
+        public static string CategoriaProdStr;                      // Variable interna para poder saber que Categoria
+        public static string ClaveInternaProdStr;                   // Variable interna para poder saber que Clave Interna
+        public static string CodigoBarrasProdStr;                   //  Variable interna para poder saber que Codigo de Barras
+        public static int opcionGuardar;                            // Variable interna para poder saber que donde se va guardar el dato
 
         // variable de text para poder dirigirnos a la carpeta principal para
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-        public void CargarDataGridView()
+        public void CargarDataGridView()    // metodo para poder cargar los datos al inicio
         {
+            // el query que se usara en la base de datos
             buscarStock = $"SELECT prod.ID, prod.Nombre, prod.Stock, prod.Precio, prod.Categoria, prod.ClaveInterna, prod.CodigoBarras FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
-            DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);
+            DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
         }
 
-        public void LimpiarDGV()
+        public void LimpiarDGV()        // metodo para poder limpiar el DGVStockProductos
         {
             // limpiamos el DataGridView y 
             // lo dejamos sin registros
             if (DGVStockProductos.DataSource is DataTable)
             {
-                // dejamos sin registros
-                ((DataTable)DGVStockProductos.DataSource).Rows.Clear();
-                // refrescamos el DataGridView
-                DGVStockProductos.Refresh();
+                ((DataTable)DGVStockProductos.DataSource).Rows.Clear();     // dejamos sin registros
+                DGVStockProductos.Refresh();                                // refrescamos el DataGridView
             }
         }
 
@@ -68,68 +70,74 @@ namespace PuntoDeVentaV2
 
         private void ListaProductos_Load(object sender, EventArgs e)
         {
-            LimpiarDGV();
-            CargarDataGridView();
-            //// para agregar dinamicamente el boton en el DataGridView
-            //DataGridViewButtonColumn btnClm = new DataGridViewButtonColumn();
-            //btnClm.Name = "Seleccionar";
-
-            //// agregamos el boton en la ultima columna
-            //DGVStockProductos.Columns.Add(btnClm);
-            consultadoDesdeListProd = 0;
+            LimpiarDGV();       // Llamamos el metodo de limpiarDGV
+            CargarDataGridView();       // Llamamos el metodo CargarDataGridView
+            consultadoDesdeListProd = 0;        // Llamamos el metodo consultadoDesdeListProd
         }
 
         private void txtBoxSearchProd_TextChanged(object sender, EventArgs e)
         {
-            LimpiarDGV();
+            LimpiarDGV();       // Llamamos el metodo de limpiarDGV
+            // el query que se usara en la base de datos
             buscarStock = $"SELECT prod.ID, prod.Nombre, prod.Stock, prod.Precio, prod.Categoria, prod.ClaveInterna, prod.CodigoBarras FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Nombre LIKE '%" + txtBoxSearchProd.Text + "%' ";
-            DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);
+            DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
         }
 
         private void DGVStockProductos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            //// nos aseguramos que el DataGridView tenga por lo menos una fila en sus registros
-            //if (e.ColumnIndex >= 0 && this.DGVStockProductos.Columns[e.ColumnIndex].Name == "Seleccionar" && e.RowIndex >= 0)
-            //{
-            //    // aqui indicamos que repinte el DataGridView 
-            //    e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-            //    // aqui agregamos el boton en la columna llamada Entrar
-            //    DataGridViewButtonCell celBoton = this.DGVStockProductos.Rows[e.RowIndex].Cells["Seleccionar"] as DataGridViewButtonCell;
-
-            //    // aqui tomamos un archivo .ico y lo insertamos en el boton
-            //    Icon icoAtomico = new Icon(rutaDirectorio + @"\icon\black\iconfinder_Import.ico");
-            //    // aqui le configuramos los margenes 
-            //    e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
-
-            //    // aqui se aplica los margenes en el icono del boton
-            //    this.DGVStockProductos.Rows[e.RowIndex].Height = icoAtomico.Height + 8;
-            //    this.DGVStockProductos.Columns[e.ColumnIndex].Width = icoAtomico.Width + 36;
-
-            //    e.Handled = true;
-            //}
+            
         }
 
         private void DGVStockProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            //ActualizarStock.IdUProd=
-            numfila = DGVStockProductos.CurrentRow.Index;
-            IdProdStr = DGVStockProductos[0, numfila].Value.ToString();
-            NombreProdStr = DGVStockProductos[1, numfila].Value.ToString();
-            StockProdStr = DGVStockProductos[2, numfila].Value.ToString();
-            PrecioDelProdStr = DGVStockProductos[3, numfila].Value.ToString();
-            CategoriaProdStr = DGVStockProductos[4, numfila].Value.ToString();
-            ClaveInternaProdStr = DGVStockProductos[5, numfila].Value.ToString();
-            CodigoBarrasProdStr = DGVStockProductos[6, numfila].Value.ToString();
-            IdProdStrFin = IdProdStr;
-            NombreProdStrFin = NombreProdStr;
-            StockProdStrFin = StockProdStr;
-            PrecioDelProdStrFin = PrecioDelProdStr;
-            CategoriaProdStrFin = CategoriaProdStr;
-            ClaveInternaProdStrFin = ClaveInternaProdStr;
-            CodigoBarrasProdStrFin = CodigoBarrasProdStr;
-            consultadoDesdeListProd = 1;
-            consultadoDesdeListProdFin = consultadoDesdeListProd;
-            this.Close();
+            numfila = DGVStockProductos.CurrentRow.Index;                           // variable para poder saber que fila fue la seleccionada
+            IdProdStr = DGVStockProductos[0, numfila].Value.ToString();             // almacenamos en la variable IdProdStr del resultado de la consulta en DB
+            NombreProdStr = DGVStockProductos[1, numfila].Value.ToString();         // almacenamos en la variable NombreProdStr del resultado de la consulta en DB
+            StockProdStr = DGVStockProductos[2, numfila].Value.ToString();          // almacenamos en la variable StockProdStr del resultado de la consulta en DB
+            PrecioDelProdStr = DGVStockProductos[3, numfila].Value.ToString();      // almacenamos en la variable PrecioDelProdStr del resultado de la consulta en DB
+            CategoriaProdStr = DGVStockProductos[4, numfila].Value.ToString();      // almacenamos en la variable CategoriaProdStr del resultado de la consulta en DB
+            ClaveInternaProdStr = DGVStockProductos[5, numfila].Value.ToString();   // almacenamos en la variable ClaveInternaProdStr del resultado de la consulta en DB
+            CodigoBarrasProdStr = DGVStockProductos[6, numfila].Value.ToString();   // almacenamos en la variable CodigoBarrasProdStr del resultado de la consulta en DB
+
+            /************************************************************************
+            *                                                                       *
+            *       verificamos en que campo va ir guardado la clave interna        *
+            *                                                                       *
+            ************************************************************************/
+            if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr == ""))         // en el caso los dos campos esten en blanco por default va ir en el de clave Interna
+            {
+                opcionGuardar = 1;      // indicamos que el valor de la variable a donde va guardarse sera 1
+            }
+            else if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr != ""))    // en el caso que tenga en blanco el campo de ClaveInterna en blanco va ir en el de clave Interna
+            {
+                opcionGuardar = 2;      // indicamos que el valor de la variable a donde va guardarse sera 2
+            }
+            else if ((ClaveInternaProdStr != "") && (CodigoBarrasProdStr == ""))    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
+            {
+                opcionGuardar = 3;      // indicamos que el valor de la variable a donde va guardarse sera 3
+            }
+            else                                                                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
+            {
+                opcionGuardar = 4;      // indicamos que el valor de la variable a donde va guardarse sera 4
+            }
+
+            /****************************************************************
+            *                                                               * 
+            *   reasiganmos el valor de las viariables de arriba para       *
+            *   poder hacerlas publicas hacia las demas formas              *
+            *                                                               *
+            ****************************************************************/
+            IdProdStrFin = IdProdStr;                                   // almacenamos el valor de IdProducto
+            NombreProdStrFin = NombreProdStr;                           // almacenamos el valor de NombreProd
+            StockProdStrFin = StockProdStr;                             // almacenamos el valor de StockProd
+            PrecioDelProdStrFin = PrecioDelProdStr;                     // almacenamos el valor de PrecioDelProd
+            CategoriaProdStrFin = CategoriaProdStr;                     // almacenamos el valor de CategoriaProd
+            ClaveInternaProdStrFin = ClaveInternaProdStr;               // almacenamos el valor de ClaveInternaProd
+            CodigoBarrasProdStrFin = CodigoBarrasProdStr;               // almacenamos el valor de CodigoBarrasProd
+            consultadoDesdeListProd = 1;                                // almacenamos el valor si selecciono un producto
+            consultadoDesdeListProdFin = consultadoDesdeListProd;       // almacenamos el valor de consultadoDesdeListProd
+            opcionGuardarFin = opcionGuardar;                           // almacenamos el valor de opcionGuardar
+            this.Close();                                               // cerramos la ventana 
         }
     }
 }

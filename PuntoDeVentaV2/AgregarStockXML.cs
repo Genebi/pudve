@@ -155,6 +155,7 @@ namespace PuntoDeVentaV2
         string query;                       // almacena el query para poder hacer la actualizacion del producto
         string NombreProd;                  // almacena el contenido del TextBox para poder hacer la actualizacion en la base de datos
         string textBoxNoIdentificacion;     // almacena el contenido del TextBox para poder hacer la actualizacion en la base de datos
+        int resultadoConsulta;              // almacenamos el resultado sea 1 o 0
 
         // variables para poder almacenar la tabla que resulta sobre la consulta el base de datos
         public DataTable dt;                    // almacena el resultado de la funcion de CargarDatos de la funcion consulta
@@ -558,7 +559,6 @@ namespace PuntoDeVentaV2
             {
                 PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el precio que tiene la caja de texto
                 PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);   // almacenamos el precio sugerido para hacer la comparacion
-                int resultadoConsulta;                                              // almacenamos el resultado sea 1 o 0
                 comprobarPrecioMayorIgualRecomendado();                             // Llamamos la funsion para comparar el precio del producto con el sugerido
                 NombreProd = txtBoxDescripcionProd.Text;                            // almacenamos el contenido del TextBox
                 verNvoStock();                                                      // funsion para ver el nvo stock
@@ -568,8 +568,21 @@ namespace PuntoDeVentaV2
                 }
                 else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
-                    query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
-                    resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                    if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)   // en caso que alguno de los dos campos esten en blanco
+                    {
+                        query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{txtBoxClaveInternaProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
+                        resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                    }
+                    else if (ListProd.opcionGuardarFin == 3)                    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
+                    {
+                        query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', CodigoBarras = '{lblCodigoBarrasProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
+                        resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                    }
+                    else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
+                    {
+                        MessageBox.Show("Aqui se programara lo del siguiente Codigo de barras","En construccion proceso pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
                     if (resultadoConsulta == 1)                         // si el resultado es 1
                     {
                         //MessageBox.Show("Se Acualizo el producto\ndesde la lista de Productos", "Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -774,17 +787,30 @@ namespace PuntoDeVentaV2
                 consultListProd = ListProd.consultadoDesdeListProdFin;  // en esta variable almacenamos su valor
                 if (consultListProd == 1)   // si el valor es 1 es positiva la seleccion
                 {
-                    OcultarPanelSinRegistro();                                          // ocultamos la ventana Si tiene registro del Stock
-                    idListProd = ListProd.IdProdStrFin;                                 // almacenamos el valor del ID del roducto
-                    txtBoxDescripcionProd.Text = ListProd.NombreProdStrFin;             // mostramos los datos ya almacenado del producto
-                    txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
-                    txtBoxClaveInternaProd.Text = lblNoIdentificacionXML.Text;          // reasignamos la clave interna del producto al que trae el XML
+                    OcultarPanelSinRegistro();                                              // ocultamos la ventana Si tiene registro del Stock
+                    idListProd = ListProd.IdProdStrFin;                                     // almacenamos el valor del ID del roducto
+                    txtBoxDescripcionProd.Text = ListProd.NombreProdStrFin;                 // mostramos los datos ya almacenado del producto
+                    if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)   // en caso que alguno de los dos campos esten en blanco
+                    {
+                        txtBoxClaveInternaProd.Text = lblNoIdentificacionXML.Text;          // reasignamos la clave interna del producto al que trae el XML
+                        lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
+                    }
+                    else if (ListProd.opcionGuardarFin == 3)                    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
+                    {
+                        txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
+                        lblCodigoBarrasProd.Text = lblNoIdentificacionXML.Text;             // mostramos los datos ya almacenado del producto
+                    }
+                    else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
+                    {
+                        txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
+                        lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
+                    }
                     lblStockProd.Text = ListProd.StockProdStrFin;                       // mostramos los datos ya almacenado del producto
                     stockProd = int.Parse(lblStockProd.Text);                           // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
-                    lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
                     lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;       // mostramos los datos ya almacenado del producto
                     txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;               // mostramos los datos ya almacenado del producto
                     PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
+                    label2.Text = ClaveInterna;
                 }
                 if (consultListProd == 0)   // si el valor es 0 si es que no selecciono nada
                 {

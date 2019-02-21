@@ -15,6 +15,27 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
 
+        string usuario;
+        string password;
+
+        public void GuardarDatosLogin()
+        {
+            Properties.Settings.Default.Usuario = usuario;      // hacemos que se almacene el dato del Usuario en la variable del sistema Usuario
+            Properties.Settings.Default.Password = password;    // hacemos que se almacene el dato del Password en la variable del sistema Password
+            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
+        }
+
+        public void BorrarDatosLogin()
+        {
+            Properties.Settings.Default.Usuario = "";       // hacemos que se limpie el dato del Usuario en la variable del sistema Usuario
+            Properties.Settings.Default.Password = "";      // hacemos que se limpie el dato del Password en la variable del sistema Password
+            txtUsuario.Text = "";                           // Limpiamos el Text Box de Usuario
+            txtPassword.Text = "";                          // Limpiamos el Text Box de Password
+            Properties.Settings.Default.Save();             // Guardamos los dos Datos de las variables del sistema
+            Properties.Settings.Default.Reload();           // Recargamos los datos de las variables del Sistema
+        }
+
         public Login()
         {
             InitializeComponent();
@@ -27,8 +48,8 @@ namespace PuntoDeVentaV2
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
-            string usuario = txtUsuario.Text;
-            string password = txtPassword.Text;
+            usuario = txtUsuario.Text;
+            password = txtPassword.Text;
 
             if (usuario != "" && password != "")
             {
@@ -41,12 +62,9 @@ namespace PuntoDeVentaV2
                     FormPrincipal fp = new FormPrincipal();
 
                     // validacion para recordar los datos de Login
-                    if (checkBoxRecordarDatos.Checked == true)
+                    if (checkBoxRecordarDatos.Checked == true)      // si es que el Check Box de Recordar los Datos esta marcado
                     {
-                        Properties.Settings.Default.Usuario = usuario;
-                        Properties.Settings.Default.Password = password;
-                        Properties.Settings.Default.Save();
-                        Properties.Settings.Default.Reload();
+                        GuardarDatosLogin();
                     }
 
                     this.Hide();
@@ -102,12 +120,8 @@ namespace PuntoDeVentaV2
 
         private void btnLimpiarDatos_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Usuario = "";
-            Properties.Settings.Default.Password = "";
-            txtUsuario.Text = "";
-            txtPassword.Text = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            // limpiamos los datos de las variables del sistema para poder olvidar los datos de inicio de login
+            BorrarDatosLogin();
         }
     }
 }
