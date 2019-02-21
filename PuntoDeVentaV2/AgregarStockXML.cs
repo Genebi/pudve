@@ -785,7 +785,6 @@ namespace PuntoDeVentaV2
                     lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;       // mostramos los datos ya almacenado del producto
                     txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;               // mostramos los datos ya almacenado del producto
                     PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
-                    //label6.Text = idListProd;
                 }
                 if (consultListProd == 0)   // si el valor es 0 si es que no selecciono nada
                 {

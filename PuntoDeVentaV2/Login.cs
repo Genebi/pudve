@@ -40,6 +40,15 @@ namespace PuntoDeVentaV2
 
                     FormPrincipal fp = new FormPrincipal();
 
+                    // validacion para recordar los datos de Login
+                    if (checkBoxRecordarDatos.Checked == true)
+                    {
+                        Properties.Settings.Default.Usuario = usuario;
+                        Properties.Settings.Default.Password = password;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+                    }
+
                     this.Hide();
 
                     fp.IdUsuario = Id;
@@ -83,6 +92,22 @@ namespace PuntoDeVentaV2
             ventanaRegistro.ShowDialog();
 
             this.Close();
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            txtUsuario.Text = Properties.Settings.Default.Usuario;
+            txtPassword.Text = Properties.Settings.Default.Password;
+        }
+
+        private void btnLimpiarDatos_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Usuario = "";
+            Properties.Settings.Default.Password = "";
+            txtUsuario.Text = "";
+            txtPassword.Text = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
     }
 }
