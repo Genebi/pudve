@@ -26,9 +26,13 @@ namespace PuntoDeVentaV2
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
 
+        int idProducto;
+
         /************************
 		*	Codigo de Emmanuel	*
 		************************/
+
+        List<string> codigosBarrras = new List<string>();   // para agregar los datos extras de codigos de barras
 
         public DataTable dtClaveInterna;        // almacena el resultado de la funcion de CargarDatos de la funcion searchClavIntProd
         public DataTable dtCodBar;              // almacena el resultado de la funcion de CargarDatos de la funcion searchCodBar
@@ -96,7 +100,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-
         private void GenerarTextBox()
         {
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
@@ -134,7 +137,6 @@ namespace PuntoDeVentaV2
             tb.Focus();
             id++;
         }
-
 
         private void TextBox_Keydown(object sender, KeyEventArgs e)
         {
@@ -302,7 +304,7 @@ namespace PuntoDeVentaV2
                 if (respuesta > 0)
                 {
                     //Se obtiene la ID del último producto agregado
-                    int idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+                    idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
                     //Se realiza el proceso para guardar los detalles de facturación del producto
                     if (datosImpuestos != null)
@@ -357,8 +359,25 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-
-
+                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                    {
+                        foreach (Control item in panel.Controls)
+                        {
+                            if (item is TextBox)
+                            {
+                                var tb = item.Text;
+                                codigosBarrras.Add(tb);
+                            }
+                        }
+                    }
+                    if (codigosBarrras!=null || codigosBarrras.Count!=0)
+                    {
+                        for(int pos=0; pos<codigosBarrras.Count; pos++)
+                        {
+                            string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos]}','{idProducto}')";
+                            cn.EjecutarConsulta(insert);
+                        }
+                    }
                     //Cierra la ventana donde se agregan los datos del producto
                     this.Close();
                 }
