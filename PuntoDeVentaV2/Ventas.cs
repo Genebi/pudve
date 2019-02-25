@@ -15,6 +15,8 @@ namespace PuntoDeVentaV2
     public partial class Ventas : Form
     {
         string[] productos;
+        string[] datosDescuento;
+        int tipoDescuento = 0;
 
         public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
@@ -114,15 +116,18 @@ namespace PuntoDeVentaV2
                 //2 = Descuento Mayoreo
                 if (datosProducto[3] == "1")
                 {
-                    //MessageBox.Show("Descuento por Cliente");
+                    tipoDescuento = 1;
                 }
                 else if (datosProducto[3] == "2")
                 {
-                    //MessageBox.Show("Descuento por Mayoreo");
+                    tipoDescuento = 2;
+
+                    datosDescuento = cn.BuscarDescuento(Convert.ToInt32(datosProducto[3]), idProducto);
                 }
                 else
                 {
-                    //MessageBox.Show("Sin descuento");
+                    tipoDescuento = 0;
+                    datosDescuento = new string[] { };
                 }
 
                 AgregarProducto(datosProducto);
@@ -156,8 +161,6 @@ namespace PuntoDeVentaV2
         {
             if (DGVentas.Rows.Count > 0)
             {
-                bool existe = false;
-
                 foreach (DataGridViewRow fila in DGVentas.Rows)
                 {
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
@@ -168,34 +171,9 @@ namespace PuntoDeVentaV2
 
                         fila.Cells["Cantidad"].Value = cantidad;
                         fila.Cells["Importe"].Value = importe;
-                        existe = true;
+
+                        CalcularDescuento(datosDescuento, tipoDescuento, cantidad);
                     }
-                }
-
-                if (!existe)
-                {
-                    //Se agrega la nueva fila y se obtiene el ID que tendrá
-                    int rowId = DGVentas.Rows.Add();
-
-                    //Obtener la nueva fila
-                    DataGridViewRow row = DGVentas.Rows[rowId];
-
-                    //Agregamos la información
-                    row.Cells["Cantidad"].Value = 1;
-                    row.Cells["Precio"].Value = datosProducto[2];
-                    row.Cells["Descripcion"].Value = datosProducto[1];
-                    row.Cells["Descuento"].Value = 0;
-                    row.Cells["Importe"].Value = datosProducto[2];
-
-                    Image img1 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus-square.png");
-                    Image img2 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
-                    Image img3 = Image.FromFile(rutaDirectorio + @"\icon\black16\minus.png");
-                    Image img4 = Image.FromFile(rutaDirectorio + @"\icon\black16\remove.png");
-
-                    DGVentas.Rows[rowId].Cells["AgregarMultiple"].Value = img1;
-                    DGVentas.Rows[rowId].Cells["AgregarIndividual"].Value = img2;
-                    DGVentas.Rows[rowId].Cells["RestarIndividual"].Value = img3;
-                    DGVentas.Rows[rowId].Cells["EliminarIndividual"].Value = img4;
                 }
             }
             else
@@ -300,8 +278,30 @@ namespace PuntoDeVentaV2
             DGVentas.Rows[indiceFila].Cells["Cantidad"].Value = cantidad;
             DGVentas.Rows[indiceFila].Cells["Importe"].Value = importe;
 
+            CalcularDescuento(datosDescuento, tipoDescuento, cantidad);
+
             indiceFila = 0;
             cantidadFila = 0;   
+        }
+
+        private void CalcularDescuento(string[] datosDescuento, int tipo, int cantidad)
+        {
+            //Cliente
+            if (tipo == 1)
+            {
+
+            }
+
+            //Mayoreo
+            if (tipo == 2)
+            {
+                foreach (string descuento in datosDescuento)
+                {
+                    string[] desc = descuento.Split('-');
+
+                    MessageBox.Show(desc[0]);
+                }
+            }
         }
     }
 }
