@@ -105,7 +105,7 @@ namespace PuntoDeVentaV2
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
             panelHijo.Name = "panelGenerado" + id;
             panelHijo.Height = 25;
-            panelHijo.Width = 320;
+            panelHijo.Width = 200;
             panelHijo.HorizontalScroll.Visible = false;
 
             TextBox tb = new TextBox();

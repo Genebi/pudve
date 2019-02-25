@@ -173,10 +173,10 @@
             // 
             this.panelContenedor.AutoScroll = true;
             this.panelContenedor.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panelContenedor.Location = new System.Drawing.Point(412, 318);
+            this.panelContenedor.Location = new System.Drawing.Point(730, 275);
             this.panelContenedor.Margin = new System.Windows.Forms.Padding(4);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(548, 76);
+            this.panelContenedor.Size = new System.Drawing.Size(307, 132);
             this.panelContenedor.TabIndex = 20;
             this.panelContenedor.WrapContents = false;
             // 
@@ -188,7 +188,7 @@
             this.btnGenerarCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
-            this.btnGenerarCB.Location = new System.Drawing.Point(740, 277);
+            this.btnGenerarCB.Location = new System.Drawing.Point(420, 275);
             this.btnGenerarCB.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerarCB.Name = "btnGenerarCB";
             this.btnGenerarCB.Size = new System.Drawing.Size(220, 33);
