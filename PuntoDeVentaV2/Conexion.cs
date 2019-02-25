@@ -238,5 +238,47 @@ namespace PuntoDeVentaV2
 
             return lista.ToArray();
         }
+
+        public string[] BuscarDescuento(int tipo, int IDProducto)
+        {
+            List<string> lista = new List<string>();
+
+            string consulta = null;
+
+            if (tipo == 1)
+            {
+                consulta = "SELECT * FROM DescuentoCliente WHERE IDProducto = " + IDProducto;
+            }
+
+            if (tipo == 2)
+            {
+                consulta = "SELECT * FROM DescuentoMayoreo WHERE IDProducto = " + IDProducto;
+            }
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                //Descuento Cliente
+                if (tipo == 1)
+                {
+
+                }
+
+                //Descuento Mayoreo
+                if (tipo == 2)
+                {
+                    lista.Add(dr[1].ToString() + "-" + dr[2].ToString() + "-" + dr[3].ToString() + "-" + dr[4].ToString());
+                }
+            }
+
+            return lista.ToArray();
+        }
     }
 }
