@@ -33,6 +33,8 @@ namespace PuntoDeVentaV2
 		*   Codigo de Emmanuel      *
 		****************************/
 
+        Control _lastEnteredControl;    // para saber cual fue el ultimo control con el cursor activo
+
         // variable de text para poder dirigirnos a la carpeta principal para
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
@@ -97,7 +99,8 @@ namespace PuntoDeVentaV2
 
         public void AumentarCodBarras()
         {
-            txtCodigoBarras.Text = Contenido;
+            //txtCodigoBarras.Text = Contenido;
+            _lastEnteredControl.Text = Contenido;
 
             CodigoDeBarras = long.Parse(Contenido);
             CodigoDeBarras++;
@@ -141,6 +144,7 @@ namespace PuntoDeVentaV2
             tb.Name = "textboxGenerado" + id;
             tb.Width = 165;
             tb.Height = 20;
+            tb.Enter += new EventHandler(TextBox_Enter);
             tb.KeyDown += new KeyEventHandler(TextBox_Keydown);
 
             Button bt = new Button();
@@ -165,6 +169,11 @@ namespace PuntoDeVentaV2
 
             tb.Focus();
             id++;
+        }
+
+        private void TextBox_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
         }
 
         private void TextBox_Keydown(object sender, KeyEventArgs e)
@@ -222,7 +231,6 @@ namespace PuntoDeVentaV2
             /********************************
             *   Fin de Codigo Alejandro     *
             ********************************/
-
             using (StreamReader readfile = new StreamReader(rutaDirectorio+fichero))
             {
                 Contenido = readfile.ReadToEnd();
@@ -442,6 +450,16 @@ namespace PuntoDeVentaV2
                 /*	Fin del codigo de Alejandro	*/
             }
             /* Fin del codigo de Emmanuel */
+        }
+
+        private void txtClaveProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtCodigoBarras_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
         }
     }
 }

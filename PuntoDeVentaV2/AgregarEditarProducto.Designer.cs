@@ -151,6 +151,7 @@
             this.txtClaveProducto.Name = "txtClaveProducto";
             this.txtClaveProducto.Size = new System.Drawing.Size(219, 22);
             this.txtClaveProducto.TabIndex = 9;
+            this.txtClaveProducto.Enter += new System.EventHandler(this.txtClaveProducto_Enter);
             // 
             // txtCategoriaProducto
             // 
@@ -167,6 +168,7 @@
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(219, 22);
             this.txtCodigoBarras.TabIndex = 11;
+            this.txtCodigoBarras.Enter += new System.EventHandler(this.txtCodigoBarras_Enter);
             this.txtCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoBarras_KeyDown);
             // 
             // panelContenedor
