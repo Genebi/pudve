@@ -35,12 +35,20 @@ namespace PuntoDeVentaV2
             cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
 
             DataGridViewImageColumn editar = new DataGridViewImageColumn();
-            editar.Image = Image.FromFile(rutaDirectorio + @"\icon\black\pencil.png");
+            editar.Image = Image.FromFile(rutaDirectorio + @"\icon\black16\pencil.png");
             editar.Width = 50;
+            editar.HeaderText = "Editar";
             DGVProductos.Columns.Add(editar);
+
+            DataGridViewImageColumn setup = new DataGridViewImageColumn();
+            setup.Image = Image.FromFile(rutaDirectorio + @"\icon\black16\check.png");
+            setup.Width = 40;
+            setup.HeaderText = "Estado";
+            DGVProductos.Columns.Add(setup);
 
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
+            DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarStatus);
         }
 
         private void CargarDatos()
@@ -79,10 +87,30 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void EditarStatus(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 1)
+            {
+                DialogResult result = MessageBox.Show("Realmente desdea Modificar el estado?", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    //code for Yes
+                }
+                else if (result == DialogResult.No)
+                {
+                    //code for No
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    //code for Cancel
+                }
+            }
+        }
+
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
             {
                 DGVProductos.Cursor = Cursors.Hand;
             }
