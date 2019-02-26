@@ -138,7 +138,6 @@ namespace PuntoDeVentaV2
                 {
                     pictureBox1.Image = null;
                 }
-                    
             }
 
             /********************************
