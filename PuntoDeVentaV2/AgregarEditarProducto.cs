@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -28,9 +29,18 @@ namespace PuntoDeVentaV2
 
         int idProducto;
 
-        /************************
-		*	Codigo de Emmanuel	*
-		************************/
+        /****************************
+		*   Codigo de Emmanuel      *
+		****************************/
+
+        // variable de text para poder dirigirnos a la carpeta principal para
+        // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
+        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+        const string fichero = @"\settings\codbar\setupCodBar.txt";     // directorio donde esta el archivo de numero de codigo de barras consecutivo
+        string Contenido;                                               // para obtener el numero que tiene el codigo de barras en el arhivo
+
+        long CodigoDeBarras;                                            // variable entera para llevar un consecutivo de codigo de barras
 
         List<string> codigosBarrras = new List<string>();   // para agregar los datos extras de codigos de barras
 
@@ -77,6 +87,25 @@ namespace PuntoDeVentaV2
             {
                 resultadoSearchCodBar = 0; // busqueda negativa
                 //MessageBox.Show("Codigo Bar Disponible", "Este Codigo libre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void PrimerCodBarras()
+        {
+            Contenido = "7777000001";
+        }
+
+        public void AumentarCodBarras()
+        {
+            txtCodigoBarras.Text = Contenido;
+
+            CodigoDeBarras = long.Parse(Contenido);
+            CodigoDeBarras++;
+            Contenido = CodigoDeBarras.ToString();
+
+            using (StreamWriter outfile = new StreamWriter(rutaDirectorio + fichero))
+            {
+                outfile.WriteLine(Contenido);
             }
         }
         /* Fin del codigo de Emmanuel */
@@ -176,13 +205,38 @@ namespace PuntoDeVentaV2
         private void btnGenerarCB_Click(object sender, EventArgs e)
         {
 
-            string fecha = DateTime.Now.ToString();
-            fecha = fecha.Replace(" ", "");
-            fecha = fecha.Replace("/", "");
-            fecha = fecha.Replace(":", "");
-            fecha = fecha.Substring(3, 11);
+            /****************************
+            *                           *
+            *   Codigo de Alejandro     *
+            *                           *
+            ****************************/
 
-            txtCodigoBarras.Text = fecha;
+            //string fecha = DateTime.Now.ToString();
+            //fecha = fecha.Replace(" ", "");
+            //fecha = fecha.Replace("/", "");
+            //fecha = fecha.Replace(":", "");
+            //fecha = fecha.Substring(3, 11);
+
+            //txtCodigoBarras.Text = fecha;
+
+            /********************************
+            *   Fin de Codigo Alejandro     *
+            ********************************/
+
+            using (StreamReader readfile = new StreamReader(rutaDirectorio+fichero))
+            {
+                Contenido = readfile.ReadToEnd();
+            }
+            if (Contenido == "")
+            {
+                PrimerCodBarras();
+                AumentarCodBarras();
+            }
+            else if (Contenido != "")
+            {
+                //MessageBox.Show("Trabajando en el Proceso");
+                AumentarCodBarras();
+            }
         }
 
         private void btnAgregarDescuento_Click(object sender, EventArgs e)

@@ -188,10 +188,10 @@
             this.btnGenerarCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
-            this.btnGenerarCB.Location = new System.Drawing.Point(420, 275);
+            this.btnGenerarCB.Location = new System.Drawing.Point(420, 325);
             this.btnGenerarCB.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerarCB.Name = "btnGenerarCB";
-            this.btnGenerarCB.Size = new System.Drawing.Size(220, 33);
+            this.btnGenerarCB.Size = new System.Drawing.Size(219, 33);
             this.btnGenerarCB.TabIndex = 12;
             this.btnGenerarCB.Text = "Generar Código";
             this.btnGenerarCB.UseVisualStyleBackColor = false;
