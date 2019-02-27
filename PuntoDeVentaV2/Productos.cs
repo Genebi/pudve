@@ -112,7 +112,7 @@ namespace PuntoDeVentaV2
         private void EditarProducto(object sender, DataGridViewCellEventArgs e)
         {
             //Editar producto
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 1)
             {
                 btnAgregarProducto.PerformClick();
             }
@@ -120,7 +120,7 @@ namespace PuntoDeVentaV2
 
         private void EditarStatus(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 1)
+            if (e.ColumnIndex == 2)
             {
                 index = 0;
                 
@@ -169,7 +169,7 @@ namespace PuntoDeVentaV2
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
-            if (e.ColumnIndex == 0 || e.ColumnIndex == 1)
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 )
             {
                 DGVProductos.Cursor = Cursors.Hand;
             }
