@@ -149,6 +149,7 @@
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbMostrar.Size = new System.Drawing.Size(199, 29);
             this.cbMostrar.TabIndex = 7;
+            this.cbMostrar.SelectedIndexChanged += new System.EventHandler(this.cbMostrar_SelectedIndexChanged);
             // 
             // btnAgregarXML
             // 

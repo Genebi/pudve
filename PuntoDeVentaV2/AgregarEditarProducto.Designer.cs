@@ -52,6 +52,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lblPrecioOriginal = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -126,6 +127,7 @@
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(865, 22);
             this.txtNombreProducto.TabIndex = 1;
+            this.txtNombreProducto.Enter += new System.EventHandler(this.txtNombreProducto_Enter);
             // 
             // txtPrecioProducto
             // 
@@ -134,6 +136,7 @@
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(219, 22);
             this.txtPrecioProducto.TabIndex = 5;
+            this.txtPrecioProducto.Enter += new System.EventHandler(this.txtPrecioProducto_Enter);
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
             // 
             // txtStockProducto
@@ -143,6 +146,7 @@
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(219, 22);
             this.txtStockProducto.TabIndex = 3;
+            this.txtStockProducto.Enter += new System.EventHandler(this.txtStockProducto_Enter);
             // 
             // txtClaveProducto
             // 
@@ -160,6 +164,7 @@
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
             this.txtCategoriaProducto.Size = new System.Drawing.Size(219, 22);
             this.txtCategoriaProducto.TabIndex = 7;
+            this.txtCategoriaProducto.Enter += new System.EventHandler(this.txtCategoriaProducto_Enter);
             // 
             // txtCodigoBarras
             // 
@@ -332,11 +337,21 @@
             this.lblPrecioOriginal.Text = "0.0";
             this.lblPrecioOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(90, 335);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 17);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "label10";
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1040, 612);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.lblPrecioOriginal);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label9);
@@ -398,5 +413,6 @@
         public System.Windows.Forms.TextBox txtClaveProducto;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.Label lblPrecioOriginal;
+        private System.Windows.Forms.Label label10;
     }
 }

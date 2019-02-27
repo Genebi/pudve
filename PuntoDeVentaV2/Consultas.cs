@@ -21,6 +21,16 @@ namespace PuntoDeVentaV2
             return "SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '" + id + "'";
         }
 
+        public string StatusProductos(string idUser, string status)
+        {
+            return "SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '" + idUser + "' AND P.Status = '" + status + "'";
+        }
+
+        public string SetStatusProductos(string idUser, string idProd, string status)
+        {
+            return "UPDATE Productos SET Status = '" + status + "' WHERE ID = '" + idProd + "' AND IDUsuario = '" + idUser + "'";
+        }
+
         public string GuardarProducto(string[] datos, int id)
         {
             string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario)";

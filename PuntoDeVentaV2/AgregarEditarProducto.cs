@@ -100,15 +100,24 @@ namespace PuntoDeVentaV2
         public void AumentarCodBarras()
         {
             //txtCodigoBarras.Text = Contenido;
-            _lastEnteredControl.Text = Contenido;
-
-            CodigoDeBarras = long.Parse(Contenido);
-            CodigoDeBarras++;
-            Contenido = CodigoDeBarras.ToString();
-
-            using (StreamWriter outfile = new StreamWriter(rutaDirectorio + fichero))
+            string txtBoxName;
+            txtBoxName=_lastEnteredControl.Name;
+            if (txtBoxName != "txtNombreProducto" && txtBoxName != "txtStockProducto" && txtBoxName != "txtPrecioProducto" && txtBoxName != "txtCategoriaProducto")
             {
-                outfile.WriteLine(Contenido);
+                _lastEnteredControl.Text = Contenido;
+
+                CodigoDeBarras = long.Parse(Contenido);
+                CodigoDeBarras++;
+                Contenido = CodigoDeBarras.ToString();
+
+                using (StreamWriter outfile = new StreamWriter(rutaDirectorio + fichero))
+                {
+                    outfile.WriteLine(Contenido);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Campo no Valido para generar Codigo de Barras","Anvertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         /* Fin del codigo de Emmanuel */
@@ -213,7 +222,6 @@ namespace PuntoDeVentaV2
 
         private void btnGenerarCB_Click(object sender, EventArgs e)
         {
-
             /****************************
             *                           *
             *   Codigo de Alejandro     *
@@ -458,6 +466,26 @@ namespace PuntoDeVentaV2
         }
 
         private void txtCodigoBarras_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtNombreProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtStockProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtPrecioProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtCategoriaProducto_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;
         }
