@@ -36,7 +36,7 @@
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.btnAgregarXML = new System.Windows.Forms.Button();
-            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +50,7 @@
             this.DGVProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1});
+            this.chk});
             this.DGVProductos.Location = new System.Drawing.Point(16, 266);
             this.DGVProductos.Margin = new System.Windows.Forms.Padding(4);
             this.DGVProductos.Name = "DGVProductos";
@@ -170,11 +170,12 @@
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
-            // Column1
+            // chk
             // 
-            this.Column1.HeaderText = "";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
+            this.chk.HeaderText = "";
+            this.chk.MinimumWidth = 50;
+            this.chk.Name = "chk";
+            this.chk.ReadOnly = true;
             // 
             // Productos
             // 
@@ -208,6 +209,6 @@
         private System.Windows.Forms.ComboBox cbOrden;
         private System.Windows.Forms.ComboBox cbMostrar;
         private System.Windows.Forms.Button btnAgregarXML;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn chk;
     }
 }

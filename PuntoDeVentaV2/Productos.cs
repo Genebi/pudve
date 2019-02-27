@@ -45,6 +45,39 @@ namespace PuntoDeVentaV2
             }
         }
 
+        // agregamos el checkbox en el DataGridView en el headercheckbox
+        CheckBox HeaderCheckBox = null;
+        bool IsHeaderCheckBoxClicked = false;
+
+        private void AddHeaderCheckBox()
+        {
+            HeaderCheckBox = new CheckBox();
+            HeaderCheckBox.Size = new Size(15,15);
+            HeaderCheckBox.Top = 4;
+            HeaderCheckBox.Left = 104;
+            // agregamos el checkBox dentro del DataGridView
+            this.DGVProductos.Controls.Add(HeaderCheckBox);
+        }
+
+        // agregamos el envento para checar si se marca o no el CheckBox
+        private void HeaderCheckBoxClick(CheckBox HCheckBox)
+        {
+            IsHeaderCheckBoxClicked = true;
+            foreach (DataGridViewRow Row in DGVProductos.Rows)
+            {
+                ((DataGridViewCheckBoxCell)Row.Cells["chk"]).Value = HCheckBox.Checked;
+            }
+            DGVProductos.RefreshEdit();
+            //TotalCheckedCheckBoxes = HCheckBox.Checked ? TotalCheckBoxes : 0;
+            IsHeaderCheckBoxClicked = false;
+        }
+
+        // agregamos el evento de MouseClickEvent
+        private void HeaderCheckBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            HeaderCheckBoxClick((CheckBox)sender);
+        }
+
         public Productos()
         {
             InitializeComponent();
@@ -73,6 +106,9 @@ namespace PuntoDeVentaV2
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarStatus);
+
+            AddHeaderCheckBox();
+            HeaderCheckBox.MouseClick += new MouseEventHandler(HeaderCheckBox_MouseClick);
         }
 
         private void CargarDatos()
@@ -128,11 +164,11 @@ namespace PuntoDeVentaV2
                 if (result == DialogResult.Yes)
                 {
                     numfila = DGVProductos.CurrentRow.Index;
-                    Nombre = DGVProductos[2, numfila].Value.ToString();    // Nombre Producto
-                    Stock = DGVProductos[3, numfila].Value.ToString();    // Stock Producto
-                    Precio = DGVProductos[4, numfila].Value.ToString();    // Precio Producto
-                    ClaveInterna = DGVProductos[6, numfila].Value.ToString();    // ClaveInterna Producto
-                    CodigoBarras = DGVProductos[7, numfila].Value.ToString();    // Codigo de Barras Producto
+                    Nombre = DGVProductos[3, numfila].Value.ToString();    // Nombre Producto
+                    Stock = DGVProductos[4, numfila].Value.ToString();    // Stock Producto
+                    Precio = DGVProductos[5, numfila].Value.ToString();    // Precio Producto
+                    ClaveInterna = DGVProductos[7, numfila].Value.ToString();    // ClaveInterna Producto
+                    CodigoBarras = DGVProductos[8, numfila].Value.ToString();    // Codigo de Barras Producto
                     id = FormPrincipal.userID.ToString();
                     // Preparamos el Query que haremos segun la fila seleccionada
                     buscar = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Precio = '{Precio}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{id}'";
