@@ -244,6 +244,8 @@ namespace PuntoDeVentaV2
 
                 DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
                 DGVentas.Rows[celda].Cells["Importe"].Value = importe;
+
+                CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
             }
 
             //Restar individual
@@ -258,6 +260,8 @@ namespace PuntoDeVentaV2
 
                     DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
                     DGVentas.Rows[celda].Cells["Importe"].Value = importe;
+
+                    CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
                 }
             }
 
@@ -278,13 +282,13 @@ namespace PuntoDeVentaV2
             DGVentas.Rows[indiceFila].Cells["Cantidad"].Value = cantidad;
             DGVentas.Rows[indiceFila].Cells["Importe"].Value = importe;
 
-            CalcularDescuento(datosDescuento, tipoDescuento, cantidad);
+            CalcularDescuento(datosDescuento, tipoDescuento, cantidad, indiceFila);
 
             indiceFila = 0;
             cantidadFila = 0;   
         }
 
-        private void CalcularDescuento(string[] datosDescuento, int tipo, int cantidad)
+        private void CalcularDescuento(string[] datosDescuento, int tipo, int cantidad, int fila = 0)
         {
             //Cliente
             if (tipo == 1)
@@ -295,12 +299,143 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipo == 2)
             {
+                float totalImporte = 0;
+                int sobrantes = 0;
+                int index = 0;
+                int checkbox = 0;
+                string[] tmp;
+
+                //Comprobar si hay al menos un checkbox seleccionado en este descuento
                 foreach (string descuento in datosDescuento)
                 {
-                    string[] desc = descuento.Split('-');
-
-                    MessageBox.Show(desc[0]);
+                    string[] cb = descuento.Split('-');
+                    
+                    if (Convert.ToInt32(cb[3]) == 1)
+                    {
+                        checkbox = 1;
+                        break;
+                    }
                 }
+
+
+                int longitud = datosDescuento.Length;
+
+                for (int i = 0; i < longitud; i++)
+                {
+                    string[] desc = datosDescuento[i].Split('-');
+
+                    var rangoInicial = Convert.ToInt32(desc[0]);
+                    var rangoFinal = desc[1];
+                    var precio = float.Parse(desc[2]);
+
+  
+                    //Entra cuando se establecen precios en base en los checkbox
+                    if (checkbox == 1)
+                    {
+                        //Este es para saber si es el ultimo descuento que se agrego (registro en la BD)
+                        if (rangoFinal == "N")
+                        {
+                            if (cantidad > rangoInicial)
+                            {
+                                index = i + 1;
+
+                                if (index >= 0 && index < longitud)
+                                {
+                                    //Obtener el rango final del descuento previo al actual
+                                    tmp = datosDescuento[index].Split('-');
+                                    var rangoFinalTmp = tmp[1];
+
+                                    sobrantes = cantidad - Convert.ToInt32(rangoFinalTmp);
+
+                                    totalImporte += sobrantes * precio;
+
+                                    cantidad -= sobrantes;
+
+                                    //MessageBox.Show("Aqui 1");
+                                }
+     
+                            }
+                            else
+                            {
+                                if (cantidad == rangoInicial)
+                                {
+                                    sobrantes = rangoInicial - 1;
+                                    sobrantes = rangoInicial - sobrantes;
+
+                                    cantidad -= sobrantes;
+
+                                    totalImporte += sobrantes * precio;
+
+                                    //MessageBox.Show("Aqui 2");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (cantidad >= rangoInicial && cantidad <= Convert.ToInt32(rangoFinal))
+                            {
+                                index = i + 1;
+
+                                //Para saber si existe el indice en el Array principal
+                                if (index >= 0 && index < longitud)
+                                {
+                                    //Obtener el rango final del descuento previo al actual
+                                    tmp = datosDescuento[index].Split('-');
+                                    var rangoFinalTmp = tmp[1];
+
+                                    sobrantes = cantidad - Convert.ToInt32(rangoFinalTmp);
+
+                                    cantidad -= sobrantes;
+
+                                    totalImporte += sobrantes * precio;
+
+                                    //MessageBox.Show("Aqui 3");
+                                }
+                                else
+                                {
+                                    totalImporte += cantidad * precio;
+
+                                    //cantidad = 0;
+                                    //MessageBox.Show("Aqui 4 " + totalImporte.ToString() + " " + cantidad.ToString() + " " + precio.ToString());
+                                }
+                            }
+                            else
+                            {
+
+                                /*if (cantidad < rangoInicial)
+                                {
+                                    sobrantes = rangoInicial - cantidad;
+                                    totalImporte += sobrantes * precio;
+                                    MessageBox.Show("Rango inicial " + cantidad.ToString() + " " + rangoInicial.ToString());
+                                    //MessageBox.Show("Aqui 5 " + totalImporte.ToString() + " " + sobrantes.ToString() + " " + precio.ToString());
+                                }*/
+
+                                if (cantidad > Convert.ToInt32(rangoFinal))
+                                {
+                                    sobrantes = cantidad - Convert.ToInt32(rangoFinal);
+
+                                    totalImporte += sobrantes * precio;
+
+                                    //MessageBox.Show("Aqui 6");
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Entro donde no hay nada");
+                    }
+                }
+
+                
+                //MessageBox.Show(totalImporte.ToString());
+
+                
+                float importe = float.Parse(DGVentas.Rows[fila].Cells["Importe"].Value.ToString());
+                float descuentoFinal = importe - totalImporte;
+
+                DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal;
+                DGVentas.Rows[fila].Cells["Importe"].Value = totalImporte;
             }
         }
     }
