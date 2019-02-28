@@ -252,7 +252,7 @@ namespace PuntoDeVentaV2
 
             if (tipo == 2)
             {
-                consulta = "SELECT * FROM DescuentoMayoreo WHERE IDProducto = " + IDProducto;
+                consulta = "SELECT * FROM DescuentoMayoreo WHERE IDProducto = " + IDProducto + " ORDER BY ID DESC";
             }
 
             Conectarse();
