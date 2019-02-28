@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.DGVProductos = new System.Windows.Forms.DataGridView();
+            this.chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.btnAgregarProducto = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.tituloBusqueda = new System.Windows.Forms.Label();
@@ -36,7 +37,6 @@
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.btnAgregarXML = new System.Windows.Forms.Button();
-            this.chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,6 +58,13 @@
             this.DGVProductos.Size = new System.Drawing.Size(891, 324);
             this.DGVProductos.TabIndex = 1;
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
+            // 
+            // chk
+            // 
+            this.chk.HeaderText = "";
+            this.chk.MinimumWidth = 50;
+            this.chk.Name = "chk";
+            this.chk.ReadOnly = true;
             // 
             // btnAgregarProducto
             // 
@@ -169,13 +176,6 @@
             this.btnAgregarXML.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
-            // 
-            // chk
-            // 
-            this.chk.HeaderText = "";
-            this.chk.MinimumWidth = 50;
-            this.chk.Name = "chk";
-            this.chk.ReadOnly = true;
             // 
             // Productos
             // 

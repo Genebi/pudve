@@ -239,19 +239,21 @@ namespace PuntoDeVentaV2
             /********************************
             *   Fin de Codigo Alejandro     *
             ********************************/
+
+            // leemos el archivo de codigo de barras que lleva el consecutivo
             using (StreamReader readfile = new StreamReader(rutaDirectorio+fichero))
             {
-                Contenido = readfile.ReadToEnd();
+                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
             }
-            if (Contenido == "")
+            if (Contenido == "")        // si el contenido es vacio 
             {
-                PrimerCodBarras();
-                AumentarCodBarras();
+                PrimerCodBarras();      // iniciamos el conteo del codigo de barras
+                AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
             }
-            else if (Contenido != "")
+            else if (Contenido != "")   // si el contenido no es vacio
             {
                 //MessageBox.Show("Trabajando en el Proceso");
-                AumentarCodBarras();
+                AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
             }
         }
 
@@ -347,8 +349,8 @@ namespace PuntoDeVentaV2
             resultadoSearchNoIdentificacion = 0;    // ponemos los valores en 0
             resultadoSearchCodBar = 0;              // ponemos los valores en 0
 
-            searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
-            searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
+            searchClavIntProd();                    // hacemos la busqueda que no se repita en CalveInterna
+            searchCodBar();                         // hacemos la busqueda que no se repita en CodigoBarra
 
             if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
             {
@@ -429,23 +431,29 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                    // recorrido para FlowLayoutPanel para ver cuantos TextBox
                     foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                     {
+                        // hacemos un objeto para ver que tipo control es
                         foreach (Control item in panel.Controls)
                         {
+                            // ver si el control es TextBox
                             if (item is TextBox)
                             {
-                                var tb = item.Text;
-                                codigosBarrras.Add(tb);
+                                var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                                codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
                             }
                         }
                     }
-                    if (codigosBarrras!=null || codigosBarrras.Count!=0)
+                    // verificamos si el List esta con algun registro 
+                    if (codigosBarrras != null || codigosBarrras.Count != 0)
                     {
+                        // hacemos recorrido del List para gregarlos en los codigos de barras extras
                         for(int pos=0; pos<codigosBarrras.Count; pos++)
                         {
+                            // preparamos el Query
                             string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos]}','{idProducto}')";
-                            cn.EjecutarConsulta(insert);
+                            cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
                         }
                     }
                     //Cierra la ventana donde se agregan los datos del producto
@@ -462,32 +470,32 @@ namespace PuntoDeVentaV2
 
         private void txtClaveProducto_Enter(object sender, EventArgs e)
         {
-            _lastEnteredControl = (Control)sender;
+            _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
         private void txtCodigoBarras_Enter(object sender, EventArgs e)
         {
-            _lastEnteredControl = (Control)sender;
+            _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
         private void txtNombreProducto_Enter(object sender, EventArgs e)
         {
-            _lastEnteredControl = (Control)sender;
+            _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
         private void txtStockProducto_Enter(object sender, EventArgs e)
         {
-            _lastEnteredControl = (Control)sender;
+            _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
         private void txtPrecioProducto_Enter(object sender, EventArgs e)
         {
-            _lastEnteredControl = (Control)sender;
+            _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
         private void txtCategoriaProducto_Enter(object sender, EventArgs e)
         {
-            _lastEnteredControl = (Control)sender;
+            _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
     }
 }
