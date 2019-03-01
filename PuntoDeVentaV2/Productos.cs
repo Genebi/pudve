@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
 
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
+        public RecordViewProduct ProductoRecord = new RecordViewProduct();
         public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         Conexion cn = new Conexion();
@@ -61,7 +62,7 @@ namespace PuntoDeVentaV2
             HeaderCheckBox = new CheckBox();                        // hacemos un nuevo CheckBox
             HeaderCheckBox.Size = new Size(15,15);                  // le hacemos unas dimensiones
             HeaderCheckBox.Top = 4;                                 // lo posicionamos con respecto del top a 4 px
-            HeaderCheckBox.Left = 104;                              // lo posicionamos con respecto del Left a 104 px
+            HeaderCheckBox.Left = 97;                               // lo posicionamos con respecto del Left a 104 px
             this.DGVProductos.Controls.Add(HeaderCheckBox);         // agregamos el checkBox dentro del DataGridView
         }
 
@@ -137,9 +138,16 @@ namespace PuntoDeVentaV2
             setup.HeaderText = "Activar/Desactivar";
             DGVProductos.Columns.Add(setup);
 
+            DataGridViewImageColumn record = new DataGridViewImageColumn();
+            record.Image = Image.FromFile(rutaDirectorio+ @"\icon\black16\line-chart.png");
+            record.Width = 40;
+            record.HeaderText = "Historial";
+            DGVProductos.Columns.Add(record);
+
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarStatus);
+            DGVProductos.CellClick += new DataGridViewCellEventHandler(RecordView);
 
             AddHeaderCheckBox();
             HeaderCheckBox.MouseClick += new MouseEventHandler(HeaderCheckBox_MouseClick);
@@ -226,6 +234,22 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void ViewRecordProducto()
+        {
+            ProductoRecord.FormClosed += delegate
+            {
+                
+            };
+            if (!FormXML.Visible)
+            {
+                ProductoRecord.ShowDialog();
+            }
+            else
+            {
+                ProductoRecord.BringToFront();
+            }
+        }
+
         private void EditarStatus(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 2)
@@ -236,11 +260,11 @@ namespace PuntoDeVentaV2
                 if (result == DialogResult.Yes)
                 {
                     numfila = DGVProductos.CurrentRow.Index;
-                    Nombre = DGVProductos[3, numfila].Value.ToString();    // Nombre Producto
-                    Stock = DGVProductos[4, numfila].Value.ToString();    // Stock Producto
-                    Precio = DGVProductos[5, numfila].Value.ToString();    // Precio Producto
-                    ClaveInterna = DGVProductos[7, numfila].Value.ToString();    // ClaveInterna Producto
-                    CodigoBarras = DGVProductos[8, numfila].Value.ToString();    // Codigo de Barras Producto
+                    Nombre = DGVProductos[4, numfila].Value.ToString();             // Nombre Producto
+                    Stock = DGVProductos[5, numfila].Value.ToString();              // Stock Producto
+                    Precio = DGVProductos[6, numfila].Value.ToString();             // Precio Producto
+                    ClaveInterna = DGVProductos[8, numfila].Value.ToString();       // ClaveInterna Producto
+                    CodigoBarras = DGVProductos[9, numfila].Value.ToString();       // Codigo de Barras Producto
                     id = FormPrincipal.userID.ToString();
                     ModificarStatusProducto();
                 }
@@ -257,10 +281,26 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void RecordView(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 3)
+            {
+                //MessageBox.Show("Proceso de construccion de Historial de compra","En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                numfila = DGVProductos.CurrentRow.Index;
+                Nombre = DGVProductos[4, numfila].Value.ToString();             // Nombre Producto
+                Stock = DGVProductos[5, numfila].Value.ToString();              // Stock Producto
+                Precio = DGVProductos[6, numfila].Value.ToString();             // Precio Producto
+                ClaveInterna = DGVProductos[8, numfila].Value.ToString();       // ClaveInterna Producto
+                CodigoBarras = DGVProductos[9, numfila].Value.ToString();       // Codigo de Barras Producto
+                id = FormPrincipal.userID.ToString();
+                ViewRecordProducto();
+            }
+        }
+
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
-            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 )
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 )
             {
                 DGVProductos.Cursor = Cursors.Hand;
             }
