@@ -157,6 +157,18 @@ namespace PuntoDeVentaV2
         string textBoxNoIdentificacion;     // almacena el contenido del TextBox para poder hacer la actualizacion en la base de datos
         int resultadoConsulta;              // almacenamos el resultado sea 1 o 0
 
+        string concepto;
+        float precio;
+        string fechaXML;
+        string fechaCompleta;
+        string fecha;
+        string hora;
+        string folio;
+        string RFCEmisor;
+        string nombreEmisor;
+        string claveProdEmisor;
+        int found=10;
+
         // variables para poder almacenar la tabla que resulta sobre la consulta el base de datos
         public DataTable dt;                    // almacena el resultado de la funcion de CargarDatos de la funcion consulta
         public DataTable dtProductos;           // almacena el resultado de la funcion de CargarDatos de la funcion serachDatos
@@ -418,7 +430,8 @@ namespace PuntoDeVentaV2
         public void datosXML()
         {
             lblPosicionActualXML.Text = (index + 1).ToString();
-            lblDescripcionXML.Text = ds.Conceptos[index].Descripcion;
+            concepto = ds.Conceptos[index].Descripcion;
+            lblDescripcionXML.Text = concepto;
             stockProdXML = int.Parse(ds.Conceptos[index].Cantidad);             // convertimos la cantidad del Archivo XML para su posterior manipulacion
             lblCantXML.Text = stockProdXML.ToString();
             importe = float.Parse(ds.Conceptos[index].Importe);                 // convertimos el Importe del Archivo XML para su posterior manipulacion
@@ -433,6 +446,15 @@ namespace PuntoDeVentaV2
             lblNoIdentificacionXML.Text = ClaveInterna;
             PrecioRecomendado = precioOriginalConIVA * (float)1.60;             // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
+            precio = float.Parse(ds.Conceptos[index].ValorUnitario);
+            fechaXML = ds.Fecha;
+            fecha = fechaXML.Substring(0, found);
+            hora = fechaXML.Substring(found+1);
+            fechaCompleta = fecha + " " + hora;
+            folio = ds.Folio;
+            RFCEmisor = ds.Emisor.Rfc;
+            nombreEmisor = ds.Emisor.Nombre;
+            claveProdEmisor = ds.Conceptos[index].ClaveProdServ;
         }
 
         // funsion para cargar los datos del Producto
@@ -544,6 +566,62 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("se actualizo mas" + resultadoConsulta);
             }
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,Precio,FechaCorta,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precio}','{fecha}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
+            try
+            {
+                cn.EjecutarConsulta(query);
+                MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error :" + ex);
+            }
+        }
+
+        public void RelacionarStockClaveInterna()
+        {
+            query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{txtBoxClaveInternaProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
+            resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,Precio,FechaCorta,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precio}','{fecha}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
+            try
+            {
+                cn.EjecutarConsulta(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error :" + ex);
+            }
+        }
+
+        public void RelacionarStockCodigoBarras()
+        {
+            query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', CodigoBarras = '{lblCodigoBarrasProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
+            resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,Precio,FechaCorta,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precio}','{fecha}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
+            try
+            {
+                cn.EjecutarConsulta(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error :" + ex);
+            }
+        }
+
+        public void CodigoBarrasExtras()
+        {
+            query = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto) VALUES('{ClaveInterna}','{idListProd}')";
+            cn.EjecutarConsulta(query);
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,Precio,FechaCorta,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precio}','{fecha}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
+            try
+            {
+                cn.EjecutarConsulta(query);
+                MessageBox.Show("Registrado Intento 3", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error :" + ex);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -570,17 +648,16 @@ namespace PuntoDeVentaV2
                 {
                     if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)   // en caso que alguno de los dos campos esten en blanco
                     {
-                        query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{txtBoxClaveInternaProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
-                        resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                        RelacionarStockClaveInterna();
                     }
                     else if (ListProd.opcionGuardarFin == 3)                    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
                     {
-                        query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', CodigoBarras = '{lblCodigoBarrasProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
-                        resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                        RelacionarStockCodigoBarras();
                     }
                     else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
                     {
-                        MessageBox.Show("Aqui se programara lo del siguiente Codigo de barras","En construccion proceso pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show("Aqui se programara lo del siguiente Codigo de barras","En construccion proceso pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CodigoBarrasExtras();
                     }
                     
                     if (resultadoConsulta == 1)                         // si el resultado es 1
