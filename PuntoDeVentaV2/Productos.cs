@@ -242,6 +242,12 @@ namespace PuntoDeVentaV2
             };
             if (!FormXML.Visible)
             {
+                ProductoRecord.nombreProd = Nombre;
+                ProductoRecord.stockProd = Stock;
+                ProductoRecord.precioProd = Precio;
+                ProductoRecord.claveInternaProd = ClaveInterna;
+                ProductoRecord.codigoBarrasProd = CodigoBarras;
+                ProductoRecord.idUsuarioProd = id;
                 ProductoRecord.ShowDialog();
             }
             else

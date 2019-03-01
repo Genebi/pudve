@@ -576,6 +576,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Error :" + ex);
             }
+            label2.Text = idProducto;
         }
 
         public void RelacionarStockClaveInterna()
@@ -649,15 +650,18 @@ namespace PuntoDeVentaV2
                     if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)   // en caso que alguno de los dos campos esten en blanco
                     {
                         RelacionarStockClaveInterna();
+                        label2.Text = idProducto;
                     }
                     else if (ListProd.opcionGuardarFin == 3)                    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
                     {
                         RelacionarStockCodigoBarras();
+                        label2.Text = idProducto;
                     }
                     else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
                     {
                         //MessageBox.Show("Aqui se programara lo del siguiente Codigo de barras","En construccion proceso pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         CodigoBarrasExtras();
+                        label2.Text = idProducto;
                     }
                     
                     if (resultadoConsulta == 1)                         // si el resultado es 1
@@ -669,7 +673,7 @@ namespace PuntoDeVentaV2
                         //MessageBox.Show("se actualizo mas" + resultadoConsulta);
                     }
                     //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    RecorrerXML();          // recorrer el archivo XML
+                    //RecorrerXML();          // recorrer el archivo XML
                 }
             }
             else if (consultListProd == 0)
