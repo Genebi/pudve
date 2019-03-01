@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -14,11 +15,11 @@ namespace PuntoDeVentaV2
 {
     public partial class Ventas : Form
     {
+        //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+
         string[] productos;
         string[] datosDescuento;
         int tipoDescuento = 0;
-
-        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
@@ -51,12 +52,12 @@ namespace PuntoDeVentaV2
             txtBuscadorProducto.GotFocus  += new EventHandler(BuscarTieneFoco);
             txtBuscadorProducto.LostFocus += new EventHandler(BuscarPierdeFoco);
 
-            btnProductoRapido.BackgroundImage = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
-            btnServicioRapido.BackgroundImage = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
-            btnEliminarUltimo.BackgroundImage = Image.FromFile(rutaDirectorio + @"\icon\black16\trash.png");
-            btnEliminarTodos.BackgroundImage  = Image.FromFile(rutaDirectorio + @"\icon\black16\trash.png");
-            btnUltimoTicket.BackgroundImage   = Image.FromFile(rutaDirectorio + @"\icon\black16\ticket.png");
-            btnPresupuesto.BackgroundImage    = Image.FromFile(rutaDirectorio + @"\icon\black16\money.png");
+            btnProductoRapido.BackgroundImage = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
+            btnServicioRapido.BackgroundImage = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
+            btnEliminarUltimo.BackgroundImage = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
+            btnEliminarTodos.BackgroundImage  = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
+            btnUltimoTicket.BackgroundImage   = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
+            btnPresupuesto.BackgroundImage    = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\money.png");
 
             btnProductoRapido.BackgroundImageLayout = ImageLayout.Center;
             btnServicioRapido.BackgroundImageLayout = ImageLayout.Center;
@@ -131,6 +132,7 @@ namespace PuntoDeVentaV2
                     tipoDescuento = 2;
 
                     datosDescuento = cn.BuscarDescuento(Convert.ToInt32(datosProducto[3]), idProducto);
+
                 }
                 else
                 {
@@ -213,10 +215,10 @@ namespace PuntoDeVentaV2
             row.Cells["Descuento"].Value = 0;
             row.Cells["Importe"].Value = datosProducto[2];
 
-            Image img1 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus-square.png");
-            Image img2 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
-            Image img3 = Image.FromFile(rutaDirectorio + @"\icon\black16\minus.png");
-            Image img4 = Image.FromFile(rutaDirectorio + @"\icon\black16\remove.png");
+            Image img1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus-square.png");
+            Image img2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
+            Image img3 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\minus.png");
+            Image img4 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\remove.png");
 
             DGVentas.Rows[rowId].Cells["AgregarMultiple"].Value = img1;
             DGVentas.Rows[rowId].Cells["AgregarIndividual"].Value = img2;
@@ -349,6 +351,7 @@ namespace PuntoDeVentaV2
                     var rangoFinal = desc[1];
                     var precio = float.Parse(desc[2]);
 
+                    MessageBox.Show(desc[3].ToString());
   
                     //Entra cuando se establecen precios en base en los checkbox
                     if (checkbox == 1)
