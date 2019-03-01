@@ -34,6 +34,18 @@ namespace PuntoDeVentaV2
         public static string CodigoBarras;
         public static string IdUsuario;
 
+        private void DGVProductRecord_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            lblFolioCompra.Text = DGVProductRecord[0, e.RowIndex].Value.ToString();
+            lblRFCProveedor.Text = DGVProductRecord[1, e.RowIndex].Value.ToString();
+            lblNombreProveedor.Text = DGVProductRecord[2, e.RowIndex].Value.ToString();
+            lblClaveProducto.Text = DGVProductRecord[3, e.RowIndex].Value.ToString();
+            lblFechaCompra.Text = DGVProductRecord[4, e.RowIndex].Value.ToString();
+            lblFechaCompletaCompra.Text = DGVProductRecord[5, e.RowIndex].Value.ToString();
+            lblCantidadCompra.Text = DGVProductRecord[6, e.RowIndex].Value.ToString();
+            lblPrecioCompra.Text = DGVProductRecord[7, e.RowIndex].Value.ToString();
+        }
+
         public void cargarDatos()
         {
             Nombre = nombreProd;
