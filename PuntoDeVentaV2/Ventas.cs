@@ -48,14 +48,22 @@ namespace PuntoDeVentaV2
         private void Ventas_Load(object sender, EventArgs e)
         {
             tituloSeccion.Focus();
-            txtBuscadorProducto.GotFocus += new EventHandler(BuscarTieneFoco);
+            txtBuscadorProducto.GotFocus  += new EventHandler(BuscarTieneFoco);
             txtBuscadorProducto.LostFocus += new EventHandler(BuscarPierdeFoco);
 
+            btnProductoRapido.BackgroundImage = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
+            btnServicioRapido.BackgroundImage = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
             btnEliminarUltimo.BackgroundImage = Image.FromFile(rutaDirectorio + @"\icon\black16\trash.png");
-            btnEliminarTodos.BackgroundImage = Image.FromFile(rutaDirectorio + @"\icon\black16\trash.png");
+            btnEliminarTodos.BackgroundImage  = Image.FromFile(rutaDirectorio + @"\icon\black16\trash.png");
+            btnUltimoTicket.BackgroundImage   = Image.FromFile(rutaDirectorio + @"\icon\black16\ticket.png");
+            btnPresupuesto.BackgroundImage    = Image.FromFile(rutaDirectorio + @"\icon\black16\money.png");
 
+            btnProductoRapido.BackgroundImageLayout = ImageLayout.Center;
+            btnServicioRapido.BackgroundImageLayout = ImageLayout.Center;
             btnEliminarUltimo.BackgroundImageLayout = ImageLayout.Center;
-            btnEliminarTodos.BackgroundImageLayout = ImageLayout.Center;
+            btnEliminarTodos.BackgroundImageLayout  = ImageLayout.Center;
+            btnUltimoTicket.BackgroundImageLayout   = ImageLayout.Center;
+            btnPresupuesto.BackgroundImageLayout    = ImageLayout.Center;
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)
@@ -161,6 +169,8 @@ namespace PuntoDeVentaV2
         {
             if (DGVentas.Rows.Count > 0)
             {
+                bool existe = false;
+
                 foreach (DataGridViewRow fila in DGVentas.Rows)
                 {
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
@@ -171,36 +181,47 @@ namespace PuntoDeVentaV2
 
                         fila.Cells["Cantidad"].Value = cantidad;
                         fila.Cells["Importe"].Value = importe;
+                        existe = true;
 
                         CalcularDescuento(datosDescuento, tipoDescuento, cantidad);
                     }
                 }
+
+                if (!existe)
+                {
+                    AgregarProductoLista(datosProducto);
+                }
             }
             else
             {
-                //Se agrega la nueva fila y se obtiene el ID que tendrá
-                int rowId = DGVentas.Rows.Add();
-
-                //Obtener la nueva fila
-                DataGridViewRow row = DGVentas.Rows[rowId];
-
-                //Agregamos la información
-                row.Cells["Cantidad"].Value = 1;
-                row.Cells["Precio"].Value = datosProducto[2];
-                row.Cells["Descripcion"].Value = datosProducto[1];
-                row.Cells["Descuento"].Value = 0;
-                row.Cells["Importe"].Value = datosProducto[2];
-
-                Image img1 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus-square.png");
-                Image img2 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
-                Image img3 = Image.FromFile(rutaDirectorio + @"\icon\black16\minus.png");
-                Image img4 = Image.FromFile(rutaDirectorio + @"\icon\black16\remove.png");
-
-                DGVentas.Rows[rowId].Cells["AgregarMultiple"].Value = img1;
-                DGVentas.Rows[rowId].Cells["AgregarIndividual"].Value = img2;
-                DGVentas.Rows[rowId].Cells["RestarIndividual"].Value = img3;
-                DGVentas.Rows[rowId].Cells["EliminarIndividual"].Value = img4;
+                AgregarProductoLista(datosProducto);
             }
+        }
+
+        private void AgregarProductoLista(string[] datosProducto)
+        {
+            //Se agrega la nueva fila y se obtiene el ID que tendrá
+            int rowId = DGVentas.Rows.Add();
+
+            //Obtener la nueva fila
+            DataGridViewRow row = DGVentas.Rows[rowId];
+
+            //Agregamos la información
+            row.Cells["Cantidad"].Value = 1;
+            row.Cells["Precio"].Value = datosProducto[2];
+            row.Cells["Descripcion"].Value = datosProducto[1];
+            row.Cells["Descuento"].Value = 0;
+            row.Cells["Importe"].Value = datosProducto[2];
+
+            Image img1 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus-square.png");
+            Image img2 = Image.FromFile(rutaDirectorio + @"\icon\black16\plus.png");
+            Image img3 = Image.FromFile(rutaDirectorio + @"\icon\black16\minus.png");
+            Image img4 = Image.FromFile(rutaDirectorio + @"\icon\black16\remove.png");
+
+            DGVentas.Rows[rowId].Cells["AgregarMultiple"].Value = img1;
+            DGVentas.Rows[rowId].Cells["AgregarIndividual"].Value = img2;
+            DGVentas.Rows[rowId].Cells["RestarIndividual"].Value = img3;
+            DGVentas.Rows[rowId].Cells["EliminarIndividual"].Value = img4;
         }
 
         private void DGVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -350,8 +371,6 @@ namespace PuntoDeVentaV2
                                     totalImporte += sobrantes * precio;
 
                                     cantidad -= sobrantes;
-
-                                    //MessageBox.Show("Aqui 1");
                                 }
      
                             }
@@ -365,8 +384,6 @@ namespace PuntoDeVentaV2
                                     cantidad -= sobrantes;
 
                                     totalImporte += sobrantes * precio;
-
-                                    //MessageBox.Show("Aqui 2");
                                 }
                             }
                         }
@@ -388,48 +405,41 @@ namespace PuntoDeVentaV2
                                     cantidad -= sobrantes;
 
                                     totalImporte += sobrantes * precio;
-
-                                    //MessageBox.Show("Aqui 3");
                                 }
                                 else
                                 {
                                     totalImporte += cantidad * precio;
-
-                                    //cantidad = 0;
-                                    //MessageBox.Show("Aqui 4 " + totalImporte.ToString() + " " + cantidad.ToString() + " " + precio.ToString());
                                 }
                             }
                             else
                             {
-
-                                /*if (cantidad < rangoInicial)
-                                {
-                                    sobrantes = rangoInicial - cantidad;
-                                    totalImporte += sobrantes * precio;
-                                    MessageBox.Show("Rango inicial " + cantidad.ToString() + " " + rangoInicial.ToString());
-                                    //MessageBox.Show("Aqui 5 " + totalImporte.ToString() + " " + sobrantes.ToString() + " " + precio.ToString());
-                                }*/
-
                                 if (cantidad > Convert.ToInt32(rangoFinal))
                                 {
                                     sobrantes = cantidad - Convert.ToInt32(rangoFinal);
 
                                     totalImporte += sobrantes * precio;
-
-                                    //MessageBox.Show("Aqui 6");
                                 }
                             }
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Entro donde no hay nada");
+                        if (rangoFinal == "N")
+                        {
+                            if (cantidad >= rangoInicial)
+                            {
+                                totalImporte = cantidad * precio;
+                            }
+                        }
+                        else
+                        {
+                            if (cantidad >= rangoInicial && cantidad <= Convert.ToInt32(rangoFinal))
+                            {
+                                totalImporte = cantidad * precio;
+                            }
+                        }
                     }
                 }
-
-                
-                //MessageBox.Show(totalImporte.ToString());
-
                 
                 float importe = float.Parse(DGVentas.Rows[fila].Cells["Importe"].Value.ToString());
                 float descuentoFinal = importe - totalImporte;
