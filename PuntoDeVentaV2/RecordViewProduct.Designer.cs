@@ -100,7 +100,6 @@
             this.lblCodigoBarras.Name = "lblCodigoBarras";
             this.lblCodigoBarras.Size = new System.Drawing.Size(383, 23);
             this.lblCodigoBarras.TabIndex = 10;
-            this.lblCodigoBarras.Text = "label7";
             this.lblCodigoBarras.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblClaveInterna
@@ -111,7 +110,6 @@
             this.lblClaveInterna.Name = "lblClaveInterna";
             this.lblClaveInterna.Size = new System.Drawing.Size(526, 23);
             this.lblClaveInterna.TabIndex = 9;
-            this.lblClaveInterna.Text = "label7";
             this.lblClaveInterna.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPrecio
@@ -122,7 +120,6 @@
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(264, 23);
             this.lblPrecio.TabIndex = 8;
-            this.lblPrecio.Text = "label7";
             this.lblPrecio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblStock
@@ -133,7 +130,6 @@
             this.lblStock.Name = "lblStock";
             this.lblStock.Size = new System.Drawing.Size(133, 23);
             this.lblStock.TabIndex = 7;
-            this.lblStock.Text = "label7";
             this.lblStock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblNombre
@@ -144,7 +140,6 @@
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(712, 23);
             this.lblNombre.TabIndex = 6;
-            this.lblNombre.Text = "label7";
             this.lblNombre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -237,7 +232,7 @@
             this.lblPrecioCompra.Name = "lblPrecioCompra";
             this.lblPrecioCompra.Size = new System.Drawing.Size(346, 23);
             this.lblPrecioCompra.TabIndex = 16;
-            this.lblPrecioCompra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPrecioCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblCantidadCompra
             // 
@@ -246,7 +241,7 @@
             this.lblCantidadCompra.Name = "lblCantidadCompra";
             this.lblCantidadCompra.Size = new System.Drawing.Size(348, 23);
             this.lblCantidadCompra.TabIndex = 15;
-            this.lblCantidadCompra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCantidadCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblFechaCompletaCompra
             // 
@@ -255,7 +250,7 @@
             this.lblFechaCompletaCompra.Name = "lblFechaCompletaCompra";
             this.lblFechaCompletaCompra.Size = new System.Drawing.Size(346, 23);
             this.lblFechaCompletaCompra.TabIndex = 14;
-            this.lblFechaCompletaCompra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFechaCompletaCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblFechaCompra
             // 
@@ -264,7 +259,7 @@
             this.lblFechaCompra.Name = "lblFechaCompra";
             this.lblFechaCompra.Size = new System.Drawing.Size(348, 23);
             this.lblFechaCompra.TabIndex = 13;
-            this.lblFechaCompra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFechaCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblClaveProducto
             // 
@@ -273,7 +268,7 @@
             this.lblClaveProducto.Name = "lblClaveProducto";
             this.lblClaveProducto.Size = new System.Drawing.Size(346, 23);
             this.lblClaveProducto.TabIndex = 12;
-            this.lblClaveProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblClaveProducto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblNombreProveedor
             // 
@@ -282,7 +277,7 @@
             this.lblNombreProveedor.Name = "lblNombreProveedor";
             this.lblNombreProveedor.Size = new System.Drawing.Size(348, 23);
             this.lblNombreProveedor.TabIndex = 11;
-            this.lblNombreProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblNombreProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblRFCProveedor
             // 
@@ -291,7 +286,7 @@
             this.lblRFCProveedor.Name = "lblRFCProveedor";
             this.lblRFCProveedor.Size = new System.Drawing.Size(346, 23);
             this.lblRFCProveedor.TabIndex = 10;
-            this.lblRFCProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblRFCProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblFolioCompra
             // 
@@ -300,7 +295,7 @@
             this.lblFolioCompra.Name = "lblFolioCompra";
             this.lblFolioCompra.Size = new System.Drawing.Size(348, 23);
             this.lblFolioCompra.TabIndex = 9;
-            this.lblFolioCompra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFolioCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label15
             // 
