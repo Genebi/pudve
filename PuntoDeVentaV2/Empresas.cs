@@ -15,7 +15,7 @@ namespace PuntoDeVentaV2
     {
         // variable de text para poder dirigirnos a la carpeta principal para
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
-        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+        // public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
         // objetos de tipo FileStream para
         // cargar las imagenes para los botones
@@ -77,7 +77,7 @@ namespace PuntoDeVentaV2
 
             // usamos la variable File para abrir el archivo de imagen, poder leerlo y agregarlo al boton
             // despues de agregado se libera la imagen para su posterior manipulacion si asi fuera
-            using (IconoBtnAddEmpresa = new FileStream(rutaDirectorio + @"\icon\black\plus-square.png", FileMode.Open, FileAccess.Read))
+            using (IconoBtnAddEmpresa = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\icon\black\plus-square.png", FileMode.Open, FileAccess.Read))
             {
                 // Asignamos la imagen al BtnRegistrar
                 btnNvaEmpresa.Image = Image.FromStream(IconoBtnAddEmpresa);
@@ -95,7 +95,7 @@ namespace PuntoDeVentaV2
                 DataGridViewButtonCell celBoton = this.DGVListaEmpresas.Rows[e.RowIndex].Cells["Entrar"] as DataGridViewButtonCell;
 
                 // aqui tomamos un archivo .ico y lo insertamos en el boton
-                Icon icoAtomico = new Icon(rutaDirectorio + @"\icon\black\iconfinder_Import.ico");
+                Icon icoAtomico = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black\iconfinder_Import.ico");
                 // aqui le configuramos los margenes 
                 e.Graphics.DrawIcon(icoAtomico, e.CellBounds.Left + 3, e.CellBounds.Top + 3);
 

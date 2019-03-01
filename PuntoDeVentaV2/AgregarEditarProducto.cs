@@ -37,7 +37,7 @@ namespace PuntoDeVentaV2
 
         // variable de text para poder dirigirnos a la carpeta principal para
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
-        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+        //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
         const string fichero = @"\settings\codbar\setupCodBar.txt";     // directorio donde esta el archivo de numero de codigo de barras consecutivo
         string Contenido;                                               // para obtener el numero que tiene el codigo de barras en el arhivo
@@ -110,7 +110,7 @@ namespace PuntoDeVentaV2
                 CodigoDeBarras++;
                 Contenido = CodigoDeBarras.ToString();
 
-                using (StreamWriter outfile = new StreamWriter(rutaDirectorio + fichero))
+                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
                 {
                     outfile.WriteLine(Contenido);
                 }
@@ -241,7 +241,7 @@ namespace PuntoDeVentaV2
             ********************************/
 
             // leemos el archivo de codigo de barras que lleva el consecutivo
-            using (StreamReader readfile = new StreamReader(rutaDirectorio+fichero))
+            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
             {
                 Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
             }

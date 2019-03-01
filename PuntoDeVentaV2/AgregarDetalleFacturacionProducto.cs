@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         string tipoPorcentaje = null;
         string porcentajeSeleccionado = null;
 
-        private string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+        //private string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
 
@@ -46,7 +46,7 @@ namespace PuntoDeVentaV2
 
             try
             {
-                sql_con = new SQLiteConnection("Data source=" + rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
                 sql_con.Open();
                 sql_cmd = sql_con.CreateCommand();
                 sql_cmd.CommandText = "SELECT * FROM CatalogoUnidadesMedida ORDER BY LOWER(Nombre) ASC";

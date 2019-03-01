@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
-        public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+        //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -127,19 +127,19 @@ namespace PuntoDeVentaV2
             cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
 
             DataGridViewImageColumn editar = new DataGridViewImageColumn();
-            editar.Image = Image.FromFile(rutaDirectorio + @"\icon\black16\pencil.png");
+            editar.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
             editar.Width = 50;
             editar.HeaderText = "Editar";
             DGVProductos.Columns.Add(editar);
 
             DataGridViewImageColumn setup = new DataGridViewImageColumn();
-            setup.Image = Image.FromFile(rutaDirectorio + @"\icon\black16\cogs.png");
+            setup.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\cogs.png");
             setup.Width = 40;
             setup.HeaderText = "Activar/Desactivar";
             DGVProductos.Columns.Add(setup);
 
             DataGridViewImageColumn record = new DataGridViewImageColumn();
-            record.Image = Image.FromFile(rutaDirectorio+ @"\icon\black16\line-chart.png");
+            record.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
             record.Width = 40;
             record.HeaderText = "Historial";
             DGVProductos.Columns.Add(record);
