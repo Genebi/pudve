@@ -36,15 +36,22 @@ namespace PuntoDeVentaV2
 
         private void DGVProductRecord_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            lblFolioCompra.Text = DGVProductRecord[0, e.RowIndex].Value.ToString();
-            lblRFCProveedor.Text = DGVProductRecord[1, e.RowIndex].Value.ToString();
-            lblNombreProveedor.Text = DGVProductRecord[2, e.RowIndex].Value.ToString();
-            lblClaveProducto.Text = DGVProductRecord[3, e.RowIndex].Value.ToString();
-            lblFechaCompletaCompra.Text = DGVProductRecord[4, e.RowIndex].Value.ToString();
-            lblCantidadCompra.Text = DGVProductRecord[5, e.RowIndex].Value.ToString();
-            lblValorUnitarioProducto.Text = DGVProductRecord[6, e.RowIndex].Value.ToString();
-            lblDescuentoProducto.Text = DGVProductRecord[7, e.RowIndex].Value.ToString();
-            lblPrecioCompra.Text = DGVProductRecord[8, e.RowIndex].Value.ToString();
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+            else
+            {
+                lblFolioCompra.Text = DGVProductRecord[0, e.RowIndex].Value.ToString();
+                lblRFCProveedor.Text = DGVProductRecord[1, e.RowIndex].Value.ToString();
+                lblNombreProveedor.Text = DGVProductRecord[2, e.RowIndex].Value.ToString();
+                lblClaveProducto.Text = DGVProductRecord[3, e.RowIndex].Value.ToString();
+                lblFechaCompletaCompra.Text = DGVProductRecord[4, e.RowIndex].Value.ToString();
+                lblCantidadCompra.Text = DGVProductRecord[5, e.RowIndex].Value.ToString();
+                lblValorUnitarioProducto.Text = DGVProductRecord[6, e.RowIndex].Value.ToString();
+                lblDescuentoProducto.Text = DGVProductRecord[7, e.RowIndex].Value.ToString();
+                lblPrecioCompra.Text = DGVProductRecord[8, e.RowIndex].Value.ToString();
+            }
         }
 
         public void cargarDatos()
@@ -67,9 +74,13 @@ namespace PuntoDeVentaV2
             dt = cn.CargarDatos(buscar);    // almacenamos el resultado de la Funcion CargarDatos que esta en la calse Consultas
             Id_Prod_select = dt.Rows[index]["ID"].ToString();       // almacenamos el Id del producto
 
-            queryRecord = $"SELECT hcompras.Folio AS 'Folio', hcompras.RFCEmisor AS 'RFC', hcompras.NomEmisor AS 'Proveedor', hcompras.ClaveProdEmisor AS 'Clave de Producto', hcompras.FechaLarga AS 'Fecha', hcompras.Cantidad AS 'Cantidad', hcompras.ValorUnitario AS 'Valor Unitario', hcompras.Descuento AS 'Descuento', hcompras.Precio AS 'Precio de compra' FROM HistorialCompras hcompras WHERE hcompras.IDUsuario = '{IdUsuario}' AND hcompras.IDProducto = '{Id_Prod_select}' ORDER BY FechaLarga DESC;";
+            queryRecord = $"SELECT hcompras.Folio AS 'Folio', hcompras.RFCEmisor AS 'RFC', hcompras.NomEmisor AS 'Proveedor', hcompras.ClaveProdEmisor AS 'Clave de Producto', hcompras.FechaLarga AS 'Fecha', hcompras.Cantidad AS 'Cantidad', hcompras.ValorUnitario AS 'Valor Unitario', hcompras.Descuento AS 'Descuento', hcompras.Precio AS 'Precio de compra' FROM HistorialCompras hcompras WHERE hcompras.IDUsuario = '{IdUsuario}' AND hcompras.IDProducto = '{Id_Prod_select}' ORDER BY Folio DESC;";
             dtRecordProducto = cn.CargarDatos(queryRecord);
             DGVProductRecord.DataSource = dtRecordProducto;
+            if (DGVProductRecord.RowCount >= 1)
+            {
+                DGVProductRecord.Rows[0].Selected = true;
+            }
         }
 
         public RecordViewProduct()

@@ -570,7 +570,7 @@ namespace PuntoDeVentaV2
             try
             {
                 cn.EjecutarConsulta(query);
-                MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -616,7 +616,7 @@ namespace PuntoDeVentaV2
             try
             {
                 cn.EjecutarConsulta(query);
-                MessageBox.Show("Registrado Intento 3", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Registrado Intento 3", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
