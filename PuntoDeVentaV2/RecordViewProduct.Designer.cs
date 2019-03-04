@@ -42,6 +42,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DGVProductRecord = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblDescuentoProducto = new System.Windows.Forms.Label();
+            this.lblValorUnitarioProducto = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.lblPrecioCompra = new System.Windows.Forms.Label();
             this.lblCantidadCompra = new System.Windows.Forms.Label();
             this.lblFechaCompletaCompra = new System.Windows.Forms.Label();
@@ -57,10 +61,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.lblValorUnitarioProducto = new System.Windows.Forms.Label();
-            this.lblDescuentoProducto = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductRecord)).BeginInit();
             this.panel2.SuspendLayout();
@@ -202,6 +202,7 @@
             this.DGVProductRecord.Size = new System.Drawing.Size(1118, 203);
             this.DGVProductRecord.TabIndex = 1;
             this.DGVProductRecord.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellClick);
+            this.DGVProductRecord.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellContentDoubleClick);
             // 
             // panel2
             // 
@@ -228,6 +229,42 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1118, 168);
             this.panel2.TabIndex = 2;
+            // 
+            // lblDescuentoProducto
+            // 
+            this.lblDescuentoProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblDescuentoProducto.Location = new System.Drawing.Point(758, 100);
+            this.lblDescuentoProducto.Name = "lblDescuentoProducto";
+            this.lblDescuentoProducto.Size = new System.Drawing.Size(331, 23);
+            this.lblDescuentoProducto.TabIndex = 20;
+            this.lblDescuentoProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblValorUnitarioProducto
+            // 
+            this.lblValorUnitarioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblValorUnitarioProducto.Location = new System.Drawing.Point(355, 100);
+            this.lblValorUnitarioProducto.Name = "lblValorUnitarioProducto";
+            this.lblValorUnitarioProducto.Size = new System.Drawing.Size(287, 23);
+            this.lblValorUnitarioProducto.TabIndex = 19;
+            this.lblValorUnitarioProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(663, 103);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(80, 17);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "Descuento:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(244, 103);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 17);
+            this.label12.TabIndex = 17;
+            this.label12.Text = "Valor Unitario:";
             // 
             // lblPrecioCompra
             // 
@@ -365,42 +402,6 @@
             this.label7.Size = new System.Drawing.Size(42, 17);
             this.label7.TabIndex = 0;
             this.label7.Text = "Folio:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(244, 103);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(98, 17);
-            this.label12.TabIndex = 17;
-            this.label12.Text = "Valor Unitario:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(663, 103);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(80, 17);
-            this.label16.TabIndex = 18;
-            this.label16.Text = "Descuento:";
-            // 
-            // lblValorUnitarioProducto
-            // 
-            this.lblValorUnitarioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblValorUnitarioProducto.Location = new System.Drawing.Point(355, 100);
-            this.lblValorUnitarioProducto.Name = "lblValorUnitarioProducto";
-            this.lblValorUnitarioProducto.Size = new System.Drawing.Size(287, 23);
-            this.lblValorUnitarioProducto.TabIndex = 19;
-            this.lblValorUnitarioProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblDescuentoProducto
-            // 
-            this.lblDescuentoProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblDescuentoProducto.Location = new System.Drawing.Point(758, 100);
-            this.lblDescuentoProducto.Name = "lblDescuentoProducto";
-            this.lblDescuentoProducto.Size = new System.Drawing.Size(331, 23);
-            this.lblDescuentoProducto.TabIndex = 20;
-            this.lblDescuentoProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RecordViewProduct
             // 

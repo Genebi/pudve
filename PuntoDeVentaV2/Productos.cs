@@ -248,10 +248,12 @@ namespace PuntoDeVentaV2
                 ProductoRecord.claveInternaProd = ClaveInterna;
                 ProductoRecord.codigoBarrasProd = CodigoBarras;
                 ProductoRecord.idUsuarioProd = id;
+                //ProductoRecord.SeleccionarFila();
                 ProductoRecord.ShowDialog();
             }
             else
             {
+                ProductoRecord.SeleccionarFila();
                 ProductoRecord.BringToFront();
             }
         }
