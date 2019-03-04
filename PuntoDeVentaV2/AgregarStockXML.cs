@@ -168,6 +168,9 @@ namespace PuntoDeVentaV2
         string nombreEmisor;
         string claveProdEmisor;
         int found=10;
+        int idRecordProd;
+        string FechaRegistrada, DateComplete, Year, Date, queryRecordHistorialProd;
+        DateTime date1;
 
         // variables para poder almacenar la tabla que resulta sobre la consulta el base de datos
         public DataTable dt;                    // almacena el resultado de la funcion de CargarDatos de la funcion consulta
@@ -570,12 +573,20 @@ namespace PuntoDeVentaV2
             try
             {
                 cn.EjecutarConsulta(query);
+                idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
                 //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error :" + ex);
             }
+            date1 = DateTime.Now;
+            fechaCompleta = date1.ToString("s");
+            Year = fechaCompleta.Substring(0, found);
+            Date = fechaCompleta.Substring(found + 1);
+            FechaRegistrada = Year + " " + Date;
+            queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{FechaRegistrada}')";
+            cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
         public void RelacionarStockClaveInterna()
@@ -586,11 +597,19 @@ namespace PuntoDeVentaV2
             try
             {
                 cn.EjecutarConsulta(query);
+                idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error :" + ex);
             }
+            date1 = DateTime.Now;
+            fechaCompleta = date1.ToString("s");
+            Year = fechaCompleta.Substring(0, found);
+            Date = fechaCompleta.Substring(found + 1);
+            FechaRegistrada = Year + " " + Date;
+            queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{FechaRegistrada}')";
+            cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
         public void RelacionarStockCodigoBarras()
@@ -601,11 +620,19 @@ namespace PuntoDeVentaV2
             try
             {
                 cn.EjecutarConsulta(query);
+                idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error :" + ex);
             }
+            date1 = DateTime.Now;
+            fechaCompleta = date1.ToString("s");
+            Year = fechaCompleta.Substring(0, found);
+            Date = fechaCompleta.Substring(found + 1);
+            FechaRegistrada = Year + " " + Date;
+            queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{FechaRegistrada}')";
+            cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
         public void CodigoBarrasExtras()
@@ -616,12 +643,20 @@ namespace PuntoDeVentaV2
             try
             {
                 cn.EjecutarConsulta(query);
+                idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
                 //MessageBox.Show("Registrado Intento 3", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error :" + ex);
             }
+            date1 = DateTime.Now;
+            fechaCompleta = date1.ToString("s");
+            Year = fechaCompleta.Substring(0, found);
+            Date = fechaCompleta.Substring(found + 1);
+            FechaRegistrada = Year + " " + Date;
+            queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{FechaRegistrada}')";
+            cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
         private void button2_Click(object sender, EventArgs e)
