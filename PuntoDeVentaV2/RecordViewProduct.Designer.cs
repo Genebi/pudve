@@ -45,7 +45,6 @@
             this.lblPrecioCompra = new System.Windows.Forms.Label();
             this.lblCantidadCompra = new System.Windows.Forms.Label();
             this.lblFechaCompletaCompra = new System.Windows.Forms.Label();
-            this.lblFechaCompra = new System.Windows.Forms.Label();
             this.lblClaveProducto = new System.Windows.Forms.Label();
             this.lblNombreProveedor = new System.Windows.Forms.Label();
             this.lblRFCProveedor = new System.Windows.Forms.Label();
@@ -53,12 +52,15 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lblValorUnitarioProducto = new System.Windows.Forms.Label();
+            this.lblDescuentoProducto = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductRecord)).BeginInit();
             this.panel2.SuspendLayout();
@@ -203,10 +205,13 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.lblDescuentoProducto);
+            this.panel2.Controls.Add(this.lblValorUnitarioProducto);
+            this.panel2.Controls.Add(this.label16);
+            this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.lblPrecioCompra);
             this.panel2.Controls.Add(this.lblCantidadCompra);
             this.panel2.Controls.Add(this.lblFechaCompletaCompra);
-            this.panel2.Controls.Add(this.lblFechaCompra);
             this.panel2.Controls.Add(this.lblClaveProducto);
             this.panel2.Controls.Add(this.lblNombreProveedor);
             this.panel2.Controls.Add(this.lblRFCProveedor);
@@ -214,7 +219,6 @@
             this.panel2.Controls.Add(this.label15);
             this.panel2.Controls.Add(this.label14);
             this.panel2.Controls.Add(this.label13);
-            this.panel2.Controls.Add(this.label12);
             this.panel2.Controls.Add(this.label11);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.label9);
@@ -228,72 +232,63 @@
             // lblPrecioCompra
             // 
             this.lblPrecioCompra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblPrecioCompra.Location = new System.Drawing.Point(743, 129);
+            this.lblPrecioCompra.Location = new System.Drawing.Point(382, 129);
             this.lblPrecioCompra.Name = "lblPrecioCompra";
-            this.lblPrecioCompra.Size = new System.Drawing.Size(346, 23);
+            this.lblPrecioCompra.Size = new System.Drawing.Size(479, 23);
             this.lblPrecioCompra.TabIndex = 16;
-            this.lblPrecioCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPrecioCompra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCantidadCompra
             // 
             this.lblCantidadCompra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblCantidadCompra.Location = new System.Drawing.Point(165, 129);
+            this.lblCantidadCompra.Location = new System.Drawing.Point(118, 100);
             this.lblCantidadCompra.Name = "lblCantidadCompra";
-            this.lblCantidadCompra.Size = new System.Drawing.Size(348, 23);
+            this.lblCantidadCompra.Size = new System.Drawing.Size(111, 23);
             this.lblCantidadCompra.TabIndex = 15;
-            this.lblCantidadCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblCantidadCompra.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblFechaCompletaCompra
             // 
             this.lblFechaCompletaCompra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblFechaCompletaCompra.Location = new System.Drawing.Point(743, 100);
+            this.lblFechaCompletaCompra.Location = new System.Drawing.Point(946, 39);
             this.lblFechaCompletaCompra.Name = "lblFechaCompletaCompra";
-            this.lblFechaCompletaCompra.Size = new System.Drawing.Size(346, 23);
+            this.lblFechaCompletaCompra.Size = new System.Drawing.Size(143, 23);
             this.lblFechaCompletaCompra.TabIndex = 14;
             this.lblFechaCompletaCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblFechaCompra
-            // 
-            this.lblFechaCompra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblFechaCompra.Location = new System.Drawing.Point(165, 100);
-            this.lblFechaCompra.Name = "lblFechaCompra";
-            this.lblFechaCompra.Size = new System.Drawing.Size(348, 23);
-            this.lblFechaCompra.TabIndex = 13;
-            this.lblFechaCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblClaveProducto
             // 
             this.lblClaveProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblClaveProducto.Location = new System.Drawing.Point(743, 70);
+            this.lblClaveProducto.Location = new System.Drawing.Point(663, 40);
             this.lblClaveProducto.Name = "lblClaveProducto";
-            this.lblClaveProducto.Size = new System.Drawing.Size(346, 23);
+            this.lblClaveProducto.Size = new System.Drawing.Size(198, 23);
             this.lblClaveProducto.TabIndex = 12;
             this.lblClaveProducto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblNombreProveedor
             // 
             this.lblNombreProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblNombreProveedor.Location = new System.Drawing.Point(165, 70);
+            this.lblNombreProveedor.Location = new System.Drawing.Point(118, 70);
             this.lblNombreProveedor.Name = "lblNombreProveedor";
-            this.lblNombreProveedor.Size = new System.Drawing.Size(348, 23);
+            this.lblNombreProveedor.Size = new System.Drawing.Size(971, 23);
             this.lblNombreProveedor.TabIndex = 11;
-            this.lblNombreProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblNombreProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblRFCProveedor
             // 
             this.lblRFCProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblRFCProveedor.Location = new System.Drawing.Point(743, 42);
+            this.lblRFCProveedor.Location = new System.Drawing.Point(298, 40);
             this.lblRFCProveedor.Name = "lblRFCProveedor";
-            this.lblRFCProveedor.Size = new System.Drawing.Size(346, 23);
+            this.lblRFCProveedor.Size = new System.Drawing.Size(226, 23);
             this.lblRFCProveedor.TabIndex = 10;
             this.lblRFCProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblFolioCompra
             // 
             this.lblFolioCompra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblFolioCompra.Location = new System.Drawing.Point(165, 42);
+            this.lblFolioCompra.Location = new System.Drawing.Point(118, 40);
             this.lblFolioCompra.Name = "lblFolioCompra";
-            this.lblFolioCompra.Size = new System.Drawing.Size(348, 23);
+            this.lblFolioCompra.Size = new System.Drawing.Size(111, 23);
             this.lblFolioCompra.TabIndex = 9;
             this.lblFolioCompra.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -311,7 +306,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(531, 132);
+            this.label14.Location = new System.Drawing.Point(244, 132);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(123, 17);
             this.label14.TabIndex = 7;
@@ -320,34 +315,25 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(15, 132);
+            this.label13.Location = new System.Drawing.Point(15, 103);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(139, 17);
+            this.label13.Size = new System.Drawing.Size(68, 17);
             this.label13.TabIndex = 6;
-            this.label13.Text = "Cantidad de compra:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(531, 103);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(187, 17);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Fecha Completa de Compra:";
+            this.label13.Text = "Cantidad:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 103);
+            this.label11.Location = new System.Drawing.Point(878, 44);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(124, 17);
+            this.label11.Size = new System.Drawing.Size(51, 17);
             this.label11.TabIndex = 4;
-            this.label11.Text = "Fecha de Compra:";
+            this.label11.Text = "Fecha:";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(532, 73);
+            this.label10.Location = new System.Drawing.Point(545, 45);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(108, 17);
             this.label10.TabIndex = 3;
@@ -358,27 +344,63 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(15, 73);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(132, 17);
+            this.label9.Size = new System.Drawing.Size(78, 17);
             this.label9.TabIndex = 2;
-            this.label9.Text = "Nombre Proveedor:";
+            this.label9.Text = "Proveedor:";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(531, 45);
+            this.label8.Location = new System.Drawing.Point(244, 45);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(109, 17);
+            this.label8.Size = new System.Drawing.Size(39, 17);
             this.label8.TabIndex = 1;
-            this.label8.Text = "RFC Proveedor:";
+            this.label8.Text = "RFC:";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(15, 45);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(113, 17);
+            this.label7.Size = new System.Drawing.Size(42, 17);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Folio de compra:";
+            this.label7.Text = "Folio:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(244, 103);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 17);
+            this.label12.TabIndex = 17;
+            this.label12.Text = "Valor Unitario:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(663, 103);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(80, 17);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "Descuento:";
+            // 
+            // lblValorUnitarioProducto
+            // 
+            this.lblValorUnitarioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblValorUnitarioProducto.Location = new System.Drawing.Point(355, 100);
+            this.lblValorUnitarioProducto.Name = "lblValorUnitarioProducto";
+            this.lblValorUnitarioProducto.Size = new System.Drawing.Size(287, 23);
+            this.lblValorUnitarioProducto.TabIndex = 19;
+            this.lblValorUnitarioProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblDescuentoProducto
+            // 
+            this.lblDescuentoProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblDescuentoProducto.Location = new System.Drawing.Point(758, 100);
+            this.lblDescuentoProducto.Name = "lblDescuentoProducto";
+            this.lblDescuentoProducto.Size = new System.Drawing.Size(331, 23);
+            this.lblDescuentoProducto.TabIndex = 20;
+            this.lblDescuentoProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RecordViewProduct
             // 
@@ -423,7 +445,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
@@ -432,10 +453,13 @@
         private System.Windows.Forms.Label lblPrecioCompra;
         private System.Windows.Forms.Label lblCantidadCompra;
         private System.Windows.Forms.Label lblFechaCompletaCompra;
-        private System.Windows.Forms.Label lblFechaCompra;
         private System.Windows.Forms.Label lblClaveProducto;
         private System.Windows.Forms.Label lblNombreProveedor;
         private System.Windows.Forms.Label lblRFCProveedor;
         private System.Windows.Forms.Label lblFolioCompra;
+        private System.Windows.Forms.Label lblDescuentoProducto;
+        private System.Windows.Forms.Label lblValorUnitarioProducto;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label12;
     }
 }

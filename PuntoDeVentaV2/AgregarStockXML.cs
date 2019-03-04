@@ -566,7 +566,7 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("se actualizo mas" + resultadoConsulta);
             }
-            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,Precio,FechaCorta,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precio}','{fecha}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
             try
             {
                 cn.EjecutarConsulta(query);
@@ -576,14 +576,13 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Error :" + ex);
             }
-            label2.Text = idProducto;
         }
 
         public void RelacionarStockClaveInterna()
         {
             query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{txtBoxClaveInternaProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
             resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
-            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,Precio,FechaCorta,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precio}','{fecha}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
             try
             {
                 cn.EjecutarConsulta(query);
@@ -598,7 +597,7 @@ namespace PuntoDeVentaV2
         {
             query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', CodigoBarras = '{lblCodigoBarrasProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
             resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
-            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,Precio,FechaCorta,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precio}','{fecha}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
             try
             {
                 cn.EjecutarConsulta(query);
@@ -613,7 +612,7 @@ namespace PuntoDeVentaV2
         {
             query = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto) VALUES('{ClaveInterna}','{idListProd}')";
             cn.EjecutarConsulta(query);
-            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,Precio,FechaCorta,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precio}','{fecha}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
             try
             {
                 cn.EjecutarConsulta(query);
@@ -650,18 +649,15 @@ namespace PuntoDeVentaV2
                     if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)   // en caso que alguno de los dos campos esten en blanco
                     {
                         RelacionarStockClaveInterna();
-                        label2.Text = idProducto;
                     }
                     else if (ListProd.opcionGuardarFin == 3)                    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
                     {
                         RelacionarStockCodigoBarras();
-                        label2.Text = idProducto;
                     }
                     else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
                     {
                         //MessageBox.Show("Aqui se programara lo del siguiente Codigo de barras","En construccion proceso pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         CodigoBarrasExtras();
-                        label2.Text = idProducto;
                     }
                     
                     if (resultadoConsulta == 1)                         // si el resultado es 1
