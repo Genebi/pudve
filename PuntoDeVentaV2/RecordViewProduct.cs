@@ -34,6 +34,18 @@ namespace PuntoDeVentaV2
         public static string CodigoBarras;
         public static string IdUsuario;
 
+        private void DGVProductRecord_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+            else
+            {
+
+            }
+        }
+
         private void DGVProductRecord_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1)
@@ -77,9 +89,19 @@ namespace PuntoDeVentaV2
             queryRecord = $"SELECT hcompras.Folio AS 'Folio', hcompras.RFCEmisor AS 'RFC', hcompras.NomEmisor AS 'Proveedor', hcompras.ClaveProdEmisor AS 'Clave de Producto', hcompras.FechaLarga AS 'Fecha', hcompras.Cantidad AS 'Cantidad', hcompras.ValorUnitario AS 'Valor Unitario', hcompras.Descuento AS 'Descuento', hcompras.Precio AS 'Precio de compra' FROM HistorialCompras hcompras WHERE hcompras.IDUsuario = '{IdUsuario}' AND hcompras.IDProducto = '{Id_Prod_select}' ORDER BY Folio DESC;";
             dtRecordProducto = cn.CargarDatos(queryRecord);
             DGVProductRecord.DataSource = dtRecordProducto;
+            SeleccionarFila();
+        }
+
+        public void SeleccionarFila()
+        {
+            //if (DGVProductRecord.RowCount > 2)
+            //{
+            //    DGVProductRecord.Rows[0].Selected = true;
+            //}
             if (DGVProductRecord.RowCount > 2)
             {
                 DGVProductRecord.Rows[0].Selected = true;
+                DGVProductRecord.CurrentCell = DGVProductRecord.Rows[0].Cells[0];
             }
         }
 
@@ -91,6 +113,7 @@ namespace PuntoDeVentaV2
         private void RecordViewProduct_Load(object sender, EventArgs e)
         {
             cargarDatos();
+            SeleccionarFila();
         }
     }
 }
