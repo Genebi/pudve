@@ -178,6 +178,8 @@ namespace PuntoDeVentaV2
             {
                 AgregarProductoLista(datosProducto);
             }
+
+            CantidadesFinalesVenta();
         }
 
         private void AgregarProductoLista(string[] datosProducto)
@@ -291,6 +293,7 @@ namespace PuntoDeVentaV2
             }
 
             DGVentas.ClearSelection();
+            CantidadesFinalesVenta();
         }
 
         private void AgregarMultiplesProductos()
@@ -325,11 +328,11 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipo == 2)
             {
-                float totalImporte = 0;
-                int sobrantes = 0;
+                string[] tmp;
                 int index = 0;
                 int checkbox = 0;
-                string[] tmp;
+                int sobrantes = 0;
+                float totalImporte = 0;
 
                 //Comprobar si hay al menos un checkbox seleccionado en este descuento
                 foreach (string descuento in datosDescuento)
@@ -376,7 +379,6 @@ namespace PuntoDeVentaV2
 
                                     cantidad -= sobrantes;
                                 }
-     
                             }
                             else
                             {
@@ -451,6 +453,31 @@ namespace PuntoDeVentaV2
                 DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal;
                 DGVentas.Rows[fila].Cells["Importe"].Value = totalImporte;
             }
+        }
+
+        private void CantidadesFinalesVenta()
+        {
+            int totalArticulos = 0;
+            double totalImporte = 0;
+            double totalDescuento = 0;
+            double totalSubtotal = 0;
+            double totalIVA16 = 0;
+
+            foreach (DataGridViewRow fila in DGVentas.Rows)
+            {  
+                totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                totalDescuento += Convert.ToDouble(fila.Cells["Descuento"].Value);
+                totalArticulos += Convert.ToInt32(fila.Cells["Cantidad"].Value);
+            }
+
+            totalSubtotal = totalImporte / 1.16;
+            totalIVA16 = totalSubtotal * 0.16;
+
+            cNumeroArticulos.Text = totalArticulos.ToString();
+            cSubtotal.Text = totalSubtotal.ToString("0.00");
+            cIVA.Text = totalIVA16.ToString("0.00");
+            cDescuento.Text = totalDescuento.ToString("0.00");
+            cTotal.Text = totalImporte.ToString("0.00");
         }
     }
 }

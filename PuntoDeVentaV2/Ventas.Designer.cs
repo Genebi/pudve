@@ -32,6 +32,17 @@
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.txtBuscadorProducto = new System.Windows.Forms.TextBox();
             this.DGVentas = new System.Windows.Forms.DataGridView();
+            this.IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescuentoTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AgregarMultiple = new System.Windows.Forms.DataGridViewImageColumn();
+            this.AgregarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
+            this.RestarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
+            this.EliminarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnEliminarUltimo = new System.Windows.Forms.Button();
             this.btnEliminarTodos = new System.Windows.Forms.Button();
             this.tituloBoton = new System.Windows.Forms.ToolTip(this.components);
@@ -46,23 +57,20 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescuentoTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AgregarMultiple = new System.Windows.Forms.DataGridViewImageColumn();
-            this.AgregarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
-            this.RestarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
-            this.EliminarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
             this.lbNumeroArticulos = new System.Windows.Forms.Label();
             this.lbSubtotal = new System.Windows.Forms.Label();
             this.lbIVA = new System.Windows.Forms.Label();
             this.lbAnticipo = new System.Windows.Forms.Label();
             this.lbDescuento = new System.Windows.Forms.Label();
             this.lbTotal = new System.Windows.Forms.Label();
+            this.cNumeroArticulos = new System.Windows.Forms.Label();
+            this.cSubtotal = new System.Windows.Forms.Label();
+            this.cIVA = new System.Windows.Forms.Label();
+            this.cAnticipo = new System.Windows.Forms.Label();
+            this.cDescuento = new System.Windows.Forms.Label();
+            this.cTotal = new System.Windows.Forms.Label();
+            this.cIVA8 = new System.Windows.Forms.Label();
+            this.lbIVA8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -113,6 +121,76 @@
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
+            // 
+            // IDProducto
+            // 
+            this.IDProducto.HeaderText = "ID";
+            this.IDProducto.Name = "IDProducto";
+            this.IDProducto.Visible = false;
+            // 
+            // DescuentoTipo
+            // 
+            this.DescuentoTipo.HeaderText = "Tipo Descuento";
+            this.DescuentoTipo.Name = "DescuentoTipo";
+            this.DescuentoTipo.Visible = false;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.Width = 65;
+            // 
+            // Precio
+            // 
+            this.Precio.HeaderText = "Precio";
+            this.Precio.Name = "Precio";
+            this.Precio.Width = 65;
+            // 
+            // Descripcion
+            // 
+            this.Descripcion.HeaderText = "Descripción";
+            this.Descripcion.Name = "Descripcion";
+            this.Descripcion.Width = 130;
+            // 
+            // Descuento
+            // 
+            this.Descuento.HeaderText = "Descuento";
+            this.Descuento.Name = "Descuento";
+            this.Descuento.Width = 65;
+            // 
+            // Importe
+            // 
+            this.Importe.HeaderText = "Importe";
+            this.Importe.Name = "Importe";
+            this.Importe.Width = 65;
+            // 
+            // AgregarMultiple
+            // 
+            this.AgregarMultiple.HeaderText = "";
+            this.AgregarMultiple.Name = "AgregarMultiple";
+            this.AgregarMultiple.ReadOnly = true;
+            this.AgregarMultiple.Width = 25;
+            // 
+            // AgregarIndividual
+            // 
+            this.AgregarIndividual.HeaderText = "";
+            this.AgregarIndividual.Name = "AgregarIndividual";
+            this.AgregarIndividual.ReadOnly = true;
+            this.AgregarIndividual.Width = 25;
+            // 
+            // RestarIndividual
+            // 
+            this.RestarIndividual.HeaderText = "";
+            this.RestarIndividual.Name = "RestarIndividual";
+            this.RestarIndividual.ReadOnly = true;
+            this.RestarIndividual.Width = 25;
+            // 
+            // EliminarIndividual
+            // 
+            this.EliminarIndividual.HeaderText = "";
+            this.EliminarIndividual.Name = "EliminarIndividual";
+            this.EliminarIndividual.ReadOnly = true;
+            this.EliminarIndividual.Width = 25;
             // 
             // btnEliminarUltimo
             // 
@@ -244,81 +322,11 @@
             this.button5.Text = "Ventas guardadas";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // IDProducto
-            // 
-            this.IDProducto.HeaderText = "ID";
-            this.IDProducto.Name = "IDProducto";
-            this.IDProducto.Visible = false;
-            // 
-            // DescuentoTipo
-            // 
-            this.DescuentoTipo.HeaderText = "Tipo Descuento";
-            this.DescuentoTipo.Name = "DescuentoTipo";
-            this.DescuentoTipo.Visible = false;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.Width = 65;
-            // 
-            // Precio
-            // 
-            this.Precio.HeaderText = "Precio";
-            this.Precio.Name = "Precio";
-            this.Precio.Width = 65;
-            // 
-            // Descripcion
-            // 
-            this.Descripcion.HeaderText = "Descripción";
-            this.Descripcion.Name = "Descripcion";
-            this.Descripcion.Width = 130;
-            // 
-            // Descuento
-            // 
-            this.Descuento.HeaderText = "Descuento";
-            this.Descuento.Name = "Descuento";
-            this.Descuento.Width = 65;
-            // 
-            // Importe
-            // 
-            this.Importe.HeaderText = "Importe";
-            this.Importe.Name = "Importe";
-            this.Importe.Width = 65;
-            // 
-            // AgregarMultiple
-            // 
-            this.AgregarMultiple.HeaderText = "";
-            this.AgregarMultiple.Name = "AgregarMultiple";
-            this.AgregarMultiple.ReadOnly = true;
-            this.AgregarMultiple.Width = 25;
-            // 
-            // AgregarIndividual
-            // 
-            this.AgregarIndividual.HeaderText = "";
-            this.AgregarIndividual.Name = "AgregarIndividual";
-            this.AgregarIndividual.ReadOnly = true;
-            this.AgregarIndividual.Width = 25;
-            // 
-            // RestarIndividual
-            // 
-            this.RestarIndividual.HeaderText = "";
-            this.RestarIndividual.Name = "RestarIndividual";
-            this.RestarIndividual.ReadOnly = true;
-            this.RestarIndividual.Width = 25;
-            // 
-            // EliminarIndividual
-            // 
-            this.EliminarIndividual.HeaderText = "";
-            this.EliminarIndividual.Name = "EliminarIndividual";
-            this.EliminarIndividual.ReadOnly = true;
-            this.EliminarIndividual.Width = 25;
-            // 
             // lbNumeroArticulos
             // 
             this.lbNumeroArticulos.AutoSize = true;
             this.lbNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNumeroArticulos.Location = new System.Drawing.Point(672, 199);
+            this.lbNumeroArticulos.Location = new System.Drawing.Point(672, 197);
             this.lbNumeroArticulos.Name = "lbNumeroArticulos";
             this.lbNumeroArticulos.Size = new System.Drawing.Size(143, 17);
             this.lbNumeroArticulos.TabIndex = 20;
@@ -328,7 +336,7 @@
             // 
             this.lbSubtotal.AutoSize = true;
             this.lbSubtotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtotal.Location = new System.Drawing.Point(672, 222);
+            this.lbSubtotal.Location = new System.Drawing.Point(672, 219);
             this.lbSubtotal.Name = "lbSubtotal";
             this.lbSubtotal.Size = new System.Drawing.Size(66, 17);
             this.lbSubtotal.TabIndex = 21;
@@ -338,7 +346,7 @@
             // 
             this.lbIVA.AutoSize = true;
             this.lbIVA.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbIVA.Location = new System.Drawing.Point(672, 245);
+            this.lbIVA.Location = new System.Drawing.Point(672, 241);
             this.lbIVA.Name = "lbIVA";
             this.lbIVA.Size = new System.Drawing.Size(61, 17);
             this.lbIVA.TabIndex = 22;
@@ -348,7 +356,7 @@
             // 
             this.lbAnticipo.AutoSize = true;
             this.lbAnticipo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAnticipo.Location = new System.Drawing.Point(672, 268);
+            this.lbAnticipo.Location = new System.Drawing.Point(672, 285);
             this.lbAnticipo.Name = "lbAnticipo";
             this.lbAnticipo.Size = new System.Drawing.Size(66, 17);
             this.lbAnticipo.TabIndex = 23;
@@ -358,7 +366,7 @@
             // 
             this.lbDescuento.AutoSize = true;
             this.lbDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDescuento.Location = new System.Drawing.Point(672, 293);
+            this.lbDescuento.Location = new System.Drawing.Point(672, 307);
             this.lbDescuento.Name = "lbDescuento";
             this.lbDescuento.Size = new System.Drawing.Size(81, 17);
             this.lbDescuento.TabIndex = 24;
@@ -368,17 +376,105 @@
             // 
             this.lbTotal.AutoSize = true;
             this.lbTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotal.Location = new System.Drawing.Point(672, 318);
+            this.lbTotal.Location = new System.Drawing.Point(672, 329);
             this.lbTotal.Name = "lbTotal";
             this.lbTotal.Size = new System.Drawing.Size(43, 17);
             this.lbTotal.TabIndex = 25;
             this.lbTotal.Text = "Total:";
+            // 
+            // cNumeroArticulos
+            // 
+            this.cNumeroArticulos.AutoSize = true;
+            this.cNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNumeroArticulos.Location = new System.Drawing.Point(834, 199);
+            this.cNumeroArticulos.Name = "cNumeroArticulos";
+            this.cNumeroArticulos.Size = new System.Drawing.Size(15, 17);
+            this.cNumeroArticulos.TabIndex = 26;
+            this.cNumeroArticulos.Text = "0";
+            // 
+            // cSubtotal
+            // 
+            this.cSubtotal.AutoSize = true;
+            this.cSubtotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSubtotal.Location = new System.Drawing.Point(834, 219);
+            this.cSubtotal.Name = "cSubtotal";
+            this.cSubtotal.Size = new System.Drawing.Size(33, 17);
+            this.cSubtotal.TabIndex = 27;
+            this.cSubtotal.Text = "0.00";
+            // 
+            // cIVA
+            // 
+            this.cIVA.AutoSize = true;
+            this.cIVA.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIVA.Location = new System.Drawing.Point(834, 241);
+            this.cIVA.Name = "cIVA";
+            this.cIVA.Size = new System.Drawing.Size(33, 17);
+            this.cIVA.TabIndex = 28;
+            this.cIVA.Text = "0.00";
+            // 
+            // cAnticipo
+            // 
+            this.cAnticipo.AutoSize = true;
+            this.cAnticipo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipo.Location = new System.Drawing.Point(834, 285);
+            this.cAnticipo.Name = "cAnticipo";
+            this.cAnticipo.Size = new System.Drawing.Size(33, 17);
+            this.cAnticipo.TabIndex = 29;
+            this.cAnticipo.Text = "0.00";
+            // 
+            // cDescuento
+            // 
+            this.cDescuento.AutoSize = true;
+            this.cDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cDescuento.Location = new System.Drawing.Point(834, 307);
+            this.cDescuento.Name = "cDescuento";
+            this.cDescuento.Size = new System.Drawing.Size(33, 17);
+            this.cDescuento.TabIndex = 30;
+            this.cDescuento.Text = "0.00";
+            // 
+            // cTotal
+            // 
+            this.cTotal.AutoSize = true;
+            this.cTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cTotal.Location = new System.Drawing.Point(834, 329);
+            this.cTotal.Name = "cTotal";
+            this.cTotal.Size = new System.Drawing.Size(33, 17);
+            this.cTotal.TabIndex = 31;
+            this.cTotal.Text = "0.00";
+            // 
+            // cIVA8
+            // 
+            this.cIVA8.AutoSize = true;
+            this.cIVA8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIVA8.Location = new System.Drawing.Point(834, 263);
+            this.cIVA8.Name = "cIVA8";
+            this.cIVA8.Size = new System.Drawing.Size(33, 17);
+            this.cIVA8.TabIndex = 33;
+            this.cIVA8.Text = "0.00";
+            // 
+            // lbIVA8
+            // 
+            this.lbIVA8.AutoSize = true;
+            this.lbIVA8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIVA8.Location = new System.Drawing.Point(672, 263);
+            this.lbIVA8.Name = "lbIVA8";
+            this.lbIVA8.Size = new System.Drawing.Size(54, 17);
+            this.lbIVA8.TabIndex = 32;
+            this.lbIVA8.Text = "IVA 8%:";
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1084, 611);
+            this.Controls.Add(this.cIVA8);
+            this.Controls.Add(this.lbIVA8);
+            this.Controls.Add(this.cTotal);
+            this.Controls.Add(this.cDescuento);
+            this.Controls.Add(this.cAnticipo);
+            this.Controls.Add(this.cIVA);
+            this.Controls.Add(this.cSubtotal);
+            this.Controls.Add(this.cNumeroArticulos);
             this.Controls.Add(this.lbTotal);
             this.Controls.Add(this.lbDescuento);
             this.Controls.Add(this.lbAnticipo);
@@ -448,5 +544,13 @@
         private System.Windows.Forms.Label lbAnticipo;
         private System.Windows.Forms.Label lbDescuento;
         private System.Windows.Forms.Label lbTotal;
+        private System.Windows.Forms.Label cNumeroArticulos;
+        private System.Windows.Forms.Label cSubtotal;
+        private System.Windows.Forms.Label cIVA;
+        private System.Windows.Forms.Label cAnticipo;
+        private System.Windows.Forms.Label cDescuento;
+        private System.Windows.Forms.Label cTotal;
+        private System.Windows.Forms.Label cIVA8;
+        private System.Windows.Forms.Label lbIVA8;
     }
 }
