@@ -98,11 +98,9 @@ namespace PuntoDeVentaV2
             //{
             //    DGVProductRecord.Rows[0].Selected = true;
             //}
-            if (DGVProductRecord.RowCount > 2)
-            {
-                DGVProductRecord.Rows[0].Selected = true;
-                DGVProductRecord.CurrentCell = DGVProductRecord.Rows[0].Cells[0];
-            }
+            DGVProductRecord.MultiSelect = false;
+            DGVProductRecord.MultiSelect = true;
+            DGVProductRecord.Rows[0].Selected = true;
         }
 
         public RecordViewProduct()
