@@ -27,7 +27,10 @@ namespace PuntoDeVentaV2
 
         private void btnBuscarVentas_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Buscar ventas");
+            string fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+            string fechaFinal   = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+
+            MessageBox.Show(fechaInicial + " " + fechaFinal);
         }
 
         private void btnNuevaVenta_Click(object sender, EventArgs e)
