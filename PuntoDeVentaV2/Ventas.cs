@@ -19,14 +19,28 @@ namespace PuntoDeVentaV2
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
+        public static bool activa = false; //Para saber si la ventana esta activa y volver a llamar la consulta para obtener productos
 
         Conexion cn = new Conexion();
-        NameValueCollection datos = new NameValueCollection();
-        AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
+        NameValueCollection datos;
 
         public Ventas()
         {
             InitializeComponent();
+
+            CargarProductosServicios();
+
+            Timer timer = new Timer();
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Interval = 1000; //En milisegundos
+            timer.Start();
+        }
+
+        public void CargarProductosServicios()
+        {
+            datos = new NameValueCollection();
+            AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
+            productos = new string[] { };
 
             //Cargar lista de productos actuales
             datos = cn.ObtenerProductos(FormPrincipal.userID);
@@ -478,6 +492,16 @@ namespace PuntoDeVentaV2
             cIVA.Text = totalIVA16.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
             cTotal.Text = totalImporte.ToString("0.00");
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            if (activa)
+            {
+                CargarProductosServicios();
+
+                activa = false;
+            }
         }
     }
 }

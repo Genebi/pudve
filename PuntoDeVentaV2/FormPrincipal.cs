@@ -100,6 +100,11 @@ namespace PuntoDeVentaV2
             else
             {
                 formulario.BringToFront();
+
+                if (formulario.Text == "Ventas")
+                {
+                    Ventas.activa = true;
+                }
             }
         }
 
