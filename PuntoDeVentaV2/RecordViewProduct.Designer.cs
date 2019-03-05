@@ -195,11 +195,11 @@
             this.DGVProductRecord.AllowUserToDeleteRows = false;
             this.DGVProductRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVProductRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVProductRecord.Location = new System.Drawing.Point(12, 361);
+            this.DGVProductRecord.Location = new System.Drawing.Point(12, 376);
             this.DGVProductRecord.Name = "DGVProductRecord";
             this.DGVProductRecord.ReadOnly = true;
             this.DGVProductRecord.RowTemplate.Height = 24;
-            this.DGVProductRecord.Size = new System.Drawing.Size(1118, 203);
+            this.DGVProductRecord.Size = new System.Drawing.Size(1118, 188);
             this.DGVProductRecord.TabIndex = 1;
             this.DGVProductRecord.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellClick);
             this.DGVProductRecord.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellContentDoubleClick);
@@ -227,7 +227,7 @@
             this.panel2.Controls.Add(this.label7);
             this.panel2.Location = new System.Drawing.Point(12, 187);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1118, 168);
+            this.panel2.Size = new System.Drawing.Size(1118, 183);
             this.panel2.TabIndex = 2;
             // 
             // lblDescuentoProducto
@@ -451,16 +451,16 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblPrecioCompra;
-        private System.Windows.Forms.Label lblCantidadCompra;
-        private System.Windows.Forms.Label lblFechaCompletaCompra;
-        private System.Windows.Forms.Label lblClaveProducto;
-        private System.Windows.Forms.Label lblNombreProveedor;
-        private System.Windows.Forms.Label lblRFCProveedor;
-        private System.Windows.Forms.Label lblFolioCompra;
-        private System.Windows.Forms.Label lblDescuentoProducto;
-        private System.Windows.Forms.Label lblValorUnitarioProducto;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label12;
+        public System.Windows.Forms.Label lblPrecioCompra;
+        public System.Windows.Forms.Label lblCantidadCompra;
+        public System.Windows.Forms.Label lblFechaCompletaCompra;
+        public System.Windows.Forms.Label lblClaveProducto;
+        public System.Windows.Forms.Label lblNombreProveedor;
+        public System.Windows.Forms.Label lblRFCProveedor;
+        public System.Windows.Forms.Label lblFolioCompra;
+        public System.Windows.Forms.Label lblDescuentoProducto;
+        public System.Windows.Forms.Label lblValorUnitarioProducto;
     }
 }

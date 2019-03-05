@@ -16,7 +16,7 @@ namespace PuntoDeVentaV2
 
         DataTable dtRecordProducto, dt;
 
-        string queryRecord, buscar, Id_Prod_select, queryRecordProductosComprados;
+        string queryRecord, buscar, Id_Prod_select;
 
         int index = 0;
 
@@ -33,6 +33,22 @@ namespace PuntoDeVentaV2
         public static string ClaveInterna;
         public static string CodigoBarras;
         public static string IdUsuario;
+
+        public void llenarDatos()
+        {
+            if (DGVProductRecord.RowCount > 0)
+            {
+                lblFolioCompra.Text = DGVProductRecord[0, 0].Value.ToString();
+                lblRFCProveedor.Text = DGVProductRecord[1, 0].Value.ToString();
+                lblNombreProveedor.Text = DGVProductRecord[2, 0].Value.ToString();
+                lblClaveProducto.Text = DGVProductRecord[3, 0].Value.ToString();
+                lblFechaCompletaCompra.Text = DGVProductRecord[4, 0].Value.ToString();
+                lblCantidadCompra.Text = DGVProductRecord[5, 0].Value.ToString();
+                lblValorUnitarioProducto.Text = DGVProductRecord[6, 0].Value.ToString();
+                lblDescuentoProducto.Text = DGVProductRecord[7, 0].Value.ToString();
+                lblPrecioCompra.Text = DGVProductRecord[8, 0].Value.ToString();
+            }
+        }
 
         private void DGVProductRecord_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -90,17 +106,17 @@ namespace PuntoDeVentaV2
             dtRecordProducto = cn.CargarDatos(queryRecord);
             DGVProductRecord.DataSource = dtRecordProducto;
             SeleccionarFila();
+            llenarDatos();
         }
 
         public void SeleccionarFila()
         {
-            //if (DGVProductRecord.RowCount > 2)
-            //{
-            //    DGVProductRecord.Rows[0].Selected = true;
-            //}
-            DGVProductRecord.MultiSelect = false;
-            DGVProductRecord.MultiSelect = true;
-            DGVProductRecord.Rows[0].Selected = true;
+            if (DGVProductRecord.RowCount > 0)
+            {
+                DGVProductRecord.MultiSelect = false;
+                DGVProductRecord.MultiSelect = true;
+                DGVProductRecord.Rows[0].Selected = true;
+            }
         }
 
         public RecordViewProduct()

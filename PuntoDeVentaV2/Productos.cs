@@ -248,14 +248,32 @@ namespace PuntoDeVentaV2
                 ProductoRecord.claveInternaProd = ClaveInterna;
                 ProductoRecord.codigoBarrasProd = CodigoBarras;
                 ProductoRecord.idUsuarioProd = id;
-                //ProductoRecord.SeleccionarFila();
+                ProductoRecord.lblFolioCompra.Text = "";
+                ProductoRecord.lblRFCProveedor.Text = "";
+                ProductoRecord.lblNombreProveedor.Text = "";
+                ProductoRecord.lblClaveProducto.Text = "";
+                ProductoRecord.lblFechaCompletaCompra.Text = "";
+                ProductoRecord.lblCantidadCompra.Text = "";
+                ProductoRecord.lblValorUnitarioProducto.Text = "";
+                ProductoRecord.lblDescuentoProducto.Text = "";
+                ProductoRecord.lblPrecioCompra.Text = "";
                 ProductoRecord.ShowDialog();
             }
             else
             {
+                ProductoRecord.lblFolioCompra.Text = "";
+                ProductoRecord.lblRFCProveedor.Text = "";
+                ProductoRecord.lblNombreProveedor.Text = "";
+                ProductoRecord.lblClaveProducto.Text = "";
+                ProductoRecord.lblFechaCompletaCompra.Text = "";
+                ProductoRecord.lblCantidadCompra.Text = "";
+                ProductoRecord.lblValorUnitarioProducto.Text = "";
+                ProductoRecord.lblDescuentoProducto.Text = "";
+                ProductoRecord.lblPrecioCompra.Text = "";
                 ProductoRecord.SeleccionarFila();
                 ProductoRecord.BringToFront();
             }
+            
         }
 
         private void EditarStatus(object sender, DataGridViewCellEventArgs e)
