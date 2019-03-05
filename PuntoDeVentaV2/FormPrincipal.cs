@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<Ventas>();
+            AbrirFormulario<ListadoVentas>();
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
@@ -100,11 +100,6 @@ namespace PuntoDeVentaV2
             else
             {
                 formulario.BringToFront();
-
-                if (formulario.Text == "Ventas")
-                {
-                    Ventas.activa = true;
-                }
             }
         }
 

@@ -19,7 +19,6 @@ namespace PuntoDeVentaV2
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
-        public static bool activa = false; //Para saber si la ventana esta activa y volver a llamar la consulta para obtener productos
 
         Conexion cn = new Conexion();
         NameValueCollection datos;
@@ -29,11 +28,6 @@ namespace PuntoDeVentaV2
             InitializeComponent();
 
             CargarProductosServicios();
-
-            Timer timer = new Timer();
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 1000; //En milisegundos
-            timer.Start();
         }
 
         public void CargarProductosServicios()
@@ -76,7 +70,7 @@ namespace PuntoDeVentaV2
 
         private void BuscarTieneFoco(object sender, EventArgs e)
         {
-            if (txtBuscadorProducto.Text == "Buscar producto...")
+            if (txtBuscadorProducto.Text == "buscar producto...")
             {
                 txtBuscadorProducto.Text = "";
             }
@@ -86,7 +80,7 @@ namespace PuntoDeVentaV2
         {
             if (txtBuscadorProducto.Text == "")
             {
-                txtBuscadorProducto.Text = "Buscar producto...";
+                txtBuscadorProducto.Text = "buscar producto...";
             }
         }
 
@@ -494,14 +488,14 @@ namespace PuntoDeVentaV2
             cTotal.Text = totalImporte.ToString("0.00");
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void btnEliminarUltimo_Click(object sender, EventArgs e)
         {
-            if (activa)
-            {
-                CargarProductosServicios();
+            MessageBox.Show("Eliminar ultimo agregado");
+        }
 
-                activa = false;
-            }
+        private void btnEliminarTodos_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Eliminar todos");
         }
     }
 }
