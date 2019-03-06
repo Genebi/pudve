@@ -32,9 +32,9 @@ namespace PuntoDeVentaV2
 
         public void CargarProductosServicios()
         {
-            datos = new NameValueCollection();
             AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
-            productos = new string[] { };
+            datos = new NameValueCollection();
+            //productos = new string[] { };
 
             //Cargar lista de productos actuales
             datos = cn.ObtenerProductos(FormPrincipal.userID);
@@ -490,12 +490,22 @@ namespace PuntoDeVentaV2
 
         private void btnEliminarUltimo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Eliminar ultimo agregado");
+            if (DGVentas.Rows.Count > 0)
+            {
+                DGVentas.Rows.RemoveAt(DGVentas.Rows.Count - 1);
+                CantidadesFinalesVenta();
+            }
         }
 
         private void btnEliminarTodos_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Eliminar todos");
+            DGVentas.Rows.Clear();
+            CantidadesFinalesVenta();
+        }
+
+        private void btnCancelarVenta_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }
