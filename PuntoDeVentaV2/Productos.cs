@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
+        public CodeBarMake MakeBarCode = new CodeBarMake();
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         Conexion cn = new Conexion();
@@ -147,7 +148,7 @@ namespace PuntoDeVentaV2
             DataGridViewImageColumn barcode = new DataGridViewImageColumn();
             barcode.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
             barcode.Width = 40;
-            barcode.HeaderText = "Codigo de Barras";
+            barcode.HeaderText = "Generar";
             DGVProductos.Columns.Add(barcode);
 
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -334,7 +335,33 @@ namespace PuntoDeVentaV2
         {
             if (e.ColumnIndex == 4)
             {
-                MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                string codiBarProd="";
+                numfila = DGVProductos.CurrentRow.Index;
+                //MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MakeBarCode.FormClosed += delegate
+                {
+                    
+                };
+                if (!MakeBarCode.Visible)
+                {
+                    MakeBarCode.NombreProd = DGVProductos[5, numfila].Value.ToString();
+                    MakeBarCode.PrecioProd = DGVProductos[7, numfila].Value.ToString();
+                    codiBarProd = DGVProductos[9, numfila].Value.ToString();
+                    if (codiBarProd != "")
+                    {
+                        MakeBarCode.CodigoBarProd = codiBarProd;
+                    }
+                    else if (codiBarProd == "")
+                    {
+                        codiBarProd = DGVProductos[10, numfila].Value.ToString();
+                        MakeBarCode.CodigoBarProd = codiBarProd;
+                    }
+                    MakeBarCode.ShowDialog();
+                }
+                else
+                {
+                    MakeBarCode.BringToFront();
+                }
             }
         }
 
