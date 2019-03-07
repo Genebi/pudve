@@ -62,7 +62,7 @@ namespace PuntoDeVentaV2
             HeaderCheckBox = new CheckBox();                        // hacemos un nuevo CheckBox
             HeaderCheckBox.Size = new Size(15,15);                  // le hacemos unas dimensiones
             HeaderCheckBox.Top = 4;                                 // lo posicionamos con respecto del top a 4 px
-            HeaderCheckBox.Left = 97;                               // lo posicionamos con respecto del Left a 104 px
+            HeaderCheckBox.Left = 91;                               // lo posicionamos con respecto del Left
             this.DGVProductos.Controls.Add(HeaderCheckBox);         // agregamos el checkBox dentro del DataGridView
         }
 
@@ -144,10 +144,17 @@ namespace PuntoDeVentaV2
             record.HeaderText = "Historial";
             DGVProductos.Columns.Add(record);
 
+            DataGridViewImageColumn barcode = new DataGridViewImageColumn();
+            barcode.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
+            barcode.Width = 40;
+            barcode.HeaderText = "Codigo de Barras";
+            DGVProductos.Columns.Add(barcode);
+
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarStatus);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(RecordView);
+            DGVProductos.CellClick += new DataGridViewCellEventHandler(BarCodeMake);
 
             AddHeaderCheckBox();
             HeaderCheckBox.MouseClick += new MouseEventHandler(HeaderCheckBox_MouseClick);
@@ -313,20 +320,28 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("Proceso de construccion de Historial de compra","En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 numfila = DGVProductos.CurrentRow.Index;
-                Nombre = DGVProductos[4, numfila].Value.ToString();             // Nombre Producto
-                Stock = DGVProductos[5, numfila].Value.ToString();              // Stock Producto
-                Precio = DGVProductos[6, numfila].Value.ToString();             // Precio Producto
-                ClaveInterna = DGVProductos[8, numfila].Value.ToString();       // ClaveInterna Producto
-                CodigoBarras = DGVProductos[9, numfila].Value.ToString();       // Codigo de Barras Producto
+                Nombre = DGVProductos[5, numfila].Value.ToString();             // Nombre Producto
+                Stock = DGVProductos[6, numfila].Value.ToString();              // Stock Producto
+                Precio = DGVProductos[7, numfila].Value.ToString();             // Precio Producto
+                ClaveInterna = DGVProductos[9, numfila].Value.ToString();       // ClaveInterna Producto
+                CodigoBarras = DGVProductos[10, numfila].Value.ToString();       // Codigo de Barras Producto
                 id = FormPrincipal.userID.ToString();
                 ViewRecordProducto();
+            }
+        }
+
+        private void BarCodeMake(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 4)
+            {
+                MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
-            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 )
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 )
             {
                 DGVProductos.Cursor = Cursors.Hand;
             }
