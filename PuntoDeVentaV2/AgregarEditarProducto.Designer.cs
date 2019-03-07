@@ -372,6 +372,7 @@
             this.Name = "AgregarEditarProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar producto";
+            this.Load += new System.EventHandler(this.AgregarEditarProducto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

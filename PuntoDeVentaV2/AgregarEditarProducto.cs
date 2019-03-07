@@ -120,6 +120,16 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Campo no Valido para generar Codigo de Barras","Anvertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public void LimpiarCampos()
+        {
+            txtNombreProducto.Text = "";
+            txtStockProducto.Text = "";
+            txtPrecioProducto.Text = "";
+            txtCategoriaProducto.Text = "";
+            txtClaveProducto.Text = "";
+            txtCodigoBarras.Text = "";
+        }
         /* Fin del codigo de Emmanuel */
 
         public AgregarEditarProducto(string titulo)
@@ -496,6 +506,11 @@ namespace PuntoDeVentaV2
         private void txtCategoriaProducto_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
+        }
+
+        private void AgregarEditarProducto_Load(object sender, EventArgs e)
+        {
+            LimpiarCampos();
         }
     }
 }
