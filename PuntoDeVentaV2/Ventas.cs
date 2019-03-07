@@ -52,6 +52,11 @@ namespace PuntoDeVentaV2
             tituloSeccion.Focus();
             txtBuscadorProducto.GotFocus  += new EventHandler(BuscarTieneFoco);
             txtBuscadorProducto.LostFocus += new EventHandler(BuscarPierdeFoco);
+            txtDescuentoGeneral.GotFocus  += new EventHandler(DescuentoTieneFoco);
+            txtDescuentoGeneral.LostFocus += new EventHandler(DescuentoPierdeFoco);
+
+            cbEstadoVenta.SelectedIndex = 0;
+            cbEstadoVenta.DropDownStyle = ComboBoxStyle.DropDownList;
 
             btnProductoRapido.BackgroundImage = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
             btnServicioRapido.BackgroundImage = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
@@ -81,6 +86,22 @@ namespace PuntoDeVentaV2
             if (txtBuscadorProducto.Text == "")
             {
                 txtBuscadorProducto.Text = "buscar producto...";
+            }
+        }
+
+        private void DescuentoTieneFoco(object sender, EventArgs e)
+        {
+            if (txtDescuentoGeneral.Text == "% descuento")
+            {
+                txtDescuentoGeneral.Text = "";
+            }
+        }
+
+        private void DescuentoPierdeFoco(object sender, EventArgs e)
+        {
+            if (txtDescuentoGeneral.Text == "")
+            {
+                txtDescuentoGeneral.Text = "% descuento";
             }
         }
 
@@ -465,27 +486,27 @@ namespace PuntoDeVentaV2
 
         private void CantidadesFinalesVenta()
         {
-            int totalArticulos = 0;
-            double totalImporte = 0;
+            int    totalArticulos = 0;
+            double totalImporte   = 0;
             double totalDescuento = 0;
-            double totalSubtotal = 0;
-            double totalIVA16 = 0;
+            double totalSubtotal  = 0;
+            double totalIVA16     = 0;
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {  
-                totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
-                totalDescuento += Convert.ToDouble(fila.Cells["Descuento"].Value);
+                totalImporte   += Convert.ToDouble(fila.Cells["Importe"].Value);
                 totalArticulos += Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                totalDescuento += Convert.ToDouble(fila.Cells["Descuento"].Value);
             }
 
             totalSubtotal = totalImporte / 1.16;
-            totalIVA16 = totalSubtotal * 0.16;
+            totalIVA16    = totalSubtotal * 0.16;
 
-            cNumeroArticulos.Text = totalArticulos.ToString();
-            cSubtotal.Text = totalSubtotal.ToString("0.00");
             cIVA.Text = totalIVA16.ToString("0.00");
-            cDescuento.Text = totalDescuento.ToString("0.00");
             cTotal.Text = totalImporte.ToString("0.00");
+            cSubtotal.Text = totalSubtotal.ToString("0.00");
+            cDescuento.Text = totalDescuento.ToString("0.00");
+            cNumeroArticulos.Text = totalArticulos.ToString();    
         }
 
         private void btnEliminarUltimo_Click(object sender, EventArgs e)

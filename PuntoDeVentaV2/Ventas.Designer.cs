@@ -72,6 +72,10 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDetallesVenta = new System.Windows.Forms.Button();
+            this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
+            this.cbEstadoVenta = new System.Windows.Forms.ComboBox();
+            this.btnTerminarVenta = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -254,7 +258,7 @@
             this.EliminarIndividual});
             this.DGVentas.Location = new System.Drawing.Point(3, 91);
             this.DGVentas.Name = "DGVentas";
-            this.DGVentas.Size = new System.Drawing.Size(534, 177);
+            this.DGVentas.Size = new System.Drawing.Size(534, 203);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
@@ -270,6 +274,7 @@
             // btnCancelarVenta
             // 
             this.btnCancelarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancelarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarVenta.Location = new System.Drawing.Point(694, 8);
             this.btnCancelarVenta.Name = "btnCancelarVenta";
@@ -282,6 +287,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(775, 8);
             this.button2.Name = "button2";
@@ -293,6 +299,7 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(856, 8);
             this.button3.Name = "button3";
@@ -304,6 +311,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Location = new System.Drawing.Point(937, 8);
             this.button4.Name = "button4";
@@ -315,6 +323,7 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button5.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.Location = new System.Drawing.Point(1019, 8);
             this.button5.Name = "button5";
@@ -493,6 +502,10 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnTerminarVenta);
+            this.panel1.Controls.Add(this.cbEstadoVenta);
+            this.panel1.Controls.Add(this.txtDescuentoGeneral);
+            this.panel1.Controls.Add(this.btnDetallesVenta);
             this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.DGVentas);
             this.panel1.Controls.Add(this.cIVA8);
@@ -526,6 +539,50 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1260, 328);
             this.panel1.TabIndex = 34;
+            // 
+            // btnDetallesVenta
+            // 
+            this.btnDetallesVenta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDetallesVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDetallesVenta.Location = new System.Drawing.Point(694, 271);
+            this.btnDetallesVenta.Name = "btnDetallesVenta";
+            this.btnDetallesVenta.Size = new System.Drawing.Size(75, 23);
+            this.btnDetallesVenta.TabIndex = 34;
+            this.btnDetallesVenta.Text = "Detalles";
+            this.btnDetallesVenta.UseVisualStyleBackColor = true;
+            // 
+            // txtDescuentoGeneral
+            // 
+            this.txtDescuentoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescuentoGeneral.Location = new System.Drawing.Point(786, 273);
+            this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
+            this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 22);
+            this.txtDescuentoGeneral.TabIndex = 35;
+            this.txtDescuentoGeneral.Text = "% descuento";
+            // 
+            // cbEstadoVenta
+            // 
+            this.cbEstadoVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbEstadoVenta.FormattingEnabled = true;
+            this.cbEstadoVenta.Items.AddRange(new object[] {
+            "Pagada",
+            "Pendiente por pagar",
+            "Parcialmente pagada"});
+            this.cbEstadoVenta.Location = new System.Drawing.Point(904, 272);
+            this.cbEstadoVenta.Name = "cbEstadoVenta";
+            this.cbEstadoVenta.Size = new System.Drawing.Size(160, 25);
+            this.cbEstadoVenta.TabIndex = 36;
+            // 
+            // btnTerminarVenta
+            // 
+            this.btnTerminarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminarVenta.Location = new System.Drawing.Point(1080, 273);
+            this.btnTerminarVenta.Name = "btnTerminarVenta";
+            this.btnTerminarVenta.Size = new System.Drawing.Size(75, 23);
+            this.btnTerminarVenta.TabIndex = 37;
+            this.btnTerminarVenta.Text = "Terminar";
+            this.btnTerminarVenta.UseVisualStyleBackColor = true;
             // 
             // Ventas
             // 
@@ -593,5 +650,9 @@
         private System.Windows.Forms.Label lbIVA8;
         private System.Windows.Forms.Label cIVA8;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox cbEstadoVenta;
+        private System.Windows.Forms.TextBox txtDescuentoGeneral;
+        private System.Windows.Forms.Button btnDetallesVenta;
+        private System.Windows.Forms.Button btnTerminarVenta;
     }
 }
