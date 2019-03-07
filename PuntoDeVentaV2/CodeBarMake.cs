@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using BarcodeLib;
 using System.Drawing.Imaging;
 using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace PuntoDeVentaV2
 {
@@ -26,6 +28,7 @@ namespace PuntoDeVentaV2
 
         // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\BarCode\";
+        string saveDirectoryPdf = Properties.Settings.Default.rutaDirectorio + @"\PdfCode\";
 
         public void cargarDatos()
         {
@@ -41,7 +44,7 @@ namespace PuntoDeVentaV2
 
                 panelResultado.BackgroundImage = Codigo.Encode(BarcodeLib.TYPE.CODE128, CodigoBarProdFinal, Color.Black, Color.White, 118, 23);
 
-                Image imgFinal = (Image)panelResultado.BackgroundImage.Clone();
+                System.Drawing.Image imgFinal = (System.Drawing.Image)panelResultado.BackgroundImage.Clone();
                 SaveFileDialog CajaDeDialogoGuardar = new SaveFileDialog();
 
                 CajaDeDialogoGuardar.AddExtension = true;
@@ -61,7 +64,38 @@ namespace PuntoDeVentaV2
                 }
                 imgFinal.Dispose();
 
+                Document doc = new Document(iTextSharp.text.PageSize.A10.Rotate(), 0, 0, 0, 0);
+                PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf", FileMode.Create));
+                BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 10, iTextSharp.text.Font.NORMAL);
 
+                doc.Open();
+                Paragraph paragraph = new Paragraph(new Chunk("www.pudve.com\nPunto de Venta Gratuito\n"+ NombreProdFinal, font));
+                paragraph.Leading = 8;
+                paragraph.Alignment = Element.ALIGN_CENTER;
+                doc.Add(paragraph);
+                iTextSharp.text.Image PNG = iTextSharp.text.Image.GetInstance(saveDirectoryImg + NombreProdFinal + " " + CodigoBarProdFinal + ".png");
+                PNG.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                doc.Add(PNG);
+                Paragraph paragraph1 = new Paragraph(new Chunk(CodigoBarProdFinal + " - $" + PrecioProdFinal, font));
+                paragraph1.Leading = 8;
+                paragraph1.Alignment = Element.ALIGN_CENTER;
+                doc.Add(paragraph1);
+                doc.AddAuthor("www.pudve.com");
+                doc.AddCreator("PUDVE");
+                doc.AddCreationDate();
+                doc.Close();
+                if (System.IO.File.Exists(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf"))
+                {
+                    if (MessageBox.Show("Codigo de Barras Elavorado correctamente\n¿desea abrir el Archivo resultante?", "Exito al Crear el Codigo de Barras", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf");
+                    }
+                    else
+                    {
+                        //MessageBox.Show("El Codigo de Barras no se ha generado\ncompruebe que tiene permisos en la carpeta de destino.", "Error al Crear el Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
             catch (Exception ex)
             {

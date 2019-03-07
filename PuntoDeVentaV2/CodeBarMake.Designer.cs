@@ -90,7 +90,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panelResultado);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CodeBarMake";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CodeBarMake";
             this.Load += new System.EventHandler(this.CodeBarMake_Load);
