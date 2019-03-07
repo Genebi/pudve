@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using BarcodeLib;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace PuntoDeVentaV2
 {
@@ -22,6 +23,9 @@ namespace PuntoDeVentaV2
         public string NombreProd { set; get; }
         public string PrecioProd { set; get; }
         public string CodigoBarProd { set; get; }
+
+        // direccion de la carpeta donde se va poner las imagenes
+        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\BarCode\";
 
         public void cargarDatos()
         {
@@ -42,10 +46,14 @@ namespace PuntoDeVentaV2
 
                 CajaDeDialogoGuardar.AddExtension = true;
                 CajaDeDialogoGuardar.Filter = "Image PNG (*.png)|*.png";
-                CajaDeDialogoGuardar.FileName = Properties.Settings.Default.rutaDirectorio + @"\BarCode\" + NombreProdFinal + " " + CodigoBarProdFinal + ".png";
+                CajaDeDialogoGuardar.FileName = saveDirectoryImg + NombreProdFinal + " " + CodigoBarProdFinal + ".png";
+                if (!Directory.Exists(saveDirectoryImg))
+                {
+                    Directory.CreateDirectory(saveDirectoryImg);
+                }
                 if (CajaDeDialogoGuardar.CheckFileExists)
                 {
-                    System.IO.File.Delete(Properties.Settings.Default.rutaDirectorio + @"\BarCode\" + NombreProdFinal + " " + CodigoBarProdFinal + ".png");
+                    System.IO.File.Delete(saveDirectoryImg + NombreProdFinal + " " + CodigoBarProdFinal + ".png");
                 }
                 else if (!CajaDeDialogoGuardar.CheckFileExists)
                 {
