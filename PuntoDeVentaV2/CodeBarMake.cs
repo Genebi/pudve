@@ -26,7 +26,6 @@ namespace PuntoDeVentaV2
         public string PrecioProd { set; get; }
         public string CodigoBarProd { set; get; }
 
-        // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\BarCode\";
         string saveDirectoryPdf = Properties.Settings.Default.rutaDirectorio + @"\PdfCode\";
 
@@ -87,14 +86,7 @@ namespace PuntoDeVentaV2
                 doc.Close();
                 if (System.IO.File.Exists(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf"))
                 {
-                    if (MessageBox.Show("Codigo de Barras Elavorado correctamente\n¿desea abrir el Archivo resultante?", "Exito al Crear el Codigo de Barras", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    {
-                        System.Diagnostics.Process.Start(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf");
-                    }
-                    else
-                    {
-                        //MessageBox.Show("El Codigo de Barras no se ha generado\ncompruebe que tiene permisos en la carpeta de destino.", "Error al Crear el Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    System.Diagnostics.Process.Start(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf");
                 }
             }
             catch (Exception ex)
