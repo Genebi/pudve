@@ -346,21 +346,31 @@ namespace PuntoDeVentaV2
                 {
                     MakeBarCode.NombreProd = DGVProductos[5, numfila].Value.ToString();
                     MakeBarCode.PrecioProd = DGVProductos[7, numfila].Value.ToString();
-                    codiBarProd = DGVProductos[9, numfila].Value.ToString();
+                    codiBarProd = DGVProductos[10, numfila].Value.ToString();
                     if (codiBarProd != "")
                     {
                         MakeBarCode.CodigoBarProd = codiBarProd;
+                        MakeBarCode.ShowDialog();
                     }
                     else if (codiBarProd == "")
                     {
-                        codiBarProd = DGVProductos[10, numfila].Value.ToString();
-                        MakeBarCode.CodigoBarProd = codiBarProd;
+                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado","Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    MakeBarCode.ShowDialog();
                 }
                 else
                 {
-                    MakeBarCode.BringToFront();
+                    MakeBarCode.NombreProd = DGVProductos[5, numfila].Value.ToString();
+                    MakeBarCode.PrecioProd = DGVProductos[7, numfila].Value.ToString();
+                    codiBarProd = DGVProductos[10, numfila].Value.ToString();
+                    if (codiBarProd != "")
+                    {
+                        MakeBarCode.CodigoBarProd = codiBarProd;
+                        MakeBarCode.BringToFront();
+                    }
+                    else if (codiBarProd == "")
+                    {
+                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
