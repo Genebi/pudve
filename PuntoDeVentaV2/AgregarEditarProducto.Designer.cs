@@ -52,6 +52,10 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lblPrecioOriginal = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.pictureBoxProducto = new System.Windows.Forms.PictureBox();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -336,11 +340,31 @@
             this.lblPrecioOriginal.Text = "0.0";
             this.lblPrecioOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.pictureBoxProducto);
+            this.groupBox1.Location = new System.Drawing.Point(93, 285);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(221, 122);
+            this.groupBox1.TabIndex = 25;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Imagen";
+            // 
+            // pictureBoxProducto
+            // 
+            this.pictureBoxProducto.Location = new System.Drawing.Point(49, 21);
+            this.pictureBoxProducto.Name = "pictureBoxProducto";
+            this.pictureBoxProducto.Size = new System.Drawing.Size(119, 95);
+            this.pictureBoxProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxProducto.TabIndex = 0;
+            this.pictureBoxProducto.TabStop = false;
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1040, 612);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblPrecioOriginal);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label9);
@@ -373,6 +397,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar producto";
             this.Load += new System.EventHandler(this.AgregarEditarProducto_Load);
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -403,5 +429,7 @@
         public System.Windows.Forms.TextBox txtClaveProducto;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.Label lblPrecioOriginal;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.PictureBox pictureBoxProducto;
     }
 }
