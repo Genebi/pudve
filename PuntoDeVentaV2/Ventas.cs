@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
     public partial class Ventas : Form
     {
         string[] productos;
+        float porcentajeGeneral = 0;
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
@@ -221,6 +222,7 @@ namespace PuntoDeVentaV2
 
             //Agregamos la información
             row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
+            row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
             row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
             row.Cells["Cantidad"].Value = 1;
             row.Cells["Precio"].Value = datosProducto[2];
@@ -257,7 +259,7 @@ namespace PuntoDeVentaV2
             var celda = DGVentas.CurrentCell.RowIndex;
 
             //Agregar multiple
-            if (e.ColumnIndex == 7)
+            if (e.ColumnIndex == 8)
             {
                 indiceFila = e.RowIndex;
 
@@ -273,7 +275,7 @@ namespace PuntoDeVentaV2
             }
 
             //Agregar individual
-            if (e.ColumnIndex == 8)
+            if (e.ColumnIndex == 9)
             {
                 int cantidad  = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value) + 1;
                 float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
@@ -292,7 +294,7 @@ namespace PuntoDeVentaV2
             }
 
             //Restar individual
-            if (e.ColumnIndex == 9)
+            if (e.ColumnIndex == 10)
             {
                 int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
 
@@ -316,7 +318,7 @@ namespace PuntoDeVentaV2
             }
 
             //Eliminar individual
-            if (e.ColumnIndex == 10)
+            if (e.ColumnIndex == 11)
             {
                 DGVentas.Rows.RemoveAt(celda);
             }
@@ -493,10 +495,40 @@ namespace PuntoDeVentaV2
             double totalIVA16     = 0;
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
-            {  
-                totalImporte   += Convert.ToDouble(fila.Cells["Importe"].Value);
-                totalArticulos += Convert.ToInt32(fila.Cells["Cantidad"].Value);
-                totalDescuento += Convert.ToDouble(fila.Cells["Descuento"].Value);
+            {
+                if (porcentajeGeneral > 0)
+                {
+                    var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value); //Precio original del producto
+                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value); //Cantidad de producto
+                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value); //Cantidad descuento del producto
+
+                    var descuento = (precioOriginal * cantidadProducto) - cantidadDescuento;
+                    descuento *= porcentajeGeneral;
+
+                    var importeProducto = precioOriginal * cantidadProducto;
+                    importeProducto -= descuento;
+                    importeProducto -= cantidadDescuento;
+
+                    fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
+
+                    totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    totalArticulos += cantidadProducto;
+                    totalDescuento += descuento + cantidadDescuento;
+                }
+                else
+                {
+                    var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
+                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
+
+                    var importeProducto = (precioOriginal * cantidadProducto) - cantidadDescuento;
+
+                    fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
+
+                    totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    totalArticulos += cantidadProducto;
+                    totalDescuento += cantidadDescuento;
+                }
             }
 
             totalSubtotal = totalImporte / 1.16;
@@ -506,7 +538,7 @@ namespace PuntoDeVentaV2
             cTotal.Text = totalImporte.ToString("0.00");
             cSubtotal.Text = totalSubtotal.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
-            cNumeroArticulos.Text = totalArticulos.ToString();    
+            cNumeroArticulos.Text = totalArticulos.ToString();
         }
 
         private void btnEliminarUltimo_Click(object sender, EventArgs e)
@@ -527,6 +559,27 @@ namespace PuntoDeVentaV2
         private void btnCancelarVenta_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void btnTerminarVenta_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Terminar venta");
+        }
+
+        private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)
+        {
+            string valor = (sender as TextBox).Text;
+
+            if (valor != "")
+            {
+                porcentajeGeneral = cn.CalcularPorcentaje(valor);
+            }
+            else
+            {
+                porcentajeGeneral = 0;
+            }
+
+            CantidadesFinalesVenta();
         }
     }
 }
