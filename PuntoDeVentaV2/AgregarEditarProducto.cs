@@ -33,6 +33,25 @@ namespace PuntoDeVentaV2
 		*   Codigo de Emmanuel      *
 		****************************/
 
+        OpenFileDialog f;       // declaramos el objeto de OpenFileDialog
+
+        // objeto para el manejo de las imagenes
+        FileStream File, File1;
+        FileInfo info;
+
+        // direccion de la carpeta donde se va poner las imagenes
+        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\Productos\";
+        // nombre de archivo
+        string fileName;
+        // directorio origen de la imagen
+        string oldDirectory;
+        // directorio para guardar el archivo
+        string fileSavePath;
+        // Nuevo nombre del archivo
+        string NvoFileName;
+
+        string logoTipo = "";
+
         Control _lastEnteredControl;    // para saber cual fue el ultimo control con el cursor activo
 
         // variable de text para poder dirigirnos a la carpeta principal para
@@ -321,19 +340,110 @@ namespace PuntoDeVentaV2
 
         private void btnImagenes_Click(object sender, EventArgs e)
         {
+            //try
+            //{
+            //    OpenFileDialog imagenes = new OpenFileDialog();
+            //    imagenes.Filter = "Imagenes JPG (*.jpg)|*.jpg| Imagenes PNG (.png)|.png";
+
+            //    if (imagenes.ShowDialog() == DialogResult.OK)
+            //    {
+            //        MessageBox.Show("Imagen seleccionada");
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    MessageBox.Show("Ocurrio un error", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
             try
             {
-                OpenFileDialog imagenes = new OpenFileDialog();
-                imagenes.Filter = "Imagenes JPG (*.jpg)|*.jpg| Imagenes PNG (.png)|.png";
-
-                if (imagenes.ShowDialog() == DialogResult.OK)
+                using (f = new OpenFileDialog())    // Abrirmos el OpenFileDialog para buscar y seleccionar la Imagen
                 {
-                    MessageBox.Show("Imagen seleccionada");
+                    // le aplicamos un filtro para solo ver 
+                    // imagenes de tipo *.jpg y *.png 
+                    f.Filter = "Imagenes JPG (*.jpg)|*.jpg| Imagenes PNG (*.png)|*.png";
+                    if (f.ShowDialog() == DialogResult.OK)      // si se selecciono correctamente un archivo en el OpenFileDialog
+                    {
+                        /************************************************
+                        *   usamos el objeto File para almacenar las    *
+                        *   propiedades de la imagen                    * 
+                        ************************************************/
+                        using (File = new FileStream(f.FileName, FileMode.Open, FileAccess.Read))
+                        {
+                            pictureBoxProducto.Image = Image.FromStream(File);      // Cargamos la imagen en el PictureBox
+                            info = new FileInfo(f.FileName);                        // Obtenemos toda la Informacion de la Imagen
+                            fileName = Path.GetFileName(f.FileName);                // Obtenemos el nombre de la imagen
+                            oldDirectory = info.DirectoryName;                      // Obtenemos el directorio origen de la Imagen
+                            File.Dispose();                                         // Liberamos el objeto File
+                        }
+                    }
+                }
+                if (!Directory.Exists(saveDirectoryImg))        // verificamos que si no existe el directorio
+                {
+                    Directory.CreateDirectory(saveDirectoryImg);        // lo crea para poder almacenar la imagen
+                }
+                if (f.CheckFileExists)      // si el archivo existe
+                {
+                    try     // Intentamos la actualizacion de la imagen en la base de datos
+                    {
+                        // Obtenemos el Nuevo nombre de la imagen
+                        // con la que se va hacer la copia de la imagen
+                        NvoFileName = txtNombreProducto.Text + ".jpg";
+                        if (logoTipo != "")     // si Logotipo es diferente a ""
+                        {
+                            if (File1 != null)      // si el File1 es igual a null
+                            {
+                                File1.Dispose();    // liberamos el objeto File1
+                                // hacemos la nueva cadena de consulta para hacer el UpDate
+                                string insertarImagen = $"UPDATE Productos SET ProdImage = '{saveDirectoryImg + NvoFileName}' WHERE ID = '{id}'";
+                                cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
+                                if (pictureBoxProducto.Image != null)   // Verificamos si el pictureBox es null
+                                {
+                                    pictureBoxProducto.Image.Dispose();     // Liberamos el PictureBox para poder borrar su imagen
+                                    System.IO.File.Delete(saveDirectoryImg + NvoFileName);  // borramos el archivo de la imagen
+                                    // realizamos la copia de la imagen origen hacia el nuevo destino
+                                    System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                                    logoTipo = saveDirectoryImg + NvoFileName;      // Obtenemos el nuevo Path
+                                    // leemos el archivo de imagen y lo ponemos el pictureBox
+                                    using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                                    {
+                                        pictureBoxProducto.Image = Image.FromStream(File);      // cargamos la imagen en el PictureBox
+                                    }
+                                }
+                                // hacemos la nueva cadena de consulta para hacer el update
+                                insertarImagen = $"UPDATE Productos SET ProdImage = '{logoTipo}' WHERE ID = '{id}'";
+                                cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
+                            }
+                            else    // si es que file1 es igual a null
+                            {
+                                // realizamos la copia de la imagen origen hacia el nuevo destino
+                                System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                                logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+                            }
+                        }
+                        if (logoTipo == "" || logoTipo == null)		// si el valor de la variable es Null o esta ""
+                        {
+                            pictureBoxProducto.Image.Dispose();	// Liberamos el pictureBox para poder borrar su imagen
+                            // realizamos la copia de la imagen origen hacia el nuevo destino
+                            System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                            logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+                            // leemos el archivo de imagen y lo ponemos el pictureBox
+                            using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                            {
+                                pictureBoxProducto.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
+                            }
+                        }
+                    }
+                    catch (Exception ex)	// si no se puede hacer el proceso
+                    {
+                        // si no se borra el archivo muestra este mensaje
+                        MessageBox.Show("Error al hacer el borrado No: " + ex);
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)	// si el nombre del archivo esta en blanco
             {
-                MessageBox.Show("Ocurrio un error", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // si no selecciona un archivo valido o ningun archivo muestra este mensaje
+                MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -378,7 +488,7 @@ namespace PuntoDeVentaV2
                     tipoDescuento = descuentos[0];
                 }
 
-                string[] guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento };
+                string[] guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo };
 
                 //Se guardan los datos principales del producto
                 int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
