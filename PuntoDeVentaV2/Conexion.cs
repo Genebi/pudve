@@ -120,6 +120,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            dr.Close();
+
             return respuesta;
         }
 
@@ -214,6 +216,8 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[0].ToString(), dr[1].ToString().ToLower());
             }
 
+            dr.Close();
+
             return lista;
         }
 
@@ -236,6 +240,8 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[3].ToString()); //Precio
                 lista.Add(dr[9].ToString()); //Tipo descuento
             }
+
+            dr.Close();
 
             return lista.ToArray();
         }
@@ -278,6 +284,8 @@ namespace PuntoDeVentaV2
                     lista.Add(dr[1].ToString() + "-" + dr[2].ToString() + "-" + dr[3].ToString() + "-" + dr[4].ToString());
                 }
             }
+
+            dr.Close();
 
             return lista.ToArray();
         }
