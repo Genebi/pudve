@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
 
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         NameValueCollection datos;
 
         public Ventas()
@@ -563,7 +564,41 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Terminar venta");
+            //Datos generales de la venta
+            var IdEmpresa = FormPrincipal.userID.ToString();
+            var Subtotal = cSubtotal.Text;
+            var IVA16 = cIVA.Text;
+            var Descuento = cDescuento.Text;
+            var Total = cTotal.Text;
+            var DescuentoGeneral = porcentajeGeneral.ToString("0.00");
+            var Status = cbEstadoVenta.SelectedIndex.ToString();
+            var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            string[] guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Status, FechaOperacion };
+
+            //Se hace el guardado de la informacion general de la venta
+            int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar));
+
+            if (respuesta > 0)
+            {
+                //Obtener ID de la venta
+                string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
+                
+                //Datos de los productos vendidos
+                foreach (DataGridViewRow fila in DGVentas.Rows)
+                {
+                    var IDProducto = fila.Cells["IDProducto"].Value.ToString();
+                    var Nombre = fila.Cells["Descripcion"].Value.ToString();
+                    var Cantidad = fila.Cells["Cantidad"].Value.ToString();
+                    var Precio = fila.Cells["Precio"].Value.ToString();
+
+                    guardar = new string[] { idVenta, IDProducto, Nombre, Cantidad, Precio };
+
+                    cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+                }
+
+                MessageBox.Show("Venta realizada");
+            }
         }
 
         private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)
