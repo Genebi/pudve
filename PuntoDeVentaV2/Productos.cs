@@ -28,6 +28,8 @@ namespace PuntoDeVentaV2
 
         DataTable dt, dtConsulta;
 
+        DataGridViewImageColumn foto;
+
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtro = Convert.ToString(cbMostrar.SelectedItem);      // tomamos el valor que se elige en el TextBox
@@ -62,8 +64,8 @@ namespace PuntoDeVentaV2
         {
             HeaderCheckBox = new CheckBox();                        // hacemos un nuevo CheckBox
             HeaderCheckBox.Size = new Size(15,15);                  // le hacemos unas dimensiones
-            HeaderCheckBox.Top = 4;                                 // lo posicionamos con respecto del top a 4 px
-            HeaderCheckBox.Left = 91;                               // lo posicionamos con respecto del Left
+            HeaderCheckBox.Top = 10;                                 // lo posicionamos con respecto del top a 4 px
+            HeaderCheckBox.Left = 87;                               // lo posicionamos con respecto del Left
             this.DGVProductos.Controls.Add(HeaderCheckBox);         // agregamos el checkBox dentro del DataGridView
         }
 
@@ -114,6 +116,31 @@ namespace PuntoDeVentaV2
             HeaderCheckBoxClick((CheckBox)sender);                  // si es que se le da clic al HeaderCheckBox llamamos al metodo HeaderCheckBoxClick
         }
 
+        public void FotoStatus()
+        {
+            foto.Width = 40;
+            foto.Name = "Fotos";
+            foto.HeaderText = "Imagen";
+
+            int count = 0;
+            int number_of_rows = DGVProductos.RowCount;
+
+            string valor;
+
+            for (int i = 0; i < number_of_rows; i++)
+            {
+                valor = DGVProductos.Rows[i].Cells["Path"].Value.ToString();
+                if (valor == "")
+                {
+                    foto.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
+                }
+                if (valor != "")
+                {
+                    foto.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-photo-o.png");
+                }
+            }
+        }
+
         public Productos()
         {
             InitializeComponent();
@@ -134,7 +161,7 @@ namespace PuntoDeVentaV2
             DGVProductos.Columns.Add(editar);
 
             DataGridViewImageColumn setup = new DataGridViewImageColumn();
-            setup.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\cogs.png");
+            setup.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
             setup.Width = 40;
             setup.HeaderText = "Activar/Desactivar";
             DGVProductos.Columns.Add(setup);
@@ -151,14 +178,23 @@ namespace PuntoDeVentaV2
             barcode.HeaderText = "Generar";
             DGVProductos.Columns.Add(barcode);
 
+            foto = new DataGridViewImageColumn();
+            DGVProductos.Columns.Add(foto);
+
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarStatus);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(RecordView);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(BarCodeMake);
+            DGVProductos.CellClick += new DataGridViewCellEventHandler(PhotoStatus);
 
             AddHeaderCheckBox();
             HeaderCheckBox.MouseClick += new MouseEventHandler(HeaderCheckBox_MouseClick);
+
+            DGVProductos.Columns["Path"].Visible = false;
+            DGVProductos.Columns["Activo"].Visible = false;
+
+            FotoStatus();
         }
 
         private void CargarDatos()
@@ -294,11 +330,11 @@ namespace PuntoDeVentaV2
                 if (result == DialogResult.Yes)
                 {
                     numfila = DGVProductos.CurrentRow.Index;
-                    Nombre = DGVProductos[4, numfila].Value.ToString();             // Nombre Producto
-                    Stock = DGVProductos[5, numfila].Value.ToString();              // Stock Producto
-                    Precio = DGVProductos[6, numfila].Value.ToString();             // Precio Producto
-                    ClaveInterna = DGVProductos[8, numfila].Value.ToString();       // ClaveInterna Producto
-                    CodigoBarras = DGVProductos[9, numfila].Value.ToString();       // Codigo de Barras Producto
+                    Nombre = DGVProductos[6, numfila].Value.ToString();             // Nombre Producto
+                    Stock = DGVProductos[7, numfila].Value.ToString();              // Stock Producto
+                    Precio = DGVProductos[8, numfila].Value.ToString();             // Precio Producto
+                    ClaveInterna = DGVProductos[10, numfila].Value.ToString();       // ClaveInterna Producto
+                    CodigoBarras = DGVProductos[11, numfila].Value.ToString();       // Codigo de Barras Producto
                     id = FormPrincipal.userID.ToString();
                     ModificarStatusProducto();
                 }
@@ -321,11 +357,11 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("Proceso de construccion de Historial de compra","En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 numfila = DGVProductos.CurrentRow.Index;
-                Nombre = DGVProductos[5, numfila].Value.ToString();             // Nombre Producto
-                Stock = DGVProductos[6, numfila].Value.ToString();              // Stock Producto
-                Precio = DGVProductos[7, numfila].Value.ToString();             // Precio Producto
-                ClaveInterna = DGVProductos[9, numfila].Value.ToString();       // ClaveInterna Producto
-                CodigoBarras = DGVProductos[10, numfila].Value.ToString();       // Codigo de Barras Producto
+                Nombre = DGVProductos[6, numfila].Value.ToString();             // Nombre Producto
+                Stock = DGVProductos[7, numfila].Value.ToString();              // Stock Producto
+                Precio = DGVProductos[8, numfila].Value.ToString();             // Precio Producto
+                ClaveInterna = DGVProductos[10, numfila].Value.ToString();       // ClaveInterna Producto
+                CodigoBarras = DGVProductos[11, numfila].Value.ToString();       // Codigo de Barras Producto
                 id = FormPrincipal.userID.ToString();
                 ViewRecordProducto();
             }
@@ -344,9 +380,9 @@ namespace PuntoDeVentaV2
                 };
                 if (!MakeBarCode.Visible)
                 {
-                    MakeBarCode.NombreProd = DGVProductos[5, numfila].Value.ToString();
-                    MakeBarCode.PrecioProd = DGVProductos[7, numfila].Value.ToString();
-                    codiBarProd = DGVProductos[10, numfila].Value.ToString();
+                    MakeBarCode.NombreProd = DGVProductos[6, numfila].Value.ToString();
+                    MakeBarCode.PrecioProd = DGVProductos[8, numfila].Value.ToString();
+                    codiBarProd = DGVProductos[11, numfila].Value.ToString();
                     if (codiBarProd != "")
                     {
                         MakeBarCode.CodigoBarProd = codiBarProd;
@@ -359,9 +395,9 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MakeBarCode.NombreProd = DGVProductos[5, numfila].Value.ToString();
-                    MakeBarCode.PrecioProd = DGVProductos[7, numfila].Value.ToString();
-                    codiBarProd = DGVProductos[10, numfila].Value.ToString();
+                    MakeBarCode.NombreProd = DGVProductos[6, numfila].Value.ToString();
+                    MakeBarCode.PrecioProd = DGVProductos[8, numfila].Value.ToString();
+                    codiBarProd = DGVProductos[11, numfila].Value.ToString();
                     if (codiBarProd != "")
                     {
                         MakeBarCode.CodigoBarProd = codiBarProd;
@@ -375,10 +411,18 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void PhotoStatus(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 5)
+            {
+                MessageBox.Show("Proceso en Costruccion", "Proceso de Subir Foto", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
-            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 )
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5)
             {
                 DGVProductos.Cursor = Cursors.Hand;
             }
