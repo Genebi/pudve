@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
         public CodeBarMake MakeBarCode = new CodeBarMake();
+        public photoShow VentanaMostrarFoto = new photoShow();
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         Conexion cn = new Conexion();
@@ -31,6 +32,25 @@ namespace PuntoDeVentaV2
         DataGridViewImageCell cell;
 
         Icon image;
+
+        OpenFileDialog f;       // declaramos el objeto de OpenFileDialog
+
+        // objeto para el manejo de las imagenes
+        FileStream File, File1;
+        FileInfo info;
+
+        // direccion de la carpeta donde se va poner las imagenes
+        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\Productos\";
+        // nombre de archivo
+        string fileName;
+        // directorio origen de la imagen
+        string oldDirectory;
+        // directorio para guardar el archivo
+        string fileSavePath;
+        // Nuevo nombre del archivo
+        string NvoFileName;
+
+        string logoTipo = "";
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -418,11 +438,112 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void agregarFoto()
+        {
+            try
+            {
+                using (f = new OpenFileDialog())    // Abrirmos el OpenFileDialog para buscar y seleccionar la Imagen
+                {
+                    // le aplicamos un filtro para solo ver 
+                    // imagenes de tipo *.jpg y *.png 
+                    f.Filter = "Imagenes JPG (*.jpg)|*.jpg| Imagenes PNG (*.png)|*.png";
+                    if (f.ShowDialog() == DialogResult.OK)      // si se selecciono correctamente un archivo en el OpenFileDialog
+                    {
+                        /************************************************
+                        *   usamos el objeto File para almacenar las    *
+                        *   propiedades de la imagen                    * 
+                        ************************************************/
+                        using (File = new FileStream(f.FileName, FileMode.Open, FileAccess.Read))
+                        {
+                            info = new FileInfo(f.FileName);                        // Obtenemos toda la Informacion de la Imagen
+                            fileName = Path.GetFileName(f.FileName);                // Obtenemos el nombre de la imagen
+                            oldDirectory = info.DirectoryName;                      // Obtenemos el directorio origen de la Imagen
+                            File.Dispose();                                         // Liberamos el objeto File
+                        }
+                    }
+                }
+                if (!Directory.Exists(saveDirectoryImg))        // verificamos que si no existe el directorio
+                {
+                    Directory.CreateDirectory(saveDirectoryImg);        // lo crea para poder almacenar la imagen
+                }
+                if (f.CheckFileExists)      // si el archivo existe
+                {
+                    try     // Intentamos la actualizacion de la imagen en la base de datos
+                    {
+                        // Obtenemos el Nuevo nombre de la imagen
+                        // con la que se va hacer la copia de la imagen
+                        NvoFileName = fileName + ".jpg";
+                        // hacemos la nueva cadena de consulta para hacer el UpDate
+                        string insertarImagen = $"UPDATE Productos SET ProdImage = '{saveDirectoryImg + NvoFileName}' WHERE Nombre = '{Nombre}' AND Stock = '{Stock}' AND Precio = '{Precio}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}'";
+                        cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
+                        // realizamos la copia de la imagen origen hacia el nuevo destino
+                        System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                        CargarDatos();
+                    }
+                    catch (Exception ex)	// si no se puede hacer el proceso
+                    {
+                        // si no se borra el archivo muestra este mensaje
+                        MessageBox.Show("Error al hacer el borrado No: " + ex);
+                    }
+                }
+            }
+            catch (Exception ex)	// si el nombre del archivo esta en blanco
+            {
+                // si no selecciona un archivo valido o ningun archivo muestra este mensaje
+                MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        public void mostrarFoto()
+        {
+            VentanaMostrarFoto.FormClosed += delegate
+            {
+                CargarDatos();
+            };
+            if (!VentanaMostrarFoto.Visible)
+            {
+                VentanaMostrarFoto.NombreProd = Nombre;
+                VentanaMostrarFoto.StockProd = Stock;
+                VentanaMostrarFoto.PrecioProd = Precio;
+                VentanaMostrarFoto.ClaveInterna = ClaveInterna;
+                VentanaMostrarFoto.CodigoBarras = CodigoBarras;
+                VentanaMostrarFoto.ShowDialog();
+            }
+            else
+            {
+                VentanaMostrarFoto.NombreProd = Nombre;
+                VentanaMostrarFoto.StockProd = Stock;
+                VentanaMostrarFoto.PrecioProd = Precio;
+                VentanaMostrarFoto.ClaveInterna = ClaveInterna;
+                VentanaMostrarFoto.CodigoBarras = CodigoBarras;
+                VentanaMostrarFoto.BringToFront();
+            }
+        }
+
         public void PhotoStatus(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 5)
             {
-                MessageBox.Show("Proceso en Costruccion", "Proceso de Subir Foto", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                numfila = DGVProductos.CurrentRow.Index;
+
+                Nombre = DGVProductos[6, numfila].Value.ToString();             // Nombre Producto
+                Stock = DGVProductos[7, numfila].Value.ToString();              // Stock Producto
+                Precio = DGVProductos[8, numfila].Value.ToString();             // Precio Producto
+                ClaveInterna = DGVProductos[10, numfila].Value.ToString();       // ClaveInterna Producto
+                CodigoBarras = DGVProductos[11, numfila].Value.ToString();       // Codigo de Barras Producto
+
+                string pathString;
+
+                pathString = DGVProductos[13, numfila].Value.ToString();
+
+                if (pathString != "")
+                {
+                    mostrarFoto(); 
+                }
+                else if (pathString == "")
+                {
+                    agregarFoto();
+                }
             }
         }
 
