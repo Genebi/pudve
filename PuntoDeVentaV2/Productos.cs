@@ -23,12 +23,14 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
-        int numfila, index;
+        int numfila, index, number_of_rows, i;
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
         DataTable dt, dtConsulta;
+        DataGridViewButtonColumn foto;
+        DataGridViewImageCell cell;
 
-        DataGridViewImageColumn foto;
+        Icon image;
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -116,31 +118,6 @@ namespace PuntoDeVentaV2
             HeaderCheckBoxClick((CheckBox)sender);                  // si es que se le da clic al HeaderCheckBox llamamos al metodo HeaderCheckBoxClick
         }
 
-        public void FotoStatus()
-        {
-            foto.Width = 40;
-            foto.Name = "Fotos";
-            foto.HeaderText = "Imagen";
-
-            int count = 0;
-            int number_of_rows = DGVProductos.RowCount;
-
-            string valor;
-
-            for (int i = 0; i < number_of_rows; i++)
-            {
-                valor = DGVProductos.Rows[i].Cells["Path"].Value.ToString();
-                if (valor == "")
-                {
-                    foto.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
-                }
-                if (valor != "")
-                {
-                    foto.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-photo-o.png");
-                }
-            }
-        }
-
         public Productos()
         {
             InitializeComponent();
@@ -178,7 +155,10 @@ namespace PuntoDeVentaV2
             barcode.HeaderText = "Generar";
             DGVProductos.Columns.Add(barcode);
 
-            foto = new DataGridViewImageColumn();
+            foto = new DataGridViewButtonColumn();
+            foto.Width = 40;
+            foto.Name = "Fotos";
+            foto.HeaderText = "Imagen";
             DGVProductos.Columns.Add(foto);
 
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -193,13 +173,40 @@ namespace PuntoDeVentaV2
 
             DGVProductos.Columns["Path"].Visible = false;
             DGVProductos.Columns["Activo"].Visible = false;
-
-            FotoStatus();
         }
 
         private void CargarDatos()
         {
             cn.CargarInformacion(cs.Productos(FormPrincipal.userID), DGVProductos);
+            number_of_rows = DGVProductos.RowCount;
+        }
+
+        private void DGVProductos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "Fotos" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                string valor = DGVProductos.Rows[e.RowIndex].Cells["Path"].Value.ToString();
+
+                DataGridViewButtonCell photoBoton = this.DGVProductos.Rows[e.RowIndex].Cells["Fotos"] as DataGridViewButtonCell;
+                
+                if (valor == "")
+                {
+                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.ico");
+                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top+3);
+                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                }
+                if (valor != "")
+                {
+                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.ico");
+                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                }
+                e.Handled = true;
+            }
         }
 
         // metodo para cargar los datos 

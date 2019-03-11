@@ -58,6 +58,7 @@
             this.DGVProductos.Size = new System.Drawing.Size(891, 324);
             this.DGVProductos.TabIndex = 1;
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
+            this.DGVProductos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVProductos_CellPainting);
             // 
             // chk
             // 
