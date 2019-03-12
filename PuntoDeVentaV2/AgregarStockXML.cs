@@ -433,6 +433,7 @@ namespace PuntoDeVentaV2
         public void datosXML()
         {
             descuento = 0;
+            ClaveInterna = "";
             lblPosicionActualXML.Text = (index + 1).ToString();
             concepto = ds.Conceptos[index].Descripcion;
             lblDescripcionXML.Text = concepto;
@@ -454,7 +455,15 @@ namespace PuntoDeVentaV2
             lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
             importeReal = cantidad * precioOriginalConIVA;                      // calculamos importe real (cantidad * precioOriginalConIVA)
             lblImpXML.Text = importeReal.ToString("N2");
-            ClaveInterna = ds.Conceptos[index].NoIdentificacion;
+            if (ds.Conceptos[index].NoIdentificacion == "" || ds.Conceptos[index].NoIdentificacion == null)
+            {
+                ds.Conceptos[index].NoIdentificacion = ClaveInterna;
+                MessageBox.Show("Tu XML no tiene No de Indentificacion", "Sin NoIdentificacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (ds.Conceptos[index].NoIdentificacion != "")
+            {
+                ClaveInterna= ds.Conceptos[index].NoIdentificacion;
+            }
             lblNoIdentificacionXML.Text = ClaveInterna;
             PrecioRecomendado = precioOriginalConIVA * (float)1.60;             // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
