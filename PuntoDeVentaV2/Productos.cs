@@ -28,7 +28,7 @@ namespace PuntoDeVentaV2
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
         DataTable dt, dtConsulta;
-        DataGridViewButtonColumn foto;
+        DataGridViewButtonColumn setup, record, barcode, foto;
         DataGridViewImageCell cell;
 
         Icon image;
@@ -86,8 +86,8 @@ namespace PuntoDeVentaV2
         {
             HeaderCheckBox = new CheckBox();                        // hacemos un nuevo CheckBox
             HeaderCheckBox.Size = new Size(15,15);                  // le hacemos unas dimensiones
-            HeaderCheckBox.Top = 10;                                 // lo posicionamos con respecto del top a 4 px
-            HeaderCheckBox.Left = 87;                               // lo posicionamos con respecto del Left
+            HeaderCheckBox.Top = 5;                                 // lo posicionamos con respecto del top a 4 px
+            HeaderCheckBox.Left = 99;                               // lo posicionamos con respecto del Left
             this.DGVProductos.Controls.Add(HeaderCheckBox);         // agregamos el checkBox dentro del DataGridView
         }
 
@@ -128,7 +128,6 @@ namespace PuntoDeVentaV2
                     cbMostrar.Text = "Todos";
                 }
             }
-            //TotalCheckedCheckBoxes = HCheckBox.Checked ? TotalCheckBoxes : 0;
             IsHeaderCheckBoxClicked = false;                        // ponemos en false la variable
         }
 
@@ -157,21 +156,21 @@ namespace PuntoDeVentaV2
             editar.HeaderText = "Editar";
             DGVProductos.Columns.Add(editar);
 
-            DataGridViewImageColumn setup = new DataGridViewImageColumn();
-            setup.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
+            setup = new DataGridViewButtonColumn();
             setup.Width = 40;
-            setup.HeaderText = "Activar/Desactivar";
+            setup.Name = "status";
+            setup.HeaderText = "Estado";
             DGVProductos.Columns.Add(setup);
 
-            DataGridViewImageColumn record = new DataGridViewImageColumn();
-            record.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
+            record = new DataGridViewButtonColumn();
             record.Width = 40;
+            record.Name = "historial";
             record.HeaderText = "Historial";
             DGVProductos.Columns.Add(record);
 
-            DataGridViewImageColumn barcode = new DataGridViewImageColumn();
-            barcode.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
+            barcode = new DataGridViewButtonColumn();
             barcode.Width = 40;
+            barcode.Name = "CodigoBarras";
             barcode.HeaderText = "Generar";
             DGVProductos.Columns.Add(barcode);
 
@@ -203,6 +202,56 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "status" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                string valor = DGVProductos.Rows[e.RowIndex].Cells["Activo"].Value.ToString();
+
+                DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["status"] as DataGridViewButtonCell;
+
+                if (valor == "1")
+                {
+                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.ico");
+                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                }
+                if (valor == "0")
+                {
+                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.ico");
+                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                }
+                e.Handled = true;
+            }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "historial" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["historial"] as DataGridViewButtonCell;
+
+                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.ico");
+                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                
+                e.Handled = true;
+            }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "CodigoBarras" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["CodigoBarras"] as DataGridViewButtonCell;
+
+                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.ico");
+                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+
+                e.Handled = true;
+            }
             if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "Fotos" && e.RowIndex >= 0)
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
