@@ -432,13 +432,22 @@ namespace PuntoDeVentaV2
         // que provienen del archivo XML
         public void datosXML()
         {
+            descuento = 0;
             lblPosicionActualXML.Text = (index + 1).ToString();
             concepto = ds.Conceptos[index].Descripcion;
             lblDescripcionXML.Text = concepto;
             stockProdXML = int.Parse(ds.Conceptos[index].Cantidad);             // convertimos la cantidad del Archivo XML para su posterior manipulacion
             lblCantXML.Text = stockProdXML.ToString();
             importe = float.Parse(ds.Conceptos[index].Importe);                 // convertimos el Importe del Archivo XML para su posterior manipulacion
-            descuento = float.Parse(ds.Conceptos[index].Descuento);             // convertimos el Descuento del Archivo XML para su posterior manipulacion
+            if (ds.Conceptos[index].Descuento == "" || ds.Conceptos[index].Descuento == null)
+            {
+                ds.Conceptos[index].Descuento = descuento.ToString();
+                MessageBox.Show("Tu XML no tiene Descuento", "Sin Descuento", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (ds.Conceptos[index].Descuento != "")
+            {
+                descuento = float.Parse(ds.Conceptos[index].Descuento);             // convertimos el Descuento del Archivo XML para su posterior manipulacion
+            }
             cantidad = float.Parse(ds.Conceptos[index].Cantidad);               // convertimos la cantidad del Archivo XML para su posterior manipulacion
             precioOriginalSinIVA = (importe - descuento) / cantidad;            // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
             precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;          // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16

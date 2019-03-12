@@ -209,8 +209,8 @@ namespace PuntoDeVentaV2
                 string valor = DGVProductos.Rows[e.RowIndex].Cells["Activo"].Value.ToString();
 
                 DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["status"] as DataGridViewButtonCell;
-                statusBoton.FlatStyle = FlatStyle.Flat;
-                statusBoton.Style.BackColor = Color.GhostWhite;
+                //statusBoton.FlatStyle = FlatStyle.Flat;
+                //statusBoton.Style.BackColor = Color.GhostWhite;
 
                 if (valor == "1")
                 {
