@@ -137,6 +137,11 @@ namespace PuntoDeVentaV2
             HeaderCheckBoxClick((CheckBox)sender);                  // si es que se le da clic al HeaderCheckBox llamamos al metodo HeaderCheckBoxClick
         }
 
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
+        }
+
         public Productos()
         {
             InitializeComponent();

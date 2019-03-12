@@ -124,6 +124,7 @@
             this.txtBusqueda.Size = new System.Drawing.Size(887, 27);
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
             // 
             // cbOrden
             // 
