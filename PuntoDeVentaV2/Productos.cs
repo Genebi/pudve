@@ -209,6 +209,8 @@ namespace PuntoDeVentaV2
                 string valor = DGVProductos.Rows[e.RowIndex].Cells["Activo"].Value.ToString();
 
                 DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["status"] as DataGridViewButtonCell;
+                statusBoton.FlatStyle = FlatStyle.Flat;
+                statusBoton.Style.BackColor = Color.GhostWhite;
 
                 if (valor == "1")
                 {
@@ -230,7 +232,9 @@ namespace PuntoDeVentaV2
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
-                DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["historial"] as DataGridViewButtonCell;
+                DataGridViewButtonCell historialBoton = this.DGVProductos.Rows[e.RowIndex].Cells["historial"] as DataGridViewButtonCell;
+                //historialBoton.FlatStyle = FlatStyle.Flat;
+                //historialBoton.Style.BackColor = Color.GhostWhite;
 
                 image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.ico");
                 e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
@@ -243,7 +247,9 @@ namespace PuntoDeVentaV2
             {
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
-                DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["CodigoBarras"] as DataGridViewButtonCell;
+                DataGridViewButtonCell codigoBarrasBoton = this.DGVProductos.Rows[e.RowIndex].Cells["CodigoBarras"] as DataGridViewButtonCell;
+                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
+                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
 
                 image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.ico");
                 e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
@@ -259,7 +265,9 @@ namespace PuntoDeVentaV2
                 string valor = DGVProductos.Rows[e.RowIndex].Cells["Path"].Value.ToString();
 
                 DataGridViewButtonCell photoBoton = this.DGVProductos.Rows[e.RowIndex].Cells["Fotos"] as DataGridViewButtonCell;
-                
+                //photoBoton.FlatStyle = FlatStyle.Flat;
+                //photoBoton.Style.BackColor = Color.GhostWhite;
+
                 if (valor == "")
                 {
                     image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.ico");
