@@ -239,6 +239,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[1].ToString()); //Nombre
                 lista.Add(dr[3].ToString()); //Precio
                 lista.Add(dr[9].ToString()); //Tipo descuento
+                lista.Add(dr[2].ToString()); //Stock
             }
 
             dr.Close();

@@ -66,6 +66,7 @@
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
             this.btnDetallesVenta = new System.Windows.Forms.Button();
             this.IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PrecioOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DescuentoTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -177,6 +178,7 @@
             this.DGVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IDProducto,
+            this.Stock,
             this.PrecioOriginal,
             this.DescuentoTipo,
             this.Cantidad,
@@ -524,6 +526,12 @@
             this.IDProducto.Name = "IDProducto";
             this.IDProducto.Visible = false;
             // 
+            // Stock
+            // 
+            this.Stock.HeaderText = "_Stock";
+            this.Stock.Name = "Stock";
+            this.Stock.Visible = false;
+            // 
             // PrecioOriginal
             // 
             this.PrecioOriginal.HeaderText = "_PrecioOriginal";
@@ -654,6 +662,7 @@
         private System.Windows.Forms.Button btnDetallesVenta;
         private System.Windows.Forms.Button btnTerminarVenta;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDProducto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioOriginal;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescuentoTipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cantidad;

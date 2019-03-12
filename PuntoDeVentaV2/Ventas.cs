@@ -225,6 +225,7 @@ namespace PuntoDeVentaV2
             row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
             row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
             row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
+            row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
             row.Cells["Cantidad"].Value = 1;
             row.Cells["Precio"].Value = datosProducto[2];
             row.Cells["Descripcion"].Value = datosProducto[1];
@@ -260,7 +261,7 @@ namespace PuntoDeVentaV2
             var celda = DGVentas.CurrentCell.RowIndex;
 
             //Agregar multiple
-            if (e.ColumnIndex == 8)
+            if (e.ColumnIndex == 9)
             {
                 indiceFila = e.RowIndex;
 
@@ -276,7 +277,7 @@ namespace PuntoDeVentaV2
             }
 
             //Agregar individual
-            if (e.ColumnIndex == 9)
+            if (e.ColumnIndex == 10)
             {
                 int cantidad  = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value) + 1;
                 float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
@@ -295,7 +296,7 @@ namespace PuntoDeVentaV2
             }
 
             //Restar individual
-            if (e.ColumnIndex == 10)
+            if (e.ColumnIndex == 11)
             {
                 int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
 
@@ -319,7 +320,7 @@ namespace PuntoDeVentaV2
             }
 
             //Eliminar individual
-            if (e.ColumnIndex == 11)
+            if (e.ColumnIndex == 12)
             {
                 DGVentas.Rows.RemoveAt(celda);
             }
@@ -576,28 +577,33 @@ namespace PuntoDeVentaV2
 
             string[] guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Status, FechaOperacion };
 
-            //Se hace el guardado de la informacion general de la venta
-            int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar));
-
-            if (respuesta > 0)
+            if (VerificarStockProducto())
             {
-                //Obtener ID de la venta
-                string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
-                
-                //Datos de los productos vendidos
-                foreach (DataGridViewRow fila in DGVentas.Rows)
+                //Se hace el guardado de la informacion general de la venta
+                int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar));
+
+                if (respuesta > 0)
                 {
-                    var IDProducto = fila.Cells["IDProducto"].Value.ToString();
-                    var Nombre = fila.Cells["Descripcion"].Value.ToString();
-                    var Cantidad = fila.Cells["Cantidad"].Value.ToString();
-                    var Precio = fila.Cells["Precio"].Value.ToString();
+                    //Obtener ID de la venta
+                    string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
 
-                    guardar = new string[] { idVenta, IDProducto, Nombre, Cantidad, Precio };
+                    //Datos de los productos vendidos
+                    foreach (DataGridViewRow fila in DGVentas.Rows)
+                    {
+                        var IDProducto = fila.Cells["IDProducto"].Value.ToString();
+                        var Nombre = fila.Cells["Descripcion"].Value.ToString();
+                        var Cantidad = fila.Cells["Cantidad"].Value.ToString();
+                        var Precio = fila.Cells["Precio"].Value.ToString();
 
-                    cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+                        guardar = new string[] { idVenta, IDProducto, Nombre, Cantidad, Precio };
+
+                        cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+                    }
                 }
 
-                MessageBox.Show("Venta realizada");
+                ListadoVentas.abrirNuevaVenta = true;
+
+                this.Close();
             }
         }
 
@@ -615,6 +621,30 @@ namespace PuntoDeVentaV2
             }
 
             CantidadesFinalesVenta();
+        }
+
+        private bool VerificarStockProducto()
+        {
+            bool respuesta = true;
+
+            foreach (DataGridViewRow fila in DGVentas.Rows)
+            {
+                var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
+                var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                
+                if (stock < cantidad)
+                {
+                    var producto = fila.Cells["Descripcion"].Value;
+
+                    MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    respuesta = false;
+
+                    break;
+                }
+            }
+
+            return respuesta;
         }
     }
 }

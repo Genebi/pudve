@@ -12,6 +12,7 @@ namespace PuntoDeVentaV2
 {
     public partial class ListadoVentas : Form
     {
+        public static bool abrirNuevaVenta = false;
         public ListadoVentas()
         {
             InitializeComponent();
@@ -36,7 +37,23 @@ namespace PuntoDeVentaV2
         private void btnNuevaVenta_Click(object sender, EventArgs e)
         {
             Ventas venta = new Ventas();
+
+            venta.FormClosed += delegate
+            {
+                AbrirVentanaVenta();
+            };
+
             venta.ShowDialog();
+        }
+
+
+        private void AbrirVentanaVenta()
+        {
+            if (abrirNuevaVenta)
+            {
+                abrirNuevaVenta = false;
+                btnNuevaVenta.PerformClick();
+            }
         }
     }
 }
