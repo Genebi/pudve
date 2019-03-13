@@ -78,5 +78,10 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string ActualizarStockProductos(string[] datos)
+        {
+            return $"UPDATE Productos SET Stock = '{datos[1]}' WHERE ID = '{datos[0]}'";
+        }
     }
 }

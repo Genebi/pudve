@@ -598,12 +598,22 @@ namespace PuntoDeVentaV2
                         guardar = new string[] { idVenta, IDProducto, Nombre, Cantidad, Precio };
 
                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+
+                        //Actualizar stock de productos
+
+                        var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
+                        var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                        var restantes = (stock - vendidos).ToString();
+
+                        guardar = new string[] { IDProducto, restantes };
+
+                        cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                     }
                 }
 
                 ListadoVentas.abrirNuevaVenta = true;
 
-                this.Close();
+                this.Dispose();
             }
         }
 

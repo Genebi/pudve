@@ -38,7 +38,7 @@ namespace PuntoDeVentaV2
         {
             Ventas venta = new Ventas();
 
-            venta.FormClosed += delegate
+            venta.Disposed += delegate
             {
                 AbrirVentanaVenta();
             };
