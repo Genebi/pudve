@@ -83,5 +83,10 @@ namespace PuntoDeVentaV2
         {
             return $"UPDATE Productos SET Stock = '{datos[1]}' WHERE ID = '{datos[0]}'";
         }
+
+        public string Ventas(int id)
+        {
+            return $"SELECT * FROM Ventas WHERE IDusuario = '{id}'";
+        }
     }
 }

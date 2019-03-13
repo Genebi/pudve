@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             this.tituloSeccion = new System.Windows.Forms.Label();
-            this.GVListadoVentas = new System.Windows.Forms.DataGridView();
+            this.DGVListadoVentas = new System.Windows.Forms.DataGridView();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
+            this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
             this.btnNuevaVenta = new System.Windows.Forms.Button();
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbTipoVentas = new System.Windows.Forms.ComboBox();
@@ -40,13 +42,12 @@
             this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
-            this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
-            ((System.ComponentModel.ISupportInitialize)(this.GVListadoVentas)).BeginInit();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,26 +63,30 @@
             this.tituloSeccion.Text = "VENTAS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // GVListadoVentas
+            // DGVListadoVentas
             // 
-            this.GVListadoVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.DGVListadoVentas.AllowUserToAddRows = false;
+            this.DGVListadoVentas.AllowUserToDeleteRows = false;
+            this.DGVListadoVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.GVListadoVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GVListadoVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DGVListadoVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVListadoVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Cliente,
             this.RFC,
             this.Subtotal,
             this.IVA,
             this.Total,
-            this.Fecha,
             this.Folio,
+            this.Serie,
             this.Pago,
-            this.Empleado});
-            this.GVListadoVentas.Location = new System.Drawing.Point(12, 141);
-            this.GVListadoVentas.Name = "GVListadoVentas";
-            this.GVListadoVentas.Size = new System.Drawing.Size(845, 217);
-            this.GVListadoVentas.TabIndex = 5;
+            this.Empleado,
+            this.Fecha});
+            this.DGVListadoVentas.Location = new System.Drawing.Point(12, 141);
+            this.DGVListadoVentas.Name = "DGVListadoVentas";
+            this.DGVListadoVentas.ReadOnly = true;
+            this.DGVListadoVentas.Size = new System.Drawing.Size(845, 217);
+            this.DGVListadoVentas.TabIndex = 5;
             // 
             // panelBotones
             // 
@@ -97,6 +102,26 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(845, 50);
             this.panelBotones.TabIndex = 6;
+            // 
+            // dpFechaFinal
+            // 
+            this.dpFechaFinal.CustomFormat = "yyyy-MM-dd";
+            this.dpFechaFinal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dpFechaFinal.Location = new System.Drawing.Point(500, 18);
+            this.dpFechaFinal.Name = "dpFechaFinal";
+            this.dpFechaFinal.Size = new System.Drawing.Size(100, 23);
+            this.dpFechaFinal.TabIndex = 7;
+            // 
+            // dpFechaInicial
+            // 
+            this.dpFechaInicial.CustomFormat = "yyyy-MM-dd";
+            this.dpFechaInicial.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dpFechaInicial.Location = new System.Drawing.Point(394, 18);
+            this.dpFechaInicial.Name = "dpFechaInicial";
+            this.dpFechaInicial.Size = new System.Drawing.Size(100, 23);
+            this.dpFechaInicial.TabIndex = 6;
             // 
             // btnNuevaVenta
             // 
@@ -167,66 +192,64 @@
             // 
             this.Cliente.HeaderText = "Cliente";
             this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
             // 
             // RFC
             // 
             this.RFC.HeaderText = "RFC";
             this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
             // 
             // Subtotal
             // 
             this.Subtotal.HeaderText = "Subtotal";
             this.Subtotal.Name = "Subtotal";
+            this.Subtotal.ReadOnly = true;
             // 
             // IVA
             // 
             this.IVA.HeaderText = "IVA";
             this.IVA.Name = "IVA";
+            this.IVA.ReadOnly = true;
             // 
             // Total
             // 
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
-            // 
-            // Fecha
-            // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
+            this.Total.ReadOnly = true;
             // 
             // Folio
             // 
-            this.Folio.HeaderText = "Folio / Serie";
+            this.Folio.HeaderText = "Folio";
             this.Folio.Name = "Folio";
+            this.Folio.ReadOnly = true;
+            this.Folio.Width = 50;
+            // 
+            // Serie
+            // 
+            this.Serie.HeaderText = "Serie";
+            this.Serie.Name = "Serie";
+            this.Serie.ReadOnly = true;
+            this.Serie.Width = 50;
             // 
             // Pago
             // 
             this.Pago.HeaderText = "Pago";
             this.Pago.Name = "Pago";
+            this.Pago.ReadOnly = true;
             // 
             // Empleado
             // 
             this.Empleado.HeaderText = "Empleado";
             this.Empleado.Name = "Empleado";
+            this.Empleado.ReadOnly = true;
             // 
-            // dpFechaInicial
+            // Fecha
             // 
-            this.dpFechaInicial.CustomFormat = "yyyy-MM-dd";
-            this.dpFechaInicial.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dpFechaInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaInicial.Location = new System.Drawing.Point(394, 18);
-            this.dpFechaInicial.Name = "dpFechaInicial";
-            this.dpFechaInicial.Size = new System.Drawing.Size(100, 23);
-            this.dpFechaInicial.TabIndex = 6;
-            // 
-            // dpFechaFinal
-            // 
-            this.dpFechaFinal.CustomFormat = "yyyy-MM-dd";
-            this.dpFechaFinal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dpFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaFinal.Location = new System.Drawing.Point(500, 18);
-            this.dpFechaFinal.Name = "dpFechaFinal";
-            this.dpFechaFinal.Size = new System.Drawing.Size(100, 23);
-            this.dpFechaFinal.TabIndex = 7;
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 150;
             // 
             // ListadoVentas
             // 
@@ -234,12 +257,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
             this.Controls.Add(this.panelBotones);
-            this.Controls.Add(this.GVListadoVentas);
+            this.Controls.Add(this.DGVListadoVentas);
             this.Controls.Add(this.tituloSeccion);
             this.Name = "ListadoVentas";
             this.Text = "ListadoVentas";
             this.Load += new System.EventHandler(this.ListadoVentas_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.GVListadoVentas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).EndInit();
             this.panelBotones.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -249,22 +272,23 @@
         #endregion
 
         private System.Windows.Forms.Label tituloSeccion;
-        private System.Windows.Forms.DataGridView GVListadoVentas;
+        private System.Windows.Forms.DataGridView DGVListadoVentas;
         private System.Windows.Forms.Panel panelBotones;
         private System.Windows.Forms.Button btnNuevaVenta;
         private System.Windows.Forms.Button btnBuscarVentas;
         private System.Windows.Forms.ComboBox cbTipoVentas;
         private System.Windows.Forms.ComboBox cbVentas;
+        private System.Windows.Forms.DateTimePicker dpFechaInicial;
+        private System.Windows.Forms.DateTimePicker dpFechaFinal;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn IVA;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Folio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Serie;
         private System.Windows.Forms.DataGridViewTextBoxColumn Pago;
         private System.Windows.Forms.DataGridViewTextBoxColumn Empleado;
-        private System.Windows.Forms.DateTimePicker dpFechaInicial;
-        private System.Windows.Forms.DateTimePicker dpFechaFinal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
     }
 }

@@ -637,21 +637,28 @@ namespace PuntoDeVentaV2
         {
             bool respuesta = true;
 
-            foreach (DataGridViewRow fila in DGVentas.Rows)
+            if (DGVentas.Rows.Count > 0)
             {
-                var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
-                var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
-                
-                if (stock < cantidad)
+                foreach (DataGridViewRow fila in DGVentas.Rows)
                 {
-                    var producto = fila.Cells["Descripcion"].Value;
+                    var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
+                    var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
 
-                    MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (stock < cantidad)
+                    {
+                        var producto = fila.Cells["Descripcion"].Value;
 
-                    respuesta = false;
+                        MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    break;
+                        respuesta = false;
+
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                respuesta = false;
             }
 
             return respuesta;
