@@ -534,7 +534,7 @@ namespace PuntoDeVentaV2
                     {
                         // Obtenemos el Nuevo nombre de la imagen
                         // con la que se va hacer la copia de la imagen
-                        NvoFileName = fileName + ".jpg";
+                        NvoFileName = fileName;
                         // hacemos la nueva cadena de consulta para hacer el UpDate
                         string insertarImagen = $"UPDATE Productos SET ProdImage = '{saveDirectoryImg + NvoFileName}' WHERE Nombre = '{Nombre}' AND Stock = '{Stock}' AND Precio = '{Precio}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}'";
                         cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
