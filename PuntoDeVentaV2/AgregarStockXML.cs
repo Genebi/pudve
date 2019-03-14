@@ -167,7 +167,7 @@ namespace PuntoDeVentaV2
         string RFCEmisor;
         string nombreEmisor;
         string claveProdEmisor;
-        int found=10;
+        int found = 10;
         int idRecordProd;
         string FechaRegistrada, DateComplete, Year, Date, queryRecordHistorialProd;
         DateTime date1;
@@ -177,6 +177,12 @@ namespace PuntoDeVentaV2
         public DataTable dtProductos;           // almacena el resultado de la funcion de CargarDatos de la funcion serachDatos
         public DataTable dtClaveInterna;        // almacena el resultado de la funcion de CargarDatos de la funcion searchClavIntProd
         public DataTable dtCodBar;              // almacena el resultado de la funcion de CargarDatos de la funcion searchCodBar
+        public DataTable dtSugeridos;           // almacena el resultado de la funcion de CargarDatos de la funcion buscarSugeridos
+
+        int match = 0;
+
+        string FraseXML, FraseStock;
+        string[] PalabrasXML, PalabrasStock;
 
         // variables para poder realizar el recorrido, calculo de valores etc
         int index;                              // sirve para saber que Row de la Tabla estamos y poder obtener el valode de alguna celda
@@ -189,7 +195,7 @@ namespace PuntoDeVentaV2
         int stockProd;                          // sirve para almacenar en ella, la cantidad de stock que tenemos de ese producto
         int stockProdXML;                       // sirve para almacenar en ella, la cantidad del stock que nos llego en el archivo XML
         int totalProd;                          // sirve para en ella almacenar la suma del Stock del producto mas el stock del archivo XML
-        
+
         // variables para poder hacer los calculos sobre el producto
         float importe;                          // convertimos el importe del Archivo XML para su posterior manipulacion
         float descuento;                        // convertimos el descuento del Archivo XML para su posterior manipulacion
@@ -363,6 +369,42 @@ namespace PuntoDeVentaV2
             txtBoxClaveInternaProd.Text = "";
         }
 
+        public void buscarSugeridos()
+        {
+            FraseXML = concepto;
+            PalabrasXML = FraseXML.Split(' ');
+
+            string buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            dtSugeridos = cn.CargarDatos(buscarSugeridos);
+            DGVSugeridos.DataSource = dtSugeridos;
+            DGVSugeridos.Columns["ID"].Visible = false;
+            DGVSugeridos.Columns["Column1"].Visible = false;
+
+            for (int fila = 0; fila < DGVSugeridos.RowCount; fila++)
+            {
+                DGVSugeridos.Rows[fila].Cells[0].Value = "0";
+            }
+
+            //for (int Fila = 0; Fila < DGVSugeridos.RowCount; Fila++)
+            //{
+            //    FraseStock = DGVSugeridos.Rows[Fila].Cells["Nombre"].Value.ToString();
+            //    PalabrasStock = FraseStock.Split(' ');
+            //    foreach (var palabraSearch in PalabrasXML)
+            //    {
+            //        foreach (var palabraFound in PalabrasStock)
+            //        {
+            //            if (palabraFound.ToLower() == palabraSearch.ToLower())
+            //            {
+            //                match++;
+            //            }
+            //        }
+            //    }
+            //    DGVSugeridos.Rows[Fila].Cells["Column1"].Value = match.ToString();
+            //    match = 0;
+            //}
+            //DGVSugeridos.Sort(DGVSugeridos.Columns[0], ListSortDirection.Descending);
+        }
+
         // funsion para poder buscar los productos 
         // que coincidan con los campos de de ClaveInterna o el CodigoBarras
         // respecto al archivo XML en su campo de NoIdentificacion
@@ -375,8 +417,17 @@ namespace PuntoDeVentaV2
             {
                 resultadoSearchProd = 1;                                            // busqueda positiva
                 NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();    // almacenamos el valor del NoClaveInterna
-                datosProductos();                                                   // llamamos la funcion de datosProductos
-                OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                if (NoClaveInterna == "0")
+                {
+                    limpiarLblProd();               // limpiamos los campos de producto
+                    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                    buscarSugeridos();
+                }
+                else if (NoClaveInterna != "0")
+                {
+                    datosProductos();                                                   // llamamos la funcion de datosProductos
+                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                }
                 //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (dtProductos.Rows.Count<=0) // si el resultado no arroja ninguna fila

@@ -86,6 +86,10 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.DGVSugeridos = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.picBoxBuscar = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -112,6 +116,9 @@
             this.panel3.SuspendLayout();
             this.panel17.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVSugeridos)).BeginInit();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxBuscar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -715,30 +722,71 @@
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.picBoxBuscar);
+            this.panel6.Controls.Add(this.groupBox2);
+            this.panel6.Controls.Add(this.groupBox1);
             this.panel6.Controls.Add(this.label1);
             this.panel6.Location = new System.Drawing.Point(10, 350);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1227, 312);
+            this.panel6.Size = new System.Drawing.Size(1227, 335);
             this.panel6.TabIndex = 18;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.DGVSugeridos);
+            this.groupBox2.Location = new System.Drawing.Point(142, 63);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(461, 249);
+            this.groupBox2.TabIndex = 23;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Productos Sugeridos";
+            // 
+            // DGVSugeridos
+            // 
+            this.DGVSugeridos.AllowUserToAddRows = false;
+            this.DGVSugeridos.AllowUserToDeleteRows = false;
+            this.DGVSugeridos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVSugeridos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVSugeridos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1});
+            this.DGVSugeridos.Location = new System.Drawing.Point(23, 38);
+            this.DGVSugeridos.Name = "DGVSugeridos";
+            this.DGVSugeridos.ReadOnly = true;
+            this.DGVSugeridos.RowTemplate.Height = 24;
+            this.DGVSugeridos.Size = new System.Drawing.Size(412, 183);
+            this.DGVSugeridos.TabIndex = 0;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Coincidencias";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.picBoxBuscar);
+            this.groupBox1.Location = new System.Drawing.Point(650, 63);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(318, 249);
+            this.groupBox1.TabIndex = 22;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Buscar Producto en Stock";
             // 
             // picBoxBuscar
             // 
             this.picBoxBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picBoxBuscar.Image = global::PuntoDeVentaV2.Properties.Resources.magnifying_glass;
-            this.picBoxBuscar.Location = new System.Drawing.Point(494, 63);
+            this.picBoxBuscar.Location = new System.Drawing.Point(56, 35);
             this.picBoxBuscar.Name = "picBoxBuscar";
-            this.picBoxBuscar.Size = new System.Drawing.Size(224, 221);
+            this.picBoxBuscar.Size = new System.Drawing.Size(206, 198);
             this.picBoxBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picBoxBuscar.TabIndex = 21;
+            this.picBoxBuscar.TabIndex = 22;
             this.picBoxBuscar.TabStop = false;
-            this.picBoxBuscar.Click += new System.EventHandler(this.picBoxBuscar_Click);
             // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label1.Location = new System.Drawing.Point(26, 13);
+            this.label1.Location = new System.Drawing.Point(26, 4);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(1178, 37);
             this.label1.TabIndex = 20;
@@ -751,7 +799,7 @@
             this.button3.ForeColor = System.Drawing.Color.Blue;
             this.button3.Image = global::PuntoDeVentaV2.Properties.Resources.list_ol;
             this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button3.Location = new System.Drawing.Point(766, 672);
+            this.button3.Location = new System.Drawing.Point(766, 691);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(262, 42);
             this.button3.TabIndex = 17;
@@ -766,7 +814,7 @@
             this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.check;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(1039, 672);
+            this.button2.Location = new System.Drawing.Point(1039, 691);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(89, 42);
             this.button2.TabIndex = 16;
@@ -781,7 +829,7 @@
             this.button1.ForeColor = System.Drawing.Color.Red;
             this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.close;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.Location = new System.Drawing.Point(1135, 672);
+            this.button1.Location = new System.Drawing.Point(1135, 691);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(101, 42);
             this.button1.TabIndex = 15;
@@ -809,7 +857,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 793);
+            this.ClientSize = new System.Drawing.Size(1252, 755);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -865,6 +913,9 @@
             this.panel17.ResumeLayout(false);
             this.panel17.PerformLayout();
             this.panel6.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVSugeridos)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxBuscar)).EndInit();
             this.ResumeLayout(false);
 
@@ -935,6 +986,10 @@
         private System.Windows.Forms.TextBox txtBoxClaveInternaProd;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox picBoxBuscar;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView DGVSugeridos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }
