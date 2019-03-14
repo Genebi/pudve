@@ -433,7 +433,7 @@ namespace PuntoDeVentaV2
         public void datosXML()
         {
             descuento = 0;
-            ClaveInterna = "";
+            ClaveInterna = "0";
             lblPosicionActualXML.Text = (index + 1).ToString();
             concepto = ds.Conceptos[index].Descripcion;
             lblDescripcionXML.Text = concepto;
