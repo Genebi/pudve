@@ -48,8 +48,9 @@ namespace PuntoDeVentaV2
         public void CargarDataGridView()    // metodo para poder cargar los datos al inicio
         {
             // el query que se usara en la base de datos
-            buscarStock = $"SELECT prod.ID, prod.Nombre, prod.Stock, prod.Precio, prod.Categoria, prod.ClaveInterna, prod.CodigoBarras FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
+            buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
             DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
+            DGVStockProductos.Columns["ID"].Visible = false;
         }
 
         public void LimpiarDGV()        // metodo para poder limpiar el DGVStockProductos
@@ -79,8 +80,9 @@ namespace PuntoDeVentaV2
         {
             LimpiarDGV();       // Llamamos el metodo de limpiarDGV
             // el query que se usara en la base de datos
-            buscarStock = $"SELECT prod.ID, prod.Nombre, prod.Stock, prod.Precio, prod.Categoria, prod.ClaveInterna, prod.CodigoBarras FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Nombre LIKE '%" + txtBoxSearchProd.Text + "%' ";
+            buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Nombre LIKE '%" + txtBoxSearchProd.Text + "%' ";
             DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
+            DGVStockProductos.Columns["ID"].Visible = false;
         }
 
         private void DGVStockProductos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

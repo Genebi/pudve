@@ -418,13 +418,13 @@ namespace PuntoDeVentaV2
             {
                 resultadoSearchProd = 1;                                            // busqueda positiva
                 NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();    // almacenamos el valor del NoClaveInterna
-                if (NoClaveInterna == "0")
+                if (NoClaveInterna == null || NoClaveInterna == "")
                 {
                     limpiarLblProd();               // limpiamos los campos de producto
                     MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                     buscarSugeridos();
                 }
-                else if (NoClaveInterna != "0")
+                else if (NoClaveInterna != null || NoClaveInterna != "")
                 {
                     datosProductos();                                                   // llamamos la funcion de datosProductos
                     OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
@@ -436,6 +436,7 @@ namespace PuntoDeVentaV2
                 resultadoSearchProd = 0;        // busqueda negativa
                 limpiarLblProd();               // limpiamos los campos de producto
                 MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                buscarSugeridos();
                 //MessageBox.Show("Nuevo Producto", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -933,6 +934,12 @@ namespace PuntoDeVentaV2
             OcultarPanelRegistro(); // ocultamos la ventana de ver registro del Stock
             OcultarPanelSinRegistro(); // ocultamos la ventana Si no tiene registro del Stock
             consultListProd = 0;
+        }
+
+        private void DGVSugeridos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int numFila;
+            numFila = DGVSugeridos.CurrentRow.Index;
         }
 
         private void picBoxBuscar_Click_1(object sender, EventArgs e)

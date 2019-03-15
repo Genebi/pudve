@@ -751,6 +751,7 @@
             this.DGVSugeridos.RowTemplate.Height = 24;
             this.DGVSugeridos.Size = new System.Drawing.Size(621, 183);
             this.DGVSugeridos.TabIndex = 0;
+            this.DGVSugeridos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVSugeridos_CellClick);
             // 
             // groupBox1
             // 

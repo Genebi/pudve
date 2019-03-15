@@ -98,34 +98,49 @@ namespace PuntoDeVentaV2
             IsHeaderCheckBoxClicked = true;                         // ponemos en true la variable
             if (HCheckBox.Checked == true)
             {
-                DialogResult result = MessageBox.Show("Desdea Realmente Deshabilitar Todo el Stock", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("Desdea Realmente Modificar el Estatus del Todo el Stock", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     foreach (DataGridViewRow Row in DGVProductos.Rows)      // hacemos un recorrido de cada una de la filas del DataGridView
                     {
-                        ((DataGridViewCheckBoxCell)Row.Cells["chk"]).Value = HCheckBox.Checked;                     // verificamos que la celda pertenezca a la columna llamada chk
-                                                                                                                    // y le ponemos el valor en true el checar el CheckBox
-                        Nombre = ((DataGridViewTextBoxCell)Row.Cells["Nombre"]).Value.ToString();                   // tomamos el valor de la celda
-                        Stock = ((DataGridViewTextBoxCell)Row.Cells["Stock"]).Value.ToString();                     // tomamos el valor de la celda
-                        Precio = ((DataGridViewTextBoxCell)Row.Cells["Precio"]).Value.ToString();                   // tomamos el valor de la celda
-                        ClaveInterna = ((DataGridViewTextBoxCell)Row.Cells["Clave Interna"]).Value.ToString();      // tomamos el valor de la celda
-                        CodigoBarras = ((DataGridViewTextBoxCell)Row.Cells["Código de Barras"]).Value.ToString();   // tomamos el valor de la celda
+                        // verificamos que la celda pertenezca a la columna llamada chk
+                        ((DataGridViewCheckBoxCell)Row.Cells["chk"]).Value = HCheckBox.Checked;                     // y le ponemos el valor en true el checar el CheckBox
+                    }
+                    foreach (DataGridViewRow row in DGVProductos.Rows)      // hacemos un recorrido para que se deshabilite
+                    {
+                        Nombre = ((DataGridViewTextBoxCell)row.Cells["Nombre"]).Value.ToString();                   // tomamos el valor de la celda
+                        Stock = ((DataGridViewTextBoxCell)row.Cells["Stock"]).Value.ToString();                     // tomamos el valor de la celda
+                        Precio = ((DataGridViewTextBoxCell)row.Cells["Precio"]).Value.ToString();                   // tomamos el valor de la celda
+                        ClaveInterna = ((DataGridViewTextBoxCell)row.Cells["Clave Interna"]).Value.ToString();      // tomamos el valor de la celda
+                        CodigoBarras = ((DataGridViewTextBoxCell)row.Cells["Código de Barras"]).Value.ToString();   // tomamos el valor de la celda
                         id = FormPrincipal.userID.ToString();                                                       // tomamos el valor del ID del Usuario
                         ModificarStatusProducto();                                                                  // Llamamos el metodo de Modificar Status
                     }
                     DGVProductos.RefreshEdit();                             // Refrescamos el DataGridView
                     HCheckBox.Checked = false;
                     cbMostrar.Text = "Deshabilitados";
+                    if (cbMostrar.Text == "Deshabilitados")
+                    {
+                        CargarDatosStatus(id, Id_Prod_select, "0");         // cambiamos el Status a 0
+                    }
                 }
                 else if (result == DialogResult.No)
                 {
                     HCheckBox.Checked = false;
                     cbMostrar.Text = "Habilitados";
+                    if (cbMostrar.Text == "Habilitados")
+                    {
+                        CargarDatosStatus(id, Id_Prod_select, "1");         // cambiamos el Status a 1
+                    }
                 }
                 else if (result == DialogResult.Cancel)
                 {
                     HCheckBox.Checked = false;
                     cbMostrar.Text = "Todos";
+                    if (cbMostrar.Text == "Todos")
+                    {
+                        CargarDatos();
+                    }
                 }
             }
             IsHeaderCheckBoxClicked = false;                        // ponemos en false la variable
@@ -140,6 +155,16 @@ namespace PuntoDeVentaV2
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
             dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string valor;
+            foreach (DataGridViewRow row in DGVProductos.Rows)
+            {
+                valor = ((DataGridViewTextBoxCell)row.Cells["Nombre"]).Value.ToString();
+                MessageBox.Show("el Nombre: "+valor,"Valor del gridview",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+            }
         }
 
         public Productos()
@@ -349,21 +374,18 @@ namespace PuntoDeVentaV2
             buscar = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Precio = '{Precio}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{id}'";
             dt = cn.CargarDatos(buscar);    // almacenamos el resultado de la Funcion CargarDatos que esta en la calse Consultas
             Id_Prod_select = dt.Rows[index]["ID"].ToString();       // almacenamos el Id del producto
-            // preparamos el Query 
-            buscar = $"UPDATE Productos SET Status = '{index}' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
-            dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
             status = dt.Rows[index]["Status"].ToString();           // almacenamos el status
             if (status == "0")                              // si el status es 0
             {
-                CargarDatosStatus(id, Id_Prod_select, "1");         // cambiamos el Status a 1
+                // preparamos el Query 
+                buscar = $"UPDATE Productos SET Status = '1' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
+                dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
             }
             else if (status == "1")                         // si el status es 1
             {
-                CargarDatosStatus(id, Id_Prod_select, "0");         // cambiamos el Status a 0
-            }
-            else
-            {
-                cbMostrar.Text = "Todos";
+                // preparamos el Query 
+                buscar = $"UPDATE Productos SET Status = '0' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
+                dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
             }
         }
 
