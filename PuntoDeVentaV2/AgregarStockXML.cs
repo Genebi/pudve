@@ -374,35 +374,36 @@ namespace PuntoDeVentaV2
             FraseXML = concepto;
             PalabrasXML = FraseXML.Split(' ');
 
-            string buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            string buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
             dtSugeridos = cn.CargarDatos(buscarSugeridos);
+            dtSugeridos.Columns.Add("Coincidencias");
             DGVSugeridos.DataSource = dtSugeridos;
             DGVSugeridos.Columns["ID"].Visible = false;
-            DGVSugeridos.Columns["Column1"].Visible = false;
+            DGVSugeridos.Columns["Coincidencias"].Visible = false;
 
-            for (int fila = 0; fila < DGVSugeridos.RowCount; fila++)
+            for (int fila = 0; fila < DGVSugeridos.Rows.Count; fila++)
             {
-                DGVSugeridos.Rows[fila].Cells[0].Value = "0";
+                DGVSugeridos.Rows[fila].Cells[2].Value = "0";
             }
 
-            //for (int Fila = 0; Fila < DGVSugeridos.RowCount; Fila++)
-            //{
-            //    FraseStock = DGVSugeridos.Rows[Fila].Cells["Nombre"].Value.ToString();
-            //    PalabrasStock = FraseStock.Split(' ');
-            //    foreach (var palabraSearch in PalabrasXML)
-            //    {
-            //        foreach (var palabraFound in PalabrasStock)
-            //        {
-            //            if (palabraFound.ToLower() == palabraSearch.ToLower())
-            //            {
-            //                match++;
-            //            }
-            //        }
-            //    }
-            //    DGVSugeridos.Rows[Fila].Cells["Column1"].Value = match.ToString();
-            //    match = 0;
-            //}
-            //DGVSugeridos.Sort(DGVSugeridos.Columns[0], ListSortDirection.Descending);
+            for (int Fila = 0; Fila < DGVSugeridos.Rows.Count; Fila++)
+            {
+                FraseStock = DGVSugeridos.Rows[Fila].Cells["Nombre"].Value.ToString();
+                PalabrasStock = FraseStock.Split(' ');
+                foreach (var palabraSearch in PalabrasXML)
+                {
+                    foreach (var palabraFound in PalabrasStock)
+                    {
+                        if (palabraFound.ToLower() == palabraSearch.ToLower())
+                        {
+                            match++;
+                        }
+                    }
+                }
+                DGVSugeridos.Rows[Fila].Cells["Coincidencias"].Value = match.ToString();
+                match = 0;
+            }
+            DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);
         }
 
         // funsion para poder buscar los productos 
@@ -494,7 +495,7 @@ namespace PuntoDeVentaV2
             if (ds.Conceptos[index].Descuento == "" || ds.Conceptos[index].Descuento == null)
             {
                 ds.Conceptos[index].Descuento = descuento.ToString();
-                MessageBox.Show("Tu XML no tiene Descuento", "Sin Descuento", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //MessageBox.Show("Tu XML no tiene Descuento", "Sin Descuento", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (ds.Conceptos[index].Descuento != "")
             {
@@ -509,7 +510,7 @@ namespace PuntoDeVentaV2
             if (ds.Conceptos[index].NoIdentificacion == "" || ds.Conceptos[index].NoIdentificacion == null)
             {
                 ds.Conceptos[index].NoIdentificacion = ClaveInterna;
-                MessageBox.Show("Tu XML no tiene No de Indentificacion", "Sin NoIdentificacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //MessageBox.Show("Tu XML no tiene No de Indentificacion", "Sin NoIdentificacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (ds.Conceptos[index].NoIdentificacion != "")
             {
@@ -934,34 +935,7 @@ namespace PuntoDeVentaV2
             consultListProd = 0;
         }
 
-        private void btnLoadXML_Click_1(object sender, EventArgs e)
-        {
-            leerXMLFile(); // mandamos llamar la funsion de leerXML
-        }
-
-        private void label11_Click(object sender, EventArgs e)
-        {
-            leerXMLFile(); // mandamos llamar la funsion de leerXML
-        }
-
-        private void label11_Enter(object sender, EventArgs e)
-        {
-            label11.ForeColor = Color.FromArgb(0, 140, 255);
-        }
-
-        private void label11_Leave(object sender, EventArgs e)
-        {
-            label11.ForeColor = Color.FromArgb(0, 0, 0);
-        }
-
-        private void AgregarStockXML_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
-            btnLoadXML.Show(); // hacemos visible el botonXML de la ventana de cargar archivo XML
-            consultListProd = 0;
-        }
-
-        private void picBoxBuscar_Click(object sender, EventArgs e)
+        private void picBoxBuscar_Click_1(object sender, EventArgs e)
         {
             ListProd.FormClosing += delegate    // dectecta cuando se esta cerrando la forma ListProd
             {
@@ -1006,6 +980,33 @@ namespace PuntoDeVentaV2
             {
                 ListProd.BringToFront();
             }
+        }
+
+        private void btnLoadXML_Click_1(object sender, EventArgs e)
+        {
+            leerXMLFile(); // mandamos llamar la funsion de leerXML
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+            leerXMLFile(); // mandamos llamar la funsion de leerXML
+        }
+
+        private void label11_Enter(object sender, EventArgs e)
+        {
+            label11.ForeColor = Color.FromArgb(0, 140, 255);
+        }
+
+        private void label11_Leave(object sender, EventArgs e)
+        {
+            label11.ForeColor = Color.FromArgb(0, 0, 0);
+        }
+
+        private void AgregarStockXML_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MostrarPanelCarga(); // hacemos visible la ventana de cargar archivo XML
+            btnLoadXML.Show(); // hacemos visible el botonXML de la ventana de cargar archivo XML
+            consultListProd = 0;
         }
     }
 }

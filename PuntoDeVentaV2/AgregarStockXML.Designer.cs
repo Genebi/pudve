@@ -88,7 +88,6 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.DGVSugeridos = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.picBoxBuscar = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -733,9 +732,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.DGVSugeridos);
-            this.groupBox2.Location = new System.Drawing.Point(142, 63);
+            this.groupBox2.Location = new System.Drawing.Point(39, 63);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(461, 249);
+            this.groupBox2.Size = new System.Drawing.Size(665, 249);
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Productos Sugeridos";
@@ -746,25 +745,17 @@
             this.DGVSugeridos.AllowUserToDeleteRows = false;
             this.DGVSugeridos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVSugeridos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVSugeridos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1});
             this.DGVSugeridos.Location = new System.Drawing.Point(23, 38);
             this.DGVSugeridos.Name = "DGVSugeridos";
             this.DGVSugeridos.ReadOnly = true;
             this.DGVSugeridos.RowTemplate.Height = 24;
-            this.DGVSugeridos.Size = new System.Drawing.Size(412, 183);
+            this.DGVSugeridos.Size = new System.Drawing.Size(621, 183);
             this.DGVSugeridos.TabIndex = 0;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Coincidencias";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.picBoxBuscar);
-            this.groupBox1.Location = new System.Drawing.Point(650, 63);
+            this.groupBox1.Location = new System.Drawing.Point(800, 63);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(318, 249);
             this.groupBox1.TabIndex = 22;
@@ -781,6 +772,7 @@
             this.picBoxBuscar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBoxBuscar.TabIndex = 22;
             this.picBoxBuscar.TabStop = false;
+            this.picBoxBuscar.Click += new System.EventHandler(this.picBoxBuscar_Click_1);
             // 
             // label1
             // 
@@ -990,6 +982,5 @@
         private System.Windows.Forms.PictureBox picBoxBuscar;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView DGVSugeridos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
     }
 }
