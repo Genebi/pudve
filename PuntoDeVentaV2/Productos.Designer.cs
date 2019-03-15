@@ -37,7 +37,6 @@
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.btnAgregarXML = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -180,22 +179,11 @@
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(225, 160);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(199, 39);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 690);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnAgregarXML);
             this.Controls.Add(this.cbMostrar);
             this.Controls.Add(this.btnAgregarProducto);
@@ -224,6 +212,5 @@
         private System.Windows.Forms.ComboBox cbMostrar;
         private System.Windows.Forms.Button btnAgregarXML;
         private System.Windows.Forms.DataGridViewCheckBoxColumn chk;
-        private System.Windows.Forms.Button button1;
     }
 }

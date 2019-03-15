@@ -220,6 +220,9 @@ namespace PuntoDeVentaV2
         FileStream fs;
         Comprobante ds;
 
+        string IdProductoSugerido;
+        string NombProductoSugerido;
+
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
         public void datosAgregarNvoProd()
         {
@@ -940,6 +943,8 @@ namespace PuntoDeVentaV2
         {
             int numFila;
             numFila = DGVSugeridos.CurrentRow.Index;
+            IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
+            NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
         }
 
         private void picBoxBuscar_Click_1(object sender, EventArgs e)

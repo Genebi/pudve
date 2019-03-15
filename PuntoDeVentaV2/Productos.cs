@@ -157,16 +157,6 @@ namespace PuntoDeVentaV2
             dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string valor;
-            foreach (DataGridViewRow row in DGVProductos.Rows)
-            {
-                valor = ((DataGridViewTextBoxCell)row.Cells["Nombre"]).Value.ToString();
-                MessageBox.Show("el Nombre: "+valor,"Valor del gridview",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-            }
-        }
-
         public Productos()
         {
             InitializeComponent();
