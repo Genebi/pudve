@@ -57,7 +57,7 @@
             this.btnGuardarVenta = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnVentasGuardadas = new System.Windows.Forms.Button();
             this.listaProductos = new System.Windows.Forms.ListBox();
             this.lbNumeroArticulos = new System.Windows.Forms.Label();
             this.lbSubtotal = new System.Windows.Forms.Label();
@@ -337,17 +337,18 @@
             this.button4.Text = "Abrir Caja";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnVentasGuardadas
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(1019, 8);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(157, 23);
-            this.button5.TabIndex = 17;
-            this.button5.Text = "Ventas guardadas";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btnVentasGuardadas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVentasGuardadas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(1019, 8);
+            this.btnVentasGuardadas.Name = "btnVentasGuardadas";
+            this.btnVentasGuardadas.Size = new System.Drawing.Size(157, 23);
+            this.btnVentasGuardadas.TabIndex = 17;
+            this.btnVentasGuardadas.Text = "Ventas guardadas";
+            this.btnVentasGuardadas.UseVisualStyleBackColor = true;
+            this.btnVentasGuardadas.Click += new System.EventHandler(this.btnVentasGuardadas_Click);
             // 
             // listaProductos
             // 
@@ -547,7 +548,7 @@
             this.panel1.Controls.Add(this.lbAnticipo);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.lbIVA);
-            this.panel1.Controls.Add(this.button5);
+            this.panel1.Controls.Add(this.btnVentasGuardadas);
             this.panel1.Controls.Add(this.lbSubtotal);
             this.panel1.Controls.Add(this.btnUltimoTicket);
             this.panel1.Controls.Add(this.lbNumeroArticulos);
@@ -639,7 +640,7 @@
         private System.Windows.Forms.Button btnGuardarVenta;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnVentasGuardadas;
         private System.Windows.Forms.Button btnUltimoTicket;
         private System.Windows.Forms.Button btnPresupuesto;
         private System.Windows.Forms.ListBox listaProductos;

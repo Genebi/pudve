@@ -676,5 +676,11 @@ namespace PuntoDeVentaV2
 
             return respuesta;
         }
+
+        private void btnVentasGuardadas_Click(object sender, EventArgs e)
+        {
+            ListadoVentasGuardadas venta = new ListadoVentasGuardadas();
+            venta.ShowDialog();
+        }
     }
 }
