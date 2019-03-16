@@ -44,6 +44,8 @@ namespace PuntoDeVentaV2
             sql_cmd = new SQLiteCommand("SELECT * FROM Ventas WHERE IDUsuario = " + FormPrincipal.userID, sql_con);
             dr = sql_cmd.ExecuteReader();
 
+            DGVListadoVentas.Rows.Clear();
+
             while (dr.Read())
             {
                 int rowId = DGVListadoVentas.Rows.Add();
@@ -81,6 +83,7 @@ namespace PuntoDeVentaV2
             venta.Disposed += delegate
             {
                 AbrirVentanaVenta();
+                CargarDatos();
             };
 
             venta.ShowDialog();

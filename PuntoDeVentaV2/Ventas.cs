@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
     {
         string[] productos;
         float porcentajeGeneral = 0;
+        bool ventaGuardada = false; //Para saber si la venta se guardo o no
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
@@ -572,8 +573,10 @@ namespace PuntoDeVentaV2
             var Descuento = cDescuento.Text;
             var Total = cTotal.Text;
             var DescuentoGeneral = porcentajeGeneral.ToString("0.00");
-            var Status = cbEstadoVenta.SelectedIndex.ToString();
+            var Status = "1";
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            if (ventaGuardada) { Status = "2"; }
 
             string[] guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Status, FechaOperacion };
 
@@ -599,22 +602,32 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
 
-                        //Actualizar stock de productos
+                        if (!ventaGuardada)
+                        {
+                            //Actualizar stock de productos
+                            var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
+                            var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                            var restantes = (stock - vendidos).ToString();
 
-                        var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
-                        var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
-                        var restantes = (stock - vendidos).ToString();
+                            guardar = new string[] { IDProducto, restantes };
 
-                        guardar = new string[] { IDProducto, restantes };
-
-                        cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
+                            cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
+                        } 
                     }
                 }
 
                 ListadoVentas.abrirNuevaVenta = true;
 
+                ventaGuardada = false;
+
                 this.Dispose();
             }
+        }
+
+        private void btnGuardarVenta_Click(object sender, EventArgs e)
+        {
+            ventaGuardada = true;
+            btnTerminarVenta.PerformClick();
         }
 
         private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)

@@ -39,9 +39,22 @@
             this.btnPresupuesto = new System.Windows.Forms.Button();
             this.txtBuscadorProducto = new System.Windows.Forms.TextBox();
             this.DGVentas = new System.Windows.Forms.DataGridView();
+            this.IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescuentoTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AgregarMultiple = new System.Windows.Forms.DataGridViewImageColumn();
+            this.AgregarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
+            this.RestarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
+            this.EliminarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCancelarVenta = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnGuardarVenta = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -65,19 +78,6 @@
             this.cbEstadoVenta = new System.Windows.Forms.ComboBox();
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
             this.btnDetallesVenta = new System.Windows.Forms.Button();
-            this.IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescuentoTipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Descripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AgregarMultiple = new System.Windows.Forms.DataGridViewImageColumn();
-            this.AgregarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
-            this.RestarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
-            this.EliminarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -197,6 +197,88 @@
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
             // 
+            // IDProducto
+            // 
+            this.IDProducto.HeaderText = "_ID";
+            this.IDProducto.Name = "IDProducto";
+            this.IDProducto.Visible = false;
+            // 
+            // Stock
+            // 
+            this.Stock.HeaderText = "_Stock";
+            this.Stock.Name = "Stock";
+            this.Stock.Visible = false;
+            // 
+            // PrecioOriginal
+            // 
+            this.PrecioOriginal.HeaderText = "_PrecioOriginal";
+            this.PrecioOriginal.Name = "PrecioOriginal";
+            this.PrecioOriginal.Visible = false;
+            // 
+            // DescuentoTipo
+            // 
+            this.DescuentoTipo.HeaderText = "_TipoDescuento";
+            this.DescuentoTipo.Name = "DescuentoTipo";
+            this.DescuentoTipo.Visible = false;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.Width = 65;
+            // 
+            // Precio
+            // 
+            this.Precio.HeaderText = "Precio";
+            this.Precio.Name = "Precio";
+            this.Precio.Width = 65;
+            // 
+            // Descripcion
+            // 
+            this.Descripcion.HeaderText = "Descripción";
+            this.Descripcion.Name = "Descripcion";
+            this.Descripcion.Width = 130;
+            // 
+            // Descuento
+            // 
+            this.Descuento.HeaderText = "Descuento";
+            this.Descuento.Name = "Descuento";
+            this.Descuento.Width = 65;
+            // 
+            // Importe
+            // 
+            this.Importe.HeaderText = "Importe";
+            this.Importe.Name = "Importe";
+            this.Importe.Width = 65;
+            // 
+            // AgregarMultiple
+            // 
+            this.AgregarMultiple.HeaderText = "";
+            this.AgregarMultiple.Name = "AgregarMultiple";
+            this.AgregarMultiple.ReadOnly = true;
+            this.AgregarMultiple.Width = 25;
+            // 
+            // AgregarIndividual
+            // 
+            this.AgregarIndividual.HeaderText = "";
+            this.AgregarIndividual.Name = "AgregarIndividual";
+            this.AgregarIndividual.ReadOnly = true;
+            this.AgregarIndividual.Width = 25;
+            // 
+            // RestarIndividual
+            // 
+            this.RestarIndividual.HeaderText = "";
+            this.RestarIndividual.Name = "RestarIndividual";
+            this.RestarIndividual.ReadOnly = true;
+            this.RestarIndividual.Width = 25;
+            // 
+            // EliminarIndividual
+            // 
+            this.EliminarIndividual.HeaderText = "";
+            this.EliminarIndividual.Name = "EliminarIndividual";
+            this.EliminarIndividual.ReadOnly = true;
+            this.EliminarIndividual.Width = 25;
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(554, 8);
@@ -218,17 +300,18 @@
             this.btnCancelarVenta.UseVisualStyleBackColor = true;
             this.btnCancelarVenta.Click += new System.EventHandler(this.btnCancelarVenta_Click);
             // 
-            // button2
+            // btnGuardarVenta
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(775, 8);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 14;
-            this.button2.Text = "Guardar";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnGuardarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGuardarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarVenta.Location = new System.Drawing.Point(775, 8);
+            this.btnGuardarVenta.Name = "btnGuardarVenta";
+            this.btnGuardarVenta.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardarVenta.TabIndex = 14;
+            this.btnGuardarVenta.Text = "Guardar";
+            this.btnGuardarVenta.UseVisualStyleBackColor = true;
+            this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
             // 
             // button3
             // 
@@ -458,7 +541,7 @@
             this.panel1.Controls.Add(this.cNumeroArticulos);
             this.panel1.Controls.Add(this.btnCancelarVenta);
             this.panel1.Controls.Add(this.lbTotal);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.btnGuardarVenta);
             this.panel1.Controls.Add(this.lbDescuento);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.lbAnticipo);
@@ -520,88 +603,6 @@
             this.btnDetallesVenta.Text = "Detalles";
             this.btnDetallesVenta.UseVisualStyleBackColor = true;
             // 
-            // IDProducto
-            // 
-            this.IDProducto.HeaderText = "_ID";
-            this.IDProducto.Name = "IDProducto";
-            this.IDProducto.Visible = false;
-            // 
-            // Stock
-            // 
-            this.Stock.HeaderText = "_Stock";
-            this.Stock.Name = "Stock";
-            this.Stock.Visible = false;
-            // 
-            // PrecioOriginal
-            // 
-            this.PrecioOriginal.HeaderText = "_PrecioOriginal";
-            this.PrecioOriginal.Name = "PrecioOriginal";
-            this.PrecioOriginal.Visible = false;
-            // 
-            // DescuentoTipo
-            // 
-            this.DescuentoTipo.HeaderText = "_TipoDescuento";
-            this.DescuentoTipo.Name = "DescuentoTipo";
-            this.DescuentoTipo.Visible = false;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.Width = 65;
-            // 
-            // Precio
-            // 
-            this.Precio.HeaderText = "Precio";
-            this.Precio.Name = "Precio";
-            this.Precio.Width = 65;
-            // 
-            // Descripcion
-            // 
-            this.Descripcion.HeaderText = "Descripción";
-            this.Descripcion.Name = "Descripcion";
-            this.Descripcion.Width = 130;
-            // 
-            // Descuento
-            // 
-            this.Descuento.HeaderText = "Descuento";
-            this.Descuento.Name = "Descuento";
-            this.Descuento.Width = 65;
-            // 
-            // Importe
-            // 
-            this.Importe.HeaderText = "Importe";
-            this.Importe.Name = "Importe";
-            this.Importe.Width = 65;
-            // 
-            // AgregarMultiple
-            // 
-            this.AgregarMultiple.HeaderText = "";
-            this.AgregarMultiple.Name = "AgregarMultiple";
-            this.AgregarMultiple.ReadOnly = true;
-            this.AgregarMultiple.Width = 25;
-            // 
-            // AgregarIndividual
-            // 
-            this.AgregarIndividual.HeaderText = "";
-            this.AgregarIndividual.Name = "AgregarIndividual";
-            this.AgregarIndividual.ReadOnly = true;
-            this.AgregarIndividual.Width = 25;
-            // 
-            // RestarIndividual
-            // 
-            this.RestarIndividual.HeaderText = "";
-            this.RestarIndividual.Name = "RestarIndividual";
-            this.RestarIndividual.ReadOnly = true;
-            this.RestarIndividual.Width = 25;
-            // 
-            // EliminarIndividual
-            // 
-            this.EliminarIndividual.HeaderText = "";
-            this.EliminarIndividual.Name = "EliminarIndividual";
-            this.EliminarIndividual.ReadOnly = true;
-            this.EliminarIndividual.Width = 25;
-            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -635,7 +636,7 @@
         private System.Windows.Forms.Button btnEliminarTodos;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnCancelarVenta;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnGuardarVenta;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
