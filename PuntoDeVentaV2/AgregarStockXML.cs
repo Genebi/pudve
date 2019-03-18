@@ -444,19 +444,21 @@ namespace PuntoDeVentaV2
             }
             else if (dtProductos.Rows.Count<=0) // si el resultado no arroja ninguna fila
             {
-                resultadoSearchProd = 0;        // busqueda negativa
-                limpiarLblProd();               // limpiamos los campos de producto
-                MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
-                buscarSugeridos();
-                //MessageBox.Show("Nuevo Producto", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM ProductoRelacionadoXML AS prodRelXML LEFT JOIN Productos AS prod ON prod.ID = prodRelXML.IDProducto LEFT JOIN Usuarios AS usr ON usr.ID = prodRelXML.IDUsuario WHERE prodRelXML.NombreXML = '{concepto}'";
+                dtProductos = cn.CargarDatos(search);
+                if (dtProductos.Rows.Count >= 1)
+                {
+                    datosProductos();                                                   // llamamos la funcion de datosProductos
+                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                }
+                else
+                {
+                    resultadoSearchProd = 0;        // busqueda negativa
+                    limpiarLblProd();               // limpiamos los campos de producto
+                    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                    buscarSugeridos();
+                }
             }
-        }
-
-        public void searchProdRelacionado()
-        {
-            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.ID = '{IdProductoSugerido}'";
-            dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
-
         }
 
         // funsion para poder buscar en los productos 
@@ -759,7 +761,7 @@ namespace PuntoDeVentaV2
             idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
             queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
             cn.EjecutarConsulta(queryRecordHistorialProd);
-            queryRelacionarXML = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{NombProductoSugerido}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{FormPrincipal.userID}')";
+            queryRelacionarXML = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{concepto}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{FormPrincipal.userID}')";
             cn.EjecutarConsulta(queryRelacionarXML);
             seleccionarSugerido = 0;
         }
@@ -968,7 +970,6 @@ namespace PuntoDeVentaV2
 
         private void DGVSugeridos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            consultListProd = 0;
             fechaSitema = fechaHoy.ToString("s");
             fechaSola = fechaSitema.Substring(0, 10);
             horaSola = fechaSitema.Substring(11);
