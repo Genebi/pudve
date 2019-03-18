@@ -209,6 +209,11 @@ namespace PuntoDeVentaV2
 
         DialogResult dialogResult;              // creamos el objeto para poder abrir el cuadro de dialogo
 
+        int numFila;
+        string fechaSitema, fechaSola, horaSola, fechaCompletaRelacionada;
+        DateTime fechaHoy = DateTime.Now;
+        string queryRelacionarXML;
+        int seleccionarSugerido;
 
         // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
         // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
@@ -222,6 +227,8 @@ namespace PuntoDeVentaV2
 
         string IdProductoSugerido;
         string NombProductoSugerido;
+        string StockProdSugerido;
+        int totalProdSugerido;
 
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
         public void datosAgregarNvoProd()
@@ -377,16 +384,17 @@ namespace PuntoDeVentaV2
             FraseXML = concepto;
             PalabrasXML = FraseXML.Split(' ');
 
-            string buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
+            string buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre', Prod.Stock AS 'Existencia' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
             dtSugeridos = cn.CargarDatos(buscarSugeridos);
             dtSugeridos.Columns.Add("Coincidencias");
             DGVSugeridos.DataSource = dtSugeridos;
             DGVSugeridos.Columns["ID"].Visible = false;
             DGVSugeridos.Columns["Coincidencias"].Visible = false;
+            DGVSugeridos.Columns["Existencia"].Visible = false;
 
             for (int fila = 0; fila < DGVSugeridos.Rows.Count; fila++)
             {
-                DGVSugeridos.Rows[fila].Cells[2].Value = "0";
+                DGVSugeridos.Rows[fila].Cells[3].Value = "0";
             }
 
             for (int Fila = 0; Fila < DGVSugeridos.Rows.Count; Fila++)
@@ -442,6 +450,13 @@ namespace PuntoDeVentaV2
                 buscarSugeridos();
                 //MessageBox.Show("Nuevo Producto", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        public void searchProdRelacionado()
+        {
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.ID = '{IdProductoSugerido}'";
+            dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
+
         }
 
         // funsion para poder buscar en los productos 
@@ -733,6 +748,22 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
+        public void prodRelacionadoXML()
+        {
+            totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
+            // hacemos el query para la actualizacion del Stock
+            query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
+            resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompletaRelacionada}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{IdProductoSugerido}','{userId}')";
+            cn.EjecutarConsulta(query);
+            idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+            queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
+            cn.EjecutarConsulta(queryRecordHistorialProd);
+            queryRelacionarXML = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{NombProductoSugerido}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{FormPrincipal.userID}')";
+            cn.EjecutarConsulta(queryRelacionarXML);
+            seleccionarSugerido = 0;
+        }
+
         private void button2_Click(object sender, EventArgs e)
         {
             /************************************
@@ -765,21 +796,23 @@ namespace PuntoDeVentaV2
                     }
                     else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
                     {
-                        //MessageBox.Show("Aqui se programara lo del siguiente Codigo de barras","En construccion proceso pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         CodigoBarrasExtras();
                     }
                     
                     if (resultadoConsulta == 1)                         // si el resultado es 1
                     {
-                        //MessageBox.Show("Se Acualizo el producto\ndesde la lista de Productos", "Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
                     }
                     else                                                // si el resultado es 0
                     {
-                        //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                        
                     }
-                    //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //RecorrerXML();          // recorrer el archivo XML
                 }
+            }
+            else if (seleccionarSugerido == 1)
+            {
+                prodRelacionadoXML();   // llamamos el metodo relacionar por XML
+                RecorrerXML();          // recorrer el archivo XML
             }
             else if (consultListProd == 0)
             {
@@ -788,13 +821,11 @@ namespace PuntoDeVentaV2
                     if (txtBoxPrecioProd.Text == "")    // si el TextBox esta sin contenido
                     {
                         PrecioProd = 0;     // la variable PrecioProd la iniciamos a 0
-                        //MessageBox.Show("Yes...... valor:"+ PrecioProdToCompare);
                     }
                     if (lblPrecioRecomendadoProd.Text == "")    // si el Label esta sin contenido
                     {
                         PrecioProdToCompare = 1;    // la variable la ponemos en 1
-                        lblPrecioRecomendadoProd.Text = PrecioRecomendado.ToString("N2");   // asignamos el valor del lblPrecioRecomendado 
-                        //MessageBox.Show("No...... valor:" + PrecioProdToCompare);
+                        lblPrecioRecomendadoProd.Text = PrecioRecomendado.ToString("N2");   // asignamos el valor del lblPrecioRecomendado
                     }
                     comprobarPrecioMayorIgualRecomendado();                 // Llamamos la funsion para comparar el precio del producto con el sugerido
                     if (lblStockProd.Text == "")    // si el label esta sin contenido
@@ -806,22 +837,19 @@ namespace PuntoDeVentaV2
                     {
                         searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
                         searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
-                        //MessageBox.Show("No son Iguales", "los textos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)     // si es que 
                         {
-                            //MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            
                         }
                         else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                         {
                             ActualizarStock();      // realizamos la actualizacion
-                            //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             RecorrerXML();          // recorrer el archivo XML
                         }
                     }
                     else                                                    // si no hubo un cambio
                     {
-                        // ToDo 
-                        //MessageBox.Show("No esta dentro de lo planeado", "Algo salio Mal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        
                     }
 
                 }
@@ -833,7 +861,6 @@ namespace PuntoDeVentaV2
                     {
                         searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
                         searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
-                        //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ActualizarStock();      // realizamos la actualizacion
                         RecorrerXML();          // recorrer el archivo XML
                     }
@@ -941,10 +968,17 @@ namespace PuntoDeVentaV2
 
         private void DGVSugeridos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int numFila;
+            consultListProd = 0;
+            fechaSitema = fechaHoy.ToString("s");
+            fechaSola = fechaSitema.Substring(0, 10);
+            horaSola = fechaSitema.Substring(11);
+            fechaCompletaRelacionada = fechaSola + " " + horaSola;
+
             numFila = DGVSugeridos.CurrentRow.Index;
             IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
             NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
+            StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
+            seleccionarSugerido = 1;
         }
 
         private void picBoxBuscar_Click_1(object sender, EventArgs e)
@@ -977,6 +1011,7 @@ namespace PuntoDeVentaV2
                     lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;       // mostramos los datos ya almacenado del producto
                     txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;               // mostramos los datos ya almacenado del producto
                     PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
+                    seleccionarSugerido = 0;
                 }
                 if (consultListProd == 0)   // si el valor es 0 si es que no selecciono nada
                 {
