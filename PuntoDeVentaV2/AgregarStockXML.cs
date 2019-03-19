@@ -381,10 +381,11 @@ namespace PuntoDeVentaV2
 
         public void buscarSugeridos()
         {
+            string buscarSugeridos, insertarNoMatch;
             FraseXML = concepto;
             PalabrasXML = FraseXML.Split(' ');
 
-            string buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre', Prod.Stock AS 'Existencia' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
+            buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre', Prod.Stock AS 'Existencia' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
             dtSugeridos = cn.CargarDatos(buscarSugeridos);
             dtSugeridos.Columns.Add("Coincidencias");
             DGVSugeridos.DataSource = dtSugeridos;
@@ -412,6 +413,8 @@ namespace PuntoDeVentaV2
                     }
                 }
                 DGVSugeridos.Rows[Fila].Cells["Coincidencias"].Value = match.ToString();
+                insertarNoMatch = $"UPDATE Productos SET PuntoMatch = '{match}' WHERE Nombre = '{FraseStock}'";
+                cn.EjecutarConsulta(insertarNoMatch);
                 match = 0;
             }
             DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);
