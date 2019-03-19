@@ -421,17 +421,8 @@ namespace PuntoDeVentaV2
                 DGVSugeridos.Rows[Fila].Cells["Coincidencias"].Value = match.ToString();
                 match = 0;
             }
+            DGVSugeridos.Sort(DGVSugeridos.Columns["Puntaje"], ListSortDirection.Descending);
             DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);
-            totalMatch = Convert.ToInt32(DGVSugeridos[4, 0].Value.ToString());
-            totalPuntaje = Convert.ToInt32(DGVSugeridos[3, 0].Value.ToString());
-            if (totalMatch > totalPuntaje)
-            {
-                DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);
-            }
-            //else if (totalMatch < totalPuntaje)
-            //{
-            //    DGVSugeridos.Sort(DGVSugeridos.Columns["Puntaje"], ListSortDirection.Descending);
-            //}
         }
 
         // funsion para poder buscar los productos 
