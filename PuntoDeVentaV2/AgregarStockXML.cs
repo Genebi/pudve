@@ -382,20 +382,23 @@ namespace PuntoDeVentaV2
         public void buscarSugeridos()
         {
             string buscarSugeridos, insertarNoMatch;
+            int PuntajeMatch = 0;
             FraseXML = concepto;
             PalabrasXML = FraseXML.Split(' ');
 
-            buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre', Prod.Stock AS 'Existencia' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
+            buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre', Prod.Stock AS 'Existencia', Prod.PuntoMatch AS 'Puntaje' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
             dtSugeridos = cn.CargarDatos(buscarSugeridos);
             dtSugeridos.Columns.Add("Coincidencias");
             DGVSugeridos.DataSource = dtSugeridos;
-            DGVSugeridos.Columns["ID"].Visible = false;
-            DGVSugeridos.Columns["Coincidencias"].Visible = false;
-            DGVSugeridos.Columns["Existencia"].Visible = false;
+            DGVSugeridos.Columns["ID"].Visible = false;                     // Columna 0
+            DGVSugeridos.Columns["Nombre"].Visible = true;                  // Columna 1
+            DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2
+            DGVSugeridos.Columns["Puntaje"].Visible = false;                // Columna 3
+            DGVSugeridos.Columns["Coincidencias"].Visible = false;          // Columna 4
 
             for (int fila = 0; fila < DGVSugeridos.Rows.Count; fila++)
             {
-                DGVSugeridos.Rows[fila].Cells[3].Value = "0";
+                DGVSugeridos.Rows[fila].Cells[4].Value = "0";
             }
 
             for (int Fila = 0; Fila < DGVSugeridos.Rows.Count; Fila++)
@@ -412,9 +415,13 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                PuntajeMatch = Convert.ToInt32(DGVSugeridos.Rows[Fila].Cells["Puntaje"].Value.ToString());
+                if (PuntajeMatch <= 0)
+                {
+                    insertarNoMatch = $"UPDATE Productos SET PuntoMatch = '{match}' WHERE Nombre = '{FraseStock}'";
+                    cn.EjecutarConsulta(insertarNoMatch);
+                }
                 DGVSugeridos.Rows[Fila].Cells["Coincidencias"].Value = match.ToString();
-                insertarNoMatch = $"UPDATE Productos SET PuntoMatch = '{match}' WHERE Nombre = '{FraseStock}'";
-                cn.EjecutarConsulta(insertarNoMatch);
                 match = 0;
             }
             DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);
