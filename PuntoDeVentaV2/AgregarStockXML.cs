@@ -180,6 +180,8 @@ namespace PuntoDeVentaV2
         public DataTable dtSugeridos;           // almacena el resultado de la funcion de CargarDatos de la funcion buscarSugeridos
 
         int match = 0;
+        string queryBuscarSugeridos, insertarNoMatch;
+        int PuntajeMatch = 0;
 
         string FraseXML, FraseStock;
         string[] PalabrasXML, PalabrasStock;
@@ -228,6 +230,8 @@ namespace PuntoDeVentaV2
         string IdProductoSugerido;
         string NombProductoSugerido;
         string StockProdSugerido;
+        string PuntajeProdSugerido;
+        string CoincidenciaSugerido;
         int totalProdSugerido;
 
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
@@ -381,13 +385,11 @@ namespace PuntoDeVentaV2
 
         public void buscarSugeridos()
         {
-            string buscarSugeridos, insertarNoMatch;
-            int PuntajeMatch = 0;
             FraseXML = concepto;
             PalabrasXML = FraseXML.Split(' ');
 
-            buscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre', Prod.Stock AS 'Existencia', Prod.PuntoMatch AS 'Puntaje' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
-            dtSugeridos = cn.CargarDatos(buscarSugeridos);
+            queryBuscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre', Prod.Stock AS 'Existencia', Prod.PuntoMatch AS 'Puntaje' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
+            dtSugeridos = cn.CargarDatos(queryBuscarSugeridos);
             dtSugeridos.Columns.Add("Coincidencias");
             DGVSugeridos.DataSource = dtSugeridos;
             DGVSugeridos.Columns["ID"].Visible = false;                     // Columna 0
@@ -414,12 +416,6 @@ namespace PuntoDeVentaV2
                             match++;
                         }
                     }
-                }
-                PuntajeMatch = Convert.ToInt32(DGVSugeridos.Rows[Fila].Cells["Puntaje"].Value.ToString());
-                if (PuntajeMatch <= 0)
-                {
-                    insertarNoMatch = $"UPDATE Productos SET PuntoMatch = '{match}' WHERE Nombre = '{FraseStock}'";
-                    cn.EjecutarConsulta(insertarNoMatch);
                 }
                 DGVSugeridos.Rows[Fila].Cells["Coincidencias"].Value = match.ToString();
                 match = 0;
@@ -458,20 +454,6 @@ namespace PuntoDeVentaV2
                 limpiarLblProd();               // limpiamos los campos de producto
                 MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                 buscarSugeridos();
-                //search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM ProductoRelacionadoXML AS prodRelXML LEFT JOIN Productos AS prod ON prod.ID = prodRelXML.IDProducto LEFT JOIN Usuarios AS usr ON usr.ID = prodRelXML.IDUsuario WHERE prodRelXML.NombreXML = '{concepto}'";
-                //dtProductos = cn.CargarDatos(search);
-                //if (dtProductos.Rows.Count >= 1)
-                //{
-                //    datosProductos();                                                   // llamamos la funcion de datosProductos
-                //    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
-                //}
-                //else
-                //{
-                //    resultadoSearchProd = 0;        // busqueda negativa
-                //    limpiarLblProd();               // limpiamos los campos de producto
-                //    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
-                //    buscarSugeridos();
-                //}
             }
         }
 
@@ -767,8 +749,17 @@ namespace PuntoDeVentaV2
         public void prodRelacionadoXML()
         {
             totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
-            // hacemos el query para la actualizacion del Stock
-            query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
+            if (DGVSugeridos[3, numFila].Value.ToString() == "0")
+            {
+                match = Convert.ToInt32(PuntajeProdSugerido) + Convert.ToInt32(CoincidenciaSugerido) + 3;
+                // hacemos el query para la actualizacion del Stock
+                query = $"UPDATE Productos SET Stock = '{totalProdSugerido}', PuntoMatch = '{match}' WHERE ID = '{IdProductoSugerido}'";
+            }
+            else if (DGVSugeridos[3,numFila].Value.ToString() != "0")
+            {
+                // hacemos el query para la actualizacion del Stock
+                query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
+            }
             resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
             query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompletaRelacionada}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{IdProductoSugerido}','{userId}')";
             cn.EjecutarConsulta(query);
@@ -993,6 +984,8 @@ namespace PuntoDeVentaV2
             IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
             NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
             StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
+            PuntajeProdSugerido = DGVSugeridos[3, numFila].Value.ToString();
+            CoincidenciaSugerido = DGVSugeridos[4, numFila].Value.ToString();
             seleccionarSugerido = 1;
         }
 
