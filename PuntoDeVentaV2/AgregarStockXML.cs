@@ -396,8 +396,8 @@ namespace PuntoDeVentaV2
             DGVSugeridos.Columns["ID"].Visible = false;                     // Columna 0
             DGVSugeridos.Columns["Nombre"].Visible = true;                  // Columna 1
             DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2
-            DGVSugeridos.Columns["Puntaje"].Visible = false;                // Columna 3
-            DGVSugeridos.Columns["Coincidencias"].Visible = false;          // Columna 4
+            DGVSugeridos.Columns["Puntaje"].Visible = true;                // Columna 3
+            DGVSugeridos.Columns["Coincidencias"].Visible = true;          // Columna 4
 
             for (int fila = 0; fila < DGVSugeridos.Rows.Count; fila++)
             {
