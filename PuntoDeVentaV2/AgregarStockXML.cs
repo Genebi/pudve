@@ -444,20 +444,24 @@ namespace PuntoDeVentaV2
             }
             else if (dtProductos.Rows.Count<=0) // si el resultado no arroja ninguna fila
             {
-                search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM ProductoRelacionadoXML AS prodRelXML LEFT JOIN Productos AS prod ON prod.ID = prodRelXML.IDProducto LEFT JOIN Usuarios AS usr ON usr.ID = prodRelXML.IDUsuario WHERE prodRelXML.NombreXML = '{concepto}'";
-                dtProductos = cn.CargarDatos(search);
-                if (dtProductos.Rows.Count >= 1)
-                {
-                    datosProductos();                                                   // llamamos la funcion de datosProductos
-                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
-                }
-                else
-                {
-                    resultadoSearchProd = 0;        // busqueda negativa
-                    limpiarLblProd();               // limpiamos los campos de producto
-                    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
-                    buscarSugeridos();
-                }
+                resultadoSearchProd = 0;        // busqueda negativa
+                limpiarLblProd();               // limpiamos los campos de producto
+                MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                buscarSugeridos();
+                //search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM ProductoRelacionadoXML AS prodRelXML LEFT JOIN Productos AS prod ON prod.ID = prodRelXML.IDProducto LEFT JOIN Usuarios AS usr ON usr.ID = prodRelXML.IDUsuario WHERE prodRelXML.NombreXML = '{concepto}'";
+                //dtProductos = cn.CargarDatos(search);
+                //if (dtProductos.Rows.Count >= 1)
+                //{
+                //    datosProductos();                                                   // llamamos la funcion de datosProductos
+                //    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                //}
+                //else
+                //{
+                //    resultadoSearchProd = 0;        // busqueda negativa
+                //    limpiarLblProd();               // limpiamos los campos de producto
+                //    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                //    buscarSugeridos();
+                //}
             }
         }
 
