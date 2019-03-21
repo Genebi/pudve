@@ -291,6 +291,54 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[]  BuscarVentaGuardada(int IDVenta)
+        {
+            List<string> lista = new List<string>();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT * FROM Ventas WHERE ID = '{IDVenta}'";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[5].ToString()); //Subtotal
+                lista.Add(dr[6].ToString()); //IVA16
+                lista.Add(dr[8].ToString()); //Total
+                lista.Add(dr[9].ToString()); //Descuento
+                lista.Add(dr[10].ToString()); //Descuento general
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] ObtenerProductosVenta(int IDVenta)
+        {
+            List<string> lista = new List<string>();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT * FROM ProductosVenta WHERE IDVenta = '{IDVenta}'";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                lista.Add(dr[2] + "|" + dr[3] + "|" + dr[4]); //IDProducto, Nombre y Cantidad
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public float CalcularPorcentaje(string sCantidad)
         {
             int longitud = sCantidad.Length;

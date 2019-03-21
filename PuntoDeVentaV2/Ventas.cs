@@ -22,6 +22,9 @@ namespace PuntoDeVentaV2
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
 
+        //Para las ventas guardadas
+        public static int mostrarVenta = 0;
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         NameValueCollection datos;
@@ -172,7 +175,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void AgregarProducto(string[] datosProducto)
+        private void AgregarProducto(string[] datosProducto, int valor = 1)
         {
             if (DGVentas.Rows.Count > 0)
             {
@@ -183,7 +186,7 @@ namespace PuntoDeVentaV2
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
                     {
-                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + 1;
+                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + valor;
                         float importe = cantidad * float.Parse(fila.Cells["Precio"].Value.ToString());
 
                         fila.Cells["Cantidad"].Value = cantidad;
@@ -680,7 +683,51 @@ namespace PuntoDeVentaV2
         private void btnVentasGuardadas_Click(object sender, EventArgs e)
         {
             ListadoVentasGuardadas venta = new ListadoVentasGuardadas();
+
+            venta.FormClosed += delegate
+            {
+                CargarVentaGuardada();
+            };
+
             venta.ShowDialog();
+        }
+
+
+        private void CargarVentaGuardada()
+        {
+            string[] datos = cn.BuscarVentaGuardada(mostrarVenta);
+
+            cSubtotal.Text = datos[0];
+            cIVA.Text = datos[1];
+            cTotal.Text = datos[2];
+            cDescuento.Text = datos[3];
+
+            if (Convert.ToInt32(datos[4]) > 0)
+            {
+                txtDescuentoGeneral.Text = datos[4];
+            }
+
+            //Verificar si tiene productos la venta
+            bool tieneProductos = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosVenta WHERE IDVenta = '{mostrarVenta}'");
+
+            if (tieneProductos)
+            {
+                string[] productos = cn.ObtenerProductosVenta(mostrarVenta);
+
+                foreach (string producto in productos)
+                {
+                    string[] info = producto.Split('|');
+
+                    string[] datosProducto = cn.BuscarProducto(Convert.ToInt32(info[0]), FormPrincipal.userID);
+
+                    int cantidad = Convert.ToInt32(info[2]) - 1;
+
+                    AgregarProductoLista(datosProducto);
+                    AgregarProducto(datosProducto, cantidad);
+                }
+            }
+
+            mostrarVenta = 0;
         }
     }
 }
