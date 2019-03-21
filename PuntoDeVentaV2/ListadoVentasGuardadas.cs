@@ -36,6 +36,11 @@ namespace PuntoDeVentaV2
 
             while (dr.Read())
             {
+                if (Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID"))) == Ventas.mostrarVenta)
+                {
+                    continue;
+                }
+
                 int rowId = DGVListaVentasGuardadas.Rows.Add();
 
                 DataGridViewRow row = DGVListaVentasGuardadas.Rows[rowId];
@@ -65,14 +70,17 @@ namespace PuntoDeVentaV2
             if (e.ColumnIndex == 4)
             {
                 Ventas.mostrarVenta = IDVenta;
+
+                this.Close();
             }
 
             //Eliminar venta guardada
             if (e.ColumnIndex == 5)
             {
-            }
+                DGVListaVentasGuardadas.ClearSelection();
 
-            this.Close();
+                MessageBox.Show("Venta a cancelar: " + IDVenta.ToString());
+            }
         }
 
         private void DGVListaVentasGuardadas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)

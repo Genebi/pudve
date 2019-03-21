@@ -564,6 +564,8 @@ namespace PuntoDeVentaV2
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
         {
+            mostrarVenta = 0;
+
             this.Dispose();
         }
 
@@ -715,6 +717,7 @@ namespace PuntoDeVentaV2
             cTotal.Text = datos[2];
             cDescuento.Text = datos[3];
 
+            //Descuento general
             if (Convert.ToInt32(datos[4]) > 0)
             {
                 txtDescuentoGeneral.Text = datos[4];
@@ -725,6 +728,8 @@ namespace PuntoDeVentaV2
 
             if (tieneProductos)
             {
+                DGVentas.Rows.Clear();
+
                 string[] productos = cn.ObtenerProductosVenta(mostrarVenta);
 
                 foreach (string producto in productos)
@@ -738,6 +743,11 @@ namespace PuntoDeVentaV2
                     AgregarProductoLista(datosProducto, cantidad);
                 }
             }
+        }
+
+        private void Ventas_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            mostrarVenta = 0;
         }
     }
 }
