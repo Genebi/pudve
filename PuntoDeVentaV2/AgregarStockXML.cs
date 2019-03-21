@@ -178,9 +178,10 @@ namespace PuntoDeVentaV2
         public DataTable dtClaveInterna;        // almacena el resultado de la funcion de CargarDatos de la funcion searchClavIntProd
         public DataTable dtCodBar;              // almacena el resultado de la funcion de CargarDatos de la funcion searchCodBar
         public DataTable dtSugeridos;           // almacena el resultado de la funcion de CargarDatos de la funcion buscarSugeridos
+        public DataTable dtSugeridosGral;
 
         int match = 0;
-        string queryBuscarSugeridos, insertarNoMatch;
+        string queryBuscarSugeridos, insertarNoMatch, queryBuscarSugeridosGral;
         int PuntajeMatch = 0;
 
         string FraseXML, FraseStock;
@@ -227,12 +228,11 @@ namespace PuntoDeVentaV2
         FileStream fs;
         Comprobante ds;
 
-        string IdProductoSugerido;
-        string NombProductoSugerido;
-        string StockProdSugerido;
-        string PuntajeProdSugerido;
-        string CoincidenciaSugerido;
-        int totalProdSugerido;
+        string IdProductoSugerido;          // Obtiene el ID del Producto sugerido al darle click en la lista
+        string NombProductoSugerido;        // Obtiene el Nombre del Producto sugerido al darle click en la lista
+        string StockProdSugerido;           // Obtiene el Stock del Producto sugerido al darle click en la lista
+        string CoincidenciaSugerido;        // Obtiene las Coincidencias del Producto sugerido al darle click en la lista
+        int totalProdSugerido;              // Se obtiene la cantidad de productos sugeridos
 
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
         public void datosAgregarNvoProd()
@@ -383,46 +383,199 @@ namespace PuntoDeVentaV2
             txtBoxClaveInternaProd.Text = "";
         }
 
+        // metodo para buscar los sugeridos
         public void buscarSugeridos()
         {
-            int totalMatch, totalPuntaje;
-            FraseXML = concepto;
-            PalabrasXML = FraseXML.Split(' ');
+            DataTable table = new DataTable();                              // creamos una tabla 
 
-            queryBuscarSugeridos = $"SELECT Prod.ID AS 'ID', Prod.Nombre AS 'Nombre', Prod.Stock AS 'Existencia', Prod.PuntoMatch AS 'Puntaje' FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}'";
-            dtSugeridos = cn.CargarDatos(queryBuscarSugeridos);
-            dtSugeridos.Columns.Add("Coincidencias");
+            DataColumn column;                                              // creamos una columna
+            DataRow row;                                                    // creamos una fila
+            DataView view;                                                  // creamos una vista
+
+            List<DataGridViewRow> temp = new List<DataGridViewRow>();       // Lista Auxiliar para quitar con cero del DataGridView
+            List<DataRow> listAux = new List<DataRow>();                    // Lista Auxiliar para borrar repetido de la Tabla
+
+            string nombre = "", coincidencias = "";                         // variables para buscar nombre repetido o coincidencias en 0
+
+            column = new DataColumn();                                      // creamos una nueva columna
+            column.DataType = System.Type.GetType("System.Int32");          // declaramos el tipo
+            column.ColumnName = "ID";                                       // ponemos el nombre
+            table.Columns.Add(column);                                      // agregamos columna a la tabla
+
+            column = new DataColumn();                                      // creamos una nueva columna
+            column.DataType = System.Type.GetType("System.String");         // declaramos el tipo
+            column.ColumnName = "Nombre";                                   // ponemos el nombre
+            table.Columns.Add(column);                                      // agregamos columna a la tabla
+
+            column = new DataColumn();                                      // creamos una nueva columna
+            column.DataType = System.Type.GetType("System.String");         // declaramos el tipo
+            column.ColumnName = "Existencia";                               // ponemos el nombre
+            table.Columns.Add(column);                                      // agregamos columna a la tabla
+
+            column = new DataColumn();                                      // creamos una nueva columna
+            column.DataType = System.Type.GetType("System.String");         // declaramos el tipo
+            column.ColumnName = "Coincidencias";                            // ponemos el nombre
+            table.Columns.Add(column);                                      // agregamos columna a la tabla
+
+            FraseXML = concepto;                    // almacena el nombre del concepto
+            PalabrasXML = FraseXML.Split(' ');      // las separa en un array por palabras el concepto
+
+            // hacemos la consulta de los productos segun el usuario
+            queryBuscarSugeridos = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre',  prod.Stock AS 'Existencia' FROM ProductoRelacionadoXML AS prxml LEFT JOIN Productos AS prod ON prod.ID = prxml.IDProducto LEFT JOIN CodigoBarrasExtras AS codext ON codext.IDProducto = prod.ID LEFT JOIN Usuarios AS usr ON prxml.IDUsuario = usr.ID WHERE prxml.NombreXML = '{concepto}' AND prxml.IDUsuario = '{userId}'";
+            dtSugeridos = cn.CargarDatos(queryBuscarSugeridos);             // realizamos la consulta a la Base de Datos
+            dtSugeridos.Columns.Add("Coincidencias");                       // agregamos la columna de Coincidencias
             DGVSugeridos.DataSource = dtSugeridos;
-            DGVSugeridos.Columns["ID"].Visible = false;                     // Columna 0
-            DGVSugeridos.Columns["Nombre"].Visible = true;                  // Columna 1
-            DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2
-            DGVSugeridos.Columns["Puntaje"].Visible = true;                // Columna 3
-            DGVSugeridos.Columns["Coincidencias"].Visible = true;          // Columna 4
 
-            for (int fila = 0; fila < DGVSugeridos.Rows.Count; fila++)
-            {
-                DGVSugeridos.Rows[fila].Cells[4].Value = "0";
-            }
 
-            for (int Fila = 0; Fila < DGVSugeridos.Rows.Count; Fila++)
+            if (DGVSugeridos.Rows.Count == 0)       // si el DataGridView no tiene registros
             {
-                FraseStock = DGVSugeridos.Rows[Fila].Cells["Nombre"].Value.ToString();
-                PalabrasStock = FraseStock.Split(' ');
-                foreach (var palabraSearch in PalabrasXML)
+                // hacemos la consulta de los productos segun el usuario
+                queryBuscarSugeridosGral = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia' FROM Productos AS prod WHERE prod.IDUsuario = '{userId}'";
+                dtSugeridosGral = cn.CargarDatos(queryBuscarSugeridosGral);     // realizamos la consulta a la Base de Datos
+                dtSugeridosGral.Columns.Add("Coincidencias");                   // agregamos la columna de Coincidencias
+                DGVSugeridos.DataSource = dtSugeridosGral;                      // Llenamos de informacion el DataGridView
+                DGVSugeridos.Columns["ID"].Visible = false;                     // Columna 0 de ID la ocultamos para el usuario solamente
+                DGVSugeridos.Columns["Nombre"].Visible = true;                  // Columna 1 de Nombre la dejamos visible para el usuario
+                DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2 de Existencia la ocultamos para el usuario solamente
+                DGVSugeridos.Columns["Coincidencias"].Visible = false;          // Columna 3 de Coincidencia la ocultamos para el usuario solamente
+
+                for (int Fila = 0; Fila < DGVSugeridos.Rows.Count; Fila++)  // hacemos el recorrido del DataGridView
                 {
-                    foreach (var palabraFound in PalabrasStock)
+                    FraseStock = DGVSugeridos.Rows[Fila].Cells["Nombre"].Value.ToString();  // almacenamos el nombre del concepto del DataGridView que son el Stock de Productos
+                    PalabrasStock = FraseStock.Split(' ');                                  // separamos en un array palabra por palabra
+                    foreach (var palabraSearch in PalabrasXML)      // hacemos el recorrido del contenido de las palabras de XML (Concepto)
                     {
-                        if (palabraFound.ToLower() == palabraSearch.ToLower())
+                        foreach (var palabraFound in PalabrasStock)     // hacemos el recorrido del contenido de las palabras del Stock (Productos)
                         {
-                            match++;
+                            if (palabraFound.ToLower() == palabraSearch.ToLower())      // comparamos ambas palabras y si son iguales
+                            {
+                                match++;    // solo para saber si que hay una coincidencia en palabras en el stock
+                                break;      // rompemos el ciclo para salir
+                            }
                         }
                     }
                 }
-                DGVSugeridos.Rows[Fila].Cells["Coincidencias"].Value = match.ToString();
-                match = 0;
+
+                match = 0;  // ponemos la variable del match en 0 
+                for (int fila = 0; fila < DGVSugeridos.Rows.Count; fila++)  // recorremos el DataGridView 
+                {
+                    FraseStock = DGVSugeridos.Rows[fila].Cells["Nombre"].Value.ToString();  // almacenamos el nombre de la columna Nombre
+                    PalabrasStock = FraseStock.Split(' ');                                  // lo separamos por palabras en un array
+                    foreach (var palabraSearch in PalabrasXML)      // hacemos el recorrido del contenido de las palabras de XML (Concepto) 
+                    {
+                        foreach (var palabraFound in PalabrasStock)     // hacemos el recorrido del contenido de las palabras del Stock (Productos)
+                        {
+                            if (palabraFound.ToLower() == palabraSearch.ToLower())      // comparamos ambas palabras y si son iguales
+                            {
+                                match++;                                                    // sumamos el valor del totalMatch con lo del match
+                            }
+                        }
+                    }
+                    DGVSugeridos.Rows[fila].Cells["Coincidencias"].Value = match.ToString();    // asignamos las coincidencias al campo de Coincidencias
+                    match = 0;
+                }
+
+                coincidencias = "";                                                             // ponemos las coincidencias en vacio
+                foreach (DataGridViewRow renglon in DGVSugeridos.Rows)                          // hacemos el recorrido del DataGridView
+                {
+                    coincidencias = ((DataGridViewTextBoxCell)renglon.Cells["Coincidencias"]).Value.ToString();     // Obtenemos el valor de la coincidencia
+                    if (coincidencias.Equals("0"))                                                                  // Comparamos si es 0
+                    {
+                        temp.Add(renglon);                                                                              // la agregamos a lista Auxiliar
+                    }
+                }
+                foreach (var renglon in temp)                                                   // hacemos el recorrido de la lista Auxiliar
+                {
+                    DGVSugeridos.Rows.Remove(renglon);                                                              // eliminamos los registros del DataGridView
+                }
+                DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);     // ordenamos desendentemente el DatGridView
+            } 
+            else if (DGVSugeridos.Rows.Count != 0)      // si el DataGrdiView si tiene registros
+            {
+                for (int i = 0; i < dtSugeridos.Rows.Count; i++)                        // recorremos el DataGridView
+                {
+                    row = table.NewRow();                                                       // a la tabla le agregamos una nueva fila
+                    row["ID"] = Convert.ToInt32(dtSugeridos.Rows[i]["ID"].ToString());          // agregamos la celda de la columna ID
+                    row["Nombre"] = dtSugeridos.Rows[i]["Nombre"].ToString();                   // agregamos la celda de la columna Nombre 
+                    row["Existencia"] = dtSugeridos.Rows[i]["Existencia"].ToString();           // agregamos la celda de la columna Existencia
+                    row["Coincidencias"] = dtSugeridos.Rows[i]["Coincidencias"].ToString();     // agregamos la celda de la columna Coincidencia
+                    table.Rows.Add(row);                                                        // agregamos a la tabla la nueva fila
+                }
+
+                // hacemos la consulta de los productos segun el usuario
+                queryBuscarSugeridosGral = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia' FROM Productos AS prod WHERE prod.IDUsuario = '{userId}'";
+                dtSugeridosGral = cn.CargarDatos(queryBuscarSugeridosGral);     // realizamos la consulta a la Base de Datos
+                dtSugeridosGral.Columns.Add("Coincidencias");                       // agregamos la columna de Coincidencias
+
+                foreach (DataRow dr in dtSugeridosGral.Rows)                            // recorremos el DataTable dtSugeridosGral
+                {
+                    nombre = DGVSugeridos.Rows[0].Cells["Nombre"].Value.ToString();             // tomamos el valor del campo nombre
+                    if (dr["Nombre"].ToString() == nombre)                                      // comparamos si es igual al que ya estaba al inicio
+                    {
+                        listAux.Add(dr);                                                                // agregamos a lista Auxiliar
+                    }
+                }
+
+                foreach (DataRow dr in listAux)                                         // hacemos el recorrido de la lista Auxiliar
+                {
+                    dtSugeridosGral.Rows.Remove(dr);                                            // eliminamos del DataTable el repetido en Nombre
+                }
+
+                for (int i = 0; i < dtSugeridosGral.Rows.Count; i++)                        // recorremos el dtSugerenciaGral
+                {
+                    row = table.NewRow();                                                           // a la tabla le agregamos una nueva fila  
+                    row["ID"] = Convert.ToInt32(dtSugeridosGral.Rows[i]["ID"].ToString());          // agregamos la celda de la columna ID
+                    row["Nombre"] = dtSugeridosGral.Rows[i]["Nombre"].ToString();                   // agregamos la celda de la columna Nombre 
+                    row["Existencia"] = dtSugeridosGral.Rows[i]["Existencia"].ToString();           // agregamos la celda de la columna Existencia
+                    row["Coincidencias"] = dtSugeridosGral.Rows[i]["Coincidencias"].ToString();     // agregamos la celda de la columna Coincidencia
+                    table.Rows.Add(row);                                                            // agregamos a la tabla la nueva fila
+                }
+
+                view = new DataView(table);                                     // agregamos la tabla a una vista
+                DGVSugeridos.DataSource = view;                                 // llenamos el DataGridView con informacion
+
+                DGVSugeridos.Columns["ID"].Visible = false;                     // Columna 0 de ID la ocultamos para el usuario solamente
+                DGVSugeridos.Columns["Nombre"].Visible = true;                  // Columna 1 de Nombre la dejamos visible para el usuario
+                DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2 de Existencia la ocultamos para el usuario solamente
+                DGVSugeridos.Columns["Coincidencias"].Visible = false;          // Columna 3 de Coincidencia la ocultamos para el usuario solamente
+
+                DGVSugeridos.Rows[0].Cells["Coincidencias"].Value = "100";      // al primer registro del DatGridView se le pone el valor alto
+
+                match = 0;  // ponemos la variable del match en 0 
+                for (int fila = 1; fila < DGVSugeridos.Rows.Count; fila++)  // recorremos el DataGridView 
+                {
+                    FraseStock = DGVSugeridos.Rows[fila].Cells["Nombre"].Value.ToString();  // almacenamos el nombre de la columna Nombre
+                    PalabrasStock = FraseStock.Split(' ');                                  // lo separamos por palabras en un array
+                    foreach (var palabraSearch in PalabrasXML)      // hacemos el recorrido del contenido de las palabras de XML (Concepto) 
+                    {
+                        foreach (var palabraFound in PalabrasStock)     // hacemos el recorrido del contenido de las palabras del Stock (Productos)
+                        {
+                            if (palabraFound.ToLower() == palabraSearch.ToLower())      // comparamos ambas palabras y si son iguales
+                            {
+                                match++;                                                    // sumamos el valor del totalMatch con lo del match
+                            }
+                        }
+                    }
+                    DGVSugeridos.Rows[fila].Cells["Coincidencias"].Value = match.ToString();    // asignamos las coincidencias al campo de Coincidencias
+                    match = 0;
+                }
+
+                coincidencias = "";                                                             // ponemos las coincidencias en vacio
+                foreach (DataGridViewRow renglon in DGVSugeridos.Rows)                          // hacemos el recorrido del DataGridView
+                {
+                    coincidencias = ((DataGridViewTextBoxCell)renglon.Cells["Coincidencias"]).Value.ToString();         // Obtenemos el valor de la coincidencia
+                    if (coincidencias.Equals("0"))                                                                      // Comparamos si es 0 
+                    {
+                        temp.Add(renglon);                                                                                      // la agregamos a lista Auxiliar
+                    }
+                }
+                foreach (var renglon in temp)                                                   // hacemos el recorrido de la lista Auxiliar 
+                {
+                    DGVSugeridos.Rows.Remove(renglon);                                                  // eliminamos del DataTable el repetido en Nombre
+                }
+
+                DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Ascending);          // ordenamos Acendentemente el DatGridView
             }
-            DGVSugeridos.Sort(DGVSugeridos.Columns["Puntaje"], ListSortDirection.Descending);
-            DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);
         }
 
         // funsion para poder buscar los productos 
@@ -751,17 +904,8 @@ namespace PuntoDeVentaV2
         public void prodRelacionadoXML()
         {
             totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
-            if (DGVSugeridos[3, numFila].Value.ToString() == "0")
-            {
-                match = Convert.ToInt32(PuntajeProdSugerido) + Convert.ToInt32(CoincidenciaSugerido) + 3;
-                // hacemos el query para la actualizacion del Stock
-                query = $"UPDATE Productos SET Stock = '{totalProdSugerido}', PuntoMatch = '{match}' WHERE ID = '{IdProductoSugerido}'";
-            }
-            else if (DGVSugeridos[3,numFila].Value.ToString() != "0")
-            {
-                // hacemos el query para la actualizacion del Stock
-                query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
-            }
+            // hacemos el query para la actualizacion del Stock
+            query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
             resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
             query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompletaRelacionada}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{IdProductoSugerido}','{userId}')";
             cn.EjecutarConsulta(query);
@@ -986,8 +1130,7 @@ namespace PuntoDeVentaV2
             IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
             NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
             StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
-            PuntajeProdSugerido = DGVSugeridos[3, numFila].Value.ToString();
-            CoincidenciaSugerido = DGVSugeridos[4, numFila].Value.ToString();
+            CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
             seleccionarSugerido = 1;
         }
 
