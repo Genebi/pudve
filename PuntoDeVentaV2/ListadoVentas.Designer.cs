@@ -30,13 +30,6 @@
         {
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.DGVListadoVentas = new System.Windows.Forms.DataGridView();
-            this.panelBotones = new System.Windows.Forms.Panel();
-            this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
-            this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
-            this.btnNuevaVenta = new System.Windows.Forms.Button();
-            this.btnBuscarVentas = new System.Windows.Forms.Button();
-            this.cbTipoVentas = new System.Windows.Forms.ComboBox();
-            this.cbVentas = new System.Windows.Forms.ComboBox();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +40,13 @@
             this.Pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelBotones = new System.Windows.Forms.Panel();
+            this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
+            this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
+            this.btnNuevaVenta = new System.Windows.Forms.Button();
+            this.btnBuscarVentas = new System.Windows.Forms.Button();
+            this.cbTipoVentas = new System.Windows.Forms.ComboBox();
+            this.cbVentas = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +87,69 @@
             this.DGVListadoVentas.ReadOnly = true;
             this.DGVListadoVentas.Size = new System.Drawing.Size(845, 217);
             this.DGVListadoVentas.TabIndex = 5;
+            // 
+            // Cliente
+            // 
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            // 
+            // RFC
+            // 
+            this.RFC.HeaderText = "RFC";
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            // 
+            // Subtotal
+            // 
+            this.Subtotal.HeaderText = "Subtotal";
+            this.Subtotal.Name = "Subtotal";
+            this.Subtotal.ReadOnly = true;
+            // 
+            // IVA
+            // 
+            this.IVA.HeaderText = "IVA";
+            this.IVA.Name = "IVA";
+            this.IVA.ReadOnly = true;
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            // 
+            // Folio
+            // 
+            this.Folio.HeaderText = "Folio";
+            this.Folio.Name = "Folio";
+            this.Folio.ReadOnly = true;
+            this.Folio.Width = 50;
+            // 
+            // Serie
+            // 
+            this.Serie.HeaderText = "Serie";
+            this.Serie.Name = "Serie";
+            this.Serie.ReadOnly = true;
+            this.Serie.Width = 50;
+            // 
+            // Pago
+            // 
+            this.Pago.HeaderText = "Pago";
+            this.Pago.Name = "Pago";
+            this.Pago.ReadOnly = true;
+            // 
+            // Empleado
+            // 
+            this.Empleado.HeaderText = "Empleado";
+            this.Empleado.Name = "Empleado";
+            this.Empleado.ReadOnly = true;
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 150;
             // 
             // panelBotones
             // 
@@ -175,6 +238,7 @@
             this.cbTipoVentas.Name = "cbTipoVentas";
             this.cbTipoVentas.Size = new System.Drawing.Size(185, 24);
             this.cbTipoVentas.TabIndex = 1;
+            this.cbTipoVentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoVentas_SelectedIndexChanged);
             // 
             // cbVentas
             // 
@@ -187,69 +251,6 @@
             this.cbVentas.Name = "cbVentas";
             this.cbVentas.Size = new System.Drawing.Size(185, 24);
             this.cbVentas.TabIndex = 0;
-            // 
-            // Cliente
-            // 
-            this.Cliente.HeaderText = "Cliente";
-            this.Cliente.Name = "Cliente";
-            this.Cliente.ReadOnly = true;
-            // 
-            // RFC
-            // 
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            // 
-            // Subtotal
-            // 
-            this.Subtotal.HeaderText = "Subtotal";
-            this.Subtotal.Name = "Subtotal";
-            this.Subtotal.ReadOnly = true;
-            // 
-            // IVA
-            // 
-            this.IVA.HeaderText = "IVA";
-            this.IVA.Name = "IVA";
-            this.IVA.ReadOnly = true;
-            // 
-            // Total
-            // 
-            this.Total.HeaderText = "Total";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            // 
-            // Folio
-            // 
-            this.Folio.HeaderText = "Folio";
-            this.Folio.Name = "Folio";
-            this.Folio.ReadOnly = true;
-            this.Folio.Width = 50;
-            // 
-            // Serie
-            // 
-            this.Serie.HeaderText = "Serie";
-            this.Serie.Name = "Serie";
-            this.Serie.ReadOnly = true;
-            this.Serie.Width = 50;
-            // 
-            // Pago
-            // 
-            this.Pago.HeaderText = "Pago";
-            this.Pago.Name = "Pago";
-            this.Pago.ReadOnly = true;
-            // 
-            // Empleado
-            // 
-            this.Empleado.HeaderText = "Empleado";
-            this.Empleado.Name = "Empleado";
-            this.Empleado.ReadOnly = true;
-            // 
-            // Fecha
-            // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 150;
             // 
             // ListadoVentas
             // 

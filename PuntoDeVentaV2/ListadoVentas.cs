@@ -33,7 +33,7 @@ namespace PuntoDeVentaV2
             cbTipoVentas.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void CargarDatos()
+        private void CargarDatos(int estado = 1)
         {
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand("SELECT * FROM Ventas WHERE IDUsuario = " + FormPrincipal.userID, sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = '{estado}' AND IDUsuario = '{FormPrincipal.userID}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVListadoVentas.Rows.Clear();
@@ -96,6 +96,23 @@ namespace PuntoDeVentaV2
             {
                 abrirNuevaVenta = false;
                 btnNuevaVenta.PerformClick();
+            }
+        }
+
+        private void cbTipoVentas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int indice = cbTipoVentas.SelectedIndex;
+
+            //Pagadas
+            if (indice == 0)
+            {
+                CargarDatos();
+            }
+
+            //Guardadas
+            if (indice == 2)
+            {
+                CargarDatos(2);
             }
         }
     }
