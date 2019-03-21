@@ -175,7 +175,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void AgregarProducto(string[] datosProducto, int valor = 1)
+        private void AgregarProducto(string[] datosProducto)
         {
             if (DGVentas.Rows.Count > 0)
             {
@@ -186,7 +186,7 @@ namespace PuntoDeVentaV2
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
                     {
-                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + valor;
+                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + 1;
                         float importe = cantidad * float.Parse(fila.Cells["Precio"].Value.ToString());
 
                         fila.Cells["Cantidad"].Value = cantidad;
@@ -217,7 +217,7 @@ namespace PuntoDeVentaV2
             CantidadesFinalesVenta();
         }
 
-        private void AgregarProductoLista(string[] datosProducto)
+        private void AgregarProductoLista(string[] datosProducto, int cantidad = 1)
         {
             //Se agrega la nueva fila y se obtiene el ID que tendrá
             int rowId = DGVentas.Rows.Add();
@@ -230,7 +230,7 @@ namespace PuntoDeVentaV2
             row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
             row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
             row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
-            row.Cells["Cantidad"].Value = 1;
+            row.Cells["Cantidad"].Value = cantidad;
             row.Cells["Precio"].Value = datosProducto[2];
             row.Cells["Descripcion"].Value = datosProducto[1];
             row.Cells["Descuento"].Value = 0;
@@ -586,12 +586,20 @@ namespace PuntoDeVentaV2
             if (VerificarStockProducto())
             {
                 //Se hace el guardado de la informacion general de la venta
-                int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar));
-
+                int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                
                 if (respuesta > 0)
                 {
                     //Obtener ID de la venta
                     string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
+
+                    //Si mostrarVenta contine un valor mayor a cero quiere decir que es una venta guardada con la que se esta trabajando
+                    if (mostrarVenta > 0)
+                    {
+                        idVenta = mostrarVenta.ToString();
+
+                        cn.EjecutarConsulta(cs.EliminarProductosVenta(Convert.ToInt32(idVenta)));
+                    }
 
                     //Datos de los productos vendidos
                     foreach (DataGridViewRow fila in DGVentas.Rows)
@@ -622,6 +630,8 @@ namespace PuntoDeVentaV2
                 ListadoVentas.abrirNuevaVenta = true;
 
                 ventaGuardada = false;
+
+                mostrarVenta = 0;
 
                 this.Dispose();
             }
@@ -686,7 +696,10 @@ namespace PuntoDeVentaV2
 
             venta.FormClosed += delegate
             {
-                CargarVentaGuardada();
+                if (mostrarVenta > 0)
+                {
+                    CargarVentaGuardada();
+                }
             };
 
             venta.ShowDialog();
@@ -720,14 +733,11 @@ namespace PuntoDeVentaV2
 
                     string[] datosProducto = cn.BuscarProducto(Convert.ToInt32(info[0]), FormPrincipal.userID);
 
-                    int cantidad = Convert.ToInt32(info[2]) - 1;
+                    int cantidad = Convert.ToInt32(info[2]);
 
-                    AgregarProductoLista(datosProducto);
-                    AgregarProducto(datosProducto, cantidad);
+                    AgregarProductoLista(datosProducto, cantidad);
                 }
             }
-
-            mostrarVenta = 0;
         }
     }
 }

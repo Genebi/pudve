@@ -63,10 +63,21 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string GuardarVenta(string[] datos)
+        public string GuardarVenta(string[] datos, int operacion = 0)
         {
-            string consulta = "INSERT INTO Ventas (IDUsuario, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Status, FechaOperacion)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
+            string consulta = null;
+
+            if (operacion == 0)
+            {
+                //Insertar nueva venta
+                consulta = "INSERT INTO Ventas (IDUsuario, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Status, FechaOperacion)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
+            }
+            else
+            {
+                //Actualizar venta guardada
+                consulta = $"UPDATE Ventas SET Subtotal = '{datos[2]}', IVA16 = '{datos[3]}', Total = '{datos[4]}', Descuento = '{datos[5]}', DescuentoGeneral = '{datos[6]}', Status = 1, FechaOperacion = '{datos[8]}' WHERE ID = '{operacion}'";
+            }
 
             return consulta;
         }
@@ -75,6 +86,13 @@ namespace PuntoDeVentaV2
         {
             string consulta = "INSERT INTO ProductosVenta (IDVenta, IDProducto, Nombre, Cantidad, Precio)";
                    consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}')";
+
+            return consulta;
+        }
+
+        public string EliminarProductosVenta(int IDVenta)
+        {
+            string consulta = $"DELETE FROM ProductosVenta WHERE IDVenta = '{IDVenta}'";
 
             return consulta;
         }
