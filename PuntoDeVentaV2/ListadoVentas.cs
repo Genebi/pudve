@@ -104,16 +104,13 @@ namespace PuntoDeVentaV2
             int indice = cbTipoVentas.SelectedIndex;
 
             //Pagadas
-            if (indice == 0)
-            {
-                CargarDatos();
-            }
+            if (indice == 0) { CargarDatos(); }
 
             //Guardadas
-            if (indice == 2)
-            {
-                CargarDatos(2);
-            }
+            if (indice == 2) { CargarDatos(2); }
+
+            //Canceladas
+            if (indice == 3) { CargarDatos(3); }
         }
     }
 }
