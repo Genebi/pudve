@@ -106,5 +106,10 @@ namespace PuntoDeVentaV2
         {
             return $"SELECT * FROM Ventas WHERE IDusuario = '{id}'";
         }
+
+        public string CancelarVentaGuardada(int id)
+        {
+            return $"UPDATE Ventas SET Status = 3 WHERE ID = '{id}'";
+        }
     }
 }

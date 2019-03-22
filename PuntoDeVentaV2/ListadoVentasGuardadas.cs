@@ -13,6 +13,9 @@ namespace PuntoDeVentaV2
 {
     public partial class ListadoVentasGuardadas : Form
     {
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+
         public ListadoVentasGuardadas()
         {
             InitializeComponent();
@@ -79,7 +82,17 @@ namespace PuntoDeVentaV2
             {
                 DGVListaVentasGuardadas.ClearSelection();
 
-                MessageBox.Show("Venta a cancelar: " + IDVenta.ToString());
+                int resultado = cn.EjecutarConsulta(cs.CancelarVentaGuardada(IDVenta));
+
+                if (resultado > 0)
+                {
+                    DGVListaVentasGuardadas.Rows.RemoveAt(fila);
+
+                    if (DGVListaVentasGuardadas.Rows.Count == 0)
+                    {
+                        this.Close();
+                    }
+                }
             }
         }
 
@@ -92,6 +105,19 @@ namespace PuntoDeVentaV2
             else
             {
                 DGVListaVentasGuardadas.Cursor = Cursors.Default;
+            }
+        }
+
+        private void ListadoVentasGuardadas_Shown(object sender, EventArgs e)
+        {
+            if (DGVListaVentasGuardadas.Rows.Count == 0)
+            {
+                var resultadoDialogo = MessageBox.Show("No existen ventas guardadas actualmente.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (resultadoDialogo == DialogResult.OK)
+                {
+                    this.Close();
+                }
             }
         }
     }
