@@ -15,6 +15,10 @@ namespace PuntoDeVentaV2
 {
     public partial class Ventas : Form
     {
+        //Status 1 = Venta terminada
+        //Status 2 = Venta guardada
+        //Status 3 = Venta cancelada
+
         string[] productos;
         float porcentajeGeneral = 0;
         bool ventaGuardada = false; //Para saber si la venta se guardo o no
