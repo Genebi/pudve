@@ -413,7 +413,7 @@ namespace PuntoDeVentaV2
             table.Columns.Add(column);                                      // agregamos columna a la tabla
 
             column = new DataColumn();                                      // creamos una nueva columna
-            column.DataType = System.Type.GetType("System.String");         // declaramos el tipo
+            column.DataType = System.Type.GetType("System.Int32");         // declaramos el tipo
             column.ColumnName = "Coincidencias";                            // ponemos el nombre
             table.Columns.Add(column);                                      // agregamos columna a la tabla
 
@@ -471,7 +471,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    DGVSugeridos.Rows[fila].Cells["Coincidencias"].Value = match.ToString();    // asignamos las coincidencias al campo de Coincidencias
+                    DGVSugeridos.Rows[fila].Cells["Coincidencias"].Value = match;    // asignamos las coincidencias al campo de Coincidencias
                     match = 0;
                 }
 
@@ -498,7 +498,7 @@ namespace PuntoDeVentaV2
                     row["ID"] = Convert.ToInt32(dtSugeridos.Rows[i]["ID"].ToString());          // agregamos la celda de la columna ID
                     row["Nombre"] = dtSugeridos.Rows[i]["Nombre"].ToString();                   // agregamos la celda de la columna Nombre 
                     row["Existencia"] = dtSugeridos.Rows[i]["Existencia"].ToString();           // agregamos la celda de la columna Existencia
-                    row["Coincidencias"] = dtSugeridos.Rows[i]["Coincidencias"].ToString();     // agregamos la celda de la columna Coincidencia
+                    row["Coincidencias"] = Convert.ToInt32("999");                              // agregamos la celda de la columna Coincidencia
                     table.Rows.Add(row);                                                        // agregamos a la tabla la nueva fila
                 }
 
@@ -527,7 +527,7 @@ namespace PuntoDeVentaV2
                     row["ID"] = Convert.ToInt32(dtSugeridosGral.Rows[i]["ID"].ToString());          // agregamos la celda de la columna ID
                     row["Nombre"] = dtSugeridosGral.Rows[i]["Nombre"].ToString();                   // agregamos la celda de la columna Nombre 
                     row["Existencia"] = dtSugeridosGral.Rows[i]["Existencia"].ToString();           // agregamos la celda de la columna Existencia
-                    row["Coincidencias"] = dtSugeridosGral.Rows[i]["Coincidencias"].ToString();     // agregamos la celda de la columna Coincidencia
+                    row["Coincidencias"] = Convert.ToInt32("0");                                    // agregamos la celda de la columna Coincidencia
                     table.Rows.Add(row);                                                            // agregamos a la tabla la nueva fila
                 }
 
@@ -539,7 +539,7 @@ namespace PuntoDeVentaV2
                 DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2 de Existencia la ocultamos para el usuario solamente
                 DGVSugeridos.Columns["Coincidencias"].Visible = false;          // Columna 3 de Coincidencia la ocultamos para el usuario solamente
 
-                DGVSugeridos.Rows[0].Cells["Coincidencias"].Value = "100";      // al primer registro del DatGridView se le pone el valor alto
+                //DGVSugeridos.Rows[0].Cells["Coincidencias"].Value = "999";      // al primer registro del DatGridView se le pone el valor alto
 
                 match = 0;  // ponemos la variable del match en 0 
                 for (int fila = 1; fila < DGVSugeridos.Rows.Count; fila++)  // recorremos el DataGridView 
@@ -556,7 +556,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    DGVSugeridos.Rows[fila].Cells["Coincidencias"].Value = match.ToString();    // asignamos las coincidencias al campo de Coincidencias
+                    DGVSugeridos.Rows[fila].Cells["Coincidencias"].Value = match;    // asignamos las coincidencias al campo de Coincidencias
                     match = 0;
                 }
 
@@ -574,7 +574,7 @@ namespace PuntoDeVentaV2
                     DGVSugeridos.Rows.Remove(renglon);                                                  // eliminamos del DataTable el repetido en Nombre
                 }
 
-                DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Ascending);          // ordenamos Acendentemente el DatGridView
+                DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);          // ordenamos Acendentemente el DatGridView
             }
         }
 
@@ -1032,6 +1032,11 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void DGVSugeridos_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        {
+
         }
 
         public AgregarStockXML()
