@@ -111,10 +111,11 @@ namespace PuntoDeVentaV2
                         ClaveInterna = ((DataGridViewTextBoxCell)Row.Cells["Clave Interna"]).Value.ToString();      // tomamos el valor de la celda
                         CodigoBarras = ((DataGridViewTextBoxCell)Row.Cells["Código de Barras"]).Value.ToString();   // tomamos el valor de la celda
                         id = FormPrincipal.userID.ToString();                                                       // tomamos el valor del ID del Usuario
-                        //ModificarStatusProducto();                                                                  // Llamamos el metodo de Modificar Status
+                        //MessageBox.Show($"Producto: {Nombre}\nStock: {Stock}\nPrecio: {Precio}\nClave del Producto: {ClaveInterna}\nCodigo de Barras: {CodigoBarras}\nId de Usuario: {id}", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ModificarStatusProductoChkBox();                                                                  // Llamamos el metodo de Modificar Status
                     }
-                    //DGVProductos.RefreshEdit();                             // Refrescamos el DataGridView
-                    //HCheckBox.Checked = false;
+                    DGVProductos.RefreshEdit();                             // Refrescamos el DataGridView
+                    HCheckBox.Checked = false;
                     cbMostrar.Text = "Deshabilitados";
                     if (cbMostrar.Text == "Deshabilitados")
                     {
@@ -361,6 +362,31 @@ namespace PuntoDeVentaV2
             // Preparamos el Query que haremos segun la fila seleccionada
             buscar = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Precio = '{Precio}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{id}'";
             dt = cn.CargarDatos(buscar);    // almacenamos el resultado de la Funcion CargarDatos que esta en la calse Consultas
+            row = dt.Rows[0];
+            Id_Prod_select = Convert.ToString(row["ID"]);       // almacenamos el Id del producto
+            status = Convert.ToString(row["Status"]);           // almacenamos el status
+            if (status == "0")                              // si el status es 0
+            {
+                // preparamos el Query 
+                buscar = $"UPDATE Productos SET Status = '1' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
+                dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
+            }
+            else if (status == "1")                         // si el status es 1
+            {
+                // preparamos el Query 
+                buscar = $"UPDATE Productos SET Status = '0' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
+                dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
+            }
+        }
+
+        private void ModificarStatusProductoChkBox()
+        {
+            DataRow row;
+            // Preparamos el Query que haremos segun la fila seleccionada
+            buscar = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Precio = '{Precio}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{id}'";
+            dt = cn.CargarDatos(buscar);    // almacenamos el resultado de la Funcion CargarDatos que esta en la calse Consultas
+            //label1.Text = dt.Rows.Count.ToString();
+            //dataGridView1.DataSource = dt;
             row = dt.Rows[0];
             Id_Prod_select = Convert.ToString(row["ID"]);       // almacenamos el Id del producto
             status = Convert.ToString(row["Status"]);           // almacenamos el status
