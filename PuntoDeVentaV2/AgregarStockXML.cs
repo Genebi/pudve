@@ -421,7 +421,7 @@ namespace PuntoDeVentaV2
             PalabrasXML = FraseXML.Split(' ');      // las separa en un array por palabras el concepto
 
             // hacemos la consulta de los productos segun el usuario
-            queryBuscarSugeridos = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre',  prod.Stock AS 'Existencia' FROM ProductoRelacionadoXML AS prxml LEFT JOIN Productos AS prod ON prod.ID = prxml.IDProducto LEFT JOIN CodigoBarrasExtras AS codext ON codext.IDProducto = prod.ID LEFT JOIN Usuarios AS usr ON prxml.IDUsuario = usr.ID WHERE prxml.NombreXML = '{concepto}' AND prxml.IDUsuario = '{userId}'";
+            queryBuscarSugeridos = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre',  prod.Stock AS 'Existencia' FROM ProductoRelacionadoXML AS prxml LEFT JOIN Productos AS prod ON prod.ID = prxml.IDProducto LEFT JOIN CodigoBarrasExtras AS codext ON codext.IDProducto = prod.ID LEFT JOIN Usuarios AS usr ON prxml.IDUsuario = usr.ID WHERE prxml.NombreXML = '{concepto}' AND prxml.IDUsuario = '{userId}' AND prod.Status = '1'";
             dtSugeridos = cn.CargarDatos(queryBuscarSugeridos);             // realizamos la consulta a la Base de Datos
             dtSugeridos.Columns.Add("Coincidencias");                       // agregamos la columna de Coincidencias
             DGVSugeridos.DataSource = dtSugeridos;
@@ -430,7 +430,7 @@ namespace PuntoDeVentaV2
             if (DGVSugeridos.Rows.Count == 0)       // si el DataGridView no tiene registros
             {
                 // hacemos la consulta de los productos segun el usuario
-                queryBuscarSugeridosGral = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia' FROM Productos AS prod WHERE prod.IDUsuario = '{userId}'";
+                queryBuscarSugeridosGral = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia' FROM Productos AS prod WHERE prod.IDUsuario = '{userId}' AND prod.Status = '1'";
                 dtSugeridosGral = cn.CargarDatos(queryBuscarSugeridosGral);     // realizamos la consulta a la Base de Datos
                 dtSugeridosGral.Columns.Add("Coincidencias");                   // agregamos la columna de Coincidencias
                 DGVSugeridos.DataSource = dtSugeridosGral;                      // Llenamos de informacion el DataGridView
@@ -503,7 +503,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // hacemos la consulta de los productos segun el usuario
-                queryBuscarSugeridosGral = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia' FROM Productos AS prod WHERE prod.IDUsuario = '{userId}'";
+                queryBuscarSugeridosGral = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia' FROM Productos AS prod WHERE prod.IDUsuario = '{userId}' AND prod.Status = '1'";
                 dtSugeridosGral = cn.CargarDatos(queryBuscarSugeridosGral);     // realizamos la consulta a la Base de Datos
                 dtSugeridosGral.Columns.Add("Coincidencias");                       // agregamos la columna de Coincidencias
 
