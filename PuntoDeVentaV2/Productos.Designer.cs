@@ -37,7 +37,9 @@
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.btnAgregarXML = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // DGVProductos
@@ -179,11 +181,21 @@
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(2, 12);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(665, 150);
+            this.dataGridView1.TabIndex = 9;
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(923, 690);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnAgregarXML);
             this.Controls.Add(this.cbMostrar);
             this.Controls.Add(this.btnAgregarProducto);
@@ -197,6 +209,7 @@
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,5 +225,6 @@
         private System.Windows.Forms.ComboBox cbMostrar;
         private System.Windows.Forms.Button btnAgregarXML;
         private System.Windows.Forms.DataGridViewCheckBoxColumn chk;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

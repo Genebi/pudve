@@ -105,19 +105,16 @@ namespace PuntoDeVentaV2
                     {
                         // verificamos que la celda pertenezca a la columna llamada chk
                         ((DataGridViewCheckBoxCell)Row.Cells["chk"]).Value = HCheckBox.Checked;                     // y le ponemos el valor en true el checar el CheckBox
-                    }
-                    foreach (DataGridViewRow row in DGVProductos.Rows)      // hacemos un recorrido para que se deshabilite
-                    {
-                        Nombre = ((DataGridViewTextBoxCell)row.Cells["Nombre"]).Value.ToString();                   // tomamos el valor de la celda
-                        Stock = ((DataGridViewTextBoxCell)row.Cells["Stock"]).Value.ToString();                     // tomamos el valor de la celda
-                        Precio = ((DataGridViewTextBoxCell)row.Cells["Precio"]).Value.ToString();                   // tomamos el valor de la celda
-                        ClaveInterna = ((DataGridViewTextBoxCell)row.Cells["Clave Interna"]).Value.ToString();      // tomamos el valor de la celda
-                        CodigoBarras = ((DataGridViewTextBoxCell)row.Cells["Código de Barras"]).Value.ToString();   // tomamos el valor de la celda
+                        Nombre = ((DataGridViewTextBoxCell)Row.Cells["Nombre"]).Value.ToString();                   // tomamos el valor de la celda
+                        Stock = ((DataGridViewTextBoxCell)Row.Cells["Stock"]).Value.ToString();                     // tomamos el valor de la celda
+                        Precio = ((DataGridViewTextBoxCell)Row.Cells["Precio"]).Value.ToString();                   // tomamos el valor de la celda
+                        ClaveInterna = ((DataGridViewTextBoxCell)Row.Cells["Clave Interna"]).Value.ToString();      // tomamos el valor de la celda
+                        CodigoBarras = ((DataGridViewTextBoxCell)Row.Cells["Código de Barras"]).Value.ToString();   // tomamos el valor de la celda
                         id = FormPrincipal.userID.ToString();                                                       // tomamos el valor del ID del Usuario
-                        ModificarStatusProducto();                                                                  // Llamamos el metodo de Modificar Status
+                        //ModificarStatusProducto();                                                                  // Llamamos el metodo de Modificar Status
                     }
-                    DGVProductos.RefreshEdit();                             // Refrescamos el DataGridView
-                    HCheckBox.Checked = false;
+                    //DGVProductos.RefreshEdit();                             // Refrescamos el DataGridView
+                    //HCheckBox.Checked = false;
                     cbMostrar.Text = "Deshabilitados";
                     if (cbMostrar.Text == "Deshabilitados")
                     {
@@ -360,23 +357,26 @@ namespace PuntoDeVentaV2
 
         private void ModificarStatusProducto()
         {
+            DataRow row;
             // Preparamos el Query que haremos segun la fila seleccionada
             buscar = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Precio = '{Precio}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{id}'";
             dt = cn.CargarDatos(buscar);    // almacenamos el resultado de la Funcion CargarDatos que esta en la calse Consultas
-            Id_Prod_select = dt.Rows[index]["ID"].ToString();       // almacenamos el Id del producto
-            status = dt.Rows[index]["Status"].ToString();           // almacenamos el status
-            if (status == "0")                              // si el status es 0
-            {
-                // preparamos el Query 
-                buscar = $"UPDATE Productos SET Status = '1' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
-                dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
-            }
-            else if (status == "1")                         // si el status es 1
-            {
-                // preparamos el Query 
-                buscar = $"UPDATE Productos SET Status = '0' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
-                dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
-            }
+            dataGridView1.DataSource = dt;
+            //row = dt.Rows[1];
+            //Id_Prod_select = Convert.ToString(row["ID"]);       // almacenamos el Id del producto
+            //status = Convert.ToString(row["Status"]);           // almacenamos el status
+            //if (status == "0")                              // si el status es 0
+            //{
+            //    // preparamos el Query 
+            //    buscar = $"UPDATE Productos SET Status = '1' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
+            //    dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
+            //}
+            //else if (status == "1")                         // si el status es 1
+            //{
+            //    // preparamos el Query 
+            //    buscar = $"UPDATE Productos SET Status = '0' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
+            //    dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
+            //}
         }
 
         private void ViewRecordProducto()
