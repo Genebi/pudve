@@ -903,18 +903,41 @@ namespace PuntoDeVentaV2
 
         public void prodRelacionadoXML()
         {
-            totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
-            // hacemos el query para la actualizacion del Stock
-            query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
-            resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
-            query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompletaRelacionada}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{IdProductoSugerido}','{userId}')";
-            cn.EjecutarConsulta(query);
-            idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
-            queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
-            cn.EjecutarConsulta(queryRecordHistorialProd);
-            queryRelacionarXML = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{concepto}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{FormPrincipal.userID}')";
-            cn.EjecutarConsulta(queryRelacionarXML);
-            seleccionarSugerido = 0;
+            DataTable dtConfirmarProdRelXML;
+            string idProdRelXML;
+            queryRelacionarXML = $"SELECT * FROM ProductoRelacionadoXML WHERE NombreXML = '{concepto}'";
+            dtConfirmarProdRelXML = cn.CargarDatos(queryRelacionarXML);
+            idProdRelXML = Convert.ToString(dtConfirmarProdRelXML.Rows[0]["IDProductoRelacionadoXML"]);
+            if (dtConfirmarProdRelXML.Rows.Count < 0)
+            {
+                totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
+                // hacemos el query para la actualizacion del Stock
+                query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
+                resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompletaRelacionada}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{IdProductoSugerido}','{userId}')";
+                cn.EjecutarConsulta(query);
+                idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
+                cn.EjecutarConsulta(queryRecordHistorialProd);
+                queryRelacionarXML = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{concepto}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{FormPrincipal.userID}')";
+                cn.EjecutarConsulta(queryRelacionarXML);
+                seleccionarSugerido = 0;
+            }
+            else if (dtConfirmarProdRelXML.Rows.Count > 0)
+            {
+                totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
+                // hacemos el query para la actualizacion del Stock
+                query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
+                resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompletaRelacionada}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{IdProductoSugerido}','{userId}')";
+                cn.EjecutarConsulta(query);
+                idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
+                cn.EjecutarConsulta(queryRecordHistorialProd);
+                queryRelacionarXML = $"UPDATE ProductoRelacionadoXML SET NombreXML = '{concepto}', Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{FormPrincipal.userID}' WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
+                cn.EjecutarConsulta(queryRelacionarXML);
+                seleccionarSugerido = 0;
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
