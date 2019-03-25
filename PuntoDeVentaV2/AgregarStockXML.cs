@@ -215,8 +215,10 @@ namespace PuntoDeVentaV2
         int numFila;
         string fechaSitema, fechaSola, horaSola, fechaCompletaRelacionada;
         DateTime fechaHoy = DateTime.Now;
-        string queryRelacionarXML;
+        string queryrelacionXMLTable;
         int seleccionarSugerido;
+        DataTable dtConfirmarProdRelXML;
+        string idProdRelXML;
 
         // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
         // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
@@ -438,7 +440,7 @@ namespace PuntoDeVentaV2
                 DGVSugeridos.Columns["Nombre"].Visible = true;                  // Columna 1 de Nombre la dejamos visible para el usuario
                 DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2 de Existencia la ocultamos para el usuario solamente
                 DGVSugeridos.Columns["Coincidencias"].Visible = false;          // Columna 3 de Coincidencia la ocultamos para el usuario solamente
-
+                
                 for (int Fila = 0; Fila < DGVSugeridos.Rows.Count; Fila++)  // hacemos el recorrido del DataGridView
                 {
                     FraseStock = DGVSugeridos.Rows[Fila].Cells["Nombre"].Value.ToString();  // almacenamos el nombre del concepto del DataGridView que son el Stock de Productos
@@ -489,6 +491,26 @@ namespace PuntoDeVentaV2
                     DGVSugeridos.Rows.Remove(renglon);                                                              // eliminamos los registros del DataGridView
                 }
                 DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);     // ordenamos desendentemente el DatGridView
+
+                DGVSugeridos.CurrentCell = DGVSugeridos.Rows[0].Cells[1];
+
+                fechaSitema = fechaHoy.ToString("s");
+                fechaSola = fechaSitema.Substring(0, 10);
+                horaSola = fechaSitema.Substring(11);
+                fechaCompletaRelacionada = fechaSola + " " + horaSola;
+
+                numFila = DGVSugeridos.CurrentRow.Index;
+                IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
+                NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
+                StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
+                CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
+                seleccionarSugerido = 1;
+
+                //label2.Text = concepto;
+
+                queryrelacionXMLTable = $"SELECT * FROM ProductoRelacionadoXML WHERE NombreXML = '{concepto}'";
+                dtConfirmarProdRelXML = cn.CargarDatos(queryrelacionXMLTable);
+                //dataGridView1.DataSource = dtConfirmarProdRelXML;
             } 
             else if (DGVSugeridos.Rows.Count != 0)      // si el DataGrdiView si tiene registros
             {
@@ -575,6 +597,26 @@ namespace PuntoDeVentaV2
                 }
 
                 DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);          // ordenamos Acendentemente el DatGridView
+
+                DGVSugeridos.CurrentCell = DGVSugeridos.Rows[0].Cells[1];
+
+                fechaSitema = fechaHoy.ToString("s");
+                fechaSola = fechaSitema.Substring(0, 10);
+                horaSola = fechaSitema.Substring(11);
+                fechaCompletaRelacionada = fechaSola + " " + horaSola;
+
+                numFila = DGVSugeridos.CurrentRow.Index;
+                IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
+                NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
+                StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
+                CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
+                seleccionarSugerido = 1;
+
+                //label2.Text = concepto;
+
+                queryrelacionXMLTable = $"SELECT * FROM ProductoRelacionadoXML WHERE NombreXML = '{concepto}'";
+                dtConfirmarProdRelXML = cn.CargarDatos(queryrelacionXMLTable);
+                //dataGridView1.DataSource = dtConfirmarProdRelXML;
             }
         }
 
@@ -903,12 +945,9 @@ namespace PuntoDeVentaV2
 
         public void prodRelacionadoXML()
         {
-            DataTable dtConfirmarProdRelXML;
-            string idProdRelXML;
-            queryRelacionarXML = $"SELECT * FROM ProductoRelacionadoXML WHERE NombreXML = '{concepto}'";
-            dtConfirmarProdRelXML = cn.CargarDatos(queryRelacionarXML);
-            idProdRelXML = Convert.ToString(dtConfirmarProdRelXML.Rows[0]["IDProductoRelacionadoXML"]);
-            if (dtConfirmarProdRelXML.Rows.Count < 0)
+            //label2.Text = lblDescripcionXML.Text;
+            
+            if (dtConfirmarProdRelXML.Rows.Count == 0)
             {
                 totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
                 // hacemos el query para la actualizacion del Stock
@@ -919,12 +958,14 @@ namespace PuntoDeVentaV2
                 idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
                 queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
                 cn.EjecutarConsulta(queryRecordHistorialProd);
-                queryRelacionarXML = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{concepto}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{FormPrincipal.userID}')";
-                cn.EjecutarConsulta(queryRelacionarXML);
+                queryrelacionXMLTable = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{concepto}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{userId}')";
+                cn.EjecutarConsulta(queryrelacionXMLTable);
                 seleccionarSugerido = 0;
+                label2.Text = concepto;
             }
-            else if (dtConfirmarProdRelXML.Rows.Count > 0)
+            else if (dtConfirmarProdRelXML.Rows.Count != 0)
             {
+                idProdRelXML = Convert.ToString(dtConfirmarProdRelXML.Rows[0]["IDProductoRelacionadoXML"].ToString());
                 totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
                 // hacemos el query para la actualizacion del Stock
                 query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
@@ -934,10 +975,13 @@ namespace PuntoDeVentaV2
                 idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
                 queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
                 cn.EjecutarConsulta(queryRecordHistorialProd);
-                queryRelacionarXML = $"UPDATE ProductoRelacionadoXML SET NombreXML = '{concepto}', Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{FormPrincipal.userID}' WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
-                cn.EjecutarConsulta(queryRelacionarXML);
+                queryrelacionXMLTable = $"UPDATE ProductoRelacionadoXML SET NombreXML = '{concepto}', Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{userId}' WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
+                cn.EjecutarConsulta(queryrelacionXMLTable);
                 seleccionarSugerido = 0;
+                label2.Text = concepto;
             }
+            dtConfirmarProdRelXML.Rows.Clear();
+            dtConfirmarProdRelXML.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1155,6 +1199,7 @@ namespace PuntoDeVentaV2
             fechaCompletaRelacionada = fechaSola + " " + horaSola;
 
             numFila = DGVSugeridos.CurrentRow.Index;
+            label2.Text = numFila.ToString();
             IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
             NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
             StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
