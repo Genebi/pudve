@@ -105,6 +105,7 @@ namespace PuntoDeVentaV2
             queryRecord = $"SELECT hcompras.Folio AS 'Folio', hcompras.RFCEmisor AS 'RFC', hcompras.NomEmisor AS 'Proveedor', hcompras.ClaveProdEmisor AS 'Clave de Producto', hcompras.FechaLarga AS 'Fecha', hcompras.Cantidad AS 'Cantidad', hcompras.ValorUnitario AS 'Valor Unitario', hcompras.Descuento AS 'Descuento', hcompras.Precio AS 'Precio de compra' FROM HistorialCompras hcompras WHERE hcompras.IDUsuario = '{IdUsuario}' AND hcompras.IDProducto = '{Id_Prod_select}' ORDER BY Folio DESC;";
             dtRecordProducto = cn.CargarDatos(queryRecord);
             DGVProductRecord.DataSource = dtRecordProducto;
+            DGVProductRecord.Sort(DGVProductRecord.Columns["Fecha"], ListSortDirection.Descending);
             SeleccionarFila();
             llenarDatos();
         }

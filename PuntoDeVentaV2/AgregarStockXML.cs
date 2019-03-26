@@ -1042,14 +1042,10 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta(queryrelacionXMLTable);
                         seleccionarSugerido = 0;
                     }
-                    dtUpdateConfirmarProdRelXML.Rows.Clear();
-                    dtUpdateConfirmarProdRelXML.Clear();
                 }
                 else if (dtUpdateConfirmarProdRelXML.Rows.Count != 0)   // si es que el producto ya esta relacionado
                 {
-                    queryrelacionXMLTable = $"SELECT * FROM ProductoRelacionadoXML WHERE NombreXML = '{concepto}'";
-                    dtConfirmarProdRelXML = cn.CargarDatos(queryrelacionXMLTable);
-                    idProdRelXML = Convert.ToString(dtConfirmarProdRelXML.Rows[0]["IDProductoRelacionadoXML"].ToString());
+                    idProdRelXML = Convert.ToString(dtUpdateConfirmarProdRelXML.Rows[0]["IDProductoRelacionadoXML"].ToString());
                     totalProdSugerido = stockProdXML + Convert.ToInt32(StockProdSugerido);
                     // hacemos el query para la actualizacion del Stock
                     query = $"UPDATE Productos SET Stock = '{totalProdSugerido}' WHERE ID = '{IdProductoSugerido}'";
@@ -1059,12 +1055,15 @@ namespace PuntoDeVentaV2
                     idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
                     queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
                     cn.EjecutarConsulta(queryRecordHistorialProd);
-                    queryrelacionXMLTable = $"UPDATE ProductoRelacionadoXML SET Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{userId}' WHERE NombreXML = '{concepto}' AND IDProductoRelacionadoXML = '{idProdRelXML}'";
+                    queryrelacionXMLTable = $"UPDATE ProductoRelacionadoXML SET Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{userId}',  NombreXML = '{concepto}' WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
                     cn.EjecutarConsulta(queryrelacionXMLTable);
                     seleccionarSugerido = 0;
                 }
             }
-
+            dtConfirmarProdRelXML.Rows.Clear();
+            dtConfirmarProdRelXML.Clear();
+            dtUpdateConfirmarProdRelXML.Rows.Clear();
+            dtUpdateConfirmarProdRelXML.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1116,15 +1115,13 @@ namespace PuntoDeVentaV2
             {
                 prodRelacionadoXML();   // llamamos el metodo relacionar por XML
                 RecorrerXML();          // recorrer el archivo XML
-                dtConfirmarProdRelXML.Rows.Clear();
-                dtConfirmarProdRelXML.Clear();
+                
             }
             else if (seleccionarSugerido == 0)
             {
                 prodRelacionadoXML();   // llamamos el metodo relacionar por XML
                 RecorrerXML();          // recorrer el archivo XML
-                dtConfirmarProdRelXML.Rows.Clear();
-                dtConfirmarProdRelXML.Clear();
+                
             }
             else if (consultListProd == 0)
             {
