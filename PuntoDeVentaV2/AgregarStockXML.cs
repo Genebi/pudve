@@ -1055,7 +1055,11 @@ namespace PuntoDeVentaV2
                     idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
                     queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{userId}','{idRecordProd}','{fechaCompletaRelacionada}')";
                     cn.EjecutarConsulta(queryRecordHistorialProd);
-                    queryrelacionXMLTable = $"UPDATE ProductoRelacionadoXML SET Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{userId}',  NombreXML = '{concepto}' WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
+                    string queryDelProdRelXML = $"DELETE FROM ProductoRelacionadoXML WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
+                    cn.EjecutarConsulta(queryDelProdRelXML);
+                    //queryrelacionXMLTable = $"UPDATE ProductoRelacionadoXML SET Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{userId}',  NombreXML = '{concepto}' WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
+                    //queryrelacionXMLTable = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{concepto}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{userId}')";
+                    queryrelacionXMLTable = $"UPDATE ProductoRelacionadoXML SET Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{userId}' WHERE NombreXML = '{concepto}'";
                     cn.EjecutarConsulta(queryrelacionXMLTable);
                     seleccionarSugerido = 0;
                 }
