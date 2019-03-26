@@ -1062,8 +1062,8 @@ namespace PuntoDeVentaV2
             }
             dtConfirmarProdRelXML.Rows.Clear();
             dtConfirmarProdRelXML.Clear();
-            dtUpdateConfirmarProdRelXML.Rows.Clear();
-            dtUpdateConfirmarProdRelXML.Clear();
+            //dtUpdateConfirmarProdRelXML.Rows.Clear();
+            //dtUpdateConfirmarProdRelXML.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)
