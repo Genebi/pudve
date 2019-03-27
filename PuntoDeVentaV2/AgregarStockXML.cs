@@ -237,6 +237,7 @@ namespace PuntoDeVentaV2
         string StockProdSugerido;           // Obtiene el Stock del Producto sugerido al darle click en la lista
         string CoincidenciaSugerido;        // Obtiene las Coincidencias del Producto sugerido al darle click en la lista
         int totalProdSugerido;              // Se obtiene la cantidad de productos sugeridos
+        int origenDeLosDatos = 0;
 
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
         public void datosAgregarNvoProd()
@@ -285,6 +286,8 @@ namespace PuntoDeVentaV2
 
         private void button3_Click(object sender, EventArgs e)
         {
+            origenDeLosDatos = 3;
+
             FormAgregar.FormClosed += delegate
             {
                 RecorrerXML(); // recorrer el archivo XML
@@ -298,12 +301,16 @@ namespace PuntoDeVentaV2
             if (!FormAgregar.Visible)
             {
                 datosAgregarNvoProd();
+                FormAgregar.DatosSource = origenDeLosDatos;
                 FormAgregar.ShowDialog();
+                origenDeLosDatos = 0;
             }
             else
             {
                 datosAgregarNvoProd();
+                FormAgregar.DatosSource = origenDeLosDatos;
                 FormAgregar.BringToFront();
+                origenDeLosDatos = 0;
             }
         }
 

@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
-        int numfila, index, number_of_rows, i, seleccionadoDato;
+        int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0;
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
         DataTable dt, dtConsulta;
@@ -329,6 +329,15 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
+            if (origenDeLosDatos == 0)
+            {
+                FormAgregar.DatosSource = 1;
+            }
+            if (origenDeLosDatos == 2)
+            {
+                FormAgregar.DatosSource = 2;
+            }
+
             FormAgregar.FormClosed += delegate
             {
                 CargarDatos();
@@ -344,6 +353,7 @@ namespace PuntoDeVentaV2
                 
                 if (seleccionadoDato == 0)
                 {
+                    FormAgregar.ProdNombre = "";
                     FormAgregar.ShowDialog();
                 }
                 else if (seleccionadoDato == 1)
@@ -362,6 +372,7 @@ namespace PuntoDeVentaV2
             {
                 if (seleccionadoDato == 0)
                 {
+                    FormAgregar.ProdNombre = "";
                     FormAgregar.ShowDialog();
                 }
                 else if (seleccionadoDato == 1)
@@ -376,6 +387,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.ShowDialog();
                 }
             }
+            origenDeLosDatos = 0;
         }
 
         private void EditarProducto(object sender, DataGridViewCellEventArgs e)
@@ -392,6 +404,7 @@ namespace PuntoDeVentaV2
                     ProductoCategoria = DGVProductos.Rows[e.RowIndex].Cells["Categoria"].Value.ToString();
                     ProductoClaveInterna = DGVProductos.Rows[e.RowIndex].Cells["Clave Interna"].Value.ToString();
                     ProductoCodigoBarras = DGVProductos.Rows[e.RowIndex].Cells["Código de Barras"].Value.ToString();
+                    origenDeLosDatos = 2;
                 }
                 btnAgregarProducto.PerformClick();
             }
