@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
-        int numfila, index, number_of_rows, i;
+        int numfila, index, number_of_rows, i, seleccionadoDato;
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
         DataTable dt, dtConsulta;
@@ -51,6 +51,8 @@ namespace PuntoDeVentaV2
         string NvoFileName;
 
         string logoTipo = "";
+
+        string ProductoNombre, ProductoStock, ProductoPrecio, ProductoCategoria, ProductoClaveInterna, ProductoCodigoBarras;
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -339,11 +341,40 @@ namespace PuntoDeVentaV2
 
             if (!FormAgregar.Visible)
             {
-                FormAgregar.ShowDialog();
+                
+                if (seleccionadoDato == 0)
+                {
+                    FormAgregar.ShowDialog();
+                }
+                else if (seleccionadoDato == 1)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = ProductoNombre;
+                    FormAgregar.ProdStock = ProductoStock;
+                    FormAgregar.ProdPrecio = ProductoPrecio;
+                    FormAgregar.ProdCategoria = ProductoCategoria;
+                    FormAgregar.ProdClaveInterna = ProductoClaveInterna;
+                    FormAgregar.ProdCodBarras = ProductoCodigoBarras;
+                    FormAgregar.ShowDialog();
+                }
             }
             else
             {
-                FormAgregar.BringToFront();
+                if (seleccionadoDato == 0)
+                {
+                    FormAgregar.ShowDialog();
+                }
+                else if (seleccionadoDato == 1)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = ProductoNombre;
+                    FormAgregar.ProdStock = ProductoStock;
+                    FormAgregar.ProdPrecio = ProductoPrecio;
+                    FormAgregar.ProdCategoria = ProductoCategoria;
+                    FormAgregar.ProdClaveInterna = ProductoClaveInterna;
+                    FormAgregar.ProdCodBarras = ProductoCodigoBarras;
+                    FormAgregar.ShowDialog();
+                }
             }
         }
 
@@ -352,6 +383,16 @@ namespace PuntoDeVentaV2
             //Editar producto
             if (e.ColumnIndex == 1)
             {
+                if (seleccionadoDato==0)
+                {
+                    seleccionadoDato = 1;
+                    ProductoNombre = DGVProductos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
+                    ProductoStock = DGVProductos.Rows[e.RowIndex].Cells["Stock"].Value.ToString();
+                    ProductoPrecio = DGVProductos.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
+                    ProductoCategoria = DGVProductos.Rows[e.RowIndex].Cells["Categoria"].Value.ToString();
+                    ProductoClaveInterna = DGVProductos.Rows[e.RowIndex].Cells["Clave Interna"].Value.ToString();
+                    ProductoCodigoBarras = DGVProductos.Rows[e.RowIndex].Cells["Código de Barras"].Value.ToString();
+                }
                 btnAgregarProducto.PerformClick();
             }
         }

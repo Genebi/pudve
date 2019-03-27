@@ -241,11 +241,11 @@ namespace PuntoDeVentaV2
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
         public void datosAgregarNvoProd()
         {
-            FormAgregar.txtNombreProducto.Text = ds.Conceptos[index - 1].Descripcion;       // pasamos la descripcion
-            FormAgregar.txtStockProducto.Text = ds.Conceptos[index - 1].Cantidad;           // pasamos la cantidad del XML
-            FormAgregar.txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");          // pasamos el precio recomendado
+            FormAgregar.ProdNombre = ds.Conceptos[index - 1].Descripcion;                   // pasamos la descripcion
+            FormAgregar.ProdStock = ds.Conceptos[index - 1].Cantidad;                       // pasamos la cantidad del XML
+            FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
             FormAgregar.lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
-            FormAgregar.txtClaveProducto.Text = ds.Conceptos[index - 1].NoIdentificacion;   // pasamos la claveInterna del XML
+            FormAgregar.ProdClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;        // pasamos la claveInterna del XML
         }
 
         // funcion para poder saber que cliente es el que esta iniciando sesion en el sistema

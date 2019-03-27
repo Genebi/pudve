@@ -396,6 +396,8 @@
             this.Name = "AgregarEditarProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar producto";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarEditarProducto_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarEditarProducto_FormClosed);
             this.Load += new System.EventHandler(this.AgregarEditarProducto_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).EndInit();
@@ -411,8 +413,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtCategoriaProducto;
-        private System.Windows.Forms.TextBox txtCodigoBarras;
         private System.Windows.Forms.FlowLayoutPanel panelContenedor;
         private System.Windows.Forms.Button btnGenerarCB;
         private System.Windows.Forms.Button btnAgregarDescuento;
@@ -431,5 +431,7 @@
         public System.Windows.Forms.Label lblPrecioOriginal;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBoxProducto;
+        public System.Windows.Forms.TextBox txtCategoriaProducto;
+        public System.Windows.Forms.TextBox txtCodigoBarras;
     }
 }

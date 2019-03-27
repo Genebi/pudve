@@ -33,6 +33,61 @@ namespace PuntoDeVentaV2
 		*   Codigo de Emmanuel      *
 		****************************/
 
+        public string ProdNombre { set; get; }
+        public string ProdStock { set; get; }
+        public string ProdPrecio { set; get; }
+        public string ProdCategoria { set; get; }
+        public string ProdClaveInterna { set; get; }
+        public string ProdCodBarras { set; get; }
+
+        static public string ProdNombreFinal = "";
+        static public string ProdStockFinal = "";
+        static public string ProdPrecioFinal = "";
+        static public string ProdCategoriaFinal = "";
+        static public string ProdClaveInternaFinal = "";
+        static public string ProdCodBarrasFinal = "";
+
+        public void cargarDatos()
+        {
+            ProdNombreFinal = ProdNombre;
+            ProdStockFinal = ProdStock;
+            ProdPrecioFinal = ProdPrecio;
+            ProdCategoriaFinal = ProdCategoria;
+            ProdClaveInternaFinal = ProdClaveInterna;
+            ProdCodBarrasFinal = ProdCodBarras;
+
+            txtNombreProducto.Text = ProdNombreFinal;
+            txtStockProducto.Text = ProdStockFinal;
+            txtPrecioProducto.Text = ProdPrecioFinal;
+            txtCategoriaProducto.Text = ProdCategoriaFinal;
+            txtClaveProducto.Text = ProdClaveInternaFinal;
+            txtCodigoBarras.Text = ProdCodBarrasFinal;
+        }
+
+        public void LimpiarDatos()
+        {
+            ProdNombreFinal = "";
+            ProdStockFinal = "";
+            ProdPrecioFinal = "";
+            ProdCategoriaFinal = "";
+            ProdClaveInternaFinal = "";
+            ProdCodBarrasFinal = "";
+
+            ProdNombre = "";
+            ProdStock = "";
+            ProdPrecio = "";
+            ProdCategoria = "";
+            ProdClaveInterna = "";
+            ProdCodBarras = "";
+
+            txtNombreProducto.Text = "";
+            txtStockProducto.Text = "";
+            txtPrecioProducto.Text = "";
+            txtCategoriaProducto.Text = "";
+            txtClaveProducto.Text = "";
+            txtCodigoBarras.Text = "";
+        }
+
         OpenFileDialog f;       // declaramos el objeto de OpenFileDialog
 
         // objeto para el manejo de las imagenes
@@ -618,9 +673,26 @@ namespace PuntoDeVentaV2
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
+        private void AgregarEditarProducto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            LimpiarDatos();
+        }
+
+        private void AgregarEditarProducto_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            LimpiarDatos();
+        }
+
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
-            LimpiarCampos();
+            if (ProdNombre.Equals(""))
+            {
+                LimpiarCampos();
+            }
+            else if (!ProdNombre.Equals(""))
+            {
+                cargarDatos();
+            }
         }
     }
 }
