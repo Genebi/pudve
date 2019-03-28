@@ -240,16 +240,13 @@ namespace PuntoDeVentaV2
             txtClaveProducto.Text = ProdClaveInternaFinal;
             txtCodigoBarras.Text = ProdCodBarrasFinal;
 
-            label10.Text = DatosSource.ToString();
-            if (DatosSource == 2)
+            if (DatosSourceFinal == 2)
             {
                 queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
                 SearchProdResult = cn.CargarDatos(queryBuscarProd);
                 idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();
                 queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
                 SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
-                //label10.Text = SearchCodBarExtResult.Rows[0]["CodigoBarraExtra"].ToString();
-                label10.Text = idProductoBuscado;
                 cargarCodBarExt();
             }
         }
@@ -470,20 +467,6 @@ namespace PuntoDeVentaV2
 
         private void btnImagenes_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    OpenFileDialog imagenes = new OpenFileDialog();
-            //    imagenes.Filter = "Imagenes JPG (*.jpg)|*.jpg| Imagenes PNG (.png)|.png";
-
-            //    if (imagenes.ShowDialog() == DialogResult.OK)
-            //    {
-            //        MessageBox.Show("Imagen seleccionada");
-            //    }
-            //}
-            //catch (Exception)
-            //{
-            //    MessageBox.Show("Ocurrio un error", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
             try
             {
                 using (f = new OpenFileDialog())    // Abrirmos el OpenFileDialog para buscar y seleccionar la Imagen
@@ -693,8 +676,9 @@ namespace PuntoDeVentaV2
                                 cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
                             }
                         }
+                        codigosBarrras.Clear();
                         //Cierra la ventana donde se agregan los datos del producto
-                        //this.Close();
+                        this.Close();
                     }
                     else
                     {
@@ -707,16 +691,42 @@ namespace PuntoDeVentaV2
             {
                 if (SearchProdResult.Rows.Count != 0)
                 {
-                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}' WHERE ID = '{idProducto}'";
+                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}' WHERE ID = '{idProductoBuscado}'";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
-                    label10.Text = idProducto.ToString();
+                    //label10.Text = idProductoBuscado;
                     if (SearchCodBarExtResult.Rows.Count != 0)
                     {
-                        string deleteCodBarExt = $"DELETE FROM CodigoBarrasExtras WHERE IDProducto = '{idProducto}'";
+                        string deleteCodBarExt = $"DELETE FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
                         cn.EjecutarConsulta(deleteCodBarExt);
                     }
+                    // recorrido para FlowLayoutPanel para ver cuantos TextBox
+                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                    {
+                        // hacemos un objeto para ver que tipo control es
+                        foreach (Control item in panel.Controls)
+                        {
+                            // ver si el control es TextBox
+                            if (item is TextBox)
+                            {
+                                var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                                codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                            }
+                        }
+                    }
+                    // verificamos si el List esta con algun registro 
+                    if (codigosBarrras != null || codigosBarrras.Count != 0)
+                    {
+                        // hacemos recorrido del List para gregarlos en los codigos de barras extras
+                        for (int pos = 0; pos < codigosBarrras.Count; pos++)
+                        {
+                            // preparamos el Query
+                            string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos]}','{idProductoBuscado}')";
+                            cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
+                        }
+                    }
+                    codigosBarrras.Clear();
                     //Cierra la ventana donde se agregan los datos del producto
-                    //this.Close();
+                    this.Close();
                 }
             }
             /* Fin del codigo de Emmanuel */
@@ -764,6 +774,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            DatosSourceFinal = DatosSource;
             if (ProdNombre.Equals(""))
             {
                 LimpiarCampos();
@@ -772,7 +783,6 @@ namespace PuntoDeVentaV2
             {
                 cargarDatos();
             }
-            DatosSourceFinal = DatosSource;
         }
     }
 }
