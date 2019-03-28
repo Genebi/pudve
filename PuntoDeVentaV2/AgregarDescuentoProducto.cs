@@ -142,7 +142,6 @@ namespace PuntoDeVentaV2
                 tb1.BackColor = Color.White;
                 tb1.Text = precioProducto.ToString("0.00");
                 
-
                 Label lb2 = new Label();
                 lb2.Text = "% de Descuento";
                 lb2.AutoSize = false;

@@ -48,13 +48,16 @@ namespace PuntoDeVentaV2
         static public string ProdClaveInternaFinal = "";
         static public string ProdCodBarrasFinal = "";
 
-        DataTable SearchProdResult;
+        DataTable SearchProdResult, SearchCodBarExtResult;
 
         OpenFileDialog f;       // declaramos el objeto de OpenFileDialog
 
         // objeto para el manejo de las imagenes
         FileStream File, File1;
         FileInfo info;
+
+        string queryBuscarProd, idProductoBuscado, queryUpdateProd, queryBuscarCodBarExt;
+        int respuesta;
 
         // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\Productos\";
@@ -167,6 +170,60 @@ namespace PuntoDeVentaV2
             txtCodigoBarras.Text = "";
         }
 
+        public void cargarCodBarExt()
+        {
+            id = 0;
+            panelContenedor.Controls.Clear();
+            foreach (DataRow renglon in SearchCodBarExtResult.Rows)
+            {
+                // generamos el panel dinamico
+                FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                panelHijo.Name = "panelGenerado" + id;
+                panelHijo.Height = 25;
+                panelHijo.Width = 200;
+                panelHijo.HorizontalScroll.Visible = false;
+
+                // generamos el textbox dinamico 
+                TextBox tb = new TextBox();
+                tb.Name = "textboxGenerado" + id;
+                tb.Width = 165;
+                tb.Height = 20;
+                tb.Text = renglon[1].ToString();
+                tb.Enter += new EventHandler(TextBox_Enter);
+                tb.KeyDown += new KeyEventHandler(TextBox_Keydown);
+                
+                // generamos el boton dinamico
+                Button bt = new Button();
+                bt.Cursor = Cursors.Hand;
+                bt.Text = "X";
+                bt.Name = "btnGenerado" + id;
+                bt.Height = 23;
+                bt.Width = 23;
+                bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                bt.ForeColor = ColorTranslator.FromHtml("white");
+                bt.FlatStyle = FlatStyle.Flat;
+                bt.TextAlign = ContentAlignment.MiddleCenter;
+                bt.Anchor = AnchorStyles.Top;
+                bt.Click += new EventHandler(ClickBotones);
+                
+                // agregamos al panel el textbox
+                panelHijo.Controls.Add(tb);
+
+                // agregamos el boton
+                panelHijo.Controls.Add(bt);
+                // le damos la direccion del panel
+                panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                // agregamos el panel a la forma
+                panelContenedor.Controls.Add(panelHijo);
+                // darle direccion al panel
+                panelContenedor.FlowDirection = FlowDirection.TopDown;
+
+                tb.Focus();
+                id++;
+            }
+        }
+
         public void cargarDatos()
         {
             ProdNombreFinal = ProdNombre;
@@ -182,10 +239,18 @@ namespace PuntoDeVentaV2
             txtCategoriaProducto.Text = ProdCategoriaFinal;
             txtClaveProducto.Text = ProdClaveInternaFinal;
             txtCodigoBarras.Text = ProdCodBarrasFinal;
-            if (DatosSourceFinal == 2)
+
+            label10.Text = DatosSource.ToString();
+            if (DatosSource == 2)
             {
-                string queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
+                queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
                 SearchProdResult = cn.CargarDatos(queryBuscarProd);
+                idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();
+                queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
+                SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
+                //label10.Text = SearchCodBarExtResult.Rows[0]["CodigoBarraExtra"].ToString();
+                label10.Text = idProductoBuscado;
+                cargarCodBarExt();
             }
         }
 
@@ -629,7 +694,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                         //Cierra la ventana donde se agregan los datos del producto
-                        this.Close();
+                        //this.Close();
                     }
                     else
                     {
@@ -642,16 +707,16 @@ namespace PuntoDeVentaV2
             {
                 if (SearchProdResult.Rows.Count != 0)
                 {
-                    string idProducto;
-                    idProducto = SearchProdResult.Rows[0]["ID"].ToString();
-                    string queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}' WHERE ID = '{idProducto}'";
-                    int respuesta = cn.EjecutarConsulta(queryUpdateProd);
-                    //if (respuesta > 0)
-                    //{
-                    //    MessageBox.Show("Datos Actualizados...");
-                    //}
+                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}' WHERE ID = '{idProducto}'";
+                    respuesta = cn.EjecutarConsulta(queryUpdateProd);
+                    label10.Text = idProducto.ToString();
+                    if (SearchCodBarExtResult.Rows.Count != 0)
+                    {
+                        string deleteCodBarExt = $"DELETE FROM CodigoBarrasExtras WHERE IDProducto = '{idProducto}'";
+                        cn.EjecutarConsulta(deleteCodBarExt);
+                    }
                     //Cierra la ventana donde se agregan los datos del producto
-                    this.Close();
+                    //this.Close();
                 }
             }
             /* Fin del codigo de Emmanuel */

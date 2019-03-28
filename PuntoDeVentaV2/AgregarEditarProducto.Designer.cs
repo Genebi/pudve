@@ -54,6 +54,7 @@
             this.lblPrecioOriginal = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBoxProducto = new System.Windows.Forms.PictureBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.SuspendLayout();
@@ -359,11 +360,21 @@
             this.pictureBoxProducto.TabIndex = 0;
             this.pictureBoxProducto.TabStop = false;
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(18, 535);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 17);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "label10";
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1040, 612);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lblPrecioOriginal);
             this.Controls.Add(this.label7);
@@ -433,5 +444,6 @@
         private System.Windows.Forms.PictureBox pictureBoxProducto;
         public System.Windows.Forms.TextBox txtCategoriaProducto;
         public System.Windows.Forms.TextBox txtCodigoBarras;
+        private System.Windows.Forms.Label label10;
     }
 }
