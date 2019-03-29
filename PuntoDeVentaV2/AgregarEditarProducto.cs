@@ -741,6 +741,8 @@ namespace PuntoDeVentaV2
                         //Descuento por Cliente
                         if (descuentos[0] == "1")
                         {
+                            string deleteDescuentoCLiente = $"DELETE FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
+                            cn.EjecutarConsulta(deleteDescuentoCLiente);
                             string[] guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
                             cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, Convert.ToInt32(idProductoBuscado)));
                         }
