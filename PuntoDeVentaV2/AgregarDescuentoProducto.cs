@@ -305,6 +305,185 @@ namespace PuntoDeVentaV2
                     panelContenedor.FlowDirection = FlowDirection.TopDown;
                 }
             }
+            if (rbMayoreo.Checked == true)
+            {
+                if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
+                    panelHijo1.Name = "panelMayoreoTitulos";
+                    panelHijo1.Width = 725;
+                    panelHijo1.Height = 50;
+
+                    Label lb1 = new Label();
+                    lb1.Text = "Rango de Productos";
+                    lb1.AutoSize = false;
+                    lb1.Width = 220;
+                    lb1.Height = 20;
+                    lb1.Margin = new Padding(150, 20, 0, 0);
+                    lb1.Font = new Font("Century Gothic", 11);
+                    lb1.TextAlign = ContentAlignment.MiddleCenter;
+
+                    Label lb2 = new Label();
+                    lb2.Text = "Precios";
+                    lb2.AutoSize = false;
+                    lb2.Width = 220;
+                    lb2.Height = 20;
+                    lb2.Margin = new Padding(30, 20, 0, 0);
+                    lb2.Font = new Font("Century Gothic", 11);
+                    lb2.TextAlign = ContentAlignment.MiddleCenter;
+
+                    panelHijo1.Controls.Add(lb1);
+                    panelHijo1.Controls.Add(lb2);
+
+                    panelHijo1.FlowDirection = FlowDirection.LeftToRight;
+
+                    panelContenedor.Controls.Add(panelHijo1);
+
+                    foreach (DataRow renglon in AgregarEditarProducto.SearchDesMayoreo.Rows)
+                    {
+                        FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
+                        panelHijo2.Name = "panelMayoreo1";
+                        panelHijo2.Width = 725;
+                        panelHijo2.Height = 50;
+
+                        TextBox tb1 = new TextBox();
+                        tb1.Name = "tbMayoreo1_1";
+                        tb1.Width = 100;
+                        tb1.Height = 20;
+                        tb1.Margin = new Padding(120, 5, 0, 0);
+                        tb1.TextAlign = HorizontalAlignment.Center;
+                        tb1.Text = renglon[1].ToString();
+                        tb1.ReadOnly = true;
+                        tb1.BackColor = Color.White;
+
+                        TextBox tb2 = new TextBox();
+                        tb2.Name = "tbMayoreo1_2";
+                        tb2.Width = 100;
+                        tb2.Height = 20;
+                        tb2.Margin = new Padding(50, 5, 0, 0);
+                        tb2.TextAlign = HorizontalAlignment.Center;
+                        tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+                        tb2.Text = renglon[2].ToString();
+
+                        TextBox tb3 = new TextBox();
+                        tb3.Name = "tbMayoreo1_3";
+                        tb3.Width = 100;
+                        tb3.Height = 20;
+                        tb3.Margin = new Padding(95, 5, 0, 0);
+                        tb3.TextAlign = HorizontalAlignment.Center;
+                        tb3.Text = precioProducto.ToString("0.00");
+                        tb3.ReadOnly = true;
+                        tb3.BackColor = Color.White;
+                        tb3.Text = renglon[3].ToString();
+
+                        CheckBox cb1 = new CheckBox();
+                        cb1.Name = "checkMayoreo1";
+                        cb1.Text = "Las primeras siempre costarán " + precioProducto.ToString("0.00");
+                        cb1.Margin = new Padding(120, 5, 0, 0);
+                        cb1.TextAlign = ContentAlignment.MiddleLeft;
+                        cb1.CheckedChanged += seleccionCheckBoxes;
+                        cb1.Width = 400;
+                        cb1.Tag = 1;
+                        cb1.Checked = Convert.ToBoolean(Convert.ToInt32(renglon[4].ToString()));
+
+                        panelHijo2.Controls.Add(tb1);
+                        panelHijo2.Controls.Add(tb2);
+                        panelHijo2.Controls.Add(tb3);
+                        panelHijo2.SetFlowBreak(tb3, true);
+                        panelHijo2.Controls.Add(cb1);
+
+                        
+                        panelHijo2.FlowDirection = FlowDirection.LeftToRight;
+
+                        panelContenedor.Controls.Add(panelHijo2);
+
+                        panelContenedor.FlowDirection = FlowDirection.TopDown;
+                    }
+                }
+                if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count == 0)
+                {
+                    FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
+                    panelHijo1.Name = "panelMayoreoTitulos";
+                    panelHijo1.Width = 725;
+                    panelHijo1.Height = 50;
+
+                    Label lb1 = new Label();
+                    lb1.Text = "Rango de Productos";
+                    lb1.AutoSize = false;
+                    lb1.Width = 220;
+                    lb1.Height = 20;
+                    lb1.Margin = new Padding(150, 20, 0, 0);
+                    lb1.Font = new Font("Century Gothic", 11);
+                    lb1.TextAlign = ContentAlignment.MiddleCenter;
+
+                    Label lb2 = new Label();
+                    lb2.Text = "Precios";
+                    lb2.AutoSize = false;
+                    lb2.Width = 220;
+                    lb2.Height = 20;
+                    lb2.Margin = new Padding(30, 20, 0, 0);
+                    lb2.Font = new Font("Century Gothic", 11);
+                    lb2.TextAlign = ContentAlignment.MiddleCenter;
+
+                    FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
+                    panelHijo2.Name = "panelMayoreo1";
+                    panelHijo2.Width = 725;
+                    panelHijo2.Height = 50;
+
+                    TextBox tb1 = new TextBox();
+                    tb1.Name = "tbMayoreo1_1";
+                    tb1.Width = 100;
+                    tb1.Height = 20;
+                    tb1.Margin = new Padding(120, 5, 0, 0);
+                    tb1.TextAlign = HorizontalAlignment.Center;
+                    tb1.Text = "1";
+                    tb1.ReadOnly = true;
+                    tb1.BackColor = Color.White;
+
+                    TextBox tb2 = new TextBox();
+                    tb2.Name = "tbMayoreo1_2";
+                    tb2.Width = 100;
+                    tb2.Height = 20;
+                    tb2.Margin = new Padding(50, 5, 0, 0);
+                    tb2.TextAlign = HorizontalAlignment.Center;
+                    tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+
+                    TextBox tb3 = new TextBox();
+                    tb3.Name = "tbMayoreo1_3";
+                    tb3.Width = 100;
+                    tb3.Height = 20;
+                    tb3.Margin = new Padding(95, 5, 0, 0);
+                    tb3.TextAlign = HorizontalAlignment.Center;
+                    tb3.Text = precioProducto.ToString("0.00");
+                    tb3.ReadOnly = true;
+                    tb3.BackColor = Color.White;
+
+                    CheckBox cb1 = new CheckBox();
+                    cb1.Name = "checkMayoreo1";
+                    cb1.Text = "Las primeras siempre costarán " + precioProducto.ToString("0.00");
+                    cb1.Margin = new Padding(120, 5, 0, 0);
+                    cb1.TextAlign = ContentAlignment.MiddleLeft;
+                    cb1.CheckedChanged += seleccionCheckBoxes;
+                    cb1.Width = 400;
+                    cb1.Tag = 1;
+
+                    panelHijo1.Controls.Add(lb1);
+                    panelHijo1.Controls.Add(lb2);
+                    panelHijo2.Controls.Add(tb1);
+                    panelHijo2.Controls.Add(tb2);
+                    panelHijo2.Controls.Add(tb3);
+                    panelHijo2.SetFlowBreak(tb3, true);
+                    panelHijo2.Controls.Add(cb1);
+
+                    panelHijo1.FlowDirection = FlowDirection.LeftToRight;
+                    panelHijo2.FlowDirection = FlowDirection.LeftToRight;
+
+                    panelContenedor.Controls.Add(panelHijo1);
+                    panelContenedor.Controls.Add(panelHijo2);
+
+                    panelContenedor.FlowDirection = FlowDirection.TopDown;
+                }
+            }
         }
 
         private void CargarFormularios(int tipo)
