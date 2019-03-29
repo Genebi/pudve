@@ -37,22 +37,25 @@
             this.label2 = new System.Windows.Forms.Label();
             this.rbCliente = new System.Windows.Forms.RadioButton();
             this.rbMayoreo = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label8
             // 
             this.label8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label8.Location = new System.Drawing.Point(17, 64);
+            this.label8.Location = new System.Drawing.Point(23, 79);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(750, 2);
+            this.label8.Size = new System.Drawing.Size(1000, 2);
             this.label8.TabIndex = 21;
             // 
             // label1
             // 
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(15, 435);
+            this.label1.Location = new System.Drawing.Point(20, 535);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(750, 2);
+            this.label1.Size = new System.Drawing.Size(1000, 2);
             this.label1.TabIndex = 22;
             // 
             // btnAceptarDesc
@@ -64,9 +67,10 @@
             this.btnAceptarDesc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptarDesc.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptarDesc.ForeColor = System.Drawing.Color.White;
-            this.btnAceptarDesc.Location = new System.Drawing.Point(623, 453);
+            this.btnAceptarDesc.Location = new System.Drawing.Point(831, 558);
+            this.btnAceptarDesc.Margin = new System.Windows.Forms.Padding(4);
             this.btnAceptarDesc.Name = "btnAceptarDesc";
-            this.btnAceptarDesc.Size = new System.Drawing.Size(144, 28);
+            this.btnAceptarDesc.Size = new System.Drawing.Size(192, 34);
             this.btnAceptarDesc.TabIndex = 27;
             this.btnAceptarDesc.Text = "Aceptar";
             this.btnAceptarDesc.UseVisualStyleBackColor = false;
@@ -81,9 +85,10 @@
             this.btnCancelarDesc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelarDesc.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarDesc.ForeColor = System.Drawing.Color.White;
-            this.btnCancelarDesc.Location = new System.Drawing.Point(473, 453);
+            this.btnCancelarDesc.Location = new System.Drawing.Point(631, 558);
+            this.btnCancelarDesc.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancelarDesc.Name = "btnCancelarDesc";
-            this.btnCancelarDesc.Size = new System.Drawing.Size(144, 28);
+            this.btnCancelarDesc.Size = new System.Drawing.Size(192, 34);
             this.btnCancelarDesc.TabIndex = 26;
             this.btnCancelarDesc.Text = "Cancelar";
             this.btnCancelarDesc.UseVisualStyleBackColor = false;
@@ -92,36 +97,40 @@
             // txtTituloDescuento
             // 
             this.txtTituloDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTituloDescuento.Location = new System.Drawing.Point(13, 20);
+            this.txtTituloDescuento.Location = new System.Drawing.Point(17, 25);
+            this.txtTituloDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.txtTituloDescuento.Name = "txtTituloDescuento";
-            this.txtTituloDescuento.Size = new System.Drawing.Size(754, 23);
+            this.txtTituloDescuento.Size = new System.Drawing.Size(1005, 28);
             this.txtTituloDescuento.TabIndex = 28;
             this.txtTituloDescuento.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelContenedor
             // 
             this.panelContenedor.AutoScroll = true;
-            this.panelContenedor.Location = new System.Drawing.Point(17, 80);
+            this.panelContenedor.Location = new System.Drawing.Point(23, 98);
+            this.panelContenedor.Margin = new System.Windows.Forms.Padding(4);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(748, 280);
+            this.panelContenedor.Size = new System.Drawing.Size(997, 345);
             this.panelContenedor.TabIndex = 29;
             this.panelContenedor.WrapContents = false;
             // 
             // label2
             // 
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label2.Location = new System.Drawing.Point(15, 380);
+            this.label2.Location = new System.Drawing.Point(20, 468);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(750, 2);
+            this.label2.Size = new System.Drawing.Size(1000, 2);
             this.label2.TabIndex = 30;
             // 
             // rbCliente
             // 
             this.rbCliente.AutoSize = true;
             this.rbCliente.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbCliente.Location = new System.Drawing.Point(191, 397);
+            this.rbCliente.Location = new System.Drawing.Point(255, 489);
+            this.rbCliente.Margin = new System.Windows.Forms.Padding(4);
             this.rbCliente.Name = "rbCliente";
-            this.rbCliente.Size = new System.Drawing.Size(192, 24);
+            this.rbCliente.Size = new System.Drawing.Size(236, 26);
             this.rbCliente.TabIndex = 31;
             this.rbCliente.TabStop = true;
             this.rbCliente.Text = "Descuento por Cliente";
@@ -132,21 +141,32 @@
             // 
             this.rbMayoreo.AutoSize = true;
             this.rbMayoreo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbMayoreo.Location = new System.Drawing.Point(400, 397);
+            this.rbMayoreo.Location = new System.Drawing.Point(533, 489);
+            this.rbMayoreo.Margin = new System.Windows.Forms.Padding(4);
             this.rbMayoreo.Name = "rbMayoreo";
-            this.rbMayoreo.Size = new System.Drawing.Size(208, 24);
+            this.rbMayoreo.Size = new System.Drawing.Size(255, 26);
             this.rbMayoreo.TabIndex = 32;
             this.rbMayoreo.TabStop = true;
             this.rbMayoreo.Text = "Descuento por Mayoreo";
             this.rbMayoreo.UseVisualStyleBackColor = true;
             this.rbMayoreo.CheckedChanged += new System.EventHandler(this.rbMayoreo_CheckedChanged);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 558);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 17);
+            this.label3.TabIndex = 33;
+            this.label3.Text = "label3";
+            // 
             // AgregarDescuentoProducto
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(780, 497);
+            this.ClientSize = new System.Drawing.Size(1040, 612);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.rbMayoreo);
             this.Controls.Add(this.rbCliente);
             this.Controls.Add(this.label2);
@@ -157,8 +177,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label8);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(600, 400);
+            this.MinimumSize = new System.Drawing.Size(793, 481);
             this.Name = "AgregarDescuentoProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Descuento Producto";
@@ -178,5 +199,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton rbCliente;
         private System.Windows.Forms.RadioButton rbMayoreo;
+        private System.Windows.Forms.Label label3;
     }
 }

@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         static public string datosImpuestos = null;
         static public string claveProducto = null;
         static public string claveUnidadMedida = null;
+        static public DataTable SearchDesCliente, SearchDesMayoreo;
         static public List<string> descuentos = new List<string>();
 
         Conexion cn = new Conexion();
@@ -56,7 +57,7 @@ namespace PuntoDeVentaV2
         FileStream File, File1;
         FileInfo info;
 
-        string queryBuscarProd, idProductoBuscado, queryUpdateProd, queryBuscarCodBarExt;
+        string queryBuscarProd, idProductoBuscado, queryUpdateProd, queryBuscarCodBarExt, queryBuscarDescuentoCliente, queryDesMayoreo;
         int respuesta;
 
         // direccion de la carpeta donde se va poner las imagenes
@@ -248,6 +249,10 @@ namespace PuntoDeVentaV2
                 queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
                 SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
                 cargarCodBarExt();
+                queryBuscarDescuentoCliente = $"SELECT * FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
+                SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
+                queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
+                SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
             }
         }
 
@@ -425,6 +430,11 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (DatosSourceFinal == 2)
+                {
+                    precioProducto = txtPrecioProducto.Text;
+                }
+
                 if (FormAgregar != null)
                 {
                     FormAgregar.Show();
@@ -725,6 +735,28 @@ namespace PuntoDeVentaV2
                         }
                     }
                     codigosBarrras.Clear();
+                    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                    if (descuentos.Any())
+                    {
+                        //Descuento por Cliente
+                        if (descuentos[0] == "1")
+                        {
+                            string[] guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
+                            cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, Convert.ToInt32(idProductoBuscado)));
+                        }
+                        //Descuento por Mayoreo
+                        if (descuentos[0] == "2")
+                        {
+                            foreach (var descuento in descuentos)
+                            {
+                                if (descuento == "2") { continue; }
+
+                                string[] tmp = descuento.Split('-');
+
+                                cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, Convert.ToInt32(idProductoBuscado)));
+                            }
+                        }
+                    }
                     //Cierra la ventana donde se agregan los datos del producto
                     this.Close();
                 }
