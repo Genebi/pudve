@@ -37,7 +37,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.rbCliente = new System.Windows.Forms.RadioButton();
             this.rbMayoreo = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label8
@@ -151,22 +150,12 @@
             this.rbMayoreo.UseVisualStyleBackColor = true;
             this.rbMayoreo.CheckedChanged += new System.EventHandler(this.rbMayoreo_CheckedChanged);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 558);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 17);
-            this.label3.TabIndex = 33;
-            this.label3.Text = "label3";
-            // 
             // AgregarDescuentoProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1040, 612);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.rbMayoreo);
             this.Controls.Add(this.rbCliente);
             this.Controls.Add(this.label2);
@@ -199,6 +188,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton rbCliente;
         private System.Windows.Forms.RadioButton rbMayoreo;
-        private System.Windows.Forms.Label label3;
     }
 }

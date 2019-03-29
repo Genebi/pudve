@@ -749,6 +749,8 @@ namespace PuntoDeVentaV2
                         //Descuento por Mayoreo
                         if (descuentos[0] == "2")
                         {
+                            string deleteDescuentoMayoreo = $"DELETE FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
+                            cn.EjecutarConsulta(deleteDescuentoMayoreo);
                             foreach (var descuento in descuentos)
                             {
                                 if (descuento == "2") { continue; }

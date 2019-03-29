@@ -51,10 +51,10 @@ namespace PuntoDeVentaV2
 
         private void btnAceptarDesc_Click(object sender, EventArgs e)
         {
-            AgregarEditarProducto.descuentos.Clear();
             //Cliente
             if (tipoDescuento == 1)
             {
+                AgregarEditarProducto.descuentos.Clear();
                 TextBox precio     = (TextBox)this.Controls.Find("txtPrecio", true).FirstOrDefault();
                 TextBox porcentaje = (TextBox)this.Controls.Find("txtPorcentaje", true).FirstOrDefault();
                 TextBox precioDesc = (TextBox)this.Controls.Find("txtPrecioDescuento", true).FirstOrDefault();
@@ -68,6 +68,7 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipoDescuento == 2)
             {
+                AgregarEditarProducto.descuentos.Clear();
                 AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
                 foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                 {
@@ -488,7 +489,6 @@ namespace PuntoDeVentaV2
 
         private void CargarFormularios(int tipo)
         {
-            label3.Text = AgregarEditarProducto.DatosSourceFinal.ToString();
             if (AgregarEditarProducto.DatosSourceFinal == 1 || AgregarEditarProducto.DatosSourceFinal == 3)
             {
                 panelContenedor.Controls.Clear();
