@@ -37,6 +37,8 @@
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.btnAgregarXML = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnModificarEstado = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,19 +55,22 @@
             this.chk});
             this.DGVProductos.Location = new System.Drawing.Point(16, 266);
             this.DGVProductos.Margin = new System.Windows.Forms.Padding(4);
+            this.DGVProductos.MultiSelect = false;
             this.DGVProductos.Name = "DGVProductos";
-            this.DGVProductos.ReadOnly = true;
-            this.DGVProductos.Size = new System.Drawing.Size(891, 324);
+            this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DGVProductos.Size = new System.Drawing.Size(1183, 324);
             this.DGVProductos.TabIndex = 1;
+            this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
+            this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             this.DGVProductos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVProductos_CellPainting);
+            this.DGVProductos.CurrentCellDirtyStateChanged += new System.EventHandler(this.DGVProductos_CurrentCellDirtyStateChanged);
             // 
             // chk
             // 
-            this.chk.HeaderText = "";
+            this.chk.HeaderText = "Seleccionar";
             this.chk.MinimumWidth = 50;
             this.chk.Name = "chk";
-            this.chk.ReadOnly = true;
             // 
             // btnAgregarProducto
             // 
@@ -79,7 +84,7 @@
             this.btnAgregarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(672, 203);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(964, 203);
             this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(233, 33);
@@ -93,7 +98,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(401, 34);
+            this.tituloSeccion.Location = new System.Drawing.Point(547, 34);
             this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(175, 32);
@@ -106,7 +111,7 @@
             this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(297, 86);
+            this.tituloBusqueda.Location = new System.Drawing.Point(443, 86);
             this.tituloBusqueda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloBusqueda.Name = "tituloBusqueda";
             this.tituloBusqueda.Size = new System.Drawing.Size(335, 22);
@@ -118,7 +123,7 @@
             // 
             this.txtBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(17, 126);
+            this.txtBusqueda.Location = new System.Drawing.Point(163, 126);
             this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(887, 27);
@@ -138,7 +143,7 @@
             "Z - A",
             "Mayor precio",
             "Menor precio"});
-            this.cbOrden.Location = new System.Drawing.Point(225, 206);
+            this.cbOrden.Location = new System.Drawing.Point(517, 206);
             this.cbOrden.Margin = new System.Windows.Forms.Padding(4);
             this.cbOrden.Name = "cbOrden";
             this.cbOrden.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -155,7 +160,7 @@
             "Habilitados",
             "Deshabilitados",
             "Todos"});
-            this.cbMostrar.Location = new System.Drawing.Point(449, 206);
+            this.cbMostrar.Location = new System.Drawing.Point(741, 206);
             this.cbMostrar.Margin = new System.Windows.Forms.Padding(4);
             this.cbMostrar.Name = "cbMostrar";
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -179,11 +184,36 @@
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(14, 172);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "label1";
+            // 
+            // btnModificarEstado
+            // 
+            this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
+            this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnModificarEstado.Location = new System.Drawing.Point(185, 201);
+            this.btnModificarEstado.Name = "btnModificarEstado";
+            this.btnModificarEstado.Size = new System.Drawing.Size(201, 35);
+            this.btnModificarEstado.TabIndex = 10;
+            this.btnModificarEstado.Text = "Modificar Estado";
+            this.btnModificarEstado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnModificarEstado.UseVisualStyleBackColor = true;
+            this.btnModificarEstado.Click += new System.EventHandler(this.btnModificarEstado_Click);
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(923, 690);
+            this.ClientSize = new System.Drawing.Size(1215, 690);
+            this.Controls.Add(this.btnModificarEstado);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAgregarXML);
             this.Controls.Add(this.cbMostrar);
             this.Controls.Add(this.btnAgregarProducto);
@@ -212,5 +242,7 @@
         private System.Windows.Forms.ComboBox cbMostrar;
         private System.Windows.Forms.Button btnAgregarXML;
         private System.Windows.Forms.DataGridViewCheckBoxColumn chk;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnModificarEstado;
     }
 }

@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
-        int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0;
+        int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0, editarEstado = 0, numerofila = 0;
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
         DataTable dt, dtConsulta;
@@ -54,6 +54,80 @@ namespace PuntoDeVentaV2
 
         string ProductoNombre, ProductoStock, ProductoPrecio, ProductoCategoria, ProductoClaveInterna, ProductoCodigoBarras;
 
+        bool isCellChecked;
+
+        private void DGVProductos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            //if (DGVProductos.IsCurrentCellDirty)
+            //{
+            //    DGVProductos.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            //}
+        }
+
+        private void btnModificarEstado_Click(object sender, EventArgs e)
+        {
+            if (editarEstado == 4 && Convert.ToBoolean(DGVProductos.Rows[numerofila].Cells[0].Value) == true)
+            {
+                //MessageBox.Show("Proceso de Cambiar el estado del\nProducto: " + ProductoNombre, "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                DialogResult result = MessageBox.Show("Desdea Realmente Modificar el Estatus del\nProducto: " + Nombre + "\nde su Stock Existente", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    ModificarStatusProductoChkBox();
+                    DGVProductos.Rows[numerofila].Cells[0].Value = false;
+                    DGVProductos.Refresh();                             // Refrescamos el DataGridView
+                    MessageBox.Show("Proceso de Cambiar el estado del\nProducto: " + Nombre, "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    cbMostrar.Text = "Deshabilitados";
+                    if (cbMostrar.Text == "Deshabilitados")
+                    {
+                        CargarDatosStatus(id, Id_Prod_select, "0");         // cambiamos el Status a 0
+                    }
+                }
+                else if (result == DialogResult.No)
+                {
+                    MessageBox.Show("Proceso Cancelado", "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    DGVProductos.Rows[numerofila].Cells[0].Value = false;
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    DGVProductos.Rows[numerofila].Cells[0].Value = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Favor de seleccionar (Marcar un)\nalgun CheckBox (Casilla de Verificación)", "Verificar Selección", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                numerofila = e.RowIndex;
+                Nombre = DGVProductos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
+                Stock = DGVProductos.Rows[e.RowIndex].Cells["Stock"].Value.ToString();
+                Precio = DGVProductos.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
+                ProductoCategoria = DGVProductos.Rows[e.RowIndex].Cells["Categoria"].Value.ToString();
+                ClaveInterna = DGVProductos.Rows[e.RowIndex].Cells["Clave Interna"].Value.ToString();
+                CodigoBarras = DGVProductos.Rows[e.RowIndex].Cells["Código de Barras"].Value.ToString();
+                id = FormPrincipal.userID.ToString();
+                editarEstado = 4;
+            }
+        }
+
+        private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                foreach (DataGridViewRow row in DGVProductos.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells[e.ColumnIndex].Value))
+                    {
+                        row.Cells[e.ColumnIndex].Value = false;
+                    }
+                }
+            }
+        }
+
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtro = Convert.ToString(cbMostrar.SelectedItem);      // tomamos el valor que se elige en el TextBox
@@ -73,83 +147,6 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos();                                      // cargamos todos los registros
             }
-        }
-
-        /************************************************
-        *       Iniciamos codigo para agregar el        *
-        *       CheckBox en el DataGridView             *
-        ************************************************/
-        // agregamos el checkbox en el DataGridView en el headercheckbox
-        CheckBox HeaderCheckBox = null;                             // declaramos el objeto CheckBox en NULL
-        bool IsHeaderCheckBoxClicked = false;                       // declaramos un Boolean para ver si se marco CheckBox
-
-        // metodo para agregar el CheckBox al Header del DataGridView
-        private void AddHeaderCheckBox()
-        {
-            HeaderCheckBox = new CheckBox();                        // hacemos un nuevo CheckBox
-            HeaderCheckBox.Size = new Size(15,15);                  // le hacemos unas dimensiones
-            HeaderCheckBox.Top = 5;                                 // lo posicionamos con respecto del top a 4 px
-            HeaderCheckBox.Left = 99;                               // lo posicionamos con respecto del Left
-            this.DGVProductos.Controls.Add(HeaderCheckBox);         // agregamos el checkBox dentro del DataGridView
-        }
-
-        // agregamos el envento para checar si se marca o no el CheckBox
-        private void HeaderCheckBoxClick(CheckBox HCheckBox)
-        {
-            index = 0;
-            IsHeaderCheckBoxClicked = true;                         // ponemos en true la variable
-            if (HCheckBox.Checked == true)
-            {
-                DialogResult result = MessageBox.Show("Desdea Realmente Modificar el Estatus del Todo el Stock", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
-                {
-                    foreach (DataGridViewRow Row in DGVProductos.Rows)      // hacemos un recorrido de cada una de la filas del DataGridView
-                    {
-                        // verificamos que la celda pertenezca a la columna llamada chk
-                        ((DataGridViewCheckBoxCell)Row.Cells["chk"]).Value = HCheckBox.Checked;                     // y le ponemos el valor en true el checar el CheckBox
-                        Nombre = ((DataGridViewTextBoxCell)Row.Cells["Nombre"]).Value.ToString();                   // tomamos el valor de la celda
-                        Stock = ((DataGridViewTextBoxCell)Row.Cells["Stock"]).Value.ToString();                     // tomamos el valor de la celda
-                        Precio = ((DataGridViewTextBoxCell)Row.Cells["Precio"]).Value.ToString();                   // tomamos el valor de la celda
-                        ClaveInterna = ((DataGridViewTextBoxCell)Row.Cells["Clave Interna"]).Value.ToString();      // tomamos el valor de la celda
-                        CodigoBarras = ((DataGridViewTextBoxCell)Row.Cells["Código de Barras"]).Value.ToString();   // tomamos el valor de la celda
-                        id = FormPrincipal.userID.ToString();                                                       // tomamos el valor del ID del Usuario
-                        //MessageBox.Show($"Producto: {Nombre}\nStock: {Stock}\nPrecio: {Precio}\nClave del Producto: {ClaveInterna}\nCodigo de Barras: {CodigoBarras}\nId de Usuario: {id}", "Status", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ModificarStatusProductoChkBox();                                                                  // Llamamos el metodo de Modificar Status
-                    }
-                    DGVProductos.RefreshEdit();                             // Refrescamos el DataGridView
-                    HCheckBox.Checked = false;
-                    cbMostrar.Text = "Deshabilitados";
-                    if (cbMostrar.Text == "Deshabilitados")
-                    {
-                        CargarDatosStatus(id, Id_Prod_select, "0");         // cambiamos el Status a 0
-                    }
-                }
-                else if (result == DialogResult.No)
-                {
-                    HCheckBox.Checked = false;
-                    cbMostrar.Text = "Habilitados";
-                    if (cbMostrar.Text == "Habilitados")
-                    {
-                        CargarDatosStatus(id, Id_Prod_select, "1");         // cambiamos el Status a 1
-                    }
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    HCheckBox.Checked = false;
-                    cbMostrar.Text = "Todos";
-                    if (cbMostrar.Text == "Todos")
-                    {
-                        CargarDatos();
-                    }
-                }
-            }
-            IsHeaderCheckBoxClicked = false;                        // ponemos en false la variable
-        }
-
-        // agregamos el evento de MouseClickEvent
-        private void HeaderCheckBox_MouseClick(object sender, MouseEventArgs e)
-        {
-            HeaderCheckBoxClick((CheckBox)sender);                  // si es que se le da clic al HeaderCheckBox llamamos al metodo HeaderCheckBoxClick
         }
 
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
@@ -206,9 +203,6 @@ namespace PuntoDeVentaV2
             DGVProductos.CellClick += new DataGridViewCellEventHandler(RecordView);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(BarCodeMake);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(PhotoStatus);
-
-            AddHeaderCheckBox();
-            HeaderCheckBox.MouseClick += new MouseEventHandler(HeaderCheckBox_MouseClick);
 
             DGVProductos.Columns["Path"].Visible = false;
             DGVProductos.Columns["Activo"].Visible = false;
@@ -359,12 +353,12 @@ namespace PuntoDeVentaV2
                 else if (seleccionadoDato == 1)
                 {
                     seleccionadoDato = 0;
-                    FormAgregar.ProdNombre = ProductoNombre;
-                    FormAgregar.ProdStock = ProductoStock;
-                    FormAgregar.ProdPrecio = ProductoPrecio;
+                    FormAgregar.ProdNombre = Nombre;
+                    FormAgregar.ProdStock = Stock;
+                    FormAgregar.ProdPrecio = Precio;
                     FormAgregar.ProdCategoria = ProductoCategoria;
-                    FormAgregar.ProdClaveInterna = ProductoClaveInterna;
-                    FormAgregar.ProdCodBarras = ProductoCodigoBarras;
+                    FormAgregar.ProdClaveInterna = ClaveInterna;
+                    FormAgregar.ProdCodBarras = CodigoBarras;
                     FormAgregar.ShowDialog();
                 }
             }
@@ -378,12 +372,12 @@ namespace PuntoDeVentaV2
                 else if (seleccionadoDato == 1)
                 {
                     seleccionadoDato = 0;
-                    FormAgregar.ProdNombre = ProductoNombre;
-                    FormAgregar.ProdStock = ProductoStock;
-                    FormAgregar.ProdPrecio = ProductoPrecio;
+                    FormAgregar.ProdNombre = Nombre;
+                    FormAgregar.ProdStock = Stock;
+                    FormAgregar.ProdPrecio = Precio;
                     FormAgregar.ProdCategoria = ProductoCategoria;
-                    FormAgregar.ProdClaveInterna = ProductoClaveInterna;
-                    FormAgregar.ProdCodBarras = ProductoCodigoBarras;
+                    FormAgregar.ProdClaveInterna = ClaveInterna;
+                    FormAgregar.ProdCodBarras = CodigoBarras;
                     FormAgregar.ShowDialog();
                 }
             }
@@ -398,12 +392,12 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato==0)
                 {
                     seleccionadoDato = 1;
-                    ProductoNombre = DGVProductos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
-                    ProductoStock = DGVProductos.Rows[e.RowIndex].Cells["Stock"].Value.ToString();
-                    ProductoPrecio = DGVProductos.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
+                    Nombre = DGVProductos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
+                    Stock = DGVProductos.Rows[e.RowIndex].Cells["Stock"].Value.ToString();
+                    Precio = DGVProductos.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
                     ProductoCategoria = DGVProductos.Rows[e.RowIndex].Cells["Categoria"].Value.ToString();
-                    ProductoClaveInterna = DGVProductos.Rows[e.RowIndex].Cells["Clave Interna"].Value.ToString();
-                    ProductoCodigoBarras = DGVProductos.Rows[e.RowIndex].Cells["Código de Barras"].Value.ToString();
+                    ClaveInterna = DGVProductos.Rows[e.RowIndex].Cells["Clave Interna"].Value.ToString();
+                    CodigoBarras = DGVProductos.Rows[e.RowIndex].Cells["Código de Barras"].Value.ToString();
                     origenDeLosDatos = 2;
                 }
                 btnAgregarProducto.PerformClick();
