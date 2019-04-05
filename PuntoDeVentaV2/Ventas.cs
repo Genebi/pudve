@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace PuntoDeVentaV2
 {
@@ -68,12 +63,12 @@ namespace PuntoDeVentaV2
             cbEstadoVenta.SelectedIndex = 0;
             cbEstadoVenta.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            btnProductoRapido.BackgroundImage = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
-            btnServicioRapido.BackgroundImage = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
-            btnEliminarUltimo.BackgroundImage = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
-            btnEliminarTodos.BackgroundImage  = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
-            btnUltimoTicket.BackgroundImage   = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
-            btnPresupuesto.BackgroundImage    = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\money.png");
+            btnProductoRapido.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
+            btnServicioRapido.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
+            btnEliminarUltimo.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
+            btnEliminarTodos.BackgroundImage  = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
+            btnUltimoTicket.BackgroundImage   = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
+            btnPresupuesto.BackgroundImage    = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\money.png");
 
             btnProductoRapido.BackgroundImageLayout = ImageLayout.Center;
             btnServicioRapido.BackgroundImageLayout = ImageLayout.Center;
@@ -240,10 +235,10 @@ namespace PuntoDeVentaV2
             row.Cells["Descuento"].Value = 0;
             row.Cells["Importe"].Value = datosProducto[2];
 
-            Image img1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus-square.png");
-            Image img2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
-            Image img3 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\minus.png");
-            Image img4 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\remove.png");
+            System.Drawing.Image img1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus-square.png");
+            System.Drawing.Image img2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
+            System.Drawing.Image img3 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\minus.png");
+            System.Drawing.Image img4 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\remove.png");
 
             DGVentas.Rows[rowId].Cells["AgregarMultiple"].Value = img1;
             DGVentas.Rows[rowId].Cells["AgregarIndividual"].Value = img2;
@@ -575,8 +570,9 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
+            GenerarTicket();
             //Datos generales de la venta
-            var IdEmpresa = FormPrincipal.userID.ToString();
+            /*var IdEmpresa = FormPrincipal.userID.ToString();
             var Subtotal = cSubtotal.Text;
             var IVA16 = cIVA.Text;
             var Descuento = cDescuento.Text;
@@ -640,7 +636,7 @@ namespace PuntoDeVentaV2
                 mostrarVenta = 0;
 
                 this.Dispose();
-            }
+            }*/
         }
 
         private void btnGuardarVenta_Click(object sender, EventArgs e)
@@ -752,6 +748,25 @@ namespace PuntoDeVentaV2
         private void Ventas_FormClosing(object sender, FormClosingEventArgs e)
         {
             mostrarVenta = 0;
+        }
+
+        private void GenerarTicket()
+        {
+            //Medidas de ticket de 57 y 80 mm
+            //57mm = 161.28 pt
+            //80mm = 226.08 pt
+            var pagina = new iTextSharp.text.Rectangle(227, 250);
+            Document ticket = new Document(pagina);
+
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\VentasPUDVE\prueba.pdf", FileMode.Create));
+
+            ticket.AddTitle("Ticket Venta");
+            ticket.AddAuthor("PUDVE");
+
+            ticket.Open();
+            ticket.Add(new Paragraph(FormPrincipal.datosUsuario[0]));
+            ticket.Close();
+            writer.Close();
         }
     }
 }
