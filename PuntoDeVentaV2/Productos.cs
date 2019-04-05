@@ -114,11 +114,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtro = Convert.ToString(cbMostrar.SelectedItem);      // tomamos el valor que se elige en el TextBox
@@ -599,7 +594,7 @@ namespace PuntoDeVentaV2
                 {
                     Directory.CreateDirectory(saveDirectoryImg);        // lo crea para poder almacenar la imagen
                 }
-                if (f.CheckFileExists)      // si el archivo existe
+                if (f.CheckFileExists && f.FileName != "")      // si el archivo existe
                 {
                     try     // Intentamos la actualizacion de la imagen en la base de datos
                     {
