@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,9 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
+            //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
+            Directory.CreateDirectory(@"C:\VentasPUDVE");
+
             CargarDatos();
 
             cbVentas.SelectedIndex = 0;

@@ -381,5 +381,38 @@ namespace PuntoDeVentaV2
 
             return resultado;
         }
+
+        public string[] DatosUsuario(int IDUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT * FROM Usuarios WHERE ID = '{IDUsuario}'";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[7].ToString()); //Nombre completo
+                lista.Add(dr[8].ToString()); //Calle
+                lista.Add(dr[9].ToString()); //No. Exterior
+                lista.Add(dr[10].ToString()); //No. Interior
+                lista.Add(dr[12].ToString()); //Municipio
+                lista.Add(dr[13].ToString()); //Estado
+                lista.Add(dr[11].ToString()); //Colonia
+                lista.Add(dr[14].ToString()); //Codigo Postal
+                lista.Add(dr[4].ToString()); //RFC
+                lista.Add(dr[6].ToString()); //Email
+                lista.Add(dr[5].ToString()); //Telefono
+                lista.Add(dr[17].ToString()); //Logo
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
     }
 }

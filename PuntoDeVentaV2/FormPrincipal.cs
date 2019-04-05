@@ -12,6 +12,10 @@ namespace PuntoDeVentaV2
 {
     public partial class FormPrincipal : Form
     {
+        Conexion cn = new Conexion();
+
+        public static string[] datosUsuario = new string[] { };
+
         // declaramos la variable que se pasara entre los dos formularios
         // FormPrincipal y MisDatos
         public static int userID;
@@ -57,6 +61,12 @@ namespace PuntoDeVentaV2
             TempUserNickName = TempNickUsr;
             TempUserPass = TempPassUsr;
 
+            ObtenerDatosUsuario(userID);
+        }
+
+        private void ObtenerDatosUsuario(int IDUsuario)
+        {
+            datosUsuario = cn.DatosUsuario(IDUsuario);
         }
 
         private void btnProductos_Click(object sender, EventArgs e)
