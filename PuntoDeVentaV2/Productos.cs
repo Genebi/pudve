@@ -72,24 +72,39 @@ namespace PuntoDeVentaV2
             if (editarEstado == 4 && Convert.ToBoolean(DGVProductos.Rows[numerofila].Cells[0].Value) == true)
             {
                 //MessageBox.Show("Proceso de Cambiar el estado del\nProducto: " + ProductoNombre, "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                string status;
                 DialogResult result = MessageBox.Show("Desdea Realmente Modificar el Estatus del\nProducto: " + Nombre + "\nde su Stock Existente", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
+                    status = DGVProductos.Rows[numerofila].Cells[12].Value.ToString();
                     ModificarStatusProductoChkBox();
-                    //cargarProductosNoActivos();
-                    cbMostrar.Text = "Deshabilitados";
+                    if (status == "1")
+                    {
+                        cbMostrar.Text = "Deshabilitados";
+                    }
+                    else if (status == "0")
+                    {
+                        cbMostrar.Text = "Habilitados";
+                    }
+                    DGVProductos.Refresh();
                 }
                 else if (result == DialogResult.No)
                 {
+                    status = cbMostrar.Text;
                     DGVProductos.Rows[numerofila].Cells[0].Value = false;
-                    //cargarProductosActivos();
-                    cbMostrar.Text = "Habilitados";
+                    if (status == "Habilitados")
+                    {
+                        DGVProductos.Refresh();
+                    }
+                    else if (status == "Deshabilitados")
+                    {
+                        DGVProductos.Refresh();
+                    }
                 }
                 else if (result == DialogResult.Cancel)
                 {
                     DGVProductos.Rows[numerofila].Cells[0].Value = false;
-                    //cargarProductosActivos();
-                    cbMostrar.Text = "Todos";
+                    DGVProductos.Refresh();
                 }
             }
             else
