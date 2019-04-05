@@ -61,10 +61,9 @@
             this.DGVProductos.Size = new System.Drawing.Size(1183, 324);
             this.DGVProductos.TabIndex = 1;
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
-            this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
+            this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick_1);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             this.DGVProductos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVProductos_CellPainting);
-            this.DGVProductos.CurrentCellDirtyStateChanged += new System.EventHandler(this.DGVProductos_CurrentCellDirtyStateChanged);
             // 
             // chk
             // 

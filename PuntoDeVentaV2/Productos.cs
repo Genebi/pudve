@@ -13,7 +13,6 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
-
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
@@ -54,14 +53,18 @@ namespace PuntoDeVentaV2
 
         string ProductoNombre, ProductoStock, ProductoPrecio, ProductoCategoria, ProductoClaveInterna, ProductoCodigoBarras;
 
-        bool isCellChecked;
-
-        private void DGVProductos_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        private void DGVProductos_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            //if (DGVProductos.IsCurrentCellDirty)
-            //{
-            //    DGVProductos.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            //}
+            if (e.ColumnIndex == 0)
+            {
+                foreach (DataGridViewRow row in DGVProductos.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells[e.ColumnIndex].Value))
+                    {
+                        row.Cells[e.ColumnIndex].Value = false;
+                    }
+                }
+            }
         }
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
@@ -73,23 +76,20 @@ namespace PuntoDeVentaV2
                 if (result == DialogResult.Yes)
                 {
                     ModificarStatusProductoChkBox();
-                    DGVProductos.Rows[numerofila].Cells[0].Value = false;
-                    DGVProductos.Refresh();                             // Refrescamos el DataGridView
-                    MessageBox.Show("Proceso de Cambiar el estado del\nProducto: " + Nombre, "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.None);
+                    //cargarProductosNoActivos();
                     cbMostrar.Text = "Deshabilitados";
-                    if (cbMostrar.Text == "Deshabilitados")
-                    {
-                        CargarDatosStatus(id, Id_Prod_select, "0");         // cambiamos el Status a 0
-                    }
                 }
                 else if (result == DialogResult.No)
                 {
-                    MessageBox.Show("Proceso Cancelado", "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     DGVProductos.Rows[numerofila].Cells[0].Value = false;
+                    //cargarProductosActivos();
+                    cbMostrar.Text = "Habilitados";
                 }
                 else if (result == DialogResult.Cancel)
                 {
                     DGVProductos.Rows[numerofila].Cells[0].Value = false;
+                    //cargarProductosActivos();
+                    cbMostrar.Text = "Todos";
                 }
             }
             else
@@ -116,16 +116,7 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0)
-            {
-                foreach (DataGridViewRow row in DGVProductos.Rows)
-                {
-                    if (Convert.ToBoolean(row.Cells[e.ColumnIndex].Value))
-                    {
-                        row.Cells[e.ColumnIndex].Value = false;
-                    }
-                }
-            }
+            
         }
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
@@ -300,24 +291,19 @@ namespace PuntoDeVentaV2
             }
         }
 
-        // metodo para cargar los datos 
-        private void CargarDatosStatus(string idUsuario, string idProducto, string Status)
+        // metodo para cargar los productos Activos
+        public void cargarProductosActivos()
         {
-            cn.EjecutarConsulta(cs.SetStatusProductos(idUsuario, idProducto, Status));      // modificamos el Status del Producto
-            if (Status == "0")
-            {
-                dtConsulta = cn.CargarDatos(cs.StatusProductos(idUsuario, "1"));
-                cbMostrar.Text = "Habilitados";
-            }
-            else if (Status == "1")
-            {
-                dtConsulta = cn.CargarDatos(cs.StatusProductos(idUsuario, "0"));
-                cbMostrar.Text = "Deshabilitados";
-            }
-            else
-            {
-                cbMostrar.Text = "Todos";
-            }
+            string consulta = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = '1'";
+            dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
+            DGVProductos.DataSource = dtConsulta;
+        }
+
+        // metodo para cargar los productos No Activos
+        public void cargarProductosNoActivos()
+        {
+            string consulta = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = '0'";
+            dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
             DGVProductos.DataSource = dtConsulta;
         }
 
@@ -433,8 +419,6 @@ namespace PuntoDeVentaV2
             // Preparamos el Query que haremos segun la fila seleccionada
             buscar = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Precio = '{Precio}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{id}'";
             dt = cn.CargarDatos(buscar);    // almacenamos el resultado de la Funcion CargarDatos que esta en la calse Consultas
-            //label1.Text = dt.Rows.Count.ToString();
-            //dataGridView1.DataSource = dt;
             row = dt.Rows[0];
             Id_Prod_select = Convert.ToString(row["ID"]);       // almacenamos el Id del producto
             status = Convert.ToString(row["Status"]);           // almacenamos el status
@@ -443,12 +427,14 @@ namespace PuntoDeVentaV2
                 // preparamos el Query 
                 buscar = $"UPDATE Productos SET Status = '1' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
                 dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
+                //cn.EjecutarConsulta(buscar);                              // acutualizamos los datos
             }
             else if (status == "1")                         // si el status es 1
             {
                 // preparamos el Query 
                 buscar = $"UPDATE Productos SET Status = '0' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
                 dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
+                //cn.EjecutarConsulta(buscar);                              // acutualizamos los datos
             }
         }
 
