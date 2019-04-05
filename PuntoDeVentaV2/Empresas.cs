@@ -241,6 +241,8 @@ namespace PuntoDeVentaV2
             // Llenamos el contenido del DataGridView
             // con el resultado de la consulta
             DGVListaEmpresas.DataSource = cn.GetEmpresas(buscarempresa);
+            DGVListaEmpresas.Columns["ID de Empresa"].Visible = false;
+            DGVListaEmpresas.Columns["Contraseña"].Visible = false;
         }
 
         public Empresas()
