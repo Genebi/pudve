@@ -752,16 +752,18 @@ namespace PuntoDeVentaV2
 
         private void GenerarTicket()
         {
-            var datos = FormPrincipal.datosUsuario;
             //Medidas de ticket de 57 y 80 mm
             //57mm = 161.28 pt
             //80mm = 226.08 pt
+
+            var datos = FormPrincipal.datosUsuario;
+            
             Document ticket = new Document(new iTextSharp.text.Rectangle(227, 250), 3, 3, 5, 0);
 
             PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\VentasPUDVE\prueba.pdf", FileMode.Create));
 
-            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-            iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 8, iTextSharp.text.Font.NORMAL);
+            var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8);
 
             ticket.Open();
 
@@ -778,35 +780,68 @@ namespace PuntoDeVentaV2
                    encabezado += $"Col. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
             Paragraph titulo = new Paragraph(datos[0] + "\n");
-            Paragraph domicilio = new Paragraph(encabezado, font);
+            Paragraph domicilio = new Paragraph(encabezado, normalFont);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             domicilio.Alignment = Element.ALIGN_CENTER;
             domicilio.SetLeading(10, 0);
 
+
+            float[] anchoColumnas = new float[] { 10f, 26f, 8f, 8f };
+
             PdfPTable tabla = new PdfPTable(4);
             tabla.WidthPercentage = 100;
+            tabla.SetWidths(anchoColumnas);
 
-            PdfPCell colCantidad = new PdfPCell(new Phrase("Cantidad", font));
+            PdfPCell colCantidad = new PdfPCell(new Phrase("Cantidad", boldFont));
             colCantidad.BorderWidth = 0;
-            colCantidad.BorderWidthBottom = 0.75f;
+            //colCantidad.BorderWidthBottom = 0.75f;
 
-            PdfPCell colDescripcion = new PdfPCell(new Phrase("Descripción", font));
+            PdfPCell colDescripcion = new PdfPCell(new Phrase("Descripción", boldFont));
             colDescripcion.BorderWidth = 0;
-            colDescripcion.BorderWidthBottom = 0.75f;
+            //colDescripcion.BorderWidthBottom = 0.75f;
 
-            PdfPCell colPrecio = new PdfPCell(new Phrase("Precio", font));
+            PdfPCell colPrecio = new PdfPCell(new Phrase("Precio", boldFont));
             colPrecio.BorderWidth = 0;
-            colPrecio.BorderWidthBottom = 0.75f;
+            //colPrecio.BorderWidthBottom = 0.75f;
 
-            PdfPCell colImporte = new PdfPCell(new Phrase("Importe", font));
+            PdfPCell colImporte = new PdfPCell(new Phrase("Importe", boldFont));
             colImporte.BorderWidth = 0;
-            colImporte.BorderWidthBottom = 0.75f;
+            //colImporte.BorderWidthBottom = 0.75f;
 
             tabla.AddCell(colCantidad);
             tabla.AddCell(colDescripcion);
             tabla.AddCell(colPrecio);
             tabla.AddCell(colImporte);
+
+            PdfPCell separador1 = new PdfPCell(new Phrase(new string('-', 81), normalFont));
+            separador1.BorderWidth = 0;
+            separador1.Colspan = 4;
+
+            tabla.AddCell(separador1);
+
+            PdfPCell colCantidad1 = new PdfPCell(new Phrase("5", normalFont));
+            colCantidad1.BorderWidth = 0;
+
+            PdfPCell colDescripcion1 = new PdfPCell(new Phrase("Cuaderno italiano", normalFont));
+            colDescripcion1.BorderWidth = 0;
+
+            PdfPCell colPrecio1 = new PdfPCell(new Phrase("15", normalFont));
+            colPrecio1.BorderWidth = 0;
+
+            PdfPCell colImporte1 = new PdfPCell(new Phrase("75", normalFont));
+            colImporte1.BorderWidth = 0;
+
+            tabla.AddCell(colCantidad1);
+            tabla.AddCell(colDescripcion1);
+            tabla.AddCell(colPrecio1);
+            tabla.AddCell(colImporte1);
+
+            PdfPCell separador2 = new PdfPCell(new Phrase(new string('-', 81), normalFont));
+            separador2.BorderWidth = 0;
+            separador2.Colspan = 4;
+
+            tabla.AddCell(separador2);
 
             ticket.Add(titulo);
             ticket.Add(domicilio);
