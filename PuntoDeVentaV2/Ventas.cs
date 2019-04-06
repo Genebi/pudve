@@ -752,19 +752,68 @@ namespace PuntoDeVentaV2
 
         private void GenerarTicket()
         {
+            var datos = FormPrincipal.datosUsuario;
             //Medidas de ticket de 57 y 80 mm
             //57mm = 161.28 pt
             //80mm = 226.08 pt
-            var pagina = new iTextSharp.text.Rectangle(227, 250);
-            Document ticket = new Document(pagina);
+            Document ticket = new Document(new iTextSharp.text.Rectangle(227, 250), 3, 3, 5, 0);
 
             PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\VentasPUDVE\prueba.pdf", FileMode.Create));
 
-            ticket.AddTitle("Ticket Venta");
-            ticket.AddAuthor("PUDVE");
+            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 8, iTextSharp.text.Font.NORMAL);
 
             ticket.Open();
-            ticket.Add(new Paragraph(FormPrincipal.datosUsuario[0]));
+
+            //Si existe logotipo
+            if (datos[11] != "")
+            {
+                iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(datos[11]);
+                logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                logo.ScaleAbsolute(110, 60);
+                ticket.Add(logo);
+            }
+
+            string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\n";
+                   encabezado += $"Col. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
+
+            Paragraph titulo = new Paragraph(datos[0] + "\n");
+            Paragraph domicilio = new Paragraph(encabezado, font);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            domicilio.Alignment = Element.ALIGN_CENTER;
+            domicilio.SetLeading(10, 0);
+
+            PdfPTable tabla = new PdfPTable(4);
+            tabla.WidthPercentage = 100;
+
+            PdfPCell colCantidad = new PdfPCell(new Phrase("Cantidad", font));
+            colCantidad.BorderWidth = 0;
+            colCantidad.BorderWidthBottom = 0.75f;
+
+            PdfPCell colDescripcion = new PdfPCell(new Phrase("Descripción", font));
+            colDescripcion.BorderWidth = 0;
+            colDescripcion.BorderWidthBottom = 0.75f;
+
+            PdfPCell colPrecio = new PdfPCell(new Phrase("Precio", font));
+            colPrecio.BorderWidth = 0;
+            colPrecio.BorderWidthBottom = 0.75f;
+
+            PdfPCell colImporte = new PdfPCell(new Phrase("Importe", font));
+            colImporte.BorderWidth = 0;
+            colImporte.BorderWidthBottom = 0.75f;
+
+            tabla.AddCell(colCantidad);
+            tabla.AddCell(colDescripcion);
+            tabla.AddCell(colPrecio);
+            tabla.AddCell(colImporte);
+
+            ticket.Add(titulo);
+            ticket.Add(domicilio);
+            ticket.Add(tabla);
+
+            ticket.AddTitle("Ticket Venta");
+            ticket.AddAuthor("PUDVE");
             ticket.Close();
             writer.Close();
         }
