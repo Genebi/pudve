@@ -506,17 +506,33 @@ namespace PuntoDeVentaV2
                     ClaveInterna = DGVProductos[10, numfila].Value.ToString();       // ClaveInterna Producto
                     CodigoBarras = DGVProductos[11, numfila].Value.ToString();       // Codigo de Barras Producto
                     id = FormPrincipal.userID.ToString();
+                    status = DGVProductos.Rows[numerofila].Cells[12].Value.ToString();
                     ModificarStatusProducto();
+                    if (status == "1")
+                    {
+                        cbMostrar.Text = "Deshabilitados";
+                    }
+                    else if (status == "0")
+                    {
+                        cbMostrar.Text = "Habilitados";
+                    }
+                    DGVProductos.Refresh();
                 }
                 else if (result == DialogResult.No)
                 {
-                    dtConsulta = cn.CargarDatos(cs.StatusProductos(FormPrincipal.userID.ToString(), "1"));
-                    DGVProductos.DataSource = dtConsulta;
+                    status = cbMostrar.Text;
+                    if (status == "Habilitados")
+                    {
+                        DGVProductos.Refresh();
+                    }
+                    else if (status == "Deshabilitados")
+                    {
+                        DGVProductos.Refresh();
+                    }
                 }
                 else if (result == DialogResult.Cancel)
                 {
-                    //code for Cancel
-                    cbMostrar.Text = "Todos";
+                    DGVProductos.Refresh();
                 }
             }
         }

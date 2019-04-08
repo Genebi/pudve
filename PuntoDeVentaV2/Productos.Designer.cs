@@ -37,7 +37,6 @@
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.btnAgregarXML = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnModificarEstado = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.SuspendLayout();
@@ -183,15 +182,6 @@
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 172);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "label1";
-            // 
             // btnModificarEstado
             // 
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
@@ -212,7 +202,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1215, 690);
             this.Controls.Add(this.btnModificarEstado);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAgregarXML);
             this.Controls.Add(this.cbMostrar);
             this.Controls.Add(this.btnAgregarProducto);
@@ -241,7 +230,6 @@
         private System.Windows.Forms.ComboBox cbMostrar;
         private System.Windows.Forms.Button btnAgregarXML;
         private System.Windows.Forms.DataGridViewCheckBoxColumn chk;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnModificarEstado;
     }
 }
