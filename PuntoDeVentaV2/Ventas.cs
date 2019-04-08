@@ -570,7 +570,12 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
-            GenerarTicket();
+            string[,] prueba = new string[,] { 
+                { "12300", "10", "Producto prueba", "15", "20" }, 
+                { "12301", "11", "Prueba prueba 2", "16", "21" }
+            };
+
+            GenerarTicket(prueba);
             //Datos generales de la venta
             /*var IdEmpresa = FormPrincipal.userID.ToString();
             var Subtotal = cSubtotal.Text;
@@ -750,7 +755,7 @@ namespace PuntoDeVentaV2
             mostrarVenta = 0;
         }
 
-        private void GenerarTicket()
+        private void GenerarTicket(string[,] productos)
         {
             //Medidas de ticket de 57 y 80 mm
             //57mm = 161.28 pt
@@ -758,94 +763,123 @@ namespace PuntoDeVentaV2
 
             var datos = FormPrincipal.datosUsuario;
             
-            Document ticket = new Document(new iTextSharp.text.Rectangle(227, 250), 3, 3, 5, 0);
-
+            Document  ticket = new Document(new iTextSharp.text.Rectangle(226, 280), 3, 3, 5, 0);
             PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\VentasPUDVE\prueba.pdf", FileMode.Create));
 
-            var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 8);
-            var boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8);
+            var fuenteNormal  = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+
+            string logotipo = datos[11];
+            string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
             ticket.Open();
 
-            //Si existe logotipo
-            if (datos[11] != "")
+            //Validación para verificar si existe logotipo
+            if (logotipo != "")
             {
-                iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(datos[11]);
-                logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
-                logo.ScaleAbsolute(110, 60);
-                ticket.Add(logo);
+                if (File.Exists(logotipo))
+                {
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(datos[11]);
+                    logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                    logo.ScaleAbsolute(110, 60);
+                    ticket.Add(logo);
+                }
             }
 
-            string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\n";
-                   encabezado += $"Col. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
-
             Paragraph titulo = new Paragraph(datos[0] + "\n");
-            Paragraph domicilio = new Paragraph(encabezado, normalFont);
+            Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             domicilio.Alignment = Element.ALIGN_CENTER;
             domicilio.SetLeading(10, 0);
 
+            /**************************************
+             ** Tabla con los productos vendidos **
+             **************************************/
 
-            float[] anchoColumnas = new float[] { 10f, 26f, 8f, 8f };
+            float[] anchoColumnas = new float[] { 10f, 24f, 9f, 9f };
 
             PdfPTable tabla = new PdfPTable(4);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
-            PdfPCell colCantidad = new PdfPCell(new Phrase("Cantidad", boldFont));
+            PdfPCell colCantidad = new PdfPCell(new Phrase("Cantidad", fuenteNegrita));
             colCantidad.BorderWidth = 0;
-            //colCantidad.BorderWidthBottom = 0.75f;
 
-            PdfPCell colDescripcion = new PdfPCell(new Phrase("Descripción", boldFont));
+            PdfPCell colDescripcion = new PdfPCell(new Phrase("Descripción", fuenteNegrita));
             colDescripcion.BorderWidth = 0;
-            //colDescripcion.BorderWidthBottom = 0.75f;
 
-            PdfPCell colPrecio = new PdfPCell(new Phrase("Precio", boldFont));
+            PdfPCell colPrecio = new PdfPCell(new Phrase("Precio", fuenteNegrita));
             colPrecio.BorderWidth = 0;
-            //colPrecio.BorderWidthBottom = 0.75f;
 
-            PdfPCell colImporte = new PdfPCell(new Phrase("Importe", boldFont));
+            PdfPCell colImporte = new PdfPCell(new Phrase("Importe", fuenteNegrita));
             colImporte.BorderWidth = 0;
-            //colImporte.BorderWidthBottom = 0.75f;
 
             tabla.AddCell(colCantidad);
             tabla.AddCell(colDescripcion);
             tabla.AddCell(colPrecio);
             tabla.AddCell(colImporte);
 
-            PdfPCell separador1 = new PdfPCell(new Phrase(new string('-', 81), normalFont));
-            separador1.BorderWidth = 0;
-            separador1.Colspan = 4;
+            PdfPCell separadorInicial = new PdfPCell(new Phrase(new string('-', 81), fuenteNormal));
+            separadorInicial.BorderWidth = 0;
+            separadorInicial.Colspan = 4;
 
-            tabla.AddCell(separador1);
+            tabla.AddCell(separadorInicial);
 
-            PdfPCell colCantidad1 = new PdfPCell(new Phrase("5", normalFont));
-            colCantidad1.BorderWidth = 0;
+            
+            float totalTicket = 0;
 
-            PdfPCell colDescripcion1 = new PdfPCell(new Phrase("Cuaderno italiano", normalFont));
-            colDescripcion1.BorderWidth = 0;
+            var longitud = productos.GetLength(0);
 
-            PdfPCell colPrecio1 = new PdfPCell(new Phrase("15", normalFont));
-            colPrecio1.BorderWidth = 0;
+            for (int i = 0; i < longitud; i++)
+            {
+                var importe = float.Parse(productos[i, 3]) * float.Parse(productos[i, 4]);
 
-            PdfPCell colImporte1 = new PdfPCell(new Phrase("75", normalFont));
-            colImporte1.BorderWidth = 0;
+                totalTicket += importe;
 
-            tabla.AddCell(colCantidad1);
-            tabla.AddCell(colDescripcion1);
-            tabla.AddCell(colPrecio1);
-            tabla.AddCell(colImporte1);
+                PdfPCell colCantidadTmp = new PdfPCell(new Phrase(productos[i, 3], fuenteNormal));
+                colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                colCantidadTmp.BorderWidth = 0;
 
-            PdfPCell separador2 = new PdfPCell(new Phrase(new string('-', 81), normalFont));
-            separador2.BorderWidth = 0;
-            separador2.Colspan = 4;
+                PdfPCell colDescripcionTmp = new PdfPCell(new Phrase(productos[i, 2], fuenteNormal));
+                colDescripcionTmp.BorderWidth = 0;
 
-            tabla.AddCell(separador2);
+                PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + productos[i, 4], fuenteNormal));
+                colPrecioTmp.BorderWidth = 0;
+
+                PdfPCell colImporteTmp = new PdfPCell(new Phrase("$" + importe.ToString("0.00"), fuenteNormal));
+                colImporteTmp.BorderWidth = 0;
+
+                tabla.AddCell(colCantidadTmp);
+                tabla.AddCell(colDescripcionTmp);
+                tabla.AddCell(colPrecioTmp);
+                tabla.AddCell(colImporteTmp);
+            }        
+
+            PdfPCell separadorFinal = new PdfPCell(new Phrase(new string('-', 81), fuenteNormal));
+            separadorFinal.BorderWidth = 0;
+            separadorFinal.Colspan = 4;
+
+            PdfPCell totalVenta = new PdfPCell(new Phrase("TOTAL: $" + totalTicket.ToString("0.00"), fuenteNormal));
+            totalVenta.BorderWidth = 0;
+            totalVenta.HorizontalAlignment = Element.ALIGN_RIGHT;
+            totalVenta.Colspan = 4;
+
+            tabla.AddCell(separadorFinal);
+            tabla.AddCell(totalVenta);
+
+            /******************************************
+             ** Fin tabla con los productos vendidos **
+             ******************************************/
+
+            Paragraph mensaje = new Paragraph("Cambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.", fuenteGrande);
+            mensaje.Alignment = Element.ALIGN_CENTER;
 
             ticket.Add(titulo);
             ticket.Add(domicilio);
             ticket.Add(tabla);
+            ticket.Add(mensaje);
 
             ticket.AddTitle("Ticket Venta");
             ticket.AddAuthor("PUDVE");
