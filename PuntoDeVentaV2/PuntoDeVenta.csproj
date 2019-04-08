@@ -85,6 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="addDetailFacturaProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addDetailFacturaProduct.Designer.cs">
+      <DependentUpon>addDetailFacturaProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarDescuentoProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +222,9 @@
     <Compile Include="Ventas.Designer.cs">
       <DependentUpon>Ventas.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="addDetailFacturaProduct.resx">
+      <DependentUpon>addDetailFacturaProduct.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarDescuentoProducto.resx">
       <DependentUpon>AgregarDescuentoProducto.cs</DependentUpon>
     </EmbeddedResource>

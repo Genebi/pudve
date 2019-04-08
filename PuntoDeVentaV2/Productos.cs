@@ -27,7 +27,7 @@ namespace PuntoDeVentaV2
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
         DataTable dt, dtConsulta;
-        DataGridViewButtonColumn setup, record, barcode, foto;
+        DataGridViewButtonColumn setup, record, barcode, foto, tag;
         DataGridViewImageCell cell;
 
         Icon image;
@@ -52,6 +52,8 @@ namespace PuntoDeVentaV2
         string logoTipo = "";
 
         string ProductoNombre, ProductoStock, ProductoPrecio, ProductoCategoria, ProductoClaveInterna, ProductoCodigoBarras;
+
+        string savePath;
 
         private void DGVProductos_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -113,18 +115,24 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void obtenerDatosDGVProductos(int fila)
+        {
+            Nombre = DGVProductos.Rows[fila].Cells["Nombre"].Value.ToString();
+            Stock = DGVProductos.Rows[fila].Cells["Stock"].Value.ToString();
+            Precio = DGVProductos.Rows[fila].Cells["Precio"].Value.ToString();
+            ProductoCategoria = DGVProductos.Rows[fila].Cells["Categoria"].Value.ToString();
+            ClaveInterna = DGVProductos.Rows[fila].Cells["Clave Interna"].Value.ToString();
+            CodigoBarras = DGVProductos.Rows[fila].Cells["Código de Barras"].Value.ToString();
+            savePath = DGVProductos.Rows[fila].Cells["Path"].Value.ToString();
+            id = FormPrincipal.userID.ToString();
+        }
+
         private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
             {
                 numerofila = e.RowIndex;
-                Nombre = DGVProductos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
-                Stock = DGVProductos.Rows[e.RowIndex].Cells["Stock"].Value.ToString();
-                Precio = DGVProductos.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
-                ProductoCategoria = DGVProductos.Rows[e.RowIndex].Cells["Categoria"].Value.ToString();
-                ClaveInterna = DGVProductos.Rows[e.RowIndex].Cells["Clave Interna"].Value.ToString();
-                CodigoBarras = DGVProductos.Rows[e.RowIndex].Cells["Código de Barras"].Value.ToString();
-                id = FormPrincipal.userID.ToString();
+                obtenerDatosDGVProductos(numerofila);
                 editarEstado = 4;
             }
         }
@@ -198,12 +206,19 @@ namespace PuntoDeVentaV2
             foto.HeaderText = "Imagen";
             DGVProductos.Columns.Add(foto);
 
+            tag = new DataGridViewButtonColumn();
+            tag.Width = 40;
+            tag.Name = "TagProducto";
+            tag.HeaderText = "Etiqueta";
+            DGVProductos.Columns.Add(tag);
+
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarStatus);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(RecordView);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(BarCodeMake);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(PhotoStatus);
+            DGVProductos.CellClick += new DataGridViewCellEventHandler(TagProdView);
 
             DGVProductos.Columns["Path"].Visible = false;
             DGVProductos.Columns["Activo"].Visible = false;
@@ -299,6 +314,21 @@ namespace PuntoDeVentaV2
                 }
                 e.Handled = true;
             }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "TagProducto" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                DataGridViewButtonCell tagProdBoton = this.DGVProductos.Rows[e.RowIndex].Cells["TagProducto"] as DataGridViewButtonCell;
+                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
+                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
+
+                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.ico");
+                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+
+                e.Handled = true;
+            }
         }
 
         // metodo para cargar los productos Activos
@@ -388,12 +418,8 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato==0)
                 {
                     seleccionadoDato = 1;
-                    Nombre = DGVProductos.Rows[e.RowIndex].Cells["Nombre"].Value.ToString();
-                    Stock = DGVProductos.Rows[e.RowIndex].Cells["Stock"].Value.ToString();
-                    Precio = DGVProductos.Rows[e.RowIndex].Cells["Precio"].Value.ToString();
-                    ProductoCategoria = DGVProductos.Rows[e.RowIndex].Cells["Categoria"].Value.ToString();
-                    ClaveInterna = DGVProductos.Rows[e.RowIndex].Cells["Clave Interna"].Value.ToString();
-                    CodigoBarras = DGVProductos.Rows[e.RowIndex].Cells["Código de Barras"].Value.ToString();
+                    numerofila = e.RowIndex;
+                    obtenerDatosDGVProductos(numerofila);                   
                     origenDeLosDatos = 2;
                 }
                 btnAgregarProducto.PerformClick();
@@ -499,13 +525,8 @@ namespace PuntoDeVentaV2
                 DialogResult result = MessageBox.Show("Realmente desdea Modificar el estado?", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    numfila = DGVProductos.CurrentRow.Index;
-                    Nombre = DGVProductos[6, numfila].Value.ToString();             // Nombre Producto
-                    Stock = DGVProductos[7, numfila].Value.ToString();              // Stock Producto
-                    Precio = DGVProductos[8, numfila].Value.ToString();             // Precio Producto
-                    ClaveInterna = DGVProductos[10, numfila].Value.ToString();       // ClaveInterna Producto
-                    CodigoBarras = DGVProductos[11, numfila].Value.ToString();       // Codigo de Barras Producto
-                    id = FormPrincipal.userID.ToString();
+                    numerofila = e.RowIndex;
+                    obtenerDatosDGVProductos(numerofila);
                     status = DGVProductos.Rows[numerofila].Cells[12].Value.ToString();
                     ModificarStatusProducto();
                     if (status == "1")
@@ -542,13 +563,8 @@ namespace PuntoDeVentaV2
             if (e.ColumnIndex == 3)
             {
                 //MessageBox.Show("Proceso de construccion de Historial de compra","En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                numfila = DGVProductos.CurrentRow.Index;
-                Nombre = DGVProductos[6, numfila].Value.ToString();             // Nombre Producto
-                Stock = DGVProductos[7, numfila].Value.ToString();              // Stock Producto
-                Precio = DGVProductos[8, numfila].Value.ToString();             // Precio Producto
-                ClaveInterna = DGVProductos[10, numfila].Value.ToString();       // ClaveInterna Producto
-                CodigoBarras = DGVProductos[11, numfila].Value.ToString();       // Codigo de Barras Producto
-                id = FormPrincipal.userID.ToString();
+                numerofila = e.RowIndex;
+                obtenerDatosDGVProductos(numerofila);
                 ViewRecordProducto();
             }
         }
@@ -558,7 +574,8 @@ namespace PuntoDeVentaV2
             if (e.ColumnIndex == 4)
             {
                 string codiBarProd="";
-                numfila = DGVProductos.CurrentRow.Index;
+                numfila = e.RowIndex;
+                obtenerDatosDGVProductos(numfila);
                 //MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 MakeBarCode.FormClosed += delegate
                 {
@@ -566,9 +583,9 @@ namespace PuntoDeVentaV2
                 };
                 if (!MakeBarCode.Visible)
                 {
-                    MakeBarCode.NombreProd = DGVProductos[6, numfila].Value.ToString();
-                    MakeBarCode.PrecioProd = DGVProductos[8, numfila].Value.ToString();
-                    codiBarProd = DGVProductos[11, numfila].Value.ToString();
+                    MakeBarCode.NombreProd = Nombre;
+                    MakeBarCode.PrecioProd = Precio;
+                    codiBarProd = CodigoBarras;
                     if (codiBarProd != "")
                     {
                         MakeBarCode.CodigoBarProd = codiBarProd;
@@ -581,9 +598,9 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MakeBarCode.NombreProd = DGVProductos[6, numfila].Value.ToString();
-                    MakeBarCode.PrecioProd = DGVProductos[8, numfila].Value.ToString();
-                    codiBarProd = DGVProductos[11, numfila].Value.ToString();
+                    MakeBarCode.NombreProd = Nombre;
+                    MakeBarCode.PrecioProd = Precio;
+                    codiBarProd = CodigoBarras;
                     if (codiBarProd != "")
                     {
                         MakeBarCode.CodigoBarProd = codiBarProd;
@@ -683,17 +700,12 @@ namespace PuntoDeVentaV2
         {
             if (e.ColumnIndex == 5)
             {
-                numfila = DGVProductos.CurrentRow.Index;
-
-                Nombre = DGVProductos[6, numfila].Value.ToString();             // Nombre Producto
-                Stock = DGVProductos[7, numfila].Value.ToString();              // Stock Producto
-                Precio = DGVProductos[8, numfila].Value.ToString();             // Precio Producto
-                ClaveInterna = DGVProductos[10, numfila].Value.ToString();       // ClaveInterna Producto
-                CodigoBarras = DGVProductos[11, numfila].Value.ToString();       // Codigo de Barras Producto
-
+                numfila = e.RowIndex;
+                obtenerDatosDGVProductos(numfila);
+                
                 string pathString;
 
-                pathString = DGVProductos[13, numfila].Value.ToString();
+                pathString = savePath;
 
                 if (pathString != "")
                 {
@@ -706,10 +718,20 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void TagProdView(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 6)
+            {
+                numerofila = e.RowIndex;
+                obtenerDatosDGVProductos(numerofila);
+
+            }
+        }
+
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
-            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5)
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5 || e.ColumnIndex == 6)
             {
                 DGVProductos.Cursor = Cursors.Hand;
             }
