@@ -79,7 +79,7 @@ namespace PuntoDeVentaV2
                 DialogResult result = MessageBox.Show("Desdea Realmente Modificar el Estatus del\nProducto: " + Nombre + "\nde su Stock Existente", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    status = DGVProductos.Rows[numerofila].Cells[13].Value.ToString();
+                    status = DGVProductos.Rows[numerofila].Cells["Activo"].Value.ToString();
                     ModificarStatusProductoChkBox();
                     if (status == "1")
                     {

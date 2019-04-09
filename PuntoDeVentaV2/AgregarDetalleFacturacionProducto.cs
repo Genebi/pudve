@@ -39,6 +39,36 @@ namespace PuntoDeVentaV2
 
         double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
+        double porcentaje = 0, totalProcentaje;
+
+        public void checarRadioButtons()
+        {
+            if (rb0porCiento.Checked == true)
+            {
+                porcentaje = 0;
+                totalProcentaje = precioProducto * porcentaje;
+                txtIVA.Text = totalProcentaje.ToString("N2");
+            }
+            else if (rb8porCiento.Checked == true)
+            {
+                porcentaje = 0.08;
+                totalProcentaje = precioProducto * porcentaje;
+                txtIVA.Text = totalProcentaje.ToString("N2");
+            }
+            else if (rb16porCiento.Checked == true)
+            {
+                porcentaje = 0.16;
+                totalProcentaje = precioProducto * porcentaje;
+                txtIVA.Text = totalProcentaje.ToString("N2");
+            }
+            else if (rbExcento.Checked == true)
+            {
+                porcentaje = 0;
+                totalProcentaje = precioProducto * porcentaje;
+                txtIVA.Text = totalProcentaje.ToString("N2");
+            }
+        }
+
         public AgregarDetalleFacturacionProducto()
         {
             InitializeComponent();
@@ -160,6 +190,10 @@ namespace PuntoDeVentaV2
             tasaL.Add("3 %");
             tasaL.Add("5 %");
             tasaL.Add("Definir %");
+
+            txtBoxBase.Text = precioProducto.ToString("N2");
+
+            checarRadioButtons();
         }
 
         private void btnExtra_Click(object sender, EventArgs e)
@@ -171,7 +205,6 @@ namespace PuntoDeVentaV2
         {
             GenerarCampos(2);
         }
-
 
         //Genera los campos dinamicamente dependiendo de la opcion seleccionada
         private void GenerarCampos(int tipo)
@@ -933,6 +966,26 @@ namespace PuntoDeVentaV2
 
             TextBox tbImporte = (TextBox)this.Controls.Find(nombre + "2", true).FirstOrDefault();
             tbImporte.Text = importe.ToString("0.00");
+        }
+
+        private void rb8porCiento_CheckedChanged(object sender, EventArgs e)
+        {
+            checarRadioButtons();
+        }
+
+        private void rb16porCiento_CheckedChanged(object sender, EventArgs e)
+        {
+            checarRadioButtons();
+        }
+
+        private void rb0porCiento_CheckedChanged(object sender, EventArgs e)
+        {
+            checarRadioButtons();
+        }
+
+        private void rbExcento_CheckedChanged(object sender, EventArgs e)
+        {
+            checarRadioButtons();
         }
 
         private string ValidarCampos(string campo, int tipo = 0)
