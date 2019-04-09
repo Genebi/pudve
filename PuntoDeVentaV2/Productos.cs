@@ -732,14 +732,14 @@ namespace PuntoDeVentaV2
                 if (!MakeTagProd.Visible)
                 {
                     MakeTagProd.NombreProd = Nombre;
-                    MakeTagProd.PrecioProd = Precio;
+                    MakeTagProd.PrecioProd = float.Parse(Precio);
                     MakeTagProd.CodigoBarProd = CodigoBarras;
                     MakeTagProd.ShowDialog();
                 }
                 else
                 {
                     MakeTagProd.NombreProd = Nombre;
-                    MakeTagProd.PrecioProd = Precio;
+                    MakeTagProd.PrecioProd = float.Parse(Precio);
                     MakeTagProd.CodigoBarProd = CodigoBarras;
                     MakeTagProd.BringToFront();
                 }

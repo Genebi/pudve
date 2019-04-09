@@ -75,7 +75,7 @@ namespace PuntoDeVentaV2
             // todo se empezara a dibujar en la posicion 0 px, 0 px
             Document doc = new Document(iTextSharp.text.PageSize.A10.Rotate(), 0, 0, 0, 0);
             // creamos el objeto PdfWriter el cual usara el objeto doc
-            PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf", FileMode.Create));
+            PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(saveDirectoryPdf + NombreProdFinal + " - " + CodigoBarProdFinal + ".pdf", FileMode.Create));
             BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);    // declaramos un objeto de tipo fuente para el texto
             iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 10, iTextSharp.text.Font.NORMAL);      // aqui indicamos al iTextSharp use la fuente declarada
 
