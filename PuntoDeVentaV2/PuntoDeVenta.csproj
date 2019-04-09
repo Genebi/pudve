@@ -85,12 +85,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="addDetailFacturaProduct.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="addDetailFacturaProduct.Designer.cs">
-      <DependentUpon>addDetailFacturaProduct.cs</DependentUpon>
-    </Compile>
     <Compile Include="AgregarDescuentoProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,15 +210,18 @@
     <Compile Include="Registro.Designer.cs">
       <DependentUpon>Registro.cs</DependentUpon>
     </Compile>
+    <Compile Include="TagMake.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TagMake.Designer.cs">
+      <DependentUpon>TagMake.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ventas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ventas.Designer.cs">
       <DependentUpon>Ventas.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="addDetailFacturaProduct.resx">
-      <DependentUpon>addDetailFacturaProduct.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AgregarDescuentoProducto.resx">
       <DependentUpon>AgregarDescuentoProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -294,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro.resx">
       <DependentUpon>Registro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagMake.resx">
+      <DependentUpon>TagMake.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>

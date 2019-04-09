@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
         public CodeBarMake MakeBarCode = new CodeBarMake();
         public photoShow VentanaMostrarFoto = new photoShow();
+        public TagMake MakeTagProd = new TagMake();
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         Conexion cn = new Conexion();
@@ -724,7 +725,24 @@ namespace PuntoDeVentaV2
             {
                 numerofila = e.RowIndex;
                 obtenerDatosDGVProductos(numerofila);
+                MakeTagProd.FormClosed += delegate
+                {
 
+                };
+                if (!MakeTagProd.Visible)
+                {
+                    MakeTagProd.NombreProd = Nombre;
+                    MakeTagProd.PrecioProd = Precio;
+                    MakeTagProd.CodigoBarProd = CodigoBarras;
+                    MakeTagProd.ShowDialog();
+                }
+                else
+                {
+                    MakeTagProd.NombreProd = Nombre;
+                    MakeTagProd.PrecioProd = Precio;
+                    MakeTagProd.CodigoBarProd = CodigoBarras;
+                    MakeTagProd.BringToFront();
+                }
             }
         }
 
