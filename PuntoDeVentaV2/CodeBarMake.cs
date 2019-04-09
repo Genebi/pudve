@@ -32,9 +32,12 @@ namespace PuntoDeVentaV2
         string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\BarCode\";
         string saveDirectoryPdf = Properties.Settings.Default.rutaDirectorio + @"\PdfCode\";
 
+        // Nombre completo para el archivo
+        string FileName, FileNamePng;
 
         public void CodigoBarras()
         {
+            FileNamePng = saveDirectoryImg + NombreProdFinal + " - " + CodigoBarProdFinal;
             BarcodeLib.Barcode Codigo = new BarcodeLib.Barcode();   // declaramos el objeto Codigo para hacer la imagen 
 
             // hacemos que en el panel se ponga de fondo el codigo de barras generado en imagen
@@ -46,14 +49,14 @@ namespace PuntoDeVentaV2
 
             CajaDeDialogoGuardar.AddExtension = true;   // le ponemos en true la propiedad de extension de archivos
             CajaDeDialogoGuardar.Filter = "Image PNG (*.png)|*.png";    // indicamos que tipo de archivo seran los permitidos
-            CajaDeDialogoGuardar.FileName = saveDirectoryImg + NombreProdFinal + " " + CodigoBarProdFinal + ".png";     //le indicamos la ruta y nombre del archivo PNG
+            CajaDeDialogoGuardar.FileName = FileNamePng + ".png";     //le indicamos la ruta y nombre del archivo PNG
             if (!Directory.Exists(saveDirectoryImg))    // si el directorio destino no existe el sistema lo va crear
             {
                 Directory.CreateDirectory(saveDirectoryImg);    // creamos el directorio donde van guardados las imagenes
             }
             if (CajaDeDialogoGuardar.CheckFileExists)   // si el archivo de PNG existe
             {
-                System.IO.File.Delete(saveDirectoryImg + NombreProdFinal + " " + CodigoBarProdFinal + ".png");      // borramos el archivo PNG
+                System.IO.File.Delete(FileNamePng + ".png");      // borramos el archivo PNG
                 imgFinal.Save(CajaDeDialogoGuardar.FileName, ImageFormat.Png);      // guardamos el archivo PNG modificado
             }
             else if (!CajaDeDialogoGuardar.CheckFileExists)     // si el archivo de PNG no existe
@@ -65,6 +68,7 @@ namespace PuntoDeVentaV2
 
         public void PdfFile()
         {
+            FileName = saveDirectoryPdf + NombreProdFinal + " - " + CodigoBarProdFinal + ".pdf";
             if (!Directory.Exists(saveDirectoryPdf))    // si el directorio destino no existe el sistema lo va crear
             {
                 Directory.CreateDirectory(saveDirectoryPdf);    // creamos el directorio donde van guardados los PDF
@@ -75,7 +79,7 @@ namespace PuntoDeVentaV2
             // todo se empezara a dibujar en la posicion 0 px, 0 px
             Document doc = new Document(iTextSharp.text.PageSize.A10.Rotate(), 0, 0, 0, 0);
             // creamos el objeto PdfWriter el cual usara el objeto doc
-            PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(saveDirectoryPdf + NombreProdFinal + " - " + CodigoBarProdFinal + ".pdf", FileMode.Create));
+            PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream(FileName, FileMode.Create));
             BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);    // declaramos un objeto de tipo fuente para el texto
             iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 10, iTextSharp.text.Font.NORMAL);      // aqui indicamos al iTextSharp use la fuente declarada
 
@@ -85,8 +89,9 @@ namespace PuntoDeVentaV2
             paragraph.Alignment = Element.ALIGN_CENTER;     // centramos el texto
             doc.Add(paragraph);     // lo agregamos la etiqueta al documento PDF
                                     // Declaramos el objeto PNG 
-            iTextSharp.text.Image PNG = iTextSharp.text.Image.GetInstance(saveDirectoryImg + NombreProdFinal + " " + CodigoBarProdFinal + ".png");
+            iTextSharp.text.Image PNG = iTextSharp.text.Image.GetInstance(FileNamePng + ".png");
             PNG.Alignment = iTextSharp.text.Image.ALIGN_CENTER;     // centramos el archivo de PNG
+            PNG.ScaleToFit(doc.PageSize);
             doc.Add(PNG);       // agregamos la imagen al Documento PDF
             Paragraph paragraph1 = new Paragraph(new Chunk(CodigoBarProdFinal + " - $" + PrecioProdFinal, font));   // declaramos una etiqueta
             paragraph1.Leading = 8;     // le damos el interlineado del texto
@@ -97,9 +102,9 @@ namespace PuntoDeVentaV2
             doc.AddCreationDate();              // agregamos el metadato de la fecha de creacion
             doc.Close();            // cerramos el documento y la escritura y asi guardarlo
                                     // 
-            if (System.IO.File.Exists(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf"))
+            if (System.IO.File.Exists(FileName))
             {
-                System.Diagnostics.Process.Start(saveDirectoryPdf + NombreProdFinal + " " + CodigoBarProdFinal + ".pdf");
+                System.Diagnostics.Process.Start(FileName);
             }
         }
 
