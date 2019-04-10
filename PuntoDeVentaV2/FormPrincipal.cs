@@ -131,5 +131,10 @@ namespace PuntoDeVentaV2
         {
             AbrirFormulario<Empresas>();
         }
+
+        private void btnAnticipos_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<Anticipos>();
+        }
     }
 }

@@ -115,6 +115,12 @@
     <Compile Include="AgregarMultiplesProductos.Designer.cs">
       <DependentUpon>AgregarMultiplesProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Anticipos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Anticipos.Designer.cs">
+      <DependentUpon>Anticipos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -236,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarMultiplesProductos.resx">
       <DependentUpon>AgregarMultiplesProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Anticipos.resx">
+      <DependentUpon>Anticipos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
