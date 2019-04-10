@@ -14,7 +14,6 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarDetalleFacturacionProducto : Form
     {
-        
         bool primera = true;
         int seleccionado = 0;
         int valorDefault = 0;
@@ -122,8 +121,6 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleFacturacionProducto_Load(object sender, EventArgs e)
         {
-            limpiarCampos();
-            
             //Se definen los valores que tendran los ComboBox y TextBox por default
             //al abrir la ventana por primera vez
 
@@ -994,6 +991,11 @@ namespace PuntoDeVentaV2
         private void rbExcento_CheckedChanged(object sender, EventArgs e)
         {
             checarRadioButtons();
+        }
+
+        private void AgregarDetalleFacturacionProducto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            limpiarCampos();
         }
 
         private string ValidarCampos(string campo, int tipo = 0)
