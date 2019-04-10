@@ -189,6 +189,7 @@
             this.btnAnticipos.Text = "Anticipos";
             this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnAnticipos.UseVisualStyleBackColor = true;
+            this.btnAnticipos.Click += new System.EventHandler(this.btnAnticipos_Click);
             // 
             // btnConfig
             // 
