@@ -570,14 +570,8 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
-            string[,] prueba = new string[,] { 
-                { "12300", "10", "Producto prueba", "15", "20" }, 
-                { "12301", "11", "Prueba prueba 2", "16", "21" }
-            };
-
-            GenerarTicket(prueba);
             //Datos generales de la venta
-            /*var IdEmpresa = FormPrincipal.userID.ToString();
+            var IdEmpresa = FormPrincipal.userID.ToString();
             var Subtotal = cSubtotal.Text;
             var IVA16 = cIVA.Text;
             var Descuento = cDescuento.Text;
@@ -608,6 +602,11 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta(cs.EliminarProductosVenta(Convert.ToInt32(idVenta)));
                     }
 
+                    //Array para almacenar la informacion de los productos vendidos
+                    string[][] infoProductos = new string[DGVentas.Rows.Count][];
+
+                    int contador = 0;
+
                     //Datos de los productos vendidos
                     foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
@@ -617,6 +616,11 @@ namespace PuntoDeVentaV2
                         var Precio = fila.Cells["Precio"].Value.ToString();
 
                         guardar = new string[] { idVenta, IDProducto, Nombre, Cantidad, Precio };
+
+                        //Guardar info de los productos
+                        infoProductos[contador] = guardar;
+
+                        contador++;
 
                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
 
@@ -632,6 +636,8 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                         } 
                     }
+
+                    GenerarTicket(infoProductos);
                 }
 
                 ListadoVentas.abrirNuevaVenta = true;
@@ -641,7 +647,7 @@ namespace PuntoDeVentaV2
                 mostrarVenta = 0;
 
                 this.Dispose();
-            }*/
+            }
         }
 
         private void btnGuardarVenta_Click(object sender, EventArgs e)
@@ -755,7 +761,7 @@ namespace PuntoDeVentaV2
             mostrarVenta = 0;
         }
 
-        private void GenerarTicket(string[,] productos)
+        private void GenerarTicket(string[][] productos)
         {
             var datos = FormPrincipal.datosUsuario;
 
@@ -763,9 +769,9 @@ namespace PuntoDeVentaV2
             //57mm = 161.28 pt
             //80mm = 226.08 pt
 
-            var tipoPapel  = 57;
+            var tipoPapel  = 80;
             var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
-            var altoPapel  = Convert.ToInt32(anchoPapel + 60);
+            var altoPapel  = Convert.ToInt32(anchoPapel + 54);
 
             //Variables y arreglos para el contenido de la tabla
             float[] anchoColumnas = new float[] { };
@@ -826,7 +832,7 @@ namespace PuntoDeVentaV2
             }
 
             Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
-            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\VentasPUDVE\prueba.pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\VentasPUDVE\ticket_venta_" + productos[0][0] + ".pdf", FileMode.Create));
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
@@ -891,22 +897,22 @@ namespace PuntoDeVentaV2
 
             float totalTicket = 0;
 
-            var longitud = productos.GetLength(0);
+            var longitud = productos.Length;
 
             for (int i = 0; i < longitud; i++)
             {
-                var importe = float.Parse(productos[i, 3]) * float.Parse(productos[i, 4]);
+                var importe = float.Parse(productos[i][3]) * float.Parse(productos[i][4]);
 
                 totalTicket += importe;
 
-                PdfPCell colCantidadTmp = new PdfPCell(new Phrase(productos[i, 3], fuenteNormal));
+                PdfPCell colCantidadTmp = new PdfPCell(new Phrase(productos[i][3], fuenteNormal));
                 colCantidadTmp.HorizontalAlignment = Element.ALIGN_CENTER;
                 colCantidadTmp.BorderWidth = 0;
 
-                PdfPCell colDescripcionTmp = new PdfPCell(new Phrase(productos[i, 2], fuenteNormal));
+                PdfPCell colDescripcionTmp = new PdfPCell(new Phrase(productos[i][2], fuenteNormal));
                 colDescripcionTmp.BorderWidth = 0;
 
-                PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + productos[i, 4], fuenteNormal));
+                PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + productos[i][4], fuenteNormal));
                 colPrecioTmp.BorderWidth = 0;
 
                 PdfPCell colImporteTmp = new PdfPCell(new Phrase("$" + importe.ToString("0.00"), fuenteNormal));
@@ -943,7 +949,7 @@ namespace PuntoDeVentaV2
 
             dia = cn.Capitalizar(dia);
 
-            Paragraph diaVenta = new Paragraph($"\n{dia} - {fecha} - ID Venta: {productos[0,0]}", fuenteNormal);
+            Paragraph diaVenta = new Paragraph($"\n{dia} - {fecha} - ID Venta: {productos[0][0]}", fuenteNormal);
             diaVenta.Alignment = Element.ALIGN_CENTER;
 
             ticket.Add(titulo);
