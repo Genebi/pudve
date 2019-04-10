@@ -963,5 +963,10 @@ namespace PuntoDeVentaV2
             ticket.Close();
             writer.Close();
         }
+
+        private void btnAnticipos_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Boton anticipos");
+        }
     }
 }

@@ -55,7 +55,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCancelarVenta = new System.Windows.Forms.Button();
             this.btnGuardarVenta = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnAnticipos = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.btnVentasGuardadas = new System.Windows.Forms.Button();
             this.listaProductos = new System.Windows.Forms.ListBox();
@@ -313,17 +313,18 @@
             this.btnGuardarVenta.UseVisualStyleBackColor = true;
             this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
             // 
-            // button3
+            // btnAnticipos
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(856, 8);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Anticipos";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAnticipos.Location = new System.Drawing.Point(856, 8);
+            this.btnAnticipos.Name = "btnAnticipos";
+            this.btnAnticipos.Size = new System.Drawing.Size(75, 23);
+            this.btnAnticipos.TabIndex = 15;
+            this.btnAnticipos.Text = "Anticipos";
+            this.btnAnticipos.UseVisualStyleBackColor = true;
+            this.btnAnticipos.Click += new System.EventHandler(this.btnAnticipos_Click);
             // 
             // button4
             // 
@@ -544,7 +545,7 @@
             this.panel1.Controls.Add(this.lbTotal);
             this.panel1.Controls.Add(this.btnGuardarVenta);
             this.panel1.Controls.Add(this.lbDescuento);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.btnAnticipos);
             this.panel1.Controls.Add(this.lbAnticipo);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.lbIVA);
@@ -639,7 +640,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnCancelarVenta;
         private System.Windows.Forms.Button btnGuardarVenta;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnAnticipos;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button btnVentasGuardadas;
         private System.Windows.Forms.Button btnUltimoTicket;
