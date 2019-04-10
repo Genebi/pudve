@@ -41,6 +41,12 @@ namespace PuntoDeVentaV2
 
         double porcentaje = 0, totalProcentaje;
 
+        public void limpiarCampos()
+        {
+            txtBoxBase.Text = "0.0";
+            txtIVA.Text = "0.0";
+        }
+
         public void checarRadioButtons()
         {
             if (rb0porCiento.Checked == true)
@@ -116,6 +122,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleFacturacionProducto_Load(object sender, EventArgs e)
         {
+            limpiarCampos();
+            
             //Se definen los valores que tendran los ComboBox y TextBox por default
             //al abrir la ventana por primera vez
 

@@ -19,7 +19,6 @@ namespace PuntoDeVentaV2
         public CodeBarMake MakeBarCode = new CodeBarMake();
         public photoShow VentanaMostrarFoto = new photoShow();
         public TagMake MakeTagProd = new TagMake();
-        //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
