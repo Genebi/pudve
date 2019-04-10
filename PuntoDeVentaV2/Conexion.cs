@@ -414,5 +414,15 @@ namespace PuntoDeVentaV2
 
             return lista.ToArray();
         }
+
+        public string Capitalizar(string cadena)
+        {
+            if (string.IsNullOrEmpty(cadena))
+            {
+                return string.Empty;
+            }
+
+            return char.ToUpper(cadena[0]) + cadena.Substring(1);
+        }
     }
 }
