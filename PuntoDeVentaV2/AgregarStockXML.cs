@@ -180,6 +180,8 @@ namespace PuntoDeVentaV2
         public DataTable dtSugeridos;           // almacena el resultado de la funcion de CargarDatos de la funcion buscarSugeridos
         public DataTable dtSugeridosGral;
 
+        string seleccionSugeridoNomb;
+
         int match = 0;
         string queryBuscarSugeridos, insertarNoMatch, queryBuscarSugeridosGral;
         int PuntajeMatch = 0;
@@ -1122,17 +1124,17 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else if (seleccionarSugerido == 1)
+            else if (seleccionarSugerido == 2 && seleccionSugeridoNomb != "")
             {
                 prodRelacionadoXML();   // llamamos el metodo relacionar por XML
                 RecorrerXML();          // recorrer el archivo XML
                 
             }
-            else if (seleccionarSugerido == 0)
+            else if (seleccionarSugerido == 1 && seleccionSugeridoNomb != "")
             {
                 prodRelacionadoXML();   // llamamos el metodo relacionar por XML
                 RecorrerXML();          // recorrer el archivo XML
-                
+
             }
             else if (consultListProd == 0)
             {
@@ -1159,7 +1161,7 @@ namespace PuntoDeVentaV2
                         searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
                         if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)     // si es que 
                         {
-                            
+
                         }
                         else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                         {
@@ -1169,7 +1171,7 @@ namespace PuntoDeVentaV2
                     }
                     else                                                    // si no hubo un cambio
                     {
-                        
+
                     }
 
                 }
@@ -1289,8 +1291,9 @@ namespace PuntoDeVentaV2
             OcultarPanelRegistro(); // ocultamos la ventana de ver registro del Stock
             OcultarPanelSinRegistro(); // ocultamos la ventana Si no tiene registro del Stock
             consultListProd = 0;
-            seleccionarSugerido = 0;
+            seleccionarSugerido = 1;
             seleccionarDefault = 0;
+            seleccionSugeridoNomb = "";
         }
 
         private void DGVSugeridos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1304,9 +1307,10 @@ namespace PuntoDeVentaV2
             //label2.Text = numFila.ToString();
             IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
             NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
+            seleccionSugeridoNomb = NombProductoSugerido;
             StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
             CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
-            seleccionarSugerido = 1;
+            seleccionarSugerido = 2;
         }
 
         private void picBoxBuscar_Click_1(object sender, EventArgs e)

@@ -225,6 +225,20 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void cargarDatosExtra()
+        {
+            queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
+            SearchProdResult = cn.CargarDatos(queryBuscarProd);
+            idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();
+            queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
+            SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
+            cargarCodBarExt();
+            queryBuscarDescuentoCliente = $"SELECT * FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
+            SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
+            queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
+            SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
+        }
+
         public void cargarDatos()
         {
             ProdNombreFinal = ProdNombre;
@@ -243,16 +257,11 @@ namespace PuntoDeVentaV2
             if (DatosSourceFinal == 2)
             {
                 txtCodigoBarras.Text = ProdCodBarrasFinal;
-                queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
-                SearchProdResult = cn.CargarDatos(queryBuscarProd);
-                idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();
-                queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
-                SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
-                cargarCodBarExt();
-                queryBuscarDescuentoCliente = $"SELECT * FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
-                SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
-                queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
-                SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
+                cargarDatosExtra();
+            }
+            else if (DatosSourceFinal == 4)
+            {
+                cargarDatosExtra();
             }
         }
 
@@ -770,6 +779,10 @@ namespace PuntoDeVentaV2
                     //Cierra la ventana donde se agregan los datos del producto
                     this.Close();
                 }
+            }
+            else if (DatosSourceFinal == 4)
+            {
+
             }
             /* Fin del codigo de Emmanuel */
         }
