@@ -19,7 +19,14 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoAnticipo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Nuevo anticipo");
+            AgregarAnticipo anticipo = new AgregarAnticipo();
+
+            anticipo.FormClosed += delegate
+            {
+                MessageBox.Show("Se cerro");
+            };
+
+            anticipo.ShowDialog();
         }
     }
 }
