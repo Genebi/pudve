@@ -239,10 +239,10 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.Text = ProdPrecioFinal;
             txtCategoriaProducto.Text = ProdCategoriaFinal;
             txtClaveProducto.Text = ProdClaveInternaFinal;
-            txtCodigoBarras.Text = ProdCodBarrasFinal;
 
             if (DatosSourceFinal == 2)
             {
+                txtCodigoBarras.Text = ProdCodBarrasFinal;
                 queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
                 SearchProdResult = cn.CargarDatos(queryBuscarProd);
                 idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();

@@ -27,7 +27,7 @@ namespace PuntoDeVentaV2
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
         DataTable dt, dtConsulta;
-        DataGridViewButtonColumn setup, record, barcode, foto, tag;
+        DataGridViewButtonColumn setup, record, barcode, foto, tag, copy;
         DataGridViewImageCell cell;
 
         Icon image;
@@ -224,6 +224,12 @@ namespace PuntoDeVentaV2
             tag.HeaderText = "Etiqueta";
             DGVProductos.Columns.Add(tag);
 
+            copy = new DataGridViewButtonColumn();
+            copy.Width = 40;
+            copy.Name = "copyProd";
+            copy.HeaderText = "Copiar";
+            DGVProductos.Columns.Add(copy);
+
             DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarStatus);
@@ -231,6 +237,7 @@ namespace PuntoDeVentaV2
             DGVProductos.CellClick += new DataGridViewCellEventHandler(BarCodeMake);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(PhotoStatus);
             DGVProductos.CellClick += new DataGridViewCellEventHandler(TagProdView);
+            DGVProductos.CellClick += new DataGridViewCellEventHandler(CopyMake);
 
             DGVProductos.Columns["Path"].Visible = false;
             DGVProductos.Columns["Activo"].Visible = false;
@@ -341,6 +348,21 @@ namespace PuntoDeVentaV2
 
                 e.Handled = true;
             }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "copyProd" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                DataGridViewButtonCell copyProdBoton = this.DGVProductos.Rows[e.RowIndex].Cells["copyProd"] as DataGridViewButtonCell;
+                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
+                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
+
+                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.ico");
+                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+
+                e.Handled = true;
+            }
         }
 
         // metodo para cargar los productos Activos
@@ -368,6 +390,10 @@ namespace PuntoDeVentaV2
             if (origenDeLosDatos == 2)
             {
                 FormAgregar.DatosSource = 2;
+            }
+            if (origenDeLosDatos == 4)
+            {
+                FormAgregar.DatosSource = 4;
             }
 
             FormAgregar.FormClosed += delegate
@@ -757,10 +783,25 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void CopyMake(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 7)
+            {
+                if (seleccionadoDato == 0)
+                {
+                    seleccionadoDato = 1;
+                    numerofila = e.RowIndex;
+                    obtenerDatosDGVProductos(numerofila);
+                    origenDeLosDatos = 4;
+                }
+                btnAgregarProducto.PerformClick();
+            }
+        }
+
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
-            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5 || e.ColumnIndex == 6)
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5 || e.ColumnIndex == 6 || e.ColumnIndex == 7)
             {
                 DGVProductos.Cursor = Cursors.Hand;
             }
