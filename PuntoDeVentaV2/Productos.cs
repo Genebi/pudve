@@ -55,6 +55,15 @@ namespace PuntoDeVentaV2
 
         string savePath;
 
+        public void limpiarDGV()
+        {
+            if (DGVProductos.DataSource is DataTable)
+            {
+                ((DataTable)DGVProductos.DataSource).Rows.Clear();
+                DGVProductos.Refresh();
+            }
+        }
+
         private void DGVProductos_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
@@ -160,7 +169,10 @@ namespace PuntoDeVentaV2
 
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
-            dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
+            //dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
+            limpiarDGV();
+            string buscarStock = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + txtBusqueda.Text + "%'";
+            DGVProductos.DataSource = cn.GetStockProd(buscarStock);
         }
 
         public Productos()
