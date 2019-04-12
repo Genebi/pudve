@@ -998,6 +998,23 @@ namespace PuntoDeVentaV2
             limpiarCampos();
         }
 
+        private void btnKeyWordSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                VisitLink();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Imposible abrir la Pagina" + ex, "Error al Abrir La Pagina WEB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void VisitLink()
+        {
+            System.Diagnostics.Process.Start("https://sifo.com.mx/buscador_de_claves_de_productos_y_servicios_de_el_sat_cfdi_33_para_facturar.php");
+        }
+
         private string ValidarCampos(string campo, int tipo = 0)
         {
             if (campo == "" || campo == "...")

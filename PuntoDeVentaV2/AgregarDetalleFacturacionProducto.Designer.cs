@@ -64,6 +64,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnKeyWordSearch = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -474,11 +475,24 @@
             this.textBox1.Size = new System.Drawing.Size(132, 22);
             this.textBox1.TabIndex = 56;
             // 
+            // btnKeyWordSearch
+            // 
+            this.btnKeyWordSearch.BackColor = System.Drawing.Color.Aqua;
+            this.btnKeyWordSearch.Font = new System.Drawing.Font("Arial", 9F);
+            this.btnKeyWordSearch.Location = new System.Drawing.Point(779, 521);
+            this.btnKeyWordSearch.Name = "btnKeyWordSearch";
+            this.btnKeyWordSearch.Size = new System.Drawing.Size(227, 31);
+            this.btnKeyWordSearch.TabIndex = 57;
+            this.btnKeyWordSearch.Text = "Buscar Palabras Claves";
+            this.btnKeyWordSearch.UseVisualStyleBackColor = false;
+            this.btnKeyWordSearch.Click += new System.EventHandler(this.btnKeyWordSearch_Click);
+            // 
             // AgregarDetalleFacturacionProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1270, 745);
+            this.Controls.Add(this.btnKeyWordSearch);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -562,5 +576,6 @@
         private System.Windows.Forms.TextBox textBox1;
         public System.Windows.Forms.TextBox txtBoxBase;
         public System.Windows.Forms.TextBox txtIVA;
+        private System.Windows.Forms.Button btnKeyWordSearch;
     }
 }
