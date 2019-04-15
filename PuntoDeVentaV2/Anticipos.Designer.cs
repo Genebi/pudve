@@ -36,11 +36,14 @@
             this.btnBuscarAnticipos = new System.Windows.Forms.Button();
             this.cbAnticipos = new System.Windows.Forms.ComboBox();
             this.DGVAnticipos = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Status = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
@@ -126,6 +129,7 @@
             this.btnBuscarAnticipos.TabIndex = 4;
             this.btnBuscarAnticipos.Text = "Buscar";
             this.btnBuscarAnticipos.UseVisualStyleBackColor = false;
+            this.btnBuscarAnticipos.Click += new System.EventHandler(this.btnBuscarAnticipos_Click);
             // 
             // cbAnticipos
             // 
@@ -139,6 +143,7 @@
             this.cbAnticipos.Name = "cbAnticipos";
             this.cbAnticipos.Size = new System.Drawing.Size(185, 24);
             this.cbAnticipos.TabIndex = 0;
+            this.cbAnticipos.SelectedIndexChanged += new System.EventHandler(this.cbAnticipos_SelectedIndexChanged);
             // 
             // DGVAnticipos
             // 
@@ -149,16 +154,28 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVAnticipos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVAnticipos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
             this.Concepto,
             this.Importe,
             this.Cliente,
             this.Empleado,
-            this.Fecha});
+            this.Fecha,
+            this.Ticket,
+            this.Status});
             this.DGVAnticipos.Location = new System.Drawing.Point(12, 141);
             this.DGVAnticipos.Name = "DGVAnticipos";
             this.DGVAnticipos.ReadOnly = true;
             this.DGVAnticipos.Size = new System.Drawing.Size(845, 217);
             this.DGVAnticipos.TabIndex = 8;
+            this.DGVAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellClick);
+            this.DGVAnticipos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellMouseEnter);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
             // 
             // Concepto
             // 
@@ -195,6 +212,20 @@
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 135;
             // 
+            // Ticket
+            // 
+            this.Ticket.HeaderText = "";
+            this.Ticket.Name = "Ticket";
+            this.Ticket.ReadOnly = true;
+            this.Ticket.Width = 50;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            this.Status.Width = 50;
+            // 
             // Anticipos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -223,10 +254,13 @@
         private System.Windows.Forms.Button btnBuscarAnticipos;
         private System.Windows.Forms.ComboBox cbAnticipos;
         private System.Windows.Forms.DataGridView DGVAnticipos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Concepto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Empleado;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewImageColumn Ticket;
+        private System.Windows.Forms.DataGridViewImageColumn Status;
     }
 }

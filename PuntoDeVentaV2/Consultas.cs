@@ -119,5 +119,10 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string CambiarStatusAnticipo(int status, int IDAnticipo, int IDUsuario)
+        {
+            return $"UPDATE Anticipos SET Status = {status} WHERE ID = {IDAnticipo} AND IDUsuario = {IDUsuario}";
+        }
     }
 }
