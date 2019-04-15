@@ -966,7 +966,14 @@ namespace PuntoDeVentaV2
 
         private void btnAnticipos_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Boton anticipos");
+            ListadoAnticipos anticipo = new ListadoAnticipos();
+
+            anticipo.FormClosed += delegate
+            {
+                
+            };
+
+            anticipo.ShowDialog();
         }
     }
 }

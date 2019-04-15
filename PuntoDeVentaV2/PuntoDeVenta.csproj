@@ -154,6 +154,12 @@
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListadoAnticipos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListadoAnticipos.Designer.cs">
+      <DependentUpon>ListadoAnticipos.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListadoVentas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -266,6 +272,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListadoAnticipos.resx">
+      <DependentUpon>ListadoAnticipos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListadoVentas.resx">
       <DependentUpon>ListadoVentas.cs</DependentUpon>

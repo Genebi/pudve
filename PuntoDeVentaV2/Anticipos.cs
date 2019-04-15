@@ -28,7 +28,7 @@ namespace PuntoDeVentaV2
             CargarDatos(1);
         }
 
-        private void CargarDatos(int estado = 1, int tipo = 0, string fechaInicio = "", string fechaFinal = "")
+        private void CargarDatos(int estado = 1, int tipo = 0)
         {
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
@@ -48,6 +48,9 @@ namespace PuntoDeVentaV2
             //Con fechas de busqueda
             if (tipo == 1)
             {
+                var fechaInicio = dpFechaInicial.Text;
+                var fechaFinal = dpFechaFinal.Text;
+
                 consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'";
             }
 
@@ -185,10 +188,8 @@ namespace PuntoDeVentaV2
         private void btnBuscarAnticipos_Click(object sender, EventArgs e)
         {
             var status = cbAnticipos.SelectedIndex;
-            var fechaInicio = dpFechaInicial.Text;
-            var fechaFinal = dpFechaFinal.Text;
 
-            CargarDatos(status + 1, 1, fechaInicio, fechaFinal);
+            CargarDatos(status + 1, 1);
         }
     }
 }
