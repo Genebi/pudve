@@ -24,6 +24,11 @@ namespace PuntoDeVentaV2
         //Para las ventas guardadas
         public static int mostrarVenta = 0;
 
+        //Para los anticipos por aplicar
+        public static int[] anticipos;
+        public static int idAnticipo = 0;
+        
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         NameValueCollection datos;
