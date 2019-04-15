@@ -205,6 +205,7 @@
             this.Controls.Add(this.tituloSeccion);
             this.Name = "Anticipos";
             this.Text = "Anticipos";
+            this.Load += new System.EventHandler(this.Anticipos_Load);
             this.panelBotones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).EndInit();
             this.ResumeLayout(false);

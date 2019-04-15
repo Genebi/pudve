@@ -111,5 +111,13 @@ namespace PuntoDeVentaV2
         {
             return $"UPDATE Ventas SET Status = 3 WHERE ID = '{id}'";
         }
+
+        public string GuardarAnticipo(string[] datos)
+        {
+            string consulta = $"INSERT INTO Anticipos (IDUsuario, Concepto, Importe, Cliente, FormaPago, Comentarios, Status, Fecha)";
+                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}')";
+
+            return consulta;
+        }
     }
 }

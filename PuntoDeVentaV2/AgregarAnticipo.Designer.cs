@@ -227,6 +227,7 @@
             this.Name = "AgregarAnticipo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Nuevo Anticipo";
+            this.Load += new System.EventHandler(this.AgregarAnticipo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
