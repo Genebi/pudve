@@ -25,8 +25,8 @@ namespace PuntoDeVentaV2
         public static int mostrarVenta = 0;
 
         //Para los anticipos por aplicar
-        public static int[] anticipos;
-        public static int idAnticipo = 0;
+        public static string listaAnticipos = string.Empty;
+        public static float importeAnticipo = 0f;
         
 
         Conexion cn = new Conexion();
@@ -503,6 +503,7 @@ namespace PuntoDeVentaV2
             double totalDescuento = 0;
             double totalSubtotal  = 0;
             double totalIVA16     = 0;
+            double totalAnticipos = 0;
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
@@ -544,9 +545,18 @@ namespace PuntoDeVentaV2
             totalSubtotal = totalImporte / 1.16;
             totalIVA16    = totalSubtotal * 0.16;
 
+            totalAnticipos = Convert.ToDouble(cAnticipo.Text);
+            totalAnticipos += importeAnticipo;
+
+            if (totalImporte > 0)
+            {
+                totalImporte -= totalAnticipos;
+            }
+
             cIVA.Text = totalIVA16.ToString("0.00");
             cTotal.Text = totalImporte.ToString("0.00");
             cSubtotal.Text = totalSubtotal.ToString("0.00");
+            cAnticipo.Text = totalAnticipos.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
             cNumeroArticulos.Text = totalArticulos.ToString();
         }
@@ -629,6 +639,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
 
+                        //Si la venta no fue guardada con el boton "Guardar"
                         if (!ventaGuardada)
                         {
                             //Actualizar stock de productos
@@ -650,6 +661,9 @@ namespace PuntoDeVentaV2
                 ventaGuardada = false;
 
                 mostrarVenta = 0;
+
+                //Falta que se actualicen los Anticipos que fueron utilizados
+                //Y limpiar la variable string que los va conteniendo
 
                 this.Dispose();
             }
@@ -973,9 +987,13 @@ namespace PuntoDeVentaV2
         {
             ListadoAnticipos anticipo = new ListadoAnticipos();
 
-            anticipo.FormClosed += delegate
-            {
-                
+            anticipo.FormClosed += delegate {
+
+                if (importeAnticipo > 0)
+                {
+                    CantidadesFinalesVenta();
+                    importeAnticipo = 0f;
+                }
             };
 
             anticipo.ShowDialog();
