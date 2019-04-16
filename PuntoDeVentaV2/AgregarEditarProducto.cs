@@ -789,7 +789,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
-                if (SearchProdResult.Rows.Count != 0 && resultadoSearchNoIdentificacion == 0 && resultadoSearchCodBar == 0)
+                if (SearchProdResult.Rows.Count != 0 && resultadoSearchNoIdentificacion == 0)
                 {
                     /****************************
 			        *	codigo de Alejandro		*
