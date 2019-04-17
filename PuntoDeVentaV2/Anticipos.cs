@@ -163,11 +163,11 @@ namespace PuntoDeVentaV2
                 vt.FormClosed += delegate
                 {
                     vt.Dispose();
+
+                    ticketGenerado = string.Empty;
                 };
 
                 vt.ShowDialog();
-
-                ticketGenerado = string.Empty;
             }
 
             //Habilitar/Deshabilitar
