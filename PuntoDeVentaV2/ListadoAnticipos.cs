@@ -128,5 +128,18 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void ListadoAnticipos_Shown(object sender, EventArgs e)
+        {
+            if (DGVListaAnticipos.Rows.Count == 0)
+            {
+                var resultadoDialogo = MessageBox.Show("No existen anticipos guardados actualmente.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (resultadoDialogo == DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+        }
     }
 }
