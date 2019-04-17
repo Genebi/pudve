@@ -592,12 +592,13 @@ namespace PuntoDeVentaV2
             var Descuento = cDescuento.Text;
             var Total = cTotal.Text;
             var DescuentoGeneral = porcentajeGeneral.ToString("0.00");
+            var Anticipo = cAnticipo.Text;
             var Status = "1";
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             if (ventaGuardada) { Status = "2"; }
 
-            string[] guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Status, FechaOperacion };
+            string[] guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Status, FechaOperacion };
 
             if (VerificarStockProducto())
             {
@@ -653,6 +654,21 @@ namespace PuntoDeVentaV2
                         } 
                     }
 
+                    //Convertir la cadena que guarda los IDs de los anticipos usados en Array
+                    if (!string.IsNullOrEmpty(listaAnticipos)) {
+
+                        var auxiliar = listaAnticipos.Remove(listaAnticipos.Length - 1);
+
+                        var anticipos = auxiliar.Split('-');
+
+                        foreach (string anticipo in anticipos)
+                        {
+                            var idAnticipo = Convert.ToInt32(anticipo);
+
+                            cn.EjecutarConsulta(cs.CambiarStatusAnticipo(3, idAnticipo, FormPrincipal.userID));
+                        }
+                    }
+
                     GenerarTicket(infoProductos);
                 }
 
@@ -662,8 +678,7 @@ namespace PuntoDeVentaV2
 
                 mostrarVenta = 0;
 
-                //Falta que se actualicen los Anticipos que fueron utilizados
-                //Y limpiar la variable string que los va conteniendo
+                listaAnticipos = string.Empty;
 
                 this.Dispose();
             }
