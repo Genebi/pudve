@@ -16,6 +16,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
+        public static string ticketGenerado = string.Empty;
+
         public Anticipos()
         {
             InitializeComponent();
@@ -153,7 +155,19 @@ namespace PuntoDeVentaV2
             //Generar ticket
             if (e.ColumnIndex == 6)
             {
-                MessageBox.Show("Generar ticket");
+                //int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
+                ticketGenerado = "ticket_venta_6.pdf";
+
+                VisualizadorTickets vt = new VisualizadorTickets();
+
+                vt.FormClosed += delegate
+                {
+                    vt.Dispose();
+                };
+
+                vt.ShowDialog();
+
+                ticketGenerado = string.Empty;
             }
 
             //Habilitar/Deshabilitar
