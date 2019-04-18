@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
 
         public static string ticketGenerado = string.Empty;
+        public static string rutaTicketGenerado = string.Empty;
 
         public Anticipos()
         {
@@ -159,8 +160,9 @@ namespace PuntoDeVentaV2
             //Generar ticket
             if (e.ColumnIndex == 6)
             {
-                //int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
-                ticketGenerado = "ticket_venta_6.pdf";
+                int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
+                rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
+                ticketGenerado = "ticket_anticipo_"+ idAnticipo +".pdf";
 
                 VisualizadorTickets vt = new VisualizadorTickets();
 
@@ -168,6 +170,7 @@ namespace PuntoDeVentaV2
                 {
                     vt.Dispose();
 
+                    rutaTicketGenerado = string.Empty;
                     ticketGenerado = string.Empty;
                 };
 

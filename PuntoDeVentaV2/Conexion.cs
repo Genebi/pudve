@@ -104,7 +104,7 @@ namespace PuntoDeVentaV2
 
                 if (tipo == 1)
                 {
-                    respuesta = dr["ID"]; //ID del usuario
+                    respuesta = dr["ID"]; //ID del usuario por ejemplo
                 }
             }
 

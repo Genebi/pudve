@@ -21,15 +21,15 @@ namespace PuntoDeVentaV2
         private void VisualizadorTickets_Load(object sender, EventArgs e)
         {
             this.Text = "PUDVE - " + Anticipos.ticketGenerado;
-            axAcroPDF.src = @"C:\Archivos PUDVE\Ventas\Tickets\" + Anticipos.ticketGenerado;
-            axAcroPDF.setZoom(100);
+            axAcroPDF.src = Anticipos.rutaTicketGenerado;
+            axAcroPDF.setZoom(75);
         }
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "print";
-            info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\" + Anticipos.ticketGenerado;
+            info.FileName = Anticipos.rutaTicketGenerado;
             info.CreateNoWindow = true;
             info.WindowStyle = ProcessWindowStyle.Hidden;
 
