@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,8 +53,8 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            //datos.SincronizarProductos();
-            //Temporizador();
+            //Se crea el directorio principal para almacenar todos los archivos generados y carpetas
+            Directory.CreateDirectory(@"C:\Archivos PUDVE");
 
             recargarDatos();
 

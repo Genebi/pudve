@@ -44,7 +44,6 @@ namespace PuntoDeVentaV2
         {
             AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
             datos = new NameValueCollection();
-            //productos = new string[] { };
 
             //Cargar lista de productos actuales
             datos = cn.ObtenerProductos(FormPrincipal.userID);
@@ -866,7 +865,7 @@ namespace PuntoDeVentaV2
             }
 
             Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
-            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\VentasPUDVE\ticket_venta_" + productos[0][0] + ".pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + productos[0][0] + ".pdf", FileMode.Create));
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);

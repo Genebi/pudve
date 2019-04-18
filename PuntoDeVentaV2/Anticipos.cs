@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,9 @@ namespace PuntoDeVentaV2
 
         private void Anticipos_Load(object sender, EventArgs e)
         {
+            //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
+            Directory.CreateDirectory(@"C:\Archivos PUDVE\Anticipos\Tickets");
+
             cbAnticipos.SelectedIndex = 0;
             cbAnticipos.DropDownStyle = ComboBoxStyle.DropDownList;
             CargarDatos(1);

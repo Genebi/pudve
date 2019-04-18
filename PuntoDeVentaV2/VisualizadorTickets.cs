@@ -21,7 +21,7 @@ namespace PuntoDeVentaV2
         private void VisualizadorTickets_Load(object sender, EventArgs e)
         {
             this.Text = "PUDVE - " + Anticipos.ticketGenerado;
-            axAcroPDF.src = @"C:\VentasPUDVE\" + Anticipos.ticketGenerado;
+            axAcroPDF.src = @"C:\Archivos PUDVE\Ventas\Tickets\" + Anticipos.ticketGenerado;
             axAcroPDF.setZoom(100);
         }
 
@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
         {
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "print";
-            info.FileName = @"C:\VentasPUDVE\" + Anticipos.ticketGenerado;
+            info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\" + Anticipos.ticketGenerado;
             info.CreateNoWindow = true;
             info.WindowStyle = ProcessWindowStyle.Hidden;
 
@@ -38,12 +38,14 @@ namespace PuntoDeVentaV2
             p.Start();
 
             p.WaitForInputIdle();
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(1000);
 
             if (false == p.CloseMainWindow())
             {
                 p.Kill();
             }
+
+            this.Close();
         }
     }
 }
