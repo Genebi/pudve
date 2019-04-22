@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         public CodeBarMake MakeBarCode = new CodeBarMake();
         public photoShow VentanaMostrarFoto = new photoShow();
         public TagMake MakeTagProd = new TagMake();
+        public VentanaDetalleFotoProducto ProductoDetalle = new VentanaDetalleFotoProducto();
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -60,6 +61,8 @@ namespace PuntoDeVentaV2
         // objeto de FileStream para poder hacer el manejo de las imagenes
         FileStream fs;
 
+        int IDProducto;
+
         private void searchPhotoProd()
         {
             queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
@@ -68,18 +71,19 @@ namespace PuntoDeVentaV2
         
         private void searchToProdGral()
         {
-            queryGral = $"SELECT * FROM Productos prod WHERE prod.IDUsuario = '6'";
+            queryGral = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P WHERE P.IDUsuario = '{FormPrincipal.userID}'";
             registros = cn.CargarDatos(queryGral);
             DGVProductos.DataSource = registros;
         }
 
         private void photoShow()
         {
+            fLPShowPhoto.Controls.Clear();
             foreach (DataRow row in fotos.Rows)
             {
                 Button btn = new Button();
                 btn.Text = row["Nombre"].ToString();
-                btn.Size = new System.Drawing.Size(80, 80);
+                btn.Size = new System.Drawing.Size(150, 150);
                 btn.Font = new Font(btn.Font.FontFamily, 10);
                 if (row["ProdImage"].ToString() == "" || row["ProdImage"].ToString() == null)
                 {
@@ -108,7 +112,23 @@ namespace PuntoDeVentaV2
         // Metodo creado para manejo de mostrar ventana
         private void ProductPhotoButtonClick(object sender, EventArgs e)
         {
-            MessageBox.Show("Ventana de Informacion en Construccion", "Ventana de Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //MessageBox.Show("Ventana de Informacion en Construccion", "Ventana de Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            Button btn = (Button)sender;
+            IDProducto = Convert.ToInt32(btn.Tag);
+            ProductoDetalle.FormClosed += delegate
+            {
+
+            };
+            if (!ProductoDetalle.Visible)
+            {
+                ProductoDetalle.IDProducto = IDProducto;
+                ProductoDetalle.ShowDialog();
+            }
+            else
+            {
+                ProductoDetalle.IDProducto = IDProducto;
+                ProductoDetalle.BringToFront();
+            }
         }
 
         private void btnPhotoView_Click(object sender, EventArgs e)

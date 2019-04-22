@@ -234,6 +234,12 @@
     <Compile Include="TagMake.Designer.cs">
       <DependentUpon>TagMake.cs</DependentUpon>
     </Compile>
+    <Compile Include="VentanaDetalleFotoProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaDetalleFotoProducto.Designer.cs">
+      <DependentUpon>VentanaDetalleFotoProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ventas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -327,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TagMake.resx">
       <DependentUpon>TagMake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaDetalleFotoProducto.resx">
+      <DependentUpon>VentanaDetalleFotoProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>

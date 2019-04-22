@@ -247,6 +247,9 @@
             // 
             // panelShowPhotoView
             // 
+            this.panelShowPhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelShowPhotoView.Controls.Add(this.fLPShowPhoto);
             this.panelShowPhotoView.Location = new System.Drawing.Point(16, 244);
             this.panelShowPhotoView.Name = "panelShowPhotoView";
@@ -255,6 +258,10 @@
             // 
             // fLPShowPhoto
             // 
+            this.fLPShowPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fLPShowPhoto.AutoScroll = true;
             this.fLPShowPhoto.Location = new System.Drawing.Point(14, 18);
             this.fLPShowPhoto.Name = "fLPShowPhoto";
             this.fLPShowPhoto.Size = new System.Drawing.Size(1476, 399);
