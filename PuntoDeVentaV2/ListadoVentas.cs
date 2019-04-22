@@ -66,6 +66,19 @@ namespace PuntoDeVentaV2
                 row.Cells["Pago"].Value = dr.GetValue(dr.GetOrdinal("MetodoPago"));
                 row.Cells["Empleado"].Value = dr.GetValue(dr.GetOrdinal("IDEmpleado"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+
+                Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\remove.png");
+                Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-pdf-o.png");
+                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
+
+                row.Cells["Cancelar"].Value = cancelar;
+                row.Cells["Cancelar"].ToolTipText = "Cancelar";
+
+                row.Cells["Factura"].Value = factura;
+                row.Cells["Factura"].ToolTipText = "Ver factura";
+
+                row.Cells["Ticket"].Value = ticket;
+                row.Cells["Ticket"].ToolTipText = "Ver ticket";
             }
 
             dr.Close();
@@ -115,6 +128,44 @@ namespace PuntoDeVentaV2
 
             //Canceladas
             if (indice == 3) { CargarDatos(3); }
+        }
+
+        private void DGVListadoVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex >= 10)
+                {
+                    DGVListadoVentas.Cursor = Cursors.Hand;
+                }
+                else
+                {
+                    DGVListadoVentas.Cursor = Cursors.Default;
+                }
+            }
+        }
+
+        private void DGVListadoVentas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //Cancelar
+            if (e.ColumnIndex == 10)
+            {
+                MessageBox.Show("Cancelar");
+            }
+
+            //Ver factura
+            if (e.ColumnIndex == 11)
+            {
+                MessageBox.Show("Factura");
+            }
+
+            //Ver ticket
+            if (e.ColumnIndex == 12)
+            {
+                MessageBox.Show("Ticket");
+            }
+
+            DGVListadoVentas.ClearSelection();
         }
     }
 }
