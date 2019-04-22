@@ -124,6 +124,14 @@ namespace PuntoDeVentaV2
             {
                 DGVProductos.Sort(DGVProductos.Columns["Precio"], ListSortDirection.Descending);
             }
+            else if (filtro == "Menor precio")
+            {
+                DGVProductos.Sort(DGVProductos.Columns["Precio"], ListSortDirection.Ascending);
+            }
+            else if (filtro == "Ordenar por:")
+            {
+                CargarDatos();
+            }
         }
 
         // Metodo creado para manejo de mostrar ventana
