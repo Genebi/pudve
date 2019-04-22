@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0, editarEstado = 0, numerofila = 0;
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
-        DataTable dt, dtConsulta, fotos;
+        DataTable dt, dtConsulta, fotos, registros;
         DataGridViewButtonColumn setup, record, barcode, foto, tag, copy;
         DataGridViewImageCell cell;
 
@@ -55,7 +55,7 @@ namespace PuntoDeVentaV2
 
         string savePath;
 
-        string queryFotos;
+        string queryFotos, queryGral;
 
         // objeto de FileStream para poder hacer el manejo de las imagenes
         FileStream fs;
@@ -64,6 +64,13 @@ namespace PuntoDeVentaV2
         {
             queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
             fotos = cn.CargarDatos(queryFotos);
+        }
+        
+        private void searchToProdGral()
+        {
+            queryGral = $"SELECT * FROM Productos prod WHERE prod.IDUsuario = '6'";
+            registros = cn.CargarDatos(queryGral);
+            DGVProductos.DataSource = registros;
         }
 
         private void photoShow()
@@ -114,13 +121,31 @@ namespace PuntoDeVentaV2
                 searchPhotoProd();
                 photoShow();
             }
+            else if (panelShowPhotoView.Visible == true || panelShowPhotoView.Visible == false)
+            {
+                panelShowDGVProductosView.Visible = false;
+                panelShowPhotoView.Visible = true;
+                searchPhotoProd();
+                photoShow();
+            }
         }
 
         private void btnListView_Click(object sender, EventArgs e)
         {
-
+            if (panelShowDGVProductosView.Visible == true || panelShowDGVProductosView.Visible == false)
+            {
+                panelShowPhotoView.Visible = false;
+                panelShowDGVProductosView.Visible = true;
+                searchToProdGral();
+            }
+            else if (panelShowPhotoView.Visible == true || panelShowPhotoView.Visible == false)
+            {
+                panelShowPhotoView.Visible = false;
+                panelShowDGVProductosView.Visible = true;
+                searchToProdGral();
+            }
         }
-
+        
         private void DGVProductos_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
