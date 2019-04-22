@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0, editarEstado = 0, numerofila = 0;
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
 
-        DataTable dt, dtConsulta;
+        DataTable dt, dtConsulta, fotos;
         DataGridViewButtonColumn setup, record, barcode, foto, tag, copy;
         DataGridViewImageCell cell;
 
@@ -55,12 +55,92 @@ namespace PuntoDeVentaV2
 
         string savePath;
 
-        public void limpiarDGV()
+        string queryFotos;
+
+        // objeto de FileStream para poder hacer el manejo de las imagenes
+        FileStream fs;
+
+        private void searchPhotoProd()
         {
-            if (DGVProductos.DataSource is DataTable)
+            queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
+            fotos = cn.CargarDatos(queryFotos);
+        }
+
+        private void photoShow()
+        {
+            foreach (DataRow row in fotos.Rows)
             {
-                ((DataTable)DGVProductos.DataSource).Rows.Clear();
-                DGVProductos.Refresh();
+                Button btn = new Button();
+                btn.Text = row["Nombre"].ToString();
+                btn.Size = new System.Drawing.Size(80, 80);
+                btn.Font = new Font(btn.Font.FontFamily, 10);
+                if (row["ProdImage"].ToString() == "" || row["ProdImage"].ToString() == null)
+                {
+                    btn.ForeColor = Color.Red;
+                    using (fs = new FileStream(fileSavePath + @"\no-image.png", FileMode.Open))
+                    {
+                        btn.Image = Image.FromStream(fs);
+                        btn.Image = new Bitmap(btn.Image, btn.Size);
+                    }
+                }
+                else if (row["ProdImage"].ToString() != "" || row["ProdImage"].ToString() != null)
+                {
+                    btn.ForeColor = Color.Black;
+                    using (fs = new FileStream(row["ProdImage"].ToString(), FileMode.Open))
+                    {
+                        btn.Image = Image.FromStream(fs);
+                        btn.Image = new Bitmap(btn.Image, btn.Size);
+                    }
+                }
+                btn.Tag = row["ID"].ToString();
+                fLPShowPhoto.Controls.Add(btn);
+                btn.Click += new EventHandler(ProductPhotoButtonClick);
+            }
+        }
+
+        // Metodo creado para manejo de mostrar ventana
+        private void ProductPhotoButtonClick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ventana de Informacion en Construccion", "Ventana de Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private void btnPhotoView_Click(object sender, EventArgs e)
+        {
+            fileSavePath = saveDirectoryImg;
+            if (panelShowDGVProductosView.Visible == true || panelShowDGVProductosView.Visible == false)
+            {
+                panelShowDGVProductosView.Visible = false;
+                panelShowPhotoView.Visible = true;
+                searchPhotoProd();
+                photoShow();
+            }
+        }
+
+        private void btnListView_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DGVProductos_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)
+        {
+            //Boton editar producto
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5 || e.ColumnIndex == 6 || e.ColumnIndex == 7)
+            {
+                DGVProductos.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                DGVProductos.Cursor = Cursors.Default;
+            }
+        }
+
+        private void DGVProductos_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                numerofila = e.RowIndex;
+                obtenerDatosDGVProductos(numerofila);
+                editarEstado = 4;
             }
         }
 
@@ -75,6 +155,131 @@ namespace PuntoDeVentaV2
                         row.Cells[e.ColumnIndex].Value = false;
                     }
                 }
+            }
+        }
+
+        private void DGVProductos_CellPainting_1(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "status" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                string valor = DGVProductos.Rows[e.RowIndex].Cells["Activo"].Value.ToString();
+
+                DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["status"] as DataGridViewButtonCell;
+                //statusBoton.FlatStyle = FlatStyle.Flat;
+                //statusBoton.Style.BackColor = Color.GhostWhite;
+
+                if (valor == "1")
+                {
+                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.ico");
+                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                }
+                if (valor == "0")
+                {
+                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.ico");
+                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                }
+                e.Handled = true;
+            }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "historial" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                DataGridViewButtonCell historialBoton = this.DGVProductos.Rows[e.RowIndex].Cells["historial"] as DataGridViewButtonCell;
+                //historialBoton.FlatStyle = FlatStyle.Flat;
+                //historialBoton.Style.BackColor = Color.GhostWhite;
+
+                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.ico");
+                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+
+                e.Handled = true;
+            }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "CodigoBarras" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                DataGridViewButtonCell codigoBarrasBoton = this.DGVProductos.Rows[e.RowIndex].Cells["CodigoBarras"] as DataGridViewButtonCell;
+                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
+                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
+
+                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.ico");
+                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+
+                e.Handled = true;
+            }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "Fotos" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                string valor = DGVProductos.Rows[e.RowIndex].Cells["Path"].Value.ToString();
+
+                DataGridViewButtonCell photoBoton = this.DGVProductos.Rows[e.RowIndex].Cells["Fotos"] as DataGridViewButtonCell;
+                //photoBoton.FlatStyle = FlatStyle.Flat;
+                //photoBoton.Style.BackColor = Color.GhostWhite;
+
+                if (valor == "")
+                {
+                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.ico");
+                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                }
+                if (valor != "")
+                {
+                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.ico");
+                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                }
+                e.Handled = true;
+            }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "TagProducto" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                DataGridViewButtonCell tagProdBoton = this.DGVProductos.Rows[e.RowIndex].Cells["TagProducto"] as DataGridViewButtonCell;
+                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
+                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
+
+                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.ico");
+                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+
+                e.Handled = true;
+            }
+            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "copyProd" && e.RowIndex >= 0)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                DataGridViewButtonCell copyProdBoton = this.DGVProductos.Rows[e.RowIndex].Cells["copyProd"] as DataGridViewButtonCell;
+                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
+                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
+
+                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.ico");
+                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
+                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
+                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+
+                e.Handled = true;
+            }
+        }
+
+        public void limpiarDGV()
+        {
+            if (DGVProductos.DataSource is DataTable)
+            {
+                ((DataTable)DGVProductos.DataSource).Rows.Clear();
+                DGVProductos.Refresh();
             }
         }
 
@@ -134,16 +339,6 @@ namespace PuntoDeVentaV2
             CodigoBarras = DGVProductos.Rows[fila].Cells["Código de Barras"].Value.ToString();
             savePath = DGVProductos.Rows[fila].Cells["Path"].Value.ToString();
             id = FormPrincipal.userID.ToString();
-        }
-
-        private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
-            {
-                numerofila = e.RowIndex;
-                obtenerDatosDGVProductos(numerofila);
-                editarEstado = 4;
-            }
         }
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
@@ -241,128 +436,15 @@ namespace PuntoDeVentaV2
 
             DGVProductos.Columns["Path"].Visible = false;
             DGVProductos.Columns["Activo"].Visible = false;
+
+            panelShowPhotoView.Visible = false;
+            panelShowDGVProductosView.Visible = true;
         }
 
         private void CargarDatos()
         {
             cn.CargarInformacion(cs.Productos(FormPrincipal.userID), DGVProductos);
             number_of_rows = DGVProductos.RowCount;
-        }
-
-        private void DGVProductos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "status" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                string valor = DGVProductos.Rows[e.RowIndex].Cells["Activo"].Value.ToString();
-
-                DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["status"] as DataGridViewButtonCell;
-                //statusBoton.FlatStyle = FlatStyle.Flat;
-                //statusBoton.Style.BackColor = Color.GhostWhite;
-
-                if (valor == "1")
-                {
-                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.ico");
-                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-                }
-                if (valor == "0")
-                {
-                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.ico");
-                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-                }
-                e.Handled = true;
-            }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "historial" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell historialBoton = this.DGVProductos.Rows[e.RowIndex].Cells["historial"] as DataGridViewButtonCell;
-                //historialBoton.FlatStyle = FlatStyle.Flat;
-                //historialBoton.Style.BackColor = Color.GhostWhite;
-
-                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.ico");
-                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-                
-                e.Handled = true;
-            }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "CodigoBarras" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell codigoBarrasBoton = this.DGVProductos.Rows[e.RowIndex].Cells["CodigoBarras"] as DataGridViewButtonCell;
-                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
-                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
-
-                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.ico");
-                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-
-                e.Handled = true;
-            }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "Fotos" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                string valor = DGVProductos.Rows[e.RowIndex].Cells["Path"].Value.ToString();
-
-                DataGridViewButtonCell photoBoton = this.DGVProductos.Rows[e.RowIndex].Cells["Fotos"] as DataGridViewButtonCell;
-                //photoBoton.FlatStyle = FlatStyle.Flat;
-                //photoBoton.Style.BackColor = Color.GhostWhite;
-
-                if (valor == "")
-                {
-                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.ico");
-                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top+3);
-                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-                }
-                if (valor != "")
-                {
-                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.ico");
-                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-                }
-                e.Handled = true;
-            }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "TagProducto" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell tagProdBoton = this.DGVProductos.Rows[e.RowIndex].Cells["TagProducto"] as DataGridViewButtonCell;
-                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
-                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
-
-                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.ico");
-                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-
-                e.Handled = true;
-            }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "copyProd" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell copyProdBoton = this.DGVProductos.Rows[e.RowIndex].Cells["copyProd"] as DataGridViewButtonCell;
-                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
-                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
-
-                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.ico");
-                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-
-                e.Handled = true;
-            }
         }
 
         // metodo para cargar los productos Activos
@@ -795,19 +877,6 @@ namespace PuntoDeVentaV2
                     origenDeLosDatos = 4;
                 }
                 btnAgregarProducto.PerformClick();
-            }
-        }
-
-        private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            //Boton editar producto
-            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5 || e.ColumnIndex == 6 || e.ColumnIndex == 7)
-            {
-                DGVProductos.Cursor = Cursors.Hand;
-            }
-            else
-            {
-                DGVProductos.Cursor = Cursors.Default;
             }
         }
 

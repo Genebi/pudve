@@ -28,49 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DGVProductos = new System.Windows.Forms.DataGridView();
-            this.chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.btnAgregarProducto = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.tituloBusqueda = new System.Windows.Forms.Label();
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.cbMostrar = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnListView = new System.Windows.Forms.Button();
+            this.btnPhotoView = new System.Windows.Forms.Button();
             this.btnModificarEstado = new System.Windows.Forms.Button();
             this.btnAgregarXML = new System.Windows.Forms.Button();
+            this.panelShowDGVProductosView = new System.Windows.Forms.Panel();
+            this.DGVProductos = new System.Windows.Forms.DataGridView();
+            this.chk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.panelShowPhotoView = new System.Windows.Forms.Panel();
+            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
+            this.panelShowPhotoView.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // DGVProductos
-            // 
-            this.DGVProductos.AllowUserToAddRows = false;
-            this.DGVProductos.AllowUserToDeleteRows = false;
-            this.DGVProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DGVProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DGVProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.chk});
-            this.DGVProductos.Location = new System.Drawing.Point(16, 266);
-            this.DGVProductos.Margin = new System.Windows.Forms.Padding(4);
-            this.DGVProductos.MultiSelect = false;
-            this.DGVProductos.Name = "DGVProductos";
-            this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVProductos.Size = new System.Drawing.Size(1508, 411);
-            this.DGVProductos.TabIndex = 1;
-            this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
-            this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick_1);
-            this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
-            this.DGVProductos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVProductos_CellPainting);
-            // 
-            // chk
-            // 
-            this.chk.HeaderText = "Seleccionar";
-            this.chk.MinimumWidth = 50;
-            this.chk.Name = "chk";
             // 
             // btnAgregarProducto
             // 
@@ -84,7 +60,7 @@
             this.btnAgregarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(1289, 203);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(1289, 204);
             this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(4);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(233, 33);
@@ -111,7 +87,7 @@
             this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(606, 86);
+            this.tituloBusqueda.Location = new System.Drawing.Point(630, 86);
             this.tituloBusqueda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloBusqueda.Name = "tituloBusqueda";
             this.tituloBusqueda.Size = new System.Drawing.Size(335, 22);
@@ -124,7 +100,7 @@
             this.txtBusqueda.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(163, 126);
+            this.txtBusqueda.Location = new System.Drawing.Point(191, 126);
             this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(1212, 27);
@@ -144,11 +120,11 @@
             "Z - A",
             "Mayor precio",
             "Menor precio"});
-            this.cbOrden.Location = new System.Drawing.Point(842, 206);
+            this.cbOrden.Location = new System.Drawing.Point(811, 206);
             this.cbOrden.Margin = new System.Windows.Forms.Padding(4);
             this.cbOrden.Name = "cbOrden";
             this.cbOrden.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbOrden.Size = new System.Drawing.Size(199, 29);
+            this.cbOrden.Size = new System.Drawing.Size(215, 29);
             this.cbOrden.TabIndex = 6;
             // 
             // cbMostrar
@@ -161,51 +137,56 @@
             "Habilitados",
             "Deshabilitados",
             "Todos"});
-            this.cbMostrar.Location = new System.Drawing.Point(1066, 206);
+            this.cbMostrar.Location = new System.Drawing.Point(1045, 206);
             this.cbMostrar.Margin = new System.Windows.Forms.Padding(4);
             this.cbMostrar.Name = "cbMostrar";
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbMostrar.Size = new System.Drawing.Size(199, 29);
+            this.cbMostrar.Size = new System.Drawing.Size(220, 29);
             this.cbMostrar.TabIndex = 7;
             this.cbMostrar.SelectedIndexChanged += new System.EventHandler(this.cbMostrar_SelectedIndexChanged);
             // 
-            // button2
+            // btnListView
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.list;
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.Location = new System.Drawing.Point(522, 201);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(145, 38);
-            this.button2.TabIndex = 12;
-            this.button2.Text = "Lista";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnListView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnListView.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
+            this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnListView.Location = new System.Drawing.Point(494, 203);
+            this.btnListView.Name = "btnListView";
+            this.btnListView.Size = new System.Drawing.Size(131, 34);
+            this.btnListView.TabIndex = 12;
+            this.btnListView.Text = "Lista";
+            this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnListView.UseVisualStyleBackColor = true;
+            this.btnListView.Click += new System.EventHandler(this.btnListView_Click);
             // 
-            // button1
+            // btnPhotoView
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.th;
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(673, 201);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(145, 38);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "Mosaico";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnPhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th;
+            this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPhotoView.Location = new System.Drawing.Point(631, 203);
+            this.btnPhotoView.Name = "btnPhotoView";
+            this.btnPhotoView.Size = new System.Drawing.Size(131, 34);
+            this.btnPhotoView.TabIndex = 11;
+            this.btnPhotoView.Text = "Mosaico";
+            this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPhotoView.UseVisualStyleBackColor = true;
+            this.btnPhotoView.Click += new System.EventHandler(this.btnPhotoView_Click);
             // 
             // btnModificarEstado
             // 
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
             this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(185, 201);
+            this.btnModificarEstado.Location = new System.Drawing.Point(203, 203);
             this.btnModificarEstado.Name = "btnModificarEstado";
-            this.btnModificarEstado.Size = new System.Drawing.Size(201, 35);
+            this.btnModificarEstado.Size = new System.Drawing.Size(219, 35);
             this.btnModificarEstado.TabIndex = 10;
             this.btnModificarEstado.Text = "Modificar Estado";
             this.btnModificarEstado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnModificarEstado.UseVisualStyleBackColor = true;
             this.btnModificarEstado.Click += new System.EventHandler(this.btnModificarEstado_Click);
             // 
@@ -215,23 +196,79 @@
             this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
-            this.btnAgregarXML.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarXML.Location = new System.Drawing.Point(16, 201);
+            this.btnAgregarXML.Location = new System.Drawing.Point(16, 203);
             this.btnAgregarXML.Name = "btnAgregarXML";
-            this.btnAgregarXML.Size = new System.Drawing.Size(163, 35);
+            this.btnAgregarXML.Size = new System.Drawing.Size(181, 34);
             this.btnAgregarXML.TabIndex = 8;
             this.btnAgregarXML.Text = "Agregar XML";
-            this.btnAgregarXML.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
+            // 
+            // panelShowDGVProductosView
+            // 
+            this.panelShowDGVProductosView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelShowDGVProductosView.Controls.Add(this.DGVProductos);
+            this.panelShowDGVProductosView.Location = new System.Drawing.Point(16, 244);
+            this.panelShowDGVProductosView.Name = "panelShowDGVProductosView";
+            this.panelShowDGVProductosView.Size = new System.Drawing.Size(1506, 434);
+            this.panelShowDGVProductosView.TabIndex = 13;
+            // 
+            // DGVProductos
+            // 
+            this.DGVProductos.AllowUserToAddRows = false;
+            this.DGVProductos.AllowUserToDeleteRows = false;
+            this.DGVProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGVProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.chk});
+            this.DGVProductos.Location = new System.Drawing.Point(14, 18);
+            this.DGVProductos.Margin = new System.Windows.Forms.Padding(4);
+            this.DGVProductos.MultiSelect = false;
+            this.DGVProductos.Name = "DGVProductos";
+            this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DGVProductos.Size = new System.Drawing.Size(1476, 399);
+            this.DGVProductos.TabIndex = 2;
+            this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick_1);
+            this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick_1);
+            this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter_1);
+            this.DGVProductos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVProductos_CellPainting_1);
+            // 
+            // chk
+            // 
+            this.chk.HeaderText = "Seleccionar";
+            this.chk.MinimumWidth = 50;
+            this.chk.Name = "chk";
+            // 
+            // panelShowPhotoView
+            // 
+            this.panelShowPhotoView.Controls.Add(this.fLPShowPhoto);
+            this.panelShowPhotoView.Location = new System.Drawing.Point(16, 244);
+            this.panelShowPhotoView.Name = "panelShowPhotoView";
+            this.panelShowPhotoView.Size = new System.Drawing.Size(1506, 434);
+            this.panelShowPhotoView.TabIndex = 14;
+            // 
+            // fLPShowPhoto
+            // 
+            this.fLPShowPhoto.Location = new System.Drawing.Point(14, 18);
+            this.fLPShowPhoto.Name = "fLPShowPhoto";
+            this.fLPShowPhoto.Size = new System.Drawing.Size(1476, 399);
+            this.fLPShowPhoto.TabIndex = 0;
             // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1540, 690);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.panelShowPhotoView);
+            this.Controls.Add(this.panelShowDGVProductosView);
+            this.Controls.Add(this.btnListView);
+            this.Controls.Add(this.btnPhotoView);
             this.Controls.Add(this.btnModificarEstado);
             this.Controls.Add(this.btnAgregarXML);
             this.Controls.Add(this.cbMostrar);
@@ -240,19 +277,19 @@
             this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.tituloBusqueda);
             this.Controls.Add(this.tituloSeccion);
-            this.Controls.Add(this.DGVProductos);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Productos";
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
+            this.panelShowDGVProductosView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).EndInit();
+            this.panelShowPhotoView.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.DataGridView DGVProductos;
         private System.Windows.Forms.Button btnAgregarProducto;
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.Label tituloBusqueda;
@@ -260,9 +297,13 @@
         private System.Windows.Forms.ComboBox cbOrden;
         private System.Windows.Forms.ComboBox cbMostrar;
         private System.Windows.Forms.Button btnAgregarXML;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn chk;
         private System.Windows.Forms.Button btnModificarEstado;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnPhotoView;
+        private System.Windows.Forms.Button btnListView;
+        private System.Windows.Forms.Panel panelShowDGVProductosView;
+        private System.Windows.Forms.DataGridView DGVProductos;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn chk;
+        private System.Windows.Forms.Panel panelShowPhotoView;
+        private System.Windows.Forms.FlowLayoutPanel fLPShowPhoto;
     }
 }
