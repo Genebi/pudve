@@ -126,6 +126,7 @@
             this.cbOrden.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbOrden.Size = new System.Drawing.Size(215, 29);
             this.cbOrden.TabIndex = 6;
+            this.cbOrden.SelectedIndexChanged += new System.EventHandler(this.cbOrden_SelectedIndexChanged);
             // 
             // cbMostrar
             // 

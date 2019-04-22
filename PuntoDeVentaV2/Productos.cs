@@ -109,6 +109,15 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cbOrden_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtro = Convert.ToString(cbOrden.SelectedItem);
+            if (filtro == "A - Z")
+            {
+                DGVProductos.Sort(DGVProductos.Columns["Nombre"], ListSortDirection.Ascending);
+            }
+        }
+
         // Metodo creado para manejo de mostrar ventana
         private void ProductPhotoButtonClick(object sender, EventArgs e)
         {
