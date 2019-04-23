@@ -212,7 +212,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelShowDGVProductosView.Controls.Add(this.DGVProductos);
-            this.panelShowDGVProductosView.Location = new System.Drawing.Point(16, 244);
+            this.panelShowDGVProductosView.Location = new System.Drawing.Point(19, 241);
             this.panelShowDGVProductosView.Name = "panelShowDGVProductosView";
             this.panelShowDGVProductosView.Size = new System.Drawing.Size(1506, 434);
             this.panelShowDGVProductosView.TabIndex = 13;
@@ -273,8 +273,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1540, 690);
-            this.Controls.Add(this.panelShowPhotoView);
             this.Controls.Add(this.panelShowDGVProductosView);
+            this.Controls.Add(this.panelShowPhotoView);
             this.Controls.Add(this.btnListView);
             this.Controls.Add(this.btnPhotoView);
             this.Controls.Add(this.btnModificarEstado);

@@ -84,7 +84,8 @@ namespace PuntoDeVentaV2
                 Button btn = new Button();
                 btn.Text = row["Nombre"].ToString();
                 btn.Size = new System.Drawing.Size(150, 150);
-                btn.Font = new Font(btn.Font.FontFamily, 10);
+                btn.Font = new Font("Tahoma", 14, FontStyle.Bold | FontStyle.Italic);
+                btn.TextAlign = ContentAlignment.TopCenter;
                 if (row["ProdImage"].ToString() == "" || row["ProdImage"].ToString() == null)
                 {
                     btn.ForeColor = Color.Red;
@@ -96,7 +97,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (row["ProdImage"].ToString() != "" || row["ProdImage"].ToString() != null)
                 {
-                    btn.ForeColor = Color.Black;
+                    btn.ForeColor = Color.Red;
                     using (fs = new FileStream(row["ProdImage"].ToString(), FileMode.Open))
                     {
                         btn.Image = Image.FromStream(fs);
@@ -114,7 +115,16 @@ namespace PuntoDeVentaV2
             filtro = Convert.ToString(cbOrden.SelectedItem);
             if (filtro == "A - Z")
             {
-                DGVProductos.Sort(DGVProductos.Columns["Nombre"], ListSortDirection.Ascending);
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    DGVProductos.Sort(DGVProductos.Columns["Nombre"], ListSortDirection.Ascending);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "Nombre ASC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
             }
             else if (filtro == "Z - A")
             {
@@ -447,6 +457,9 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            panelShowPhotoView.Visible = false;
+            panelShowDGVProductosView.Visible = true;
+
             CargarDatos();
             cbOrden.SelectedIndex = 0;
             cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -506,9 +519,6 @@ namespace PuntoDeVentaV2
 
             DGVProductos.Columns["Path"].Visible = false;
             DGVProductos.Columns["Activo"].Visible = false;
-
-            panelShowPhotoView.Visible = false;
-            panelShowDGVProductosView.Visible = true;
         }
 
         private void CargarDatos()
