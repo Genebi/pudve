@@ -39,7 +39,7 @@ namespace PuntoDeVentaV2
             Producto = cn.CargarDatos(queryProducto);
             DataRow row = Producto.Rows[0];
             lblNombre.Text = row["Nombre"].ToString();
-            lblPrecio.Text = row["Precio"].ToString();
+            lblPrecio.Text = Convert.ToDecimal(row["Precio"]).ToString("N2");
             lblStock.Text = row["Stock"].ToString();
             lblCategoria.Text = row["Categoria"].ToString();
             lblClaveInterna.Text = row["Clave Interna"].ToString();

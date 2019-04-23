@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
 
         private void searchPhotoProd()
         {
-            queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
+            queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
             fotos = cn.CargarDatos(queryFotos);
         }
         
@@ -82,7 +82,7 @@ namespace PuntoDeVentaV2
             foreach (DataRow row in fotos.Rows)
             {
                 Button btn = new Button();
-                btn.Text = row["Nombre"].ToString();
+                btn.Text = row["Nombre"].ToString()+ "\n $"+Convert.ToDecimal(row["Precio"]).ToString("N2");
                 btn.Size = new System.Drawing.Size(150, 150);
                 btn.Font = new Font("Tahoma", 14, FontStyle.Bold | FontStyle.Italic);
                 btn.TextAlign = ContentAlignment.TopCenter;
@@ -141,15 +141,42 @@ namespace PuntoDeVentaV2
             }
             else if (filtro == "Mayor precio")
             {
-                DGVProductos.Sort(DGVProductos.Columns["Precio"], ListSortDirection.Descending);
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    DGVProductos.Sort(DGVProductos.Columns["Precio"], ListSortDirection.Descending);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "Precio DESC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow(); 
+                }
             }
             else if (filtro == "Menor precio")
             {
-                DGVProductos.Sort(DGVProductos.Columns["Precio"], ListSortDirection.Ascending);
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    DGVProductos.Sort(DGVProductos.Columns["Precio"], ListSortDirection.Ascending);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "Precio ASC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
             }
             else if (filtro == "Ordenar por:")
             {
-                CargarDatos();
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    CargarDatos();
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "ID ASC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
             }
         }
 
@@ -454,9 +481,19 @@ namespace PuntoDeVentaV2
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
             //dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
-            limpiarDGV();
-            string buscarStock = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + txtBusqueda.Text + "%'";
-            DGVProductos.DataSource = cn.GetStockProd(buscarStock);
+            string buscarStock;
+            if (panelShowDGVProductosView.Visible == true)
+            {
+                limpiarDGV();
+                buscarStock = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + txtBusqueda.Text + "%'";
+                DGVProductos.DataSource = cn.GetStockProd(buscarStock);
+            }
+            else if (panelShowPhotoView.Visible == true)
+            {
+                buscarStock = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Nombre LIKE '%" + txtBusqueda.Text + "%'";
+                fotos = cn.CargarDatos(buscarStock);
+                photoShow();
+            }
         }
 
         public Productos()
