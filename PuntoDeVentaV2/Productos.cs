@@ -128,7 +128,16 @@ namespace PuntoDeVentaV2
             }
             else if (filtro == "Z - A")
             {
-                DGVProductos.Sort(DGVProductos.Columns["Nombre"], ListSortDirection.Descending);
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    DGVProductos.Sort(DGVProductos.Columns["Nombre"], ListSortDirection.Descending);
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    fotos.DefaultView.Sort = "Nombre DESC";
+                    fotos = fotos.DefaultView.ToTable();
+                    photoShow();
+                }
             }
             else if (filtro == "Mayor precio")
             {
