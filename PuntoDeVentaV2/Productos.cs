@@ -596,8 +596,8 @@ namespace PuntoDeVentaV2
                 Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
                 Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
                 Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Bag.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\product-hunt.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
                 row.Cells["Column7"].ToolTipText = "Editar el Producto";
@@ -692,8 +692,8 @@ namespace PuntoDeVentaV2
                 Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
                 Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
                 Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Bag.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\product-hunt.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
                 row.Cells["Column7"].ToolTipText = "Editar el Producto";
@@ -788,8 +788,8 @@ namespace PuntoDeVentaV2
                 Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
                 Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
                 Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Bag.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\product-hunt.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
                 row.Cells["Column7"].ToolTipText = "Editar el Producto";
@@ -884,8 +884,8 @@ namespace PuntoDeVentaV2
                 Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
                 Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
                 Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Bag.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\product-hunt.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
                 row.Cells["Column7"].ToolTipText = "Editar el Producto";
