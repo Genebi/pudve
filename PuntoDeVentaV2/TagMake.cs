@@ -62,10 +62,15 @@ namespace PuntoDeVentaV2
             paragraph3.Alignment = Element.ALIGN_CENTER;
             doc.Add(paragraph3);
 
-            Paragraph paragraph4 = new Paragraph(new Chunk(CodigoBarProdFinal+" - $"+PrecioProdFinal.ToString("N2"), font));
+            Paragraph paragraph4 = new Paragraph(new Chunk("Cod Bar: " + CodigoBarProdFinal, font));
             paragraph4.Leading = 8;
             paragraph4.Alignment = Element.ALIGN_CENTER;
             doc.Add(paragraph4);
+
+            Paragraph paragraph5 = new Paragraph(new Chunk("Precio: $" + PrecioProdFinal.ToString("N2"), font));
+            paragraph5.Leading = 8;
+            paragraph5.Alignment = Element.ALIGN_CENTER;
+            doc.Add(paragraph5);
 
             doc.AddAuthor("www.pudve.com");
             doc.AddCreator("PUDVE");

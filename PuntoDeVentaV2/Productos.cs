@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -58,6 +59,20 @@ namespace PuntoDeVentaV2
 
         string queryFotos, queryGral;
 
+        private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 0)
+            {
+                foreach (DataGridViewRow row in DGVProductos.Rows)
+                {
+                    if (Convert.ToBoolean(row.Cells[e.ColumnIndex].Value))
+                    {
+                        row.Cells[e.ColumnIndex].Value = false;
+                    }
+                }
+            }
+        }
+
         // objeto de FileStream para poder hacer el manejo de las imagenes
         FileStream fs;
 
@@ -65,15 +80,25 @@ namespace PuntoDeVentaV2
 
         private void searchPhotoProd()
         {
-            queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
+            queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}'";
+            fotos = cn.CargarDatos(queryFotos);
+        }
+
+        private void searchPhotoProdActivo()
+        {
+            queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Status = 1";
+            fotos = cn.CargarDatos(queryFotos);
+        }
+
+        private void searchPhotoProdInactivo()
+        {
+            queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Status = 0";
             fotos = cn.CargarDatos(queryFotos);
         }
         
         private void searchToProdGral()
         {
-            queryGral = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P WHERE P.IDUsuario = '{FormPrincipal.userID}'";
-            registros = cn.CargarDatos(queryGral);
-            DGVProductos.DataSource = registros;
+            CargarDatos();
         }
 
         private void photoShow()
@@ -117,7 +142,7 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
-                    DGVProductos.Sort(DGVProductos.Columns["Nombre"], ListSortDirection.Ascending);
+                    DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Ascending);
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -130,7 +155,7 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
-                    DGVProductos.Sort(DGVProductos.Columns["Nombre"], ListSortDirection.Descending);
+                    DGVProductos.Sort(DGVProductos.Columns["Column1"], ListSortDirection.Descending);
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -143,7 +168,7 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
-                    DGVProductos.Sort(DGVProductos.Columns["Precio"], ListSortDirection.Descending);
+                    DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Descending);
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -156,7 +181,7 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
-                    DGVProductos.Sort(DGVProductos.Columns["Precio"], ListSortDirection.Ascending);
+                    DGVProductos.Sort(DGVProductos.Columns["Column3"], ListSortDirection.Ascending);
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -240,7 +265,7 @@ namespace PuntoDeVentaV2
         private void DGVProductos_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)
         {
             //Boton editar producto
-            if (e.ColumnIndex == 1 || e.ColumnIndex == 2 || e.ColumnIndex == 3 || e.ColumnIndex == 4 || e.ColumnIndex == 5 || e.ColumnIndex == 6 || e.ColumnIndex == 7)
+            if (e.ColumnIndex == 0 || e.ColumnIndex == 7 || e.ColumnIndex == 8 || e.ColumnIndex == 9 || e.ColumnIndex == 10 || e.ColumnIndex == 11 || e.ColumnIndex == 12 || e.ColumnIndex == 13)
             {
                 DGVProductos.Cursor = Cursors.Hand;
             }
@@ -258,135 +283,136 @@ namespace PuntoDeVentaV2
                 obtenerDatosDGVProductos(numerofila);
                 editarEstado = 4;
             }
-        }
-
-        private void DGVProductos_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 0)
+            else if (e.ColumnIndex == 7)
             {
-                foreach (DataGridViewRow row in DGVProductos.Rows)
+                if (seleccionadoDato == 0)
                 {
-                    if (Convert.ToBoolean(row.Cells[e.ColumnIndex].Value))
+                    seleccionadoDato = 1;
+                    numerofila = e.RowIndex;
+                    obtenerDatosDGVProductos(numerofila);
+                    origenDeLosDatos = 2;
+                }
+                btnAgregarProducto.PerformClick();
+            }
+            else if (e.ColumnIndex == 8)
+            {
+                index = 0;
+                DialogResult result = MessageBox.Show("Realmente desdea Modificar el estado?", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    numerofila = e.RowIndex;
+                    obtenerDatosDGVProductos(numerofila);
+                    status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
+                    ModificarStatusProducto();
+                    if (status == "1")
                     {
-                        row.Cells[e.ColumnIndex].Value = false;
+                        cbMostrar.Text = "Deshabilitados";
+                    }
+                    else if (status == "0")
+                    {
+                        cbMostrar.Text = "Habilitados";
+                    }
+                    DGVProductos.Refresh();
+                }
+            }
+            else if (e.ColumnIndex == 9)
+            {
+                numerofila = e.RowIndex;
+                obtenerDatosDGVProductos(numerofila);
+                ViewRecordProducto();
+            }
+            else if (e.ColumnIndex == 10)
+            {
+                string codiBarProd = "";
+                numfila = e.RowIndex;
+                obtenerDatosDGVProductos(numfila);
+                //MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MakeBarCode.FormClosed += delegate
+                {
+
+                };
+                if (!MakeBarCode.Visible)
+                {
+                    MakeBarCode.NombreProd = Nombre;
+                    MakeBarCode.PrecioProd = Precio;
+                    codiBarProd = CodigoBarras;
+                    if (codiBarProd != "")
+                    {
+                        MakeBarCode.CodigoBarProd = codiBarProd;
+                        MakeBarCode.ShowDialog();
+                    }
+                    else if (codiBarProd == "")
+                    {
+                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MakeBarCode.NombreProd = Nombre;
+                    MakeBarCode.PrecioProd = Precio;
+                    codiBarProd = CodigoBarras;
+                    if (codiBarProd != "")
+                    {
+                        MakeBarCode.CodigoBarProd = codiBarProd;
+                        MakeBarCode.BringToFront();
+                    }
+                    else if (codiBarProd == "")
+                    {
+                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
-        }
-
-        private void DGVProductos_CellPainting_1(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "status" && e.RowIndex >= 0)
+            else if (e.ColumnIndex == 11)
             {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+                numfila = e.RowIndex;
+                obtenerDatosDGVProductos(numfila);
 
-                string valor = DGVProductos.Rows[e.RowIndex].Cells["Activo"].Value.ToString();
+                string pathString;
 
-                DataGridViewButtonCell statusBoton = this.DGVProductos.Rows[e.RowIndex].Cells["status"] as DataGridViewButtonCell;
-                //statusBoton.FlatStyle = FlatStyle.Flat;
-                //statusBoton.Style.BackColor = Color.GhostWhite;
+                pathString = savePath;
 
-                if (valor == "1")
+                if (pathString != "")
                 {
-                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.ico");
-                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                    mostrarFoto();
                 }
-                if (valor == "0")
+                else if (pathString == "")
                 {
-                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.ico");
-                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                    agregarFoto();
                 }
-                e.Handled = true;
             }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "historial" && e.RowIndex >= 0)
+            else if (e.ColumnIndex == 12)
             {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell historialBoton = this.DGVProductos.Rows[e.RowIndex].Cells["historial"] as DataGridViewButtonCell;
-                //historialBoton.FlatStyle = FlatStyle.Flat;
-                //historialBoton.Style.BackColor = Color.GhostWhite;
-
-                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.ico");
-                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-
-                e.Handled = true;
-            }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "CodigoBarras" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell codigoBarrasBoton = this.DGVProductos.Rows[e.RowIndex].Cells["CodigoBarras"] as DataGridViewButtonCell;
-                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
-                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
-
-                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.ico");
-                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-
-                e.Handled = true;
-            }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "Fotos" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                string valor = DGVProductos.Rows[e.RowIndex].Cells["Path"].Value.ToString();
-
-                DataGridViewButtonCell photoBoton = this.DGVProductos.Rows[e.RowIndex].Cells["Fotos"] as DataGridViewButtonCell;
-                //photoBoton.FlatStyle = FlatStyle.Flat;
-                //photoBoton.Style.BackColor = Color.GhostWhite;
-
-                if (valor == "")
+                numerofila = e.RowIndex;
+                obtenerDatosDGVProductos(numerofila);
+                MakeTagProd.FormClosed += delegate
                 {
-                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.ico");
-                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-                }
-                if (valor != "")
+
+                };
+                if (!MakeTagProd.Visible)
                 {
-                    image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.ico");
-                    e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                    this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                    this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
+                    MakeTagProd.NombreProd = Nombre;
+                    MakeTagProd.PrecioProd = float.Parse(Precio);
+                    MakeTagProd.CodigoBarProd = CodigoBarras;
+                    MakeTagProd.ShowDialog();
                 }
-                e.Handled = true;
+                else
+                {
+                    MakeTagProd.NombreProd = Nombre;
+                    MakeTagProd.PrecioProd = float.Parse(Precio);
+                    MakeTagProd.CodigoBarProd = CodigoBarras;
+                    MakeTagProd.BringToFront();
+                }
             }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "TagProducto" && e.RowIndex >= 0)
+            else if (e.ColumnIndex == 13)
             {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell tagProdBoton = this.DGVProductos.Rows[e.RowIndex].Cells["TagProducto"] as DataGridViewButtonCell;
-                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
-                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
-
-                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.ico");
-                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-
-                e.Handled = true;
-            }
-            if (e.ColumnIndex >= 0 && this.DGVProductos.Columns[e.ColumnIndex].Name == "copyProd" && e.RowIndex >= 0)
-            {
-                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
-                DataGridViewButtonCell copyProdBoton = this.DGVProductos.Rows[e.RowIndex].Cells["copyProd"] as DataGridViewButtonCell;
-                //codigoBarrasBoton.FlatStyle = FlatStyle.Flat;
-                //codigoBarrasBoton.Style.BackColor = Color.GhostWhite;
-
-                image = new Icon(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.ico");
-                e.Graphics.DrawIcon(image, e.CellBounds.Left + 18, e.CellBounds.Top + 3);
-                this.DGVProductos.Rows[e.RowIndex].Height = image.Height + 8;
-                this.DGVProductos.Columns[e.ColumnIndex].Width = image.Width + 36;
-
-                e.Handled = true;
+                if (seleccionadoDato == 0)
+                {
+                    seleccionadoDato = 1;
+                    numerofila = e.RowIndex;
+                    obtenerDatosDGVProductos(numerofila);
+                    origenDeLosDatos = 4;
+                }
+                btnAgregarProducto.PerformClick();
             }
         }
 
@@ -408,7 +434,7 @@ namespace PuntoDeVentaV2
                 DialogResult result = MessageBox.Show("Desdea Realmente Modificar el Estatus del\nProducto: " + Nombre + "\nde su Stock Existente", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    status = DGVProductos.Rows[numerofila].Cells["Activo"].Value.ToString();
+                    status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
                     ModificarStatusProductoChkBox();
                     if (status == "1")
                     {
@@ -447,13 +473,13 @@ namespace PuntoDeVentaV2
 
         public void obtenerDatosDGVProductos(int fila)
         {
-            Nombre = DGVProductos.Rows[fila].Cells["Nombre"].Value.ToString();
-            Stock = DGVProductos.Rows[fila].Cells["Stock"].Value.ToString();
-            Precio = DGVProductos.Rows[fila].Cells["Precio"].Value.ToString();
-            ProductoCategoria = DGVProductos.Rows[fila].Cells["Categoria"].Value.ToString();
-            ClaveInterna = DGVProductos.Rows[fila].Cells["Clave Interna"].Value.ToString();
-            CodigoBarras = DGVProductos.Rows[fila].Cells["Código de Barras"].Value.ToString();
-            savePath = DGVProductos.Rows[fila].Cells["Path"].Value.ToString();
+            Nombre = DGVProductos.Rows[fila].Cells["Column1"].Value.ToString();
+            Stock = DGVProductos.Rows[fila].Cells["Column2"].Value.ToString();
+            Precio = DGVProductos.Rows[fila].Cells["Column3"].Value.ToString();
+            ProductoCategoria = DGVProductos.Rows[fila].Cells["Column4"].Value.ToString();
+            ClaveInterna = DGVProductos.Rows[fila].Cells["Column5"].Value.ToString();
+            CodigoBarras = DGVProductos.Rows[fila].Cells["Column6"].Value.ToString();
+            savePath = DGVProductos.Rows[fila].Cells["Column15"].Value.ToString();
             id = FormPrincipal.userID.ToString();
         }
 
@@ -462,19 +488,39 @@ namespace PuntoDeVentaV2
             filtro = Convert.ToString(cbMostrar.SelectedItem);      // tomamos el valor que se elige en el TextBox
             if (filtro == "Habilitados")                            // comparamos si el valor a filtrar es Habilitados
             {
-                // almacenamos el resultado de la consulta en dtConsulta
-                dtConsulta = cn.CargarDatos(cs.StatusProductos(FormPrincipal.userID.ToString(), "1"));
-                DGVProductos.DataSource = dtConsulta;               // llenamos el DataGridView con el resultado de la consulta
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    CargarDatosActivos();
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    searchPhotoProdActivo();
+                    photoShow();
+                }
             }
             else if (filtro == "Deshabilitados")                    // comparamos si el valor a filtrar es Deshabilitados
             {
-                // almacenamos el resultado de la consulta en dtConsulta
-                dtConsulta = cn.CargarDatos(cs.StatusProductos(FormPrincipal.userID.ToString(), "0"));
-                DGVProductos.DataSource = dtConsulta;               // llenamos el DataGridView con el resultado de la consulta
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    CargarDatosInactivos();
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    searchPhotoProdInactivo();
+                    photoShow();
+                }
             }
             else if (filtro == "Todos")                             // comparamos si el valor a filtrar es Todos
             {
-                CargarDatos();                                      // cargamos todos los registros
+                if (panelShowDGVProductosView.Visible == true)
+                {
+                    CargarDatos();                                      // cargamos todos los registros
+                }
+                else if (panelShowPhotoView.Visible == true)
+                {
+                    searchPhotoProd();
+                    photoShow();
+                }
             }
         }
 
@@ -484,9 +530,7 @@ namespace PuntoDeVentaV2
             string buscarStock;
             if (panelShowDGVProductosView.Visible == true)
             {
-                limpiarDGV();
-                buscarStock = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + txtBusqueda.Text + "%'";
-                DGVProductos.DataSource = cn.GetStockProd(buscarStock);
+                CargarDatosBusqueda(txtBusqueda.Text);
             }
             else if (panelShowPhotoView.Visible == true)
             {
@@ -511,82 +555,391 @@ namespace PuntoDeVentaV2
             cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMostrar.SelectedIndex = 0;
             cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            DataGridViewImageColumn editar = new DataGridViewImageColumn();
-            editar.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
-            editar.Width = 50;
-            editar.HeaderText = "Editar";
-            DGVProductos.Columns.Add(editar);
-
-            setup = new DataGridViewButtonColumn();
-            setup.Width = 40;
-            setup.Name = "status";
-            setup.HeaderText = "Estado";
-            DGVProductos.Columns.Add(setup);
-
-            record = new DataGridViewButtonColumn();
-            record.Width = 40;
-            record.Name = "historial";
-            record.HeaderText = "Historial";
-            DGVProductos.Columns.Add(record);
-
-            barcode = new DataGridViewButtonColumn();
-            barcode.Width = 40;
-            barcode.Name = "CodigoBarras";
-            barcode.HeaderText = "Generar";
-            DGVProductos.Columns.Add(barcode);
-
-            foto = new DataGridViewButtonColumn();
-            foto.Width = 40;
-            foto.Name = "Fotos";
-            foto.HeaderText = "Imagen";
-            DGVProductos.Columns.Add(foto);
-
-            tag = new DataGridViewButtonColumn();
-            tag.Width = 40;
-            tag.Name = "TagProducto";
-            tag.HeaderText = "Etiqueta";
-            DGVProductos.Columns.Add(tag);
-
-            copy = new DataGridViewButtonColumn();
-            copy.Width = 40;
-            copy.Name = "copyProd";
-            copy.HeaderText = "Copiar";
-            DGVProductos.Columns.Add(copy);
-
-            DGVProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarProducto);
-            DGVProductos.CellClick += new DataGridViewCellEventHandler(EditarStatus);
-            DGVProductos.CellClick += new DataGridViewCellEventHandler(RecordView);
-            DGVProductos.CellClick += new DataGridViewCellEventHandler(BarCodeMake);
-            DGVProductos.CellClick += new DataGridViewCellEventHandler(PhotoStatus);
-            DGVProductos.CellClick += new DataGridViewCellEventHandler(TagProdView);
-            DGVProductos.CellClick += new DataGridViewCellEventHandler(CopyMake);
-
-            DGVProductos.Columns["Path"].Visible = false;
-            DGVProductos.Columns["Activo"].Visible = false;
         }
 
         private void CargarDatos()
         {
-            cn.CargarInformacion(cs.Productos(FormPrincipal.userID), DGVProductos);
-            number_of_rows = DGVProductos.RowCount;
+            //cn.CargarInformacion(cs.Productos(FormPrincipal.userID), DGVProductos);
+            SQLiteConnection sql_con;
+            SQLiteCommand sql_cmd;
+            SQLiteDataReader dr;
+
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con.Open();
+            sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}'", sql_con);
+            dr = sql_cmd.ExecuteReader();
+
+            //limpiarDGV();
+            DGVProductos.Rows.Clear();
+
+            while (dr.Read())
+            {
+                number_of_rows = DGVProductos.Rows.Add();
+
+                DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+                row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
+                row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
+                row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
+                row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
+                row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
+                row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
+
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
+                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
+                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
+                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
+                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
+                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
+                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
+                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
+                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Bag.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\product-hunt.png");
+
+                row.Cells["Column7"].Value = editar;
+                row.Cells["Column7"].ToolTipText = "Editar el Producto";
+
+                string estado= dr.GetValue(dr.GetOrdinal("Status")).ToString();
+                if (estado == "1")
+                {
+                    row.Cells["Column8"].Value = estado1;
+                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                }
+                else if (estado == "0")
+                {
+                    row.Cells["Column8"].Value = estado2;
+                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                }
+
+                row.Cells["Column9"].Value = historial;
+                row.Cells["Column9"].ToolTipText = "Historial de Compra";
+
+                row.Cells["Column10"].Value = generar;
+                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
+
+                string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
+                if (ImgPath == "" || ImgPath == null)
+                {
+                    row.Cells["Column11"].Value = imagen1;
+                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                }
+                else if (ImgPath != "" || ImgPath != null)
+                {
+                    row.Cells["Column11"].Value = imagen2;
+                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                }
+
+                row.Cells["Column12"].Value = etiqueta;
+                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
+
+                row.Cells["Column13"].Value = copy;
+                row.Cells["Column13"].ToolTipText = "Copiar Producto";
+
+                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+                if (TipoProd == "P")
+                {
+                    row.Cells["Column16"].Value = product;
+                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                }
+                else if (TipoProd == "S")
+                {
+                    row.Cells["Column16"].Value = package;
+                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                }
+            }
+            dr.Close();
+            sql_con.Close();
         }
 
-        // metodo para cargar los productos Activos
-        public void cargarProductosActivos()
+        private void CargarDatosActivos()
         {
-            string consulta = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = '1'";
-            dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
-            DGVProductos.DataSource = dtConsulta;
+            SQLiteConnection sql_con;
+            SQLiteCommand sql_cmd;
+            SQLiteDataReader dr;
+
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con.Open();
+            sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 1", sql_con);
+            dr = sql_cmd.ExecuteReader();
+
+            //limpiarDGV();
+            DGVProductos.Rows.Clear();
+
+            while (dr.Read())
+            {
+                number_of_rows = DGVProductos.Rows.Add();
+
+                DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+                row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
+                row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
+                row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
+                row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
+                row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
+                row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
+
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
+                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
+                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
+                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
+                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
+                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
+                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
+                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
+                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Bag.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\product-hunt.png");
+
+                row.Cells["Column7"].Value = editar;
+                row.Cells["Column7"].ToolTipText = "Editar el Producto";
+
+                string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
+                if (estado == "1")
+                {
+                    row.Cells["Column8"].Value = estado1;
+                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                }
+                else if (estado == "0")
+                {
+                    row.Cells["Column8"].Value = estado2;
+                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                }
+
+                row.Cells["Column9"].Value = historial;
+                row.Cells["Column9"].ToolTipText = "Historial de Compra";
+
+                row.Cells["Column10"].Value = generar;
+                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
+
+                string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
+                if (ImgPath == "" || ImgPath == null)
+                {
+                    row.Cells["Column11"].Value = imagen1;
+                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                }
+                else if (ImgPath != "" || ImgPath != null)
+                {
+                    row.Cells["Column11"].Value = imagen2;
+                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                }
+
+                row.Cells["Column12"].Value = etiqueta;
+                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
+
+                row.Cells["Column13"].Value = copy;
+                row.Cells["Column13"].ToolTipText = "Copiar Producto";
+
+                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+                if (TipoProd == "P")
+                {
+                    row.Cells["Column16"].Value = product;
+                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                }
+                else if (TipoProd == "S")
+                {
+                    row.Cells["Column16"].Value = package;
+                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                }
+            }
+            dr.Close();
+            sql_con.Close();
         }
 
-        // metodo para cargar los productos No Activos
-        public void cargarProductosNoActivos()
+        private void CargarDatosBusqueda(string busqueda)
         {
-            string consulta = $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path' FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = '0'";
-            dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
-            DGVProductos.DataSource = dtConsulta;
+            SQLiteConnection sql_con;
+            SQLiteCommand sql_cmd;
+            SQLiteDataReader dr;
+
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con.Open();
+            sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + busqueda + "%' ", sql_con);
+            dr = sql_cmd.ExecuteReader();
+
+            //limpiarDGV();
+            DGVProductos.Rows.Clear();
+
+            while (dr.Read())
+            {
+                number_of_rows = DGVProductos.Rows.Add();
+
+                DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+                row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
+                row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
+                row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
+                row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
+                row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
+                row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
+
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
+                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
+                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
+                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
+                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
+                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
+                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
+                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
+                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Bag.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\product-hunt.png");
+
+                row.Cells["Column7"].Value = editar;
+                row.Cells["Column7"].ToolTipText = "Editar el Producto";
+
+                string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
+                if (estado == "1")
+                {
+                    row.Cells["Column8"].Value = estado1;
+                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                }
+                else if (estado == "0")
+                {
+                    row.Cells["Column8"].Value = estado2;
+                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                }
+
+                row.Cells["Column9"].Value = historial;
+                row.Cells["Column9"].ToolTipText = "Historial de Compra";
+
+                row.Cells["Column10"].Value = generar;
+                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
+
+                string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
+                if (ImgPath == "" || ImgPath == null)
+                {
+                    row.Cells["Column11"].Value = imagen1;
+                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                }
+                else if (ImgPath != "" || ImgPath != null)
+                {
+                    row.Cells["Column11"].Value = imagen2;
+                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                }
+
+                row.Cells["Column12"].Value = etiqueta;
+                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
+
+                row.Cells["Column13"].Value = copy;
+                row.Cells["Column13"].ToolTipText = "Copiar Producto";
+
+                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+                if (TipoProd == "P")
+                {
+                    row.Cells["Column16"].Value = product;
+                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                }
+                else if (TipoProd == "S")
+                {
+                    row.Cells["Column16"].Value = package;
+                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                }
+            }
+            dr.Close();
+            sql_con.Close();
+        }
+
+        private void CargarDatosInactivos()
+        {
+            SQLiteConnection sql_con;
+            SQLiteCommand sql_cmd;
+            SQLiteDataReader dr;
+
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con.Open();
+            sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 0", sql_con);
+            dr = sql_cmd.ExecuteReader();
+
+            //limpiarDGV();
+            DGVProductos.Rows.Clear();
+
+            while (dr.Read())
+            {
+                number_of_rows = DGVProductos.Rows.Add();
+
+                DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+                row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
+                row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
+                row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
+                row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
+                row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
+                row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
+
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
+                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
+                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
+                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
+                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
+                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
+                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
+                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
+                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Bag.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\product-hunt.png");
+
+                row.Cells["Column7"].Value = editar;
+                row.Cells["Column7"].ToolTipText = "Editar el Producto";
+
+                string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
+                if (estado == "1")
+                {
+                    row.Cells["Column8"].Value = estado1;
+                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                }
+                else if (estado == "0")
+                {
+                    row.Cells["Column8"].Value = estado2;
+                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                }
+
+                row.Cells["Column9"].Value = historial;
+                row.Cells["Column9"].ToolTipText = "Historial de Compra";
+
+                row.Cells["Column10"].Value = generar;
+                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
+
+                string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
+                if (ImgPath == "" || ImgPath == null)
+                {
+                    row.Cells["Column11"].Value = imagen1;
+                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                }
+                else if (ImgPath != "" || ImgPath != null)
+                {
+                    row.Cells["Column11"].Value = imagen2;
+                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                }
+
+                row.Cells["Column12"].Value = etiqueta;
+                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
+
+                row.Cells["Column13"].Value = copy;
+                row.Cells["Column13"].ToolTipText = "Copiar Producto";
+
+                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+                if (TipoProd == "P")
+                {
+                    row.Cells["Column16"].Value = product;
+                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                }
+                else if (TipoProd == "S")
+                {
+                    row.Cells["Column16"].Value = package;
+                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                }
+            }
+            dr.Close();
+            sql_con.Close();
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
@@ -654,22 +1007,6 @@ namespace PuntoDeVentaV2
                 }
             }
             origenDeLosDatos = 0;
-        }
-
-        private void EditarProducto(object sender, DataGridViewCellEventArgs e)
-        {
-            //Editar producto
-            if (e.ColumnIndex == 1)
-            {
-                if (seleccionadoDato==0)
-                {
-                    seleccionadoDato = 1;
-                    numerofila = e.RowIndex;
-                    obtenerDatosDGVProductos(numerofila);                   
-                    origenDeLosDatos = 2;
-                }
-                btnAgregarProducto.PerformClick();
-            }
         }
 
         private void ModificarStatusProducto()
@@ -762,104 +1099,6 @@ namespace PuntoDeVentaV2
             
         }
 
-        private void EditarStatus(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 2)
-            {
-                index = 0;
-                
-                DialogResult result = MessageBox.Show("Realmente desdea Modificar el estado?", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
-                {
-                    numerofila = e.RowIndex;
-                    obtenerDatosDGVProductos(numerofila);
-                    status = DGVProductos.Rows[numerofila].Cells[12].Value.ToString();
-                    ModificarStatusProducto();
-                    if (status == "1")
-                    {
-                        cbMostrar.Text = "Deshabilitados";
-                    }
-                    else if (status == "0")
-                    {
-                        cbMostrar.Text = "Habilitados";
-                    }
-                    DGVProductos.Refresh();
-                }
-                else if (result == DialogResult.No)
-                {
-                    status = cbMostrar.Text;
-                    if (status == "Habilitados")
-                    {
-                        DGVProductos.Refresh();
-                    }
-                    else if (status == "Deshabilitados")
-                    {
-                        DGVProductos.Refresh();
-                    }
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    DGVProductos.Refresh();
-                }
-            }
-        }
-
-        private void RecordView(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 3)
-            {
-                //MessageBox.Show("Proceso de construccion de Historial de compra","En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                numerofila = e.RowIndex;
-                obtenerDatosDGVProductos(numerofila);
-                ViewRecordProducto();
-            }
-        }
-
-        private void BarCodeMake(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 4)
-            {
-                string codiBarProd="";
-                numfila = e.RowIndex;
-                obtenerDatosDGVProductos(numfila);
-                //MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                MakeBarCode.FormClosed += delegate
-                {
-                    
-                };
-                if (!MakeBarCode.Visible)
-                {
-                    MakeBarCode.NombreProd = Nombre;
-                    MakeBarCode.PrecioProd = Precio;
-                    codiBarProd = CodigoBarras;
-                    if (codiBarProd != "")
-                    {
-                        MakeBarCode.CodigoBarProd = codiBarProd;
-                        MakeBarCode.ShowDialog();
-                    }
-                    else if (codiBarProd == "")
-                    {
-                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado","Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MakeBarCode.NombreProd = Nombre;
-                    MakeBarCode.PrecioProd = Precio;
-                    codiBarProd = CodigoBarras;
-                    if (codiBarProd != "")
-                    {
-                        MakeBarCode.CodigoBarProd = codiBarProd;
-                        MakeBarCode.BringToFront();
-                    }
-                    else if (codiBarProd == "")
-                    {
-                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-        }
-
         public void agregarFoto()
         {
             try
@@ -941,71 +1180,7 @@ namespace PuntoDeVentaV2
                 VentanaMostrarFoto.BringToFront();
             }
         }
-
-        public void PhotoStatus(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 5)
-            {
-                numfila = e.RowIndex;
-                obtenerDatosDGVProductos(numfila);
-                
-                string pathString;
-
-                pathString = savePath;
-
-                if (pathString != "")
-                {
-                    mostrarFoto(); 
-                }
-                else if (pathString == "")
-                {
-                    agregarFoto();
-                }
-            }
-        }
-
-        public void TagProdView(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 6)
-            {
-                numerofila = e.RowIndex;
-                obtenerDatosDGVProductos(numerofila);
-                MakeTagProd.FormClosed += delegate
-                {
-
-                };
-                if (!MakeTagProd.Visible)
-                {
-                    MakeTagProd.NombreProd = Nombre;
-                    MakeTagProd.PrecioProd = float.Parse(Precio);
-                    MakeTagProd.CodigoBarProd = CodigoBarras;
-                    MakeTagProd.ShowDialog();
-                }
-                else
-                {
-                    MakeTagProd.NombreProd = Nombre;
-                    MakeTagProd.PrecioProd = float.Parse(Precio);
-                    MakeTagProd.CodigoBarProd = CodigoBarras;
-                    MakeTagProd.BringToFront();
-                }
-            }
-        }
-
-        public void CopyMake(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == 7)
-            {
-                if (seleccionadoDato == 0)
-                {
-                    seleccionadoDato = 1;
-                    numerofila = e.RowIndex;
-                    obtenerDatosDGVProductos(numerofila);
-                    origenDeLosDatos = 4;
-                }
-                btnAgregarProducto.PerformClick();
-            }
-        }
-
+        
         private void btnAgregarXML_Click(object sender, EventArgs e)
         {
             FormXML.FormClosed += delegate 
