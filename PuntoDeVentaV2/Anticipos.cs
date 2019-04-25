@@ -83,7 +83,6 @@ namespace PuntoDeVentaV2
                 Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
 
                 row.Cells["Ticket"].Value = ticket;
-                row.Cells["Ticket"].ToolTipText = "Generar ticket";
 
                 var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
 
@@ -92,14 +91,12 @@ namespace PuntoDeVentaV2
                     Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ban.png");
 
                     row.Cells["Status"].Value = deshabilitar;
-                    row.Cells["Status"].ToolTipText = "Deshabilitar";
                 }
                 else if (status == 2)
                 {
                     Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
 
                     row.Cells["Status"].Value = habilitar;
-                    row.Cells["Status"].ToolTipText = "Habilitar";
                 }
                 else
                 {
@@ -132,9 +129,34 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
+                Rectangle cellRect = DGVAnticipos.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+
                 if (e.ColumnIndex >= 6)
                 {
+                    var textoTT = string.Empty;
+                    int coordenadaX = 0;
+
                     DGVAnticipos.Cursor = Cursors.Hand;
+
+                    if (e.ColumnIndex == 6) { textoTT = "Ver ticket"; coordenadaX = 62; }
+
+                    if (e.ColumnIndex == 7) {
+
+                        if (cbAnticipos.SelectedIndex + 1 == 1)
+                        {
+                            textoTT = "Deshabilitar";
+                            coordenadaX = 76;
+                        }
+                        else if (cbAnticipos.SelectedIndex + 1 == 2)
+                        {
+                            textoTT = "Habilitar";
+                            coordenadaX = 59;
+                        }
+                    }
+
+                    TTMensaje.Show(textoTT, this, DGVAnticipos.Location.X + cellRect.X - coordenadaX, DGVAnticipos.Location.Y + cellRect.Y, 1500);
+
+                    textoTT = string.Empty;
                 }
                 else
                 {
@@ -211,6 +233,13 @@ namespace PuntoDeVentaV2
             var status = cbAnticipos.SelectedIndex;
 
             CargarDatos(status + 1, 1);
+        }
+
+        private void TTMensaje_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            e.DrawBackground();
+            e.DrawBorder();
+            e.DrawText();
         }
     }
 }

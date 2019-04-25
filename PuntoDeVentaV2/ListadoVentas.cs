@@ -75,13 +75,8 @@ namespace PuntoDeVentaV2
                 Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
 
                 row.Cells["Cancelar"].Value = cancelar;
-                row.Cells["Cancelar"].ToolTipText = "Cancelar";
-
                 row.Cells["Factura"].Value = factura;
-                row.Cells["Factura"].ToolTipText = "Ver factura";
-
                 row.Cells["Ticket"].Value = ticket;
-                row.Cells["Ticket"].ToolTipText = "Ver ticket";
             }
 
             dr.Close();
@@ -137,9 +132,22 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex >= 10)
+                Rectangle cellRect = DGVListadoVentas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+
+                if (e.ColumnIndex >= 11)
                 {
+                    var textoTT = string.Empty;
+                    int coordenadaX = 0;
+
                     DGVListadoVentas.Cursor = Cursors.Hand;
+
+                    if (e.ColumnIndex == 11) { textoTT = "Cancelar";    coordenadaX = 60; }
+                    if (e.ColumnIndex == 12) { textoTT = "Ver factura"; coordenadaX = 70; }
+                    if (e.ColumnIndex == 13) { textoTT = "Ver ticket";  coordenadaX = 62; }
+
+                    TTMensaje.Show(textoTT, this, DGVListadoVentas.Location.X + cellRect.X - coordenadaX, DGVListadoVentas.Location.Y + cellRect.Y, 1500);
+
+                    textoTT = string.Empty;
                 }
                 else
                 {
@@ -185,6 +193,13 @@ namespace PuntoDeVentaV2
             }
 
             DGVListadoVentas.ClearSelection();
+        }
+
+        private void TTMensaje_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            e.DrawBackground();
+            e.DrawBorder();
+            e.DrawText();
         }
     }
 }

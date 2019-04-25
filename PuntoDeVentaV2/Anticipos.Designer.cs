@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
@@ -44,6 +45,7 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
             this.Status = new System.Windows.Forms.DataGridViewImageColumn();
+            this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
@@ -226,6 +228,13 @@
             this.Status.ReadOnly = true;
             this.Status.Width = 50;
             // 
+            // TTMensaje
+            // 
+            this.TTMensaje.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.TTMensaje.ForeColor = System.Drawing.Color.White;
+            this.TTMensaje.OwnerDraw = true;
+            this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
+            // 
             // Anticipos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,5 +271,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Ticket;
         private System.Windows.Forms.DataGridViewImageColumn Status;
+        private System.Windows.Forms.ToolTip TTMensaje;
     }
 }
