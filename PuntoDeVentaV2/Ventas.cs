@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
+using System.Diagnostics;
 
 namespace PuntoDeVentaV2
 {
@@ -669,6 +670,7 @@ namespace PuntoDeVentaV2
                     }
 
                     GenerarTicket(infoProductos);
+                    ImprimirTicket(idVenta);
                 }
 
                 ListadoVentas.abrirNuevaVenta = true;
@@ -995,6 +997,27 @@ namespace PuntoDeVentaV2
             ticket.AddAuthor("PUDVE");
             ticket.Close();
             writer.Close();
+        }
+
+        private void ImprimirTicket(string idVenta)
+        {
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.Verb = "print";
+            info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
+            info.CreateNoWindow = true;
+            info.WindowStyle = ProcessWindowStyle.Hidden;
+
+            Process p = new Process();
+            p.StartInfo = info;
+            p.Start();
+
+            p.WaitForInputIdle();
+            System.Threading.Thread.Sleep(1000);
+
+            if (false == p.CloseMainWindow())
+            {
+                p.Kill();
+            }
         }
 
         private void btnAnticipos_Click(object sender, EventArgs e)

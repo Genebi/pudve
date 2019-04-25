@@ -17,8 +17,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
-        public static string ticketGenerado = string.Empty;
-        public static string rutaTicketGenerado = string.Empty;
+        private string ticketGenerado = string.Empty;
+        private string rutaTicketGenerado = string.Empty;
 
         public Anticipos()
         {
@@ -164,7 +164,7 @@ namespace PuntoDeVentaV2
                 rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
                 ticketGenerado = "ticket_anticipo_"+ idAnticipo +".pdf";
 
-                VisualizadorTickets vt = new VisualizadorTickets();
+                VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
 
                 vt.FormClosed += delegate
                 {

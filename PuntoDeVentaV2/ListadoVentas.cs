@@ -17,6 +17,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
+        private string ticketGenerado = string.Empty;
+        private string rutaTicketGenerado = string.Empty;
 
         public static bool abrirNuevaVenta = false;
         public ListadoVentas()
@@ -56,6 +58,7 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVListadoVentas.Rows[rowId];
 
+                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["Cliente"].Value = "Público General";
                 row.Cells["RFC"].Value = "XAXX010101000";
                 row.Cells["Subtotal"].Value = dr.GetValue(dr.GetOrdinal("Subtotal"));
@@ -147,22 +150,38 @@ namespace PuntoDeVentaV2
 
         private void DGVListadoVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            var fila = DGVListadoVentas.CurrentCell.RowIndex;
+
             //Cancelar
-            if (e.ColumnIndex == 10)
+            if (e.ColumnIndex == 11)
             {
                 MessageBox.Show("Cancelar");
             }
 
             //Ver factura
-            if (e.ColumnIndex == 11)
+            if (e.ColumnIndex == 12)
             {
                 MessageBox.Show("Factura");
             }
 
             //Ver ticket
-            if (e.ColumnIndex == 12)
+            if (e.ColumnIndex == 13)
             {
-                MessageBox.Show("Ticket");
+                int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
+                rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
+                ticketGenerado = "ticket_venta_" + idVenta + ".pdf";
+
+                VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+
+                vt.FormClosed += delegate
+                {
+                    vt.Dispose();
+
+                    rutaTicketGenerado = string.Empty;
+                    ticketGenerado = string.Empty;
+                };
+
+                vt.ShowDialog();
             }
 
             DGVListadoVentas.ClearSelection();

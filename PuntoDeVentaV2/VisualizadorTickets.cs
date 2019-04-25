@@ -13,15 +13,21 @@ namespace PuntoDeVentaV2
 {
     public partial class VisualizadorTickets : Form
     {
-        public VisualizadorTickets()
+        private string ticketGenerado = string.Empty;
+        private string rutaTicketGenerado = string.Empty;
+
+        public VisualizadorTickets(string nombreTicket, string rutaTicket)
         {
             InitializeComponent();
+
+            this.ticketGenerado = nombreTicket;
+            this.rutaTicketGenerado = rutaTicket;
         }
 
         private void VisualizadorTickets_Load(object sender, EventArgs e)
         {
-            this.Text = "PUDVE - " + Anticipos.ticketGenerado;
-            axAcroPDF.src = Anticipos.rutaTicketGenerado;
+            this.Text = "PUDVE - " + ticketGenerado;
+            axAcroPDF.src = rutaTicketGenerado;
             axAcroPDF.setZoom(75);
         }
 
@@ -29,7 +35,7 @@ namespace PuntoDeVentaV2
         {
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "print";
-            info.FileName = Anticipos.rutaTicketGenerado;
+            info.FileName = rutaTicketGenerado;
             info.CreateNoWindow = true;
             info.WindowStyle = ProcessWindowStyle.Hidden;
 

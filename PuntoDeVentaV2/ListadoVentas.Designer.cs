@@ -37,6 +37,7 @@
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbTipoVentas = new System.Windows.Forms.ComboBox();
             this.cbVentas = new System.Windows.Forms.ComboBox();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -75,6 +76,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVListadoVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListadoVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
             this.Cliente,
             this.RFC,
             this.Subtotal,
@@ -197,6 +199,13 @@
             this.cbVentas.Size = new System.Drawing.Size(185, 24);
             this.cbVentas.TabIndex = 0;
             // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
             // Cliente
             // 
             this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -311,6 +320,7 @@
         private System.Windows.Forms.ComboBox cbVentas;
         private System.Windows.Forms.DateTimePicker dpFechaInicial;
         private System.Windows.Forms.DateTimePicker dpFechaFinal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal;
