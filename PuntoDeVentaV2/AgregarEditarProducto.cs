@@ -969,7 +969,7 @@ namespace PuntoDeVentaV2
                 {
                     timer1.Stop();
                     Hided = false;
-                    this.Height = 720;
+                    this.Height = 780;
                     this.CenterToScreen();
                     this.Refresh();
                 }
@@ -1053,6 +1053,29 @@ namespace PuntoDeVentaV2
             btnAdd.Visible = false;
 
             ocultarPanel();
+
+            cargarCBProductos();
+        }
+
+        private void cargarCBProductos()
+        {
+            try
+            {
+                DataTable datosProductos = new DataTable();
+                string queryProductos = $"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'";
+                datosProductos = cn.CargarDatos(queryProductos);
+                CBProductos.DataSource = datosProductos;
+                CBProductos.DisplayMember = "Nombre";
+                CBProductos.ValueMember = "ID";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+
+            }
         }
     }
 }

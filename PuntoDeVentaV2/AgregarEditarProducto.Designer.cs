@@ -74,7 +74,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.CBProductos = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -510,12 +510,12 @@
             this.btnGenerarCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
-            this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode;
+            this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGenerarCB.Location = new System.Drawing.Point(247, 10);
+            this.btnGenerarCB.Location = new System.Drawing.Point(246, 22);
             this.btnGenerarCB.Margin = new System.Windows.Forms.Padding(4);
             this.btnGenerarCB.Name = "btnGenerarCB";
-            this.btnGenerarCB.Size = new System.Drawing.Size(149, 51);
+            this.btnGenerarCB.Size = new System.Drawing.Size(149, 28);
             this.btnGenerarCB.TabIndex = 8;
             this.btnGenerarCB.Text = "Generar";
             this.btnGenerarCB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -557,7 +557,7 @@
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.CBProductos);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
@@ -589,13 +589,13 @@
             this.label12.TabIndex = 2;
             this.label12.Text = "Cantidad:";
             // 
-            // comboBox1
+            // CBProductos
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(130, 10);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(286, 24);
-            this.comboBox1.TabIndex = 1;
+            this.CBProductos.FormattingEnabled = true;
+            this.CBProductos.Location = new System.Drawing.Point(130, 10);
+            this.CBProductos.Name = "CBProductos";
+            this.CBProductos.Size = new System.Drawing.Size(286, 24);
+            this.CBProductos.TabIndex = 1;
             // 
             // label11
             // 
@@ -721,7 +721,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox CBProductos;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
