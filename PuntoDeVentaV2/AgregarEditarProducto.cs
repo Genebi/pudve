@@ -92,6 +92,11 @@ namespace PuntoDeVentaV2
         int resultadoSearchNoIdentificacion;    // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchClavIntProd()
         int resultadoSearchCodBar;              // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchCodBar()
 
+        string filtro;
+
+        int PH;
+        bool Hided;
+
         // funsion para poder buscar en los productos 
         // si coincide con los campos de de ClaveInterna
         // respecto al stock del producto en su campo de NoIdentificacion
@@ -142,7 +147,7 @@ namespace PuntoDeVentaV2
             //txtCodigoBarras.Text = Contenido;
             string txtBoxName;
             txtBoxName=_lastEnteredControl.Name;
-            if (txtBoxName != "txtNombreProducto" && txtBoxName != "txtStockProducto" && txtBoxName != "txtPrecioProducto" && txtBoxName != "txtCategoriaProducto")
+            if (txtBoxName != "txtNombreProducto" && txtBoxName != "txtStockProducto" && txtBoxName != "txtPrecioProducto" && txtBoxName != "txtCategoriaProducto" &&  txtBoxName != "cbTipo")
             {
                 _lastEnteredControl.Text = Contenido;
 
@@ -157,7 +162,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Campo no Valido para generar Codigo de Barras","Anvertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Campo no Valido para generar\nCodigo de Barras los campos validos son\nClave Interna y Codigo de Barras... Gracias", "Anvertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -892,6 +897,102 @@ namespace PuntoDeVentaV2
             /* Fin del codigo de Emmanuel */
         }
 
+        private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtro = Convert.ToString(cbTipo.SelectedItem);      // tomamos el valor que se elige en el TextBox
+            if (filtro == "Producto")                            // comparamos si el valor a filtrar es Producto
+            {
+                if (PStock.Visible == false)
+                {
+                    PStock.Visible = true;
+                }
+                if (PPrecioOriginal.Visible == false)
+                {
+                    PPrecioOriginal.Visible = true;
+                }
+                if (PStock.Visible == true && PPrecioOriginal.Visible == true)
+                {
+                    btnAdd.Visible = false;
+                    Hided = false;
+                    ocultarPanel();
+                }
+            }
+            else if (filtro == "Servicio / Paquete ó Combo")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
+            {
+                if (PStock.Visible == true)
+                {
+                    PStock.Visible = false;
+                }
+                if (PPrecioOriginal.Visible == true)
+                {
+                    PPrecioOriginal.Visible = false;
+                }
+                if (PStock.Visible == false && PPrecioOriginal.Visible == false)
+                {
+                    btnAdd.Visible = true;
+                    Hided = false;
+                    ocultarPanel();
+                }
+            }
+        }
+
+        private void ocultarPanel()
+        {
+            if (Hided)
+            {
+                timer1.Start();
+            }
+            else
+            {
+                timer1.Start();
+            }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (Hided)
+            {
+                ocultarPanel();
+            }
+            else
+            {
+                ocultarPanel();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Hided)
+            {
+                PConteidoProducto.Height = PConteidoProducto.Height + 30;
+                if (PConteidoProducto.Height >= PH)
+                {
+                    timer1.Stop();
+                    Hided = false;
+                    this.Height = 720;
+                    this.CenterToScreen();
+                    this.Refresh();
+                }
+            }
+            else
+            {
+                PConteidoProducto.Height = PConteidoProducto.Height - 30;
+                if (PConteidoProducto.Height <= 0)
+                {
+                    timer1.Stop();
+                    Hided = true;
+                    this.Height = 600;
+                    this.CenterToScreen();
+                    this.Refresh();
+                }
+            }
+        }
+
+        private void cbTipo_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
         private void txtClaveProducto_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
@@ -934,7 +1035,11 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            PH = PConteidoProducto.Height;
+            Hided = false;
+
             DatosSourceFinal = DatosSource;
+
             if (ProdNombre.Equals(""))
             {
                 LimpiarCampos();
@@ -943,6 +1048,11 @@ namespace PuntoDeVentaV2
             {
                 cargarDatos();
             }
+
+            cbTipo.Text = "Producto";
+            btnAdd.Visible = false;
+
+            ocultarPanel();
         }
     }
 }
