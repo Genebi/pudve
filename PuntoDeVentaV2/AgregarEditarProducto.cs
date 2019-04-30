@@ -993,8 +993,9 @@ namespace PuntoDeVentaV2
         {
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
             panelHijo.Name = "panelGenerado" + id;
-            panelHijo.Width = 700;
+            panelHijo.Width = 749;
             panelHijo.Height = 25;
+            //panelHijo.BackColor = Color.AntiqueWhite;
             panelHijo.HorizontalScroll.Visible = false;
 
             Label lb1 = new Label();
@@ -1005,8 +1006,21 @@ namespace PuntoDeVentaV2
 
             ComboBox cb = new ComboBox();
             cb.Name = "comboBoxGenerador" + id;
-            cb.Width = 286;
+            cb.Width = 300;
             cb.Height = 24;
+            try
+            {
+                DataTable datosProductos = new DataTable();
+                string queryProductos = $"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'";
+                datosProductos = cn.CargarDatos(queryProductos);
+                cb.DataSource = datosProductos;
+                cb.DisplayMember = "Nombre";
+                cb.ValueMember = "ID";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             Label lb2 = new Label();
             lb2.Name = "labelCantidadGenerado" + id;
@@ -1016,7 +1030,7 @@ namespace PuntoDeVentaV2
 
             TextBox tb = new TextBox();
             tb.Name = "textBoxGenerado" + id;
-            tb.Width = 216;
+            tb.Width = 250;
             tb.Height = 22;
             tb.Text = "0";
             tb.Enter += new EventHandler(TextBoxProductos_Enter);
@@ -1154,8 +1168,6 @@ namespace PuntoDeVentaV2
             btnAdd.Visible = false;
 
             ocultarPanel();
-
-            
         }
 
         private void cargarCBProductos()
