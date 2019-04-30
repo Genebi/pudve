@@ -1033,5 +1033,12 @@ namespace PuntoDeVentaV2
 
             anticipo.ShowDialog();
         }
+
+        private void btnUltimoTicket_Click(object sender, EventArgs e)
+        {
+            var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
+
+            ImprimirTicket(idVenta);
+        }
     }
 }

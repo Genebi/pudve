@@ -136,6 +136,7 @@
             this.btnUltimoTicket.TabIndex = 18;
             this.tituloBoton.SetToolTip(this.btnUltimoTicket, "Imprimir último ticket");
             this.btnUltimoTicket.UseVisualStyleBackColor = true;
+            this.btnUltimoTicket.Click += new System.EventHandler(this.btnUltimoTicket_Click);
             // 
             // btnPresupuesto
             // 
