@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.tituloBoton = new System.Windows.Forms.ToolTip(this.components);
-            this.btnServicioRapido = new System.Windows.Forms.Button();
             this.btnProductoRapido = new System.Windows.Forms.Button();
             this.btnEliminarUltimo = new System.Windows.Forms.Button();
             this.btnEliminarTodos = new System.Windows.Forms.Button();
@@ -95,16 +94,6 @@
             this.tituloSeccion.Text = "NUEVA VENTA";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // btnServicioRapido
-            // 
-            this.btnServicioRapido.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnServicioRapido.Location = new System.Drawing.Point(48, 57);
-            this.btnServicioRapido.Name = "btnServicioRapido";
-            this.btnServicioRapido.Size = new System.Drawing.Size(40, 28);
-            this.btnServicioRapido.TabIndex = 11;
-            this.tituloBoton.SetToolTip(this.btnServicioRapido, "Agregar servicio rápido");
-            this.btnServicioRapido.UseVisualStyleBackColor = true;
-            // 
             // btnProductoRapido
             // 
             this.btnProductoRapido.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -112,7 +101,7 @@
             this.btnProductoRapido.Name = "btnProductoRapido";
             this.btnProductoRapido.Size = new System.Drawing.Size(40, 28);
             this.btnProductoRapido.TabIndex = 10;
-            this.tituloBoton.SetToolTip(this.btnProductoRapido, "Agregar producto rápido");
+            this.tituloBoton.SetToolTip(this.btnProductoRapido, "Agregar producto o servicio rápido");
             this.btnProductoRapido.UseVisualStyleBackColor = true;
             // 
             // btnEliminarUltimo
@@ -521,11 +510,11 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.btnTerminarVenta);
             this.panel1.Controls.Add(this.cbEstadoVenta);
             this.panel1.Controls.Add(this.txtDescuentoGeneral);
             this.panel1.Controls.Add(this.btnDetallesVenta);
-            this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.DGVentas);
             this.panel1.Controls.Add(this.cIVA8);
             this.panel1.Controls.Add(this.txtBuscadorProducto);
@@ -536,7 +525,6 @@
             this.panel1.Controls.Add(this.cDescuento);
             this.panel1.Controls.Add(this.btnProductoRapido);
             this.panel1.Controls.Add(this.cAnticipo);
-            this.panel1.Controls.Add(this.btnServicioRapido);
             this.panel1.Controls.Add(this.cIVA);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.cSubtotal);
@@ -631,7 +619,6 @@
 
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.ToolTip tituloBoton;
-        private System.Windows.Forms.Button btnServicioRapido;
         private System.Windows.Forms.Button btnProductoRapido;
         private System.Windows.Forms.TextBox txtBuscadorProducto;
         private System.Windows.Forms.DataGridView DGVentas;

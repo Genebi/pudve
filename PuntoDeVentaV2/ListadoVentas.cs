@@ -70,6 +70,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Empleado"].Value = dr.GetValue(dr.GetOrdinal("IDEmpleado"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
+                var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
+
                 Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\remove.png");
                 Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-pdf-o.png");
                 Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
@@ -77,6 +79,14 @@ namespace PuntoDeVentaV2
                 row.Cells["Cancelar"].Value = cancelar;
                 row.Cells["Factura"].Value = factura;
                 row.Cells["Ticket"].Value = ticket;
+
+                //Ventas canceladas
+                if (status == 3)
+                {
+                    Bitmap sinImagen = new Bitmap(1, 1);
+                    sinImagen.SetPixel(0, 0, Color.White);
+                    row.Cells["Cancelar"].Value = sinImagen;
+                }
             }
 
             dr.Close();
@@ -141,7 +151,15 @@ namespace PuntoDeVentaV2
 
                     DGVListadoVentas.Cursor = Cursors.Hand;
 
-                    if (e.ColumnIndex == 11) { textoTT = "Cancelar";    coordenadaX = 60; }
+                    if (e.ColumnIndex == 11) {
+
+                        if (cbTipoVentas.SelectedIndex != 3)
+                        {
+                            textoTT = "Cancelar";
+                            coordenadaX = 60;
+                        }
+                    }
+
                     if (e.ColumnIndex == 12) { textoTT = "Ver factura"; coordenadaX = 70; }
                     if (e.ColumnIndex == 13) { textoTT = "Ver ticket";  coordenadaX = 62; }
 

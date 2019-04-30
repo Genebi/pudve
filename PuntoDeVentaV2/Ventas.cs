@@ -69,14 +69,12 @@ namespace PuntoDeVentaV2
             cbEstadoVenta.DropDownStyle = ComboBoxStyle.DropDownList;
 
             btnProductoRapido.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
-            btnServicioRapido.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\plus.png");
             btnEliminarUltimo.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
             btnEliminarTodos.BackgroundImage  = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
             btnUltimoTicket.BackgroundImage   = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
             btnPresupuesto.BackgroundImage    = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\money.png");
 
             btnProductoRapido.BackgroundImageLayout = ImageLayout.Center;
-            btnServicioRapido.BackgroundImageLayout = ImageLayout.Center;
             btnEliminarUltimo.BackgroundImageLayout = ImageLayout.Center;
             btnEliminarTodos.BackgroundImageLayout  = ImageLayout.Center;
             btnUltimoTicket.BackgroundImageLayout   = ImageLayout.Center;
