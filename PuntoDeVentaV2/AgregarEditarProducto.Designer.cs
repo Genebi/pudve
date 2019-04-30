@@ -70,12 +70,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.CBProductos = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
@@ -90,8 +84,6 @@
             this.PCodigoBarras.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.PConteidoProducto.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -546,65 +538,12 @@
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.Controls.Add(this.panel1);
+            this.flowLayoutPanel2.AutoScroll = true;
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(55, 12);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1006, 92);
             this.flowLayoutPanel2.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.CBProductos);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(943, 47);
-            this.panel1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.close1;
-            this.button1.Location = new System.Drawing.Point(852, 7);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(43, 31);
-            this.button1.TabIndex = 4;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(578, 11);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(216, 22);
-            this.textBox1.TabIndex = 3;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(477, 14);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(68, 17);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "Cantidad:";
-            // 
-            // CBProductos
-            // 
-            this.CBProductos.FormattingEnabled = true;
-            this.CBProductos.Location = new System.Drawing.Point(130, 10);
-            this.CBProductos.Name = "CBProductos";
-            this.CBProductos.Size = new System.Drawing.Size(286, 24);
-            this.CBProductos.TabIndex = 1;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(37, 14);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(69, 17);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "Producto:";
             // 
             // panel2
             // 
@@ -667,9 +606,6 @@
             this.PCodigoBarras.PerformLayout();
             this.PImagen.ResumeLayout(false);
             this.PConteidoProducto.ResumeLayout(false);
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -718,12 +654,6 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel PConteidoProducto;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox CBProductos;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
     }
