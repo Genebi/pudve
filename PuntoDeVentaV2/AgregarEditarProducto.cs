@@ -969,6 +969,7 @@ namespace PuntoDeVentaV2
                 {
                     timer1.Stop();
                     Hided = false;
+                    GenerarPanelProductos();
                     this.Height = 780;
                     this.CenterToScreen();
                     this.Refresh();
@@ -986,6 +987,106 @@ namespace PuntoDeVentaV2
                     this.Refresh();
                 }
             }
+        }
+
+        private void GenerarPanelProductos()
+        {
+            FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+            panelHijo.Name = "panelGenerado" + id;
+            panelHijo.Width = 700;
+            panelHijo.Height = 25;
+            panelHijo.HorizontalScroll.Visible = false;
+
+            Label lb1 = new Label();
+            lb1.Name = "labelProductoGenerado" + id;
+            lb1.Width = 69;
+            lb1.Height = 17;
+            lb1.Text = "Producto:";
+
+            ComboBox cb = new ComboBox();
+            cb.Name = "comboBoxGenerador" + id;
+            cb.Width = 286;
+            cb.Height = 24;
+
+            Label lb2 = new Label();
+            lb2.Name = "labelCantidadGenerado" + id;
+            lb2.Width = 68;
+            lb2.Height = 17;
+            lb2.Text = "Cantidad:";
+
+            TextBox tb = new TextBox();
+            tb.Name = "textBoxGenerado" + id;
+            tb.Width = 216;
+            tb.Height = 22;
+            tb.Text = "0";
+            tb.Enter += new EventHandler(TextBoxProductos_Enter);
+            tb.KeyDown += new KeyEventHandler(TexBoxProductos_Keydown);
+
+            Button bt = new Button();
+            bt.Cursor = Cursors.Hand;
+            bt.Text = "X";
+            bt.Name = "btnGenerado" + id;
+            bt.Height = 23;
+            bt.Width = 23;
+            bt.BackColor = ColorTranslator.FromHtml("#C00000");
+            bt.ForeColor = ColorTranslator.FromHtml("white");
+            bt.FlatStyle = FlatStyle.Flat;
+            bt.TextAlign = ContentAlignment.MiddleCenter;
+            bt.Anchor = AnchorStyles.Top;
+            bt.Click += new EventHandler(ClickBotonesProductos);
+
+            panelHijo.Controls.Add(lb1);
+            panelHijo.Controls.Add(cb);
+            panelHijo.Controls.Add(lb2);
+            panelHijo.Controls.Add(tb);
+            panelHijo.Controls.Add(bt);
+            panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+            flowLayoutPanel2.Controls.Add(panelHijo);
+            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+            tb.Focus();
+            id++;
+        }
+
+        private void ClickBotonesProductos(object sender, EventArgs e)
+        {
+            Button bt = sender as Button;
+
+            string nombreBoton = bt.Name;
+
+            string idBoton = nombreBoton.Substring(11);
+            string nombreTextBox = "textboxGenerado" + idBoton;
+            string nombrePanel = "panelGenerado" + idBoton;
+
+            foreach (Control item in flowLayoutPanel2.Controls.OfType<Control>())
+            {
+                if (item.Name == nombrePanel)
+                {
+                    flowLayoutPanel2.Controls.Remove(item);
+                    flowLayoutPanel2.Controls.Remove(bt);
+                }
+            }
+        }
+
+        private void TexBoxProductos_Keydown(object sender, KeyEventArgs e)
+        {
+            TextBox tbx = sender as TextBox;
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                string texto = tbx.Text;
+                int cant = Convert.ToInt32(texto);
+                if (cant > 0)
+                {
+                    GenerarPanelProductos();
+                }
+            }
+        }
+
+        private void TextBoxProductos_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
         }
 
         private void cbTipo_Enter(object sender, EventArgs e)
@@ -1054,7 +1155,7 @@ namespace PuntoDeVentaV2
 
             ocultarPanel();
 
-            cargarCBProductos();
+            
         }
 
         private void cargarCBProductos()
@@ -1064,9 +1165,9 @@ namespace PuntoDeVentaV2
                 DataTable datosProductos = new DataTable();
                 string queryProductos = $"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'";
                 datosProductos = cn.CargarDatos(queryProductos);
-                CBProductos.DataSource = datosProductos;
-                CBProductos.DisplayMember = "Nombre";
-                CBProductos.ValueMember = "ID";
+                //CBProductos.DataSource = datosProductos;
+                //CBProductos.DisplayMember = "Nombre";
+                //CBProductos.ValueMember = "ID";
             }
             catch (Exception ex)
             {
