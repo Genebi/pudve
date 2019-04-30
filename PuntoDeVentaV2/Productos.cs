@@ -587,67 +587,86 @@ namespace PuntoDeVentaV2
                 row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
                 row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
 
-                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
-                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
-                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
-                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
-                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
-                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
-                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
-                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
-                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
-
-                row.Cells["Column7"].Value = editar;
-                row.Cells["Column7"].ToolTipText = "Editar el Producto";
-
-                string estado= dr.GetValue(dr.GetOrdinal("Status")).ToString();
-                if (estado == "1")
+                using (Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png"))
                 {
-                    row.Cells["Column8"].Value = estado1;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                    row.Cells["Column7"].Value = editar;
+                    row.Cells["Column7"].ToolTipText = "Editar el Producto";
                 }
-                else if (estado == "0")
+                string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
+                using (Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png"))
                 {
-                    row.Cells["Column8"].Value = estado2;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                    if (estado == "1")
+                    {
+                        row.Cells["Column8"].Value = estado1;
+                        row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                    }
                 }
-
-                row.Cells["Column9"].Value = historial;
-                row.Cells["Column9"].ToolTipText = "Historial de Compra";
-
-                row.Cells["Column10"].Value = generar;
-                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
+                using (Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png"))
+                {
+                    if (estado == "0")
+                    {
+                        row.Cells["Column8"].Value = estado2;
+                        row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
+                    }
+                }
+                using (Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png"))
+                {
+                    row.Cells["Column9"].Value = historial;
+                    row.Cells["Column9"].ToolTipText = "Historial de Compra";
+                }
+                using (Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png"))
+                {
+                    row.Cells["Column10"].Value = generar;
+                    row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
+                }
 
                 string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
-                if (ImgPath == "" || ImgPath == null)
+                using (Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png"))
                 {
-                    row.Cells["Column11"].Value = imagen1;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                    if (ImgPath == "" || ImgPath == null)
+                    {
+                        row.Cells["Column11"].Value = imagen1;
+                        row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                    }
                 }
-                else if (ImgPath != "" || ImgPath != null)
+                using (Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png"))
                 {
-                    row.Cells["Column11"].Value = imagen2;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                    if (ImgPath != "" || ImgPath != null)
+                    {
+                        row.Cells["Column11"].Value = imagen2;
+                        row.Cells["Column11"].ToolTipText = "Imagen del Producto";
+                    }
                 }
 
-                row.Cells["Column12"].Value = etiqueta;
-                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
+                using (Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png"))
+                {
+                    row.Cells["Column12"].Value = etiqueta;
+                    row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
+                }
 
-                row.Cells["Column13"].Value = copy;
-                row.Cells["Column13"].ToolTipText = "Copiar Producto";
+                using (Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png"))
+                {
+                    row.Cells["Column13"].Value = copy;
+                    row.Cells["Column13"].ToolTipText = "Copiar Producto";
+                }
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
-                if (TipoProd == "P")
+                using (Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png"))
                 {
-                    row.Cells["Column16"].Value = product;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                    if (TipoProd == "S")
+                    {
+                        row.Cells["Column16"].Value = package;
+                        row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                    }
                 }
-                else if (TipoProd == "S")
+
+                using (Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png"))
                 {
-                    row.Cells["Column16"].Value = package;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                    if (TipoProd == "P")
+                    {
+                        row.Cells["Column16"].Value = product;
+                        row.Cells["Column16"].ToolTipText = "Descripcion del Producto / Servicio";
+                    }
                 }
             }
             dr.Close();
