@@ -73,6 +73,13 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            e.DrawBackground();
+            e.DrawBorder();
+            e.DrawText();
+        }
+
         // objeto de FileStream para poder hacer el manejo de las imagenes
         FileStream fs;
 
@@ -264,14 +271,77 @@ namespace PuntoDeVentaV2
         
         private void DGVProductos_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)
         {
-            //Boton editar producto
-            if (e.ColumnIndex == 0 || e.ColumnIndex == 7 || e.ColumnIndex == 8 || e.ColumnIndex == 9 || e.ColumnIndex == 10 || e.ColumnIndex == 11 || e.ColumnIndex == 12 || e.ColumnIndex == 13)
+            if (e.RowIndex >= 0)
             {
-                DGVProductos.Cursor = Cursors.Hand;
-            }
-            else
-            {
-                DGVProductos.Cursor = Cursors.Default;
+                var textoTTipButtonMsg = string.Empty;
+                int coordenadaX = 0, coordenadaY = 0;
+                Rectangle cellRect = DGVProductos.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                if (e.ColumnIndex == 0)
+                {
+                    textoTTipButtonMsg = "Seleccionar Producto";
+                    coordenadaX = 110;
+                    coordenadaY = -200;
+                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
+                    textoTTipButtonMsg = string.Empty;
+                }
+                else if (e.ColumnIndex >= 7)
+                {
+                    DGVProductos.Cursor = Cursors.Hand;
+                    if (e.ColumnIndex == 7)
+                    {
+                        textoTTipButtonMsg = "Editar el Producto";
+                        coordenadaX = 90;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 8)
+                    {
+                        textoTTipButtonMsg = "Modificar estado del Producto";
+                        coordenadaX = 160;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 9)
+                    {
+                        textoTTipButtonMsg = "Historial de Compra";
+                        coordenadaX = 105;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 10)
+                    {
+                        textoTTipButtonMsg = "Generar Código de Barras";
+                        coordenadaX = 130;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 11)
+                    {
+                        textoTTipButtonMsg = "Imagen del Producto";
+                        coordenadaX = 110;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 12)
+                    {
+                        textoTTipButtonMsg = "Generar Etiqueta de Producto";
+                        coordenadaX = 155;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 13)
+                    {
+                        textoTTipButtonMsg = "Copiar Producto";
+                        coordenadaX = 85;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 16)
+                    {
+                        textoTTipButtonMsg = "Descripcion del Producto/Servicio";
+                        coordenadaX = 180;
+                        coordenadaY = -200;
+                    }
+                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
+                    textoTTipButtonMsg = string.Empty;
+                }
+                else
+                {
+                    DGVProductos.Cursor = Cursors.Default;
+                }
             }
         }
 
@@ -600,54 +670,43 @@ namespace PuntoDeVentaV2
                 Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
-                row.Cells["Column7"].ToolTipText = "Editar el Producto";
 
                 string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
                 if (estado == "1")
                 {
                     row.Cells["Column8"].Value = estado1;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
                 }
                 else if (estado == "0")
                 {
                     row.Cells["Column8"].Value = estado2;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
                 }
 
                 row.Cells["Column9"].Value = historial;
-                row.Cells["Column9"].ToolTipText = "Historial de Compra";
 
                 row.Cells["Column10"].Value = generar;
-                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
 
                 string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
                 if (ImgPath == "" || ImgPath == null)
                 {
                     row.Cells["Column11"].Value = imagen1;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
                 }
                 else if (ImgPath != "" || ImgPath != null)
                 {
                     row.Cells["Column11"].Value = imagen2;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
                 }
 
                 row.Cells["Column12"].Value = etiqueta;
-                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
-
+                
                 row.Cells["Column13"].Value = copy;
-                row.Cells["Column13"].ToolTipText = "Copiar Producto";
-
+                
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto";
                 }
                 else if (TipoProd == "S")
                 {
                     row.Cells["Column16"].Value = package;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Servicio";
                 }
             }
             dr.Close();
@@ -696,54 +755,43 @@ namespace PuntoDeVentaV2
                 Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
-                row.Cells["Column7"].ToolTipText = "Editar el Producto";
 
                 string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
                 if (estado == "1")
                 {
                     row.Cells["Column8"].Value = estado1;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
                 }
                 else if (estado == "0")
                 {
                     row.Cells["Column8"].Value = estado2;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
                 }
 
                 row.Cells["Column9"].Value = historial;
-                row.Cells["Column9"].ToolTipText = "Historial de Compra";
 
                 row.Cells["Column10"].Value = generar;
-                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
 
                 string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
                 if (ImgPath == "" || ImgPath == null)
                 {
                     row.Cells["Column11"].Value = imagen1;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
                 }
                 else if (ImgPath != "" || ImgPath != null)
                 {
                     row.Cells["Column11"].Value = imagen2;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
                 }
 
                 row.Cells["Column12"].Value = etiqueta;
-                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
 
                 row.Cells["Column13"].Value = copy;
-                row.Cells["Column13"].ToolTipText = "Copiar Producto";
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto";
                 }
                 else if (TipoProd == "S")
                 {
                     row.Cells["Column16"].Value = package;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Servicio";
                 }
             }
             dr.Close();
@@ -792,54 +840,43 @@ namespace PuntoDeVentaV2
                 Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
-                row.Cells["Column7"].ToolTipText = "Editar el Producto";
 
                 string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
                 if (estado == "1")
                 {
                     row.Cells["Column8"].Value = estado1;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
                 }
                 else if (estado == "0")
                 {
                     row.Cells["Column8"].Value = estado2;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
                 }
 
                 row.Cells["Column9"].Value = historial;
-                row.Cells["Column9"].ToolTipText = "Historial de Compra";
 
                 row.Cells["Column10"].Value = generar;
-                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
 
                 string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
                 if (ImgPath == "" || ImgPath == null)
                 {
                     row.Cells["Column11"].Value = imagen1;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
                 }
                 else if (ImgPath != "" || ImgPath != null)
                 {
                     row.Cells["Column11"].Value = imagen2;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
                 }
 
                 row.Cells["Column12"].Value = etiqueta;
-                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
 
                 row.Cells["Column13"].Value = copy;
-                row.Cells["Column13"].ToolTipText = "Copiar Producto";
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto";
                 }
                 else if (TipoProd == "S")
                 {
                     row.Cells["Column16"].Value = package;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Servicio";
                 }
             }
             dr.Close();
@@ -888,54 +925,43 @@ namespace PuntoDeVentaV2
                 Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
-                row.Cells["Column7"].ToolTipText = "Editar el Producto";
 
                 string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
                 if (estado == "1")
                 {
                     row.Cells["Column8"].Value = estado1;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
                 }
                 else if (estado == "0")
                 {
                     row.Cells["Column8"].Value = estado2;
-                    row.Cells["Column8"].ToolTipText = "Modificar estado del Producto";
                 }
 
                 row.Cells["Column9"].Value = historial;
-                row.Cells["Column9"].ToolTipText = "Historial de Compra";
 
                 row.Cells["Column10"].Value = generar;
-                row.Cells["Column10"].ToolTipText = "Generar Código de Barras";
 
                 string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
                 if (ImgPath == "" || ImgPath == null)
                 {
                     row.Cells["Column11"].Value = imagen1;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
                 }
                 else if (ImgPath != "" || ImgPath != null)
                 {
                     row.Cells["Column11"].Value = imagen2;
-                    row.Cells["Column11"].ToolTipText = "Imagen del Producto";
                 }
 
                 row.Cells["Column12"].Value = etiqueta;
-                row.Cells["Column12"].ToolTipText = "Generar Etiqueta de Producto";
 
                 row.Cells["Column13"].Value = copy;
-                row.Cells["Column13"].ToolTipText = "Copiar Producto";
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Producto";
                 }
                 else if (TipoProd == "S")
                 {
                     row.Cells["Column16"].Value = package;
-                    row.Cells["Column16"].ToolTipText = "Descripcion del Servicio";
                 }
             }
             dr.Close();
@@ -969,7 +995,6 @@ namespace PuntoDeVentaV2
 
             if (!FormAgregar.Visible)
             {
-                
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";

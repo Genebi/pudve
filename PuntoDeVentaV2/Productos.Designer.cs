@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnAgregarProducto = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.tituloBusqueda = new System.Windows.Forms.Label();
@@ -40,9 +41,6 @@
             this.btnAgregarXML = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView = new System.Windows.Forms.Panel();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
-            this.panelShowPhotoView = new System.Windows.Forms.Panel();
-            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.Column0 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,6 +58,10 @@
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column16 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.panelShowPhotoView = new System.Windows.Forms.Panel();
+            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -270,47 +272,6 @@
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter_1);
             // 
-            // panelShowPhotoView
-            // 
-            this.panelShowPhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelShowPhotoView.Controls.Add(this.fLPShowPhoto);
-            this.panelShowPhotoView.Location = new System.Drawing.Point(16, 244);
-            this.panelShowPhotoView.Name = "panelShowPhotoView";
-            this.panelShowPhotoView.Size = new System.Drawing.Size(1086, 438);
-            this.panelShowPhotoView.TabIndex = 14;
-            // 
-            // fLPShowPhoto
-            // 
-            this.fLPShowPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fLPShowPhoto.AutoScroll = true;
-            this.fLPShowPhoto.Location = new System.Drawing.Point(14, 18);
-            this.fLPShowPhoto.Name = "fLPShowPhoto";
-            this.fLPShowPhoto.Size = new System.Drawing.Size(1056, 403);
-            this.fLPShowPhoto.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.cbMostrar);
-            this.panel1.Controls.Add(this.tituloSeccion);
-            this.panel1.Controls.Add(this.tituloBusqueda);
-            this.panel1.Controls.Add(this.txtBusqueda);
-            this.panel1.Controls.Add(this.btnListView);
-            this.panel1.Controls.Add(this.btnAgregarProducto);
-            this.panel1.Controls.Add(this.btnPhotoView);
-            this.panel1.Controls.Add(this.cbOrden);
-            this.panel1.Controls.Add(this.btnModificarEstado);
-            this.panel1.Controls.Add(this.btnAgregarXML);
-            this.panel1.Location = new System.Drawing.Point(16, 8);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1089, 227);
-            this.panel1.TabIndex = 15;
-            // 
             // Column0
             // 
             this.Column0.HeaderText = "Seleccionar";
@@ -415,6 +376,54 @@
             this.Column16.Name = "Column16";
             this.Column16.Width = 50;
             // 
+            // panelShowPhotoView
+            // 
+            this.panelShowPhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelShowPhotoView.Controls.Add(this.fLPShowPhoto);
+            this.panelShowPhotoView.Location = new System.Drawing.Point(16, 244);
+            this.panelShowPhotoView.Name = "panelShowPhotoView";
+            this.panelShowPhotoView.Size = new System.Drawing.Size(1086, 438);
+            this.panelShowPhotoView.TabIndex = 14;
+            // 
+            // fLPShowPhoto
+            // 
+            this.fLPShowPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fLPShowPhoto.AutoScroll = true;
+            this.fLPShowPhoto.Location = new System.Drawing.Point(14, 18);
+            this.fLPShowPhoto.Name = "fLPShowPhoto";
+            this.fLPShowPhoto.Size = new System.Drawing.Size(1056, 403);
+            this.fLPShowPhoto.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cbMostrar);
+            this.panel1.Controls.Add(this.tituloSeccion);
+            this.panel1.Controls.Add(this.tituloBusqueda);
+            this.panel1.Controls.Add(this.txtBusqueda);
+            this.panel1.Controls.Add(this.btnListView);
+            this.panel1.Controls.Add(this.btnAgregarProducto);
+            this.panel1.Controls.Add(this.btnPhotoView);
+            this.panel1.Controls.Add(this.cbOrden);
+            this.panel1.Controls.Add(this.btnModificarEstado);
+            this.panel1.Controls.Add(this.btnAgregarXML);
+            this.panel1.Location = new System.Drawing.Point(16, 8);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1089, 227);
+            this.panel1.TabIndex = 15;
+            // 
+            // TTipButtonText
+            // 
+            this.TTipButtonText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.TTipButtonText.ForeColor = System.Drawing.Color.White;
+            this.TTipButtonText.OwnerDraw = true;
+            this.TTipButtonText.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTipButtonText_Draw);
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -469,5 +478,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewImageColumn Column16;
+        private System.Windows.Forms.ToolTip TTipButtonText;
     }
 }

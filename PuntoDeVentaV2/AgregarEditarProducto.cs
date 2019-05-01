@@ -22,6 +22,8 @@ namespace PuntoDeVentaV2
         static public DataTable SearchDesCliente, SearchDesMayoreo;
         static public List<string> descuentos = new List<string>();
 
+        List<string> prodServPaq = new List<string>();
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
@@ -930,6 +932,7 @@ namespace PuntoDeVentaV2
                 if (PStock.Visible == false && PPrecioOriginal.Visible == false)
                 {
                     btnAdd.Visible = true;
+                    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
                     Hided = false;
                     ocultarPanel();
                 }
@@ -953,10 +956,12 @@ namespace PuntoDeVentaV2
             if (Hided)
             {
                 ocultarPanel();
+                btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-up.png");
             }
             else
             {
                 ocultarPanel();
+                btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
             }
         }
 
@@ -995,7 +1000,6 @@ namespace PuntoDeVentaV2
             panelHijo.Name = "panelGenerado" + id;
             panelHijo.Width = 749;
             panelHijo.Height = 25;
-            //panelHijo.BackColor = Color.AntiqueWhite;
             panelHijo.HorizontalScroll.Visible = false;
 
             Label lb1 = new Label();

@@ -403,7 +403,6 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Image = global::PuntoDeVentaV2.Properties.Resources.plus_circle;
             this.btnAdd.Location = new System.Drawing.Point(966, 110);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(35, 31);
@@ -543,6 +542,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Control;
+            this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(55, 9);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1006, 92);
