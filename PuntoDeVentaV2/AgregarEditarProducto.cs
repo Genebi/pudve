@@ -597,12 +597,15 @@ namespace PuntoDeVentaV2
             /****************************
 			*	codigo de Alejandro		*
 			****************************/
+            string filtroTipoSerPaq = Convert.ToString(cbTipo.SelectedItem);
+            var tipoServPaq = filtroTipoSerPaq;
             var nombre = txtNombreProducto.Text;
             var stock = txtStockProducto.Text;
             var precio = txtPrecioProducto.Text;
             var categoria = txtCategoriaProducto.Text;
             var claveIn = txtClaveProducto.Text;
             var codigoB = txtCodigoBarras.Text;
+            var ProdServPaq = "P".ToString();
             var tipoDescuento = "0";
             /*	Fin del codigo de Alejandro	*/
 
@@ -623,6 +626,8 @@ namespace PuntoDeVentaV2
                 }
                 else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
+                    string[] guardar;
+                    int respuesta=0;
                     /****************************
                     *	codigo de Alejandro		*
                     ****************************/
@@ -632,9 +637,20 @@ namespace PuntoDeVentaV2
                         FormAgregar.Close();
                         tipoDescuento = descuentos[0];
                     }
-                    string[] guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo };
-                    //Se guardan los datos principales del producto
-                    int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
+                    if (tipoServPaq == "Producto")
+                    {
+                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo, ProdServPaq };
+                        //Se guardan los datos principales del producto
+                        respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
+                    }
+                    if (tipoServPaq == "Servicio / Paquete ó Combo")
+                    {
+                        ProdServPaq = "S";
+                        stock = "0";
+                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo, ProdServPaq };
+                        //Se guardan los datos principales del producto
+                        respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
+                    }
                     if (respuesta > 0)
                     {
                         //Se obtiene la ID del último producto agregado
