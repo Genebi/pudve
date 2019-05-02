@@ -179,24 +179,33 @@ namespace PuntoDeVentaV2
         {
             var fila = DGVAnticipos.CurrentCell.RowIndex;
 
+            int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
+
+
             //Generar ticket
             if (e.ColumnIndex == 6)
             {
-                int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
                 rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
-                ticketGenerado = "ticket_anticipo_"+ idAnticipo +".pdf";
+                ticketGenerado = $"ticket_anticipo_{idAnticipo}.pdf";
 
-                VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
-
-                vt.FormClosed += delegate
+                if (File.Exists(rutaTicketGenerado))
                 {
-                    vt.Dispose();
+                    VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
 
-                    rutaTicketGenerado = string.Empty;
-                    ticketGenerado = string.Empty;
-                };
+                    vt.FormClosed += delegate
+                    {
+                        vt.Dispose();
 
-                vt.ShowDialog();
+                        rutaTicketGenerado = string.Empty;
+                        ticketGenerado = string.Empty;
+                    };
+
+                    vt.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             //Habilitar/Deshabilitar
@@ -206,8 +215,6 @@ namespace PuntoDeVentaV2
 
                 if (indice < 2)
                 {
-                    int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
-
                     //Deshabilitar
                     if (indice == 0)
                     {

@@ -178,6 +178,8 @@ namespace PuntoDeVentaV2
         {
             var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
+            int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
+
             //Cancelar
             if (e.ColumnIndex == 11)
             {
@@ -193,21 +195,28 @@ namespace PuntoDeVentaV2
             //Ver ticket
             if (e.ColumnIndex == 13)
             {
-                int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
                 rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
-                ticketGenerado = "ticket_venta_" + idVenta + ".pdf";
+                ticketGenerado = $"ticket_venta_{idVenta}.pdf";
 
-                VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
-
-                vt.FormClosed += delegate
+                if (File.Exists(rutaTicketGenerado))
                 {
-                    vt.Dispose();
+                    
+                    VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
 
-                    rutaTicketGenerado = string.Empty;
-                    ticketGenerado = string.Empty;
-                };
+                    vt.FormClosed += delegate
+                    {
+                        vt.Dispose();
 
-                vt.ShowDialog();
+                        rutaTicketGenerado = string.Empty;
+                        ticketGenerado = string.Empty;
+                    };
+
+                    vt.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             DGVListadoVentas.ClearSelection();
