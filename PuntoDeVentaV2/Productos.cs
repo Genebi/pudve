@@ -60,6 +60,8 @@ namespace PuntoDeVentaV2
 
         string queryFotos, queryGral;
 
+        string ID_ProdSerPaq;
+
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
@@ -489,19 +491,30 @@ namespace PuntoDeVentaV2
             {
                 numerofila = e.RowIndex;
                 obtenerDatosDGVProductos(numerofila);
+                obtenerIDProdServPaq();
                 Descripcion.FormClosed += delegate
                 {
 
                 };
                 if (!Descripcion.Visible)
                 {
+                    Descripcion.IDProducto = ID_ProdSerPaq;
                     Descripcion.ShowDialog();
                 }
                 else
                 {
+                    Descripcion.IDProducto = ID_ProdSerPaq;
                     Descripcion.BringToFront();
                 }
             }
+        }
+
+        private void obtenerIDProdServPaq()
+        {
+            string queryIDProdServPaq = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{FormPrincipal.userID}'";
+            DataTable idProdServPaq;
+            idProdServPaq = cn.CargarDatos(queryIDProdServPaq);
+            ID_ProdSerPaq = idProdServPaq.Rows[0]["ID"].ToString();
         }
 
         public void limpiarDGV()
