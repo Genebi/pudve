@@ -124,5 +124,13 @@ namespace PuntoDeVentaV2
         {
             return $"UPDATE Anticipos SET Status = {status} WHERE ID = {IDAnticipo} AND IDUsuario = {IDUsuario}";
         }
+
+        public string GuardarProductosServPaq(string[] datos)
+        {
+            string consulta = "INSERT INTO ProductosDeServicios (Fecha, IDServicio, IDProducto, NombreProducto, Cantidad)";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}')";
+
+            return consulta;
+        }
     }
 }

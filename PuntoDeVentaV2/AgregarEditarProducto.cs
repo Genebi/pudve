@@ -99,6 +99,8 @@ namespace PuntoDeVentaV2
         int PH;
         bool Hided;
 
+        List<string> ProductosDeServicios = new List<string>();     // para agregar los productos del servicio o paquete
+
         // funsion para poder buscar en los productos 
         // si coincide con los campos de de ClaveInterna
         // respecto al stock del producto en su campo de NoIdentificacion
@@ -650,55 +652,130 @@ namespace PuntoDeVentaV2
                         guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo, ProdServPaq };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
-                    }
-                    if (respuesta > 0)
-                    {
                         //Se obtiene la ID del último producto agregado
                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-                        //Se realiza el proceso para guardar los detalles de facturación del producto
-                        if (datosImpuestos != null)
+                        if (respuesta > 0)
                         {
-                            //Cerramos la ventana donde se eligen los impuestos
-                            FormDetalle.Close();
-                            string[] listaImpuestos = datosImpuestos.Split('|');
-                            int longitud = listaImpuestos.Length;
-                            if (longitud > 0)
+                            if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                             {
-                                for (int i = 0; i < longitud; i++)
+                                ProductosDeServicios.Clear();
+                                // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
+                                foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
                                 {
-                                    string[] imp = listaImpuestos[i].Split(',');
-                                    if (imp[3] == " - ") { imp[3] = "0"; }
-                                    if (imp[4] == " - ") { imp[4] = "0"; }
-                                    if (imp[5] == " - ") { imp[5] = "0"; }
-                                    guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
-                                    cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                                    // agregamos la variable para egregar los procutos
+                                    string prodSerPaq = null;
+                                    DataTable dtProductos;
+                                    foreach (Control item in panel.Controls)
+                                    {
+                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                        if (item is ComboBox)
+                                        {
+                                            
+                                            if (item.Text == "Por favor selecciona un Producto")
+                                            {
+                                                prodSerPaq += fech + "|";
+                                                prodSerPaq += idProducto + "|";
+                                                prodSerPaq += idProducto + "|";
+                                                prodSerPaq += txtNombreProducto.Text + "|";
+                                                prodSerPaq += "0";
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                string buscar = null;
+                                                string comboBoxText = item.Text;
+                                                string comboBoxValue = null;
+                                                buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                                                dtProductos = cn.CargarDatos(buscar);
+                                                comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
+                                                prodSerPaq += fech + "|";
+                                                prodSerPaq += idProducto + "|";
+                                                prodSerPaq += comboBoxValue + "|";
+                                                prodSerPaq += comboBoxText + "|";
+                                            }
+                                        }
+                                        if (item is TextBox)
+                                        {
+                                            if (item.Text == "0")
+                                            {
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                var tb = item.Text;
+                                                if (tb == "0")
+                                                {
+                                                    tb = "0";
+                                                }
+                                                prodSerPaq += tb;
+                                            }
+                                        }
+                                    }
+                                    ProductosDeServicios.Add(prodSerPaq);
+                                    prodSerPaq = null;
                                 }
                             }
-                            datosImpuestos = null;
-                        }
-                        //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                        if (descuentos.Any())
-                        {
-                            //Descuento por Cliente
-                            if (descuentos[0] == "1")
+                            //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                            if (ProductosDeServicios.Any())
                             {
-                                guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
-
-                                cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
-                            }
-                            //Descuento por Mayoreo
-                            if (descuentos[0] == "2")
-                            {
-                                foreach (var descuento in descuentos)
+                                foreach (var productosSP in ProductosDeServicios)
                                 {
-                                    if (descuento == "2") { continue; }
+                                    string[] tmp = productosSP.Split('|');
+                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                }
+                                ProductosDeServicios.Clear();
+                            }
+                        }
+                        if (respuesta > 0)
+                        {
+                            //Se obtiene la ID del último producto agregado
+                            idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+                            //Se realiza el proceso para guardar los detalles de facturación del producto
+                            if (datosImpuestos != null)
+                            {
+                                //Cerramos la ventana donde se eligen los impuestos
+                                FormDetalle.Close();
+                                string[] listaImpuestos = datosImpuestos.Split('|');
+                                int longitud = listaImpuestos.Length;
+                                if (longitud > 0)
+                                {
+                                    for (int i = 0; i < longitud; i++)
+                                    {
+                                        string[] imp = listaImpuestos[i].Split(',');
+                                        if (imp[3] == " - ") { imp[3] = "0"; }
+                                        if (imp[4] == " - ") { imp[4] = "0"; }
+                                        if (imp[5] == " - ") { imp[5] = "0"; }
+                                        guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
+                                        cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                                    }
+                                }
+                                datosImpuestos = null;
+                            }
+                            //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                            if (descuentos.Any())
+                            {
+                                //Descuento por Cliente
+                                if (descuentos[0] == "1")
+                                {
+                                    guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
 
-                                    string[] tmp = descuento.Split('-');
+                                    cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                }
+                                //Descuento por Mayoreo
+                                if (descuentos[0] == "2")
+                                {
+                                    foreach (var descuento in descuentos)
+                                    {
+                                        if (descuento == "2") { continue; }
 
-                                    cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                        string[] tmp = descuento.Split('-');
+
+                                        cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                    }
                                 }
                             }
-                        }
+                        
+                            }
                         // recorrido para FlowLayoutPanel para ver cuantos TextBox
                         foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                         {
@@ -1031,11 +1108,15 @@ namespace PuntoDeVentaV2
             try
             {
                 DataTable datosProductos = new DataTable();
-                string queryProductos = $"SELECT * FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'";
+                string queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'";
                 datosProductos = cn.CargarDatos(queryProductos);
-                cb.DataSource = datosProductos;
                 cb.DisplayMember = "Nombre";
                 cb.ValueMember = "ID";
+                DataRow row = datosProductos.NewRow();
+                row["ID"] = 0;
+                row["Nombre"] = "Por favor selecciona un Producto";
+                datosProductos.Rows.InsertAt(row, 0);
+                cb.DataSource = datosProductos;
             }
             catch (Exception ex)
             {
@@ -1131,6 +1212,11 @@ namespace PuntoDeVentaV2
         private void txtClaveProducto_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
+        }
+
+        private void cbTipo_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            
         }
 
         private void txtCodigoBarras_Enter(object sender, EventArgs e)
