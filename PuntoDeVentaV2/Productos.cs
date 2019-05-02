@@ -21,6 +21,7 @@ namespace PuntoDeVentaV2
         public photoShow VentanaMostrarFoto = new photoShow();
         public TagMake MakeTagProd = new TagMake();
         public VentanaDetalleFotoProducto ProductoDetalle = new VentanaDetalleFotoProducto();
+        public DetalleDescripcion Descripcion = new DetalleDescripcion();
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -483,6 +484,23 @@ namespace PuntoDeVentaV2
                     origenDeLosDatos = 4;
                 }
                 btnAgregarProducto.PerformClick();
+            }
+            else if (e.ColumnIndex == 16)
+            {
+                numerofila = e.RowIndex;
+                obtenerDatosDGVProductos(numerofila);
+                Descripcion.FormClosed += delegate
+                {
+
+                };
+                if (!Descripcion.Visible)
+                {
+                    Descripcion.ShowDialog();
+                }
+                else
+                {
+                    Descripcion.BringToFront();
+                }
             }
         }
 

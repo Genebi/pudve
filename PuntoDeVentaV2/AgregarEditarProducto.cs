@@ -1274,6 +1274,7 @@ namespace PuntoDeVentaV2
             btnAdd.Visible = false;
 
             ocultarPanel();
+            flowLayoutPanel2.Controls.Clear();
         }
 
         private void cargarCBProductos()

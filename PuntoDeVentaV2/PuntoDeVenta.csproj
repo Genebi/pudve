@@ -142,6 +142,12 @@
     <Compile Include="ComboboxItem.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Consultas.cs" />
+    <Compile Include="DetalleDescripcion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DetalleDescripcion.Designer.cs">
+      <DependentUpon>DetalleDescripcion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empresas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +284,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CodeBarMake.resx">
       <DependentUpon>CodeBarMake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DetalleDescripcion.resx">
+      <DependentUpon>DetalleDescripcion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>
