@@ -32,10 +32,16 @@ namespace PuntoDeVentaV2
 
         private void cargarDatos()
         {
-            ID_Producto = IDProducto;
-            string queryDetalle = $"SELECT usr.ID AS 'No de Usuario', usr.NombreCompleto AS 'Nombre', usr.Regimen AS 'Regimen', usr.TipoPersona AS 'Tipo de Persona', prod.ID AS 'No de Producto', prod.Nombre AS 'Nombre de Producto', prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.CodigoBarras AS 'Codigo  de Barra', prod.TipoDescuento AS 'Tipo de Descuento', prodServ.ID AS 'No de Reg Servicio', prodServ.Fecha As 'Fecha del Resgistro', prodServ.IDServicio AS 'Numero de Servicio', prod.Nombre AS 'Nombre del Serv/Paq', prodServ.IDProducto AS 'Numero de Producto', prodServ.Cantidad AS 'Cantidad del Producto', prodserv.NombreProducto AS 'Concepto del Producto' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN ProductosDeServicios AS prodServ ON prodServ.IDServicio = prod.ID WHERE usr.ID = '{FormPrincipal.userID}' AND prod.ID = '{ID_Producto}'";
-            dtProductoDescripcion = cn.CargarDatos(queryDetalle);
-            dataGridView1.DataSource = dtProductoDescripcion;
+            
+        }
+
+        public void limpiarDGV()
+        {
+            //if (DGVDetalle.DataSource is DataTable)
+            //{
+            //    ((DataTable)DGVDetalle.DataSource).Rows.Clear();
+            //    DGVDetalle.Refresh();
+            //}
         }
     }
 }

@@ -72,8 +72,6 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -392,8 +390,6 @@
             // PDetalleProdcuto
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
-            this.PDetalleProdcuto.Controls.Add(this.label12);
-            this.PDetalleProdcuto.Controls.Add(this.label11);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.label1);
             this.PDetalleProdcuto.Controls.Add(this.txtNombreProducto);
@@ -576,24 +572,6 @@
             this.panel3.Size = new System.Drawing.Size(1116, 150);
             this.panel3.TabIndex = 32;
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(411, 73);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(54, 17);
-            this.label11.TabIndex = 30;
-            this.label11.Text = "label11";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(643, 73);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(54, 17);
-            this.label12.TabIndex = 31;
-            this.label12.Text = "label12";
-            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -682,7 +660,5 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
     }
 }

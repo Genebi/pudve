@@ -334,8 +334,8 @@ namespace PuntoDeVentaV2
                     }
                     if (e.ColumnIndex == 16)
                     {
-                        textoTTipButtonMsg = "Descripcion del Producto/Servicio";
-                        coordenadaX = 180;
+                        textoTTipButtonMsg = "Producto/Servicio";
+                        coordenadaX = 90;
                         coordenadaY = -200;
                     }
                     TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
@@ -487,26 +487,26 @@ namespace PuntoDeVentaV2
                 }
                 btnAgregarProducto.PerformClick();
             }
-            else if (e.ColumnIndex == 16)
-            {
-                numerofila = e.RowIndex;
-                obtenerDatosDGVProductos(numerofila);
-                obtenerIDProdServPaq();
-                Descripcion.FormClosed += delegate
-                {
+            //else if (e.ColumnIndex == 16)
+            //{
+            //    numerofila = e.RowIndex;
+            //    obtenerDatosDGVProductos(numerofila);
+            //    obtenerIDProdServPaq();
+            //    Descripcion.FormClosed += delegate
+            //    {
 
-                };
-                if (!Descripcion.Visible)
-                {
-                    Descripcion.IDProducto = ID_ProdSerPaq;
-                    Descripcion.ShowDialog();
-                }
-                else
-                {
-                    Descripcion.IDProducto = ID_ProdSerPaq;
-                    Descripcion.BringToFront();
-                }
-            }
+            //    };
+            //    if (!Descripcion.Visible)
+            //    {
+            //        Descripcion.IDProducto = ID_ProdSerPaq;
+            //        Descripcion.ShowDialog();
+            //    }
+            //    else
+            //    {
+            //        Descripcion.IDProducto = ID_ProdSerPaq;
+            //        Descripcion.BringToFront();
+            //    }
+            //}
         }
 
         private void obtenerIDProdServPaq()

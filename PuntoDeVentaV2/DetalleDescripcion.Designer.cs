@@ -28,36 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.DGVDetalle = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVDetalle)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // DGVDetalle
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(22, 178);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(599, 262);
-            this.dataGridView1.TabIndex = 0;
+            this.DGVDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVDetalle.Location = new System.Drawing.Point(22, 178);
+            this.DGVDetalle.Name = "DGVDetalle";
+            this.DGVDetalle.RowTemplate.Height = 24;
+            this.DGVDetalle.Size = new System.Drawing.Size(599, 262);
+            this.DGVDetalle.TabIndex = 0;
             // 
             // DetalleDescripcion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(637, 494);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.DGVDetalle);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DetalleDescripcion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "DetalleDescripcion";
+            this.Text = "Detalle Descripcion";
             this.Load += new System.EventHandler(this.DetalleDescripcion_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVDetalle)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DGVDetalle;
     }
 }
