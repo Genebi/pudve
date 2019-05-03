@@ -235,11 +235,12 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                lista.Add(dr[0].ToString()); //ID producto
-                lista.Add(dr[1].ToString()); //Nombre
-                lista.Add(dr[3].ToString()); //Precio
-                lista.Add(dr[9].ToString()); //Tipo descuento
-                lista.Add(dr[2].ToString()); //Stock
+                lista.Add(dr[0].ToString());  //ID producto
+                lista.Add(dr[1].ToString());  //Nombre
+                lista.Add(dr[3].ToString());  //Precio
+                lista.Add(dr[9].ToString());  //Tipo descuento
+                lista.Add(dr[2].ToString());  //Stock
+                lista.Add(dr[13].ToString()); //Tipo (producto o servicio)
             }
 
             dr.Close();
@@ -423,6 +424,50 @@ namespace PuntoDeVentaV2
             }
 
             return char.ToUpper(cadena[0]) + cadena.Substring(1);
+        }
+
+        public string[] ObtenerProductosServicio(int IDServicio)
+        {
+            List<string> lista = new List<string>();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = {IDServicio}";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                lista.Add(dr[3] + "|" + dr[5]); //ID producto y cantidad
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] VerificarStockProducto(int IDProducto, int IDUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT * FROM Productos WHERE ID = {IDProducto} AND IDUsuario = {IDUsuario}";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[1] + "|" + dr[2]); //Nombre y Stock
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
         }
     }
 }
