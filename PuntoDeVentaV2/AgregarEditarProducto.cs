@@ -269,12 +269,14 @@ namespace PuntoDeVentaV2
         {
             string NombreProducto = "";
             string CantidadProducto = "";
+            string IDProducto = "";
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
 
             foreach (DataRow dtRow in dtProductosDeServicios.Rows)
             {
                 NombreProducto = dtRow["NombreProducto"].ToString();
                 CantidadProducto = dtRow["Cantidad"].ToString();
+                IDProducto = dtRow["IDProducto"].ToString();
                 panelHijo.Name = "panelGenerado" + id;
                 panelHijo.Width = 749;
                 panelHijo.Height = 25;
@@ -302,12 +304,13 @@ namespace PuntoDeVentaV2
                     row["Nombre"] = "Por favor selecciona un Producto";
                     datosProductos.Rows.InsertAt(row, 0);
                     cb.DataSource = datosProductos;
-                    cb.Text = NombreProducto;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                cb.SelectedValue = IDProducto;
+                label11.Text = NombreProducto;
 
                 Label lb2 = new Label();
                 lb2.Name = "labelCantidadGenerado" + id;
