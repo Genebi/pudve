@@ -232,6 +232,7 @@ namespace PuntoDeVentaV2
             row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
             row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
             row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
+            row.Cells["TipoPS"].Value = datosProducto[5]; //Este campo no es visible
             row.Cells["Cantidad"].Value = cantidad;
             row.Cells["Precio"].Value = datosProducto[2];
             row.Cells["Descripcion"].Value = datosProducto[1];
@@ -715,16 +716,56 @@ namespace PuntoDeVentaV2
                 {
                     var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
                     var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                    var tipoPS = fila.Cells["TipoPS"].Value.ToString();
 
-                    if (stock < cantidad)
+                    //Es producto
+                    if (tipoPS == "P")
                     {
-                        var producto = fila.Cells["Descripcion"].Value;
+                        if (stock < cantidad)
+                        {
+                            var producto = fila.Cells["Descripcion"].Value;
 
-                        MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                        respuesta = false;
+                            respuesta = false;
 
-                        break;
+                            break;
+                        }
+                    }
+
+                    //Es servicio
+                    if (tipoPS == "S")
+                    {
+                        var servicio = fila.Cells["Descripcion"].Value;
+                        var idServicio = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+
+                        //Obtener los productos relacionados (ID, Cantidad)
+                        var datosServicio = cn.ObtenerProductosServicio(idServicio);
+
+                        //Verificar la cantidad de cada producto con el stock actual de ese producto individual
+                        foreach (string producto in datosServicio)
+                        {
+                            var datosProducto = producto.Split('|');
+                            var idProducto = Convert.ToInt32(datosProducto[0]);
+                            var stockRequerido = Convert.ToInt32(datosProducto[1]);
+
+                            datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+                            datosProducto = datosProducto[0].Split('|');
+
+                            var nombreProducto = datosProducto[0];
+                            var stockActual = Convert.ToInt32(datosProducto[1]);
+
+                            if (stockActual < stockRequerido)
+                            {
+                                var mensaje = $"El stock de {nombreProducto} es insuficiente\nServicio: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+
+                                MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                respuesta = false;
+
+                                break;
+                            }
+                        }
                     }
                 }
             }
