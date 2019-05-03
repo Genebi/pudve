@@ -268,7 +268,7 @@ namespace PuntoDeVentaV2
             var celda = DGVentas.CurrentCell.RowIndex;
 
             //Agregar multiple
-            if (e.ColumnIndex == 9)
+            if (e.ColumnIndex == 10)
             {
                 indiceFila = e.RowIndex;
 
@@ -284,7 +284,7 @@ namespace PuntoDeVentaV2
             }
 
             //Agregar individual
-            if (e.ColumnIndex == 10)
+            if (e.ColumnIndex == 11)
             {
                 int cantidad  = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value) + 1;
                 float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
@@ -303,7 +303,7 @@ namespace PuntoDeVentaV2
             }
 
             //Restar individual
-            if (e.ColumnIndex == 11)
+            if (e.ColumnIndex == 12)
             {
                 int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
 
@@ -327,7 +327,7 @@ namespace PuntoDeVentaV2
             }
 
             //Eliminar individual
-            if (e.ColumnIndex == 12)
+            if (e.ColumnIndex == 13)
             {
                 DGVentas.Rows.RemoveAt(celda);
             }
@@ -629,6 +629,7 @@ namespace PuntoDeVentaV2
                         var Nombre = fila.Cells["Descripcion"].Value.ToString();
                         var Cantidad = fila.Cells["Cantidad"].Value.ToString();
                         var Precio = fila.Cells["Precio"].Value.ToString();
+                        var Tipo = fila.Cells["TipoPS"].Value.ToString();
 
                         guardar = new string[] { idVenta, IDProducto, Nombre, Cantidad, Precio };
 
@@ -637,19 +638,52 @@ namespace PuntoDeVentaV2
 
                         contador++;
 
-                        cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
-
+                        //Si es un producto lo guarda en la tabla de productos de venta
+                        if (Tipo == "P")
+                        {
+                            cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
+                        }
+                        
                         //Si la venta no fue guardada con el boton "Guardar"
                         if (!ventaGuardada)
                         {
-                            //Actualizar stock de productos
-                            var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
-                            var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
-                            var restantes = (stock - vendidos).ToString();
+                            //Producto
+                            if (Tipo == "P")
+                            {
+                                //Actualizar stock de productos
+                                var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
+                                var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                                var restantes = (stock - vendidos).ToString();
 
-                            guardar = new string[] { IDProducto, restantes };
+                                guardar = new string[] { IDProducto, restantes };
 
-                            cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
+                                cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
+                            }
+                            
+                            //Servicio
+                            if (Tipo == "S")
+                            {
+                                var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+
+                                var datosServicio = cn.ObtenerProductosServicio(Convert.ToInt32(IDProducto));
+
+                                foreach (string producto in datosServicio)
+                                {
+                                    var datosProducto = producto.Split('|');
+                                    var idProducto = Convert.ToInt32(datosProducto[0]);
+                                    var stockRequerido = Convert.ToInt32(datosProducto[1]) * vendidos;
+
+                                    datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+                                    datosProducto = datosProducto[0].Split('|');
+                                    var stockActual = Convert.ToInt32(datosProducto[1]);
+
+                                    var restantes = (stockActual - stockRequerido).ToString();
+
+                                    guardar = new string[] { idProducto.ToString(), restantes };
+
+                                    cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
+                                }
+                            }
                         } 
                     }
 
@@ -747,7 +781,7 @@ namespace PuntoDeVentaV2
                         {
                             var datosProducto = producto.Split('|');
                             var idProducto = Convert.ToInt32(datosProducto[0]);
-                            var stockRequerido = Convert.ToInt32(datosProducto[1]);
+                            var stockRequerido = Convert.ToInt32(datosProducto[1]) * cantidad;
 
                             datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
                             datosProducto = datosProducto[0].Split('|');
