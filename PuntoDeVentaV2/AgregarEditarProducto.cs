@@ -59,8 +59,10 @@ namespace PuntoDeVentaV2
         FileStream File, File1;
         FileInfo info;
 
-        string queryBuscarProd, idProductoBuscado, queryUpdateProd, queryInsertProd, queryBuscarCodBarExt, queryBuscarDescuentoCliente, queryDesMayoreo;
+        string queryBuscarProd, idProductoBuscado, queryUpdateProd, queryInsertProd, queryBuscarCodBarExt, queryBuscarDescuentoCliente, queryDesMayoreo, queryProductosDeServicios;
         int respuesta;
+
+        DataTable dtProductosDeServicios;
 
         // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\Productos\";
@@ -74,6 +76,8 @@ namespace PuntoDeVentaV2
         string NvoFileName;
 
         string logoTipo = "";
+
+        string tipoProdServ;
 
         Control _lastEnteredControl;    // para saber cual fue el ultimo control con el cursor activo
 
@@ -239,6 +243,7 @@ namespace PuntoDeVentaV2
             queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
             SearchProdResult = cn.CargarDatos(queryBuscarProd);
             idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();
+            tipoProdServ = SearchProdResult.Rows[0]["Tipo"].ToString();
             queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
             SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
             cargarCodBarExt();
@@ -246,6 +251,104 @@ namespace PuntoDeVentaV2
             SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
             queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
             SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
+            if (tipoProdServ == "S")
+            {
+                queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+                dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
+                cbTipo.Text = "Servicio / Paquete ó Combo";
+                btnAdd.Visible = true;
+            }
+            else if (tipoProdServ == "P")
+            {
+                cbTipo.Text = "Producto";
+                btnAdd.Visible = false;
+            }
+        }
+
+        private void mostrarProdServPaq()
+        {
+            string NombreProducto = "";
+            string CantidadProducto = "";
+            FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+
+            foreach (DataRow dtRow in dtProductosDeServicios.Rows)
+            {
+                NombreProducto = dtRow["NombreProducto"].ToString();
+                CantidadProducto = dtRow["Cantidad"].ToString();
+                panelHijo.Name = "panelGenerado" + id;
+                panelHijo.Width = 749;
+                panelHijo.Height = 25;
+                panelHijo.HorizontalScroll.Visible = false;
+
+                Label lb1 = new Label();
+                lb1.Name = "labelProductoGenerado" + id;
+                lb1.Width = 69;
+                lb1.Height = 17;
+                lb1.Text = "Producto:";
+
+                ComboBox cb = new ComboBox();
+                cb.Name = "comboBoxGenerador" + id;
+                cb.Width = 300;
+                cb.Height = 24;
+                try
+                {
+                    DataTable datosProductos = new DataTable();
+                    string queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
+                    datosProductos = cn.CargarDatos(queryProductos);
+                    cb.DisplayMember = "Nombre";
+                    cb.ValueMember = "ID";
+                    DataRow row = datosProductos.NewRow();
+                    row["ID"] = 0;
+                    row["Nombre"] = "Por favor selecciona un Producto";
+                    datosProductos.Rows.InsertAt(row, 0);
+                    cb.DataSource = datosProductos;
+                    cb.Text = NombreProducto;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                Label lb2 = new Label();
+                lb2.Name = "labelCantidadGenerado" + id;
+                lb2.Width = 68;
+                lb2.Height = 17;
+                lb2.Text = "Cantidad:";
+
+                TextBox tb = new TextBox();
+                tb.Name = "textBoxGenerado" + id;
+                tb.Width = 250;
+                tb.Height = 22;
+                tb.Text = CantidadProducto;
+                tb.Enter += new EventHandler(TextBoxProductos_Enter);
+                tb.KeyDown += new KeyEventHandler(TexBoxProductos_Keydown);
+
+                Button bt = new Button();
+                bt.Cursor = Cursors.Hand;
+                bt.Text = "X";
+                bt.Name = "btnGenerado" + id;
+                bt.Height = 23;
+                bt.Width = 23;
+                bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                bt.ForeColor = ColorTranslator.FromHtml("white");
+                bt.FlatStyle = FlatStyle.Flat;
+                bt.TextAlign = ContentAlignment.MiddleCenter;
+                bt.Anchor = AnchorStyles.Top;
+                bt.Click += new EventHandler(ClickBotonesProductos);
+
+                panelHijo.Controls.Add(lb1);
+                panelHijo.Controls.Add(cb);
+                panelHijo.Controls.Add(lb2);
+                panelHijo.Controls.Add(tb);
+                panelHijo.Controls.Add(bt);
+                panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                flowLayoutPanel2.Controls.Add(panelHijo);
+                flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+                tb.Focus();
+                id++;
+            }
         }
 
         public void cargarDatos()
@@ -1067,7 +1170,14 @@ namespace PuntoDeVentaV2
                 {
                     timer1.Stop();
                     Hided = false;
-                    GenerarPanelProductos();
+                    if (idProductoBuscado != null && tipoProdServ == "S")
+                    {
+                        mostrarProdServPaq();
+                    }
+                    else if (idProductoBuscado == null || tipoProdServ == null && DatosSourceFinal == 1)
+                    {
+                        GenerarPanelProductos();
+                    }
                     this.Height = 780;
                     this.CenterToScreen();
                     this.Refresh();
@@ -1108,7 +1218,7 @@ namespace PuntoDeVentaV2
             try
             {
                 DataTable datosProductos = new DataTable();
-                string queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}'";
+                string queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
                 datosProductos = cn.CargarDatos(queryProductos);
                 cb.DisplayMember = "Nombre";
                 cb.ValueMember = "ID";
@@ -1258,23 +1368,23 @@ namespace PuntoDeVentaV2
         {
             PH = PConteidoProducto.Height;
             Hided = false;
-
+            flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
 
             if (ProdNombre.Equals(""))
             {
                 LimpiarCampos();
+                cbTipo.Text = "Producto";
+                btnAdd.Visible = false;
+                ocultarPanel();
+                
             }
             else if (!ProdNombre.Equals(""))
             {
                 cargarDatos();
+                //btnAdd.Visible = true;
+                ocultarPanel();
             }
-
-            cbTipo.Text = "Producto";
-            btnAdd.Visible = false;
-
-            ocultarPanel();
-            flowLayoutPanel2.Controls.Clear();
         }
 
         private void cargarCBProductos()
