@@ -6,6 +6,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.IO;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace PuntoDeVentaV2
 {
@@ -18,6 +19,7 @@ namespace PuntoDeVentaV2
         string[] productos;
         float porcentajeGeneral = 0;
         bool ventaGuardada = false; //Para saber si la venta se guardo o no
+        int multiplicar = 0;
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
@@ -123,6 +125,8 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            txtBuscadorProducto.Text = ComprobarBusqueda(txtBuscadorProducto.Text);
+
             foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
             {
                 if (s.Contains(txtBuscadorProducto.Text))
@@ -188,7 +192,15 @@ namespace PuntoDeVentaV2
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
                     {
-                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + 1;
+                        var sumar = 1;
+
+                        if (multiplicar > 0)
+                        {
+                            sumar = multiplicar;
+                            multiplicar = 0;
+                        }
+
+                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + sumar;
                         float importe = cantidad * float.Parse(fila.Cells["Precio"].Value.ToString());
 
                         fila.Cells["Cantidad"].Value = cantidad;
@@ -221,6 +233,11 @@ namespace PuntoDeVentaV2
 
         private void AgregarProductoLista(string[] datosProducto, int cantidad = 1)
         {
+            if (multiplicar > 0) {
+                cantidad = multiplicar;
+                multiplicar = 0;
+            }
+
             //Se agrega la nueva fila y se obtiene el ID que tendrá
             int rowId = DGVentas.Rows.Add();
 
@@ -1114,6 +1131,42 @@ namespace PuntoDeVentaV2
             var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
 
             ImprimirTicket(idVenta);
+        }
+
+        private void btnPresupuesto_Click(object sender, EventArgs e)
+        {
+            //string pattern = @"^[0-9*\s]+";
+
+            //Cadena de prueba    
+            //string text = txtBuscadorProducto.Text;
+
+            //string cadena = Regex.Replace(txtBuscadorProducto.Text, pattern, string.Empty);
+            //Encontrar coincidencias
+            //MatchCollection matches = rx.Matches(text);
+
+
+            var cadena = ComprobarBusqueda(txtBuscadorProducto.Text);
+
+            MessageBox.Show(cadena);
+        }
+
+        private string ComprobarBusqueda(string cadena)
+        {
+            //string pattern = @"^[0-9*\s]+";
+            string pattern = @"^\d+\s\*\s";
+
+            Match m = Regex.Match(cadena, pattern, RegexOptions.IgnoreCase);
+
+            if (m.Success)
+            {
+                var resultado = m.Value.Trim().Split(' ');
+
+                multiplicar = Convert.ToInt32(resultado[0]);
+            }
+
+            cadena = Regex.Replace(cadena, pattern, string.Empty);
+
+            return cadena;
         }
     }
 }

@@ -149,6 +149,7 @@
             this.btnPresupuesto.TabIndex = 19;
             this.tituloBoton.SetToolTip(this.btnPresupuesto, "Guardar como presupuesto");
             this.btnPresupuesto.UseVisualStyleBackColor = true;
+            this.btnPresupuesto.Click += new System.EventHandler(this.btnPresupuesto_Click);
             // 
             // txtBuscadorProducto
             // 
