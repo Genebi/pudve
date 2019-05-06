@@ -579,10 +579,10 @@
             this.nudCantidadPS.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCantidadPS.Location = new System.Drawing.Point(3, 31);
             this.nudCantidadPS.Minimum = new decimal(new int[] {
-            1,
+            100,
             0,
             0,
-            0});
+            -2147483648});
             this.nudCantidadPS.Name = "nudCantidadPS";
             this.nudCantidadPS.Size = new System.Drawing.Size(71, 22);
             this.nudCantidadPS.TabIndex = 40;

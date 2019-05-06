@@ -1158,27 +1158,97 @@ namespace PuntoDeVentaV2
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
             Match terceraCoincidencia = Regex.Match(cadena, tercerPatron, RegexOptions.IgnoreCase);
 
-
-            //Si encuentra coincidencia asigna la cantidad a la variable multiplicar y se visualiza en el campo numerico
+            // Si encuentra coincidencia asigna la cantidad a la variable multiplicar 
+            // y se visualiza en el campo numerico
             if (primeraCoincidencia.Success)
             {
                 var resultado = primeraCoincidencia.Value.Trim().Split(' ');
 
                 multiplicar = Convert.ToInt32(resultado[0]);
 
-                nudCantidadPS.Value = multiplicar;
+                if (multiplicar != 0)
+                {
+                    if (multiplicar >= nudCantidadPS.Minimum && multiplicar <= nudCantidadPS.Maximum)
+                    {
+                        nudCantidadPS.Value = multiplicar;
+                    }
+                }
 
                 cadena = Regex.Replace(cadena, primerPatron, string.Empty);
             }
             else if (segundaCoincidencia.Success)
             {
-                MessageBox.Show("Segunda");
+                var resultado = segundaCoincidencia.Value.Trim().Split('+');
+
+                if (resultado[0] != string.Empty)
+                {
+                    multiplicar = Convert.ToInt32(resultado[0]);
+                }
+                else
+                {
+                    multiplicar = Convert.ToInt32(resultado[1]);
+                }
+
                 cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
+
+                //Verifica que exista algun producto o servicio en el datagridview
+                if (DGVentas.Rows.Count > 0)
+                {
+                    if (multiplicar != 0)
+                    {
+                        //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
+                        if (multiplicar >= nudCantidadPS.Minimum && multiplicar <= nudCantidadPS.Maximum)
+                        {
+                            var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
+
+                            cantidad += multiplicar;
+
+                            DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
+
+                            nudCantidadPS.Value = multiplicar;
+
+                            multiplicar = 0;
+                        }
+                    }
+                }
             }
             else if (terceraCoincidencia.Success)
             {
-                MessageBox.Show("Tercera");
+                var resultado = terceraCoincidencia.Value.Trim().Split('-');
+
+                if (resultado[0] != string.Empty)
+                {
+                    multiplicar = Convert.ToInt32(resultado[0]) * -1;
+                }
+                else
+                {
+                    multiplicar = Convert.ToInt32(resultado[1]) * -1;
+                }
+
                 cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
+
+                //Verifica que exista algun producto o servicio en el datagridview
+                if (DGVentas.Rows.Count > 0)
+                {
+                    if (multiplicar != 0)
+                    {
+                        //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
+                        if (multiplicar >= nudCantidadPS.Minimum && multiplicar <= nudCantidadPS.Maximum)
+                        {
+                            var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
+
+                            cantidad += multiplicar;
+
+                            if (cantidad < 0) { cantidad = 0; }
+
+                            DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
+
+                            nudCantidadPS.Value = multiplicar;
+
+                            multiplicar = 1;
+                        }
+                    }
+                }
             }
 
             return cadena;
