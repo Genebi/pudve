@@ -1151,8 +1151,8 @@ namespace PuntoDeVentaV2
         private string VerificarPatronesBusqueda(string cadena)
         {
             string primerPatron  = @"^\d+\s\*\s";
-            string segundoPatron = @"^(\+\d+)|(\d+\+)";
-            string tercerPatron  = @"^(\-\d+)|(\d+\-)";
+            string segundoPatron = @"^(\+\d+)|(\d+\+)$";
+            string tercerPatron  = @"^(\-\d+)|(\d+\-)$";
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
@@ -1205,6 +1205,8 @@ namespace PuntoDeVentaV2
 
                             DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
 
+                            CantidadesFinalesVenta();
+
                             nudCantidadPS.Value = multiplicar;
 
                             multiplicar = 0;
@@ -1243,9 +1245,11 @@ namespace PuntoDeVentaV2
 
                             DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
 
+                            CantidadesFinalesVenta();
+
                             nudCantidadPS.Value = multiplicar;
 
-                            multiplicar = 1;
+                            multiplicar = 0;
                         }
                     }
                 }
