@@ -119,13 +119,13 @@ namespace PuntoDeVentaV2
         {
             listaProductos.Items.Clear();
 
+            txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
+
             if (txtBuscadorProducto.Text.Length == 0)
             {
                 ocultarResultados();
                 return;
             }
-
-            txtBuscadorProducto.Text = ComprobarBusqueda(txtBuscadorProducto.Text);
 
             foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
             {
@@ -1145,38 +1145,41 @@ namespace PuntoDeVentaV2
 
         private void btnPresupuesto_Click(object sender, EventArgs e)
         {
-            //string pattern = @"^[0-9*\s]+";
-
-            //Cadena de prueba    
-            //string text = txtBuscadorProducto.Text;
-
-            //string cadena = Regex.Replace(txtBuscadorProducto.Text, pattern, string.Empty);
-            //Encontrar coincidencias
-            //MatchCollection matches = rx.Matches(text);
-
-
-            var cadena = ComprobarBusqueda(txtBuscadorProducto.Text);
-
-            MessageBox.Show(cadena);
+            //Sin acciones
         }
 
-        private string ComprobarBusqueda(string cadena)
+        private string VerificarPatronesBusqueda(string cadena)
         {
-            //string pattern = @"^[0-9*\s]+";
-            string pattern = @"^\d+\s\*\s";
+            string primerPatron  = @"^\d+\s\*\s";
+            string segundoPatron = @"^(\+\d+)|(\d+\+)";
+            string tercerPatron  = @"^(\-\d+)|(\d+\-)";
 
-            Match m = Regex.Match(cadena, pattern, RegexOptions.IgnoreCase);
+            Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
+            Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
+            Match terceraCoincidencia = Regex.Match(cadena, tercerPatron, RegexOptions.IgnoreCase);
 
-            if (m.Success)
+
+            //Si encuentra coincidencia asigna la cantidad a la variable multiplicar y se visualiza en el campo numerico
+            if (primeraCoincidencia.Success)
             {
-                var resultado = m.Value.Trim().Split(' ');
+                var resultado = primeraCoincidencia.Value.Trim().Split(' ');
 
                 multiplicar = Convert.ToInt32(resultado[0]);
 
                 nudCantidadPS.Value = multiplicar;
-            }
 
-            cadena = Regex.Replace(cadena, pattern, string.Empty);
+                cadena = Regex.Replace(cadena, primerPatron, string.Empty);
+            }
+            else if (segundaCoincidencia.Success)
+            {
+                MessageBox.Show("Segunda");
+                cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
+            }
+            else if (terceraCoincidencia.Success)
+            {
+                MessageBox.Show("Tercera");
+                cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
+            }
 
             return cadena;
         }
