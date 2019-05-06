@@ -85,7 +85,7 @@ namespace PuntoDeVentaV2
 
         private void BuscarTieneFoco(object sender, EventArgs e)
         {
-            if (txtBuscadorProducto.Text == "buscar producto...")
+            if (txtBuscadorProducto.Text == "buscar producto o servicio...")
             {
                 txtBuscadorProducto.Text = "";
             }
@@ -95,7 +95,7 @@ namespace PuntoDeVentaV2
         {
             if (txtBuscadorProducto.Text == "")
             {
-                txtBuscadorProducto.Text = "buscar producto...";
+                txtBuscadorProducto.Text = "buscar producto o servicio...";
             }
         }
 
@@ -170,7 +170,7 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            /*if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
                 e.Handled = true;
             }
@@ -178,6 +178,14 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Down)
             {
                 listaProductos.Focus();
+            }*/
+
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+            {
+                if (txtBuscadorProducto.Text == string.Empty)
+                {
+                    nudCantidadPS.Value = 1;
+                }
             }
         }
 
@@ -198,6 +206,7 @@ namespace PuntoDeVentaV2
                         {
                             sumar = multiplicar;
                             multiplicar = 0;
+                            nudCantidadPS.Value = 1;
                         }
 
                         int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + sumar;
@@ -236,6 +245,7 @@ namespace PuntoDeVentaV2
             if (multiplicar > 0) {
                 cantidad = multiplicar;
                 multiplicar = 0;
+                nudCantidadPS.Value = 1;
             }
 
             //Se agrega la nueva fila y se obtiene el ID que tendrá
@@ -1162,6 +1172,8 @@ namespace PuntoDeVentaV2
                 var resultado = m.Value.Trim().Split(' ');
 
                 multiplicar = Convert.ToInt32(resultado[0]);
+
+                nudCantidadPS.Value = multiplicar;
             }
 
             cadena = Regex.Replace(cadena, pattern, string.Empty);
