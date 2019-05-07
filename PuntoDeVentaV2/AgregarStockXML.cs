@@ -510,30 +510,35 @@ namespace PuntoDeVentaV2
                     {
                         DGVSugeridos.Rows.Remove(renglon);                                                              // eliminamos los registros del DataGridView
                     }
-                    DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);     // ordenamos desendentemente el DatGridView
 
-                    DGVSugeridos.CurrentCell = DGVSugeridos.Rows[0].Cells[1];
-
-                    fechaSitema = fechaHoy.ToString("s");
-                    fechaSola = fechaSitema.Substring(0, 10);
-                    horaSola = fechaSitema.Substring(11);
-                    fechaCompletaRelacionada = fechaSola + " " + horaSola;
-
-                    numFila = DGVSugeridos.CurrentRow.Index;
-                    IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
-                    NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
-                    StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
-                    CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
-                    
-                    queryrelacionXMLTable = $"SELECT * FROM ProductoRelacionadoXML WHERE NombreXML = '{concepto}'";
-                    dtConfirmarProdRelXML = cn.CargarDatos(queryrelacionXMLTable);
-                    if (dtConfirmarProdRelXML.Rows.Count != 0)
+                    if (DGVSugeridos.Rows.Count != 0)
                     {
-                        seleccionarDefault = 1;
-                    }
-                    else
-                    {
-                        seleccionarDefault = 0;
+                        DGVSugeridos.Sort(DGVSugeridos.Columns["Coincidencias"], ListSortDirection.Descending);     // ordenamos desendentemente el DatGridView
+
+                        DGVSugeridos.CurrentCell = DGVSugeridos.Rows[0].Cells[1];
+
+                        fechaSitema = fechaHoy.ToString("s");
+                        fechaSola = fechaSitema.Substring(0, 10);
+                        horaSola = fechaSitema.Substring(11);
+                        fechaCompletaRelacionada = fechaSola + " " + horaSola;
+
+                        numFila = DGVSugeridos.CurrentRow.Index;
+                        IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
+                        NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
+                        StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
+                        CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
+
+                        queryrelacionXMLTable = $"SELECT * FROM ProductoRelacionadoXML WHERE NombreXML = '{concepto}'";
+                        dtConfirmarProdRelXML = cn.CargarDatos(queryrelacionXMLTable);
+
+                        if (dtConfirmarProdRelXML.Rows.Count != 0)
+                        {
+                            seleccionarDefault = 1;
+                        }
+                        else
+                        {
+                            seleccionarDefault = 0;
+                        }
                     }
                 }
             } 
@@ -833,7 +838,14 @@ namespace PuntoDeVentaV2
         {
             if (PrecioProd >= 0)
             {
-                PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el precio que tiene la caja de texto
+                if (txtBoxPrecioProd.Text == "")
+                {
+                    //PrecioProd = 0;
+                }
+                else
+                {
+                    PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el precio que tiene la caja de texto
+                }
             }
             if (PrecioProdToCompare > 1)
             {

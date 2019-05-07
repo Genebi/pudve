@@ -360,6 +360,7 @@ namespace PuntoDeVentaV2
 
         public void cargarDatos()
         {
+            cbTipo.Text = "Producto";
             ProdNombreFinal = ProdNombre;
             ProdStockFinal = ProdStock;
             ProdPrecioFinal = ProdPrecio;
@@ -751,13 +752,95 @@ namespace PuntoDeVentaV2
                         FormAgregar.Close();
                         tipoDescuento = descuentos[0];
                     }
-                    if (tipoServPaq == "Producto")
+                    if (tipoServPaq == "")
+                    {
+                        cbTipo.Text = "Producto";
+                        tipoServPaq = "Producto";
+                    }
+                    else if (tipoServPaq == "Producto")
                     {
                         guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo, ProdServPaq };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
+                        if (respuesta > 0)
+                        {
+                            //Se obtiene la ID del último producto agregado
+                            idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+                            //Se realiza el proceso para guardar los detalles de facturación del producto
+                            if (datosImpuestos != null)
+                            {
+                                //Cerramos la ventana donde se eligen los impuestos
+                                FormDetalle.Close();
+                                string[] listaImpuestos = datosImpuestos.Split('|');
+                                int longitud = listaImpuestos.Length;
+                                if (longitud > 0)
+                                {
+                                    for (int i = 0; i < longitud; i++)
+                                    {
+                                        string[] imp = listaImpuestos[i].Split(',');
+                                        if (imp[3] == " - ") { imp[3] = "0"; }
+                                        if (imp[4] == " - ") { imp[4] = "0"; }
+                                        if (imp[5] == " - ") { imp[5] = "0"; }
+                                        guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
+                                        cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
+                                    }
+                                }
+                                datosImpuestos = null;
+                            }
+                            //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                            if (descuentos.Any())
+                            {
+                                //Descuento por Cliente
+                                if (descuentos[0] == "1")
+                                {
+                                    guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
+
+                                    cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                }
+                                //Descuento por Mayoreo
+                                if (descuentos[0] == "2")
+                                {
+                                    foreach (var descuento in descuentos)
+                                    {
+                                        if (descuento == "2") { continue; }
+
+                                        string[] tmp = descuento.Split('-');
+
+                                        cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                    }
+                                }
+                            }
+                        }
+                        // recorrido para FlowLayoutPanel para ver cuantos TextBox
+                        foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                        {
+                            // hacemos un objeto para ver que tipo control es
+                            foreach (Control item in panel.Controls)
+                            {
+                                // ver si el control es TextBox
+                                if (item is TextBox)
+                                {
+                                    var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                                    codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                                }
+                            }
+                        }
+                        // verificamos si el List esta con algun registro 
+                        if (codigosBarrras != null || codigosBarrras.Count != 0)
+                        {
+                            // hacemos recorrido del List para gregarlos en los codigos de barras extras
+                            for (int pos = 0; pos < codigosBarrras.Count; pos++)
+                            {
+                                // preparamos el Query
+                                string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos]}','{idProducto}')";
+                                cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
+                            }
+                        }
+                        codigosBarrras.Clear();
+                        //Cierra la ventana donde se agregan los datos del producto
+                        this.Close();
                     }
-                    if (tipoServPaq == "Servicio / Paquete ó Combo")
+                    else if (tipoServPaq == "Servicio / Paquete ó Combo")
                     {
                         ProdServPaq = "S";
                         stock = "0";
@@ -886,8 +969,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
-                        
-                            }
+                        }
                         // recorrido para FlowLayoutPanel para ver cuantos TextBox
                         foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                         {
