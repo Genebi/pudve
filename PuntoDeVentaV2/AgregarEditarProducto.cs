@@ -42,6 +42,8 @@ namespace PuntoDeVentaV2
         public string ProdCategoria { set; get; }
         public string ProdClaveInterna { set; get; }
         public string ProdCodBarras { set; get; }
+        public string claveProductoxml { set; get; }
+        public string claveUnidadMedidaxml { set; get; }
 
         static public int DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
@@ -364,6 +366,8 @@ namespace PuntoDeVentaV2
             ProdCategoriaFinal = ProdCategoria;
             ProdClaveInternaFinal = ProdClaveInterna;
             ProdCodBarrasFinal = ProdCodBarras;
+            claveProducto = claveProductoxml;
+            claveUnidadMedida = claveUnidadMedidaxml;
 
             txtNombreProducto.Text = ProdNombreFinal;
             txtStockProducto.Text = ProdStockFinal;
