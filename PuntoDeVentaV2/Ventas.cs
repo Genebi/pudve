@@ -19,7 +19,7 @@ namespace PuntoDeVentaV2
         string[] productos;
         float porcentajeGeneral = 0;
         bool ventaGuardada = false; //Para saber si la venta se guardo o no
-        int multiplicar = 0;
+        int cantidadExtra = 0;
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
@@ -141,7 +141,6 @@ namespace PuntoDeVentaV2
         {
             if (listaProductos.SelectedIndex > -1)
             {
-                
                 //Se obtiene el texto del item seleccionado del ListBox
                 string producto = listaProductos.Items[listaProductos.SelectedIndex].ToString();
 
@@ -202,10 +201,19 @@ namespace PuntoDeVentaV2
                     {
                         var sumar = 1;
 
-                        if (multiplicar > 0)
+                        if (cantidadExtra > 0)
                         {
-                            sumar = multiplicar;
-                            multiplicar = 0;
+                            sumar = cantidadExtra;
+                            nudCantidadPS.Value = 1;
+                            cantidadExtra = 0;
+                        }
+                        else if (cantidadExtra == 0)
+                        {
+                            if (Convert.ToInt32(nudCantidadPS.Value) > 0)
+                            {
+                                sumar = Convert.ToInt32(nudCantidadPS.Value);
+                            }
+                            
                             nudCantidadPS.Value = 1;
                         }
 
@@ -242,9 +250,18 @@ namespace PuntoDeVentaV2
 
         private void AgregarProductoLista(string[] datosProducto, int cantidad = 1)
         {
-            if (multiplicar > 0) {
-                cantidad = multiplicar;
-                multiplicar = 0;
+            if (cantidadExtra > 0) {
+                cantidad = cantidadExtra;
+                nudCantidadPS.Value = 1;
+                cantidadExtra = 0;
+            }
+            else if (cantidadExtra == 0)
+            {
+                if (Convert.ToInt32(nudCantidadPS.Value) > 0)
+                {
+                    cantidad = Convert.ToInt32(nudCantidadPS.Value);
+                }
+                
                 nudCantidadPS.Value = 1;
             }
 
@@ -1164,13 +1181,13 @@ namespace PuntoDeVentaV2
             {
                 var resultado = primeraCoincidencia.Value.Trim().Split(' ');
 
-                multiplicar = Convert.ToInt32(resultado[0]);
+                cantidadExtra = Convert.ToInt32(resultado[0]);
 
-                if (multiplicar != 0)
+                if (cantidadExtra != 0)
                 {
-                    if (multiplicar >= nudCantidadPS.Minimum && multiplicar <= nudCantidadPS.Maximum)
+                    if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
                     {
-                        nudCantidadPS.Value = multiplicar;
+                        nudCantidadPS.Value = cantidadExtra;
                     }
                 }
 
@@ -1182,11 +1199,11 @@ namespace PuntoDeVentaV2
 
                 if (resultado[0] != string.Empty)
                 {
-                    multiplicar = Convert.ToInt32(resultado[0]);
+                    cantidadExtra = Convert.ToInt32(resultado[0]);
                 }
                 else
                 {
-                    multiplicar = Convert.ToInt32(resultado[1]);
+                    cantidadExtra = Convert.ToInt32(resultado[1]);
                 }
 
                 cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
@@ -1194,22 +1211,23 @@ namespace PuntoDeVentaV2
                 //Verifica que exista algun producto o servicio en el datagridview
                 if (DGVentas.Rows.Count > 0)
                 {
-                    if (multiplicar != 0)
+                    if (cantidadExtra != 0)
                     {
                         //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
-                        if (multiplicar >= nudCantidadPS.Minimum && multiplicar <= nudCantidadPS.Maximum)
+                        if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
                         {
+                            //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
                             var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
 
-                            cantidad += multiplicar;
+                            cantidad += cantidadExtra;
 
                             DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
 
                             CantidadesFinalesVenta();
 
-                            nudCantidadPS.Value = multiplicar;
+                            nudCantidadPS.Value = cantidadExtra;
 
-                            multiplicar = 0;
+                            cantidadExtra = 0;
                         }
                     }
                 }
@@ -1220,11 +1238,11 @@ namespace PuntoDeVentaV2
 
                 if (resultado[0] != string.Empty)
                 {
-                    multiplicar = Convert.ToInt32(resultado[0]) * -1;
+                    cantidadExtra = Convert.ToInt32(resultado[0]) * -1;
                 }
                 else
                 {
-                    multiplicar = Convert.ToInt32(resultado[1]) * -1;
+                    cantidadExtra = Convert.ToInt32(resultado[1]) * -1;
                 }
 
                 cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
@@ -1232,24 +1250,25 @@ namespace PuntoDeVentaV2
                 //Verifica que exista algun producto o servicio en el datagridview
                 if (DGVentas.Rows.Count > 0)
                 {
-                    if (multiplicar != 0)
+                    if (cantidadExtra != 0)
                     {
                         //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
-                        if (multiplicar >= nudCantidadPS.Minimum && multiplicar <= nudCantidadPS.Maximum)
+                        if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
                         {
+                            //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
                             var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
 
-                            cantidad += multiplicar;
+                            cantidad += cantidadExtra;
 
-                            if (cantidad < 0) { cantidad = 0; }
+                            if (cantidad < 0) { cantidad = 1; }
 
                             DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
 
                             CantidadesFinalesVenta();
 
-                            nudCantidadPS.Value = multiplicar;
+                            nudCantidadPS.Value = cantidadExtra;
 
-                            multiplicar = 0;
+                            cantidadExtra = 0;
                         }
                     }
                 }
