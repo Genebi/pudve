@@ -160,6 +160,7 @@
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="ItemsProductoComboBox.cs" />
     <Compile Include="ListadoAnticipos.cs">
       <SubType>Form</SubType>
     </Compile>
