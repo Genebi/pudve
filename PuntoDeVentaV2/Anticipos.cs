@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
 
             var consulta = string.Empty;
@@ -80,7 +80,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Empleado"].Value = "Administrador";
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("Fecha"))).ToString("yyyy-MM-dd HH:mm:ss");
 
-                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
+                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
 
                 row.Cells["Ticket"].Value = ticket;
 
@@ -88,13 +88,13 @@ namespace PuntoDeVentaV2
 
                 if (status == 1)
                 {
-                    Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ban.png");
+                    Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ban.png");
 
                     row.Cells["Status"].Value = deshabilitar;
                 }
                 else if (status == 2)
                 {
-                    Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
+                    Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
 
                     row.Cells["Status"].Value = habilitar;
                 }

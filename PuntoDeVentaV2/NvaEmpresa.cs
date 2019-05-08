@@ -248,7 +248,7 @@ namespace PuntoDeVentaV2
             idUsuario = FormPrincipal.userID.ToString();
             // usamos la variable File para abrir el archivo de imagen, poder leerlo y agregarlo al boton
             // despues de agregado se libera la imagen para su posterior manipulacion si asi fuera
-            using (File = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\icon\black\save.png", FileMode.Open, FileAccess.Read))
+            using (File = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\save.png", FileMode.Open, FileAccess.Read))
             {
                 // Asignamos la imagen al BtnRegistrar
                 btnRegistrar.Image = Image.FromStream(File);

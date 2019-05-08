@@ -13,7 +13,7 @@ namespace PuntoDeVentaV2
 {
     public partial class Login : Form
     {
-
+        //public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         Conexion cn = new Conexion();
 
         string usuario;
@@ -115,6 +115,19 @@ namespace PuntoDeVentaV2
 
         private void Login_Load(object sender, EventArgs e)
         {
+            var pathPUDVESistema = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            // Varaiable para cuando hacemos el instalador
+            Properties.Settings.Default.pathPUDVE = pathPUDVESistema;
+            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
+
+            // descomentar la linea de abajo en caso de hacer el Release
+            //Properties.Settings.Default.rutaDirectorio = Properties.Settings.Default.pathPUDVE;
+
+            //MessageBox.Show("Path: " + Properties.Settings.Default.rutaDirectorio, "Path...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            // descomentar la Linea de abajo cuando estemos en Debug
             Properties.Settings.Default.rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;

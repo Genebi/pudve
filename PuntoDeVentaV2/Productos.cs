@@ -14,6 +14,8 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
+        public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
@@ -42,7 +44,7 @@ namespace PuntoDeVentaV2
         FileInfo info;
 
         // direccion de la carpeta donde se va poner las imagenes
-        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\Productos\";
+        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
         // nombre de archivo
         string fileName;
         // directorio origen de la imagen
@@ -665,7 +667,8 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}'", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -688,17 +691,17 @@ namespace PuntoDeVentaV2
                 row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
                 row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
 
-                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
-                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
-                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
-                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
-                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
-                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
-                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
-                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
-                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
+                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
+                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
+                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
+                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
+                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
+                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
+                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
+                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
 
@@ -750,7 +753,7 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 1", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -773,17 +776,17 @@ namespace PuntoDeVentaV2
                 row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
                 row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
 
-                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
-                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
-                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
-                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
-                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
-                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
-                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
-                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
-                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
+                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
+                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
+                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
+                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
+                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
+                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
+                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
+                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
 
@@ -835,7 +838,7 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + busqueda + "%' ", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -858,17 +861,17 @@ namespace PuntoDeVentaV2
                 row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
                 row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
 
-                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
-                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
-                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
-                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
-                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
-                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
-                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
-                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
-                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
+                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
+                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
+                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
+                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
+                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
+                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
+                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
+                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
 
@@ -920,7 +923,7 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 0", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -943,17 +946,17 @@ namespace PuntoDeVentaV2
                 row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
                 row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
 
-                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\pencil.png");
-                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\check.png");
-                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\close.png");
-                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\line-chart.png");
-                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\barcode.png");
-                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-o.png");
-                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-picture-o.png");
-                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\tag.png");
-                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\copy.png");
-                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Servicio.png");
-                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\Producto.png");
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
+                Image estado1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
+                Image estado2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
+                Image historial = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
+                Image generar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
+                Image imagen1 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
+                Image imagen2 = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
+                Image etiqueta = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
+                Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
+                Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
+                Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
 
                 row.Cells["Column7"].Value = editar;
 

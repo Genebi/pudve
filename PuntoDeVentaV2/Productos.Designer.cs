@@ -35,10 +35,6 @@
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.cbOrden = new System.Windows.Forms.ComboBox();
             this.cbMostrar = new System.Windows.Forms.ComboBox();
-            this.btnListView = new System.Windows.Forms.Button();
-            this.btnPhotoView = new System.Windows.Forms.Button();
-            this.btnModificarEstado = new System.Windows.Forms.Button();
-            this.btnAgregarXML = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView = new System.Windows.Forms.Panel();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
             this.Column0 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -62,6 +58,10 @@
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
+            this.btnListView = new System.Windows.Forms.Button();
+            this.btnPhotoView = new System.Windows.Forms.Button();
+            this.btnModificarEstado = new System.Windows.Forms.Button();
+            this.btnAgregarXML = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -165,64 +165,6 @@
             this.cbMostrar.Size = new System.Drawing.Size(173, 29);
             this.cbMostrar.TabIndex = 7;
             this.cbMostrar.SelectedIndexChanged += new System.EventHandler(this.cbMostrar_SelectedIndexChanged);
-            // 
-            // btnListView
-            // 
-            this.btnListView.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
-            this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListView.Location = new System.Drawing.Point(16, 175);
-            this.btnListView.Name = "btnListView";
-            this.btnListView.Size = new System.Drawing.Size(181, 34);
-            this.btnListView.TabIndex = 12;
-            this.btnListView.Text = "Lista";
-            this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnListView.UseVisualStyleBackColor = true;
-            this.btnListView.Click += new System.EventHandler(this.btnListView_Click);
-            // 
-            // btnPhotoView
-            // 
-            this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th;
-            this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhotoView.Location = new System.Drawing.Point(203, 175);
-            this.btnPhotoView.Name = "btnPhotoView";
-            this.btnPhotoView.Size = new System.Drawing.Size(212, 34);
-            this.btnPhotoView.TabIndex = 11;
-            this.btnPhotoView.Text = "Mosaico";
-            this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnPhotoView.UseVisualStyleBackColor = true;
-            this.btnPhotoView.Click += new System.EventHandler(this.btnPhotoView_Click);
-            // 
-            // btnModificarEstado
-            // 
-            this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
-            this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(203, 135);
-            this.btnModificarEstado.Name = "btnModificarEstado";
-            this.btnModificarEstado.Size = new System.Drawing.Size(212, 35);
-            this.btnModificarEstado.TabIndex = 10;
-            this.btnModificarEstado.Text = "Modificar Estado";
-            this.btnModificarEstado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnModificarEstado.UseVisualStyleBackColor = true;
-            this.btnModificarEstado.Click += new System.EventHandler(this.btnModificarEstado_Click);
-            // 
-            // btnAgregarXML
-            // 
-            this.btnAgregarXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
-            this.btnAgregarXML.Location = new System.Drawing.Point(16, 135);
-            this.btnAgregarXML.Name = "btnAgregarXML";
-            this.btnAgregarXML.Size = new System.Drawing.Size(181, 34);
-            this.btnAgregarXML.TabIndex = 8;
-            this.btnAgregarXML.Text = "Agregar XML";
-            this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAgregarXML.UseVisualStyleBackColor = false;
-            this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
             // panelShowDGVProductosView
             // 
@@ -423,6 +365,64 @@
             this.TTipButtonText.ForeColor = System.Drawing.Color.White;
             this.TTipButtonText.OwnerDraw = true;
             this.TTipButtonText.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTipButtonText_Draw);
+            // 
+            // btnListView
+            // 
+            this.btnListView.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list1;
+            this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnListView.Location = new System.Drawing.Point(16, 175);
+            this.btnListView.Name = "btnListView";
+            this.btnListView.Size = new System.Drawing.Size(181, 34);
+            this.btnListView.TabIndex = 12;
+            this.btnListView.Text = "Lista";
+            this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnListView.UseVisualStyleBackColor = true;
+            this.btnListView.Click += new System.EventHandler(this.btnListView_Click);
+            // 
+            // btnPhotoView
+            // 
+            this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th1;
+            this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPhotoView.Location = new System.Drawing.Point(203, 175);
+            this.btnPhotoView.Name = "btnPhotoView";
+            this.btnPhotoView.Size = new System.Drawing.Size(212, 34);
+            this.btnPhotoView.TabIndex = 11;
+            this.btnPhotoView.Text = "Mosaico";
+            this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPhotoView.UseVisualStyleBackColor = true;
+            this.btnPhotoView.Click += new System.EventHandler(this.btnPhotoView_Click);
+            // 
+            // btnModificarEstado
+            // 
+            this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs1;
+            this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnModificarEstado.Location = new System.Drawing.Point(203, 135);
+            this.btnModificarEstado.Name = "btnModificarEstado";
+            this.btnModificarEstado.Size = new System.Drawing.Size(212, 35);
+            this.btnModificarEstado.TabIndex = 10;
+            this.btnModificarEstado.Text = "Modificar Estado";
+            this.btnModificarEstado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnModificarEstado.UseVisualStyleBackColor = true;
+            this.btnModificarEstado.Click += new System.EventHandler(this.btnModificarEstado_Click);
+            // 
+            // btnAgregarXML
+            // 
+            this.btnAgregarXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus2;
+            this.btnAgregarXML.Location = new System.Drawing.Point(16, 135);
+            this.btnAgregarXML.Name = "btnAgregarXML";
+            this.btnAgregarXML.Size = new System.Drawing.Size(181, 34);
+            this.btnAgregarXML.TabIndex = 8;
+            this.btnAgregarXML.Text = "Agregar XML";
+            this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAgregarXML.UseVisualStyleBackColor = false;
+            this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
             // Productos
             // 

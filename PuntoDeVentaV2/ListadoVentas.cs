@@ -17,6 +17,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
+        public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
 
@@ -45,7 +47,10 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
+
+
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = '{estado}' AND IDUsuario = '{FormPrincipal.userID}'", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -72,9 +77,9 @@ namespace PuntoDeVentaV2
 
                 var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
 
-                Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\remove.png");
-                Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\file-pdf-o.png");
-                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ticket.png");
+                Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
+                Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
+                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
 
                 row.Cells["Cancelar"].Value = cancelar;
                 row.Cells["Factura"].Value = factura;

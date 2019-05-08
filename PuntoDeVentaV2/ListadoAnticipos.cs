@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
                 //Si ya fue seleccionado anteriormente agregamos un icono diferente al momento de visualizarlos
                 if (seleccionado > -1)
                 {
-                    Image aplicar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\ban.png");
+                    Image aplicar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ban.png");
 
                     row.Cells["Aplicar"].Value = aplicar;
 
@@ -74,7 +74,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    Image aplicar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\reply.png");
+                    Image aplicar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
 
                     row.Cells["Aplicar"].Value = aplicar;
 

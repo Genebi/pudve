@@ -16,6 +16,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
+        public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
         public ListadoVentasGuardadas()
         {
             InitializeComponent();
@@ -30,7 +32,8 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = 2 AND IDUsuario = '{FormPrincipal.userID}'", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -53,8 +56,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Total"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
-                Image imgMostrar  = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\eye.png");
-                Image imgEliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\trash.png");
+                Image imgMostrar  = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\eye.png");
+                Image imgEliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
 
                 row.Cells["Mostrar"].Value = imgMostrar;
                 row.Cells["Eliminar"].Value = imgEliminar;

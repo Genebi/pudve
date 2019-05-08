@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
     {
         //Variables iniciales
         //rutaLocal es la variable que se debe usar cuando se haga el instalador
-        public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        //public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
         private SQLiteConnection sql_con;
@@ -64,7 +64,8 @@ namespace PuntoDeVentaV2
 
         public void Conectarse()
         {
-            sql_con = new SQLiteConnection("Data source="+ Properties.Settings.Default.rutaDirectorio +"\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
         }
 
         //Sirve para los INSERT, UPDATE, DELETE

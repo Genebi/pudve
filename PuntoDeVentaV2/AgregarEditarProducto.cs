@@ -67,7 +67,7 @@ namespace PuntoDeVentaV2
         DataTable dtProductosDeServicios;
 
         // direccion de la carpeta donde se va poner las imagenes
-        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\Productos\";
+        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
         // nombre de archivo
         string fileName;
         // directorio origen de la imagen
@@ -309,7 +309,6 @@ namespace PuntoDeVentaV2
                     *   corregir lo del combo box   *
                     ********************************/
                     cb.SelectedValue = IDProducto.ToString();
-                    label11.Text = IDProducto;
                 }
                 catch (Exception ex)
                 {

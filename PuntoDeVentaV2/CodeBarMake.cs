@@ -29,8 +29,8 @@ namespace PuntoDeVentaV2
         public string CodigoBarProd { set; get; }
 
         // Path para guardar la imagen del codigo de barras y el pdf generado con la etiqueta del codigo de barras
-        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\BarCode\";
-        string saveDirectoryPdf = Properties.Settings.Default.rutaDirectorio + @"\PdfCode\";
+        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BarCode\";
+        string saveDirectoryPdf = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\PdfCode\";
 
         // Nombre completo para el archivo
         string FileName, FileNamePng;

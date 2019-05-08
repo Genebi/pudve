@@ -81,7 +81,7 @@ namespace PuntoDeVentaV2
 
             try
             {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + "\\BD\\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
                 sql_con.Open();
                 sql_cmd = sql_con.CreateCommand();
                 sql_cmd.CommandText = "SELECT * FROM CatalogoUnidadesMedida ORDER BY LOWER(Nombre) ASC";
