@@ -112,6 +112,14 @@ namespace PuntoDeVentaV2
         List<string> ProductosDeServicios = new List<string>();     // para agregar los productos del servicio o paquete
         List<ItemsProductoComboBox> prodList;
 
+        int numCombo = 1, indexItem = 1, totCB=0;
+
+        string comboBoxNombre;
+
+        string NombreProducto = "";
+        string CantidadProducto = "";
+        string IDProducto = "";
+
         // funsion para poder buscar en los productos 
         // si coincide con los campos de de ClaveInterna
         // respecto al stock del producto en su campo de NoIdentificacion
@@ -274,10 +282,12 @@ namespace PuntoDeVentaV2
 
         private void mostrarProdServPaq()
         {
-            string NombreProducto = "";
-            string CantidadProducto = "";
-            string IDProducto = "";
-            FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+            NombreProducto = "";
+            CantidadProducto = "";
+            IDProducto = "";
+
+            id = 0;
+            flowLayoutPanel2.Controls.Clear();
 
             foreach (DataRow dtRow in dtProductosDeServicios.Rows)
             {
@@ -285,6 +295,7 @@ namespace PuntoDeVentaV2
                 CantidadProducto = dtRow["Cantidad"].ToString();
                 IDProducto = dtRow["IDProducto"].ToString();
 
+                FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
                 panelHijo.Width = 749;
                 panelHijo.Height = 25;
@@ -294,26 +305,16 @@ namespace PuntoDeVentaV2
                 lb1.Name = "labelProductoGenerado" + id;
                 lb1.Width = 69;
                 lb1.Height = 17;
-                lb1.Text = "Producto:";
+                lb1.Text = "Producto "+id+" :";
 
                 ComboBox cb = new ComboBox();
                 cb.Name = "comboBoxGenerador" + id;
                 cb.Width = 300;
                 cb.Height = 24;
-                try
-                {
-                    cb.DisplayMember = "Nombre";
-                    cb.ValueMember = "ID";
-                    cb.DataSource = prodList;
-                    /********************************
-                    *   corregir lo del combo box   *
-                    ********************************/
-                    cb.SelectedValue = IDProducto.ToString();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                cb.DisplayMember = "Nombre";
+                cb.ValueMember = "ID";
+                cb.DataSource = prodList;
+                cb.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
 
                 Label lb2 = new Label();
                 lb2.Name = "labelCantidadGenerado" + id;
@@ -354,7 +355,65 @@ namespace PuntoDeVentaV2
                 
                 tb.Focus();
                 id++;
+                foreach (Control itemPanel in flowLayoutPanel2.Controls.OfType<Control>())
+                {
+                    foreach (object item in cb.Items)
+                    {
+                        if (item.ToString() == NombreProducto)
+                        {
+                            cb.Text = item.ToString();
+                        }
+                    }
+                }
             }
+            
+            //id = 0;
+            //string comboBoxNombre = "comboBoxGenerador" + id;
+            /****************************
+            ****** A Corregir ***********
+            ****************************/
+            //foreach (DataRow dtRow in dtProductosDeServicios.Rows)
+            //{
+            //    comboBoxNombre = "comboBoxGenerador" + id;
+            //    NombreProducto = dtRow["NombreProducto"].ToString();
+            //    CantidadProducto = dtRow["Cantidad"].ToString();
+            //    IDProducto = dtRow["IDProducto"].ToString();
+
+            //    foreach (Control cComprobar in this.Controls)
+            //    {
+            //        MessageBox.Show("Control: "+cComprobar.Name, "Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        if (cComprobar.Name == "PConteidoProducto")
+            //        {
+            //            FlowLayoutPanel nvoFLP = cComprobar as FlowLayoutPanel;
+            //            foreach (Control obj in nvoFLP.Controls)
+            //            {
+            //                MessageBox.Show("Control: " + obj.Name, "Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                if (obj is ComboBox)
+            //                {
+            //                    if (obj.Name == comboBoxNombre)
+            //                    {
+            //                        obj.Text = NombreProducto;
+            //                        id++;
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+        }
+
+        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+            //for (int i = 0; i <= totCB; i++)
+            //{
+            //    string NumCombo = "comboBoxGenerador" + i;
+            //    string nomCB = ((ComboBox)sender).Name.ToString();
+            //    if (nomCB == NumCombo)
+            //    {
+            //        MessageBox.Show("Es el CombBox No: " + i, "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //    }
+            //}
         }
 
         public void cargarDatos()
@@ -1342,9 +1401,11 @@ namespace PuntoDeVentaV2
                 }
                 if (PStock.Visible == true && PPrecioOriginal.Visible == true)
                 {
+                    lblTipoProdPaq.Text = "Producto";
                     btnAdd.Visible = false;
                     Hided = false;
                     ocultarPanel();
+                    chkBoxConProductos.Visible = false;
                 }
             }
             else if (filtro == "Servicio / Paquete ó Combo")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
@@ -1359,10 +1420,12 @@ namespace PuntoDeVentaV2
                 }
                 if (PStock.Visible == false && PPrecioOriginal.Visible == false)
                 {
+                    lblTipoProdPaq.Text = "Servicio / Paquete ó Combo";
                     btnAdd.Visible = true;
                     btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
                     Hided = false;
                     ocultarPanel();
+                    chkBoxConProductos.Visible = true;
                 }
             }
         }
@@ -1405,6 +1468,7 @@ namespace PuntoDeVentaV2
                     if (idProductoBuscado != null && tipoProdServ == "S")
                     {
                         mostrarProdServPaq();
+                        cambiarCBText();
                     }
                     else if (idProductoBuscado == null || tipoProdServ == null && DatosSourceFinal == 1)
                     {
@@ -1429,8 +1493,35 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cambiarCBText()
+        {
+            //id = 0;
+            //string comboBoxNombre = "comboBoxGenerador" + id;
+
+            //foreach (DataRow dtRow in dtProductosDeServicios.Rows)
+            //{
+            //    NombreProducto = dtRow["NombreProducto"].ToString();
+            //    CantidadProducto = dtRow["Cantidad"].ToString();
+            //    IDProducto = dtRow["IDProducto"].ToString();
+            //    foreach (Control cComprobar in this.Controls)
+            //    {
+            //        if (cComprobar is ComboBox)
+            //        {
+            //            if (cComprobar.Name == comboBoxNombre)
+            //            {
+            //                cComprobar.Text = NombreProducto;
+            //                id++;
+            //            }
+            //        }
+            //    }
+            //}
+        }
+
         private void GenerarPanelProductos()
         {
+            id = 0;
+            flowLayoutPanel2.Controls.Clear();
+
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
             panelHijo.Name = "panelGenerado" + id;
             panelHijo.Width = 749;
@@ -1444,11 +1535,11 @@ namespace PuntoDeVentaV2
             lb1.Text = "Producto:";
 
             ComboBox cb = new ComboBox();
-            cb.Name = "comboBoxGenerador" + id;
-            cb.Width = 300;
-            cb.Height = 24;
             try
             {
+                cb.Name = "comboBoxGenerador" + id;
+                cb.Width = 300;
+                cb.Height = 24;
                 cb.DisplayMember = "Nombre";
                 cb.ValueMember = "ID";
                 cb.DataSource = prodList;
@@ -1537,6 +1628,18 @@ namespace PuntoDeVentaV2
         private void TextBoxProductos_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;
+        }
+
+        private void chkBoxConProductos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBoxConProductos.Checked == true)
+            {
+                //MessageBox.Show("CheckBox esta Marcado", "Estatus del CheckBox", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (chkBoxConProductos.Checked == false)
+            {
+                //MessageBox.Show("CheckBox No esta Marcado", "Estatus del CheckBox", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cbTipo_Enter(object sender, EventArgs e)

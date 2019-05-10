@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTipoProdPaq = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -72,6 +72,7 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.chkBoxConProductos = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -88,16 +89,16 @@
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // lblTipoProdPaq
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(50, 89);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(87, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Producto";
+            this.lblTipoProdPaq.AutoSize = true;
+            this.lblTipoProdPaq.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTipoProdPaq.Location = new System.Drawing.Point(50, 89);
+            this.lblTipoProdPaq.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTipoProdPaq.Name = "lblTipoProdPaq";
+            this.lblTipoProdPaq.Size = new System.Drawing.Size(87, 21);
+            this.lblTipoProdPaq.TabIndex = 0;
+            this.lblTipoProdPaq.Text = "Producto";
             // 
             // label2
             // 
@@ -379,10 +380,11 @@
             this.cbTipo.Items.AddRange(new object[] {
             "Producto",
             "Servicio / Paquete ó Combo"});
-            this.cbTipo.Location = new System.Drawing.Point(97, 50);
+            this.cbTipo.Location = new System.Drawing.Point(97, 55);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(219, 24);
             this.cbTipo.TabIndex = 1;
+            this.cbTipo.Tag = "";
             this.cbTipo.SelectedIndexChanged += new System.EventHandler(this.cbTipo_SelectedIndexChanged);
             this.cbTipo.SelectionChangeCommitted += new System.EventHandler(this.cbTipo_SelectionChangeCommitted);
             this.cbTipo.Enter += new System.EventHandler(this.cbTipo_Enter);
@@ -390,8 +392,9 @@
             // PDetalleProdcuto
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
+            this.PDetalleProdcuto.Controls.Add(this.chkBoxConProductos);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
-            this.PDetalleProdcuto.Controls.Add(this.label1);
+            this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
             this.PDetalleProdcuto.Controls.Add(this.txtNombreProducto);
             this.PDetalleProdcuto.Controls.Add(this.cbTipo);
             this.PDetalleProdcuto.Controls.Add(this.label10);
@@ -414,7 +417,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(51, 53);
+            this.label10.Location = new System.Drawing.Point(51, 59);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(40, 17);
             this.label10.TabIndex = 28;
@@ -572,6 +575,17 @@
             this.panel3.Size = new System.Drawing.Size(1116, 150);
             this.panel3.TabIndex = 32;
             // 
+            // chkBoxConProductos
+            // 
+            this.chkBoxConProductos.AutoSize = true;
+            this.chkBoxConProductos.Location = new System.Drawing.Point(326, 57);
+            this.chkBoxConProductos.Name = "chkBoxConProductos";
+            this.chkBoxConProductos.Size = new System.Drawing.Size(170, 21);
+            this.chkBoxConProductos.TabIndex = 30;
+            this.chkBoxConProductos.Text = "Si Contiene Productos";
+            this.chkBoxConProductos.UseVisualStyleBackColor = true;
+            this.chkBoxConProductos.CheckedChanged += new System.EventHandler(this.chkBoxConProductos_CheckedChanged);
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -617,7 +631,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTipoProdPaq;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -660,5 +674,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.CheckBox chkBoxConProductos;
     }
 }
