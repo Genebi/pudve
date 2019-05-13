@@ -107,7 +107,7 @@ namespace PuntoDeVentaV2
         string filtro;
 
         int PH;
-        bool Hided;
+        bool Hided, Hided1;
 
         List<string> ProductosDeServicios = new List<string>();     // para agregar los productos del servicio o paquete
         List<ItemsProductoComboBox> prodList;
@@ -311,10 +311,19 @@ namespace PuntoDeVentaV2
                 cb.Name = "comboBoxGenerador" + id;
                 cb.Width = 300;
                 cb.Height = 24;
-                cb.DisplayMember = "Nombre";
-                cb.ValueMember = "ID";
-                cb.DataSource = prodList;
                 cb.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
+                try
+                {
+                    foreach (var items in prodList)
+                    {
+                        cb.Items.Add(items.ToString());
+                    }
+                    cb.Text = NombreProducto;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 Label lb2 = new Label();
                 lb2.Name = "labelCantidadGenerado" + id;
@@ -355,65 +364,12 @@ namespace PuntoDeVentaV2
                 
                 tb.Focus();
                 id++;
-                foreach (Control itemPanel in flowLayoutPanel2.Controls.OfType<Control>())
-                {
-                    foreach (object item in cb.Items)
-                    {
-                        if (item.ToString() == NombreProducto)
-                        {
-                            cb.Text = item.ToString();
-                        }
-                    }
-                }
             }
-            
-            //id = 0;
-            //string comboBoxNombre = "comboBoxGenerador" + id;
-            /****************************
-            ****** A Corregir ***********
-            ****************************/
-            //foreach (DataRow dtRow in dtProductosDeServicios.Rows)
-            //{
-            //    comboBoxNombre = "comboBoxGenerador" + id;
-            //    NombreProducto = dtRow["NombreProducto"].ToString();
-            //    CantidadProducto = dtRow["Cantidad"].ToString();
-            //    IDProducto = dtRow["IDProducto"].ToString();
-
-            //    foreach (Control cComprobar in this.Controls)
-            //    {
-            //        MessageBox.Show("Control: "+cComprobar.Name, "Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        if (cComprobar.Name == "PConteidoProducto")
-            //        {
-            //            FlowLayoutPanel nvoFLP = cComprobar as FlowLayoutPanel;
-            //            foreach (Control obj in nvoFLP.Controls)
-            //            {
-            //                MessageBox.Show("Control: " + obj.Name, "Control", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                if (obj is ComboBox)
-            //                {
-            //                    if (obj.Name == comboBoxNombre)
-            //                    {
-            //                        obj.Text = NombreProducto;
-            //                        id++;
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
         }
 
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;
-            //for (int i = 0; i <= totCB; i++)
-            //{
-            //    string NumCombo = "comboBoxGenerador" + i;
-            //    string nomCB = ((ComboBox)sender).Name.ToString();
-            //    if (nomCB == NumCombo)
-            //    {
-            //        MessageBox.Show("Es el CombBox No: " + i, "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //    }
-            //}
         }
 
         public void cargarDatos()
@@ -1434,11 +1390,11 @@ namespace PuntoDeVentaV2
         {
             if (Hided)
             {
-                timer1.Start();
+                timerProdPaqSer.Start();
             }
             else
             {
-                timer1.Start();
+                timerProdPaqSer.Start();
             }
         }
 
@@ -1453,43 +1409,6 @@ namespace PuntoDeVentaV2
             {
                 ocultarPanel();
                 btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
-            }
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (Hided)
-            {
-                PConteidoProducto.Height = PConteidoProducto.Height + 30;
-                if (PConteidoProducto.Height >= PH)
-                {
-                    timer1.Stop();
-                    Hided = false;
-                    if (idProductoBuscado != null && tipoProdServ == "S")
-                    {
-                        mostrarProdServPaq();
-                        cambiarCBText();
-                    }
-                    else if (idProductoBuscado == null || tipoProdServ == null && DatosSourceFinal == 1)
-                    {
-                        GenerarPanelProductos();
-                    }
-                    this.Height = 780;
-                    this.CenterToScreen();
-                    this.Refresh();
-                }
-            }
-            else
-            {
-                PConteidoProducto.Height = PConteidoProducto.Height - 30;
-                if (PConteidoProducto.Height <= 0)
-                {
-                    timer1.Stop();
-                    Hided = true;
-                    this.Height = 600;
-                    this.CenterToScreen();
-                    this.Refresh();
-                }
             }
         }
 
@@ -1634,11 +1553,86 @@ namespace PuntoDeVentaV2
         {
             if (chkBoxConProductos.Checked == true)
             {
+                Hided1 = true;
+                ocultarPanelProd();
                 //MessageBox.Show("CheckBox esta Marcado", "Estatus del CheckBox", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (chkBoxConProductos.Checked == false)
             {
+                Hided1 = false;
+                ocultarPanelProd();
                 //MessageBox.Show("CheckBox No esta Marcado", "Estatus del CheckBox", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ocultarPanelProd()
+        {
+            if (Hided)
+            {
+                timerProductos.Start();
+            }
+            else
+            {
+                timerProductos.Start();
+            }
+        }
+
+        private void timerProdPaqSer_Tick(object sender, EventArgs e)
+        {
+            if (Hided)
+            {
+                PConteidoProducto.Height = PConteidoProducto.Height + 30;
+                if (PConteidoProducto.Height >= PH)
+                {
+                    timerProdPaqSer.Stop();
+                    Hided = false;
+                    if (idProductoBuscado != null && tipoProdServ == "S")
+                    {
+                        mostrarProdServPaq();
+                        cambiarCBText();
+                    }
+                    else if (idProductoBuscado == null || tipoProdServ == null && DatosSourceFinal == 1)
+                    {
+                        GenerarPanelProductos();
+                    }
+                    this.Height = 850;
+                    this.CenterToScreen();
+                    this.Refresh();
+                }
+            }
+            else
+            {
+                PConteidoProducto.Height = PConteidoProducto.Height - 30;
+                if (PConteidoProducto.Height <= 0)
+                {
+                    timerProdPaqSer.Stop();
+                    Hided = true;
+                    this.Height = 750;
+                    this.CenterToScreen();
+                    this.Refresh();
+                }
+            }
+        }
+
+        private void timerProductos_Tick(object sender, EventArgs e)
+        {
+            if (Hided1)
+            {
+                //pProductos.Height = pProductos.Height + 30;
+                //if (pProductos.Height >= 88)
+                //{
+                //    timerProductos.Stop();
+                //    Hided1 = false;
+                //}
+            }
+            else
+            {
+                //pProductos.Height = pProductos.Height - 30;
+                //if (pProductos.Height <= 0)
+                //{
+                //    timerProductos.Stop();
+                //    Hided1 = true;
+                //}
             }
         }
 
@@ -1696,6 +1690,8 @@ namespace PuntoDeVentaV2
         {
             PH = PConteidoProducto.Height;
             Hided = false;
+            Hided1 = false;
+            ocultarPanelProd();
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
 

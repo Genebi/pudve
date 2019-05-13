@@ -56,6 +56,7 @@
             this.pictureBoxProducto = new System.Windows.Forms.PictureBox();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
+            this.chkBoxConProductos = new System.Windows.Forms.CheckBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -67,12 +68,12 @@
             this.PCodigoBarras = new System.Windows.Forms.Panel();
             this.btnGenerarCB = new System.Windows.Forms.Button();
             this.PImagen = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerProdPaqSer = new System.Windows.Forms.Timer(this.components);
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.chkBoxConProductos = new System.Windows.Forms.CheckBox();
+            this.PDetalle = new System.Windows.Forms.Panel();
+            this.PAccion = new System.Windows.Forms.Panel();
+            this.timerProductos = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -85,15 +86,15 @@
             this.PCodigoBarras.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.PConteidoProducto.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.PDetalle.SuspendLayout();
+            this.PAccion.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTipoProdPaq
             // 
             this.lblTipoProdPaq.AutoSize = true;
             this.lblTipoProdPaq.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTipoProdPaq.Location = new System.Drawing.Point(50, 89);
+            this.lblTipoProdPaq.Location = new System.Drawing.Point(92, 104);
             this.lblTipoProdPaq.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTipoProdPaq.Name = "lblTipoProdPaq";
             this.lblTipoProdPaq.Size = new System.Drawing.Size(87, 21);
@@ -156,7 +157,7 @@
             // 
             // txtNombreProducto
             // 
-            this.txtNombreProducto.Location = new System.Drawing.Point(54, 114);
+            this.txtNombreProducto.Location = new System.Drawing.Point(121, 129);
             this.txtNombreProducto.Margin = new System.Windows.Forms.Padding(4);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(865, 22);
@@ -402,12 +403,23 @@
             this.PDetalleProdcuto.Dock = System.Windows.Forms.DockStyle.Top;
             this.PDetalleProdcuto.Location = new System.Drawing.Point(0, 0);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
-            this.PDetalleProdcuto.Size = new System.Drawing.Size(1116, 154);
+            this.PDetalleProdcuto.Size = new System.Drawing.Size(1116, 172);
             this.PDetalleProdcuto.TabIndex = 27;
+            // 
+            // chkBoxConProductos
+            // 
+            this.chkBoxConProductos.AutoSize = true;
+            this.chkBoxConProductos.Location = new System.Drawing.Point(326, 57);
+            this.chkBoxConProductos.Name = "chkBoxConProductos";
+            this.chkBoxConProductos.Size = new System.Drawing.Size(170, 21);
+            this.chkBoxConProductos.TabIndex = 30;
+            this.chkBoxConProductos.Text = "Si Contiene Productos";
+            this.chkBoxConProductos.UseVisualStyleBackColor = true;
+            this.chkBoxConProductos.CheckedChanged += new System.EventHandler(this.chkBoxConProductos_CheckedChanged);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(966, 110);
+            this.btnAdd.Location = new System.Drawing.Point(995, 125);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(35, 31);
             this.btnAdd.TabIndex = 29;
@@ -526,15 +538,15 @@
             this.PImagen.Size = new System.Drawing.Size(303, 272);
             this.PImagen.TabIndex = 6;
             // 
-            // timer1
+            // timerProdPaqSer
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerProdPaqSer.Tick += new System.EventHandler(this.timerProdPaqSer_Tick);
             // 
             // PConteidoProducto
             // 
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
             this.PConteidoProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PConteidoProducto.Location = new System.Drawing.Point(0, 154);
+            this.PConteidoProducto.Location = new System.Drawing.Point(0, 172);
             this.PConteidoProducto.Name = "PConteidoProducto";
             this.PConteidoProducto.Size = new System.Drawing.Size(1116, 113);
             this.PConteidoProducto.TabIndex = 30;
@@ -552,47 +564,40 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1006, 92);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
-            // panel2
+            // PDetalle
             // 
-            this.panel2.Controls.Add(this.flowLayoutPanel1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(0, 267);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1116, 375);
-            this.panel2.TabIndex = 31;
+            this.PDetalle.Controls.Add(this.flowLayoutPanel1);
+            this.PDetalle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PDetalle.Location = new System.Drawing.Point(0, 285);
+            this.PDetalle.Name = "PDetalle";
+            this.PDetalle.Size = new System.Drawing.Size(1116, 375);
+            this.PDetalle.TabIndex = 31;
             // 
-            // panel3
+            // PAccion
             // 
-            this.panel3.Controls.Add(this.btnAgregarDescuento);
-            this.panel3.Controls.Add(this.button2);
-            this.panel3.Controls.Add(this.btnDetalleFacturacion);
-            this.panel3.Controls.Add(this.btnGuardarProducto);
-            this.panel3.Controls.Add(this.label9);
-            this.panel3.Controls.Add(this.label8);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(0, 642);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1116, 150);
-            this.panel3.TabIndex = 32;
+            this.PAccion.Controls.Add(this.btnAgregarDescuento);
+            this.PAccion.Controls.Add(this.button2);
+            this.PAccion.Controls.Add(this.btnDetalleFacturacion);
+            this.PAccion.Controls.Add(this.btnGuardarProducto);
+            this.PAccion.Controls.Add(this.label9);
+            this.PAccion.Controls.Add(this.label8);
+            this.PAccion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PAccion.Location = new System.Drawing.Point(0, 660);
+            this.PAccion.Name = "PAccion";
+            this.PAccion.Size = new System.Drawing.Size(1116, 150);
+            this.PAccion.TabIndex = 32;
             // 
-            // chkBoxConProductos
+            // timerProductos
             // 
-            this.chkBoxConProductos.AutoSize = true;
-            this.chkBoxConProductos.Location = new System.Drawing.Point(326, 57);
-            this.chkBoxConProductos.Name = "chkBoxConProductos";
-            this.chkBoxConProductos.Size = new System.Drawing.Size(170, 21);
-            this.chkBoxConProductos.TabIndex = 30;
-            this.chkBoxConProductos.Text = "Si Contiene Productos";
-            this.chkBoxConProductos.UseVisualStyleBackColor = true;
-            this.chkBoxConProductos.CheckedChanged += new System.EventHandler(this.chkBoxConProductos_CheckedChanged);
+            this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
             // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1116, 804);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.PAccion);
+            this.Controls.Add(this.PDetalle);
             this.Controls.Add(this.PConteidoProducto);
             this.Controls.Add(this.PDetalleProdcuto);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -624,8 +629,8 @@
             this.PCodigoBarras.PerformLayout();
             this.PImagen.ResumeLayout(false);
             this.PConteidoProducto.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
+            this.PDetalle.ResumeLayout(false);
+            this.PAccion.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -669,11 +674,12 @@
         private System.Windows.Forms.Panel PImagen;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerProdPaqSer;
         private System.Windows.Forms.Panel PConteidoProducto;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel PDetalle;
+        private System.Windows.Forms.Panel PAccion;
         private System.Windows.Forms.CheckBox chkBoxConProductos;
+        private System.Windows.Forms.Timer timerProductos;
     }
 }
