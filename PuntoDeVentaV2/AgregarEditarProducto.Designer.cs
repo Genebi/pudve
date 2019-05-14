@@ -387,7 +387,6 @@
             this.cbTipo.TabIndex = 1;
             this.cbTipo.Tag = "";
             this.cbTipo.SelectedIndexChanged += new System.EventHandler(this.cbTipo_SelectedIndexChanged);
-            this.cbTipo.SelectionChangeCommitted += new System.EventHandler(this.cbTipo_SelectionChangeCommitted);
             this.cbTipo.Enter += new System.EventHandler(this.cbTipo_Enter);
             // 
             // PDetalleProdcuto

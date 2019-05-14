@@ -91,7 +91,7 @@ namespace PuntoDeVentaV2
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-        const string fichero = @"\settings\codbar\setupCodBar.txt";     // directorio donde esta el archivo de numero de codigo de barras consecutivo
+        const string fichero = @"\PUDVE\settings\codbar\setupCodBar.txt";     // directorio donde esta el archivo de numero de codigo de barras consecutivo
         string Contenido;                                               // para obtener el numero que tiene el codigo de barras en el arhivo
 
         long CodigoDeBarras;                                            // variable entera para llevar un consecutivo de codigo de barras
@@ -170,7 +170,7 @@ namespace PuntoDeVentaV2
             //txtCodigoBarras.Text = Contenido;
             string txtBoxName;
             txtBoxName=_lastEnteredControl.Name;
-            if (txtBoxName != "txtNombreProducto" && txtBoxName != "txtStockProducto" && txtBoxName != "txtPrecioProducto" && txtBoxName != "txtCategoriaProducto" &&  txtBoxName != "cbTipo")
+            if (txtBoxName != "cbTipo" && txtBoxName != "txtNombreProducto" && txtBoxName != "txtStockProducto" && txtBoxName != "txtPrecioProducto" && txtBoxName != "txtCategoriaProducto")
             {
                 _lastEnteredControl.Text = Contenido;
 
@@ -1595,7 +1595,7 @@ namespace PuntoDeVentaV2
                     {
                         GenerarPanelProductos();
                     }
-                    this.Height = 850;
+                    this.Height = 750;
                     this.CenterToScreen();
                     this.Refresh();
                 }
@@ -1607,7 +1607,7 @@ namespace PuntoDeVentaV2
                 {
                     timerProdPaqSer.Stop();
                     Hided = true;
-                    this.Height = 750;
+                    this.Height = 650;
                     this.CenterToScreen();
                     this.Refresh();
                 }
@@ -1644,11 +1644,6 @@ namespace PuntoDeVentaV2
         private void txtClaveProducto_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
-        }
-
-        private void cbTipo_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            
         }
 
         private void txtCodigoBarras_Enter(object sender, EventArgs e)
