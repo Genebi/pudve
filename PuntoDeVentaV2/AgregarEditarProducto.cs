@@ -311,7 +311,6 @@ namespace PuntoDeVentaV2
                 cb.Name = "comboBoxGenerador" + id;
                 cb.Width = 300;
                 cb.Height = 24;
-                cb.SelectedIndexChanged += new EventHandler(ComboBox_SelectedIndexChanged);
                 try
                 {
                     foreach (var items in prodList)
@@ -324,6 +323,11 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                cb.BackColor = System.Drawing.SystemColors.Window;
+                cb.FormattingEnabled = true;
+                cb.Enter += new EventHandler(ComboBox_Enter);
 
                 Label lb2 = new Label();
                 lb2.Name = "labelCantidadGenerado" + id;
@@ -367,7 +371,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;
         }
@@ -1454,11 +1458,11 @@ namespace PuntoDeVentaV2
             lb1.Text = "Producto:";
 
             ComboBox cb = new ComboBox();
+            cb.Name = "comboBoxGenerador" + id;
+            cb.Width = 300;
+            cb.Height = 24;
             try
             {
-                cb.Name = "comboBoxGenerador" + id;
-                cb.Width = 300;
-                cb.Height = 24;
                 cb.DisplayMember = "Nombre";
                 cb.ValueMember = "ID";
                 cb.DataSource = prodList;
@@ -1467,6 +1471,10 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cb.BackColor = System.Drawing.SystemColors.Window;
+            cb.FormattingEnabled = true;
 
             Label lb2 = new Label();
             lb2.Name = "labelCantidadGenerado" + id;
