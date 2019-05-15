@@ -52,5 +52,13 @@ namespace PuntoDeVentaV2
             txtClaveProducto.Text = ProdClaveInternaFin;
             txtCodigoBarras.Text = ProdCodBarrasFin;
         }
+
+        private void txtStockProducto_Leave(object sender, EventArgs e)
+        {
+            float stockNvo, precioNvo;
+            stockNvo = (float)Convert.ToDouble(txtStockProducto.Text);
+            precioNvo = (float)Convert.ToDouble(ProdPrecioFin) / stockNvo;
+            txtPrecioProducto.Text = precioNvo.ToString("N2");
+        }
     }
 }

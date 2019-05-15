@@ -278,6 +278,7 @@
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(219, 22);
             this.txtStockProducto.TabIndex = 3;
+            this.txtStockProducto.Leave += new System.EventHandler(this.txtStockProducto_Leave);
             // 
             // label6
             // 
