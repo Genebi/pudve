@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
 
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
+        public NvoProduct nvoProductoAdd = new NvoProduct();
 
         int idProducto;
 
@@ -1561,28 +1562,44 @@ namespace PuntoDeVentaV2
         {
             if (chkBoxConProductos.Checked == true)
             {
-                Hided1 = true;
-                ocultarPanelProd();
-                //MessageBox.Show("CheckBox esta Marcado", "Estatus del CheckBox", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (chkBoxConProductos.Checked == false)
-            {
-                Hided1 = false;
-                ocultarPanelProd();
-                //MessageBox.Show("CheckBox No esta Marcado", "Estatus del CheckBox", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Hided1 = true;
+                ocultarVentanaProd();
             }
         }
 
-        private void ocultarPanelProd()
+        private void ocultarVentanaProd()
         {
-            if (Hided)
+            nvoProductoAdd.FormClosed += delegate
             {
-                timerProductos.Start();
+                CargarDatos();
+            };
+
+            if (!nvoProductoAdd.Visible)
+            {
+                pasarDatos();
+                nvoProductoAdd.ShowDialog();
             }
             else
             {
-                timerProductos.Start();
+                pasarDatos();
+                nvoProductoAdd.ShowDialog();
             }
+        }
+
+        private void pasarDatos()
+        {
+            nvoProductoAdd.ProdNombre = txtNombreProducto.Text;
+            nvoProductoAdd.ProdStock = "0";
+            float price = (float)Convert.ToDouble(txtPrecioProducto.Text);
+            nvoProductoAdd.ProdPrecio = price.ToString();
+            nvoProductoAdd.ProdCategoria = "";
+            nvoProductoAdd.ProdClaveInterna = "";
+            nvoProductoAdd.ProdCodBarras = "";
+        }
+
+        private void CargarDatos()
+        {
+            cargarCBProductos();
         }
 
         private void timerProdPaqSer_Tick(object sender, EventArgs e)
@@ -1619,28 +1636,6 @@ namespace PuntoDeVentaV2
                     this.CenterToScreen();
                     this.Refresh();
                 }
-            }
-        }
-
-        private void timerProductos_Tick(object sender, EventArgs e)
-        {
-            if (Hided1)
-            {
-                //pProductos.Height = pProductos.Height + 30;
-                //if (pProductos.Height >= 88)
-                //{
-                //    timerProductos.Stop();
-                //    Hided1 = false;
-                //}
-            }
-            else
-            {
-                //pProductos.Height = pProductos.Height - 30;
-                //if (pProductos.Height <= 0)
-                //{
-                //    timerProductos.Stop();
-                //    Hided1 = true;
-                //}
             }
         }
 
@@ -1694,7 +1689,6 @@ namespace PuntoDeVentaV2
             PH = PConteidoProducto.Height;
             Hided = false;
             Hided1 = false;
-            ocultarPanelProd();
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
 

@@ -73,7 +73,6 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
             this.PAccion = new System.Windows.Forms.Panel();
-            this.timerProductos = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -586,10 +585,6 @@
             this.PAccion.Size = new System.Drawing.Size(1116, 150);
             this.PAccion.TabIndex = 32;
             // 
-            // timerProductos
-            // 
-            this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
-            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -679,6 +674,5 @@
         private System.Windows.Forms.Panel PDetalle;
         private System.Windows.Forms.Panel PAccion;
         private System.Windows.Forms.CheckBox chkBoxConProductos;
-        private System.Windows.Forms.Timer timerProductos;
     }
 }
