@@ -1575,6 +1575,8 @@ namespace PuntoDeVentaV2
             nvoProductoAdd.FormClosed += delegate
             {
                 CargarDatos();
+                chkBoxConProductos.Checked = false;
+                chkBoxConProductos.Visible = false;
             };
 
             if (!nvoProductoAdd.Visible)

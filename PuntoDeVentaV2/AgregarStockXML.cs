@@ -198,7 +198,7 @@ namespace PuntoDeVentaV2
         int resultadoSearchNoIdentificacion;    // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchClavIntProd()
         int resultadoSearchCodBar;              // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchCodBar()
         int stockProd;                          // sirve para almacenar en ella, la cantidad de stock que tenemos de ese producto
-        int stockProdXML;                       // sirve para almacenar en ella, la cantidad del stock que nos llego en el archivo XML
+        public static int stockProdXML;                       // sirve para almacenar en ella, la cantidad del stock que nos llego en el archivo XML
         int totalProd;                          // sirve para en ella almacenar la suma del Stock del producto mas el stock del archivo XML
 
         // variables para poder hacer los calculos sobre el producto
@@ -207,7 +207,7 @@ namespace PuntoDeVentaV2
         float cantidad;                         // convertimos el cantidad del Archivo XML para su posterior manipulacion
         float precioOriginalSinIVA;             // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
         float precioOriginalConIVA;             // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
-        float PrecioRecomendado;                // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
+        public static float PrecioRecomendado;                // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
         float importeReal;                      // calculamos importe real (cantidad * precioOriginalConIVA)
         float PrecioProd;                       // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
         float PrecioProdToCompare;              // almacenamos el precio sugerido para hacer la comparacion

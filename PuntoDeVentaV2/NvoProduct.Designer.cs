@@ -205,6 +205,7 @@
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(219, 22);
             this.txtCodigoBarras.TabIndex = 7;
+            this.txtCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoBarras_KeyDown);
             // 
             // PClaveInterna
             // 
@@ -279,7 +280,6 @@
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(219, 22);
             this.txtStockProducto.TabIndex = 3;
-            this.txtStockProducto.Leave += new System.EventHandler(this.txtStockProducto_Leave);
             // 
             // label6
             // 
@@ -336,6 +336,7 @@
             this.btnGuardarProducto.TabIndex = 26;
             this.btnGuardarProducto.Text = "Guardar Producto";
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
+            this.btnGuardarProducto.Click += new System.EventHandler(this.btnGuardarProducto_Click);
             // 
             // NvoProduct
             // 
