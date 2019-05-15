@@ -26,6 +26,8 @@ namespace PuntoDeVentaV2
         static public string ProdClaveInternaFin = "";
         static public string ProdCodBarrasFin = "";
 
+        float stockNvo, precioNvo;
+
         public NvoProduct()
         {
             InitializeComponent();
@@ -47,18 +49,28 @@ namespace PuntoDeVentaV2
 
             txtNombreProducto.Text = ProdNombreFin;
             txtStockProducto.Text = ProdStockFin;
-            txtPrecioProducto.Text = "0";
+            cargarPrecio();
+            txtPrecioProducto.Text = precioNvo.ToString("N2");
             txtCategoriaProducto.Text = ProdCategoriaFin;
             txtClaveProducto.Text = ProdClaveInternaFin;
             txtCodigoBarras.Text = ProdCodBarrasFin;
         }
-
+        
         private void txtStockProducto_Leave(object sender, EventArgs e)
         {
-            float stockNvo, precioNvo;
+            cargarPrecio();
+            txtPrecioProducto.Text = precioNvo.ToString("N2");
+        }
+
+        private void txtCategoriaProducto_TextChanged(object sender, EventArgs e)
+        {
+            txtCategoriaProducto.CharacterCasing = CharacterCasing.Upper;
+        }
+
+        private void cargarPrecio()
+        {
             stockNvo = (float)Convert.ToDouble(txtStockProducto.Text);
             precioNvo = (float)Convert.ToDouble(ProdPrecioFin) / stockNvo;
-            txtPrecioProducto.Text = precioNvo.ToString("N2");
         }
     }
 }

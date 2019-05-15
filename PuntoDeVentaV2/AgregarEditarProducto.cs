@@ -30,6 +30,7 @@ namespace PuntoDeVentaV2
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
         public NvoProduct nvoProductoAdd = new NvoProduct();
+        public CantidadProdServicio CantidadPordServPaq = new CantidadProdServicio();
 
         int idProducto;
 
@@ -45,6 +46,7 @@ namespace PuntoDeVentaV2
         public string ProdCodBarras { set; get; }
         public string claveProductoxml { set; get; }
         public string claveUnidadMedidaxml { set; get; }
+        public string CantidadProdServicio { get; set; }
 
         static public int DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
@@ -53,6 +55,7 @@ namespace PuntoDeVentaV2
         static public string ProdCategoriaFinal = "";
         static public string ProdClaveInternaFinal = "";
         static public string ProdCodBarrasFinal = "";
+        static public string CantProdServFinal = "";
 
         DataTable SearchProdResult, SearchCodBarExtResult, datosProductos;
 
@@ -1576,25 +1579,37 @@ namespace PuntoDeVentaV2
 
             if (!nvoProductoAdd.Visible)
             {
+                pasarNumStockServicios();
                 pasarDatos();
                 nvoProductoAdd.ShowDialog();
             }
             else
             {
+                pasarNumStockServicios();
                 pasarDatos();
                 nvoProductoAdd.ShowDialog();
             }
         }
 
+        private void pasarNumStockServicios()
+        {
+            CantidadPordServPaq.ShowDialog();
+        }
+
         private void pasarDatos()
         {
             nvoProductoAdd.ProdNombre = txtNombreProducto.Text;
-            nvoProductoAdd.ProdStock = "0";
+            nvoProductoAdd.ProdStock = CantProdServFinal;
             float price = (float)Convert.ToDouble(txtPrecioProducto.Text);
             nvoProductoAdd.ProdPrecio = price.ToString();
             nvoProductoAdd.ProdCategoria = "";
             nvoProductoAdd.ProdClaveInterna = "";
             nvoProductoAdd.ProdCodBarras = "";
+        }
+
+        private void txtCategoriaProducto_TextChanged(object sender, EventArgs e)
+        {
+            txtCategoriaProducto.CharacterCasing = CharacterCasing.Upper;
         }
 
         private void CargarDatos()

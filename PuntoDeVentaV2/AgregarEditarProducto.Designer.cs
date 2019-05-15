@@ -198,6 +198,7 @@
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
             this.txtCategoriaProducto.Size = new System.Drawing.Size(219, 22);
             this.txtCategoriaProducto.TabIndex = 5;
+            this.txtCategoriaProducto.TextChanged += new System.EventHandler(this.txtCategoriaProducto_TextChanged);
             this.txtCategoriaProducto.Enter += new System.EventHandler(this.txtCategoriaProducto_Enter);
             // 
             // txtCodigoBarras
