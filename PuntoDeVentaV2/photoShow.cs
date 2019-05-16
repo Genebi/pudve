@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
         public void cargarDatos()
         {
             int index = 0;
-            string buscar, pathString;
+            string buscar, pathString = Properties.Settings.Default.rutaDirectorio+ @"\PUDVE\Productos\", imgPath;
             DataTable dt;
             
             NombreProdFinal = NombreProd;
@@ -44,9 +44,9 @@ namespace PuntoDeVentaV2
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
-            pathString= dt.Rows[index]["ProdImage"].ToString();
+            imgPath = dt.Rows[index]["ProdImage"].ToString();
             lblNombreProducto.Text = NombreProdFinal;
-            using (File = new FileStream(pathString, FileMode.Open, FileAccess.Read))
+            using (File = new FileStream(pathString+imgPath, FileMode.Open, FileAccess.Read))
             {
                 pictureBoxProducto.Image = Image.FromStream(File);      // cargamos la imagen en el PictureBox
             }

@@ -689,39 +689,6 @@ namespace PuntoDeVentaV2
                     MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                     buscarSugeridos();
                 }
-                //if (NoClaveInterna == null || NoClaveInterna == "")
-                //{
-                //    limpiarLblProd();               // limpiamos los campos de producto
-                //    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
-                //    buscarSugeridos();
-                //}
-                //else if (NoClaveInterna != null || NoClaveInterna != "")
-                //{
-                //    datosProductos();                                                   // llamamos la funcion de datosProductos
-                //    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
-                //}
-                //if (NoCodBar == null || NoCodBar == "")
-                //{
-                //    limpiarLblProd();               // limpiamos los campos de producto
-                //    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
-                //    buscarSugeridos();
-                //}
-                //else if (NoCodBar != null || NoCodBar != "")
-                //{
-                //    datosProductos();                                                   // llamamos la funcion de datosProductos
-                //    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
-                //}
-                //if (NoCodBarExt == null || NoCodBarExt == "")
-                //{
-                //    limpiarLblProd();               // limpiamos los campos de producto
-                //    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
-                //    buscarSugeridos();
-                //}
-                //else if (NoCodBarExt != null || NoCodBarExt != "")
-                //{
-                //    datosProductos();                                                   // llamamos la funcion de datosProductos
-                //    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
-                //}
                 //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (dtProductos.Rows.Count<=0) // si el resultado no arroja ninguna fila
@@ -741,7 +708,7 @@ namespace PuntoDeVentaV2
             // preparamos el Query
             string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
             dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
-            if (dtClaveInterna.Rows.Count > 0)  // si el resultado arroja al menos una fila
+            if (dtClaveInterna.Rows.Count > 0)          // si el resultado arroja al menos una fila
             {
                 resultadoSearchNoIdentificacion = 1;    // busqueda positiva
                 //MessageBox.Show("No Identificación Encontrado...\nen la claveInterna del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);

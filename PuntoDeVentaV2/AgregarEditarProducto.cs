@@ -670,7 +670,7 @@ namespace PuntoDeVentaV2
                         // Obtenemos el Nuevo nombre de la imagen
                         // con la que se va hacer la copia de la imagen
                         var source = txtNombreProducto.Text;
-                        var replacement = source.Replace('/', '_').Replace(' ', '_');
+                        var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
                         NvoFileName = replacement + ".jpg";
                         if (logoTipo != "")     // si Logotipo es diferente a ""
                         {
@@ -686,9 +686,10 @@ namespace PuntoDeVentaV2
                                     System.IO.File.Delete(saveDirectoryImg + NvoFileName);  // borramos el archivo de la imagen
                                     // realizamos la copia de la imagen origen hacia el nuevo destino
                                     System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-                                    logoTipo = saveDirectoryImg + NvoFileName;      // Obtenemos el nuevo Path
+                                    //logoTipo = saveDirectoryImg + NvoFileName;      // Obtenemos el nuevo Path
+                                    logoTipo = NvoFileName;      // Obtenemos el nuevo Path
                                     // leemos el archivo de imagen y lo ponemos el pictureBox
-                                    using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                                    using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
                                     {
                                         pictureBoxProducto.Image = Image.FromStream(File);      // cargamos la imagen en el PictureBox
                                     }
@@ -701,7 +702,8 @@ namespace PuntoDeVentaV2
                             {
                                 // realizamos la copia de la imagen origen hacia el nuevo destino
                                 System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-                                logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+                                //logoTipo = saveDirectoryImg + NvoFileName;      // Obtenemos el nuevo Path
+                                logoTipo = NvoFileName;      // Obtenemos el nuevo Path
                             }
                         }
                         if (logoTipo == "" || logoTipo == null)		// si el valor de la variable es Null o esta ""
@@ -709,9 +711,10 @@ namespace PuntoDeVentaV2
                             pictureBoxProducto.Image.Dispose();	// Liberamos el pictureBox para poder borrar su imagen
                             // realizamos la copia de la imagen origen hacia el nuevo destino
                             System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
-                            logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+                            //logoTipo = saveDirectoryImg + NvoFileName;      // Obtenemos el nuevo Path
+                            logoTipo = NvoFileName;      // Obtenemos el nuevo Path
                             // leemos el archivo de imagen y lo ponemos el pictureBox
-                            using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                            using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
                             {
                                 pictureBoxProducto.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
                             }
@@ -906,7 +909,8 @@ namespace PuntoDeVentaV2
                                                 string comboBoxValue = null;
                                                 buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
                                                 dtProductos = cn.CargarDatos(buscar);
-                                                comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
+                                                DataRow row = dtProductos.Rows[0];
+                                                comboBoxValue = row["ID"].ToString();
                                                 prodSerPaq += fech + "|";
                                                 prodSerPaq += idProducto + "|";
                                                 prodSerPaq += comboBoxValue + "|";
