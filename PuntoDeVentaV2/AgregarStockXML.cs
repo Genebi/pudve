@@ -151,6 +151,8 @@ namespace PuntoDeVentaV2
         string buscar;                      // almacena el query para buscar el usuario al que se le va agregar los productos
         string ClaveInterna;                // almacena la calveInterna(NoIdentificacion) del XML
         string NoClaveInterna;              // almacena el Número de clave Interna del XML para su posterior uso en las validaciones
+        string NoCodBar;
+        string NoCodBarExt;
         string idProducto;                  // almacena el Número de ID del producto para si hay alguna actualizacion poder hacerlo
         string query;                       // almacena el query para poder hacer la actualizacion del producto
         string NombreProd;                  // almacena el contenido del TextBox para poder hacer la actualizacion en la base de datos
@@ -658,23 +660,68 @@ namespace PuntoDeVentaV2
         public void searchProd()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
             dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
             if (dtProductos.Rows.Count >= 1) // si el resultado arroja al menos una fila
             {
                 resultadoSearchProd = 1;                                            // busqueda positiva
                 NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();    // almacenamos el valor del NoClaveInterna
-                if (NoClaveInterna == null || NoClaveInterna == "")
+                NoCodBar = dtProductos.Rows[0]["CodigoBarras"].ToString();          // almacenamos el valor del NoCodbar
+                NoCodBarExt = dtProductos.Rows[0]["CodigoBarraExtra"].ToString();   // almacenamos el valor del NoCodBarExt
+                if (NoClaveInterna == ClaveInterna)
+                {
+                    datosProductos();                                                   // llamamos la funcion de datosProductos
+                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                }
+                else if (NoCodBar == ClaveInterna)
+                {
+                    datosProductos();                                                   // llamamos la funcion de datosProductos
+                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                }
+                else if (NoCodBarExt == ClaveInterna)
+                {
+                    datosProductos();                                                   // llamamos la funcion de datosProductos
+                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                }
+                else
                 {
                     limpiarLblProd();               // limpiamos los campos de producto
                     MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                     buscarSugeridos();
                 }
-                else if (NoClaveInterna != null || NoClaveInterna != "")
-                {
-                    datosProductos();                                                   // llamamos la funcion de datosProductos
-                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
-                }
+                //if (NoClaveInterna == null || NoClaveInterna == "")
+                //{
+                //    limpiarLblProd();               // limpiamos los campos de producto
+                //    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                //    buscarSugeridos();
+                //}
+                //else if (NoClaveInterna != null || NoClaveInterna != "")
+                //{
+                //    datosProductos();                                                   // llamamos la funcion de datosProductos
+                //    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                //}
+                //if (NoCodBar == null || NoCodBar == "")
+                //{
+                //    limpiarLblProd();               // limpiamos los campos de producto
+                //    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                //    buscarSugeridos();
+                //}
+                //else if (NoCodBar != null || NoCodBar != "")
+                //{
+                //    datosProductos();                                                   // llamamos la funcion de datosProductos
+                //    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                //}
+                //if (NoCodBarExt == null || NoCodBarExt == "")
+                //{
+                //    limpiarLblProd();               // limpiamos los campos de producto
+                //    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                //    buscarSugeridos();
+                //}
+                //else if (NoCodBarExt != null || NoCodBarExt != "")
+                //{
+                //    datosProductos();                                                   // llamamos la funcion de datosProductos
+                //    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                //}
                 //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if (dtProductos.Rows.Count<=0) // si el resultado no arroja ninguna fila
