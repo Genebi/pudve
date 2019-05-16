@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,11 +32,19 @@ namespace PuntoDeVentaV2
 
         float stockNvo, precioNvo;
 
-        DataTable dtClaveInterna, dtCodBar;
+        DataTable dtClaveInterna, dtCodBar, SearchProdResult, SearchCodBarExtResult;
         List<string> codigosBarrras = new List<string>();   // para agregar los datos extras de codigos de barras
         int resultadoSearchNoIdentificacion, resultadoSearchCodBar, idProducto, id;
 
         Control _lastEnteredControl;    // para saber cual fue el ultimo control con el cursor activo
+
+        OpenFileDialog f;
+
+        FileStream File, File1;
+        FileInfo info;
+
+        string fileName, oldDirectory, NvoFileName, logoTipo = "", queryBuscarProd, idProductoBuscado, tipoProdServ, queryBuscarCodBarExt;
+        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
 
         public NvoProduct()
         {
@@ -63,6 +72,7 @@ namespace PuntoDeVentaV2
             txtCategoriaProducto.Text = ProdCategoriaFin;
             txtClaveProducto.Text = ProdClaveInternaFin;
             txtCodigoBarras.Text = ProdCodBarrasFin;
+            cargarDatosExtra();
         }
         
         private void txtCategoriaProducto_TextChanged(object sender, EventArgs e)
@@ -143,6 +153,103 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnImagenes_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (f = new OpenFileDialog())    // Abrirmos el OpenFileDialog para buscar y seleccionar la Imagen
+                {
+                    // le aplicamos un filtro para solo ver 
+                    // imagenes de tipo *.jpg y *.png 
+                    f.Filter = "Imagenes JPG (*.jpg)|*.jpg| Imagenes PNG (*.png)|*.png";
+                    if (f.ShowDialog() == DialogResult.OK)      // si se selecciono correctamente un archivo en el OpenFileDialog
+                    {
+                        /************************************************
+                        *   usamos el objeto File para almacenar las    *
+                        *   propiedades de la imagen                    * 
+                        ************************************************/
+                        using (File = new FileStream(f.FileName, FileMode.Open, FileAccess.Read))
+                        {
+                            pictureBoxProducto.Image = Image.FromStream(File);      // Cargamos la imagen en el PictureBox
+                            info = new FileInfo(f.FileName);                        // Obtenemos toda la Informacion de la Imagen
+                            fileName = Path.GetFileName(f.FileName);                // Obtenemos el nombre de la imagen
+                            oldDirectory = info.DirectoryName;                      // Obtenemos el directorio origen de la Imagen
+                            File.Dispose();                                         // Liberamos el objeto File
+                        }
+                    }
+                }
+                if (!Directory.Exists(saveDirectoryImg))        // verificamos que si no existe el directorio
+                {
+                    Directory.CreateDirectory(saveDirectoryImg);        // lo crea para poder almacenar la imagen
+                }
+                if (f.CheckFileExists)      // si el archivo existe
+                {
+                    try     // Intentamos la actualizacion de la imagen en la base de datos
+                    {
+                        // Obtenemos el Nuevo nombre de la imagen
+                        // con la que se va hacer la copia de la imagen
+                        var source = txtNombreProducto.Text;
+                        var replacement = source.Replace('/', '_').Replace(' ', '_');
+                        NvoFileName = replacement + ".jpg";
+                        if (logoTipo != "")     // si Logotipo es diferente a ""
+                        {
+                            if (File1 != null)      // si el File1 es igual a null
+                            {
+                                File1.Dispose();    // liberamos el objeto File1
+                                // hacemos la nueva cadena de consulta para hacer el UpDate
+                                //string insertarImagen = $"UPDATE Productos SET ProdImage = '{saveDirectoryImg + NvoFileName}' WHERE ID = '{id}'";
+                                //cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
+                                if (pictureBoxProducto.Image != null)   // Verificamos si el pictureBox es null
+                                {
+                                    pictureBoxProducto.Image.Dispose();     // Liberamos el PictureBox para poder borrar su imagen
+                                    System.IO.File.Delete(saveDirectoryImg + NvoFileName);  // borramos el archivo de la imagen
+                                    // realizamos la copia de la imagen origen hacia el nuevo destino
+                                    System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                                    logoTipo = saveDirectoryImg + NvoFileName;      // Obtenemos el nuevo Path
+                                    // leemos el archivo de imagen y lo ponemos el pictureBox
+                                    using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                                    {
+                                        pictureBoxProducto.Image = Image.FromStream(File);      // cargamos la imagen en el PictureBox
+                                    }
+                                }
+                                // hacemos la nueva cadena de consulta para hacer el update
+                                //insertarImagen = $"UPDATE Productos SET ProdImage = '{logoTipo}' WHERE ID = '{id}'";
+                                //cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
+                            }
+                            else    // si es que file1 es igual a null
+                            {
+                                // realizamos la copia de la imagen origen hacia el nuevo destino
+                                System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                                logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+                            }
+                        }
+                        if (logoTipo == "" || logoTipo == null)		// si el valor de la variable es Null o esta ""
+                        {
+                            pictureBoxProducto.Image.Dispose();	// Liberamos el pictureBox para poder borrar su imagen
+                            // realizamos la copia de la imagen origen hacia el nuevo destino
+                            System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                            logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
+                            // leemos el archivo de imagen y lo ponemos el pictureBox
+                            using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                            {
+                                pictureBoxProducto.Image = Image.FromStream(File);		// carrgamos la imagen en el PictureBox
+                            }
+                        }
+                    }
+                    catch (Exception ex)	// si no se puede hacer el proceso
+                    {
+                        // si no se borra el archivo muestra este mensaje
+                        MessageBox.Show("Error al hacer el borrado No: " + ex);
+                    }
+                }
+            }
+            catch (Exception ex)	// si el nombre del archivo esta en blanco
+            {
+                // si no selecciona un archivo valido o ningun archivo muestra este mensaje
+                MessageBox.Show("selecciona una Imagen", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
         private void ClickBotones(object sender, EventArgs e)
         {
             Button bt = sender as Button;
@@ -171,6 +278,87 @@ namespace PuntoDeVentaV2
             precioNvo = ((float)Convert.ToDouble(ProdPrecioFin) * AgregarStockXML.stockProdXML) / stockNvo;
         }
 
+        public void cargarDatosExtra()
+        {
+            queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
+            SearchProdResult = cn.CargarDatos(queryBuscarProd);
+            idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();
+            tipoProdServ = SearchProdResult.Rows[0]["Tipo"].ToString();
+            queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
+            SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
+            cargarCodBarExt();
+            //queryBuscarDescuentoCliente = $"SELECT * FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
+            //SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
+            //queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
+            //SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
+            //if (tipoProdServ == "S")
+            //{
+            //    queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+            //    dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
+            //    cbTipo.Text = "Servicio / Paquete ó Combo";
+            //    btnAdd.Visible = true;
+            //}
+            //else if (tipoProdServ == "P")
+            //{
+            //    cbTipo.Text = "Producto";
+            //    btnAdd.Visible = false;
+            //}
+        }
+
+        private void cargarCodBarExt()
+        {
+            id = 0;
+            panelContenedor.Controls.Clear();
+            foreach (DataRow renglon in SearchCodBarExtResult.Rows)
+            {
+                // generamos el panel dinamico
+                FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                panelHijo.Name = "panelGenerado" + id;
+                panelHijo.Height = 25;
+                panelHijo.Width = 200;
+                panelHijo.HorizontalScroll.Visible = false;
+
+                // generamos el textbox dinamico 
+                TextBox tb = new TextBox();
+                tb.Name = "textboxGenerado" + id;
+                tb.Width = 165;
+                tb.Height = 20;
+                tb.Text = renglon[1].ToString();
+                tb.Enter += new EventHandler(TextBox_Enter);
+                tb.KeyDown += new KeyEventHandler(TextBox_Keydown);
+
+                // generamos el boton dinamico
+                Button bt = new Button();
+                bt.Cursor = Cursors.Hand;
+                bt.Text = "X";
+                bt.Name = "btnGenerado" + id;
+                bt.Height = 23;
+                bt.Width = 23;
+                bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                bt.ForeColor = ColorTranslator.FromHtml("white");
+                bt.FlatStyle = FlatStyle.Flat;
+                bt.TextAlign = ContentAlignment.MiddleCenter;
+                bt.Anchor = AnchorStyles.Top;
+                bt.Click += new EventHandler(ClickBotones);
+
+                // agregamos al panel el textbox
+                panelHijo.Controls.Add(tb);
+
+                // agregamos el boton
+                panelHijo.Controls.Add(bt);
+                // le damos la direccion del panel
+                panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                // agregamos el panel a la forma
+                panelContenedor.Controls.Add(panelHijo);
+                // darle direccion al panel
+                panelContenedor.FlowDirection = FlowDirection.TopDown;
+
+                tb.Focus();
+                id++;
+            }
+        }
+
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
             var nombre = txtNombreProducto.Text;
@@ -181,7 +369,6 @@ namespace PuntoDeVentaV2
             var codigoB = txtCodigoBarras.Text;
             var claveProducto = "";
             var claveUnidadMedida = "";
-            var logoTipo = "";
             var ProdServPaq = "P".ToString();
             var tipoDescuento = "0";
 

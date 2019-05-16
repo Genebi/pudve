@@ -145,6 +145,7 @@
             this.btnImagenes.TabIndex = 9;
             this.btnImagenes.Text = "Seleccionar imagen(es)";
             this.btnImagenes.UseVisualStyleBackColor = true;
+            this.btnImagenes.Click += new System.EventHandler(this.btnImagenes_Click);
             // 
             // PCodigoBarras
             // 

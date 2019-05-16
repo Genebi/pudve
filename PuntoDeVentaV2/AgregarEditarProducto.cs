@@ -669,15 +669,17 @@ namespace PuntoDeVentaV2
                     {
                         // Obtenemos el Nuevo nombre de la imagen
                         // con la que se va hacer la copia de la imagen
-                        NvoFileName = txtNombreProducto.Text + ".jpg";
+                        var source = txtNombreProducto.Text;
+                        var replacement = source.Replace('/', '_').Replace(' ', '_');
+                        NvoFileName = replacement + ".jpg";
                         if (logoTipo != "")     // si Logotipo es diferente a ""
                         {
                             if (File1 != null)      // si el File1 es igual a null
                             {
                                 File1.Dispose();    // liberamos el objeto File1
                                 // hacemos la nueva cadena de consulta para hacer el UpDate
-                                string insertarImagen = $"UPDATE Productos SET ProdImage = '{saveDirectoryImg + NvoFileName}' WHERE ID = '{id}'";
-                                cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
+                                //string insertarImagen = $"UPDATE Productos SET ProdImage = '{saveDirectoryImg + NvoFileName}' WHERE ID = '{id}'";
+                                //cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
                                 if (pictureBoxProducto.Image != null)   // Verificamos si el pictureBox es null
                                 {
                                     pictureBoxProducto.Image.Dispose();     // Liberamos el PictureBox para poder borrar su imagen
@@ -692,8 +694,8 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 // hacemos la nueva cadena de consulta para hacer el update
-                                insertarImagen = $"UPDATE Productos SET ProdImage = '{logoTipo}' WHERE ID = '{id}'";
-                                cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
+                                //insertarImagen = $"UPDATE Productos SET ProdImage = '{logoTipo}' WHERE ID = '{id}'";
+                                //cn.EjecutarConsulta(insertarImagen);    // hacemos que se ejecute la consulta
                             }
                             else    // si es que file1 es igual a null
                             {
@@ -1032,7 +1034,7 @@ namespace PuntoDeVentaV2
             {
                 if (SearchProdResult.Rows.Count != 0)
                 {
-                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}' WHERE ID = '{idProductoBuscado}'";
+                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}'  WHERE ID = '{idProductoBuscado}'";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
                     //label10.Text = idProductoBuscado;
                     if (SearchCodBarExtResult.Rows.Count != 0)
@@ -1576,7 +1578,7 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos();
                 chkBoxConProductos.Checked = false;
-                chkBoxConProductos.Visible = false;
+                //chkBoxConProductos.Visible = false;
             };
 
             if (!nvoProductoAdd.Visible)
@@ -1714,6 +1716,7 @@ namespace PuntoDeVentaV2
                 LimpiarCampos();
                 cbTipo.Text = "Producto";
                 btnAdd.Visible = false;
+                chkBoxConProductos.Visible = false;
                 ocultarPanel();
                 
             }
