@@ -182,6 +182,8 @@ namespace PuntoDeVentaV2
         public DataTable dtSugeridos;           // almacena el resultado de la funcion de CargarDatos de la funcion buscarSugeridos
         public DataTable dtSugeridosGral;
 
+        DataTable dtSelectSugerido;
+
         string seleccionSugeridoNomb;
 
         int match = 0;
@@ -225,6 +227,7 @@ namespace PuntoDeVentaV2
         string idProdRelXML;
         DataTable dtUpdateConfirmarProdRelXML;
         string queryUpdateConfirmarProdRelXML;
+        DataTable dtBarrExtSelectSugerido;
 
         // variables para poder tomar el valor de los TxtBox y tambien hacer las actualizaciones
         // del valor que proviene de la base de datos ó tambien actualizar la Base de Datos
@@ -1040,7 +1043,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else if (seleccionarSugerido == 1)  // si selecciono algun producto
+            else if (seleccionarSugerido == 2)  // si selecciono algun producto
             {
                 queryUpdateConfirmarProdRelXML = $"SELECT * FROM ProductoRelacionadoXML WHERE IDProducto = '{IdProductoSugerido}'";
                 dtUpdateConfirmarProdRelXML = cn.CargarDatos(queryUpdateConfirmarProdRelXML);
@@ -1094,11 +1097,24 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta(queryRecordHistorialProd);
                     string queryDelProdRelXML = $"DELETE FROM ProductoRelacionadoXML WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
                     cn.EjecutarConsulta(queryDelProdRelXML);
-                    //queryrelacionXMLTable = $"UPDATE ProductoRelacionadoXML SET Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{userId}',  NombreXML = '{concepto}' WHERE IDProductoRelacionadoXML = '{idProdRelXML}'";
-                    //queryrelacionXMLTable = $"INSERT INTO ProductoRelacionadoXML(NombreXML, Fecha, IDProducto, IDUsuario) VALUES('{concepto}', '{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{userId}')";
                     queryrelacionXMLTable = $"UPDATE ProductoRelacionadoXML SET Fecha = '{fechaCompletaRelacionada}', IDProducto = '{IdProductoSugerido}', IDUsuario = '{userId}' WHERE NombreXML = '{concepto}'";
                     cn.EjecutarConsulta(queryrelacionXMLTable);
                     seleccionarSugerido = 0;
+                }
+            }
+            else if (seleccionarSugerido == 3)
+            {
+                string queryBarrExtSelectSugerido = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{IdProductoSugerido}'";
+                dtBarrExtSelectSugerido = cn.CargarDatos(queryBarrExtSelectSugerido);
+                queryBarrExtSelectSugerido = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto) VALUES('{lblNoIdentificacionXML.Text}', '{IdProductoSugerido}')";
+                int Resultado = cn.EjecutarConsulta(queryBarrExtSelectSugerido);
+                if (Resultado > 0)
+                {
+                    //MessageBox.Show("Prodcuto agregado...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    //MessageBox.Show("Prodcuto No agregado...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             dtConfirmarProdRelXML.Rows.Clear();
@@ -1151,6 +1167,11 @@ namespace PuntoDeVentaV2
                         
                     }
                 }
+            }
+            else if (seleccionarSugerido == 3 && txtBoxDescripcionProd.Text != "")
+            {
+                prodRelacionadoXML();   // llamamos el metodo relacionar por XML
+                RecorrerXML();          // recorrer el archivo XML
             }
             else if (seleccionarSugerido == 2 && seleccionSugeridoNomb != "")
             {
@@ -1231,9 +1252,45 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void DGVSugeridos_RowValidating(object sender, DataGridViewCellCancelEventArgs e)
+        private void DGVSugeridos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            string querySeleccionado;
+            numFila = DGVSugeridos.CurrentRow.Index;
+            
+            IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();
+            NombProductoSugerido = DGVSugeridos[1, numFila].Value.ToString();
 
+            querySeleccionado = $"SELECT * FROM Productos WHERE ID = '{IdProductoSugerido}' AND Nombre = '{NombProductoSugerido}' AND IDUsuario = '{FormPrincipal.userID}'";
+            dtSelectSugerido = cn.CargarDatos(querySeleccionado);
+
+            DataRow row = dtSelectSugerido.Rows[0];
+
+            txtBoxDescripcionProd.Text = row["Nombre"].ToString();
+            txtBoxClaveInternaProd.Text = row["ClaveInterna"].ToString();
+            lblCodigoBarrasProd.Text = row["CodigoBarras"].ToString();
+            lblStockProd.Text = row["Stock"].ToString();
+            lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
+            txtBoxPrecioProd.Text = row["Precio"].ToString();
+            
+            if (row["ClaveInterna"].ToString() == "" && row["CodigoBarras"].ToString() == "")   // si claveInterna y CodigoBarras esta sin datos
+            {
+                txtBoxClaveInternaProd.Text = lblNoIdentificacionXML.Text;
+            }
+            else if (row["ClaveInterna"].ToString() == "" && row["CodigoBarras"].ToString() != "")   // si claveInterna esta sin datos y CodigoBarras esta con datos
+            {
+                txtBoxClaveInternaProd.Text = lblNoIdentificacionXML.Text;
+            }
+            else if (row["ClaveInterna"].ToString() != "" && row["CodigoBarras"].ToString() == "")   // si claveInterna esta con datos y CodigoBarras esta sin datos
+            {
+                lblCodigoBarrasProd.Text = lblNoIdentificacionXML.Text;
+            }
+            else if (row["ClaveInterna"].ToString() != "" && row["CodigoBarras"].ToString() != "")   // si claveInterna esta con datos y CodigoBarras esta con datos
+            {
+                //MessageBox.Show("Aqui proceso para codigo de barras extra del producto.", "En construcción", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            seleccionarSugerido = 3;
+            OcultarPanelSinRegistro();
         }
 
         public AgregarStockXML()

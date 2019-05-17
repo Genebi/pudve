@@ -99,7 +99,6 @@
             this.DGVStockProductos.Size = new System.Drawing.Size(1246, 620);
             this.DGVStockProductos.TabIndex = 0;
             this.DGVStockProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVStockProductos_CellDoubleClick);
-            this.DGVStockProductos.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVStockProductos_CellPainting);
             // 
             // ListaProductos
             // 

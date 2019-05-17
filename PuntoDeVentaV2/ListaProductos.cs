@@ -85,11 +85,6 @@ namespace PuntoDeVentaV2
             DGVStockProductos.Columns["ID"].Visible = false;
         }
 
-        private void DGVStockProductos_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
-        {
-            
-        }
-
         private void DGVStockProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             numfila = DGVStockProductos.CurrentRow.Index;                           // variable para poder saber que fila fue la seleccionada
@@ -125,21 +120,21 @@ namespace PuntoDeVentaV2
 
             /****************************************************************
             *                                                               * 
-            *   reasiganmos el valor de las viariables de arriba para       *
+            *   registramos el valor de las viariables de arriba para       *
             *   poder hacerlas publicas hacia las demas formas              *
             *                                                               *
             ****************************************************************/
-            IdProdStrFin = IdProdStr;                                   // almacenamos el valor de IdProducto
-            NombreProdStrFin = NombreProdStr;                           // almacenamos el valor de NombreProd
-            StockProdStrFin = StockProdStr;                             // almacenamos el valor de StockProd
-            PrecioDelProdStrFin = PrecioDelProdStr;                     // almacenamos el valor de PrecioDelProd
-            CategoriaProdStrFin = CategoriaProdStr;                     // almacenamos el valor de CategoriaProd
-            ClaveInternaProdStrFin = ClaveInternaProdStr;               // almacenamos el valor de ClaveInternaProd
-            CodigoBarrasProdStrFin = CodigoBarrasProdStr;               // almacenamos el valor de CodigoBarrasProd
-            consultadoDesdeListProd = 1;                                // almacenamos el valor si selecciono un producto
-            consultadoDesdeListProdFin = consultadoDesdeListProd;       // almacenamos el valor de consultadoDesdeListProd
-            opcionGuardarFin = opcionGuardar;                           // almacenamos el valor de opcionGuardar
-            this.Close();                                               // cerramos la ventana 
+            IdProdStrFin = IdProdStr;                               // almacenamos el valor de IdProducto
+            NombreProdStrFin = NombreProdStr;                       // almacenamos el valor de NombreProd
+            StockProdStrFin = StockProdStr;                         // almacenamos el valor de StockProd
+            PrecioDelProdStrFin = PrecioDelProdStr;                 // almacenamos el valor de PrecioDelProd
+            CategoriaProdStrFin = CategoriaProdStr;                 // almacenamos el valor de CategoriaProd
+            ClaveInternaProdStrFin = ClaveInternaProdStr;           // almacenamos el valor de ClaveInternaProd
+            CodigoBarrasProdStrFin = CodigoBarrasProdStr;           // almacenamos el valor de CodigoBarrasProd
+            consultadoDesdeListProd = 1;                            // almacenamos el valor si selecciono un producto
+            consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
+            opcionGuardarFin = opcionGuardar;                       // almacenamos el valor de opcionGuardar
+            this.Close();                                           // cerramos la ventana 
         }
     }
 }

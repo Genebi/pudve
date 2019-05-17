@@ -779,7 +779,7 @@
             this.DGVSugeridos.Size = new System.Drawing.Size(621, 183);
             this.DGVSugeridos.TabIndex = 0;
             this.DGVSugeridos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVSugeridos_CellClick);
-            this.DGVSugeridos.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.DGVSugeridos_RowValidating);
+            this.DGVSugeridos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVSugeridos_CellDoubleClick);
             // 
             // groupBox1
             // 
