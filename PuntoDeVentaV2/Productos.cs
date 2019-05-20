@@ -135,7 +135,7 @@ namespace PuntoDeVentaV2
                 else if (row["ProdImage"].ToString() != "" || row["ProdImage"].ToString() != null)
                 {
                     btn.ForeColor = Color.Red;
-                    using (fs = new FileStream(row["ProdImage"].ToString(), FileMode.Open))
+                    using (fs = new FileStream(fileSavePath + row["ProdImage"].ToString(), FileMode.Open))
                     {
                         btn.Image = Image.FromStream(fs);
                         btn.Image = new Bitmap(btn.Image, btn.Size);

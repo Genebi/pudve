@@ -806,6 +806,7 @@ namespace PuntoDeVentaV2
             lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
             PrecioProd = float.Parse(dtProductos.Rows[0]["Precio"].ToString());             // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
             txtBoxPrecioProd.Text = PrecioProd.ToString("N2");
+            label2.Text = ds.Conceptos[index].ClaveUnidad;             // pasamos la ClaveUnidad del XML
         }
 
         // funsion para hacer la lectura del Archivo XML 
@@ -1104,17 +1105,88 @@ namespace PuntoDeVentaV2
             }
             else if (seleccionarSugerido == 3)
             {
-                string queryBarrExtSelectSugerido = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{IdProductoSugerido}'";
-                dtBarrExtSelectSugerido = cn.CargarDatos(queryBarrExtSelectSugerido);
-                queryBarrExtSelectSugerido = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto) VALUES('{lblNoIdentificacionXML.Text}', '{IdProductoSugerido}')";
-                int Resultado = cn.EjecutarConsulta(queryBarrExtSelectSugerido);
-                if (Resultado > 0)
+                string queryBarrExtSelectSugerido, queryProdAtService, queryUpdateProd;
+                DataRow row, Row;
+                int Resultado, resul;
+
+                Row = dtSelectSugerido.Rows[0];
+
+                if (Row["ClaveInterna"].ToString() == "" && Row["CodigoBarras"].ToString() == "" && Row["Tipo"].ToString() == "P")
                 {
-                    //MessageBox.Show("Prodcuto agregado...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    queryUpdateProd = $"UPDATE Productos SET ClaveInterna = '{lblNoIdentificacionXML.Text}' WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{Row["Nombre"].ToString()}'";
+                    Resultado = cn.EjecutarConsulta(queryUpdateProd);
+                    if (Resultado > 0)
+                    {
+
+                    }
+                    else if (Resultado <= 0)
+                    {
+                        MessageBox.Show("El Producto No fue agregado a la Clave Interna...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
-                else
+                else if (Row["ClaveInterna"].ToString() == "" && Row["CodigoBarras"].ToString() != "" && Row["Tipo"].ToString() == "P")
                 {
-                    //MessageBox.Show("Prodcuto No agregado...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    queryUpdateProd = $"UPDATE Productos SET ClaveInterna = '{lblNoIdentificacionXML.Text}' WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{Row["Nombre"].ToString()}'";
+                    Resultado = cn.EjecutarConsulta(queryUpdateProd);
+                    if (Resultado > 0)
+                    {
+
+                    }
+                    else if (Resultado <= 0)
+                    {
+                        MessageBox.Show("El Producto No fue agregado a la Clave Interna...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+                else if (Row["ClaveInterna"].ToString() != "" && Row["CodigoBarras"].ToString() == "" && Row["Tipo"].ToString() == "P")
+                {
+                    queryUpdateProd = $"UPDATE Productos SET CodigoBarras = '{lblNoIdentificacionXML.Text}' WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{Row["Nombre"].ToString()}'";
+                    Resultado = cn.EjecutarConsulta(queryUpdateProd);
+                    if (Resultado > 0)
+                    {
+
+                    }
+                    else if (Resultado <= 0)
+                    {
+                        MessageBox.Show("El Producto No fue agregado a la Clave Interna...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+                else if (Row["ClaveInterna"].ToString() != "" && Row["CodigoBarras"].ToString() != "" && Row["Tipo"].ToString() == "P")
+                {
+                    queryUpdateProd = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto) VALUES('{lblNoIdentificacionXML.Text}', '{IdProductoSugerido}')";
+                    Resultado = cn.EjecutarConsulta(queryUpdateProd);
+                    if (Resultado > 0)
+                    {
+
+                    }
+                    else if (Resultado <= 0)
+                    {
+                        MessageBox.Show("El Producto No fue agregado al Código de Barras Extra...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                }
+                else if (Row["ClaveInterna"].ToString() != "" && Row["CodigoBarras"].ToString() != "" && Row["Tipo"].ToString() == "S")
+                {
+                    queryBarrExtSelectSugerido = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto) VALUES('{lblNoIdentificacionXML.Text}', '{IdProductoSugerido}')";
+                    Resultado = cn.EjecutarConsulta(queryBarrExtSelectSugerido);
+
+                    if (Resultado > 0)
+                    {
+                        
+                    }
+                    else if (Resultado <= 0)
+                    {
+                        MessageBox.Show("Prodcuto No agregado...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+
+                    queryProdAtService = $"INSERT INTO ProductosDeServicios(Fecha, IDServicio, IDProducto, NombreProducto, Cantidad) VALUES('{fechaCompletaRelacionada}', '{IdProductoSugerido}', '{Row["ID"].ToString()}', '{Row["Nombre"].ToString()}', '1')";
+                    resul = cn.EjecutarConsulta(queryProdAtService);
+                    if (resul > 0)
+                    {
+
+                    }
+                    else if (resul <= 0)
+                    {
+                        MessageBox.Show("El Servicio / Paquete / Combo No agregado a codigo de barras extra...", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                 }
             }
             dtConfirmarProdRelXML.Rows.Clear();
@@ -1255,6 +1327,12 @@ namespace PuntoDeVentaV2
         private void DGVSugeridos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string querySeleccionado;
+
+            fechaSitema = fechaHoy.ToString("s");
+            fechaSola = fechaSitema.Substring(0, 10);
+            horaSola = fechaSitema.Substring(11);
+            fechaCompletaRelacionada = fechaSola + " " + horaSola;
+
             numFila = DGVSugeridos.CurrentRow.Index;
             
             IdProductoSugerido = DGVSugeridos[0, numFila].Value.ToString();

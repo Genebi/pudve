@@ -380,7 +380,7 @@
             this.cbTipo.FormattingEnabled = true;
             this.cbTipo.Items.AddRange(new object[] {
             "Producto",
-            "Servicio / Paquete ó Combo"});
+            "Servicio / Paquete"});
             this.cbTipo.Location = new System.Drawing.Point(97, 55);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(219, 24);

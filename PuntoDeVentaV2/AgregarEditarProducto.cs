@@ -274,7 +274,7 @@ namespace PuntoDeVentaV2
             {
                 queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
                 dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
-                cbTipo.Text = "Servicio / Paquete ó Combo";
+                cbTipo.Text = "Servicio / Paquete";
                 btnAdd.Visible = true;
             }
             else if (tipoProdServ == "P")
@@ -867,7 +867,7 @@ namespace PuntoDeVentaV2
                         //Cierra la ventana donde se agregan los datos del producto
                         this.Close();
                     }
-                    else if (tipoServPaq == "Servicio / Paquete ó Combo")
+                    else if (tipoServPaq == "Servicio / Paquete")
                     {
                         ProdServPaq = "S";
                         stock = "0";
@@ -1378,7 +1378,7 @@ namespace PuntoDeVentaV2
                     chkBoxConProductos.Visible = false;
                 }
             }
-            else if (filtro == "Servicio / Paquete ó Combo")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
+            else if (filtro == "Servicio / Paquete")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
                 if (PStock.Visible == true)
                 {
@@ -1390,7 +1390,7 @@ namespace PuntoDeVentaV2
                 }
                 if (PStock.Visible == false && PPrecioOriginal.Visible == false)
                 {
-                    lblTipoProdPaq.Text = "Servicio / Paquete ó Combo";
+                    lblTipoProdPaq.Text = "Servicio / Paquete";
                     btnAdd.Visible = true;
                     btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
                     Hided = false;
