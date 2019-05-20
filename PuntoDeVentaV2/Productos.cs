@@ -489,26 +489,6 @@ namespace PuntoDeVentaV2
                 }
                 btnAgregarProducto.PerformClick();
             }
-            //else if (e.ColumnIndex == 16)
-            //{
-            //    numerofila = e.RowIndex;
-            //    obtenerDatosDGVProductos(numerofila);
-            //    obtenerIDProdServPaq();
-            //    Descripcion.FormClosed += delegate
-            //    {
-
-            //    };
-            //    if (!Descripcion.Visible)
-            //    {
-            //        Descripcion.IDProducto = ID_ProdSerPaq;
-            //        Descripcion.ShowDialog();
-            //    }
-            //    else
-            //    {
-            //        Descripcion.IDProducto = ID_ProdSerPaq;
-            //        Descripcion.BringToFront();
-            //    }
-            //}
         }
 
         private void obtenerIDProdServPaq()
@@ -682,8 +662,17 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
+                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-                row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                if (TipoProd == "P")
+                {
+                    row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                }
+                else if (TipoProd == "S")
+                {
+                    row.Cells["Column2"].Value = "";
+                }
                 row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
                 row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
                 row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
@@ -733,7 +722,7 @@ namespace PuntoDeVentaV2
                 
                 row.Cells["Column13"].Value = copy;
                 
-                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+                
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;
@@ -767,8 +756,17 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
+                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-                row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                if (TipoProd == "P")
+                {
+                    row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                }
+                else if (TipoProd == "S")
+                {
+                    row.Cells["Column2"].Value = "";
+                }
                 row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
                 row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
                 row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
@@ -818,7 +816,6 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Column13"].Value = copy;
 
-                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;
@@ -852,8 +849,17 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
+                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-                row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                if (TipoProd == "P")
+                {
+                    row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                }
+                else if (TipoProd == "S")
+                {
+                    row.Cells["Column2"].Value = "";
+                }
                 row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
                 row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
                 row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
@@ -903,7 +909,6 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Column13"].Value = copy;
 
-                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;
@@ -937,8 +942,17 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
+                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-                row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                if (TipoProd == "P")
+                {
+                    row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                }
+                else if (TipoProd == "S")
+                {
+                    row.Cells["Column2"].Value = "";
+                }
                 row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
                 row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
                 row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
@@ -988,7 +1002,6 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Column13"].Value = copy;
 
-                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;

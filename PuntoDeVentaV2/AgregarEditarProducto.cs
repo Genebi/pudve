@@ -870,7 +870,7 @@ namespace PuntoDeVentaV2
                     else if (tipoServPaq == "Servicio / Paquete")
                     {
                         ProdServPaq = "S";
-                        stock = "0";
+                        stock = "";
                         guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo, ProdServPaq };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
