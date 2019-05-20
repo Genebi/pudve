@@ -663,7 +663,7 @@ namespace PuntoDeVentaV2
         public void searchProd()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, Prod.Tipo, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
             dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
             if (dtProductos.Rows.Count >= 1) // si el resultado arroja al menos una fila
             {
@@ -806,7 +806,6 @@ namespace PuntoDeVentaV2
             lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
             PrecioProd = float.Parse(dtProductos.Rows[0]["Precio"].ToString());             // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
             txtBoxPrecioProd.Text = PrecioProd.ToString("N2");
-            label2.Text = ds.Conceptos[index].ClaveUnidad;             // pasamos la ClaveUnidad del XML
         }
 
         // funsion para hacer la lectura del Archivo XML 
@@ -899,16 +898,41 @@ namespace PuntoDeVentaV2
         {
             int resultadoConsulta;                              // almacenamos el resultado sea 1 o 0
             NombreProd = txtBoxDescripcionProd.Text;            // almacenamos el contenido del TextBox
-            // hacemos el query para la actualizacion del Stock
-            query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
-            resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
-            if (resultadoConsulta == 1)                         // si el resultado es 1
+            if (dtProductos.Rows[0]["Tipo"].ToString() == "P")
             {
-                //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // hacemos el query para la actualizacion del Stock
+                query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
+                resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
+                if (resultadoConsulta == 1)                         // si el resultado es 1
+                {
+                    //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else                                                // si el resultado es 0
+                {
+                    //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                }
             }
-            else                                                // si el resultado es 0
+            else if (dtProductos.Rows[0]["Tipo"].ToString() == "S")
             {
-                //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                query = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', codBarExt.CodigoBarraExtra AS 'Codigo de Barras Extra', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN CodigoBarrasExtras AS codBarExt ON codBarExt.IDProducto = prod.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prod.ClaveInterna = '{ClaveInterna}' OR prod.CodigoBarras = '{ClaveInterna}' OR codBarExt.CodigoBarraExtra = '{ClaveInterna}'";
+                DataTable resultadoServicio = cn.CargarDatos(query);
+                int nvoStock, oldStock, stockService, numProd;
+                numProd = Convert.ToInt32(resultadoServicio.Rows[0]["No de Producto"].ToString());
+                string searchProducto = $"SELECT * FROM Productos WHERE ID = '{numProd}'";
+                DataTable resultadoBuscarProd = cn.CargarDatos(searchProducto);
+                oldStock = Convert.ToInt32(resultadoBuscarProd.Rows[0]["Stock"].ToString());
+                stockService = Convert.ToInt32(resultadoServicio.Rows[0]["Cantidad"].ToString()) * stockProdXML;
+                nvoStock = oldStock + stockService;
+                string queryUpDateServicio = $"UPDATE Productos SET Stock = '{nvoStock}' WHERE ID = '{numProd}'";
+                resultadoConsulta = cn.EjecutarConsulta(queryUpDateServicio);     // aqui vemos el resultado de la consulta
+                if (resultadoConsulta == 1)                         // si el resultado es 1
+                {
+                    //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else                                                // si el resultado es 0
+                {
+                    //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                }
             }
             query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
             try

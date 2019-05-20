@@ -46,9 +46,91 @@ namespace PuntoDeVentaV2
         string fileName, oldDirectory, NvoFileName, logoTipo = "", queryBuscarProd, idProductoBuscado, tipoProdServ, queryBuscarCodBarExt;
         string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
 
+        const string fichero = @"\PUDVE\settings\codbar\setupCodBar.txt";       // directorio donde esta el archivo de numero de codigo de barras consecutivo
+        string Contenido;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
+
+        long CodigoDeBarras;                                                    // variable entera para llevar un consecutivo de codigo de barras
+
         public NvoProduct()
         {
             InitializeComponent();
+        }
+
+        private void btnGenerarCB_Click(object sender, EventArgs e)
+        {
+            // leemos el archivo de codigo de barras que lleva el consecutivo
+            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
+            {
+                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+            }
+            if (Contenido == "")        // si el contenido es vacio 
+            {
+                PrimerCodBarras();      // iniciamos el conteo del codigo de barras
+                AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+            }
+            else if (Contenido != "")   // si el contenido no es vacio
+            {
+                //MessageBox.Show("Trabajando en el Proceso");
+                AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+            }
+        }
+
+        private void AumentarCodBarras()
+        {
+            string txtBoxName;
+            txtBoxName = _lastEnteredControl.Name;
+            if (txtBoxName != "cbTipo" && txtBoxName != "txtNombreProducto" && txtBoxName != "txtStockProducto" && txtBoxName != "txtPrecioProducto" && txtBoxName != "txtCategoriaProducto")
+            {
+                _lastEnteredControl.Text = Contenido;
+
+                CodigoDeBarras = long.Parse(Contenido);
+                CodigoDeBarras++;
+                Contenido = CodigoDeBarras.ToString();
+
+                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
+                {
+                    outfile.WriteLine(Contenido);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Campo no Valido para generar\nCodigo de Barras los campos validos son\nClave Interna y Codigo de Barras... Gracias", "Anvertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PrimerCodBarras()
+        {
+            Contenido = "7777000001";
+        }
+
+        private void txtNombreProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtStockProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtPrecioProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtCategoriaProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtClaveProducto_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void txtCodigoBarras_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
         }
 
         private void NvoProduct_Load(object sender, EventArgs e)

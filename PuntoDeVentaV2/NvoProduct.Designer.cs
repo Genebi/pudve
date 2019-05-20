@@ -94,6 +94,7 @@
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(985, 22);
             this.txtNombreProducto.TabIndex = 24;
+            this.txtNombreProducto.Enter += new System.EventHandler(this.txtNombreProducto_Enter);
             // 
             // panel1
             // 
@@ -198,6 +199,7 @@
             this.btnGenerarCB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGenerarCB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnGenerarCB.UseVisualStyleBackColor = false;
+            this.btnGenerarCB.Click += new System.EventHandler(this.btnGenerarCB_Click);
             // 
             // txtCodigoBarras
             // 
@@ -206,6 +208,7 @@
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(219, 22);
             this.txtCodigoBarras.TabIndex = 7;
+            this.txtCodigoBarras.Enter += new System.EventHandler(this.txtCodigoBarras_Enter);
             this.txtCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoBarras_KeyDown);
             // 
             // PClaveInterna
@@ -235,6 +238,7 @@
             this.txtClaveProducto.Name = "txtClaveProducto";
             this.txtClaveProducto.Size = new System.Drawing.Size(219, 22);
             this.txtClaveProducto.TabIndex = 6;
+            this.txtClaveProducto.Enter += new System.EventHandler(this.txtClaveProducto_Enter);
             // 
             // PCategoria
             // 
@@ -264,6 +268,7 @@
             this.txtCategoriaProducto.Size = new System.Drawing.Size(219, 22);
             this.txtCategoriaProducto.TabIndex = 5;
             this.txtCategoriaProducto.TextChanged += new System.EventHandler(this.txtCategoriaProducto_TextChanged);
+            this.txtCategoriaProducto.Enter += new System.EventHandler(this.txtCategoriaProducto_Enter);
             // 
             // PStock
             // 
@@ -281,6 +286,7 @@
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(219, 22);
             this.txtStockProducto.TabIndex = 3;
+            this.txtStockProducto.Enter += new System.EventHandler(this.txtStockProducto_Enter);
             // 
             // label6
             // 
@@ -320,6 +326,7 @@
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(219, 22);
             this.txtPrecioProducto.TabIndex = 4;
+            this.txtPrecioProducto.Enter += new System.EventHandler(this.txtPrecioProducto_Enter);
             // 
             // btnGuardarProducto
             // 
