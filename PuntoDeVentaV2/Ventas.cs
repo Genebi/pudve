@@ -152,10 +152,10 @@ namespace PuntoDeVentaV2
                 }
                 else if (searchProd.Rows.Count == 0)
                 {
-                    MessageBox.Show("Producto no encontrado en el Stock", "No Registrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtBuscadorProducto.Text = "";
-                    txtBuscadorProducto.Focus();
-                    ocultarResultados();
+                    //MessageBox.Show("Producto no encontrado en el Stock", "No Registrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //txtBuscadorProducto.Text = "";
+                    //txtBuscadorProducto.Focus();
+                    //ocultarResultados();
                 }
             }
         }
