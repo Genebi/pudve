@@ -1193,12 +1193,14 @@ namespace PuntoDeVentaV2
             string primerPatron  = @"^\d+\s\*\s";               //  (digito+espacioBlanco*espacioBlanco) 5 * 15665132
             string segundoPatron = @"^(\+\d+)|(\d+\+)$";        //  ((Signo+)digito+ || digito+(Signo+)) +2
             string tercerPatron  = @"^(\-\d+)|(\d+\-)$";        //  ((Signo-)digito+ || digito+(Signo-)) -1
-            string cuartoPatron = @"^\d+\*\s";
+            string cuartoPatron = @"^\d+\*\s";                  //  (digito+(Signo*)+espacioBlanco) 5* 15665132
+            string quintoPatron = @"^\d+\s\*";                  //  (digito+(Signo*)+espacioBlanco) 5 *15665132
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
             Match terceraCoincidencia = Regex.Match(cadena, tercerPatron, RegexOptions.IgnoreCase);
             Match cuartaCoincidencia = Regex.Match(cadena, cuartoPatron, RegexOptions.IgnoreCase);
+            Match quintaCoincidencia = Regex.Match(cadena, quintoPatron, RegexOptions.IgnoreCase);
 
             // Si encuentra coincidencia asigna la cantidad a la variable multiplicar 
             // y se visualiza en el campo numerico
@@ -1314,6 +1316,23 @@ namespace PuntoDeVentaV2
                 }
 
                 cadena = Regex.Replace(cadena, cuartoPatron, string.Empty);
+            }
+            else if (quintaCoincidencia.Success)
+            {
+                // 5 *652651651651
+                var resultado = quintaCoincidencia.Value.Trim().Split('*');
+
+                cantidadExtra = Convert.ToInt32(resultado[0]);
+
+                if (cantidadExtra != 0)
+                {
+                    if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
+                    {
+                        nudCantidadPS.Value = cantidadExtra;
+                    }
+                }
+
+                cadena = Regex.Replace(cadena, quintoPatron, string.Empty);
             }
 
             return cadena;
