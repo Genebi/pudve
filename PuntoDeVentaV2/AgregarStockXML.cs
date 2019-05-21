@@ -916,22 +916,33 @@ namespace PuntoDeVentaV2
             {
                 query = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', codBarExt.CodigoBarraExtra AS 'Codigo de Barras Extra', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN CodigoBarrasExtras AS codBarExt ON codBarExt.IDProducto = prod.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prod.ClaveInterna = '{ClaveInterna}' OR prod.CodigoBarras = '{ClaveInterna}' OR codBarExt.CodigoBarraExtra = '{ClaveInterna}'";
                 DataTable resultadoServicio = cn.CargarDatos(query);
-                int nvoStock, oldStock, stockService, numProd;
-                numProd = Convert.ToInt32(resultadoServicio.Rows[0]["No de Producto"].ToString());
-                string searchProducto = $"SELECT * FROM Productos WHERE ID = '{numProd}'";
-                DataTable resultadoBuscarProd = cn.CargarDatos(searchProducto);
-                oldStock = Convert.ToInt32(resultadoBuscarProd.Rows[0]["Stock"].ToString());
-                stockService = Convert.ToInt32(resultadoServicio.Rows[0]["Cantidad"].ToString()) * stockProdXML;
-                nvoStock = oldStock + stockService;
-                string queryUpDateServicio = $"UPDATE Productos SET Stock = '{nvoStock}' WHERE ID = '{numProd}'";
-                resultadoConsulta = cn.EjecutarConsulta(queryUpDateServicio);     // aqui vemos el resultado de la consulta
-                if (resultadoConsulta == 1)                         // si el resultado es 1
+                int nvoStock, oldStock, stockService, numProd, numServicio;
+                numServicio = Convert.ToInt32(resultadoServicio.Rows[0]["Producto"].ToString());
+                string queryConsultaSinProductos = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre',  prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prodOfServ.IDServicio = '{numServicio}'";
+                DataTable resultadoSinProducto = cn.CargarDatos(queryConsultaSinProductos);
+                if (resultadoSinProducto.Rows.Count == 0)
                 {
-                    //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // si hay algo por hacer para solo los paquetes 
+                    // sin producto relacionado
                 }
-                else                                                // si el resultado es 0
+                else if (resultadoSinProducto.Rows.Count > 0)
                 {
-                    //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                    numProd = Convert.ToInt32(resultadoServicio.Rows[0]["No de Producto"].ToString());
+                    string searchProducto = $"SELECT * FROM Productos WHERE ID = '{numProd}'";
+                    DataTable resultadoBuscarProd = cn.CargarDatos(searchProducto);
+                    oldStock = Convert.ToInt32(resultadoBuscarProd.Rows[0]["Stock"].ToString());
+                    stockService = Convert.ToInt32(resultadoServicio.Rows[0]["Cantidad"].ToString()) * stockProdXML;
+                    nvoStock = oldStock + stockService;
+                    string queryUpDateServicio = $"UPDATE Productos SET Stock = '{nvoStock}' WHERE ID = '{numProd}'";
+                    resultadoConsulta = cn.EjecutarConsulta(queryUpDateServicio);     // aqui vemos el resultado de la consulta
+                    if (resultadoConsulta == 1)                         // si el resultado es 1
+                    {
+                        //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else                                                // si el resultado es 0
+                    {
+                        //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                    }
                 }
             }
             query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{concepto}','{cantidad}','{precioOriginalConIVA.ToString("N2")}','{descuento}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{userId}')";
