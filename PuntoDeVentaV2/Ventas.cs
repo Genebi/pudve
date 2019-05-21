@@ -7,6 +7,7 @@ using iTextSharp.text.pdf;
 using System.IO;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Data;
 
 namespace PuntoDeVentaV2
 {
@@ -133,6 +134,28 @@ namespace PuntoDeVentaV2
                 {
                     listaProductos.Items.Add(s);
                     listaProductos.Visible = true;
+                }
+            }
+
+            if (listaProductos.Visible == false && txtBuscadorProducto.Text != "buscar producto o servicio...")
+            {
+                string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
+                DataTable searchProd = cn.CargarDatos(querySearchProd);
+                if (searchProd.Rows.Count > 0)
+                {
+                    int idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
+                    string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                    txtBuscadorProducto.Text = "";
+                    txtBuscadorProducto.Focus();
+                    ocultarResultados();
+                    AgregarProducto(datosProducto);
+                }
+                else if (searchProd.Rows.Count == 0)
+                {
+                    MessageBox.Show("Producto no encontrado en el Stock", "No Registrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtBuscadorProducto.Text = "";
+                    txtBuscadorProducto.Focus();
+                    ocultarResultados();
                 }
             }
         }
