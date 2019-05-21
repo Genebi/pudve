@@ -1195,12 +1195,14 @@ namespace PuntoDeVentaV2
             string tercerPatron  = @"^(\-\d+)|(\d+\-)$";        //  ((Signo-)digito+ || digito+(Signo-)) -1
             string cuartoPatron = @"^\d+\*\s";                  //  (digito+(Signo*)+espacioBlanco) 5* 15665132
             string quintoPatron = @"^\d+\s\*";                  //  (digito+(Signo*)+espacioBlanco) 5 *15665132
+            string sextoPatron = @"^\d+\*";                     //  (digito+(Signo*)+espacioBlanco) 5*15665132
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
             Match terceraCoincidencia = Regex.Match(cadena, tercerPatron, RegexOptions.IgnoreCase);
             Match cuartaCoincidencia = Regex.Match(cadena, cuartoPatron, RegexOptions.IgnoreCase);
             Match quintaCoincidencia = Regex.Match(cadena, quintoPatron, RegexOptions.IgnoreCase);
+            Match sextaCoincidencia = Regex.Match(cadena, sextoPatron, RegexOptions.IgnoreCase);
 
             // Si encuentra coincidencia asigna la cantidad a la variable multiplicar 
             // y se visualiza en el campo numerico
@@ -1333,6 +1335,23 @@ namespace PuntoDeVentaV2
                 }
 
                 cadena = Regex.Replace(cadena, quintoPatron, string.Empty);
+            }
+            else if (sextaCoincidencia.Success)
+            {
+                // 5*652651651651
+                var resultado = sextaCoincidencia.Value.Trim().Split('*');
+
+                cantidadExtra = Convert.ToInt32(resultado[0]);
+
+                if (cantidadExtra != 0)
+                {
+                    if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
+                    {
+                        nudCantidadPS.Value = cantidadExtra;
+                    }
+                }
+
+                cadena = Regex.Replace(cadena, sextoPatron, string.Empty);
             }
 
             return cadena;
