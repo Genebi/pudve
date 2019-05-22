@@ -293,6 +293,16 @@ namespace PuntoDeVentaV2
             id = 0;
             flowLayoutPanel2.Controls.Clear();
 
+            Label Titulo = new Label();
+            Titulo.Name = "Title";
+            Titulo.Width = 400;
+            Titulo.Height = 20;
+            Titulo.Text = "Descripción de productos que contiene el paquete:";
+            Titulo.Location = new Point(0, 0);
+
+            flowLayoutPanel2.Controls.Add(Titulo);
+            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
             foreach (DataRow dtRow in dtProductosDeServicios.Rows)
             {
                 NombreProducto = dtRow["NombreProducto"].ToString();
@@ -302,14 +312,15 @@ namespace PuntoDeVentaV2
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
                 panelHijo.Width = 749;
-                panelHijo.Height = 25;
+                panelHijo.Height = 35;
                 panelHijo.HorizontalScroll.Visible = false;
 
                 Label lb1 = new Label();
                 lb1.Name = "labelProductoGenerado" + id;
-                lb1.Width = 69;
+                lb1.Width = 60;
                 lb1.Height = 17;
-                lb1.Text = "Producto "+id+" :";
+                lb1.Text = "Producto:";
+                //lb1.Location = new Point(10, 12);
 
                 ComboBox cb = new ComboBox();
                 cb.Name = "comboBoxGenerador" + id;
@@ -332,20 +343,23 @@ namespace PuntoDeVentaV2
                 cb.BackColor = System.Drawing.SystemColors.Window;
                 cb.FormattingEnabled = true;
                 cb.Enter += new EventHandler(ComboBox_Enter);
+                //cb.Location = new Point(75, 12);
 
                 Label lb2 = new Label();
                 lb2.Name = "labelCantidadGenerado" + id;
-                lb2.Width = 68;
+                lb2.Width = 50;
                 lb2.Height = 17;
                 lb2.Text = "Cantidad:";
+                //lb2.Location = new Point(385, 12);
 
                 TextBox tb = new TextBox();
                 tb.Name = "textBoxGenerado" + id;
                 tb.Width = 250;
                 tb.Height = 22;
                 tb.Text = CantidadProducto;
-                tb.Enter += new EventHandler(TextBoxProductos_Enter);
-                tb.KeyDown += new KeyEventHandler(TexBoxProductos_Keydown);
+                tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+                tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+                //tb.Location = new Point(440, 12);
 
                 Button bt = new Button();
                 bt.Cursor = Cursors.Hand;
@@ -359,6 +373,7 @@ namespace PuntoDeVentaV2
                 bt.TextAlign = ContentAlignment.MiddleCenter;
                 bt.Anchor = AnchorStyles.Top;
                 bt.Click += new EventHandler(ClickBotonesProductos);
+                //bt.Location = new Point(695, 12);
 
                 panelHijo.Controls.Add(lb1);
                 panelHijo.Controls.Add(cb);
@@ -369,7 +384,7 @@ namespace PuntoDeVentaV2
 
                 flowLayoutPanel2.Controls.Add(panelHijo);
                 flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-                
+
                 tb.Focus();
                 id++;
             }
@@ -1065,7 +1080,7 @@ namespace PuntoDeVentaV2
                                     if (item.Text == "Por favor selecciona un Producto")
                                     {
                                         prodSerPaq += fech + "|";
-                                        prodSerPaq += idProducto + "|";
+                                        prodSerPaq += idProductoBuscado + "|";
                                         prodSerPaq += idProducto + "|";
                                         prodSerPaq += txtNombreProducto.Text + "|";
                                         prodSerPaq += "0";
@@ -1080,7 +1095,7 @@ namespace PuntoDeVentaV2
                                         dtProductos = cn.CargarDatos(buscar);
                                         comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
                                         prodSerPaq += fech + "|";
-                                        prodSerPaq += idProducto + "|";
+                                        prodSerPaq += idProductoBuscado + "|";
                                         prodSerPaq += comboBoxValue + "|";
                                         prodSerPaq += comboBoxText + "|";
                                     }
@@ -1450,7 +1465,7 @@ namespace PuntoDeVentaV2
             //}
         }
 
-        private void GenerarPanelProductos()
+        private void GenerarPanelProductosServ()
         {
             id = 0;
             flowLayoutPanel2.Controls.Clear();
@@ -1527,6 +1542,90 @@ namespace PuntoDeVentaV2
             id++;
         }
 
+        private void GenerarPanelProductosServPlus()
+        {
+            id = 0;
+            id = flowLayoutPanel2.Controls.Count;
+            id++;
+            //flowLayoutPanel2.Controls.Clear();
+
+            FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+            panelHijo.Name = "panelGenerado" + id;
+            panelHijo.Width = 749;
+            panelHijo.Height = 50;
+            panelHijo.HorizontalScroll.Visible = false;
+
+            Label lb1 = new Label();
+            lb1.Name = "labelProductoGenerado" + id;
+            lb1.Width = 60;
+            lb1.Height = 17;
+            lb1.Text = "Producto:";
+            //lb1.Location = new Point(10, 12);
+
+            ComboBox cb = new ComboBox();
+            cb.Name = "comboBoxGenerador" + id;
+            cb.Width = 300;
+            cb.Height = 24;
+            try
+            {
+                cb.DisplayMember = "Nombre";
+                cb.ValueMember = "ID";
+                cb.DataSource = prodList;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cb.BackColor = System.Drawing.SystemColors.Window;
+            cb.FormattingEnabled = true;
+            //cb.Location = new Point(75, 12);
+
+            Label lb2 = new Label();
+            lb2.Name = "labelCantidadGenerado" + id;
+            lb2.Width = 50;
+            lb2.Height = 17;
+            lb2.Text = "Cantidad:";
+            //lb2.Location = new Point(385, 12);
+
+            TextBox tb = new TextBox();
+            tb.Name = "textBoxGenerado" + id;
+            tb.Width = 250;
+            tb.Height = 22;
+            tb.Text = "0";
+            tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+            tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+            //tb.Location = new Point(440, 12);
+
+            Button bt = new Button();
+            bt.Cursor = Cursors.Hand;
+            bt.Text = "X";
+            bt.Name = "btnGenerado" + id;
+            bt.Height = 23;
+            bt.Width = 23;
+            bt.BackColor = ColorTranslator.FromHtml("#C00000");
+            bt.ForeColor = ColorTranslator.FromHtml("white");
+            bt.FlatStyle = FlatStyle.Flat;
+            bt.TextAlign = ContentAlignment.MiddleCenter;
+            bt.Anchor = AnchorStyles.Top;
+            bt.Click += new EventHandler(ClickBotonesProductos);
+            //bt.Location = new Point(695, 12);
+
+            panelHijo.Controls.Add(lb1);
+            panelHijo.Controls.Add(cb);
+            panelHijo.Controls.Add(lb2);
+            panelHijo.Controls.Add(tb);
+            panelHijo.Controls.Add(bt);
+            panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+            flowLayoutPanel2.Controls.Add(panelHijo);
+            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+            tb.Focus();
+            id++;
+        }
+
         private void ClickBotonesProductos(object sender, EventArgs e)
         {
             Button bt = sender as Button;
@@ -1557,12 +1656,32 @@ namespace PuntoDeVentaV2
                 int cant = Convert.ToInt32(texto);
                 if (cant > 0)
                 {
-                    GenerarPanelProductos();
+                    GenerarPanelProductosServ();
                 }
             }
         }
 
         private void TextBoxProductos_Enter(object sender, EventArgs e)
+        {
+            _lastEnteredControl = (Control)sender;
+        }
+
+        private void TexBoxProductosServ_Keydown(object sender, KeyEventArgs e)
+        {
+            TextBox tbx = sender as TextBox;
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                string texto = tbx.Text;
+                int cant = Convert.ToInt32(texto);
+                if (cant > 0)
+                {
+                    GenerarPanelProductosServPlus();
+                }
+            }
+        }
+
+        private void TextBoxProductosServ_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;
         }
@@ -1641,9 +1760,9 @@ namespace PuntoDeVentaV2
                     }
                     else if (idProductoBuscado == null || tipoProdServ == null && DatosSourceFinal == 1)
                     {
-                        GenerarPanelProductos();
+                        GenerarPanelProductosServ();
                     }
-                    this.Height = 750;
+                    this.Height = 800;
                     this.CenterToScreen();
                     this.Refresh();
                 }
@@ -1655,7 +1774,7 @@ namespace PuntoDeVentaV2
                 {
                     timerProdPaqSer.Stop();
                     Hided = true;
-                    this.Height = 650;
+                    this.Height = 615;
                     this.CenterToScreen();
                     this.Refresh();
                 }
