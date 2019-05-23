@@ -51,6 +51,17 @@ namespace PuntoDeVentaV2
 
         long CodigoDeBarras;                                                    // variable entera para llevar un consecutivo de codigo de barras
 
+        string nombre;
+        string stock;
+        string precio;
+        string categoria;
+        string claveIn;
+        string codigoB;
+        string claveProducto = "";
+        string claveUnidadMedida = "";
+        string ProdServPaq = "P".ToString();
+        string tipoDescuento = "0";
+
         public NvoProduct()
         {
             InitializeComponent();
@@ -443,16 +454,17 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
-            var nombre = txtNombreProducto.Text;
-            var stock = txtStockProducto.Text;
-            var precio = txtPrecioProducto.Text;
-            var categoria = txtCategoriaProducto.Text;
-            var claveIn = txtClaveProducto.Text;
-            var codigoB = txtCodigoBarras.Text;
-            var claveProducto = "";
-            var claveUnidadMedida = "";
-            var ProdServPaq = "P".ToString();
-            var tipoDescuento = "0";
+            nombre = txtNombreProducto.Text;
+            ProdNombre = nombre;
+            stock = txtStockProducto.Text;
+            precio = txtPrecioProducto.Text;
+            categoria = txtCategoriaProducto.Text;
+            claveIn = txtClaveProducto.Text;
+            codigoB = txtCodigoBarras.Text;
+            claveProducto = "";
+            claveUnidadMedida = "";
+            ProdServPaq = "P".ToString();
+            tipoDescuento = "0";
 
             resultadoSearchNoIdentificacion = 0;    // ponemos los valores en 0
             resultadoSearchCodBar = 0;              // ponemos los valores en 0

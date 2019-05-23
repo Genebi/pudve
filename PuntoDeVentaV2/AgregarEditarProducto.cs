@@ -1690,7 +1690,6 @@ namespace PuntoDeVentaV2
         {
             if (chkBoxConProductos.Checked == true)
             {
-                //Hided1 = true;
                 ocultarVentanaProd();
             }
         }
@@ -1701,6 +1700,8 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos();
                 chkBoxConProductos.Checked = false;
+                //actualizarCBProd();
+                //nvoProductoAdd.ProdNombre;
                 //chkBoxConProductos.Visible = false;
             };
 
@@ -1716,6 +1717,11 @@ namespace PuntoDeVentaV2
                 pasarDatos();
                 nvoProductoAdd.ShowDialog();
             }
+        }
+
+        private void actualizarCBProd()
+        {
+            mostrarProdServPaq();
         }
 
         private void pasarNumStockServicios()
