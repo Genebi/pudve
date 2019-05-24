@@ -36,9 +36,6 @@ namespace PuntoDeVentaV2
                 
                 if (cantidad >= 0)
                 {
-                    //GenerarTextBox();
-                    //MessageBox.Show(texto, "Mensaje");
-                    //addEditProd.CantidadProdServicio = texto;
                     AgregarEditarProducto.CantProdServFinal = cantidad.ToString();
                     this.Close();
                 }
@@ -57,6 +54,16 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
                 return;
             }
+        }
+
+        private void CantidadProdServicio_Load(object sender, EventArgs e)
+        {
+            limpiarDatos();
+        }
+
+        private void limpiarDatos()
+        {
+            txtBoxCantidad.Text = "";
         }
     }
 }
