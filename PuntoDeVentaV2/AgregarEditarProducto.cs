@@ -65,10 +65,10 @@ namespace PuntoDeVentaV2
         FileStream File, File1;
         FileInfo info;
 
-        string queryBuscarProd, idProductoBuscado, queryUpdateProd, queryInsertProd, queryBuscarCodBarExt, queryBuscarDescuentoCliente, queryDesMayoreo, queryProductosDeServicios;
+        string queryBuscarProd, idProductoBuscado, queryUpdateProd, queryInsertProd, queryBuscarCodBarExt, queryBuscarDescuentoCliente, queryDesMayoreo, queryProductosDeServicios, queryNvoProductosDeServicios;
         int respuesta;
 
-        DataTable dtProductosDeServicios;
+        DataTable dtProductosDeServicios, dtNvoProductosDeServicios=null;
 
         // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
@@ -87,7 +87,7 @@ namespace PuntoDeVentaV2
 
         string queryProductos;
 
-        DataRow row;
+        DataRow row, rowNvoProd;
 
         Control _lastEnteredControl;    // para saber cual fue el ultimo control con el cursor activo
 
@@ -303,91 +303,254 @@ namespace PuntoDeVentaV2
             flowLayoutPanel2.Controls.Add(Titulo);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
 
-            foreach (DataRow dtRow in dtProductosDeServicios.Rows)
+            if (dtNvoProductosDeServicios != null)
             {
-                NombreProducto = dtRow["NombreProducto"].ToString();
-                CantidadProducto = dtRow["Cantidad"].ToString();
-                IDProducto = dtRow["IDProducto"].ToString();
-
-                FlowLayoutPanel panelHijo = new FlowLayoutPanel();
-                panelHijo.Name = "panelGenerado" + id;
-                panelHijo.Width = 749;
-                panelHijo.Height = 35;
-                panelHijo.HorizontalScroll.Visible = false;
-
-                Label lb1 = new Label();
-                lb1.Name = "labelProductoGenerado" + id;
-                lb1.Width = 60;
-                lb1.Height = 17;
-                lb1.Text = "Producto:";
-                //lb1.Location = new Point(10, 12);
-
-                ComboBox cb = new ComboBox();
-                cb.Name = "comboBoxGenerador" + id;
-                cb.Width = 300;
-                cb.Height = 24;
-                try
+                //MessageBox.Show("En proceso de construcción", "Proceso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                foreach (DataRow dtRow in dtNvoProductosDeServicios.Rows)
                 {
-                    foreach (var items in prodList)
+                    NombreProducto = dtRow["Nombre"].ToString();
+                    IDProducto = dtRow["ID"].ToString();
+
+                    FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                    panelHijo.Name = "panelGenerado" + id;
+                    panelHijo.Width = 749;
+                    panelHijo.Height = 50;
+                    panelHijo.HorizontalScroll.Visible = false;
+
+                    Label lb1 = new Label();
+                    lb1.Name = "labelProductoGenerado" + id;
+                    lb1.Width = 60;
+                    lb1.Height = 17;
+                    lb1.Text = "Producto:";
+
+                    ComboBox cb = new ComboBox();
+                    cb.Name = "comboBoxGenerador" + id;
+                    cb.Width = 300;
+                    cb.Height = 24;
+                    try
                     {
-                        cb.Items.Add(items.ToString());
+                        foreach (var items in prodList)
+                        {
+                            cb.Items.Add(items.ToString());
+                        }
+                        cb.Text = NombreProducto;
                     }
-                    cb.Text = NombreProducto;
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    cb.BackColor = System.Drawing.SystemColors.Window;
+                    cb.FormattingEnabled = true;
+                    cb.Enter += new EventHandler(ComboBox_Enter);
+
+                    Label lb2 = new Label();
+                    lb2.Name = "labelCantidadGenerado" + id;
+                    lb2.Width = 50;
+                    lb2.Height = 17;
+                    lb2.Text = "Cantidad:";
+
+                    TextBox tb = new TextBox();
+                    tb.Name = "textBoxGenerado" + id;
+                    tb.Width = 250;
+                    tb.Height = 22;
+                    tb.Text = "0";
+                    tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+                    tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+
+                    Button bt = new Button();
+                    bt.Cursor = Cursors.Hand;
+                    bt.Text = "X";
+                    bt.Name = "btnGenerado" + id;
+                    bt.Height = 23;
+                    bt.Width = 23;
+                    bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                    bt.ForeColor = ColorTranslator.FromHtml("white");
+                    bt.FlatStyle = FlatStyle.Flat;
+                    bt.TextAlign = ContentAlignment.MiddleCenter;
+                    bt.Anchor = AnchorStyles.Top;
+                    bt.Click += new EventHandler(ClickBotonesProductos);
+
+                    panelHijo.Controls.Add(lb1);
+                    panelHijo.Controls.Add(cb);
+                    panelHijo.Controls.Add(lb2);
+                    panelHijo.Controls.Add(tb);
+                    panelHijo.Controls.Add(bt);
+                    panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                    flowLayoutPanel2.Controls.Add(panelHijo);
+                    flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+                    tb.Focus();
+                    id++;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                cb.AutoCompleteSource = AutoCompleteSource.ListItems;
-                cb.BackColor = System.Drawing.SystemColors.Window;
-                cb.FormattingEnabled = true;
-                cb.Enter += new EventHandler(ComboBox_Enter);
-                //cb.Location = new Point(75, 12);
-
-                Label lb2 = new Label();
-                lb2.Name = "labelCantidadGenerado" + id;
-                lb2.Width = 50;
-                lb2.Height = 17;
-                lb2.Text = "Cantidad:";
-                //lb2.Location = new Point(385, 12);
-
-                TextBox tb = new TextBox();
-                tb.Name = "textBoxGenerado" + id;
-                tb.Width = 250;
-                tb.Height = 22;
-                tb.Text = CantidadProducto;
-                tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
-                tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
-                //tb.Location = new Point(440, 12);
-
-                Button bt = new Button();
-                bt.Cursor = Cursors.Hand;
-                bt.Text = "X";
-                bt.Name = "btnGenerado" + id;
-                bt.Height = 23;
-                bt.Width = 23;
-                bt.BackColor = ColorTranslator.FromHtml("#C00000");
-                bt.ForeColor = ColorTranslator.FromHtml("white");
-                bt.FlatStyle = FlatStyle.Flat;
-                bt.TextAlign = ContentAlignment.MiddleCenter;
-                bt.Anchor = AnchorStyles.Top;
-                bt.Click += new EventHandler(ClickBotonesProductos);
-                //bt.Location = new Point(695, 12);
-
-                panelHijo.Controls.Add(lb1);
-                panelHijo.Controls.Add(cb);
-                panelHijo.Controls.Add(lb2);
-                panelHijo.Controls.Add(tb);
-                panelHijo.Controls.Add(bt);
-                panelHijo.FlowDirection = FlowDirection.LeftToRight;
-
-                flowLayoutPanel2.Controls.Add(panelHijo);
-                flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-
-                tb.Focus();
-                id++;
             }
+            if (dtProductosDeServicios != null)
+            {
+                foreach (DataRow dtRow in dtProductosDeServicios.Rows)
+                {
+                    NombreProducto = dtRow["NombreProducto"].ToString();
+                    CantidadProducto = dtRow["Cantidad"].ToString();
+                    IDProducto = dtRow["IDProducto"].ToString();
+
+                    FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                    panelHijo.Name = "panelGenerado" + id;
+                    panelHijo.Width = 749;
+                    panelHijo.Height = 50;
+                    panelHijo.HorizontalScroll.Visible = false;
+
+                    Label lb1 = new Label();
+                    lb1.Name = "labelProductoGenerado" + id;
+                    lb1.Width = 60;
+                    lb1.Height = 17;
+                    lb1.Text = "Producto:";
+
+                    ComboBox cb = new ComboBox();
+                    cb.Name = "comboBoxGenerador" + id;
+                    cb.Width = 300;
+                    cb.Height = 24;
+                    try
+                    {
+                        foreach (var items in prodList)
+                        {
+                            cb.Items.Add(items.ToString());
+                        }
+                        cb.Text = NombreProducto;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    cb.BackColor = System.Drawing.SystemColors.Window;
+                    cb.FormattingEnabled = true;
+                    cb.Enter += new EventHandler(ComboBox_Enter);
+
+                    Label lb2 = new Label();
+                    lb2.Name = "labelCantidadGenerado" + id;
+                    lb2.Width = 50;
+                    lb2.Height = 17;
+                    lb2.Text = "Cantidad:";
+
+                    TextBox tb = new TextBox();
+                    tb.Name = "textBoxGenerado" + id;
+                    tb.Width = 250;
+                    tb.Height = 22;
+                    tb.Text = CantidadProducto;
+                    tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+                    tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+
+                    Button bt = new Button();
+                    bt.Cursor = Cursors.Hand;
+                    bt.Text = "X";
+                    bt.Name = "btnGenerado" + id;
+                    bt.Height = 23;
+                    bt.Width = 23;
+                    bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                    bt.ForeColor = ColorTranslator.FromHtml("white");
+                    bt.FlatStyle = FlatStyle.Flat;
+                    bt.TextAlign = ContentAlignment.MiddleCenter;
+                    bt.Anchor = AnchorStyles.Top;
+                    bt.Click += new EventHandler(ClickBotonesProductos);
+
+                    panelHijo.Controls.Add(lb1);
+                    panelHijo.Controls.Add(cb);
+                    panelHijo.Controls.Add(lb2);
+                    panelHijo.Controls.Add(tb);
+                    panelHijo.Controls.Add(bt);
+                    panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                    flowLayoutPanel2.Controls.Add(panelHijo);
+                    flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+                    tb.Focus();
+                    id++;
+                }
+            }
+            //if (dtNvoProductosDeServicios.Rows.Count > 0)
+            //{
+            //    foreach (DataRow dtRow in dtNvoProductosDeServicios.Rows)
+            //    {
+            //        NombreProducto = dtRow["Nombre"].ToString();
+            //        IDProducto = dtRow["ID"].ToString();
+
+            //        FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+            //        panelHijo.Name = "panelGenerado" + id;
+            //        panelHijo.Width = 749;
+            //        panelHijo.Height = 50;
+            //        panelHijo.HorizontalScroll.Visible = false;
+
+            //        Label lb1 = new Label();
+            //        lb1.Name = "labelProductoGenerado" + id;
+            //        lb1.Width = 60;
+            //        lb1.Height = 17;
+            //        lb1.Text = "Producto:";
+
+            //        ComboBox cb = new ComboBox();
+            //        cb.Name = "comboBoxGenerador" + id;
+            //        cb.Width = 300;
+            //        cb.Height = 24;
+            //        try
+            //        {
+            //            foreach (var items in prodList)
+            //            {
+            //                cb.Items.Add(items.ToString());
+            //            }
+            //            cb.Text = NombreProducto;
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //        cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            //        cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+            //        cb.BackColor = System.Drawing.SystemColors.Window;
+            //        cb.FormattingEnabled = true;
+            //        cb.Enter += new EventHandler(ComboBox_Enter);
+
+            //        Label lb2 = new Label();
+            //        lb2.Name = "labelCantidadGenerado" + id;
+            //        lb2.Width = 50;
+            //        lb2.Height = 17;
+            //        lb2.Text = "Cantidad:";
+
+            //        TextBox tb = new TextBox();
+            //        tb.Name = "textBoxGenerado" + id;
+            //        tb.Width = 250;
+            //        tb.Height = 22;
+            //        tb.Text = "0";
+            //        tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+            //        tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+
+            //        Button bt = new Button();
+            //        bt.Cursor = Cursors.Hand;
+            //        bt.Text = "X";
+            //        bt.Name = "btnGenerado" + id;
+            //        bt.Height = 23;
+            //        bt.Width = 23;
+            //        bt.BackColor = ColorTranslator.FromHtml("#C00000");
+            //        bt.ForeColor = ColorTranslator.FromHtml("white");
+            //        bt.FlatStyle = FlatStyle.Flat;
+            //        bt.TextAlign = ContentAlignment.MiddleCenter;
+            //        bt.Anchor = AnchorStyles.Top;
+            //        bt.Click += new EventHandler(ClickBotonesProductos);
+
+            //        panelHijo.Controls.Add(lb1);
+            //        panelHijo.Controls.Add(cb);
+            //        panelHijo.Controls.Add(lb2);
+            //        panelHijo.Controls.Add(tb);
+            //        panelHijo.Controls.Add(bt);
+            //        panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+            //        flowLayoutPanel2.Controls.Add(panelHijo);
+            //        flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+            //        tb.Focus();
+            //        id++;
+            //    }
+            //}
         }
 
         private void ComboBox_Enter(object sender, EventArgs e)
@@ -934,17 +1097,14 @@ namespace PuntoDeVentaV2
                                         }
                                         if (item is TextBox)
                                         {
+                                            var tb = item.Text;
                                             if (item.Text == "0")
                                             {
-                                                break;
+                                                tb = "0";
+                                                prodSerPaq += tb;
                                             }
                                             else
                                             {
-                                                var tb = item.Text;
-                                                if (tb == "0")
-                                                {
-                                                    tb = "0";
-                                                }
                                                 prodSerPaq += tb;
                                             }
                                         }
@@ -1102,17 +1262,14 @@ namespace PuntoDeVentaV2
                                 }
                                 if (item is TextBox)
                                 {
+                                    var tb = item.Text;
                                     if (item.Text == "0")
                                     {
-                                        break;
+                                        tb = "0";
+                                        prodSerPaq += tb;
                                     }
                                     else
                                     {
-                                        var tb = item.Text;
-                                        if (tb == "0")
-                                        {
-                                            tb = "0";
-                                        }
                                         prodSerPaq += tb;
                                     }
                                 }
@@ -1470,76 +1627,244 @@ namespace PuntoDeVentaV2
             id = 0;
             flowLayoutPanel2.Controls.Clear();
 
-            FlowLayoutPanel panelHijo = new FlowLayoutPanel();
-            panelHijo.Name = "panelGenerado" + id;
-            panelHijo.Width = 749;
-            panelHijo.Height = 25;
-            panelHijo.HorizontalScroll.Visible = false;
-
-            Label lb1 = new Label();
-            lb1.Name = "labelProductoGenerado" + id;
-            lb1.Width = 69;
-            lb1.Height = 17;
-            lb1.Text = "Producto:";
-
-            ComboBox cb = new ComboBox();
-            cb.Name = "comboBoxGenerador" + id;
-            cb.Width = 300;
-            cb.Height = 24;
-            try
+            if (dtNvoProductosDeServicios != null)
             {
-                cb.DisplayMember = "Nombre";
-                cb.ValueMember = "ID";
-                cb.DataSource = prodList;
+                foreach (DataRow dtRow in dtNvoProductosDeServicios.Rows)
+                {
+                    NombreProducto = dtRow["Nombre"].ToString();
+                    IDProducto = dtRow["ID"].ToString();
+
+                    FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                    panelHijo.Name = "panelGenerado" + id;
+                    panelHijo.Width = 749;
+                    panelHijo.Height = 50;
+                    panelHijo.HorizontalScroll.Visible = false;
+
+                    Label lb1 = new Label();
+                    lb1.Name = "labelProductoGenerado" + id;
+                    lb1.Width = 60;
+                    lb1.Height = 17;
+                    lb1.Text = "Producto:";
+
+                    ComboBox cb = new ComboBox();
+                    cb.Name = "comboBoxGenerador" + id;
+                    cb.Width = 300;
+                    cb.Height = 24;
+                    try
+                    {
+                        foreach (var items in prodList)
+                        {
+                            cb.Items.Add(items.ToString());
+                        }
+                        cb.Text = NombreProducto;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    cb.BackColor = System.Drawing.SystemColors.Window;
+                    cb.FormattingEnabled = true;
+                    cb.Enter += new EventHandler(ComboBox_Enter);
+
+                    Label lb2 = new Label();
+                    lb2.Name = "labelCantidadGenerado" + id;
+                    lb2.Width = 50;
+                    lb2.Height = 17;
+                    lb2.Text = "Cantidad:";
+
+                    TextBox tb = new TextBox();
+                    tb.Name = "textBoxGenerado" + id;
+                    tb.Width = 250;
+                    tb.Height = 22;
+                    tb.Text = "0";
+                    tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+                    tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+
+                    Button bt = new Button();
+                    bt.Cursor = Cursors.Hand;
+                    bt.Text = "X";
+                    bt.Name = "btnGenerado" + id;
+                    bt.Height = 23;
+                    bt.Width = 23;
+                    bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                    bt.ForeColor = ColorTranslator.FromHtml("white");
+                    bt.FlatStyle = FlatStyle.Flat;
+                    bt.TextAlign = ContentAlignment.MiddleCenter;
+                    bt.Anchor = AnchorStyles.Top;
+                    bt.Click += new EventHandler(ClickBotonesProductos);
+
+                    panelHijo.Controls.Add(lb1);
+                    panelHijo.Controls.Add(cb);
+                    panelHijo.Controls.Add(lb2);
+                    panelHijo.Controls.Add(tb);
+                    panelHijo.Controls.Add(bt);
+                    panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                    flowLayoutPanel2.Controls.Add(panelHijo);
+                    flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+                    tb.Focus();
+                    id++;
+                }
             }
-            catch (Exception ex)
+            else if (dtProductosDeServicios == null)
             {
-                MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                panelHijo.Name = "panelGenerado" + id;
+                panelHijo.Width = 749;
+                panelHijo.Height = 50;
+                panelHijo.HorizontalScroll.Visible = false;
+
+                Label lb1 = new Label();
+                lb1.Name = "labelProductoGenerado" + id;
+                lb1.Width = 69;
+                lb1.Height = 17;
+                lb1.Text = "Producto:";
+
+                ComboBox cb = new ComboBox();
+                cb.Name = "comboBoxGenerador" + id;
+                cb.Width = 300;
+                cb.Height = 24;
+                try
+                {
+                    cb.DisplayMember = "Nombre";
+                    cb.ValueMember = "ID";
+                    cb.DataSource = prodList;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                cb.BackColor = System.Drawing.SystemColors.Window;
+                cb.FormattingEnabled = true;
+
+                Label lb2 = new Label();
+                lb2.Name = "labelCantidadGenerado" + id;
+                lb2.Width = 68;
+                lb2.Height = 17;
+                lb2.Text = "Cantidad:";
+
+                TextBox tb = new TextBox();
+                tb.Name = "textBoxGenerado" + id;
+                tb.Width = 250;
+                tb.Height = 22;
+                tb.Text = "0";
+                tb.Enter += new EventHandler(TextBoxProductos_Enter);
+                tb.KeyDown += new KeyEventHandler(TexBoxProductos_Keydown);
+
+                Button bt = new Button();
+                bt.Cursor = Cursors.Hand;
+                bt.Text = "X";
+                bt.Name = "btnGenerado" + id;
+                bt.Height = 23;
+                bt.Width = 23;
+                bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                bt.ForeColor = ColorTranslator.FromHtml("white");
+                bt.FlatStyle = FlatStyle.Flat;
+                bt.TextAlign = ContentAlignment.MiddleCenter;
+                bt.Anchor = AnchorStyles.Top;
+                bt.Click += new EventHandler(ClickBotonesProductos);
+
+                panelHijo.Controls.Add(lb1);
+                panelHijo.Controls.Add(cb);
+                panelHijo.Controls.Add(lb2);
+                panelHijo.Controls.Add(tb);
+                panelHijo.Controls.Add(bt);
+                panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                flowLayoutPanel2.Controls.Add(panelHijo);
+                flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+                tb.Focus();
+                id++;
             }
-            cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cb.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cb.BackColor = System.Drawing.SystemColors.Window;
-            cb.FormattingEnabled = true;
+            else if (dtProductosDeServicios != null)
+            {
+                foreach (DataRow dtRow in dtProductosDeServicios.Rows)
+                {
+                    NombreProducto = dtRow["NombreProducto"].ToString();
+                    CantidadProducto = dtRow["Cantidad"].ToString();
+                    IDProducto = dtRow["IDProducto"].ToString();
 
-            Label lb2 = new Label();
-            lb2.Name = "labelCantidadGenerado" + id;
-            lb2.Width = 68;
-            lb2.Height = 17;
-            lb2.Text = "Cantidad:";
+                    FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                    panelHijo.Name = "panelGenerado" + id;
+                    panelHijo.Width = 749;
+                    panelHijo.Height = 50;
+                    panelHijo.HorizontalScroll.Visible = false;
 
-            TextBox tb = new TextBox();
-            tb.Name = "textBoxGenerado" + id;
-            tb.Width = 250;
-            tb.Height = 22;
-            tb.Text = "0";
-            tb.Enter += new EventHandler(TextBoxProductos_Enter);
-            tb.KeyDown += new KeyEventHandler(TexBoxProductos_Keydown);
+                    Label lb1 = new Label();
+                    lb1.Name = "labelProductoGenerado" + id;
+                    lb1.Width = 60;
+                    lb1.Height = 17;
+                    lb1.Text = "Producto:";
 
-            Button bt = new Button();
-            bt.Cursor = Cursors.Hand;
-            bt.Text = "X";
-            bt.Name = "btnGenerado" + id;
-            bt.Height = 23;
-            bt.Width = 23;
-            bt.BackColor = ColorTranslator.FromHtml("#C00000");
-            bt.ForeColor = ColorTranslator.FromHtml("white");
-            bt.FlatStyle = FlatStyle.Flat;
-            bt.TextAlign = ContentAlignment.MiddleCenter;
-            bt.Anchor = AnchorStyles.Top;
-            bt.Click += new EventHandler(ClickBotonesProductos);
+                    ComboBox cb = new ComboBox();
+                    cb.Name = "comboBoxGenerador" + id;
+                    cb.Width = 300;
+                    cb.Height = 24;
+                    try
+                    {
+                        foreach (var items in prodList)
+                        {
+                            cb.Items.Add(items.ToString());
+                        }
+                        cb.Text = NombreProducto;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    cb.BackColor = System.Drawing.SystemColors.Window;
+                    cb.FormattingEnabled = true;
+                    cb.Enter += new EventHandler(ComboBox_Enter);
 
-            panelHijo.Controls.Add(lb1);
-            panelHijo.Controls.Add(cb);
-            panelHijo.Controls.Add(lb2);
-            panelHijo.Controls.Add(tb);
-            panelHijo.Controls.Add(bt);
-            panelHijo.FlowDirection = FlowDirection.LeftToRight;
+                    Label lb2 = new Label();
+                    lb2.Name = "labelCantidadGenerado" + id;
+                    lb2.Width = 50;
+                    lb2.Height = 17;
+                    lb2.Text = "Cantidad:";
 
-            flowLayoutPanel2.Controls.Add(panelHijo);
-            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+                    TextBox tb = new TextBox();
+                    tb.Name = "textBoxGenerado" + id;
+                    tb.Width = 250;
+                    tb.Height = 22;
+                    tb.Text = CantidadProducto;
+                    tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+                    tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
 
-            tb.Focus();
-            id++;
+                    Button bt = new Button();
+                    bt.Cursor = Cursors.Hand;
+                    bt.Text = "X";
+                    bt.Name = "btnGenerado" + id;
+                    bt.Height = 23;
+                    bt.Width = 23;
+                    bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                    bt.ForeColor = ColorTranslator.FromHtml("white");
+                    bt.FlatStyle = FlatStyle.Flat;
+                    bt.TextAlign = ContentAlignment.MiddleCenter;
+                    bt.Anchor = AnchorStyles.Top;
+                    bt.Click += new EventHandler(ClickBotonesProductos);
+
+                    panelHijo.Controls.Add(lb1);
+                    panelHijo.Controls.Add(cb);
+                    panelHijo.Controls.Add(lb2);
+                    panelHijo.Controls.Add(tb);
+                    panelHijo.Controls.Add(bt);
+                    panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                    flowLayoutPanel2.Controls.Add(panelHijo);
+                    flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+                    tb.Focus();
+                    id++;
+                }
+            }
         }
 
         private void GenerarPanelProductosServPlus()
@@ -1696,13 +2021,17 @@ namespace PuntoDeVentaV2
 
         private void ocultarVentanaProd()
         {
+            int activo = 0;
             nvoProductoAdd.FormClosed += delegate
             {
                 CargarDatos();
                 chkBoxConProductos.Checked = false;
+<<<<<<< HEAD
                 //actualizarCBProd();
                 //nvoProductoAdd.ProdNombre;
                 //chkBoxConProductos.Visible = false;
+=======
+>>>>>>> ponerProdAutomaticoListaProdRelacionadosDePaq156
             };
 
             if (!nvoProductoAdd.Visible)
@@ -1710,6 +2039,32 @@ namespace PuntoDeVentaV2
                 pasarNumStockServicios();
                 pasarDatos();
                 nvoProductoAdd.ShowDialog();
+                for (int i = 0; i < Application.OpenForms.Count; i++)
+                {
+                    string nombreForm = Application.OpenForms[i].ToString();
+                    if (nombreForm.Contains("NvoProduct") != false)
+                    {
+                        MessageBox.Show("Esta Abierto");
+                        activo = 1;
+                        return;
+                    }
+                    else if (nombreForm.Contains("NvoProduct") == true)
+                    {
+                        MessageBox.Show("No Esta Abierto");
+                        activo = 0;
+                        return;
+                    }
+                }
+                if (activo == 0)
+                {
+                    queryNvoProductosDeServicios = $"SELECT * FROM Productos WHERE Nombre = '{nvoProductoAdd.ProdNombre}'";
+                    dtNvoProductosDeServicios = cn.CargarDatos(queryNvoProductosDeServicios);
+                }
+                else if ( activo == 1)
+                {
+                    queryNvoProductosDeServicios = $"SELECT * FROM Productos WHERE Nombre = '{nvoProductoAdd.ProdNombre}'";
+                    dtNvoProductosDeServicios = cn.CargarDatos(queryNvoProductosDeServicios);
+                }
             }
             else
             {
@@ -1762,9 +2117,24 @@ namespace PuntoDeVentaV2
                     if (idProductoBuscado != null && tipoProdServ == "S")
                     {
                         mostrarProdServPaq();
-                        cambiarCBText();
                     }
-                    else if (idProductoBuscado == null || tipoProdServ == null && DatosSourceFinal == 1)
+                    else if (idProductoBuscado != null && dtNvoProductosDeServicios != null)
+                    {
+                        mostrarProdServPaq();
+                    }
+                    else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 3)
+                    {
+                        GenerarPanelProductosServ();
+                    }
+                    else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 3)
+                    {
+                        GenerarPanelProductosServ();
+                    }
+                    else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 1)
+                    {
+                        GenerarPanelProductosServ();
+                    }
+                    else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 1)
                     {
                         GenerarPanelProductosServ();
                     }
