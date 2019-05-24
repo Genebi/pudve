@@ -56,7 +56,6 @@
             this.pictureBoxProducto = new System.Windows.Forms.PictureBox();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.chkBoxConProductos = new System.Windows.Forms.CheckBox();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
@@ -342,9 +341,9 @@
             this.groupBox1.Controls.Add(this.pictureBoxProducto);
             this.groupBox1.Controls.Add(this.btnImagenes);
             this.groupBox1.Location = new System.Drawing.Point(9, 8);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(209, 205);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
@@ -353,7 +352,7 @@
             // pictureBoxProducto
             // 
             this.pictureBoxProducto.Location = new System.Drawing.Point(38, 21);
-            this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxProducto.Name = "pictureBoxProducto";
             this.pictureBoxProducto.Size = new System.Drawing.Size(132, 132);
             this.pictureBoxProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -367,7 +366,7 @@
             "Producto",
             "Servicio / Paquete"});
             this.cbTipo.Location = new System.Drawing.Point(73, 45);
-            this.cbTipo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbTipo.Margin = new System.Windows.Forms.Padding(2);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(165, 21);
             this.cbTipo.TabIndex = 1;
@@ -378,7 +377,6 @@
             // PDetalleProdcuto
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
-            this.PDetalleProdcuto.Controls.Add(this.label1);
             this.PDetalleProdcuto.Controls.Add(this.chkBoxConProductos);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
@@ -388,26 +386,16 @@
             this.PDetalleProdcuto.Controls.Add(this.tituloSeccion);
             this.PDetalleProdcuto.Dock = System.Windows.Forms.DockStyle.Top;
             this.PDetalleProdcuto.Location = new System.Drawing.Point(0, 0);
-            this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
             this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 140);
             this.PDetalleProdcuto.TabIndex = 27;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(435, 54);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 31;
-            this.label1.Text = "label1";
             // 
             // chkBoxConProductos
             // 
             this.chkBoxConProductos.AutoSize = true;
             this.chkBoxConProductos.Location = new System.Drawing.Point(244, 46);
-            this.chkBoxConProductos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxConProductos.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxConProductos.Name = "chkBoxConProductos";
             this.chkBoxConProductos.Size = new System.Drawing.Size(131, 17);
             this.chkBoxConProductos.TabIndex = 30;
@@ -418,7 +406,7 @@
             // btnAdd
             // 
             this.btnAdd.Location = new System.Drawing.Point(746, 102);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(26, 25);
             this.btnAdd.TabIndex = 29;
@@ -449,7 +437,7 @@
             this.flowLayoutPanel1.Controls.Add(this.PCodigoBarras);
             this.flowLayoutPanel1.Controls.Add(this.PImagen);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(42, 5);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(754, 286);
             this.flowLayoutPanel1.TabIndex = 26;
@@ -459,7 +447,7 @@
             this.PStock.Controls.Add(this.txtStockProducto);
             this.PStock.Controls.Add(this.label6);
             this.PStock.Location = new System.Drawing.Point(2, 2);
-            this.PStock.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PStock.Margin = new System.Windows.Forms.Padding(2);
             this.PStock.Name = "PStock";
             this.PStock.Size = new System.Drawing.Size(172, 50);
             this.PStock.TabIndex = 0;
@@ -469,7 +457,7 @@
             this.PPrecio.Controls.Add(this.label4);
             this.PPrecio.Controls.Add(this.txtPrecioProducto);
             this.PPrecio.Location = new System.Drawing.Point(178, 2);
-            this.PPrecio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PPrecio.Margin = new System.Windows.Forms.Padding(2);
             this.PPrecio.Name = "PPrecio";
             this.PPrecio.Size = new System.Drawing.Size(172, 50);
             this.PPrecio.TabIndex = 1;
@@ -479,7 +467,7 @@
             this.PPrecioOriginal.Controls.Add(this.label7);
             this.PPrecioOriginal.Controls.Add(this.lblPrecioOriginal);
             this.PPrecioOriginal.Location = new System.Drawing.Point(354, 2);
-            this.PPrecioOriginal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PPrecioOriginal.Margin = new System.Windows.Forms.Padding(2);
             this.PPrecioOriginal.Name = "PPrecioOriginal";
             this.PPrecioOriginal.Size = new System.Drawing.Size(171, 50);
             this.PPrecioOriginal.TabIndex = 2;
@@ -489,7 +477,7 @@
             this.PCategoria.Controls.Add(this.label3);
             this.PCategoria.Controls.Add(this.txtCategoriaProducto);
             this.PCategoria.Location = new System.Drawing.Point(529, 2);
-            this.PCategoria.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PCategoria.Margin = new System.Windows.Forms.Padding(2);
             this.PCategoria.Name = "PCategoria";
             this.PCategoria.Size = new System.Drawing.Size(173, 50);
             this.PCategoria.TabIndex = 3;
@@ -499,7 +487,7 @@
             this.PClaveInterna.Controls.Add(this.label5);
             this.PClaveInterna.Controls.Add(this.txtClaveProducto);
             this.PClaveInterna.Location = new System.Drawing.Point(2, 56);
-            this.PClaveInterna.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PClaveInterna.Margin = new System.Windows.Forms.Padding(2);
             this.PClaveInterna.Name = "PClaveInterna";
             this.PClaveInterna.Size = new System.Drawing.Size(172, 49);
             this.PClaveInterna.TabIndex = 4;
@@ -511,7 +499,7 @@
             this.PCodigoBarras.Controls.Add(this.btnGenerarCB);
             this.PCodigoBarras.Controls.Add(this.txtCodigoBarras);
             this.PCodigoBarras.Location = new System.Drawing.Point(178, 56);
-            this.PCodigoBarras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PCodigoBarras.Margin = new System.Windows.Forms.Padding(2);
             this.PCodigoBarras.Name = "PCodigoBarras";
             this.PCodigoBarras.Size = new System.Drawing.Size(302, 221);
             this.PCodigoBarras.TabIndex = 5;
@@ -540,7 +528,7 @@
             // 
             this.PImagen.Controls.Add(this.groupBox1);
             this.PImagen.Location = new System.Drawing.Point(484, 56);
-            this.PImagen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PImagen.Margin = new System.Windows.Forms.Padding(2);
             this.PImagen.Name = "PImagen";
             this.PImagen.Size = new System.Drawing.Size(227, 221);
             this.PImagen.TabIndex = 6;
@@ -554,7 +542,7 @@
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
             this.PConteidoProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.PConteidoProducto.Location = new System.Drawing.Point(0, 140);
-            this.PConteidoProducto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PConteidoProducto.Margin = new System.Windows.Forms.Padding(2);
             this.PConteidoProducto.Name = "PConteidoProducto";
             this.PConteidoProducto.Size = new System.Drawing.Size(838, 92);
             this.PConteidoProducto.TabIndex = 30;
@@ -568,7 +556,7 @@
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Control;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(41, 7);
-            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(755, 75);
             this.flowLayoutPanel2.TabIndex = 0;
@@ -579,7 +567,7 @@
             this.PDetalle.Controls.Add(this.flowLayoutPanel1);
             this.PDetalle.Dock = System.Windows.Forms.DockStyle.Top;
             this.PDetalle.Location = new System.Drawing.Point(0, 232);
-            this.PDetalle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
             this.PDetalle.Size = new System.Drawing.Size(838, 305);
             this.PDetalle.TabIndex = 31;
@@ -594,7 +582,7 @@
             this.PAccion.Controls.Add(this.label8);
             this.PAccion.Dock = System.Windows.Forms.DockStyle.Top;
             this.PAccion.Location = new System.Drawing.Point(0, 537);
-            this.PAccion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PAccion.Margin = new System.Windows.Forms.Padding(2);
             this.PAccion.Name = "PAccion";
             this.PAccion.Size = new System.Drawing.Size(838, 122);
             this.PAccion.TabIndex = 32;
@@ -687,6 +675,5 @@
         private System.Windows.Forms.Panel PDetalle;
         private System.Windows.Forms.Panel PAccion;
         private System.Windows.Forms.CheckBox chkBoxConProductos;
-        private System.Windows.Forms.Label label1;
     }
 }

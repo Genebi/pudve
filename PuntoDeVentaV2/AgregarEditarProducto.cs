@@ -2026,12 +2026,6 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos();
                 chkBoxConProductos.Checked = false;
-<<<<<<< HEAD
-                //actualizarCBProd();
-                //nvoProductoAdd.ProdNombre;
-                //chkBoxConProductos.Visible = false;
-=======
->>>>>>> ponerProdAutomaticoListaProdRelacionadosDePaq156
             };
 
             if (!nvoProductoAdd.Visible)
