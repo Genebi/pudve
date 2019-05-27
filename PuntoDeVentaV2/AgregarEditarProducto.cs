@@ -2003,6 +2003,125 @@ namespace PuntoDeVentaV2
             mostrarProdServPaq();
         }
 
+        private void btnProdUpdate_Click(object sender, EventArgs e)
+        {
+            var nombre = txtNombreProducto.Text;
+            var stock = txtStockProducto.Text;
+            var precio = txtPrecioProducto.Text;
+            var categoria = txtCategoriaProducto.Text;
+            var claveIn = txtClaveProducto.Text;
+            var codigoB = txtCodigoBarras.Text;
+
+            string queryProdSearch, queryProdServFound, queryProdUpdate, queryProdServUpdate, fech, prodSerPaq, buscar, comboBoxText, comboBoxValue;
+
+            DataTable dtProdFound, dtProdSerFound, rowProdUpdate, dtProductos;
+
+            DataRow rowProdFound, row;
+
+            queryProdSearch = $"SELECT * FROM Productos WHERE Nombre = '{nombre}' AND Precio = '{precio}'";
+            dtProdFound = cn.CargarDatos(queryProdSearch);
+            rowProdFound = dtProdFound.Rows[0];
+            queryProdServFound = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{rowProdFound["ID"].ToString()}'";
+            idProducto = Convert.ToInt32(rowProdFound["ID"].ToString());
+            dtProdSerFound = cn.CargarDatos(queryProdServFound);
+            if (dtProdSerFound.Rows.Count >= 1)
+            {
+                queryProdUpdate = $"UPDATE Productos SET Nombre = '{nombre}', Precio = '{precio}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}' WHERE ID = '{rowProdFound["ID"].ToString()}'";
+                rowProdUpdate = cn.CargarDatos(queryProdUpdate);
+                ProductosDeServicios.Clear();
+                // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
+                foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                {
+                    // agregamos la variable para egregar los procutos
+                    prodSerPaq = null;
+                    foreach (Control item in panel.Controls)
+                    {
+                        fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        if ((item is ComboBox) && (item.Text != "Por favor selecciona un Producto"))
+                        {
+                            buscar = null;
+                            comboBoxText = item.Text;
+                            comboBoxValue = null;
+                            buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                            dtProductos = cn.CargarDatos(buscar);
+                            row = dtProductos.Rows[0];
+                            comboBoxValue = row["ID"].ToString();
+                            prodSerPaq += fech + "|";
+                            prodSerPaq += idProducto + "|";
+                            prodSerPaq += comboBoxValue + "|";
+                            prodSerPaq += comboBoxText + "|";
+                        }
+                        if ((item is TextBox) && (item.Text != "0"))
+                        {
+                            var tb = item.Text;
+                            prodSerPaq += tb;
+                        }
+                    }
+                    ProductosDeServicios.Add(prodSerPaq);
+                    prodSerPaq = null;
+                    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                    if (ProductosDeServicios.Any())
+                    {
+                        foreach (var productosSP in ProductosDeServicios)
+                        {
+                            string[] tmp = productosSP.Split('|');
+                            cn.EjecutarConsulta(cs.ActualizarProductosServPaq(tmp));
+                        }
+                        ProductosDeServicios.Clear();
+                    }
+                }
+                this.Close();
+            }
+            else if (dtProdSerFound.Rows.Count <= 0)
+            {
+                queryProdUpdate = $"UPDATE Productos SET Nombre = '{nombre}', Precio = '{precio}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}' WHERE ID = '{rowProdFound["ID"].ToString()}'";
+                rowProdUpdate = cn.CargarDatos(queryProdUpdate);
+                ProductosDeServicios.Clear();
+                // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
+                foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                {
+                    // agregamos la variable para egregar los procutos
+                    prodSerPaq = null;
+                    foreach (Control item in panel.Controls)
+                    {
+                        fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        if ((item is ComboBox) && (item.Text != "Por favor selecciona un Producto"))
+                        {
+                            buscar = null;
+                            comboBoxText = item.Text;
+                            comboBoxValue = null;
+                            buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                            dtProductos = cn.CargarDatos(buscar);
+                            row = dtProductos.Rows[0];
+                            comboBoxValue = row["ID"].ToString();
+                            prodSerPaq += fech + "|";
+                            prodSerPaq += idProducto + "|";
+                            prodSerPaq += comboBoxValue + "|";
+                            prodSerPaq += comboBoxText + "|";
+                        }
+                        if ((item is TextBox) && (item.Text != "0"))
+                        {
+                            var tb = item.Text;
+                            prodSerPaq += tb;
+                        }
+                    }
+                    ProductosDeServicios.Add(prodSerPaq);
+                    prodSerPaq = null;
+                    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                    if (ProductosDeServicios.Any())
+                    {
+                        foreach (var productosSP in ProductosDeServicios)
+                        {
+                            string[] tmp = productosSP.Split('|');
+                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                        }
+                        ProductosDeServicios.Clear();
+                    }
+                }
+                this.Close();
+            }
+        }
+
         private void pasarNumStockServicios()
         {
             CantidadPordServPaq.ShowDialog();

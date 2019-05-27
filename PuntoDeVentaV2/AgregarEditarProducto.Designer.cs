@@ -73,6 +73,8 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
             this.PAccion = new System.Windows.Forms.Panel();
+            this.btnProdUpdate = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -288,7 +290,7 @@
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(550, 81);
+            this.btnGuardarProducto.Location = new System.Drawing.Point(614, 73);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(180, 28);
             this.btnGuardarProducto.TabIndex = 13;
@@ -574,6 +576,8 @@
             // 
             // PAccion
             // 
+            this.PAccion.Controls.Add(this.label1);
+            this.PAccion.Controls.Add(this.btnProdUpdate);
             this.PAccion.Controls.Add(this.btnAgregarDescuento);
             this.PAccion.Controls.Add(this.button2);
             this.PAccion.Controls.Add(this.btnDetalleFacturacion);
@@ -581,11 +585,35 @@
             this.PAccion.Controls.Add(this.label9);
             this.PAccion.Controls.Add(this.label8);
             this.PAccion.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PAccion.ForeColor = System.Drawing.Color.White;
             this.PAccion.Location = new System.Drawing.Point(0, 537);
             this.PAccion.Margin = new System.Windows.Forms.Padding(2);
             this.PAccion.Name = "PAccion";
             this.PAccion.Size = new System.Drawing.Size(838, 122);
             this.PAccion.TabIndex = 32;
+            // 
+            // btnProdUpdate
+            // 
+            this.btnProdUpdate.BackColor = System.Drawing.Color.Teal;
+            this.btnProdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProdUpdate.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnProdUpdate.Location = new System.Drawing.Point(414, 73);
+            this.btnProdUpdate.Name = "btnProdUpdate";
+            this.btnProdUpdate.Size = new System.Drawing.Size(180, 28);
+            this.btnProdUpdate.TabIndex = 20;
+            this.btnProdUpdate.Text = "Actualizar Producto";
+            this.btnProdUpdate.UseVisualStyleBackColor = false;
+            this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(309, 81);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "label1";
             // 
             // AgregarEditarProducto
             // 
@@ -626,6 +654,7 @@
             this.PConteidoProducto.ResumeLayout(false);
             this.PDetalle.ResumeLayout(false);
             this.PAccion.ResumeLayout(false);
+            this.PAccion.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -675,5 +704,7 @@
         private System.Windows.Forms.Panel PDetalle;
         private System.Windows.Forms.Panel PAccion;
         private System.Windows.Forms.CheckBox chkBoxConProductos;
+        private System.Windows.Forms.Button btnProdUpdate;
+        private System.Windows.Forms.Label label1;
     }
 }

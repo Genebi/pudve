@@ -132,5 +132,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string ActualizarProductosServPaq(string[] datos)
+        {
+            string consulta = $"UPDATE SET ProductosDeServicios Fecha = '{datos[0]}', IDProducto = '{datos[2]}', NombreProducto = '{datos[3]}', Cantidad = '{datos[4]}' WHERE IDServicio = '{datos[1]}'";
+            
+            return consulta;
+        }
     }
 }
