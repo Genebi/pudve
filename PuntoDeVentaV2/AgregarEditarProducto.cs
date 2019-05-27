@@ -1955,6 +1955,7 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos();
                 chkBoxConProductos.Checked = false;
+                btnAdd.PerformClick();
             };
 
             if (!nvoProductoAdd.Visible)
