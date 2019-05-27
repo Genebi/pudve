@@ -469,88 +469,6 @@ namespace PuntoDeVentaV2
                     id++;
                 }
             }
-            //if (dtNvoProductosDeServicios.Rows.Count > 0)
-            //{
-            //    foreach (DataRow dtRow in dtNvoProductosDeServicios.Rows)
-            //    {
-            //        NombreProducto = dtRow["Nombre"].ToString();
-            //        IDProducto = dtRow["ID"].ToString();
-
-            //        FlowLayoutPanel panelHijo = new FlowLayoutPanel();
-            //        panelHijo.Name = "panelGenerado" + id;
-            //        panelHijo.Width = 749;
-            //        panelHijo.Height = 50;
-            //        panelHijo.HorizontalScroll.Visible = false;
-
-            //        Label lb1 = new Label();
-            //        lb1.Name = "labelProductoGenerado" + id;
-            //        lb1.Width = 60;
-            //        lb1.Height = 17;
-            //        lb1.Text = "Producto:";
-
-            //        ComboBox cb = new ComboBox();
-            //        cb.Name = "comboBoxGenerador" + id;
-            //        cb.Width = 300;
-            //        cb.Height = 24;
-            //        try
-            //        {
-            //            foreach (var items in prodList)
-            //            {
-            //                cb.Items.Add(items.ToString());
-            //            }
-            //            cb.Text = NombreProducto;
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        }
-            //        cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            //        cb.AutoCompleteSource = AutoCompleteSource.ListItems;
-            //        cb.BackColor = System.Drawing.SystemColors.Window;
-            //        cb.FormattingEnabled = true;
-            //        cb.Enter += new EventHandler(ComboBox_Enter);
-
-            //        Label lb2 = new Label();
-            //        lb2.Name = "labelCantidadGenerado" + id;
-            //        lb2.Width = 50;
-            //        lb2.Height = 17;
-            //        lb2.Text = "Cantidad:";
-
-            //        TextBox tb = new TextBox();
-            //        tb.Name = "textBoxGenerado" + id;
-            //        tb.Width = 250;
-            //        tb.Height = 22;
-            //        tb.Text = "0";
-            //        tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
-            //        tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
-
-            //        Button bt = new Button();
-            //        bt.Cursor = Cursors.Hand;
-            //        bt.Text = "X";
-            //        bt.Name = "btnGenerado" + id;
-            //        bt.Height = 23;
-            //        bt.Width = 23;
-            //        bt.BackColor = ColorTranslator.FromHtml("#C00000");
-            //        bt.ForeColor = ColorTranslator.FromHtml("white");
-            //        bt.FlatStyle = FlatStyle.Flat;
-            //        bt.TextAlign = ContentAlignment.MiddleCenter;
-            //        bt.Anchor = AnchorStyles.Top;
-            //        bt.Click += new EventHandler(ClickBotonesProductos);
-
-            //        panelHijo.Controls.Add(lb1);
-            //        panelHijo.Controls.Add(cb);
-            //        panelHijo.Controls.Add(lb2);
-            //        panelHijo.Controls.Add(tb);
-            //        panelHijo.Controls.Add(bt);
-            //        panelHijo.FlowDirection = FlowDirection.LeftToRight;
-
-            //        flowLayoutPanel2.Controls.Add(panelHijo);
-            //        flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-
-            //        tb.Focus();
-            //        id++;
-            //    }
-            //}
         }
 
         private void ComboBox_Enter(object sender, EventArgs e)
@@ -560,7 +478,7 @@ namespace PuntoDeVentaV2
 
         public void cargarDatos()
         {
-            cbTipo.Text = "Producto";
+            
             ProdNombreFinal = ProdNombre;
             ProdStockFinal = ProdStock;
             ProdPrecioFinal = ProdPrecio;
@@ -585,6 +503,15 @@ namespace PuntoDeVentaV2
             {
                 cargarDatosExtra();
             }
+
+            //if (SearchProdResult.Rows[0]["Tipo"].ToString() == "S")
+            //{
+            //    cbTipo.Text = "Servicio / Paquete";
+            //}
+            //else if (SearchProdResult.Rows[0]["Tipo"].ToString() == "P")
+            //{
+            //    cbTipo.Text = "Producto";
+            //}
         }
 
         public void LimpiarDatos()
@@ -1547,6 +1474,7 @@ namespace PuntoDeVentaV2
                     btnAdd.Visible = false;
                     Hided = false;
                     ocultarPanel();
+                    chkBoxConProductos.Checked = false;
                     chkBoxConProductos.Visible = false;
                 }
             }
@@ -1567,6 +1495,7 @@ namespace PuntoDeVentaV2
                     btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
                     Hided = false;
                     ocultarPanel();
+                    chkBoxConProductos.Checked = false;
                     chkBoxConProductos.Visible = true;
                 }
             }
@@ -2209,7 +2138,7 @@ namespace PuntoDeVentaV2
                 LimpiarCampos();
                 cbTipo.Text = "Producto";
                 btnAdd.Visible = false;
-                chkBoxConProductos.Visible = false;
+                //chkBoxConProductos.Visible = false;
                 ocultarPanel();
                 
             }
