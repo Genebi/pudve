@@ -290,6 +290,8 @@ namespace PuntoDeVentaV2
             CantidadProducto = "";
             IDProducto = "";
 
+
+            chkBoxConProductos.Visible = true;
             id = 0;
             flowLayoutPanel2.Controls.Clear();
 
@@ -1956,6 +1958,7 @@ namespace PuntoDeVentaV2
                 CargarDatos();
                 chkBoxConProductos.Checked = false;
                 btnAdd.PerformClick();
+                chkBoxConProductos.Visible = false;
             };
 
             if (!nvoProductoAdd.Visible)
