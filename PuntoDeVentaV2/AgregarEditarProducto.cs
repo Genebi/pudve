@@ -994,17 +994,7 @@ namespace PuntoDeVentaV2
                                         string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                         if (item is ComboBox)
                                         {
-                                            
-                                            if (item.Text == "Por favor selecciona un Producto")
-                                            {
-                                                prodSerPaq += fech + "|";
-                                                prodSerPaq += idProducto + "|";
-                                                prodSerPaq += idProducto + "|";
-                                                prodSerPaq += txtNombreProducto.Text + "|";
-                                                prodSerPaq += "0";
-                                                break;
-                                            }
-                                            else
+                                            if (item.Text != "Por favor selecciona un Producto")
                                             {
                                                 string buscar = null;
                                                 string comboBoxText = item.Text;
@@ -1043,7 +1033,10 @@ namespace PuntoDeVentaV2
                                 foreach (var productosSP in ProductosDeServicios)
                                 {
                                     string[] tmp = productosSP.Split('|');
-                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                    if (tmp.Length == 5)
+                                    {
+                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                    }
                                 }
                                 ProductosDeServicios.Clear();
                             }
@@ -1161,16 +1154,7 @@ namespace PuntoDeVentaV2
                                 if (item is ComboBox)
                                 {
 
-                                    if (item.Text == "Por favor selecciona un Producto")
-                                    {
-                                        prodSerPaq += fech + "|";
-                                        prodSerPaq += idProductoBuscado + "|";
-                                        prodSerPaq += idProducto + "|";
-                                        prodSerPaq += txtNombreProducto.Text + "|";
-                                        prodSerPaq += "0";
-                                        break;
-                                    }
-                                    else
+                                    if (item.Text != "Por favor selecciona un Producto")
                                     {
                                         string buscar = null;
                                         string comboBoxText = item.Text;
@@ -1210,7 +1194,10 @@ namespace PuntoDeVentaV2
                         foreach (var productosSP in ProductosDeServicios)
                         {
                             string[] tmp = productosSP.Split('|');
-                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                            if (tmp.Length == 5)
+                            {
+                                cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                            }
                         }
                         ProductosDeServicios.Clear();
                     }
@@ -1385,17 +1372,7 @@ namespace PuntoDeVentaV2
                                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                     if (item is ComboBox)
                                     {
-
-                                        if (item.Text == "Por favor selecciona un Producto")
-                                        {
-                                            prodSerPaq += fech + "|";
-                                            prodSerPaq += idProducto + "|";
-                                            prodSerPaq += idProducto + "|";
-                                            prodSerPaq += txtNombreProducto.Text + "|";
-                                            prodSerPaq += "0";
-                                            break;
-                                        }
-                                        else
+                                        if (item.Text != "Por favor selecciona un Producto")
                                         {
                                             string buscar = null;
                                             string comboBoxText = item.Text;
@@ -1436,7 +1413,10 @@ namespace PuntoDeVentaV2
                             foreach (var productosSP in ProductosDeServicios)
                             {
                                 string[] tmp = productosSP.Split('|');
-                                cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                if (tmp.Length == 5)
+                                {
+                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                }
                             }
                             ProductosDeServicios.Clear();
                         }
@@ -1490,12 +1470,10 @@ namespace PuntoDeVentaV2
                     lblTipoProdPaq.Text = "Servicio / Paquete";
                     btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
                     Hided = false;
-                    //ocultarPanel();
                     btnAdd.Visible = true;
                     btnAdd.PerformClick();
                     chkBoxConProductos.Checked = false;
                     chkBoxConProductos.Visible = true;
-                    //btnAdd.PerformClick();
                 }
             }
         }
