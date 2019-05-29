@@ -1,4 +1,6 @@
-﻿namespace PuntoDeVentaV2
+﻿using System;
+
+namespace PuntoDeVentaV2
 {
     partial class VisualizadorTickets
     {
@@ -28,6 +30,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisualizadorTickets));
             this.axAcroPDF = new AxAcroPDFLib.AxAcroPDF();
             this.btnImprimir = new System.Windows.Forms.Button();
@@ -35,7 +45,7 @@
             this.SuspendLayout();
             // 
             // axAcroPDF
-            // 
+            //   
             this.axAcroPDF.Enabled = true;
             this.axAcroPDF.Location = new System.Drawing.Point(27, 12);
             this.axAcroPDF.Name = "axAcroPDF";

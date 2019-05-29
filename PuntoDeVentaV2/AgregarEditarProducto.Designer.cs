@@ -74,7 +74,6 @@
             this.PDetalle = new System.Windows.Forms.Panel();
             this.PAccion = new System.Windows.Forms.Panel();
             this.btnProdUpdate = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -576,7 +575,6 @@
             // 
             // PAccion
             // 
-            this.PAccion.Controls.Add(this.label1);
             this.PAccion.Controls.Add(this.btnProdUpdate);
             this.PAccion.Controls.Add(this.btnAgregarDescuento);
             this.PAccion.Controls.Add(this.button2);
@@ -604,16 +602,6 @@
             this.btnProdUpdate.Text = "Actualizar Producto";
             this.btnProdUpdate.UseVisualStyleBackColor = false;
             this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(309, 81);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "label1";
             // 
             // AgregarEditarProducto
             // 
@@ -654,7 +642,6 @@
             this.PConteidoProducto.ResumeLayout(false);
             this.PDetalle.ResumeLayout(false);
             this.PAccion.ResumeLayout(false);
-            this.PAccion.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -705,6 +692,5 @@
         private System.Windows.Forms.Panel PAccion;
         private System.Windows.Forms.CheckBox chkBoxConProductos;
         private System.Windows.Forms.Button btnProdUpdate;
-        private System.Windows.Forms.Label label1;
     }
 }

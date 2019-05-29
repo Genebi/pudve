@@ -1141,22 +1141,29 @@ namespace PuntoDeVentaV2
 
         private void ImprimirTicket(string idVenta)
         {
-            ProcessStartInfo info = new ProcessStartInfo();
-            info.Verb = "print";
-            info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
-            info.CreateNoWindow = true;
-            info.WindowStyle = ProcessWindowStyle.Hidden;
-
-            Process p = new Process();
-            p.StartInfo = info;
-            p.Start();
-
-            p.WaitForInputIdle();
-            System.Threading.Thread.Sleep(1000);
-
-            if (false == p.CloseMainWindow())
+            try
             {
-                p.Kill();
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.Verb = "print";
+                info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
+                info.CreateNoWindow = true;
+                info.WindowStyle = ProcessWindowStyle.Hidden;
+
+                Process p = new Process();
+                p.StartInfo = info;
+                p.Start();
+
+                p.WaitForInputIdle();
+                System.Threading.Thread.Sleep(1000);
+
+                if (false == p.CloseMainWindow())
+                {
+                    p.Kill();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error No: "+ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

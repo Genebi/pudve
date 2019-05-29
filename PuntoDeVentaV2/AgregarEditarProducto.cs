@@ -275,7 +275,12 @@ namespace PuntoDeVentaV2
                 queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
                 dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
                 cbTipo.Text = "Servicio / Paquete";
-                btnAdd.Visible = true;
+                if (dtProductosDeServicios.Rows.Count > 0)
+                {
+                    btnAdd.Visible = true;
+                    Hided = true;
+                    btnAdd.PerformClick();
+                }
             }
             else if (tipoProdServ == "P")
             {
@@ -480,7 +485,6 @@ namespace PuntoDeVentaV2
 
         public void cargarDatos()
         {
-            
             ProdNombreFinal = ProdNombre;
             ProdStockFinal = ProdStock;
             ProdPrecioFinal = ProdPrecio;
@@ -505,15 +509,6 @@ namespace PuntoDeVentaV2
             {
                 cargarDatosExtra();
             }
-
-            //if (SearchProdResult.Rows[0]["Tipo"].ToString() == "S")
-            //{
-            //    cbTipo.Text = "Servicio / Paquete";
-            //}
-            //else if (SearchProdResult.Rows[0]["Tipo"].ToString() == "P")
-            //{
-            //    cbTipo.Text = "Producto";
-            //}
         }
 
         public void LimpiarDatos()
@@ -1493,12 +1488,14 @@ namespace PuntoDeVentaV2
                 if (PStock.Visible == false && PPrecioOriginal.Visible == false)
                 {
                     lblTipoProdPaq.Text = "Servicio / Paquete";
-                    btnAdd.Visible = true;
                     btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
                     Hided = false;
-                    ocultarPanel();
+                    //ocultarPanel();
+                    btnAdd.Visible = true;
+                    btnAdd.PerformClick();
                     chkBoxConProductos.Checked = false;
                     chkBoxConProductos.Visible = true;
+                    //btnAdd.PerformClick();
                 }
             }
         }
@@ -1527,30 +1524,6 @@ namespace PuntoDeVentaV2
                 ocultarPanel();
                 btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
             }
-        }
-
-        private void cambiarCBText()
-        {
-            //id = 0;
-            //string comboBoxNombre = "comboBoxGenerador" + id;
-
-            //foreach (DataRow dtRow in dtProductosDeServicios.Rows)
-            //{
-            //    NombreProducto = dtRow["NombreProducto"].ToString();
-            //    CantidadProducto = dtRow["Cantidad"].ToString();
-            //    IDProducto = dtRow["IDProducto"].ToString();
-            //    foreach (Control cComprobar in this.Controls)
-            //    {
-            //        if (cComprobar is ComboBox)
-            //        {
-            //            if (cComprobar.Name == comboBoxNombre)
-            //            {
-            //                cComprobar.Text = NombreProducto;
-            //                id++;
-            //            }
-            //        }
-            //    }
-            //}
         }
 
         private void GenerarPanelProductosServ()
@@ -2261,14 +2234,12 @@ namespace PuntoDeVentaV2
                 LimpiarCampos();
                 cbTipo.Text = "Producto";
                 btnAdd.Visible = false;
-                //chkBoxConProductos.Visible = false;
                 ocultarPanel();
                 
             }
             else if (!ProdNombre.Equals(""))
             {
                 cargarDatos();
-                //btnAdd.Visible = true;
                 ocultarPanel();
                 cargarCBProductos();
             }
