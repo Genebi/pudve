@@ -70,8 +70,8 @@ namespace PuntoDeVentaV2
             if (operacion == 0)
             {
                 //Insertar nueva venta
-                consulta = "INSERT INTO Ventas (IDUsuario, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Status, FechaOperacion)";
-                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
+                consulta = "INSERT INTO Ventas (IDUsuario, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}')";
             }
             else
             {

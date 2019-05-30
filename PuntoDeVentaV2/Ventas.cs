@@ -37,6 +37,11 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         NameValueCollection datos;
 
+        const string fichero = @"\PUDVE\settings\folioventa\setupFolioVenta.txt";       // directorio donde esta el archivo de numero de codigo de barras consecutivo
+        string Contenido;                                                               // para obtener el numero que tiene el codigo de barras en el arhivo
+
+        long folioVenta;                                                                // variable entera para llevar un consecutivo de codigo de barras
+
         public Ventas()
         {
             InitializeComponent();
@@ -660,13 +665,29 @@ namespace PuntoDeVentaV2
             var Total = cTotal.Text;
             var DescuentoGeneral = porcentajeGeneral.ToString("0.00");
             var Anticipo = cAnticipo.Text;
-            var Status = "1";
+            var Status = "";
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var Folio = "";
+            var Serie = "A";
 
-            if (ventaGuardada) { Status = "2"; }
+            string[] guardar = null;
 
-            string[] guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Status, FechaOperacion };
+            if (ventaGuardada)
+            {
+                Status = "2";
+                aumentoFolio();
+                Folio = Contenido;
+                guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion };
+            }
 
+            if (!ventaGuardada)
+            {
+                Status = "1";
+                aumentoFolio();
+                Folio = Contenido;
+                guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion };
+            }
+            
             if (VerificarStockProducto())
             {
                 //Se hace el guardado de la informacion general de la venta
@@ -784,6 +805,42 @@ namespace PuntoDeVentaV2
 
                 this.Dispose();
             }
+        }
+
+        private void aumentoFolio()
+        {
+            // leemos el archivo de codigo de barras que lleva el consecutivo
+            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
+            {
+                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+            }
+            if (Contenido == "")        // si el contenido es vacio 
+            {
+                PrimerFolioVenta();      // iniciamos el conteo del folio de venta
+                AumentarFolioVenta();    // Aumentamos el folio de venta para la siguiente vez que se utilice
+            }
+            else if (Contenido != "")   // si el contenido no es vacio
+            {
+                //MessageBox.Show("Trabajando en el Proceso");
+                AumentarFolioVenta();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+            }
+        }
+
+        private void AumentarFolioVenta()
+        {
+            folioVenta = long.Parse(Contenido);
+            folioVenta++;
+            Contenido = folioVenta.ToString();
+
+            using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
+            {
+                outfile.WriteLine(Contenido);
+            }
+        }
+
+        private void PrimerFolioVenta()
+        {
+            Contenido = "000000000";
         }
 
         private void btnGuardarVenta_Click(object sender, EventArgs e)
@@ -1367,16 +1424,7 @@ namespace PuntoDeVentaV2
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up)
-            {
-                //e.Handled = true;
-                MessageBox.Show("Felcha Arriba", "Up", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-            if (e.KeyCode == Keys.Down)
-            {
-                MessageBox.Show("Felcha Abajo", "Down", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            
         }
     }
 }
