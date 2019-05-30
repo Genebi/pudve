@@ -192,15 +192,16 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyDown(object sender, KeyEventArgs e)
         {
-            /*if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            if (e.KeyCode == Keys.Up)
             {
-                e.Handled = true;
+                //e.Handled = true;
+                listaProductos.Focus();
             }
 
             if (e.KeyCode == Keys.Down)
             {
                 listaProductos.Focus();
-            }*/
+            }
 
             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
             {
@@ -1362,6 +1363,20 @@ namespace PuntoDeVentaV2
             }
 
             return cadena;
+        }
+
+        private void listaProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                //e.Handled = true;
+                MessageBox.Show("Felcha Arriba", "Up", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            if (e.KeyCode == Keys.Down)
+            {
+                MessageBox.Show("Felcha Abajo", "Down", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
