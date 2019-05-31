@@ -222,6 +222,34 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
+        public string[] ObtenerVentaGuardada(int IDUsuario, int IDFolio)
+        {
+            List<string> lista = new List<string>();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT usr.LogoTipo, usr.Usuario, usr.Calle, usr.NoExterior, usr.NoInterior, usr.Municipio, usr.Colonia, usr.CodigoPostal, usr.RFC, usr.Email, usr.Telefono, prod.ID AS 'NoProd', prod.Nombre AS 'NomProd', prod.Precio AS 'CostoProd', prod.TipoDescuento, prod.Stock, prod.Tipo, saleProd.Cantidad, saleProd.Nombre AS 'NomVenta', saleProd.Precio AS 'CostoVenta', sale.FechaOperacion, sale.ID FROM Usuarios AS usr LEFT JOIN Ventas AS sale ON sale.IDUsuario = usr.ID LEFT JOIN ProductosVenta AS saleProd ON saleProd.IDVenta = sale.ID LEFT JOIN Productos AS prod ON prod.ID = saleProd.IDProducto WHERE usr.ID = '{IDUsuario}' AND sale.Status = '2' AND sale.ID = '{IDFolio}'";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[11].ToString());  //ID producto
+                lista.Add(dr[12].ToString());  //Nombre
+                lista.Add(dr[13].ToString());  //Precio
+                lista.Add(dr[14].ToString());  //Tipo descuento
+                lista.Add(dr[15].ToString());  //Stock
+                lista.Add(dr[16].ToString());  //Tipo (producto o servicio)
+                lista.Add(dr[17].ToString());  //Cantidad de la venta
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] BuscarProducto(int IDProducto, int IDUsuario)
         {
             List<string> lista = new List<string>();

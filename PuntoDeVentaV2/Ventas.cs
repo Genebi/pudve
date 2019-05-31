@@ -42,6 +42,8 @@ namespace PuntoDeVentaV2
 
         long folioVenta;                                                                // variable entera para llevar un consecutivo de codigo de barras
 
+        string buscarvVentaGuardada = null, folio = null;
+
         public Ventas()
         {
             InitializeComponent();
@@ -163,6 +165,13 @@ namespace PuntoDeVentaV2
                     //ocultarResultados();
                 }
             }
+
+            if (buscarvVentaGuardada == "#$%")
+            {
+                txtBuscadorProducto.Text = "";
+                string[] datosVentaGuardada = cn.ObtenerVentaGuardada(FormPrincipal.userID, Convert.ToInt32(folio));
+                AgregarProducto(datosVentaGuardada);
+            }
         }
 
         private void listaProductos_SelectedIndexChanged(object sender, EventArgs e)
@@ -219,7 +228,11 @@ namespace PuntoDeVentaV2
 
         private void AgregarProducto(string[] datosProducto)
         {
-            if (DGVentas.Rows.Count > 0)
+            if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == "#$%")
+            {
+                AgregarProductoLista(datosProducto);
+            }
+            else if (DGVentas.Rows.Count > 0)
             {
                 bool existe = false;
 
@@ -242,7 +255,7 @@ namespace PuntoDeVentaV2
                             {
                                 sumar = Convert.ToInt32(nudCantidadPS.Value);
                             }
-                            
+
                             nudCantidadPS.Value = 1;
                         }
 
@@ -268,7 +281,7 @@ namespace PuntoDeVentaV2
                 {
                     AgregarProductoLista(datosProducto);
                 }
-            }
+            }            
             else
             {
                 AgregarProductoLista(datosProducto);
@@ -279,39 +292,57 @@ namespace PuntoDeVentaV2
 
         private void AgregarProductoLista(string[] datosProducto, int cantidad = 1)
         {
-            if (cantidadExtra > 0) {
-                cantidad = cantidadExtra;
-                nudCantidadPS.Value = 1;
-                cantidadExtra = 0;
-            }
-            else if (cantidadExtra == 0)
-            {
-                if (Convert.ToInt32(nudCantidadPS.Value) > 0)
-                {
-                    cantidad = Convert.ToInt32(nudCantidadPS.Value);
-                }
-                
-                nudCantidadPS.Value = 1;
-            }
-
             //Se agrega la nueva fila y se obtiene el ID que tendrá
             int rowId = DGVentas.Rows.Add();
 
             //Obtener la nueva fila
             DataGridViewRow row = DGVentas.Rows[rowId];
 
-            //Agregamos la información
-            row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
-            row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
-            row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
-            row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
-            row.Cells["TipoPS"].Value = datosProducto[5]; //Este campo no es visible
-            row.Cells["Cantidad"].Value = cantidad;
-            row.Cells["Precio"].Value = datosProducto[2];
-            row.Cells["Descripcion"].Value = datosProducto[1];
-            row.Cells["Descuento"].Value = 0;
-            row.Cells["Importe"].Value = datosProducto[2];
+            if (buscarvVentaGuardada == "#$%")
+            {
+                //Agregamos la información
+                row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
+                row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
+                row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
+                row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
+                row.Cells["TipoPS"].Value = datosProducto[5]; //Este campo no es visible
+                row.Cells["Cantidad"].Value = datosProducto[6];
+                row.Cells["Precio"].Value = datosProducto[2];
+                row.Cells["Descripcion"].Value = datosProducto[1];
+                row.Cells["Descuento"].Value = datosProducto[3];
+                row.Cells["Importe"].Value = datosProducto[2];
+            }
+            else
+            {
+                if (cantidadExtra > 0)
+                {
+                    cantidad = cantidadExtra;
+                    nudCantidadPS.Value = 1;
+                    cantidadExtra = 0;
+                }
+                else if (cantidadExtra == 0)
+                {
+                    if (Convert.ToInt32(nudCantidadPS.Value) > 0)
+                    {
+                        cantidad = Convert.ToInt32(nudCantidadPS.Value);
+                    }
 
+                    nudCantidadPS.Value = 1;
+                }
+                
+                //Agregamos la información
+                row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
+                row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
+                row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
+                row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
+                row.Cells["TipoPS"].Value = datosProducto[5]; //Este campo no es visible
+                row.Cells["Cantidad"].Value = cantidad;
+                row.Cells["Precio"].Value = datosProducto[2];
+                row.Cells["Descripcion"].Value = datosProducto[1];
+                row.Cells["Descuento"].Value = 0;
+                row.Cells["Importe"].Value = datosProducto[2];
+            }
+            
             System.Drawing.Image img1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\plus-square.png");
             System.Drawing.Image img2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\plus.png");
             System.Drawing.Image img3 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\minus.png");
@@ -579,11 +610,25 @@ namespace PuntoDeVentaV2
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
-                if (porcentajeGeneral > 0)
+                if (buscarvVentaGuardada == "#$%")
                 {
-                    var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value); //Precio original del producto
-                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value); //Cantidad de producto
-                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value); //Cantidad descuento del producto
+                    var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
+                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
+
+                    var importeProducto = (precioOriginal * cantidadProducto) - cantidadDescuento;
+
+                    fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
+
+                    totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    totalArticulos += cantidadProducto;
+                    totalDescuento += cantidadDescuento;
+                }
+                else if (porcentajeGeneral > 0)
+                {
+                    var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);  //Precio original del producto
+                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);       //Cantidad de producto
+                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);    //Cantidad descuento del producto
 
                     var descuento = (precioOriginal * cantidadProducto) - cantidadDescuento;
                     descuento *= porcentajeGeneral;
@@ -1255,12 +1300,13 @@ namespace PuntoDeVentaV2
 
         private string VerificarPatronesBusqueda(string cadena)
         {
-            string primerPatron  = @"^\d+\s\*\s";               //  (digito+espacioBlanco*espacioBlanco) 5 * 15665132
+            string primerPatron = @"^\d+\s\*\s";               //  (digito+espacioBlanco*espacioBlanco) 5 * 15665132
             string segundoPatron = @"^(\+\d+)|(\d+\+)$";        //  ((Signo+)digito+ || digito+(Signo+)) +2
-            string tercerPatron  = @"^(\-\d+)|(\d+\-)$";        //  ((Signo-)digito+ || digito+(Signo-)) -1
+            string tercerPatron = @"^(\-\d+)|(\d+\-)$";        //  ((Signo-)digito+ || digito+(Signo-)) -1
             string cuartoPatron = @"^\d+\*\s";                  //  (digito+(Signo*)+espacioBlanco) 5* 15665132
             string quintoPatron = @"^\d+\s\*";                  //  (digito+(Signo*)+espacioBlanco) 5 *15665132
             string sextoPatron = @"^\d+\*";                     //  (digito+(Signo*)+espacioBlanco) 5*15665132
+            string septimoPatron = @"^\D+\s";                  //  (#$%+espacioBlanco) #$% FolioDeVenta
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
@@ -1268,6 +1314,7 @@ namespace PuntoDeVentaV2
             Match cuartaCoincidencia = Regex.Match(cadena, cuartoPatron, RegexOptions.IgnoreCase);
             Match quintaCoincidencia = Regex.Match(cadena, quintoPatron, RegexOptions.IgnoreCase);
             Match sextaCoincidencia = Regex.Match(cadena, sextoPatron, RegexOptions.IgnoreCase);
+            Match septimaCoincidencia = Regex.Match(cadena, septimoPatron, RegexOptions.IgnoreCase);
 
             // Si encuentra coincidencia asigna la cantidad a la variable multiplicar 
             // y se visualiza en el campo numerico
@@ -1417,6 +1464,14 @@ namespace PuntoDeVentaV2
                 }
 
                 cadena = Regex.Replace(cadena, sextoPatron, string.Empty);
+            }
+            else if (septimaCoincidencia.Success)
+            {
+                // #$% FolioDeVenta
+                var resultado = septimaCoincidencia.Value.Trim().Split(' ');
+                buscarvVentaGuardada  = resultado[0];
+                cadena = Regex.Replace(cadena, septimoPatron, string.Empty);
+                folio = cadena;
             }
 
             return cadena;
