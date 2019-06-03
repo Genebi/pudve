@@ -1536,6 +1536,7 @@ namespace PuntoDeVentaV2
                 
                 datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
+                // borrar producto a buscar
                 txtBuscadorProducto.Text = "";
                 txtBuscadorProducto.Focus();
                 ocultarResultados();
