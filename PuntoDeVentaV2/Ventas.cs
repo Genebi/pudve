@@ -172,6 +172,11 @@ namespace PuntoDeVentaV2
                 string[] datosVentaGuardada = cn.ObtenerVentaGuardada(FormPrincipal.userID, Convert.ToInt32(folio));
                 AgregarProducto(datosVentaGuardada);
             }
+
+            if (listaProductos.Text != "" && listaProductos.Visible == true)
+            {
+                this.KeyPreview = true;
+            }
         }
 
         private void listaProductos_SelectedIndexChanged(object sender, EventArgs e)
@@ -206,6 +211,7 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
             if (e.KeyCode == Keys.Up)
             {
                 //e.Handled = true;
@@ -216,6 +222,7 @@ namespace PuntoDeVentaV2
             {
                 listaProductos.Focus();
             }
+            */
 
             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
             {
@@ -1475,6 +1482,23 @@ namespace PuntoDeVentaV2
             }
 
             return cadena;
+        }
+
+        private void Ventas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (listaProductos.Visible == true && txtBuscadorProducto.Text != "")
+            {
+                if (e.KeyCode == Keys.Up)
+                {
+                    //MessageBox.Show("Preciono Tecla Arriba", "Up", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    listaProductos.Focus();
+                }
+                if (e.KeyCode == Keys.Down)
+                {
+                    //MessageBox.Show("Preciono Tecla Abajo", "Down", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    listaProductos.Focus();
+                }
+            }
         }
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)
