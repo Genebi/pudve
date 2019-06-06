@@ -1468,7 +1468,7 @@ namespace PuntoDeVentaV2
                 if (PStock.Visible == false && PPrecioOriginal.Visible == false)
                 {
                     lblTipoProdPaq.Text = "Servicio / Paquete";
-                    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
+                    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
                     Hided = false;
                     btnAdd.Visible = true;
                     btnAdd.PerformClick();
@@ -1495,12 +1495,12 @@ namespace PuntoDeVentaV2
             if (Hided)
             {
                 ocultarPanel();
-                btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-up.png");
+                btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-up.png");
             }
             else
             {
                 ocultarPanel();
-                btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\icon\black16\angle-double-down.png");
+                btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
             }
         }
 

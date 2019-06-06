@@ -43,10 +43,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(156, 27);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(117, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 22);
+            this.label1.Size = new System.Drawing.Size(63, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario";
             // 
@@ -54,33 +53,30 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(155, 90);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(116, 73);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 22);
+            this.label2.Size = new System.Drawing.Size(79, 20);
             this.label2.TabIndex = 1;
             this.label2.Text = "Password";
             // 
             // txtUsuario
             // 
             this.txtUsuario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtUsuario.Location = new System.Drawing.Point(160, 55);
-            this.txtUsuario.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtUsuario.Location = new System.Drawing.Point(120, 45);
             this.txtUsuario.Multiline = true;
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(252, 27);
+            this.txtUsuario.Size = new System.Drawing.Size(190, 23);
             this.txtUsuario.TabIndex = 2;
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtPassword
             // 
             this.txtPassword.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPassword.Location = new System.Drawing.Point(160, 117);
-            this.txtPassword.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPassword.Location = new System.Drawing.Point(120, 95);
             this.txtPassword.Multiline = true;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(252, 27);
+            this.txtPassword.Size = new System.Drawing.Size(190, 23);
             this.txtPassword.TabIndex = 3;
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
@@ -97,10 +93,9 @@
             this.btnEntrar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntrar.ForeColor = System.Drawing.Color.White;
             this.btnEntrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEntrar.Location = new System.Drawing.Point(161, 193);
-            this.btnEntrar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEntrar.Location = new System.Drawing.Point(121, 157);
             this.btnEntrar.Name = "btnEntrar";
-            this.btnEntrar.Size = new System.Drawing.Size(253, 33);
+            this.btnEntrar.Size = new System.Drawing.Size(190, 27);
             this.btnEntrar.TabIndex = 4;
             this.btnEntrar.Text = "Entrar";
             this.btnEntrar.UseVisualStyleBackColor = false;
@@ -112,10 +107,9 @@
             this.btnCrearCuenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCrearCuenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearCuenta.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnCrearCuenta.Location = new System.Drawing.Point(197, 349);
-            this.btnCrearCuenta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.btnCrearCuenta.Location = new System.Drawing.Point(148, 284);
             this.btnCrearCuenta.Name = "btnCrearCuenta";
-            this.btnCrearCuenta.Size = new System.Drawing.Size(182, 21);
+            this.btnCrearCuenta.Size = new System.Drawing.Size(139, 17);
             this.btnCrearCuenta.TabIndex = 6;
             this.btnCrearCuenta.Text = "Crear cuenta nueva";
             this.btnCrearCuenta.Click += new System.EventHandler(this.btnCrearCuenta_Click);
@@ -124,19 +118,19 @@
             // 
             this.txtMensaje.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMensaje.ForeColor = System.Drawing.Color.Red;
-            this.txtMensaje.Location = new System.Drawing.Point(16, 307);
-            this.txtMensaje.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.txtMensaje.Location = new System.Drawing.Point(12, 249);
             this.txtMensaje.Name = "txtMensaje";
-            this.txtMensaje.Size = new System.Drawing.Size(528, 25);
+            this.txtMensaje.Size = new System.Drawing.Size(396, 20);
             this.txtMensaje.TabIndex = 7;
             this.txtMensaje.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // checkBoxRecordarDatos
             // 
             this.checkBoxRecordarDatos.AutoSize = true;
-            this.checkBoxRecordarDatos.Location = new System.Drawing.Point(223, 158);
+            this.checkBoxRecordarDatos.Location = new System.Drawing.Point(167, 128);
+            this.checkBoxRecordarDatos.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRecordarDatos.Name = "checkBoxRecordarDatos";
-            this.checkBoxRecordarDatos.Size = new System.Drawing.Size(130, 21);
+            this.checkBoxRecordarDatos.Size = new System.Drawing.Size(101, 17);
             this.checkBoxRecordarDatos.TabIndex = 8;
             this.checkBoxRecordarDatos.Text = "Recordar Datos";
             this.checkBoxRecordarDatos.UseVisualStyleBackColor = true;
@@ -146,9 +140,10 @@
             this.btnLimpiarDatos.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.btnLimpiarDatos.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnLimpiarDatos.ForeColor = System.Drawing.Color.Brown;
-            this.btnLimpiarDatos.Location = new System.Drawing.Point(160, 247);
+            this.btnLimpiarDatos.Location = new System.Drawing.Point(120, 201);
+            this.btnLimpiarDatos.Margin = new System.Windows.Forms.Padding(2);
             this.btnLimpiarDatos.Name = "btnLimpiarDatos";
-            this.btnLimpiarDatos.Size = new System.Drawing.Size(253, 33);
+            this.btnLimpiarDatos.Size = new System.Drawing.Size(190, 27);
             this.btnLimpiarDatos.TabIndex = 9;
             this.btnLimpiarDatos.Text = "Limpiar Datos";
             this.btnLimpiarDatos.UseVisualStyleBackColor = false;
@@ -156,9 +151,9 @@
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 393);
+            this.ClientSize = new System.Drawing.Size(420, 319);
             this.Controls.Add(this.btnLimpiarDatos);
             this.Controls.Add(this.checkBoxRecordarDatos);
             this.Controls.Add(this.txtMensaje);
@@ -168,7 +163,6 @@
             this.Controls.Add(this.txtUsuario);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

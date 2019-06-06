@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuntoDeVenta", "PuntoDeVentaV2\PuntoDeVenta.csproj", "{A4CE99B0-AD69-4E68-BCD3-0F80A5BABACE}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PUDVE", "PUDVE\PUDVE.vdproj", "{5AD876AC-1EC1-4A2A-A6EA-C023D3AC3500}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
@@ -26,11 +24,6 @@ Global
 		{A4CE99B0-AD69-4E68-BCD3-0F80A5BABACE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A4CE99B0-AD69-4E68-BCD3-0F80A5BABACE}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{A4CE99B0-AD69-4E68-BCD3-0F80A5BABACE}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{5AD876AC-1EC1-4A2A-A6EA-C023D3AC3500}.CD_ROM|Any CPU.ActiveCfg = Release
-		{5AD876AC-1EC1-4A2A-A6EA-C023D3AC3500}.Debug|Any CPU.ActiveCfg = Debug
-		{5AD876AC-1EC1-4A2A-A6EA-C023D3AC3500}.DVD-5|Any CPU.ActiveCfg = Debug
-		{5AD876AC-1EC1-4A2A-A6EA-C023D3AC3500}.Release|Any CPU.ActiveCfg = Release
-		{5AD876AC-1EC1-4A2A-A6EA-C023D3AC3500}.SingleImage|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
