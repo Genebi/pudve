@@ -37,7 +37,9 @@ namespace PuntoDeVentaV2
 
         public void CodigoBarras()
         {
-            FileNamePng = saveDirectoryImg + NombreProdFinal + " - " + CodigoBarProdFinal;
+            var source = NombreProdFinal + " - " + CodigoBarProdFinal;
+            var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
+            FileNamePng = saveDirectoryImg + replacement;
             BarcodeLib.Barcode Codigo = new BarcodeLib.Barcode();   // declaramos el objeto Codigo para hacer la imagen 
 
             // hacemos que en el panel se ponga de fondo el codigo de barras generado en imagen
@@ -68,7 +70,9 @@ namespace PuntoDeVentaV2
 
         public void PdfFile()
         {
-            FileName = saveDirectoryPdf + NombreProdFinal + " - " + CodigoBarProdFinal + ".pdf";
+            var source = NombreProdFinal + " - " + CodigoBarProdFinal + ".pdf";
+            var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
+            FileName = saveDirectoryPdf + replacement;
             if (!Directory.Exists(saveDirectoryPdf))    // si el directorio destino no existe el sistema lo va crear
             {
                 Directory.CreateDirectory(saveDirectoryPdf);    // creamos el directorio donde van guardados los PDF
