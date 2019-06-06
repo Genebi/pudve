@@ -100,7 +100,7 @@ namespace PuntoDeVentaV2
             telefono = dt.Rows[index]["Telefono"].ToString();
             regimen = dt.Rows[index]["Regimen"].ToString();
             tipoPersona = dt.Rows[index]["TipoPersona"].ToString();
-            logoTipo = saveDirectoryImg + dt.Rows[index]["LogoTipo"].ToString();
+            logoTipo = dt.Rows[index]["LogoTipo"].ToString();
 
             /****************************************
             *   ponemos los datos en los TxtBox     *
@@ -123,10 +123,10 @@ namespace PuntoDeVentaV2
             // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
             {
-                if (System.IO.File.Exists(logoTipo))
+                if (System.IO.File.Exists(saveDirectoryImg + logoTipo))
                 {
                     // usamos temporalmente el objeto File
-                    using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
+                    using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
                     {
                         // asignamos la imagen al PictureBox
                         pictureBox1.Image = Image.FromStream(File);
