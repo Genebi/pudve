@@ -26,14 +26,16 @@ namespace PuntoDeVentaV2
         public string CodigoBarProd { set; get; }
 
         // Path para guardar el pdf generado con la etiqueta del Producto
-        string saveDirectoryPdf = Properties.Settings.Default.rutaDirectorio + @"\PdfTag\";
+        string saveDirectoryPdf = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\PdfTag\";
 
         // Nombre completo para el archivo
         string FileName;
 
         public void PdfFile()
         {
-            FileName = saveDirectoryPdf + NombreProdFinal + " - " + CodigoBarProdFinal + ".pdf";
+            var source = NombreProdFinal + " - " + CodigoBarProdFinal + ".pdf";
+            var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
+            FileName = saveDirectoryPdf + replacement;
             if (!Directory.Exists(saveDirectoryPdf))
             {
                 Directory.CreateDirectory(saveDirectoryPdf);
