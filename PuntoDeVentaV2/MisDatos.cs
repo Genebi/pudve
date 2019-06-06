@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
         DataRow row, rows;
 
         // direccion de la carpeta donde se va poner las imagenes
-        string saveDirectoryImg= @"C:\pudvefiles\";
+        string saveDirectoryImg= Properties.Settings.Default.rutaDirectorio + @"\PUDVE\MisDatos\Usuarios\";
 
         // objeto para el manejo de las imagenes
         FileStream File,File1;
@@ -100,7 +100,7 @@ namespace PuntoDeVentaV2
             telefono = dt.Rows[index]["Telefono"].ToString();
             regimen = dt.Rows[index]["Regimen"].ToString();
             tipoPersona = dt.Rows[index]["TipoPersona"].ToString();
-            logoTipo = dt.Rows[index]["LogoTipo"].ToString();
+            logoTipo = saveDirectoryImg + dt.Rows[index]["LogoTipo"].ToString();
 
             /****************************************
             *   ponemos los datos en los TxtBox     *
@@ -413,13 +413,17 @@ namespace PuntoDeVentaV2
                         // se va hacer la copia de la imagen
                         NvoFileName = userName + rfc + ".jpg";
                         TxtBoxNombreArchivo.Text = NvoFileName;		// ponemos en el TxtBox el nombre con el cual se va guardar el archivo
+                        var source = TxtBoxNombreArchivo.Text;
+                        var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
+                        NvoFileName = replacement;
+                        TxtBoxNombreArchivo.Text = NvoFileName;		// ponemos en el TxtBox el nombre con el cual se va guardar el archivo
                         if (logoTipo != "")		// si el valor de la vairable es diferente a Null o de ""
                         {
                             if (File1 != null)		// si file1 es igual a null
                             {
                                 File1.Dispose();    // Dasactivamos el objeto File1
                                 // hacemos la nueva cadena de consulta para hacer el update
-                                string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{saveDirectoryImg + NvoFileName}' WHERE ID = '{id} '";
+                                string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id} '";
                                 cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
                                 actualizarVariables();		// actualizamos las variables
                                 cargarComboBox();		// cargamos los datos de nuevo
@@ -437,7 +441,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 // hacemos la nueva cadena de consulta para hacer el update
-                                insertImagen = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
+                                insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
                                 cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
                             }
                             else	// si es que file1 es igual a null
@@ -457,7 +461,7 @@ namespace PuntoDeVentaV2
                             System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
                             logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
                             // hacemos la nueva cadena de consulta para hacer el update
-                            string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
+                            string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
                             cn.EjecutarConsulta(insertImagen);      // hacemos que se ejecute la consulta
                             // leemos el archivo de imagen y lo ponemos el pictureBox
                             using (File = new FileStream(logoTipo, FileMode.Open, FileAccess.Read))
