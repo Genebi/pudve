@@ -1278,9 +1278,19 @@ namespace PuntoDeVentaV2
                     var claveInNvoInsert = txtClaveProducto.Text;
                     var codigoBNvoInsert = txtCodigoBarras.Text;
                     var tipoDescuentoNvoInsert = "0";
+                    var idUsrNvoInsert = FormPrincipal.userID.ToString();
+                    var tipoProdNvoInsert = "";
+                    if (cbTipo.Text == "Producto")
+                    {
+                        tipoProdNvoInsert = "P";
+                    }
+                    else
+                    {
+                        tipoProdNvoInsert = "S";
+                    }
                     /*	Fin del codigo de Alejandro	*/
 
-                    string[] guardar = new string[] { nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert, codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, logoTipo };
+                    string[] guardar = new string[] { nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert, codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert, logoTipo, tipoProdNvoInsert };
                     //Se guardan los datos principales del producto
                     int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
                     if (respuesta > 0)
