@@ -851,6 +851,7 @@ namespace PuntoDeVentaV2
             var codigoB = txtCodigoBarras.Text;
             var ProdServPaq = "P".ToString();
             var tipoDescuento = "0";
+            var idUsrNvo = FormPrincipal.userID.ToString();
             /*	Fin del codigo de Alejandro	*/
 
             /************************************
@@ -888,7 +889,7 @@ namespace PuntoDeVentaV2
                     }
                     else if (tipoServPaq == "Producto")
                     {
-                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo, ProdServPaq };
+                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
                         if (respuesta > 0)
@@ -973,7 +974,7 @@ namespace PuntoDeVentaV2
                     {
                         ProdServPaq = "S";
                         stock = "";
-                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo, ProdServPaq };
+                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
                         //Se obtiene la ID del último producto agregado

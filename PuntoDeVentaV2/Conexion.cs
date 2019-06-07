@@ -498,5 +498,24 @@ namespace PuntoDeVentaV2
 
             return lista.ToArray();
         }
+
+        public void BackUpDB()
+        {
+            string path = @"C:\Archivos PUDVE\DB\";
+            if (!Directory.Exists(path))	// verificamos que si no existe el directorio
+            {
+                Directory.CreateDirectory(path);	// lo crea para poder almacenar la imagen
+            }
+
+            using (var destination = new SQLiteConnection("Data Source=" + path + "BackupDb.db; Version=3; New=False;Compress=True;"))
+            {
+                Conectarse();
+                sql_con.Open();
+                destination.Open();
+                sql_con.BackupDatabase(destination, "main", "main", -1, null, 0);
+                destination.Close();
+                sql_con.Close();
+            }
+        }
     }
 }

@@ -137,5 +137,10 @@ namespace PuntoDeVentaV2
         {
             AbrirFormulario<Anticipos>();
         }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<SetUpPUDVE>();
+        }
     }
 }

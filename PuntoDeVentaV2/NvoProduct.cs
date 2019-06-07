@@ -61,6 +61,7 @@ namespace PuntoDeVentaV2
         string claveUnidadMedida = "";
         string ProdServPaq = "P".ToString();
         string tipoDescuento = "0";
+        string idUsrNvo;
 
         public NvoProduct()
         {
@@ -465,6 +466,7 @@ namespace PuntoDeVentaV2
             claveUnidadMedida = "";
             ProdServPaq = "P".ToString();
             tipoDescuento = "0";
+            idUsrNvo = FormPrincipal.userID.ToString();
 
             resultadoSearchNoIdentificacion = 0;    // ponemos los valores en 0
             resultadoSearchCodBar = 0;              // ponemos los valores en 0
@@ -479,7 +481,7 @@ namespace PuntoDeVentaV2
             {
                 string[] guardar;
                 int respuesta = 0;
-                guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, logoTipo, ProdServPaq };
+                guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq };
                 //Se guardan los datos principales del producto
                 respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
 
