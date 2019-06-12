@@ -139,5 +139,10 @@ namespace PuntoDeVentaV2
             // limpiamos los datos de las variables del sistema para poder olvidar los datos de inicio de login
             BorrarDatosLogin();
         }
+
+        private void txtUsuario_KeyUp(object sender, KeyEventArgs e)
+        {
+            txtUsuario.CharacterCasing = CharacterCasing.Upper;
+        }
     }
 }

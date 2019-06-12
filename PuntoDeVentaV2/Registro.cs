@@ -21,7 +21,8 @@ namespace PuntoDeVentaV2
 
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
-            string usuario = txtUsuario.Text;
+            
+            /*string usuario = txtUsuario.Text;
             string password = txtPassword.Text;
             string password2 = txtPassword2.Text;
             string razonSocial = txtRazonSocial.Text;
@@ -62,7 +63,7 @@ namespace PuntoDeVentaV2
             else
             {
                 txtMensajeError.Text = "Ocurrió un error al intentar hacer el registro";
-            }
+            }*/
         }
 
         private bool VerificarUsuario(string usuario)
@@ -147,6 +148,11 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+        }
+
+        private void txtUsuario_KeyUp(object sender, KeyEventArgs e)
+        {
+            txtUsuario.CharacterCasing = CharacterCasing.Upper;
         }
     }
 }
