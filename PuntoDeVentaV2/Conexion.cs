@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
 
         //Se necesita para saber si la computadora tiene conexion a internet
         [DllImport("wininet.dll")]
-        private extern static bool InternetGetConnectedState(out int Descripcion, int ValorReservado);
+        public extern static bool InternetGetConnectedState(out int Descripcion, int ValorReservado);
 
         public static bool ConectadoInternet()
         {
