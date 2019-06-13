@@ -21,7 +21,11 @@ namespace PuntoDeVentaV2
         {
             foreach (int index in listaOpciones.CheckedIndices)
             {
-                MessageBox.Show(index.ToString());
+                if (index == 0)
+                {
+                    AgregarProveedor ap = new AgregarProveedor();
+                    ap.ShowDialog();
+                }
             }
         }
     }
