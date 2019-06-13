@@ -43,7 +43,7 @@
             this.txtCodigoBarras = new System.Windows.Forms.TextBox();
             this.panelContenedor = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAgregarDescuento = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnDetalleProducto = new System.Windows.Forms.Button();
             this.btnDetalleFacturacion = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnImagenes = new System.Windows.Forms.Button();
@@ -94,7 +94,7 @@
             // 
             this.lblTipoProdPaq.AutoSize = true;
             this.lblTipoProdPaq.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTipoProdPaq.Location = new System.Drawing.Point(69, 84);
+            this.lblTipoProdPaq.Location = new System.Drawing.Point(45, 85);
             this.lblTipoProdPaq.Name = "lblTipoProdPaq";
             this.lblTipoProdPaq.Size = new System.Drawing.Size(68, 17);
             this.lblTipoProdPaq.TabIndex = 0;
@@ -133,7 +133,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 1);
+            this.label5.Location = new System.Drawing.Point(3, -2);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(96, 17);
             this.label5.TabIndex = 8;
@@ -143,7 +143,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(2, 4);
+            this.label6.Location = new System.Drawing.Point(3, 4);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(43, 17);
             this.label6.TabIndex = 2;
@@ -151,9 +151,9 @@
             // 
             // txtNombreProducto
             // 
-            this.txtNombreProducto.Location = new System.Drawing.Point(91, 105);
+            this.txtNombreProducto.Location = new System.Drawing.Point(47, 105);
             this.txtNombreProducto.Name = "txtNombreProducto";
-            this.txtNombreProducto.Size = new System.Drawing.Size(650, 20);
+            this.txtNombreProducto.Size = new System.Drawing.Size(692, 20);
             this.txtNombreProducto.TabIndex = 2;
             this.txtNombreProducto.Enter += new System.EventHandler(this.txtNombreProducto_Enter);
             // 
@@ -176,7 +176,7 @@
             // 
             // txtClaveProducto
             // 
-            this.txtClaveProducto.Location = new System.Drawing.Point(3, 21);
+            this.txtClaveProducto.Location = new System.Drawing.Point(4, 20);
             this.txtClaveProducto.Name = "txtClaveProducto";
             this.txtClaveProducto.Size = new System.Drawing.Size(165, 20);
             this.txtClaveProducto.TabIndex = 6;
@@ -193,7 +193,7 @@
             // 
             // txtCodigoBarras
             // 
-            this.txtCodigoBarras.Location = new System.Drawing.Point(14, 22);
+            this.txtCodigoBarras.Location = new System.Drawing.Point(3, 22);
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(165, 20);
             this.txtCodigoBarras.TabIndex = 7;
@@ -226,20 +226,21 @@
             this.btnAgregarDescuento.UseVisualStyleBackColor = false;
             this.btnAgregarDescuento.Click += new System.EventHandler(this.btnAgregarDescuento_Click);
             // 
-            // button2
+            // btnDetalleProducto
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(328, 20);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(180, 28);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Detalle de producto";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnDetalleProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnDetalleProducto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDetalleProducto.FlatAppearance.BorderSize = 0;
+            this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetalleProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
+            this.btnDetalleProducto.Location = new System.Drawing.Point(328, 20);
+            this.btnDetalleProducto.Name = "btnDetalleProducto";
+            this.btnDetalleProducto.Size = new System.Drawing.Size(180, 28);
+            this.btnDetalleProducto.TabIndex = 11;
+            this.btnDetalleProducto.Text = "Detalle de producto";
+            this.btnDetalleProducto.UseVisualStyleBackColor = false;
+            this.btnDetalleProducto.Click += new System.EventHandler(this.btnDetalleProducto_Click);
             // 
             // btnDetalleFacturacion
             // 
@@ -366,7 +367,7 @@
             this.cbTipo.Items.AddRange(new object[] {
             "Producto",
             "Servicio / Paquete"});
-            this.cbTipo.Location = new System.Drawing.Point(73, 45);
+            this.cbTipo.Location = new System.Drawing.Point(79, 45);
             this.cbTipo.Margin = new System.Windows.Forms.Padding(2);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(165, 21);
@@ -395,7 +396,7 @@
             // chkBoxConProductos
             // 
             this.chkBoxConProductos.AutoSize = true;
-            this.chkBoxConProductos.Location = new System.Drawing.Point(244, 46);
+            this.chkBoxConProductos.Location = new System.Drawing.Point(250, 46);
             this.chkBoxConProductos.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxConProductos.Name = "chkBoxConProductos";
             this.chkBoxConProductos.Size = new System.Drawing.Size(131, 17);
@@ -406,7 +407,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(746, 102);
+            this.btnAdd.Location = new System.Drawing.Point(744, 102);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(26, 25);
@@ -417,12 +418,13 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(38, 48);
+            this.label10.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(44, 48);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(31, 13);
+            this.label10.Size = new System.Drawing.Size(34, 17);
             this.label10.TabIndex = 28;
-            this.label10.Text = "Tipo:";
+            this.label10.Text = "Tipo";
             // 
             // flowLayoutPanel1
             // 
@@ -515,7 +517,7 @@
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
             this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGenerarCB.Location = new System.Drawing.Point(184, 18);
+            this.btnGenerarCB.Location = new System.Drawing.Point(183, 20);
             this.btnGenerarCB.Name = "btnGenerarCB";
             this.btnGenerarCB.Size = new System.Drawing.Size(112, 23);
             this.btnGenerarCB.TabIndex = 8;
@@ -577,7 +579,7 @@
             // 
             this.PAccion.Controls.Add(this.btnProdUpdate);
             this.PAccion.Controls.Add(this.btnAgregarDescuento);
-            this.PAccion.Controls.Add(this.button2);
+            this.PAccion.Controls.Add(this.btnDetalleProducto);
             this.PAccion.Controls.Add(this.btnDetalleFacturacion);
             this.PAccion.Controls.Add(this.btnGuardarProducto);
             this.PAccion.Controls.Add(this.label9);
@@ -595,7 +597,7 @@
             this.btnProdUpdate.BackColor = System.Drawing.Color.Teal;
             this.btnProdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProdUpdate.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnProdUpdate.Location = new System.Drawing.Point(414, 73);
+            this.btnProdUpdate.Location = new System.Drawing.Point(328, 73);
             this.btnProdUpdate.Name = "btnProdUpdate";
             this.btnProdUpdate.Size = new System.Drawing.Size(180, 28);
             this.btnProdUpdate.TabIndex = 20;
@@ -656,7 +658,7 @@
         private System.Windows.Forms.FlowLayoutPanel panelContenedor;
         private System.Windows.Forms.Button btnGenerarCB;
         private System.Windows.Forms.Button btnAgregarDescuento;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnDetalleProducto;
         private System.Windows.Forms.Button btnDetalleFacturacion;
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.Button btnImagenes;

@@ -29,6 +29,8 @@ namespace PuntoDeVentaV2
 
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
+        AgregarDetalleProducto FormDetalleProducto;
+
         public NvoProduct nvoProductoAdd = new NvoProduct();
         public CantidadProdServicio CantidadPordServPaq = new CantidadProdServicio();
 
@@ -2084,6 +2086,21 @@ namespace PuntoDeVentaV2
                     }
                 }
                 this.Close();
+            }
+        }
+
+        private void btnDetalleProducto_Click(object sender, EventArgs e)
+        {
+            //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
+            if (FormDetalleProducto != null)
+            {
+                FormDetalleProducto.Show();
+                FormDetalleProducto.BringToFront();
+            }
+            else
+            {
+                FormDetalleProducto = new AgregarDetalleProducto();
+                FormDetalleProducto.ShowDialog();
             }
         }
 
