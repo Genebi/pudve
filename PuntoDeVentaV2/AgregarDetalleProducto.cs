@@ -16,5 +16,13 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
         }
+
+        private void listaOpciones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            foreach (int index in listaOpciones.CheckedIndices)
+            {
+                MessageBox.Show(index.ToString());
+            }
+        }
     }
 }
