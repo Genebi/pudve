@@ -70,6 +70,7 @@
             this.btnAceptar.TabIndex = 12;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
@@ -86,6 +87,7 @@
             this.btnCancelar.TabIndex = 13;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // label4
             // 
@@ -99,6 +101,7 @@
             // 
             // txtCalle
             // 
+            this.txtCalle.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCalle.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCalle.Location = new System.Drawing.Point(44, 155);
             this.txtCalle.Name = "txtCalle";
@@ -118,6 +121,7 @@
             // 
             // txtRFC
             // 
+            this.txtRFC.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRFC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRFC.Location = new System.Drawing.Point(412, 98);
             this.txtRFC.Name = "txtRFC";
@@ -127,6 +131,7 @@
             // 
             // txtNombre
             // 
+            this.txtNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNombre.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(44, 98);
             this.txtNombre.Name = "txtNombre";
@@ -168,6 +173,7 @@
             // 
             // txtNoExterior
             // 
+            this.txtNoExterior.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNoExterior.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNoExterior.Location = new System.Drawing.Point(412, 155);
             this.txtNoExterior.Name = "txtNoExterior";
@@ -177,6 +183,7 @@
             // 
             // txtNoInterior
             // 
+            this.txtNoInterior.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNoInterior.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNoInterior.Location = new System.Drawing.Point(510, 155);
             this.txtNoInterior.Name = "txtNoInterior";
@@ -196,6 +203,7 @@
             // 
             // txtColonia
             // 
+            this.txtColonia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtColonia.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtColonia.Location = new System.Drawing.Point(44, 209);
             this.txtColonia.Name = "txtColonia";
@@ -215,6 +223,7 @@
             // 
             // txtMunicipio
             // 
+            this.txtMunicipio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMunicipio.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMunicipio.Location = new System.Drawing.Point(412, 209);
             this.txtMunicipio.Name = "txtMunicipio";
@@ -234,6 +243,7 @@
             // 
             // txtCodigoPostal
             // 
+            this.txtCodigoPostal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodigoPostal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCodigoPostal.Location = new System.Drawing.Point(412, 261);
             this.txtCodigoPostal.Name = "txtCodigoPostal";
@@ -253,6 +263,7 @@
             // 
             // txtEstado
             // 
+            this.txtEstado.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtEstado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEstado.Location = new System.Drawing.Point(44, 261);
             this.txtEstado.Name = "txtEstado";
@@ -272,6 +283,7 @@
             // 
             // txtTelefono
             // 
+            this.txtTelefono.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTelefono.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefono.Location = new System.Drawing.Point(412, 311);
             this.txtTelefono.Name = "txtTelefono";
@@ -291,6 +303,7 @@
             // 
             // txtEmail
             // 
+            this.txtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtEmail.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.Location = new System.Drawing.Point(44, 311);
             this.txtEmail.Name = "txtEmail";
@@ -343,7 +356,6 @@
             this.Name = "AgregarProveedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Nuevo Proveedor";
-            this.Load += new System.EventHandler(this.AgregarProveedor_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
