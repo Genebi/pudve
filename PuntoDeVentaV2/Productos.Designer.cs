@@ -57,11 +57,11 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.btnListView = new System.Windows.Forms.Button();
             this.btnPhotoView = new System.Windows.Forms.Button();
             this.btnModificarEstado = new System.Windows.Forms.Button();
             this.btnAgregarXML = new System.Windows.Forms.Button();
+            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -80,10 +80,9 @@
             this.btnAgregarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(830, 154);
-            this.btnAgregarProducto.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(622, 125);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
-            this.btnAgregarProducto.Size = new System.Drawing.Size(233, 33);
+            this.btnAgregarProducto.Size = new System.Drawing.Size(175, 27);
             this.btnAgregarProducto.TabIndex = 1;
             this.btnAgregarProducto.Text = "Agregar  producto +";
             this.btnAgregarProducto.UseVisualStyleBackColor = false;
@@ -94,10 +93,9 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(465, 10);
-            this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.tituloSeccion.Location = new System.Drawing.Point(349, 8);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(175, 32);
+            this.tituloSeccion.Size = new System.Drawing.Size(137, 25);
             this.tituloSeccion.TabIndex = 3;
             this.tituloSeccion.Text = "PRODUCTOS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -107,10 +105,9 @@
             this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(389, 48);
-            this.tituloBusqueda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.tituloBusqueda.Location = new System.Drawing.Point(292, 39);
             this.tituloBusqueda.Name = "tituloBusqueda";
-            this.tituloBusqueda.Size = new System.Drawing.Size(335, 22);
+            this.tituloBusqueda.Size = new System.Drawing.Size(264, 20);
             this.tituloBusqueda.TabIndex = 4;
             this.tituloBusqueda.Text = "Búsqueda avanzada de productos";
             this.tituloBusqueda.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -120,10 +117,9 @@
             this.txtBusqueda.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(187, 83);
-            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4);
+            this.txtBusqueda.Location = new System.Drawing.Point(140, 67);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(792, 27);
+            this.txtBusqueda.Size = new System.Drawing.Size(595, 23);
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
@@ -140,11 +136,10 @@
             "Z - A",
             "Mayor precio",
             "Menor precio"});
-            this.cbOrden.Location = new System.Drawing.Point(456, 156);
-            this.cbOrden.Margin = new System.Windows.Forms.Padding(4);
+            this.cbOrden.Location = new System.Drawing.Point(342, 127);
             this.cbOrden.Name = "cbOrden";
             this.cbOrden.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbOrden.Size = new System.Drawing.Size(181, 29);
+            this.cbOrden.Size = new System.Drawing.Size(137, 25);
             this.cbOrden.TabIndex = 6;
             this.cbOrden.SelectedIndexChanged += new System.EventHandler(this.cbOrden_SelectedIndexChanged);
             // 
@@ -158,11 +153,10 @@
             "Habilitados",
             "Deshabilitados",
             "Todos"});
-            this.cbMostrar.Location = new System.Drawing.Point(648, 156);
-            this.cbMostrar.Margin = new System.Windows.Forms.Padding(4);
+            this.cbMostrar.Location = new System.Drawing.Point(486, 127);
             this.cbMostrar.Name = "cbMostrar";
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cbMostrar.Size = new System.Drawing.Size(173, 29);
+            this.cbMostrar.Size = new System.Drawing.Size(131, 25);
             this.cbMostrar.TabIndex = 7;
             this.cbMostrar.SelectedIndexChanged += new System.EventHandler(this.cbMostrar_SelectedIndexChanged);
             // 
@@ -172,9 +166,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelShowDGVProductosView.Controls.Add(this.DGVProductos);
-            this.panelShowDGVProductosView.Location = new System.Drawing.Point(19, 241);
+            this.panelShowDGVProductosView.Location = new System.Drawing.Point(14, 196);
+            this.panelShowDGVProductosView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelShowDGVProductosView.Name = "panelShowDGVProductosView";
-            this.panelShowDGVProductosView.Size = new System.Drawing.Size(1086, 438);
+            this.panelShowDGVProductosView.Size = new System.Drawing.Size(814, 356);
             this.panelShowDGVProductosView.TabIndex = 13;
             // 
             // DGVProductos
@@ -203,12 +198,11 @@
             this.Column14,
             this.Column15,
             this.Column16});
-            this.DGVProductos.Location = new System.Drawing.Point(14, 18);
-            this.DGVProductos.Margin = new System.Windows.Forms.Padding(4);
+            this.DGVProductos.Location = new System.Drawing.Point(10, 15);
             this.DGVProductos.MultiSelect = false;
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVProductos.Size = new System.Drawing.Size(1056, 403);
+            this.DGVProductos.Size = new System.Drawing.Size(792, 327);
             this.DGVProductos.TabIndex = 2;
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick_1);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
@@ -324,9 +318,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelShowPhotoView.Controls.Add(this.fLPShowPhoto);
-            this.panelShowPhotoView.Location = new System.Drawing.Point(16, 244);
+            this.panelShowPhotoView.Location = new System.Drawing.Point(12, 198);
+            this.panelShowPhotoView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panelShowPhotoView.Name = "panelShowPhotoView";
-            this.panelShowPhotoView.Size = new System.Drawing.Size(1086, 438);
+            this.panelShowPhotoView.Size = new System.Drawing.Size(814, 356);
             this.panelShowPhotoView.TabIndex = 14;
             // 
             // fLPShowPhoto
@@ -335,9 +330,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fLPShowPhoto.AutoScroll = true;
-            this.fLPShowPhoto.Location = new System.Drawing.Point(14, 18);
+            this.fLPShowPhoto.Location = new System.Drawing.Point(10, 15);
+            this.fLPShowPhoto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.fLPShowPhoto.Name = "fLPShowPhoto";
-            this.fLPShowPhoto.Size = new System.Drawing.Size(1056, 403);
+            this.fLPShowPhoto.Size = new System.Drawing.Size(792, 327);
             this.fLPShowPhoto.TabIndex = 0;
             // 
             // panel1
@@ -354,26 +350,21 @@
             this.panel1.Controls.Add(this.cbOrden);
             this.panel1.Controls.Add(this.btnModificarEstado);
             this.panel1.Controls.Add(this.btnAgregarXML);
-            this.panel1.Location = new System.Drawing.Point(16, 8);
+            this.panel1.Location = new System.Drawing.Point(12, 6);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1089, 227);
+            this.panel1.Size = new System.Drawing.Size(817, 184);
             this.panel1.TabIndex = 15;
-            // 
-            // TTipButtonText
-            // 
-            this.TTipButtonText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.TTipButtonText.ForeColor = System.Drawing.Color.White;
-            this.TTipButtonText.OwnerDraw = true;
-            this.TTipButtonText.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTipButtonText_Draw);
             // 
             // btnListView
             // 
-            this.btnListView.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list1;
             this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListView.Location = new System.Drawing.Point(16, 175);
+            this.btnListView.Location = new System.Drawing.Point(12, 142);
+            this.btnListView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnListView.Name = "btnListView";
-            this.btnListView.Size = new System.Drawing.Size(181, 34);
+            this.btnListView.Size = new System.Drawing.Size(136, 28);
             this.btnListView.TabIndex = 12;
             this.btnListView.Text = "Lista";
             this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -382,12 +373,13 @@
             // 
             // btnPhotoView
             // 
-            this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th1;
             this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhotoView.Location = new System.Drawing.Point(203, 175);
+            this.btnPhotoView.Location = new System.Drawing.Point(152, 142);
+            this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnPhotoView.Name = "btnPhotoView";
-            this.btnPhotoView.Size = new System.Drawing.Size(212, 34);
+            this.btnPhotoView.Size = new System.Drawing.Size(159, 28);
             this.btnPhotoView.TabIndex = 11;
             this.btnPhotoView.Text = "Mosaico";
             this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -396,12 +388,13 @@
             // 
             // btnModificarEstado
             // 
-            this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs1;
             this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(203, 135);
+            this.btnModificarEstado.Location = new System.Drawing.Point(152, 110);
+            this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnModificarEstado.Name = "btnModificarEstado";
-            this.btnModificarEstado.Size = new System.Drawing.Size(212, 35);
+            this.btnModificarEstado.Size = new System.Drawing.Size(159, 28);
             this.btnModificarEstado.TabIndex = 10;
             this.btnModificarEstado.Text = "Modificar Estado";
             this.btnModificarEstado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -413,26 +406,33 @@
             // 
             this.btnAgregarXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus2;
-            this.btnAgregarXML.Location = new System.Drawing.Point(16, 135);
+            this.btnAgregarXML.Location = new System.Drawing.Point(12, 110);
+            this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAgregarXML.Name = "btnAgregarXML";
-            this.btnAgregarXML.Size = new System.Drawing.Size(181, 34);
+            this.btnAgregarXML.Size = new System.Drawing.Size(136, 28);
             this.btnAgregarXML.TabIndex = 8;
             this.btnAgregarXML.Text = "Agregar XML";
             this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAgregarXML.UseVisualStyleBackColor = false;
             this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
             // 
+            // TTipButtonText
+            // 
+            this.TTipButtonText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.TTipButtonText.ForeColor = System.Drawing.Color.White;
+            this.TTipButtonText.OwnerDraw = true;
+            this.TTipButtonText.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTipButtonText_Draw);
+            // 
             // Productos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1120, 694);
+            this.ClientSize = new System.Drawing.Size(840, 564);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelShowDGVProductosView);
             this.Controls.Add(this.panelShowPhotoView);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Productos";
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);

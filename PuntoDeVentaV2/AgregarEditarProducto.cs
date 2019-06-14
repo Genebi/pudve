@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         static public string datosImpuestos = null;
         static public string claveProducto = null;
         static public string claveUnidadMedida = null;
+        static public string detallesProducto = null;
         static public DataTable SearchDesCliente, SearchDesMayoreo;
         static public List<string> descuentos = new List<string>();
 
@@ -894,17 +895,22 @@ namespace PuntoDeVentaV2
                         guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
+
                         if (respuesta > 0)
                         {
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+                            
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
                             {
                                 //Cerramos la ventana donde se eligen los impuestos
                                 FormDetalle.Close();
+
                                 string[] listaImpuestos = datosImpuestos.Split('|');
+
                                 int longitud = listaImpuestos.Length;
+
                                 if (longitud > 0)
                                 {
                                     for (int i = 0; i < longitud; i++)
@@ -917,8 +923,23 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
                                     }
                                 }
+
                                 datosImpuestos = null;
                             }
+
+                            //Para guardar los detalles del producto
+                            if (detallesProducto != null)
+                            {
+                                string[] listaDetalles = detallesProducto.Split('|');
+
+                                if (listaDetalles.Length > 0)
+                                {
+                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), listaDetalles[0] };
+
+                                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+                                }
+                            }
+
                             //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                             if (descuentos.Any())
                             {
