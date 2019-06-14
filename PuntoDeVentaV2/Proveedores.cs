@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,60 @@ namespace PuntoDeVentaV2
         public Proveedores()
         {
             InitializeComponent();
+        }
+
+        private void Proveedores_Load(object sender, EventArgs e)
+        {
+            CargarDatos();
+        }
+
+        private void CargarDatos()
+        {
+            SQLiteConnection sql_con;
+            SQLiteCommand sql_cmd;
+            SQLiteDataReader dr;
+
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con.Open();
+
+            var consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID}";
+
+            sql_cmd = new SQLiteCommand(consulta, sql_con);
+
+            dr = sql_cmd.ExecuteReader();
+
+            DGVProveedores.Rows.Clear();
+
+            while (dr.Read())
+            {
+                int rowId = DGVProveedores.Rows.Add();
+
+                DataGridViewRow row = DGVProveedores.Rows[rowId];
+
+                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+                row.Cells["Nombre"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+                row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
+                row.Cells["Email"].Value = dr.GetValue(dr.GetOrdinal("Email"));
+                row.Cells["Telefono"].Value = dr.GetValue(dr.GetOrdinal("Telefono"));
+                row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+            }
+
+            DGVProveedores.ClearSelection();
+
+            dr.Close();
+            sql_con.Close();
+        }
+
+        private void btnNuevoProveedor_Click(object sender, EventArgs e)
+        {
+            AgregarProveedor ap = new AgregarProveedor();
+
+            ap.FormClosed += delegate
+            {
+                CargarDatos();
+            };
+
+            ap.ShowDialog();
         }
     }
 }

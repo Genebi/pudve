@@ -87,7 +87,7 @@ namespace PuntoDeVentaV2
 
         private void btnProveedores_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<Proveedores>();
+            
         }
 
         //Metodo para abrir formularios dentro del panel
@@ -141,6 +141,11 @@ namespace PuntoDeVentaV2
         private void btnConfig_Click(object sender, EventArgs e)
         {
             AbrirFormulario<SetUpPUDVE>();
+        }
+
+        private void btnProveedores_Click_1(object sender, EventArgs e)
+        {
+            AbrirFormulario<Proveedores>();
         }
     }
 }
