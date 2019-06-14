@@ -12,19 +12,40 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarDetalleProducto : Form
     {
+        Conexion cn = new Conexion();
+
+        //Almacenar lista de proveedores del usuario
+        string[] listaProveedores = new string[] { };
+
         public AgregarDetalleProducto()
         {
             InitializeComponent();
         }
 
+        private void AgregarDetalleProducto_Load(object sender, EventArgs e)
+        {
+            //Asignamos el array con los nombres de los proveedores al combobox
+            listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+            cbProveedores.Items.AddRange(listaProveedores);
+            cbProveedores.SelectedIndex = 0;
+        }
+
         private void listaOpciones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (int index in listaOpciones.CheckedIndices)
+            int indice = listaOpciones.SelectedIndex;
+
+            //Proveedor
+            if (indice == 0)
             {
-                if (index == 0)
+                if (listaOpciones.GetItemChecked(indice) == true)
                 {
-                    AgregarProveedor ap = new AgregarProveedor();
-                    ap.ShowDialog();
+                    lbProveedor.Visible = true;
+                    cbProveedores.Visible = true;
+                }
+                else
+                {
+                    lbProveedor.Visible = false;
+                    cbProveedores.Visible = false;
                 }
             }
         }

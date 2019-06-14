@@ -33,13 +33,14 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.contenedorMenu = new System.Windows.Forms.Panel();
             this.lbProveedor = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbProveedores = new System.Windows.Forms.ComboBox();
             this.contenedorMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // listaOpciones
             // 
             this.listaOpciones.BackColor = System.Drawing.SystemColors.Control;
+            this.listaOpciones.CheckOnClick = true;
             this.listaOpciones.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaOpciones.FormattingEnabled = true;
             this.listaOpciones.Items.AddRange(new object[] {
@@ -86,21 +87,26 @@
             this.lbProveedor.Size = new System.Drawing.Size(71, 17);
             this.lbProveedor.TabIndex = 23;
             this.lbProveedor.Text = "Proveedor";
+            this.lbProveedor.Visible = false;
             // 
-            // comboBox1
+            // cbProveedores
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(280, 57);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(518, 21);
-            this.comboBox1.TabIndex = 24;
+            this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProveedores.FormattingEnabled = true;
+            this.cbProveedores.Items.AddRange(new object[] {
+            "Seleccionar un proveedor..."});
+            this.cbProveedores.Location = new System.Drawing.Point(280, 57);
+            this.cbProveedores.Name = "cbProveedores";
+            this.cbProveedores.Size = new System.Drawing.Size(518, 21);
+            this.cbProveedores.TabIndex = 24;
+            this.cbProveedores.Visible = false;
             // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 666);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cbProveedores);
             this.Controls.Add(this.lbProveedor);
             this.Controls.Add(this.contenedorMenu);
             this.Controls.Add(this.textBox1);
@@ -110,6 +116,7 @@
             this.Name = "AgregarDetalleProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Detalles Producto";
+            this.Load += new System.EventHandler(this.AgregarDetalleProducto_Load);
             this.contenedorMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -123,6 +130,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel contenedorMenu;
         private System.Windows.Forms.Label lbProveedor;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbProveedores;
     }
 }
