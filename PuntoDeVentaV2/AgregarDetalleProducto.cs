@@ -41,6 +41,19 @@ namespace PuntoDeVentaV2
                 {
                     lbProveedor.Visible = true;
                     cbProveedores.Visible = true;
+
+                    if (listaProveedores.Length == 0)
+                    {
+                        AgregarProveedor ap = new AgregarProveedor();
+
+                        ap.FormClosed += delegate
+                        {
+                            listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+                            cbProveedores.Items.AddRange(listaProveedores);
+                        };
+
+                        ap.ShowDialog();
+                    }
                 }
                 else
                 {
