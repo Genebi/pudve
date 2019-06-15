@@ -352,142 +352,145 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0)
+            if (e.RowIndex >= 0)
             {
-                numerofila = e.RowIndex;
-                obtenerDatosDGVProductos(numerofila);
-                editarEstado = 4;
-            }
-            else if (e.ColumnIndex == 7)
-            {
-                if (seleccionadoDato == 0)
-                {
-                    seleccionadoDato = 1;
-                    numerofila = e.RowIndex;
-                    obtenerDatosDGVProductos(numerofila);
-                    origenDeLosDatos = 2;
-                }
-                btnAgregarProducto.PerformClick();
-            }
-            else if (e.ColumnIndex == 8)
-            {
-                index = 0;
-                DialogResult result = MessageBox.Show("Realmente desdea Modificar el estado?", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes)
+                if (e.ColumnIndex == 0)
                 {
                     numerofila = e.RowIndex;
                     obtenerDatosDGVProductos(numerofila);
-                    status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
-                    ModificarStatusProducto();
-                    if (status == "1")
-                    {
-                        cbMostrar.Text = "Deshabilitados";
-                    }
-                    else if (status == "0")
-                    {
-                        cbMostrar.Text = "Habilitados";
-                    }
-                    DGVProductos.Refresh();
+                    editarEstado = 4;
                 }
-            }
-            else if (e.ColumnIndex == 9)
-            {
-                numerofila = e.RowIndex;
-                obtenerDatosDGVProductos(numerofila);
-                ViewRecordProducto();
-            }
-            else if (e.ColumnIndex == 10)
-            {
-                string codiBarProd = "";
-                numfila = e.RowIndex;
-                obtenerDatosDGVProductos(numfila);
-                //MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                MakeBarCode.FormClosed += delegate
+                else if (e.ColumnIndex == 7)
                 {
-
-                };
-                if (!MakeBarCode.Visible)
-                {
-                    MakeBarCode.NombreProd = Nombre;
-                    MakeBarCode.PrecioProd = Precio;
-                    codiBarProd = CodigoBarras;
-                    if (codiBarProd != "")
+                    if (seleccionadoDato == 0)
                     {
-                        MakeBarCode.CodigoBarProd = codiBarProd;
-                        MakeBarCode.ShowDialog();
+                        seleccionadoDato = 1;
+                        numerofila = e.RowIndex;
+                        obtenerDatosDGVProductos(numerofila);
+                        origenDeLosDatos = 2;
                     }
-                    else if (codiBarProd == "")
+                    btnAgregarProducto.PerformClick();
+                }
+                else if (e.ColumnIndex == 8)
+                {
+                    index = 0;
+                    DialogResult result = MessageBox.Show("Realmente desdea Modificar el estado?", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
                     {
-                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        numerofila = e.RowIndex;
+                        obtenerDatosDGVProductos(numerofila);
+                        status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
+                        ModificarStatusProducto();
+                        if (status == "1")
+                        {
+                            cbMostrar.Text = "Deshabilitados";
+                        }
+                        else if (status == "0")
+                        {
+                            cbMostrar.Text = "Habilitados";
+                        }
+                        DGVProductos.Refresh();
                     }
                 }
-                else
+                else if (e.ColumnIndex == 9)
                 {
-                    MakeBarCode.NombreProd = Nombre;
-                    MakeBarCode.PrecioProd = Precio;
-                    codiBarProd = CodigoBarras;
-                    if (codiBarProd != "")
-                    {
-                        MakeBarCode.CodigoBarProd = codiBarProd;
-                        MakeBarCode.BringToFront();
-                    }
-                    else if (codiBarProd == "")
-                    {
-                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            else if (e.ColumnIndex == 11)
-            {
-                numfila = e.RowIndex;
-                obtenerDatosDGVProductos(numfila);
-
-                string pathString;
-
-                pathString = savePath;
-
-                if (pathString != "")
-                {
-                    mostrarFoto();
-                }
-                else if (pathString == "")
-                {
-                    agregarFoto();
-                }
-            }
-            else if (e.ColumnIndex == 12)
-            {
-                numerofila = e.RowIndex;
-                obtenerDatosDGVProductos(numerofila);
-                MakeTagProd.FormClosed += delegate
-                {
-
-                };
-                if (!MakeTagProd.Visible)
-                {
-                    MakeTagProd.NombreProd = Nombre;
-                    MakeTagProd.PrecioProd = float.Parse(Precio);
-                    MakeTagProd.CodigoBarProd = CodigoBarras;
-                    MakeTagProd.ShowDialog();
-                }
-                else
-                {
-                    MakeTagProd.NombreProd = Nombre;
-                    MakeTagProd.PrecioProd = float.Parse(Precio);
-                    MakeTagProd.CodigoBarProd = CodigoBarras;
-                    MakeTagProd.BringToFront();
-                }
-            }
-            else if (e.ColumnIndex == 13)
-            {
-                if (seleccionadoDato == 0)
-                {
-                    seleccionadoDato = 1;
                     numerofila = e.RowIndex;
                     obtenerDatosDGVProductos(numerofila);
-                    origenDeLosDatos = 4;
+                    ViewRecordProducto();
                 }
-                btnAgregarProducto.PerformClick();
+                else if (e.ColumnIndex == 10)
+                {
+                    string codiBarProd = "";
+                    numfila = e.RowIndex;
+                    obtenerDatosDGVProductos(numfila);
+                    //MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MakeBarCode.FormClosed += delegate
+                    {
+
+                    };
+                    if (!MakeBarCode.Visible)
+                    {
+                        MakeBarCode.NombreProd = Nombre;
+                        MakeBarCode.PrecioProd = Precio;
+                        codiBarProd = CodigoBarras;
+                        if (codiBarProd != "")
+                        {
+                            MakeBarCode.CodigoBarProd = codiBarProd;
+                            MakeBarCode.ShowDialog();
+                        }
+                        else if (codiBarProd == "")
+                        {
+                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MakeBarCode.NombreProd = Nombre;
+                        MakeBarCode.PrecioProd = Precio;
+                        codiBarProd = CodigoBarras;
+                        if (codiBarProd != "")
+                        {
+                            MakeBarCode.CodigoBarProd = codiBarProd;
+                            MakeBarCode.BringToFront();
+                        }
+                        else if (codiBarProd == "")
+                        {
+                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else if (e.ColumnIndex == 11)
+                {
+                    numfila = e.RowIndex;
+                    obtenerDatosDGVProductos(numfila);
+
+                    string pathString;
+
+                    pathString = savePath;
+
+                    if (pathString != "")
+                    {
+                        mostrarFoto();
+                    }
+                    else if (pathString == "")
+                    {
+                        agregarFoto();
+                    }
+                }
+                else if (e.ColumnIndex == 12)
+                {
+                    numerofila = e.RowIndex;
+                    obtenerDatosDGVProductos(numerofila);
+                    MakeTagProd.FormClosed += delegate
+                    {
+
+                    };
+                    if (!MakeTagProd.Visible)
+                    {
+                        MakeTagProd.NombreProd = Nombre;
+                        MakeTagProd.PrecioProd = float.Parse(Precio);
+                        MakeTagProd.CodigoBarProd = CodigoBarras;
+                        MakeTagProd.ShowDialog();
+                    }
+                    else
+                    {
+                        MakeTagProd.NombreProd = Nombre;
+                        MakeTagProd.PrecioProd = float.Parse(Precio);
+                        MakeTagProd.CodigoBarProd = CodigoBarras;
+                        MakeTagProd.BringToFront();
+                    }
+                }
+                else if (e.ColumnIndex == 13)
+                {
+                    if (seleccionadoDato == 0)
+                    {
+                        seleccionadoDato = 1;
+                        numerofila = e.RowIndex;
+                        obtenerDatosDGVProductos(numerofila);
+                        origenDeLosDatos = 4;
+                    }
+                    btnAgregarProducto.PerformClick();
+                }
             }
         }
 
@@ -691,6 +694,7 @@ namespace PuntoDeVentaV2
                 Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
                 Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
                 Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
+                Image ajustar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
 
                 row.Cells["Column7"].Value = editar;
 
@@ -731,7 +735,10 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Column16"].Value = package;
                 }
+
+                row.Cells["Ajustar"].Value = ajustar;
             }
+
             dr.Close();
             sql_con.Close();
         }
@@ -785,6 +792,7 @@ namespace PuntoDeVentaV2
                 Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
                 Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
                 Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
+                Image ajustar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
 
                 row.Cells["Column7"].Value = editar;
 
@@ -824,7 +832,10 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Column16"].Value = package;
                 }
+
+                row.Cells["Ajustar"].Value = ajustar;
             }
+
             dr.Close();
             sql_con.Close();
         }
@@ -878,6 +889,7 @@ namespace PuntoDeVentaV2
                 Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
                 Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
                 Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
+                Image ajustar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
 
                 row.Cells["Column7"].Value = editar;
 
@@ -917,7 +929,10 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Column16"].Value = package;
                 }
+
+                row.Cells["Ajustar"].Value = ajustar;
             }
+
             dr.Close();
             sql_con.Close();
         }
@@ -971,6 +986,7 @@ namespace PuntoDeVentaV2
                 Image copy = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
                 Image package = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
                 Image product = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
+                Image ajustar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
 
                 row.Cells["Column7"].Value = editar;
 
@@ -1010,7 +1026,10 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Column16"].Value = package;
                 }
+
+                row.Cells["Ajustar"].Value = ajustar;
             }
+
             dr.Close();
             sql_con.Close();
         }

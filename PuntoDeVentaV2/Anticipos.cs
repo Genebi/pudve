@@ -177,57 +177,60 @@ namespace PuntoDeVentaV2
 
         private void DGVAnticipos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var fila = DGVAnticipos.CurrentCell.RowIndex;
+            //var fila = DGVAnticipos.CurrentCell.RowIndex;
+            var fila = e.RowIndex;
 
-            int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
-
-
-            //Generar ticket
-            if (e.ColumnIndex == 6)
+            if (fila >= 0)
             {
-                rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
-                ticketGenerado = $"ticket_anticipo_{idAnticipo}.pdf";
+                int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
 
-                if (File.Exists(rutaTicketGenerado))
+                //Generar ticket
+                if (e.ColumnIndex == 6)
                 {
-                    VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+                    rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
+                    ticketGenerado = $"ticket_anticipo_{idAnticipo}.pdf";
 
-                    vt.FormClosed += delegate
+                    if (File.Exists(rutaTicketGenerado))
                     {
-                        vt.Dispose();
+                        VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
 
-                        rutaTicketGenerado = string.Empty;
-                        ticketGenerado = string.Empty;
-                    };
+                        vt.FormClosed += delegate
+                        {
+                            vt.Dispose();
 
-                    vt.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+                            rutaTicketGenerado = string.Empty;
+                            ticketGenerado = string.Empty;
+                        };
 
-            //Habilitar/Deshabilitar
-            if (e.ColumnIndex == 7)
-            {
-                var indice = cbAnticipos.SelectedIndex;
-
-                if (indice < 2)
-                {
-                    //Deshabilitar
-                    if (indice == 0)
-                    {
-                        cn.EjecutarConsulta(cs.CambiarStatusAnticipo(2, idAnticipo, FormPrincipal.userID));
+                        vt.ShowDialog();
                     }
-
-                    //Habilitar
-                    if (indice == 1)
+                    else
                     {
-                        cn.EjecutarConsulta(cs.CambiarStatusAnticipo(1, idAnticipo, FormPrincipal.userID));
+                        MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                }
 
-                    CargarDatos(cbAnticipos.SelectedIndex + 1);
+                //Habilitar/Deshabilitar
+                if (e.ColumnIndex == 7)
+                {
+                    var indice = cbAnticipos.SelectedIndex;
+
+                    if (indice < 2)
+                    {
+                        //Deshabilitar
+                        if (indice == 0)
+                        {
+                            cn.EjecutarConsulta(cs.CambiarStatusAnticipo(2, idAnticipo, FormPrincipal.userID));
+                        }
+
+                        //Habilitar
+                        if (indice == 1)
+                        {
+                            cn.EjecutarConsulta(cs.CambiarStatusAnticipo(1, idAnticipo, FormPrincipal.userID));
+                        }
+
+                        CargarDatos(cbAnticipos.SelectedIndex + 1);
+                    }
                 }
             }
 

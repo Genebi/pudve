@@ -167,6 +167,7 @@
             this.DGVAnticipos.Location = new System.Drawing.Point(12, 141);
             this.DGVAnticipos.Name = "DGVAnticipos";
             this.DGVAnticipos.ReadOnly = true;
+            this.DGVAnticipos.RowHeadersVisible = false;
             this.DGVAnticipos.Size = new System.Drawing.Size(845, 217);
             this.DGVAnticipos.TabIndex = 8;
             this.DGVAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellClick);
