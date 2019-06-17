@@ -352,6 +352,7 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
+            //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
                 if (e.ColumnIndex == 0)
@@ -490,6 +491,12 @@ namespace PuntoDeVentaV2
                         origenDeLosDatos = 4;
                     }
                     btnAgregarProducto.PerformClick();
+                }
+                else if (e.ColumnIndex == 17)
+                {
+                    //Esta es la columna de la opcion "Ajustar"
+                    AjustarProducto ap = new AjustarProducto();
+                    ap.ShowDialog();
                 }
             }
         }
