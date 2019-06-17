@@ -352,6 +352,10 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
+            var fila = DGVProductos.CurrentCell.RowIndex;
+
+            int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
+
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
@@ -495,7 +499,7 @@ namespace PuntoDeVentaV2
                 else if (e.ColumnIndex == 17)
                 {
                     //Esta es la columna de la opcion "Ajustar"
-                    AjustarProducto ap = new AjustarProducto();
+                    AjustarProducto ap = new AjustarProducto(idProducto);
                     ap.ShowDialog();
                 }
             }
@@ -660,7 +664,7 @@ namespace PuntoDeVentaV2
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}'", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             //limpiarDGV();
@@ -672,9 +676,12 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
+                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
 
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+
                 if (TipoProd == "P")
                 {
                     row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
@@ -683,6 +690,7 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Column2"].Value = "";
                 }
+
                 row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
                 row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
                 row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
@@ -758,7 +766,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 1", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 1", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             //limpiarDGV();
@@ -769,6 +777,8 @@ namespace PuntoDeVentaV2
                 number_of_rows = DGVProductos.Rows.Add();
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
 
@@ -855,7 +865,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + busqueda + "%' ", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + busqueda + "%' ", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             //limpiarDGV();
@@ -866,6 +876,8 @@ namespace PuntoDeVentaV2
                 number_of_rows = DGVProductos.Rows.Add();
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
 
@@ -952,7 +964,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 0", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 0", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             //limpiarDGV();
@@ -966,7 +978,10 @@ namespace PuntoDeVentaV2
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
 
+                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+
                 if (TipoProd == "P")
                 {
                     row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
@@ -975,6 +990,7 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Column2"].Value = "";
                 }
+
                 row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
                 row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
                 row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));

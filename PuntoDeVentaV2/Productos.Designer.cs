@@ -63,6 +63,7 @@
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column16 = new System.Windows.Forms.DataGridViewImageColumn();
             this.Ajustar = new System.Windows.Forms.DataGridViewImageColumn();
+            this._IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -199,7 +200,8 @@
             this.Column14,
             this.Column15,
             this.Column16,
-            this.Ajustar});
+            this.Ajustar,
+            this._IDProducto});
             this.DGVProductos.Location = new System.Drawing.Point(10, 15);
             this.DGVProductos.MultiSelect = false;
             this.DGVProductos.Name = "DGVProductos";
@@ -434,6 +436,12 @@
             this.Ajustar.Name = "Ajustar";
             this.Ajustar.Width = 50;
             // 
+            // _IDProducto
+            // 
+            this._IDProducto.HeaderText = "ID";
+            this._IDProducto.Name = "_IDProducto";
+            this._IDProducto.Visible = false;
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -489,5 +497,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewImageColumn Column16;
         private System.Windows.Forms.DataGridViewImageColumn Ajustar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn _IDProducto;
     }
 }

@@ -36,15 +36,15 @@
             this.lbPrecioCompra = new System.Windows.Forms.Label();
             this.lbFechaCompra = new System.Windows.Forms.Label();
             this.lbProveedor = new System.Windows.Forms.Label();
-            this.cbProveedor = new System.Windows.Forms.ComboBox();
+            this.cbProveedores = new System.Windows.Forms.ComboBox();
             this.dpFechaCompra = new System.Windows.Forms.DateTimePicker();
             this.txtCantidadCompra = new System.Windows.Forms.TextBox();
             this.txtPrecioCompra = new System.Windows.Forms.TextBox();
             this.panelAjustar = new System.Windows.Forms.Panel();
             this.lbDisminuir = new System.Windows.Forms.Label();
             this.lbAumentar = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtDisminuir = new System.Windows.Forms.TextBox();
+            this.txtAumentar = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.lbComentarios = new System.Windows.Forms.Label();
             this.lbSeparador1 = new System.Windows.Forms.Label();
@@ -57,13 +57,12 @@
             // 
             // lbProducto
             // 
-            this.lbProducto.AutoSize = true;
-            this.lbProducto.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbProducto.Location = new System.Drawing.Point(233, 30);
+            this.lbProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbProducto.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProducto.Location = new System.Drawing.Point(13, 30);
             this.lbProducto.Name = "lbProducto";
-            this.lbProducto.Size = new System.Drawing.Size(167, 20);
+            this.lbProducto.Size = new System.Drawing.Size(609, 20);
             this.lbProducto.TabIndex = 0;
-            this.lbProducto.Text = "Nombre del Producto";
             this.lbProducto.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // rbProducto
@@ -98,7 +97,7 @@
             this.panelComprado.Controls.Add(this.lbPrecioCompra);
             this.panelComprado.Controls.Add(this.lbFechaCompra);
             this.panelComprado.Controls.Add(this.lbProveedor);
-            this.panelComprado.Controls.Add(this.cbProveedor);
+            this.panelComprado.Controls.Add(this.cbProveedores);
             this.panelComprado.Controls.Add(this.dpFechaCompra);
             this.panelComprado.Controls.Add(this.txtCantidadCompra);
             this.panelComprado.Controls.Add(this.txtPrecioCompra);
@@ -121,7 +120,7 @@
             // 
             this.lbPrecioCompra.AutoSize = true;
             this.lbPrecioCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPrecioCompra.Location = new System.Drawing.Point(251, 64);
+            this.lbPrecioCompra.Location = new System.Drawing.Point(248, 64);
             this.lbPrecioCompra.Name = "lbPrecioCompra";
             this.lbPrecioCompra.Size = new System.Drawing.Size(115, 17);
             this.lbPrecioCompra.TabIndex = 8;
@@ -147,14 +146,17 @@
             this.lbProveedor.TabIndex = 6;
             this.lbProveedor.Text = "Proveedor";
             // 
-            // cbProveedor
+            // cbProveedores
             // 
-            this.cbProveedor.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbProveedor.FormattingEnabled = true;
-            this.cbProveedor.Location = new System.Drawing.Point(7, 32);
-            this.cbProveedor.Name = "cbProveedor";
-            this.cbProveedor.Size = new System.Drawing.Size(595, 24);
-            this.cbProveedor.TabIndex = 5;
+            this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProveedores.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbProveedores.FormattingEnabled = true;
+            this.cbProveedores.Items.AddRange(new object[] {
+            "Seleccione un proveedor..."});
+            this.cbProveedores.Location = new System.Drawing.Point(7, 32);
+            this.cbProveedores.Name = "cbProveedores";
+            this.cbProveedores.Size = new System.Drawing.Size(595, 24);
+            this.cbProveedores.TabIndex = 5;
             // 
             // dpFechaCompra
             // 
@@ -174,21 +176,23 @@
             this.txtCantidadCompra.Name = "txtCantidadCompra";
             this.txtCantidadCompra.Size = new System.Drawing.Size(125, 22);
             this.txtCantidadCompra.TabIndex = 3;
+            this.txtCantidadCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtPrecioCompra
             // 
             this.txtPrecioCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrecioCompra.Location = new System.Drawing.Point(254, 87);
+            this.txtPrecioCompra.Location = new System.Drawing.Point(251, 87);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
             this.txtPrecioCompra.Size = new System.Drawing.Size(125, 22);
             this.txtPrecioCompra.TabIndex = 2;
+            this.txtPrecioCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panelAjustar
             // 
             this.panelAjustar.Controls.Add(this.lbDisminuir);
             this.panelAjustar.Controls.Add(this.lbAumentar);
-            this.panelAjustar.Controls.Add(this.textBox3);
-            this.panelAjustar.Controls.Add(this.textBox2);
+            this.panelAjustar.Controls.Add(this.txtDisminuir);
+            this.panelAjustar.Controls.Add(this.txtAumentar);
             this.panelAjustar.Location = new System.Drawing.Point(13, 139);
             this.panelAjustar.Name = "panelAjustar";
             this.panelAjustar.Size = new System.Drawing.Size(610, 120);
@@ -215,21 +219,23 @@
             this.lbAumentar.TabIndex = 2;
             this.lbAumentar.Text = "Aumentar cantidad";
             // 
-            // textBox3
+            // txtDisminuir
             // 
-            this.textBox3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(355, 58);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(125, 22);
-            this.textBox3.TabIndex = 1;
+            this.txtDisminuir.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDisminuir.Location = new System.Drawing.Point(355, 58);
+            this.txtDisminuir.Name = "txtDisminuir";
+            this.txtDisminuir.Size = new System.Drawing.Size(125, 22);
+            this.txtDisminuir.TabIndex = 1;
+            this.txtDisminuir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox2
+            // txtAumentar
             // 
-            this.textBox2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(139, 58);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(125, 22);
-            this.textBox2.TabIndex = 0;
+            this.txtAumentar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAumentar.Location = new System.Drawing.Point(139, 58);
+            this.txtAumentar.Name = "txtAumentar";
+            this.txtAumentar.Size = new System.Drawing.Size(125, 22);
+            this.txtAumentar.TabIndex = 0;
+            this.txtAumentar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox1
             // 
@@ -313,8 +319,8 @@
             this.Controls.Add(this.rbAjustar);
             this.Controls.Add(this.rbProducto);
             this.Controls.Add(this.lbProducto);
-            this.Controls.Add(this.panelComprado);
             this.Controls.Add(this.panelAjustar);
+            this.Controls.Add(this.panelComprado);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "AjustarProducto";
@@ -343,14 +349,14 @@
         private System.Windows.Forms.Label lbPrecioCompra;
         private System.Windows.Forms.Label lbFechaCompra;
         private System.Windows.Forms.Label lbProveedor;
-        private System.Windows.Forms.ComboBox cbProveedor;
+        private System.Windows.Forms.ComboBox cbProveedores;
         private System.Windows.Forms.DateTimePicker dpFechaCompra;
         private System.Windows.Forms.TextBox txtCantidadCompra;
         private System.Windows.Forms.TextBox txtPrecioCompra;
         private System.Windows.Forms.Label lbDisminuir;
         private System.Windows.Forms.Label lbAumentar;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtDisminuir;
+        private System.Windows.Forms.TextBox txtAumentar;
         private System.Windows.Forms.Label lbSeparador1;
         private System.Windows.Forms.Label lbSeparador2;
         private System.Windows.Forms.Button btnAceptar;
