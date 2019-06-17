@@ -500,6 +500,12 @@ namespace PuntoDeVentaV2
                 {
                     //Esta es la columna de la opcion "Ajustar"
                     AjustarProducto ap = new AjustarProducto(idProducto);
+
+                    ap.FormClosed += delegate
+                    {
+                        CargarDatos();
+                    };
+
                     ap.ShowDialog();
                 }
             }

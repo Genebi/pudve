@@ -499,6 +499,29 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] ObtenerProveedor(string nombre, int IDUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE IDUsuario = {IDUsuario} AND Nombre = '{nombre}'";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[2].ToString()); //Nombre
+                lista.Add(dr[3].ToString()); //RFC
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] VerificarStockProducto(int IDProducto, int IDUsuario)
         {
             List<string> lista = new List<string>();
@@ -524,6 +547,7 @@ namespace PuntoDeVentaV2
         public void BackUpDB()
         {
             string path = @"C:\Archivos PUDVE\DB\";
+
             if (!Directory.Exists(path))	// verificamos que si no existe el directorio
             {
                 Directory.CreateDirectory(path);	// lo crea para poder almacenar la imagen

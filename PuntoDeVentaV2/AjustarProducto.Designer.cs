@@ -45,7 +45,7 @@
             this.lbAumentar = new System.Windows.Forms.Label();
             this.txtDisminuir = new System.Windows.Forms.TextBox();
             this.txtAumentar = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtComentarios = new System.Windows.Forms.TextBox();
             this.lbComentarios = new System.Windows.Forms.Label();
             this.lbSeparador1 = new System.Windows.Forms.Label();
             this.lbSeparador2 = new System.Windows.Forms.Label();
@@ -237,13 +237,13 @@
             this.txtAumentar.TabIndex = 0;
             this.txtAumentar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox1
+            // txtComentarios
             // 
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(20, 291);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(595, 22);
-            this.textBox1.TabIndex = 5;
+            this.txtComentarios.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtComentarios.Location = new System.Drawing.Point(20, 291);
+            this.txtComentarios.Name = "txtComentarios";
+            this.txtComentarios.Size = new System.Drawing.Size(595, 22);
+            this.txtComentarios.TabIndex = 5;
             // 
             // lbComentarios
             // 
@@ -315,12 +315,12 @@
             this.Controls.Add(this.lbSeparador2);
             this.Controls.Add(this.lbSeparador1);
             this.Controls.Add(this.lbComentarios);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtComentarios);
             this.Controls.Add(this.rbAjustar);
             this.Controls.Add(this.rbProducto);
             this.Controls.Add(this.lbProducto);
-            this.Controls.Add(this.panelAjustar);
             this.Controls.Add(this.panelComprado);
+            this.Controls.Add(this.panelAjustar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "AjustarProducto";
@@ -343,7 +343,7 @@
         private System.Windows.Forms.RadioButton rbAjustar;
         private System.Windows.Forms.Panel panelComprado;
         private System.Windows.Forms.Panel panelAjustar;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtComentarios;
         private System.Windows.Forms.Label lbComentarios;
         private System.Windows.Forms.Label lbCantidadCompra;
         private System.Windows.Forms.Label lbPrecioCompra;

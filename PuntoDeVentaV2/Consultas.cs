@@ -155,5 +155,25 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string AjustarProducto(string[] datos, int tipo)
+        {
+            string consulta = string.Empty;
+
+            //Producto comprado
+            if (tipo == 1)
+            {
+                consulta = "INSERT INTO HistorialCompras (Concepto, Cantidad, ValorUnitario, Precio, FechaLarga, RFCEmisor, NomEmisor, Comentarios, TipoAjuste, FechaOperacion, IDProducto, IDUsuario)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}')";
+            }
+
+            //Ajustar producto
+            if (tipo == 2)
+            {
+
+            }
+
+            return consulta;
+        }
     }
 }
