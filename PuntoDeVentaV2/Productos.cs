@@ -872,6 +872,14 @@ namespace PuntoDeVentaV2
 
         private void CargarDatosBusqueda(string busqueda)
         {
+            //Para la ventana de ajustar producto cuando el checkbox producto comprado esta marcado
+            bool abierta = true;
+
+            if (string.IsNullOrWhiteSpace(busqueda))
+            {
+                abierta = false;
+            }
+
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
@@ -890,11 +898,14 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
-                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+                int idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
+
+                row.Cells["_IDProducto"].Value = idProducto;
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
 
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+
                 if (TipoProd == "P")
                 {
                     row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
@@ -903,6 +914,7 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Column2"].Value = "";
                 }
+
                 row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
                 row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
                 row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
@@ -926,6 +938,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Column7"].Value = editar;
 
                 string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
+
                 if (estado == "1")
                 {
                     row.Cells["Column8"].Value = estado1;
@@ -940,6 +953,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Column10"].Value = generar;
 
                 string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
+
                 if (ImgPath == "" || ImgPath == null)
                 {
                     row.Cells["Column11"].Value = imagen1;
@@ -963,6 +977,17 @@ namespace PuntoDeVentaV2
                 }
 
                 row.Cells["Ajustar"].Value = ajustar;
+
+                if (abierta)
+                {
+                    if (cbProductoComprado.Checked)
+                    {
+                        AjustarProducto ap = new AjustarProducto(idProducto);
+                        ap.ShowDialog();
+                    }
+                    
+                    abierta = false;
+                }
             }
 
             dr.Close();
