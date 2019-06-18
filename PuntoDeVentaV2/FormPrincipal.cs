@@ -96,6 +96,7 @@ namespace PuntoDeVentaV2
             Form formulario;
 
             formulario = panelContenedor.Controls.OfType<MiForm>().FirstOrDefault(); //Busca en la coleccion el formulario
+
             //Si el formulario/instancia no existe
             if (formulario == null)
             {
@@ -107,10 +108,22 @@ namespace PuntoDeVentaV2
                 panelContenedor.Tag = formulario;
                 formulario.Show();
                 formulario.BringToFront();
+
+                if (formulario.Text.Equals("ListadoVentas"))
+                {
+                    Ventas nv = new Ventas();
+                    nv.ShowDialog();
+                }
             }
             else
             {
                 formulario.BringToFront();
+
+                if (formulario.Text.Equals("ListadoVentas"))
+                {
+                    Ventas nv = new Ventas();
+                    nv.ShowDialog();
+                }
             }
         }
 
