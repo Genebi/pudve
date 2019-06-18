@@ -631,6 +631,7 @@ namespace PuntoDeVentaV2
         {
             //dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
             string buscarStock;
+
             if (panelShowDGVProductosView.Visible == true)
             {
                 CargarDatosBusqueda(txtBusqueda.Text);
@@ -871,7 +872,7 @@ namespace PuntoDeVentaV2
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Nombre LIKE '%" + busqueda + "%' ", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%')", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             //limpiarDGV();
