@@ -33,15 +33,23 @@ namespace PuntoDeVentaV2
         {
             string[] datos = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
 
+            //Se obtienen los proveedores del usuario
             listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
             cbProveedores.Items.AddRange(listaProveedores);
             cbProveedores.SelectedIndex = 0;
 
+            //Se carga la informacion por defecto del producto registrado
             lbProducto.Text = datos[1];
             producto = datos[1];
             precioProducto = float.Parse(datos[2]);
             stockProducto = Convert.ToInt32(datos[4]);
             ActiveControl = txtCantidadCompra;
+
+            //Eventos para los campos que solo requieren cantidades
+            txtPrecioCompra.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtCantidadCompra.KeyPress += new KeyPressEventHandler(SoloNumeros);
+            txtAumentar.KeyPress += new KeyPressEventHandler(SoloNumeros);
+            txtDisminuir.KeyPress += new KeyPressEventHandler(SoloNumeros);
         }
 
         private void rbProducto_CheckedChanged(object sender, EventArgs e)
@@ -65,6 +73,11 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            //Tipo de ajuste es cuando se hace desde una de estas dos opciones
+            //Cuando se carga desde un XML o registro normal el tipo de ajuste es 0
+            //Cuando se hace la moficiacion desde la opcion producto comprado es 1
+            //Cuando se hace desde la opcion ajustar es 2
+
             var comentario = txtComentarios.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             
@@ -93,7 +106,7 @@ namespace PuntoDeVentaV2
 
                 if (resultado > 0)
                 {
-                    //Datos del producto que se actualizara
+                    //Datos del producto que se actualizará
                     datos = new string[] { IDProducto.ToString(), stockProducto.ToString() };
 
                     cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
@@ -105,7 +118,43 @@ namespace PuntoDeVentaV2
             //Ajustar producto
             if (rbAjustar.Checked)
             {
-                MessageBox.Show("Ajustar");
+                int auxiliar = 0;
+                var aumentar = txtAumentar.Text;
+                var disminuir = txtDisminuir.Text;
+
+                if (aumentar != "")
+                {
+                    auxiliar = Convert.ToInt32(aumentar);
+                    stockProducto += auxiliar;
+                }
+
+                if (disminuir != "")
+                {
+                    auxiliar = Convert.ToInt32(disminuir);
+                    stockProducto -= auxiliar;
+
+                    if (stockProducto < 0)
+                    {
+                        stockProducto = 0;
+                    }
+
+                    auxiliar *= -1;
+                }
+
+                //Datos para la tabla historial de compras
+                string[] datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
+
+                if (resultado > 0)
+                {
+                    //Datos del producto que se actualizará
+                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString() };
+
+                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                    this.Close();
+                }
             }
         }
 
@@ -125,6 +174,58 @@ namespace PuntoDeVentaV2
             if (valorCB == 2)
             {
                 txtAumentar.Focus();
+            }
+        }
+
+        private void txtAumentar_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtAumentar.Text != "")
+            {
+                txtDisminuir.Enabled = false;
+            }
+            else
+            {
+                txtDisminuir.Enabled = true;
+            }
+        }
+
+        private void txtDisminuir_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtDisminuir.Text != "")
+            {
+                txtAumentar.Enabled = false;
+            }
+            else
+            {
+                txtAumentar.Enabled = true;
+            }
+        }
+
+        private void SoloNumeros(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void SoloDecimales(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                {
+                    e.Handled = true;
+                }  
             }
         }
     }

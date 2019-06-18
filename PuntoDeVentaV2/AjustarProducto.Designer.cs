@@ -227,6 +227,7 @@
             this.txtDisminuir.Size = new System.Drawing.Size(125, 22);
             this.txtDisminuir.TabIndex = 1;
             this.txtDisminuir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDisminuir.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDisminuir_KeyUp);
             // 
             // txtAumentar
             // 
@@ -236,6 +237,7 @@
             this.txtAumentar.Size = new System.Drawing.Size(125, 22);
             this.txtAumentar.TabIndex = 0;
             this.txtAumentar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAumentar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtAumentar_KeyUp);
             // 
             // txtComentarios
             // 

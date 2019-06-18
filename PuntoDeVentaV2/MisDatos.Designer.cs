@@ -116,7 +116,7 @@
             this.panel1.Controls.Add(this.txtNombre);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(31, 67);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(574, 486);
             this.panel1.TabIndex = 1;
@@ -148,9 +148,9 @@
             this.groupBox1.Controls.Add(this.rbPersonaMoral);
             this.groupBox1.Controls.Add(this.rbPersonaFisica);
             this.groupBox1.Location = new System.Drawing.Point(350, 68);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(211, 58);
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
@@ -161,7 +161,7 @@
             this.rbPersonaMoral.AutoSize = true;
             this.rbPersonaMoral.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbPersonaMoral.Location = new System.Drawing.Point(130, 25);
-            this.rbPersonaMoral.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbPersonaMoral.Margin = new System.Windows.Forms.Padding(2);
             this.rbPersonaMoral.Name = "rbPersonaMoral";
             this.rbPersonaMoral.Size = new System.Drawing.Size(64, 22);
             this.rbPersonaMoral.TabIndex = 1;
@@ -175,7 +175,7 @@
             this.rbPersonaFisica.AutoSize = true;
             this.rbPersonaFisica.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbPersonaFisica.Location = new System.Drawing.Point(14, 24);
-            this.rbPersonaFisica.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbPersonaFisica.Margin = new System.Windows.Forms.Padding(2);
             this.rbPersonaFisica.Name = "rbPersonaFisica";
             this.rbPersonaFisica.Size = new System.Drawing.Size(65, 22);
             this.rbPersonaFisica.TabIndex = 0;
@@ -190,7 +190,7 @@
             this.cbRegimen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRegimen.FormattingEnabled = true;
             this.cbRegimen.Location = new System.Drawing.Point(22, 452);
-            this.cbRegimen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbRegimen.Margin = new System.Windows.Forms.Padding(2);
             this.cbRegimen.Name = "cbRegimen";
             this.cbRegimen.Size = new System.Drawing.Size(540, 25);
             this.cbRegimen.TabIndex = 23;
@@ -212,7 +212,7 @@
             this.txtTelefono.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefono.Location = new System.Drawing.Point(346, 330);
-            this.txtTelefono.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtTelefono.Margin = new System.Windows.Forms.Padding(2);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(215, 24);
             this.txtTelefono.TabIndex = 21;
@@ -234,7 +234,7 @@
             this.txtEmail.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmail.Location = new System.Drawing.Point(22, 328);
-            this.txtEmail.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(309, 24);
             this.txtEmail.TabIndex = 19;
@@ -256,7 +256,7 @@
             this.txtCodPost.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodPost.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCodPost.Location = new System.Drawing.Point(346, 274);
-            this.txtCodPost.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCodPost.Margin = new System.Windows.Forms.Padding(2);
             this.txtCodPost.Name = "txtCodPost";
             this.txtCodPost.Size = new System.Drawing.Size(215, 24);
             this.txtCodPost.TabIndex = 17;
@@ -278,7 +278,7 @@
             this.txtEstado.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEstado.Location = new System.Drawing.Point(22, 274);
-            this.txtEstado.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtEstado.Margin = new System.Windows.Forms.Padding(2);
             this.txtEstado.Name = "txtEstado";
             this.txtEstado.Size = new System.Drawing.Size(310, 24);
             this.txtEstado.TabIndex = 15;
@@ -299,7 +299,7 @@
             this.txtMpio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMpio.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMpio.Location = new System.Drawing.Point(308, 217);
-            this.txtMpio.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMpio.Margin = new System.Windows.Forms.Padding(2);
             this.txtMpio.Name = "txtMpio";
             this.txtMpio.Size = new System.Drawing.Size(254, 24);
             this.txtMpio.TabIndex = 13;
@@ -320,7 +320,7 @@
             this.txtColonia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtColonia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtColonia.Location = new System.Drawing.Point(22, 217);
-            this.txtColonia.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtColonia.Margin = new System.Windows.Forms.Padding(2);
             this.txtColonia.Name = "txtColonia";
             this.txtColonia.Size = new System.Drawing.Size(240, 24);
             this.txtColonia.TabIndex = 11;
@@ -341,7 +341,7 @@
             this.txtNoInt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNoInt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNoInt.Location = new System.Drawing.Point(416, 160);
-            this.txtNoInt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNoInt.Margin = new System.Windows.Forms.Padding(2);
             this.txtNoInt.Name = "txtNoInt";
             this.txtNoInt.Size = new System.Drawing.Size(145, 24);
             this.txtNoInt.TabIndex = 9;
@@ -362,7 +362,7 @@
             this.txtNoExt.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNoExt.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNoExt.Location = new System.Drawing.Point(284, 160);
-            this.txtNoExt.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNoExt.Margin = new System.Windows.Forms.Padding(2);
             this.txtNoExt.Name = "txtNoExt";
             this.txtNoExt.Size = new System.Drawing.Size(110, 24);
             this.txtNoExt.TabIndex = 7;
@@ -383,7 +383,7 @@
             this.txtCalle.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCalle.Location = new System.Drawing.Point(22, 161);
-            this.txtCalle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCalle.Margin = new System.Windows.Forms.Padding(2);
             this.txtCalle.Name = "txtCalle";
             this.txtCalle.Size = new System.Drawing.Size(240, 24);
             this.txtCalle.TabIndex = 5;
@@ -404,7 +404,7 @@
             this.txtRFC.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRFC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRFC.Location = new System.Drawing.Point(22, 93);
-            this.txtRFC.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRFC.Margin = new System.Windows.Forms.Padding(2);
             this.txtRFC.Name = "txtRFC";
             this.txtRFC.Size = new System.Drawing.Size(310, 24);
             this.txtRFC.TabIndex = 3;
@@ -425,7 +425,7 @@
             this.txtNombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(22, 37);
-            this.txtNombre.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(2);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(540, 24);
             this.txtNombre.TabIndex = 1;
@@ -448,7 +448,7 @@
             this.btnActualizarDatos.ForeColor = System.Drawing.Color.SeaShell;
             this.btnActualizarDatos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnActualizarDatos.Location = new System.Drawing.Point(440, 570);
-            this.btnActualizarDatos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnActualizarDatos.Margin = new System.Windows.Forms.Padding(2);
             this.btnActualizarDatos.Name = "btnActualizarDatos";
             this.btnActualizarDatos.Size = new System.Drawing.Size(165, 55);
             this.btnActualizarDatos.TabIndex = 2;
@@ -464,7 +464,7 @@
             this.panel2.Controls.Add(this.pictureBox1);
             this.panel2.Controls.Add(this.label14);
             this.panel2.Location = new System.Drawing.Point(618, 67);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(370, 486);
             this.panel2.TabIndex = 3;
@@ -474,7 +474,7 @@
             this.btnBorrarImg.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrarImg.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBorrarImg.Location = new System.Drawing.Point(195, 407);
-            this.btnBorrarImg.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBorrarImg.Margin = new System.Windows.Forms.Padding(2);
             this.btnBorrarImg.Name = "btnBorrarImg";
             this.btnBorrarImg.Size = new System.Drawing.Size(146, 50);
             this.btnBorrarImg.TabIndex = 5;
@@ -486,7 +486,7 @@
             // 
             this.TxtBoxNombreArchivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TxtBoxNombreArchivo.Location = new System.Drawing.Point(22, 358);
-            this.TxtBoxNombreArchivo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.TxtBoxNombreArchivo.Margin = new System.Windows.Forms.Padding(2);
             this.TxtBoxNombreArchivo.Name = "TxtBoxNombreArchivo";
             this.TxtBoxNombreArchivo.Size = new System.Drawing.Size(320, 24);
             this.TxtBoxNombreArchivo.TabIndex = 3;
@@ -497,7 +497,7 @@
             this.btnSubirArchivo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubirArchivo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSubirArchivo.Location = new System.Drawing.Point(22, 407);
-            this.btnSubirArchivo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSubirArchivo.Margin = new System.Windows.Forms.Padding(2);
             this.btnSubirArchivo.Name = "btnSubirArchivo";
             this.btnSubirArchivo.Size = new System.Drawing.Size(146, 50);
             this.btnSubirArchivo.TabIndex = 2;
@@ -509,7 +509,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.Location = new System.Drawing.Point(22, 45);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(319, 280);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -540,7 +540,7 @@
             this.Controls.Add(this.btnActualizarDatos);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MisDatos";
             this.Text = "MisDatos";
             this.Load += new System.EventHandler(this.MisDatos_Load);
