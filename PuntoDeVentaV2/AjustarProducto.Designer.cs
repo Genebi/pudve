@@ -177,6 +177,7 @@
             this.txtCantidadCompra.Size = new System.Drawing.Size(125, 22);
             this.txtCantidadCompra.TabIndex = 3;
             this.txtCantidadCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidadCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadCompra_KeyDown);
             // 
             // txtPrecioCompra
             // 

@@ -659,6 +659,12 @@ namespace PuntoDeVentaV2
             cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMostrar.SelectedIndex = 0;
             cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            //Verifica si el checkbox de producto comprado fue marcado
+            if (Properties.Settings.Default.opcionProductoComprado)
+            {
+                cbProductoComprado.Checked = true;
+            }
         }
 
         private void CargarDatos()
@@ -1321,6 +1327,20 @@ namespace PuntoDeVentaV2
             {
                 FormXML.BringToFront();
             }
+        }
+
+        private void cbProductoComprado_CheckedChanged(object sender, EventArgs e)
+        {
+            bool estado = false;
+
+            if (cbProductoComprado.Checked)
+            {
+                estado = true;
+            }
+
+            Properties.Settings.Default.opcionProductoComprado = estado;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
     }
 }
