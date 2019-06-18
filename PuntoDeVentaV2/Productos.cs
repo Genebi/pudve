@@ -16,6 +16,8 @@ namespace PuntoDeVentaV2
     {
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
+        public static int proveedorElegido = 0;
+
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
@@ -504,6 +506,8 @@ namespace PuntoDeVentaV2
                     ap.FormClosed += delegate
                     {
                         CargarDatos();
+                        txtBusqueda.Text = string.Empty;
+                        txtBusqueda.Focus();
                     };
 
                     ap.ShowDialog();
@@ -874,6 +878,7 @@ namespace PuntoDeVentaV2
         {
             //Para la ventana de ajustar producto cuando el checkbox producto comprado esta marcado
             bool abierta = true;
+            int idProducto = 0;
 
             if (string.IsNullOrWhiteSpace(busqueda))
             {
@@ -898,7 +903,7 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
-                int idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
+                idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
 
                 row.Cells["_IDProducto"].Value = idProducto;
 
@@ -977,21 +982,29 @@ namespace PuntoDeVentaV2
                 }
 
                 row.Cells["Ajustar"].Value = ajustar;
-
-                if (abierta)
-                {
-                    if (cbProductoComprado.Checked)
-                    {
-                        AjustarProducto ap = new AjustarProducto(idProducto);
-                        ap.ShowDialog();
-                    }
-                    
-                    abierta = false;
-                }
             }
 
             dr.Close();
             sql_con.Close();
+
+            if (abierta)
+            {
+                if (cbProductoComprado.Checked)
+                {
+                    AjustarProducto ap = new AjustarProducto(idProducto);
+
+                    ap.FormClosed += delegate
+                    {
+                        CargarDatos();
+                        txtBusqueda.Text = string.Empty;
+                        txtBusqueda.Focus();
+                    };
+
+                    ap.ShowDialog();
+                }
+
+                abierta = false;
+            }
         }
 
         private void CargarDatosInactivos()

@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
             //Se obtienen los proveedores del usuario
             listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
             cbProveedores.Items.AddRange(listaProveedores);
-            cbProveedores.SelectedIndex = 0;
+            cbProveedores.SelectedIndex = Productos.proveedorElegido;
 
             //Se carga la informacion por defecto del producto registrado
             lbProducto.Text = datos[1];
@@ -92,6 +92,7 @@ namespace PuntoDeVentaV2
 
                 if (cbProveedores.SelectedIndex > 0)
                 {
+                    Productos.proveedorElegido = cbProveedores.SelectedIndex;
                     proveedor = cbProveedores.SelectedItem.ToString();
                     string[] tmp = cn.ObtenerProveedor(proveedor, FormPrincipal.userID);
                     rfc = tmp[1];
