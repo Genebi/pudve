@@ -544,6 +544,36 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+
+        public int ObtenerUltimoIdReporte(int IDUsuario)
+        {
+            int idReporte = 0;
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT MAX(IDReporte) AS ID FROM HistorialCompras WHERE IDUsuario = {IDUsuario}";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                if (dr["ID"] == DBNull.Value)
+                {
+                    idReporte = 0;
+                }
+                else
+                {
+                    idReporte = Convert.ToInt32(dr["ID"]);
+                }
+            }
+
+            dr.Close();
+
+            return idReporte;
+        }
+
         public void BackUpDB()
         {
             string path = @"C:\Archivos PUDVE\DB\";

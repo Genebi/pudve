@@ -77,6 +77,23 @@ namespace PuntoDeVentaV2
             //Cuando se carga desde un XML o registro normal el tipo de ajuste es 0
             //Cuando se hace la moficiacion desde la opcion producto comprado es 1
             //Cuando se hace desde la opcion ajustar es 2
+            var reporte = 0;
+
+            if (Productos.generarIdReporte)
+            {
+                reporte = Productos.idReporte;
+
+                /*var auxiliar = cn.ObtenerUltimoIdReporte(FormPrincipal.userID);
+
+                if (reporte < auxiliar)
+                {
+                    reporte = auxiliar;
+                }
+
+                MessageBox.Show(reporte + "|" + auxiliar);
+
+                return;*/
+            }
 
             var comentario = txtComentarios.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -99,7 +116,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Datos para la tabla historial de compras
-                string[] datos = new string[] { producto, cantidadCompra, precioCompra, precioProducto.ToString(), fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString() };
+                string[] datos = new string[] { producto, cantidadCompra, precioCompra, precioProducto.ToString(), fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
                 stockProducto += Convert.ToInt32(cantidadCompra);
 
@@ -111,6 +128,8 @@ namespace PuntoDeVentaV2
                     datos = new string[] { IDProducto.ToString(), stockProducto.ToString() };
 
                     cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                    Productos.idReporte = reporte;
 
                     this.Close();
                 }

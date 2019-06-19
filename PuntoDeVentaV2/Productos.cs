@@ -17,6 +17,8 @@ namespace PuntoDeVentaV2
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         public static int proveedorElegido = 0;
+        public static bool generarIdReporte = false;
+        public static int idReporte = 0;
 
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
@@ -669,6 +671,8 @@ namespace PuntoDeVentaV2
             {
                 cbProductoComprado.Checked = true;
             }
+
+            idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 
         private void CargarDatos()
@@ -998,9 +1002,12 @@ namespace PuntoDeVentaV2
                         CargarDatos();
                         txtBusqueda.Text = string.Empty;
                         txtBusqueda.Focus();
+                        generarIdReporte = false;
                     };
 
-                    ap.ShowDialog();
+                    generarIdReporte = true;
+
+                    ap.ShowDialog(); 
                 }
 
                 abierta = false;
@@ -1374,6 +1381,17 @@ namespace PuntoDeVentaV2
             if (cbProductoComprado.Checked)
             {
                 estado = true;
+            }
+            else
+            {
+                var respuesta = MessageBox.Show("Generar reporte?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    MessageBox.Show("Generando reporte...");
+                }
+
+                idReporte++;
             }
 
             Properties.Settings.Default.opcionProductoComprado = estado;
