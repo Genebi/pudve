@@ -1417,7 +1417,7 @@ namespace PuntoDeVentaV2
 
             var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Historial\reporte_"+ idReporte +".pdf";
 
-            float[] anchoColumnas = new float[] { 10f, 24f, 9f, 9f };
+            //float[] anchoColumnas = new float[] { 10f, 24f, 9f, 9f };
 
             Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));

@@ -164,5 +164,10 @@ namespace PuntoDeVentaV2
         {
             AbrirFormulario<Proveedores>();
         }
+
+        private void btnCaja_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario<Caja>();
+        }
     }
 }

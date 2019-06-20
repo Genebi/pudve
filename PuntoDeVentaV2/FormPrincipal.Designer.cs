@@ -170,6 +170,7 @@
             this.btnCaja.Text = "Caja";
             this.btnCaja.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnCaja.UseVisualStyleBackColor = true;
+            this.btnCaja.Click += new System.EventHandler(this.btnCaja_Click);
             // 
             // btnAnticipos
             // 
