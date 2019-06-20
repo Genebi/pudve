@@ -55,6 +55,10 @@ namespace PuntoDeVentaV2
         {
             //Se crea el directorio principal para almacenar todos los archivos generados y carpetas
             Directory.CreateDirectory(@"C:\Archivos PUDVE");
+            Directory.CreateDirectory(@"C:\Archivos PUDVE\Reportes");
+            Directory.CreateDirectory(@"C:\Archivos PUDVE\Reportes\Historial");
+            Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos");
+            Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos\Usuarios");
 
             recargarDatos();
 

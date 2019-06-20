@@ -352,6 +352,12 @@
     <Compile Include="Ventas.Designer.cs">
       <DependentUpon>Ventas.cs</DependentUpon>
     </Compile>
+    <Compile Include="VisualizadorReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisualizadorReportes.Designer.cs">
+      <DependentUpon>VisualizadorReportes.cs</DependentUpon>
+    </Compile>
     <Compile Include="VisualizadorTickets.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -466,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisualizadorReportes.resx">
+      <DependentUpon>VisualizadorReportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorTickets.resx">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>

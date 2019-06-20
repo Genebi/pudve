@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
         DataRow row, rows;
 
         // direccion de la carpeta donde se va poner las imagenes
-        string saveDirectoryImg= Properties.Settings.Default.rutaDirectorio + @"\PUDVE\MisDatos\Usuarios\";
+        string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
 
         // objeto para el manejo de las imagenes
         FileStream File,File1;

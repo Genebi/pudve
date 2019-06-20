@@ -82,17 +82,6 @@ namespace PuntoDeVentaV2
             if (Productos.generarIdReporte)
             {
                 reporte = Productos.idReporte;
-
-                /*var auxiliar = cn.ObtenerUltimoIdReporte(FormPrincipal.userID);
-
-                if (reporte < auxiliar)
-                {
-                    reporte = auxiliar;
-                }
-
-                MessageBox.Show(reporte + "|" + auxiliar);
-
-                return;*/
             }
 
             var comentario = txtComentarios.Text;
