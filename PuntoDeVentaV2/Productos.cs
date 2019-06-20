@@ -1417,7 +1417,9 @@ namespace PuntoDeVentaV2
 
             var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Historial\reporte_"+ idReporte +".pdf";
 
-            Document reporte = new Document(PageSize.LETTER);
+            float[] anchoColumnas = new float[] { 10f, 24f, 9f, 9f };
+
+            Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
             string logotipo = datos[11];
@@ -1449,8 +1451,7 @@ namespace PuntoDeVentaV2
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-
-            PdfPTable tabla = new PdfPTable(6);
+            PdfPTable tabla = new PdfPTable(7);
             tabla.WidthPercentage = 100;
             //tabla.SetWidths(anchoColumnas);
 
@@ -1458,31 +1459,29 @@ namespace PuntoDeVentaV2
             colProveedor.BorderWidth = 1;
             colProveedor.HorizontalAlignment = Element.ALIGN_CENTER;
 
-
             PdfPCell colUnidades = new PdfPCell(new Phrase("Unidades compradas", fuenteNegrita));
             colUnidades.BorderWidth = 1;
             colUnidades.HorizontalAlignment = Element.ALIGN_CENTER;
-
 
             PdfPCell colPrecioCompra = new PdfPCell(new Phrase("Precio compra", fuenteNegrita));
             colPrecioCompra.BorderWidth = 1;
             colPrecioCompra.HorizontalAlignment = Element.ALIGN_CENTER;
 
-
             PdfPCell colPrecioVenta = new PdfPCell(new Phrase("Precio venta", fuenteNegrita));
             colPrecioVenta.BorderWidth = 1;
             colPrecioVenta.HorizontalAlignment = Element.ALIGN_CENTER;
-
 
             PdfPCell colStock = new PdfPCell(new Phrase("Stock actual", fuenteNegrita));
             colStock.BorderWidth = 1;
             colStock.HorizontalAlignment = Element.ALIGN_CENTER;
 
-
             PdfPCell colFechaCompra = new PdfPCell(new Phrase("Fecha de compra", fuenteNegrita));
             colFechaCompra.BorderWidth = 1;
             colFechaCompra.HorizontalAlignment = Element.ALIGN_CENTER;
 
+            PdfPCell colFechaOperacion = new PdfPCell(new Phrase("Fecha de operación", fuenteNegrita));
+            colFechaOperacion.BorderWidth = 1;
+            colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
             tabla.AddCell(colProveedor);
             tabla.AddCell(colUnidades);
@@ -1490,8 +1489,10 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colPrecioVenta);
             tabla.AddCell(colStock);
             tabla.AddCell(colFechaCompra);
+            tabla.AddCell(colFechaOperacion);
 
 
+            //Consulta para obtener los registros del Historial de compras
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
@@ -1514,6 +1515,9 @@ namespace PuntoDeVentaV2
 
                 DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("FechaLarga"));
                 var fechaCompra = fecha.ToString("yyyy-MM-dd");
+
+                DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
+                var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
 
                 PdfPCell colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
                 colProveedorTmp.BorderWidth = 1;
@@ -1539,6 +1543,9 @@ namespace PuntoDeVentaV2
                 colFechaCompraTmp.BorderWidth = 1;
                 colFechaCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
+                colFechaOperacionTmp.BorderWidth = 1;
+                colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 tabla.AddCell(colProveedorTmp);
                 tabla.AddCell(colUnidadesTmp);
@@ -1546,6 +1553,7 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colPrecioVentaTmp);
                 tabla.AddCell(colStockTmp);
                 tabla.AddCell(colFechaCompraTmp);
+                tabla.AddCell(colFechaOperacionTmp);
             }
 
             /******************************************
