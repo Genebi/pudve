@@ -378,7 +378,7 @@
             // btnListView
             // 
             this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list1;
+            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
             this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnListView.Location = new System.Drawing.Point(12, 142);
             this.btnListView.Margin = new System.Windows.Forms.Padding(2);
@@ -393,7 +393,7 @@
             // btnPhotoView
             // 
             this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th1;
+            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th;
             this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPhotoView.Location = new System.Drawing.Point(152, 142);
             this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
@@ -408,7 +408,7 @@
             // btnModificarEstado
             // 
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs1;
+            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
             this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnModificarEstado.Location = new System.Drawing.Point(152, 110);
             this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
@@ -426,7 +426,7 @@
             this.btnAgregarXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus2;
+            this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
             this.btnAgregarXML.Location = new System.Drawing.Point(12, 110);
             this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregarXML.Name = "btnAgregarXML";

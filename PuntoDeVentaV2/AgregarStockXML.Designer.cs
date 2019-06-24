@@ -837,7 +837,7 @@
             // 
             this.button2.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.check;
+            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.check1;
             this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button2.Location = new System.Drawing.Point(1039, 690);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -853,7 +853,7 @@
             // 
             this.button1.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.close;
+            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.close1;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.Location = new System.Drawing.Point(1135, 690);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
