@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.DGVClientes = new System.Windows.Forms.DataGridView();
-            this.panelBotones = new System.Windows.Forms.Panel();
-            this.btnNuevoCliente = new System.Windows.Forms.Button();
-            this.tituloSeccion = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,6 +36,9 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
             this.Status = new System.Windows.Forms.DataGridViewImageColumn();
+            this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnNuevoCliente = new System.Windows.Forms.Button();
+            this.tituloSeccion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -65,47 +65,6 @@
             this.DGVClientes.RowHeadersVisible = false;
             this.DGVClientes.Size = new System.Drawing.Size(845, 217);
             this.DGVClientes.TabIndex = 11;
-            // 
-            // panelBotones
-            // 
-            this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBotones.Controls.Add(this.btnNuevoCliente);
-            this.panelBotones.Location = new System.Drawing.Point(12, 77);
-            this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 50);
-            this.panelBotones.TabIndex = 10;
-            // 
-            // btnNuevoCliente
-            // 
-            this.btnNuevoCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNuevoCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnNuevoCliente.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNuevoCliente.FlatAppearance.BorderSize = 0;
-            this.btnNuevoCliente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnNuevoCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevoCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNuevoCliente.ForeColor = System.Drawing.Color.White;
-            this.btnNuevoCliente.Location = new System.Drawing.Point(716, 18);
-            this.btnNuevoCliente.Name = "btnNuevoCliente";
-            this.btnNuevoCliente.Size = new System.Drawing.Size(125, 24);
-            this.btnNuevoCliente.TabIndex = 5;
-            this.btnNuevoCliente.Text = "Nuevo Cliente";
-            this.btnNuevoCliente.UseVisualStyleBackColor = false;
-            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
-            // 
-            // tituloSeccion
-            // 
-            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.AutoSize = true;
-            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(388, 27);
-            this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(101, 25);
-            this.tituloSeccion.TabIndex = 9;
-            this.tituloSeccion.Text = "CLIENTES";
-            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ID
             // 
@@ -159,6 +118,47 @@
             this.Status.ReadOnly = true;
             this.Status.Width = 50;
             // 
+            // panelBotones
+            // 
+            this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.btnNuevoCliente);
+            this.panelBotones.Location = new System.Drawing.Point(12, 77);
+            this.panelBotones.Name = "panelBotones";
+            this.panelBotones.Size = new System.Drawing.Size(845, 50);
+            this.panelBotones.TabIndex = 10;
+            // 
+            // btnNuevoCliente
+            // 
+            this.btnNuevoCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNuevoCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnNuevoCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNuevoCliente.FlatAppearance.BorderSize = 0;
+            this.btnNuevoCliente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnNuevoCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevoCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevoCliente.ForeColor = System.Drawing.Color.White;
+            this.btnNuevoCliente.Location = new System.Drawing.Point(716, 18);
+            this.btnNuevoCliente.Name = "btnNuevoCliente";
+            this.btnNuevoCliente.Size = new System.Drawing.Size(125, 24);
+            this.btnNuevoCliente.TabIndex = 5;
+            this.btnNuevoCliente.Text = "Nuevo Cliente";
+            this.btnNuevoCliente.UseVisualStyleBackColor = false;
+            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
+            // 
+            // tituloSeccion
+            // 
+            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tituloSeccion.AutoSize = true;
+            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSeccion.Location = new System.Drawing.Point(388, 27);
+            this.tituloSeccion.Name = "tituloSeccion";
+            this.tituloSeccion.Size = new System.Drawing.Size(101, 25);
+            this.tituloSeccion.TabIndex = 9;
+            this.tituloSeccion.Text = "CLIENTES";
+            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,6 +169,7 @@
             this.Controls.Add(this.tituloSeccion);
             this.Name = "Clientes";
             this.Text = "Clientes";
+            this.Load += new System.EventHandler(this.Clientes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).EndInit();
             this.panelBotones.ResumeLayout(false);
             this.ResumeLayout(false);
