@@ -593,5 +593,82 @@ namespace PuntoDeVentaV2
                 sql_con.Close();
             }
         }
+
+        public int CountColumnasTabla(string consulta)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            int contador = 0;
+
+            while (dr.Read())
+            {
+                contador++;
+            }
+            dr.Close();
+
+            return contador;
+        }
+
+        public void ForeginKeysOff()
+        {
+            string query = "PRAGMA foreign_keys = OFF;";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = query;
+            sql_cmd.ExecuteNonQuery();
+        }
+
+        public void renameTable(string Query)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = Query;
+            sql_cmd.ExecuteNonQuery();
+        }
+
+        public void CrearTabla(string Query)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = Query;
+            sql_cmd.ExecuteNonQuery();
+        }
+
+        public void ForeginKeysOn()
+        {
+            string query = "PRAGMA foreign_keys = ON;";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = query;
+            sql_cmd.ExecuteNonQuery();
+        }
+
+        public void insertDataIntoTable(string Query)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = Query;
+            sql_cmd.ExecuteNonQuery();
+        }
+
+        public void dropOldTable(string Query)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = Query;
+            sql_cmd.ExecuteNonQuery();
+        }
     }
 }
