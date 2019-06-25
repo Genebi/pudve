@@ -16,5 +16,10 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
         }
+
+        private void btnNuevoCliente_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Nuevo cliente");
+        }
     }
 }
