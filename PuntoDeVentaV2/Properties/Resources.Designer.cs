@@ -691,6 +691,15 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BarCode2 {
+            get {
+                return ResourceManager.GetString("BarCode2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap bars {
@@ -5121,6 +5130,24 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PdfCode {
+            get {
+                return ResourceManager.GetString("PdfCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string PdfTag {
+            get {
+                return ResourceManager.GetString("PdfTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon PDVE {
@@ -7666,6 +7693,15 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("users", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string Usuarios {
+            get {
+                return ResourceManager.GetString("Usuarios", resourceCulture);
             }
         }
         

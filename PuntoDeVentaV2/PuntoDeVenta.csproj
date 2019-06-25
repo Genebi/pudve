@@ -235,6 +235,7 @@
     <Compile Include="ComboboxItem.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="Consultas.cs" />
+    <Compile Include="DBTables.cs" />
     <Compile Include="DetalleDescripcion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -550,6 +551,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\assets\Work_area.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\BarCode\BarCode.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\BD\BackupDb.db">
@@ -2967,6 +2971,15 @@
     <Content Include="PUDVE\icon\black\save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\MisDatos\Usuarios\Usuarios.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\PdfCode\PdfCode.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\PdfTag\PdfTag.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\Productos\no-image.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -2981,12 +2994,7 @@
     </Content>
     <Content Include="setup.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PUDVE\BarCode\" />
-    <Folder Include="PUDVE\MisDatos\Usuarios\" />
-    <Folder Include="PUDVE\PdfCode\" />
-    <Folder Include="PUDVE\PdfTag\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
