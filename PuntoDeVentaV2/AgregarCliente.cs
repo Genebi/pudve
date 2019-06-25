@@ -12,6 +12,9 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarCliente : Form
     {
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+
         public AgregarCliente()
         {
             InitializeComponent();
@@ -86,7 +89,59 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            var razon = txtRazonSocial.Text;
+            var comercial = txtNombreComercial.Text;
+            var rfc = txtRFC.Text;
+            var usoCFDI = cbUsoCFDI.SelectedValue;
+            var pais = txtPais.Text;
+            var estado = txtEstado.Text;
+            var municipio = txtMunicipio.Text;
+            var localidad = txtLocalidad.Text;
+            var cp = txtCP.Text;
+            var colonia = txtColonia.Text;
+            var calle = txtCalle.Text;
+            var noExt = txtNumExt.Text;
+            var noInt = txtNumInt.Text;
+            var regimen = cbRegimen.SelectedValue;
+            var email = txtEmail.Text;
+            var telefono = txtTelefono.Text;
+            var formaPago = cbFormaPago.SelectedValue;
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+            string[] datos = new string[]
+            {
+                FormPrincipal.userID.ToString(),
+                razon,
+                comercial,
+                rfc,
+                usoCFDI.ToString(),
+                pais,
+                estado,
+                municipio,
+                localidad,
+                cp,
+                colonia,
+                calle,
+                noExt,
+                noInt,
+                regimen.ToString(),
+                email,
+                telefono,
+                formaPago.ToString(),
+                fechaOperacion
+            };
+
+            int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+
+            if (resultado > 0)
+            {
+                this.Close();
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }
