@@ -19,7 +19,14 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoCliente_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Nuevo cliente");
+            AgregarCliente cliente = new AgregarCliente();
+
+            cliente.FormClosed += delegate
+            {
+
+            };
+
+            cliente.ShowDialog();
         }
     }
 }
