@@ -176,5 +176,13 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string OperacionCaja(string[] datos)
+        {
+            string consulta = "INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario)";
+                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}')";
+
+            return consulta;
+        }
     }
 }

@@ -34,11 +34,6 @@
             this.panelBotones = new System.Windows.Forms.Panel();
             this.label8 = new System.Windows.Forms.Label();
             this.gbContenedor = new System.Windows.Forms.GroupBox();
-            this.panelAgregar = new System.Windows.Forms.Panel();
-            this.btnCancelarDeposito = new System.Windows.Forms.Button();
-            this.btnAceptarDeposito = new System.Windows.Forms.Button();
-            this.txtAgregarDinero = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panelRetirar = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.txtConcepto = new System.Windows.Forms.TextBox();
@@ -46,11 +41,16 @@
             this.btnAceptarRetirar = new System.Windows.Forms.Button();
             this.txtRetirarDinero = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.panelAgregar = new System.Windows.Forms.Panel();
+            this.btnCancelarDeposito = new System.Windows.Forms.Button();
+            this.btnAceptarDeposito = new System.Windows.Forms.Button();
+            this.txtAgregarDinero = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelContenido = new System.Windows.Forms.Panel();
             this.panelBotones.SuspendLayout();
             this.gbContenedor.SuspendLayout();
-            this.panelAgregar.SuspendLayout();
             this.panelRetirar.SuspendLayout();
+            this.panelAgregar.SuspendLayout();
             this.panelContenido.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,69 +133,6 @@
             this.gbContenedor.Size = new System.Drawing.Size(445, 338);
             this.gbContenedor.TabIndex = 23;
             this.gbContenedor.TabStop = false;
-            // 
-            // panelAgregar
-            // 
-            this.panelAgregar.Controls.Add(this.btnCancelarDeposito);
-            this.panelAgregar.Controls.Add(this.btnAceptarDeposito);
-            this.panelAgregar.Controls.Add(this.txtAgregarDinero);
-            this.panelAgregar.Controls.Add(this.label1);
-            this.panelAgregar.Location = new System.Drawing.Point(7, 16);
-            this.panelAgregar.Name = "panelAgregar";
-            this.panelAgregar.Size = new System.Drawing.Size(432, 316);
-            this.panelAgregar.TabIndex = 0;
-            this.panelAgregar.Visible = false;
-            // 
-            // btnCancelarDeposito
-            // 
-            this.btnCancelarDeposito.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnCancelarDeposito.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelarDeposito.FlatAppearance.BorderSize = 0;
-            this.btnCancelarDeposito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarDeposito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelarDeposito.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnCancelarDeposito.Location = new System.Drawing.Point(59, 111);
-            this.btnCancelarDeposito.Name = "btnCancelarDeposito";
-            this.btnCancelarDeposito.Size = new System.Drawing.Size(160, 24);
-            this.btnCancelarDeposito.TabIndex = 3;
-            this.btnCancelarDeposito.Text = "Cancelar";
-            this.btnCancelarDeposito.UseVisualStyleBackColor = false;
-            this.btnCancelarDeposito.Click += new System.EventHandler(this.btnCancelarDeposito_Click);
-            // 
-            // btnAceptarDeposito
-            // 
-            this.btnAceptarDeposito.BackColor = System.Drawing.Color.Green;
-            this.btnAceptarDeposito.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAceptarDeposito.FlatAppearance.BorderSize = 0;
-            this.btnAceptarDeposito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptarDeposito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptarDeposito.ForeColor = System.Drawing.Color.White;
-            this.btnAceptarDeposito.Location = new System.Drawing.Point(226, 111);
-            this.btnAceptarDeposito.Name = "btnAceptarDeposito";
-            this.btnAceptarDeposito.Size = new System.Drawing.Size(160, 24);
-            this.btnAceptarDeposito.TabIndex = 2;
-            this.btnAceptarDeposito.Text = "Aceptar";
-            this.btnAceptarDeposito.UseVisualStyleBackColor = false;
-            this.btnAceptarDeposito.Click += new System.EventHandler(this.btnAceptarDeposito_Click);
-            // 
-            // txtAgregarDinero
-            // 
-            this.txtAgregarDinero.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAgregarDinero.Location = new System.Drawing.Point(59, 65);
-            this.txtAgregarDinero.Name = "txtAgregarDinero";
-            this.txtAgregarDinero.Size = new System.Drawing.Size(327, 23);
-            this.txtAgregarDinero.TabIndex = 1;
-            this.txtAgregarDinero.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(138, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(149, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cantidad a depositar";
             // 
             // panelRetirar
             // 
@@ -281,6 +218,69 @@
             this.label2.TabIndex = 15;
             this.label2.Text = "Cantidad a retirar";
             // 
+            // panelAgregar
+            // 
+            this.panelAgregar.Controls.Add(this.btnCancelarDeposito);
+            this.panelAgregar.Controls.Add(this.btnAceptarDeposito);
+            this.panelAgregar.Controls.Add(this.txtAgregarDinero);
+            this.panelAgregar.Controls.Add(this.label1);
+            this.panelAgregar.Location = new System.Drawing.Point(7, 16);
+            this.panelAgregar.Name = "panelAgregar";
+            this.panelAgregar.Size = new System.Drawing.Size(432, 316);
+            this.panelAgregar.TabIndex = 0;
+            this.panelAgregar.Visible = false;
+            // 
+            // btnCancelarDeposito
+            // 
+            this.btnCancelarDeposito.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnCancelarDeposito.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelarDeposito.FlatAppearance.BorderSize = 0;
+            this.btnCancelarDeposito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelarDeposito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarDeposito.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btnCancelarDeposito.Location = new System.Drawing.Point(59, 111);
+            this.btnCancelarDeposito.Name = "btnCancelarDeposito";
+            this.btnCancelarDeposito.Size = new System.Drawing.Size(160, 24);
+            this.btnCancelarDeposito.TabIndex = 3;
+            this.btnCancelarDeposito.Text = "Cancelar";
+            this.btnCancelarDeposito.UseVisualStyleBackColor = false;
+            this.btnCancelarDeposito.Click += new System.EventHandler(this.btnCancelarDeposito_Click);
+            // 
+            // btnAceptarDeposito
+            // 
+            this.btnAceptarDeposito.BackColor = System.Drawing.Color.Green;
+            this.btnAceptarDeposito.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAceptarDeposito.FlatAppearance.BorderSize = 0;
+            this.btnAceptarDeposito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptarDeposito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptarDeposito.ForeColor = System.Drawing.Color.White;
+            this.btnAceptarDeposito.Location = new System.Drawing.Point(226, 111);
+            this.btnAceptarDeposito.Name = "btnAceptarDeposito";
+            this.btnAceptarDeposito.Size = new System.Drawing.Size(160, 24);
+            this.btnAceptarDeposito.TabIndex = 2;
+            this.btnAceptarDeposito.Text = "Aceptar";
+            this.btnAceptarDeposito.UseVisualStyleBackColor = false;
+            this.btnAceptarDeposito.Click += new System.EventHandler(this.btnAceptarDeposito_Click);
+            // 
+            // txtAgregarDinero
+            // 
+            this.txtAgregarDinero.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAgregarDinero.Location = new System.Drawing.Point(59, 65);
+            this.txtAgregarDinero.Name = "txtAgregarDinero";
+            this.txtAgregarDinero.Size = new System.Drawing.Size(327, 23);
+            this.txtAgregarDinero.TabIndex = 1;
+            this.txtAgregarDinero.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(138, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(149, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Cantidad a depositar";
+            // 
             // panelContenido
             // 
             this.panelContenido.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -301,12 +301,14 @@
             this.Controls.Add(this.tituloSeccion);
             this.Name = "Caja";
             this.Text = "Caja";
+            this.Load += new System.EventHandler(this.Caja_Load);
+            this.VisibleChanged += new System.EventHandler(this.Caja_VisibleChanged);
             this.panelBotones.ResumeLayout(false);
             this.gbContenedor.ResumeLayout(false);
-            this.panelAgregar.ResumeLayout(false);
-            this.panelAgregar.PerformLayout();
             this.panelRetirar.ResumeLayout(false);
             this.panelRetirar.PerformLayout();
+            this.panelAgregar.ResumeLayout(false);
+            this.panelAgregar.PerformLayout();
             this.panelContenido.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -37,7 +37,8 @@ namespace PuntoDeVentaV2
         public string TempNickUsr { get; set; }
         public string TempPassUsr { get; set; }
 
-        // funsion para que podamos recargar variables desde otro formulario
+
+        // funcion para que podamos recargar variables desde otro formulario
         public void recargarDatos()
         {
             userID = IdUsuario;
@@ -121,6 +122,14 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                //Comprobar que Forms estan abiertos
+                cn.ComprobarForms();
+
+                if (formulario.Text.Equals("Caja"))
+                {
+                    formulario.Visible = true;
+                }
+
                 formulario.BringToFront();
 
                 if (formulario.Text.Equals("ListadoVentas"))
