@@ -50,6 +50,16 @@ namespace PuntoDeVentaV2
 
             if (respuesta > 0)
             {
+                //Operacion para afectar la Caja
+                var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+                var total = actual + Convert.ToDouble(importe);
+
+                datos = new string[] { "deposito", importe, total.ToString("0.00"), "", FechaOperacion, FormPrincipal.userID.ToString() };
+
+                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                //Fin operacion caja
+
+
                 var idAnticipo = cn.EjecutarSelect($"SELECT ID FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1", 1).ToString();
 
                 datos = new string[] { FechaOperacion, cliente, concepto, importe, comentario, idAnticipo };

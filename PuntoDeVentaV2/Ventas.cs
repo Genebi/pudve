@@ -469,7 +469,7 @@ namespace PuntoDeVentaV2
             }
             
             indiceFila = 0;
-            cantidadFila = 0;   
+            cantidadFila = 0;
         }
 
         private void CalcularDescuento(string[] datosDescuento, int tipo, int cantidad, int fila = 0)
@@ -751,6 +751,15 @@ namespace PuntoDeVentaV2
                 
                 if (respuesta > 0)
                 {
+                    //Operacion para afectar la tabla de Caja
+                    var saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+                    var totalTmp = saldoActual + Convert.ToDouble(Total);
+
+                    string[] datos = new string[] { "deposito", Total, totalTmp.ToString("0.00"), "", FechaOperacion, FormPrincipal.userID.ToString() };
+                
+                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+
+
                     //Obtener ID de la venta
                     string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
 

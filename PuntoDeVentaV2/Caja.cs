@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,21 @@ namespace PuntoDeVentaV2
 {
     public partial class Caja : Form
     {
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+
+        float saldoActual = 0f;
+
+        public string SaldoActual { get; set; }
+
         public Caja()
         {
             InitializeComponent();
+        }
+
+        private void Caja_Load(object sender, EventArgs e)
+        {
+            CargarSaldo();
         }
 
         private void btnAgregarDinero_Click(object sender, EventArgs e)
@@ -42,7 +55,23 @@ namespace PuntoDeVentaV2
 
         private void btnAceptarDeposito_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Aceptar");
+            var cantidad = Convert.ToDouble(txtAgregarDinero.Text);
+            var operacion = "deposito";
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+            var total = actual + cantidad;
+
+            string[] datos = new string[] { operacion, cantidad.ToString("0.00"), total.ToString("0.00"), "", fechaOperacion, FormPrincipal.userID.ToString() };
+
+            int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
+
+            if (resultado > 0)
+            {
+                LimpiarCampos();
+
+                tituloSeccion.Text = "CAJA: $" + total.ToString("0.00");
+            }
         }
 
         private void btnCancelarRetirar_Click(object sender, EventArgs e)
@@ -52,7 +81,24 @@ namespace PuntoDeVentaV2
 
         private void btnAceptarRetirar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Aceptar retiro");
+            var cantidad = Convert.ToDouble(txtRetirarDinero.Text);
+            var concepto = txtConcepto.Text;
+            var operacion = "retiro";
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+            var total = actual - cantidad;
+
+            string[] datos = new string[] { operacion, cantidad.ToString("0.00"), total.ToString("0.00"), concepto, fechaOperacion, FormPrincipal.userID.ToString() };
+
+            int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
+
+            if (resultado > 0)
+            {
+                LimpiarCampos();
+
+                tituloSeccion.Text = "CAJA: $" + total.ToString("0.00");
+            }
         }
 
         private void LimpiarCampos()
@@ -63,6 +109,18 @@ namespace PuntoDeVentaV2
             txtConcepto.Text = string.Empty;
             panelAgregar.Visible = false;
             panelRetirar.Visible = false;
+        }
+
+        private void Caja_VisibleChanged(object sender, EventArgs e)
+        {
+            CargarSaldo();
+        }
+
+        private void CargarSaldo()
+        {
+            saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+
+            tituloSeccion.Text = "CAJA: $" + saldoActual.ToString("0.00");
         }
     }
 }

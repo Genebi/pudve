@@ -574,6 +574,35 @@ namespace PuntoDeVentaV2
             return idReporte;
         }
 
+        public float ObtenerSaldoActual(int IDUsuario)
+        {
+            float saldo = 0f;
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT Saldo FROM Caja WHERE IDUsuario = {IDUsuario} ORDER BY FechaOperacion DESC LIMIT 1";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                if (dr["Saldo"] == DBNull.Value || dr["Saldo"].ToString() == "")
+                {
+                    saldo = 0;
+                }
+                else
+                {
+                    saldo = float.Parse(dr["Saldo"].ToString());
+                }
+            }
+
+            dr.Close();
+
+            return saldo;
+        }
+
         public void BackUpDB()
         {
             string path = @"C:\Archivos PUDVE\DB\";
@@ -594,6 +623,7 @@ namespace PuntoDeVentaV2
             }
         }
 
+<<<<<<< HEAD
         public int CountColumnasTabla(string consulta)
         {
             Conectarse();
@@ -669,6 +699,17 @@ namespace PuntoDeVentaV2
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = Query;
             sql_cmd.ExecuteNonQuery();
+=======
+        public void ComprobarForms()
+        {
+            foreach (Form vtn in Application.OpenForms)
+            {
+                if (vtn.Name == "Caja")
+                {
+                    vtn.Hide();
+                }
+            }
+>>>>>>> caja
         }
     }
 }
