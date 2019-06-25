@@ -552,6 +552,9 @@
     <Content Include="PUDVE\assets\Work_area.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\BD\BackupDb.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\BD\pudveDB.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
