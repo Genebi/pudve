@@ -41,23 +41,6 @@ namespace PuntoDeVentaV2
             cbUsoCFDI.DisplayMember = "Value";
             cbUsoCFDI.ValueMember = "Key";
 
-            //ComboBox Regimen Fiscal
-            Dictionary<string, string> regimenes = new Dictionary<string, string>();
-            regimenes.Add("Asalariados", "Asalariados");
-            regimenes.Add("Honorarios(Servicios Profesionales)", "Honorarios(Servicios Profesionales)");
-            regimenes.Add("Arrendamiento de inmuebles", "Arrendamiento de inmuebles");
-            regimenes.Add("Regimen de las actividades empresariales y profesionales", "Régimen de las actividades empresariales y profesionales");
-            regimenes.Add("Regimen de actividades agricolas, ganaderas, silvicolas y pesqueras pf y pm", "Régimen de actividades agrícolas, ganaderas, silvícolas y pesqueras pf y pm.");
-            regimenes.Add("Incorporacion Fiscal", "Incorporación Fiscal");
-            regimenes.Add("Personas morales del regimen general", "Personas morales del régimen general");
-            regimenes.Add("Personas morales con fines no lucrativos", "Personas morales con fines no lucrativos");
-            regimenes.Add("No contribuyente", "No contribuyente");
-            regimenes.Add("Regimen de las personas fisicas con actividad empresarial y profesionales", "Régimen de las personas físicas con actividad empresarial y profesionales");
-
-            cbRegimen.DataSource = regimenes.ToArray();
-            cbRegimen.DisplayMember = "Value";
-            cbRegimen.ValueMember = "Key";
-
             //ComboBox Formas de pago
             Dictionary<string, string> pagos = new Dictionary<string, string>();
             pagos.Add("01", "01 - Efectivo");
@@ -102,7 +85,7 @@ namespace PuntoDeVentaV2
             var calle = txtCalle.Text;
             var noExt = txtNumExt.Text;
             var noInt = txtNumInt.Text;
-            var regimen = cbRegimen.SelectedValue;
+            var regimen = string.Empty;
             var email = txtEmail.Text;
             var telefono = txtTelefono.Text;
             var formaPago = cbFormaPago.SelectedValue;
