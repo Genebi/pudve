@@ -30,6 +30,7 @@ namespace PuntoDeVentaV2
         public static int Usuarios;
         public static int Ventas;
         public static int Clientes;
+        public static int RevisarInventario;
         #endregion VariablesTablas
 
         public DBTables()
@@ -56,6 +57,7 @@ namespace PuntoDeVentaV2
             Usuarios = 19;
             Ventas = 20;
             Clientes = 20;
+            RevisarInventario = 6;
             #endregion InicializarVariables
         }
 
@@ -1344,5 +1346,56 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaClientes
+
+        // Tabla de RevisarInventario 22
+        #region TablaRevisarInventario
+        public int GetRevisarInventario()
+        {
+            return RevisarInventario;
+        }
+
+        public string PragmaTablaRevisarInventario(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameRevisarInventario(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaRevisarInventario(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                                              Nombre TEXT NOT NULL,
+                                              Stock INTEGER NOT NULL DEFAULT (0),
+                                              CodigoBarras TEXT,
+                                              Fecha DATETIME NOT NULL,
+                                              IDUsuario INTEGER,
+                                              FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
+        }
+
+        public string QueryUpdateTablaRevisarInventario(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             Nombre,
+                                             Stock,
+                                             CodigoBarras,
+                                             Fecha,
+                                             IDUsuario) 
+                                      SELECT ID,
+                                             Nombre,
+                                             Stock,
+                                             CodigoBarras,
+                                             Fecha,
+                                             IDUsuario 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaRevisarInventario(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaRevisarInventario
     }
 }

@@ -924,6 +924,38 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             #endregion TablaClientes
+            // 22 RevisarInventario
+            #region TablaRevisarInventario
+            tabla = "RevisarInventario";
+            try
+            {
+                count = cn.CountColumnasTabla(dbTables.PragmaTablaRevisarInventario(tabla));
+                if (dbTables.GetRevisarInventario() > count)
+                {
+                    if (count == 0)
+                    {
+                        queryTabla = dbTables.QueryNvaTablaRevisarInventario(tabla);
+                        cn.CrearTabla(queryTabla);
+                    }
+                    if (count > 0 && count < dbTables.GetRevisarInventario())
+                    {
+                        cn.ForeginKeysOff();
+                        queryTabla = dbTables.QueryRenameRevisarInventario(tabla);
+                        cn.renameTable(queryTabla);
+                        queryTabla = dbTables.QueryNvaTablaRevisarInventario(tabla);
+                        cn.CrearTabla(queryTabla);
+                        cn.ForeginKeysOn();
+                        queryTabla = dbTables.QueryUpdateTablaRevisarInventario(tabla);
+                        cn.insertDataIntoTable(queryTabla);
+                        queryTabla = dbTables.DropTablaRevisarInventario(tabla);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            #endregion TablaRevisarInventario
         }
 
         private void btnLimpiarDatos_Click(object sender, EventArgs e)
