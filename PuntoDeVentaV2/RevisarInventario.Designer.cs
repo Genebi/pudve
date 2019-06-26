@@ -110,6 +110,7 @@
             this.btnAumentarStock.Size = new System.Drawing.Size(75, 79);
             this.btnAumentarStock.TabIndex = 5;
             this.btnAumentarStock.UseVisualStyleBackColor = true;
+            this.btnAumentarStock.Click += new System.EventHandler(this.btnAumentarStock_Click);
             // 
             // btnReducirStock
             // 
@@ -182,7 +183,7 @@
             // 
             this.btnSiguiente.Font = new System.Drawing.Font("Century751 SeBd BT", 27.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSiguiente.ForeColor = System.Drawing.Color.Red;
-            this.btnSiguiente.Location = new System.Drawing.Point(83, 28);
+            this.btnSiguiente.Location = new System.Drawing.Point(104, 28);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(224, 55);
             this.btnSiguiente.TabIndex = 0;
