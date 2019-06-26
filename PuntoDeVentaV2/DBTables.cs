@@ -1369,6 +1369,7 @@ namespace PuntoDeVentaV2
             return $@"CREATE TABLE '{tabla}' (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
                                               Nombre TEXT NOT NULL,
                                               Stock INTEGER NOT NULL DEFAULT (0),
+                                              ClaveInterna TEXT,
                                               CodigoBarras TEXT,
                                               Fecha DATETIME NOT NULL,
                                               IDUsuario INTEGER,
@@ -1380,12 +1381,14 @@ namespace PuntoDeVentaV2
             return $@"INSERT INTO '{tabla}' (ID,
                                              Nombre,
                                              Stock,
+                                             ClaveInterna,
                                              CodigoBarras,
                                              Fecha,
                                              IDUsuario) 
                                       SELECT ID,
                                              Nombre,
                                              Stock,
+                                             ClaveInterna,
                                              CodigoBarras,
                                              Fecha,
                                              IDUsuario 
