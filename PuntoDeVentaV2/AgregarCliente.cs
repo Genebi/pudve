@@ -108,6 +108,8 @@ namespace PuntoDeVentaV2
             var formaPago = cbFormaPago.SelectedValue;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+            int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' ORDER BY FechaOperacion DESC LIMIT 1", 1));
+
             if (string.IsNullOrWhiteSpace(razon))
             {
                 MessageBox.Show("La razón social es obligatoria", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -125,7 +127,7 @@ namespace PuntoDeVentaV2
             string[] datos = new string[]
             {
                 FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
-                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago.ToString(), fechaOperacion
+                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago.ToString(), fechaOperacion, idCliente.ToString()
             };
 
             //Si el checkbox de agregar cliente repetido esta marcado
@@ -170,6 +172,15 @@ namespace PuntoDeVentaV2
                     {
                         this.Close();
                     }
+                }
+            }
+            else
+            {
+                int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+
+                if (resultado > 0)
+                {
+                    this.Close();
                 }
             }
         }
