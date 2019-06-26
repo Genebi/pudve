@@ -1275,7 +1275,7 @@ namespace PuntoDeVentaV2
         public string QueryNvaTablaClientes(string tabla)
         {
             return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              IDUsuario INTEGER  REFERENCES Usuarios (ID) NOT NULL,
+                                              IDUsuario INTEGER REFERENCES Usuarios (ID)  NOT NULL,
                                               RazonSocial TEXT,
                                               NombreComercial TEXT,
                                               RFC TEXT NOT NULL,
