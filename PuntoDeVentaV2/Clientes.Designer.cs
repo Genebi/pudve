@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.DGVClientes = new System.Windows.Forms.DataGridView();
+            this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnNuevoCliente = new System.Windows.Forms.Button();
+            this.tituloSeccion = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NombreComercial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Status = new System.Windows.Forms.DataGridViewImageColumn();
-            this.panelBotones = new System.Windows.Forms.Panel();
-            this.btnNuevoCliente = new System.Windows.Forms.Button();
-            this.tituloSeccion = new System.Windows.Forms.Label();
+            this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -57,66 +57,17 @@
             this.Cliente,
             this.NombreComercial,
             this.Fecha,
-            this.Ticket,
-            this.Status});
+            this.Editar,
+            this.Eliminar});
             this.DGVClientes.Location = new System.Drawing.Point(12, 141);
             this.DGVClientes.Name = "DGVClientes";
             this.DGVClientes.ReadOnly = true;
             this.DGVClientes.RowHeadersVisible = false;
             this.DGVClientes.Size = new System.Drawing.Size(845, 217);
             this.DGVClientes.TabIndex = 11;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            this.ID.Width = 200;
-            // 
-            // RFC
-            // 
-            this.RFC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.RFC.HeaderText = "RFC";
-            this.RFC.MinimumWidth = 100;
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            this.RFC.Width = 150;
-            // 
-            // Cliente
-            // 
-            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cliente.HeaderText = "Razón Social";
-            this.Cliente.Name = "Cliente";
-            this.Cliente.ReadOnly = true;
-            // 
-            // NombreComercial
-            // 
-            this.NombreComercial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NombreComercial.HeaderText = "Nombre Comercial";
-            this.NombreComercial.Name = "NombreComercial";
-            this.NombreComercial.ReadOnly = true;
-            // 
-            // Fecha
-            // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 135;
-            // 
-            // Ticket
-            // 
-            this.Ticket.HeaderText = "";
-            this.Ticket.Name = "Ticket";
-            this.Ticket.ReadOnly = true;
-            this.Ticket.Width = 50;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "";
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            this.Status.Width = 50;
+            this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
+            this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
+            this.DGVClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseLeave);
             // 
             // panelBotones
             // 
@@ -159,6 +110,58 @@
             this.tituloSeccion.Text = "CLIENTES";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            this.ID.Width = 200;
+            // 
+            // RFC
+            // 
+            this.RFC.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.RFC.HeaderText = "RFC";
+            this.RFC.MinimumWidth = 100;
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            this.RFC.Width = 150;
+            // 
+            // Cliente
+            // 
+            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cliente.HeaderText = "Razón Social";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            // 
+            // NombreComercial
+            // 
+            this.NombreComercial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NombreComercial.HeaderText = "Nombre Comercial";
+            this.NombreComercial.Name = "NombreComercial";
+            this.NombreComercial.ReadOnly = true;
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 135;
+            // 
+            // Editar
+            // 
+            this.Editar.HeaderText = "Editar";
+            this.Editar.Name = "Editar";
+            this.Editar.ReadOnly = true;
+            this.Editar.Width = 60;
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.HeaderText = "Eliminar";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
+            this.Eliminar.Width = 60;
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -188,7 +191,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn NombreComercial;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewImageColumn Ticket;
-        private System.Windows.Forms.DataGridViewImageColumn Status;
+        private System.Windows.Forms.DataGridViewImageColumn Editar;
+        private System.Windows.Forms.DataGridViewImageColumn Eliminar;
     }
 }
