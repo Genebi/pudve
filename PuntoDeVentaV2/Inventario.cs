@@ -12,9 +12,27 @@ namespace PuntoDeVentaV2
 {
     public partial class Inventario : Form
     {
+        RevisarInventario checkInventory = new RevisarInventario();
+
         public Inventario()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            checkInventory.FormClosed += delegate
+            {
+                
+            };
+            if (!checkInventory.Visible)
+            {
+                checkInventory.ShowDialog();
+            }
+            else
+            {
+                checkInventory.ShowDialog();
+            }
         }
     }
 }

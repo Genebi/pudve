@@ -34,8 +34,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 394);
+            this.ClientSize = new System.Drawing.Size(643, 461);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "RevisarInventario";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "RevisarInventario";
             this.ResumeLayout(false);
 
