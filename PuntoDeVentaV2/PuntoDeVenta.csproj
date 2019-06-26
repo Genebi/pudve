@@ -260,6 +260,12 @@
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventario.Designer.cs">
+      <DependentUpon>Inventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="ItemsProductoComboBox.cs" />
     <Compile Include="ListadoAnticipos.cs">
       <SubType>Form</SubType>
@@ -345,6 +351,12 @@
     </Compile>
     <Compile Include="Registro.Designer.cs">
       <DependentUpon>Registro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RevisarInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RevisarInventario.Designer.cs">
+      <DependentUpon>RevisarInventario.cs</DependentUpon>
     </Compile>
     <Compile Include="SetUpPUDVE.cs">
       <SubType>Form</SubType>
@@ -436,6 +448,9 @@
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Inventario.resx">
+      <DependentUpon>Inventario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListadoAnticipos.resx">
       <DependentUpon>ListadoAnticipos.cs</DependentUpon>
     </EmbeddedResource>
@@ -479,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro.resx">
       <DependentUpon>Registro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RevisarInventario.resx">
+      <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetUpPUDVE.resx">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
