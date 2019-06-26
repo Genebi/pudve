@@ -4782,6 +4782,16 @@ namespace PuntoDeVentaV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap minus_square1 {
+            get {
+                object obj = ResourceManager.GetObject("minus_square1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mixcloud {
             get {
                 object obj = ResourceManager.GetObject("mixcloud", resourceCulture);

@@ -2992,6 +2992,9 @@
     <Content Include="PUDVE\icon\black\cloud-upload.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\minus-square.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\plus-square.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
