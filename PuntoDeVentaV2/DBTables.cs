@@ -78,18 +78,16 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaAnticipos(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (
-                                                ID INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
-                                                IDUsuario INTEGER NOT NULL DEFAULT (0),
-                                                IDEmpleado INTEGER NOT NULL DEFAULT (0),
-                                                Concepto TEXT NOT NULL,
-                                                Importe DECIMAL NOT NULL DEFAULT (0),
-                                                Cliente TEXT NOT NULL,
-                                                FormaPago TEXT NOT NULL,
-                                                Comentarios TEXT,
-                                                Status INT (1) DEFAULT (0) NOT NULL,
-                                                Fecha DATETIME NOT NULL
-                    );";
+            return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
+                                              IDUsuario INTEGER NOT NULL DEFAULT (0),
+                                              IDEmpleado INTEGER NOT NULL DEFAULT (0),
+                                              Concepto TEXT NOT NULL,
+                                              Importe DECIMAL NOT NULL DEFAULT (0),
+                                              Cliente TEXT NOT NULL,
+                                              FormaPago TEXT NOT NULL,
+                                              Comentarios TEXT,
+                                              Status INT (1) DEFAULT (0) NOT NULL,
+                                              Fecha DATETIME NOT NULL);";
         }
 
         public string QueryUpdateTablaAnticipos(string tabla)
