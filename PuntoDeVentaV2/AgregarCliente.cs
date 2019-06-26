@@ -108,34 +108,69 @@ namespace PuntoDeVentaV2
             var formaPago = cbFormaPago.SelectedValue;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+            if (string.IsNullOrWhiteSpace(razon))
+            {
+                MessageBox.Show("La razón social es obligatoria", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(rfc))
+            {
+                MessageBox.Show("El RFC es un campo obligatorio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
             string[] datos = new string[]
             {
-                FormPrincipal.userID.ToString(),
-                razon,
-                comercial,
-                rfc,
-                usoCFDI.ToString(),
-                pais,
-                estado,
-                municipio,
-                localidad,
-                cp,
-                colonia,
-                calle,
-                noExt,
-                noInt,
-                regimen.ToString(),
-                email,
-                telefono,
-                formaPago.ToString(),
-                fechaOperacion
+                FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
+                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago.ToString(), fechaOperacion
             };
 
-            int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
-
-            if (resultado > 0)
+            //Si el checkbox de agregar cliente repetido esta marcado
+            if (cbCliente.Checked)
             {
-                this.Close();
+                bool respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}'");
+
+                if (respuesta)
+                {
+                    var mensaje = MessageBox.Show("Ya existe un cliente registrado con el mismo RFC.\n\n¿Desea actualizarlo con esta información?", "Mensaje del Sistema", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    if (mensaje == DialogResult.Yes)
+                    {
+                        //Si selecciona SI se hace una actualizacion con la informacion del formulario al usuario que tiene el mismo RFC
+                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
+
+                        if (resultado > 0)
+                        {
+                            this.Close();
+                        }
+                    }
+                    else if (mensaje == DialogResult.No)
+                    {
+                        //Si selecciona NO se hace un nuevo registro
+                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+
+                        if (resultado > 0)
+                        {
+                            this.Close();
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+
+                    if (resultado > 0)
+                    {
+                        this.Close();
+                    }
+                }
             }
         }
 

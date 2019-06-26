@@ -51,6 +51,12 @@ namespace PuntoDeVentaV2
                 row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
                 row.Cells["NombreComercial"].Value = dr.GetValue(dr.GetOrdinal("NombreComercial"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
+                Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
+
+                row.Cells["Editar"].Value = editar;
+                row.Cells["Eliminar"].Value = eliminar;
             }
 
             DGVClientes.ClearSelection();
@@ -69,6 +75,48 @@ namespace PuntoDeVentaV2
             };
 
             cliente.ShowDialog();
+        }
+
+        private void DGVClientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                //Editar cliente
+                if (e.ColumnIndex == 5)
+                {
+                    MessageBox.Show("Editar cliente");
+                }
+
+                //Eliminar cliente
+                if (e.ColumnIndex == 6)
+                {
+                    MessageBox.Show("Eliminar cliente");
+                }
+
+                DGVClientes.ClearSelection();
+            }
+        }
+
+        private void DGVClientes_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex >= 5)
+                {
+                    DGVClientes.Cursor = Cursors.Hand;
+                }
+            }
+        }
+
+        private void DGVClientes_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex >= 5)
+                {
+                    DGVClientes.Cursor = Cursors.Default;
+                }
+            }
         }
     }
 }
