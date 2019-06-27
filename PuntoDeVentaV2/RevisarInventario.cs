@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         string SearchBarCode, queryTaerStock, tablaProductos, tablaRevisarInventario, buscarStock;
         string ID, Nombre, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario;
         DataTable dtRevisarStockResultado;
+        int LineNum;
 
         private void txtBoxBuscarCodigoBarras_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -39,6 +40,8 @@ namespace PuntoDeVentaV2
             lblCodigoDeBarras.Text = string.Empty;
             txtCantidadStock.Text = string.Empty;
             txtCantidadStock.Text = "0";
+            LineNum = txtCantidadStock.TextLength;
+            txtCantidadStock.SelectionStart = txtCantidadStock.GetFirstCharIndexFromLine(LineNum);
         }
 
         private void txtCantidadStock_KeyPress(object sender, KeyPressEventArgs e)
@@ -71,6 +74,7 @@ namespace PuntoDeVentaV2
             InitializeComponent();
             cantidadStock = 0;
             SearchBarCode = string.Empty;
+            LineNum = 0;
         }
 
         private void btnReducirStock_Click(object sender, EventArgs e)
@@ -127,6 +131,7 @@ namespace PuntoDeVentaV2
                     lblCodigoDeBarras.Text = buscarStock;
 
                     txtCantidadStock.Focus();
+                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                 }
                 else if (dtRevisarStockResultado.Rows.Count == 0)
                 {

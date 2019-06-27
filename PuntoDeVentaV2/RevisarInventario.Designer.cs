@@ -40,8 +40,8 @@
             this.lblNombreProducto = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnSiguiente = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -91,10 +91,9 @@
             // 
             this.txtCantidadStock.Font = new System.Drawing.Font("Century", 48F, System.Drawing.FontStyle.Bold);
             this.txtCantidadStock.ForeColor = System.Drawing.Color.Blue;
-            this.txtCantidadStock.Location = new System.Drawing.Point(121, 206);
-            this.txtCantidadStock.Multiline = true;
+            this.txtCantidadStock.Location = new System.Drawing.Point(99, 206);
             this.txtCantidadStock.Name = "txtCantidadStock";
-            this.txtCantidadStock.Size = new System.Drawing.Size(182, 79);
+            this.txtCantidadStock.Size = new System.Drawing.Size(225, 84);
             this.txtCantidadStock.TabIndex = 8;
             this.txtCantidadStock.Text = "0";
             this.txtCantidadStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -184,6 +183,17 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Century751 SeBd BT", 21.75F, System.Drawing.FontStyle.Italic);
+            this.button1.Location = new System.Drawing.Point(225, 25);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(171, 55);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Terminar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // btnSiguiente
             // 
             this.btnSiguiente.Font = new System.Drawing.Font("Century751 SeBd BT", 21.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -195,17 +205,6 @@
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Century751 SeBd BT", 21.75F, System.Drawing.FontStyle.Italic);
-            this.button1.Location = new System.Drawing.Point(225, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 55);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Terminar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // RevisarInventario
             // 
