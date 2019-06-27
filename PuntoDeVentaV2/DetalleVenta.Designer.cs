@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.lbTotalCambio = new System.Windows.Forms.Label();
+            this.lbCambio = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbTotalCredito = new System.Windows.Forms.Label();
             this.lbCredito = new System.Windows.Forms.Label();
             this.btnCredito = new System.Windows.Forms.Button();
             this.lbCliente = new System.Windows.Forms.LinkLabel();
@@ -50,10 +54,6 @@
             this.txtEfectivo = new System.Windows.Forms.TextBox();
             this.txtTotalVenta = new System.Windows.Forms.Label();
             this.tituloDetalle = new System.Windows.Forms.Label();
-            this.lbTotalCredito = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lbTotalCambio = new System.Windows.Forms.Label();
-            this.lbCambio = new System.Windows.Forms.Label();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,6 +90,45 @@
             this.gbContenedor.Size = new System.Drawing.Size(478, 358);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
+            // 
+            // lbTotalCambio
+            // 
+            this.lbTotalCambio.AutoSize = true;
+            this.lbTotalCambio.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalCambio.Location = new System.Drawing.Point(380, 275);
+            this.lbTotalCambio.Name = "lbTotalCambio";
+            this.lbTotalCambio.Size = new System.Drawing.Size(66, 25);
+            this.lbTotalCambio.TabIndex = 94;
+            this.lbTotalCambio.Text = "$0.00";
+            // 
+            // lbCambio
+            // 
+            this.lbCambio.AutoSize = true;
+            this.lbCambio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCambio.Location = new System.Drawing.Point(392, 252);
+            this.lbCambio.Name = "lbCambio";
+            this.lbCambio.Size = new System.Drawing.Size(62, 17);
+            this.lbCambio.TabIndex = 93;
+            this.lbCambio.Text = "Cambio";
+            // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(9, 243);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(460, 2);
+            this.label1.TabIndex = 92;
+            // 
+            // lbTotalCredito
+            // 
+            this.lbTotalCredito.AutoSize = true;
+            this.lbTotalCredito.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotalCredito.ForeColor = System.Drawing.Color.Red;
+            this.lbTotalCredito.Location = new System.Drawing.Point(104, 253);
+            this.lbTotalCredito.Name = "lbTotalCredito";
+            this.lbTotalCredito.Size = new System.Drawing.Size(29, 16);
+            this.lbTotalCredito.TabIndex = 91;
+            this.lbTotalCredito.Text = "0.00";
             // 
             // lbCredito
             // 
@@ -174,6 +213,7 @@
             // 
             // txtReferencia
             // 
+            this.txtReferencia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtReferencia.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReferencia.Location = new System.Drawing.Point(104, 172);
             this.txtReferencia.Name = "txtReferencia";
@@ -284,6 +324,7 @@
             this.txtEfectivo.Size = new System.Drawing.Size(80, 22);
             this.txtEfectivo.TabIndex = 1;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
             // txtTotalVenta
             // 
@@ -304,45 +345,6 @@
             this.tituloDetalle.Size = new System.Drawing.Size(96, 17);
             this.tituloDetalle.TabIndex = 14;
             this.tituloDetalle.Text = "Total a pagar";
-            // 
-            // lbTotalCredito
-            // 
-            this.lbTotalCredito.AutoSize = true;
-            this.lbTotalCredito.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCredito.ForeColor = System.Drawing.Color.Red;
-            this.lbTotalCredito.Location = new System.Drawing.Point(104, 253);
-            this.lbTotalCredito.Name = "lbTotalCredito";
-            this.lbTotalCredito.Size = new System.Drawing.Size(29, 16);
-            this.lbTotalCredito.TabIndex = 91;
-            this.lbTotalCredito.Text = "0.00";
-            // 
-            // label1
-            // 
-            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label1.Location = new System.Drawing.Point(9, 243);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(460, 2);
-            this.label1.TabIndex = 92;
-            // 
-            // lbTotalCambio
-            // 
-            this.lbTotalCambio.AutoSize = true;
-            this.lbTotalCambio.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCambio.Location = new System.Drawing.Point(390, 275);
-            this.lbTotalCambio.Name = "lbTotalCambio";
-            this.lbTotalCambio.Size = new System.Drawing.Size(66, 25);
-            this.lbTotalCambio.TabIndex = 94;
-            this.lbTotalCambio.Text = "$0.00";
-            // 
-            // lbCambio
-            // 
-            this.lbCambio.AutoSize = true;
-            this.lbCambio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCambio.Location = new System.Drawing.Point(392, 252);
-            this.lbCambio.Name = "lbCambio";
-            this.lbCambio.Size = new System.Drawing.Size(62, 17);
-            this.lbCambio.TabIndex = 93;
-            this.lbCambio.Text = "Cambio";
             // 
             // DetalleVenta
             // 
@@ -385,10 +387,10 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label lbCredito;
         private System.Windows.Forms.Button btnCredito;
-        private System.Windows.Forms.LinkLabel lbCliente;
         private System.Windows.Forms.Label lbTotalCredito;
         private System.Windows.Forms.Label lbTotalCambio;
         private System.Windows.Forms.Label lbCambio;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel lbCliente;
     }
 }
