@@ -84,8 +84,8 @@ namespace PuntoDeVentaV2
                                                                             IDUsuario 
                                                                        FROM '{tablaProductos}' WHERE IDUsuario = '{FormPrincipal.userID}';";
                 cn.EjecutarConsulta(queryTaerStock);
-                queryTaerStock = $"UPDATE '{tablaRevisarInventario}' SET Fecha = '{DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss")}' WHERE IDUsuario = '{FormPrincipal.userID}';";
-                cn.EjecutarConsulta(queryTaerStock);
+                //queryTaerStock = $"UPDATE '{tablaRevisarInventario}' SET Fecha = '{DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss")}' WHERE IDUsuario = '{FormPrincipal.userID}';";
+                //cn.EjecutarConsulta(queryTaerStock);
             }
             catch (Exception ex)
             {

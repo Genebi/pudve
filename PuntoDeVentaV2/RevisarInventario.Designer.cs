@@ -35,12 +35,12 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnAumentarStock = new System.Windows.Forms.Button();
             this.btnReducirStock = new System.Windows.Forms.Button();
-            this.lblCantidadStock = new System.Windows.Forms.Label();
             this.lblCodigoDeBarras = new System.Windows.Forms.Label();
             this.lblNombreProducto = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnSiguiente = new System.Windows.Forms.Button();
+            this.lblCantidadStock = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -69,11 +69,11 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblCantidadStock);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.btnAumentarStock);
             this.groupBox2.Controls.Add(this.btnReducirStock);
-            this.groupBox2.Controls.Add(this.lblCantidadStock);
             this.groupBox2.Controls.Add(this.lblCodigoDeBarras);
             this.groupBox2.Controls.Add(this.lblNombreProducto);
             this.groupBox2.Controls.Add(this.label1);
@@ -122,18 +122,6 @@
             this.btnReducirStock.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnReducirStock.UseVisualStyleBackColor = true;
             this.btnReducirStock.Click += new System.EventHandler(this.btnReducirStock_Click);
-            // 
-            // lblCantidadStock
-            // 
-            this.lblCantidadStock.BackColor = System.Drawing.Color.White;
-            this.lblCantidadStock.Font = new System.Drawing.Font("Century", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCantidadStock.ForeColor = System.Drawing.Color.Blue;
-            this.lblCantidadStock.Location = new System.Drawing.Point(125, 206);
-            this.lblCantidadStock.Name = "lblCantidadStock";
-            this.lblCantidadStock.Size = new System.Drawing.Size(182, 79);
-            this.lblCantidadStock.TabIndex = 3;
-            this.lblCantidadStock.Text = "0";
-            this.lblCantidadStock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCodigoDeBarras
             // 
@@ -190,6 +178,18 @@
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
             // 
+            // lblCantidadStock
+            // 
+            this.lblCantidadStock.Font = new System.Drawing.Font("Century", 48F, System.Drawing.FontStyle.Bold);
+            this.lblCantidadStock.ForeColor = System.Drawing.Color.Blue;
+            this.lblCantidadStock.Location = new System.Drawing.Point(122, 206);
+            this.lblCantidadStock.Multiline = true;
+            this.lblCantidadStock.Name = "lblCantidadStock";
+            this.lblCantidadStock.Size = new System.Drawing.Size(182, 79);
+            this.lblCantidadStock.TabIndex = 8;
+            this.lblCantidadStock.Text = "0";
+            this.lblCantidadStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -222,12 +222,12 @@
         private System.Windows.Forms.Label lblNombreProducto;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblCodigoDeBarras;
-        private System.Windows.Forms.Label lblCantidadStock;
         private System.Windows.Forms.Button btnReducirStock;
         private System.Windows.Forms.Button btnAumentarStock;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnSiguiente;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox lblCantidadStock;
     }
 }
