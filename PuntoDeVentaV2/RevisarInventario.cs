@@ -18,6 +18,11 @@ namespace PuntoDeVentaV2
         string SearchBarCode, queryTaerStock, tablaProductos, tablaRevisarInventario, buscarStock;
         string ID, Nombre, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario;
 
+        private void RevisarInventario_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ClearTable(dtRevisarStockResultado);
+        }
+
         DataTable dtRevisarStockResultado;
 
         public RevisarInventario()
@@ -46,6 +51,7 @@ namespace PuntoDeVentaV2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ClearTable(dtRevisarStockResultado);
             this.Close();
         }
 
@@ -100,6 +106,23 @@ namespace PuntoDeVentaV2
         private void RevisarInventario_Load(object sender, EventArgs e)
         {
             CargarStockExistente();
+        }
+
+        private void ClearTable(DataTable table)
+        {
+            try
+            {
+                table.Clear();
+                lblNombreProducto.Text = string.Empty;
+                lblCodigoDeBarras.Text = string.Empty;
+                txtCantidadStock.Text = string.Empty;
+                txtCantidadStock.Text = "0";
+                txtBoxBuscarCodigoBarras.Focus();
+            }
+            catch (DataException e)
+            {
+                MessageBox.Show("Error al Limpiar la Tabla error: {0}" + e.GetType().ToString(), "Error de limpiar Tabla", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CargarStockExistente()
