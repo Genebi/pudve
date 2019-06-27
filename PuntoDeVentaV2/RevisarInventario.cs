@@ -15,7 +15,10 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
 
         int cantidadStock;
-        string SearchBarCode, queryTaerStock, tablaProductos, tablaRevisarInventario;
+        string SearchBarCode, queryTaerStock, tablaProductos, tablaRevisarInventario, buscarStock;
+        string ID, Nombre, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario;
+
+        DataTable dtRevisarStockResultado;
 
         public RevisarInventario()
         {
@@ -26,17 +29,17 @@ namespace PuntoDeVentaV2
 
         private void btnReducirStock_Click(object sender, EventArgs e)
         {
-            if (lblCantidadStock.Text == "0")
+            if (txtCantidadStock.Text == "0")
             {
-                MessageBox.Show("No se permite tener stock menor a = " + lblCantidadStock.Text, "Error al Disminuir Stock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se permite tener stock menor a = " + txtCantidadStock.Text, "Error al Disminuir Stock", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            if (!lblCantidadStock.Equals("0"))
+            if (!txtCantidadStock.Equals("0"))
             {
-                cantidadStock = Convert.ToInt32(lblCantidadStock.Text);
+                cantidadStock = Convert.ToInt32(txtCantidadStock.Text);
                 cantidadStock--;
                 if (cantidadStock >= 0)
                 {
-                    lblCantidadStock.Text = Convert.ToString(cantidadStock);
+                    txtCantidadStock.Text = Convert.ToString(cantidadStock);
                 }
             }
         }
@@ -46,11 +49,52 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
+        private void txtBoxBuscarCodigoBarras_TextChanged(object sender, EventArgs e)
+        {
+            int index = 0;
+            ID = string.Empty;
+            Nombre = string.Empty;
+            Stock = string.Empty;
+            ClaveInterna = string.Empty;
+            CodigoBarras = string.Empty;
+            Fecha = string.Empty;
+            IDUsuario = string.Empty;
+
+            buscarStock = string.Empty;
+
+            if (txtBoxBuscarCodigoBarras.Text != string.Empty)
+            {
+                buscarStock = txtBoxBuscarCodigoBarras.Text;
+                queryTaerStock = $"SELECT prod.ID, prod.Nombre, prod.Stock, prod.ClaveInterna, prod.CodigoBarras, prod.Fecha, prod.IDUsuario, prod.Tipo FROM RevisarInventario prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.ClaveInterna LIKE '%" + buscarStock + "%' OR prod.CodigoBarras LIKE '%" + buscarStock + "%'";
+                dtRevisarStockResultado = cn.CargarDatos(queryTaerStock);
+
+                if (dtRevisarStockResultado.Rows.Count != 0)
+                {
+                    ID = dtRevisarStockResultado.Rows[index]["ID"].ToString();
+                    Nombre = dtRevisarStockResultado.Rows[index]["Nombre"].ToString();
+                    lblNombreProducto.Text = Nombre;
+                    Stock = dtRevisarStockResultado.Rows[index]["Stock"].ToString();
+                    txtCantidadStock.Text = Stock;
+                    ClaveInterna = dtRevisarStockResultado.Rows[index]["ClaveInterna"].ToString();
+                    CodigoBarras = dtRevisarStockResultado.Rows[index]["CodigoBarras"].ToString();
+                    lblCodigoDeBarras.Text = buscarStock;
+
+                    txtCantidadStock.Focus();
+                }
+                else if (dtRevisarStockResultado.Rows.Count == 0)
+                {
+                    MessageBox.Show("Producto no encontrado.", "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            
+            txtBoxBuscarCodigoBarras.Text = string.Empty;
+        }
+
         private void btnAumentarStock_Click(object sender, EventArgs e)
         {
-            cantidadStock = Convert.ToInt32(lblCantidadStock.Text);
+            cantidadStock = Convert.ToInt32(txtCantidadStock.Text);
             cantidadStock++;
-            lblCantidadStock.Text = Convert.ToString(cantidadStock);
+            txtCantidadStock.Text = Convert.ToString(cantidadStock);
         }
 
         private void RevisarInventario_Load(object sender, EventArgs e)
@@ -80,14 +124,16 @@ namespace PuntoDeVentaV2
                                                                             Stock,
                                                                             ClaveInterna,
                                                                             CodigoBarras,
-                                                                            IDUsuario) 
+                                                                            IDUsuario,
+                                                                            Tipo) 
                                                                      SELECT ID,
                                                                             Nombre,
                                                                             Stock,
                                                                             ClaveInterna,
                                                                             CodigoBarras,
-                                                                            IDUsuario 
-                                                                       FROM '{tablaProductos}' WHERE IDUsuario = '{FormPrincipal.userID}';";
+                                                                            IDUsuario,
+                                                                            Tipo 
+                                                                       FROM '{tablaProductos}' WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P';";
                 cn.EjecutarConsulta(queryTaerStock);
                 //queryTaerStock = $"UPDATE '{tablaRevisarInventario}' SET Fecha = '{DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss")}' WHERE IDUsuario = '{FormPrincipal.userID}';";
                 //cn.EjecutarConsulta(queryTaerStock);

@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
             Usuarios = 19;
             Ventas = 20;
             Clientes = 20;
-            RevisarInventario = 6;
+            RevisarInventario = 8;
             #endregion InicializarVariables
         }
 
@@ -1371,8 +1371,9 @@ namespace PuntoDeVentaV2
                                               Stock INTEGER NOT NULL DEFAULT (0),
                                               ClaveInterna TEXT,
                                               CodigoBarras TEXT,
-                                              Fecha DATETIME NOT NULL,
+                                              Fecha DATETIME,
                                               IDUsuario INTEGER,
+                                              Tipo TEXT,
                                               FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
         }
 
@@ -1384,14 +1385,16 @@ namespace PuntoDeVentaV2
                                              ClaveInterna,
                                              CodigoBarras,
                                              Fecha,
-                                             IDUsuario) 
+                                             IDUsuario,
+                                             Tipo) 
                                       SELECT ID,
                                              Nombre,
                                              Stock,
                                              ClaveInterna,
                                              CodigoBarras,
                                              Fecha,
-                                             IDUsuario 
+                                             IDUsuario,
+                                             Tipo 
                                         FROM '{tabla}_temp';";
         }
 

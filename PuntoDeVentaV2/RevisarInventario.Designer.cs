@@ -31,7 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lblCantidadStock = new System.Windows.Forms.TextBox();
+            this.txtCantidadStock = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.btnAumentarStock = new System.Windows.Forms.Button();
@@ -67,10 +67,11 @@
             this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 33);
             this.txtBoxBuscarCodigoBarras.TabIndex = 0;
             this.txtBoxBuscarCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBoxBuscarCodigoBarras.TextChanged += new System.EventHandler(this.txtBoxBuscarCodigoBarras_TextChanged);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.lblCantidadStock);
+            this.groupBox2.Controls.Add(this.txtCantidadStock);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.btnAumentarStock);
@@ -85,17 +86,17 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Datos del Producto: ";
             // 
-            // lblCantidadStock
+            // txtCantidadStock
             // 
-            this.lblCantidadStock.Font = new System.Drawing.Font("Century", 48F, System.Drawing.FontStyle.Bold);
-            this.lblCantidadStock.ForeColor = System.Drawing.Color.Blue;
-            this.lblCantidadStock.Location = new System.Drawing.Point(122, 206);
-            this.lblCantidadStock.Multiline = true;
-            this.lblCantidadStock.Name = "lblCantidadStock";
-            this.lblCantidadStock.Size = new System.Drawing.Size(182, 79);
-            this.lblCantidadStock.TabIndex = 8;
-            this.lblCantidadStock.Text = "0";
-            this.lblCantidadStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidadStock.Font = new System.Drawing.Font("Century", 48F, System.Drawing.FontStyle.Bold);
+            this.txtCantidadStock.ForeColor = System.Drawing.Color.Blue;
+            this.txtCantidadStock.Location = new System.Drawing.Point(121, 206);
+            this.txtCantidadStock.Multiline = true;
+            this.txtCantidadStock.Name = "txtCantidadStock";
+            this.txtCantidadStock.Size = new System.Drawing.Size(182, 79);
+            this.txtCantidadStock.TabIndex = 8;
+            this.txtCantidadStock.Text = "0";
+            this.txtCantidadStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label6
             // 
@@ -241,7 +242,7 @@
         private System.Windows.Forms.Button btnSiguiente;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox lblCantidadStock;
+        private System.Windows.Forms.TextBox txtCantidadStock;
         private System.Windows.Forms.Button button1;
     }
 }
