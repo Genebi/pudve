@@ -273,6 +273,12 @@
       <DependentUpon>Inventario.cs</DependentUpon>
     </Compile>
     <Compile Include="ItemsProductoComboBox.cs" />
+    <Compile Include="ListaClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListaClientes.Designer.cs">
+      <DependentUpon>ListaClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListadoAnticipos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -459,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventario.resx">
       <DependentUpon>Inventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListaClientes.resx">
+      <DependentUpon>ListaClientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ListadoAnticipos.resx">
       <DependentUpon>ListadoAnticipos.cs</DependentUpon>
