@@ -710,7 +710,9 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
-            DetalleVenta detalle = new DetalleVenta();
+            var totalVenta = float.Parse(cTotal.Text);
+
+            DetalleVenta detalle = new DetalleVenta(totalVenta);
             detalle.ShowDialog();
             //DatosVenta();
         }
