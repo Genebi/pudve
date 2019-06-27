@@ -79,9 +79,6 @@ namespace PuntoDeVentaV2
             txtDescuentoGeneral.GotFocus  += new EventHandler(DescuentoTieneFoco);
             txtDescuentoGeneral.LostFocus += new EventHandler(DescuentoPierdeFoco);
 
-            cbEstadoVenta.SelectedIndex = 0;
-            cbEstadoVenta.DropDownStyle = ComboBoxStyle.DropDownList;
-
             btnProductoRapido.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\plus.png");
             btnEliminarUltimo.BackgroundImage = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
             btnEliminarTodos.BackgroundImage  = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
@@ -713,6 +710,15 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
+            var totalVenta = float.Parse(cTotal.Text);
+
+            DetalleVenta detalle = new DetalleVenta(totalVenta);
+            detalle.ShowDialog();
+            //DatosVenta();
+        }
+
+        private void DatosVenta()
+        {
             //Datos generales de la venta
             var IdEmpresa = FormPrincipal.userID.ToString();
             var Subtotal = cSubtotal.Text;
@@ -728,6 +734,7 @@ namespace PuntoDeVentaV2
 
             string[] guardar = null;
 
+            //Cuando se da click en el boton guardar venta
             if (ventaGuardada)
             {
                 Status = "2";
@@ -736,6 +743,7 @@ namespace PuntoDeVentaV2
                 guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion };
             }
 
+            //Cuando es una venta normal
             if (!ventaGuardada)
             {
                 Status = "1";
@@ -743,12 +751,12 @@ namespace PuntoDeVentaV2
                 Folio = Contenido;
                 guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion };
             }
-            
+
             if (VerificarStockProducto())
             {
                 //Se hace el guardado de la informacion general de la venta
                 int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
-                
+
                 if (respuesta > 0)
                 {
                     //Operacion para afectar la tabla de Caja
@@ -756,7 +764,7 @@ namespace PuntoDeVentaV2
                     var totalTmp = saldoActual + Convert.ToDouble(Total);
 
                     string[] datos = new string[] { "deposito", Total, totalTmp.ToString("0.00"), "", FechaOperacion, FormPrincipal.userID.ToString() };
-                
+
                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
 
@@ -797,7 +805,7 @@ namespace PuntoDeVentaV2
                         {
                             cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                         }
-                        
+
                         //Si la venta no fue guardada con el boton "Guardar"
                         if (!ventaGuardada)
                         {
@@ -813,7 +821,7 @@ namespace PuntoDeVentaV2
 
                                 cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                             }
-                            
+
                             //Servicio
                             if (Tipo == "S")
                             {
@@ -838,11 +846,12 @@ namespace PuntoDeVentaV2
                                     cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                                 }
                             }
-                        } 
+                        }
                     }
 
                     //Convertir la cadena que guarda los IDs de los anticipos usados en Array
-                    if (!string.IsNullOrEmpty(listaAnticipos)) {
+                    if (!string.IsNullOrEmpty(listaAnticipos))
+                    {
 
                         var auxiliar = listaAnticipos.Remove(listaAnticipos.Length - 1);
 

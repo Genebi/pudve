@@ -78,9 +78,7 @@
             this.nudCantidadPS = new System.Windows.Forms.NumericUpDown();
             this.lbCantidad = new System.Windows.Forms.Label();
             this.btnTerminarVenta = new System.Windows.Forms.Button();
-            this.cbEstadoVenta = new System.Windows.Forms.ComboBox();
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
-            this.btnDetallesVenta = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -531,9 +529,7 @@
             this.panel1.Controls.Add(this.nudCantidadPS);
             this.panel1.Controls.Add(this.lbCantidad);
             this.panel1.Controls.Add(this.btnTerminarVenta);
-            this.panel1.Controls.Add(this.cbEstadoVenta);
             this.panel1.Controls.Add(this.txtDescuentoGeneral);
-            this.panel1.Controls.Add(this.btnDetallesVenta);
             this.panel1.Controls.Add(this.DGVentas);
             this.panel1.Controls.Add(this.cIVA8);
             this.panel1.Controls.Add(this.txtBuscadorProducto);
@@ -609,7 +605,7 @@
             // 
             this.btnTerminarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminarVenta.Location = new System.Drawing.Point(1080, 296);
+            this.btnTerminarVenta.Location = new System.Drawing.Point(793, 297);
             this.btnTerminarVenta.Name = "btnTerminarVenta";
             this.btnTerminarVenta.Size = new System.Drawing.Size(75, 23);
             this.btnTerminarVenta.TabIndex = 37;
@@ -617,39 +613,15 @@
             this.btnTerminarVenta.UseVisualStyleBackColor = true;
             this.btnTerminarVenta.Click += new System.EventHandler(this.btnTerminarVenta_Click);
             // 
-            // cbEstadoVenta
-            // 
-            this.cbEstadoVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbEstadoVenta.FormattingEnabled = true;
-            this.cbEstadoVenta.Items.AddRange(new object[] {
-            "Pagada",
-            "Pendiente por pagar",
-            "Parcialmente pagada"});
-            this.cbEstadoVenta.Location = new System.Drawing.Point(904, 295);
-            this.cbEstadoVenta.Name = "cbEstadoVenta";
-            this.cbEstadoVenta.Size = new System.Drawing.Size(160, 25);
-            this.cbEstadoVenta.TabIndex = 36;
-            // 
             // txtDescuentoGeneral
             // 
             this.txtDescuentoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuentoGeneral.Location = new System.Drawing.Point(786, 296);
+            this.txtDescuentoGeneral.Location = new System.Drawing.Point(655, 297);
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
             this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 22);
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
-            // 
-            // btnDetallesVenta
-            // 
-            this.btnDetallesVenta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDetallesVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDetallesVenta.Location = new System.Drawing.Point(694, 294);
-            this.btnDetallesVenta.Name = "btnDetallesVenta";
-            this.btnDetallesVenta.Size = new System.Drawing.Size(75, 23);
-            this.btnDetallesVenta.TabIndex = 34;
-            this.btnDetallesVenta.Text = "Detalles";
-            this.btnDetallesVenta.UseVisualStyleBackColor = true;
             // 
             // Ventas
             // 
@@ -709,9 +681,7 @@
         private System.Windows.Forms.Label lbIVA8;
         private System.Windows.Forms.Label cIVA8;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ComboBox cbEstadoVenta;
         private System.Windows.Forms.TextBox txtDescuentoGeneral;
-        private System.Windows.Forms.Button btnDetallesVenta;
         private System.Windows.Forms.Button btnTerminarVenta;
         private System.Windows.Forms.Label lbCantidad;
         private System.Windows.Forms.NumericUpDown nudCantidadPS;
