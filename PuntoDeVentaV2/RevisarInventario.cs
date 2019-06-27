@@ -41,6 +41,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void btnAumentarStock_Click(object sender, EventArgs e)
         {
             cantidadStock = Convert.ToInt32(lblCantidadStock.Text);
