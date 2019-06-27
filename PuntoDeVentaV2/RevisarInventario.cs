@@ -40,8 +40,7 @@ namespace PuntoDeVentaV2
             lblCodigoDeBarras.Text = string.Empty;
             txtCantidadStock.Text = string.Empty;
             txtCantidadStock.Text = "0";
-            LineNum = txtCantidadStock.TextLength;
-            txtCantidadStock.SelectionStart = txtCantidadStock.GetFirstCharIndexFromLine(LineNum);
+            txtBoxBuscarCodigoBarras.Focus();
         }
 
         private void txtCantidadStock_KeyPress(object sender, KeyPressEventArgs e)
@@ -61,6 +60,11 @@ namespace PuntoDeVentaV2
                 {
                     e.Handled = true;   // el resto de teclas pulsadas se desactivan
                 }
+            }
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                MessageBox.Show("En Proceso...", "Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnSiguiente.PerformClick();
             }
         }
 

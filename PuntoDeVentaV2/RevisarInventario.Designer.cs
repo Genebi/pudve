@@ -91,7 +91,7 @@
             // 
             this.txtCantidadStock.Font = new System.Drawing.Font("Century", 48F, System.Drawing.FontStyle.Bold);
             this.txtCantidadStock.ForeColor = System.Drawing.Color.Blue;
-            this.txtCantidadStock.Location = new System.Drawing.Point(99, 206);
+            this.txtCantidadStock.Location = new System.Drawing.Point(99, 207);
             this.txtCantidadStock.Name = "txtCantidadStock";
             this.txtCantidadStock.Size = new System.Drawing.Size(225, 84);
             this.txtCantidadStock.TabIndex = 8;
@@ -122,7 +122,7 @@
             this.btnAumentarStock.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square1;
             this.btnAumentarStock.Location = new System.Drawing.Point(330, 206);
             this.btnAumentarStock.Name = "btnAumentarStock";
-            this.btnAumentarStock.Size = new System.Drawing.Size(75, 79);
+            this.btnAumentarStock.Size = new System.Drawing.Size(75, 85);
             this.btnAumentarStock.TabIndex = 5;
             this.btnAumentarStock.UseVisualStyleBackColor = true;
             this.btnAumentarStock.Click += new System.EventHandler(this.btnAumentarStock_Click);
@@ -132,7 +132,7 @@
             this.btnReducirStock.Image = global::PuntoDeVentaV2.Properties.Resources.minus_square1;
             this.btnReducirStock.Location = new System.Drawing.Point(18, 206);
             this.btnReducirStock.Name = "btnReducirStock";
-            this.btnReducirStock.Size = new System.Drawing.Size(75, 79);
+            this.btnReducirStock.Size = new System.Drawing.Size(75, 85);
             this.btnReducirStock.TabIndex = 4;
             this.btnReducirStock.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnReducirStock.UseVisualStyleBackColor = true;
