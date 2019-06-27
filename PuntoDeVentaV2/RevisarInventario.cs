@@ -17,13 +17,54 @@ namespace PuntoDeVentaV2
         int cantidadStock;
         string SearchBarCode, queryTaerStock, tablaProductos, tablaRevisarInventario, buscarStock;
         string ID, Nombre, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario;
+        DataTable dtRevisarStockResultado;
+
+        private void txtBoxBuscarCodigoBarras_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                MessageBox.Show("En Proceso...", "Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnSiguiente.PerformClick();
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            LimpiarCampos();
+        }
+
+        private void LimpiarCampos()
+        {
+            lblNombreProducto.Text = string.Empty;
+            lblCodigoDeBarras.Text = string.Empty;
+            txtCantidadStock.Text = string.Empty;
+            txtCantidadStock.Text = "0";
+        }
+
+        private void txtCantidadStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Para obligar a que sólo se introduzcan números
+            if (Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                if (Char.IsControl(e.KeyChar))  // permitir teclas de control como retroceso
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;   // el resto de teclas pulsadas se desactivan
+                }
+            }
+        }
 
         private void RevisarInventario_FormClosing(object sender, FormClosingEventArgs e)
         {
             ClearTable(dtRevisarStockResultado);
         }
-
-        DataTable dtRevisarStockResultado;
 
         public RevisarInventario()
         {

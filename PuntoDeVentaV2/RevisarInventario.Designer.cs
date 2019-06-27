@@ -68,6 +68,7 @@
             this.txtBoxBuscarCodigoBarras.TabIndex = 0;
             this.txtBoxBuscarCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBoxBuscarCodigoBarras.TextChanged += new System.EventHandler(this.txtBoxBuscarCodigoBarras_TextChanged);
+            this.txtBoxBuscarCodigoBarras.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxBuscarCodigoBarras_KeyPress);
             // 
             // groupBox2
             // 
@@ -97,6 +98,7 @@
             this.txtCantidadStock.TabIndex = 8;
             this.txtCantidadStock.Text = "0";
             this.txtCantidadStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidadStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadStock_KeyPress);
             // 
             // label6
             // 
@@ -192,6 +194,7 @@
             this.btnSiguiente.TabIndex = 0;
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // button1
             // 
