@@ -126,7 +126,7 @@
             this.lbTotalCredito.AutoSize = true;
             this.lbTotalCredito.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalCredito.ForeColor = System.Drawing.Color.Red;
-            this.lbTotalCredito.Location = new System.Drawing.Point(104, 253);
+            this.lbTotalCredito.Location = new System.Drawing.Point(99, 253);
             this.lbTotalCredito.Name = "lbTotalCredito";
             this.lbTotalCredito.Size = new System.Drawing.Size(29, 16);
             this.lbTotalCredito.TabIndex = 91;

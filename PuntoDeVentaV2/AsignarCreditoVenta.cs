@@ -43,7 +43,30 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            if (string.IsNullOrWhiteSpace(DetalleVenta.cliente))
+            {
+                var respuesta = MessageBox.Show("Para realizar esta operación y agregar crédito\nes necesario asignar un cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                if (respuesta == DialogResult.OK)
+                {
+                    DetalleVenta.credito = 0;
+
+                    this.Dispose();
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(txtCantidad.Text))
+                {
+                    return;
+                }
+
+                float credito = float.Parse(txtCantidad.Text);
+
+                DetalleVenta.credito = credito;
+
+                this.Dispose();
+            }
         }
 
         private void txtCantidad_KeyDown(object sender, KeyEventArgs e)

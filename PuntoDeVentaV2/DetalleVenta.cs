@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     {
         public static string cliente = string.Empty;
         public static int idCliente = 0;
+        public static float credito = 0f;
 
         private float total = 0;
         private float totalMetodos = 0;
@@ -71,14 +72,14 @@ namespace PuntoDeVentaV2
 
         private void btnCredito_Click(object sender, EventArgs e)
         {
-            AsignarCreditoVenta credito = new AsignarCreditoVenta();
+            AsignarCreditoVenta agregarCredito = new AsignarCreditoVenta();
 
-            credito.FormClosed += delegate
+            agregarCredito.FormClosed += delegate
             {
-                MessageBox.Show("Se cerro el form");
+                lbTotalCredito.Text = Convert.ToDouble(credito).ToString("0.00");
             };
 
-            credito.ShowDialog();
+            agregarCredito.ShowDialog();
         }
 
         //Obtiene el total de todos los metodos de pago excepto el de efectivo y lo usa para calcular
@@ -125,8 +126,8 @@ namespace PuntoDeVentaV2
             {
                 resultado = 0;
             }
-            else {
-
+            else
+            {
                 resultado = float.Parse(cantidad);
             }
 
@@ -169,6 +170,7 @@ namespace PuntoDeVentaV2
             idCliente = 0;
             lbCliente.Text = "Asignar cliente";
             lbEliminarCliente.Visible = false;
+            credito = 0;
         }
     }
 }
