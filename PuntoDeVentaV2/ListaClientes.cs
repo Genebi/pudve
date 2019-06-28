@@ -49,6 +49,7 @@ namespace PuntoDeVentaV2
 
                 Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
 
+                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
                 row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
                 row.Cells["Agregar"].Value = agregar;
@@ -64,10 +65,12 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 2)
+                if (e.ColumnIndex == 3)
                 {
+                    var idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);
                     var cliente = DGVClientes.Rows[e.RowIndex].Cells["RazonSocial"].Value.ToString();
 
+                    DetalleVenta.idCliente = idCliente;
                     DetalleVenta.cliente = cliente;
 
                     this.Dispose();
@@ -79,7 +82,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 2)
+                if (e.ColumnIndex == 3)
                 {
                     DGVClientes.Cursor = Cursors.Hand;
                 }
@@ -90,7 +93,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 2)
+                if (e.ColumnIndex == 3)
                 {
                     DGVClientes.Cursor = Cursors.Default;
                 }

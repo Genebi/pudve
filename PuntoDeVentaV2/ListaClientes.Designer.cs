@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.DGVClientes = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RazonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Agregar = new System.Windows.Forms.DataGridViewImageColumn();
@@ -41,6 +42,7 @@
             this.DGVClientes.AllowUserToDeleteRows = false;
             this.DGVClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
             this.RFC,
             this.RazonSocial,
             this.Agregar});
@@ -53,6 +55,13 @@
             this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
             this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
             this.DGVClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseLeave);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
             // 
             // RFC
             // 
@@ -96,6 +105,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGVClientes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewTextBoxColumn RazonSocial;
         private System.Windows.Forms.DataGridViewImageColumn Agregar;

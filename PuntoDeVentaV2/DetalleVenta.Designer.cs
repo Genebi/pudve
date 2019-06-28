@@ -54,11 +54,13 @@
             this.txtEfectivo = new System.Windows.Forms.TextBox();
             this.txtTotalVenta = new System.Windows.Forms.Label();
             this.tituloDetalle = new System.Windows.Forms.Label();
+            this.lbEliminarCliente = new System.Windows.Forms.LinkLabel();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.lbEliminarCliente);
             this.gbContenedor.Controls.Add(this.lbTotalCambio);
             this.gbContenedor.Controls.Add(this.lbCambio);
             this.gbContenedor.Controls.Add(this.label1);
@@ -162,7 +164,7 @@
             // 
             this.lbCliente.AutoSize = true;
             this.lbCliente.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCliente.Location = new System.Drawing.Point(5, 221);
+            this.lbCliente.Location = new System.Drawing.Point(17, 221);
             this.lbCliente.Name = "lbCliente";
             this.lbCliente.Size = new System.Drawing.Size(85, 16);
             this.lbCliente.TabIndex = 86;
@@ -346,6 +348,21 @@
             this.tituloDetalle.TabIndex = 14;
             this.tituloDetalle.Text = "Total a pagar";
             // 
+            // lbEliminarCliente
+            // 
+            this.lbEliminarCliente.AutoSize = true;
+            this.lbEliminarCliente.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbEliminarCliente.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lbEliminarCliente.LinkColor = System.Drawing.Color.Red;
+            this.lbEliminarCliente.Location = new System.Drawing.Point(5, 221);
+            this.lbEliminarCliente.Name = "lbEliminarCliente";
+            this.lbEliminarCliente.Size = new System.Drawing.Size(15, 16);
+            this.lbEliminarCliente.TabIndex = 95;
+            this.lbEliminarCliente.TabStop = true;
+            this.lbEliminarCliente.Text = "X";
+            this.lbEliminarCliente.Visible = false;
+            this.lbEliminarCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbEliminarCliente_LinkClicked);
+            // 
             // DetalleVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -392,5 +409,6 @@
         private System.Windows.Forms.Label lbCambio;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel lbCliente;
+        private System.Windows.Forms.LinkLabel lbEliminarCliente;
     }
 }

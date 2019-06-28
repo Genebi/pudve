@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
     public partial class DetalleVenta : Form
     {
         public static string cliente = string.Empty;
+        public static int idCliente = 0;
 
         private float total = 0;
         private float totalMetodos = 0;
@@ -52,6 +53,17 @@ namespace PuntoDeVentaV2
             clientes.FormClosed += delegate
             {
                 lbCliente.Text = cliente;
+
+                if (string.IsNullOrWhiteSpace(cliente))
+                {
+                    lbCliente.Text = "Asignar cliente";
+                    lbEliminarCliente.Visible = false;
+                    idCliente = 0;
+                }
+                else
+                {
+                    lbEliminarCliente.Visible = true;
+                }
             };
 
             clientes.ShowDialog();
@@ -59,7 +71,14 @@ namespace PuntoDeVentaV2
 
         private void btnCredito_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Asignar credito");
+            AsignarCreditoVenta credito = new AsignarCreditoVenta();
+
+            credito.FormClosed += delegate
+            {
+                MessageBox.Show("Se cerro el form");
+            };
+
+            credito.ShowDialog();
         }
 
         //Obtiene el total de todos los metodos de pago excepto el de efectivo y lo usa para calcular
@@ -129,7 +148,7 @@ namespace PuntoDeVentaV2
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                 {
                     e.Handled = true;
-                }    
+                }
             }
         }
 
@@ -143,6 +162,13 @@ namespace PuntoDeVentaV2
             double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos) - total);
 
             lbTotalCambio.Text = "$" + cambio.ToString("0.00");
+        }
+
+        private void lbEliminarCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            idCliente = 0;
+            lbCliente.Text = "Asignar cliente";
+            lbEliminarCliente.Visible = false;
         }
     }
 }
