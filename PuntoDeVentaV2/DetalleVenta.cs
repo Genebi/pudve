@@ -44,7 +44,23 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Aceptar");
+            Ventas.efectivo = CantidadDecimal(txtEfectivo.Text).ToString("0.00");
+            Ventas.tarjeta = CantidadDecimal(txtTarjeta.Text).ToString("0.00");
+            Ventas.vales = CantidadDecimal(txtVales.Text).ToString("0.00");
+            Ventas.cheque = CantidadDecimal(txtCheque.Text).ToString("0.00");
+            Ventas.transferencia = CantidadDecimal(txtTransferencia.Text).ToString("0.00");
+            Ventas.referencia = txtReferencia.Text;
+            
+            if (idCliente == 0)
+            {
+                cliente = string.Empty;
+            }
+
+            Ventas.cliente = cliente;
+            Ventas.idCliente = idCliente.ToString();
+            Ventas.credito = credito.ToString();
+
+            this.Dispose();
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

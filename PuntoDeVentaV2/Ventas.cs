@@ -31,7 +31,17 @@ namespace PuntoDeVentaV2
         //Para los anticipos por aplicar
         public static string listaAnticipos = string.Empty;
         public static float importeAnticipo = 0f;
-        
+
+        //Variables para almacenar los valores agregados en el form DetalleVenta.cs
+        public static string efectivo = string.Empty;
+        public static string tarjeta = string.Empty;
+        public static string vales = string.Empty;
+        public static string cheque = string.Empty;
+        public static string transferencia = string.Empty;
+        public static string referencia = string.Empty;
+        public static string cliente = string.Empty;
+        public static string idCliente = string.Empty;
+        public static string credito = string.Empty;
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -710,11 +720,27 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
-            var totalVenta = float.Parse(cTotal.Text);
+            if (VerificarStockProducto())
+            {
+                var totalVenta = float.Parse(cTotal.Text);
 
-            DetalleVenta detalle = new DetalleVenta(totalVenta);
-            detalle.ShowDialog();
-            //DatosVenta();
+                DetalleVenta detalle = new DetalleVenta(totalVenta);
+
+                detalle.FormClosed += delegate
+                {
+                    DatosVenta();
+                };
+
+                detalle.ShowDialog();
+            }
+        }
+
+        //Se procesa la informacion de los detalles de la venta para guardarse
+        private void DetallesVenta(string IDVenta)
+        {
+            string[] info = new string[] { IDVenta, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales, cheque, transferencia, credito, referencia, idCliente, cliente };
+
+            cn.EjecutarConsulta(cs.GuardarDetallesVenta(info));
         }
 
         private void DatosVenta()
@@ -846,6 +872,9 @@ namespace PuntoDeVentaV2
                                     cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                                 }
                             }
+
+                            //Guardar detalles de la venta
+                            DetallesVenta(idVenta);
                         }
                     }
 
