@@ -113,30 +113,10 @@ namespace PuntoDeVentaV2
                 panelContenedor.Tag = formulario;
                 formulario.Show();
                 formulario.BringToFront();
-
-                if (formulario.Text.Equals("ListadoVentas"))
-                {
-                    Ventas nv = new Ventas();
-                    nv.ShowDialog();
-                }
             }
             else
             {
-                //Comprobar que Forms estan abiertos
-                cn.ComprobarForms();
-
-                if (formulario.Text.Equals("Caja"))
-                {
-                    formulario.Visible = true;
-                }
-
                 formulario.BringToFront();
-
-                if (formulario.Text.Equals("ListadoVentas"))
-                {
-                    Ventas nv = new Ventas();
-                    nv.ShowDialog();
-                }
             }
         }
 

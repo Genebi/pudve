@@ -623,17 +623,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public void ComprobarForms()
-        {
-            foreach (Form vtn in Application.OpenForms)
-            {
-                if (vtn.Name == "Caja")
-                {
-                    vtn.Hide();
-                }
-            }
-        }
-
         public int CountColumnasTabla(string consulta)
         {
             Conectarse();

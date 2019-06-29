@@ -111,16 +111,16 @@ namespace PuntoDeVentaV2
             panelRetirar.Visible = false;
         }
 
-        private void Caja_VisibleChanged(object sender, EventArgs e)
-        {
-            CargarSaldo();
-        }
-
         private void CargarSaldo()
         {
             saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
 
             tituloSeccion.Text = "CAJA: $" + saldoActual.ToString("0.00");
+        }
+
+        private void Caja_Paint(object sender, PaintEventArgs e)
+        {
+            CargarSaldo();
         }
     }
 }

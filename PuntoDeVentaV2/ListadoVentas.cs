@@ -23,6 +23,9 @@ namespace PuntoDeVentaV2
         private string rutaTicketGenerado = string.Empty;
 
         public static bool abrirNuevaVenta = false;
+
+        private bool primeraEjecucion = true;
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -41,13 +44,11 @@ namespace PuntoDeVentaV2
             cbTipoVentas.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void CargarDatos(int estado = 1)
+        public void CargarDatos(int estado = 1)
         {
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
-
-
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
@@ -120,7 +121,7 @@ namespace PuntoDeVentaV2
         }
 
 
-        private void AbrirVentanaVenta()
+        public void AbrirVentanaVenta()
         {
             if (abrirNuevaVenta)
             {
@@ -232,6 +233,21 @@ namespace PuntoDeVentaV2
             e.DrawBackground();
             e.DrawBorder();
             e.DrawText();
+        }
+
+        private void ListadoVentas_Shown(object sender, EventArgs e)
+        {
+            btnNuevaVenta.PerformClick();
+        }
+
+        private void ListadoVentas_Paint(object sender, PaintEventArgs e)
+        {
+            if (!primeraEjecucion)
+            {
+                btnNuevaVenta.PerformClick();
+            }
+
+            primeraEjecucion = false;
         }
     }
 }

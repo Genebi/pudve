@@ -311,6 +311,8 @@
             this.Name = "ListadoVentas";
             this.Text = "ListadoVentas";
             this.Load += new System.EventHandler(this.ListadoVentas_Load);
+            this.Shown += new System.EventHandler(this.ListadoVentas_Shown);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.ListadoVentas_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).EndInit();
             this.panelBotones.ResumeLayout(false);
             this.ResumeLayout(false);

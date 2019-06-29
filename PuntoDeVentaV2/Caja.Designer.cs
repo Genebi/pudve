@@ -302,7 +302,7 @@
             this.Name = "Caja";
             this.Text = "Caja";
             this.Load += new System.EventHandler(this.Caja_Load);
-            this.VisibleChanged += new System.EventHandler(this.Caja_VisibleChanged);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Caja_Paint);
             this.panelBotones.ResumeLayout(false);
             this.gbContenedor.ResumeLayout(false);
             this.panelRetirar.ResumeLayout(false);
