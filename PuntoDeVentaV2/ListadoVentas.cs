@@ -24,8 +24,6 @@ namespace PuntoDeVentaV2
 
         public static bool abrirNuevaVenta = false;
 
-        private bool primeraEjecucion = true;
-
         public ListadoVentas()
         {
             InitializeComponent();
@@ -235,19 +233,9 @@ namespace PuntoDeVentaV2
             e.DrawText();
         }
 
-        private void ListadoVentas_Shown(object sender, EventArgs e)
-        {
-            btnNuevaVenta.PerformClick();
-        }
-
         private void ListadoVentas_Paint(object sender, PaintEventArgs e)
         {
-            if (!primeraEjecucion)
-            {
-                btnNuevaVenta.PerformClick();
-            }
-
-            primeraEjecucion = false;
+            btnNuevaVenta.PerformClick();
         }
     }
 }
