@@ -18,8 +18,6 @@ namespace PuntoDeVentaV2
 
         float saldoActual = 0f;
 
-        public string SaldoActual { get; set; }
-
         public Caja()
         {
             InitializeComponent();
@@ -63,10 +61,13 @@ namespace PuntoDeVentaV2
             var operacion = "deposito";
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
-            var total = actual + cantidad;
+            //var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+            //var total = actual + cantidad;
 
-            string[] datos = new string[] { operacion, cantidad.ToString("0.00"), total.ToString("0.00"), "", fechaOperacion, FormPrincipal.userID.ToString() };
+            string[] datos = new string[] {
+                operacion, cantidad.ToString("0.00"), "0", "", fechaOperacion, FormPrincipal.userID.ToString(),
+                cantidad.ToString("0.00"), "0", "0", "0", "0", "0"
+            };
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
@@ -74,7 +75,7 @@ namespace PuntoDeVentaV2
             {
                 LimpiarCampos();
 
-                tituloSeccion.Text = "CAJA: $" + total.ToString("0.00");
+                CargarSaldo();
             }
         }
 
@@ -90,10 +91,10 @@ namespace PuntoDeVentaV2
             var operacion = "retiro";
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
-            var total = actual - cantidad;
+            //var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+            //var total = actual - cantidad;
 
-            string[] datos = new string[] { operacion, cantidad.ToString("0.00"), total.ToString("0.00"), concepto, fechaOperacion, FormPrincipal.userID.ToString() };
+            string[] datos = new string[] { operacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString() };
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
@@ -101,7 +102,7 @@ namespace PuntoDeVentaV2
             {
                 LimpiarCampos();
 
-                tituloSeccion.Text = "CAJA: $" + total.ToString("0.00");
+                CargarSaldo();
             }
         }
 
@@ -119,9 +120,69 @@ namespace PuntoDeVentaV2
 
         private void CargarSaldo()
         {
-            saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+            SQLiteConnection sql_con;
+            SQLiteCommand sql_cmd;
+            SQLiteDataReader dr;
 
-            tituloSeccion.Text = "CAJA: $" + saldoActual.ToString("0.00");
+            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            sql_con.Open();
+
+            var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID}";
+
+            sql_cmd = new SQLiteCommand(consulta, sql_con);
+
+            dr = sql_cmd.ExecuteReader();
+
+            float saldo = 0f;
+            float efectivo = 0f;
+            float tarjeta = 0f;
+            float vales = 0f;
+            float cheque = 0f;
+            float trans = 0f;
+            float credito = 0f;
+
+            while (dr.Read())
+            {
+                string operacion = dr.GetValue(dr.GetOrdinal("Operacion")).ToString();
+
+                if (operacion == "deposito")
+                {
+                    saldo += float.Parse(dr.GetValue(dr.GetOrdinal("Cantidad")).ToString());
+
+                    efectivo += float.Parse(dr.GetValue(dr.GetOrdinal("Efectivo")).ToString());
+                    tarjeta += float.Parse(dr.GetValue(dr.GetOrdinal("Tarjeta")).ToString());
+                    vales += float.Parse(dr.GetValue(dr.GetOrdinal("Vales")).ToString());
+                    cheque += float.Parse(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
+                    trans += float.Parse(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
+                    credito += float.Parse(dr.GetValue(dr.GetOrdinal("Credito")).ToString());
+                }
+                
+                if (operacion == "retiro")
+                {
+                    saldo -= float.Parse(dr.GetValue(dr.GetOrdinal("Cantidad")).ToString());
+
+                    efectivo -= float.Parse(dr.GetValue(dr.GetOrdinal("Efectivo")).ToString());
+                    tarjeta -= float.Parse(dr.GetValue(dr.GetOrdinal("Tarjeta")).ToString());
+                    vales -= float.Parse(dr.GetValue(dr.GetOrdinal("Vales")).ToString());
+                    cheque -= float.Parse(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
+                    trans -= float.Parse(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
+                    credito -= float.Parse(dr.GetValue(dr.GetOrdinal("Credito")).ToString());
+                }
+            }
+
+            dr.Close();
+            sql_con.Close();
+
+            //saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+
+            tituloSeccion.Text = "CAJA: $" + saldo.ToString("0.00");
+
+            lbTEfectivo.Text = "$" + efectivo.ToString("0.00");
+            lbTTarjeta.Text = "$" + tarjeta.ToString("0.00");
+            lbTVales.Text = "$" + vales.ToString("0.00");
+            lbTCheque.Text = "$" + cheque.ToString("0.00");
+            lbTTrans.Text = "$" + trans.ToString("0.00");
+            lbTCredito.Text = "$" + credito.ToString("0.00");
         }
 
         private void Caja_Paint(object sender, PaintEventArgs e)
