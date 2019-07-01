@@ -32,6 +32,8 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarDinero_Click(object sender, EventArgs e)
         {
+            panelMetodos.Visible = false;
+            gbContenedor.Visible = true;
             gbContenedor.Text = "DEPOSITAR DINERO";
 
             panelRetirar.Visible = false;
@@ -41,6 +43,8 @@ namespace PuntoDeVentaV2
 
         private void btnRetirarDinero_Click(object sender, EventArgs e)
         {
+            panelMetodos.Visible = false;
+            gbContenedor.Visible = true;
             gbContenedor.Text = "RETIRAR DINERO";
 
             panelAgregar.Visible = false;
@@ -104,11 +108,13 @@ namespace PuntoDeVentaV2
         private void LimpiarCampos()
         {
             gbContenedor.Text = string.Empty;
+            gbContenedor.Visible = false;
             txtAgregarDinero.Text = string.Empty;
             txtRetirarDinero.Text = string.Empty;
             txtConcepto.Text = string.Empty;
             panelAgregar.Visible = false;
             panelRetirar.Visible = false;
+            panelMetodos.Visible = true;
         }
 
         private void CargarSaldo()

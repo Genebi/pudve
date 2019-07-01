@@ -42,6 +42,8 @@ namespace PuntoDeVentaV2
         public static string cliente = string.Empty;
         public static string idCliente = string.Empty;
         public static string credito = string.Empty;
+        //Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
+        public static bool botonAceptar = true;
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -728,7 +730,10 @@ namespace PuntoDeVentaV2
 
                 detalle.FormClosed += delegate
                 {
-                    DatosVenta();
+                    if (botonAceptar)
+                    {
+                        DatosVenta();
+                    }
                 };
 
                 detalle.ShowDialog();

@@ -603,6 +603,7 @@
             // 
             // btnTerminarVenta
             // 
+            this.btnTerminarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTerminarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTerminarVenta.Location = new System.Drawing.Point(793, 297);
@@ -615,6 +616,7 @@
             // 
             // txtDescuentoGeneral
             // 
+            this.txtDescuentoGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescuentoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescuentoGeneral.Location = new System.Drawing.Point(655, 297);
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";

@@ -93,6 +93,8 @@ namespace PuntoDeVentaV2
             agregarCredito.FormClosed += delegate
             {
                 lbTotalCredito.Text = Convert.ToDouble(credito).ToString("0.00");
+
+                CalcularCambio();
             };
 
             agregarCredito.ShowDialog();
@@ -176,7 +178,8 @@ namespace PuntoDeVentaV2
 
         private void CalcularCambio()
         {
-            double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos) - total);
+            //El total del campo efecto + la suma de los otros metodos de pago - total de venta
+            double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos + credito) - total);
 
             lbTotalCambio.Text = "$" + cambio.ToString("0.00");
         }
@@ -187,6 +190,21 @@ namespace PuntoDeVentaV2
             lbCliente.Text = "Asignar cliente";
             lbEliminarCliente.Visible = false;
             credito = 0;
+            lbTotalCredito.Text = "0.00";
+
+            CalcularCambio();
+        }
+
+        private void DetalleVenta_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                Ventas.botonAceptar = false;
+            }
+            else
+            {
+                Ventas.botonAceptar = true;
+            }
         }
     }
 }

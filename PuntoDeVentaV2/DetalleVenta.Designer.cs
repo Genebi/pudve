@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.lbEliminarCliente = new System.Windows.Forms.LinkLabel();
             this.lbTotalCambio = new System.Windows.Forms.Label();
             this.lbCambio = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             this.txtEfectivo = new System.Windows.Forms.TextBox();
             this.txtTotalVenta = new System.Windows.Forms.Label();
             this.tituloDetalle = new System.Windows.Forms.Label();
-            this.lbEliminarCliente = new System.Windows.Forms.LinkLabel();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,6 +92,21 @@
             this.gbContenedor.Size = new System.Drawing.Size(478, 358);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
+            // 
+            // lbEliminarCliente
+            // 
+            this.lbEliminarCliente.AutoSize = true;
+            this.lbEliminarCliente.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbEliminarCliente.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.lbEliminarCliente.LinkColor = System.Drawing.Color.Red;
+            this.lbEliminarCliente.Location = new System.Drawing.Point(5, 221);
+            this.lbEliminarCliente.Name = "lbEliminarCliente";
+            this.lbEliminarCliente.Size = new System.Drawing.Size(15, 16);
+            this.lbEliminarCliente.TabIndex = 95;
+            this.lbEliminarCliente.TabStop = true;
+            this.lbEliminarCliente.Text = "X";
+            this.lbEliminarCliente.Visible = false;
+            this.lbEliminarCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbEliminarCliente_LinkClicked);
             // 
             // lbTotalCambio
             // 
@@ -348,21 +363,6 @@
             this.tituloDetalle.TabIndex = 14;
             this.tituloDetalle.Text = "Total a pagar";
             // 
-            // lbEliminarCliente
-            // 
-            this.lbEliminarCliente.AutoSize = true;
-            this.lbEliminarCliente.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbEliminarCliente.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
-            this.lbEliminarCliente.LinkColor = System.Drawing.Color.Red;
-            this.lbEliminarCliente.Location = new System.Drawing.Point(5, 221);
-            this.lbEliminarCliente.Name = "lbEliminarCliente";
-            this.lbEliminarCliente.Size = new System.Drawing.Size(15, 16);
-            this.lbEliminarCliente.TabIndex = 95;
-            this.lbEliminarCliente.TabStop = true;
-            this.lbEliminarCliente.Text = "X";
-            this.lbEliminarCliente.Visible = false;
-            this.lbEliminarCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbEliminarCliente_LinkClicked);
-            // 
             // DetalleVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -374,6 +374,7 @@
             this.Name = "DetalleVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Detalles de Venta";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DetalleVenta_FormClosing);
             this.Load += new System.EventHandler(this.DetalleVenta_Load);
             this.gbContenedor.ResumeLayout(false);
             this.gbContenedor.PerformLayout();

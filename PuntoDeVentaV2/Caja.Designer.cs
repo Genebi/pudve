@@ -47,11 +47,25 @@
             this.txtAgregarDinero = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelContenido = new System.Windows.Forms.Panel();
+            this.panelMetodos = new System.Windows.Forms.Panel();
+            this.lbEfectivo = new System.Windows.Forms.Label();
+            this.lbTarjeta = new System.Windows.Forms.Label();
+            this.lbVales = new System.Windows.Forms.Label();
+            this.lbCheque = new System.Windows.Forms.Label();
+            this.lbTrans = new System.Windows.Forms.Label();
+            this.lbCredito = new System.Windows.Forms.Label();
+            this.lbTEfectivo = new System.Windows.Forms.Label();
+            this.lbTTarjeta = new System.Windows.Forms.Label();
+            this.lbTVales = new System.Windows.Forms.Label();
+            this.lbTCheque = new System.Windows.Forms.Label();
+            this.lbTTrans = new System.Windows.Forms.Label();
+            this.lbTCredito = new System.Windows.Forms.Label();
             this.panelBotones.SuspendLayout();
             this.gbContenedor.SuspendLayout();
             this.panelRetirar.SuspendLayout();
             this.panelAgregar.SuspendLayout();
             this.panelContenido.SuspendLayout();
+            this.panelMetodos.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -133,6 +147,7 @@
             this.gbContenedor.Size = new System.Drawing.Size(445, 338);
             this.gbContenedor.TabIndex = 23;
             this.gbContenedor.TabStop = false;
+            this.gbContenedor.Visible = false;
             // 
             // panelRetirar
             // 
@@ -284,11 +299,151 @@
             // panelContenido
             // 
             this.panelContenido.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panelContenido.Controls.Add(this.panelMetodos);
             this.panelContenido.Controls.Add(this.gbContenedor);
             this.panelContenido.Location = new System.Drawing.Point(373, 113);
             this.panelContenido.Name = "panelContenido";
             this.panelContenido.Size = new System.Drawing.Size(491, 344);
             this.panelContenido.TabIndex = 24;
+            // 
+            // panelMetodos
+            // 
+            this.panelMetodos.Controls.Add(this.lbTCredito);
+            this.panelMetodos.Controls.Add(this.lbTTrans);
+            this.panelMetodos.Controls.Add(this.lbTCheque);
+            this.panelMetodos.Controls.Add(this.lbTVales);
+            this.panelMetodos.Controls.Add(this.lbTTarjeta);
+            this.panelMetodos.Controls.Add(this.lbTEfectivo);
+            this.panelMetodos.Controls.Add(this.lbCredito);
+            this.panelMetodos.Controls.Add(this.lbTrans);
+            this.panelMetodos.Controls.Add(this.lbCheque);
+            this.panelMetodos.Controls.Add(this.lbVales);
+            this.panelMetodos.Controls.Add(this.lbTarjeta);
+            this.panelMetodos.Controls.Add(this.lbEfectivo);
+            this.panelMetodos.Location = new System.Drawing.Point(0, 1);
+            this.panelMetodos.Name = "panelMetodos";
+            this.panelMetodos.Size = new System.Drawing.Size(491, 343);
+            this.panelMetodos.TabIndex = 25;
+            // 
+            // lbEfectivo
+            // 
+            this.lbEfectivo.AutoSize = true;
+            this.lbEfectivo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbEfectivo.Location = new System.Drawing.Point(73, 20);
+            this.lbEfectivo.Name = "lbEfectivo";
+            this.lbEfectivo.Size = new System.Drawing.Size(70, 20);
+            this.lbEfectivo.TabIndex = 0;
+            this.lbEfectivo.Text = "Efectivo";
+            // 
+            // lbTarjeta
+            // 
+            this.lbTarjeta.AutoSize = true;
+            this.lbTarjeta.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTarjeta.Location = new System.Drawing.Point(73, 50);
+            this.lbTarjeta.Name = "lbTarjeta";
+            this.lbTarjeta.Size = new System.Drawing.Size(57, 20);
+            this.lbTarjeta.TabIndex = 1;
+            this.lbTarjeta.Text = "Tarjeta";
+            // 
+            // lbVales
+            // 
+            this.lbVales.AutoSize = true;
+            this.lbVales.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbVales.Location = new System.Drawing.Point(73, 80);
+            this.lbVales.Name = "lbVales";
+            this.lbVales.Size = new System.Drawing.Size(49, 20);
+            this.lbVales.TabIndex = 2;
+            this.lbVales.Text = "Vales";
+            // 
+            // lbCheque
+            // 
+            this.lbCheque.AutoSize = true;
+            this.lbCheque.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCheque.Location = new System.Drawing.Point(73, 110);
+            this.lbCheque.Name = "lbCheque";
+            this.lbCheque.Size = new System.Drawing.Size(69, 20);
+            this.lbCheque.TabIndex = 3;
+            this.lbCheque.Text = "Cheque";
+            // 
+            // lbTrans
+            // 
+            this.lbTrans.AutoSize = true;
+            this.lbTrans.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTrans.Location = new System.Drawing.Point(73, 140);
+            this.lbTrans.Name = "lbTrans";
+            this.lbTrans.Size = new System.Drawing.Size(106, 20);
+            this.lbTrans.TabIndex = 4;
+            this.lbTrans.Text = "Transferencia";
+            // 
+            // lbCredito
+            // 
+            this.lbCredito.AutoSize = true;
+            this.lbCredito.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCredito.Location = new System.Drawing.Point(73, 170);
+            this.lbCredito.Name = "lbCredito";
+            this.lbCredito.Size = new System.Drawing.Size(64, 20);
+            this.lbCredito.TabIndex = 5;
+            this.lbCredito.Text = "Crédito";
+            // 
+            // lbTEfectivo
+            // 
+            this.lbTEfectivo.AutoSize = true;
+            this.lbTEfectivo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTEfectivo.Location = new System.Drawing.Point(204, 20);
+            this.lbTEfectivo.Name = "lbTEfectivo";
+            this.lbTEfectivo.Size = new System.Drawing.Size(45, 20);
+            this.lbTEfectivo.TabIndex = 6;
+            this.lbTEfectivo.Text = "$0.00";
+            // 
+            // lbTTarjeta
+            // 
+            this.lbTTarjeta.AutoSize = true;
+            this.lbTTarjeta.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTTarjeta.Location = new System.Drawing.Point(204, 50);
+            this.lbTTarjeta.Name = "lbTTarjeta";
+            this.lbTTarjeta.Size = new System.Drawing.Size(45, 20);
+            this.lbTTarjeta.TabIndex = 7;
+            this.lbTTarjeta.Text = "$0.00";
+            // 
+            // lbTVales
+            // 
+            this.lbTVales.AutoSize = true;
+            this.lbTVales.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTVales.Location = new System.Drawing.Point(204, 80);
+            this.lbTVales.Name = "lbTVales";
+            this.lbTVales.Size = new System.Drawing.Size(45, 20);
+            this.lbTVales.TabIndex = 8;
+            this.lbTVales.Text = "$0.00";
+            // 
+            // lbTCheque
+            // 
+            this.lbTCheque.AutoSize = true;
+            this.lbTCheque.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTCheque.Location = new System.Drawing.Point(204, 110);
+            this.lbTCheque.Name = "lbTCheque";
+            this.lbTCheque.Size = new System.Drawing.Size(45, 20);
+            this.lbTCheque.TabIndex = 9;
+            this.lbTCheque.Text = "$0.00";
+            // 
+            // lbTTrans
+            // 
+            this.lbTTrans.AutoSize = true;
+            this.lbTTrans.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTTrans.Location = new System.Drawing.Point(204, 140);
+            this.lbTTrans.Name = "lbTTrans";
+            this.lbTTrans.Size = new System.Drawing.Size(45, 20);
+            this.lbTTrans.TabIndex = 10;
+            this.lbTTrans.Text = "$0.00";
+            // 
+            // lbTCredito
+            // 
+            this.lbTCredito.AutoSize = true;
+            this.lbTCredito.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTCredito.Location = new System.Drawing.Point(204, 170);
+            this.lbTCredito.Name = "lbTCredito";
+            this.lbTCredito.Size = new System.Drawing.Size(45, 20);
+            this.lbTCredito.TabIndex = 11;
+            this.lbTCredito.Text = "$0.00";
             // 
             // Caja
             // 
@@ -310,6 +465,8 @@
             this.panelAgregar.ResumeLayout(false);
             this.panelAgregar.PerformLayout();
             this.panelContenido.ResumeLayout(false);
+            this.panelMetodos.ResumeLayout(false);
+            this.panelMetodos.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -336,5 +493,18 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtConcepto;
+        private System.Windows.Forms.Panel panelMetodos;
+        private System.Windows.Forms.Label lbEfectivo;
+        private System.Windows.Forms.Label lbCredito;
+        private System.Windows.Forms.Label lbTrans;
+        private System.Windows.Forms.Label lbCheque;
+        private System.Windows.Forms.Label lbVales;
+        private System.Windows.Forms.Label lbTarjeta;
+        private System.Windows.Forms.Label lbTCredito;
+        private System.Windows.Forms.Label lbTTrans;
+        private System.Windows.Forms.Label lbTCheque;
+        private System.Windows.Forms.Label lbTVales;
+        private System.Windows.Forms.Label lbTTarjeta;
+        private System.Windows.Forms.Label lbTEfectivo;
     }
 }
