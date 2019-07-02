@@ -38,7 +38,7 @@ namespace PuntoDeVentaV2
         {
             #region InicializarVariables
             Anticipos = 10;
-            Caja = 7;
+            Caja = 13;
             CatalogoUnidadesMedida = 3;
             CodigoBarrasExtras = 3;
             DescuentoCliente = 6;
@@ -150,7 +150,13 @@ namespace PuntoDeVentaV2
                                               Saldo REAL NOT NULL,
                                               Concepto TEXT,
                                               FechaOperacion DATETIME NOT NULL,
-                                              IDUsuario INTEGER  NOT NULL);";
+                                              IDUsuario INTEGER NOT NULL,
+                                              Efectivo DECIMAL DEFAULT (0),
+                                              Tarjeta DECIMAL DEFAULT (0),
+                                              Vales DECIMAL DEFAULT (0),
+                                              Cheque DECIMAL DEFAULT (0),
+                                              Transferencia DECIMAL DEFAULT (0),
+                                              Credito DECIMAL DEFAULT (0))";
         }
 
         public string QueryUpdateTablaCaja(string tabla)

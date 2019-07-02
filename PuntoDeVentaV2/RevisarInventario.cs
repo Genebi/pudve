@@ -39,12 +39,12 @@ namespace PuntoDeVentaV2
                 if (dr["ClaveInterna"].ToString() != "")
                 {
                     lblCodigoDeBarras.Text = dr["ClaveInterna"].ToString();
-                    Stock = dr["ClaveInterna"].ToString();
+                    Stock = dr["Stock"].ToString();
                 } 
                 else
                 {
                     lblCodigoDeBarras.Text = dr["CodigoBarras"].ToString();
-                    Stock = dr["CodigoBarras"].ToString();
+                    Stock = dr["Stock"].ToString();
                 }
                 txtCantidadStock.Text = dr["Stock"].ToString();
                 registro = LaPosicion + 1;
@@ -53,7 +53,7 @@ namespace PuntoDeVentaV2
                 txtCantidadStock.Focus();
                 txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
             }
-            else if (NoReg == 0 && buscarStock == null)
+            else if (NoReg == 0 && buscarStock == "")
             {
                 registro = 0;
                 dr = dtRevisarStockResultado.Rows[LaPosicion];
@@ -78,7 +78,6 @@ namespace PuntoDeVentaV2
         {
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                MessageBox.Show("En Proceso...", "Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnSiguiente.PerformClick();
             }
         }
@@ -158,6 +157,8 @@ namespace PuntoDeVentaV2
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
                 btnSiguiente.PerformClick();
+                txtBoxBuscarCodigoBarras.Text = string.Empty;
+                txtBoxBuscarCodigoBarras.Focus();
             }
         }
 
@@ -187,6 +188,8 @@ namespace PuntoDeVentaV2
                 if (cantidadStock >= 0)
                 {
                     txtCantidadStock.Text = Convert.ToString(cantidadStock);
+                    txtCantidadStock.Focus();
+                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                 }
             }
         }
@@ -252,6 +255,8 @@ namespace PuntoDeVentaV2
             cantidadStock = Convert.ToInt32(txtCantidadStock.Text);
             cantidadStock++;
             txtCantidadStock.Text = Convert.ToString(cantidadStock);
+            txtCantidadStock.Focus();
+            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
         }
 
         private void RevisarInventario_Load(object sender, EventArgs e)
