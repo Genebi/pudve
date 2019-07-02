@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
 
         private void llenarTabla()
         {
-            queryTaerStock = $"SELECT * FROM RevisarInventario";
+            queryTaerStock = $"SELECT * FROM RevisarInventario WHERE StatusRevision = '0'";
             dtRevisarStockResultado = cn.CargarDatos(queryTaerStock);
         }
 
