@@ -699,5 +699,31 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = Query;
             sql_cmd.ExecuteNonQuery();
         }
+
+        public bool IsEmptyTable(string Consulta)
+        {
+            bool TieneRegistros = false;
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = Consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                TieneRegistros = true;
+            }
+            else
+            {
+                TieneRegistros = false;
+            }
+
+            dr.Close();
+
+            return TieneRegistros;
+        }
     }
 }

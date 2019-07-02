@@ -31,6 +31,7 @@ namespace PuntoDeVentaV2
         public static int Ventas;
         public static int Clientes;
         public static int RevisarInventario;
+        public static int DetallesVenta;
         #endregion VariablesTablas
 
         public DBTables()
@@ -58,6 +59,7 @@ namespace PuntoDeVentaV2
             Ventas = 20;
             Clientes = 20;
             RevisarInventario = 8;
+            DetallesVenta = 12;
             #endregion InicializarVariables
         }
 
@@ -1403,5 +1405,73 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaRevisarInventario
+
+        // Tabla de DetallesVenta 23
+        #region TablaDetallesVenta
+        public int GetDetallesVenta()
+        {
+            return DetallesVenta;
+        }
+
+        public string PragmaTablaDetallesVenta(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameDetallesVenta(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaDetallesVenta(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDVenta INTEGER NOT NULL,
+                                              IDUsuario INTEGER,
+                                              Efectivo DECIMAL DEFAULT (0),
+                                              Tarjeta DECIMAL DEFAULT (0),
+                                              Vales REAL DEFAULT (0),
+                                              Cheque REAL DEFAULT (0),
+                                              Transferencia REAL DEFAULT (0),
+                                              Credito REAL DEFAULT (0),
+                                              Referencia TEXT,
+                                              IDCliente INTEGER DEFAULT (0),
+                                              Cliente TEXT);";
+        }
+
+        public string QueryUpdateTablaDetallesVenta(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDVenta,
+                                             IDUsuario,
+                                             Efectivo,
+                                             Tarjeta,
+                                             Vales,
+                                             Cheque,
+                                             Transferencia,
+                                             Credito,
+                                             Referencia,
+                                             IDCliente,
+                                             Cliente) 
+                                      SELECT ID,
+                                             IDVenta,
+                                             IDUsuario,
+                                             Efectivo,
+                                             Tarjeta,
+                                             Vales,
+                                             Cheque,
+                                             Transferencia,
+                                             Credito,
+                                             Referencia,
+                                             IDCliente,
+                                             Cliente 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaDetallesVenta(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaDetallesVenta
     }
 }
