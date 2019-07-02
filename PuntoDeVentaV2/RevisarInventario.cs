@@ -20,7 +20,8 @@ namespace PuntoDeVentaV2
         string ID, Nombre, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario;
         DataTable dtRevisarStockResultado;
         DataRow dr;
-        int NoReg, index, LaPosicion, registro;
+        DateTime today;
+        int NoReg, index, LaPosicion, registro, StatusRev;
         bool IsEmpty;
 
         private void llenarTabla()
@@ -48,7 +49,7 @@ namespace PuntoDeVentaV2
                 }
                 txtCantidadStock.Text = dr["Stock"].ToString();
                 registro = LaPosicion + 1;
-                lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
+                //lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
                 txtBoxBuscarCodigoBarras.Text = string.Empty;
                 txtCantidadStock.Focus();
                 txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
@@ -61,7 +62,7 @@ namespace PuntoDeVentaV2
                 lblCodigoDeBarras.Text = buscarStock;
                 txtCantidadStock.Text = dr["Stock"].ToString();
                 registro = LaPosicion + 1;
-                lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
+                //lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
                 txtBoxBuscarCodigoBarras.Text = string.Empty;
                 txtCantidadStock.Focus();
                 txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
@@ -84,9 +85,11 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+            today = DateTime.UtcNow.Date;
+            StatusRev = 1;
             if (Stock != txtCantidadStock.Text)
             {
-                queryUpdateStock = $"UPDATE RevisarInventario SET Stock = '{txtCantidadStock.Text}' WHERE ID = '{ID}'";
+                queryUpdateStock = $"UPDATE RevisarInventario SET Stock = '{txtCantidadStock.Text}', Fecha = '{today.ToString("yyyy-MM-dd")}', StatusRevision = '{StatusRev}' WHERE ID = '{ID}'";
                 cn.EjecutarConsulta(queryUpdateStock);
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
@@ -95,11 +98,13 @@ namespace PuntoDeVentaV2
                 else
                 {
                     LaPosicion += 1;
-                    cargardatos();
+                    //cargardatos();
                 }
             }
             else if (Stock == txtCantidadStock.Text)
             {
+                queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{today.ToString("yyyy-MM-dd")}', StatusRevision = '{StatusRev}' WHERE ID = '{ID}'";
+                cn.EjecutarConsulta(queryUpdateStock);
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
                     MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -107,10 +112,10 @@ namespace PuntoDeVentaV2
                 else
                 {
                     LaPosicion += 1;
-                    cargardatos();
+                    //cargardatos();
                 }
             }
-            //LimpiarCampos();
+            LimpiarCampos();
         }
 
         private void LimpiarCampos()
