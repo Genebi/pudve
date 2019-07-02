@@ -44,7 +44,21 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Ventas.efectivo = CantidadDecimal(txtEfectivo.Text).ToString("0.00");
+            float totalEfectivo = 0f;
+
+            //Si la suma de todos los metodos de pago excepto el de efectivo es mayor a cero
+            //se hace la operacion para sacar el total de efectivo que se guardara en la tabla
+            //DetallesVenta
+            if ((SumaMetodos() + credito) > 0)
+            {
+                totalEfectivo = total - (SumaMetodos() + credito);
+            }
+            else
+            {
+                totalEfectivo = total;
+            }
+
+            Ventas.efectivo = totalEfectivo.ToString("0.00");
             Ventas.tarjeta = CantidadDecimal(txtTarjeta.Text).ToString("0.00");
             Ventas.vales = CantidadDecimal(txtVales.Text).ToString("0.00");
             Ventas.cheque = CantidadDecimal(txtCheque.Text).ToString("0.00");

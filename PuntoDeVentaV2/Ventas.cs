@@ -791,10 +791,13 @@ namespace PuntoDeVentaV2
                 if (respuesta > 0)
                 {
                     //Operacion para afectar la tabla de Caja
-                    var saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
-                    var totalTmp = saldoActual + Convert.ToDouble(Total);
+                    //var saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+                    //var totalTmp = saldoActual + Convert.ToDouble(Total);
 
-                    string[] datos = new string[] { "deposito", Total, totalTmp.ToString("0.00"), "", FechaOperacion, FormPrincipal.userID.ToString() };
+                    string[] datos = new string[] {
+                        "deposito", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                        efectivo, tarjeta, vales, cheque, transferencia, credito,
+                    };
 
                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
