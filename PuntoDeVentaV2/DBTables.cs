@@ -58,7 +58,7 @@ namespace PuntoDeVentaV2
             Usuarios = 19;
             Ventas = 20;
             Clientes = 20;
-            RevisarInventario = 8;
+            RevisarInventario = 9;
             DetallesVenta = 12;
             #endregion InicializarVariables
         }
@@ -1379,9 +1379,10 @@ namespace PuntoDeVentaV2
                                               Stock INTEGER NOT NULL DEFAULT (0),
                                               ClaveInterna TEXT,
                                               CodigoBarras TEXT,
-                                              Fecha DATETIME,
+                                              Fecha DATE,
                                               IDUsuario INTEGER,
                                               Tipo TEXT,
+                                              StatusRevision INT DEFAULT (0),
                                               FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
         }
 
