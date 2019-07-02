@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
     public partial class Inventario : Form
     {
         RevisarInventario checkInventory = new RevisarInventario();
+        ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
 
         public Inventario()
         {
@@ -23,7 +24,18 @@ namespace PuntoDeVentaV2
         {
             checkInventory.FormClosed += delegate
             {
-                
+                FinalReportReviewInventory.FormClosed += delegate
+                {
+
+                };
+                if (!FinalReportReviewInventory.Visible)
+                {
+                    FinalReportReviewInventory.ShowDialog();
+                }
+                else
+                {
+                    FinalReportReviewInventory.ShowDialog();
+                }
             };
             if (!checkInventory.Visible)
             {

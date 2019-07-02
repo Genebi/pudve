@@ -194,6 +194,7 @@ namespace PuntoDeVentaV2
         private void button1_Click(object sender, EventArgs e)
         {
             ClearTable(dtRevisarStockResultado);
+            this.Hide();
             this.Close();
         }
 
@@ -316,17 +317,6 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Error al Checar registros de la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al Checar Registros", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //try
-            //{
-            //    queryTaerStock = $"DELETE FROM '{tablaRevisarInventario}';";
-            //    cn.EjecutarConsulta(queryTaerStock);
-            //    queryTaerStock = $"DELETE FROM sqlite_sequence WHERE name = '{tablaRevisarInventario}';";
-            //    cn.EjecutarConsulta(queryTaerStock);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error al eliminar registros de la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
         }
 
         private bool checkEmpty(string tabla)
