@@ -42,6 +42,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnSiguiente = new System.Windows.Forms.Button();
+            this.lblNoRegistro = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -72,6 +73,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblNoRegistro);
             this.groupBox2.Controls.Add(this.txtCantidadStock);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
@@ -206,6 +208,15 @@
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
+            // lblNoRegistro
+            // 
+            this.lblNoRegistro.AutoSize = true;
+            this.lblNoRegistro.Location = new System.Drawing.Point(270, 22);
+            this.lblNoRegistro.Name = "lblNoRegistro";
+            this.lblNoRegistro.Size = new System.Drawing.Size(0, 13);
+            this.lblNoRegistro.TabIndex = 9;
+            this.lblNoRegistro.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -247,5 +258,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtCantidadStock;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lblNoRegistro;
     }
 }

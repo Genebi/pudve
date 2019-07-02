@@ -15,10 +15,64 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
 
         int cantidadStock;
-        string SearchBarCode, queryTaerStock, tablaProductos, tablaRevisarInventario, buscarStock;
+        string SearchBarCode, queryTaerStock, queryUpdateStock, tablaProductos, tablaRevisarInventario, buscarStock;
+        string cadenaClavInterna, cadenaAuxClavInterna, cadenaCodigoBarras, cadenaAuxCodigoBarras;
         string ID, Nombre, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario;
         DataTable dtRevisarStockResultado;
-        int LineNum;
+        DataRow dr;
+        int NoReg, index, LaPosicion, registro;
+        bool IsEmpty;
+
+        private void llenarTabla()
+        {
+            queryTaerStock = $"SELECT * FROM RevisarInventario";
+            dtRevisarStockResultado = cn.CargarDatos(queryTaerStock);
+        }
+
+        private void cargardatos()
+        {
+            if (NoReg == 1)
+            {
+                registro = 0;
+                dr = dtRevisarStockResultado.Rows[LaPosicion];
+                lblNombreProducto.Text = dr["Nombre"].ToString();
+                if (dr["ClaveInterna"].ToString() != "")
+                {
+                    lblCodigoDeBarras.Text = dr["ClaveInterna"].ToString();
+                    Stock = dr["ClaveInterna"].ToString();
+                } 
+                else
+                {
+                    lblCodigoDeBarras.Text = dr["CodigoBarras"].ToString();
+                    Stock = dr["CodigoBarras"].ToString();
+                }
+                txtCantidadStock.Text = dr["Stock"].ToString();
+                registro = LaPosicion + 1;
+                lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
+                txtBoxBuscarCodigoBarras.Text = string.Empty;
+                txtCantidadStock.Focus();
+                txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            }
+            else if (NoReg == 0 && buscarStock == null)
+            {
+                registro = 0;
+                dr = dtRevisarStockResultado.Rows[LaPosicion];
+                lblNombreProducto.Text = dr["Nombre"].ToString();
+                lblCodigoDeBarras.Text = buscarStock;
+                txtCantidadStock.Text = dr["Stock"].ToString();
+                registro = LaPosicion + 1;
+                lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
+                txtBoxBuscarCodigoBarras.Text = string.Empty;
+                txtCantidadStock.Focus();
+                txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            }
+            else if (NoReg == 0 && buscarStock != null)
+            {
+                txtBoxBuscarCodigoBarras.Text = string.Empty;
+                txtBoxBuscarCodigoBarras.Focus();
+                MessageBox.Show("Producto no encontrado.", "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void txtBoxBuscarCodigoBarras_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -31,11 +85,51 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            LimpiarCampos();
+            if (Stock != txtCantidadStock.Text)
+            {
+                queryUpdateStock = $"UPDATE RevisarInventario SET Stock = '{txtCantidadStock.Text}' WHERE ID = '{ID}'";
+                cn.EjecutarConsulta(queryUpdateStock);
+                if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
+                {
+                    MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    LaPosicion += 1;
+                    cargardatos();
+                }
+            }
+            else if (Stock == txtCantidadStock.Text)
+            {
+                if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
+                {
+                    MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    LaPosicion += 1;
+                    cargardatos();
+                }
+            }
+            //LimpiarCampos();
         }
 
         private void LimpiarCampos()
         {
+            NoReg = 0;
+            LaPosicion = 0;
+            IsEmpty = false;
+
+            ID = string.Empty;
+            Nombre = string.Empty;
+            Stock = string.Empty;
+            ClaveInterna = string.Empty;
+            CodigoBarras = string.Empty;
+            Fecha = string.Empty;
+            IDUsuario = string.Empty;
+
+            buscarStock = string.Empty;
+
             lblNombreProducto.Text = string.Empty;
             lblCodigoDeBarras.Text = string.Empty;
             txtCantidadStock.Text = string.Empty;
@@ -63,7 +157,6 @@ namespace PuntoDeVentaV2
             }
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
-                MessageBox.Show("En Proceso...", "Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 btnSiguiente.PerformClick();
             }
         }
@@ -78,7 +171,7 @@ namespace PuntoDeVentaV2
             InitializeComponent();
             cantidadStock = 0;
             SearchBarCode = string.Empty;
-            LineNum = 0;
+            NoReg = 0;
         }
 
         private void btnReducirStock_Click(object sender, EventArgs e)
@@ -106,44 +199,51 @@ namespace PuntoDeVentaV2
 
         private void txtBoxBuscarCodigoBarras_TextChanged(object sender, EventArgs e)
         {
-            int index = 0;
-            ID = string.Empty;
-            Nombre = string.Empty;
-            Stock = string.Empty;
-            ClaveInterna = string.Empty;
-            CodigoBarras = string.Empty;
-            Fecha = string.Empty;
-            IDUsuario = string.Empty;
-
-            buscarStock = string.Empty;
-
+            index = 0;
+            
             if (txtBoxBuscarCodigoBarras.Text != string.Empty)
             {
                 buscarStock = txtBoxBuscarCodigoBarras.Text;
-                queryTaerStock = $"SELECT prod.ID, prod.Nombre, prod.Stock, prod.ClaveInterna, prod.CodigoBarras, prod.Fecha, prod.IDUsuario, prod.Tipo FROM RevisarInventario prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.ClaveInterna LIKE '%" + buscarStock + "%' OR prod.CodigoBarras LIKE '%" + buscarStock + "%'";
-                dtRevisarStockResultado = cn.CargarDatos(queryTaerStock);
-
-                if (dtRevisarStockResultado.Rows.Count != 0)
+                try
                 {
-                    ID = dtRevisarStockResultado.Rows[index]["ID"].ToString();
-                    Nombre = dtRevisarStockResultado.Rows[index]["Nombre"].ToString();
-                    lblNombreProducto.Text = Nombre;
-                    Stock = dtRevisarStockResultado.Rows[index]["Stock"].ToString();
-                    txtCantidadStock.Text = Stock;
-                    ClaveInterna = dtRevisarStockResultado.Rows[index]["ClaveInterna"].ToString();
-                    CodigoBarras = dtRevisarStockResultado.Rows[index]["CodigoBarras"].ToString();
-                    lblCodigoDeBarras.Text = buscarStock;
+                    foreach (DataRow row in dtRevisarStockResultado.Rows)
+                    {
+                        cadenaClavInterna = row["ClaveInterna"].ToString();
+                        cadenaAuxClavInterna = cadenaClavInterna.Replace("\r\n", " ");
 
-                    txtCantidadStock.Focus();
-                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                        cadenaCodigoBarras = row["CodigoBarras"].ToString();
+                        cadenaAuxCodigoBarras = cadenaCodigoBarras.Replace("\r\n", " ");
+
+                        if (cadenaAuxClavInterna.Trim() == buscarStock)
+                        {
+                            LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
+                            ID = row["ID"].ToString();
+                            Stock = row["Stock"].ToString();
+                            NoReg = 1;
+                            break;
+                        }
+                        else if (cadenaAuxCodigoBarras.Trim() == buscarStock)
+                        {
+                            LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
+                            ID = row["ID"].ToString();
+                            Stock = row["Stock"].ToString();
+                            NoReg = 1;
+                            break;
+                        }
+                        else
+                        {
+                            NoReg = 0;
+                        }
+                    }
+                    cargardatos();
                 }
-                else if (dtRevisarStockResultado.Rows.Count == 0)
+                catch (DataException ex)
                 {
-                    MessageBox.Show("Producto no encontrado.", "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtBoxBuscarCodigoBarras.Text = string.Empty;
+                    txtBoxBuscarCodigoBarras.Focus();
+                    MessageBox.Show("Producto no encontrado.\nError: " + ex.Message.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            
-            txtBoxBuscarCodigoBarras.Text = string.Empty;
         }
 
         private void btnAumentarStock_Click(object sender, EventArgs e)
@@ -156,6 +256,9 @@ namespace PuntoDeVentaV2
         private void RevisarInventario_Load(object sender, EventArgs e)
         {
             CargarStockExistente();
+            llenarTabla();
+            cargardatos();
+            LimpiarCampos();
         }
 
         private void ClearTable(DataTable table)
@@ -181,18 +284,12 @@ namespace PuntoDeVentaV2
             tablaProductos = "Productos";
             try
             {
-                queryTaerStock = $"DELETE FROM '{tablaRevisarInventario}';";
-                cn.EjecutarConsulta(queryTaerStock);
-                queryTaerStock = $"DELETE FROM sqlite_sequence WHERE name = '{tablaRevisarInventario}';";
-                cn.EjecutarConsulta(queryTaerStock);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al eliminar registros de la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            try
-            {
-                queryTaerStock = $@"INSERT INTO '{tablaRevisarInventario}' (ID,
+                checkEmpty(tablaRevisarInventario);
+                if (IsEmpty == false)
+                {
+                    try
+                    {
+                        queryTaerStock = $@"INSERT INTO '{tablaRevisarInventario}' (ID,
                                                                             Nombre,
                                                                             Stock,
                                                                             ClaveInterna,
@@ -207,14 +304,36 @@ namespace PuntoDeVentaV2
                                                                             IDUsuario,
                                                                             Tipo 
                                                                        FROM '{tablaProductos}' WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P';";
-                cn.EjecutarConsulta(queryTaerStock);
-                //queryTaerStock = $"UPDATE '{tablaRevisarInventario}' SET Fecha = '{DateTime.Now.ToString("yyyy-mm-dd hh:mm:ss")}' WHERE IDUsuario = '{FormPrincipal.userID}';";
-                //cn.EjecutarConsulta(queryTaerStock);
+                        cn.EjecutarConsulta(queryTaerStock);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al llenar registros de la tabla de: " + tablaProductos.ToString() + "\nhacia la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
-            catch (Exception ex)
+            catch (DataException ex)
             {
-                MessageBox.Show("Error al llenar registros de la tabla de: " + tablaProductos.ToString() + "\nhacia la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al Checar registros de la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al Checar Registros", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            //try
+            //{
+            //    queryTaerStock = $"DELETE FROM '{tablaRevisarInventario}';";
+            //    cn.EjecutarConsulta(queryTaerStock);
+            //    queryTaerStock = $"DELETE FROM sqlite_sequence WHERE name = '{tablaRevisarInventario}';";
+            //    cn.EjecutarConsulta(queryTaerStock);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Error al eliminar registros de la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+        }
+
+        private bool checkEmpty(string tabla)
+        {
+            string queryTableCheck = $"SELECT * FROM '{tabla}'";
+            IsEmpty = cn.IsEmptyTable(queryTableCheck);
+            return IsEmpty;
         }
     }
 }
