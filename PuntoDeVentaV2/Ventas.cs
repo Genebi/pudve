@@ -85,7 +85,6 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
-            //tituloSeccion.Focus();
             txtBuscadorProducto.GotFocus  += new EventHandler(BuscarTieneFoco);
             txtBuscadorProducto.LostFocus += new EventHandler(BuscarPierdeFoco);
             txtDescuentoGeneral.GotFocus  += new EventHandler(DescuentoTieneFoco);
@@ -1494,16 +1493,25 @@ namespace PuntoDeVentaV2
         {
             if (listaProductos.Visible == true && txtBuscadorProducto.Text != "")
             {
+                listaProductos.SelectedIndex = 0;
+
+                //Presiono hacia arriba
                 if (e.KeyCode == Keys.Up)
                 {
-                    //MessageBox.Show("Preciono Tecla Arriba", "Up", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     listaProductos.Focus();
                 }
+
+                //Presio hacia abajo
                 if (e.KeyCode == Keys.Down)
                 {
-                    //MessageBox.Show("Preciono Tecla Abajo", "Down", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     listaProductos.Focus();
                 }
+            }
+
+            //Cuando presiona la tecla fin hace click en el boton terminar venta
+            if (e.KeyData == Keys.End)
+            {
+                btnTerminarVenta.PerformClick();
             }
         }
 
