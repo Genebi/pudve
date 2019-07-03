@@ -85,7 +85,6 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
-            tituloSeccion.Focus();
             txtBuscadorProducto.GotFocus  += new EventHandler(BuscarTieneFoco);
             txtBuscadorProducto.LostFocus += new EventHandler(BuscarPierdeFoco);
             txtDescuentoGeneral.GotFocus  += new EventHandler(DescuentoTieneFoco);
@@ -114,9 +113,10 @@ namespace PuntoDeVentaV2
 
         private void BuscarPierdeFoco(object sender, EventArgs e)
         {
-            if (txtBuscadorProducto.Text == "")
+            if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
             {
                 txtBuscadorProducto.Text = "buscar producto o servicio...";
+                
             }
         }
 
@@ -136,61 +136,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
-        {
-            listaProductos.Items.Clear();
-
-            txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
-
-            if (txtBuscadorProducto.Text.Length == 0)
-            {
-                ocultarResultados();
-                return;
-            }
-
-            foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
-            {
-                if (s.Contains(txtBuscadorProducto.Text))
-                {
-                    listaProductos.Items.Add(s);
-                    listaProductos.Visible = true;
-                }
-            }
-
-            if (listaProductos.Visible == false && txtBuscadorProducto.Text != "buscar producto o servicio...")
-            {
-                string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
-                DataTable searchProd = cn.CargarDatos(querySearchProd);
-                if (searchProd.Rows.Count > 0)
-                {
-                    int idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
-                    string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                    txtBuscadorProducto.Text = "";
-                    txtBuscadorProducto.Focus();
-                    ocultarResultados();
-                    AgregarProducto(datosProducto);
-                }
-                else if (searchProd.Rows.Count == 0)
-                {
-                    //MessageBox.Show("Producto no encontrado en el Stock", "No Registrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //txtBuscadorProducto.Text = "";
-                    //txtBuscadorProducto.Focus();
-                    //ocultarResultados();
-                }
-            }
-
-            if (buscarvVentaGuardada == "#$%")
-            {
-                txtBuscadorProducto.Text = "";
-                string[] datosVentaGuardada = cn.ObtenerVentaGuardada(FormPrincipal.userID, Convert.ToInt32(folio));
-                AgregarProducto(datosVentaGuardada);
-            }
-
-            if (listaProductos.Text != "" && listaProductos.Visible == true)
-            {
-                this.KeyPreview = true;
-            }
-        }
+        
 
         private void listaProductos_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1547,16 +1493,81 @@ namespace PuntoDeVentaV2
         {
             if (listaProductos.Visible == true && txtBuscadorProducto.Text != "")
             {
+                listaProductos.SelectedIndex = 0;
+
+                //Presiono hacia arriba
                 if (e.KeyCode == Keys.Up)
                 {
-                    //MessageBox.Show("Preciono Tecla Arriba", "Up", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     listaProductos.Focus();
                 }
+
+                //Presio hacia abajo
                 if (e.KeyCode == Keys.Down)
                 {
-                    //MessageBox.Show("Preciono Tecla Abajo", "Down", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     listaProductos.Focus();
                 }
+            }
+
+            //Cuando presiona la tecla fin hace click en el boton terminar venta
+            if (e.KeyData == Keys.End)
+            {
+                btnTerminarVenta.PerformClick();
+            }
+        }
+
+        private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
+        {
+            listaProductos.Items.Clear();
+
+            txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
+
+            if (txtBuscadorProducto.Text.Length == 0)
+            {
+                ocultarResultados();
+                return;
+            }
+
+            foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
+            {
+                if (s.Contains(txtBuscadorProducto.Text))
+                {
+                    listaProductos.Items.Add(s);
+                    listaProductos.Visible = true;
+                }
+            }
+
+            if (listaProductos.Visible == false && txtBuscadorProducto.Text != "buscar producto o servicio...")
+            {
+                string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
+                DataTable searchProd = cn.CargarDatos(querySearchProd);
+                if (searchProd.Rows.Count > 0)
+                {
+                    int idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
+                    string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                    txtBuscadorProducto.Text = "";
+                    txtBuscadorProducto.Focus();
+                    ocultarResultados();
+                    AgregarProducto(datosProducto);
+                }
+                else if (searchProd.Rows.Count == 0)
+                {
+                    //MessageBox.Show("Producto no encontrado en el Stock", "No Registrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //txtBuscadorProducto.Text = "";
+                    //txtBuscadorProducto.Focus();
+                    //ocultarResultados();
+                }
+            }
+
+            if (buscarvVentaGuardada == "#$%")
+            {
+                txtBuscadorProducto.Text = "";
+                string[] datosVentaGuardada = cn.ObtenerVentaGuardada(FormPrincipal.userID, Convert.ToInt32(folio));
+                AgregarProducto(datosVentaGuardada);
+            }
+
+            if (listaProductos.Text != "" && listaProductos.Visible == true)
+            {
+                this.KeyPreview = true;
             }
         }
 

@@ -162,8 +162,8 @@
             this.txtBuscadorProducto.Size = new System.Drawing.Size(443, 23);
             this.txtBuscadorProducto.TabIndex = 5;
             this.txtBuscadorProducto.Text = "buscar producto o servicio...";
-            this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
+            this.txtBuscadorProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyUp);
             // 
             // DGVentas
             // 

@@ -269,11 +269,12 @@
             this.cbTipoVentas.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTipoVentas.FormattingEnabled = true;
             this.cbTipoVentas.Items.AddRange(new object[] {
-            "Notas pagadas",
-            "Notas pagadas y facturadas",
-            "Notas guardadas",
-            "Notas canceladas",
-            "Notas parcialmente pagadas",
+            "Ventas pagadas",
+            "Ventas pagadas y facturadas",
+            "Ventas guardadas",
+            "Ventas canceladas",
+            "Ventas parcialmente pagadas",
+            "Ventas a crédito",
             "Presupuestos"});
             this.cbTipoVentas.Location = new System.Drawing.Point(193, 18);
             this.cbTipoVentas.Name = "cbTipoVentas";
