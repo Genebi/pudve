@@ -26,7 +26,23 @@ namespace PuntoDeVentaV2
             {
                 FinalReportReviewInventory.FormClosed += delegate
                 {
+                    FormCollection fOpen = Application.OpenForms;
 
+                    List<string> tempFormOpen = new List<string>();
+
+                    foreach (Form formToClose in fOpen)
+                    {
+                        if (formToClose.Name != "FormPrincipal" && formToClose.Name != "Login")
+                        {
+                            tempFormOpen.Add(formToClose.Name);
+                        }
+                    }
+
+                    foreach (var toClose in tempFormOpen)
+                    {
+                        Form ventanaAbierta = Application.OpenForms[toClose];
+                        ventanaAbierta.Close();
+                    }
                 };
                 if (!FinalReportReviewInventory.Visible)
                 {

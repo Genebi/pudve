@@ -58,7 +58,7 @@ namespace PuntoDeVentaV2
             Usuarios = 19;
             Ventas = 20;
             Clientes = 20;
-            RevisarInventario = 9;
+            RevisarInventario = 10;
             DetallesVenta = 12;
             #endregion InicializarVariables
         }
@@ -1383,6 +1383,7 @@ namespace PuntoDeVentaV2
                                               IDUsuario INTEGER,
                                               Tipo TEXT,
                                               StatusRevision INT DEFAULT (0),
+                                              StatusInventariado INT DEFAULT (0),
                                               FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
         }
 

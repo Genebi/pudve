@@ -40,6 +40,8 @@ namespace PuntoDeVentaV2
             DGVRevisionStock.Columns["IDUsuario"].Visible = false;
             DGVRevisionStock.Columns["Tipo"].Visible = false;
             DGVRevisionStock.Columns["StatusRevision"].Visible = false;
+            DGVRevisionStock.Columns["StatusInventariado"].Visible = false;
+
             // Cambiamos el texto de la columbas para mejor visualizacion
             DGVRevisionStock.Columns["ClaveInterna"].HeaderText = "Clave";
             DGVRevisionStock.Columns["CodigoBarras"].HeaderText = "Código";
@@ -60,7 +62,7 @@ namespace PuntoDeVentaV2
 
         private void cargarTabla()
         {
-            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusRevision = '1' ORDER BY Nombre ASC";
+            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusInventariado = '1' ORDER BY Nombre ASC";
             dtFinalReportCheckStockToDay = cn.CargarDatos(queryFiltroReporteStock);
         }
 

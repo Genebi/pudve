@@ -89,32 +89,31 @@ namespace PuntoDeVentaV2
             StatusRev = 1;
             if (Stock != txtCantidadStock.Text)
             {
-                queryUpdateStock = $"UPDATE RevisarInventario SET Stock = '{txtCantidadStock.Text}', Fecha = '{today.ToString("yyyy-MM-dd")}', StatusRevision = '{StatusRev}' WHERE ID = '{ID}'";
+                queryUpdateStock = $"UPDATE RevisarInventario SET Stock = '{txtCantidadStock.Text}', Fecha = '{today.ToString("yyyy-MM-dd")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}' WHERE ID = '{ID}'";
                 cn.EjecutarConsulta(queryUpdateStock);
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
-                    MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     LaPosicion += 1;
-                    //cargardatos();
                 }
             }
             else if (Stock == txtCantidadStock.Text)
             {
-                queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{today.ToString("yyyy-MM-dd")}', StatusRevision = '{StatusRev}' WHERE ID = '{ID}'";
+                queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{today.ToString("yyyy-MM-dd")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}' WHERE ID = '{ID}'";
                 cn.EjecutarConsulta(queryUpdateStock);
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
-                    MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     LaPosicion += 1;
-                    //cargardatos();
                 }
             }
+            llenarTabla();
             LimpiarCampos();
         }
 
@@ -169,7 +168,7 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ClearTable(dtRevisarStockResultado);
+            button1.PerformClick();
         }
 
         public RevisarInventario()
@@ -201,6 +200,9 @@ namespace PuntoDeVentaV2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            StatusRev = 0;
+            queryUpdateStock = $"UPDATE RevisarInventario SET StatusRevision = '{StatusRev}' WHERE IDUsuario = '{FormPrincipal.userID}'";
+            cn.EjecutarConsulta(queryUpdateStock);
             ClearTable(dtRevisarStockResultado);
             this.Hide();
             this.Close();
