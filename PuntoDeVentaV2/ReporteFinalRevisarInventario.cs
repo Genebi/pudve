@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
 
         private void cargarTabla()
         {
-            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusRevision = '1' ORDER BY DATE(Fecha) DESC";
+            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusRevision = '1' ORDER BY Nombre ASC";
             dtFinalReportCheckStockToDay = cn.CargarDatos(queryFiltroReporteStock);
         }
 
