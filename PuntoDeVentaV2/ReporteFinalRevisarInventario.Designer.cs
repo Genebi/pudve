@@ -30,6 +30,7 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.DGVRevisionStock = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVRevisionStock)).BeginInit();
             this.SuspendLayout();
@@ -39,7 +40,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.DGVRevisionStock);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 86);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(851, 245);
             this.groupBox1.TabIndex = 0;
@@ -48,17 +49,31 @@
             // 
             // DGVRevisionStock
             // 
+            this.DGVRevisionStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVRevisionStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVRevisionStock.Location = new System.Drawing.Point(23, 30);
             this.DGVRevisionStock.Name = "DGVRevisionStock";
+            this.DGVRevisionStock.RowHeadersVisible = false;
             this.DGVRevisionStock.Size = new System.Drawing.Size(805, 192);
             this.DGVRevisionStock.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.Location = new System.Drawing.Point(171, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(508, 36);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Reporte de revisión física del Stock";
             // 
             // ReporteFinalRevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(875, 464);
+            this.ClientSize = new System.Drawing.Size(875, 562);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -70,6 +85,7 @@
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVRevisionStock)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -77,5 +93,6 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView DGVRevisionStock;
+        private System.Windows.Forms.Label label1;
     }
 }

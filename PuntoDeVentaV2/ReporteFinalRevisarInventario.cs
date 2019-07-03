@@ -30,6 +30,20 @@ namespace PuntoDeVentaV2
             cargarTabla();
             checkEmpty(tabla);
             llenarDataGriView();
+            OcultarColumnasDGV();
+        }
+
+        private void OcultarColumnasDGV()
+        {
+            // Ocultamos las columnas que no seran de utilidad para el usuario
+            DGVRevisionStock.Columns["ID"].Visible = false;
+            DGVRevisionStock.Columns["IDUsuario"].Visible = false;
+            DGVRevisionStock.Columns["Tipo"].Visible = false;
+            DGVRevisionStock.Columns["StatusRevision"].Visible = false;
+            // Cambiamos el texto de la columbas para mejor visualizacion
+            DGVRevisionStock.Columns["ClaveInterna"].HeaderText = "Clave";
+            DGVRevisionStock.Columns["CodigoBarras"].HeaderText = "Código";
+            DGVRevisionStock.Columns["Fecha"].HeaderText = "Revisión";
         }
 
         private void llenarDataGriView()
@@ -46,7 +60,7 @@ namespace PuntoDeVentaV2
 
         private void cargarTabla()
         {
-            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusRevision = '1'";
+            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusRevision = '1' ORDER BY DATE(Fecha) DESC";
             dtFinalReportCheckStockToDay = cn.CargarDatos(queryFiltroReporteStock);
         }
 
