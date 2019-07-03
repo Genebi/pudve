@@ -12,13 +12,24 @@ namespace PuntoDeVentaV2
 {
     public partial class AsignarCreditoVenta : Form
     {
-        public AsignarCreditoVenta()
+        private float total = 0f;
+        private float metodos = 0f;
+
+        public AsignarCreditoVenta(float total, float metodos)
         {
             InitializeComponent();
+
+            this.total = total;
+            this.metodos = metodos;
         }
 
         private void AsignarCreditoVenta_Load(object sender, EventArgs e)
         {
+            txtCantidad.Text = total.ToString("0.00");
+            txtCantidad.SelectionStart = txtCantidad.Text.Length;
+            txtCantidad.SelectionLength = 0;
+            txtCantidad.Focus();
+
             txtCantidad.KeyPress += new KeyPressEventHandler(SoloDecimales);
         }
 
@@ -62,6 +73,19 @@ namespace PuntoDeVentaV2
                 }
 
                 float credito = float.Parse(txtCantidad.Text);
+
+                if ((credito + metodos) > total)
+                {
+                    var respuesta = MessageBox.Show("La suma de las cantidades de cada forma de pago y \nla cantidad a crédito es mayor al total de la venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    if (respuesta == DialogResult.OK)
+                    {
+                        txtCantidad.Text = string.Empty;
+                        txtCantidad.Focus();
+                    }
+
+                    return;
+                }
 
                 DetalleVenta.credito = credito;
 

@@ -50,37 +50,43 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            float totalEfectivo = 0f;
+            float pagado = CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito;
 
-            //Si la suma de todos los metodos de pago excepto el de efectivo es mayor a cero
-            //se hace la operacion para sacar el total de efectivo que se guardara en la tabla
-            //DetallesVenta
-            if ((SumaMetodos() + credito) > 0)
+            //Comprobamos si las cantidades a pagar son mayores o igual al total de la venta para poder terminarla
+            if (pagado >= total)
             {
-                totalEfectivo = total - (SumaMetodos() + credito);
-            }
-            else
-            {
-                totalEfectivo = total;
-            }
+                float totalEfectivo = 0f;
 
-            Ventas.efectivo = totalEfectivo.ToString("0.00");
-            Ventas.tarjeta = CantidadDecimal(txtTarjeta.Text).ToString("0.00");
-            Ventas.vales = CantidadDecimal(txtVales.Text).ToString("0.00");
-            Ventas.cheque = CantidadDecimal(txtCheque.Text).ToString("0.00");
-            Ventas.transferencia = CantidadDecimal(txtTransferencia.Text).ToString("0.00");
-            Ventas.referencia = txtReferencia.Text;
-            
-            if (idCliente == 0)
-            {
-                cliente = string.Empty;
+                //Si la suma de todos los metodos de pago excepto el de efectivo es mayor a cero
+                //se hace la operacion para sacar el total de efectivo que se guardara en la tabla
+                //DetallesVenta
+                if ((SumaMetodos() + credito) > 0)
+                {
+                    totalEfectivo = total - (SumaMetodos() + credito);
+                }
+                else
+                {
+                    totalEfectivo = total;
+                }
+
+                Ventas.efectivo = totalEfectivo.ToString("0.00");
+                Ventas.tarjeta = CantidadDecimal(txtTarjeta.Text).ToString("0.00");
+                Ventas.vales = CantidadDecimal(txtVales.Text).ToString("0.00");
+                Ventas.cheque = CantidadDecimal(txtCheque.Text).ToString("0.00");
+                Ventas.transferencia = CantidadDecimal(txtTransferencia.Text).ToString("0.00");
+                Ventas.referencia = txtReferencia.Text;
+
+                if (idCliente == 0)
+                {
+                    cliente = string.Empty;
+                }
+
+                Ventas.cliente = cliente;
+                Ventas.idCliente = idCliente.ToString();
+                Ventas.credito = credito.ToString();
+
+                this.Dispose();
             }
-
-            Ventas.cliente = cliente;
-            Ventas.idCliente = idCliente.ToString();
-            Ventas.credito = credito.ToString();
-
-            this.Dispose();
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -108,7 +114,8 @@ namespace PuntoDeVentaV2
 
         private void btnCredito_Click(object sender, EventArgs e)
         {
-            AsignarCreditoVenta agregarCredito = new AsignarCreditoVenta();
+
+            AsignarCreditoVenta agregarCredito = new AsignarCreditoVenta(total, SumaMetodos());
 
             agregarCredito.FormClosed += delegate
             {
@@ -231,7 +238,15 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                MessageBox.Show("Terminar");
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void DetalleVenta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.End)
+            {
+                btnAceptar.PerformClick();
             }
         }
     }
