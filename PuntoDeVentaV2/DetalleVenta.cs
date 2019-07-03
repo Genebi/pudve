@@ -36,6 +36,12 @@ namespace PuntoDeVentaV2
             txtCheque.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtTransferencia.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
+            txtEfectivo.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtTarjeta.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtVales.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtCheque.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtTransferencia.KeyDown += new KeyEventHandler(TerminarVenta);
+
             txtTarjeta.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
@@ -200,12 +206,12 @@ namespace PuntoDeVentaV2
 
         private void lbEliminarCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            idCliente = 0;
-            lbCliente.Text = "Asignar cliente";
-            lbEliminarCliente.Visible = false;
             credito = 0;
+            idCliente = 0;
             lbTotalCredito.Text = "0.00";
-
+            lbEliminarCliente.Visible = false;
+            lbCliente.Text = "Asignar cliente";
+            
             CalcularCambio();
         }
 
@@ -218,6 +224,14 @@ namespace PuntoDeVentaV2
             else
             {
                 Ventas.botonAceptar = true;
+            }
+        }
+
+        private void TerminarVenta(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                MessageBox.Show("Terminar");
             }
         }
     }
