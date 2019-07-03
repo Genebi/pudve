@@ -16,8 +16,9 @@ namespace PuntoDeVentaV2
         DataTable dtFinalReportCheckStockToDay;
 
         bool IsEmpty;
-        string queryFiltroReporteStock, tabla;
-
+        int CantidadAlmacen, CantidadFisico, Diferencias;
+        string queryFiltroReporteStock, tabla, queryUpdateCalculos;
+        
         public ReporteFinalRevisarInventario()
         {
             InitializeComponent();
@@ -31,20 +32,48 @@ namespace PuntoDeVentaV2
             checkEmpty(tabla);
             llenarDataGriView();
             OcultarColumnasDGV();
+            hacerCalculosDGVRevisionStock();
+        }
+
+        private void hacerCalculosDGVRevisionStock()
+        {
+            DGVRevisionStock.Columns["IDAlmacen"].Width = 65;
+            DGVRevisionStock.Columns["Nombre"].Width = 190;
+            DGVRevisionStock.Columns["ClaveInterna"].Width = 65;
+            DGVRevisionStock.Columns["CodigoBarras"].Width = 65;
+            DGVRevisionStock.Columns["StockAlmacen"].Width = 65;
+            DGVRevisionStock.Columns["StockFisico"].Width = 65;
+            DGVRevisionStock.Columns["Fecha"].Width = 90;
+            DGVRevisionStock.Columns["Vendido"].Width = 65;
+            DGVRevisionStock.Columns["Diferencia"].Width = 65;
+
+            foreach (DataGridViewRow row in DGVRevisionStock.Rows)
+            {
+                CantidadAlmacen = Convert.ToInt32(row.Cells["StockAlmacen"].Value);
+                CantidadFisico = Convert.ToInt32(row.Cells["StockFisico"].Value);
+                Diferencias = CantidadAlmacen - CantidadFisico;
+                row.Cells["Diferencia"].Value = Diferencias;
+                queryUpdateCalculos = $"UPDATE '{tabla}' SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}'";
+                cn.EjecutarConsulta(queryUpdateCalculos);
+            }
         }
 
         private void OcultarColumnasDGV()
         {
             // Ocultamos las columnas que no seran de utilidad para el usuario
             DGVRevisionStock.Columns["ID"].Visible = false;
+            DGVRevisionStock.Columns["NoRevision"].Visible = false;
             DGVRevisionStock.Columns["IDUsuario"].Visible = false;
             DGVRevisionStock.Columns["Tipo"].Visible = false;
             DGVRevisionStock.Columns["StatusRevision"].Visible = false;
             DGVRevisionStock.Columns["StatusInventariado"].Visible = false;
 
             // Cambiamos el texto de la columbas para mejor visualizacion
+            DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID Almacen";
             DGVRevisionStock.Columns["ClaveInterna"].HeaderText = "Clave";
             DGVRevisionStock.Columns["CodigoBarras"].HeaderText = "Código";
+            DGVRevisionStock.Columns["StockAlmacen"].HeaderText = "Almacen";
+            DGVRevisionStock.Columns["StockFisico"].HeaderText = "Física";
             DGVRevisionStock.Columns["Fecha"].HeaderText = "Revisión";
         }
 

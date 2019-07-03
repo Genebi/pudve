@@ -58,7 +58,7 @@ namespace PuntoDeVentaV2
             Usuarios = 19;
             Ventas = 20;
             Clientes = 20;
-            RevisarInventario = 10;
+            RevisarInventario = 15;
             DetallesVenta = 12;
             #endregion InicializarVariables
         }
@@ -1375,11 +1375,16 @@ namespace PuntoDeVentaV2
         public string QueryNvaTablaRevisarInventario(string tabla)
         {
             return $@"CREATE TABLE '{tabla}' (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                                              IDAlmacen TEXT NOT NULL,
                                               Nombre TEXT NOT NULL,
-                                              Stock INTEGER NOT NULL DEFAULT (0),
                                               ClaveInterna TEXT,
                                               CodigoBarras TEXT,
-                                              Fecha DATE,
+                                              StockAlmacen INTEGER NOT NULL DEFAULT (0),
+                                              StockFisico INTEGER NOT NULL DEFAULT (0),
+                                              NoRevision INT DEFAULT (0),
+                                              Fecha DATETIME,
+                                              Vendido INT DEFAULT (0),
+                                              Diferencia INT DEFAULT (0),
                                               IDUsuario INTEGER,
                                               Tipo TEXT,
                                               StatusRevision INT DEFAULT (0),
@@ -1389,19 +1394,19 @@ namespace PuntoDeVentaV2
 
         public string QueryUpdateTablaRevisarInventario(string tabla)
         {
-            return $@"INSERT INTO '{tabla}' (ID,
+            return $@"INSERT INTO '{tabla}' (IDAlmacen,
                                              Nombre,
-                                             Stock,
                                              ClaveInterna,
                                              CodigoBarras,
+                                             StockFisico,
                                              Fecha,
                                              IDUsuario,
                                              Tipo) 
                                       SELECT ID,
                                              Nombre,
-                                             Stock,
                                              ClaveInterna,
                                              CodigoBarras,
+                                             Stock,
                                              Fecha,
                                              IDUsuario,
                                              Tipo 

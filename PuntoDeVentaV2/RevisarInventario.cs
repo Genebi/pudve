@@ -20,7 +20,6 @@ namespace PuntoDeVentaV2
         string ID, Nombre, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario;
         DataTable dtRevisarStockResultado;
         DataRow dr;
-        DateTime today;
         int NoReg, index, LaPosicion, registro, StatusRev;
         bool IsEmpty;
 
@@ -40,14 +39,14 @@ namespace PuntoDeVentaV2
                 if (dr["ClaveInterna"].ToString() != "")
                 {
                     lblCodigoDeBarras.Text = dr["ClaveInterna"].ToString();
-                    Stock = dr["Stock"].ToString();
+                    Stock = dr["StockFisico"].ToString();
                 } 
                 else
                 {
                     lblCodigoDeBarras.Text = dr["CodigoBarras"].ToString();
-                    Stock = dr["Stock"].ToString();
+                    Stock = dr["StockFisico"].ToString();
                 }
-                txtCantidadStock.Text = dr["Stock"].ToString();
+                txtCantidadStock.Text = dr["StockFisico"].ToString();
                 registro = LaPosicion + 1;
                 //lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
                 txtBoxBuscarCodigoBarras.Text = string.Empty;
@@ -60,7 +59,7 @@ namespace PuntoDeVentaV2
                 dr = dtRevisarStockResultado.Rows[LaPosicion];
                 lblNombreProducto.Text = dr["Nombre"].ToString();
                 lblCodigoDeBarras.Text = buscarStock;
-                txtCantidadStock.Text = dr["Stock"].ToString();
+                txtCantidadStock.Text = dr["StockFisico"].ToString();
                 registro = LaPosicion + 1;
                 //lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
                 txtBoxBuscarCodigoBarras.Text = string.Empty;
@@ -85,11 +84,10 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            today = DateTime.UtcNow.Date;
             StatusRev = 1;
             if (Stock != txtCantidadStock.Text)
             {
-                queryUpdateStock = $"UPDATE RevisarInventario SET Stock = '{txtCantidadStock.Text}', Fecha = '{today.ToString("yyyy-MM-dd")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}' WHERE ID = '{ID}'";
+                queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}' WHERE ID = '{ID}'";
                 cn.EjecutarConsulta(queryUpdateStock);
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
@@ -102,7 +100,7 @@ namespace PuntoDeVentaV2
             }
             else if (Stock == txtCantidadStock.Text)
             {
-                queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{today.ToString("yyyy-MM-dd")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}' WHERE ID = '{ID}'";
+                queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}' WHERE ID = '{ID}'";
                 cn.EjecutarConsulta(queryUpdateStock);
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
@@ -229,7 +227,7 @@ namespace PuntoDeVentaV2
                         {
                             LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
                             ID = row["ID"].ToString();
-                            Stock = row["Stock"].ToString();
+                            Stock = row["StockFisico"].ToString();
                             NoReg = 1;
                             break;
                         }
@@ -237,7 +235,7 @@ namespace PuntoDeVentaV2
                         {
                             LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
                             ID = row["ID"].ToString();
-                            Stock = row["Stock"].ToString();
+                            Stock = row["StockFisico"].ToString();
                             NoReg = 1;
                             break;
                         }
@@ -302,21 +300,23 @@ namespace PuntoDeVentaV2
                 {
                     try
                     {
-                        queryTaerStock = $@"INSERT INTO '{tablaRevisarInventario}' (ID,
-                                                                            Nombre,
-                                                                            Stock,
-                                                                            ClaveInterna,
-                                                                            CodigoBarras,
-                                                                            IDUsuario,
-                                                                            Tipo) 
-                                                                     SELECT ID,
-                                                                            Nombre,
-                                                                            Stock,
-                                                                            ClaveInterna,
-                                                                            CodigoBarras,
-                                                                            IDUsuario,
-                                                                            Tipo 
-                                                                       FROM '{tablaProductos}' WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P';";
+                        queryTaerStock = $@"INSERT INTO '{tablaRevisarInventario}' (IDAlmacen,
+                                                                                    Nombre,
+                                                                                    ClaveInterna,
+                                                                                    CodigoBarras,
+                                                                                    StockAlmacen,
+                                                                                    StockFisico,
+                                                                                    IDUsuario,
+                                                                                    Tipo) 
+                                                                             SELECT ID,
+                                                                                    Nombre,
+                                                                                    ClaveInterna,
+                                                                                    CodigoBarras,
+                                                                                    Stock,
+                                                                                    Stock,
+                                                                                    IDUsuario,
+                                                                                    Tipo 
+                                                                              FROM '{tablaProductos}' WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P';";
                         cn.EjecutarConsulta(queryTaerStock);
                     }
                     catch (Exception ex)

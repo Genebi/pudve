@@ -45,19 +45,25 @@
             this.groupBox1.Controls.Add(this.DGVRevisionStock);
             this.groupBox1.Location = new System.Drawing.Point(12, 86);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(851, 380);
+            this.groupBox1.Size = new System.Drawing.Size(1066, 380);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Reporte Final del Día: ";
             // 
             // DGVRevisionStock
             // 
+            this.DGVRevisionStock.AllowUserToAddRows = false;
+            this.DGVRevisionStock.AllowUserToDeleteRows = false;
+            this.DGVRevisionStock.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVRevisionStock.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVRevisionStock.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVRevisionStock.Location = new System.Drawing.Point(23, 30);
             this.DGVRevisionStock.Name = "DGVRevisionStock";
+            this.DGVRevisionStock.ReadOnly = true;
             this.DGVRevisionStock.RowHeadersVisible = false;
-            this.DGVRevisionStock.Size = new System.Drawing.Size(805, 326);
+            this.DGVRevisionStock.Size = new System.Drawing.Size(1020, 326);
             this.DGVRevisionStock.TabIndex = 0;
             // 
             // label1
@@ -65,7 +71,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(171, 27);
+            this.label1.Location = new System.Drawing.Point(291, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(508, 36);
             this.label1.TabIndex = 1;
@@ -82,7 +88,8 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(380, 497);
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button2.Location = new System.Drawing.Point(488, 497);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(114, 40);
             this.button2.TabIndex = 3;
@@ -91,7 +98,8 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(749, 497);
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Location = new System.Drawing.Point(964, 497);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(114, 40);
             this.button3.TabIndex = 4;
@@ -102,7 +110,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(875, 562);
+            this.ClientSize = new System.Drawing.Size(1090, 562);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
