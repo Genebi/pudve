@@ -22,14 +22,13 @@ namespace PuntoDeVentaV2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            FormCollection fOpen = Application.OpenForms;
+            List<string> tempFormOpen = new List<string>();
+
             checkInventory.FormClosed += delegate
             {
                 FinalReportReviewInventory.FormClosed += delegate
                 {
-                    FormCollection fOpen = Application.OpenForms;
-
-                    List<string> tempFormOpen = new List<string>();
-
                     foreach (Form formToClose in fOpen)
                     {
                         if (formToClose.Name != "FormPrincipal" && formToClose.Name != "Login")
