@@ -97,7 +97,7 @@ namespace PuntoDeVentaV2
 
         private void cargarTabla()
         {
-            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusInventariado = '1' ORDER BY Fecha DESC, Nombre ASC";
+            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND StatusInventariado = '1' ORDER BY Fecha DESC, Nombre ASC";
             dtFinalReportCheckStockToDay = cn.CargarDatos(queryFiltroReporteStock);
         }
 
