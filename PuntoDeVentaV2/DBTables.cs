@@ -1409,7 +1409,7 @@ namespace PuntoDeVentaV2
                                              Stock,
                                              Fecha,
                                              IDUsuario,
-                                             Tipo 
+                                             'P' 
                                         FROM '{tabla}_temp';";
         }
 
