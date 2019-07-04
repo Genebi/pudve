@@ -16,6 +16,10 @@ namespace PuntoDeVentaV2
         //Status 1 = Venta terminada
         //Status 2 = Venta guardada
         //Status 3 = Venta cancelada
+        //Status 4 = Venta a credito
+        //Status 5 = Venta parcialmente pagada
+        //Status 6 = Venta pagada y facturada
+        //Status 7 = Presupuestos
 
         string[] productos;
         float porcentajeGeneral = 0;

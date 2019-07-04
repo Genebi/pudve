@@ -34,12 +34,23 @@ namespace PuntoDeVentaV2
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");
 
-            CargarDatos();
+            Dictionary<string, string> ventas = new Dictionary<string, string>();
+            ventas.Add("VP", "Ventas pagadas");
+            ventas.Add("VG", "Ventas guardadas");
+            ventas.Add("VC", "Ventas canceladas");
+            ventas.Add("VCC", "Ventas a crédito");
+            ventas.Add("VPP", "Ventas parcialmente pagadas");
+            ventas.Add("VPF", "Ventas pagadas y facturadas");
+            ventas.Add("PRE", "Presupuestos");
+
+            cbTipoVentas.DataSource = ventas.ToArray();
+            cbTipoVentas.DisplayMember = "Value";
+            cbTipoVentas.ValueMember = "Key";
 
             cbVentas.SelectedIndex = 0;
             cbTipoVentas.SelectedIndex = 0;
-            cbVentas.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbTipoVentas.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            CargarDatos();
         }
 
         public void CargarDatos(int estado = 1)
@@ -130,16 +141,22 @@ namespace PuntoDeVentaV2
 
         private void cbTipoVentas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int indice = cbTipoVentas.SelectedIndex;
+            var opcion = cbTipoVentas.SelectedValue.ToString();
 
-            //Pagadas
-            if (indice == 0) { CargarDatos(); }
-
-            //Guardadas
-            if (indice == 2) { CargarDatos(2); }
-
-            //Canceladas
-            if (indice == 3) { CargarDatos(3); }
+            //Ventas pagadas
+            if (opcion == "VP") { CargarDatos(1); }
+            //Ventas guardadas
+            if (opcion == "VG") { CargarDatos(2); }
+            //Ventas canceladas
+            if (opcion == "VC") { CargarDatos(3); }
+            //Ventas a credito
+            if (opcion == "VCC") { CargarDatos(4); }
+            //Ventas parcialmente pagada
+            if (opcion == "VPP") { CargarDatos(5); }
+            //Ventas pagadas y facturadas
+            if (opcion == "VPF") { CargarDatos(6); }
+            //Presupuestos
+            if (opcion == "PRE") { CargarDatos(7); }
         }
 
         private void DGVListadoVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
