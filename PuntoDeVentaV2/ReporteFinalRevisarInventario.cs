@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
 
         bool IsEmpty;
         int CantidadAlmacen, CantidadFisico, Diferencias;
-        string queryFiltroReporteStock, tabla, queryUpdateCalculos;
+        string queryFiltroReporteStock, tabla, queryUpdateCalculos, FechaRevision, soloFechaRevision, fechaActual;
         
         public ReporteFinalRevisarInventario()
         {
@@ -51,10 +51,16 @@ namespace PuntoDeVentaV2
             {
                 CantidadAlmacen = Convert.ToInt32(row.Cells["StockAlmacen"].Value);
                 CantidadFisico = Convert.ToInt32(row.Cells["StockFisico"].Value);
-                Diferencias = CantidadAlmacen - CantidadFisico;
+                FechaRevision = row.Cells["Fecha"].Value.ToString();
+                soloFechaRevision = FechaRevision.Substring(0, 10);
+                fechaActual = DateTime.Now.ToString("dd/MM/yyyy");
+                Diferencias = CantidadFisico - CantidadAlmacen;
                 row.Cells["Diferencia"].Value = Diferencias;
-                queryUpdateCalculos = $"UPDATE '{tabla}' SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}'";
-                cn.EjecutarConsulta(queryUpdateCalculos);
+                if (soloFechaRevision == fechaActual)
+                {
+                    queryUpdateCalculos = $"UPDATE '{tabla}' SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}'";
+                    cn.EjecutarConsulta(queryUpdateCalculos);
+                }
             }
         }
 
@@ -91,7 +97,7 @@ namespace PuntoDeVentaV2
 
         private void cargarTabla()
         {
-            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusInventariado = '1' ORDER BY Nombre ASC";
+            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE StatusInventariado = '1' ORDER BY Fecha DESC, Nombre ASC";
             dtFinalReportCheckStockToDay = cn.CargarDatos(queryFiltroReporteStock);
         }
 
