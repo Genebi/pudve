@@ -69,6 +69,7 @@
             this.lbEliminarCliente.TabStop = true;
             this.lbEliminarCliente.Text = "X";
             this.lbEliminarCliente.Visible = false;
+            this.lbEliminarCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbEliminarCliente_LinkClicked);
             // 
             // lbTotalCambio
             // 
@@ -303,6 +304,7 @@
             this.txtEfectivo.Size = new System.Drawing.Size(80, 22);
             this.txtEfectivo.TabIndex = 96;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
             // txtTotalVenta
             // 

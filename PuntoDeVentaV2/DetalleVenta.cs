@@ -53,7 +53,7 @@ namespace PuntoDeVentaV2
             float pagado = CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito;
 
             //Comprobamos si las cantidades a pagar son mayores o igual al total de la venta para poder terminarla
-            if (pagado >= total)
+            if ((pagado >= total) || credito > 0)
             {
                 float totalEfectivo = 0f;
 
@@ -79,6 +79,15 @@ namespace PuntoDeVentaV2
                 if (idCliente == 0)
                 {
                     cliente = string.Empty;
+                }
+
+                if (credito > 0)
+                {
+                    Ventas.statusVenta = "4";
+                }
+                else
+                {
+                    Ventas.statusVenta = "1";
                 }
 
                 Ventas.cliente = cliente;
@@ -114,7 +123,6 @@ namespace PuntoDeVentaV2
 
         private void btnCredito_Click(object sender, EventArgs e)
         {
-
             AsignarCreditoVenta agregarCredito = new AsignarCreditoVenta(total, SumaMetodos());
 
             agregarCredito.FormClosed += delegate
@@ -122,6 +130,19 @@ namespace PuntoDeVentaV2
                 lbTotalCredito.Text = Convert.ToDouble(credito).ToString("0.00");
 
                 CalcularCambio();
+
+                lbCliente.Text = cliente;
+
+                if (string.IsNullOrWhiteSpace(cliente))
+                {
+                    lbCliente.Text = "Asignar cliente";
+                    lbEliminarCliente.Visible = false;
+                    idCliente = 0;
+                }
+                else
+                {
+                    lbEliminarCliente.Visible = true;
+                }
             };
 
             agregarCredito.ShowDialog();
@@ -226,6 +247,10 @@ namespace PuntoDeVentaV2
         {
             if (e.CloseReason == CloseReason.UserClosing)
             {
+                lbTotalCredito.Text = "0.00";
+                idCliente = 0;
+                cliente = string.Empty;
+
                 Ventas.botonAceptar = false;
             }
             else

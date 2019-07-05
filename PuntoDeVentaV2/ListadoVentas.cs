@@ -39,7 +39,6 @@ namespace PuntoDeVentaV2
             ventas.Add("VG", "Ventas guardadas");
             ventas.Add("VC", "Ventas canceladas");
             ventas.Add("VCC", "Ventas a crédito");
-            ventas.Add("VPP", "Ventas parcialmente pagadas");
             ventas.Add("VPF", "Ventas pagadas y facturadas");
             ventas.Add("PRE", "Presupuestos");
 
@@ -143,6 +142,9 @@ namespace PuntoDeVentaV2
         {
             var opcion = cbTipoVentas.SelectedValue.ToString();
 
+            //Parcialmente y a credito seran una misma opcion y estado de venta
+            //Revisar cuando se cumpla la condicion
+
             //Ventas pagadas
             if (opcion == "VP") { CargarDatos(1); }
             //Ventas guardadas
@@ -151,12 +153,10 @@ namespace PuntoDeVentaV2
             if (opcion == "VC") { CargarDatos(3); }
             //Ventas a credito
             if (opcion == "VCC") { CargarDatos(4); }
-            //Ventas parcialmente pagada
-            if (opcion == "VPP") { CargarDatos(5); }
             //Ventas pagadas y facturadas
-            if (opcion == "VPF") { CargarDatos(6); }
+            if (opcion == "VPF") { CargarDatos(5); }
             //Presupuestos
-            if (opcion == "PRE") { CargarDatos(7); }
+            if (opcion == "PRE") { CargarDatos(6); }
         }
 
         private void DGVListadoVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)

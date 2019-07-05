@@ -17,9 +17,8 @@ namespace PuntoDeVentaV2
         //Status 2 = Venta guardada
         //Status 3 = Venta cancelada
         //Status 4 = Venta a credito
-        //Status 5 = Venta parcialmente pagada
-        //Status 6 = Venta pagada y facturada
-        //Status 7 = Presupuestos
+        //Status 5 = Venta pagada y facturada
+        //Status 6 = Presupuestos
 
         string[] productos;
         float porcentajeGeneral = 0;
@@ -32,11 +31,15 @@ namespace PuntoDeVentaV2
         //Para las ventas guardadas
         public static int mostrarVenta = 0;
 
+        //Estado de la venta
+        public static string statusVenta = string.Empty;
+
         //Para los anticipos por aplicar
         public static string listaAnticipos = string.Empty;
         public static float importeAnticipo = 0f;
 
         //Variables para almacenar los valores agregados en el form DetalleVenta.cs
+        public static string efectivoReal = string.Empty;
         public static string efectivo = string.Empty;
         public static string tarjeta = string.Empty;
         public static string vales = string.Empty;
@@ -140,33 +143,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        
-
-        private void listaProductos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //if (listaProductos.SelectedIndex > -1)
-            //{
-            //    //Se obtiene el texto del item seleccionado del ListBox
-            //    string producto = listaProductos.Items[listaProductos.SelectedIndex].ToString();
-
-            //    //Se obtiene el indice del array donde se encuentra el producto seleccionado
-            //    int idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
-
-            //    string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-
-            //    txtBuscadorProducto.Text = "";
-            //    txtBuscadorProducto.Focus();
-            //    ocultarResultados();
-
-            //    AgregarProducto(datosProducto);
-            //}
-        }
-
-        private void listaProductos_LostFocus(object sender, EventArgs e)
-        {
-            ocultarResultados();
-        }
-
         private void ocultarResultados()
         {
             listaProductos.Visible = false;
@@ -174,19 +150,6 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyDown(object sender, KeyEventArgs e)
         {
-            /*
-            if (e.KeyCode == Keys.Up)
-            {
-                //e.Handled = true;
-                listaProductos.Focus();
-            }
-
-            if (e.KeyCode == Keys.Down)
-            {
-                listaProductos.Focus();
-            }
-            */
-
             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
             {
                 if (txtBuscadorProducto.Text == string.Empty)
@@ -698,6 +661,22 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(info));
         }
 
+        private float CantidadDecimal(string cantidad)
+        {
+            float resultado = 0f;
+
+            if (string.IsNullOrWhiteSpace(cantidad))
+            {
+                resultado = 0;
+            }
+            else
+            {
+                resultado = float.Parse(cantidad);
+            }
+
+            return resultado;
+        }
+
         private void DatosVenta()
         {
             //Datos generales de la venta
@@ -708,30 +687,22 @@ namespace PuntoDeVentaV2
             var Total = cTotal.Text;
             var DescuentoGeneral = porcentajeGeneral.ToString("0.00");
             var Anticipo = cAnticipo.Text;
-            var Status = "";
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var Folio = "";
             var Serie = "A";
 
-            string[] guardar = null;
-
-            //Cuando se da click en el boton guardar venta
+            
             if (ventaGuardada)
             {
-                Status = "2";
-                aumentoFolio();
-                Folio = Contenido;
-                guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion };
+                statusVenta = "2";
             }
 
-            //Cuando es una venta normal
-            if (!ventaGuardada)
-            {
-                Status = "1";
-                aumentoFolio();
-                Folio = Contenido;
-                guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion };
-            }
+
+            string[] guardar = null;
+            aumentoFolio();
+            Folio = Contenido;
+            guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion };
+
 
             if (VerificarStockProducto())
             {
@@ -907,7 +878,7 @@ namespace PuntoDeVentaV2
         private void btnGuardarVenta_Click(object sender, EventArgs e)
         {
             ventaGuardada = true;
-            btnTerminarVenta.PerformClick();
+            DatosVenta();
         }
 
         private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)
