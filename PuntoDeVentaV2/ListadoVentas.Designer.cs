@@ -266,24 +266,18 @@
             // 
             // cbTipoVentas
             // 
+            this.cbTipoVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoVentas.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTipoVentas.FormattingEnabled = true;
-            this.cbTipoVentas.Items.AddRange(new object[] {
-            "Ventas pagadas",
-            "Ventas pagadas y facturadas",
-            "Ventas guardadas",
-            "Ventas canceladas",
-            "Ventas parcialmente pagadas",
-            "Ventas a crédito",
-            "Presupuestos"});
-            this.cbTipoVentas.Location = new System.Drawing.Point(193, 18);
+            this.cbTipoVentas.Location = new System.Drawing.Point(165, 18);
             this.cbTipoVentas.Name = "cbTipoVentas";
-            this.cbTipoVentas.Size = new System.Drawing.Size(185, 24);
+            this.cbTipoVentas.Size = new System.Drawing.Size(213, 24);
             this.cbTipoVentas.TabIndex = 1;
             this.cbTipoVentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoVentas_SelectedIndexChanged);
             // 
             // cbVentas
             // 
+            this.cbVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbVentas.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbVentas.FormattingEnabled = true;
             this.cbVentas.Items.AddRange(new object[] {
@@ -291,7 +285,7 @@
             "Mis ventas"});
             this.cbVentas.Location = new System.Drawing.Point(3, 18);
             this.cbVentas.Name = "cbVentas";
-            this.cbVentas.Size = new System.Drawing.Size(185, 24);
+            this.cbVentas.Size = new System.Drawing.Size(156, 24);
             this.cbVentas.TabIndex = 0;
             // 
             // TTMensaje

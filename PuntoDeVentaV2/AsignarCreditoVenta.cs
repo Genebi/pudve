@@ -15,6 +15,9 @@ namespace PuntoDeVentaV2
         private float total = 0f;
         private float metodos = 0f;
 
+        public static string cliente = string.Empty;
+        public static int idCliente = 0;
+
         public AsignarCreditoVenta(float total, float metodos)
         {
             InitializeComponent();
@@ -31,6 +34,11 @@ namespace PuntoDeVentaV2
             txtCantidad.Focus();
 
             txtCantidad.KeyPress += new KeyPressEventHandler(SoloDecimales);
+
+            if (!string.IsNullOrWhiteSpace(DetalleVenta.cliente))
+            {
+                lbCliente.Text = DetalleVenta.cliente;
+            }
         }
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
@@ -99,6 +107,29 @@ namespace PuntoDeVentaV2
             {
                 btnAceptar.PerformClick();
             }
+        }
+
+        private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ListaClientes clientes = new ListaClientes();
+
+            clientes.FormClosed += delegate
+            {
+                lbCliente.Text = cliente;
+
+                if (string.IsNullOrWhiteSpace(cliente))
+                {
+                    lbCliente.Text = "Asignar cliente";
+                    idCliente = 0;
+                }
+                else
+                {
+                    DetalleVenta.idCliente = idCliente;
+                    DetalleVenta.cliente = cliente;
+                }
+            };
+
+            clientes.ShowDialog();
         }
     }
 }
