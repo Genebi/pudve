@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
@@ -23,6 +24,11 @@ namespace PuntoDeVentaV2
         private string rutaTicketGenerado = string.Empty;
 
         public static bool abrirNuevaVenta = false;
+
+        //Iconos
+        Image cancelar;
+        Image factura;
+        Image ticket;
 
         public ListadoVentas()
         {
@@ -34,12 +40,17 @@ namespace PuntoDeVentaV2
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");
 
+            //Se inicializan los iconos
+            cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
+            factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
+            ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
+
             Dictionary<string, string> ventas = new Dictionary<string, string>();
             ventas.Add("VP", "Ventas pagadas");
             ventas.Add("VG", "Ventas guardadas");
             ventas.Add("VC", "Ventas canceladas");
             ventas.Add("VCC", "Ventas a crédito");
-            ventas.Add("VPF", "Ventas pagadas y facturadas");
+            ventas.Add("FAC", "Facturas");
             ventas.Add("PRE", "Presupuestos");
 
             cbTipoVentas.DataSource = ventas.ToArray();
@@ -50,6 +61,7 @@ namespace PuntoDeVentaV2
             cbTipoVentas.SelectedIndex = 0;
 
             CargarDatos();
+
         }
 
         public void CargarDatos(int estado = 1)
@@ -59,7 +71,6 @@ namespace PuntoDeVentaV2
             SQLiteDataReader dr;
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = '{estado}' AND IDUsuario = '{FormPrincipal.userID}'", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -68,13 +79,34 @@ namespace PuntoDeVentaV2
 
             while (dr.Read())
             {
+
+                int idVenta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
+                int status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
+
+                string cliente = "Público General";
+                string rfc = "XAXX010101000";
+
+                //Obtener detalle de venta y datos del cliente
+                var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+
+                if (detalles.Length > 0)
+                {
+                    if (Convert.ToInt32(detalles[0]) > 0)
+                    {
+                        var infoCliente = mb.ObtenerDatosCliente(Convert.ToInt32(detalles[0]), FormPrincipal.userID);
+                        cliente = infoCliente[0];
+                        rfc = infoCliente[1];
+                    }
+                }
+
+
                 int rowId = DGVListadoVentas.Rows.Add();
 
                 DataGridViewRow row = DGVListadoVentas.Rows[rowId];
 
-                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-                row.Cells["Cliente"].Value = "Público General";
-                row.Cells["RFC"].Value = "XAXX010101000";
+                row.Cells["ID"].Value = idVenta;
+                row.Cells["Cliente"].Value = cliente;
+                row.Cells["RFC"].Value = rfc;
                 row.Cells["Subtotal"].Value = dr.GetValue(dr.GetOrdinal("Subtotal"));
                 row.Cells["IVA"].Value = dr.GetValue(dr.GetOrdinal("IVA16"));
                 row.Cells["Total"].Value = dr.GetValue(dr.GetOrdinal("Total"));
@@ -83,12 +115,6 @@ namespace PuntoDeVentaV2
                 row.Cells["Pago"].Value = dr.GetValue(dr.GetOrdinal("MetodoPago"));
                 row.Cells["Empleado"].Value = dr.GetValue(dr.GetOrdinal("IDEmpleado"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
-
-                var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
-
-                Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
-                Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
-                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
 
                 row.Cells["Cancelar"].Value = cancelar;
                 row.Cells["Factura"].Value = factura;
@@ -153,8 +179,8 @@ namespace PuntoDeVentaV2
             if (opcion == "VC") { CargarDatos(3); }
             //Ventas a credito
             if (opcion == "VCC") { CargarDatos(4); }
-            //Ventas pagadas y facturadas
-            if (opcion == "VPF") { CargarDatos(5); }
+            //Facturas
+            if (opcion == "FAC") { CargarDatos(5); }
             //Presupuestos
             if (opcion == "PRE") { CargarDatos(6); }
         }

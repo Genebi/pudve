@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         //Status 2 = Venta guardada
         //Status 3 = Venta cancelada
         //Status 4 = Venta a credito
-        //Status 5 = Venta pagada y facturada
+        //Status 5 = Facturas
         //Status 6 = Presupuestos
 
         string[] productos;
