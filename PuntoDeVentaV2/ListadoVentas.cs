@@ -187,11 +187,16 @@ namespace PuntoDeVentaV2
             if (opcion == "PRE") { CargarDatos(6); }
         }
 
+        #region Manejo del evento MouseEnter para el DataGridView
         private void DGVListadoVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
+                var opcion = cbTipoVentas.SelectedValue.ToString();
+                var permitir = true;
+
                 Rectangle cellRect = DGVListadoVentas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                
 
                 if (e.ColumnIndex >= 11)
                 {
@@ -200,21 +205,35 @@ namespace PuntoDeVentaV2
 
                     DGVListadoVentas.Cursor = Cursors.Hand;
 
-                    if (e.ColumnIndex == 11) {
+                    if (e.ColumnIndex == 11)
+                    {
+                        textoTT = "Cancelar";
+                        coordenadaX = 60;
 
-                        if (cbTipoVentas.SelectedValue.ToString() != "VC")
-                        {
-                            textoTT = "Cancelar";
-                            coordenadaX = 60;
-                        }
+                        if (opcion == "VC") { permitir = false; }
                     }
 
-                    if (e.ColumnIndex == 12) { textoTT = "Ver factura"; coordenadaX = 70; }
-                    if (e.ColumnIndex == 13) { textoTT = "Ver ticket";  coordenadaX = 62; }
-                    if (e.ColumnIndex == 14) { textoTT = "Abonos"; coordenadaX = 54; }
+                    if (e.ColumnIndex == 12)
+                    {
+                        textoTT = "Ver factura";
+                        coordenadaX = 70;
+                    }
 
-                    VisualizarToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y);
-                    //TTMensaje.Show(textoTT, this, DGVListadoVentas.Location.X + cellRect.X - coordenadaX, DGVListadoVentas.Location.Y + cellRect.Y, 1500);
+                    if (e.ColumnIndex == 13)
+                    {
+                        textoTT = "Ver ticket";
+                        coordenadaX = 62;
+                    }
+
+                    if (e.ColumnIndex == 14)
+                    {
+                        textoTT = "Abonos";
+                        coordenadaX = 54;
+
+                        if (opcion != "VCC") { permitir = false; }
+                    }
+
+                    VerToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y, permitir);
 
                     textoTT = string.Empty;
                 }
@@ -224,10 +243,14 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+        #endregion
 
-        private void VisualizarToolTip(string texto, int cellRectX, int coordX, int cellRectY)
+        private void VerToolTip(string texto, int cellRectX, int coordX, int cellRectY, bool mostrar)
         {
-            TTMensaje.Show(texto, this, DGVListadoVentas.Location.X + cellRectX - coordX, DGVListadoVentas.Location.Y + cellRectY, 1500);
+            if (mostrar)
+            {
+                TTMensaje.Show(texto, this, DGVListadoVentas.Location.X + cellRectX - coordX, DGVListadoVentas.Location.Y + cellRectY, 1500);
+            }  
         }
 
         private void DGVListadoVentas_CellClick(object sender, DataGridViewCellEventArgs e)
