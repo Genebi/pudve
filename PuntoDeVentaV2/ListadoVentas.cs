@@ -55,6 +55,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
         }
 
+        #region Método para cargar los datos en el DataGridView
         public void CargarDatos(int estado = 1)
         {
             SQLiteConnection sql_con;
@@ -137,6 +138,7 @@ namespace PuntoDeVentaV2
             dr.Close();
             sql_con.Close();
         }
+        #endregion
 
         private void btnBuscarVentas_Click(object sender, EventArgs e)
         {
@@ -302,7 +304,14 @@ namespace PuntoDeVentaV2
                 //Abonos
                 if (e.ColumnIndex == 14)
                 {
-                    MessageBox.Show("Abonos");
+                    AsignarAbonos abono = new AsignarAbonos();
+
+                    abono.FormClosed += delegate
+                    {
+
+                    };
+
+                    abono.ShowDialog();
                 }
             }
             
