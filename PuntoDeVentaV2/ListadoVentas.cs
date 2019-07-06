@@ -25,10 +25,6 @@ namespace PuntoDeVentaV2
 
         public static bool abrirNuevaVenta = false;
 
-        //Iconos
-        Image cancelar;
-        Image factura;
-        Image ticket;
 
         public ListadoVentas()
         {
@@ -40,11 +36,7 @@ namespace PuntoDeVentaV2
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");
 
-            //Se inicializan los iconos
-            cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
-            factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
-            ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
-
+            
             Dictionary<string, string> ventas = new Dictionary<string, string>();
             ventas.Add("VP", "Ventas pagadas");
             ventas.Add("VG", "Ventas guardadas");
@@ -61,7 +53,6 @@ namespace PuntoDeVentaV2
             cbTipoVentas.SelectedIndex = 0;
 
             CargarDatos();
-
         }
 
         public void CargarDatos(int estado = 1)
@@ -76,6 +67,15 @@ namespace PuntoDeVentaV2
             dr = sql_cmd.ExecuteReader();
 
             DGVListadoVentas.Rows.Clear();
+
+            //Inicializacion de iconos
+            Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
+            Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
+            Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
+            Image credito = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
+
+            Bitmap sinImagen = new Bitmap(1, 1);
+            sinImagen.SetPixel(0, 0, Color.White);
 
             while (dr.Read())
             {
@@ -119,13 +119,18 @@ namespace PuntoDeVentaV2
                 row.Cells["Cancelar"].Value = cancelar;
                 row.Cells["Factura"].Value = factura;
                 row.Cells["Ticket"].Value = ticket;
+                row.Cells["Abono"].Value = credito;
 
                 //Ventas canceladas
                 if (status == 3)
                 {
-                    Bitmap sinImagen = new Bitmap(1, 1);
-                    sinImagen.SetPixel(0, 0, Color.White);
                     row.Cells["Cancelar"].Value = sinImagen;
+                }
+
+                //Ventas a credito
+                if (status != 4)
+                {
+                    row.Cells["Abono"].Value = sinImagen;
                 }
             }
 
@@ -168,9 +173,6 @@ namespace PuntoDeVentaV2
         {
             var opcion = cbTipoVentas.SelectedValue.ToString();
 
-            //Parcialmente y a credito seran una misma opcion y estado de venta
-            //Revisar cuando se cumpla la condicion
-
             //Ventas pagadas
             if (opcion == "VP") { CargarDatos(1); }
             //Ventas guardadas
@@ -200,7 +202,7 @@ namespace PuntoDeVentaV2
 
                     if (e.ColumnIndex == 11) {
 
-                        if (cbTipoVentas.SelectedIndex != 3)
+                        if (cbTipoVentas.SelectedValue.ToString() != "VC")
                         {
                             textoTT = "Cancelar";
                             coordenadaX = 60;
@@ -209,8 +211,10 @@ namespace PuntoDeVentaV2
 
                     if (e.ColumnIndex == 12) { textoTT = "Ver factura"; coordenadaX = 70; }
                     if (e.ColumnIndex == 13) { textoTT = "Ver ticket";  coordenadaX = 62; }
+                    if (e.ColumnIndex == 14) { textoTT = "Abonos"; coordenadaX = 54; }
 
-                    TTMensaje.Show(textoTT, this, DGVListadoVentas.Location.X + cellRect.X - coordenadaX, DGVListadoVentas.Location.Y + cellRect.Y, 1500);
+                    VisualizarToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y);
+                    //TTMensaje.Show(textoTT, this, DGVListadoVentas.Location.X + cellRect.X - coordenadaX, DGVListadoVentas.Location.Y + cellRect.Y, 1500);
 
                     textoTT = string.Empty;
                 }
@@ -221,50 +225,64 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void VisualizarToolTip(string texto, int cellRectX, int coordX, int cellRectY)
+        {
+            TTMensaje.Show(texto, this, DGVListadoVentas.Location.X + cellRectX - coordX, DGVListadoVentas.Location.Y + cellRectY, 1500);
+        }
+
         private void DGVListadoVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var fila = DGVListadoVentas.CurrentCell.RowIndex;
-
-            int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
-
-            //Cancelar
-            if (e.ColumnIndex == 11)
+            if (e.RowIndex >= 0)
             {
-                MessageBox.Show("Cancelar");
-            }
+                var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
-            //Ver factura
-            if (e.ColumnIndex == 12)
-            {
-                MessageBox.Show("Factura");
-            }
+                int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
 
-            //Ver ticket
-            if (e.ColumnIndex == 13)
-            {
-                rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
-                ticketGenerado = $"ticket_venta_{idVenta}.pdf";
-
-                if (File.Exists(rutaTicketGenerado))
+                //Cancelar
+                if (e.ColumnIndex == 11)
                 {
-                    
-                    VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+                    MessageBox.Show("Cancelar");
+                }
 
-                    vt.FormClosed += delegate
+                //Ver factura
+                if (e.ColumnIndex == 12)
+                {
+                    MessageBox.Show("Factura");
+                }
+
+                //Ver ticket
+                if (e.ColumnIndex == 13)
+                {
+                    rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
+                    ticketGenerado = $"ticket_venta_{idVenta}.pdf";
+
+                    if (File.Exists(rutaTicketGenerado))
                     {
-                        vt.Dispose();
+                        VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
 
-                        rutaTicketGenerado = string.Empty;
-                        ticketGenerado = string.Empty;
-                    };
+                        vt.FormClosed += delegate
+                        {
+                            vt.Dispose();
 
-                    vt.ShowDialog();
+                            rutaTicketGenerado = string.Empty;
+                            ticketGenerado = string.Empty;
+                        };
+
+                        vt.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+
+                //Abonos
+                if (e.ColumnIndex == 14)
                 {
-                    MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Abonos");
                 }
             }
+            
 
             DGVListadoVentas.ClearSelection();
         }

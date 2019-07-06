@@ -59,12 +59,12 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbProductoComprado = new System.Windows.Forms.CheckBox();
             this.btnListView = new System.Windows.Forms.Button();
             this.btnPhotoView = new System.Windows.Forms.Button();
             this.btnModificarEstado = new System.Windows.Forms.Button();
             this.btnAgregarXML = new System.Windows.Forms.Button();
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
-            this.cbProductoComprado = new System.Windows.Forms.CheckBox();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -206,6 +206,7 @@
             this.DGVProductos.Location = new System.Drawing.Point(10, 15);
             this.DGVProductos.MultiSelect = false;
             this.DGVProductos.Name = "DGVProductos";
+            this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVProductos.Size = new System.Drawing.Size(792, 327);
@@ -219,6 +220,7 @@
             this.Column0.HeaderText = "";
             this.Column0.MinimumWidth = 30;
             this.Column0.Name = "Column0";
+            this.Column0.ReadOnly = true;
             this.Column0.ToolTipText = "Selecciona Producto para su procesamiento";
             this.Column0.Width = 30;
             // 
@@ -227,81 +229,95 @@
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.HeaderText = "Nombre";
             this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Stock";
             this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             this.Column2.Width = 65;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Precio";
             this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             this.Column3.Width = 65;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Categoria";
             this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "Clave";
             this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Código";
             this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
             this.Column6.Width = 102;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "Editar";
             this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
             this.Column7.Width = 50;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "Estado";
             this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
             this.Column8.Width = 50;
             // 
             // Column9
             // 
             this.Column9.HeaderText = "Historial";
             this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
             this.Column9.Width = 50;
             // 
             // Column10
             // 
             this.Column10.HeaderText = "Generar";
             this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
             this.Column10.Width = 50;
             // 
             // Column11
             // 
             this.Column11.HeaderText = "Imagen";
             this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
             this.Column11.Width = 50;
             // 
             // Column12
             // 
             this.Column12.HeaderText = "Etiqueta";
             this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
             this.Column12.Width = 50;
             // 
             // Column13
             // 
             this.Column13.HeaderText = "Copiar";
             this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
             this.Column13.Width = 50;
             // 
             // Column14
             // 
             this.Column14.HeaderText = "Status";
             this.Column14.Name = "Column14";
+            this.Column14.ReadOnly = true;
             this.Column14.Visible = false;
             this.Column14.Width = 50;
             // 
@@ -309,6 +325,7 @@
             // 
             this.Column15.HeaderText = "ProdImage";
             this.Column15.Name = "Column15";
+            this.Column15.ReadOnly = true;
             this.Column15.Visible = false;
             this.Column15.Width = 50;
             // 
@@ -316,18 +333,21 @@
             // 
             this.Column16.HeaderText = "Tipo";
             this.Column16.Name = "Column16";
+            this.Column16.ReadOnly = true;
             this.Column16.Width = 50;
             // 
             // Ajustar
             // 
             this.Ajustar.HeaderText = "Ajustar";
             this.Ajustar.Name = "Ajustar";
+            this.Ajustar.ReadOnly = true;
             this.Ajustar.Width = 50;
             // 
             // _IDProducto
             // 
             this._IDProducto.HeaderText = "ID";
             this._IDProducto.Name = "_IDProducto";
+            this._IDProducto.ReadOnly = true;
             this._IDProducto.Visible = false;
             // 
             // panelShowPhotoView
@@ -374,6 +394,19 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(817, 184);
             this.panel1.TabIndex = 15;
+            // 
+            // cbProductoComprado
+            // 
+            this.cbProductoComprado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbProductoComprado.AutoSize = true;
+            this.cbProductoComprado.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbProductoComprado.Location = new System.Drawing.Point(622, 159);
+            this.cbProductoComprado.Name = "cbProductoComprado";
+            this.cbProductoComprado.Size = new System.Drawing.Size(138, 20);
+            this.cbProductoComprado.TabIndex = 13;
+            this.cbProductoComprado.Text = "Producto comprado";
+            this.cbProductoComprado.UseVisualStyleBackColor = true;
+            this.cbProductoComprado.CheckedChanged += new System.EventHandler(this.cbProductoComprado_CheckedChanged);
             // 
             // btnListView
             // 
@@ -443,19 +476,6 @@
             this.TTipButtonText.ForeColor = System.Drawing.Color.White;
             this.TTipButtonText.OwnerDraw = true;
             this.TTipButtonText.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTipButtonText_Draw);
-            // 
-            // cbProductoComprado
-            // 
-            this.cbProductoComprado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbProductoComprado.AutoSize = true;
-            this.cbProductoComprado.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbProductoComprado.Location = new System.Drawing.Point(622, 159);
-            this.cbProductoComprado.Name = "cbProductoComprado";
-            this.cbProductoComprado.Size = new System.Drawing.Size(138, 20);
-            this.cbProductoComprado.TabIndex = 13;
-            this.cbProductoComprado.Text = "Producto comprado";
-            this.cbProductoComprado.UseVisualStyleBackColor = true;
-            this.cbProductoComprado.CheckedChanged += new System.EventHandler(this.cbProductoComprado_CheckedChanged);
             // 
             // Productos
             // 

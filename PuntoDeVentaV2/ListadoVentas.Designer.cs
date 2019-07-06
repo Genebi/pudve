@@ -31,6 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.DGVListadoVentas = new System.Windows.Forms.DataGridView();
+            this.panelBotones = new System.Windows.Forms.Panel();
+            this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
+            this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
+            this.btnNuevaVenta = new System.Windows.Forms.Button();
+            this.btnBuscarVentas = new System.Windows.Forms.Button();
+            this.cbTipoVentas = new System.Windows.Forms.ComboBox();
+            this.cbVentas = new System.Windows.Forms.ComboBox();
+            this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,14 +53,7 @@
             this.Cancelar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Factura = new System.Windows.Forms.DataGridViewImageColumn();
             this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
-            this.panelBotones = new System.Windows.Forms.Panel();
-            this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
-            this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
-            this.btnNuevaVenta = new System.Windows.Forms.Button();
-            this.btnBuscarVentas = new System.Windows.Forms.Button();
-            this.cbTipoVentas = new System.Windows.Forms.ComboBox();
-            this.cbVentas = new System.Windows.Forms.ComboBox();
-            this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
+            this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -91,7 +92,8 @@
             this.Fecha,
             this.Cancelar,
             this.Factura,
-            this.Ticket});
+            this.Ticket,
+            this.Abono});
             this.DGVListadoVentas.Location = new System.Drawing.Point(12, 141);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
@@ -99,98 +101,6 @@
             this.DGVListadoVentas.TabIndex = 5;
             this.DGVListadoVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoVentas_CellClick);
             this.DGVListadoVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoVentas_CellMouseEnter);
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // Cliente
-            // 
-            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cliente.HeaderText = "Cliente";
-            this.Cliente.Name = "Cliente";
-            this.Cliente.ReadOnly = true;
-            // 
-            // RFC
-            // 
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            // 
-            // Subtotal
-            // 
-            this.Subtotal.HeaderText = "Subtotal";
-            this.Subtotal.Name = "Subtotal";
-            this.Subtotal.ReadOnly = true;
-            // 
-            // IVA
-            // 
-            this.IVA.HeaderText = "IVA";
-            this.IVA.Name = "IVA";
-            this.IVA.ReadOnly = true;
-            // 
-            // Total
-            // 
-            this.Total.HeaderText = "Total";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            // 
-            // Folio
-            // 
-            this.Folio.HeaderText = "Folio";
-            this.Folio.Name = "Folio";
-            this.Folio.ReadOnly = true;
-            this.Folio.Width = 50;
-            // 
-            // Serie
-            // 
-            this.Serie.HeaderText = "Serie";
-            this.Serie.Name = "Serie";
-            this.Serie.ReadOnly = true;
-            this.Serie.Width = 50;
-            // 
-            // Pago
-            // 
-            this.Pago.HeaderText = "Pago";
-            this.Pago.Name = "Pago";
-            this.Pago.ReadOnly = true;
-            // 
-            // Empleado
-            // 
-            this.Empleado.HeaderText = "Empleado";
-            this.Empleado.Name = "Empleado";
-            this.Empleado.ReadOnly = true;
-            // 
-            // Fecha
-            // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 150;
-            // 
-            // Cancelar
-            // 
-            this.Cancelar.HeaderText = "";
-            this.Cancelar.Name = "Cancelar";
-            this.Cancelar.ReadOnly = true;
-            this.Cancelar.Width = 30;
-            // 
-            // Factura
-            // 
-            this.Factura.HeaderText = "";
-            this.Factura.Name = "Factura";
-            this.Factura.ReadOnly = true;
-            this.Factura.Width = 30;
-            // 
-            // Ticket
-            // 
-            this.Ticket.HeaderText = "";
-            this.Ticket.Name = "Ticket";
-            this.Ticket.ReadOnly = true;
-            this.Ticket.Width = 30;
             // 
             // panelBotones
             // 
@@ -295,6 +205,105 @@
             this.TTMensaje.OwnerDraw = true;
             this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
             // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // Cliente
+            // 
+            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            // 
+            // RFC
+            // 
+            this.RFC.HeaderText = "RFC";
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            // 
+            // Subtotal
+            // 
+            this.Subtotal.HeaderText = "Subtotal";
+            this.Subtotal.Name = "Subtotal";
+            this.Subtotal.ReadOnly = true;
+            // 
+            // IVA
+            // 
+            this.IVA.HeaderText = "IVA";
+            this.IVA.Name = "IVA";
+            this.IVA.ReadOnly = true;
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            // 
+            // Folio
+            // 
+            this.Folio.HeaderText = "Folio";
+            this.Folio.Name = "Folio";
+            this.Folio.ReadOnly = true;
+            this.Folio.Width = 50;
+            // 
+            // Serie
+            // 
+            this.Serie.HeaderText = "Serie";
+            this.Serie.Name = "Serie";
+            this.Serie.ReadOnly = true;
+            this.Serie.Width = 50;
+            // 
+            // Pago
+            // 
+            this.Pago.HeaderText = "Pago";
+            this.Pago.Name = "Pago";
+            this.Pago.ReadOnly = true;
+            // 
+            // Empleado
+            // 
+            this.Empleado.HeaderText = "Empleado";
+            this.Empleado.Name = "Empleado";
+            this.Empleado.ReadOnly = true;
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 150;
+            // 
+            // Cancelar
+            // 
+            this.Cancelar.HeaderText = "";
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.ReadOnly = true;
+            this.Cancelar.Width = 30;
+            // 
+            // Factura
+            // 
+            this.Factura.HeaderText = "";
+            this.Factura.Name = "Factura";
+            this.Factura.ReadOnly = true;
+            this.Factura.Width = 30;
+            // 
+            // Ticket
+            // 
+            this.Ticket.HeaderText = "";
+            this.Ticket.Name = "Ticket";
+            this.Ticket.ReadOnly = true;
+            this.Ticket.Width = 30;
+            // 
+            // Abono
+            // 
+            this.Abono.HeaderText = "";
+            this.Abono.Name = "Abono";
+            this.Abono.ReadOnly = true;
+            this.Abono.Width = 30;
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -325,6 +334,7 @@
         private System.Windows.Forms.ComboBox cbVentas;
         private System.Windows.Forms.DateTimePicker dpFechaInicial;
         private System.Windows.Forms.DateTimePicker dpFechaFinal;
+        private System.Windows.Forms.ToolTip TTMensaje;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
@@ -339,6 +349,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Cancelar;
         private System.Windows.Forms.DataGridViewImageColumn Factura;
         private System.Windows.Forms.DataGridViewImageColumn Ticket;
-        private System.Windows.Forms.ToolTip TTMensaje;
+        private System.Windows.Forms.DataGridViewImageColumn Abono;
     }
 }
