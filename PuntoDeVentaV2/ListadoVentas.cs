@@ -259,6 +259,8 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
+                var opcion = cbTipoVentas.SelectedValue.ToString();
+
                 var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
@@ -304,14 +306,17 @@ namespace PuntoDeVentaV2
                 //Abonos
                 if (e.ColumnIndex == 14)
                 {
-                    AsignarAbonos abono = new AsignarAbonos();
-
-                    abono.FormClosed += delegate
+                    if (opcion == "VCC")
                     {
+                        AsignarAbonos abono = new AsignarAbonos();
 
-                    };
+                        abono.FormClosed += delegate
+                        {
 
-                    abono.ShowDialog();
+                        };
+
+                        abono.ShowDialog();
+                    }
                 }
             }
             
