@@ -32,6 +32,7 @@ namespace PuntoDeVentaV2
         public static int Clientes;
         public static int RevisarInventario;
         public static int DetallesVenta;
+        public static int Abonos;
         #endregion VariablesTablas
 
         public DBTables()
@@ -60,6 +61,7 @@ namespace PuntoDeVentaV2
             Clientes = 20;
             RevisarInventario = 15;
             DetallesVenta = 12;
+            Abonos = 11;
             #endregion InicializarVariables
         }
 
@@ -1486,5 +1488,70 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaDetallesVenta
+
+        // Tabla de Abonos
+        #region TablaAbonos
+        public int GetAbonos()
+        {
+            return Abonos;
+        }
+
+        public string PragmaTablaAbonos(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameAbonos(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaAbonos(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDVenta INTEGER NOT NULL,
+                                              IDUsuario INTEGER,
+                                              Total DECIMAL DEFAULT (0),
+                                              Efectivo DECIMAL DEFAULT (0),
+                                              Tarjeta DECIMAL DEFAULT (0),
+                                              Vales DECIMAL DEFAULT (0),
+                                              Cheque DECIMAL DEFAULT (0),
+                                              Transferencia DECIMAL DEFAULT (0),
+                                              Referencia TEXT,
+                                              FechaOperacion DATETIME NOT NULL);";
+        }
+
+        public string QueryUpdateTablaAbonos(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDVenta,
+                                             IDUsuario,
+                                             Total,
+                                             Efectivo,
+                                             Tarjeta,
+                                             Vales,
+                                             Cheque,
+                                             Transferencia,
+                                             Referencia,
+                                             FechaOperacion) 
+                                      SELECT ID,
+                                             IDVenta,
+                                             IDUsuario,
+                                             Total,
+                                             Efectivo,
+                                             Tarjeta,
+                                             Vales,
+                                             Cheque,
+                                             Transferencia,
+                                             Referencia,
+                                             FechaOperacion 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaAbonos(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaAbonos
     }
 }

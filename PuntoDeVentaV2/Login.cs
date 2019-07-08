@@ -1106,6 +1106,43 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion TablaDetallesVenta
+            // 24 Abonos
+            #region TablaAbonos
+            tabla = "Abonos";
+            checkEmpty(tabla);
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaAbonos(tabla));
+                    if (dbTables.GetAbonos() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaAbonos(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetAbonos())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameAbonos(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaAbonos(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaAbonos(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaAbonos(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion TablaAbonos
         }
 
         private bool checkEmpty(object tabla)
