@@ -85,7 +85,7 @@ namespace PuntoDeVentaV2
             {
                 DGVListaVentasGuardadas.ClearSelection();
 
-                int resultado = cn.EjecutarConsulta(cs.CancelarVentaGuardada(IDVenta));
+                int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(IDVenta, 3, FormPrincipal.userID));
 
                 if (resultado > 0)
                 {

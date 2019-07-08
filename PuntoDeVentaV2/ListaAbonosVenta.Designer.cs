@@ -28,37 +28,125 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.DGVAbonos = new System.Windows.Forms.DataGridView();
+            this.Efectivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tarjeta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vales = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cheque = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Trans = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVAbonos)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // DGVAbonos
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(1, 1);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(482, 259);
-            this.dataGridView1.TabIndex = 0;
+            this.DGVAbonos.AllowUserToAddRows = false;
+            this.DGVAbonos.AllowUserToDeleteRows = false;
+            this.DGVAbonos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVAbonos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Efectivo,
+            this.Tarjeta,
+            this.Vales,
+            this.Cheque,
+            this.Trans,
+            this.Total,
+            this.Fecha});
+            this.DGVAbonos.Location = new System.Drawing.Point(1, 1);
+            this.DGVAbonos.Name = "DGVAbonos";
+            this.DGVAbonos.ReadOnly = true;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVAbonos.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DGVAbonos.RowHeadersVisible = false;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DGVAbonos.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.DGVAbonos.Size = new System.Drawing.Size(520, 259);
+            this.DGVAbonos.TabIndex = 0;
+            // 
+            // Efectivo
+            // 
+            this.Efectivo.HeaderText = "Efectivo";
+            this.Efectivo.Name = "Efectivo";
+            this.Efectivo.ReadOnly = true;
+            this.Efectivo.Width = 60;
+            // 
+            // Tarjeta
+            // 
+            this.Tarjeta.HeaderText = "Tarjeta";
+            this.Tarjeta.Name = "Tarjeta";
+            this.Tarjeta.ReadOnly = true;
+            this.Tarjeta.Width = 60;
+            // 
+            // Vales
+            // 
+            this.Vales.HeaderText = "Vales";
+            this.Vales.Name = "Vales";
+            this.Vales.ReadOnly = true;
+            this.Vales.Width = 60;
+            // 
+            // Cheque
+            // 
+            this.Cheque.HeaderText = "Cheque";
+            this.Cheque.Name = "Cheque";
+            this.Cheque.ReadOnly = true;
+            this.Cheque.Width = 60;
+            // 
+            // Trans
+            // 
+            this.Trans.HeaderText = "Transferencia";
+            this.Trans.Name = "Trans";
+            this.Trans.ReadOnly = true;
+            this.Trans.Width = 80;
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            this.Total.Width = 60;
+            // 
+            // Fecha
+            // 
+            this.Fecha.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
             // 
             // ListaAbonosVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 261);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(514, 261);
+            this.Controls.Add(this.DGVAbonos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ListaAbonosVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PUDVE - Lista de abonos";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.ListaAbonosVenta_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVAbonos)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView DGVAbonos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Efectivo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tarjeta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Vales;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cheque;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Trans;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
     }
 }
