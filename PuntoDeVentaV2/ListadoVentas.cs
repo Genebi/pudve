@@ -314,7 +314,7 @@ namespace PuntoDeVentaV2
 
                         abono.FormClosed += delegate
                         {
-
+                            CargarDatos(4);
                         };
 
                         abono.ShowDialog();

@@ -19,6 +19,8 @@ namespace PuntoDeVentaV2
         private int idVenta = 0;
         private float totalOriginal = 0f;
         private float totalPendiente = 0f;
+        private float totalMetodos = 0f;
+        private bool existenAbonos = false;
 
         public AsignarAbonos(int idVenta, float totalOriginal)
         {
@@ -37,12 +39,25 @@ namespace PuntoDeVentaV2
             txtCheque.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtTransferencia.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
+            //Terminar abono presionando Enter
+            txtEfectivo.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtTarjeta.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtVales.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtCheque.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtTransferencia.KeyDown += new KeyEventHandler(TerminarVenta);
+
+            //Suma de los metodos de pago excepto efectivo
+            txtTarjeta.KeyUp += new KeyEventHandler(SumaMetodosPago);
+            txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
+            txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
+            txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
+
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
             txtTotalOriginal.Text = "$" + totalOriginal.ToString("0.00");
 
             //Comprobamos que no existan abonos
-            var existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+            existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
 
             if (!existenAbonos)
             {
@@ -59,33 +74,42 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (ValidarCantidades())
+            float totalEfectivo = 0f;
+
+            var tarjeta = CantidadDecimal(txtTarjeta.Text);
+            var vales = CantidadDecimal(txtVales.Text);
+            var cheque = CantidadDecimal(txtCheque.Text);
+            var transferencia = CantidadDecimal(txtTransferencia.Text);
+            var referencia = txtReferencia.Text;
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            if (SumaMetodos() > 0)
             {
-                var efectivo = CantidadDecimal(txtEfectivo.Text);
-                var tarjeta = CantidadDecimal(txtTarjeta.Text);
-                var vales = CantidadDecimal(txtVales.Text);
-                var cheque = CantidadDecimal(txtCheque.Text);
-                var transferencia = CantidadDecimal(txtTransferencia.Text);
-                var referencia = txtReferencia.Text;
-                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                var totalAbonado = efectivo + tarjeta + vales + cheque + transferencia;
-
-                string[] datos = new string[] {
-                    idVenta.ToString(), FormPrincipal.userID.ToString(), totalAbonado.ToString(), efectivo.ToString(), tarjeta.ToString(),
-                    vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
-                };
-
-                int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
-
-                if (resultado > 0)
-                {
-                    this.Dispose();
-                }
+                totalEfectivo = totalPendiente - SumaMetodos();
             }
             else
             {
-                MessageBox.Show("La cantidad abonada es mayor al total pendiente de pago", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                totalEfectivo = CantidadDecimal(txtEfectivo.Text);
+            }
+
+            var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia;
+
+            //Condicion para saber si se termino de pagar y cambiar el status de la venta
+            if (totalAbonado >= totalPendiente)
+            {
+                cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
+            }
+
+            string[] datos = new string[] {
+                idVenta.ToString(), FormPrincipal.userID.ToString(), totalAbonado.ToString(), totalEfectivo.ToString(), tarjeta.ToString(),
+                vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
+            };
+
+            int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+
+            if (resultado > 0)
+            {
+                this.Dispose();
             }
         }
 
@@ -143,7 +167,77 @@ namespace PuntoDeVentaV2
 
         private void lbVerAbonos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show("Ver abonos");
+            if (existenAbonos)
+            {
+                this.Hide();
+
+                ListaAbonosVenta abonos = new ListaAbonosVenta(idVenta);
+
+                abonos.FormClosed += delegate
+                {
+                    this.Show();
+                };
+
+                abonos.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No existen abonos previos para esta venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void TerminarVenta(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private float SumaMetodos()
+        {
+            float tarjeta = CantidadDecimal(txtTarjeta.Text);
+            float vales = CantidadDecimal(txtVales.Text);
+            float cheque = CantidadDecimal(txtCheque.Text);
+            float transferencia = CantidadDecimal(txtTransferencia.Text);
+
+            float suma = tarjeta + vales + cheque + transferencia;
+
+            return suma;
+        }
+
+        private void CalcularCambio()
+        {
+            //El total del campo efectivo + la suma de los otros metodos de pago - total de venta
+            double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos) - totalPendiente);
+
+            lbTotalCambio.Text = "$" + cambio.ToString("0.00");
+        }
+
+
+        private void SumaMetodosPago(object sender, KeyEventArgs e)
+        {
+            float suma = SumaMetodos();
+
+            //Si es mayor al total a pagar vuelve a calcular las cantidades pero sin tomar en cuenta
+            //el campo que hizo que fuera mayor a la cantidad a pagar
+            if (suma > totalPendiente)
+            {
+                TextBox tb = sender as TextBox;
+
+                tb.Text = string.Empty;
+
+                suma = SumaMetodos();
+            }
+
+            totalMetodos = suma;
+
+            CalcularCambio();
+        }
+
+        private void txtEfectivo_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalcularCambio();
         }
     }
 }

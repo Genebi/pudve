@@ -107,9 +107,9 @@ namespace PuntoDeVentaV2
             return $"SELECT * FROM Ventas WHERE IDusuario = '{id}'";
         }
 
-        public string CancelarVentaGuardada(int id)
+        public string ActualizarVenta(int IDVenta, int status, int IDUsuario)
         {
-            return $"UPDATE Ventas SET Status = 3 WHERE ID = '{id}'";
+            return $"UPDATE Ventas SET Status = {status} WHERE ID = '{IDVenta}' AND IDUsuario = {IDUsuario}";
         }
 
         public string GuardarAnticipo(string[] datos)
