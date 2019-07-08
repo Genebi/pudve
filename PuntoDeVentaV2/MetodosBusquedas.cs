@@ -31,14 +31,38 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                //ID del cliente, Cliente
+                //ID del cliente, Cliente, Credito
                 lista.Add(dr[10].ToString());
                 lista.Add(dr[11].ToString());
+                lista.Add(dr[8].ToString());
             }
 
             dr.Close();
 
             return lista.ToArray();
+        }
+
+
+        public float ObtenerTotalAbonado(int idVenta, int idUsuario)
+        {
+            float cantidad = 0f;
+
+            Conexion();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT SUM(Total) AS Total FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                cantidad = float.Parse(dr["Total"].ToString());
+            }
+
+            dr.Close();
+
+            return cantidad;
         }
 
         public string[] ObtenerDatosCliente(int idCliente, int idUsuario)

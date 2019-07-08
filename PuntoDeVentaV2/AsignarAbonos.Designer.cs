@@ -45,6 +45,9 @@
             this.txtEfectivo = new System.Windows.Forms.TextBox();
             this.txtPendiente = new System.Windows.Forms.Label();
             this.tituloAbono = new System.Windows.Forms.Label();
+            this.lbVerAbonos = new System.Windows.Forms.LinkLabel();
+            this.txtTotalOriginal = new System.Windows.Forms.Label();
+            this.tituloTotal = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -56,7 +59,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(341, 281);
+            this.btnAceptar.Location = new System.Drawing.Point(342, 269);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(130, 28);
             this.btnAceptar.TabIndex = 129;
@@ -197,10 +200,10 @@
             // txtPendiente
             // 
             this.txtPendiente.AutoSize = true;
-            this.txtPendiente.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPendiente.Location = new System.Drawing.Point(211, 48);
+            this.txtPendiente.Font = new System.Drawing.Font("Century Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPendiente.Location = new System.Drawing.Point(301, 48);
             this.txtPendiente.Name = "txtPendiente";
-            this.txtPendiente.Size = new System.Drawing.Size(66, 25);
+            this.txtPendiente.Size = new System.Drawing.Size(60, 23);
             this.txtPendiente.TabIndex = 131;
             this.txtPendiente.Text = "$0.00";
             // 
@@ -208,17 +211,52 @@
             // 
             this.tituloAbono.AutoSize = true;
             this.tituloAbono.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloAbono.Location = new System.Drawing.Point(177, 19);
+            this.tituloAbono.Location = new System.Drawing.Point(269, 19);
             this.tituloAbono.Name = "tituloAbono";
             this.tituloAbono.Size = new System.Drawing.Size(134, 17);
             this.tituloAbono.TabIndex = 130;
             this.tituloAbono.Text = "Pendiente de pago";
+            // 
+            // lbVerAbonos
+            // 
+            this.lbVerAbonos.AutoSize = true;
+            this.lbVerAbonos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbVerAbonos.Location = new System.Drawing.Point(10, 275);
+            this.lbVerAbonos.Name = "lbVerAbonos";
+            this.lbVerAbonos.Size = new System.Drawing.Size(76, 17);
+            this.lbVerAbonos.TabIndex = 140;
+            this.lbVerAbonos.TabStop = true;
+            this.lbVerAbonos.Text = "Ver abonos";
+            this.lbVerAbonos.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbVerAbonos_LinkClicked);
+            // 
+            // txtTotalOriginal
+            // 
+            this.txtTotalOriginal.AutoSize = true;
+            this.txtTotalOriginal.Font = new System.Drawing.Font("Century Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalOriginal.Location = new System.Drawing.Point(107, 48);
+            this.txtTotalOriginal.Name = "txtTotalOriginal";
+            this.txtTotalOriginal.Size = new System.Drawing.Size(60, 23);
+            this.txtTotalOriginal.TabIndex = 142;
+            this.txtTotalOriginal.Text = "$0.00";
+            // 
+            // tituloTotal
+            // 
+            this.tituloTotal.AutoSize = true;
+            this.tituloTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloTotal.Location = new System.Drawing.Point(91, 19);
+            this.tituloTotal.Name = "tituloTotal";
+            this.tituloTotal.Size = new System.Drawing.Size(91, 17);
+            this.tituloTotal.TabIndex = 141;
+            this.tituloTotal.Text = "Total original";
             // 
             // AsignarAbonos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 321);
+            this.Controls.Add(this.txtTotalOriginal);
+            this.Controls.Add(this.tituloTotal);
+            this.Controls.Add(this.lbVerAbonos);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.lbSeparadorDetalle2);
             this.Controls.Add(this.lbSeparadorDetalle1);
@@ -267,5 +305,8 @@
         private System.Windows.Forms.TextBox txtEfectivo;
         private System.Windows.Forms.Label txtPendiente;
         private System.Windows.Forms.Label tituloAbono;
+        private System.Windows.Forms.LinkLabel lbVerAbonos;
+        private System.Windows.Forms.Label txtTotalOriginal;
+        private System.Windows.Forms.Label tituloTotal;
     }
 }
