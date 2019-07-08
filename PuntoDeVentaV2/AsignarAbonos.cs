@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         private int idVenta = 0;
         private float totalOriginal = 0f;
         private float totalPendiente = 0f;
+        private bool existenAbonos = false;
 
         public AsignarAbonos(int idVenta, float totalOriginal)
         {
@@ -37,12 +38,19 @@ namespace PuntoDeVentaV2
             txtCheque.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtTransferencia.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
+            //Terminar abono presionando Enter
+            txtEfectivo.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtTarjeta.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtVales.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtCheque.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtTransferencia.KeyDown += new KeyEventHandler(TerminarVenta);
+
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
             txtTotalOriginal.Text = "$" + totalOriginal.ToString("0.00");
 
             //Comprobamos que no existan abonos
-            var existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+            existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
 
             if (!existenAbonos)
             {
@@ -143,7 +151,17 @@ namespace PuntoDeVentaV2
 
         private void lbVerAbonos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            MessageBox.Show("Ver abonos");
+            ListaAbonosVenta abonos = new ListaAbonosVenta();
+
+            abonos.ShowDialog();
+        }
+
+        private void TerminarVenta(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
         }
     }
 }
