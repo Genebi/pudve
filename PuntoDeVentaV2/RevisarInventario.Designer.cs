@@ -31,6 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblNoRegistro = new System.Windows.Forms.Label();
             this.txtCantidadStock = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnSiguiente = new System.Windows.Forms.Button();
-            this.lblNoRegistro = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -88,6 +88,15 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Datos del Producto: ";
+            // 
+            // lblNoRegistro
+            // 
+            this.lblNoRegistro.AutoSize = true;
+            this.lblNoRegistro.Location = new System.Drawing.Point(270, 22);
+            this.lblNoRegistro.Name = "lblNoRegistro";
+            this.lblNoRegistro.Size = new System.Drawing.Size(0, 13);
+            this.lblNoRegistro.TabIndex = 9;
+            this.lblNoRegistro.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtCantidadStock
             // 
@@ -207,15 +216,6 @@
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
-            // 
-            // lblNoRegistro
-            // 
-            this.lblNoRegistro.AutoSize = true;
-            this.lblNoRegistro.Location = new System.Drawing.Point(270, 22);
-            this.lblNoRegistro.Name = "lblNoRegistro";
-            this.lblNoRegistro.Size = new System.Drawing.Size(0, 13);
-            this.lblNoRegistro.TabIndex = 9;
-            this.lblNoRegistro.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RevisarInventario
             // 
