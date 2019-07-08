@@ -308,7 +308,9 @@ namespace PuntoDeVentaV2
                 {
                     if (opcion == "VCC")
                     {
-                        AsignarAbonos abono = new AsignarAbonos();
+                        var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
+
+                        AsignarAbonos abono = new AsignarAbonos(idVenta, total);
 
                         abono.FormClosed += delegate
                         {
@@ -318,10 +320,9 @@ namespace PuntoDeVentaV2
                         abono.ShowDialog();
                     }
                 }
-            }
-            
 
-            DGVListadoVentas.ClearSelection();
+                DGVListadoVentas.ClearSelection();
+            }
         }
 
         private void TTMensaje_Draw(object sender, DrawToolTipEventArgs e)
