@@ -1572,6 +1572,16 @@ namespace PuntoDeVentaV2.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string checkDateStock {
+            get {
+                return ResourceManager.GetString("checkDateStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1
+        ///.
+        /// </summary>
         internal static string checkStock {
             get {
                 return ResourceManager.GetString("checkStock", resourceCulture);
@@ -6027,7 +6037,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 31
+        ///   Looks up a localized string similar to 37
         ///.
         /// </summary>
         internal static string setupFolioVenta {

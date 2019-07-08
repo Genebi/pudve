@@ -3068,6 +3068,9 @@
     <Content Include="PUDVE\settings\ganancia\setupGanancia.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\settings\noCheckStock\checkDateStock.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\settings\noCheckStock\checkStock.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -25,6 +25,7 @@ namespace PuntoDeVentaV2
         private string _pathSetCodBar = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\settings\codbar\";
         private string _pathSetFolioVenta = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\settings\folioventa\";
         private string _pathSetGanancia = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\settings\ganancia\";
+        private string _pathnoCheckStock = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\settings\noCheckStock\";
 
         private string _Assets = Directory.GetCurrentDirectory() + @"\PUDVE\assets\";
         private string _BarCode = Directory.GetCurrentDirectory() + @"\PUDVE\BarCode\";
@@ -38,6 +39,7 @@ namespace PuntoDeVentaV2
         private string _SetCodBar = Directory.GetCurrentDirectory() + @"\PUDVE\settings\codbar\";
         private string _SetFolioVenta = Directory.GetCurrentDirectory() + @"\PUDVE\settings\folioventa\";
         private string _SetGanancia = Directory.GetCurrentDirectory() + @"\PUDVE\settings\ganancia\";
+        private string _SetnoCheckStock = Directory.GetCurrentDirectory() + @"\PUDVE\settings\noCheckStock\";
 
         string[] pathsOrigen, pathsDestino;
 
@@ -202,7 +204,8 @@ namespace PuntoDeVentaV2
                                         _Productos,
                                         _SetCodBar,
                                         _SetFolioVenta,
-                                        _SetGanancia };
+                                        _SetGanancia,
+                                        _SetnoCheckStock };
 
             pathsDestino = new string[] {   _pathAssets,
                                             _pathBarCode,
@@ -215,7 +218,8 @@ namespace PuntoDeVentaV2
                                             _pathProductos,
                                             _pathSetCodBar,
                                             _pathSetFolioVenta,
-                                            _pathSetGanancia };
+                                            _pathSetGanancia,
+                                            _pathnoCheckStock };
 
             createDir(pathsDestino);
 
