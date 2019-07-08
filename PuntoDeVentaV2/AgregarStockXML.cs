@@ -202,7 +202,7 @@ namespace PuntoDeVentaV2
         int resultadoSearchNoIdentificacion;    // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchClavIntProd()
         int resultadoSearchCodBar;              // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchCodBar()
         int stockProd;                          // sirve para almacenar en ella, la cantidad de stock que tenemos de ese producto
-        public static int stockProdXML;                       // sirve para almacenar en ella, la cantidad del stock que nos llego en el archivo XML
+        public static int stockProdXML;         // sirve para almacenar en ella, la cantidad del stock que nos llego en el archivo XML
         int totalProd;                          // sirve para en ella almacenar la suma del Stock del producto mas el stock del archivo XML
 
         // variables para poder hacer los calculos sobre el producto
@@ -752,28 +752,54 @@ namespace PuntoDeVentaV2
             lblPosicionActualXML.Text = (index + 1).ToString();
             concepto = ds.Conceptos[index].Descripcion;
             lblDescripcionXML.Text = concepto;
-            stockProdXML = int.Parse(ds.Conceptos[index].Cantidad);             // convertimos la cantidad del Archivo XML para su posterior manipulacion
+            try
+            {
+                stockProdXML = (int)Convert.ToDouble(ds.Conceptos[index].Cantidad);             // convertimos la cantidad del Archivo XML para su posterior manipulacion
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             lblCantXML.Text = stockProdXML.ToString();
-            importe = float.Parse(ds.Conceptos[index].Importe);                 // convertimos el Importe del Archivo XML para su posterior manipulacion
+            try
+            {
+                importe = (float)Convert.ToDouble(ds.Conceptos[index].Importe);                 // convertimos el Importe del Archivo XML para su posterior manipulacion
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             if (ds.Conceptos[index].Descuento == "" || ds.Conceptos[index].Descuento == null)
             {
                 ds.Conceptos[index].Descuento = descuento.ToString();
-                //MessageBox.Show("Tu XML no tiene Descuento", "Sin Descuento", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (ds.Conceptos[index].Descuento != "")
             {
-                descuento = float.Parse(ds.Conceptos[index].Descuento);             // convertimos el Descuento del Archivo XML para su posterior manipulacion
+                try
+                {
+                    descuento = (float)Convert.ToDouble(ds.Conceptos[index].Descuento);         // convertimos el Descuento del Archivo XML para su posterior manipulacion
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            cantidad = float.Parse(ds.Conceptos[index].Cantidad);               // convertimos la cantidad del Archivo XML para su posterior manipulacion
-            precioOriginalSinIVA = (importe - descuento) / cantidad;            // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
-            precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;          // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
+            try
+            {
+                cantidad = (float)Convert.ToDouble(ds.Conceptos[index].Cantidad);               // convertimos la cantidad del Archivo XML para su posterior manipulacion
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            precioOriginalSinIVA = (importe - descuento) / cantidad;                        // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
+            precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;                      // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
             lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
-            importeReal = cantidad * precioOriginalConIVA;                      // calculamos importe real (cantidad * precioOriginalConIVA)
+            importeReal = cantidad * precioOriginalConIVA;                                  // calculamos importe real (cantidad * precioOriginalConIVA)
             lblImpXML.Text = importeReal.ToString("N2");
             if (ds.Conceptos[index].NoIdentificacion == "" || ds.Conceptos[index].NoIdentificacion == null)
             {
                 ds.Conceptos[index].NoIdentificacion = ClaveInterna;
-                //MessageBox.Show("Tu XML no tiene No de Indentificacion", "Sin NoIdentificacion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else if (ds.Conceptos[index].NoIdentificacion != "")
             {
@@ -782,7 +808,14 @@ namespace PuntoDeVentaV2
             lblNoIdentificacionXML.Text = ClaveInterna;
             PrecioRecomendado = precioOriginalConIVA * (float)1.60;             // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
-            precio = float.Parse(ds.Conceptos[index].ValorUnitario);
+            try
+            {
+                precio = (float)Convert.ToDouble(ds.Conceptos[index].ValorUnitario);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             fechaXML = ds.Fecha;
             fecha = fechaXML.Substring(0, found);
             hora = fechaXML.Substring(found+1);
@@ -1359,6 +1392,54 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void picBoxBuscar_Click(object sender, EventArgs e)
+        {
+            ListProd.FormClosing += delegate    // dectecta cuando se esta cerrando la forma ListProd
+            {
+                consultListProd = ListProd.consultadoDesdeListProdFin;  // en esta variable almacenamos su valor
+                if (consultListProd == 1)   // si el valor es 1 es positiva la seleccion
+                {
+                    OcultarPanelSinRegistro();                                              // ocultamos la ventana Si tiene registro del Stock
+                    idListProd = ListProd.IdProdStrFin;                                     // almacenamos el valor del ID del roducto
+                    txtBoxDescripcionProd.Text = ListProd.NombreProdStrFin;                 // mostramos los datos ya almacenado del producto
+                    if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)   // en caso que alguno de los dos campos esten en blanco
+                    {
+                        txtBoxClaveInternaProd.Text = lblNoIdentificacionXML.Text;          // reasignamos la clave interna del producto al que trae el XML
+                        lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
+                    }
+                    else if (ListProd.opcionGuardarFin == 3)                    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
+                    {
+                        txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
+                        lblCodigoBarrasProd.Text = lblNoIdentificacionXML.Text;             // mostramos los datos ya almacenado del producto
+                    }
+                    else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
+                    {
+                        txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
+                        lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
+                    }
+                    lblStockProd.Text = ListProd.StockProdStrFin;                       // mostramos los datos ya almacenado del producto
+                    stockProd = int.Parse(lblStockProd.Text);                           // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
+                    lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;       // mostramos los datos ya almacenado del producto
+                    txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;               // mostramos los datos ya almacenado del producto
+                    PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
+                    seleccionarSugerido = 0;
+                }
+                if (consultListProd == 0)   // si el valor es 0 si es que no selecciono nada
+                {
+                    MostarPanelSinRegistro();                                           // Mostramos la ventana Si no tiene registro del Stock
+                }
+            };
+
+            if (!ListProd.Visible)
+            {
+                ListProd.ShowDialog();
+            }
+            else
+            {
+                ListProd.BringToFront();
+            }
+        }
+
         private void DGVSugeridos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string querySeleccionado;
@@ -1509,54 +1590,6 @@ namespace PuntoDeVentaV2
             StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
             CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
             seleccionarSugerido = 2;
-        }
-
-        private void picBoxBuscar_Click_1(object sender, EventArgs e)
-        {
-            ListProd.FormClosing += delegate    // dectecta cuando se esta cerrando la forma ListProd
-            {
-                consultListProd = ListProd.consultadoDesdeListProdFin;  // en esta variable almacenamos su valor
-                if (consultListProd == 1)   // si el valor es 1 es positiva la seleccion
-                {
-                    OcultarPanelSinRegistro();                                              // ocultamos la ventana Si tiene registro del Stock
-                    idListProd = ListProd.IdProdStrFin;                                     // almacenamos el valor del ID del roducto
-                    txtBoxDescripcionProd.Text = ListProd.NombreProdStrFin;                 // mostramos los datos ya almacenado del producto
-                    if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)   // en caso que alguno de los dos campos esten en blanco
-                    {
-                        txtBoxClaveInternaProd.Text = lblNoIdentificacionXML.Text;          // reasignamos la clave interna del producto al que trae el XML
-                        lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
-                    }
-                    else if (ListProd.opcionGuardarFin == 3)                    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
-                    {
-                        txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
-                        lblCodigoBarrasProd.Text = lblNoIdentificacionXML.Text;             // mostramos los datos ya almacenado del producto
-                    }
-                    else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
-                    {
-                        txtBoxClaveInternaProd.Text = ListProd.ClaveInternaProdStrFin;      // mostramos los datos ya almacenado del producto
-                        lblCodigoBarrasProd.Text = ListProd.CodigoBarrasProdStrFin;         // mostramos los datos ya almacenado del producto
-                    }
-                    lblStockProd.Text = ListProd.StockProdStrFin;                       // mostramos los datos ya almacenado del producto
-                    stockProd = int.Parse(lblStockProd.Text);                           // almacenamos el Stock del Producto en stockProd para su posterior manipulacion
-                    lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;       // mostramos los datos ya almacenado del producto
-                    txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;               // mostramos los datos ya almacenado del producto
-                    PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
-                    seleccionarSugerido = 0;
-                }
-                if (consultListProd == 0)   // si el valor es 0 si es que no selecciono nada
-                {
-                    MostarPanelSinRegistro();                                           // Mostramos la ventana Si no tiene registro del Stock
-                }
-            };
-
-            if (!ListProd.Visible)
-            {
-                ListProd.ShowDialog();
-            }
-            else
-            {
-                ListProd.BringToFront();
-            }
         }
 
         private void btnLoadXML_Click_1(object sender, EventArgs e)

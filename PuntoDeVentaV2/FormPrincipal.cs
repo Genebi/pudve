@@ -38,6 +38,16 @@ namespace PuntoDeVentaV2
         public string TempPassUsr { get; set; }
 
 
+        // Obtener el numero de conteo de Inventario
+        public long NoActualCheckStock { get; set; }
+
+        public long FinalNumActualCheckStock;
+
+        public void CargarNoInventario()
+        {
+            FinalNumActualCheckStock = NoActualCheckStock;
+        }
+
         // funcion para que podamos recargar variables desde otro formulario
         public void recargarDatos()
         {

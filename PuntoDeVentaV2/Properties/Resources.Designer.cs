@@ -1570,6 +1570,15 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string checkStock {
+            get {
+                return ResourceManager.GetString("checkStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap chevron_circle_down {
@@ -6018,7 +6027,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 3
+        ///   Looks up a localized string similar to 31
         ///.
         /// </summary>
         internal static string setupFolioVenta {

@@ -38,13 +38,21 @@ namespace PuntoDeVentaV2
         public void CodigoBarras()
         {
             var source = NombreProdFinal + " - " + CodigoBarProdFinal;
-            var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
+            var replacement = source.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_').Replace("\r\n", "");
             FileNamePng = saveDirectoryImg + replacement;
             BarcodeLib.Barcode Codigo = new BarcodeLib.Barcode();   // declaramos el objeto Codigo para hacer la imagen 
 
-            // hacemos que en el panel se ponga de fondo el codigo de barras generado en imagen
-            panelResultado.BackgroundImage = Codigo.Encode(BarcodeLib.TYPE.CODE128, CodigoBarProdFinal, Color.Black, Color.White, 118, 23);
-
+            try
+            {
+                // hacemos que en el panel se ponga de fondo el codigo de barras generado en imagen
+                //panelResultado.BackgroundImage = Codigo.Encode(BarcodeLib.TYPE.CODE128, CodigoBarProdFinal, Color.Black, Color.White, 118, 23);
+                panelResultado.BackgroundImage = Codigo.Encode(BarcodeLib.TYPE.CODE128, CodigoBarProdFinal, Color.Black, Color.White, 400, 100);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al Convertir Imagen: " + ex.Message.ToString(), "Error del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
             // clonamos el fondo del panel para despues guardarlo
             System.Drawing.Image imgFinal = (System.Drawing.Image)panelResultado.BackgroundImage.Clone();
             SaveFileDialog CajaDeDialogoGuardar = new SaveFileDialog();     // declaramos un objeto de SaveFileDialog

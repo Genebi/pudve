@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,11 @@ namespace PuntoDeVentaV2
     public partial class RevisarInventario : Form
     {
         Conexion cn = new Conexion();
+
+        const string fichero = @"\PUDVE\settings\noCheckStock\checkStock.txt";  // directorio donde esta el archivo de numero de codigo de barras consecutivo
+        string Contenido;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
+
+        long NumCheckStock;
 
         int cantidadStock;
         string SearchBarCode, queryTaerStock, queryUpdateStock, tablaProductos, tablaRevisarInventario, buscarStock;
@@ -25,7 +31,7 @@ namespace PuntoDeVentaV2
 
         private void llenarTabla()
         {
-            queryTaerStock = $"SELECT * FROM RevisarInventario WHERE StatusRevision = '0'";
+            queryTaerStock = $"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND StatusRevision = '0' AND Fecha IS NULL";
             dtRevisarStockResultado = cn.CargarDatos(queryTaerStock);
         }
 
@@ -270,6 +276,50 @@ namespace PuntoDeVentaV2
             llenarTabla();
             cargardatos();
             LimpiarCampos();
+            iniciarConteo();
+            
+        }
+
+        private void iniciarConteo()
+        {
+            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
+            {
+                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+            }
+            if (Contenido == "")        // si el contenido es vacio 
+            {
+                PrimerCodBarras();      // iniciamos el conteo del codigo de barras
+                AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+            }
+            else if (Contenido != "")   // si el contenido no es vacio
+            {
+                //MessageBox.Show("Trabajando en el Proceso");
+                AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+            }
+        }
+
+        private void AumentarCodBarras()
+        {
+            try
+            {
+                NumCheckStock = long.Parse(Contenido);
+                NumCheckStock++;
+                Contenido = NumCheckStock.ToString();
+
+                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
+                {
+                    outfile.WriteLine(Contenido);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar número de Revisión de Stock\nError número: " + ex.Message.ToString(), "Error Número de Revisón", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void PrimerCodBarras()
+        {
+            Contenido = "0";
         }
 
         private void ClearTable(DataTable table)
@@ -300,28 +350,80 @@ namespace PuntoDeVentaV2
                 {
                     try
                     {
-                        queryTaerStock = $@"INSERT INTO '{tablaRevisarInventario}' (IDAlmacen,
-                                                                                    Nombre,
-                                                                                    ClaveInterna,
-                                                                                    CodigoBarras,
-                                                                                    StockAlmacen,
-                                                                                    StockFisico,
-                                                                                    IDUsuario,
-                                                                                    Tipo) 
-                                                                             SELECT ID,
-                                                                                    Nombre,
-                                                                                    ClaveInterna,
-                                                                                    CodigoBarras,
-                                                                                    Stock,
-                                                                                    Stock,
-                                                                                    IDUsuario,
-                                                                                    Tipo 
-                                                                              FROM '{tablaProductos}' WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P';";
+                        queryTaerStock = $@"INSERT INTO '{tablaRevisarInventario}' (IDAlmacen, 
+                                                                                    Nombre, 
+                                                                                    ClaveInterna, 
+                                                                                    CodigoBarras, 
+                                                                                    StockAlmacen, 
+                                                                                    StockFisico, 
+                                                                                    IDUsuario, 
+                                                                                    Tipo)
+                                                                             SELECT prod.ID, 
+                                                                                    prod.Nombre, 
+                                                                                    prod.ClaveInterna,  
+                                                                                    prod.CodigoBarras, 
+                                                                                    prod.Stock, 
+                                                                                    prod.Stock, 
+                                                                                    prod.IDUsuario, 
+                                                                                    prod.Tipo
+                                                                             FROM '{tablaProductos}' prod 
+                                                                             WHERE NOT EXISTS (
+	                                                                             SELECT RIt.IDAlmacen, 
+                                                                                        RIt.Nombre, 
+                                                                                        RIt.ClaveInterna, 
+                                                                                        RIt.CodigoBarras, 
+                                                                                        RIt.StockAlmacen, 
+                                                                                        RIt.StockFisico, 
+                                                                                        RIt.IDUsuario, 
+                                                                                        RIt.Tipo 
+	                                                                             FROM '{tablaRevisarInventario}' RIt 
+	                                                                             WHERE prod.ID = RIt.IDAlmacen
+                                                                                 AND prod.Nombre = RIt.Nombre);";
                         cn.EjecutarConsulta(queryTaerStock);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show("Error al llenar registros de la tabla de: " + tablaProductos.ToString() + "\nhacia la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        queryTaerStock = $@"INSERT INTO '{tablaRevisarInventario}' (IDAlmacen, 
+                                                                                    Nombre, 
+                                                                                    ClaveInterna, 
+                                                                                    CodigoBarras, 
+                                                                                    StockAlmacen, 
+                                                                                    StockFisico, 
+                                                                                    IDUsuario, 
+                                                                                    Tipo)
+                                                                             SELECT prod.ID, 
+                                                                                    prod.Nombre, 
+                                                                                    prod.ClaveInterna,  
+                                                                                    prod.CodigoBarras, 
+                                                                                    prod.Stock, 
+                                                                                    prod.Stock, 
+                                                                                    prod.IDUsuario, 
+                                                                                    prod.Tipo
+                                                                             FROM '{tablaProductos}' prod 
+                                                                             WHERE NOT EXISTS (
+	                                                                             SELECT RIt.IDAlmacen, 
+                                                                                        RIt.Nombre, 
+                                                                                        RIt.ClaveInterna, 
+                                                                                        RIt.CodigoBarras, 
+                                                                                        RIt.StockAlmacen, 
+                                                                                        RIt.StockFisico, 
+                                                                                        RIt.IDUsuario, 
+                                                                                        RIt.Tipo 
+	                                                                             FROM '{tablaRevisarInventario}' RIt 
+	                                                                             WHERE prod.ID = RIt.IDAlmacen
+                                                                                 AND prod.Nombre = RIt.Nombre);";
+                        cn.EjecutarConsulta(queryTaerStock);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al rellenar registros de la tabla de: " + tablaProductos.ToString() + "\nhacia la tabla de: " + tablaRevisarInventario.ToString() + "\n" + ex.Message.ToString(), "Error al borrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
