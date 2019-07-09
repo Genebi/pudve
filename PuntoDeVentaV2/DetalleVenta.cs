@@ -245,11 +245,14 @@ namespace PuntoDeVentaV2
 
         private void DetalleVenta_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Cuando el usuario cierra el form para terminar la venta con el icono de la X
+            //en lugar del boton aceptar que es para terminar la venta, se reinician las variables
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 lbTotalCredito.Text = "0.00";
                 idCliente = 0;
                 cliente = string.Empty;
+                credito = 0;
 
                 Ventas.botonAceptar = false;
             }

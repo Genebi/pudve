@@ -74,6 +74,7 @@ namespace PuntoDeVentaV2
             Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
             Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
             Image credito = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
+            Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
 
             Bitmap sinImagen = new Bitmap(1, 1);
             sinImagen.SetPixel(0, 0, Color.White);
@@ -131,7 +132,7 @@ namespace PuntoDeVentaV2
                 //Ventas a credito
                 if (status != 4)
                 {
-                    row.Cells["Abono"].Value = sinImagen;
+                    row.Cells["Abono"].Value = info;
                 }
             }
 
@@ -318,6 +319,22 @@ namespace PuntoDeVentaV2
                         };
 
                         abono.ShowDialog();
+                    }
+                    else
+                    {
+                        //Comprobamos si tiene historial de abonos
+                        var existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+
+                        if (existenAbonos)
+                        {
+                            ListaAbonosVenta abonos = new ListaAbonosVenta(idVenta);
+
+                            abonos.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No hay información adicional sobre esta venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
                 }
 
