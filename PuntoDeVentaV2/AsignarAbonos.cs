@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -105,7 +106,7 @@ namespace PuntoDeVentaV2
             //Condicion para saber si se termino de pagar y cambiar el status de la venta
             if (totalAbonado >= totalPendiente)
             {
-                //cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
+                cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
             }
 
             string[] datos = new string[] {
@@ -113,15 +114,21 @@ namespace PuntoDeVentaV2
                 vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
             };
 
-            string[] tmp = new string[] { idVenta.ToString(), totalOriginal.ToString(), totalPendiente.ToString(), totalAbonado.ToString(), fechaOperacion };
-
-            GenerarTicket(tmp);
-            /*int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+            
+            int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
 
             if (resultado > 0)
             {
+                var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
+                var restante = totalPendiente - totalAbonado;
+
+                datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
+
+                GenerarTicket(datos);
+                ImprimirTicket(idVenta.ToString(), idAbono);
+
                 this.Dispose();
-            }*/
+            }
         }
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
@@ -305,7 +312,7 @@ namespace PuntoDeVentaV2
             }
 
             Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
-            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Ventas\Tickets\ticket_abono_" + info[0] + ".pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Ventas\Tickets\ticket_abono_" + info[0] + "_" + info[1] + ".pdf", FileMode.Create));
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
@@ -339,7 +346,7 @@ namespace PuntoDeVentaV2
             Paragraph separadorInicial = new Paragraph(new string('-', separadores), fuenteNormal);
 
             //Contenido del Ticket
-            string contenido = $"ID de venta: {info[0]}\nTotal original: {info[1]}\nPendiente de pago: {info[2]}\nCantidad abonada: ${info[3]}\n{info[4]}";
+            string contenido = $"ID de venta: {info[0]}\nTotal original: ${info[2]}\nPendiente de pago: ${info[3]}\nCantidad abonada: ${info[4]}\nCantidad restante: ${info[5]}\n{info[6]}";
 
             Paragraph cuerpo = new Paragraph(contenido, fuenteNormal);
             cuerpo.Alignment = Element.ALIGN_CENTER;
@@ -360,6 +367,34 @@ namespace PuntoDeVentaV2
             ticket.AddAuthor("PUDVE");
             ticket.Close();
             writer.Close();
+        }
+
+        private void ImprimirTicket(string idVenta, string idAbono)
+        {
+            try
+            {
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.Verb = "print";
+                info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_abono_" + idVenta + "_" + idAbono +".pdf";
+                info.CreateNoWindow = true;
+                info.WindowStyle = ProcessWindowStyle.Hidden;
+
+                Process p = new Process();
+                p.StartInfo = info;
+                p.Start();
+
+                p.WaitForInputIdle();
+                System.Threading.Thread.Sleep(1000);
+
+                if (false == p.CloseMainWindow())
+                {
+                    p.Kill();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error No: " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
