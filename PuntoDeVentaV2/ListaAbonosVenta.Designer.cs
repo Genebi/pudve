@@ -131,7 +131,7 @@
             this.MinimizeBox = false;
             this.Name = "ListaAbonosVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "PUDVE - Lista de abonos";
+            this.Text = "PUDVE - Historial de abonos";
             this.Load += new System.EventHandler(this.ListaAbonosVenta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAbonos)).EndInit();
             this.ResumeLayout(false);
