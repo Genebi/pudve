@@ -25,11 +25,15 @@ namespace PuntoDeVentaV2
         public static int TempUserID;
         public static string TempUserNickName;
         public static string TempUserPass;
+        public static string FechaCheckStock;
+        public static long NoRegCheckStock;
 
         // variables para poder tomar los datos que se pasaron del login a esta forma
         public int IdUsuario { get; set; }
         public string nickUsuario { get; set; }
         public string passwordUsuario { get; set; }
+        public string DateCheckStock { get; set; }
+        public long NumberRegCheckStock { get; set; }
 
         // variables usasadas para que sea estatico los valores y asi en empresas
         // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
@@ -37,16 +41,11 @@ namespace PuntoDeVentaV2
         public string TempNickUsr { get; set; }
         public string TempPassUsr { get; set; }
 
+        const string ficheroNumCheck = @"\PUDVE\settings\noCheckStock\checkStock.txt";  // directorio donde esta el archivo de numero 
+        const string ficheroDateCheck = @"\PUDVE\settings\noCheckStock\checkDateStock.txt";  // directorio donde esta el archivo de fecha
+        string Contenido;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
 
-        // Obtener el numero de conteo de Inventario
-        public long NoActualCheckStock { get; set; }
-
-        public long FinalNumActualCheckStock;
-
-        public void CargarNoInventario()
-        {
-            FinalNumActualCheckStock = NoActualCheckStock;
-        }
+        string FechaFinal;
 
         // funcion para que podamos recargar variables desde otro formulario
         public void recargarDatos()
@@ -54,6 +53,8 @@ namespace PuntoDeVentaV2
             userID = IdUsuario;
             userNickName = nickUsuario;
             userPass = passwordUsuario;
+            FechaCheckStock = DateCheckStock;
+            NoRegCheckStock = NumberRegCheckStock;
         }
 
         public FormPrincipal()
@@ -71,6 +72,8 @@ namespace PuntoDeVentaV2
             Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos\Usuarios");
 
+            obtenerDatosCheckStock();
+
             recargarDatos();
 
             TempUserID = TempIdUsuario;
@@ -78,6 +81,30 @@ namespace PuntoDeVentaV2
             TempUserPass = TempPassUsr;
 
             ObtenerDatosUsuario(userID);
+        }
+
+        private void obtenerDatosCheckStock()
+        {
+            // Leer fichero que tiene el numero de CheckInventario
+            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + ficheroNumCheck))
+            {
+                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+            }
+            if (Contenido != "")   // si el contenido no es vacio
+            {
+                NumberRegCheckStock = (long)Convert.ToDouble(Contenido);
+            }
+
+            // Leer fichero que tiene la fecha de Inventario
+            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + ficheroDateCheck))
+            {
+                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+            }
+            if (Contenido != "")   // si el contenido no es vacio
+            {
+                FechaFinal = Contenido.Replace("\r\n", "");
+                DateCheckStock = FechaFinal;
+            }
         }
 
         private void ObtenerDatosUsuario(int IDUsuario)
