@@ -17,15 +17,42 @@ namespace PuntoDeVentaV2
             InitializeComponent();
         }
 
-        private void btnCancelarAM_Click(object sender, EventArgs e)
+        private void AgregarMultiplesProductos_Load(object sender, EventArgs e)
         {
-            this.Dispose();
+            txtAgregarPM.KeyPress += new KeyPressEventHandler(SoloEnteros);
         }
 
         private void btnAceptarAM_Click(object sender, EventArgs e)
         {
-            Ventas.cantidadFila = Convert.ToInt32(txtAgregarPM.Text);
-            this.Close();
+            if (!string.IsNullOrWhiteSpace(txtAgregarPM.Text))
+            {
+                var cantidad = Convert.ToInt32(txtAgregarPM.Text);
+
+                if (cantidad > 0)
+                {
+                    Ventas.cantidadFila = cantidad;
+
+                    this.Close();
+                }  
+            }
+        }
+
+        private void txtAgregarPM_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptarAM.PerformClick();
+            }
+        }
+
+        private void SoloEnteros(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8))
+            {
+                e.Handled = true;
+                return;
+            }
         }
     }
 }

@@ -31,23 +31,24 @@
             this.txtAgregarPM = new System.Windows.Forms.TextBox();
             this.lbAgregarMultiple = new System.Windows.Forms.Label();
             this.btnAceptarAM = new System.Windows.Forms.Button();
-            this.btnCancelarAM = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtAgregarPM
             // 
-            this.txtAgregarPM.Location = new System.Drawing.Point(69, 86);
+            this.txtAgregarPM.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAgregarPM.Location = new System.Drawing.Point(74, 65);
             this.txtAgregarPM.Name = "txtAgregarPM";
-            this.txtAgregarPM.Size = new System.Drawing.Size(205, 20);
+            this.txtAgregarPM.Size = new System.Drawing.Size(135, 23);
             this.txtAgregarPM.TabIndex = 0;
             this.txtAgregarPM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtAgregarPM.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAgregarPM_KeyDown);
             // 
             // lbAgregarMultiple
             // 
-            this.lbAgregarMultiple.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAgregarMultiple.Location = new System.Drawing.Point(12, 30);
+            this.lbAgregarMultiple.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAgregarMultiple.Location = new System.Drawing.Point(3, 20);
             this.lbAgregarMultiple.Name = "lbAgregarMultiple";
-            this.lbAgregarMultiple.Size = new System.Drawing.Size(306, 23);
+            this.lbAgregarMultiple.Size = new System.Drawing.Size(278, 23);
             this.lbAgregarMultiple.TabIndex = 1;
             this.lbAgregarMultiple.Text = "Agregar Multiple";
             this.lbAgregarMultiple.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -61,45 +62,29 @@
             this.btnAceptarAM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptarAM.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptarAM.ForeColor = System.Drawing.Color.White;
-            this.btnAceptarAM.Location = new System.Drawing.Point(169, 151);
+            this.btnAceptarAM.Location = new System.Drawing.Point(74, 94);
             this.btnAceptarAM.Name = "btnAceptarAM";
-            this.btnAceptarAM.Size = new System.Drawing.Size(144, 28);
+            this.btnAceptarAM.Size = new System.Drawing.Size(135, 28);
             this.btnAceptarAM.TabIndex = 29;
             this.btnAceptarAM.Text = "Aceptar";
             this.btnAceptarAM.UseVisualStyleBackColor = false;
             this.btnAceptarAM.Click += new System.EventHandler(this.btnAceptarAM_Click);
             // 
-            // btnCancelarAM
-            // 
-            this.btnCancelarAM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelarAM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnCancelarAM.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelarAM.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
-            this.btnCancelarAM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarAM.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelarAM.ForeColor = System.Drawing.Color.White;
-            this.btnCancelarAM.Location = new System.Drawing.Point(19, 151);
-            this.btnCancelarAM.Name = "btnCancelarAM";
-            this.btnCancelarAM.Size = new System.Drawing.Size(144, 28);
-            this.btnCancelarAM.TabIndex = 28;
-            this.btnCancelarAM.Text = "Cancelar";
-            this.btnCancelarAM.UseVisualStyleBackColor = false;
-            this.btnCancelarAM.Click += new System.EventHandler(this.btnCancelarAM_Click);
-            // 
             // AgregarMultiplesProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 207);
+            this.ClientSize = new System.Drawing.Size(284, 161);
             this.Controls.Add(this.btnAceptarAM);
-            this.Controls.Add(this.btnCancelarAM);
             this.Controls.Add(this.lbAgregarMultiple);
             this.Controls.Add(this.txtAgregarPM);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AgregarMultiplesProductos";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PUDVE - Agregar multiple";
+            this.Load += new System.EventHandler(this.AgregarMultiplesProductos_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,6 +95,5 @@
         private System.Windows.Forms.TextBox txtAgregarPM;
         private System.Windows.Forms.Label lbAgregarMultiple;
         private System.Windows.Forms.Button btnAceptarAM;
-        private System.Windows.Forms.Button btnCancelarAM;
     }
 }

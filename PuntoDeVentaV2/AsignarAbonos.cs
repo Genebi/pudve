@@ -90,6 +90,11 @@ namespace PuntoDeVentaV2
             else
             {
                 totalEfectivo = CantidadDecimal(txtEfectivo.Text);
+
+                if (totalEfectivo > totalPendiente)
+                {
+                    totalEfectivo = Math.Abs(CantidadDecimal(txtEfectivo.Text) - totalPendiente);
+                }
             }
 
             var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia;
