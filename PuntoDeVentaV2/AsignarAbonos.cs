@@ -89,13 +89,13 @@ namespace PuntoDeVentaV2
 
             if (SumaMetodos() > 0)
             {
-                totalEfectivo = totalPendiente - SumaMetodos();
+                totalEfectivo = totalPendiente - (SumaMetodos() + CantidadDecimal(txtEfectivo.Text));
             }
             else
             {
                 totalEfectivo = CantidadDecimal(txtEfectivo.Text);
 
-                if (totalEfectivo > totalPendiente)
+                if (totalEfectivo > totalPendiente && SumaMetodos() == 0)
                 {
                     totalEfectivo = Math.Abs(CantidadDecimal(txtEfectivo.Text) - totalPendiente);
                 }
