@@ -24,7 +24,9 @@ namespace PuntoDeVentaV2
 
         long NumCheckStock, NoActualCheckStock;
 
-        DateTime FechaUltimaRevision, FechaActualRevision;
+        DateTime FechaUltimaRevision, FechaActualRevision, fecha;
+
+        int NoRevision, StatusInventariado;
 
         int cantidadStock;
         string SearchBarCode, queryTaerStock, queryUpdateStock, tablaProductos, tablaRevisarInventario, buscarStock;
@@ -37,7 +39,7 @@ namespace PuntoDeVentaV2
 
         private void llenarTabla()
         {
-            queryTaerStock = $"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND StatusRevision = '0' AND Fecha IS NULL";
+            queryTaerStock = $"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' AND StatusRevision = '0'";
             dtRevisarStockResultado = cn.CargarDatos(queryTaerStock);
         }
 
@@ -45,6 +47,8 @@ namespace PuntoDeVentaV2
         {
             if (NoReg == 1)
             {
+                NoRevision = 0;
+                StatusInventariado = 0;
                 registro = 0;
                 dr = dtRevisarStockResultado.Rows[LaPosicion];
                 lblNombreProducto.Text = dr["Nombre"].ToString();
@@ -59,10 +63,28 @@ namespace PuntoDeVentaV2
                     Stock = dr["StockFisico"].ToString();
                 }
                 txtCantidadStock.Text = dr["StockFisico"].ToString();
-                registro = LaPosicion + 1;
-                txtBoxBuscarCodigoBarras.Text = string.Empty;
-                txtCantidadStock.Focus();
-                txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                NoRevision = Convert.ToInt32(dr["NoRevision"].ToString());
+                fecha = Convert.ToDateTime(dr["Fecha"].ToString());
+                StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
+                if ((NoRevision != 0) && (StatusInventariado != 0) && (fecha != null))
+                {
+                    DialogResult result = MessageBox.Show("Producto Inventariado con fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        registro = LaPosicion + 1;
+                        txtBoxBuscarCodigoBarras.Text = string.Empty;
+                        txtCantidadStock.Focus();
+                        txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        LimpiarCampos();
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        LimpiarCampos();
+                    }
+                }
             }
             else if (NoReg == 0 && buscarStock == "")
             {
@@ -71,10 +93,28 @@ namespace PuntoDeVentaV2
                 lblNombreProducto.Text = dr["Nombre"].ToString();
                 lblCodigoDeBarras.Text = buscarStock;
                 txtCantidadStock.Text = dr["StockFisico"].ToString();
-                registro = LaPosicion + 1;
-                txtBoxBuscarCodigoBarras.Text = string.Empty;
-                txtCantidadStock.Focus();
-                txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                NoRevision = Convert.ToInt32(dr["NoRevision"].ToString());
+                fecha = Convert.ToDateTime(dr["Fecha"].ToString());
+                StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
+                if ((NoRevision != 0) && (StatusInventariado != 0) && (fecha != null))
+                {
+                    DialogResult result = MessageBox.Show("Producto Inventariado con fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (result == DialogResult.Yes)
+                    {
+                        registro = LaPosicion + 1;
+                        txtBoxBuscarCodigoBarras.Text = string.Empty;
+                        txtCantidadStock.Focus();
+                        txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                    }
+                    else if (result == DialogResult.No)
+                    {
+                        LimpiarCampos();
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        LimpiarCampos();
+                    }
+                }
             }
             else if (NoReg == 0 && buscarStock != null)
             {
@@ -144,6 +184,7 @@ namespace PuntoDeVentaV2
             lblNombreProducto.Text = string.Empty;
             lblCodigoDeBarras.Text = string.Empty;
             txtCantidadStock.Text = string.Empty;
+            txtBoxBuscarCodigoBarras.Text = string.Empty;
             txtCantidadStock.Text = "0";
             txtBoxBuscarCodigoBarras.Focus();
         }
