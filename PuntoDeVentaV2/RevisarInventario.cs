@@ -16,9 +16,15 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
 
         const string fichero = @"\PUDVE\settings\noCheckStock\checkStock.txt";  // directorio donde esta el archivo de numero de codigo de barras consecutivo
-        string Contenido;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
+        const string fichero1 = @"\PUDVE\settings\noCheckStock\checkDateStock.txt";
 
-        long NumCheckStock;
+        string Contenido, DateCheckStock;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
+
+        string FechaFinal;
+
+        long NumCheckStock, NoActualCheckStock;
+
+        DateTime FechaUltimaRevision, FechaActualRevision;
 
         int cantidadStock;
         string SearchBarCode, queryTaerStock, queryUpdateStock, tablaProductos, tablaRevisarInventario, buscarStock;
@@ -54,7 +60,6 @@ namespace PuntoDeVentaV2
                 }
                 txtCantidadStock.Text = dr["StockFisico"].ToString();
                 registro = LaPosicion + 1;
-                //lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
                 txtBoxBuscarCodigoBarras.Text = string.Empty;
                 txtCantidadStock.Focus();
                 txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
@@ -67,7 +72,6 @@ namespace PuntoDeVentaV2
                 lblCodigoDeBarras.Text = buscarStock;
                 txtCantidadStock.Text = dr["StockFisico"].ToString();
                 registro = LaPosicion + 1;
-                //lblNoRegistro.Text = "Registro: " + registro + " de: " + dtRevisarStockResultado.Rows.Count;
                 txtBoxBuscarCodigoBarras.Text = string.Empty;
                 txtCantidadStock.Focus();
                 txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
@@ -93,7 +97,7 @@ namespace PuntoDeVentaV2
             StatusRev = 1;
             if (Stock != txtCantidadStock.Text)
             {
-                queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}' WHERE ID = '{ID}'";
+                queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 cn.EjecutarConsulta(queryUpdateStock);
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
@@ -106,7 +110,7 @@ namespace PuntoDeVentaV2
             }
             else if (Stock == txtCantidadStock.Text)
             {
-                queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}' WHERE ID = '{ID}'";
+                queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 cn.EjecutarConsulta(queryUpdateStock);
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
@@ -277,11 +281,29 @@ namespace PuntoDeVentaV2
             cargardatos();
             LimpiarCampos();
             iniciarConteo();
-            
         }
 
         private void iniciarConteo()
         {
+            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero1))
+            {
+                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+            }
+            if (Contenido != "")   // si el contenido no es vacio
+            {
+                FechaFinal = Contenido.Replace("\r\n", "");
+                DateCheckStock = Contenido;
+            }
+            else if (Contenido == "")
+            {
+                Contenido = DateTime.Now.ToString("yyyy-MM-dd");
+                DateCheckStock = Contenido;
+                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero1))
+                {
+                    outfile.WriteLine(Contenido);
+                }
+            }
+
             using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
             {
                 Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
@@ -293,8 +315,25 @@ namespace PuntoDeVentaV2
             }
             else if (Contenido != "")   // si el contenido no es vacio
             {
-                //MessageBox.Show("Trabajando en el Proceso");
-                AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+                if (DateCheckStock != "")
+                {
+                    FechaUltimaRevision = Convert.ToDateTime(DateCheckStock).Date;
+                    FechaActualRevision = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"));
+                    if (FechaActualRevision > FechaUltimaRevision)
+                    {
+                        AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+                        Contenido = DateTime.Now.ToString("yyyy-MM-dd");
+                        DateCheckStock = Contenido;
+                        using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero1))
+                        {
+                            outfile.WriteLine(Contenido);
+                        }
+                    }
+                    else
+                    {
+                        NoActualCheckStock = long.Parse(Contenido);
+                    }
+                }
             }
         }
 
@@ -304,6 +343,7 @@ namespace PuntoDeVentaV2
             {
                 NumCheckStock = long.Parse(Contenido);
                 NumCheckStock++;
+                NoActualCheckStock = NumCheckStock;
                 Contenido = NumCheckStock.ToString();
 
                 using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
