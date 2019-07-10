@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,10 +38,10 @@ namespace PuntoDeVentaV2
             sql_con.Open();
 
             var consulta = $"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC";
-
             sql_cmd = new SQLiteCommand(consulta, sql_con);
-
             dr = sql_cmd.ExecuteReader();
+
+            Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
 
             DGVAbonos.Rows.Clear();
 
@@ -50,6 +51,7 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVAbonos.Rows[rowId];
 
+                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["Efectivo"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Efectivo")).ToString());
                 row.Cells["Tarjeta"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Tarjeta")).ToString());
                 row.Cells["Vales"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Vales")).ToString());
@@ -57,6 +59,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Trans"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
                 row.Cells["Total"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString());
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                row.Cells["Ticket"].Value = ticket;
             }
 
             dr.Close();
@@ -71,5 +74,55 @@ namespace PuntoDeVentaV2
 
             return cantidad;
         }
+
+        private void DGVAbonos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == 8)
+                {
+                    DGVAbonos.Cursor = Cursors.Hand;
+                }
+            }
+        }
+
+        private void DGVAbonos_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == 8)
+                {
+                    DGVAbonos.Cursor = Cursors.Default;
+                }
+            }
+        }
+
+        private void DGVAbonos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (e.ColumnIndex == 8)
+                {
+                    var idAbono = DGVAbonos.Rows[DGVAbonos.CurrentCell.RowIndex].Cells["ID"].Value.ToString();
+
+                    var nombreTicket = $"ticket_abono_{idVenta}_{idAbono}.pdf";
+                    var rutaTicket = @"C:\Archivos PUDVE\Ventas\Tickets\" + nombreTicket;
+
+                    if (File.Exists(rutaTicket))
+                    {
+                        VisualizadorTickets ticket = new VisualizadorTickets(nombreTicket, rutaTicket);
+
+                        ticket.FormClosed += delegate
+                        {
+                            ticket.Dispose();
+                        };
+
+                        ticket.ShowDialog();
+                    }
+                }
+
+                DGVAbonos.ClearSelection();
+            }
+        }  
     }
 }

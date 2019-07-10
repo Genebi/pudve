@@ -30,7 +30,9 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGVAbonos = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Efectivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tarjeta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Vales = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,6 +40,7 @@
             this.Trans = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAbonos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,18 +48,6 @@
             // 
             this.DGVAbonos.AllowUserToAddRows = false;
             this.DGVAbonos.AllowUserToDeleteRows = false;
-            this.DGVAbonos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVAbonos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Efectivo,
-            this.Tarjeta,
-            this.Vales,
-            this.Cheque,
-            this.Trans,
-            this.Total,
-            this.Fecha});
-            this.DGVAbonos.Location = new System.Drawing.Point(1, 1);
-            this.DGVAbonos.Name = "DGVAbonos";
-            this.DGVAbonos.ReadOnly = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -64,12 +55,44 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVAbonos.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DGVAbonos.RowHeadersVisible = false;
+            this.DGVAbonos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DGVAbonos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVAbonos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Efectivo,
+            this.Tarjeta,
+            this.Vales,
+            this.Cheque,
+            this.Trans,
+            this.Total,
+            this.Fecha,
+            this.Ticket});
+            this.DGVAbonos.Location = new System.Drawing.Point(1, 1);
+            this.DGVAbonos.Name = "DGVAbonos";
+            this.DGVAbonos.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DGVAbonos.RowsDefaultCellStyle = dataGridViewCellStyle2;
-            this.DGVAbonos.Size = new System.Drawing.Size(520, 259);
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVAbonos.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.DGVAbonos.RowHeadersVisible = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DGVAbonos.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.DGVAbonos.Size = new System.Drawing.Size(552, 259);
             this.DGVAbonos.TabIndex = 0;
+            this.DGVAbonos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAbonos_CellClick);
+            this.DGVAbonos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAbonos_CellMouseEnter);
+            this.DGVAbonos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAbonos_CellMouseLeave);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
             // 
             // Efectivo
             // 
@@ -120,11 +143,18 @@
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
             // 
+            // Ticket
+            // 
+            this.Ticket.HeaderText = "";
+            this.Ticket.Name = "Ticket";
+            this.Ticket.ReadOnly = true;
+            this.Ticket.Width = 30;
+            // 
             // ListaAbonosVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 261);
+            this.ClientSize = new System.Drawing.Size(554, 261);
             this.Controls.Add(this.DGVAbonos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -141,6 +171,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGVAbonos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Efectivo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tarjeta;
         private System.Windows.Forms.DataGridViewTextBoxColumn Vales;
@@ -148,5 +179,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Trans;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewImageColumn Ticket;
     }
 }

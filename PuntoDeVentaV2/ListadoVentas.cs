@@ -281,8 +281,8 @@ namespace PuntoDeVentaV2
                 //Ver ticket
                 if (e.ColumnIndex == 13)
                 {
-                    rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
                     ticketGenerado = $"ticket_venta_{idVenta}.pdf";
+                    rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
 
                     if (File.Exists(rutaTicketGenerado))
                     {
@@ -307,6 +307,7 @@ namespace PuntoDeVentaV2
                 //Abonos
                 if (e.ColumnIndex == 14)
                 {
+                    //Verificamos si tiene seleccionada la opcion de ventas a credito
                     if (opcion == "VCC")
                     {
                         var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());

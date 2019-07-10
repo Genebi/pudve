@@ -1104,7 +1104,7 @@ namespace PuntoDeVentaV2
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteGrande);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteMensaje);
 
-            string logotipo = datos[11];
+            string logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
             string encabezado = $"{salto}{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
             ticket.Open();
@@ -1114,7 +1114,7 @@ namespace PuntoDeVentaV2
             {
                 if (File.Exists(logotipo))
                 {
-                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(datos[11]);
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
                     logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
                     logo.ScaleAbsolute(anchoLogo, altoLogo);
                     ticket.Add(logo);
