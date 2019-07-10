@@ -60,16 +60,21 @@ namespace PuntoDeVentaV2
             else if (rb8porCiento.Checked == true)
             {
                 porcentaje = 0.08;
-                totalProcentaje = precioProducto * porcentaje;
+                porcentajeTmp = 1.08;
+
+                precioTmp = precioProducto / porcentajeTmp;
+                totalProcentaje = precioTmp * porcentaje;
+
                 txtIVA.Text = totalProcentaje.ToString("N2");
             }
             else if (rb16porCiento.Checked == true)
             {
                 porcentaje = 0.16;
                 porcentajeTmp = 1.16;
+
                 precioTmp = precioProducto / porcentajeTmp;
                 totalProcentaje = precioTmp * porcentaje;
-                //totalProcentaje = precioProducto * porcentaje;
+
                 txtIVA.Text = totalProcentaje.ToString("N2");
             }
             else if (rbExcento.Checked == true)
@@ -80,8 +85,10 @@ namespace PuntoDeVentaV2
             }
 
             var cantidadBase = precioProducto - float.Parse(txtIVA.Text);
+            var cantidadTotal = cantidadBase + float.Parse(txtIVA.Text);
 
             txtBoxBase.Text = cantidadBase.ToString("0.00");
+            txtTotal.Text = cantidadTotal.ToString("0.00");
         }
 
         public AgregarDetalleFacturacionProducto()

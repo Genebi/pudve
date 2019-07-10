@@ -718,6 +718,7 @@ namespace PuntoDeVentaV2
                 {
                     precioProducto = txtPrecioProducto.Text;
                 }
+
                 //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
                 if (FormDetalle != null)
                 {
