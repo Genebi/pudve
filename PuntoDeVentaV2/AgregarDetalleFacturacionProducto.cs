@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
         List<string> impuestosL = new List<string>();
         List<string> tasaL = new List<string>();
 
-        double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+        double precioProducto = 0;
 
         double porcentaje = 0, totalProcentaje;
 
@@ -48,6 +48,9 @@ namespace PuntoDeVentaV2
 
         public void checarRadioButtons()
         {
+            double porcentajeTmp = 0;
+            double precioTmp = 0;
+
             if (rb0porCiento.Checked == true)
             {
                 porcentaje = 0;
@@ -63,7 +66,10 @@ namespace PuntoDeVentaV2
             else if (rb16porCiento.Checked == true)
             {
                 porcentaje = 0.16;
-                totalProcentaje = precioProducto * porcentaje;
+                porcentajeTmp = 1.16;
+                precioTmp = precioProducto / porcentajeTmp;
+                totalProcentaje = precioTmp * porcentaje;
+                //totalProcentaje = precioProducto * porcentaje;
                 txtIVA.Text = totalProcentaje.ToString("N2");
             }
             else if (rbExcento.Checked == true)
@@ -72,6 +78,10 @@ namespace PuntoDeVentaV2
                 totalProcentaje = precioProducto * porcentaje;
                 txtIVA.Text = totalProcentaje.ToString("N2");
             }
+
+            var cantidadBase = precioProducto - float.Parse(txtIVA.Text);
+
+            txtBoxBase.Text = cantidadBase.ToString("0.00");
         }
 
         public AgregarDetalleFacturacionProducto()
@@ -123,6 +133,7 @@ namespace PuntoDeVentaV2
         {
             //Se definen los valores que tendran los ComboBox y TextBox por default
             //al abrir la ventana por primera vez
+            precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
             cbLinea1_1.SelectedIndex = 0;
 
@@ -1023,6 +1034,14 @@ namespace PuntoDeVentaV2
             }
 
             return campo;
+        }
+
+
+        private void AgregarDetalleFacturacionProducto_Paint(object sender, PaintEventArgs e)
+        {
+            precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+
+            checarRadioButtons();
         }
     }
 }
