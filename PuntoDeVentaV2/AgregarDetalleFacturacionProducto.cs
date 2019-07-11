@@ -167,6 +167,7 @@ namespace PuntoDeVentaV2
             cbLinea1_3.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
             cbLinea1_4.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
 
+            tbLinea1_1.KeyPress += new KeyPressEventHandler(SoloDecimales);
             tbLinea1_1.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);
 
             /***************************
@@ -314,6 +315,7 @@ namespace PuntoDeVentaV2
             tb1.Enabled = false;
             tb1.TextAlign = HorizontalAlignment.Center;
             tb1.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);
+            tb1.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
             //TextBox para el importe
             TextBox tb2 = new TextBox();
@@ -937,7 +939,8 @@ namespace PuntoDeVentaV2
                     {
                         resultado = float.Parse(sCantidad);
 
-                    } else
+                    }
+                    else
                     {
                         sCantidad = sCantidad.Replace(".", "");
                         sCantidad = "0." + sCantidad;
@@ -956,7 +959,7 @@ namespace PuntoDeVentaV2
                 sCantidad = "0.0" + sCantidad;
                 resultado = float.Parse(sCantidad);
             }
-
+            
             return resultado;
         }
 
@@ -972,7 +975,13 @@ namespace PuntoDeVentaV2
 
             var cantidad = tb.Text;
 
-            if (cantidad == "")
+            if (cantidad.Equals("."))
+            {
+                tb.Text = string.Empty;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cantidad))
             {
                 cantidad = "0";
             }
@@ -1051,6 +1060,25 @@ namespace PuntoDeVentaV2
             precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
             checarRadioButtons();
+        }
+
+        private void SoloDecimales(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                {
+                    e.Handled = true;
+                }
+            }
         }
     }
 }
