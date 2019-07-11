@@ -135,6 +135,7 @@
             this.checkBoxRecordarDatos.TabIndex = 8;
             this.checkBoxRecordarDatos.Text = "Recordar Datos";
             this.checkBoxRecordarDatos.UseVisualStyleBackColor = true;
+            this.checkBoxRecordarDatos.CheckedChanged += new System.EventHandler(this.checkBoxRecordarDatos_CheckedChanged);
             // 
             // btnLimpiarDatos
             // 

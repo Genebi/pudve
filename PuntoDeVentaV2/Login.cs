@@ -1354,6 +1354,11 @@ namespace PuntoDeVentaV2
             BorrarDatosLogin();
         }
 
+        private void checkBoxRecordarDatos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void txtUsuario_KeyUp(object sender, KeyEventArgs e)
         {
             txtUsuario.CharacterCasing = CharacterCasing.Upper;

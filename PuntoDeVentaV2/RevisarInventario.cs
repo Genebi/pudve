@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
         const string fichero = @"\PUDVE\settings\noCheckStock\checkStock.txt";  // directorio donde esta el archivo de numero de codigo de barras consecutivo
         const string fichero1 = @"\PUDVE\settings\noCheckStock\checkDateStock.txt";
 
-        string Contenido, DateCheckStock;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
+        string ContenidoNum, ContenidoDate, DateCheckStock;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
         string FechaFinal, ComprobarFecha;
         long NumCheckStock, NoActualCheckStock;
         DateTime FechaUltimaRevision, FechaActualRevision, fecha;
@@ -74,9 +74,20 @@ namespace PuntoDeVentaV2
                 }
                 StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
                 auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
-                if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha == auxCurrentDate) && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                //if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha == auxCurrentDate) && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                //if ((NoRevision == Convert.ToInt32(dr["NoRevision"].ToString())) && (StatusInventariado == 1) && ((long)Convert.ToDouble(NumRevInventario) > (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                //{
+                //    registro = LaPosicion + 1;
+                //    txtBoxBuscarCodigoBarras.Text = string.Empty;
+                //    txtCantidadStock.Focus();
+                //    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                //}
+                //else if ((NoRevision == 0) && (StatusInventariado == 0) && ((long)Convert.ToDouble(NumRevInventario) == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                //if ((NoRevision == Convert.ToInt32(dr["NoRevision"].ToString())) && (StatusInventariado == 1))
+                if ((NoRevision == NoActualCheckStock) && (StatusInventariado == 1))
                 {
-                    DialogResult result = MessageBox.Show("Producto Inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    //DialogResult result = MessageBox.Show("Producto Inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    DialogResult result = MessageBox.Show("Producto Inventariado\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes)
                     {
                         registro = LaPosicion + 1;
@@ -122,9 +133,13 @@ namespace PuntoDeVentaV2
                 }
                 StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
                 auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
-                if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha == auxCurrentDate) && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                //if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha == auxCurrentDate) && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                //if ((NoRevision != 0) && (StatusInventariado != 0) && ((long)Convert.ToDouble(NumRevInventario) == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                //if ((NoRevision == Convert.ToInt32(dr["NoRevision"].ToString())) && (StatusInventariado == 1))
+                if ((NoRevision == NoActualCheckStock) && (StatusInventariado == 1))
                 {
-                    DialogResult result = MessageBox.Show("Producto ya está inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    //DialogResult result = MessageBox.Show("Producto ya está inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show("Producto Inventariado\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes)
                     {
                         registro = LaPosicion + 1;
@@ -210,11 +225,13 @@ namespace PuntoDeVentaV2
             CurrentDate = DateTime.Now.Date;
             if (Stock != txtCantidadStock.Text)
             {
-                if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
+                //if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
+                if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 }
-                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (CurrentDate > RecordDate))
+                //else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (CurrentDate > RecordDate))
+                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
                                                                          Nombre, 
@@ -241,7 +258,8 @@ namespace PuntoDeVentaV2
                                                                          '{StatusRevInventario}',
                                                                          '{StatusInventHecho}')";
                 }
-                else if ((NoRevision == 0) && (StatusInventariado == 0) && (ComprobarFecha != ""))
+                //else if ((NoRevision == 0) && (StatusInventariado == 0) && (ComprobarFecha != ""))
+                else if ((NoRevision == 0) && (StatusInventariado == 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 }
@@ -273,11 +291,13 @@ namespace PuntoDeVentaV2
             }
             else if (Stock == txtCantidadStock.Text)
             {
-                if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
+                //if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
+                if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 }
-                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (CurrentDate > RecordDate))
+                //else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (CurrentDate > RecordDate))
+                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
                                                                          Nombre, 
@@ -304,7 +324,8 @@ namespace PuntoDeVentaV2
                                                                          '{StatusRevInventario}',
                                                                          '{StatusInventHecho}')";
                 }
-                else if ((NoRevision == 0) && (StatusInventariado == 0) && (ComprobarFecha == ""))
+                //else if ((NoRevision == 0) && (StatusInventariado == 0) && (ComprobarFecha == ""))
+                else if ((NoRevision == 0) && (StatusInventariado == 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 }
@@ -390,7 +411,9 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_FormClosing(object sender, FormClosingEventArgs e)
         {
-            button1.PerformClick();
+            //button1.PerformClick();
+            RiniciarStatusRevision();
+            this.Hide();
         }
 
         public RevisarInventario()
@@ -422,12 +445,22 @@ namespace PuntoDeVentaV2
 
         private void button1_Click(object sender, EventArgs e)
         {
+            RiniciarStatusRevision();
+            Properties.Settings.Default.InicioFinInventario = 2;
+            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            this.Hide();
+            this.Close();
+            //string num = Properties.Settings.Default.InicioFinInventario.ToString();
+            //label2.Text = num;
+            //Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
+        }
+
+        private void RiniciarStatusRevision()
+        {
             StatusRev = 0;
             queryUpdateStock = $"UPDATE RevisarInventario SET StatusRevision = '{StatusRev}' WHERE IDUsuario = '{FormPrincipal.userID}'";
             cn.EjecutarConsulta(queryUpdateStock);
             ClearTable(dtRevisarStockResultado);
-            this.Hide();
-            this.Close();
         }
 
         private void txtBoxBuscarCodigoBarras_TextChanged(object sender, EventArgs e)
@@ -447,7 +480,9 @@ namespace PuntoDeVentaV2
                         cadenaCodigoBarras = row["CodigoBarras"].ToString();
                         cadenaAuxCodigoBarras = cadenaCodigoBarras.Replace("\r\n", " ");
 
-                        if (cadenaAuxClavInterna.Trim() == buscarStock)
+                        string NoRevInvent = row["NoRevision"].ToString();
+
+                        if (cadenaAuxClavInterna.Trim() == buscarStock && NoRevInvent == NoActualCheckStock.ToString())
                         {
                             LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
                             ID = row["ID"].ToString();
@@ -464,7 +499,41 @@ namespace PuntoDeVentaV2
                             NoReg = 1;
                             break;
                         }
-                        else if (cadenaAuxCodigoBarras.Trim() == buscarStock)
+                        else if (cadenaAuxCodigoBarras.Trim() == buscarStock && NoRevInvent == NoActualCheckStock.ToString())
+                        {
+                            LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
+                            ID = row["ID"].ToString();
+                            IDAlmacen = row["IDAlmacen"].ToString();
+                            Nombre = row["Nombre"].ToString();
+                            StockAlmacen = row["StockAlmacen"].ToString();
+                            Stock = row["StockFisico"].ToString();
+                            NumRevInventario = row["NoRevision"].ToString();
+                            FechaRegInventario = row["Fecha"].ToString();
+                            IDUser = row["IDUsuario"].ToString();
+                            TypeProd = row["Tipo"].ToString();
+                            StatusRevInventario = row["StatusRevision"].ToString();
+                            StatusInventHecho = row["StatusInventariado"].ToString();
+                            NoReg = 1;
+                            break;
+                        }
+                        else if (cadenaAuxClavInterna.Trim() == buscarStock && row["NoRevision"].ToString() != "0")
+                        {
+                            LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
+                            ID = row["ID"].ToString();
+                            IDAlmacen = row["IDAlmacen"].ToString();
+                            Nombre = row["Nombre"].ToString();
+                            StockAlmacen = row["StockAlmacen"].ToString();
+                            Stock = row["StockFisico"].ToString();
+                            NumRevInventario = row["NoRevision"].ToString();
+                            FechaRegInventario = row["Fecha"].ToString();
+                            IDUser = row["IDUsuario"].ToString();
+                            TypeProd = row["Tipo"].ToString();
+                            StatusRevInventario = row["StatusRevision"].ToString();
+                            StatusInventHecho = row["StatusInventariado"].ToString();
+                            NoReg = 1;
+                            break;
+                        }
+                        else if (cadenaAuxCodigoBarras.Trim() == buscarStock && row["NoRevision"].ToString() != "0")
                         {
                             LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
                             ID = row["ID"].ToString();
@@ -508,6 +577,12 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_Load(object sender, EventArgs e)
         {
+            //if (Properties.Settings.Default.InicioFinInventario == 2)
+            //{
+            //    Properties.Settings.Default.InicioFinInventario = 1;
+            //    Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            //    Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
+            //}
             CargarStockExistente();
             llenarTabla();
             cargardatos();
@@ -517,70 +592,84 @@ namespace PuntoDeVentaV2
 
         private void iniciarConteo()
         {
+            int Conteo = 0;
+            // Inicio de guardar fecha de conteo
             using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero1))
             {
-                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+                ContenidoDate = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Fecha
             }
-            if (Contenido != "")   // si el contenido no es vacio
+            if (ContenidoDate != "")   // si el contenido no es vacio
             {
-                FechaFinal = Contenido.Replace("\r\n", "");
-                DateCheckStock = Contenido;
+                FechaFinal = ContenidoDate.Replace("\r\n", "");
+                DateCheckStock = ContenidoDate;
             }
-            else if (Contenido == "")
+            else if (ContenidoDate == "")
             {
-                Contenido = DateTime.Now.ToString("yyyy-MM-dd");
-                DateCheckStock = Contenido;
+                ContenidoDate = DateTime.Now.ToString("yyyy-MM-dd");
+                DateCheckStock = ContenidoDate;
                 using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero1))
                 {
-                    outfile.WriteLine(Contenido);
+                    outfile.WriteLine(ContenidoDate);
                 }
             }
 
+            Conteo = Properties.Settings.Default.InicioFinInventario;
+
+            // Inicio de cambiar numero de conteo
             using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
             {
-                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+                ContenidoNum = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
             }
-            if (Contenido == "")        // si el contenido es vacio 
+            if (ContenidoNum == "" && Conteo == 1)        // si el contenido es vacio 
             {
-                PrimerCodBarras();      // iniciamos el conteo del codigo de barras
-                AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+                PrimerNumConteo();      // iniciamos el conteo del codigo de barras
+                AumentarNumConteo();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+                //label2.Text = Conteo.ToString();
             }
-            else if (Contenido != "")   // si el contenido no es vacio
+            else if (ContenidoNum != "" && Conteo == 1)
             {
-                if (DateCheckStock != "")
+                NoActualCheckStock = long.Parse(ContenidoNum);
+                //label2.Text = Conteo.ToString();
+            }
+            else if (ContenidoNum != "" && Conteo == 2)   // si el contenido no es vacio
+            {
+                FechaUltimaRevision = Convert.ToDateTime(DateCheckStock).Date;
+                FechaActualRevision = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"));
+                AumentarNumConteo();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+                ContenidoNum = DateTime.Now.ToString("yyyy-MM-dd");
+                DateCheckStock = ContenidoNum;
+                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero1))
                 {
-                    FechaUltimaRevision = Convert.ToDateTime(DateCheckStock).Date;
-                    FechaActualRevision = Convert.ToDateTime(DateTime.Now.ToString("yyyy-MM-dd"));
-                    if (FechaActualRevision > FechaUltimaRevision)
-                    {
-                        AumentarCodBarras();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
-                        Contenido = DateTime.Now.ToString("yyyy-MM-dd");
-                        DateCheckStock = Contenido;
-                        using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero1))
-                        {
-                            outfile.WriteLine(Contenido);
-                        }
-                    }
-                    else
-                    {
-                        NoActualCheckStock = long.Parse(Contenido);
-                    }
+                    outfile.WriteLine(ContenidoNum);
                 }
+                Properties.Settings.Default.InicioFinInventario = 1;
+                Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+                //Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
+                Conteo = Properties.Settings.Default.InicioFinInventario;
+                using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
+                {
+                    ContenidoNum = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+                }
+                NoActualCheckStock = long.Parse(ContenidoNum);
+                //label2.Text = Conteo.ToString();
             }
+            //label2.Text = Conteo.ToString();
         }
 
-        private void AumentarCodBarras()
+        private void AumentarNumConteo()
         {
             try
             {
-                NumCheckStock = long.Parse(Contenido);
+                NumCheckStock = long.Parse(ContenidoNum);
                 NumCheckStock++;
                 NoActualCheckStock = NumCheckStock;
-                Contenido = NumCheckStock.ToString();
+                ContenidoNum = NumCheckStock.ToString();
+
+                NoActualCheckStock = long.Parse(ContenidoNum);
 
                 using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
                 {
-                    outfile.WriteLine(Contenido);
+                    outfile.WriteLine(ContenidoNum);
                 }
             }
             catch (Exception ex)
@@ -589,9 +678,9 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void PrimerCodBarras()
+        private void PrimerNumConteo()
         {
-            Contenido = "0";
+            ContenidoNum = "0";
         }
 
         private void ClearTable(DataTable table)
