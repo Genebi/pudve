@@ -32,6 +32,7 @@ namespace PuntoDeVentaV2
         DataRow dr;
         int NoReg, index, LaPosicion, registro, StatusRev;
         bool IsEmpty;
+        string auxDate, auxCurrentDate;
 
         private void llenarTabla()
         {
@@ -64,13 +65,16 @@ namespace PuntoDeVentaV2
                 if (ComprobarFecha != "")
                 {
                     fecha = Convert.ToDateTime(dr["Fecha"].ToString());
+                    auxDate = fecha.ToString();
+                    ComprobarFecha = auxDate.Substring(0, 10);
                 }
                 else
                 {
                     ComprobarFecha = "";
                 }
                 StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
-                if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha != "") && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
+                if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha == auxCurrentDate) && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
                 {
                     DialogResult result = MessageBox.Show("Producto Inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes)
@@ -97,7 +101,7 @@ namespace PuntoDeVentaV2
                     txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                 }
             }
-            else if (NoReg == 0 && buscarStock == "")
+            else if (NoReg == 0 && buscarStock == string.Empty)
             {
                 registro = 0;
                 dr = dtRevisarStockResultado.Rows[LaPosicion];
@@ -109,15 +113,18 @@ namespace PuntoDeVentaV2
                 if (ComprobarFecha != "")
                 {
                     fecha = Convert.ToDateTime(dr["Fecha"].ToString());
+                    auxDate = fecha.ToString();
+                    ComprobarFecha = auxDate.Substring(0, 10);
                 }
                 else
                 {
                     ComprobarFecha = "";
                 }
                 StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
-                if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha != "") && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
+                auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
+                if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha == auxCurrentDate) && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
                 {
-                    DialogResult result = MessageBox.Show("Producto Inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show("Producto ya está inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (result == DialogResult.Yes)
                     {
                         registro = LaPosicion + 1;
@@ -142,11 +149,26 @@ namespace PuntoDeVentaV2
                     txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                 }
             }
-            else if (NoReg == 0 && buscarStock == null)
+            else if (NoReg == 0 && buscarStock == string.Empty)
             {
-
+                DialogResult result = MessageBox.Show("Producto ya está inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    registro = LaPosicion + 1;
+                    txtBoxBuscarCodigoBarras.Text = string.Empty;
+                    txtCantidadStock.Focus();
+                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                }
+                else if (result == DialogResult.No)
+                {
+                    LimpiarCampos();
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    LimpiarCampos();
+                }
             }
-            else if (NoReg == 0 && buscarStock != "")
+            else if (NoReg == 0 && buscarStock != string.Empty)
             {
                 txtBoxBuscarCodigoBarras.Text = string.Empty;
                 txtBoxBuscarCodigoBarras.Focus();
@@ -167,14 +189,32 @@ namespace PuntoDeVentaV2
             StatusRev = 1;
             DataTable dtResultInsert;
             DataRow row;
-            string ClavInterna, CodigoBarras, cadauxiliar;
+            DateTime CurrentDate, RecordDate;
+            string ClavInterna, CodigoBarras, cadauxiliar, dia, mes, Year;
+
+            if (ComprobarFecha != "")
+            {
+                dia = ComprobarFecha.Substring(0, 2);
+                mes = ComprobarFecha.Substring(3, 2);
+                Year = ComprobarFecha.Substring(6, 4);
+                RecordDate = new DateTime(Convert.ToInt32(Year),Convert.ToInt32(mes),Convert.ToInt32(dia));
+            }
+            else
+            {
+                ComprobarFecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                dia = ComprobarFecha.Substring(0, 2);
+                mes = ComprobarFecha.Substring(3, 2);
+                Year = ComprobarFecha.Substring(6, 4);
+                RecordDate = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(mes), Convert.ToInt32(dia));
+            }
+            CurrentDate = DateTime.Now.Date;
             if (Stock != txtCantidadStock.Text)
             {
                 if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 }
-                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
+                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (CurrentDate > RecordDate))
                 {
                     queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
                                                                          Nombre, 
@@ -213,7 +253,7 @@ namespace PuntoDeVentaV2
                                                                        CodigoBarras = '{cadenaAuxCodigoBarras}', 
                                                                        StockAlmacen = '{StockAlmacen}', 
                                                                        StockFisico = '{Stock}', 
-                                                                       NoRevision = '{NumRevInventario}', 
+                                                                       NoRevision = '{NoActualCheckStock}', 
                                                                        Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
                                                                        IDUsuario = '{IDUser}', 
                                                                        Tipo = '{TypeProd}', 
@@ -237,7 +277,7 @@ namespace PuntoDeVentaV2
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 }
-                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
+                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (CurrentDate > RecordDate))
                 {
                     queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
                                                                          Nombre, 
@@ -276,12 +316,12 @@ namespace PuntoDeVentaV2
                                                                        CodigoBarras = '{cadenaAuxCodigoBarras}', 
                                                                        StockAlmacen = '{StockAlmacen}', 
                                                                        StockFisico = '{Stock}', 
-                                                                       NoRevision = '{NumRevInventario}', 
+                                                                       NoRevision = '{NoActualCheckStock}', 
                                                                        Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
                                                                        IDUsuario = '{IDUser}', 
                                                                        Tipo = '{TypeProd}', 
                                                                        StatusRevision = '{StatusRevInventario}', 
-                                                                       StatusInventariado = '{StatusInventHecho}'
+                                                                       StatusInventariado = '{StatusRev}'
                                                                  WHERE ID = '{ID}'";
                 }
                 cn.EjecutarConsulta(queryUpdateStock);
@@ -358,7 +398,7 @@ namespace PuntoDeVentaV2
             InitializeComponent();
             cantidadStock = 0;
             SearchBarCode = string.Empty;
-            NoReg = 0;
+            NoReg = -1;
         }
 
         private void btnReducirStock_Click(object sender, EventArgs e)
