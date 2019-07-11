@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         int seleccionado = 0;
         int valorDefault = 0;
         static private int id = 2;
+        public static bool ejecutarMetodos = false;
 
         string tipoImpuesto = null;
         string tipoPorcentaje = null;
@@ -529,6 +530,7 @@ namespace PuntoDeVentaV2
             }
         }
 
+        #region Metodo para manejar cada combobox y textbox generado dinamicamente
         private void AccederComboBox(string nombre, int numeroCB, int opcion = 0, string seleccionado = "")
         {
 
@@ -905,9 +907,23 @@ namespace PuntoDeVentaV2
 
                     TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
                     tbTmp.Text = importe.ToString("0.00");
+
+                    //Para sumar o restar la cantidad del impuesto al total final
+                    if (tipoImpuesto == "Traslado" || tipoImpuesto == "Loc. Traslado")
+                    {
+                        var cantidad = float.Parse(txtTotal.Text) + importe;
+                        txtTotal.Text = cantidad.ToString("0.00");
+                    }
+
+                    if (tipoImpuesto == "Retención" || tipoImpuesto == "Loc. Retenido")
+                    {
+                        var cantidad = float.Parse(txtTotal.Text) - importe;
+                        txtTotal.Text = cantidad.ToString("0.00");
+                    }
                 }
             }
         }
+        #endregion
 
         private void LimpiarComboBox(ComboBox cb, bool habilitado = true)
         {
@@ -1057,9 +1073,15 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleFacturacionProducto_Paint(object sender, PaintEventArgs e)
         {
-            precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+            if (ejecutarMetodos)
+            {
+                precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
-            checarRadioButtons();
+                checarRadioButtons();
+                RecalcularTotal();
+
+                ejecutarMetodos = false;
+            }
         }
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
@@ -1080,5 +1102,64 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+
+        #region Metodo para recalcular el total de todos los impuestos
+        private void RecalcularTotal()
+        {
+            float totalFinal = 0;
+
+            foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+            {
+                int tipo = 0;
+                float importe = 0;
+
+                foreach (Control item in panel.Controls.OfType<Control>())
+                {
+                    if (item.Text == "Traslado" || item.Text == "Loc. Traslado")
+                    {
+                        tipo = 1;
+                    }
+
+                    if (item.Text == "Retención" || item.Text == "Loc. Retenido")
+                    {
+                        tipo = 2;
+                    }
+
+                    if (item.Name.Contains("tbLinea"))
+                    {
+                        var tb = item.Name.Split('_');
+
+                        if (tb[1] == "2")
+                        {
+                            importe = float.Parse(item.Text);
+                        }
+                    }
+                }
+
+                if (tipo == 1)
+                {
+                    totalFinal += importe;
+                }
+                else
+                {
+                    totalFinal -= importe;
+                }
+            }
+
+            if (cbLinea1_1.Text == "Traslado" || cbLinea1_1.Text == "Loc. Traslado")
+            {
+                totalFinal += float.Parse(tbLinea1_2.Text);
+            }
+            else if (cbLinea1_1.Text == "Retención" || cbLinea1_1.Text == "Loc. Retenido")
+            {
+                totalFinal -= float.Parse(tbLinea1_2.Text);
+            }
+
+            float totalActual = float.Parse(txtTotal.Text) + totalFinal;
+
+            txtTotal.Text = totalActual.ToString("0.00");
+        }
+        #endregion
     }
 }

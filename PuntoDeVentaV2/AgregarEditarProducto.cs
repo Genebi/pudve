@@ -723,6 +723,7 @@ namespace PuntoDeVentaV2
                 if (FormDetalle != null)
                 {
                     FormDetalle.txtBoxBase.Text = Convert.ToDouble(precioProducto).ToString("N2");
+                    AgregarDetalleFacturacionProducto.ejecutarMetodos = true;
                     FormDetalle.Show();
                     FormDetalle.BringToFront();
                 }
