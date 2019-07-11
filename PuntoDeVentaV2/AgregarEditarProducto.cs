@@ -718,10 +718,12 @@ namespace PuntoDeVentaV2
                 {
                     precioProducto = txtPrecioProducto.Text;
                 }
+
                 //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
                 if (FormDetalle != null)
                 {
                     FormDetalle.txtBoxBase.Text = Convert.ToDouble(precioProducto).ToString("N2");
+                    AgregarDetalleFacturacionProducto.ejecutarMetodos = true;
                     FormDetalle.Show();
                     FormDetalle.BringToFront();
                 }

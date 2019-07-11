@@ -18,12 +18,12 @@ namespace PuntoDeVentaV2
         int seleccionado = 0;
         int valorDefault = 0;
         static private int id = 2;
+        public static bool ejecutarMetodos = false;
 
         string tipoImpuesto = null;
         string tipoPorcentaje = null;
         string porcentajeSeleccionado = null;
 
-        //private string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
 
@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
         List<string> impuestosL = new List<string>();
         List<string> tasaL = new List<string>();
 
-        double precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+        double precioProducto = 0;
 
         double porcentaje = 0, totalProcentaje;
 
@@ -48,6 +48,9 @@ namespace PuntoDeVentaV2
 
         public void checarRadioButtons()
         {
+            double porcentajeTmp = 0;
+            double precioTmp = 0;
+
             if (rb0porCiento.Checked == true)
             {
                 porcentaje = 0;
@@ -57,13 +60,21 @@ namespace PuntoDeVentaV2
             else if (rb8porCiento.Checked == true)
             {
                 porcentaje = 0.08;
-                totalProcentaje = precioProducto * porcentaje;
+                porcentajeTmp = 1.08;
+
+                precioTmp = precioProducto / porcentajeTmp;
+                totalProcentaje = precioTmp * porcentaje;
+
                 txtIVA.Text = totalProcentaje.ToString("N2");
             }
             else if (rb16porCiento.Checked == true)
             {
                 porcentaje = 0.16;
-                totalProcentaje = precioProducto * porcentaje;
+                porcentajeTmp = 1.16;
+
+                precioTmp = precioProducto / porcentajeTmp;
+                totalProcentaje = precioTmp * porcentaje;
+
                 txtIVA.Text = totalProcentaje.ToString("N2");
             }
             else if (rbExcento.Checked == true)
@@ -72,8 +83,15 @@ namespace PuntoDeVentaV2
                 totalProcentaje = precioProducto * porcentaje;
                 txtIVA.Text = totalProcentaje.ToString("N2");
             }
+
+            var cantidadBase = precioProducto - float.Parse(txtIVA.Text);
+            var cantidadTotal = cantidadBase + float.Parse(txtIVA.Text);
+
+            txtBoxBase.Text = cantidadBase.ToString("0.00");
+            txtTotal.Text = cantidadTotal.ToString("0.00");
         }
 
+        #region Constructor ===========================================================
         public AgregarDetalleFacturacionProducto()
         {
             InitializeComponent();
@@ -113,6 +131,7 @@ namespace PuntoDeVentaV2
                 //Falta agregar una variable para manejar la excepcion en caso de ser requerido
             }
         }
+        #endregion
 
         private void btnCancelarDetalle_Click(object sender, EventArgs e)
         {
@@ -123,6 +142,7 @@ namespace PuntoDeVentaV2
         {
             //Se definen los valores que tendran los ComboBox y TextBox por default
             //al abrir la ventana por primera vez
+            precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
             cbLinea1_1.SelectedIndex = 0;
 
@@ -148,6 +168,7 @@ namespace PuntoDeVentaV2
             cbLinea1_3.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
             cbLinea1_4.SelectedIndexChanged += new EventHandler(ProcesarComboBoxes_selectedIndexChanged);
 
+            tbLinea1_1.KeyPress += new KeyPressEventHandler(SoloDecimales);
             tbLinea1_1.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);
 
             /***************************
@@ -295,6 +316,7 @@ namespace PuntoDeVentaV2
             tb1.Enabled = false;
             tb1.TextAlign = HorizontalAlignment.Center;
             tb1.KeyUp += new KeyEventHandler(PorcentajeManual_KeyUp);
+            tb1.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
             //TextBox para el importe
             TextBox tb2 = new TextBox();
@@ -408,7 +430,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (claveUnidad == "")
+            if (string.IsNullOrWhiteSpace(claveUnidad))
             {
                 MessageBox.Show("La clave de unidad es requerida.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -456,9 +478,7 @@ namespace PuntoDeVentaV2
         }
 
 
-        /*****************************************************************************************
-         **** ES LA FUNCION DEL EVENTO QUE SE EJECUTA CUANDO SE ELIGE UNA OPCION DEL COMBOBOX ****
-         *****************************************************************************************/
+        //ES LA FUNCION DEL EVENTO QUE SE EJECUTA CUANDO SE ELIGE UNA OPCION DEL COMBOBOX
         private void ProcesarComboBoxes_selectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = sender as ComboBox;
@@ -510,6 +530,7 @@ namespace PuntoDeVentaV2
             }
         }
 
+        #region Metodo para manejar cada combobox y textbox generado dinamicamente
         private void AccederComboBox(string nombre, int numeroCB, int opcion = 0, string seleccionado = "")
         {
 
@@ -881,13 +902,28 @@ namespace PuntoDeVentaV2
 
                     float porcentaje = CantidadPorcentaje(cantidadTmp[0]);
 
-                    double importe = precioProducto * porcentaje;
+                    double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
+                    double importe = precioProductoTmp * porcentaje;
 
                     TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
                     tbTmp.Text = importe.ToString("0.00");
+
+                    //Para sumar o restar la cantidad del impuesto al total final
+                    if (tipoImpuesto == "Traslado" || tipoImpuesto == "Loc. Traslado")
+                    {
+                        var cantidad = float.Parse(txtTotal.Text) + importe;
+                        txtTotal.Text = cantidad.ToString("0.00");
+                    }
+
+                    if (tipoImpuesto == "Retención" || tipoImpuesto == "Loc. Retenido")
+                    {
+                        var cantidad = float.Parse(txtTotal.Text) - importe;
+                        txtTotal.Text = cantidad.ToString("0.00");
+                    }
                 }
             }
         }
+        #endregion
 
         private void LimpiarComboBox(ComboBox cb, bool habilitado = true)
         {
@@ -919,7 +955,8 @@ namespace PuntoDeVentaV2
                     {
                         resultado = float.Parse(sCantidad);
 
-                    } else
+                    }
+                    else
                     {
                         sCantidad = sCantidad.Replace(".", "");
                         sCantidad = "0." + sCantidad;
@@ -938,7 +975,7 @@ namespace PuntoDeVentaV2
                 sCantidad = "0.0" + sCantidad;
                 resultado = float.Parse(sCantidad);
             }
-
+            
             return resultado;
         }
 
@@ -954,7 +991,13 @@ namespace PuntoDeVentaV2
 
             var cantidad = tb.Text;
 
-            if (cantidad == "")
+            if (cantidad.Equals("."))
+            {
+                tb.Text = string.Empty;
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cantidad))
             {
                 cantidad = "0";
             }
@@ -967,7 +1010,9 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            double importe = precioProducto * porcentaje;
+            double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
+            double importe = precioProductoTmp * porcentaje;
+            //double importe = precioProducto * porcentaje;
 
             TextBox tbImporte = (TextBox)this.Controls.Find(nombre + "2", true).FirstOrDefault();
             tbImporte.Text = importe.ToString("0.00");
@@ -1006,7 +1051,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Imposible abrir la Pagina" + ex, "Error al Abrir La Pagina WEB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el enlace: " + ex, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1024,5 +1069,97 @@ namespace PuntoDeVentaV2
 
             return campo;
         }
+
+
+        private void AgregarDetalleFacturacionProducto_Paint(object sender, PaintEventArgs e)
+        {
+            if (ejecutarMetodos)
+            {
+                precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
+
+                checarRadioButtons();
+                RecalcularTotal();
+
+                ejecutarMetodos = false;
+            }
+        }
+
+        private void SoloDecimales(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+
+        #region Metodo para recalcular el total de todos los impuestos
+        private void RecalcularTotal()
+        {
+            float totalFinal = 0;
+
+            foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+            {
+                int tipo = 0;
+                float importe = 0;
+
+                foreach (Control item in panel.Controls.OfType<Control>())
+                {
+                    if (item.Text == "Traslado" || item.Text == "Loc. Traslado")
+                    {
+                        tipo = 1;
+                    }
+
+                    if (item.Text == "Retención" || item.Text == "Loc. Retenido")
+                    {
+                        tipo = 2;
+                    }
+
+                    if (item.Name.Contains("tbLinea"))
+                    {
+                        var tb = item.Name.Split('_');
+
+                        if (tb[1] == "2")
+                        {
+                            importe = float.Parse(item.Text);
+                        }
+                    }
+                }
+
+                if (tipo == 1)
+                {
+                    totalFinal += importe;
+                }
+                else
+                {
+                    totalFinal -= importe;
+                }
+            }
+
+            if (cbLinea1_1.Text == "Traslado" || cbLinea1_1.Text == "Loc. Traslado")
+            {
+                totalFinal += float.Parse(tbLinea1_2.Text);
+            }
+            else if (cbLinea1_1.Text == "Retención" || cbLinea1_1.Text == "Loc. Retenido")
+            {
+                totalFinal -= float.Parse(tbLinea1_2.Text);
+            }
+
+            float totalActual = float.Parse(txtTotal.Text) + totalFinal;
+
+            txtTotal.Text = totalActual.ToString("0.00");
+        }
+        #endregion
     }
 }
