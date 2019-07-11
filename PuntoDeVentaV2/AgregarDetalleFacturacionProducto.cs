@@ -23,7 +23,6 @@ namespace PuntoDeVentaV2
         string tipoPorcentaje = null;
         string porcentajeSeleccionado = null;
 
-        //private string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
 
@@ -91,6 +90,7 @@ namespace PuntoDeVentaV2
             txtTotal.Text = cantidadTotal.ToString("0.00");
         }
 
+        #region Constructor ===========================================================
         public AgregarDetalleFacturacionProducto()
         {
             InitializeComponent();
@@ -130,6 +130,7 @@ namespace PuntoDeVentaV2
                 //Falta agregar una variable para manejar la excepcion en caso de ser requerido
             }
         }
+        #endregion
 
         private void btnCancelarDetalle_Click(object sender, EventArgs e)
         {
@@ -426,7 +427,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (claveUnidad == "")
+            if (string.IsNullOrWhiteSpace(claveUnidad))
             {
                 MessageBox.Show("La clave de unidad es requerida.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -474,9 +475,7 @@ namespace PuntoDeVentaV2
         }
 
 
-        /*****************************************************************************************
-         **** ES LA FUNCION DEL EVENTO QUE SE EJECUTA CUANDO SE ELIGE UNA OPCION DEL COMBOBOX ****
-         *****************************************************************************************/
+        //ES LA FUNCION DEL EVENTO QUE SE EJECUTA CUANDO SE ELIGE UNA OPCION DEL COMBOBOX
         private void ProcesarComboBoxes_selectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cb = sender as ComboBox;
@@ -899,7 +898,8 @@ namespace PuntoDeVentaV2
 
                     float porcentaje = CantidadPorcentaje(cantidadTmp[0]);
 
-                    double importe = precioProducto * porcentaje;
+                    double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
+                    double importe = precioProductoTmp * porcentaje;
 
                     TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
                     tbTmp.Text = importe.ToString("0.00");
@@ -985,7 +985,9 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            double importe = precioProducto * porcentaje;
+            double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
+            double importe = precioProductoTmp * porcentaje;
+            //double importe = precioProducto * porcentaje;
 
             TextBox tbImporte = (TextBox)this.Controls.Find(nombre + "2", true).FirstOrDefault();
             tbImporte.Text = importe.ToString("0.00");
@@ -1024,7 +1026,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Imposible abrir la Pagina" + ex, "Error al Abrir La Pagina WEB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ha ocurrido un error al intentar abrir el enlace: " + ex, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
