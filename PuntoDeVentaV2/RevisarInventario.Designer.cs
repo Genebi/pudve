@@ -43,6 +43,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btnSiguiente = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblNoRevision = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -51,7 +53,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtBoxBuscarCodigoBarras);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 60);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(420, 93);
             this.groupBox1.TabIndex = 0;
@@ -82,7 +84,7 @@
             this.groupBox2.Controls.Add(this.lblCodigoDeBarras);
             this.groupBox2.Controls.Add(this.lblNombreProducto);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 111);
+            this.groupBox2.Location = new System.Drawing.Point(12, 158);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(420, 305);
             this.groupBox2.TabIndex = 1;
@@ -188,7 +190,7 @@
             // 
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.btnSiguiente);
-            this.groupBox3.Location = new System.Drawing.Point(12, 425);
+            this.groupBox3.Location = new System.Drawing.Point(12, 470);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(420, 100);
             this.groupBox3.TabIndex = 2;
@@ -217,11 +219,34 @@
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(78, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Número de Revisión:";
+            // 
+            // lblNoRevision
+            // 
+            this.lblNoRevision.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblNoRevision.Font = new System.Drawing.Font("Century Gothic", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoRevision.ForeColor = System.Drawing.Color.Blue;
+            this.lblNoRevision.Location = new System.Drawing.Point(190, 18);
+            this.lblNoRevision.Name = "lblNoRevision";
+            this.lblNoRevision.Size = new System.Drawing.Size(64, 23);
+            this.lblNoRevision.TabIndex = 4;
+            this.lblNoRevision.Text = "0";
+            this.lblNoRevision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 539);
+            this.ClientSize = new System.Drawing.Size(444, 584);
+            this.Controls.Add(this.lblNoRevision);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -239,6 +264,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -259,5 +285,7 @@
         private System.Windows.Forms.TextBox txtCantidadStock;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lblNoRegistro;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblNoRevision;
     }
 }

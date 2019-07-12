@@ -611,17 +611,12 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_Load(object sender, EventArgs e)
         {
-            //if (Properties.Settings.Default.InicioFinInventario == 2)
-            //{
-            //    Properties.Settings.Default.InicioFinInventario = 1;
-            //    Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
-            //    Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
-            //}
             CargarStockExistente();
             llenarTabla();
             cargardatos();
             LimpiarCampos();
             iniciarConteo();
+            lblNoRevision.Text = NoActualCheckStock.ToString();
         }
 
         private void iniciarConteo()
