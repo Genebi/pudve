@@ -516,6 +516,40 @@ namespace PuntoDeVentaV2
                             NoReg = 1;
                             break;
                         }
+                        else if (cadenaAuxClavInterna.Trim() == buscarStock && row["NoRevision"].ToString() == "0")
+                        {
+                            LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
+                            ID = row["ID"].ToString();
+                            IDAlmacen = row["IDAlmacen"].ToString();
+                            Nombre = row["Nombre"].ToString();
+                            StockAlmacen = row["StockAlmacen"].ToString();
+                            Stock = row["StockFisico"].ToString();
+                            NumRevInventario = row["NoRevision"].ToString();
+                            FechaRegInventario = row["Fecha"].ToString();
+                            IDUser = row["IDUsuario"].ToString();
+                            TypeProd = row["Tipo"].ToString();
+                            StatusRevInventario = row["StatusRevision"].ToString();
+                            StatusInventHecho = row["StatusInventariado"].ToString();
+                            NoReg = 1;
+                            break;
+                        }
+                        else if (cadenaAuxCodigoBarras.Trim() == buscarStock && row["NoRevision"].ToString() == "0")
+                        {
+                            LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
+                            ID = row["ID"].ToString();
+                            IDAlmacen = row["IDAlmacen"].ToString();
+                            Nombre = row["Nombre"].ToString();
+                            StockAlmacen = row["StockAlmacen"].ToString();
+                            Stock = row["StockFisico"].ToString();
+                            NumRevInventario = row["NoRevision"].ToString();
+                            FechaRegInventario = row["Fecha"].ToString();
+                            IDUser = row["IDUsuario"].ToString();
+                            TypeProd = row["Tipo"].ToString();
+                            StatusRevInventario = row["StatusRevision"].ToString();
+                            StatusInventHecho = row["StatusInventariado"].ToString();
+                            NoReg = 1;
+                            break;
+                        }
                         else if (cadenaAuxClavInterna.Trim() == buscarStock && row["NoRevision"].ToString() != "0")
                         {
                             LaPosicion = dtRevisarStockResultado.Rows.IndexOf(row);
