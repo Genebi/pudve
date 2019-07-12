@@ -1016,6 +1016,8 @@ namespace PuntoDeVentaV2
 
             TextBox tbImporte = (TextBox)this.Controls.Find(nombre + "2", true).FirstOrDefault();
             tbImporte.Text = importe.ToString("0.00");
+
+            RecalcularTotal();
         }
 
         private void rb8porCiento_CheckedChanged(object sender, EventArgs e)
@@ -1161,5 +1163,10 @@ namespace PuntoDeVentaV2
             txtTotal.Text = totalActual.ToString("0.00");
         }
         #endregion
+
+        private void RecalcularCambioPorcentaje()
+        {
+
+        }
     }
 }
