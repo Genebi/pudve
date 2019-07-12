@@ -230,7 +230,7 @@
             this.Name = "RevisarInventario";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Revisar Inventario Fisico";
+            this.Text = "Revisar Stock Fisico";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RevisarInventario_FormClosing);
             this.Load += new System.EventHandler(this.RevisarInventario_Load);
             this.groupBox1.ResumeLayout(false);

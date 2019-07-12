@@ -261,7 +261,15 @@ namespace PuntoDeVentaV2
             // 01 Anticipos
             #region TablaAnticipos
             tabla = "Anticipos";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaAnticipos(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -298,7 +306,15 @@ namespace PuntoDeVentaV2
             // 02 Caja
             #region TablaCaja
             tabla = "Caja";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaCaja(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -335,7 +351,15 @@ namespace PuntoDeVentaV2
             // 03 CatalogoUnidadesMedida
             #region TablaCatalogoUnidadesMedida
             tabla = "CatalogoUnidadesMedida";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaCatalogoUnidadesMedida(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -372,7 +396,15 @@ namespace PuntoDeVentaV2
             // 04 CodigoBarrasExtras
             #region TablaCodigoBarrasExtras
             tabla = "CodigoBarrasExtras";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaCodigoBarrasExtras(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -409,7 +441,15 @@ namespace PuntoDeVentaV2
             // 05 DescuentoCLiente
             #region TablaDescuentoCliente
             tabla = "DescuentoCliente";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaDescuentoCliente(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -446,7 +486,15 @@ namespace PuntoDeVentaV2
             // 06 DescuentoMayoreo
             #region TablaDescuentoMayoreo
             tabla = "DescuentoMayoreo";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaDescuentoMayoreo(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -483,7 +531,15 @@ namespace PuntoDeVentaV2
             // 07 DetallesFacturacionProductos
             #region TablaDetallesFacturacionProductos
             tabla = "DetallesFacturacionProductos";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaDetallesFacturacionProductos(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -520,7 +576,15 @@ namespace PuntoDeVentaV2
             // 08 DetallesProductos
             #region TablaDetallesProducto
             tabla = "DetallesProducto";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaDetallesProducto(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -557,7 +621,15 @@ namespace PuntoDeVentaV2
             // 09 Empresas
             #region TablaEmpresas
             tabla = "Empresas";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaEmpresas(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -594,7 +666,15 @@ namespace PuntoDeVentaV2
             // 10 HistorialCompras
             #region TablaHistorialCompras
             tabla = "HistorialCompras";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaHistorialCompras(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -631,7 +711,15 @@ namespace PuntoDeVentaV2
             // 11 HistorialModificacionRecordProduct
             #region TablaHistorialModificacionRecordProduct
             tabla = "HistorialModificacionRecordProduct";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaHistorialModificacionRecordProduct(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -668,7 +756,15 @@ namespace PuntoDeVentaV2
             // 12 ProductoRelacionadoXML
             #region TablaProductoRelacionadoXML
             tabla = "ProductoRelacionadoXML";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaProductoRelacionadoXML(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -705,7 +801,15 @@ namespace PuntoDeVentaV2
             // 13 Productos
             #region TablaProductos
             tabla = "Productos";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaProductos(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -742,7 +846,15 @@ namespace PuntoDeVentaV2
             // 14 ProductosDeServicios
             #region TablaProductosDeServicios
             tabla = "ProductosDeServicios";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -779,7 +891,15 @@ namespace PuntoDeVentaV2
             // 15 ProductosVenta
             #region TablaProductosVenta
             tabla = "ProductosVenta";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaProductosVenta(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -816,7 +936,15 @@ namespace PuntoDeVentaV2
             // 16 Proveedores
             #region TablaProveedores
             tabla = "Proveedores";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaProveedores(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -853,7 +981,15 @@ namespace PuntoDeVentaV2
             // 17 RegimenDeUsuarios
             #region TablaRegimenDeUsuarios
             tabla = "RegimenDeUsuarios";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaRegimenDeUsuarios(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -890,7 +1026,15 @@ namespace PuntoDeVentaV2
             // 18 RegimenFiscal
             #region TablaRegimenFiscal
             tabla = "RegimenFiscal";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaRegimenFiscal(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
 
@@ -928,7 +1072,15 @@ namespace PuntoDeVentaV2
             // 19 Usuarios
             #region TablaUsuarios
             tabla = "Usuarios";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaUsuarios(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -965,7 +1117,15 @@ namespace PuntoDeVentaV2
             // 20 Ventas
             #region TablaVentas
             tabla = "Ventas";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaVentas(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -1002,7 +1162,15 @@ namespace PuntoDeVentaV2
             // 21 Clientes
             #region TablaClientes
             tabla = "Clientes";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaClientes(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -1039,7 +1207,15 @@ namespace PuntoDeVentaV2
             // 22 RevisarInventario
             #region TablaRevisarInventario
             tabla = "RevisarInventario";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaRevisarInventario(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -1076,7 +1252,15 @@ namespace PuntoDeVentaV2
             // 23 DetallesVenta
             #region TablaDetallesVenta
             tabla = "DetallesVenta";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaDetallesVenta(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
@@ -1113,7 +1297,15 @@ namespace PuntoDeVentaV2
             // 24 Abonos
             #region TablaAbonos
             tabla = "Abonos";
-            checkEmpty(tabla);
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaAbonos(tabla);
+                cn.CrearTabla(queryTabla);
+            }
             if (IsEmpty == true)
             {
                 try
