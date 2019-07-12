@@ -89,6 +89,9 @@ namespace PuntoDeVentaV2
 
             txtBoxBase.Text = cantidadBase.ToString("0.00");
             txtTotal.Text = cantidadTotal.ToString("0.00");
+
+            RecalcularCambioPorcentaje();
+            RecalcularTotal();
         }
 
         #region Constructor ===========================================================
@@ -533,7 +536,6 @@ namespace PuntoDeVentaV2
         #region Metodo para manejar cada combobox y textbox generado dinamicamente
         private void AccederComboBox(string nombre, int numeroCB, int opcion = 0, string seleccionado = "")
         {
-
             ComboBox cbTmp = (ComboBox)this.Controls.Find(nombre, true).FirstOrDefault();
 
             /****************************
@@ -1080,7 +1082,7 @@ namespace PuntoDeVentaV2
                 precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
                 checarRadioButtons();
-                RecalcularTotal();
+                //RecalcularTotal();
 
                 ejecutarMetodos = false;
             }
@@ -1166,7 +1168,59 @@ namespace PuntoDeVentaV2
 
         private void RecalcularCambioPorcentaje()
         {
+            float cantidadBase = float.Parse(txtBoxBase.Text);
 
+            foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+            {
+                var manual = false; //Si el porcentaje es por definir cambiar a true
+                var auxiliar = string.Empty; //Auxiliar para almacenar el porcentaje del impuesto
+
+                foreach (Control item in panel.Controls.OfType<Control>())
+                {
+                    //Combobox
+                    if (item.Name.Contains("cbLinea"))
+                    {
+                        var tmp = item.Name.Split('_');
+
+                        if (tmp[1] == "4")
+                        {
+                            if (item.Text == "Definir %")
+                            {
+                                manual = true;
+                            }
+                            else
+                            {
+                                auxiliar = item.Text;
+                            }
+                        }
+                    }
+
+                    //Textbox
+                    if (item.Name.Contains("tbLinea"))
+                    {
+                        var tmp = item.Name.Split('_');
+
+                        if (tmp[1] == "1")
+                        {
+                            if (manual)
+                            {
+                                auxiliar = item.Text;
+                            }
+                        }
+
+                        if (tmp[1] == "2")
+                        {
+                            var porcentajeTmp = auxiliar.Split(' ');
+
+                            var porcentaje = CantidadPorcentaje(porcentajeTmp[0]);
+
+                            var importe = cantidadBase * porcentaje;
+
+                            item.Text = importe.ToString("0.00");
+                        }
+                    }
+                }
+            }
         }
     }
 }
