@@ -373,8 +373,12 @@ namespace PuntoDeVentaV2
                 if (panel.Name == nombrePanel)
                 {
                     panelContenedor.Controls.Remove(panel);
+
+                    RecalcularTotal();
                 }
             }
+
+            RecalcularTotal();
         }
 
         private void DeshabilitarMouseWheel(object sender, EventArgs e)
@@ -1019,6 +1023,7 @@ namespace PuntoDeVentaV2
             TextBox tbImporte = (TextBox)this.Controls.Find(nombre + "2", true).FirstOrDefault();
             tbImporte.Text = importe.ToString("0.00");
 
+            RecalcularCambioPorcentaje();
             RecalcularTotal();
         }
 
@@ -1166,10 +1171,41 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
+        #region Metodo para recalcular los impuestos al cambiar de porcentaje de IVA
         private void RecalcularCambioPorcentaje()
         {
             float cantidadBase = float.Parse(txtBoxBase.Text);
 
+            //Fijo
+            if (cbLinea1_1.Text != "...")
+            {
+                var manual = false;
+                var auxiliar = string.Empty;
+
+                if (cbLinea1_4.Text == "Definir %")
+                {
+                    manual = true;
+                }
+                else
+                {
+                    auxiliar = cbLinea1_4.Text;
+                }
+
+                if (manual)
+                {
+                    auxiliar = tbLinea1_1.Text;
+                }
+
+                var porcentajeTmp = auxiliar.Split(' ');
+
+                var porcentaje = CantidadPorcentaje(porcentajeTmp[0]);
+
+                var importe = cantidadBase * porcentaje;
+
+                tbLinea1_2.Text = importe.ToString("0.00");
+            }
+
+            //Dinamicos
             foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
             {
                 var manual = false; //Si el porcentaje es por definir cambiar a true
@@ -1222,5 +1258,6 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+        #endregion
     }
 }
