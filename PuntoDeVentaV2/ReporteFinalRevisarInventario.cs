@@ -15,10 +15,19 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         DataTable dtFinalReportCheckStockToDay;
 
+        public static int FilterNumActiveRecord;
+
+        public int GetFilterNumActiveRecord { get; set; }
+
         bool IsEmpty;
         int CantidadAlmacen, CantidadFisico, Diferencias;
         string queryFiltroReporteStock, tabla, queryUpdateCalculos, FechaRevision, soloFechaRevision, fechaActual;
-        
+
+        private void FiltroNumRevisionActiva()
+        {
+            FilterNumActiveRecord = GetFilterNumActiveRecord;
+        }
+
         public ReporteFinalRevisarInventario()
         {
             InitializeComponent();
@@ -28,6 +37,7 @@ namespace PuntoDeVentaV2
         {
             IsEmpty = false;
             tabla = "RevisarInventario";
+            FiltroNumRevisionActiva();
             cargarTabla();
             checkEmpty(tabla);
             llenarDataGriView();
@@ -97,7 +107,8 @@ namespace PuntoDeVentaV2
 
         private void cargarTabla()
         {
-            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND StatusInventariado = '1' ORDER BY Fecha DESC, Nombre ASC";
+            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{FilterNumActiveRecord}' ORDER BY Fecha DESC, Nombre ASC";
+            //queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND StatusInventariado = '1' ORDER BY Fecha DESC, Nombre ASC";
             dtFinalReportCheckStockToDay = cn.CargarDatos(queryFiltroReporteStock);
         }
 

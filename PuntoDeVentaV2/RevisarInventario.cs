@@ -20,7 +20,8 @@ namespace PuntoDeVentaV2
 
         string ContenidoNum, ContenidoDate, DateCheckStock;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
         string FechaFinal, ComprobarFecha;
-        long NumCheckStock, NoActualCheckStock;
+        long NumCheckStock;
+        public long NoActualCheckStock;
         DateTime FechaUltimaRevision, FechaActualRevision, fecha;
         int NoRevision, StatusInventariado;
 

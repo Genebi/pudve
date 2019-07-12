@@ -15,6 +15,15 @@ namespace PuntoDeVentaV2
         RevisarInventario checkInventory = new RevisarInventario();
         ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
 
+        public static int NumRevActivo;
+
+        public int GetNumRevActive { get; set; }
+
+        private void CargarNumRevActivo()
+        {
+            NumRevActivo = GetNumRevActive;
+        }
+
         public Inventario()
         {
             InitializeComponent();
@@ -25,8 +34,11 @@ namespace PuntoDeVentaV2
             FormCollection fOpen = Application.OpenForms;
             List<string> tempFormOpen = new List<string>();
 
-            checkInventory.FormClosed += delegate
+            checkInventory.FormClosing += delegate
             {
+                GetNumRevActive = Convert.ToInt32(checkInventory.NoActualCheckStock);
+                CargarNumRevActivo();
+
                 FinalReportReviewInventory.FormClosed += delegate
                 {
                     foreach (Form formToClose in fOpen)
@@ -45,11 +57,15 @@ namespace PuntoDeVentaV2
                 };
                 if (!FinalReportReviewInventory.Visible)
                 {
-                    FinalReportReviewInventory.ShowDialog();
-                }
-                else
-                {
-                    FinalReportReviewInventory.ShowDialog();
+                    try
+                    {
+                        FinalReportReviewInventory.GetFilterNumActiveRecord = NumRevActivo;
+                        FinalReportReviewInventory.ShowDialog();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message.ToString(), "Error al abrir", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             };
             if (!checkInventory.Visible)
