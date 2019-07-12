@@ -75,12 +75,12 @@ namespace PuntoDeVentaV2
             DGVRevisionStock.Columns["StatusInventariado"].Visible = false;
 
             // Cambiamos el texto de la columbas para mejor visualizacion
-            DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID Almacen";
+            DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID";
             DGVRevisionStock.Columns["ClaveInterna"].HeaderText = "Clave";
             DGVRevisionStock.Columns["CodigoBarras"].HeaderText = "Código";
-            DGVRevisionStock.Columns["StockAlmacen"].HeaderText = "Almacen";
-            DGVRevisionStock.Columns["StockFisico"].HeaderText = "Física";
-            DGVRevisionStock.Columns["Fecha"].HeaderText = "Revisión";
+            DGVRevisionStock.Columns["StockAlmacen"].HeaderText = "Punto de Venta";
+            DGVRevisionStock.Columns["StockFisico"].HeaderText = "Stock Físico";
+            DGVRevisionStock.Columns["Fecha"].HeaderText = "Revisado el";
         }
 
         private void llenarDataGriView()

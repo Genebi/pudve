@@ -59,7 +59,7 @@ namespace PuntoDeVentaV2
                     lblCodigoDeBarras.Text = dr["CodigoBarras"].ToString();
                     Stock = dr["StockFisico"].ToString();
                 }
-                txtCantidadStock.Text = dr["StockFisico"].ToString();
+                txtCantidadStock.Text = dr["StockAlmacen"].ToString();
                 NoRevision = Convert.ToInt32(dr["NoRevision"].ToString());
                 ComprobarFecha = dr["Fecha"].ToString();
                 if (ComprobarFecha != "")
@@ -74,19 +74,8 @@ namespace PuntoDeVentaV2
                 }
                 StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
                 auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
-                //if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha == auxCurrentDate) && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
-                //if ((NoRevision == Convert.ToInt32(dr["NoRevision"].ToString())) && (StatusInventariado == 1) && ((long)Convert.ToDouble(NumRevInventario) > (long)Convert.ToDouble(dr["NoRevision"].ToString())))
-                //{
-                //    registro = LaPosicion + 1;
-                //    txtBoxBuscarCodigoBarras.Text = string.Empty;
-                //    txtCantidadStock.Focus();
-                //    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
-                //}
-                //else if ((NoRevision == 0) && (StatusInventariado == 0) && ((long)Convert.ToDouble(NumRevInventario) == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
-                //if ((NoRevision == Convert.ToInt32(dr["NoRevision"].ToString())) && (StatusInventariado == 1))
                 if ((NoRevision == NoActualCheckStock) && (StatusInventariado == 1))
                 {
-                    //DialogResult result = MessageBox.Show("Producto Inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     DialogResult result = MessageBox.Show("Producto Inventariado\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes)
                     {
@@ -133,12 +122,8 @@ namespace PuntoDeVentaV2
                 }
                 StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
                 auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
-                //if ((NoRevision != 0) && (StatusInventariado != 0) && (ComprobarFecha == auxCurrentDate) && (NoActualCheckStock == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
-                //if ((NoRevision != 0) && (StatusInventariado != 0) && ((long)Convert.ToDouble(NumRevInventario) == (long)Convert.ToDouble(dr["NoRevision"].ToString())))
-                //if ((NoRevision == Convert.ToInt32(dr["NoRevision"].ToString())) && (StatusInventariado == 1))
                 if ((NoRevision == NoActualCheckStock) && (StatusInventariado == 1))
                 {
-                    //DialogResult result = MessageBox.Show("Producto ya está inventariado\ncon fecha: " + fecha.ToString() + "\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     DialogResult result = MessageBox.Show("Producto Inventariado\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                     if (result == DialogResult.Yes)
                     {
@@ -225,12 +210,10 @@ namespace PuntoDeVentaV2
             CurrentDate = DateTime.Now.Date;
             if (Stock != txtCantidadStock.Text)
             {
-                //if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
                 if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 }
-                //else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (CurrentDate > RecordDate))
                 else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
@@ -258,7 +241,6 @@ namespace PuntoDeVentaV2
                                                                          '{StatusRevInventario}',
                                                                          '{StatusInventHecho}')";
                 }
-                //else if ((NoRevision == 0) && (StatusInventariado == 0) && (ComprobarFecha != ""))
                 else if ((NoRevision == 0) && (StatusInventariado == 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
@@ -291,12 +273,10 @@ namespace PuntoDeVentaV2
             }
             else if (Stock == txtCantidadStock.Text)
             {
-                //if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0) && (ComprobarFecha != ""))
                 if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
                 }
-                //else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0) && (CurrentDate > RecordDate))
                 else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
@@ -324,7 +304,6 @@ namespace PuntoDeVentaV2
                                                                          '{StatusRevInventario}',
                                                                          '{StatusInventHecho}')";
                 }
-                //else if ((NoRevision == 0) && (StatusInventariado == 0) && (ComprobarFecha == ""))
                 else if ((NoRevision == 0) && (StatusInventariado == 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
@@ -411,7 +390,6 @@ namespace PuntoDeVentaV2
 
         private void RevisarInventario_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //button1.PerformClick();
             RiniciarStatusRevision();
             this.Hide();
         }
@@ -450,9 +428,6 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
             this.Hide();
             this.Close();
-            //string num = Properties.Settings.Default.InicioFinInventario.ToString();
-            //label2.Text = num;
-            //Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
         }
 
         private void RiniciarStatusRevision()
@@ -653,12 +628,10 @@ namespace PuntoDeVentaV2
             {
                 PrimerNumConteo();      // iniciamos el conteo del codigo de barras
                 AumentarNumConteo();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
-                //label2.Text = Conteo.ToString();
             }
             else if (ContenidoNum != "" && Conteo == 1)
             {
                 NoActualCheckStock = long.Parse(ContenidoNum);
-                //label2.Text = Conteo.ToString();
             }
             else if (ContenidoNum != "" && Conteo == 2)   // si el contenido no es vacio
             {
@@ -673,16 +646,13 @@ namespace PuntoDeVentaV2
                 }
                 Properties.Settings.Default.InicioFinInventario = 1;
                 Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
-                //Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
                 Conteo = Properties.Settings.Default.InicioFinInventario;
                 using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
                 {
                     ContenidoNum = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
                 }
                 NoActualCheckStock = long.Parse(ContenidoNum);
-                //label2.Text = Conteo.ToString();
             }
-            //label2.Text = Conteo.ToString();
         }
 
         private void AumentarNumConteo()
