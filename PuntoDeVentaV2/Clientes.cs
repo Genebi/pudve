@@ -81,10 +81,19 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
+                int idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);
+
                 //Editar cliente
                 if (e.ColumnIndex == 5)
                 {
-                    MessageBox.Show("Editar cliente");
+                    AgregarCliente editar = new AgregarCliente(2, idCliente);
+
+                    editar.FormClosed += delegate
+                    {
+                        CargarDatos();
+                    };
+
+                    editar.ShowDialog();
                 }
 
                 //Eliminar cliente

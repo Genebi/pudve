@@ -309,7 +309,6 @@
             this.btnEmpleados.Text = "Empleados";
             this.btnEmpleados.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnEmpleados.UseVisualStyleBackColor = true;
-            this.btnEmpleados.Click += new System.EventHandler(this.btnProveedores_Click);
             // 
             // btnServicios
             // 
@@ -329,7 +328,6 @@
             this.btnServicios.Text = "Servicios";
             this.btnServicios.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnServicios.UseVisualStyleBackColor = true;
-            this.btnServicios.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // btnVentas
             // 

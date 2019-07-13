@@ -14,14 +14,33 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
-        public AgregarCliente()
+        //tipo 1 = agregar
+        //tipo 2 = editar
+        private int tipo = 0;
+        private int idCliente = 0;
+
+        public AgregarCliente(int tipo = 1, int idCliente = 0)
         {
             InitializeComponent();
+
+            this.tipo = tipo;
+            this.idCliente = idCliente;
         }
 
         private void AgregarCliente_Load(object sender, EventArgs e)
         {
+            //El titulo que se mostrara al abrir el form
+            if (tipo == 1)
+            {
+                this.Text = "PUDVE - Nuevo Cliente";
+            }
+            else
+            {
+                this.Text = "PUDVE - Editar Cliente";
+            }
+
             //ComboBox usos de CFDI
             Dictionary<string, string> usosCFDI = new Dictionary<string, string>();
             usosCFDI.Add("G01", "Adquisición de mercancias");
@@ -68,6 +87,14 @@ namespace PuntoDeVentaV2
             cbFormaPago.DataSource = pagos.ToArray();
             cbFormaPago.DisplayMember = "Value";
             cbFormaPago.ValueMember = "Key";
+
+            //Si viene de la opcion editar buscamos los datos actuales del cliente
+            if (tipo == 2)
+            {
+                var cliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
+
+                CargarDatosCliente(cliente);
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -171,6 +198,26 @@ namespace PuntoDeVentaV2
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void CargarDatosCliente(string[] datos)
+        {
+            txtRazonSocial.Text = datos[0];
+            txtNombreComercial.Text = datos[2];
+            txtRFC.Text = datos[1];
+            txtPais.Text = datos[4];
+            txtEstado.Text = datos[5];
+            txtMunicipio.Text = datos[6];
+            txtLocalidad.Text = datos[7];
+            txtCP.Text = datos[8];
+            txtColonia.Text = datos[9];
+            txtCalle.Text = datos[10];
+            txtNumExt.Text = datos[11];
+            txtNumInt.Text = datos[12];
+            txtEmail.Text = datos[13];
+            txtTelefono.Text = datos[14];
+            cbUsoCFDI.SelectedValue = datos[3];
+            cbFormaPago.SelectedValue = datos[15];
         }
     }
 }
