@@ -187,6 +187,7 @@ namespace PuntoDeVentaV2
 
         public string GuardarCliente(string[] datos, int tipo = 0)
         {
+            //Este metodo sirve para insertar cliente, actualizar y deshabilitar al cliente
             string consulta = string.Empty;
 
             if (tipo == 0)
@@ -198,6 +199,11 @@ namespace PuntoDeVentaV2
             if (tipo == 1)
             {
                 consulta = $"UPDATE Clientes SET RazonSocial = '{datos[1]}', NombreComercial = '{datos[2]}', RFC = '{datos[3]}', UsoCFDI = '{datos[4]}', Pais = '{datos[5]}', Estado = '{datos[6]}', Municipio = '{datos[7]}', Localidad = '{datos[8]}', CodigoPostal = '{datos[9]}', Colonia = '{datos[10]}', Calle = '{datos[11]}', NoExterior = '{datos[12]}', NoInterior = '{datos[13]}', RegimenFiscal = '{datos[14]}', Email = '{datos[15]}', Telefono = '{datos[16]}', FormaPago = '{datos[17]}', FechaOperacion = '{datos[18]}' WHERE IDUsuario = {datos[0]} AND RFC = '{datos[3]}' AND ID = '{datos[19]}'";
+            }
+
+            if (tipo == 2)
+            {
+                consulta = $"UPDATE Clientes SET Status = 2 WHERE ID = {datos[0]} AND IDUsuario = {datos[1]}";
             }
 
             return consulta;

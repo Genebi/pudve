@@ -13,6 +13,9 @@ namespace PuntoDeVentaV2
 {
     public partial class Clientes : Form
     {
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+
         public Clientes()
         {
             InitializeComponent();
@@ -32,7 +35,7 @@ namespace PuntoDeVentaV2
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
 
-            var consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID}";
+            var consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
 
             sql_cmd = new SQLiteCommand(consulta, sql_con);
 
@@ -99,7 +102,19 @@ namespace PuntoDeVentaV2
                 //Eliminar cliente
                 if (e.ColumnIndex == 6)
                 {
-                    MessageBox.Show("Eliminar cliente");
+                    var respuesta = MessageBox.Show("¿Estás seguro de deshabilitar este cliente?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        string[] datos = new string[] { idCliente.ToString(), FormPrincipal.userID.ToString() };
+
+                        int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 2));
+
+                        if (resultado > 0)
+                        {
+                            CargarDatos();
+                        }
+                    }
                 }
 
                 DGVClientes.ClearSelection();
