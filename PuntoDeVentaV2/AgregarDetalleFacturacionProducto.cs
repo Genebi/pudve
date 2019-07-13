@@ -445,12 +445,16 @@ namespace PuntoDeVentaV2
 
             string cadenaImpuestos = null;
 
-            cadenaImpuestos += ValidarCampos(cbLinea1_1.Text) + ",";
-            cadenaImpuestos += ValidarCampos(cbLinea1_2.Text) + ",";
-            cadenaImpuestos += ValidarCampos(cbLinea1_3.Text) + ",";
-            cadenaImpuestos += ValidarCampos(cbLinea1_4.Text) + ",";
-            cadenaImpuestos += ValidarCampos(tbLinea1_1.Text) + ",";
-            cadenaImpuestos += ValidarCampos(tbLinea1_2.Text) + "|";
+            if (cbLinea1_1.Text != "...")
+            {
+                cadenaImpuestos += ValidarCampos(cbLinea1_1.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_2.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_3.Text) + ",";
+                cadenaImpuestos += ValidarCampos(cbLinea1_4.Text) + ",";
+                cadenaImpuestos += ValidarCampos(tbLinea1_1.Text) + ",";
+                cadenaImpuestos += ValidarCampos(tbLinea1_2.Text) + "|";
+            }
+            
 
             //Leer todos los datos de los ComboBox y TextBox que se hayan agregado para el producto
             if (panelContenedor.Controls.Count > 0)
@@ -475,12 +479,39 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
+            //Eliminamos el ultimo caracter de la cadena impuestos "|"
+            if (!string.IsNullOrWhiteSpace(cadenaImpuestos))
+            {
+                cadenaImpuestos = cadenaImpuestos.Remove(cadenaImpuestos.Length - 1);
+            }
+            
+            //Verificamos cual impuesto de los radio buttons fue seleccionado
+            var impuesto = string.Empty;
+
+            if (rb0porCiento.Checked)
+            {
+                impuesto = "0%";
+            }
+            else if (rb16porCiento.Checked)
+            {
+                impuesto = "16%";
+            }
+            else if (rb8porCiento.Checked)
+            {
+                impuesto = "8%";
+            }
+            else if (rbExcento.Checked)
+            {
+                impuesto = "Exento";
+            }
 
             AgregarEditarProducto.datosImpuestos = cadenaImpuestos;
             AgregarEditarProducto.claveProducto = txtClaveProducto.Text;
             AgregarEditarProducto.claveUnidadMedida = txtClaveUnidad.Text;
-
+            AgregarEditarProducto.baseProducto = txtBoxBase.Text;
+            AgregarEditarProducto.ivaProducto = txtIVA.Text;
+            AgregarEditarProducto.impuestoProducto = impuesto;
+            
             this.Hide();
         }
 

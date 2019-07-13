@@ -16,10 +16,16 @@ namespace PuntoDeVentaV2
     {
         static public int id = 1;
         static public string precioProducto = "";
+        //Esta variables se usan en el form detalle de facturacion
         static public string datosImpuestos = null;
         static public string claveProducto = null;
         static public string claveUnidadMedida = null;
+        static public string baseProducto = null;
+        static public string ivaProducto = null;
+        static public string impuestoProducto = null;
+
         static public string detallesProducto = null;
+
         static public DataTable SearchDesCliente, SearchDesMayoreo;
         static public List<string> descuentos = new List<string>();
 
@@ -894,7 +900,7 @@ namespace PuntoDeVentaV2
                     }
                     else if (tipoServPaq == "Producto")
                     {
-                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq };
+                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
 
