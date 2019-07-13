@@ -102,5 +102,37 @@ namespace PuntoDeVentaV2
 
             return lista.ToArray();
         }
+
+        public string[] ObtenerDatosProveedor(int idProveedor, int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            Conexion();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE ID = {idProveedor} AND IDUsuario = {idUsuario}";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[2].ToString()); //Nombre
+                lista.Add(dr[3].ToString()); //RFC
+                lista.Add(dr[4].ToString()); //Calle
+                lista.Add(dr[5].ToString()); //No. exterior
+                lista.Add(dr[6].ToString()); //No. interior
+                lista.Add(dr[7].ToString()); //Colonia
+                lista.Add(dr[8].ToString()); //Municipio
+                lista.Add(dr[9].ToString()); //Estado
+                lista.Add(dr[10].ToString()); //Codigo postal
+                lista.Add(dr[11].ToString()); //Email
+                lista.Add(dr[12].ToString()); //Telefono
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
     }
 }

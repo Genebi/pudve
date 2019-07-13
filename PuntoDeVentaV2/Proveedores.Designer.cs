@@ -38,6 +38,8 @@
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProveedores)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -56,12 +58,18 @@
             this.RFC,
             this.Email,
             this.Telefono,
-            this.Fecha});
+            this.Fecha,
+            this.Editar,
+            this.Eliminar});
             this.DGVProveedores.Location = new System.Drawing.Point(12, 141);
             this.DGVProveedores.Name = "DGVProveedores";
             this.DGVProveedores.ReadOnly = true;
+            this.DGVProveedores.RowHeadersVisible = false;
             this.DGVProveedores.Size = new System.Drawing.Size(845, 217);
             this.DGVProveedores.TabIndex = 11;
+            this.DGVProveedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProveedores_CellClick);
+            this.DGVProveedores.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProveedores_CellMouseEnter);
+            this.DGVProveedores.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProveedores_CellMouseLeave);
             // 
             // panelBotones
             // 
@@ -146,6 +154,20 @@
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 135;
             // 
+            // Editar
+            // 
+            this.Editar.HeaderText = "Editar";
+            this.Editar.Name = "Editar";
+            this.Editar.ReadOnly = true;
+            this.Editar.Width = 60;
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.HeaderText = "Eliminar";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
+            this.Eliminar.Width = 60;
+            // 
             // Proveedores
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,5 +198,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Telefono;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewImageColumn Editar;
+        private System.Windows.Forms.DataGridViewImageColumn Eliminar;
     }
 }

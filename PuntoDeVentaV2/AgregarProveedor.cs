@@ -14,10 +14,42 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
-        public AgregarProveedor()
+        //tipo 1 = agregar
+        //tipo 2 = editar
+        private int tipo = 0;
+        private int idProveedor = 0;
+
+        public AgregarProveedor(int tipo = 1, int idProveedor = 0)
         {
             InitializeComponent();
+
+            this.tipo = tipo;
+            this.idProveedor = idProveedor;
+        }
+
+        private void AgregarProveedor_Load(object sender, EventArgs e)
+        {
+            //El titulo que se mostrara al abrir el form
+            if (tipo == 1)
+            {
+                this.Text = "PUDVE - Nuevo Proveedor";
+                tituloSeccion.Text = "NUEVO PROVEEDOR";
+            }
+            else
+            {
+                this.Text = "PUDVE - Editar Proveedor";
+                tituloSeccion.Text = "EDITAR PROVEEDOR";
+            }
+
+            //Si viene de la opcion editar buscamos los datos actuales del proveedor
+            if (tipo == 2)
+            {
+                var proveedor = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
+
+                CargarDatosProveedor(proveedor);
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -35,7 +67,7 @@ namespace PuntoDeVentaV2
             var telefono = txtTelefono.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion };
+            string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
 
             var respuestaValidacion = ValidarFormulario(datos);
 
@@ -45,11 +77,26 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos));
 
-            if (respuesta > 0)
+            if (tipo == 1)
             {
-                this.Dispose();
+                //Insertar
+                int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos));
+
+                if (respuesta > 0)
+                {
+                    this.Dispose();
+                }
+            }
+            else
+            {
+                //Actualizar
+                int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos, 1));
+
+                if (respuesta > 0)
+                {
+                    this.Dispose();
+                }
             }
         }
 
@@ -74,6 +121,22 @@ namespace PuntoDeVentaV2
             var respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}'");
 
             return respuesta;
+        }
+
+
+        private void CargarDatosProveedor(string[] datos)
+        {
+            txtNombre.Text = datos[0];
+            txtRFC.Text = datos[1];
+            txtCalle.Text = datos[2];
+            txtNoExterior.Text = datos[3];
+            txtNoInterior.Text = datos[4];
+            txtColonia.Text = datos[5];
+            txtMunicipio.Text = datos[6];
+            txtEstado.Text = datos[7];
+            txtCodigoPostal.Text = datos[8];
+            txtEmail.Text = datos[9];
+            txtTelefono.Text = datos[10];
         }
     }
 }
