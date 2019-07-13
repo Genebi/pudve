@@ -94,6 +94,9 @@ namespace PuntoDeVentaV2
                 var cliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
 
                 CargarDatosCliente(cliente);
+
+                //Deshabilitamos el checkbox para permitir agregar RFC repetido
+                cbCliente.Enabled = false;
             }
         }
 
@@ -112,7 +115,7 @@ namespace PuntoDeVentaV2
             var calle = txtCalle.Text;
             var noExt = txtNumExt.Text;
             var noInt = txtNumInt.Text;
-            var regimen = string.Empty;
+            var regimen = string.Empty; //Esta vacio porque no se utiliza actualmente el campo de regimen
             var email = txtEmail.Text;
             var telefono = txtTelefono.Text;
             var formaPago = cbFormaPago.SelectedValue;
@@ -186,11 +189,25 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
-
-                if (resultado > 0)
+                if (tipo == 1)
                 {
-                    this.Close();
+                    //Insertar
+                    int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
+
+                    if (resultado > 0)
+                    {
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    //Actualizar
+                    int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos, 1));
+
+                    if (resultado > 0)
+                    {
+                        this.Close();
+                    }
                 }
             }
         }
