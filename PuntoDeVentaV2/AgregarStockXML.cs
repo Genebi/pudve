@@ -254,8 +254,12 @@ namespace PuntoDeVentaV2
             FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
             FormAgregar.lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
             FormAgregar.ProdClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;        // pasamos la claveInterna del XML
-            FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveUnidad;             // pasamos la ClaveUnidad del XML
-            FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].Unidad;              // pasamos la Unidad del XML
+            //FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveUnidad;             // pasamos la ClaveUnidad del XML
+            //FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].Unidad;              // pasamos la Unidad del XML
+
+            //Se corrigieron los valores que deben de ser enviados, la clave producto y la clave de unidad
+            FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;
+            FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;
         }
 
         // funcion para poder saber que cliente es el que esta iniciando sesion en el sistema

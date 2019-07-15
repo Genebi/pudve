@@ -497,6 +497,7 @@ namespace PuntoDeVentaV2
             ProdNombreFinal = ProdNombre;
             ProdStockFinal = ProdStock;
             ProdPrecioFinal = ProdPrecio;
+            precioProducto = ProdPrecio; //Se asigna a la variable que se utiliza en detalles de facturacion
             ProdCategoriaFinal = ProdCategoria;
             ProdClaveInternaFinal = ProdClaveInterna;
             ProdCodBarrasFinal = ProdCodBarras;

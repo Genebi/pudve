@@ -223,6 +223,19 @@ namespace PuntoDeVentaV2
             txtBoxBase.Text = precioProducto.ToString("N2");
 
             checarRadioButtons();
+
+            //Verificar si existe ya una clave de unidad y de producto proveniente desde cargar XML
+            if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveProducto))
+            {
+                txtClaveProducto.Text = AgregarEditarProducto.claveProducto;
+            }
+
+            if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveUnidadMedida))
+            {
+                txtClaveUnidad.Text = AgregarEditarProducto.claveUnidadMedida;
+
+                CargarClaveUnidad();
+            }
         }
 
         private void btnExtra_Click(object sender, EventArgs e)
@@ -394,7 +407,11 @@ namespace PuntoDeVentaV2
 
         private void txtClaveUnidad_Leave(object sender, EventArgs e)
         {
+            CargarClaveUnidad();
+        }
 
+        private void CargarClaveUnidad()
+        {
             string[] claves = clavesUnidad.ToArray();
 
             string valor = txtClaveUnidad.Text;
