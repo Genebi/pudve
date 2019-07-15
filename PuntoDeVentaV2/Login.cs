@@ -243,12 +243,12 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
 
             // descomentar la linea de abajo en caso de hacer el Release
-            //Properties.Settings.Default.rutaDirectorio = Properties.Settings.Default.pathPUDVE;
+            Properties.Settings.Default.rutaDirectorio = Properties.Settings.Default.pathPUDVE;
 
             //MessageBox.Show("Path: " + Properties.Settings.Default.rutaDirectorio, "Path...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
             // descomentar la Linea de abajo cuando estemos en Debug
-            Properties.Settings.Default.rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+            //Properties.Settings.Default.rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
             RevisarTablas();
 

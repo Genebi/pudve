@@ -1293,7 +1293,7 @@ namespace PuntoDeVentaV2
                                               RazonSocial TEXT,
                                               NombreComercial TEXT,
                                               RFC TEXT NOT NULL,
-                                              UsoCFDITEXT,
+                                              UsoCFDI TEXT,
                                               Pais TEXT,
                                               Estado TEXT,
                                               Municipio TEXT,
