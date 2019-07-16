@@ -699,7 +699,8 @@ namespace PuntoDeVentaV2
         public void searchProd()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, Prod.Tipo, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            //string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, Prod.Tipo, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, Prod.Tipo, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.Status = '1' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
             dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
             if (dtProductos.Rows.Count >= 1) // si el resultado arroja al menos una fila
             {
@@ -1575,8 +1576,8 @@ namespace PuntoDeVentaV2
                         else                                                                // so es que no son iguales los RFC
                         {
                             // mostramos este mensaje al usuario del sistema
-                            MessageBox.Show("El archivo XML seleccionado no tiene la tu RFC,\nDebes seleccionar un archivo XML con tu RFC",
-                                    "XML no contiene tu R.F.C.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("El archivo XML seleccionado no contiene tu RFC,\nDebes seleccionar un archivo XML con tu RFC",
+                                    "No tiene tu RFC.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             MostrarPanelCarga();        // mostramos el panel de carga del archivo XML
                             btnLoadXML.Show();          // mostramos el botonXML
                         }
