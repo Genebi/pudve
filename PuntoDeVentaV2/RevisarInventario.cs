@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     public partial class RevisarInventario : Form
     {
         Conexion cn = new Conexion();
+        ConexionNet cnRed = new ConexionNet();
 
         const string fichero = @"\PUDVE\settings\noCheckStock\checkStock.txt";  // directorio donde esta el archivo de numero de codigo de barras consecutivo
         const string fichero1 = @"\PUDVE\settings\noCheckStock\checkDateStock.txt";
@@ -29,11 +30,20 @@ namespace PuntoDeVentaV2
         string SearchBarCode, queryTaerStock, queryUpdateStock, tablaProductos, tablaRevisarInventario, buscarStock;
         string cadenaClavInterna, cadenaAuxClavInterna, cadenaCodigoBarras, cadenaAuxCodigoBarras;
         string ID, IDAlmacen, Nombre, StockAlmacen, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario, NumRevInventario, FechaRegInventario, IDUser, TypeProd, StatusRevInventario, StatusInventHecho;
+
         DataTable dtRevisarStockResultado;
         DataRow dr;
         int NoReg, index, LaPosicion, registro, StatusRev;
         bool IsEmpty;
         string auxDate, auxCurrentDate;
+
+        string queryNet;
+        DataTable dtProductos;
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            
+        }
 
         private void llenarTabla()
         {

@@ -33,6 +33,8 @@ namespace PuntoDeVentaV2
         public static DataSet cs_DS = new DataSet();
         public static DataTable cs_DT = new DataTable();
 
+        string host;
+
         public ConexionNet()
         {
             cs_sql_con = sql_con;
@@ -44,8 +46,8 @@ namespace PuntoDeVentaV2
 
         public void Conectarse()
         {
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
+            host = "Desktop-o4e7hh1";
+            sql_con = new SQLiteConnection("Data source=//" + host + @"\bd\pudveDB.db;Version=3;Compress=True;");
         }
 
         //Sirve para los INSERT, UPDATE, DELETE
