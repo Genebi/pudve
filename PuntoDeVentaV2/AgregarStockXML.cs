@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace PuntoDeVentaV2
@@ -109,7 +110,7 @@ namespace PuntoDeVentaV2
 
         public class TImpuestos
         {
-            [XmlArrayItemAttribute("Traslado")]
+            [XmlArrayItem("Traslado")]
             public TTraslado[] Traslados;
         }
 
@@ -125,7 +126,8 @@ namespace PuntoDeVentaV2
         *   Termina la clase para leer el XML y sus respectivas     *
         *   sub class para hacer los array                          *   
         ************************************************************/
-
+        private string rutaXML = string.Empty;
+        private string[] impuestosXML;
 
         /****************************************************
         *       se declaran e inicializan las variables     * 
@@ -239,6 +241,7 @@ namespace PuntoDeVentaV2
         FileStream fs;
         Comprobante ds;
 
+
         string IdProductoSugerido;          // Obtiene el ID del Producto sugerido al darle click en la lista
         string NombProductoSugerido;        // Obtiene el Nombre del Producto sugerido al darle click en la lista
         string StockProdSugerido;           // Obtiene el Stock del Producto sugerido al darle click en la lista
@@ -260,6 +263,41 @@ namespace PuntoDeVentaV2
             //Se corrigieron los valores que deben de ser enviados, la clave producto y la clave de unidad
             FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;
             FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;
+
+            ObtenerImpuestos(rutaXML, index - 1);
+        }
+
+        private void ObtenerImpuestos(string archivo, int indice)
+        {
+            string filename = archivo;
+
+            XDocument doc = XDocument.Load(filename);
+
+
+            List<string> tmp = new List<string>();
+
+            foreach (var datos in doc.Descendants().Where(x => x.Name.LocalName == "Traslado"))
+            {
+                string impuesto = (string)datos.Attribute("Impuesto");
+                string importe = (string)datos.Attribute("Importe");
+
+                tmp.Add(impuesto + "|" + importe);
+            }
+
+            impuestosXML = tmp.ToArray();
+            //Para eliminar el ultimo elemento del array
+            impuestosXML = impuestosXML.Take(impuestosXML.Count() - 1).ToArray();
+
+            MessageBox.Show(impuestosXML[indice]);
+
+            //XElement Impuestos = doc.Descendants().Where(x => x.Name.LocalName == "Impuestos").FirstOrDefault();
+
+            /*XElement Traslado = Impuestos.Descendants().Where(x => x.Name.LocalName == "Traslado").FirstOrDefault();
+
+            string Impuesto = (string)Traslado.Attribute("Impuesto");
+            decimal Importe = (decimal)Traslado.Attribute("Importe");
+
+            MessageBox.Show(Impuesto + "|" + Importe);*/
         }
 
         // funcion para poder saber que cliente es el que esta iniciando sesion en el sistema
@@ -1523,8 +1561,10 @@ namespace PuntoDeVentaV2
                         serial = new XmlSerializer(typeof(Comprobante));                    // iniciamos el objeto serial para leer el XML
                         fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);    // iniciamos el objeto fs para poder leer el archivo XML y no dejarlo en uso
                         ds = (Comprobante)serial.Deserialize(fs);                           // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
+
                         if (ds.Receptor.Rfc == rfc)                                         // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
                         {
+                            rutaXML = f.FileName; //Almacenamos el nombre y ruta completa del archivo cargado
                             cantProductos = 0;          // la cantidad de Productos la ponemos en 0
                             OcultarPanelCarga();        // ocultamos el panel de cargar XML
                             btnLoadXML.Hide();          // ocultamos el botonXML
