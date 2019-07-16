@@ -252,6 +252,7 @@
     </Compile>
     <Compile Include="ComboboxItem.cs" />
     <Compile Include="Conexion.cs" />
+    <Compile Include="ConexionNet.cs" />
     <Compile Include="Consultas.cs" />
     <Compile Include="DBTables.cs" />
     <Compile Include="DetalleDescripcion.cs">

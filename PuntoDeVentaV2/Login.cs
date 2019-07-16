@@ -245,8 +245,6 @@ namespace PuntoDeVentaV2
             // descomentar la linea de abajo en caso de hacer el Release
             //Properties.Settings.Default.rutaDirectorio = Properties.Settings.Default.pathPUDVE;
 
-            //MessageBox.Show("Path: " + Properties.Settings.Default.rutaDirectorio, "Path...", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
             // descomentar la Linea de abajo cuando estemos en Debug
             Properties.Settings.Default.rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
