@@ -50,15 +50,15 @@ namespace PuntoDeVentaV2
             HisotorialCompras = 17;
             HistorialModificacionRecordProduct = 4;
             ProductoRelacionadoXML = 5;
-            Productos = 14;
+            Productos = 17;
             ProductosDeServicios = 6;
             ProductosVenta = 6;
-            Proveedores = 14;
+            Proveedores = 15;
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
             Usuarios = 19;
             Ventas = 20;
-            Clientes = 20;
+            Clientes = 21;
             RevisarInventario = 15;
             DetallesVenta = 12;
             Abonos = 11;
@@ -770,6 +770,9 @@ namespace PuntoDeVentaV2
                                               Status INT NOT NULL DEFAULT (1),
                                               ProdImage TEXT,
                                               Tipo TEXT NOT NULL DEFAULT P,
+                                              Base DECIMAL DEFAULT (0),
+                                              IVA DECIMAL DEFAULT (0),
+                                              Impuesto TEXT,
                                               FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
         }
 
@@ -935,8 +938,8 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaProveedores(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              IDUsuario INTEGER NOT NULL,
+            return $@"CREATE TABLE '{tabla}' (ID INTEGER  PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario INTEGER  NOT NULL,
                                               Nombre TEXT NOT NULL,
                                               RFC TEXT NOT NULL,
                                               Calle TEXT,
@@ -948,7 +951,8 @@ namespace PuntoDeVentaV2
                                               CodigoPostal TEXT,
                                               Email TEXT,
                                               Telefono TEXT,
-                                              FechaOperacion DATETIME);";
+                                              FechaOperacion DATETIME,
+                                              Status INTEGER  DEFAULT (1));";
         }
 
         public string QueryUpdateTablaProveedores(string tabla)
@@ -1285,7 +1289,7 @@ namespace PuntoDeVentaV2
         public string QueryNvaTablaClientes(string tabla)
         {
             return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              IDUsuario INTEGER REFERENCES Usuarios (ID)  NOT NULL,
+                                              IDUsuario INTEGER REFERENCES Usuarios (ID) NOT NULL,
                                               RazonSocial TEXT,
                                               NombreComercial TEXT,
                                               RFC TEXT NOT NULL,
@@ -1303,7 +1307,8 @@ namespace PuntoDeVentaV2
                                               Email TEXT,
                                               Telefono TEXT,
                                               FormaPago TEXT,
-                                              FechaOperacion DATETIME);";
+                                              FechaOperacion DATETIME,
+                                              Status INTEGER DEFAULT (1));";
         }
 
         public string QueryUpdateTablaClientes(string tabla)
