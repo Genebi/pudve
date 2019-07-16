@@ -40,15 +40,10 @@ namespace PuntoDeVentaV2
         string queryNet;
         DataTable dtProductos;
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void llenarTabla()
         {
             queryTaerStock = $"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC, Nombre ASC";
-            dtRevisarStockResultado = cn.CargarDatos(queryTaerStock);
+            dtRevisarStockResultado = cnRed.CargarDatos(queryTaerStock);
         }
 
         private void cargardatos()
