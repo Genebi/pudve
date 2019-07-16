@@ -105,5 +105,17 @@ namespace PuntoDeVentaV2.Properties {
                 this["InicioFinInventario"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Hosting {
+            get {
+                return ((string)(this["Hosting"]));
+            }
+            set {
+                this["Hosting"] = value;
+            }
+        }
     }
 }
