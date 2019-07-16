@@ -709,7 +709,9 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
-                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+                idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
+
+                row.Cells["_IDProducto"].Value = idProducto;
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
 
