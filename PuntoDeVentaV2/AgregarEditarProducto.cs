@@ -23,6 +23,10 @@ namespace PuntoDeVentaV2
         static public string baseProducto = null;
         static public string ivaProducto = null;
         static public string impuestoProducto = null;
+        //Para los impuestos obtenidos desde el XML
+        static public string impuestoProductoXML = string.Empty;
+        static public string importeProductoXML = string.Empty;
+ 
 
         static public string detallesProducto = null;
 
@@ -56,6 +60,8 @@ namespace PuntoDeVentaV2
         public string claveProductoxml { set; get; }
         public string claveUnidadMedidaxml { set; get; }
         public string CantidadProdServicio { get; set; }
+        public string impuestoProdXML { get; set; }
+        public string importeProdXML { get; set; }
 
         static public int DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
@@ -503,6 +509,8 @@ namespace PuntoDeVentaV2
             ProdCodBarrasFinal = ProdCodBarras;
             claveProducto = claveProductoxml;
             claveUnidadMedida = claveUnidadMedidaxml;
+            impuestoProductoXML = impuestoProdXML;
+            importeProductoXML = importeProdXML;
 
             txtNombreProducto.Text = ProdNombreFinal;
             txtStockProducto.Text = ProdStockFinal;

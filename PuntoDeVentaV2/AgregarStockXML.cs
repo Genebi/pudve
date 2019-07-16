@@ -264,15 +264,18 @@ namespace PuntoDeVentaV2
             FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;
             FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;
 
-            ObtenerImpuestos(rutaXML, index - 1);
+            //Asignamos el impuesto y el importe
+            /*var cadena = ObtenerImpuestos(rutaXML, index - 1);
+            var tmp = cadena.Split('|');
+
+            FormAgregar.impuestoProdXML = tmp[0];
+            FormAgregar.importeProdXML = tmp[1];*/
+
         }
 
-        private void ObtenerImpuestos(string archivo, int indice)
+        private string ObtenerImpuestos(string archivo, int indice)
         {
-            string filename = archivo;
-
-            XDocument doc = XDocument.Load(filename);
-
+            XDocument doc = XDocument.Load(archivo);
 
             List<string> tmp = new List<string>();
 
@@ -288,16 +291,7 @@ namespace PuntoDeVentaV2
             //Para eliminar el ultimo elemento del array
             impuestosXML = impuestosXML.Take(impuestosXML.Count() - 1).ToArray();
 
-            MessageBox.Show(impuestosXML[indice]);
-
-            //XElement Impuestos = doc.Descendants().Where(x => x.Name.LocalName == "Impuestos").FirstOrDefault();
-
-            /*XElement Traslado = Impuestos.Descendants().Where(x => x.Name.LocalName == "Traslado").FirstOrDefault();
-
-            string Impuesto = (string)Traslado.Attribute("Impuesto");
-            decimal Importe = (decimal)Traslado.Attribute("Importe");
-
-            MessageBox.Show(Impuesto + "|" + Importe);*/
+            return impuestosXML[indice];
         }
 
         // funcion para poder saber que cliente es el que esta iniciando sesion en el sistema
