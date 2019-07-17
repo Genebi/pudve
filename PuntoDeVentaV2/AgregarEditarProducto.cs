@@ -880,9 +880,17 @@ namespace PuntoDeVentaV2
             ************************************/
             resultadoSearchNoIdentificacion = 0;    // ponemos los valores en 0
             resultadoSearchCodBar = 0;              // ponemos los valores en 0
+
             if (DatosSourceFinal == 3 || DatosSourceFinal == 1)
             {
-                //MessageBox.Show("Proceso de registrar Nvo producto seleccionado del XML o Productos");
+                //Validar que el precio no sea menor al precio original del producto/servicio
+                if (Convert.ToDouble(precio) < Convert.ToDouble(lblPrecioOriginal.Text))
+                {
+                    MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
                 searchClavIntProd();                    // hacemos la busqueda que no se repita en CalveInterna
                 searchCodBar();                         // hacemos la busqueda que no se repita en CodigoBarra
                 if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
@@ -2272,6 +2280,11 @@ namespace PuntoDeVentaV2
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
+
+            if (DatosSourceFinal == 3)
+            {
+                cbTipo.SelectedIndex = 0;
+            }
 
             if (ProdNombre.Equals(""))
             {
