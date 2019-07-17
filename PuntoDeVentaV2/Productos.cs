@@ -66,18 +66,20 @@ namespace PuntoDeVentaV2
 
         string ID_ProdSerPaq;
 
+        //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
             {
-                foreach (DataGridViewRow row in DGVProductos.Rows)
+                if ((bool)DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value == false)
                 {
-                    if (Convert.ToBoolean(row.Cells[e.ColumnIndex].Value))
-                    {
-                        row.Cells[e.ColumnIndex].Value = false;
-                    }
+                    DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = true;
                 }
-            }
+                else
+                {
+                    DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
+                }
+            }    
         }
 
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
@@ -276,7 +278,7 @@ namespace PuntoDeVentaV2
             }
         }
         
-        private void DGVProductos_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)
+        private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -353,7 +355,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void DGVProductos_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var fila = DGVProductos.CurrentCell.RowIndex;
 
@@ -365,8 +367,9 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 0)
                 {
                     numerofila = e.RowIndex;
-                    obtenerDatosDGVProductos(numerofila);
-                    editarEstado = 4;
+                    //obtenerDatosDGVProductos(numerofila);
+                    //editarEstado = 4;
+                    //DGVProductos.Rows[fila].Cells["CheckProducto"].Value = true;
                 }
                 else if (e.ColumnIndex == 7)
                 {
@@ -411,7 +414,7 @@ namespace PuntoDeVentaV2
                     string codiBarProd = "";
                     numfila = e.RowIndex;
                     obtenerDatosDGVProductos(numfila);
-                    //MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                     MakeBarCode.FormClosed += delegate
                     {
 
@@ -535,7 +538,7 @@ namespace PuntoDeVentaV2
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
         {
-            if (editarEstado == 4 && Convert.ToBoolean(DGVProductos.Rows[numerofila].Cells[0].Value) == true)
+            /*if (editarEstado == 4 && Convert.ToBoolean(DGVProductos.Rows[numerofila].Cells[0].Value) == true)
             {
                 //MessageBox.Show("Proceso de Cambiar el estado del\nProducto: " + ProductoNombre, "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 string status;
@@ -576,7 +579,7 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show("Favor de seleccionar (Marcar un)\nalgun CheckBox (Casilla de Verificación)", "Verificar Selección", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }*/
         }
 
         public void obtenerDatosDGVProductos(int fila)
@@ -694,8 +697,6 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            //AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%')
-
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", sql_con);
@@ -714,6 +715,8 @@ namespace PuntoDeVentaV2
                 row.Cells["_IDProducto"].Value = idProducto;
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+
+                row.Cells["CheckProducto"].Value = false;
 
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
 
@@ -904,7 +907,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void ModificarStatusProductoChkBox()
+        /*private void ModificarStatusProductoChkBox()
         {
             DataRow row;
             // Preparamos el Query que haremos segun la fila seleccionada
@@ -927,7 +930,7 @@ namespace PuntoDeVentaV2
                 dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
                 //cn.EjecutarConsulta(buscar);                              // acutualizamos los datos
             }
-        }
+        }*/
 
         private void ViewRecordProducto()
         {
