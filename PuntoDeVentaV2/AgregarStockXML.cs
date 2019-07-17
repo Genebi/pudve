@@ -249,6 +249,16 @@ namespace PuntoDeVentaV2
         int totalProdSugerido;              // Se obtiene la cantidad de productos sugeridos
         int origenDeLosDatos = 0;
 
+        private void ActivarBtnSi()
+        {
+            button2.Enabled = true;
+        }
+
+        private void DesactivarBtnSi()
+        {
+            button2.Enabled = false;
+        }
+
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
         public void datosAgregarNvoProd()
         {
@@ -713,26 +723,31 @@ namespace PuntoDeVentaV2
                     {
                         datosProductos();                                                   // llamamos la funcion de datosProductos
                         OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                        ActivarBtnSi();
                     }
                     else if (NoCodBar == ClaveInterna)
                     {
                         datosProductos();                                                   // llamamos la funcion de datosProductos
                         OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                        ActivarBtnSi();
                     }
                     else if (NoCodBarExt == ClaveInterna)
                     {
                         datosProductos();                                                   // llamamos la funcion de datosProductos
                         OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                        ActivarBtnSi();
                     }
                     else
                     {
                         limpiarLblProd();               // limpiamos los campos de producto
                         MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                         buscarSugeridos();
+                        DesactivarBtnSi();
                     }
                 }
                 else if (dtProductos.Rows[0]["Status"].ToString() == "0")
                 {
+                    DesactivarBtnSi();
                     RecorrerXML();
                 }
                 //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -743,6 +758,7 @@ namespace PuntoDeVentaV2
                 limpiarLblProd();               // limpiamos los campos de producto
                 MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
                 buscarSugeridos();
+                DesactivarBtnSi();
             }
         }
 
@@ -1466,10 +1482,12 @@ namespace PuntoDeVentaV2
                     txtBoxPrecioProd.Text = ListProd.PrecioDelProdStrFin;               // mostramos los datos ya almacenado del producto
                     PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
                     seleccionarSugerido = 0;
+                    ActivarBtnSi();
                 }
                 if (consultListProd == 0)   // si el valor es 0 si es que no selecciono nada
                 {
                     MostarPanelSinRegistro();                                           // Mostramos la ventana Si no tiene registro del Stock
+                    DesactivarBtnSi();
                 }
             };
 
@@ -1527,6 +1545,7 @@ namespace PuntoDeVentaV2
             }
 
             seleccionarSugerido = 3;
+            ActivarBtnSi();
             OcultarPanelSinRegistro();
         }
 
@@ -1600,6 +1619,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarStockXML_Load(object sender, EventArgs e)
         {
+            DesactivarBtnSi();
             limpiarLblXNL(); // Llamamos la funsion para poner en limpio los datos que vienen del XML
 
             groupBox5.BackColor = Color.FromArgb(130, 130, 130);
@@ -1635,6 +1655,7 @@ namespace PuntoDeVentaV2
             StockProdSugerido = DGVSugeridos[2, numFila].Value.ToString();
             CoincidenciaSugerido = DGVSugeridos[3, numFila].Value.ToString();
             seleccionarSugerido = 2;
+            ActivarBtnSi();
         }
 
         private void btnLoadXML_Click_1(object sender, EventArgs e)
