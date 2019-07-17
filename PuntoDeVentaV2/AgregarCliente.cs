@@ -21,7 +21,10 @@ namespace PuntoDeVentaV2
         private int tipo = 0;
         private int idCliente = 0;
 
-        public AgregarCliente(int tipo = 1, int idCliente = 0)
+        //idVenta como parametro es para cuando se agrega un cliente al momento de querer timbrar
+        //una venta, de esta manera se asigna el ID del cliente al terminar el registro de esta manera
+        //con la venta la cual se intenta timbrar
+        public AgregarCliente(int tipo = 1, int idCliente = 0, int idVenta = 0)
         {
             InitializeComponent();
 
