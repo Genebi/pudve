@@ -699,39 +699,45 @@ namespace PuntoDeVentaV2
         public void searchProd()
         {
             // preparamos el Query
-            //string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, Prod.Tipo, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
-            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, Prod.Tipo, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.Status = '1' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, Prod.Tipo, Prod.Status, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
             dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
             if (dtProductos.Rows.Count >= 1) // si el resultado arroja al menos una fila
             {
-                resultadoSearchProd = 1;                                            // busqueda positiva
-                NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();    // almacenamos el valor del NoClaveInterna
-                NoCodBar = dtProductos.Rows[0]["CodigoBarras"].ToString();          // almacenamos el valor del NoCodbar
-                NoCodBarExt = dtProductos.Rows[0]["CodigoBarraExtra"].ToString();   // almacenamos el valor del NoCodBarExt
-                if (NoClaveInterna == ClaveInterna)
+                if (dtProductos.Rows[0]["Status"].ToString() == "1")
                 {
-                    datosProductos();                                                   // llamamos la funcion de datosProductos
-                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                    resultadoSearchProd = 1;                                            // busqueda positiva
+                    NoClaveInterna = dtProductos.Rows[0]["ClaveInterna"].ToString();    // almacenamos el valor del NoClaveInterna
+                    NoCodBar = dtProductos.Rows[0]["CodigoBarras"].ToString();          // almacenamos el valor del NoCodbar
+                    NoCodBarExt = dtProductos.Rows[0]["CodigoBarraExtra"].ToString();   // almacenamos el valor del NoCodBarExt
+                    if (NoClaveInterna == ClaveInterna)
+                    {
+                        datosProductos();                                                   // llamamos la funcion de datosProductos
+                        OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                    }
+                    else if (NoCodBar == ClaveInterna)
+                    {
+                        datosProductos();                                                   // llamamos la funcion de datosProductos
+                        OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                    }
+                    else if (NoCodBarExt == ClaveInterna)
+                    {
+                        datosProductos();                                                   // llamamos la funcion de datosProductos
+                        OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
+                    }
+                    else
+                    {
+                        limpiarLblProd();               // limpiamos los campos de producto
+                        MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
+                        buscarSugeridos();
+                    }
                 }
-                else if (NoCodBar == ClaveInterna)
+                else if (dtProductos.Rows[0]["Status"].ToString() == "0")
                 {
-                    datosProductos();                                                   // llamamos la funcion de datosProductos
-                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
-                }
-                else if (NoCodBarExt == ClaveInterna)
-                {
-                    datosProductos();                                                   // llamamos la funcion de datosProductos
-                    OcultarPanelSinRegistro();                                          // si es que hay registro ocultamos el panel sin registro
-                }
-                else
-                {
-                    limpiarLblProd();               // limpiamos los campos de producto
-                    MostarPanelSinRegistro();       // si es que no hay registro muestra este panel
-                    buscarSugeridos();
+                    RecorrerXML();
                 }
                 //MessageBox.Show("Producto Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else if (dtProductos.Rows.Count<=0) // si el resultado no arroja ninguna fila
+            else if (dtProductos.Rows.Count <= 0) // si el resultado no arroja ninguna fila
             {
                 resultadoSearchProd = 0;        // busqueda negativa
                 limpiarLblProd();               // limpiamos los campos de producto
