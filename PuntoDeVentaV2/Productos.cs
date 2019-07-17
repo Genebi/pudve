@@ -538,48 +538,39 @@ namespace PuntoDeVentaV2
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
         {
-            /*if (editarEstado == 4 && Convert.ToBoolean(DGVProductos.Rows[numerofila].Cells[0].Value) == true)
+            int estado = 2;
+
+            if (cbMostrar.Text == "Habilitados")
             {
-                //MessageBox.Show("Proceso de Cambiar el estado del\nProducto: " + ProductoNombre, "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                string status;
-                DialogResult result = MessageBox.Show("Desdea Realmente Modificar el Estatus del\nProducto: " + Nombre + "\nde su Stock Existente", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                estado = 0;
+            }
+            else if (cbMostrar.Text == "Deshabilitados")
+            {
+                estado = 1;
+            }
+
+            foreach (DataGridViewRow row in DGVProductos.Rows)
+            {
+                if ((bool)row.Cells["CheckProducto"].Value == true)
                 {
-                    status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
-                    ModificarStatusProductoChkBox();
-                    if (status == "1")
+                    var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+
+                    if (estado < 2)
                     {
-                        cbMostrar.Text = "Deshabilitados";
+                        cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
                     }
-                    else if (status == "0")
-                    {
-                        cbMostrar.Text = "Habilitados";
-                    }
-                    DGVProductos.Refresh();
-                }
-                else if (result == DialogResult.No)
-                {
-                    status = cbMostrar.Text;
-                    DGVProductos.Rows[numerofila].Cells[0].Value = false;
-                    if (status == "Habilitados")
-                    {
-                        DGVProductos.Refresh();
-                    }
-                    else if (status == "Deshabilitados")
-                    {
-                        DGVProductos.Refresh();
-                    }
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    DGVProductos.Rows[numerofila].Cells[0].Value = false;
-                    DGVProductos.Refresh();
                 }
             }
-            else
+
+            if (estado == 0)
             {
-                MessageBox.Show("Favor de seleccionar (Marcar un)\nalgun CheckBox (Casilla de Verificación)", "Verificar Selección", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+                CargarDatos(1);
+            }
+
+            if (estado == 1)
+            {
+                CargarDatos(0);
+            }
         }
 
         public void obtenerDatosDGVProductos(int fila)

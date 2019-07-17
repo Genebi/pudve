@@ -26,9 +26,9 @@ namespace PuntoDeVentaV2
             return $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path', P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{idUser}' AND P.Status = '{status}'";
         }
 
-        public string SetStatusProductos(string idUser, string idProd, string status)
+        public string ActualizarStatusProducto(int status, int idProducto, int idUsuario)
         {
-            return $"UPDATE Productos SET Status = '{status}' WHERE ID = '{idProd}' AND IDUsuario = '{idUser}'";
+            return $"UPDATE Productos SET Status = {status} WHERE ID = {idProducto} AND IDUsuario = {idUsuario}";
         }
 
         public string GuardarProducto(string[] datos, int id)
