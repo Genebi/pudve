@@ -37,7 +37,7 @@
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.panelShowDGVProductosView = new System.Windows.Forms.Panel();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
-            this.Column0 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CheckProducto = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -184,7 +184,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column0,
+            this.CheckProducto,
             this.Column1,
             this.Column2,
             this.Column3,
@@ -204,120 +204,101 @@
             this.Ajustar,
             this._IDProducto});
             this.DGVProductos.Location = new System.Drawing.Point(10, 15);
-            this.DGVProductos.MultiSelect = false;
             this.DGVProductos.Name = "DGVProductos";
-            this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVProductos.Size = new System.Drawing.Size(792, 327);
             this.DGVProductos.TabIndex = 2;
-            this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick_1);
+            this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
-            this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter_1);
+            this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             // 
-            // Column0
+            // CheckProducto
             // 
-            this.Column0.HeaderText = "";
-            this.Column0.MinimumWidth = 30;
-            this.Column0.Name = "Column0";
-            this.Column0.ReadOnly = true;
-            this.Column0.ToolTipText = "Selecciona Producto para su procesamiento";
-            this.Column0.Width = 30;
+            this.CheckProducto.HeaderText = "";
+            this.CheckProducto.Name = "CheckProducto";
+            this.CheckProducto.Width = 30;
             // 
             // Column1
             // 
             this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.HeaderText = "Nombre";
             this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Stock";
             this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
             this.Column2.Width = 65;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Precio";
             this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
             this.Column3.Width = 65;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Categoria";
             this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "Clave";
             this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Código";
             this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
             this.Column6.Width = 102;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "Editar";
             this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
             this.Column7.Width = 50;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "Estado";
             this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
             this.Column8.Width = 50;
             // 
             // Column9
             // 
             this.Column9.HeaderText = "Historial";
             this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
             this.Column9.Width = 50;
             // 
             // Column10
             // 
             this.Column10.HeaderText = "Generar";
             this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
             this.Column10.Width = 50;
             // 
             // Column11
             // 
             this.Column11.HeaderText = "Imagen";
             this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
             this.Column11.Width = 50;
             // 
             // Column12
             // 
             this.Column12.HeaderText = "Etiqueta";
             this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
             this.Column12.Width = 50;
             // 
             // Column13
             // 
             this.Column13.HeaderText = "Copiar";
             this.Column13.Name = "Column13";
-            this.Column13.ReadOnly = true;
             this.Column13.Width = 50;
             // 
             // Column14
             // 
             this.Column14.HeaderText = "Status";
             this.Column14.Name = "Column14";
-            this.Column14.ReadOnly = true;
             this.Column14.Visible = false;
             this.Column14.Width = 50;
             // 
@@ -325,7 +306,6 @@
             // 
             this.Column15.HeaderText = "ProdImage";
             this.Column15.Name = "Column15";
-            this.Column15.ReadOnly = true;
             this.Column15.Visible = false;
             this.Column15.Width = 50;
             // 
@@ -333,21 +313,18 @@
             // 
             this.Column16.HeaderText = "Tipo";
             this.Column16.Name = "Column16";
-            this.Column16.ReadOnly = true;
             this.Column16.Width = 50;
             // 
             // Ajustar
             // 
             this.Ajustar.HeaderText = "Ajustar";
             this.Ajustar.Name = "Ajustar";
-            this.Ajustar.ReadOnly = true;
             this.Ajustar.Width = 50;
             // 
             // _IDProducto
             // 
             this._IDProducto.HeaderText = "ID";
             this._IDProducto.Name = "_IDProducto";
-            this._IDProducto.ReadOnly = true;
             this._IDProducto.Visible = false;
             // 
             // panelShowPhotoView
@@ -413,7 +390,7 @@
             this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
             this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListView.Location = new System.Drawing.Point(12, 142);
+            this.btnListView.Location = new System.Drawing.Point(12, 156);
             this.btnListView.Margin = new System.Windows.Forms.Padding(2);
             this.btnListView.Name = "btnListView";
             this.btnListView.Size = new System.Drawing.Size(136, 28);
@@ -428,7 +405,7 @@
             this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th;
             this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhotoView.Location = new System.Drawing.Point(152, 142);
+            this.btnPhotoView.Location = new System.Drawing.Point(152, 156);
             this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
             this.btnPhotoView.Name = "btnPhotoView";
             this.btnPhotoView.Size = new System.Drawing.Size(159, 28);
@@ -443,7 +420,7 @@
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
             this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(152, 110);
+            this.btnModificarEstado.Location = new System.Drawing.Point(152, 124);
             this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificarEstado.Name = "btnModificarEstado";
             this.btnModificarEstado.Size = new System.Drawing.Size(159, 28);
@@ -460,7 +437,7 @@
             this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
-            this.btnAgregarXML.Location = new System.Drawing.Point(12, 110);
+            this.btnAgregarXML.Location = new System.Drawing.Point(12, 124);
             this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregarXML.Name = "btnAgregarXML";
             this.btnAgregarXML.Size = new System.Drawing.Size(136, 28);
@@ -514,7 +491,8 @@
         private System.Windows.Forms.FlowLayoutPanel fLPShowPhoto;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolTip TTipButtonText;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column0;
+        private System.Windows.Forms.CheckBox cbProductoComprado;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn CheckProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -533,6 +511,5 @@
         private System.Windows.Forms.DataGridViewImageColumn Column16;
         private System.Windows.Forms.DataGridViewImageColumn Ajustar;
         private System.Windows.Forms.DataGridViewTextBoxColumn _IDProducto;
-        private System.Windows.Forms.CheckBox cbProductoComprado;
     }
 }

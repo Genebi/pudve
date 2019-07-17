@@ -66,18 +66,20 @@ namespace PuntoDeVentaV2
 
         string ID_ProdSerPaq;
 
+        //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == 0)
             {
-                foreach (DataGridViewRow row in DGVProductos.Rows)
+                if ((bool)DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value == false)
                 {
-                    if (Convert.ToBoolean(row.Cells[e.ColumnIndex].Value))
-                    {
-                        row.Cells[e.ColumnIndex].Value = false;
-                    }
+                    DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = true;
                 }
-            }
+                else
+                {
+                    DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
+                }
+            }    
         }
 
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
@@ -276,7 +278,7 @@ namespace PuntoDeVentaV2
             }
         }
         
-        private void DGVProductos_CellMouseEnter_1(object sender, DataGridViewCellEventArgs e)
+        private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
@@ -353,7 +355,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void DGVProductos_CellClick_1(object sender, DataGridViewCellEventArgs e)
+        private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             var fila = DGVProductos.CurrentCell.RowIndex;
 
@@ -365,8 +367,9 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 0)
                 {
                     numerofila = e.RowIndex;
-                    obtenerDatosDGVProductos(numerofila);
-                    editarEstado = 4;
+                    //obtenerDatosDGVProductos(numerofila);
+                    //editarEstado = 4;
+                    //DGVProductos.Rows[fila].Cells["CheckProducto"].Value = true;
                 }
                 else if (e.ColumnIndex == 7)
                 {
@@ -411,7 +414,7 @@ namespace PuntoDeVentaV2
                     string codiBarProd = "";
                     numfila = e.RowIndex;
                     obtenerDatosDGVProductos(numfila);
-                    //MessageBox.Show("Proceso de construccion de Codigo de Barras", "En Proceso de Construccion", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                     MakeBarCode.FormClosed += delegate
                     {
 
@@ -535,47 +538,38 @@ namespace PuntoDeVentaV2
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
         {
-            if (editarEstado == 4 && Convert.ToBoolean(DGVProductos.Rows[numerofila].Cells[0].Value) == true)
+            int estado = 2;
+
+            if (cbMostrar.Text == "Habilitados")
             {
-                //MessageBox.Show("Proceso de Cambiar el estado del\nProducto: " + ProductoNombre, "Proceso de Actividades", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                string status;
-                DialogResult result = MessageBox.Show("Desdea Realmente Modificar el Estatus del\nProducto: " + Nombre + "\nde su Stock Existente", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes)
+                estado = 0;
+            }
+            else if (cbMostrar.Text == "Deshabilitados")
+            {
+                estado = 1;
+            }
+
+            foreach (DataGridViewRow row in DGVProductos.Rows)
+            {
+                if ((bool)row.Cells["CheckProducto"].Value == true)
                 {
-                    status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
-                    ModificarStatusProductoChkBox();
-                    if (status == "1")
+                    var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+
+                    if (estado < 2)
                     {
-                        cbMostrar.Text = "Deshabilitados";
+                        cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
                     }
-                    else if (status == "0")
-                    {
-                        cbMostrar.Text = "Habilitados";
-                    }
-                    DGVProductos.Refresh();
-                }
-                else if (result == DialogResult.No)
-                {
-                    status = cbMostrar.Text;
-                    DGVProductos.Rows[numerofila].Cells[0].Value = false;
-                    if (status == "Habilitados")
-                    {
-                        DGVProductos.Refresh();
-                    }
-                    else if (status == "Deshabilitados")
-                    {
-                        DGVProductos.Refresh();
-                    }
-                }
-                else if (result == DialogResult.Cancel)
-                {
-                    DGVProductos.Rows[numerofila].Cells[0].Value = false;
-                    DGVProductos.Refresh();
                 }
             }
-            else
+
+            if (estado == 0)
             {
-                MessageBox.Show("Favor de seleccionar (Marcar un)\nalgun CheckBox (Casilla de Verificación)", "Verificar Selección", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CargarDatos(1);
+            }
+
+            if (estado == 1)
+            {
+                CargarDatos(0);
             }
         }
 
@@ -598,7 +592,7 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
-                    CargarDatosActivos();
+                    CargarDatos();
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -610,7 +604,7 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
-                    CargarDatosInactivos();
+                    CargarDatos(0);
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -639,7 +633,7 @@ namespace PuntoDeVentaV2
 
             if (panelShowDGVProductosView.Visible == true)
             {
-                CargarDatosBusqueda(txtBusqueda.Text);
+                CargarDatos(1, txtBusqueda.Text);
             }
             else if (panelShowPhotoView.Visible == true)
             {
@@ -674,219 +668,21 @@ namespace PuntoDeVentaV2
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 
-        private void CargarDatos()
-        {
-            //cn.CargarInformacion(cs.Productos(FormPrincipal.userID), DGVProductos);
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}'", sql_con);
-            dr = sql_cmd.ExecuteReader();
-
-            //limpiarDGV();
-            DGVProductos.Rows.Clear();
-
-            while (dr.Read())
-            {
-                number_of_rows = DGVProductos.Rows.Add();
-
-                DataGridViewRow row = DGVProductos.Rows[number_of_rows];
-
-                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-
-                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
-
-                row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-
-                if (TipoProd == "P")
-                {
-                    row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
-                }
-                else if (TipoProd == "S")
-                {
-                    row.Cells["Column2"].Value = "";
-                }
-
-                row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
-                row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
-                row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
-                row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
-                row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
-                row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
-
-                System.Drawing.Image editar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
-                System.Drawing.Image estado1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
-                System.Drawing.Image estado2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
-                System.Drawing.Image historial = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
-                System.Drawing.Image generar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
-                System.Drawing.Image imagen1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
-                System.Drawing.Image imagen2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
-                System.Drawing.Image etiqueta = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
-                System.Drawing.Image copy = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
-                System.Drawing.Image package = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
-                System.Drawing.Image product = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
-                System.Drawing.Image ajustar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
-
-                row.Cells["Column7"].Value = editar;
-
-                string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
-                if (estado == "1")
-                {
-                    row.Cells["Column8"].Value = estado1;
-                }
-                else if (estado == "0")
-                {
-                    row.Cells["Column8"].Value = estado2;
-                }
-
-                row.Cells["Column9"].Value = historial;
-
-                row.Cells["Column10"].Value = generar;
-
-                string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
-                if (ImgPath == "" || ImgPath == null)
-                {
-                    row.Cells["Column11"].Value = imagen1;
-                }
-                else if (ImgPath != "" || ImgPath != null)
-                {
-                    row.Cells["Column11"].Value = imagen2;
-                }
-
-                row.Cells["Column12"].Value = etiqueta;
-                
-                row.Cells["Column13"].Value = copy;
-                
-                
-                if (TipoProd == "P")
-                {
-                    row.Cells["Column16"].Value = product;
-                }
-                else if (TipoProd == "S")
-                {
-                    row.Cells["Column16"].Value = package;
-                }
-
-                row.Cells["Ajustar"].Value = ajustar;
-            }
-
-            dr.Close();
-            sql_con.Close();
-        }
-
-        private void CargarDatosActivos()
-        {
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 1", sql_con);
-            dr = sql_cmd.ExecuteReader();
-
-            //limpiarDGV();
-            DGVProductos.Rows.Clear();
-
-            while (dr.Read())
-            {
-                number_of_rows = DGVProductos.Rows.Add();
-
-                DataGridViewRow row = DGVProductos.Rows[number_of_rows];
-
-                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-
-                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
-
-                row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-                if (TipoProd == "P")
-                {
-                    row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
-                }
-                else if (TipoProd == "S")
-                {
-                    row.Cells["Column2"].Value = "";
-                }
-                row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
-                row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
-                row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
-                row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
-                row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
-                row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
-
-                System.Drawing.Image editar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
-                System.Drawing.Image estado1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
-                System.Drawing.Image estado2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
-                System.Drawing.Image historial = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
-                System.Drawing.Image generar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
-                System.Drawing.Image imagen1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
-                System.Drawing.Image imagen2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
-                System.Drawing.Image etiqueta = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
-                System.Drawing.Image copy = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
-                System.Drawing.Image package = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
-                System.Drawing.Image product = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
-                System.Drawing.Image ajustar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
-
-                row.Cells["Column7"].Value = editar;
-
-                string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
-                if (estado == "1")
-                {
-                    row.Cells["Column8"].Value = estado1;
-                }
-                else if (estado == "0")
-                {
-                    row.Cells["Column8"].Value = estado2;
-                }
-
-                row.Cells["Column9"].Value = historial;
-
-                row.Cells["Column10"].Value = generar;
-
-                string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
-                if (ImgPath == "" || ImgPath == null)
-                {
-                    row.Cells["Column11"].Value = imagen1;
-                }
-                else if (ImgPath != "" || ImgPath != null)
-                {
-                    row.Cells["Column11"].Value = imagen2;
-                }
-
-                row.Cells["Column12"].Value = etiqueta;
-
-                row.Cells["Column13"].Value = copy;
-
-                if (TipoProd == "P")
-                {
-                    row.Cells["Column16"].Value = product;
-                }
-                else if (TipoProd == "S")
-                {
-                    row.Cells["Column16"].Value = package;
-                }
-
-                row.Cells["Ajustar"].Value = ajustar;
-            }
-
-            dr.Close();
-            sql_con.Close();
-        }
-
-        private void CargarDatosBusqueda(string busqueda)
+        private void CargarDatos(int status = 1, string busqueda = "")
         {
             //Para la ventana de ajustar producto cuando el checkbox producto comprado esta marcado
             bool abierta = true;
             int idProducto = 0;
+            string extra = string.Empty;
 
             if (string.IsNullOrWhiteSpace(busqueda))
             {
                 abierta = false;
             }
+            else
+            {
+                extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%')";
+            }
 
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
@@ -894,10 +690,9 @@ namespace PuntoDeVentaV2
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%')", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", sql_con);
             dr = sql_cmd.ExecuteReader();
 
-            //limpiarDGV();
             DGVProductos.Rows.Clear();
 
             while (dr.Read())
@@ -912,6 +707,8 @@ namespace PuntoDeVentaV2
 
                 string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
 
+                row.Cells["CheckProducto"].Value = false;
+
                 row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
 
                 if (TipoProd == "P")
@@ -946,7 +743,6 @@ namespace PuntoDeVentaV2
                 row.Cells["Column7"].Value = editar;
 
                 string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
-
                 if (estado == "1")
                 {
                     row.Cells["Column8"].Value = estado1;
@@ -961,7 +757,6 @@ namespace PuntoDeVentaV2
                 row.Cells["Column10"].Value = generar;
 
                 string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
-
                 if (ImgPath == "" || ImgPath == null)
                 {
                     row.Cells["Column11"].Value = imagen1;
@@ -974,6 +769,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Column12"].Value = etiqueta;
 
                 row.Cells["Column13"].Value = copy;
+
 
                 if (TipoProd == "P")
                 {
@@ -1006,114 +802,11 @@ namespace PuntoDeVentaV2
 
                     generarIdReporte = true;
 
-                    ap.ShowDialog(); 
+                    ap.ShowDialog();
                 }
 
                 abierta = false;
             }
-        }
-
-        private void CargarDatosInactivos()
-        {
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT P.ID, P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna, P.CodigoBarras, P.Status, P.ProdImage, P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 0", sql_con);
-            dr = sql_cmd.ExecuteReader();
-
-            //limpiarDGV();
-            DGVProductos.Rows.Clear();
-
-            while (dr.Read())
-            {
-                number_of_rows = DGVProductos.Rows.Add();
-
-                DataGridViewRow row = DGVProductos.Rows[number_of_rows];
-
-                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
-
-                row.Cells["_IDProducto"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-
-                row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-
-                if (TipoProd == "P")
-                {
-                    row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
-                }
-                else if (TipoProd == "S")
-                {
-                    row.Cells["Column2"].Value = "";
-                }
-
-                row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
-                row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
-                row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
-                row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
-                row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
-                row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
-
-                System.Drawing.Image editar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
-                System.Drawing.Image estado1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
-                System.Drawing.Image estado2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
-                System.Drawing.Image historial = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
-                System.Drawing.Image generar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
-                System.Drawing.Image imagen1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
-                System.Drawing.Image imagen2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
-                System.Drawing.Image etiqueta = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
-                System.Drawing.Image copy = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
-                System.Drawing.Image package = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
-                System.Drawing.Image product = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
-                System.Drawing.Image ajustar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
-
-                row.Cells["Column7"].Value = editar;
-
-                string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
-
-                if (estado == "1")
-                {
-                    row.Cells["Column8"].Value = estado1;
-                }
-                else if (estado == "0")
-                {
-                    row.Cells["Column8"].Value = estado2;
-                }
-
-                row.Cells["Column9"].Value = historial;
-
-                row.Cells["Column10"].Value = generar;
-
-                string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
-
-                if (ImgPath == "" || ImgPath == null)
-                {
-                    row.Cells["Column11"].Value = imagen1;
-                }
-                else if (ImgPath != "" || ImgPath != null)
-                {
-                    row.Cells["Column11"].Value = imagen2;
-                }
-
-                row.Cells["Column12"].Value = etiqueta;
-
-                row.Cells["Column13"].Value = copy;
-
-                if (TipoProd == "P")
-                {
-                    row.Cells["Column16"].Value = product;
-                }
-                else if (TipoProd == "S")
-                {
-                    row.Cells["Column16"].Value = package;
-                }
-
-                row.Cells["Ajustar"].Value = ajustar;
-            }
-
-            dr.Close();
-            sql_con.Close();
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
@@ -1205,7 +898,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void ModificarStatusProductoChkBox()
+        /*private void ModificarStatusProductoChkBox()
         {
             DataRow row;
             // Preparamos el Query que haremos segun la fila seleccionada
@@ -1228,7 +921,7 @@ namespace PuntoDeVentaV2
                 dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
                 //cn.EjecutarConsulta(buscar);                              // acutualizamos los datos
             }
-        }
+        }*/
 
         private void ViewRecordProducto()
         {
