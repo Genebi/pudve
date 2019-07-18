@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
             Usuarios = 19;
-            Ventas = 20;
+            Ventas = 21;
             Clientes = 21;
             RevisarInventario = 15;
             DetallesVenta = 12;
@@ -1206,7 +1206,7 @@ namespace PuntoDeVentaV2
                                               IVA8 DECIMAL DEFAULT (0),
                                               Total DECIMAL DEFAULT (0),
                                               Descuento DECIMAL DEFAULT (0),
-                                              DescuentoGeneral DECIMAL  DEFAULT (0),
+                                              DescuentoGeneral DECIMAL DEFAULT (0),
                                               Anticipo DECIMAL DEFAULT (0),
                                               Folio INTEGER DEFAULT (0),
                                               Serie CHAR DEFAULT A,
@@ -1215,7 +1215,8 @@ namespace PuntoDeVentaV2
                                               Comentario STRING,
                                               Timbrada INTEGER DEFAULT (0),
                                               Cancelada INTEGER DEFAULT (0),
-                                              FechaOperacion DATETIME);";
+                                              FechaOperacion DATETIME,
+                                              FormaPago TEXT);";
         }
 
         public string QueryUpdateTablaVentas(string tabla)
