@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         //tipo 2 = editar
         private int tipo = 0;
         private int idCliente = 0;
+        private int idVenta = 0;
 
         //idVenta como parametro es para cuando se agrega un cliente al momento de querer timbrar
         //una venta, de esta manera se asigna el ID del cliente al terminar el registro de esta manera
@@ -30,6 +31,7 @@ namespace PuntoDeVentaV2
 
             this.tipo = tipo;
             this.idCliente = idCliente;
+            this.idVenta = idVenta;
         }
 
         private void AgregarCliente_Load(object sender, EventArgs e)
@@ -168,10 +170,17 @@ namespace PuntoDeVentaV2
                     else if (mensaje == DialogResult.No)
                     {
                         //Si selecciona NO se hace un nuevo registro
+
+                        //Insertar
                         int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
 
                         if (resultado > 0)
                         {
+                            if (idVenta > 0)
+                            {
+                                AsignarCliente(idVenta);
+                            }
+
                             this.Close();
                         }
                     }
@@ -182,10 +191,16 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    //Insertar
                     int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
 
                     if (resultado > 0)
                     {
+                        if (idVenta > 0)
+                        {
+                            AsignarCliente(idVenta);
+                        }
+
                         this.Close();
                     }
                 }
@@ -199,6 +214,11 @@ namespace PuntoDeVentaV2
 
                     if (resultado > 0)
                     {
+                        if (idVenta > 0)
+                        {
+                            AsignarCliente(idVenta);
+                        }
+
                         this.Close();
                     }
                 }
@@ -238,6 +258,20 @@ namespace PuntoDeVentaV2
             txtTelefono.Text = datos[14];
             cbUsoCFDI.SelectedValue = datos[3];
             cbFormaPago.SelectedValue = datos[15];
+        }
+
+        private void AsignarCliente(int idVenta)
+        {
+            int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1", 1));
+
+            var tmp = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
+
+            //Actualizar a la tabla detalle de venta
+            var razonSocial = tmp[0];
+
+            string[] datos = new string[] { idCliente.ToString(), razonSocial, idVenta.ToString(), FormPrincipal.userID.ToString() };
+
+            cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
         }
     }
 }
