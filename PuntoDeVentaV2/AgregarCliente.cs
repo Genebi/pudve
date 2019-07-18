@@ -260,6 +260,9 @@ namespace PuntoDeVentaV2
             cbFormaPago.SelectedValue = datos[15];
         }
 
+        //Este método se utiliza cuando se quiere timbrar una factura pero no se tienen clientes registrados
+        //Se abre el form de registrar nuevo cliente, al terminar el registro obtiene el ID de ese cliente
+        //Busca sus datos en este caso la razon social y actualiza la tabla de detalles venta de la venta correspondiente
         private void AsignarCliente(int idVenta)
         {
             int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1", 1));

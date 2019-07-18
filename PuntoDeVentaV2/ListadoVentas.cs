@@ -362,13 +362,17 @@ namespace PuntoDeVentaV2
 
                         if (respuesta == DialogResult.OK)
                         {
-
                             //Comprobamos si tiene clientes registrados
                             var existenClientes = (bool)cn.EjecutarSelect($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID}");
 
                             if (existenClientes)
                             {
-                                ListaClientes clientes = new ListaClientes();
+                                ListaClientes clientes = new ListaClientes(idVenta);
+
+                                clientes.FormClosed += delegate
+                                {
+                                    CargarDatos();
+                                };
 
                                 clientes.ShowDialog();
                             }

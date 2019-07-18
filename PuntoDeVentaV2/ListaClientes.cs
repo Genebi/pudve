@@ -13,9 +13,17 @@ namespace PuntoDeVentaV2
 {
     public partial class ListaClientes : Form
     {
-        public ListaClientes()
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
+
+        private int idVenta = 0;
+
+        public ListaClientes(int idVenta = 0)
         {
             InitializeComponent();
+
+            this.idVenta = idVenta;
         }
 
 
@@ -70,11 +78,18 @@ namespace PuntoDeVentaV2
                     var idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);
                     var cliente = DGVClientes.Rows[e.RowIndex].Cells["RazonSocial"].Value.ToString();
 
-                    DetalleVenta.idCliente = idCliente;
-                    DetalleVenta.cliente = cliente;
+                    if (idVenta > 0)
+                    {
+                        AsignarCliente(idVenta, idCliente, cliente);
+                    }
+                    else
+                    {
+                        DetalleVenta.idCliente = idCliente;
+                        DetalleVenta.cliente = cliente;
 
-                    AsignarCreditoVenta.idCliente = idCliente;
-                    AsignarCreditoVenta.cliente = cliente;
+                        AsignarCreditoVenta.idCliente = idCliente;
+                        AsignarCreditoVenta.cliente = cliente;
+                    }
 
                     this.Dispose();
                 }
@@ -101,6 +116,19 @@ namespace PuntoDeVentaV2
                     DGVClientes.Cursor = Cursors.Default;
                 }
             }
+        }
+
+
+        //Para asignar un cliente de los ya registrados a una venta la cual se quiera timbrar pero no
+        //se le haya asignado cliente al momento de realizarse la venta
+        private void AsignarCliente(int idVenta, int idCliente, string cliente)
+        {
+            //Actualizar a la tabla detalle de venta
+            var razonSocial = cliente;
+
+            string[] datos = new string[] { idCliente.ToString(), razonSocial, idVenta.ToString(), FormPrincipal.userID.ToString() };
+
+            cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
         }
     }
 }
