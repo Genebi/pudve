@@ -345,7 +345,13 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                RecorrerXML(); // recorrer el archivo XML
+                // recorrer el archivo XML
+                //RecorrerXML(); 
+                searchProd();
+                if (resultadoSearchProd == 1)
+                {
+                    RecorrerXML();
+                }
             };
 
             if (FormAgregar.Text == "")

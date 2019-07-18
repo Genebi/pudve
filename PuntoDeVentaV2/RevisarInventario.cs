@@ -42,7 +42,8 @@ namespace PuntoDeVentaV2
 
         private void llenarTabla()
         {
-            queryTaerStock = $"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC, Nombre ASC";
+            //queryTaerStock = $"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC, Nombre ASC";
+            queryTaerStock = $"SELECT * FROM RevisarInventario ORDER BY Fecha DESC, Nombre ASC";
             dtRevisarStockResultado = cnRed.CargarDatos(queryTaerStock);
         }
 
