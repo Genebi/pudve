@@ -18,6 +18,8 @@ namespace PuntoDeVentaV2
         private int idVenta = 0;
         private int idCliente = 0;
 
+        private string[] pagosConCuenta = new string[] { "02", "03", "04", "05", "06", "28", "29", "99"};
+
         public InformacionVenta(int idVenta = 0)
         {
             InitializeComponent();
@@ -55,11 +57,22 @@ namespace PuntoDeVentaV2
             cbFormaPago.DisplayMember = "Value";
             cbFormaPago.ValueMember = "Key";
 
+            //ComboBox Método de pago
+            Dictionary<string, string> metodos = new Dictionary<string, string>();
+            metodos.Add("PUE", "Pago en una sola exhibición");
+            metodos.Add("PPD", "Pago en parcialidades o diferido");
+
+            cbMetodoPago.DataSource = metodos.ToArray();
+            cbMetodoPago.DisplayMember = "Value";
+            cbMetodoPago.ValueMember = "Key";
+
             //Obtener los totales de las formas de pago de la venta
             var tmp = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
             var valorMaximo = tmp.Max();
             var valorIndice = Array.IndexOf(tmp, valorMaximo);
-            cbFormaPago.SelectedValue = FormaPagoDefault(valorIndice);
+            var formaPago = FormaPagoDefault(valorIndice);
+            cbFormaPago.SelectedValue = formaPago;
+            ValidarFormasPago(formaPago);
 
             //Obtener detalles de venta y cliente
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
@@ -82,12 +95,26 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente1_Click(object sender, EventArgs e)
         {
-            //Medida inicial del form
-            //400 x 200
+            //Actualizamos la forma de pago y otros datos
+            var pago = cbFormaPago.SelectedValue.ToString();
+
+            if (txtCuenta.Visible && pago != "99")
+            {
+                if (string.IsNullOrWhiteSpace(txtCuenta.Text))
+                {
+                    MessageBox.Show("Ingrese el número de cuenta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    txtCuenta.Text = string.Empty;
+                    txtCuenta.Focus();
+
+                    return;
+                }
+            }
+
             this.Hide();
 
-            //Actualizamos la forma de pago
-            var pago = cbFormaPago.SelectedValue.ToString();
+            var cuenta = txtCuenta.Text;
+
             cn.EjecutarConsulta($"UPDATE Ventas SET FormaPago = '{pago}' WHERE ID = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
 
             if (idCliente > 0)
@@ -102,6 +129,31 @@ namespace PuntoDeVentaV2
             {
 
             }
+        }
+
+        private void ValidarFormasPago(string pago)
+        {
+            if (Array.IndexOf(pagosConCuenta, pago) > -1)
+            {
+                lbCuenta.Visible = true;
+                lbCuenta.Text = "Cuenta";
+                txtCuenta.Visible = true;
+                txtCuenta.Focus();
+
+                if (pago == "99") { lbCuenta.Text = "Cuenta (opcional)"; }
+                if (pago == "05") { lbCuenta.Text = "Cuenta (alfanumérica)"; }
+            }
+            else
+            {
+                lbCuenta.Visible = false;
+                lbCuenta.Text = "Cuenta";
+                txtCuenta.Visible = false;
+            }
+        }
+
+        private void cbFormaPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ValidarFormasPago(cbFormaPago.SelectedValue.ToString());
         }
     }
 }
