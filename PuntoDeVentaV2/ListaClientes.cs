@@ -130,5 +130,17 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
         }
+
+        private void lbAgregarCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AgregarCliente nuevo = new AgregarCliente();
+
+            nuevo.FormClosed += delegate
+            {
+                CargarDatos();
+            };
+
+            nuevo.ShowDialog();
+        }
     }
 }
