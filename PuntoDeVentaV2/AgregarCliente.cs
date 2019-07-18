@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
 
         //tipo 1 = agregar
         //tipo 2 = editar
+        //tipo 3 = confirmar y editar para antes de timbrar
         private int tipo = 0;
         private int idCliente = 0;
         private int idVenta = 0;
@@ -41,9 +42,13 @@ namespace PuntoDeVentaV2
             {
                 this.Text = "PUDVE - Nuevo Cliente";
             }
-            else
+            else if (tipo == 2)
             {
                 this.Text = "PUDVE - Editar Cliente";
+            }
+            else if (tipo == 3)
+            {
+                this.Text = "PUDVE - Confirmar Cliente";
             }
 
             //ComboBox usos de CFDI
@@ -66,7 +71,7 @@ namespace PuntoDeVentaV2
             cbUsoCFDI.ValueMember = "Key";
 
             //ComboBox Formas de pago
-            Dictionary<string, string> pagos = new Dictionary<string, string>();
+            /*Dictionary<string, string> pagos = new Dictionary<string, string>();
             pagos.Add("01", "01 - Efectivo");
             pagos.Add("02", "02 - Cheque nominativo");
             pagos.Add("03", "03 - Transferencia electrónica de fondos");
@@ -91,10 +96,10 @@ namespace PuntoDeVentaV2
 
             cbFormaPago.DataSource = pagos.ToArray();
             cbFormaPago.DisplayMember = "Value";
-            cbFormaPago.ValueMember = "Key";
+            cbFormaPago.ValueMember = "Key";*/
 
-            //Si viene de la opcion editar buscamos los datos actuales del cliente
-            if (tipo == 2)
+            //Si viene de la opcion editar o confirmar, buscamos los datos actuales del cliente
+            if (tipo == 2 || tipo == 3)
             {
                 var cliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
 
@@ -123,7 +128,7 @@ namespace PuntoDeVentaV2
             var regimen = string.Empty; //Esta vacio porque no se utiliza actualmente el campo de regimen
             var email = txtEmail.Text;
             var telefono = txtTelefono.Text;
-            var formaPago = cbFormaPago.SelectedValue;
+            var formaPago = "01"; //cbFormaPago.SelectedValue;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' ORDER BY FechaOperacion DESC LIMIT 1", 1));
@@ -145,7 +150,7 @@ namespace PuntoDeVentaV2
             string[] datos = new string[]
             {
                 FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
-                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago.ToString(), fechaOperacion, idCliente.ToString()
+                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString()
             };
 
             //Si el checkbox de agregar cliente repetido esta marcado
@@ -257,7 +262,7 @@ namespace PuntoDeVentaV2
             txtEmail.Text = datos[13];
             txtTelefono.Text = datos[14];
             cbUsoCFDI.SelectedValue = datos[3];
-            cbFormaPago.SelectedValue = datos[15];
+            //cbFormaPago.SelectedValue = datos[15];
         }
 
         //Este método se utiliza cuando se quiere timbrar una factura pero no se tienen clientes registrados

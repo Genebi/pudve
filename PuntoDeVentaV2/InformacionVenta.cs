@@ -12,9 +12,11 @@ namespace PuntoDeVentaV2
 {
     public partial class InformacionVenta : Form
     {
+        Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private int idVenta = 0;
+        private int idCliente = 0;
 
         public InformacionVenta(int idVenta = 0)
         {
@@ -58,6 +60,10 @@ namespace PuntoDeVentaV2
             var valorMaximo = tmp.Max();
             var valorIndice = Array.IndexOf(tmp, valorMaximo);
             cbFormaPago.SelectedValue = FormaPagoDefault(valorIndice);
+
+            //Obtener detalles de venta y cliente
+            var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+            idCliente = Convert.ToInt32(detalles[0]);
         }
 
         private string FormaPagoDefault(int indice)
@@ -78,9 +84,24 @@ namespace PuntoDeVentaV2
         {
             //Medida inicial del form
             //400 x 200
-            primerPanel.Hide();
+            this.Hide();
 
-            this.Height = 400;
+            //Actualizamos la forma de pago
+            var pago = cbFormaPago.SelectedValue.ToString();
+            cn.EjecutarConsulta($"UPDATE Ventas SET FormaPago = '{pago}' WHERE ID = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+
+            if (idCliente > 0)
+            {
+                AgregarCliente cliente = new AgregarCliente(3, idCliente);
+
+                cliente.ShowDialog();
+
+                this.Close();
+            }
+            else
+            {
+
+            }
         }
     }
 }
