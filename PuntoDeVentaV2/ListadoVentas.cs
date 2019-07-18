@@ -354,7 +354,14 @@ namespace PuntoDeVentaV2
 
                     if (!string.IsNullOrWhiteSpace(clienteRFC) && !clienteRFC.Equals("XAXX010101000"))
                     {
-                        MessageBox.Show("Ya tiene cliente");
+                        InformacionVenta info = new InformacionVenta(idVenta);
+
+                        info.FormClosed += delegate
+                        {
+
+                        };
+
+                        info.ShowDialog();
                     }
                     else
                     {

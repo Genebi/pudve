@@ -65,6 +65,33 @@ namespace PuntoDeVentaV2
             return cantidad;
         }
 
+        public float[] ObtenerFormasPagoVenta(int idVenta, int idUsuario)
+        {
+            List<float> lista = new List<float>();
+
+            Conexion();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = $"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}";
+            sql_cmd.ExecuteNonQuery();
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(float.Parse(dr["Efectivo"].ToString()));
+                lista.Add(float.Parse(dr["Tarjeta"].ToString()));
+                lista.Add(float.Parse(dr["Vales"].ToString()));
+                lista.Add(float.Parse(dr["Cheque"].ToString()));
+                lista.Add(float.Parse(dr["Transferencia"].ToString()));
+                lista.Add(float.Parse(dr["Credito"].ToString()));
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] ObtenerDatosCliente(int idCliente, int idUsuario)
         {
             List<string> lista = new List<string>();
