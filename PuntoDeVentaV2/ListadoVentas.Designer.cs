@@ -48,12 +48,12 @@
             this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pago = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cancelar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Factura = new System.Windows.Forms.DataGridViewImageColumn();
             this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
             this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -88,12 +88,12 @@
             this.Folio,
             this.Serie,
             this.Pago,
-            this.Empleado,
             this.Fecha,
             this.Cancelar,
             this.Factura,
             this.Ticket,
-            this.Abono});
+            this.Abono,
+            this.Timbrar});
             this.DGVListadoVentas.Location = new System.Drawing.Point(12, 141);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
@@ -263,12 +263,6 @@
             this.Pago.Name = "Pago";
             this.Pago.ReadOnly = true;
             // 
-            // Empleado
-            // 
-            this.Empleado.HeaderText = "Empleado";
-            this.Empleado.Name = "Empleado";
-            this.Empleado.ReadOnly = true;
-            // 
             // Fecha
             // 
             this.Fecha.HeaderText = "Fecha";
@@ -303,6 +297,13 @@
             this.Abono.Name = "Abono";
             this.Abono.ReadOnly = true;
             this.Abono.Width = 30;
+            // 
+            // Timbrar
+            // 
+            this.Timbrar.HeaderText = "";
+            this.Timbrar.Name = "Timbrar";
+            this.Timbrar.ReadOnly = true;
+            this.Timbrar.Width = 30;
             // 
             // ListadoVentas
             // 
@@ -344,11 +345,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Folio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Serie;
         private System.Windows.Forms.DataGridViewTextBoxColumn Pago;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Empleado;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Cancelar;
         private System.Windows.Forms.DataGridViewImageColumn Factura;
         private System.Windows.Forms.DataGridViewImageColumn Ticket;
         private System.Windows.Forms.DataGridViewImageColumn Abono;
+        private System.Windows.Forms.DataGridViewImageColumn Timbrar;
     }
 }

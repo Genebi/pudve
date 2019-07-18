@@ -75,6 +75,7 @@ namespace PuntoDeVentaV2
             Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
             Image credito = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
             Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
+            Image timbrar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell.png");
 
             Bitmap sinImagen = new Bitmap(1, 1);
             sinImagen.SetPixel(0, 0, Color.White);
@@ -114,14 +115,15 @@ namespace PuntoDeVentaV2
                 row.Cells["Total"].Value = dr.GetValue(dr.GetOrdinal("Total"));
                 row.Cells["Folio"].Value = dr.GetValue(dr.GetOrdinal("Folio"));
                 row.Cells["Serie"].Value = dr.GetValue(dr.GetOrdinal("Serie"));
-                row.Cells["Pago"].Value = dr.GetValue(dr.GetOrdinal("MetodoPago"));
-                row.Cells["Empleado"].Value = dr.GetValue(dr.GetOrdinal("IDEmpleado"));
+                //row.Cells["Pago"].Value = dr.GetValue(dr.GetOrdinal("MetodoPago"));
+                //row.Cells["Empleado"].Value = dr.GetValue(dr.GetOrdinal("IDEmpleado"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
                 row.Cells["Cancelar"].Value = cancelar;
                 row.Cells["Factura"].Value = factura;
                 row.Cells["Ticket"].Value = ticket;
                 row.Cells["Abono"].Value = credito;
+                row.Cells["Timbrar"].Value = timbrar;
 
                 //Ventas canceladas
                 if (status == 3)
@@ -200,15 +202,14 @@ namespace PuntoDeVentaV2
 
                 Rectangle cellRect = DGVListadoVentas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                 
-
-                if (e.ColumnIndex >= 11)
+                if (e.ColumnIndex >= 10)
                 {
                     var textoTT = string.Empty;
                     int coordenadaX = 0;
 
                     DGVListadoVentas.Cursor = Cursors.Hand;
 
-                    if (e.ColumnIndex == 11)
+                    if (e.ColumnIndex == 10)
                     {
                         textoTT = "Cancelar";
                         coordenadaX = 60;
@@ -216,24 +217,30 @@ namespace PuntoDeVentaV2
                         if (opcion == "VC") { permitir = false; }
                     }
 
-                    if (e.ColumnIndex == 12)
+                    if (e.ColumnIndex == 11)
                     {
                         textoTT = "Ver factura";
                         coordenadaX = 70;
                     }
 
-                    if (e.ColumnIndex == 13)
+                    if (e.ColumnIndex == 12)
                     {
                         textoTT = "Ver ticket";
                         coordenadaX = 62;
                     }
 
-                    if (e.ColumnIndex == 14)
+                    if (e.ColumnIndex == 13)
                     {
                         textoTT = "Abonos";
                         coordenadaX = 54;
 
                         if (opcion != "VCC") { permitir = false; }
+                    }
+
+                    if (e.ColumnIndex == 14)
+                    {
+                        textoTT = "Timbrar";
+                        coordenadaX = 56;
                     }
 
                     VerToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y, permitir);
@@ -267,19 +274,19 @@ namespace PuntoDeVentaV2
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
 
                 //Cancelar
-                if (e.ColumnIndex == 11)
+                if (e.ColumnIndex == 10)
                 {
                     MessageBox.Show("Cancelar");
                 }
 
                 //Ver factura
-                if (e.ColumnIndex == 12)
+                if (e.ColumnIndex == 11)
                 {
                     MessageBox.Show("Factura");
                 }
 
                 //Ver ticket
-                if (e.ColumnIndex == 13)
+                if (e.ColumnIndex == 12)
                 {
                     ticketGenerado = $"ticket_venta_{idVenta}.pdf";
                     rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
@@ -305,7 +312,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Abonos
-                if (e.ColumnIndex == 14)
+                if (e.ColumnIndex == 13)
                 {
                     //Verificamos si tiene seleccionada la opcion de ventas a credito
                     if (opcion == "VCC")
@@ -335,6 +342,58 @@ namespace PuntoDeVentaV2
                         else
                         {
                             MessageBox.Show("No hay información adicional sobre esta venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+
+                //Timbrar
+                if (e.ColumnIndex == 14)
+                {
+                    //Comprobamos que la venta tenga cliente
+                    var clienteRFC = DGVListadoVentas.Rows[fila].Cells["RFC"].Value.ToString();
+
+                    if (!string.IsNullOrWhiteSpace(clienteRFC) && !clienteRFC.Equals("XAXX010101000"))
+                    {
+                        InformacionVenta info = new InformacionVenta(idVenta);
+
+                        info.FormClosed += delegate
+                        {
+
+                        };
+
+                        info.ShowDialog();
+                    }
+                    else
+                    {
+                        var respuesta = MessageBox.Show("Es necesario asignar un cliente a esta venta para poder timbrarla, haga click en Aceptar para seleccionar un cliente", "Mensaje del Sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+                        if (respuesta == DialogResult.OK)
+                        {
+                            //Comprobamos si tiene clientes registrados
+                            var existenClientes = (bool)cn.EjecutarSelect($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID}");
+
+                            if (existenClientes)
+                            {
+                                ListaClientes clientes = new ListaClientes(idVenta);
+
+                                clientes.FormClosed += delegate
+                                {
+                                    CargarDatos();
+                                };
+
+                                clientes.ShowDialog();
+                            }
+                            else
+                            {
+                                AgregarCliente nuevo = new AgregarCliente(1, 0, idVenta);
+
+                                nuevo.FormClosed += delegate
+                                {
+                                    CargarDatos();
+                                };
+
+                                nuevo.ShowDialog();
+                            }
                         }
                     }
                 }

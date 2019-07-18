@@ -18,15 +18,21 @@ namespace PuntoDeVentaV2
 
         //tipo 1 = agregar
         //tipo 2 = editar
+        //tipo 3 = confirmar y editar para antes de timbrar
         private int tipo = 0;
         private int idCliente = 0;
+        private int idVenta = 0;
 
-        public AgregarCliente(int tipo = 1, int idCliente = 0)
+        //idVenta como parametro es para cuando se agrega un cliente al momento de querer timbrar
+        //una venta, de esta manera se asigna el ID del cliente al terminar el registro de esta manera
+        //con la venta la cual se intenta timbrar
+        public AgregarCliente(int tipo = 1, int idCliente = 0, int idVenta = 0)
         {
             InitializeComponent();
 
             this.tipo = tipo;
             this.idCliente = idCliente;
+            this.idVenta = idVenta;
         }
 
         private void AgregarCliente_Load(object sender, EventArgs e)
@@ -36,9 +42,13 @@ namespace PuntoDeVentaV2
             {
                 this.Text = "PUDVE - Nuevo Cliente";
             }
-            else
+            else if (tipo == 2)
             {
                 this.Text = "PUDVE - Editar Cliente";
+            }
+            else if (tipo == 3)
+            {
+                this.Text = "PUDVE - Confirmar Cliente";
             }
 
             //ComboBox usos de CFDI
@@ -61,7 +71,7 @@ namespace PuntoDeVentaV2
             cbUsoCFDI.ValueMember = "Key";
 
             //ComboBox Formas de pago
-            Dictionary<string, string> pagos = new Dictionary<string, string>();
+            /*Dictionary<string, string> pagos = new Dictionary<string, string>();
             pagos.Add("01", "01 - Efectivo");
             pagos.Add("02", "02 - Cheque nominativo");
             pagos.Add("03", "03 - Transferencia electrónica de fondos");
@@ -86,10 +96,10 @@ namespace PuntoDeVentaV2
 
             cbFormaPago.DataSource = pagos.ToArray();
             cbFormaPago.DisplayMember = "Value";
-            cbFormaPago.ValueMember = "Key";
+            cbFormaPago.ValueMember = "Key";*/
 
-            //Si viene de la opcion editar buscamos los datos actuales del cliente
-            if (tipo == 2)
+            //Si viene de la opcion editar o confirmar, buscamos los datos actuales del cliente
+            if (tipo == 2 || tipo == 3)
             {
                 var cliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
 
@@ -118,7 +128,7 @@ namespace PuntoDeVentaV2
             var regimen = string.Empty; //Esta vacio porque no se utiliza actualmente el campo de regimen
             var email = txtEmail.Text;
             var telefono = txtTelefono.Text;
-            var formaPago = cbFormaPago.SelectedValue;
+            var formaPago = "01"; //cbFormaPago.SelectedValue;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' ORDER BY FechaOperacion DESC LIMIT 1", 1));
@@ -140,7 +150,7 @@ namespace PuntoDeVentaV2
             string[] datos = new string[]
             {
                 FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
-                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago.ToString(), fechaOperacion, idCliente.ToString()
+                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString()
             };
 
             //Si el checkbox de agregar cliente repetido esta marcado
@@ -165,10 +175,17 @@ namespace PuntoDeVentaV2
                     else if (mensaje == DialogResult.No)
                     {
                         //Si selecciona NO se hace un nuevo registro
+
+                        //Insertar
                         int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
 
                         if (resultado > 0)
                         {
+                            if (idVenta > 0)
+                            {
+                                AsignarCliente(idVenta);
+                            }
+
                             this.Close();
                         }
                     }
@@ -179,10 +196,16 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    //Insertar
                     int resultado = cn.EjecutarConsulta(cs.GuardarCliente(datos));
 
                     if (resultado > 0)
                     {
+                        if (idVenta > 0)
+                        {
+                            AsignarCliente(idVenta);
+                        }
+
                         this.Close();
                     }
                 }
@@ -196,6 +219,11 @@ namespace PuntoDeVentaV2
 
                     if (resultado > 0)
                     {
+                        if (idVenta > 0)
+                        {
+                            AsignarCliente(idVenta);
+                        }
+
                         this.Close();
                     }
                 }
@@ -234,7 +262,24 @@ namespace PuntoDeVentaV2
             txtEmail.Text = datos[13];
             txtTelefono.Text = datos[14];
             cbUsoCFDI.SelectedValue = datos[3];
-            cbFormaPago.SelectedValue = datos[15];
+            //cbFormaPago.SelectedValue = datos[15];
+        }
+
+        //Este método se utiliza cuando se quiere timbrar una factura pero no se tienen clientes registrados
+        //Se abre el form de registrar nuevo cliente, al terminar el registro obtiene el ID de ese cliente
+        //Busca sus datos en este caso la razon social y actualiza la tabla de detalles venta de la venta correspondiente
+        private void AsignarCliente(int idVenta)
+        {
+            int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1", 1));
+
+            var tmp = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
+
+            //Actualizar a la tabla detalle de venta
+            var razonSocial = tmp[0];
+
+            string[] datos = new string[] { idCliente.ToString(), razonSocial, idVenta.ToString(), FormPrincipal.userID.ToString() };
+
+            cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
         }
     }
 }

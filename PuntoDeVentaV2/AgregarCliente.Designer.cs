@@ -29,13 +29,14 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
-            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.cbCliente = new System.Windows.Forms.CheckBox();
-            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbFormaPago = new System.Windows.Forms.ComboBox();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtNumInt = new System.Windows.Forms.TextBox();
@@ -68,9 +68,6 @@
             this.label20 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbUsoCFDI = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,13 +79,11 @@
             this.gbContenedor.Controls.Add(this.label20);
             this.gbContenedor.Controls.Add(this.label4);
             this.gbContenedor.Controls.Add(this.cbUsoCFDI);
-            this.gbContenedor.Controls.Add(this.label22);
             this.gbContenedor.Controls.Add(this.label19);
             this.gbContenedor.Controls.Add(this.label18);
             this.gbContenedor.Controls.Add(this.btnAceptar);
             this.gbContenedor.Controls.Add(this.btnCancelar);
             this.gbContenedor.Controls.Add(this.cbCliente);
-            this.gbContenedor.Controls.Add(this.label17);
             this.gbContenedor.Controls.Add(this.label16);
             this.gbContenedor.Controls.Add(this.label15);
             this.gbContenedor.Controls.Add(this.label13);
@@ -103,7 +98,6 @@
             this.gbContenedor.Controls.Add(this.label3);
             this.gbContenedor.Controls.Add(this.label2);
             this.gbContenedor.Controls.Add(this.label1);
-            this.gbContenedor.Controls.Add(this.cbFormaPago);
             this.gbContenedor.Controls.Add(this.txtTelefono);
             this.gbContenedor.Controls.Add(this.txtEmail);
             this.gbContenedor.Controls.Add(this.txtNumInt);
@@ -120,20 +114,35 @@
             this.gbContenedor.Controls.Add(this.txtRazonSocial);
             this.gbContenedor.Location = new System.Drawing.Point(12, 12);
             this.gbContenedor.Name = "gbContenedor";
-            this.gbContenedor.Size = new System.Drawing.Size(610, 608);
+            this.gbContenedor.Size = new System.Drawing.Size(610, 570);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
             // 
-            // label22
+            // label23
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.Red;
-            this.label22.Location = new System.Drawing.Point(110, 488);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(14, 17);
-            this.label22.TabIndex = 76;
-            this.label22.Text = "*";
+            this.label23.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label23.Location = new System.Drawing.Point(15, 505);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(580, 2);
+            this.label23.TabIndex = 82;
+            // 
+            // label21
+            // 
+            this.label21.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label21.Location = new System.Drawing.Point(16, 388);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(580, 2);
+            this.label21.TabIndex = 81;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(245, 407);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(185, 17);
+            this.label14.TabIndex = 80;
+            this.label14.Text = "DATOS EXTRA FACTURACIÓN";
             // 
             // label19
             // 
@@ -166,7 +175,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(454, 561);
+            this.btnAceptar.Location = new System.Drawing.Point(454, 526);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(144, 28);
             this.btnAceptar.TabIndex = 18;
@@ -183,7 +192,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(306, 561);
+            this.btnCancelar.Location = new System.Drawing.Point(306, 526);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(144, 28);
             this.btnCancelar.TabIndex = 19;
@@ -201,17 +210,6 @@
             this.cbCliente.TabIndex = 4;
             this.cbCliente.Text = "Agregar cliente repetido";
             this.cbCliente.UseVisualStyleBackColor = true;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(13, 488);
-            this.label17.Name = "label17";
-            this.label17.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label17.Size = new System.Drawing.Size(98, 17);
-            this.label17.TabIndex = 70;
-            this.label17.Text = "Forma de Pago";
             // 
             // label16
             // 
@@ -365,16 +363,6 @@
             this.label1.Size = new System.Drawing.Size(83, 17);
             this.label1.TabIndex = 52;
             this.label1.Text = "Razón Social";
-            // 
-            // cbFormaPago
-            // 
-            this.cbFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFormaPago.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbFormaPago.FormattingEnabled = true;
-            this.cbFormaPago.Location = new System.Drawing.Point(152, 486);
-            this.cbFormaPago.Name = "cbFormaPago";
-            this.cbFormaPago.Size = new System.Drawing.Size(446, 24);
-            this.cbFormaPago.TabIndex = 17;
             // 
             // txtTelefono
             // 
@@ -548,37 +536,11 @@
             this.cbUsoCFDI.Size = new System.Drawing.Size(446, 24);
             this.cbUsoCFDI.TabIndex = 16;
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(245, 407);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(185, 17);
-            this.label14.TabIndex = 80;
-            this.label14.Text = "DATOS EXTRA FACTURACIÓN";
-            // 
-            // label21
-            // 
-            this.label21.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label21.Location = new System.Drawing.Point(16, 388);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(580, 2);
-            this.label21.TabIndex = 81;
-            // 
-            // label23
-            // 
-            this.label23.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label23.Location = new System.Drawing.Point(15, 541);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(580, 2);
-            this.label23.TabIndex = 82;
-            // 
             // AgregarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 632);
+            this.ClientSize = new System.Drawing.Size(634, 591);
             this.Controls.Add(this.gbContenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -598,7 +560,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.CheckBox cbCliente;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label13;
@@ -613,7 +574,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbFormaPago;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtNumInt;
@@ -628,14 +588,13 @@
         private System.Windows.Forms.TextBox txtRFC;
         private System.Windows.Forms.TextBox txtNombreComercial;
         private System.Windows.Forms.TextBox txtRazonSocial;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbUsoCFDI;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label21;
     }
 }

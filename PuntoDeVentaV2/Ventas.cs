@@ -1468,6 +1468,11 @@ namespace PuntoDeVentaV2
         {
             if (listaProductos.Visible == true && txtBuscadorProducto.Text != "")
             {
+                if (listaProductos.Items.Count == 0)
+                {
+                    return;
+                }
+
                 listaProductos.SelectedIndex = 0;
 
                 //Presiono hacia arriba
