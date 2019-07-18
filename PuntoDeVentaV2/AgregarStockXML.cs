@@ -262,18 +262,28 @@ namespace PuntoDeVentaV2
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
         public void datosAgregarNvoProd()
         {
-            FormAgregar.ProdNombre = ds.Conceptos[index - 1].Descripcion;                   // pasamos la descripcion
-            FormAgregar.ProdStock = ds.Conceptos[index - 1].Cantidad;                       // pasamos la cantidad del XML
-            FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
-            FormAgregar.lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
-            FormAgregar.ProdClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;        // pasamos la claveInterna del XML
-            //FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveUnidad;             // pasamos la ClaveUnidad del XML
-            //FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].Unidad;              // pasamos la Unidad del XML
+            if (index == 0)
+            {
+                FormAgregar.ProdNombre = ds.Conceptos[index].Descripcion;                   // pasamos la descripcion
+                FormAgregar.ProdStock = ds.Conceptos[index].Cantidad;                       // pasamos la cantidad del XML
+                FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
+                FormAgregar.lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
+                FormAgregar.ProdClaveInterna = ds.Conceptos[index].NoIdentificacion;        // pasamos la claveInterna del XML
 
-            //Se corrigieron los valores que deben de ser enviados, la clave producto y la clave de unidad
-            FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;
-            FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;
-
+                FormAgregar.claveProductoxml = ds.Conceptos[index].ClaveProdServ;
+                FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index].ClaveUnidad;
+            }
+            else if (index >= 1)
+            {
+                FormAgregar.ProdNombre = ds.Conceptos[index - 1].Descripcion;                   // pasamos la descripcion
+                FormAgregar.ProdStock = ds.Conceptos[index - 1].Cantidad;                       // pasamos la cantidad del XML
+                FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
+                FormAgregar.lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
+                FormAgregar.ProdClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;        // pasamos la claveInterna del XML
+                
+                FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;
+                FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;
+            }
             //Asignamos el impuesto y el importe
             /*var cadena = ObtenerImpuestos(rutaXML, index - 1);
             var tmp = cadena.Split('|');
@@ -753,6 +763,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (dtProductos.Rows[0]["Status"].ToString() == "0")
                 {
+                    resultadoSearchProd = 0;        // busqueda negativa
                     DesactivarBtnSi();
                     RecorrerXML();
                 }
@@ -815,11 +826,30 @@ namespace PuntoDeVentaV2
             descuento = 0;
             ClaveInterna = "0";
             lblPosicionActualXML.Text = (index + 1).ToString();
-            concepto = ds.Conceptos[index].Descripcion;
+            if (index > 0)
+            {
+                index = Convert.ToInt32(lblPosicionActualXML.Text);
+            }
+            if (index == 0)
+            {
+                concepto = ds.Conceptos[index].Descripcion;
+            }
+            else if (index >= 1)
+            {
+                concepto = ds.Conceptos[index - 1].Descripcion;
+            }
             lblDescripcionXML.Text = concepto;
             try
             {
-                stockProdXML = (int)Convert.ToDouble(ds.Conceptos[index].Cantidad);             // convertimos la cantidad del Archivo XML para su posterior manipulacion
+                // convertimos la cantidad del Archivo XML para su posterior manipulacion
+                if (index == 0)
+                {
+                    stockProdXML = (int)Convert.ToDouble(ds.Conceptos[index].Cantidad);
+                }
+                else if (index >= 1)
+                {
+                    stockProdXML = (int)Convert.ToDouble(ds.Conceptos[index - 1].Cantidad);
+                }
             }
             catch (Exception ex)
             {
@@ -828,30 +858,67 @@ namespace PuntoDeVentaV2
             lblCantXML.Text = stockProdXML.ToString();
             try
             {
-                importe = (float)Convert.ToDouble(ds.Conceptos[index].Importe);                 // convertimos el Importe del Archivo XML para su posterior manipulacion
+                // convertimos el Importe del Archivo XML para su posterior manipulacion
+                if (index == 0)
+                {
+                    importe = (float)Convert.ToDouble(ds.Conceptos[index].Importe);
+                }
+                else if (index >= 1)
+                {
+                    importe = (float)Convert.ToDouble(ds.Conceptos[index - 1].Importe);
+                }     
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            if (ds.Conceptos[index].Descuento == "" || ds.Conceptos[index].Descuento == null)
+            if (index == 0)
             {
-                ds.Conceptos[index].Descuento = descuento.ToString();
-            }
-            else if (ds.Conceptos[index].Descuento != "")
-            {
-                try
+                if (ds.Conceptos[index].Descuento == "" || ds.Conceptos[index].Descuento == null)
                 {
-                    descuento = (float)Convert.ToDouble(ds.Conceptos[index].Descuento);         // convertimos el Descuento del Archivo XML para su posterior manipulacion
+                    ds.Conceptos[index].Descuento = descuento.ToString();
                 }
-                catch (Exception ex)
+                else if (ds.Conceptos[index].Descuento != "")
                 {
-                    MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        descuento = (float)Convert.ToDouble(ds.Conceptos[index].Descuento);         // convertimos el Descuento del Archivo XML para su posterior manipulacion
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else if (index >= 1)
+            {
+                if (ds.Conceptos[index - 1].Descuento == "" || ds.Conceptos[index - 1].Descuento == null)
+                {
+                    ds.Conceptos[index - 1].Descuento = descuento.ToString();
+                }
+                else if (ds.Conceptos[index - 1].Descuento != "")
+                {
+                    try
+                    {
+                        descuento = (float)Convert.ToDouble(ds.Conceptos[index - 1].Descuento);         // convertimos el Descuento del Archivo XML para su posterior manipulacion
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             try
             {
-                cantidad = (float)Convert.ToDouble(ds.Conceptos[index].Cantidad);               // convertimos la cantidad del Archivo XML para su posterior manipulacion
+                // convertimos la cantidad del Archivo XML para su posterior manipulacion
+                if (index == 0)
+                {
+                    cantidad = (float)Convert.ToDouble(ds.Conceptos[index].Cantidad);
+                }
+                else if (index >= 1)
+                {
+                    cantidad = (float)Convert.ToDouble(ds.Conceptos[index - 1].Cantidad);
+                }            
             }
             catch (Exception ex)
             {
@@ -862,20 +929,41 @@ namespace PuntoDeVentaV2
             lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
             importeReal = cantidad * precioOriginalConIVA;                                  // calculamos importe real (cantidad * precioOriginalConIVA)
             lblImpXML.Text = importeReal.ToString("N2");
-            if (ds.Conceptos[index].NoIdentificacion == "" || ds.Conceptos[index].NoIdentificacion == null)
+            if (index == 0)
             {
-                ds.Conceptos[index].NoIdentificacion = ClaveInterna;
+                if (ds.Conceptos[index].NoIdentificacion == "" || ds.Conceptos[index].NoIdentificacion == null)
+                {
+                    ds.Conceptos[index].NoIdentificacion = ClaveInterna;
+                }
+                else if (ds.Conceptos[index].NoIdentificacion != "")
+                {
+                    ClaveInterna = ds.Conceptos[index].NoIdentificacion;
+                }
             }
-            else if (ds.Conceptos[index].NoIdentificacion != "")
+            else if (index >= 1)
             {
-                ClaveInterna= ds.Conceptos[index].NoIdentificacion;
+                if (ds.Conceptos[index - 1].NoIdentificacion == "" || ds.Conceptos[index - 1].NoIdentificacion == null)
+                {
+                    ds.Conceptos[index - 1].NoIdentificacion = ClaveInterna;
+                }
+                else if (ds.Conceptos[index - 1].NoIdentificacion != "")
+                {
+                    ClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;
+                }
             }
             lblNoIdentificacionXML.Text = ClaveInterna;
             PrecioRecomendado = precioOriginalConIVA * (float)1.60;             // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
             try
             {
-                precio = (float)Convert.ToDouble(ds.Conceptos[index].ValorUnitario);
+                if (index == 0)
+                {
+                    precio = (float)Convert.ToDouble(ds.Conceptos[index].ValorUnitario);
+                }
+                else if (index >= 1)
+                {
+                    precio = (float)Convert.ToDouble(ds.Conceptos[index - 1].ValorUnitario);
+                }
             }
             catch (Exception ex)
             {
@@ -888,7 +976,14 @@ namespace PuntoDeVentaV2
             folio = ds.Folio;
             RFCEmisor = ds.Emisor.Rfc;
             nombreEmisor = ds.Emisor.Nombre;
-            claveProdEmisor = ds.Conceptos[index].ClaveProdServ;
+            if (index == 0)
+            {
+                claveProdEmisor = ds.Conceptos[index].ClaveProdServ;
+            }
+            else if (index >= 1)
+            {
+                claveProdEmisor = ds.Conceptos[index - 1].ClaveProdServ;
+            }
         }
 
         // funsion para cargar los datos del Producto
@@ -929,7 +1024,7 @@ namespace PuntoDeVentaV2
                 {
                     datosProductos();       // mostramos los datos del producto en el stock
                 }
-                index++;            // aumentamos en uno la variable index
+                //index++;            // aumentamos en uno la variable index
             }
             else if(index <= ds.Conceptos.Count())
             {
@@ -943,7 +1038,7 @@ namespace PuntoDeVentaV2
                 {
                     datosProductos();       // mostramos los datos del producto en el stock
                 }
-                index++;            // aumentamos en uno la variable index
+                //index++;            // aumentamos en uno la variable index
             }
         }
 
