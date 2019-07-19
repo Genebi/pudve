@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace PuntoDeVentaV2
 {
@@ -234,6 +237,13 @@ namespace PuntoDeVentaV2
 
                     if (resultado > 0)
                     {
+                        //Verificamos que sea la confirmacion de que los datos del cliente son los correctos
+                        //Al aceptar se actualizara la informacion y generara el XML
+                        if (tipo == 3)
+                        {
+                            GenerarXML();
+                        }
+
                         this.Close();
                     }
                 }
@@ -280,6 +290,42 @@ namespace PuntoDeVentaV2
             string[] datos = new string[] { idCliente.ToString(), razonSocial, idVenta.ToString(), FormPrincipal.userID.ToString() };
 
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
+        }
+
+        private void GenerarXML()
+        {
+            Comprobante comprobante = new Comprobante();
+            comprobante.Folio = "666";
+
+            ComprobanteEmisor emisor = new ComprobanteEmisor();
+            emisor.Nombre = "Alejandro";
+            emisor.Rfc = "NUSN900420SS5";
+            emisor.RegimenFiscal = c_RegimenFiscal.Item601;
+
+            ComprobanteReceptor receptor = new ComprobanteReceptor();
+            receptor.Nombre = "Carlos Mafufo";
+            receptor.Rfc = "NUSN900420SS6";
+
+            comprobante.Emisor = emisor;
+            comprobante.Receptor = receptor;
+
+            string rutaXML = @"C:\Users\Jando\Desktop\xmlprueba.xml";
+
+            XmlSerializer xmlSerializador = new XmlSerializer(typeof(Comprobante));
+
+            string xml = string.Empty;
+
+            using (var sw = new StringWriter())
+            {
+                using (XmlWriter writter = XmlWriter.Create(sw))
+                {
+                    xmlSerializador.Serialize(writter, comprobante);
+                    xml = sw.ToString();
+                }
+            }
+
+            //Guardamos la string en el archivo XML
+            File.WriteAllText(rutaXML, xml);
         }
     }
 }
