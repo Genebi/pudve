@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
             Ventas = 21;
             Clientes = 21;
             RevisarInventario = 15;
-            DetallesVenta = 12;
+            DetallesVenta = 13;
             Abonos = 11;
             #endregion InicializarVariables
         }
@@ -1457,7 +1457,8 @@ namespace PuntoDeVentaV2
                                               Credito REAL DEFAULT (0),
                                               Referencia TEXT,
                                               IDCliente INTEGER DEFAULT (0),
-                                              Cliente TEXT);";
+                                              Cliente TEXT,
+                                              Cuenta TEXT);";
         }
 
         public string QueryUpdateTablaDetallesVenta(string tabla)

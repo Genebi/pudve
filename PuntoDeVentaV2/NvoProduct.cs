@@ -530,25 +530,52 @@ namespace PuntoDeVentaV2
         // respecto al stock del producto en su campo de NoIdentificacion
         private void searchCodBar()
         {
-            if (txtCodigoBarras.Text != "")    // Si el campo tiene texto
+            //if (txtCodigoBarras.Text != "")    // Si el campo tiene texto
+            //{
+            //    // preparamos el Query
+            //    string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.CodigoBarras = '{txtCodigoBarras.Text}' OR Prod.ClaveInterna = '{txtCodigoBarras.Text}'";
+            //    dtCodBar = cn.CargarDatos(search);  // alamcenamos el resultado de la busqueda en dtClaveInterna
+            //    if (dtCodBar.Rows.Count > 0)        // si el resultado arroja al menos una fila
+            //    {
+            //        resultadoSearchCodBar = 1; // busqueda positiva
+            //                                   //MessageBox.Show("No Identificación Encontrado...\nen el Código de Barras del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //    else if (dtCodBar.Rows.Count <= 0)  // si el resultado no arroja ninguna fila
+            //    {
+            //        resultadoSearchCodBar = 0; // busqueda negativa
+            //                                   //MessageBox.Show("Codigo Bar Disponible", "Este Codigo libre", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //else    // si el campo no tiene texto
+            //{
+            //    resultadoSearchCodBar = 0;
+            //}
+            // preparamos el Query
+            string search = $@"SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.CodigoBarras AS 'CodBar'
+                               FROM Productos Prod
+                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
+                               UNION
+                               SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna AS 'ClavInt'
+                               FROM Productos Prod
+                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
+                               ORDER BY Prod.Nombre, CodBar, ClavInt";
+            dtCodBar = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
+            foreach (DataRow row in dtCodBar.Rows)
             {
-                // preparamos el Query
-                string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.CodigoBarras = '{txtCodigoBarras.Text}' OR Prod.ClaveInterna = '{txtCodigoBarras.Text}'";
-                dtCodBar = cn.CargarDatos(search);  // alamcenamos el resultado de la busqueda en dtClaveInterna
-                if (dtCodBar.Rows.Count > 0)        // si el resultado arroja al menos una fila
+                string textoBuscar = row["CodBar"].ToString().Replace("\r\n", "").Trim();
+                string codBar = txtCodigoBarras.Text;
+                if (textoBuscar != "")
                 {
-                    resultadoSearchCodBar = 1; // busqueda positiva
-                                               //MessageBox.Show("No Identificación Encontrado...\nen el Código de Barras del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (textoBuscar == codBar)
+                    {
+                        resultadoSearchCodBar = 1;    // busqueda positiva
+                        break;
+                    }
+                    else if (textoBuscar != codBar)
+                    {
+                        resultadoSearchCodBar = 0; // busqueda negativa
+                    }
                 }
-                else if (dtCodBar.Rows.Count <= 0)  // si el resultado no arroja ninguna fila
-                {
-                    resultadoSearchCodBar = 0; // busqueda negativa
-                                               //MessageBox.Show("Codigo Bar Disponible", "Este Codigo libre", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else    // si el campo no tiene texto
-            {
-                resultadoSearchCodBar = 0;
             }
         }
 
@@ -557,27 +584,54 @@ namespace PuntoDeVentaV2
         // respecto al stock del producto en su campo de NoIdentificacion
         public void searchClavIntProd()
         {
-            if (txtClaveProducto.Text != "")    // Si el campo tiene texto
-            {
-                // preparamos el Query
-                string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.ClaveInterna = '{txtClaveProducto.Text}' OR Prod.CodigoBarras = '{txtClaveProducto.Text}'";
-                dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
+            //if (txtClaveProducto.Text != "")    // Si el campo tiene texto
+            //{
+            //    // preparamos el Query
+            //    string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.ClaveInterna = '{txtClaveProducto.Text}' OR Prod.CodigoBarras = '{txtClaveProducto.Text}'";
+            //    dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
 
-                if (dtClaveInterna.Rows.Count > 0)  // si el resultado arroja al menos una fila
-                {
-                    resultadoSearchNoIdentificacion = 1;    // busqueda positiva
-                                                            //MessageBox.Show("No Identificación Encontrado...\nen la claveInterna del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (dtClaveInterna.Rows.Count <= 0)    // si el resultado no arroja ninguna fila
-                {
-                    resultadoSearchNoIdentificacion = 0; // busqueda negativa
-                                                         //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else    // si el campo no tiene texto
+            //    if (dtClaveInterna.Rows.Count > 0)  // si el resultado arroja al menos una fila
+            //    {
+            //        resultadoSearchNoIdentificacion = 1;    // busqueda positiva
+            //                                                //MessageBox.Show("No Identificación Encontrado...\nen la claveInterna del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //    else if (dtClaveInterna.Rows.Count <= 0)    // si el resultado no arroja ninguna fila
+            //    {
+            //        resultadoSearchNoIdentificacion = 0; // busqueda negativa
+            //                                             //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //else    // si el campo no tiene texto
+            //{
+            //    resultadoSearchNoIdentificacion = 0; // busqueda negativa
+            //    //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            // preparamos el Query
+            string search = $@"SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna AS 'ClavInt'
+                               FROM Productos Prod
+                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
+                               UNION
+                               SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.CodigoBarras AS 'CodBar'
+                               FROM Productos Prod
+                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
+                               ORDER BY Prod.Nombre, ClavInt, CodBar";
+            dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
+            foreach (DataRow row in dtClaveInterna.Rows)
             {
-                resultadoSearchNoIdentificacion = 0; // busqueda negativa
-                //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string textoBuscar = row["ClavInt"].ToString().Replace("\r\n", "").Trim();
+                string clavInterna = txtClaveProducto.Text;
+                if (textoBuscar != "")
+                {
+                    if (textoBuscar == clavInterna)
+                    {
+                        resultadoSearchNoIdentificacion = 1;    // busqueda positiva
+                        break;
+                    }
+                    else if (textoBuscar != clavInterna)
+                    {
+                        resultadoSearchNoIdentificacion = 0; // busqueda negativa
+                    }
+                }
             }
         }
     }
