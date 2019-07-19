@@ -95,8 +95,9 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente1_Click(object sender, EventArgs e)
         {
-            //Actualizamos la forma de pago y otros datos
+            //Actualizamos la forma de pago, metodo de pago y cuenta en caso de que exista
             var pago = cbFormaPago.SelectedValue.ToString();
+            var metodo = cbMetodoPago.SelectedValue.ToString();
 
             if (txtCuenta.Visible && pago != "99")
             {
@@ -115,19 +116,24 @@ namespace PuntoDeVentaV2
 
             var cuenta = txtCuenta.Text;
 
-            cn.EjecutarConsulta($"UPDATE Ventas SET FormaPago = '{pago}' WHERE ID = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+            //Actualizamos
+            int respuestaUno = cn.EjecutarConsulta($"UPDATE Ventas SET MetodoPago = '{metodo}', FormaPago = '{pago}' WHERE ID = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+            int respuestaDos = cn.EjecutarConsulta($"UPDATE DetallesVenta SET Cuenta = '{cuenta}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
 
-            if (idCliente > 0)
+            if (respuestaUno > 0 && respuestaDos > 0)
             {
-                AgregarCliente cliente = new AgregarCliente(3, idCliente);
+                if (idCliente > 0)
+                {
+                    AgregarCliente cliente = new AgregarCliente(3, idCliente);
 
-                cliente.ShowDialog();
+                    cliente.ShowDialog();
 
-                this.Close();
-            }
-            else
-            {
-
+                    this.Close();
+                }
+                else
+                {
+                    //Hacer algo en caso de que no tenga clienta (publico general)
+                }
             }
         }
 
