@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
 
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0, editarEstado = 0, numerofila = 0;
-        string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, filtro;
+        string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro;
 
         DataTable dt, dtConsulta, fotos, registros;
         DataGridViewButtonColumn setup, record, barcode, foto, tag, copy;
@@ -582,6 +582,8 @@ namespace PuntoDeVentaV2
             ClaveInterna = DGVProductos.Rows[fila].Cells["Column5"].Value.ToString();
             CodigoBarras = DGVProductos.Rows[fila].Cells["Column6"].Value.ToString();
             savePath = DGVProductos.Rows[fila].Cells["Column15"].Value.ToString();
+            ClaveProducto = DGVProductos.Rows[fila].Cells["_ClavProdXML"].Value.ToString();
+            UnidadMedida = DGVProductos.Rows[fila].Cells["_ClavUnidMedXML"].Value.ToString();
             id = FormPrincipal.userID.ToString();
         }
 
@@ -781,6 +783,9 @@ namespace PuntoDeVentaV2
                 }
 
                 row.Cells["Ajustar"].Value = ajustar;
+
+                row.Cells["_ClavProdXML"].Value = dr.GetValue(dr.GetOrdinal("ClaveProducto"));
+                row.Cells["_ClavUnidMedXML"].Value = dr.GetValue(dr.GetOrdinal("UnidadMedida"));
             }
 
             dr.Close();
@@ -850,6 +855,8 @@ namespace PuntoDeVentaV2
                     FormAgregar.ProdCategoria = ProductoCategoria;
                     FormAgregar.ProdClaveInterna = ClaveInterna;
                     FormAgregar.ProdCodBarras = CodigoBarras;
+                    FormAgregar.claveProductoxml = ClaveProducto;
+                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.ShowDialog();
                 }
             }
@@ -869,6 +876,8 @@ namespace PuntoDeVentaV2
                     FormAgregar.ProdCategoria = ProductoCategoria;
                     FormAgregar.ProdClaveInterna = ClaveInterna;
                     FormAgregar.ProdCodBarras = CodigoBarras;
+                    FormAgregar.claveProductoxml = ClaveProducto;
+                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.ShowDialog();
                 }
             }
