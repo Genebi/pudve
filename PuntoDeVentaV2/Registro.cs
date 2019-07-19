@@ -96,10 +96,13 @@ namespace PuntoDeVentaV2
 
                         if (respuesta > 0 && resultado > 0)
                         {
+                            int Id = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Usuarios WHERE Usuario = '" + usuario + "' AND Password = '" + password + "'", 1));
+
                             FormPrincipal fp = new FormPrincipal();
 
                             this.Hide();
 
+                            fp.IdUsuario = Id;
                             fp.nickUsuario = usuario;
                             fp.passwordUsuario = password;
                             fp.ShowDialog();
