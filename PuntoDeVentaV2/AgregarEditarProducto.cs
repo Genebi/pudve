@@ -2270,7 +2270,6 @@ namespace PuntoDeVentaV2
                     this.CenterToScreen();
                     this.Refresh();
                 }
-                label1.Text = "Alto del Panel de Productos: " + Convert.ToString(PConteidoProducto.Height);
             }
             else
             {
@@ -2283,7 +2282,6 @@ namespace PuntoDeVentaV2
                     this.CenterToScreen();
                     this.Refresh();
                 }
-                label1.Text = "Alto del Panel de Productos: " + Convert.ToString(PConteidoProducto.Height);
             }
         }
 
