@@ -719,7 +719,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (TipoProd == "S")
                 {
-                    row.Cells["Column2"].Value = "";
+                    row.Cells["Column2"].Value = "0";
                 }
 
                 row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));

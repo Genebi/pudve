@@ -2234,7 +2234,10 @@ namespace PuntoDeVentaV2
         {
             if (Hided)
             {
-                PConteidoProducto.Height = PConteidoProducto.Height + 30;
+                if (PConteidoProducto.Height == 0)
+                {
+                    PConteidoProducto.Height = PConteidoProducto.Height + 92;
+                }
                 if (PConteidoProducto.Height >= PH)
                 {
                     timerProdPaqSer.Stop();
@@ -2263,10 +2266,11 @@ namespace PuntoDeVentaV2
                     {
                         GenerarPanelProductosServ();
                     }
-                    this.Height = 800;
+                    this.Height = 700;
                     this.CenterToScreen();
                     this.Refresh();
                 }
+                label1.Text = "Alto del Panel de Productos: " + Convert.ToString(PConteidoProducto.Height);
             }
             else
             {
@@ -2275,10 +2279,11 @@ namespace PuntoDeVentaV2
                 {
                     timerProdPaqSer.Stop();
                     Hided = true;
-                    this.Height = 615;
+                    this.Height = 600;
                     this.CenterToScreen();
                     this.Refresh();
                 }
+                label1.Text = "Alto del Panel de Productos: " + Convert.ToString(PConteidoProducto.Height);
             }
         }
 
