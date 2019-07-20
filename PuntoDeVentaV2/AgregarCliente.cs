@@ -294,6 +294,15 @@ namespace PuntoDeVentaV2
 
         private void GenerarXML()
         {
+            //Obtener numero de certificado
+            string rutaCer = @"C:\Archivos PUDVE\MisDatos\CFDI\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer";
+            string rutaKey = @"C:\Archivos PUDVE\MisDatos\CFDI\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109.key";
+            string clavePrivada = "House121";
+
+            string numeroCertificado, a, b, c;
+
+            CFDI.SelloDigital.leerCER(rutaCer, out a, out b, out c, out numeroCertificado);
+
             Comprobante comprobante = new Comprobante();
             comprobante.Version = "3.3";
             comprobante.Folio = "666"; //cambiarlo
@@ -301,7 +310,7 @@ namespace PuntoDeVentaV2
             comprobante.Fecha = DateTime.Now;
             comprobante.Sello = "Falta";
             comprobante.FormaPago = c_FormaPago.Item99; //cambiarlo
-            comprobante.NoCertificado = "0000001212010"; //cambiarlo
+            comprobante.NoCertificado = numeroCertificado;
             comprobante.Certificado = ""; //cambiarlo
             comprobante.SubTotal = 10;
             comprobante.Descuento = 1;
