@@ -308,10 +308,8 @@ namespace PuntoDeVentaV2
             comprobante.Folio = "666"; //cambiarlo
             comprobante.Serie = "A"; //cambiarlo
             comprobante.Fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-            //comprobante.Sello = "Falta";
             comprobante.FormaPago = c_FormaPago.Item99; //cambiarlo
             comprobante.NoCertificado = numeroCertificado;
-            //comprobante.Certificado = ""; //cambiarlo
             comprobante.SubTotal = 10;
             comprobante.Descuento = 1;
             comprobante.Total = 9;
@@ -358,7 +356,7 @@ namespace PuntoDeVentaV2
             GenerarXML(comprobante, rutaXML);
 
             string cadenaOriginal = string.Empty;
-            string rutaXSLT = Properties.Settings.Default.rutaDirectorio + @"\cadenaoriginal_3_3.xslt";
+            string rutaXSLT = Properties.Settings.Default.rutaDirectorio + @"\xslt\cadenaoriginal_3_3.xslt";
             System.Xml.Xsl.XslCompiledTransform transformador = new System.Xml.Xsl.XslCompiledTransform(true);
             transformador.Load(rutaXSLT);
 
