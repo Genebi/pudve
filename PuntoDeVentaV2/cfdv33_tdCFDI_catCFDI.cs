@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 // 
@@ -44,7 +45,7 @@ public partial class Comprobante {
     
     private string folioField;
     
-    private System.DateTime fechaField;
+    private string fechaField;
     
     private string selloField;
     
@@ -81,7 +82,11 @@ public partial class Comprobante {
     private string lugarExpedicionField;
     
     private string confirmacionField;
-    
+
+    [XmlAttribute("schemaLocation", Namespace = XmlSchema.InstanceNamespace)]
+    public string xsiSchemaLocation = "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
+
+
     public Comprobante() {
         this.versionField = "3.3";
     }
@@ -193,7 +198,7 @@ public partial class Comprobante {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public System.DateTime Fecha {
+    public string Fecha {
         get {
             return this.fechaField;
         }

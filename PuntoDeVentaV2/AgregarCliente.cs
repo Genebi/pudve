@@ -241,7 +241,7 @@ namespace PuntoDeVentaV2
                         //Al aceptar se actualizara la informacion y generara el XML
                         if (tipo == 3)
                         {
-                            GenerarXML();
+                            DatosXML();
                         }
 
                         this.Close();
@@ -292,7 +292,7 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
         }
 
-        private void GenerarXML()
+        private void DatosXML()
         {
             //Obtener numero de certificado
             string rutaCer = @"C:\Archivos PUDVE\MisDatos\CFDI\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer";
@@ -307,11 +307,11 @@ namespace PuntoDeVentaV2
             comprobante.Version = "3.3";
             comprobante.Folio = "666"; //cambiarlo
             comprobante.Serie = "A"; //cambiarlo
-            comprobante.Fecha = DateTime.Now;
-            comprobante.Sello = "Falta";
+            comprobante.Fecha = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            //comprobante.Sello = "Falta";
             comprobante.FormaPago = c_FormaPago.Item99; //cambiarlo
             comprobante.NoCertificado = numeroCertificado;
-            comprobante.Certificado = ""; //cambiarlo
+            //comprobante.Certificado = ""; //cambiarlo
             comprobante.SubTotal = 10;
             comprobante.Descuento = 1;
             comprobante.Total = 9;
@@ -350,13 +350,40 @@ namespace PuntoDeVentaV2
             concepto.Descuento = 2;
             concepto.DescuentoSpecified = true;
             listaConceptos.Add(concepto);
-
             comprobante.Conceptos = listaConceptos.ToArray();
 
 
-            //Generacion del XML
             string rutaXML = @"C:\Users\Jando\Desktop\xmlprueba.xml";
 
+            GenerarXML(comprobante, rutaXML);
+
+            string cadenaOriginal = string.Empty;
+            string rutaXSLT = Properties.Settings.Default.rutaDirectorio + @"\cadenaoriginal_3_3.xslt";
+            System.Xml.Xsl.XslCompiledTransform transformador = new System.Xml.Xsl.XslCompiledTransform(true);
+            transformador.Load(rutaXSLT);
+
+            using (StringWriter sw = new StringWriter())
+            using (XmlWriter xw = XmlWriter.Create(sw, transformador.OutputSettings))
+            {
+                transformador.Transform(rutaXML, xw);
+                cadenaOriginal = sw.ToString();
+            }
+
+            CFDI.SelloDigital selloDigital = new CFDI.SelloDigital();
+            comprobante.Certificado = selloDigital.Certificado(rutaCer);
+            comprobante.Sello = selloDigital.Sellar(cadenaOriginal, rutaKey, clavePrivada);
+
+            GenerarXML(comprobante, rutaXML);
+        }
+
+        private void GenerarXML(Comprobante comprobante, string rutaXML)
+        {
+            XmlSerializerNamespaces xmlNameSpaces = new XmlSerializerNamespaces();
+            xmlNameSpaces.Add("cfdi", "http://www.sat.gob.mx/cfd/3");
+            xmlNameSpaces.Add("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital");
+            xmlNameSpaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+
+            //Generacion del XML
             XmlSerializer xmlSerializador = new XmlSerializer(typeof(Comprobante));
 
             string xml = string.Empty;
@@ -365,7 +392,7 @@ namespace PuntoDeVentaV2
             {
                 using (XmlWriter writter = XmlWriter.Create(sw))
                 {
-                    xmlSerializador.Serialize(writter, comprobante);
+                    xmlSerializador.Serialize(writter, comprobante, xmlNameSpaces);
                     xml = sw.ToString();
                 }
             }
