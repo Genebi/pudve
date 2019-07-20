@@ -295,27 +295,64 @@ namespace PuntoDeVentaV2
         private void GenerarXML()
         {
             Comprobante comprobante = new Comprobante();
-            comprobante.Folio = "666";
+            comprobante.Version = "3.3";
+            comprobante.Folio = "666"; //cambiarlo
+            comprobante.Serie = "A"; //cambiarlo
+            comprobante.Fecha = DateTime.Now;
+            comprobante.Sello = "Falta";
+            comprobante.FormaPago = c_FormaPago.Item99; //cambiarlo
+            comprobante.NoCertificado = "0000001212010"; //cambiarlo
+            comprobante.Certificado = ""; //cambiarlo
+            comprobante.SubTotal = 10;
+            comprobante.Descuento = 1;
+            comprobante.Total = 9;
+            comprobante.Moneda = c_Moneda.MXN; //Cambiar a string
+            comprobante.TipoDeComprobante = c_TipoDeComprobante.I;
+            comprobante.MetodoPago = c_MetodoPago.PPD; //Cambiar a string
+            comprobante.LugarExpedicion = "48900";
+            comprobante.TipoCambio = 1;
+            comprobante.TipoCambioSpecified = true;
+            comprobante.CondicionesDePago = "Vacio";
+            
 
             ComprobanteEmisor emisor = new ComprobanteEmisor();
             emisor.Nombre = "Alejandro";
             emisor.Rfc = "NUSN900420SS5";
-            emisor.RegimenFiscal = c_RegimenFiscal.Item601;
+            emisor.RegimenFiscal = c_RegimenFiscal.Item601; //Cambiar a string
 
             ComprobanteReceptor receptor = new ComprobanteReceptor();
             receptor.Nombre = "Carlos Mafufo";
             receptor.Rfc = "NUSN900420SS6";
+            receptor.UsoCFDI = c_UsoCFDI.P01; //Cambiar a string
 
             comprobante.Emisor = emisor;
             comprobante.Receptor = receptor;
 
+            List<ComprobanteConcepto> listaConceptos = new List<ComprobanteConcepto>();
+            ComprobanteConcepto concepto = new ComprobanteConcepto();
+            concepto.Importe = 5;
+            concepto.ClaveProdServ = "00000000";
+            concepto.ClaveUnidad = "KM";
+            concepto.Cantidad = 1;
+            concepto.ValorUnitario = 5;
+            concepto.Unidad = "Numero de paquetes";
+            concepto.NoIdentificacion = "151515";
+            concepto.Descripcion = "nada";
+            concepto.Descuento = 2;
+            concepto.DescuentoSpecified = true;
+            listaConceptos.Add(concepto);
+
+            comprobante.Conceptos = listaConceptos.ToArray();
+
+
+            //Generacion del XML
             string rutaXML = @"C:\Users\Jando\Desktop\xmlprueba.xml";
 
             XmlSerializer xmlSerializador = new XmlSerializer(typeof(Comprobante));
 
             string xml = string.Empty;
 
-            using (var sw = new StringWriter())
+            using (var sw = new CFDI.StringWriterConEncoding(Encoding.UTF8))
             {
                 using (XmlWriter writter = XmlWriter.Create(sw))
                 {
