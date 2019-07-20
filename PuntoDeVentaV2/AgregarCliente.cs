@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace PuntoDeVentaV2
 {
@@ -234,6 +237,13 @@ namespace PuntoDeVentaV2
 
                     if (resultado > 0)
                     {
+                        //Verificamos que sea la confirmacion de que los datos del cliente son los correctos
+                        //Al aceptar se actualizara la informacion y generara el XML
+                        if (tipo == 3)
+                        {
+                            GenerarXML();
+                        }
+
                         this.Close();
                     }
                 }
@@ -280,6 +290,88 @@ namespace PuntoDeVentaV2
             string[] datos = new string[] { idCliente.ToString(), razonSocial, idVenta.ToString(), FormPrincipal.userID.ToString() };
 
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
+        }
+
+        private void GenerarXML()
+        {
+            //Obtener numero de certificado
+            string rutaCer = @"C:\Archivos PUDVE\MisDatos\CFDI\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer";
+            string rutaKey = @"C:\Archivos PUDVE\MisDatos\CFDI\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109.key";
+            string clavePrivada = "House121";
+
+            string numeroCertificado, a, b, c;
+
+            CFDI.SelloDigital.leerCER(rutaCer, out a, out b, out c, out numeroCertificado);
+
+            Comprobante comprobante = new Comprobante();
+            comprobante.Version = "3.3";
+            comprobante.Folio = "666"; //cambiarlo
+            comprobante.Serie = "A"; //cambiarlo
+            comprobante.Fecha = DateTime.Now;
+            comprobante.Sello = "Falta";
+            comprobante.FormaPago = c_FormaPago.Item99; //cambiarlo
+            comprobante.NoCertificado = numeroCertificado;
+            comprobante.Certificado = ""; //cambiarlo
+            comprobante.SubTotal = 10;
+            comprobante.Descuento = 1;
+            comprobante.Total = 9;
+            comprobante.Moneda = c_Moneda.MXN; //Cambiar a string
+            comprobante.TipoDeComprobante = c_TipoDeComprobante.I;
+            comprobante.MetodoPago = c_MetodoPago.PPD; //Cambiar a string
+            comprobante.LugarExpedicion = "48900";
+            comprobante.TipoCambio = 1;
+            comprobante.TipoCambioSpecified = true;
+            comprobante.CondicionesDePago = "Vacio";
+            
+
+            ComprobanteEmisor emisor = new ComprobanteEmisor();
+            emisor.Nombre = "Alejandro";
+            emisor.Rfc = "NUSN900420SS5";
+            emisor.RegimenFiscal = c_RegimenFiscal.Item601; //Cambiar a string
+
+            ComprobanteReceptor receptor = new ComprobanteReceptor();
+            receptor.Nombre = "Carlos Mafufo";
+            receptor.Rfc = "NUSN900420SS6";
+            receptor.UsoCFDI = c_UsoCFDI.P01; //Cambiar a string
+
+            comprobante.Emisor = emisor;
+            comprobante.Receptor = receptor;
+
+            List<ComprobanteConcepto> listaConceptos = new List<ComprobanteConcepto>();
+            ComprobanteConcepto concepto = new ComprobanteConcepto();
+            concepto.Importe = 5;
+            concepto.ClaveProdServ = "00000000";
+            concepto.ClaveUnidad = "KM";
+            concepto.Cantidad = 1;
+            concepto.ValorUnitario = 5;
+            concepto.Unidad = "Numero de paquetes";
+            concepto.NoIdentificacion = "151515";
+            concepto.Descripcion = "nada";
+            concepto.Descuento = 2;
+            concepto.DescuentoSpecified = true;
+            listaConceptos.Add(concepto);
+
+            comprobante.Conceptos = listaConceptos.ToArray();
+
+
+            //Generacion del XML
+            string rutaXML = @"C:\Users\Jando\Desktop\xmlprueba.xml";
+
+            XmlSerializer xmlSerializador = new XmlSerializer(typeof(Comprobante));
+
+            string xml = string.Empty;
+
+            using (var sw = new CFDI.StringWriterConEncoding(Encoding.UTF8))
+            {
+                using (XmlWriter writter = XmlWriter.Create(sw))
+                {
+                    xmlSerializador.Serialize(writter, comprobante);
+                    xml = sw.ToString();
+                }
+            }
+
+            //Guardamos la string en el archivo XML
+            File.WriteAllText(rutaXML, xml);
         }
     }
 }
