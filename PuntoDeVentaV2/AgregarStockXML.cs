@@ -272,6 +272,12 @@ namespace PuntoDeVentaV2
 
                 FormAgregar.claveProductoxml = ds.Conceptos[index].ClaveProdServ;
                 FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index].ClaveUnidad;
+                FormAgregar.fechaProdXML = ds.Fecha;
+                FormAgregar.FolioProdXML = ds.Folio;
+                FormAgregar.RFCProdXML = ds.Emisor.Rfc;
+                FormAgregar.NobEmisorProdXML = ds.Emisor.Nombre;
+                FormAgregar.ClaveProdEmisorProdXML = ds.Conceptos[index].ClaveProdServ;
+                FormAgregar.DescuentoProdXML = ds.Conceptos[index].Descuento;
             }
             else if (index >= 1)
             {
@@ -283,6 +289,12 @@ namespace PuntoDeVentaV2
                 
                 FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;
                 FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;
+                FormAgregar.fechaProdXML = ds.Fecha;
+                FormAgregar.FolioProdXML = ds.Folio;
+                FormAgregar.RFCProdXML = ds.Emisor.Rfc;
+                FormAgregar.NobEmisorProdXML = ds.Emisor.Nombre;
+                FormAgregar.ClaveProdEmisorProdXML = ds.Conceptos[index - 1].ClaveProdServ;
+                FormAgregar.DescuentoProdXML = ds.Conceptos[index - 1].Descuento;
             }
             //Asignamos el impuesto y el importe
             /*var cadena = ObtenerImpuestos(rutaXML, index - 1);

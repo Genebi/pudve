@@ -63,6 +63,12 @@ namespace PuntoDeVentaV2
         public string CantidadProdServicio { get; set; }
         public string impuestoProdXML { get; set; }
         public string importeProdXML { get; set; }
+        public string fechaProdXML { get; set; }
+        public string FolioProdXML { get; set; }
+        public string RFCProdXML { get; set; }
+        public string NobEmisorProdXML { get; set; }
+        public string ClaveProdEmisorProdXML { get; set; }
+        public string DescuentoProdXML { get; set; }
 
         static public int DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
@@ -80,6 +86,13 @@ namespace PuntoDeVentaV2
         float precioOriginalConIVA = 0;
         float importeReal = 0;
         float PrecioRecomendado = 0;
+
+        static public string FechaXMLNvoProd;
+        static public string FolioXMLNvoProd;
+        static public string RFCXMLNvoProd;
+        static public string NobEmisorXMLNvoProd;
+        static public string ClaveProdEmisorXMLNvoProd;
+        static public string DescuentoXMLNvoProd;
 
         DataTable SearchProdResult, SearchCodBarExtResult, datosProductos;
 
@@ -575,6 +588,13 @@ namespace PuntoDeVentaV2
             impuestoProductoXML = impuestoProdXML;
             importeProductoXML = importeProdXML;
 
+            FechaXMLNvoProd = fechaProdXML;
+            FolioXMLNvoProd = FolioProdXML;
+            RFCXMLNvoProd = RFCProdXML;
+            NobEmisorXMLNvoProd = NobEmisorProdXML;
+            ClaveProdEmisorXMLNvoProd = ClaveProdEmisorProdXML;
+            DescuentoXMLNvoProd = DescuentoProdXML;
+
             txtNombreProducto.Text = ProdNombreFinal;
             txtStockProducto.Text = ProdStockFinal;
             txtPrecioProducto.Text = ProdPrecioFinal;
@@ -986,9 +1006,40 @@ namespace PuntoDeVentaV2
 
                         if (respuesta > 0)
                         {
+                            int found = 10;
+                            string fechaXML = FechaXMLNvoProd;
+                            string fecha = fechaXML.Substring(0, found);
+                            string hora = fechaXML.Substring(found + 1);
+                            string fechaCompleta = fecha + " " + hora;
+                            string folio = FolioXMLNvoProd;
+                            string RFCEmisor = RFCXMLNvoProd;
+                            string nombreEmisor = NobEmisorXMLNvoProd;
+                            string claveProdEmisor = ClaveProdEmisorXMLNvoProd;
+                            string descuentoXML = DescuentoXMLNvoProd;
+
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-                            
+
+                            string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
+                            try
+                            {
+                                cn.EjecutarConsulta(query);
+                                idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                                //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error :" + ex);
+                            }
+
+                            DateTime date1 = DateTime.Now;
+                            fechaCompleta = date1.ToString("s");
+                            string Year = fechaCompleta.Substring(0, found);
+                            string Date = fechaCompleta.Substring(found + 1);
+                            string FechaRegistrada = Year + " " + Date;
+                            string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
+                            cn.EjecutarConsulta(queryRecordHistorialProd);
+
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
                             {

@@ -491,6 +491,40 @@ namespace PuntoDeVentaV2
 
                 if (respuesta > 0)
                 {
+                    int found = 10;
+                    //string fechaXML = FechaXMLNvoProd;
+                    //string fecha = fechaXML.Substring(0, found);
+                    //string hora = fechaXML.Substring(found + 1);
+                    //string fechaCompleta = fecha + " " + hora;
+                    //string folio = FolioXMLNvoProd;
+                    //string RFCEmisor = RFCXMLNvoProd;
+                    //string nombreEmisor = NobEmisorXMLNvoProd;
+                    //string claveProdEmisor = ClaveProdEmisorXMLNvoProd;
+                    //string descuentoXML = DescuentoXMLNvoProd;
+
+                    ////Se obtiene la ID del último producto agregado
+                    //idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+
+                    //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{txtPrecioProducto.Text}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
+                    //try
+                    //{
+                    //    cn.EjecutarConsulta(query);
+                    //    idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                    //    //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    MessageBox.Show("Error :" + ex);
+                    //}
+
+                    //DateTime date1 = DateTime.Now;
+                    //fechaCompleta = date1.ToString("s");
+                    //string Year = fechaCompleta.Substring(0, found);
+                    //string Date = fechaCompleta.Substring(found + 1);
+                    //string FechaRegistrada = Year + " " + Date;
+                    //string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
+                    //cn.EjecutarConsulta(queryRecordHistorialProd);
+
                     //Se obtiene la ID del último producto agregado
                     idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
                     // recorrido para FlowLayoutPanel para ver cuantos TextBox
