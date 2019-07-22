@@ -100,8 +100,10 @@ namespace PuntoDeVentaV2
                 {
                     Productos.proveedorElegido = cbProveedores.SelectedIndex;
                     proveedor = cbProveedores.SelectedItem.ToString();
-                    string[] tmp = cn.ObtenerProveedor(proveedor, FormPrincipal.userID);
+                    var info = proveedor.Split('-');
+                    string[] tmp = cn.ObtenerProveedor(Convert.ToInt32(info[0].Trim()), FormPrincipal.userID);
                     rfc = tmp[1];
+                    proveedor = info[1].Trim();
                 }
 
                 //Datos para la tabla historial de compras

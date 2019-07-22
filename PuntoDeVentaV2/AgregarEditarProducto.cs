@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
@@ -929,6 +930,8 @@ namespace PuntoDeVentaV2
             var ProdServPaq = "P".ToString();
             var tipoDescuento = "0";
             var idUsrNvo = FormPrincipal.userID.ToString();
+            var fechaCompra = DateTime.Now.ToString("yyyy-MM-dd");
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             /*	Fin del codigo de Alejandro	*/
 
             /************************************
@@ -982,7 +985,7 @@ namespace PuntoDeVentaV2
                         {
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-                            
+
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
                             {
@@ -1009,6 +1012,8 @@ namespace PuntoDeVentaV2
                                 datosImpuestos = null;
                             }
 
+                            var idProveedor = string.Empty;
+
                             //Para guardar los detalles del producto
                             if (detallesProducto != null)
                             {
@@ -1017,16 +1022,28 @@ namespace PuntoDeVentaV2
                                 if (listaDetalles.Length > 0)
                                 {
                                     var datosProveedor = listaDetalles[0].Split('-');
-                                    var idProveedor = datosProveedor[0].Trim();
+                                    var idProveedorTmp = datosProveedor[0].Trim();
                                     var nombreProveedor = datosProveedor[1].Trim();
 
-                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedor };
+                                    idProveedor = idProveedorTmp;
+
+                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
 
                                     cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
 
                                     FormDetalleProducto.Close();
                                 } 
                             }
+
+                            //Datos para la tabla historial de compras
+                            var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedor), FormPrincipal.userID);
+                            var conceptoProveedor = proveedorTmp[0];
+                            var rfcProveedor = proveedorTmp[1];
+
+                            guardar = new string[] { nombre, stock, precio, precio, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                            cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
+
 
                             //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                             if (descuentos.Any())

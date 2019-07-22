@@ -499,14 +499,14 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string[] ObtenerProveedor(string nombre, int IDUsuario)
+        public string[] ObtenerProveedor(int idProveedor, int IDUsuario)
         {
             List<string> lista = new List<string>();
 
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE IDUsuario = {IDUsuario} AND Nombre = '{nombre}'";
+            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE ID = {idProveedor} AND IDUsuario = {IDUsuario}";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
