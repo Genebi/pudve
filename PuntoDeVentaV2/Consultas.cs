@@ -166,11 +166,24 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string GuardarDetallesDelProducto(string[] datos)
+        public string GuardarDetallesDelProducto(string[] datos, int tipo = 0)
         {
-            string consulta = "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}')";
+            string consulta = string.Empty;
 
+            //Insertar
+            if (tipo == 0)
+            {
+                consulta = "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor, IDProveedor)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
+
+            }
+
+            //Actualizar
+            if (tipo == 1)
+            {
+                consulta = $"UPDATE DetallesProducto SET Proveedor = '{datos[2]}', IDProveedor = {datos[3]} WHERE IDProducto = {datos[0]} AND IDUsuario = {datos[1]}";
+            }
+            
             return consulta;
         }
 

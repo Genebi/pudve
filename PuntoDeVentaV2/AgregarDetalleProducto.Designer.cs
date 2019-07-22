@@ -93,8 +93,6 @@
             // 
             this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProveedores.FormattingEnabled = true;
-            this.cbProveedores.Items.AddRange(new object[] {
-            "Seleccionar un proveedor..."});
             this.cbProveedores.Location = new System.Drawing.Point(280, 59);
             this.cbProveedores.Name = "cbProveedores";
             this.cbProveedores.Size = new System.Drawing.Size(552, 21);

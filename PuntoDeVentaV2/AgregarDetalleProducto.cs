@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
     public partial class AgregarDetalleProducto : Form
     {
         Conexion cn = new Conexion();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         //Almacenar lista de proveedores del usuario
         string[] listaProveedores = new string[] { };
@@ -24,17 +25,58 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
+            CargarProveedores();
+        }
+
+        private void CargarProveedores()
+        {
             //Asignamos el array con los nombres de los proveedores al combobox
             listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
-            cbProveedores.Items.AddRange(listaProveedores);
-            cbProveedores.SelectedIndex = 0;
 
             //Comprobar que ya exista al menos un proveedor
             if (listaProveedores.Length > 0)
             {
+                Dictionary<string, string> proveedores = new Dictionary<string, string>();
+
+                proveedores.Add("0", "Seleccionar un proveedor...");
+
+                foreach (var proveedor in listaProveedores)
+                {
+                    var tmp = proveedor.Split('-');
+
+                    proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
+                }
+
+                cbProveedores.DataSource = proveedores.ToArray();
+                cbProveedores.DisplayMember = "Value";
+                cbProveedores.ValueMember = "Key";
+
+
                 listaOpciones.SetItemChecked(0, true);
                 lbProveedor.Visible = true;
                 cbProveedores.Visible = true;
+
+                //Cuando se da click en la opcion editar producto
+                if (AgregarEditarProducto.DatosSourceFinal == 2)
+                {
+                    //MessageBox.Show(AgregarEditarProducto.idProductoFinal);
+                    var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                    var idProveedor = mb.ObtenerIDProveedorProducto(idProducto, FormPrincipal.userID);
+
+                    if (!string.IsNullOrEmpty(idProveedor))
+                    {
+                        cbProveedores.SelectedValue = idProveedor;
+                    }
+                    else
+                    {
+                        cbProveedores.SelectedValue = "NA";
+                    }
+                }
+            }
+            else
+            {
+                cbProveedores.Items.Add("Seleccionar un proveedor...");
+                cbProveedores.SelectedIndex = 0;
             }
         }
 
@@ -56,8 +98,9 @@ namespace PuntoDeVentaV2
 
                         ap.FormClosed += delegate
                         {
-                            listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
-                            cbProveedores.Items.AddRange(listaProveedores);
+                            //listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+                            //cbProveedores.Items.AddRange(listaProveedores);
+                            CargarProveedores();
                         };
 
                         ap.ShowDialog();
@@ -80,7 +123,7 @@ namespace PuntoDeVentaV2
                 //Proveedor
                 if (indice == 0)
                 {
-                    detalles += cbProveedores.SelectedItem + "|";
+                    detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text + "|";
                 }
             }
 

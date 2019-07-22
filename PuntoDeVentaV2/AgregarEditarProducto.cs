@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
@@ -63,12 +64,16 @@ namespace PuntoDeVentaV2
         public string CantidadProdServicio { get; set; }
         public string impuestoProdXML { get; set; }
         public string importeProdXML { get; set; }
+
         public string fechaProdXML { get; set; }
         public string FolioProdXML { get; set; }
         public string RFCProdXML { get; set; }
         public string NobEmisorProdXML { get; set; }
         public string ClaveProdEmisorProdXML { get; set; }
         public string DescuentoProdXML { get; set; }
+
+        public string idEditarProducto { get; set; }
+
 
         static public int DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
@@ -78,6 +83,7 @@ namespace PuntoDeVentaV2
         static public string ProdClaveInternaFinal = "";
         static public string ProdCodBarrasFinal = "";
         static public string CantProdServFinal = "";
+
         static public float ImporteNvoProd = 0;
         static public float DescuentoNvoProd = 0;
         static public int CantidadNvoProd = 0;
@@ -93,6 +99,9 @@ namespace PuntoDeVentaV2
         static public string NobEmisorXMLNvoProd;
         static public string ClaveProdEmisorXMLNvoProd;
         static public string DescuentoXMLNvoProd;
+
+        static public string idProductoFinal = string.Empty;
+
 
         DataTable SearchProdResult, SearchCodBarExtResult, datosProductos;
 
@@ -587,6 +596,7 @@ namespace PuntoDeVentaV2
             claveUnidadMedida = claveUnidadMedidaxml;
             impuestoProductoXML = impuestoProdXML;
             importeProductoXML = importeProdXML;
+            idProductoFinal = idEditarProducto;
 
             FechaXMLNvoProd = fechaProdXML;
             FolioXMLNvoProd = FolioProdXML;
@@ -955,6 +965,8 @@ namespace PuntoDeVentaV2
             var ProdServPaq = "P".ToString();
             var tipoDescuento = "0";
             var idUsrNvo = FormPrincipal.userID.ToString();
+            var fechaCompra = DateTime.Now.ToString("yyyy-MM-dd");
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             /*	Fin del codigo de Alejandro	*/
 
             /************************************
@@ -1020,6 +1032,7 @@ namespace PuntoDeVentaV2
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
+
                             string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
                             try
                             {
@@ -1039,6 +1052,7 @@ namespace PuntoDeVentaV2
                             string FechaRegistrada = Year + " " + Date;
                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
                             cn.EjecutarConsulta(queryRecordHistorialProd);
+
 
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
@@ -1066,6 +1080,8 @@ namespace PuntoDeVentaV2
                                 datosImpuestos = null;
                             }
 
+                            var idProveedor = string.Empty;
+
                             //Para guardar los detalles del producto
                             if (detallesProducto != null)
                             {
@@ -1073,11 +1089,29 @@ namespace PuntoDeVentaV2
 
                                 if (listaDetalles.Length > 0)
                                 {
-                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), listaDetalles[0] };
+                                    var datosProveedor = listaDetalles[0].Split('-');
+                                    var idProveedorTmp = datosProveedor[0].Trim();
+                                    var nombreProveedor = datosProveedor[1].Trim();
+
+                                    idProveedor = idProveedorTmp;
+
+                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
 
                                     cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-                                }
+
+                                    FormDetalleProducto.Close();
+                                } 
                             }
+
+                            //Datos para la tabla historial de compras
+                            var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedor), FormPrincipal.userID);
+                            var conceptoProveedor = proveedorTmp[0];
+                            var rfcProveedor = proveedorTmp[1];
+
+                            guardar = new string[] { nombre, stock, precio, precio, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                            cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
+
 
                             //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                             if (descuentos.Any())
@@ -1416,6 +1450,31 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+
+
+                    //Para actualizar los detalles del producto
+                    if (detallesProducto != null)
+                    {
+                        string[] listaDetalles = detallesProducto.Split('|');
+
+                        if (listaDetalles.Length > 0)
+                        {
+                            var datosProveedor = listaDetalles[0].Split('-');
+                            var idProveedor = datosProveedor[0].Trim();
+                            var nombreProveedor = datosProveedor[1].Trim();
+
+                            if (idProveedor == "0") { nombreProveedor = string.Empty; }
+
+                            string[] guardar = new string[] { idProductoFinal, FormPrincipal.userID.ToString(), nombreProveedor, idProveedor };
+
+                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar, 1));
+
+                            FormDetalleProducto.Close();
+
+                            idProductoFinal = string.Empty;
+                        }
+                    }
+
                     //Cierra la ventana donde se agregan los datos del producto
                     this.Close();
                 }
@@ -2251,16 +2310,19 @@ namespace PuntoDeVentaV2
 
         private void btnDetalleProducto_Click(object sender, EventArgs e)
         {
+            FormDetalleProducto = Application.OpenForms.OfType<AgregarDetalleProducto>().FirstOrDefault();
+            
             //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
-            if (FormDetalleProducto != null)
+            if (FormDetalleProducto == null)
             {
+                FormDetalleProducto = new AgregarDetalleProducto();
                 FormDetalleProducto.Show();
                 FormDetalleProducto.BringToFront();
             }
             else
             {
-                FormDetalleProducto = new AgregarDetalleProducto();
-                FormDetalleProducto.ShowDialog();
+                FormDetalleProducto.Show();
+                FormDetalleProducto.BringToFront();
             }
         }
 
