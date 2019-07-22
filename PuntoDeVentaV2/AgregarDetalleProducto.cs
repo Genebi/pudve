@@ -24,6 +24,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
+            MessageBox.Show(AgregarEditarProducto.DatosSourceFinal.ToString());
+
             //Asignamos el array con los nombres de los proveedores al combobox
             listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
             cbProveedores.Items.AddRange(listaProveedores);

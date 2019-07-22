@@ -168,8 +168,8 @@ namespace PuntoDeVentaV2
 
         public string GuardarDetallesDelProducto(string[] datos)
         {
-            string consulta = "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor)";
-                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}')";
+            string consulta = "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor, IDProveedor)";
+                   consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
 
             return consulta;
         }

@@ -491,7 +491,7 @@ namespace PuntoDeVentaV2
 
             while (dr.Read())
             {
-                lista.Add(dr[2].ToString()); //Nombre
+                lista.Add(dr[0] + " - " + dr[2]); //ID y Nombre
             }
 
             dr.Close();

@@ -1013,10 +1013,18 @@ namespace PuntoDeVentaV2
 
                                 if (listaDetalles.Length > 0)
                                 {
-                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), listaDetalles[0] };
+                                    var datosProveedor = listaDetalles[0].Split('-');
+                                    var idProveedor = datosProveedor[0].Trim();
+                                    var nombreProveedor = datosProveedor[1].Trim();
+
+                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedor };
 
                                     cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-                                }
+
+                                    FormDetalleProducto.Close();
+
+                                    FormDetalleProducto = new AgregarDetalleProducto();
+                                } 
                             }
 
                             //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
