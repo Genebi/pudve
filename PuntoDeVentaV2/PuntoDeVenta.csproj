@@ -259,6 +259,12 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionNet.cs" />
     <Compile Include="Consultas.cs" />
+    <Compile Include="datosExtraNvoProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datosExtraNvoProductos.Designer.cs">
+      <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBTables.cs" />
     <Compile Include="DetalleDescripcion.cs">
       <SubType>Form</SubType>
@@ -493,6 +499,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CodeBarMake.resx">
       <DependentUpon>CodeBarMake.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datosExtraNvoProductos.resx">
+      <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetalleDescripcion.resx">
       <DependentUpon>DetalleDescripcion.cs</DependentUpon>

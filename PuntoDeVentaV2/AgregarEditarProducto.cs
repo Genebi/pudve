@@ -41,6 +41,7 @@ namespace PuntoDeVentaV2
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
         AgregarDetalleProducto FormDetalleProducto;
+        datosExtraNvoProductos FormDatosExtraNvoProd = new datosExtraNvoProductos();
 
         public NvoProduct nvoProductoAdd = new NvoProduct();
         public CantidadProdServicio CantidadPordServPaq = new CantidadProdServicio();
@@ -71,6 +72,14 @@ namespace PuntoDeVentaV2
         static public string ProdClaveInternaFinal = "";
         static public string ProdCodBarrasFinal = "";
         static public string CantProdServFinal = "";
+        static public float ImporteNvoProd = 0;
+        static public float DescuentoNvoProd = 0;
+        static public int CantidadNvoProd = 0;
+
+        float precioOriginalSinIVA = 0;
+        float precioOriginalConIVA = 0;
+        float importeReal = 0;
+        float PrecioRecomendado = 0;
 
         DataTable SearchProdResult, SearchCodBarExtResult, datosProductos;
 
@@ -2349,7 +2358,30 @@ namespace PuntoDeVentaV2
                 cbTipo.Text = "Producto";
                 btnAdd.Visible = false;
                 ocultarPanel();
-                
+                if (DatosSourceFinal == 1)
+                {
+                    FormDatosExtraNvoProd.FormClosed += delegate
+                    {
+                        precioOriginalSinIVA = (ImporteNvoProd - DescuentoNvoProd) / CantidadNvoProd;
+                        precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;
+                        importeReal = CantidadNvoProd * precioOriginalConIVA;
+                        PrecioRecomendado = precioOriginalConIVA * (float)1.60;
+                        txtStockProducto.Text = CantidadNvoProd.ToString();
+                        txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+                        lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");
+                        txtNombreProducto.Focus();
+                        txtNombreProducto.Select(txtNombreProducto.Text.Length, 0);
+                    };
+
+                    if (!FormDatosExtraNvoProd.Visible)
+                    {
+                        FormDatosExtraNvoProd.ShowDialog();
+                    }
+                    else
+                    {
+                        FormDatosExtraNvoProd.ShowDialog();
+                    }
+                }
             }
             else if (!ProdNombre.Equals(""))
             {
