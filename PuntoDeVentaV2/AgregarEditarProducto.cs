@@ -62,6 +62,7 @@ namespace PuntoDeVentaV2
         public string CantidadProdServicio { get; set; }
         public string impuestoProdXML { get; set; }
         public string importeProdXML { get; set; }
+        public string idEditarProducto { get; set; }
 
         static public int DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
@@ -71,6 +72,7 @@ namespace PuntoDeVentaV2
         static public string ProdClaveInternaFinal = "";
         static public string ProdCodBarrasFinal = "";
         static public string CantProdServFinal = "";
+        static public string idProductoFinal = string.Empty;
 
         DataTable SearchProdResult, SearchCodBarExtResult, datosProductos;
 
@@ -565,6 +567,7 @@ namespace PuntoDeVentaV2
             claveUnidadMedida = claveUnidadMedidaxml;
             impuestoProductoXML = impuestoProdXML;
             importeProductoXML = importeProdXML;
+            idProductoFinal = idEditarProducto;
 
             txtNombreProducto.Text = ProdNombreFinal;
             txtStockProducto.Text = ProdStockFinal;
@@ -1022,8 +1025,6 @@ namespace PuntoDeVentaV2
                                     cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
 
                                     FormDetalleProducto.Close();
-
-                                    FormDetalleProducto = new AgregarDetalleProducto();
                                 } 
                             }
 
@@ -1364,6 +1365,31 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+
+
+                    //Para actualizar los detalles del producto
+                    if (detallesProducto != null)
+                    {
+                        string[] listaDetalles = detallesProducto.Split('|');
+
+                        if (listaDetalles.Length > 0)
+                        {
+                            var datosProveedor = listaDetalles[0].Split('-');
+                            var idProveedor = datosProveedor[0].Trim();
+                            var nombreProveedor = datosProveedor[1].Trim();
+
+                            if (idProveedor == "0") { nombreProveedor = string.Empty; }
+
+                            string[] guardar = new string[] { idProductoFinal, FormPrincipal.userID.ToString(), nombreProveedor, idProveedor };
+
+                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar, 1));
+
+                            FormDetalleProducto.Close();
+
+                            idProductoFinal = string.Empty;
+                        }
+                    }
+
                     //Cierra la ventana donde se agregan los datos del producto
                     this.Close();
                 }
@@ -2199,16 +2225,19 @@ namespace PuntoDeVentaV2
 
         private void btnDetalleProducto_Click(object sender, EventArgs e)
         {
+            FormDetalleProducto = Application.OpenForms.OfType<AgregarDetalleProducto>().FirstOrDefault();
+            
             //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
-            if (FormDetalleProducto != null)
+            if (FormDetalleProducto == null)
             {
+                FormDetalleProducto = new AgregarDetalleProducto();
                 FormDetalleProducto.Show();
                 FormDetalleProducto.BringToFront();
             }
             else
             {
-                FormDetalleProducto = new AgregarDetalleProducto();
-                FormDetalleProducto.ShowDialog();
+                FormDetalleProducto.Show();
+                FormDetalleProducto.BringToFront();
             }
         }
 

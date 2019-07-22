@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
 
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0, editarEstado = 0, numerofila = 0;
-        string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro;
+        string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar;
 
         DataTable dt, dtConsulta, fotos, registros;
         DataGridViewButtonColumn setup, record, barcode, foto, tag, copy;
@@ -585,6 +585,7 @@ namespace PuntoDeVentaV2
             ClaveProducto = DGVProductos.Rows[fila].Cells["_ClavProdXML"].Value.ToString();
             UnidadMedida = DGVProductos.Rows[fila].Cells["_ClavUnidMedXML"].Value.ToString();
             id = FormPrincipal.userID.ToString();
+            idProductoEditar = DGVProductos.Rows[fila].Cells["_IDProducto"].Value.ToString();
         }
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
@@ -857,6 +858,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.ProdCodBarras = CodigoBarras;
                     FormAgregar.claveProductoxml = ClaveProducto;
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
+                    FormAgregar.idEditarProducto = idProductoEditar;
                     FormAgregar.ShowDialog();
                 }
             }
@@ -878,6 +880,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.ProdCodBarras = CodigoBarras;
                     FormAgregar.claveProductoxml = ClaveProducto;
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
+                    FormAgregar.idEditarProducto = idProductoEditar;
                     FormAgregar.ShowDialog();
                 }
             }

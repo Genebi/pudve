@@ -21,11 +21,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            Conexion();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}";
-            sql_cmd.ExecuteNonQuery();
+            DatosConexion($"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -47,11 +43,7 @@ namespace PuntoDeVentaV2
         {
             float cantidad = 0f;
 
-            Conexion();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT SUM(Total) AS Total FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}";
-            sql_cmd.ExecuteNonQuery();
+            DatosConexion($"SELECT SUM(Total) AS Total FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -69,11 +61,7 @@ namespace PuntoDeVentaV2
         {
             List<float> lista = new List<float>();
 
-            Conexion();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}";
-            sql_cmd.ExecuteNonQuery();
+            DatosConexion($"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -96,11 +84,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            Conexion();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM Clientes WHERE ID = {idCliente} AND IDUsuario = {idUsuario}";
-            sql_cmd.ExecuteNonQuery();
+            DatosConexion($"SELECT * FROM Clientes WHERE ID = {idCliente} AND IDUsuario = {idUsuario}");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -134,11 +118,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            Conexion();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE ID = {idProveedor} AND IDUsuario = {idUsuario}";
-            sql_cmd.ExecuteNonQuery();
+            DatosConexion($"SELECT * FROM Proveedores WHERE ID = {idProveedor} AND IDUsuario = {idUsuario}");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -160,6 +140,33 @@ namespace PuntoDeVentaV2
             dr.Close();
 
             return lista.ToArray();
+        }
+
+        public string ObtenerIDProveedorProducto(int idProducto, int idUsuario)
+        {
+            string idProveedor = string.Empty;
+
+            DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                idProveedor = dr[4].ToString(); //ID proveddor
+            }
+
+            dr.Close();
+
+            return idProveedor;
+        }
+
+        private void DatosConexion(string consulta)
+        {
+            Conexion();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
         }
     }
 }
