@@ -1473,13 +1473,11 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                //listaProductos.SelectedIndex = 0;
-                listaProductos.Focus();
-                listaProductos.Select();
-
                 //Presiono hacia arriba
                 if (e.KeyCode == Keys.Up)
                 {
+                    listaProductos.Focus();
+
                     if (listaProductos.SelectedIndex > 0)
                     {
                         listaProductos.SelectedIndex--;
@@ -1490,6 +1488,8 @@ namespace PuntoDeVentaV2
                 //Presiono hacia abajo
                 if (e.KeyCode == Keys.Down)
                 {
+                    listaProductos.Focus();
+
                     if (listaProductos.SelectedIndex < (listaProductos.Items.Count - 1))
                     {
                         listaProductos.SelectedIndex++;
@@ -1522,14 +1522,17 @@ namespace PuntoDeVentaV2
                 if (s.Contains(txtBuscadorProducto.Text))
                 {
                     listaProductos.Items.Add(s);
-                    //listaProductos.Visible = true;
+                    listaProductos.Visible = true;
+                    listaProductos.SelectedIndex = 0;
                 }
             }
 
             if (listaProductos.Visible == false && txtBuscadorProducto.Text != "buscar producto o servicio...")
             {
                 string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
+
                 DataTable searchProd = cn.CargarDatos(querySearchProd);
+
                 if (searchProd.Rows.Count > 0)
                 {
                     int idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
@@ -1538,13 +1541,6 @@ namespace PuntoDeVentaV2
                     txtBuscadorProducto.Focus();
                     ocultarResultados();
                     AgregarProducto(datosProducto);
-                }
-                else if (searchProd.Rows.Count == 0)
-                {
-                    //MessageBox.Show("Producto no encontrado en el Stock", "No Registrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //txtBuscadorProducto.Text = "";
-                    //txtBuscadorProducto.Focus();
-                    //ocultarResultados();
                 }
             }
 
@@ -1555,14 +1551,9 @@ namespace PuntoDeVentaV2
                 AgregarProducto(datosVentaGuardada);
             }
 
-            if (listaProductos.Text != "" && listaProductos.Visible == true)
+            if (listaProductos.Visible == true)
             {
                 this.KeyPreview = true;
-            }
-
-            if (listaProductos.Items.Count > 0)
-            {
-                listaProductos.Visible = true;
             }
         }
 

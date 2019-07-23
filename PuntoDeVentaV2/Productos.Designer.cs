@@ -37,15 +37,6 @@
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.panelShowDGVProductosView = new System.Windows.Forms.Panel();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
-            this.panelShowPhotoView = new System.Windows.Forms.Panel();
-            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cbProductoComprado = new System.Windows.Forms.CheckBox();
-            this.btnListView = new System.Windows.Forms.Button();
-            this.btnPhotoView = new System.Windows.Forms.Button();
-            this.btnModificarEstado = new System.Windows.Forms.Button();
-            this.btnAgregarXML = new System.Windows.Forms.Button();
-            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.CheckProducto = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +58,16 @@
             this._IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._ClavProdXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._ClavUnidMedXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelShowPhotoView = new System.Windows.Forms.Panel();
+            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cbProductoComprado = new System.Windows.Forms.CheckBox();
+            this.btnListView = new System.Windows.Forms.Button();
+            this.btnPhotoView = new System.Windows.Forms.Button();
+            this.btnModificarEstado = new System.Windows.Forms.Button();
+            this.btnAgregarXML = new System.Windows.Forms.Button();
+            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
+            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -217,6 +218,132 @@
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             // 
+            // CheckProducto
+            // 
+            this.CheckProducto.HeaderText = "";
+            this.CheckProducto.Name = "CheckProducto";
+            this.CheckProducto.Width = 30;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Nombre";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Stock";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 65;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Precio";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 65;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Categoria";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Clave";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Código";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 102;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Editar";
+            this.Column7.Name = "Column7";
+            this.Column7.Width = 50;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Estado";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 50;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Historial";
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 50;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Generar";
+            this.Column10.Name = "Column10";
+            this.Column10.Width = 50;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Imagen";
+            this.Column11.Name = "Column11";
+            this.Column11.Width = 50;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Etiqueta";
+            this.Column12.Name = "Column12";
+            this.Column12.Width = 50;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "Copiar";
+            this.Column13.Name = "Column13";
+            this.Column13.Width = 50;
+            // 
+            // Column14
+            // 
+            this.Column14.HeaderText = "Status";
+            this.Column14.Name = "Column14";
+            this.Column14.Visible = false;
+            this.Column14.Width = 50;
+            // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "ProdImage";
+            this.Column15.Name = "Column15";
+            this.Column15.Visible = false;
+            this.Column15.Width = 50;
+            // 
+            // Column16
+            // 
+            this.Column16.HeaderText = "Tipo";
+            this.Column16.Name = "Column16";
+            this.Column16.Width = 50;
+            // 
+            // Ajustar
+            // 
+            this.Ajustar.HeaderText = "Ajustar";
+            this.Ajustar.Name = "Ajustar";
+            this.Ajustar.Width = 50;
+            // 
+            // _IDProducto
+            // 
+            this._IDProducto.HeaderText = "ID";
+            this._IDProducto.Name = "_IDProducto";
+            this._IDProducto.Visible = false;
+            // 
+            // _ClavProdXML
+            // 
+            this._ClavProdXML.HeaderText = "ClaveProducto";
+            this._ClavProdXML.Name = "_ClavProdXML";
+            this._ClavProdXML.Visible = false;
+            // 
+            // _ClavUnidMedXML
+            // 
+            this._ClavUnidMedXML.HeaderText = "ClavUnidMed";
+            this._ClavUnidMedXML.Name = "_ClavUnidMedXML";
+            this._ClavUnidMedXML.Visible = false;
+            // 
             // panelShowPhotoView
             // 
             this.panelShowPhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -344,131 +471,10 @@
             this.TTipButtonText.OwnerDraw = true;
             this.TTipButtonText.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTipButtonText_Draw);
             // 
-            // CheckProducto
+            // timerBusqueda
             // 
-            this.CheckProducto.HeaderText = "";
-            this.CheckProducto.Name = "CheckProducto";
-            this.CheckProducto.Width = 30;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.HeaderText = "Nombre";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Stock";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 65;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Precio";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 65;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Categoria";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Clave";
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Código";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 102;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Editar";
-            this.Column7.Name = "Column7";
-            this.Column7.Width = 50;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Estado";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 50;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Historial";
-            this.Column9.Name = "Column9";
-            this.Column9.Width = 50;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Generar";
-            this.Column10.Name = "Column10";
-            this.Column10.Width = 50;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "Imagen";
-            this.Column11.Name = "Column11";
-            this.Column11.Width = 50;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "Etiqueta";
-            this.Column12.Name = "Column12";
-            this.Column12.Width = 50;
-            // 
-            // Column13
-            // 
-            this.Column13.HeaderText = "Copiar";
-            this.Column13.Name = "Column13";
-            this.Column13.Width = 50;
-            // 
-            // Column14
-            // 
-            this.Column14.HeaderText = "Status";
-            this.Column14.Name = "Column14";
-            this.Column14.Visible = false;
-            this.Column14.Width = 50;
-            // 
-            // Column15
-            // 
-            this.Column15.HeaderText = "ProdImage";
-            this.Column15.Name = "Column15";
-            this.Column15.Visible = false;
-            this.Column15.Width = 50;
-            // 
-            // Column16
-            // 
-            this.Column16.HeaderText = "Tipo";
-            this.Column16.Name = "Column16";
-            this.Column16.Width = 50;
-            // 
-            // Ajustar
-            // 
-            this.Ajustar.HeaderText = "Ajustar";
-            this.Ajustar.Name = "Ajustar";
-            this.Ajustar.Width = 50;
-            // 
-            // _IDProducto
-            // 
-            this._IDProducto.HeaderText = "ID";
-            this._IDProducto.Name = "_IDProducto";
-            this._IDProducto.Visible = false;
-            // 
-            // _ClavProdXML
-            // 
-            this._ClavProdXML.HeaderText = "ClaveProducto";
-            this._ClavProdXML.Name = "_ClavProdXML";
-            this._ClavProdXML.Visible = false;
-            // 
-            // _ClavUnidMedXML
-            // 
-            this._ClavUnidMedXML.HeaderText = "ClavUnidMed";
-            this._ClavUnidMedXML.Name = "_ClavUnidMedXML";
-            this._ClavUnidMedXML.Visible = false;
+            this.timerBusqueda.Interval = 1000;
+            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
             // Productos
             // 
@@ -529,5 +535,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _IDProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn _ClavProdXML;
         private System.Windows.Forms.DataGridViewTextBoxColumn _ClavUnidMedXML;
+        private System.Windows.Forms.Timer timerBusqueda;
     }
 }
