@@ -1199,6 +1199,44 @@ namespace PuntoDeVentaV2
                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
                         if (respuesta > 0)
                         {
+                            if (DatosSourceFinal == 3)
+                            {
+                                int found = 10;
+                                string fechaXML = FechaXMLNvoProd;
+                                string fecha = fechaXML.Substring(0, found);
+                                string hora = fechaXML.Substring(found + 1);
+                                string fechaCompleta = fecha + " " + hora;
+                                string folio = FolioXMLNvoProd;
+                                string RFCEmisor = RFCXMLNvoProd;
+                                string nombreEmisor = NobEmisorXMLNvoProd;
+                                string claveProdEmisor = ClaveProdEmisorXMLNvoProd;
+                                string descuentoXML = DescuentoXMLNvoProd;
+
+                                //Se obtiene la ID del último producto agregado
+                                idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+
+
+                                string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
+                                try
+                                {
+                                    cn.EjecutarConsulta(query);
+                                    idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                                    //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error :" + ex);
+                                }
+
+                                DateTime date1 = DateTime.Now;
+                                fechaCompleta = date1.ToString("s");
+                                string Year = fechaCompleta.Substring(0, found);
+                                string Date = fechaCompleta.Substring(found + 1);
+                                string FechaRegistrada = Year + " " + Date;
+                                string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
+                                cn.EjecutarConsulta(queryRecordHistorialProd);
+                            }
+
                             if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                             {
                                 ProductosDeServicios.Clear();
@@ -2362,6 +2400,12 @@ namespace PuntoDeVentaV2
             nvoProductoAdd.ProdCategoria = "";
             nvoProductoAdd.ProdClaveInterna = "";
             nvoProductoAdd.ProdCodBarras = "";
+            nvoProductoAdd.fechaProdServicioXML = FechaXMLNvoProd;
+            nvoProductoAdd.FolioProdServicioXML = FolioXMLNvoProd;
+            nvoProductoAdd.RFCProdServicioXML = RFCXMLNvoProd;
+            nvoProductoAdd.NobEmisorProdServicioXML = NobEmisorXMLNvoProd;
+            nvoProductoAdd.ClaveProdEmisorProdServicioXML = ClaveProdEmisorXMLNvoProd;
+            nvoProductoAdd.DescuentoProdServicioXML = DescuentoXMLNvoProd;
         }
 
         private void txtCategoriaProducto_TextChanged(object sender, EventArgs e)
