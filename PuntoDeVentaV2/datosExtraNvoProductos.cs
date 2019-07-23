@@ -23,7 +23,15 @@ namespace PuntoDeVentaV2
 
         private void datosExtraNvoProductos_Load(object sender, EventArgs e)
         {
+            //limpiarCampos();
             txtImporteProdNvo.Select(txtImporteProdNvo.Text.Length, 0);
+        }
+
+        private void limpiarCampos()
+        {
+            txtImporteProdNvo.Text = "0";
+            txtDescuentoProdNvo.Text = "0";
+            txtCantidadProdNvo.Text = "0";
         }
 
         private void txtImporteProdNvo_KeyPress(object sender, KeyPressEventArgs e)
@@ -65,6 +73,31 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Solo se aceptan numeros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void txtImporteProdNvo_Leave(object sender, EventArgs e)
+        {
+            string texto = txtImporteProdNvo.Text;
+            importe = 0;
+            if (texto != "" || texto == "0")
+            {
+                importe = (float)Convert.ToDouble(texto);
+            }
+            else
+            {
+                importe = -1;
+            }
+
+            if (importe >= 0)
+            {
+                Productos.ImporteDatoExtraFinal = importe;
+                txtDescuentoProdNvo.Focus();
+                txtDescuentoProdNvo.Select(txtDescuentoProdNvo.Text.Length, 0);
+            }
+            else
+            {
+                MessageBox.Show("Solo se aceptan numeros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -110,6 +143,31 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtDescuentoProdNvo_Leave(object sender, EventArgs e)
+        {
+            string texto = txtDescuentoProdNvo.Text;
+            descuento = 0;
+            if (texto != "" || texto == "0")
+            {
+                descuento = (float)Convert.ToDouble(texto);
+            }
+            else
+            {
+                descuento = -1;
+            }
+
+            if (descuento >= 0)
+            {
+                Productos.DescuentoDatoExtraFinal = descuento;
+                txtCantidadProdNvo.Focus();
+                txtCantidadProdNvo.Select(txtDescuentoProdNvo.Text.Length, 0);
+            }
+            else
+            {
+                MessageBox.Show("Solo se aceptan numeros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void txtCantidadProdNvo_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
@@ -137,12 +195,38 @@ namespace PuntoDeVentaV2
                 if (Cantidad >= 0)
                 {
                     Productos.CantidadDatoExtraFinal = Cantidad;
+                    limpiarCampos();
                     this.Close();
                 }
                 else
                 {
                     MessageBox.Show("Solo se aceptan numeros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void txtCantidadProdNvo_Leave(object sender, EventArgs e)
+        {
+            string texto = txtCantidadProdNvo.Text;
+            Cantidad = 0;
+            if (texto != "" || texto == "0")
+            {
+                Cantidad = Convert.ToInt32(texto);
+            }
+            else
+            {
+                Cantidad = -1;
+            }
+
+            if (Cantidad >= 0)
+            {
+                Productos.CantidadDatoExtraFinal = Cantidad;
+                limpiarCampos();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Solo se aceptan numeros.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

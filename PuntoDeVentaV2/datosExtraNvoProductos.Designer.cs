@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtCantidadProdNvo = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.txtDescuentoProdNvo = new System.Windows.Forms.TextBox();
             this.txtImporteProdNvo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtCantidadProdNvo = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +56,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Datos Complementarios del Producto: ";
             // 
+            // txtCantidadProdNvo
+            // 
+            this.txtCantidadProdNvo.Location = new System.Drawing.Point(125, 136);
+            this.txtCantidadProdNvo.Name = "txtCantidadProdNvo";
+            this.txtCantidadProdNvo.Size = new System.Drawing.Size(195, 20);
+            this.txtCantidadProdNvo.TabIndex = 5;
+            this.txtCantidadProdNvo.Text = "0";
+            this.txtCantidadProdNvo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidadProdNvo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadProdNvo_KeyDown);
+            this.txtCantidadProdNvo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadProdNvo_KeyPress);
+            this.txtCantidadProdNvo.Leave += new System.EventHandler(this.txtCantidadProdNvo_Leave);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(25, 139);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Cantidad:";
+            // 
             // txtDescuentoProdNvo
             // 
             this.txtDescuentoProdNvo.Location = new System.Drawing.Point(125, 84);
@@ -66,6 +87,7 @@
             this.txtDescuentoProdNvo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDescuentoProdNvo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoProdNvo_KeyDown);
             this.txtDescuentoProdNvo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuentoProdNvo_KeyPress);
+            this.txtDescuentoProdNvo.Leave += new System.EventHandler(this.txtDescuentoProdNvo_Leave);
             // 
             // txtImporteProdNvo
             // 
@@ -77,6 +99,7 @@
             this.txtImporteProdNvo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtImporteProdNvo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtImporteProdNvo_KeyDown);
             this.txtImporteProdNvo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtImporteProdNvo_KeyPress);
+            this.txtImporteProdNvo.Leave += new System.EventHandler(this.txtImporteProdNvo_Leave);
             // 
             // label2
             // 
@@ -95,26 +118,6 @@
             this.label1.Size = new System.Drawing.Size(45, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Importe:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 139);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Cantidad:";
-            // 
-            // txtCantidadProdNvo
-            // 
-            this.txtCantidadProdNvo.Location = new System.Drawing.Point(125, 136);
-            this.txtCantidadProdNvo.Name = "txtCantidadProdNvo";
-            this.txtCantidadProdNvo.Size = new System.Drawing.Size(195, 20);
-            this.txtCantidadProdNvo.TabIndex = 5;
-            this.txtCantidadProdNvo.Text = "0";
-            this.txtCantidadProdNvo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCantidadProdNvo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadProdNvo_KeyDown);
-            this.txtCantidadProdNvo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadProdNvo_KeyPress);
             // 
             // datosExtraNvoProductos
             // 
