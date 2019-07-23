@@ -1123,13 +1123,16 @@ namespace PuntoDeVentaV2
                             if (DatosSourceFinal == 1)
                             {
                                 //Datos para la tabla historial de compras
-                                var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedor), FormPrincipal.userID);
-                                var conceptoProveedor = proveedorTmp[0];
-                                var rfcProveedor = proveedorTmp[1];
+                                if (idProveedor != "")
+                                {
+                                    var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedor), FormPrincipal.userID);
+                                    var conceptoProveedor = proveedorTmp[0];
+                                    var rfcProveedor = proveedorTmp[1];
 
-                                guardar = new string[] { nombre, stock, precio, precio, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+                                    guardar = new string[] { nombre, stock, precio, precio, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
 
-                                cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
+                                    cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
+                                }
                             }
                             
                             //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno

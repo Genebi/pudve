@@ -365,6 +365,19 @@ namespace PuntoDeVentaV2
         {
             origenDeLosDatos = 3;
 
+            string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre}' AND RFC = '{ds.Emisor.Rfc}'";
+            DataTable dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
+
+            if (dtSearchProveedor.Rows.Count <= 0)
+            {
+                string fechaOperacion, fechaXML = ds.Fecha, fecha, hora;
+                fecha = fechaXML.Substring(0,10);
+                hora = fechaXML.Substring(11);
+                fechaOperacion = fecha + " " + hora;
+                string queryAddProveedor = $@"INSERT INTO Proveedores (IDUsuario, Nombre, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{ds.Emisor.Nombre}', '{ds.Emisor.Rfc}', '{fechaOperacion}')";
+                cn.EjecutarConsulta(queryAddProveedor);
+            }
+
             FormAgregar.FormClosed += delegate
             {
                 // recorrer el archivo XML
