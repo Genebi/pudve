@@ -1473,18 +1473,28 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                listaProductos.SelectedIndex = 0;
+                //listaProductos.SelectedIndex = 0;
+                listaProductos.Focus();
+                listaProductos.Select();
 
                 //Presiono hacia arriba
                 if (e.KeyCode == Keys.Up)
                 {
-                    listaProductos.Focus();
+                    if (listaProductos.SelectedIndex > 0)
+                    {
+                        listaProductos.SelectedIndex--;
+                        e.Handled = true;
+                    }
                 }
 
-                //Presio hacia abajo
+                //Presiono hacia abajo
                 if (e.KeyCode == Keys.Down)
                 {
-                    listaProductos.Focus();
+                    if (listaProductos.SelectedIndex < (listaProductos.Items.Count - 1))
+                    {
+                        listaProductos.SelectedIndex++;
+                        e.Handled = true;
+                    }
                 }
             }
 
@@ -1512,7 +1522,7 @@ namespace PuntoDeVentaV2
                 if (s.Contains(txtBuscadorProducto.Text))
                 {
                     listaProductos.Items.Add(s);
-                    listaProductos.Visible = true;
+                    //listaProductos.Visible = true;
                 }
             }
 
@@ -1549,6 +1559,16 @@ namespace PuntoDeVentaV2
             {
                 this.KeyPreview = true;
             }
+
+            if (listaProductos.Items.Count > 0)
+            {
+                listaProductos.Visible = true;
+            }
+        }
+
+        private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ProductoSeleccionado();
         }
 
         private void listaProductos_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -1563,32 +1583,27 @@ namespace PuntoDeVentaV2
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up && this.listaProductos.SelectedIndex - 1 > -1)
+            if (e.KeyData == Keys.Enter)
             {
-                index = listaProductos.SelectedIndex - 1;
-                //label1.Text = Convert.ToString(index);
+                ProductoSeleccionado();
             }
-            if (e.KeyCode == Keys.Down && this.listaProductos.SelectedIndex + 1 < this.listaProductos.Items.Count)
-            {
-                index = listaProductos.SelectedIndex + 1;
-                //label1.Text = Convert.ToString(index);
-            }
-            if (e.KeyCode == Keys.Enter)
-            {
-                //Se obtiene el texto del item seleccionado del ListBox
-                producto = listaProductos.Items[index].ToString();
-                //Se obtiene el indice del array donde se encuentra el producto seleccionado
-                idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
-                
-                datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+        }
 
-                // borrar producto a buscar
-                txtBuscadorProducto.Text = "";
-                txtBuscadorProducto.Focus();
-                ocultarResultados();
+        private void ProductoSeleccionado()
+        {
+            //Se obtiene el texto del item seleccionado del ListBox
+            producto = listaProductos.Items[listaProductos.SelectedIndex].ToString();
+            //Se obtiene el indice del array donde se encuentra el producto seleccionado
+            idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
 
-                AgregarProducto(datosProducto);
-            }
+            datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+            //borrar producto a buscar
+            txtBuscadorProducto.Text = "";
+            txtBuscadorProducto.Focus();
+            ocultarResultados();
+
+            AgregarProducto(datosProducto);
         }
     }
 }
