@@ -1473,18 +1473,28 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                listaProductos.SelectedIndex = 0;
-
                 //Presiono hacia arriba
                 if (e.KeyCode == Keys.Up)
                 {
                     listaProductos.Focus();
+
+                    if (listaProductos.SelectedIndex > 0)
+                    {
+                        listaProductos.SelectedIndex--;
+                        e.Handled = true;
+                    }
                 }
 
-                //Presio hacia abajo
+                //Presiono hacia abajo
                 if (e.KeyCode == Keys.Down)
                 {
                     listaProductos.Focus();
+
+                    if (listaProductos.SelectedIndex < (listaProductos.Items.Count - 1))
+                    {
+                        listaProductos.SelectedIndex++;
+                        e.Handled = true;
+                    }
                 }
             }
 
@@ -1513,13 +1523,16 @@ namespace PuntoDeVentaV2
                 {
                     listaProductos.Items.Add(s);
                     listaProductos.Visible = true;
+                    listaProductos.SelectedIndex = 0;
                 }
             }
 
             if (listaProductos.Visible == false && txtBuscadorProducto.Text != "buscar producto o servicio...")
             {
                 string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
+
                 DataTable searchProd = cn.CargarDatos(querySearchProd);
+
                 if (searchProd.Rows.Count > 0)
                 {
                     int idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
@@ -1528,13 +1541,6 @@ namespace PuntoDeVentaV2
                     txtBuscadorProducto.Focus();
                     ocultarResultados();
                     AgregarProducto(datosProducto);
-                }
-                else if (searchProd.Rows.Count == 0)
-                {
-                    //MessageBox.Show("Producto no encontrado en el Stock", "No Registrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //txtBuscadorProducto.Text = "";
-                    //txtBuscadorProducto.Focus();
-                    //ocultarResultados();
                 }
             }
 
@@ -1545,10 +1551,15 @@ namespace PuntoDeVentaV2
                 AgregarProducto(datosVentaGuardada);
             }
 
-            if (listaProductos.Text != "" && listaProductos.Visible == true)
+            if (listaProductos.Visible == true)
             {
                 this.KeyPreview = true;
             }
+        }
+
+        private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ProductoSeleccionado();
         }
 
         private void listaProductos_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -1563,32 +1574,27 @@ namespace PuntoDeVentaV2
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up && this.listaProductos.SelectedIndex - 1 > -1)
+            if (e.KeyData == Keys.Enter)
             {
-                index = listaProductos.SelectedIndex - 1;
-                //label1.Text = Convert.ToString(index);
+                ProductoSeleccionado();
             }
-            if (e.KeyCode == Keys.Down && this.listaProductos.SelectedIndex + 1 < this.listaProductos.Items.Count)
-            {
-                index = listaProductos.SelectedIndex + 1;
-                //label1.Text = Convert.ToString(index);
-            }
-            if (e.KeyCode == Keys.Enter)
-            {
-                //Se obtiene el texto del item seleccionado del ListBox
-                producto = listaProductos.Items[index].ToString();
-                //Se obtiene el indice del array donde se encuentra el producto seleccionado
-                idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
-                
-                datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+        }
 
-                // borrar producto a buscar
-                txtBuscadorProducto.Text = "";
-                txtBuscadorProducto.Focus();
-                ocultarResultados();
+        private void ProductoSeleccionado()
+        {
+            //Se obtiene el texto del item seleccionado del ListBox
+            producto = listaProductos.Items[listaProductos.SelectedIndex].ToString();
+            //Se obtiene el indice del array donde se encuentra el producto seleccionado
+            idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
 
-                AgregarProducto(datosProducto);
-            }
+            datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+            //borrar producto a buscar
+            txtBuscadorProducto.Text = "";
+            txtBuscadorProducto.Focus();
+            ocultarResultados();
+
+            AgregarProducto(datosProducto);
         }
     }
 }

@@ -645,7 +645,9 @@ namespace PuntoDeVentaV2
 
             if (panelShowDGVProductosView.Visible == true)
             {
-                CargarDatos(1, txtBusqueda.Text);
+                //CargarDatos(1, txtBusqueda.Text);
+                timerBusqueda.Stop();
+                timerBusqueda.Start();
             }
             else if (panelShowPhotoView.Visible == true)
             {
@@ -805,19 +807,24 @@ namespace PuntoDeVentaV2
             {
                 if (cbProductoComprado.Checked)
                 {
-                    AjustarProducto ap = new AjustarProducto(idProducto);
+                    bool existeProducto = (bool)cn.EjecutarSelect($"SELECT ID FROM Productos WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
-                    ap.FormClosed += delegate
+                    if (existeProducto)
                     {
-                        CargarDatos();
-                        txtBusqueda.Text = string.Empty;
-                        txtBusqueda.Focus();
-                        generarIdReporte = false;
-                    };
+                        AjustarProducto ap = new AjustarProducto(idProducto);
 
-                    generarIdReporte = true;
+                        ap.FormClosed += delegate
+                        {
+                            CargarDatos();
+                            txtBusqueda.Text = string.Empty;
+                            txtBusqueda.Focus();
+                            generarIdReporte = false;
+                        };
 
-                    ap.ShowDialog();
+                        generarIdReporte = true;
+
+                        ap.ShowDialog();
+                    }
                 }
 
                 abierta = false;
@@ -1138,6 +1145,11 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.Reload();
         }
 
+        private void timerBusqueda_Tick(object sender, EventArgs e)
+        {
+            timerBusqueda.Stop();
+            CargarDatos(1, txtBusqueda.Text);
+        }
 
         private void GenerarTicket(int idReporte)
         {

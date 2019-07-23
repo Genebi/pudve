@@ -44,6 +44,7 @@ namespace PuntoDeVentaV2
             precioProducto = float.Parse(datos[2]);
             stockProducto = Convert.ToInt32(datos[4]);
             ActiveControl = txtCantidadCompra;
+            
 
             //Eventos para los campos que solo requieren cantidades
             txtPrecioCompra.KeyPress += new KeyPressEventHandler(SoloDecimales);
