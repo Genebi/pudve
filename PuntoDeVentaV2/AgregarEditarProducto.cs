@@ -42,7 +42,6 @@ namespace PuntoDeVentaV2
         AgregarDetalleFacturacionProducto FormDetalle;
         AgregarDescuentoProducto FormAgregar;
         AgregarDetalleProducto FormDetalleProducto;
-        datosExtraNvoProductos FormDatosExtraNvoProd = new datosExtraNvoProductos();
 
         public NvoProduct nvoProductoAdd = new NvoProduct();
         public CantidadProdServicio CantidadPordServPaq = new CantidadProdServicio();
@@ -74,6 +73,9 @@ namespace PuntoDeVentaV2
 
         public string idEditarProducto { get; set; }
 
+        public float ImporteProdNvo { get; set; }
+        public float DescuentoProdNvo { get; set; }
+        public int CantidadProdNvo { get; set; }
 
         static public int DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
@@ -583,6 +585,16 @@ namespace PuntoDeVentaV2
             _lastEnteredControl = (Control)sender;
         }
 
+        public void cargarDatosNvoProd()
+        {
+            if (DatosSourceFinal == 1)
+            {
+                ImporteNvoProd = ImporteProdNvo;
+                DescuentoNvoProd = DescuentoProdNvo;
+                CantidadNvoProd = CantidadProdNvo;
+            }
+        }
+
         public void cargarDatos()
         {
             ProdNombreFinal = ProdNombre;
@@ -598,12 +610,15 @@ namespace PuntoDeVentaV2
             importeProductoXML = importeProdXML;
             idProductoFinal = idEditarProducto;
 
-            FechaXMLNvoProd = fechaProdXML;
-            FolioXMLNvoProd = FolioProdXML;
-            RFCXMLNvoProd = RFCProdXML;
-            NobEmisorXMLNvoProd = NobEmisorProdXML;
-            ClaveProdEmisorXMLNvoProd = ClaveProdEmisorProdXML;
-            DescuentoXMLNvoProd = DescuentoProdXML;
+            if (DatosSourceFinal == 3)
+            {
+                FechaXMLNvoProd = fechaProdXML;
+                FolioXMLNvoProd = FolioProdXML;
+                RFCXMLNvoProd = RFCProdXML;
+                NobEmisorXMLNvoProd = NobEmisorProdXML;
+                ClaveProdEmisorXMLNvoProd = ClaveProdEmisorProdXML;
+                DescuentoXMLNvoProd = DescuentoProdXML;
+            }
 
             txtNombreProducto.Text = ProdNombreFinal;
             txtStockProducto.Text = ProdStockFinal;
@@ -1018,41 +1033,43 @@ namespace PuntoDeVentaV2
 
                         if (respuesta > 0)
                         {
-                            int found = 10;
-                            string fechaXML = FechaXMLNvoProd;
-                            string fecha = fechaXML.Substring(0, found);
-                            string hora = fechaXML.Substring(found + 1);
-                            string fechaCompleta = fecha + " " + hora;
-                            string folio = FolioXMLNvoProd;
-                            string RFCEmisor = RFCXMLNvoProd;
-                            string nombreEmisor = NobEmisorXMLNvoProd;
-                            string claveProdEmisor = ClaveProdEmisorXMLNvoProd;
-                            string descuentoXML = DescuentoXMLNvoProd;
-
-                            //Se obtiene la ID del último producto agregado
-                            idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-
-
-                            string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
-                            try
+                            if (DatosSourceFinal == 3)
                             {
-                                cn.EjecutarConsulta(query);
-                                idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
-                                //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Error :" + ex);
-                            }
+                                int found = 10;
+                                string fechaXML = FechaXMLNvoProd;
+                                string fecha = fechaXML.Substring(0, found);
+                                string hora = fechaXML.Substring(found + 1);
+                                string fechaCompleta = fecha + " " + hora;
+                                string folio = FolioXMLNvoProd;
+                                string RFCEmisor = RFCXMLNvoProd;
+                                string nombreEmisor = NobEmisorXMLNvoProd;
+                                string claveProdEmisor = ClaveProdEmisorXMLNvoProd;
+                                string descuentoXML = DescuentoXMLNvoProd;
 
-                            DateTime date1 = DateTime.Now;
-                            fechaCompleta = date1.ToString("s");
-                            string Year = fechaCompleta.Substring(0, found);
-                            string Date = fechaCompleta.Substring(found + 1);
-                            string FechaRegistrada = Year + " " + Date;
-                            string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
-                            cn.EjecutarConsulta(queryRecordHistorialProd);
+                                //Se obtiene la ID del último producto agregado
+                                idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
+
+                                string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
+                                try
+                                {
+                                    cn.EjecutarConsulta(query);
+                                    idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                                    //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error :" + ex);
+                                }
+
+                                DateTime date1 = DateTime.Now;
+                                fechaCompleta = date1.ToString("s");
+                                string Year = fechaCompleta.Substring(0, found);
+                                string Date = fechaCompleta.Substring(found + 1);
+                                string FechaRegistrada = Year + " " + Date;
+                                string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
+                                cn.EjecutarConsulta(queryRecordHistorialProd);
+                            }
 
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
@@ -2470,32 +2487,21 @@ namespace PuntoDeVentaV2
             if (ProdNombre.Equals(""))
             {
                 LimpiarCampos();
+                cargarDatosNvoProd();
                 cbTipo.Text = "Producto";
                 btnAdd.Visible = false;
                 ocultarPanel();
                 if (DatosSourceFinal == 1)
                 {
-                    FormDatosExtraNvoProd.FormClosed += delegate
-                    {
-                        precioOriginalSinIVA = (ImporteNvoProd - DescuentoNvoProd) / CantidadNvoProd;
-                        precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;
-                        importeReal = CantidadNvoProd * precioOriginalConIVA;
-                        PrecioRecomendado = precioOriginalConIVA * (float)1.60;
-                        txtStockProducto.Text = CantidadNvoProd.ToString();
-                        txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
-                        lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");
-                        txtNombreProducto.Focus();
-                        txtNombreProducto.Select(txtNombreProducto.Text.Length, 0);
-                    };
-
-                    if (!FormDatosExtraNvoProd.Visible)
-                    {
-                        FormDatosExtraNvoProd.ShowDialog();
-                    }
-                    else
-                    {
-                        FormDatosExtraNvoProd.ShowDialog();
-                    }
+                    precioOriginalSinIVA = (ImporteNvoProd - DescuentoNvoProd) / CantidadNvoProd;
+                    precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;
+                    importeReal = CantidadNvoProd * precioOriginalConIVA;
+                    PrecioRecomendado = precioOriginalConIVA * (float)1.60;
+                    txtStockProducto.Text = CantidadNvoProd.ToString();
+                    txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+                    lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");
+                    txtNombreProducto.Focus();
+                    txtNombreProducto.Select(txtNombreProducto.Text.Length, 0);
                 }
             }
             else if (!ProdNombre.Equals(""))

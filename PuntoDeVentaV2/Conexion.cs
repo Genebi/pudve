@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
         private SQLiteDataAdapter DB;
         private DataSet DS = new DataSet();
         private DataTable DT = new DataTable();
-
+        
         // pasamos variables entre la calse de conexion con la de consultas
         public static SQLiteConnection cs_sql_con;
         public static SQLiteCommand cs_sql_cmd;

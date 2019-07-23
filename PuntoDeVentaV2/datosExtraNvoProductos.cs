@@ -13,6 +13,9 @@ namespace PuntoDeVentaV2
 {
     public partial class datosExtraNvoProductos : Form
     {
+        public float importe, descuento;
+        public int Cantidad;
+
         public datosExtraNvoProductos()
         {
             InitializeComponent();
@@ -42,7 +45,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Enter)
             {
                 string texto = txtImporteProdNvo.Text;
-                float importe = 0;
+                importe = 0;
                 if (texto != "" || texto == "0")
                 {
                     importe = (float)Convert.ToDouble(texto);
@@ -54,7 +57,7 @@ namespace PuntoDeVentaV2
 
                 if (importe >= 0)
                 {
-                    AgregarEditarProducto.ImporteNvoProd = importe;
+                    Productos.ImporteDatoExtraFinal = importe;
                     txtDescuentoProdNvo.Focus();
                     txtDescuentoProdNvo.Select(txtDescuentoProdNvo.Text.Length, 0);
                 }
@@ -84,7 +87,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Enter)
             {
                 string texto = txtDescuentoProdNvo.Text;
-                float descuento = 0;
+                descuento = 0;
                 if (texto != "" || texto == "0")
                 {
                     descuento = (float)Convert.ToDouble(texto);
@@ -96,7 +99,7 @@ namespace PuntoDeVentaV2
 
                 if (descuento >= 0)
                 {
-                    AgregarEditarProducto.DescuentoNvoProd = descuento;
+                    Productos.DescuentoDatoExtraFinal = descuento;
                     txtCantidadProdNvo.Focus();
                     txtCantidadProdNvo.Select(txtDescuentoProdNvo.Text.Length, 0);
                 }
@@ -121,7 +124,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Enter)
             {
                 string texto = txtCantidadProdNvo.Text;
-                int Cantidad = 0;
+                Cantidad = 0;
                 if (texto != "" || texto == "0")
                 {
                     Cantidad = Convert.ToInt32(texto);
@@ -133,7 +136,7 @@ namespace PuntoDeVentaV2
 
                 if (Cantidad >= 0)
                 {
-                    AgregarEditarProducto.CantidadNvoProd = Cantidad;
+                    Productos.CantidadDatoExtraFinal = Cantidad;
                     this.Close();
                 }
                 else
