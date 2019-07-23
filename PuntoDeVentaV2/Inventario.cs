@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRevisar_Click(object sender, EventArgs e)
         {
             FormCollection fOpen = Application.OpenForms;
             List<string> tempFormOpen = new List<string>();
@@ -55,6 +55,7 @@ namespace PuntoDeVentaV2
                         ventanaAbierta.Close();
                     }
                 };
+
                 if (!FinalReportReviewInventory.Visible)
                 {
                     try
@@ -68,6 +69,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             };
+
             if (!checkInventory.Visible)
             {
                 checkInventory.ShowDialog();
@@ -76,6 +78,18 @@ namespace PuntoDeVentaV2
             {
                 checkInventory.ShowDialog();
             }
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            panelContenedor.Visible = true;
+
+            txtBusqueda.Focus();
+        }
+
+        private void btnActualizarXML_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Actualizar desde XML");
         }
     }
 }
