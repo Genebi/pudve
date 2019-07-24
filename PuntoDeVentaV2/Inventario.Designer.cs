@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnRevisar = new System.Windows.Forms.Button();
             this.btnActualizarXML = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
-            this.DGVInventario = new System.Windows.Forms.DataGridView();
+            this.listaProductos = new System.Windows.Forms.ListBox();
             this.tituloBusqueda = new System.Windows.Forms.Label();
             this.txtBusqueda = new System.Windows.Forms.TextBox();
+            this.DGVInventario = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,7 +46,7 @@
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.listaProductos = new System.Windows.Forms.ListBox();
+            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panelBotones.SuspendLayout();
             this.panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
@@ -146,28 +148,20 @@
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
             // 
-            // DGVInventario
+            // listaProductos
             // 
-            this.DGVInventario.AllowUserToAddRows = false;
-            this.DGVInventario.AllowUserToDeleteRows = false;
-            this.DGVInventario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.listaProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DGVInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVInventario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.Nombre,
-            this.Stock,
-            this.Precio,
-            this.Clave,
-            this.Codigo,
-            this.Fecha});
-            this.DGVInventario.Location = new System.Drawing.Point(0, 86);
-            this.DGVInventario.Name = "DGVInventario";
-            this.DGVInventario.ReadOnly = true;
-            this.DGVInventario.RowHeadersVisible = false;
-            this.DGVInventario.Size = new System.Drawing.Size(845, 217);
-            this.DGVInventario.TabIndex = 9;
+            this.listaProductos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listaProductos.FormattingEnabled = true;
+            this.listaProductos.ItemHeight = 17;
+            this.listaProductos.Location = new System.Drawing.Point(125, 69);
+            this.listaProductos.Name = "listaProductos";
+            this.listaProductos.Size = new System.Drawing.Size(595, 89);
+            this.listaProductos.TabIndex = 12;
+            this.listaProductos.Visible = false;
+            this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
+            this.listaProductos.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listaProductos_MouseDoubleClick);
             // 
             // tituloBusqueda
             // 
@@ -191,6 +185,30 @@
             this.txtBusqueda.Size = new System.Drawing.Size(595, 23);
             this.txtBusqueda.TabIndex = 11;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBusqueda.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyUp);
+            // 
+            // DGVInventario
+            // 
+            this.DGVInventario.AllowUserToAddRows = false;
+            this.DGVInventario.AllowUserToDeleteRows = false;
+            this.DGVInventario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGVInventario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVInventario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Nombre,
+            this.Stock,
+            this.Precio,
+            this.Clave,
+            this.Codigo,
+            this.Fecha});
+            this.DGVInventario.Location = new System.Drawing.Point(0, 86);
+            this.DGVInventario.Name = "DGVInventario";
+            this.DGVInventario.ReadOnly = true;
+            this.DGVInventario.RowHeadersVisible = false;
+            this.DGVInventario.Size = new System.Drawing.Size(845, 217);
+            this.DGVInventario.TabIndex = 9;
             // 
             // ID
             // 
@@ -240,18 +258,10 @@
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 135;
             // 
-            // listaProductos
+            // timerBusqueda
             // 
-            this.listaProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listaProductos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listaProductos.FormattingEnabled = true;
-            this.listaProductos.ItemHeight = 17;
-            this.listaProductos.Location = new System.Drawing.Point(125, 69);
-            this.listaProductos.Name = "listaProductos";
-            this.listaProductos.Size = new System.Drawing.Size(595, 89);
-            this.listaProductos.TabIndex = 12;
-            this.listaProductos.Visible = false;
+            this.timerBusqueda.Interval = 1000;
+            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
             // Inventario
             // 
@@ -261,11 +271,14 @@
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Inventario";
             this.ShowIcon = false;
             this.Text = "PUDVE - Inventario";
+            this.Load += new System.EventHandler(this.Inventario_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Inventario_KeyDown);
             this.panelBotones.ResumeLayout(false);
             this.panelContenedor.ResumeLayout(false);
             this.panelContenedor.PerformLayout();
@@ -293,5 +306,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.ListBox listaProductos;
+        private System.Windows.Forms.Timer timerBusqueda;
     }
 }

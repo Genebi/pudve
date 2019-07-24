@@ -484,7 +484,7 @@ namespace PuntoDeVentaV2
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE IDUsuario = {IDUsuario}";
+            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE IDUsuario = {IDUsuario} AND Status = 1";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
