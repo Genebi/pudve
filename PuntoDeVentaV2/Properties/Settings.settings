@@ -22,9 +22,6 @@
     <Setting Name="pathPUDVE" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="opcionProductoComprado" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="InicioFinInventario" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
