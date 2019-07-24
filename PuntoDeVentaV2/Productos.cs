@@ -689,11 +689,17 @@ namespace PuntoDeVentaV2
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
-
+            
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", sql_con);
             dr = sql_cmd.ExecuteReader();
+
+            //DataTable table = new DataTable();
+            //Fill table with data 
+            //table = YourGetDataMethod(); 
+            //DataTableReader reader = table.CreateDataReader();
+            //SQLiteDataReader read = table.CreateDataReader();
 
             DGVProductos.Rows.Clear();
 
