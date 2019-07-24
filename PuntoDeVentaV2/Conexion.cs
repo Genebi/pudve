@@ -257,7 +257,7 @@ namespace PuntoDeVentaV2
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = "SELECT * FROM Productos WHERE ID = "+ IDProducto +" AND IDUsuario = " + IDUsuario;
+            sql_cmd.CommandText = $"SELECT * FROM Productos WHERE ID = {IDProducto} AND IDUsuario = {IDUsuario}";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
@@ -270,6 +270,8 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[9].ToString());  //Tipo descuento
                 lista.Add(dr[2].ToString());  //Stock
                 lista.Add(dr[13].ToString()); //Tipo (producto o servicio)
+                lista.Add(dr[5].ToString()); //Clave
+                lista.Add(dr[6].ToString()); //Codigo de barras
             }
 
             dr.Close();
@@ -484,7 +486,7 @@ namespace PuntoDeVentaV2
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE IDUsuario = {IDUsuario}";
+            sql_cmd.CommandText = $"SELECT * FROM Proveedores WHERE IDUsuario = {IDUsuario} AND Status = 1";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();

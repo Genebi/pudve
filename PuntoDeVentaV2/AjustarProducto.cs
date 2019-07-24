@@ -19,14 +19,18 @@ namespace PuntoDeVentaV2
         private string producto = string.Empty;
         private float precioProducto = 0;
         private int stockProducto = 0;
+        private int apartado = 0;
 
         private string[] listaProveedores = new string[] { };
 
-        public AjustarProducto(int IDProducto)
+        //apartado 1 = Productos
+        //apartado 2 = Inventario
+        public AjustarProducto(int IDProducto, int apartado = 1)
         {
             InitializeComponent();
 
             this.IDProducto = IDProducto;
+            this.apartado = apartado;
         }
 
         private void AjustarProducto_Load(object sender, EventArgs e)
@@ -80,10 +84,19 @@ namespace PuntoDeVentaV2
             //Cuando se hace desde la opcion ajustar es 2
             var reporte = 0;
 
-            if (Productos.generarIdReporte)
+            if (apartado == 1)
             {
-                reporte = Productos.idReporte;
+                if (Productos.generarIdReporte)
+                {
+                    reporte = Productos.idReporte;
+                }
             }
+
+            if (apartado == 2)
+            {
+                reporte = Inventario.idReporte;
+            }
+            
 
             var comentario = txtComentarios.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
