@@ -61,7 +61,6 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cbProductoComprado = new System.Windows.Forms.CheckBox();
             this.btnListView = new System.Windows.Forms.Button();
             this.btnPhotoView = new System.Windows.Forms.Button();
             this.btnModificarEstado = new System.Windows.Forms.Button();
@@ -372,7 +371,6 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.cbProductoComprado);
             this.panel1.Controls.Add(this.cbMostrar);
             this.panel1.Controls.Add(this.tituloSeccion);
             this.panel1.Controls.Add(this.tituloBusqueda);
@@ -388,19 +386,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(817, 184);
             this.panel1.TabIndex = 15;
-            // 
-            // cbProductoComprado
-            // 
-            this.cbProductoComprado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbProductoComprado.AutoSize = true;
-            this.cbProductoComprado.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbProductoComprado.Location = new System.Drawing.Point(622, 159);
-            this.cbProductoComprado.Name = "cbProductoComprado";
-            this.cbProductoComprado.Size = new System.Drawing.Size(138, 20);
-            this.cbProductoComprado.TabIndex = 13;
-            this.cbProductoComprado.Text = "Producto comprado";
-            this.cbProductoComprado.UseVisualStyleBackColor = true;
-            this.cbProductoComprado.CheckedChanged += new System.EventHandler(this.cbProductoComprado_CheckedChanged);
             // 
             // btnListView
             // 
@@ -513,7 +498,6 @@
         private System.Windows.Forms.FlowLayoutPanel fLPShowPhoto;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolTip TTipButtonText;
-        private System.Windows.Forms.CheckBox cbProductoComprado;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;

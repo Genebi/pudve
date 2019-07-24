@@ -24,11 +24,9 @@ namespace PuntoDeVentaV2
         ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
 
         public static int NumRevActivo;
-
-        //Para cargar la informacion de los productos al buscador autocompletador
-        NameValueCollection datos;
-        string[] datosProducto;
-        string[] productos;
+        public static int proveedorElegido = 0;
+        public static bool generarIdReporte = false;
+        public static int idReporte = 0;
 
         public int GetNumRevActive { get; set; }
 
@@ -44,23 +42,7 @@ namespace PuntoDeVentaV2
 
         private void Inventario_Load(object sender, EventArgs e)
         {
-            CargarProductos();
-        }
-
-        public void CargarProductos()
-        {
-            /*AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
-            datos = new NameValueCollection();
-
-            //Cargar lista de productos actualmente registrados
-            datos = cn.ObtenerProductos(FormPrincipal.userID);
-            productos = new string[datos.Count];
-            datos.CopyTo(productos, 0);
-
-            coleccion.AddRange(productos);
-            txtBusqueda.AutoCompleteCustomSource = coleccion;
-            txtBusqueda.AutoCompleteMode = AutoCompleteMode.None;
-            txtBusqueda.AutoCompleteSource = AutoCompleteSource.CustomSource;*/
+            idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 
         private void btnRevisar_Click(object sender, EventArgs e)
