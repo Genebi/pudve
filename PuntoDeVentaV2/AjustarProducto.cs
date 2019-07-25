@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         private int IDProducto = 0;
         private string producto = string.Empty;
@@ -39,8 +40,33 @@ namespace PuntoDeVentaV2
 
             //Se obtienen los proveedores del usuario
             listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
-            cbProveedores.Items.AddRange(listaProveedores);
-            cbProveedores.SelectedIndex = Productos.proveedorElegido;
+
+            if (listaProveedores.Length > 0)
+            {
+                Dictionary<string, string> proveedores = new Dictionary<string, string>();
+
+                proveedores.Add("0", "Seleccionar un proveedor...");
+
+                foreach (var proveedor in listaProveedores)
+                {
+                    var tmp = proveedor.Split('-');
+
+                    proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
+                }
+
+                cbProveedores.DataSource = proveedores.ToArray();
+                cbProveedores.DisplayMember = "Value";
+                cbProveedores.ValueMember = "Key";
+
+                var proveedorActual = mb.ObtenerIDProveedorProducto(IDProducto, FormPrincipal.userID);
+                cbProveedores.SelectedValue = proveedorActual;
+            }
+            else
+            {
+                cbProveedores.Items.Add("Seleccionar un proveedor...");
+                cbProveedores.SelectedIndex = 0;
+            }
+            
 
             //Se carga la informacion por defecto del producto registrado
             lbProducto.Text = datos[1];
@@ -110,14 +136,23 @@ namespace PuntoDeVentaV2
                 var precioCompra = txtPrecioCompra.Text;
                 var cantidadCompra = txtCantidadCompra.Text;
 
-                if (cbProveedores.SelectedIndex > 0)
+                if (cbProveedores.SelectedValue.ToString() != "0")
                 {
-                    Productos.proveedorElegido = cbProveedores.SelectedIndex;
-                    proveedor = cbProveedores.SelectedItem.ToString();
-                    var info = proveedor.Split('-');
-                    string[] tmp = cn.ObtenerProveedor(Convert.ToInt32(info[0].Trim()), FormPrincipal.userID);
+                    if (apartado == 1)
+                    {
+                        Productos.proveedorElegido = cbProveedores.SelectedIndex;
+                    }
+
+                    if (apartado == 2)
+                    {
+                        Inventario.proveedorElegido = cbProveedores.SelectedValue.ToString();
+                    }
+
+                    proveedor = cbProveedores.SelectedValue.ToString();
+                    string[] tmp = cn.ObtenerProveedor(Convert.ToInt32(proveedor), FormPrincipal.userID);
+
                     rfc = tmp[1];
-                    proveedor = info[1].Trim();
+                    proveedor = tmp[0];
                 }
 
                 //Datos para la tabla historial de compras
@@ -134,8 +169,18 @@ namespace PuntoDeVentaV2
 
                     cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
 
-                    Productos.idReporte = reporte;
+                    //Productos
+                    if (apartado == 1)
+                    {
+                        Productos.idReporte = reporte;
+                    }
 
+                    //Inventario
+                    if (apartado == 2)
+                    {
+                        Inventario.botonAceptar = true;
+                    }
+                    
                     this.Close();
                 }
             }

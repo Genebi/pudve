@@ -152,7 +152,7 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                idProveedor = dr[4].ToString(); //ID proveddor
+                idProveedor = dr[4].ToString(); //ID proveedor
             }
 
             dr.Close();

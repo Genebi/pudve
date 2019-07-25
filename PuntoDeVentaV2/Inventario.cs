@@ -24,9 +24,9 @@ namespace PuntoDeVentaV2
         ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
 
         public static int NumRevActivo;
-        public static int proveedorElegido = 0;
-        public static bool generarIdReporte = false;
+        public static string proveedorElegido = string.Empty;
         public static int idReporte = 0;
+        public static bool botonAceptar = false;
 
         public int GetNumRevActive { get; set; }
 
@@ -135,9 +135,14 @@ namespace PuntoDeVentaV2
 
                     ap.FormClosed += delegate
                     {
-                        var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                        if (botonAceptar)
+                        {
+                            var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
-                        AgregarProductoDGV(producto);
+                            AgregarProductoDGV(producto);
+
+                            botonAceptar = false;
+                        }
                     };
 
                     ap.ShowDialog();
@@ -221,9 +226,14 @@ namespace PuntoDeVentaV2
 
             ap.FormClosed += delegate
             {
-                var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                if (botonAceptar)
+                {
+                    var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
-                AgregarProductoDGV(producto);
+                    AgregarProductoDGV(producto);
+
+                    botonAceptar = false;
+                }
             };
 
             ap.ShowDialog();
@@ -244,9 +254,14 @@ namespace PuntoDeVentaV2
 
                 ap.FormClosed += delegate
                 {
-                    var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                    if (botonAceptar)
+                    {
+                        var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
-                    AgregarProductoDGV(producto);
+                        AgregarProductoDGV(producto);
+
+                        botonAceptar = false;
+                    }
                 };
 
                 ap.ShowDialog();
@@ -270,6 +285,8 @@ namespace PuntoDeVentaV2
         private void bntTerminar_Click(object sender, EventArgs e)
         {
             GenerarReporte(idReporte);
+
+            DGVInventario.Rows.Clear();
 
             idReporte++;
         }
