@@ -1033,6 +1033,9 @@ namespace PuntoDeVentaV2
 
                         if (respuesta > 0)
                         {
+                            //Se obtiene la ID del último producto agregado
+                            idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+
                             if (DatosSourceFinal == 3)
                             {
                                 int found = 10;
@@ -1046,11 +1049,8 @@ namespace PuntoDeVentaV2
                                 string claveProdEmisor = ClaveProdEmisorXMLNvoProd;
                                 string descuentoXML = DescuentoXMLNvoProd;
 
-                                //Se obtiene la ID del último producto agregado
-                                idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-
-
                                 string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
+
                                 try
                                 {
                                     cn.EjecutarConsulta(query);
@@ -1102,11 +1102,11 @@ namespace PuntoDeVentaV2
                             //Para guardar los detalles del producto
                             if (detallesProducto != null)
                             {
-                                string[] listaDetalles = detallesProducto.Split('|');
+                                //string[] listaDetalles = detallesProducto.Split('|');
 
-                                if (listaDetalles.Length > 0)
+                                if (!string.IsNullOrWhiteSpace(detallesProducto))
                                 {
-                                    var datosProveedor = listaDetalles[0].Split('-');
+                                    var datosProveedor = detallesProducto.Split('-');
                                     var idProveedorTmp = datosProveedor[0].Trim();
                                     var nombreProveedor = datosProveedor[1].Trim();
 
@@ -1515,11 +1515,11 @@ namespace PuntoDeVentaV2
                     //Para actualizar los detalles del producto
                     if (detallesProducto != null)
                     {
-                        string[] listaDetalles = detallesProducto.Split('|');
+                        //string[] listaDetalles = detallesProducto.Split('|');
 
-                        if (listaDetalles.Length > 0)
+                        if (!string.IsNullOrWhiteSpace(detallesProducto))
                         {
-                            var datosProveedor = listaDetalles[0].Split('-');
+                            var datosProveedor = detallesProducto.Split('-');
                             var idProveedor = datosProveedor[0].Trim();
                             var nombreProveedor = datosProveedor[1].Trim();
 

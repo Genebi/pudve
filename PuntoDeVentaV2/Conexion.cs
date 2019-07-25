@@ -561,7 +561,7 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                if (dr["ID"] == DBNull.Value)
+                if (dr["ID"] == DBNull.Value || string.IsNullOrWhiteSpace(dr["ID"].ToString()))
                 {
                     idReporte = 0;
                 }

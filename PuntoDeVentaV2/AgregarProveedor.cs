@@ -118,7 +118,7 @@ namespace PuntoDeVentaV2
 
         private bool VerificarRFC(string rfc)
         {
-            var respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}'");
+            var respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' AND Status = 1");
 
             return respuesta;
         }

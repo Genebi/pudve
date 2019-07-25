@@ -55,11 +55,11 @@ namespace PuntoDeVentaV2
                 listaOpciones.SetItemChecked(0, true);
                 lbProveedor.Visible = true;
                 cbProveedores.Visible = true;
+                cbProveedores.SelectedValue = "0";
 
                 //Cuando se da click en la opcion editar producto
                 if (AgregarEditarProducto.DatosSourceFinal == 2)
                 {
-                    //MessageBox.Show(AgregarEditarProducto.idProductoFinal);
                     var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
                     var idProveedor = mb.ObtenerIDProveedorProducto(idProducto, FormPrincipal.userID);
 
@@ -69,14 +69,17 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        cbProveedores.SelectedValue = "NA";
+                        cbProveedores.SelectedValue = "0";
                     }
                 }
             }
             else
             {
-                cbProveedores.Items.Add("Seleccionar un proveedor...");
-                cbProveedores.SelectedIndex = 0;
+                if (cbProveedores.Items.Count == 0)
+                {
+                    cbProveedores.Items.Add("Seleccionar un proveedor...");
+                    cbProveedores.SelectedIndex = 0;
+                } 
             }
         }
 
@@ -98,9 +101,8 @@ namespace PuntoDeVentaV2
 
                         ap.FormClosed += delegate
                         {
-                            //listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
-                            //cbProveedores.Items.AddRange(listaProveedores);
                             CargarProveedores();
+                            cbProveedores.SelectedIndex = 0;
                         };
 
                         ap.ShowDialog();
@@ -123,13 +125,13 @@ namespace PuntoDeVentaV2
                 //Proveedor
                 if (indice == 0)
                 {
-                    detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text + "|";
+                    detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text;// + "|";
                 }
             }
 
             if (detalles != null)
             {
-                detalles = detalles.Remove(detalles.Length - 1);
+                //detalles = detalles.Remove(detalles.Length - 1);
 
                 AgregarEditarProducto.detallesProducto = detalles;
             }
