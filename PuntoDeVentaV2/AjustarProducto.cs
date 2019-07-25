@@ -59,6 +59,12 @@ namespace PuntoDeVentaV2
                 cbProveedores.ValueMember = "Key";
 
                 var proveedorActual = mb.ObtenerIDProveedorProducto(IDProducto, FormPrincipal.userID);
+
+                if (string.IsNullOrWhiteSpace(proveedorActual))
+                {
+                    proveedorActual = "0";
+                }
+
                 cbProveedores.SelectedValue = proveedorActual;
             }
             else
@@ -112,10 +118,7 @@ namespace PuntoDeVentaV2
 
             if (apartado == 1)
             {
-                if (Productos.generarIdReporte)
-                {
-                    reporte = Productos.idReporte;
-                }
+                reporte = Productos.idReporte; 
             }
 
             if (apartado == 2)
@@ -172,7 +175,7 @@ namespace PuntoDeVentaV2
                     //Productos
                     if (apartado == 1)
                     {
-                        Productos.idReporte = reporte;
+                        Productos.botonAceptar = true;
                     }
 
                     //Inventario

@@ -108,7 +108,10 @@ namespace PuntoDeVentaV2
         private void btnActualizarXML_Click(object sender, EventArgs e)
         {
             panelContenedor.Visible = false;
-            MessageBox.Show("Actualizar desde XML");
+
+            AgregarStockXML xml = new AgregarStockXML();
+
+            xml.ShowDialog();
         }
 
         private void txtBusqueda_KeyUp(object sender, KeyEventArgs e)

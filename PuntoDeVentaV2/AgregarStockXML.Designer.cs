@@ -933,7 +933,7 @@
             this.Name = "AgregarStockXML";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Agregar Stock mediante archivo XML";
+            this.Text = "PUDVE - Cargar XML";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarStockXML_FormClosing);
             this.Load += new System.EventHandler(this.AgregarStockXML_Load);
             this.panel1.ResumeLayout(false);

@@ -15,8 +15,8 @@ namespace PuntoDeVentaV2
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         public static int proveedorElegido = 0;
-        public static bool generarIdReporte = false;
         public static int idReporte = 0;
+        public static bool botonAceptar = false;
 
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
@@ -518,9 +518,12 @@ namespace PuntoDeVentaV2
 
                     ap.FormClosed += delegate
                     {
-                        CargarDatos();
-                        txtBusqueda.Text = string.Empty;
-                        txtBusqueda.Focus();
+                        if (botonAceptar)
+                        {
+                            CargarDatos();
+
+                            idReporte++;
+                        }
                     };
 
                     ap.ShowDialog();
