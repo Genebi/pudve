@@ -71,6 +71,7 @@ namespace PuntoDeVentaV2
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Reportes\Historial");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos\Usuarios");
+            Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos\CFDI");
 
             obtenerDatosCheckStock();
 
@@ -120,6 +121,8 @@ namespace PuntoDeVentaV2
         private void btnVentas_Click(object sender, EventArgs e)
         {
             AbrirFormulario<ListadoVentas>();
+
+            ListadoVentas.abrirNuevaVenta = true;
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
