@@ -223,8 +223,10 @@ namespace PuntoDeVentaV2
             CantidadesFinalesVenta();
         }
 
-        private void AgregarProductoLista(string[] datosProducto, int cantidad = 1)
+        private void AgregarProductoLista(string[] datosProducto, int cantidad = 1, bool ignorar = false)
         {
+            int cantidadTmp = cantidad;
+
             //Se agrega la nueva fila y se obtiene el ID que tendrá
             int rowId = DGVentas.Rows.Add();
 
@@ -263,6 +265,13 @@ namespace PuntoDeVentaV2
                     nudCantidadPS.Value = 1;
                 }
                 
+
+                //Esto es para cuando se agregan los productos al momento de cargar venta guardada desde la lista
+                if (ignorar == true)
+                {
+                    cantidad = cantidadTmp;
+                }
+
                 //Agregamos la información
                 row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
                 row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
@@ -697,7 +706,6 @@ namespace PuntoDeVentaV2
                 statusVenta = "2";
             }
 
-
             string[] guardar = null;
             aumentoFolio();
             Folio = Contenido;
@@ -1016,7 +1024,7 @@ namespace PuntoDeVentaV2
 
                     int cantidad = Convert.ToInt32(info[2]);
 
-                    AgregarProductoLista(datosProducto, cantidad);
+                    AgregarProductoLista(datosProducto, cantidad, true);
                 }
             }
         }

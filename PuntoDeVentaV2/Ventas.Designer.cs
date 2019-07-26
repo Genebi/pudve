@@ -632,11 +632,11 @@
             this.ClientSize = new System.Drawing.Size(1232, 596);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tituloSeccion);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1027, 597);
             this.Name = "Ventas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ventas";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ventas_FormClosing);
             this.Load += new System.EventHandler(this.Ventas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
