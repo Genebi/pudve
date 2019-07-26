@@ -109,9 +109,16 @@ namespace PuntoDeVentaV2
         {
             panelContenedor.Visible = false;
 
-            AgregarStockXML xml = new AgregarStockXML();
+            AgregarStockXML inventarioXML = new AgregarStockXML();
 
-            xml.ShowDialog();
+            inventarioXML.FormClosed += delegate
+            {
+                GenerarReporte(idReporte);
+
+                idReporte++;
+            };
+
+            inventarioXML.ShowDialog();
         }
 
         private void txtBusqueda_KeyUp(object sender, KeyEventArgs e)
