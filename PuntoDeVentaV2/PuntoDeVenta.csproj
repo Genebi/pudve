@@ -239,9 +239,15 @@
     <Compile Include="CantidadProdServicio.Designer.cs">
       <DependentUpon>CantidadProdServicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="CFDI\OpenSSLKey.cs" />
-    <Compile Include="CFDI\SelloDigital.cs" />
-    <Compile Include="CFDI\StringWriterConEncoding.cs" />
+    <Compile Include="CFDI\OpenSSLKey.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="CFDI\SelloDigital.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="CFDI\StringWriterConEncoding.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="cfdv33_tdCFDI_catCFDI.cs" />
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
