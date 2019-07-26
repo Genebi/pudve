@@ -76,7 +76,7 @@ namespace PuntoDeVentaV2
             else
             {
                 //Actualizar venta guardada
-                consulta = $"UPDATE Ventas SET Subtotal = '{datos[2]}', IVA16 = '{datos[3]}', Total = '{datos[4]}', Descuento = '{datos[5]}', DescuentoGeneral = '{datos[6]}', Status = 1, FechaOperacion = '{datos[8]}' WHERE ID = '{operacion}'";
+                consulta = $"UPDATE Ventas SET Subtotal = '{datos[2]}', IVA16 = '{datos[3]}', Total = '{datos[4]}', Descuento = '{datos[5]}', DescuentoGeneral = '{datos[6]}', Status = '{datos[10]}', FechaOperacion = '{datos[11]}' WHERE ID = '{operacion}'";
             }
 
             return consulta;

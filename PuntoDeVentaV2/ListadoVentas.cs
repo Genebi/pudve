@@ -25,7 +25,6 @@ namespace PuntoDeVentaV2
 
         public static bool abrirNuevaVenta = false;
 
-
         public ListadoVentas()
         {
             InitializeComponent();
@@ -411,7 +410,18 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Paint(object sender, PaintEventArgs e)
         {
-            btnNuevaVenta.PerformClick();
+            if (abrirNuevaVenta)
+            {
+                btnNuevaVenta.PerformClick();
+
+                abrirNuevaVenta = false;
+            }
+        }
+
+        //Se agrego para que no se abra la ventana nueva venta al cambiar el tamaño del form
+        private void ListadoVentas_Resize(object sender, EventArgs e)
+        {
+            abrirNuevaVenta = false;
         }
     }
 }
