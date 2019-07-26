@@ -298,8 +298,9 @@ namespace PuntoDeVentaV2
         public void LimpiarCampos()
         {
             txtNombreProducto.Text = "";
-            txtStockProducto.Text = "";
-            txtPrecioProducto.Text = "";
+            txtStockProducto.Text = "0";
+            txtPrecioCompra.Text = "0";
+            txtPrecioProducto.Text = "0";
             txtCategoriaProducto.Text = "";
             txtClaveProducto.Text = "";
             txtCodigoBarras.Text = "";
@@ -994,7 +995,7 @@ namespace PuntoDeVentaV2
             if (DatosSourceFinal == 3 || DatosSourceFinal == 1)
             {
                 //Validar que el precio no sea menor al precio original del producto/servicio
-                if (Convert.ToDouble(precio) < Convert.ToDouble(lblPrecioOriginal.Text))
+                if (Convert.ToDouble(precio) < Convert.ToDouble(txtPrecioCompra.Text))
                 {
                     MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -2386,6 +2387,27 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtPrecioCompra_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
+                PrecioRecomendado = precioOriginalConIVA * (float)1.60;
+                txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+                txtPrecioProducto.Focus();
+                txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
+            }
+        }
+
+        private void txtPrecioCompra_Leave(object sender, EventArgs e)
+        {
+            precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
+            PrecioRecomendado = precioOriginalConIVA * (float)1.60;
+            txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+            txtPrecioProducto.Focus();
+            txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
+        }
+
         private void pasarNumStockServicios()
         {
             CantidadPordServPaq.ShowDialog();
@@ -2538,18 +2560,6 @@ namespace PuntoDeVentaV2
                 cbTipo.Text = "Producto";
                 btnAdd.Visible = false;
                 ocultarPanel();
-                if (DatosSourceFinal == 1)
-                {
-                    precioOriginalSinIVA = (ImporteNvoProd - DescuentoNvoProd) / CantidadNvoProd;
-                    precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;
-                    importeReal = CantidadNvoProd * precioOriginalConIVA;
-                    PrecioRecomendado = precioOriginalConIVA * (float)1.60;
-                    txtStockProducto.Text = CantidadNvoProd.ToString();
-                    txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
-                    lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");
-                    txtNombreProducto.Focus();
-                    txtNombreProducto.Select(txtNombreProducto.Text.Length, 0);
-                }
             }
             else if (!ProdNombre.Equals(""))
             {

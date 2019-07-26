@@ -51,7 +51,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.lblPrecioOriginal = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBoxProducto = new System.Windows.Forms.PictureBox();
             this.cbTipo = new System.Windows.Forms.ComboBox();
@@ -61,8 +60,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.PStock = new System.Windows.Forms.Panel();
-            this.PPrecio = new System.Windows.Forms.Panel();
             this.PPrecioOriginal = new System.Windows.Forms.Panel();
+            this.txtPrecioCompra = new System.Windows.Forms.TextBox();
+            this.PPrecio = new System.Windows.Forms.Panel();
             this.PCategoria = new System.Windows.Forms.Panel();
             this.PClaveInterna = new System.Windows.Forms.Panel();
             this.PCodigoBarras = new System.Windows.Forms.Panel();
@@ -79,8 +79,8 @@
             this.PDetalleProdcuto.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.PStock.SuspendLayout();
-            this.PPrecio.SuspendLayout();
             this.PPrecioOriginal.SuspendLayout();
+            this.PPrecio.SuspendLayout();
             this.PCategoria.SuspendLayout();
             this.PClaveInterna.SuspendLayout();
             this.PCodigoBarras.SuspendLayout();
@@ -125,9 +125,9 @@
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(3, 4);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 17);
+            this.label4.Size = new System.Drawing.Size(91, 17);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Precio";
+            this.label4.Text = "Precio Venta";
             // 
             // label5
             // 
@@ -162,7 +162,7 @@
             this.txtPrecioProducto.Location = new System.Drawing.Point(3, 24);
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(165, 20);
-            this.txtPrecioProducto.TabIndex = 4;
+            this.txtPrecioProducto.TabIndex = 5;
             this.txtPrecioProducto.Enter += new System.EventHandler(this.txtPrecioProducto_Enter);
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
             // 
@@ -179,7 +179,7 @@
             this.txtClaveProducto.Location = new System.Drawing.Point(3, 23);
             this.txtClaveProducto.Name = "txtClaveProducto";
             this.txtClaveProducto.Size = new System.Drawing.Size(165, 20);
-            this.txtClaveProducto.TabIndex = 6;
+            this.txtClaveProducto.TabIndex = 7;
             this.txtClaveProducto.Enter += new System.EventHandler(this.txtClaveProducto_Enter);
             // 
             // txtCategoriaProducto
@@ -187,7 +187,7 @@
             this.txtCategoriaProducto.Location = new System.Drawing.Point(3, 24);
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
             this.txtCategoriaProducto.Size = new System.Drawing.Size(165, 20);
-            this.txtCategoriaProducto.TabIndex = 5;
+            this.txtCategoriaProducto.TabIndex = 6;
             this.txtCategoriaProducto.TextChanged += new System.EventHandler(this.txtCategoriaProducto_TextChanged);
             this.txtCategoriaProducto.Enter += new System.EventHandler(this.txtCategoriaProducto_Enter);
             // 
@@ -196,7 +196,7 @@
             this.txtCodigoBarras.Location = new System.Drawing.Point(3, 22);
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(165, 20);
-            this.txtCodigoBarras.TabIndex = 7;
+            this.txtCodigoBarras.TabIndex = 8;
             this.txtCodigoBarras.Enter += new System.EventHandler(this.txtCodigoBarras_Enter);
             this.txtCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoBarras_KeyDown);
             // 
@@ -221,7 +221,7 @@
             this.btnAgregarDescuento.Location = new System.Drawing.Point(44, 20);
             this.btnAgregarDescuento.Name = "btnAgregarDescuento";
             this.btnAgregarDescuento.Size = new System.Drawing.Size(180, 28);
-            this.btnAgregarDescuento.TabIndex = 10;
+            this.btnAgregarDescuento.TabIndex = 11;
             this.btnAgregarDescuento.Text = "Agregar Descuento";
             this.btnAgregarDescuento.UseVisualStyleBackColor = false;
             this.btnAgregarDescuento.Click += new System.EventHandler(this.btnAgregarDescuento_Click);
@@ -237,7 +237,7 @@
             this.btnDetalleProducto.Location = new System.Drawing.Point(328, 20);
             this.btnDetalleProducto.Name = "btnDetalleProducto";
             this.btnDetalleProducto.Size = new System.Drawing.Size(180, 28);
-            this.btnDetalleProducto.TabIndex = 11;
+            this.btnDetalleProducto.TabIndex = 12;
             this.btnDetalleProducto.Text = "Detalle de producto";
             this.btnDetalleProducto.UseVisualStyleBackColor = false;
             this.btnDetalleProducto.Click += new System.EventHandler(this.btnDetalleProducto_Click);
@@ -253,7 +253,7 @@
             this.btnDetalleFacturacion.Location = new System.Drawing.Point(614, 20);
             this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
             this.btnDetalleFacturacion.Size = new System.Drawing.Size(180, 28);
-            this.btnDetalleFacturacion.TabIndex = 12;
+            this.btnDetalleFacturacion.TabIndex = 13;
             this.btnDetalleFacturacion.Text = "Detalle de facturación";
             this.btnDetalleFacturacion.UseVisualStyleBackColor = false;
             this.btnDetalleFacturacion.Click += new System.EventHandler(this.btnDetalleFacturacion_Click);
@@ -277,7 +277,7 @@
             this.btnImagenes.Location = new System.Drawing.Point(15, 162);
             this.btnImagenes.Name = "btnImagenes";
             this.btnImagenes.Size = new System.Drawing.Size(179, 28);
-            this.btnImagenes.TabIndex = 9;
+            this.btnImagenes.TabIndex = 10;
             this.btnImagenes.Text = "Seleccionar imagen(es)";
             this.btnImagenes.UseVisualStyleBackColor = true;
             this.btnImagenes.Click += new System.EventHandler(this.btnImagenes_Click);
@@ -293,7 +293,7 @@
             this.btnGuardarProducto.Location = new System.Drawing.Point(614, 73);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(180, 28);
-            this.btnGuardarProducto.TabIndex = 13;
+            this.btnGuardarProducto.TabIndex = 14;
             this.btnGuardarProducto.Text = "Guardar Producto";
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
             this.btnGuardarProducto.Click += new System.EventHandler(this.btnGuardarProducto_Click);
@@ -321,22 +321,9 @@
             this.label7.Location = new System.Drawing.Point(4, 4);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(102, 17);
+            this.label7.Size = new System.Drawing.Size(107, 17);
             this.label7.TabIndex = 22;
-            this.label7.Text = "Precio Original";
-            // 
-            // lblPrecioOriginal
-            // 
-            this.lblPrecioOriginal.BackColor = System.Drawing.Color.Silver;
-            this.lblPrecioOriginal.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.lblPrecioOriginal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblPrecioOriginal.Location = new System.Drawing.Point(4, 23);
-            this.lblPrecioOriginal.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblPrecioOriginal.Name = "lblPrecioOriginal";
-            this.lblPrecioOriginal.Size = new System.Drawing.Size(164, 19);
-            this.lblPrecioOriginal.TabIndex = 24;
-            this.lblPrecioOriginal.Text = "0.0";
-            this.lblPrecioOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.Text = "Precio Compra";
             // 
             // groupBox1
             // 
@@ -434,8 +421,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
             this.flowLayoutPanel1.Controls.Add(this.PStock);
-            this.flowLayoutPanel1.Controls.Add(this.PPrecio);
             this.flowLayoutPanel1.Controls.Add(this.PPrecioOriginal);
+            this.flowLayoutPanel1.Controls.Add(this.PPrecio);
             this.flowLayoutPanel1.Controls.Add(this.PCategoria);
             this.flowLayoutPanel1.Controls.Add(this.PClaveInterna);
             this.flowLayoutPanel1.Controls.Add(this.PCodigoBarras);
@@ -456,25 +443,34 @@
             this.PStock.Size = new System.Drawing.Size(172, 50);
             this.PStock.TabIndex = 0;
             // 
+            // PPrecioOriginal
+            // 
+            this.PPrecioOriginal.Controls.Add(this.txtPrecioCompra);
+            this.PPrecioOriginal.Controls.Add(this.label7);
+            this.PPrecioOriginal.Location = new System.Drawing.Point(178, 2);
+            this.PPrecioOriginal.Margin = new System.Windows.Forms.Padding(2);
+            this.PPrecioOriginal.Name = "PPrecioOriginal";
+            this.PPrecioOriginal.Size = new System.Drawing.Size(171, 50);
+            this.PPrecioOriginal.TabIndex = 1;
+            // 
+            // txtPrecioCompra
+            // 
+            this.txtPrecioCompra.Location = new System.Drawing.Point(7, 24);
+            this.txtPrecioCompra.Name = "txtPrecioCompra";
+            this.txtPrecioCompra.Size = new System.Drawing.Size(158, 20);
+            this.txtPrecioCompra.TabIndex = 4;
+            this.txtPrecioCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioCompra_KeyDown);
+            this.txtPrecioCompra.Leave += new System.EventHandler(this.txtPrecioCompra_Leave);
+            // 
             // PPrecio
             // 
             this.PPrecio.Controls.Add(this.label4);
             this.PPrecio.Controls.Add(this.txtPrecioProducto);
-            this.PPrecio.Location = new System.Drawing.Point(178, 2);
+            this.PPrecio.Location = new System.Drawing.Point(353, 2);
             this.PPrecio.Margin = new System.Windows.Forms.Padding(2);
             this.PPrecio.Name = "PPrecio";
             this.PPrecio.Size = new System.Drawing.Size(172, 50);
-            this.PPrecio.TabIndex = 1;
-            // 
-            // PPrecioOriginal
-            // 
-            this.PPrecioOriginal.Controls.Add(this.label7);
-            this.PPrecioOriginal.Controls.Add(this.lblPrecioOriginal);
-            this.PPrecioOriginal.Location = new System.Drawing.Point(354, 2);
-            this.PPrecioOriginal.Margin = new System.Windows.Forms.Padding(2);
-            this.PPrecioOriginal.Name = "PPrecioOriginal";
-            this.PPrecioOriginal.Size = new System.Drawing.Size(171, 50);
-            this.PPrecioOriginal.TabIndex = 2;
+            this.PPrecio.TabIndex = 2;
             // 
             // PCategoria
             // 
@@ -521,7 +517,7 @@
             this.btnGenerarCB.Location = new System.Drawing.Point(183, 20);
             this.btnGenerarCB.Name = "btnGenerarCB";
             this.btnGenerarCB.Size = new System.Drawing.Size(112, 23);
-            this.btnGenerarCB.TabIndex = 8;
+            this.btnGenerarCB.TabIndex = 9;
             this.btnGenerarCB.Text = "Generar";
             this.btnGenerarCB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGenerarCB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -631,10 +627,10 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.PStock.ResumeLayout(false);
             this.PStock.PerformLayout();
-            this.PPrecio.ResumeLayout(false);
-            this.PPrecio.PerformLayout();
             this.PPrecioOriginal.ResumeLayout(false);
             this.PPrecioOriginal.PerformLayout();
+            this.PPrecio.ResumeLayout(false);
+            this.PPrecio.PerformLayout();
             this.PCategoria.ResumeLayout(false);
             this.PCategoria.PerformLayout();
             this.PClaveInterna.ResumeLayout(false);
@@ -671,7 +667,6 @@
         public System.Windows.Forms.TextBox txtStockProducto;
         public System.Windows.Forms.TextBox txtClaveProducto;
         private System.Windows.Forms.Label label7;
-        public System.Windows.Forms.Label lblPrecioOriginal;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBoxProducto;
         public System.Windows.Forms.TextBox txtCategoriaProducto;
@@ -695,5 +690,6 @@
         private System.Windows.Forms.Panel PAccion;
         private System.Windows.Forms.CheckBox chkBoxConProductos;
         private System.Windows.Forms.Button btnProdUpdate;
+        public System.Windows.Forms.TextBox txtPrecioCompra;
     }
 }

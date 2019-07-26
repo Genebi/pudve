@@ -26,7 +26,6 @@ namespace PuntoDeVentaV2
         public TagMake MakeTagProd = new TagMake();
         public VentanaDetalleFotoProducto ProductoDetalle = new VentanaDetalleFotoProducto();
         public DetalleDescripcion Descripcion = new DetalleDescripcion();
-        datosExtraNvoProductos FormDatosExtraNvoProd = new datosExtraNvoProductos();
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -830,30 +829,6 @@ namespace PuntoDeVentaV2
             {
                 if (seleccionadoDato == 0)
                 {
-                    FormDatosExtraNvoProd.FormClosed += delegate
-                    {
-                        if (FormDatosExtraNvoProd.importe >= 0)
-                        {
-                            FormAgregar.ImporteProdNvo = ImporteDatoExtraFinal;
-                        }
-                        if (FormDatosExtraNvoProd.descuento >= 0)
-                        {
-                            FormAgregar.DescuentoProdNvo = DescuentoDatoExtraFinal;
-                        }
-                        if (FormDatosExtraNvoProd.Cantidad >= 0)
-                        {
-                            FormAgregar.CantidadProdNvo = CantidadDatoExtraFinal;
-                        }
-                    };
-
-                    if (!FormDatosExtraNvoProd.Visible)
-                    {
-                        FormDatosExtraNvoProd.ShowDialog();
-                    }
-                    else
-                    {
-                        FormDatosExtraNvoProd.ShowDialog();
-                    }
                     FormAgregar.ProdNombre = "";
                     FormAgregar.ShowDialog();
                 }

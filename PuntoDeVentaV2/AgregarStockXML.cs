@@ -267,7 +267,7 @@ namespace PuntoDeVentaV2
                 FormAgregar.ProdNombre = ds.Conceptos[index].Descripcion;                   // pasamos la descripcion
                 FormAgregar.ProdStock = ds.Conceptos[index].Cantidad;                       // pasamos la cantidad del XML
                 FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
-                FormAgregar.lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
+                FormAgregar.txtPrecioCompra.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
                 FormAgregar.ProdClaveInterna = ds.Conceptos[index].NoIdentificacion;        // pasamos la claveInterna del XML
 
                 FormAgregar.claveProductoxml = ds.Conceptos[index].ClaveProdServ;
@@ -284,7 +284,7 @@ namespace PuntoDeVentaV2
                 FormAgregar.ProdNombre = ds.Conceptos[index - 1].Descripcion;                   // pasamos la descripcion
                 FormAgregar.ProdStock = ds.Conceptos[index - 1].Cantidad;                       // pasamos la cantidad del XML
                 FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
-                FormAgregar.lblPrecioOriginal.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
+                FormAgregar.txtPrecioCompra.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
                 FormAgregar.ProdClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;        // pasamos la claveInterna del XML
                 
                 FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;
