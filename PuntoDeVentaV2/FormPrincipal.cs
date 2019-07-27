@@ -116,6 +116,8 @@ namespace PuntoDeVentaV2
         private void btnProductos_Click(object sender, EventArgs e)
         {
             AbrirFormulario<Productos>();
+
+            Productos.recargarDatos = true;
         }
 
         private void btnVentas_Click(object sender, EventArgs e)

@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         public static int proveedorElegido = 0;
         public static int idReporte = 0;
         public static bool botonAceptar = false;
+        public static bool recargarDatos = false;
 
         public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
         public AgregarStockXML FormXML = new AgregarStockXML();
@@ -1069,6 +1070,21 @@ namespace PuntoDeVentaV2
         {
             timerBusqueda.Stop();
             CargarDatos(1, txtBusqueda.Text);
+        }
+
+        private void Productos_Paint(object sender, PaintEventArgs e)
+        {
+            if (recargarDatos)
+            {
+                CargarDatos();
+
+                recargarDatos = false;
+            }
+        }
+
+        private void Productos_Resize(object sender, EventArgs e)
+        {
+            recargarDatos = false;
         }
     }
 }

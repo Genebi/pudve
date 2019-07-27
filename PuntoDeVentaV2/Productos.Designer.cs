@@ -472,6 +472,8 @@
             this.Name = "Productos";
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Productos_Paint);
+            this.Resize += new System.EventHandler(this.Productos_Resize);
             this.panelShowDGVProductosView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).EndInit();
             this.panelShowPhotoView.ResumeLayout(false);
