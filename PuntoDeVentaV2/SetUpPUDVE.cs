@@ -19,9 +19,18 @@ namespace PuntoDeVentaV2
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SetUpPUDVE_Load(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.StockNegativo)
+            {
+                cbStockNegativo.Checked = true;
+            }
+        }
+
+        private void btnRespaldo_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Seccion en proceso de hacer BackUp", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             try
             {
                 cn.BackUpDB();
@@ -30,6 +39,13 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Error al hacer BackUp: " + ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.StockNegativo = cbStockNegativo.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
     }
 }
