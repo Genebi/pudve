@@ -909,69 +909,75 @@ namespace PuntoDeVentaV2
         {
             bool respuesta = true;
 
-            if (DGVentas.Rows.Count > 0)
+            //Comprobamos que la opcion stock negativo sea false para que se pueda realizar la venta
+            //verificando si el stock es suficiente para realizar la venta, de lo contrario se
+            //permitira hacer la venta incluso si el stock es insuficiente
+            if (Properties.Settings.Default.StockNegativo == false)
             {
-                foreach (DataGridViewRow fila in DGVentas.Rows)
+                if (DGVentas.Rows.Count > 0)
                 {
-                    var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
-                    var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
-                    var tipoPS = fila.Cells["TipoPS"].Value.ToString();
-
-                    //Es producto
-                    if (tipoPS == "P")
+                    foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
-                        if (stock < cantidad)
+                        var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
+                        var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                        var tipoPS = fila.Cells["TipoPS"].Value.ToString();
+
+                        //Es producto
+                        if (tipoPS == "P")
                         {
-                            var producto = fila.Cells["Descripcion"].Value;
-
-                            MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                            respuesta = false;
-
-                            break;
-                        }
-                    }
-
-                    //Es servicio
-                    if (tipoPS == "S")
-                    {
-                        var servicio = fila.Cells["Descripcion"].Value;
-                        var idServicio = Convert.ToInt32(fila.Cells["IDProducto"].Value);
-
-                        //Obtener los productos relacionados (ID, Cantidad)
-                        var datosServicio = cn.ObtenerProductosServicio(idServicio);
-
-                        //Verificar la cantidad de cada producto con el stock actual de ese producto individual
-                        foreach (string producto in datosServicio)
-                        {
-                            var datosProducto = producto.Split('|');
-                            var idProducto = Convert.ToInt32(datosProducto[0]);
-                            var stockRequerido = Convert.ToInt32(datosProducto[1]) * cantidad;
-
-                            datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
-                            datosProducto = datosProducto[0].Split('|');
-
-                            var nombreProducto = datosProducto[0];
-                            var stockActual = Convert.ToInt32(datosProducto[1]);
-
-                            if (stockActual < stockRequerido)
+                            if (stock < cantidad)
                             {
-                                var mensaje = $"El stock de {nombreProducto} es insuficiente\nServicio: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+                                var producto = fila.Cells["Descripcion"].Value;
 
-                                MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show($"El stock de {producto} es insuficiente\nStock actual: {stock}\nRequerido: {cantidad}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                                 respuesta = false;
 
                                 break;
                             }
                         }
+
+                        //Es servicio
+                        if (tipoPS == "S")
+                        {
+                            var servicio = fila.Cells["Descripcion"].Value;
+                            var idServicio = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+
+                            //Obtener los productos relacionados (ID, Cantidad)
+                            var datosServicio = cn.ObtenerProductosServicio(idServicio);
+
+                            //Verificar la cantidad de cada producto con el stock actual de ese producto individual
+                            foreach (string producto in datosServicio)
+                            {
+                                var datosProducto = producto.Split('|');
+                                var idProducto = Convert.ToInt32(datosProducto[0]);
+                                var stockRequerido = Convert.ToInt32(datosProducto[1]) * cantidad;
+
+                                datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+                                datosProducto = datosProducto[0].Split('|');
+
+                                var nombreProducto = datosProducto[0];
+                                var stockActual = Convert.ToInt32(datosProducto[1]);
+
+                                if (stockActual < stockRequerido)
+                                {
+                                    var mensaje = $"El stock de {nombreProducto} es insuficiente\nServicio: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+
+                                    MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                    respuesta = false;
+
+                                    break;
+                                }
+                            }
+                        }
                     }
                 }
-            }
-            else
-            {
-                respuesta = false;
-            }
+                else
+                {
+                    respuesta = false;
+                }
+            }           
 
             return respuesta;
         }
