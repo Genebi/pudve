@@ -1525,6 +1525,9 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            timerBusqueda.Stop();
+            timerBusqueda.Start();
+
             foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
             {
                 if (s.Contains(txtBuscadorProducto.Text))
@@ -1578,6 +1581,13 @@ namespace PuntoDeVentaV2
                     e.IsInputKey = true;
                     break;
             }
+        }
+
+        private void timerBusqueda_Tick(object sender, EventArgs e)
+        {
+            timerBusqueda.Stop();
+            //listaProductos.SelectedIndex = 0;
+            listaProductos.Focus();
         }
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)
