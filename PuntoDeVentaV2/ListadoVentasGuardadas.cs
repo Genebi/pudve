@@ -64,6 +64,7 @@ namespace PuntoDeVentaV2
 
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["Cliente"].Value = cliente;
+                row.Cells["IDCliente"].Value = idCliente;
                 row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Total"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -82,12 +83,13 @@ namespace PuntoDeVentaV2
         {
             var fila = DGVListaVentasGuardadas.CurrentCell.RowIndex;
             var IDVenta = Convert.ToInt32(DGVListaVentasGuardadas.Rows[fila].Cells["ID"].Value);
+            var IDCliente = DGVListaVentasGuardadas.Rows[fila].Cells["IDCliente"].Value.ToString();
 
             //Mostrar venta guardada
             if (e.ColumnIndex == 4)
             {
                 Ventas.mostrarVenta = IDVenta;
-
+                Ventas.idCliente = IDCliente;
                 this.Close();
             }
 

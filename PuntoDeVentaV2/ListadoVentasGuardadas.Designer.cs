@@ -36,6 +36,7 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.IDCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaVentasGuardadas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +51,8 @@
             this.Importe,
             this.Fecha,
             this.Mostrar,
-            this.Eliminar});
+            this.Eliminar,
+            this.IDCliente});
             this.DGVListaVentasGuardadas.Location = new System.Drawing.Point(12, 71);
             this.DGVListaVentasGuardadas.Name = "DGVListaVentasGuardadas";
             this.DGVListaVentasGuardadas.ReadOnly = true;
@@ -115,6 +117,13 @@
             this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Eliminar.Width = 50;
             // 
+            // IDCliente
+            // 
+            this.IDCliente.HeaderText = "ID Cliente";
+            this.IDCliente.Name = "IDCliente";
+            this.IDCliente.ReadOnly = true;
+            this.IDCliente.Visible = false;
+            // 
             // ListadoVentasGuardadas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,5 +153,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Mostrar;
         private System.Windows.Forms.DataGridViewImageColumn Eliminar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDCliente;
     }
 }

@@ -681,7 +681,7 @@ namespace PuntoDeVentaV2
             {
                 var totalVenta = float.Parse(cTotal.Text);
 
-                DetalleVenta detalle = new DetalleVenta(totalVenta);
+                DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
 
                 detalle.FormClosed += delegate
                 {
@@ -732,25 +732,26 @@ namespace PuntoDeVentaV2
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var Folio = "";
             var Serie = "A";
+            var idClienteTmp = idCliente;
 
             if (ventaGuardada)
             {
                 statusVenta = "2";
 
-                if (string.IsNullOrWhiteSpace(idCliente))
+                if (string.IsNullOrWhiteSpace(idClienteTmp))
                 {
-                    idCliente = "0";
+                    idClienteTmp = "0";
                 }
             }
             else
             {
-                idCliente = "0";
+                idClienteTmp = "0";
             }
 
             string[] guardar = null;
             aumentoFolio();
             Folio = Contenido;
-            guardar = new string[] { IdEmpresa, idCliente, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion };
+            guardar = new string[] { IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion };
 
 
             if (VerificarStockProducto())
