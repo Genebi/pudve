@@ -366,7 +366,7 @@ namespace PuntoDeVentaV2
         {
             origenDeLosDatos = 3;
 
-            string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre}' AND RFC = '{ds.Emisor.Rfc}'";
+            string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
             DataTable dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
 
             if (dtSearchProveedor.Rows.Count <= 0)
@@ -375,7 +375,7 @@ namespace PuntoDeVentaV2
                 fecha = fechaXML.Substring(0,10);
                 hora = fechaXML.Substring(11);
                 fechaOperacion = fecha + " " + hora;
-                string queryAddProveedor = $@"INSERT INTO Proveedores (IDUsuario, Nombre, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{ds.Emisor.Nombre}', '{ds.Emisor.Rfc}', '{fechaOperacion}')";
+                string queryAddProveedor = $@"INSERT INTO Proveedores (IDUsuario, Nombre, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{ds.Emisor.Nombre.Trim()}', '{ds.Emisor.Rfc.Trim()}', '{fechaOperacion}')";
                 cn.EjecutarConsulta(queryAddProveedor);
             }
 
