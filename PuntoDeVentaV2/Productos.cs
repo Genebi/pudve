@@ -531,23 +531,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void obtenerIDProdServPaq()
-        {
-            string queryIDProdServPaq = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{FormPrincipal.userID}'";
-            DataTable idProdServPaq;
-            idProdServPaq = cn.CargarDatos(queryIDProdServPaq);
-            ID_ProdSerPaq = idProdServPaq.Rows[0]["ID"].ToString();
-        }
-
-        public void limpiarDGV()
-        {
-            if (DGVProductos.DataSource is DataTable)
-            {
-                ((DataTable)DGVProductos.DataSource).Rows.Clear();
-                DGVProductos.Refresh();
-            }
-        }
-
         private void btnModificarEstado_Click(object sender, EventArgs e)
         {
             int estado = 2;
@@ -583,6 +566,9 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos(0);
             }
+
+            CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+            master.Checked = false;
         }
 
         public void obtenerDatosDGVProductos(int fila)
@@ -663,6 +649,8 @@ namespace PuntoDeVentaV2
         public Productos()
         {
             InitializeComponent();
+
+            MostrarCheckBox();
         }
 
         private void Productos_Load(object sender, EventArgs e)
@@ -677,6 +665,30 @@ namespace PuntoDeVentaV2
             cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
 
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
+        }
+
+        private void MostrarCheckBox()
+        {
+            System.Drawing.Rectangle rect = DGVProductos.GetCellDisplayRectangle(0, -1, true);
+            // set checkbox header to center of header cell. +1 pixel to position 
+            rect.Y = 5;
+            rect.X = 10;// rect.Location.X + (rect.Width / 4);
+            CheckBox checkBoxHeader = new CheckBox();
+            checkBoxHeader.Name = "checkBoxMaster";
+            checkBoxHeader.Size = new Size(15, 15);
+            checkBoxHeader.Location = rect.Location;
+            checkBoxHeader.CheckedChanged += new EventHandler(checkBoxMaster_CheckedChanged);
+            DGVProductos.Controls.Add(checkBoxHeader);
+        }
+
+        private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
+
+            for (int i = 0; i < DGVProductos.RowCount; i++)
+            {
+                DGVProductos.Rows[i].Cells[0].Value = headerBox.Checked;
+            }
         }
 
         private void CargarDatos(int status = 1, string busqueda = "")

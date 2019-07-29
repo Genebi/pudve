@@ -37,6 +37,15 @@
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.panelShowDGVProductosView = new System.Windows.Forms.Panel();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
+            this.panelShowPhotoView = new System.Windows.Forms.Panel();
+            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnListView = new System.Windows.Forms.Button();
+            this.btnPhotoView = new System.Windows.Forms.Button();
+            this.btnModificarEstado = new System.Windows.Forms.Button();
+            this.btnAgregarXML = new System.Windows.Forms.Button();
+            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
+            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.CheckProducto = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,15 +67,6 @@
             this._IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._ClavProdXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._ClavUnidMedXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelShowPhotoView = new System.Windows.Forms.Panel();
-            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnListView = new System.Windows.Forms.Button();
-            this.btnPhotoView = new System.Windows.Forms.Button();
-            this.btnModificarEstado = new System.Windows.Forms.Button();
-            this.btnAgregarXML = new System.Windows.Forms.Button();
-            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
-            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -209,6 +209,7 @@
             this._ClavUnidMedXML});
             this.DGVProductos.Location = new System.Drawing.Point(10, 15);
             this.DGVProductos.Name = "DGVProductos";
+            this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVProductos.Size = new System.Drawing.Size(792, 327);
@@ -216,6 +217,124 @@
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
+            // 
+            // panelShowPhotoView
+            // 
+            this.panelShowPhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelShowPhotoView.Controls.Add(this.fLPShowPhoto);
+            this.panelShowPhotoView.Location = new System.Drawing.Point(12, 198);
+            this.panelShowPhotoView.Margin = new System.Windows.Forms.Padding(2);
+            this.panelShowPhotoView.Name = "panelShowPhotoView";
+            this.panelShowPhotoView.Size = new System.Drawing.Size(814, 356);
+            this.panelShowPhotoView.TabIndex = 14;
+            // 
+            // fLPShowPhoto
+            // 
+            this.fLPShowPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fLPShowPhoto.AutoScroll = true;
+            this.fLPShowPhoto.Location = new System.Drawing.Point(10, 15);
+            this.fLPShowPhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.fLPShowPhoto.Name = "fLPShowPhoto";
+            this.fLPShowPhoto.Size = new System.Drawing.Size(792, 327);
+            this.fLPShowPhoto.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cbMostrar);
+            this.panel1.Controls.Add(this.tituloSeccion);
+            this.panel1.Controls.Add(this.tituloBusqueda);
+            this.panel1.Controls.Add(this.txtBusqueda);
+            this.panel1.Controls.Add(this.btnListView);
+            this.panel1.Controls.Add(this.btnAgregarProducto);
+            this.panel1.Controls.Add(this.btnPhotoView);
+            this.panel1.Controls.Add(this.cbOrden);
+            this.panel1.Controls.Add(this.btnModificarEstado);
+            this.panel1.Controls.Add(this.btnAgregarXML);
+            this.panel1.Location = new System.Drawing.Point(12, 6);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(817, 184);
+            this.panel1.TabIndex = 15;
+            // 
+            // btnListView
+            // 
+            this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
+            this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnListView.Location = new System.Drawing.Point(12, 156);
+            this.btnListView.Margin = new System.Windows.Forms.Padding(2);
+            this.btnListView.Name = "btnListView";
+            this.btnListView.Size = new System.Drawing.Size(136, 28);
+            this.btnListView.TabIndex = 12;
+            this.btnListView.Text = "Lista";
+            this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnListView.UseVisualStyleBackColor = true;
+            this.btnListView.Click += new System.EventHandler(this.btnListView_Click);
+            // 
+            // btnPhotoView
+            // 
+            this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th;
+            this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPhotoView.Location = new System.Drawing.Point(152, 156);
+            this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
+            this.btnPhotoView.Name = "btnPhotoView";
+            this.btnPhotoView.Size = new System.Drawing.Size(159, 28);
+            this.btnPhotoView.TabIndex = 11;
+            this.btnPhotoView.Text = "Mosaico";
+            this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPhotoView.UseVisualStyleBackColor = true;
+            this.btnPhotoView.Click += new System.EventHandler(this.btnPhotoView_Click);
+            // 
+            // btnModificarEstado
+            // 
+            this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
+            this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnModificarEstado.Location = new System.Drawing.Point(152, 124);
+            this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
+            this.btnModificarEstado.Name = "btnModificarEstado";
+            this.btnModificarEstado.Size = new System.Drawing.Size(159, 28);
+            this.btnModificarEstado.TabIndex = 10;
+            this.btnModificarEstado.Text = "Modificar Estado";
+            this.btnModificarEstado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnModificarEstado.UseVisualStyleBackColor = true;
+            this.btnModificarEstado.Click += new System.EventHandler(this.btnModificarEstado_Click);
+            // 
+            // btnAgregarXML
+            // 
+            this.btnAgregarXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
+            this.btnAgregarXML.Location = new System.Drawing.Point(12, 124);
+            this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAgregarXML.Name = "btnAgregarXML";
+            this.btnAgregarXML.Size = new System.Drawing.Size(136, 28);
+            this.btnAgregarXML.TabIndex = 8;
+            this.btnAgregarXML.Text = "Agregar XML";
+            this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAgregarXML.UseVisualStyleBackColor = false;
+            this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
+            // 
+            // TTipButtonText
+            // 
+            this.TTipButtonText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.TTipButtonText.ForeColor = System.Drawing.Color.White;
+            this.TTipButtonText.OwnerDraw = true;
+            this.TTipButtonText.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTipButtonText_Draw);
+            // 
+            // timerBusqueda
+            // 
+            this.timerBusqueda.Interval = 1000;
+            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
             // CheckProducto
             // 
@@ -343,124 +462,6 @@
             this._ClavUnidMedXML.Name = "_ClavUnidMedXML";
             this._ClavUnidMedXML.Visible = false;
             // 
-            // panelShowPhotoView
-            // 
-            this.panelShowPhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelShowPhotoView.Controls.Add(this.fLPShowPhoto);
-            this.panelShowPhotoView.Location = new System.Drawing.Point(12, 198);
-            this.panelShowPhotoView.Margin = new System.Windows.Forms.Padding(2);
-            this.panelShowPhotoView.Name = "panelShowPhotoView";
-            this.panelShowPhotoView.Size = new System.Drawing.Size(814, 356);
-            this.panelShowPhotoView.TabIndex = 14;
-            // 
-            // fLPShowPhoto
-            // 
-            this.fLPShowPhoto.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fLPShowPhoto.AutoScroll = true;
-            this.fLPShowPhoto.Location = new System.Drawing.Point(10, 15);
-            this.fLPShowPhoto.Margin = new System.Windows.Forms.Padding(2);
-            this.fLPShowPhoto.Name = "fLPShowPhoto";
-            this.fLPShowPhoto.Size = new System.Drawing.Size(792, 327);
-            this.fLPShowPhoto.TabIndex = 0;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.cbMostrar);
-            this.panel1.Controls.Add(this.tituloSeccion);
-            this.panel1.Controls.Add(this.tituloBusqueda);
-            this.panel1.Controls.Add(this.txtBusqueda);
-            this.panel1.Controls.Add(this.btnListView);
-            this.panel1.Controls.Add(this.btnAgregarProducto);
-            this.panel1.Controls.Add(this.btnPhotoView);
-            this.panel1.Controls.Add(this.cbOrden);
-            this.panel1.Controls.Add(this.btnModificarEstado);
-            this.panel1.Controls.Add(this.btnAgregarXML);
-            this.panel1.Location = new System.Drawing.Point(12, 6);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(817, 184);
-            this.panel1.TabIndex = 15;
-            // 
-            // btnListView
-            // 
-            this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
-            this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListView.Location = new System.Drawing.Point(12, 156);
-            this.btnListView.Margin = new System.Windows.Forms.Padding(2);
-            this.btnListView.Name = "btnListView";
-            this.btnListView.Size = new System.Drawing.Size(136, 28);
-            this.btnListView.TabIndex = 12;
-            this.btnListView.Text = "Lista";
-            this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnListView.UseVisualStyleBackColor = true;
-            this.btnListView.Click += new System.EventHandler(this.btnListView_Click);
-            // 
-            // btnPhotoView
-            // 
-            this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th;
-            this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhotoView.Location = new System.Drawing.Point(152, 156);
-            this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
-            this.btnPhotoView.Name = "btnPhotoView";
-            this.btnPhotoView.Size = new System.Drawing.Size(159, 28);
-            this.btnPhotoView.TabIndex = 11;
-            this.btnPhotoView.Text = "Mosaico";
-            this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnPhotoView.UseVisualStyleBackColor = true;
-            this.btnPhotoView.Click += new System.EventHandler(this.btnPhotoView_Click);
-            // 
-            // btnModificarEstado
-            // 
-            this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
-            this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(152, 124);
-            this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
-            this.btnModificarEstado.Name = "btnModificarEstado";
-            this.btnModificarEstado.Size = new System.Drawing.Size(159, 28);
-            this.btnModificarEstado.TabIndex = 10;
-            this.btnModificarEstado.Text = "Modificar Estado";
-            this.btnModificarEstado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnModificarEstado.UseVisualStyleBackColor = true;
-            this.btnModificarEstado.Click += new System.EventHandler(this.btnModificarEstado_Click);
-            // 
-            // btnAgregarXML
-            // 
-            this.btnAgregarXML.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
-            this.btnAgregarXML.Location = new System.Drawing.Point(12, 124);
-            this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAgregarXML.Name = "btnAgregarXML";
-            this.btnAgregarXML.Size = new System.Drawing.Size(136, 28);
-            this.btnAgregarXML.TabIndex = 8;
-            this.btnAgregarXML.Text = "Agregar XML";
-            this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAgregarXML.UseVisualStyleBackColor = false;
-            this.btnAgregarXML.Click += new System.EventHandler(this.btnAgregarXML_Click);
-            // 
-            // TTipButtonText
-            // 
-            this.TTipButtonText.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.TTipButtonText.ForeColor = System.Drawing.Color.White;
-            this.TTipButtonText.OwnerDraw = true;
-            this.TTipButtonText.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTipButtonText_Draw);
-            // 
-            // timerBusqueda
-            // 
-            this.timerBusqueda.Interval = 1000;
-            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
-            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -500,6 +501,7 @@
         private System.Windows.Forms.FlowLayoutPanel fLPShowPhoto;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolTip TTipButtonText;
+        private System.Windows.Forms.Timer timerBusqueda;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -521,6 +523,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _IDProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn _ClavProdXML;
         private System.Windows.Forms.DataGridViewTextBoxColumn _ClavUnidMedXML;
-        private System.Windows.Forms.Timer timerBusqueda;
     }
 }

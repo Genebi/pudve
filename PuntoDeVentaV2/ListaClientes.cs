@@ -89,6 +89,8 @@ namespace PuntoDeVentaV2
 
                         AsignarCreditoVenta.idCliente = idCliente;
                         AsignarCreditoVenta.cliente = cliente;
+
+                        Ventas.idCliente = idCliente.ToString();
                     }
 
                     this.Dispose();

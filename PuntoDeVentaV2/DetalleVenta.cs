@@ -12,6 +12,8 @@ namespace PuntoDeVentaV2
 {
     public partial class DetalleVenta : Form
     {
+        MetodosBusquedas mb = new MetodosBusquedas();
+
         public static string cliente = string.Empty;
         public static int idCliente = 0;
         public static float credito = 0f;
@@ -19,11 +21,28 @@ namespace PuntoDeVentaV2
         private float total = 0;
         private float totalMetodos = 0;
 
-        public DetalleVenta(float total)
+        public DetalleVenta(float total, string idCliente = "")
         {
             InitializeComponent();
 
             this.total = total;
+            
+            //Obtenemos los datos del cliente en caso de que sea una venta guardada con clientes
+            if (!string.IsNullOrWhiteSpace(idCliente))
+            {
+                int idClienteTmp = Convert.ToInt32(idCliente);
+
+                if (idClienteTmp > 0)
+                {
+                    var infoCliente = mb.ObtenerDatosCliente(idClienteTmp, FormPrincipal.userID);
+
+                    lbCliente.Text = infoCliente[0];
+                    lbEliminarCliente.Visible = true;
+
+                    DetalleVenta.idCliente = idClienteTmp;
+                    DetalleVenta.cliente = infoCliente[0];
+                }
+            }
         }
 
         private void DetalleVenta_Load(object sender, EventArgs e)

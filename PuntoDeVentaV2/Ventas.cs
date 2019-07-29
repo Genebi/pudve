@@ -66,6 +66,9 @@ namespace PuntoDeVentaV2
         int index = 0, idProducto;
         string producto;
         string[] datosProducto;
+        private bool sumarProducto = false;
+        private bool restarProducto = false;
+        
 
         public Ventas()
         {
@@ -150,12 +153,42 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyDown(object sender, KeyEventArgs e)
         {
+            //Tecla borrar y suprimir
             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
             {
                 if (txtBuscadorProducto.Text == string.Empty)
                 {
                     nudCantidadPS.Value = 1;
                 }
+            }
+
+            //Enter
+            if (e.KeyData == Keys.Enter)
+            {
+                if (listaProductos.Visible)
+                {
+                    //Verifica si la lista esta visible y contiene un producto al menos
+                    //si la lista no tiene el focus le agregada el focus y selecciona el primer producto
+                    //que muestra por defecto y ejecuta el evento enter de la lista para agregar el producto
+                    if (!listaProductos.Focused)
+                    {
+                        listaProductos.SelectedIndex = 0;
+                        listaProductos.Focus();
+                        listaProductos_KeyDown(sender, e);
+                    }
+                }
+                else
+                {
+                    //Este codigo es para cuando intenta agregar mas cantidad de algun producto
+                    //desde el buscador de producto, solo aplica para sumar y restar producto
+                    sumarProducto = true;
+                    restarProducto = true;
+
+                    txtBuscadorProducto_KeyUp(sender, e);
+
+                    sumarProducto = false;
+                    restarProducto = false;
+                }  
             }
         }
 
@@ -648,7 +681,7 @@ namespace PuntoDeVentaV2
             {
                 var totalVenta = float.Parse(cTotal.Text);
 
-                DetalleVenta detalle = new DetalleVenta(totalVenta);
+                DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
 
                 detalle.FormClosed += delegate
                 {
@@ -699,17 +732,26 @@ namespace PuntoDeVentaV2
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var Folio = "";
             var Serie = "A";
+            var idClienteTmp = idCliente;
 
-            
             if (ventaGuardada)
             {
                 statusVenta = "2";
+
+                if (string.IsNullOrWhiteSpace(idClienteTmp))
+                {
+                    idClienteTmp = "0";
+                }
+            }
+            else
+            {
+                idClienteTmp = "0";
             }
 
             string[] guardar = null;
             aumentoFolio();
             Folio = Contenido;
-            guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion };
+            guardar = new string[] { IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion };
 
 
             if (VerificarStockProducto())
@@ -885,8 +927,15 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarVenta_Click(object sender, EventArgs e)
         {
-            ventaGuardada = true;
-            DatosVenta();
+            ListaClientes cliente = new ListaClientes();
+
+            cliente.FormClosed += delegate
+            {
+                ventaGuardada = true;
+                DatosVenta();
+            };
+
+            cliente.ShowDialog();
         }
 
         private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)
@@ -1299,6 +1348,7 @@ namespace PuntoDeVentaV2
             //Sin acciones
         }
 
+        #region Expresiones regulares para buscar producto
         private string VerificarPatronesBusqueda(string cadena)
         {
             string primerPatron = @"^\d+\s\*\s";               //  (digito+espacioBlanco*espacioBlanco) 5 * 15665132
@@ -1337,83 +1387,89 @@ namespace PuntoDeVentaV2
             }
             else if (segundaCoincidencia.Success)
             {
-                var resultado = segundaCoincidencia.Value.Trim().Split('+');
-
-                if (resultado[0] != string.Empty)
+                if (sumarProducto)
                 {
-                    cantidadExtra = Convert.ToInt32(resultado[0]);
-                }
-                else
-                {
-                    cantidadExtra = Convert.ToInt32(resultado[1]);
-                }
+                    var resultado = segundaCoincidencia.Value.Trim().Split('+');
 
-                cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
-
-                //Verifica que exista algun producto o servicio en el datagridview
-                if (DGVentas.Rows.Count > 0)
-                {
-                    if (cantidadExtra != 0)
+                    if (resultado[0] != string.Empty)
                     {
-                        //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
-                        if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
+                        cantidadExtra = Convert.ToInt32(resultado[0]);
+                    }
+                    else
+                    {
+                        cantidadExtra = Convert.ToInt32(resultado[1]);
+                    }
+
+                    cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
+
+                    //Verifica que exista algun producto o servicio en el datagridview
+                    if (DGVentas.Rows.Count > 0)
+                    {
+                        if (cantidadExtra != 0)
                         {
-                            //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                            var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
+                            //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
+                            if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
+                            {
+                                //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
+                                var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
 
-                            cantidad += cantidadExtra;
+                                cantidad += cantidadExtra;
 
-                            DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
+                                DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
 
-                            CantidadesFinalesVenta();
+                                CantidadesFinalesVenta();
 
-                            nudCantidadPS.Value = cantidadExtra;
+                                nudCantidadPS.Value = cantidadExtra;
 
-                            cantidadExtra = 0;
+                                cantidadExtra = 0;
+                            }
                         }
                     }
-                }
+                }  
             }
             else if (terceraCoincidencia.Success)
             {
-                var resultado = terceraCoincidencia.Value.Trim().Split('-');
-
-                if (resultado[0] != string.Empty)
+                if (restarProducto)
                 {
-                    cantidadExtra = Convert.ToInt32(resultado[0]) * -1;
-                }
-                else
-                {
-                    cantidadExtra = Convert.ToInt32(resultado[1]) * -1;
-                }
+                    var resultado = terceraCoincidencia.Value.Trim().Split('-');
 
-                cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
-
-                //Verifica que exista algun producto o servicio en el datagridview
-                if (DGVentas.Rows.Count > 0)
-                {
-                    if (cantidadExtra != 0)
+                    if (resultado[0] != string.Empty)
                     {
-                        //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
-                        if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
+                        cantidadExtra = Convert.ToInt32(resultado[0]) * -1;
+                    }
+                    else
+                    {
+                        cantidadExtra = Convert.ToInt32(resultado[1]) * -1;
+                    }
+
+                    cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
+
+                    //Verifica que exista algun producto o servicio en el datagridview
+                    if (DGVentas.Rows.Count > 0)
+                    {
+                        if (cantidadExtra != 0)
                         {
-                            //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                            var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
+                            //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
+                            if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
+                            {
+                                //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
+                                var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
 
-                            cantidad += cantidadExtra;
+                                cantidad += cantidadExtra;
 
-                            if (cantidad < 0) { cantidad = 1; }
+                                if (cantidad < 0) { cantidad = 1; }
 
-                            DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
+                                DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
 
-                            CantidadesFinalesVenta();
+                                CantidadesFinalesVenta();
 
-                            nudCantidadPS.Value = cantidadExtra;
+                                nudCantidadPS.Value = cantidadExtra;
 
-                            cantidadExtra = 0;
+                                cantidadExtra = 0;
+                            }
                         }
                     }
-                }
+                }  
             }
             else if (cuartaCoincidencia.Success)
             {
@@ -1475,12 +1531,15 @@ namespace PuntoDeVentaV2
                 folio = cadena;
             }
 
+            ocultarResultados();
+
             return cadena;
         }
+        #endregion
 
         private void Ventas_KeyDown(object sender, KeyEventArgs e)
         {
-            if (listaProductos.Visible == true && txtBuscadorProducto.Text != "")
+            if (listaProductos.Visible == true && !string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
             {
                 if (listaProductos.Items.Count == 0)
                 {
@@ -1530,9 +1589,6 @@ namespace PuntoDeVentaV2
                 ocultarResultados();
                 return;
             }
-
-            timerBusqueda.Stop();
-            timerBusqueda.Start();
 
             foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
             {
@@ -1587,13 +1643,6 @@ namespace PuntoDeVentaV2
                     e.IsInputKey = true;
                     break;
             }
-        }
-
-        private void timerBusqueda_Tick(object sender, EventArgs e)
-        {
-            timerBusqueda.Stop();
-            //listaProductos.SelectedIndex = 0;
-            listaProductos.Focus();
         }
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)
