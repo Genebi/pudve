@@ -1184,7 +1184,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
@@ -1240,7 +1240,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
@@ -1295,7 +1295,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
@@ -1350,7 +1350,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
@@ -1414,7 +1414,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
@@ -1467,7 +1467,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
@@ -1524,7 +1524,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
@@ -1572,7 +1572,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
@@ -1621,7 +1621,7 @@ namespace PuntoDeVentaV2
 		                    IDUsuario) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
-	                        '{precio}',
+	                        '{PrecioProd}',
 	                        '{descuento}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
 	                        '{fechaCompleta}',
