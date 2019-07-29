@@ -1213,49 +1213,50 @@ namespace PuntoDeVentaV2
                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
                         if (respuesta > 0)
                         {
+                            var idProveedor = string.Empty;
+
+                            if (detallesProducto != null)
+                            {
+                                //string[] listaDetalles = detallesProducto.Split('|');
+
+                                if (!string.IsNullOrWhiteSpace(detallesProducto))
+                                {
+                                    var datosProveedor = detallesProducto.Split('-');
+                                    var idProveedorTmp = datosProveedor[0].Trim();
+                                    var nombreProveedor = datosProveedor[1].Trim();
+
+                                    idProveedor = idProveedorTmp;
+
+                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+
+                                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+
+                                    FormDetalleProducto.Close();
+                                }
+                            }
+
                             if (DatosSourceFinal == 1)
                             {
-                                string query = $@"INSERT INTO 
-                                                    HistorialCompras(Concepto,
-		                                                            Cantidad,
-		                                                            ValorUnitario,
-		                                                            Descuento,
-		                                                            Precio,
-		                                                            FechaLarga,
-		                                                            Folio,
-		                                                            RFCEmisor,
-		                                                            NomEmisor,
-		                                                            ClaveProdEmisor,
-                                                                    FechaOperacion, 
-                                                                    IDReporte,
-		                                                            IDProducto,
-		                                                            IDUsuario) 
-                                                 VALUES('{nombre}',
-                                                        '{stock}',
-                                                        '{precio}',
-                                                        '0',
-                                                        '{txtPrecioCompra.Text}',
-                                                        datetime('now', 'localtime'),
-                                                        '---',
-                                                        '---',
-                                                        '---',
-                                                        '---',
-                                                        datetime('now', 'localtime'), 
-                                                        '{Inventario.idReporte}',
-                                                        '{idProducto}',
-                                                        '{FormPrincipal.userID}')";
-
-                                try
+                                //Datos para la tabla historial de compras
+                                if (idProveedor != "")
                                 {
-                                    cn.EjecutarConsulta(query);
-                                    idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
-                                    //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show("Error :" + ex);
-                                }
+                                    var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedor), FormPrincipal.userID);
+                                    var conceptoProveedor = proveedorTmp[0];
+                                    var rfcProveedor = proveedorTmp[1];
 
+                                    guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                                    cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
+
+                                    int foundServicio = 10;
+                                    DateTime dateServ = DateTime.Now;
+                                    string fechaCompletaServ = dateServ.ToString("s");
+                                    string YearServ = fechaCompletaServ.Substring(0, foundServicio);
+                                    string DateServ = fechaCompletaServ.Substring(foundServicio + 1);
+                                    string FechaRegistradaServ = YearServ + " " + DateServ;
+                                    string queryRecordHistorialServ = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistradaServ}')";
+                                    cn.EjecutarConsulta(queryRecordHistorialServ);
+                                }
                                 int found = 10;
                                 DateTime date1 = DateTime.Now;
                                 string fechaCompleta = date1.ToString("s");
@@ -1286,35 +1287,8 @@ namespace PuntoDeVentaV2
                                 //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}', datetime('now', 'localtime'), '{Inventario.idReporte}', '{idProducto}','{FormPrincipal.userID}')";
 
                                 //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
-                                string query = $@"INSERT INTO 
-                                                    HistorialCompras(Concepto,
-		                                                            Cantidad,
-		                                                            ValorUnitario,
-		                                                            Descuento,
-		                                                            Precio,
-		                                                            FechaLarga,
-		                                                            Folio,
-		                                                            RFCEmisor,
-		                                                            NomEmisor,
-		                                                            ClaveProdEmisor,
-                                                                    FechaOperacion, 
-                                                                    IDReporte,
-		                                                            IDProducto,
-		                                                            IDUsuario) 
-                                                 VALUES('{nombre}',
-                                                        '{stock}',
-                                                        '{precio}',
-                                                        '{descuentoXML}',
-                                                        '{PrecioCompraXMLNvoProd}',
-                                                        '{fechaCompleta}',
-                                                        '{folio}',
-                                                        '{RFCEmisor}',
-                                                        '{nombreEmisor}',
-                                                        '{claveProdEmisor}',
-                                                        datetime('now', 'localtime'), 
-                                                        '{Inventario.idReporte}',
-                                                        '{idProducto}',
-                                                        '{FormPrincipal.userID}')";
+                                string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) 
+                                VALUES('{nombre}','{stock}','{precio}','{descuentoXML}','{PrecioCompraXMLNvoProd}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}',datetime('now', 'localtime'),'{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
                                 try
                                 {
                                     cn.EjecutarConsulta(query);
