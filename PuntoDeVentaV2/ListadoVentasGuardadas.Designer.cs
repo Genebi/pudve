@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.DGVListaVentasGuardadas = new System.Windows.Forms.DataGridView();
+            this.tituloSeccion = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.tituloSeccion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaVentasGuardadas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,10 +54,23 @@
             this.DGVListaVentasGuardadas.Location = new System.Drawing.Point(12, 71);
             this.DGVListaVentasGuardadas.Name = "DGVListaVentasGuardadas";
             this.DGVListaVentasGuardadas.ReadOnly = true;
+            this.DGVListaVentasGuardadas.RowHeadersVisible = false;
             this.DGVListaVentasGuardadas.Size = new System.Drawing.Size(510, 178);
             this.DGVListaVentasGuardadas.TabIndex = 0;
             this.DGVListaVentasGuardadas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaVentasGuardadas_CellClick);
             this.DGVListaVentasGuardadas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaVentasGuardadas_CellMouseEnter);
+            // 
+            // tituloSeccion
+            // 
+            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tituloSeccion.AutoSize = true;
+            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSeccion.Location = new System.Drawing.Point(151, 24);
+            this.tituloSeccion.Name = "tituloSeccion";
+            this.tituloSeccion.Size = new System.Drawing.Size(229, 25);
+            this.tituloSeccion.TabIndex = 5;
+            this.tituloSeccion.Text = "VENTAS GUARDADAS";
+            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ID
             // 
@@ -68,10 +81,10 @@
             // 
             // Cliente
             // 
+            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Cliente.HeaderText = "Cliente";
             this.Cliente.Name = "Cliente";
             this.Cliente.ReadOnly = true;
-            this.Cliente.Width = 105;
             // 
             // Importe
             // 
@@ -101,18 +114,6 @@
             this.Eliminar.ReadOnly = true;
             this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Eliminar.Width = 50;
-            // 
-            // tituloSeccion
-            // 
-            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.AutoSize = true;
-            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(151, 24);
-            this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(229, 25);
-            this.tituloSeccion.TabIndex = 5;
-            this.tituloSeccion.Text = "VENTAS GUARDADAS";
-            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ListadoVentasGuardadas
             // 

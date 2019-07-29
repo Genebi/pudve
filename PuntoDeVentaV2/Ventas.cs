@@ -68,6 +68,7 @@ namespace PuntoDeVentaV2
         string[] datosProducto;
         private bool sumarProducto = false;
         private bool restarProducto = false;
+        
 
         public Ventas()
         {
@@ -732,16 +733,24 @@ namespace PuntoDeVentaV2
             var Folio = "";
             var Serie = "A";
 
-            
             if (ventaGuardada)
             {
                 statusVenta = "2";
+
+                if (string.IsNullOrWhiteSpace(idCliente))
+                {
+                    idCliente = "0";
+                }
+            }
+            else
+            {
+                idCliente = "0";
             }
 
             string[] guardar = null;
             aumentoFolio();
             Folio = Contenido;
-            guardar = new string[] { IdEmpresa, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion };
+            guardar = new string[] { IdEmpresa, idCliente, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion };
 
 
             if (VerificarStockProducto())
@@ -917,8 +926,15 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarVenta_Click(object sender, EventArgs e)
         {
-            ventaGuardada = true;
-            DatosVenta();
+            ListaClientes cliente = new ListaClientes();
+
+            cliente.FormClosed += delegate
+            {
+                ventaGuardada = true;
+                DatosVenta();
+            };
+
+            cliente.ShowDialog();
         }
 
         private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)

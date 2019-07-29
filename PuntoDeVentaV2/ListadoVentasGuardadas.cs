@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
@@ -33,7 +34,6 @@ namespace PuntoDeVentaV2
             SQLiteDataReader dr;
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = 2 AND IDUsuario = '{FormPrincipal.userID}'", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -42,9 +42,20 @@ namespace PuntoDeVentaV2
 
             while (dr.Read())
             {
+                string cliente = "Público General";
+
                 if (Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID"))) == Ventas.mostrarVenta)
                 {
                     continue;
+                }
+
+                var idCliente = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDCliente")));
+
+                if (idCliente > 0)
+                {
+                    var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
+                    cliente = infoCliente[0];
+                    //rfc = infoCliente[1];
                 }
 
                 int rowId = DGVListaVentasGuardadas.Rows.Add();
@@ -52,7 +63,7 @@ namespace PuntoDeVentaV2
                 DataGridViewRow row = DGVListaVentasGuardadas.Rows[rowId];
 
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-                row.Cells["Cliente"].Value = "Público General";
+                row.Cells["Cliente"].Value = cliente;
                 row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Total"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 

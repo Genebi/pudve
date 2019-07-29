@@ -102,6 +102,19 @@ namespace PuntoDeVentaV2
                 }
 
 
+                //Obtener el cliente de la venta guardada
+                if (estado == 2)
+                {
+                    var idCliente = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDCliente")));
+
+                    if (idCliente > 0)
+                    {
+                        var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
+                        cliente = infoCliente[0];
+                        rfc = infoCliente[1];
+                    }
+                }
+
                 int rowId = DGVListadoVentas.Rows.Add();
 
                 DataGridViewRow row = DGVListadoVentas.Rows[rowId];
