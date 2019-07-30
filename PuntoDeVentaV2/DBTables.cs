@@ -39,7 +39,7 @@ namespace PuntoDeVentaV2
         {
             #region InicializarVariables
             Anticipos = 10;
-            Caja = 13;
+            Caja = 14;
             CatalogoUnidadesMedida = 3;
             CodigoBarrasExtras = 3;
             DescuentoCliente = 6;
@@ -146,19 +146,20 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaCaja(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              Operacion TEXT NOT NULL,
-                                              Cantidad REAL NOT NULL,
-                                              Saldo REAL NOT NULL,
-                                              Concepto TEXT,
+            return $@"CREATE TABLE '{tabla}' (ID INTEGER  PRIMARY KEY AUTOINCREMENT,
+                                              Operacion      TEXT     NOT NULL,
+                                              Cantidad       REAL     NOT NULL,
+                                              Saldo          REAL     NOT NULL,
+                                              Concepto       TEXT,
                                               FechaOperacion DATETIME NOT NULL,
-                                              IDUsuario INTEGER NOT NULL,
-                                              Efectivo DECIMAL DEFAULT (0),
-                                              Tarjeta DECIMAL DEFAULT (0),
-                                              Vales DECIMAL DEFAULT (0),
-                                              Cheque DECIMAL DEFAULT (0),
-                                              Transferencia DECIMAL DEFAULT (0),
-                                              Credito DECIMAL DEFAULT (0))";
+                                              IDUsuario      INTEGER  NOT NULL,
+                                              Efectivo       DECIMAL  DEFAULT (0),
+                                              Tarjeta        DECIMAL  DEFAULT (0),
+                                              Vales          DECIMAL  DEFAULT (0),
+                                              Cheque         DECIMAL  DEFAULT (0),
+                                              Transferencia  DECIMAL  DEFAULT (0),
+                                              Credito        DECIMAL  DEFAULT (0),
+                                              Anticipo       DECIMAL  DEFAULT (0))";
         }
 
         public string QueryUpdateTablaCaja(string tabla)
@@ -169,14 +170,26 @@ namespace PuntoDeVentaV2
                                             Saldo,
                                             Concepto ,
                                             FechaOperacion,
-                                            IDUsuario) 
+                                            IDUsuario,
+                                            Efectivo,
+                                            Tarjeta,
+                                            Vales,
+                                            Cheque,
+                                            Transferencia,
+                                            Credito) 
                                      SELECT ID,
                                             Operacion,
                                             Cantidad,
                                             Saldo,
                                             Concepto ,
                                             FechaOperacion,
-                                            IDUsuario 
+                                            IDUsuario,
+                                            Efectivo,
+                                            Tarjeta,
+                                            Vales,
+                                            Cheque,
+                                            Transferencia,
+                                            Credito 
                                      FROM '{tabla}_temp';";
         }
 
