@@ -89,11 +89,22 @@ namespace PuntoDeVentaV2
 
             if (respuesta > 0)
             {
-                //Operacion para afectar la Caja
-                /*var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
-                var total = actual + Convert.ToDouble(importe);*/
+                var efectivo = "0";
+                var cheque = "0";
+                var transferencia = "0";
+                var tarjeta = "0";
+                var vales = "0";
+                var credito = "0";
 
-                datos = new string[] { "deposito", importe.ToString("0.00"), "0", "", FechaOperacion, FormPrincipal.userID.ToString(), importe.ToString("0.00"), "0", "0", "0", "0", "0" };
+                //Operacion para afectar la Caja
+                if (formaPago == "01") { efectivo = importe.ToString(); }
+                if (formaPago == "02") { cheque = importe.ToString(); }
+                if (formaPago == "03") { transferencia = importe.ToString(); }
+                if (formaPago == "04") { tarjeta = importe.ToString(); }
+                if (formaPago == "08") { vales = importe.ToString(); }
+                if (formaPago == "99") { credito = importe.ToString(); }
+
+                datos = new string[] { "deposito", importe.ToString("0.00"), "0", "", FechaOperacion, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales, cheque, transferencia, credito };
 
                 cn.EjecutarConsulta(cs.OperacionCaja(datos));
                 //Fin operacion caja
