@@ -851,12 +851,18 @@ namespace PuntoDeVentaV2
                 {
                     FormDetalle.txtBoxBase.Text = Convert.ToDouble(precioProducto).ToString("N2");
                     AgregarDetalleFacturacionProducto.ejecutarMetodos = true;
+                    FormDetalle.typeOriginData = 2;
+                    FormDetalle.UnidadMedida = claveUnidadMedida;
+                    FormDetalle.ClaveProducto = claveProducto;
                     FormDetalle.Show();
                     FormDetalle.BringToFront();
                 }
                 else
                 {
                     FormDetalle = new AgregarDetalleFacturacionProducto();
+                    FormDetalle.typeOriginData = 2;
+                    FormDetalle.UnidadMedida = claveUnidadMedida;
+                    FormDetalle.ClaveProducto = claveProducto;
                     FormDetalle.limpiarCampos();
                     FormDetalle.ShowDialog();
                 }
@@ -2526,6 +2532,7 @@ namespace PuntoDeVentaV2
             nvoProductoAdd.RFCProdServicioXML = RFCXMLNvoProd;
             nvoProductoAdd.NobEmisorProdServicioXML = NobEmisorXMLNvoProd;
             nvoProductoAdd.ClaveProdEmisorProdServicioXML = ClaveProdEmisorXMLNvoProd;
+            nvoProductoAdd.UnidadMedidaProdServicioXML = claveUnidadMedida;
             nvoProductoAdd.DescuentoProdServicioXML = DescuentoXMLNvoProd;
         }
 
@@ -2631,6 +2638,10 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //if (FormDetalle.Visible == false)
+            //{
+            //    FormDetalleProducto.Close();
+            //}
             LimpiarDatos();
         }
 
