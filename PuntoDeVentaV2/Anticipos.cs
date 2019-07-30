@@ -14,8 +14,15 @@ namespace PuntoDeVentaV2
 {
     public partial class Anticipos : Form
     {
+        //Status 1 = Por usar
+        //Status 2 = Deshabilitado
+        //Status 3 = Usado
+        //Status 4 = Devuelto
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+
+        public static bool recargarDatos = false;
 
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
@@ -69,6 +76,13 @@ namespace PuntoDeVentaV2
 
             while (dr.Read())
             {
+                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
+                Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ban.png");
+                Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
+                Image devolver = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+                Bitmap sinImagen = new Bitmap(1, 1);
+                sinImagen.SetPixel(0, 0, Color.White);
+
                 int rowId = DGVAnticipos.Rows.Add();
 
                 DataGridViewRow row = DGVAnticipos.Rows[rowId];
@@ -79,32 +93,25 @@ namespace PuntoDeVentaV2
                 row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("Cliente"));
                 row.Cells["Empleado"].Value = "Administrador";
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("Fecha"))).ToString("yyyy-MM-dd HH:mm:ss");
-
-                Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
-
                 row.Cells["Ticket"].Value = ticket;
 
                 var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
 
                 if (status == 1)
                 {
-                    Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ban.png");
-
                     row.Cells["Status"].Value = deshabilitar;
+                    row.Cells["Devolver"].Value = devolver;
                 }
                 else if (status == 2)
                 {
-                    Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
-
                     row.Cells["Status"].Value = habilitar;
+                    row.Cells["Devolver"].Value = sinImagen;
                 }
                 else
                 {
-                    Bitmap sinImagen = new Bitmap(1, 1);
-                    sinImagen.SetPixel(0, 0, Color.White);
-
                     row.Cells["Status"].Value = sinImagen;
-                }
+                    row.Cells["Devolver"].Value = sinImagen;
+                }  
             }
 
             DGVAnticipos.ClearSelection();
@@ -154,6 +161,15 @@ namespace PuntoDeVentaV2
                         }
                     }
 
+                    if (e.ColumnIndex == 8)
+                    {
+                        if (cbAnticipos.SelectedIndex == 0)
+                        {
+                            textoTT = "Devolver";
+                            coordenadaX = 59;
+                        }
+                    }
+
                     TTMensaje.Show(textoTT, this, DGVAnticipos.Location.X + cellRect.X - coordenadaX, DGVAnticipos.Location.Y + cellRect.Y, 1500);
 
                     textoTT = string.Empty;
@@ -177,12 +193,13 @@ namespace PuntoDeVentaV2
 
         private void DGVAnticipos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            //var fila = DGVAnticipos.CurrentCell.RowIndex;
             var fila = e.RowIndex;
+            var indice = cbAnticipos.SelectedIndex;
 
             if (fila >= 0)
             {
                 int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
+                string fecha = DGVAnticipos.Rows[fila].Cells["Fecha"].Value.ToString();
 
                 //Generar ticket
                 if (e.ColumnIndex == 6)
@@ -213,8 +230,6 @@ namespace PuntoDeVentaV2
                 //Habilitar/Deshabilitar
                 if (e.ColumnIndex == 7)
                 {
-                    var indice = cbAnticipos.SelectedIndex;
-
                     if (indice < 2)
                     {
                         //Deshabilitar
@@ -231,6 +246,25 @@ namespace PuntoDeVentaV2
 
                         CargarDatos(cbAnticipos.SelectedIndex + 1);
                     }
+                }
+
+                //Devolver anticipo
+                if (e.ColumnIndex == 8)
+                {
+                    if (indice == 0)
+                    {
+                        var respuesta = MessageBox.Show("¿Estás seguro de realizar esta acción?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (respuesta == DialogResult.Yes)
+                        {
+                            cn.EjecutarConsulta(cs.CambiarStatusAnticipo(4, idAnticipo, FormPrincipal.userID));
+                            //Se devuelve el dinero del anticipo y se elimina el registro de la tabla Caja para que la cantidad total
+                            //Que hay en caja sea correcta
+                            cn.EjecutarConsulta($"DELETE FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion = '{fecha}'");
+                            CargarDatos();
+                        }
+                    }
+                    
                 }
             }
 
@@ -250,6 +284,20 @@ namespace PuntoDeVentaV2
             e.DrawBackground();
             e.DrawBorder();
             e.DrawText();
+        }
+
+        private void Anticipos_Paint(object sender, PaintEventArgs e)
+        {
+            if (recargarDatos)
+            {
+                CargarDatos();
+                recargarDatos = false;
+            }
+        }
+
+        private void Anticipos_Resize(object sender, EventArgs e)
+        {
+            recargarDatos = false;
         }
     }
 }

@@ -114,6 +114,22 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] ObtenerClientes(int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Clientes WHERE IDUsuario = {idUsuario} AND Status = 1");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                lista.Add(dr["RazonSocial"].ToString());
+            }
+
+            return lista.ToArray();
+        }
+
         public string[] ObtenerDatosProveedor(int idProveedor, int idUsuario)
         {
             List<string> lista = new List<string>();

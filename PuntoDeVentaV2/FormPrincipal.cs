@@ -184,6 +184,8 @@ namespace PuntoDeVentaV2
         private void btnAnticipos_Click(object sender, EventArgs e)
         {
             AbrirFormulario<Anticipos>();
+
+            Anticipos.recargarDatos = true;
         }
 
         private void btnConfig_Click(object sender, EventArgs e)

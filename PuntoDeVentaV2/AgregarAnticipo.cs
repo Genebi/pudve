@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         public AgregarAnticipo()
         {
@@ -25,8 +26,24 @@ namespace PuntoDeVentaV2
 
         private void AgregarAnticipo_Load(object sender, EventArgs e)
         {
-            cbFormaPago.SelectedIndex = 0;
-            cbFormaPago.DropDownStyle = ComboBoxStyle.DropDownList;
+            //ComboBox Clientes
+            var clientes = mb.ObtenerClientes(FormPrincipal.userID);
+            cbClientes.Items.AddRange(clientes);
+
+            //ComboBox Formas de pago
+            Dictionary<string, string> pagos = new Dictionary<string, string>();
+            pagos.Add("01", "01 - Efectivo");
+            pagos.Add("02", "02 - Cheque nominativo");
+            pagos.Add("03", "03 - Transferencia electrónica de fondos");
+            pagos.Add("04", "04 - Tarjeta de crédito");
+            pagos.Add("08", "08 - Vales de despensa");
+            pagos.Add("99", "99 - Por definir");
+
+            cbFormaPago.DataSource = pagos.ToArray();
+            cbFormaPago.DisplayMember = "Value";
+            cbFormaPago.ValueMember = "Key";
+
+            txtImporte.KeyPress += new KeyPressEventHandler(SoloDecimales);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -36,25 +53,58 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtConcepto.Text))
+            {
+                txtConcepto.Focus();
+                MessageBox.Show("El concepto es requerido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtImporte.Text))
+            {
+                txtImporte.Focus();
+                MessageBox.Show("Ingresa el importe del anticipo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var concepto = txtConcepto.Text;
-            var importe = Convert.ToDouble(txtImporte.Text).ToString("0.00");
-            var cliente = txtCliente.Text;
-            var formaPago = cbFormaPago.GetItemText(cbFormaPago.SelectedItem);
+            var importe = Convert.ToDouble(txtImporte.Text);
+
+            if (importe <= 0)
+            {
+                txtImporte.Focus();
+                MessageBox.Show("La cantidad de importe debe ser mayor a cero", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var cliente = cbClientes.GetItemText(cbClientes.SelectedItem);
+            var formaPago = cbFormaPago.SelectedValue.ToString();
             var comentario = txtComentarios.Text;
             var status = "1";
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            string[] datos = new string[] { FormPrincipal.userID.ToString(), concepto, importe, cliente, formaPago, comentario, status, FechaOperacion };
+            string[] datos = new string[] { FormPrincipal.userID.ToString(), concepto, importe.ToString("0.00"), cliente, formaPago, comentario, status, FechaOperacion };
 
             int respuesta = cn.EjecutarConsulta(cs.GuardarAnticipo(datos));
 
             if (respuesta > 0)
             {
-                //Operacion para afectar la Caja
-                /*var actual = cn.ObtenerSaldoActual(FormPrincipal.userID);
-                var total = actual + Convert.ToDouble(importe);*/
+                var efectivo = "0";
+                var cheque = "0";
+                var transferencia = "0";
+                var tarjeta = "0";
+                var vales = "0";
+                var credito = "0";
 
-                datos = new string[] { "deposito", importe, "0", "", FechaOperacion, FormPrincipal.userID.ToString(), importe, "0", "0", "0", "0", "0" };
+                //Operacion para afectar la Caja
+                if (formaPago == "01") { efectivo = importe.ToString(); }
+                if (formaPago == "02") { cheque = importe.ToString(); }
+                if (formaPago == "03") { transferencia = importe.ToString(); }
+                if (formaPago == "04") { tarjeta = importe.ToString(); }
+                if (formaPago == "08") { vales = importe.ToString(); }
+                if (formaPago == "99") { credito = importe.ToString(); }
+
+                datos = new string[] { "deposito", importe.ToString("0.00"), "0", "", FechaOperacion, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales, cheque, transferencia, credito };
 
                 cn.EjecutarConsulta(cs.OperacionCaja(datos));
                 //Fin operacion caja
@@ -62,7 +112,7 @@ namespace PuntoDeVentaV2
 
                 var idAnticipo = cn.EjecutarSelect($"SELECT ID FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1", 1).ToString();
 
-                datos = new string[] { FechaOperacion, cliente, concepto, importe, comentario, idAnticipo };
+                datos = new string[] { FechaOperacion, cliente, concepto, importe.ToString("0.00"), comentario, idAnticipo };
 
                 GenerarTicket(datos);
 
@@ -71,6 +121,26 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show("Ocurrió un error al intentar guardar el anticipo.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void SoloDecimales(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                {
+                    e.Handled = true;
+                }
             }
         }
 
