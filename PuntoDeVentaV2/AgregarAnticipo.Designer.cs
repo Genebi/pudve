@@ -34,13 +34,15 @@
             this.txtConcepto = new System.Windows.Forms.TextBox();
             this.txtImporte = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtCliente = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbFormaPago = new System.Windows.Forms.ComboBox();
             this.txtComentarios = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.cbClientes = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -69,7 +71,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(386, 92);
+            this.label2.Location = new System.Drawing.Point(365, 92);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 17);
             this.label2.TabIndex = 8;
@@ -87,9 +89,9 @@
             // txtImporte
             // 
             this.txtImporte.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtImporte.Location = new System.Drawing.Point(389, 112);
+            this.txtImporte.Location = new System.Drawing.Point(368, 112);
             this.txtImporte.Name = "txtImporte";
-            this.txtImporte.Size = new System.Drawing.Size(204, 22);
+            this.txtImporte.Size = new System.Drawing.Size(225, 22);
             this.txtImporte.TabIndex = 10;
             this.txtImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -99,24 +101,15 @@
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(41, 182);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(162, 17);
+            this.label3.Size = new System.Drawing.Size(54, 17);
             this.label3.TabIndex = 11;
-            this.label3.Text = "Cliente (Nombre o RFC)";
-            // 
-            // txtCliente
-            // 
-            this.txtCliente.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCliente.Location = new System.Drawing.Point(44, 202);
-            this.txtCliente.Name = "txtCliente";
-            this.txtCliente.Size = new System.Drawing.Size(275, 22);
-            this.txtCliente.TabIndex = 12;
-            this.txtCliente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label3.Text = "Cliente";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(386, 181);
+            this.label4.Location = new System.Drawing.Point(365, 181);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(109, 17);
             this.label4.TabIndex = 13;
@@ -124,31 +117,12 @@
             // 
             // cbFormaPago
             // 
+            this.cbFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFormaPago.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbFormaPago.FormattingEnabled = true;
-            this.cbFormaPago.Items.AddRange(new object[] {
-            "Efectivo",
-            "Cheque",
-            "Transferencia",
-            "Tarjetas de crédito",
-            "Monederos electrónicos",
-            "Dinero electrónico",
-            "Tarjetas digitales",
-            "Vales de despensa",
-            "Bienes",
-            "Servicio",
-            "Por cuenta de tercero",
-            "Dación en pago",
-            "Pago por subrogación",
-            "Pago por consignación",
-            "Condonación",
-            "Cancelación",
-            "Compensación",
-            "NA",
-            "Otros"});
-            this.cbFormaPago.Location = new System.Drawing.Point(389, 201);
+            this.cbFormaPago.Location = new System.Drawing.Point(368, 201);
             this.cbFormaPago.Name = "cbFormaPago";
-            this.cbFormaPago.Size = new System.Drawing.Size(204, 24);
+            this.cbFormaPago.Size = new System.Drawing.Size(225, 24);
             this.cbFormaPago.TabIndex = 14;
             // 
             // txtComentarios
@@ -204,18 +178,52 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // cbClientes
+            // 
+            this.cbClientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbClientes.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbClientes.FormattingEnabled = true;
+            this.cbClientes.Location = new System.Drawing.Point(44, 201);
+            this.cbClientes.Name = "cbClientes";
+            this.cbClientes.Size = new System.Drawing.Size(275, 24);
+            this.cbClientes.TabIndex = 28;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.Red;
+            this.label18.Location = new System.Drawing.Point(113, 92);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(14, 17);
+            this.label18.TabIndex = 73;
+            this.label18.Text = "*";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(420, 92);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(14, 17);
+            this.label6.TabIndex = 74;
+            this.label6.Text = "*";
+            // 
             // AgregarAnticipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 411);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.cbClientes);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtComentarios);
             this.Controls.Add(this.cbFormaPago);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtCliente);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtImporte);
             this.Controls.Add(this.txtConcepto);
@@ -241,12 +249,14 @@
         private System.Windows.Forms.TextBox txtConcepto;
         private System.Windows.Forms.TextBox txtImporte;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtCliente;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbFormaPago;
         private System.Windows.Forms.TextBox txtComentarios;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.ComboBox cbClientes;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label6;
     }
 }
