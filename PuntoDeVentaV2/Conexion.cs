@@ -107,6 +107,10 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["ID"]; //ID del usuario por ejemplo
                 }
+                if (tipo == 2)
+                {
+                    respuesta = dr["IDProveedor"]; //IDProveedor de la tabla DetallesProducto
+                }
             }
 
             if (tipo == 0)
