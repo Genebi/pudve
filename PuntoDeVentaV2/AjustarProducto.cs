@@ -215,7 +215,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Datos para la tabla historial de compras
-                string[] datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString() };
+                string[] datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString(), "Ajuste", "Ajuste", "Ajuste", fechaOperacion };
 
                 int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
 
