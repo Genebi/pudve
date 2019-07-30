@@ -40,6 +40,22 @@ namespace PuntoDeVentaV2
 
         double porcentaje = 0, totalProcentaje;
 
+        // variables para saber si viene de dar click en Icono de Editar Producto
+        public int typeOriginData { get; set; }
+        public string UnidadMedida { get; set; }
+        public string ClaveProducto { get; set; }
+
+        static public int typeOriginDataFinal;
+        static public string UnidadMedidaFinal;
+        static public string ClaveMedidaFinal;
+
+        public void cargarDatos()
+        {
+            typeOriginDataFinal = typeOriginData;
+            UnidadMedidaFinal = UnidadMedida;
+            ClaveMedidaFinal = ClaveProducto;
+        }
+
         public void limpiarCampos()
         {
             txtBoxBase.Text = "0.0";
@@ -143,6 +159,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleFacturacionProducto_Load(object sender, EventArgs e)
         {
+            cargarDatos();
             //Se definen los valores que tendran los ComboBox y TextBox por default
             //al abrir la ventana por primera vez
             precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
@@ -224,18 +241,31 @@ namespace PuntoDeVentaV2
 
             checarRadioButtons();
 
-            //Verificar si existe ya una clave de unidad y de producto proveniente desde cargar XML
-            if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveProducto))
+            if (typeOriginDataFinal == 2)
             {
-                txtClaveProducto.Text = AgregarEditarProducto.claveProducto;
-            }
-
-            if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveUnidadMedida))
-            {
-                txtClaveUnidad.Text = AgregarEditarProducto.claveUnidadMedida;
-
+                txtClaveProducto.Text = ClaveMedidaFinal;
+                txtClaveUnidad.Text = UnidadMedidaFinal;
                 CargarClaveUnidad();
             }
+
+            //if (typeOriginDataFinal == 2)
+            //{
+            //    //Verificar si existe ya una clave de unidad y de producto proveniente desde cargar XML
+            //    if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveProducto))
+            //    {
+            //        txtClaveProducto.Text = AgregarEditarProducto.claveProducto;
+            //    }
+
+            //    if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.claveUnidadMedida))
+            //    {
+            //        txtClaveUnidad.Text = AgregarEditarProducto.claveUnidadMedida;
+
+            //        CargarClaveUnidad();
+            //    }
+            //txtClaveProducto.Text = ClaveMedidaFinal;
+            //txtClaveUnidad.Text = UnidadMedidaFinal;
+            //CargarClaveUnidad();
+            //}
         }
 
         private void btnExtra_Click(object sender, EventArgs e)
@@ -528,7 +558,7 @@ namespace PuntoDeVentaV2
             AgregarEditarProducto.baseProducto = txtBoxBase.Text;
             AgregarEditarProducto.ivaProducto = txtIVA.Text;
             AgregarEditarProducto.impuestoProducto = impuesto;
-            
+
             this.Hide();
         }
 
@@ -1137,6 +1167,14 @@ namespace PuntoDeVentaV2
                 checarRadioButtons();
                 //RecalcularTotal();
 
+                cargarDatos();
+                if (typeOriginDataFinal == 2)
+                {
+                    txtClaveProducto.Text = ClaveMedidaFinal;
+                    txtClaveUnidad.Text = UnidadMedidaFinal;
+                    CargarClaveUnidad();
+                }
+                
                 ejecutarMetodos = false;
             }
         }

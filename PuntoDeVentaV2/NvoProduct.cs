@@ -27,6 +27,7 @@ namespace PuntoDeVentaV2
         public string RFCProdServicioXML { get; set; }
         public string NobEmisorProdServicioXML { get; set; }
         public string ClaveProdEmisorProdServicioXML { get; set; }
+        public string UnidadMedidaProdServicioXML { get; set; }
         public string DescuentoProdServicioXML { get; set; }
 
         static public string ProdNombreFin = "";
@@ -40,6 +41,7 @@ namespace PuntoDeVentaV2
         static public string RFCXMLNvoProdServicio = "";
         static public string NobEmisorXMLNvoProdServicio = "";
         static public string ClaveProdEmisorXMLNvoProdServicio = "";
+        static public string UnidadMedidaXMLProdServicio = "";
         static public string DescuentoXMLNvoProdServicio = "";
 
         float stockNvo, precioNvo;
@@ -180,6 +182,7 @@ namespace PuntoDeVentaV2
             RFCXMLNvoProdServicio = RFCProdServicioXML;
             NobEmisorXMLNvoProdServicio = NobEmisorProdServicioXML;
             ClaveProdEmisorXMLNvoProdServicio = ClaveProdEmisorProdServicioXML;
+            UnidadMedidaXMLProdServicio = UnidadMedidaProdServicioXML;
             DescuentoXMLNvoProdServicio = DescuentoProdServicioXML;
 
             txtNombreProducto.Text = ProdNombreFin;
@@ -485,8 +488,8 @@ namespace PuntoDeVentaV2
             categoria = txtCategoriaProducto.Text;
             claveIn = txtClaveProducto.Text;
             codigoB = txtCodigoBarras.Text;
-            claveProducto = "";
-            claveUnidadMedida = "";
+            claveProducto = ClaveProdEmisorXMLNvoProdServicio;
+            claveUnidadMedida = UnidadMedidaXMLProdServicio;
             ProdServPaq = "P".ToString();
             tipoDescuento = "0";
             idUsrNvo = FormPrincipal.userID.ToString();
