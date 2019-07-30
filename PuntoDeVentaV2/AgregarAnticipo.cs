@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         public AgregarAnticipo()
         {
@@ -25,6 +26,10 @@ namespace PuntoDeVentaV2
 
         private void AgregarAnticipo_Load(object sender, EventArgs e)
         {
+            //ComboBox Clientes
+            var clientes = mb.ObtenerClientes(FormPrincipal.userID);
+            cbClientes.Items.AddRange(clientes);
+
             //ComboBox Formas de pago
             Dictionary<string, string> pagos = new Dictionary<string, string>();
             pagos.Add("01", "01 - Efectivo");
@@ -72,8 +77,8 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            var cliente = "";
-            var formaPago = cbFormaPago.GetItemText(cbFormaPago.SelectedItem);
+            var cliente = cbClientes.GetItemText(cbClientes.SelectedItem);
+            var formaPago = cbFormaPago.SelectedValue.ToString();
             var comentario = txtComentarios.Text;
             var status = "1";
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");

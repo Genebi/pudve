@@ -45,6 +45,7 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
             this.Status = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Devolver = new System.Windows.Forms.DataGridViewImageColumn();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
@@ -163,7 +164,8 @@
             this.Empleado,
             this.Fecha,
             this.Ticket,
-            this.Status});
+            this.Status,
+            this.Devolver});
             this.DGVAnticipos.Location = new System.Drawing.Point(12, 141);
             this.DGVAnticipos.Name = "DGVAnticipos";
             this.DGVAnticipos.ReadOnly = true;
@@ -220,14 +222,21 @@
             this.Ticket.HeaderText = "";
             this.Ticket.Name = "Ticket";
             this.Ticket.ReadOnly = true;
-            this.Ticket.Width = 50;
+            this.Ticket.Width = 35;
             // 
             // Status
             // 
             this.Status.HeaderText = "";
             this.Status.Name = "Status";
             this.Status.ReadOnly = true;
-            this.Status.Width = 50;
+            this.Status.Width = 35;
+            // 
+            // Devolver
+            // 
+            this.Devolver.HeaderText = "";
+            this.Devolver.Name = "Devolver";
+            this.Devolver.ReadOnly = true;
+            this.Devolver.Width = 35;
             // 
             // TTMensaje
             // 
@@ -247,6 +256,8 @@
             this.Name = "Anticipos";
             this.Text = "Anticipos";
             this.Load += new System.EventHandler(this.Anticipos_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Anticipos_Paint);
+            this.Resize += new System.EventHandler(this.Anticipos_Resize);
             this.panelBotones.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).EndInit();
             this.ResumeLayout(false);
@@ -264,6 +275,7 @@
         private System.Windows.Forms.Button btnBuscarAnticipos;
         private System.Windows.Forms.ComboBox cbAnticipos;
         private System.Windows.Forms.DataGridView DGVAnticipos;
+        private System.Windows.Forms.ToolTip TTMensaje;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Concepto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
@@ -272,6 +284,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Ticket;
         private System.Windows.Forms.DataGridViewImageColumn Status;
-        private System.Windows.Forms.ToolTip TTMensaje;
+        private System.Windows.Forms.DataGridViewImageColumn Devolver;
     }
 }
