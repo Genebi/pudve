@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
             Ventas = 21;
             Clientes = 21;
             RevisarInventario = 15;
-            DetallesVenta = 13;
+            DetallesVenta = 14;
             Abonos = 11;
             #endregion InicializarVariables
         }
@@ -1460,18 +1460,19 @@ namespace PuntoDeVentaV2
         public string QueryNvaTablaDetallesVenta(string tabla)
         {
             return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              IDVenta INTEGER NOT NULL,
-                                              IDUsuario INTEGER,
-                                              Efectivo DECIMAL DEFAULT (0),
-                                              Tarjeta DECIMAL DEFAULT (0),
-                                              Vales REAL DEFAULT (0),
-                                              Cheque REAL DEFAULT (0),
-                                              Transferencia REAL DEFAULT (0),
-                                              Credito REAL DEFAULT (0),
-                                              Referencia TEXT,
-                                              IDCliente INTEGER DEFAULT (0),
-                                              Cliente TEXT,
-                                              Cuenta TEXT);";
+                                              IDVenta       INTEGER NOT NULL,
+                                              IDUsuario     INTEGER,
+                                              Efectivo      DECIMAL DEFAULT (0),
+                                              Tarjeta       DECIMAL DEFAULT (0),
+                                              Vales         REAL    DEFAULT (0),
+                                              Cheque        REAL    DEFAULT (0),
+                                              Transferencia REAL    DEFAULT (0),
+                                              Credito       REAL    DEFAULT (0),
+                                              Referencia    TEXT,
+                                              IDCliente     INTEGER DEFAULT (0),
+                                              Cliente       TEXT,
+                                              Cuenta        TEXT,
+                                              Anticipo      DECIMAL DEFAULT (0));";
         }
 
         public string QueryUpdateTablaDetallesVenta(string tabla)
@@ -1487,7 +1488,8 @@ namespace PuntoDeVentaV2
                                              Credito,
                                              Referencia,
                                              IDCliente,
-                                             Cliente) 
+                                             Cliente,
+                                             Cuenta) 
                                       SELECT ID,
                                              IDVenta,
                                              IDUsuario,
@@ -1500,6 +1502,7 @@ namespace PuntoDeVentaV2
                                              Referencia,
                                              IDCliente,
                                              Cliente 
+                                             Cuenta
                                         FROM '{tabla}_temp';";
         }
 
