@@ -1367,7 +1367,7 @@ namespace PuntoDeVentaV2
             string cuartoPatron = @"^\d+\*\s";                  //  (digito+(Signo*)+espacioBlanco) 5* 15665132
             string quintoPatron = @"^\d+\s\*";                  //  (digito+(Signo*)+espacioBlanco) 5 *15665132
             string sextoPatron = @"^\d+\*";                     //  (digito+(Signo*)+espacioBlanco) 5*15665132
-            string septimoPatron = @"^\D+\s";                  //  (#$%+espacioBlanco) #$% FolioDeVenta
+            string septimoPatron = @"^\d+\s";                  //  (#$%+espacioBlanco) #$% FolioDeVenta
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
@@ -1534,6 +1534,7 @@ namespace PuntoDeVentaV2
             }
             else if (septimaCoincidencia.Success)
             {
+                MessageBox.Show("Mafufada");
                 // #$% FolioDeVenta
                 var resultado = septimaCoincidencia.Value.Trim().Split(' ');
                 buscarvVentaGuardada  = resultado[0];
