@@ -1501,7 +1501,7 @@ namespace PuntoDeVentaV2
                                              Credito,
                                              Referencia,
                                              IDCliente,
-                                             Cliente 
+                                             Cliente, 
                                              Cuenta
                                         FROM '{tabla}_temp';";
         }

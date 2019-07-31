@@ -193,18 +193,21 @@ namespace PuntoDeVentaV2
             //    //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
             // preparamos el Query
-            string search = $@"SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna AS 'ClavInt'
-                               FROM Productos Prod
-                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
+            string search = $@"SELECT prod.ID, prod.IDUsuario, prod.Nombre, prod.Stock, prod.Precio, prod.CodigoBarras AS 'CodBar'
+                               FROM Productos prod
+                               WHERE IDUsuario = '{FormPrincipal.userID}'
                                UNION
-                               SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.CodigoBarras AS 'CodBar'
-                               FROM Productos Prod
-                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
-                               ORDER BY Prod.Nombre, ClavInt, CodBar";
+                               SELECT prod1.ID, prod1.IDUsuario, prod1.Nombre, prod1.Stock, prod1.Precio, prod1.ClaveInterna AS 'ClavInt'
+                               FROM Productos prod1
+                               WHERE IDUsuario = '{FormPrincipal.userID}'
+                               UNION
+                               SELECT codBarExt.IDProducto, NULL, NULL, NULL, NULL, codBarExt.CodigoBarraExtra AS 'CodBarExtra'
+                               FROM CodigoBarrasExtras codBarExt
+                               ORDER BY Nombre, CodBar, ClavInt, CodBarExtra";
             dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
             foreach (DataRow row in dtClaveInterna.Rows)
             {
-                string textoBuscar = row["ClavInt"].ToString().Replace("\r\n", "").Trim();
+                string textoBuscar = row["CodBar"].ToString().Replace("\r\n", "").Trim();
                 string clavInterna = txtClaveProducto.Text;
                 if (textoBuscar != "")
                 {
@@ -240,14 +243,17 @@ namespace PuntoDeVentaV2
             //    //MessageBox.Show("Codigo Bar Disponible", "Este Codigo libre", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
             // preparamos el Query
-            string search = $@"SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.CodigoBarras AS 'CodBar'
-                               FROM Productos Prod
-                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
+            string search = $@"SELECT prod.ID, prod.IDUsuario, prod.Nombre, prod.Stock, prod.Precio, prod.CodigoBarras AS 'CodBar'
+                               FROM Productos prod
+                               WHERE IDUsuario = '{FormPrincipal.userID}'
                                UNION
-                               SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna AS 'ClavInt'
-                               FROM Productos Prod
-                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
-                               ORDER BY Prod.Nombre, CodBar, ClavInt";
+                               SELECT prod1.ID, prod1.IDUsuario, prod1.Nombre, prod1.Stock, prod1.Precio, prod1.ClaveInterna AS 'ClavInt'
+                               FROM Productos prod1
+                               WHERE IDUsuario = '{FormPrincipal.userID}'
+                               UNION
+                               SELECT codBarExt.IDProducto, NULL, NULL, NULL, NULL, codBarExt.CodigoBarraExtra AS 'CodBarExtra'
+                               FROM CodigoBarrasExtras codBarExt
+                               ORDER BY Nombre, CodBar, ClavInt, CodBarExtra";
             dtCodBar = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
             foreach (DataRow row in dtCodBar.Rows)
             {
@@ -1121,6 +1127,7 @@ namespace PuntoDeVentaV2
 
                             if (DatosSourceFinal == 3)
                             {
+                                int idHistorialCompraProducto = 0;
                                 int found = 10;
                                 string fechaXML = FechaXMLNvoProd;
                                 string fecha = fechaXML.Substring(0, found);
@@ -1138,7 +1145,7 @@ namespace PuntoDeVentaV2
                                 try
                                 {
                                     cn.EjecutarConsulta(query);
-                                    idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                                    idHistorialCompraProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
                                     //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                                 catch (Exception ex)
@@ -1151,7 +1158,7 @@ namespace PuntoDeVentaV2
                                 string Year = fechaCompleta.Substring(0, found);
                                 string Date = fechaCompleta.Substring(found + 1);
                                 string FechaRegistrada = Year + " " + Date;
-                                string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
+                                string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
                                 cn.EjecutarConsulta(queryRecordHistorialProd);
                             }
                             
@@ -1275,6 +1282,7 @@ namespace PuntoDeVentaV2
 
                             if (DatosSourceFinal == 3)
                             {
+                                int idHistorialCompraProducto = 0;
                                 int found = 10;
                                 string fechaXML = FechaXMLNvoProd;
                                 string fecha = fechaXML.Substring(0, found);
@@ -1298,7 +1306,7 @@ namespace PuntoDeVentaV2
                                 try
                                 {
                                     cn.EjecutarConsulta(query);
-                                    idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                                    idHistorialCompraProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
                                     //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                                 catch (Exception ex)
@@ -1311,7 +1319,7 @@ namespace PuntoDeVentaV2
                                 string Year = fechaCompleta.Substring(0, found);
                                 string Date = fechaCompleta.Substring(found + 1);
                                 string FechaRegistrada = Year + " " + Date;
-                                string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
+                                string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
                                 cn.EjecutarConsulta(queryRecordHistorialProd);
                             }
 
