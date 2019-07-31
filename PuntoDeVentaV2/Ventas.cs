@@ -54,6 +54,8 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
+
         NameValueCollection datos;
 
         const string fichero = @"\PUDVE\settings\folioventa\setupFolioVenta.txt";       // directorio donde esta el archivo de numero de codigo de barras consecutivo
@@ -767,7 +769,7 @@ namespace PuntoDeVentaV2
 
                     string[] datos = new string[] {
                         "deposito", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
-                        efectivo, tarjeta, vales, cheque, transferencia, credito,
+                        efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo
                     };
 
                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
@@ -860,17 +862,25 @@ namespace PuntoDeVentaV2
                     //Convertir la cadena que guarda los IDs de los anticipos usados en Array
                     if (!string.IsNullOrEmpty(listaAnticipos))
                     {
-
                         var auxiliar = listaAnticipos.Remove(listaAnticipos.Length - 1);
 
                         var anticipos = auxiliar.Split('-');
+
+                        //float totalAnticipos = 0;
 
                         foreach (string anticipo in anticipos)
                         {
                             var idAnticipo = Convert.ToInt32(anticipo);
 
                             cn.EjecutarConsulta(cs.CambiarStatusAnticipo(3, idAnticipo, FormPrincipal.userID));
+
+                            //var info = mb.ObtenerAnticipo(idAnticipo, FormPrincipal.userID);
+
+                            //totalAnticipos += float.Parse(info[1]);
                         }
+
+                        //cn.EjecutarConsulta($"UPDATE Caja SET Anticipo = {totalAnticipos} WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion = '{FechaOperacion}'");
+                        cn.EjecutarConsulta($"UPDATE DetallesVenta SET Anticipo = '{Anticipo}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
                     }
 
                     GenerarTicket(infoProductos);
