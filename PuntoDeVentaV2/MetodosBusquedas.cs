@@ -236,6 +236,30 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+
+        public string[] ObtenerAnticipo(int idAnticipo, int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Anticipos WHERE ID = {idAnticipo} AND IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["Concepto"].ToString());
+                lista.Add(dr["Importe"].ToString());
+                lista.Add(dr["Cliente"].ToString());
+                lista.Add(dr["FormaPago"].ToString());
+                lista.Add(dr["Comentarios"].ToString());
+                lista.Add(dr["Fecha"].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();

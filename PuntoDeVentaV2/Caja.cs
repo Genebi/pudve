@@ -84,7 +84,7 @@ namespace PuntoDeVentaV2
             var operacion = "deposito";
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            string[] datos = new string[] { operacion, cantidad.ToString("0.00"), "0", "", fechaOperacion, FormPrincipal.userID.ToString(), cantidad.ToString("0.00"), "0", "0", "0", "0", "0" };
+            string[] datos = new string[] { operacion, cantidad.ToString("0.00"), "0", "", fechaOperacion, FormPrincipal.userID.ToString(), cantidad.ToString("0.00"), "0", "0", "0", "0", "0", "0" };
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
@@ -118,7 +118,8 @@ namespace PuntoDeVentaV2
 
             string[] datos = new string[] {
                 operacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00")
+                efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
+                trans.ToString("0.00"), credito.ToString("0.00"), "0"
             };
 
             int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
@@ -166,6 +167,7 @@ namespace PuntoDeVentaV2
             float cheque = 0f;
             float trans = 0f;
             float credito = 0f;
+            float anticipos = 0f;
 
             while (dr.Read())
             {
@@ -181,6 +183,7 @@ namespace PuntoDeVentaV2
                     cheque += float.Parse(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
                     trans += float.Parse(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
                     credito += float.Parse(dr.GetValue(dr.GetOrdinal("Credito")).ToString());
+                    anticipos += float.Parse(dr.GetValue(dr.GetOrdinal("Anticipo")).ToString());
                 }
                 
                 if (operacion == "retiro")
@@ -208,6 +211,7 @@ namespace PuntoDeVentaV2
             lbTCheque.Text = "$" + cheque.ToString("0.00");
             lbTTrans.Text = "$" + trans.ToString("0.00");
             lbTCredito.Text = "$" + credito.ToString("0.00");
+            lbTAnticipos.Text = "$" + anticipos.ToString("0.00");
 
             //Variables de clase
             totalEfectivo = efectivo;

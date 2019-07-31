@@ -104,7 +104,7 @@ namespace PuntoDeVentaV2
                 if (formaPago == "08") { vales = importe.ToString(); }
                 if (formaPago == "99") { credito = importe.ToString(); }
 
-                datos = new string[] { "deposito", importe.ToString("0.00"), "0", "", FechaOperacion, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales, cheque, transferencia, credito };
+                datos = new string[] { "deposito", importe.ToString("0.00"), "0", "", FechaOperacion, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales, cheque, transferencia, credito, "0" };
 
                 cn.EjecutarConsulta(cs.OperacionCaja(datos));
                 //Fin operacion caja
