@@ -73,7 +73,6 @@
             this.lbVales = new System.Windows.Forms.Label();
             this.lbTarjeta = new System.Windows.Forms.Label();
             this.lbEfectivo = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.panelBotones.SuspendLayout();
             this.gbContenedor.SuspendLayout();
             this.panelRetirar.SuspendLayout();
@@ -605,22 +604,11 @@
             this.lbEfectivo.TabIndex = 0;
             this.lbEfectivo.Text = "Efectivo";
             // 
-            // label11
-            // 
-            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label11.Location = new System.Drawing.Point(444, 310);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(180, 2);
-            this.label11.TabIndex = 25;
-            this.label11.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // Caja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
-            this.Controls.Add(this.label11);
             this.Controls.Add(this.panelContenido);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.label8);
@@ -690,6 +678,5 @@
         private System.Windows.Forms.TextBox txtCheque;
         private System.Windows.Forms.Label lbTAnticipos;
         private System.Windows.Forms.Label lbAnticipos;
-        private System.Windows.Forms.Label label11;
     }
 }

@@ -200,6 +200,7 @@ namespace PuntoDeVentaV2
             {
                 int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
                 string fecha = DGVAnticipos.Rows[fila].Cells["Fecha"].Value.ToString();
+                float importe = float.Parse(DGVAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
 
                 //Generar ticket
                 if (e.ColumnIndex == 6)
@@ -257,11 +258,14 @@ namespace PuntoDeVentaV2
 
                         if (respuesta == DialogResult.Yes)
                         {
-                            cn.EjecutarConsulta(cs.CambiarStatusAnticipo(4, idAnticipo, FormPrincipal.userID));
-                            //Se devuelve el dinero del anticipo y se elimina el registro de la tabla Caja para que la cantidad total
-                            //Que hay en caja sea correcta
-                            cn.EjecutarConsulta($"DELETE FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion = '{fecha}'");
-                            CargarDatos();
+                            DevolverAnticipo da = new DevolverAnticipo(idAnticipo, importe);
+
+                            da.FormClosed += delegate
+                            {
+                                CargarDatos();
+                            };
+
+                            da.ShowDialog();
                         }
                     }
                     

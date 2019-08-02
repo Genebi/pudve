@@ -284,6 +284,12 @@
     <Compile Include="DetalleVenta.Designer.cs">
       <DependentUpon>DetalleVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="DevolverAnticipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DevolverAnticipo.Designer.cs">
+      <DependentUpon>DevolverAnticipo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empresas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -514,6 +520,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DetalleVenta.resx">
       <DependentUpon>DetalleVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DevolverAnticipo.resx">
+      <DependentUpon>DevolverAnticipo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>

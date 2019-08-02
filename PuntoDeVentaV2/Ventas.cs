@@ -1429,7 +1429,7 @@ namespace PuntoDeVentaV2
 
                                 CantidadesFinalesVenta();
 
-                                nudCantidadPS.Value = cantidadExtra;
+                                //nudCantidadPS.Value = cantidadExtra;
 
                                 cantidadExtra = 0;
                             }
@@ -1473,7 +1473,7 @@ namespace PuntoDeVentaV2
 
                                 CantidadesFinalesVenta();
 
-                                nudCantidadPS.Value = cantidadExtra;
+                                //nudCantidadPS.Value = cantidadExtra;
 
                                 cantidadExtra = 0;
                             }
