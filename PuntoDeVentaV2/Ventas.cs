@@ -1377,6 +1377,8 @@ namespace PuntoDeVentaV2
             Match quintaCoincidencia = Regex.Match(cadena, quintoPatron, RegexOptions.IgnoreCase);
             Match sextaCoincidencia = Regex.Match(cadena, sextoPatron, RegexOptions.IgnoreCase);
             Match septimaCoincidencia = Regex.Match(cadena, septimoPatron, RegexOptions.IgnoreCase);
+            //Se necesita crear una clave para las ventas guardadas y cambiar la forma en que hara la buscada
+            //usando enter, etc
 
             // Si encuentra coincidencia asigna la cantidad a la variable multiplicar 
             // y se visualiza en el campo numerico
@@ -1535,7 +1537,7 @@ namespace PuntoDeVentaV2
             }
             else if (septimaCoincidencia.Success)
             {
-                MessageBox.Show("Mafufada");
+                //MessageBox.Show("Mafufada");
                 // #$% FolioDeVenta
                 var resultado = septimaCoincidencia.Value.Trim().Split(' ');
                 buscarvVentaGuardada  = resultado[0];

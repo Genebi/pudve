@@ -1103,26 +1103,29 @@ namespace PuntoDeVentaV2
 
                             if (DatosSourceFinal == 1)
                             {
+                                var conceptoProveedor = string.Empty;
+                                var rfcProveedor = string.Empty;
+
                                 //Datos para la tabla historial de compras
                                 if (idProveedor != "")
                                 {
                                     var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedor), FormPrincipal.userID);
-                                    var conceptoProveedor = proveedorTmp[0];
-                                    var rfcProveedor = proveedorTmp[1];
-
-                                    guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                                    cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
-
-                                    int found = 10;
-                                    DateTime date1 = DateTime.Now;
-                                    string fechaCompleta = date1.ToString("s");
-                                    string Year = fechaCompleta.Substring(0, found);
-                                    string Date = fechaCompleta.Substring(found + 1);
-                                    string FechaRegistrada = Year + " " + Date;
-                                    string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
-                                    cn.EjecutarConsulta(queryRecordHistorialProd);
+                                    conceptoProveedor = proveedorTmp[0];
+                                    rfcProveedor = proveedorTmp[1];
                                 }
+
+                                guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                                cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
+
+                                int found = 10;
+                                DateTime date1 = DateTime.Now;
+                                string fechaCompleta = date1.ToString("s");
+                                string Year = fechaCompleta.Substring(0, found);
+                                string Date = fechaCompleta.Substring(found + 1);
+                                string FechaRegistrada = Year + " " + Date;
+                                string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
+                                cn.EjecutarConsulta(queryRecordHistorialProd);
                             }
 
                             if (DatosSourceFinal == 3)
@@ -1250,26 +1253,31 @@ namespace PuntoDeVentaV2
 
                             if (DatosSourceFinal == 1)
                             {
+                                var conceptoProveedor = string.Empty;
+                                var rfcProveedor = string.Empty;
+
                                 //Datos para la tabla historial de compras
                                 if (idProveedor != "")
                                 {
                                     var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedor), FormPrincipal.userID);
-                                    var conceptoProveedor = proveedorTmp[0];
-                                    var rfcProveedor = proveedorTmp[1];
-
-                                    guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                                    cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
-
-                                    int foundServicio = 10;
-                                    DateTime dateServ = DateTime.Now;
-                                    string fechaCompletaServ = dateServ.ToString("s");
-                                    string YearServ = fechaCompletaServ.Substring(0, foundServicio);
-                                    string DateServ = fechaCompletaServ.Substring(foundServicio + 1);
-                                    string FechaRegistradaServ = YearServ + " " + DateServ;
-                                    string queryRecordHistorialServ = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistradaServ}')";
-                                    cn.EjecutarConsulta(queryRecordHistorialServ);
+                                    conceptoProveedor = proveedorTmp[0];
+                                    rfcProveedor = proveedorTmp[1];
                                 }
+
+                                guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                                cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
+
+                                int foundServicio = 10;
+                                DateTime dateServ = DateTime.Now;
+                                string fechaCompletaServ = dateServ.ToString("s");
+                                string YearServ = fechaCompletaServ.Substring(0, foundServicio);
+                                string DateServ = fechaCompletaServ.Substring(foundServicio + 1);
+                                string FechaRegistradaServ = YearServ + " " + DateServ;
+                                string queryRecordHistorialServ = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistradaServ}')";
+                                cn.EjecutarConsulta(queryRecordHistorialServ);
+
+
                                 int found = 10;
                                 DateTime date1 = DateTime.Now;
                                 string fechaCompleta = date1.ToString("s");
@@ -2669,6 +2677,16 @@ namespace PuntoDeVentaV2
             if (DatosSourceFinal == 3)
             {
                 cbTipo.SelectedIndex = 0;
+            }
+
+            if (DatosSourceFinal == 2)
+            {
+                txtStockProducto.Enabled = false;
+            }
+
+            if (DatosSourceFinal == 1)
+            {
+                txtStockProducto.Enabled = true;
             }
 
             if (ProdNombre.Equals(""))
