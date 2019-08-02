@@ -115,6 +115,43 @@ namespace PuntoDeVentaV2
             fotos = cn.CargarDatos(queryFotos);
         }
 
+        private void linkLabel1_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblUltimaPagina_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
         private void searchPhotoProdActivo()
         {
             queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Status = 1";
@@ -676,6 +713,8 @@ namespace PuntoDeVentaV2
 
             p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
 
+            linkLblUltimaPagina.Text = p.countPag().ToString();
+
             CargarDatos();
             cbOrden.SelectedIndex = 0;
             cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -981,8 +1020,50 @@ namespace PuntoDeVentaV2
 
         private void actualizar()
         {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
             lblCantidadRegistros.Text = p.countRow().ToString();
+
             lblNoRegistroPagina.Text = p.numPag().ToString();
+            linkLblPaginaActual.Text = p.numPag().ToString();
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPaginaAnterior.Visible = false;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            
             lblUltimaPagina.Text = p.countPag().ToString();
             txtMaximoPorPagina.Text = p.limitRow().ToString();
         }
