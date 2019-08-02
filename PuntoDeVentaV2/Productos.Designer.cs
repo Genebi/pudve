@@ -583,7 +583,7 @@
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
             this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(75, 23);
             this.btnActualizarMaximoProductos.TabIndex = 8;
-            this.btnActualizarMaximoProductos.Text = "Actualziar";
+            this.btnActualizarMaximoProductos.Text = "Actualizar";
             this.btnActualizarMaximoProductos.UseVisualStyleBackColor = true;
             this.btnActualizarMaximoProductos.Click += new System.EventHandler(this.btnActualizarMaximoProductos_Click);
             // 

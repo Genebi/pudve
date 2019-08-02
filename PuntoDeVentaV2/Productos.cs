@@ -649,6 +649,7 @@ namespace PuntoDeVentaV2
             {
                 //CargarDatos(1, txtBusqueda.Text);
                 timerBusqueda.Stop();
+                clickBoton = 0;
                 timerBusqueda.Start();
             }
             else if (panelShowPhotoView.Visible == true)
