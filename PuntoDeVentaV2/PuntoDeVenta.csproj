@@ -370,6 +370,7 @@
     <Compile Include="NvoProduct.Designer.cs">
       <DependentUpon>NvoProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Paginar.cs" />
     <Compile Include="photoShow.cs">
       <SubType>Form</SubType>
     </Compile>

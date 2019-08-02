@@ -37,15 +37,6 @@
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.panelShowDGVProductosView = new System.Windows.Forms.Panel();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
-            this.panelShowPhotoView = new System.Windows.Forms.Panel();
-            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnListView = new System.Windows.Forms.Button();
-            this.btnPhotoView = new System.Windows.Forms.Button();
-            this.btnModificarEstado = new System.Windows.Forms.Button();
-            this.btnAgregarXML = new System.Windows.Forms.Button();
-            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
-            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.CheckProducto = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,10 +58,34 @@
             this._IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._ClavProdXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._ClavUnidMedXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelShowPhotoView = new System.Windows.Forms.Panel();
+            this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnListView = new System.Windows.Forms.Button();
+            this.btnPhotoView = new System.Windows.Forms.Button();
+            this.btnModificarEstado = new System.Windows.Forms.Button();
+            this.btnAgregarXML = new System.Windows.Forms.Button();
+            this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
+            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btnUltimaPagina = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnPrimeraPagina = new System.Windows.Forms.Button();
+            this.btnActualizarMaximoProductos = new System.Windows.Forms.Button();
+            this.txtMaximoPorPagina = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblUltimaPagina = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblNoRegistroPagina = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblCantidadRegistros = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAgregarProducto
@@ -85,7 +100,7 @@
             this.btnAgregarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(622, 125);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(646, 125);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(175, 27);
             this.btnAgregarProducto.TabIndex = 1;
@@ -98,7 +113,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(349, 8);
+            this.tituloSeccion.Location = new System.Drawing.Point(361, 8);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(137, 25);
             this.tituloSeccion.TabIndex = 3;
@@ -110,7 +125,7 @@
             this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(292, 39);
+            this.tituloBusqueda.Location = new System.Drawing.Point(304, 39);
             this.tituloBusqueda.Name = "tituloBusqueda";
             this.tituloBusqueda.Size = new System.Drawing.Size(264, 20);
             this.tituloBusqueda.TabIndex = 4;
@@ -124,7 +139,7 @@
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBusqueda.Location = new System.Drawing.Point(140, 67);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(595, 23);
+            this.txtBusqueda.Size = new System.Drawing.Size(619, 23);
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
@@ -141,7 +156,7 @@
             "Z - A",
             "Mayor precio",
             "Menor precio"});
-            this.cbOrden.Location = new System.Drawing.Point(342, 127);
+            this.cbOrden.Location = new System.Drawing.Point(366, 127);
             this.cbOrden.Name = "cbOrden";
             this.cbOrden.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbOrden.Size = new System.Drawing.Size(137, 25);
@@ -158,7 +173,7 @@
             "Habilitados",
             "Deshabilitados",
             "Todos"});
-            this.cbMostrar.Location = new System.Drawing.Point(486, 127);
+            this.cbMostrar.Location = new System.Drawing.Point(510, 127);
             this.cbMostrar.Name = "cbMostrar";
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbMostrar.Size = new System.Drawing.Size(131, 25);
@@ -174,7 +189,7 @@
             this.panelShowDGVProductosView.Location = new System.Drawing.Point(14, 196);
             this.panelShowDGVProductosView.Margin = new System.Windows.Forms.Padding(2);
             this.panelShowDGVProductosView.Name = "panelShowDGVProductosView";
-            this.panelShowDGVProductosView.Size = new System.Drawing.Size(814, 356);
+            this.panelShowDGVProductosView.Size = new System.Drawing.Size(838, 338);
             this.panelShowDGVProductosView.TabIndex = 13;
             // 
             // DGVProductos
@@ -212,11 +227,158 @@
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVProductos.Size = new System.Drawing.Size(792, 327);
+            this.DGVProductos.Size = new System.Drawing.Size(816, 309);
             this.DGVProductos.TabIndex = 2;
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
+            // 
+            // CheckProducto
+            // 
+            this.CheckProducto.HeaderText = "";
+            this.CheckProducto.Name = "CheckProducto";
+            this.CheckProducto.ReadOnly = true;
+            this.CheckProducto.Width = 30;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Nombre";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Stock";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 65;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Precio";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 65;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Categoria";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Clave";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Código";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 102;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Editar";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 50;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Estado";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 50;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Historial";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Width = 50;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Generar";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 50;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Imagen";
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            this.Column11.Width = 50;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Etiqueta";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Width = 50;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "Copiar";
+            this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
+            this.Column13.Width = 50;
+            // 
+            // Column14
+            // 
+            this.Column14.HeaderText = "Status";
+            this.Column14.Name = "Column14";
+            this.Column14.ReadOnly = true;
+            this.Column14.Visible = false;
+            this.Column14.Width = 50;
+            // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "ProdImage";
+            this.Column15.Name = "Column15";
+            this.Column15.ReadOnly = true;
+            this.Column15.Visible = false;
+            this.Column15.Width = 50;
+            // 
+            // Column16
+            // 
+            this.Column16.HeaderText = "Tipo";
+            this.Column16.Name = "Column16";
+            this.Column16.ReadOnly = true;
+            this.Column16.Width = 50;
+            // 
+            // Ajustar
+            // 
+            this.Ajustar.HeaderText = "Ajustar";
+            this.Ajustar.Name = "Ajustar";
+            this.Ajustar.ReadOnly = true;
+            this.Ajustar.Width = 50;
+            // 
+            // _IDProducto
+            // 
+            this._IDProducto.HeaderText = "ID";
+            this._IDProducto.Name = "_IDProducto";
+            this._IDProducto.ReadOnly = true;
+            this._IDProducto.Visible = false;
+            // 
+            // _ClavProdXML
+            // 
+            this._ClavProdXML.HeaderText = "ClaveProducto";
+            this._ClavProdXML.Name = "_ClavProdXML";
+            this._ClavProdXML.ReadOnly = true;
+            this._ClavProdXML.Visible = false;
+            // 
+            // _ClavUnidMedXML
+            // 
+            this._ClavUnidMedXML.HeaderText = "ClavUnidMed";
+            this._ClavUnidMedXML.Name = "_ClavUnidMedXML";
+            this._ClavUnidMedXML.ReadOnly = true;
+            this._ClavUnidMedXML.Visible = false;
             // 
             // panelShowPhotoView
             // 
@@ -227,7 +389,7 @@
             this.panelShowPhotoView.Location = new System.Drawing.Point(12, 198);
             this.panelShowPhotoView.Margin = new System.Windows.Forms.Padding(2);
             this.panelShowPhotoView.Name = "panelShowPhotoView";
-            this.panelShowPhotoView.Size = new System.Drawing.Size(814, 356);
+            this.panelShowPhotoView.Size = new System.Drawing.Size(838, 403);
             this.panelShowPhotoView.TabIndex = 14;
             // 
             // fLPShowPhoto
@@ -239,7 +401,7 @@
             this.fLPShowPhoto.Location = new System.Drawing.Point(10, 15);
             this.fLPShowPhoto.Margin = new System.Windows.Forms.Padding(2);
             this.fLPShowPhoto.Name = "fLPShowPhoto";
-            this.fLPShowPhoto.Size = new System.Drawing.Size(792, 327);
+            this.fLPShowPhoto.Size = new System.Drawing.Size(816, 374);
             this.fLPShowPhoto.TabIndex = 0;
             // 
             // panel1
@@ -259,7 +421,7 @@
             this.panel1.Location = new System.Drawing.Point(12, 6);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(817, 184);
+            this.panel1.Size = new System.Drawing.Size(841, 184);
             this.panel1.TabIndex = 15;
             // 
             // btnListView
@@ -336,137 +498,186 @@
             this.timerBusqueda.Interval = 1000;
             this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
-            // CheckProducto
+            // panel2
             // 
-            this.CheckProducto.HeaderText = "";
-            this.CheckProducto.Name = "CheckProducto";
-            this.CheckProducto.Width = 30;
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.btnUltimaPagina);
+            this.panel2.Controls.Add(this.btnSiguiente);
+            this.panel2.Controls.Add(this.btnAnterior);
+            this.panel2.Controls.Add(this.btnPrimeraPagina);
+            this.panel2.Controls.Add(this.btnActualizarMaximoProductos);
+            this.panel2.Controls.Add(this.txtMaximoPorPagina);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.lblUltimaPagina);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.lblNoRegistroPagina);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.lblCantidadRegistros);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Location = new System.Drawing.Point(12, 532);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(840, 69);
+            this.panel2.TabIndex = 17;
             // 
-            // Column1
+            // btnUltimaPagina
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.HeaderText = "Nombre";
-            this.Column1.Name = "Column1";
+            this.btnUltimaPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnUltimaPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnUltimaPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_right;
+            this.btnUltimaPagina.Location = new System.Drawing.Point(523, 32);
+            this.btnUltimaPagina.Name = "btnUltimaPagina";
+            this.btnUltimaPagina.Size = new System.Drawing.Size(86, 30);
+            this.btnUltimaPagina.TabIndex = 12;
+            this.btnUltimaPagina.Text = "Última";
+            this.btnUltimaPagina.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnUltimaPagina.UseVisualStyleBackColor = true;
+            this.btnUltimaPagina.Click += new System.EventHandler(this.btnUltimaPagina_Click);
             // 
-            // Column2
+            // btnSiguiente
             // 
-            this.Column2.HeaderText = "Stock";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 65;
+            this.btnSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnSiguiente.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSiguiente.Image = global::PuntoDeVentaV2.Properties.Resources.angle_right;
+            this.btnSiguiente.Location = new System.Drawing.Point(415, 32);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(91, 30);
+            this.btnSiguiente.TabIndex = 11;
+            this.btnSiguiente.Text = "Siguiente";
+            this.btnSiguiente.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
-            // Column3
+            // btnAnterior
             // 
-            this.Column3.HeaderText = "Precio";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 65;
+            this.btnAnterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAnterior.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAnterior.Image = global::PuntoDeVentaV2.Properties.Resources.angle_left;
+            this.btnAnterior.Location = new System.Drawing.Point(311, 32);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(85, 30);
+            this.btnAnterior.TabIndex = 10;
+            this.btnAnterior.Text = "Anterior";
+            this.btnAnterior.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
-            // Column4
+            // btnPrimeraPagina
             // 
-            this.Column4.HeaderText = "Categoria";
-            this.Column4.Name = "Column4";
+            this.btnPrimeraPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnPrimeraPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnPrimeraPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_left;
+            this.btnPrimeraPagina.Location = new System.Drawing.Point(210, 32);
+            this.btnPrimeraPagina.Name = "btnPrimeraPagina";
+            this.btnPrimeraPagina.Size = new System.Drawing.Size(86, 30);
+            this.btnPrimeraPagina.TabIndex = 9;
+            this.btnPrimeraPagina.Text = "Primera";
+            this.btnPrimeraPagina.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPrimeraPagina.UseVisualStyleBackColor = true;
+            this.btnPrimeraPagina.Click += new System.EventHandler(this.btnPrimeraPagina_Click);
             // 
-            // Column5
+            // btnActualizarMaximoProductos
             // 
-            this.Column5.HeaderText = "Clave";
-            this.Column5.Name = "Column5";
+            this.btnActualizarMaximoProductos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(736, 2);
+            this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
+            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(75, 23);
+            this.btnActualizarMaximoProductos.TabIndex = 8;
+            this.btnActualizarMaximoProductos.Text = "Actualziar";
+            this.btnActualizarMaximoProductos.UseVisualStyleBackColor = true;
+            this.btnActualizarMaximoProductos.Click += new System.EventHandler(this.btnActualizarMaximoProductos_Click);
             // 
-            // Column6
+            // txtMaximoPorPagina
             // 
-            this.Column6.HeaderText = "Código";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 102;
+            this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(665, 3);
+            this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
+            this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 20);
+            this.txtMaximoPorPagina.TabIndex = 7;
+            this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // Column7
+            // label7
             // 
-            this.Column7.HeaderText = "Editar";
-            this.Column7.Name = "Column7";
-            this.Column7.Width = 50;
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(550, 7);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(111, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Producto Por Página :";
             // 
-            // Column8
+            // lblUltimaPagina
             // 
-            this.Column8.HeaderText = "Estado";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 50;
+            this.lblUltimaPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblUltimaPagina.BackColor = System.Drawing.SystemColors.Control;
+            this.lblUltimaPagina.ForeColor = System.Drawing.Color.Blue;
+            this.lblUltimaPagina.Location = new System.Drawing.Point(478, 2);
+            this.lblUltimaPagina.Name = "lblUltimaPagina";
+            this.lblUltimaPagina.Size = new System.Drawing.Size(62, 23);
+            this.lblUltimaPagina.TabIndex = 5;
+            this.lblUltimaPagina.Text = "0";
+            this.lblUltimaPagina.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Column9
+            // label5
             // 
-            this.Column9.HeaderText = "Historial";
-            this.Column9.Name = "Column9";
-            this.Column9.Width = 50;
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(394, 7);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Última Página :";
             // 
-            // Column10
+            // lblNoRegistroPagina
             // 
-            this.Column10.HeaderText = "Generar";
-            this.Column10.Name = "Column10";
-            this.Column10.Width = 50;
+            this.lblNoRegistroPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblNoRegistroPagina.BackColor = System.Drawing.SystemColors.Control;
+            this.lblNoRegistroPagina.ForeColor = System.Drawing.Color.Blue;
+            this.lblNoRegistroPagina.Location = new System.Drawing.Point(326, 2);
+            this.lblNoRegistroPagina.Name = "lblNoRegistroPagina";
+            this.lblNoRegistroPagina.Size = new System.Drawing.Size(62, 23);
+            this.lblNoRegistroPagina.TabIndex = 3;
+            this.lblNoRegistroPagina.Text = "0";
+            this.lblNoRegistroPagina.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Column11
+            // label3
             // 
-            this.Column11.HeaderText = "Imagen";
-            this.Column11.Name = "Column11";
-            this.Column11.Width = 50;
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(250, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(79, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Pagina Actual :";
             // 
-            // Column12
+            // lblCantidadRegistros
             // 
-            this.Column12.HeaderText = "Etiqueta";
-            this.Column12.Name = "Column12";
-            this.Column12.Width = 50;
+            this.lblCantidadRegistros.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblCantidadRegistros.BackColor = System.Drawing.SystemColors.Control;
+            this.lblCantidadRegistros.ForeColor = System.Drawing.Color.Blue;
+            this.lblCantidadRegistros.Location = new System.Drawing.Point(184, 2);
+            this.lblCantidadRegistros.Name = "lblCantidadRegistros";
+            this.lblCantidadRegistros.Size = new System.Drawing.Size(62, 23);
+            this.lblCantidadRegistros.TabIndex = 1;
+            this.lblCantidadRegistros.Text = "0";
+            this.lblCantidadRegistros.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Column13
+            // label1
             // 
-            this.Column13.HeaderText = "Copiar";
-            this.Column13.Name = "Column13";
-            this.Column13.Width = 50;
-            // 
-            // Column14
-            // 
-            this.Column14.HeaderText = "Status";
-            this.Column14.Name = "Column14";
-            this.Column14.Visible = false;
-            this.Column14.Width = 50;
-            // 
-            // Column15
-            // 
-            this.Column15.HeaderText = "ProdImage";
-            this.Column15.Name = "Column15";
-            this.Column15.Visible = false;
-            this.Column15.Width = 50;
-            // 
-            // Column16
-            // 
-            this.Column16.HeaderText = "Tipo";
-            this.Column16.Name = "Column16";
-            this.Column16.Width = 50;
-            // 
-            // Ajustar
-            // 
-            this.Ajustar.HeaderText = "Ajustar";
-            this.Ajustar.Name = "Ajustar";
-            this.Ajustar.Width = 50;
-            // 
-            // _IDProducto
-            // 
-            this._IDProducto.HeaderText = "ID";
-            this._IDProducto.Name = "_IDProducto";
-            this._IDProducto.Visible = false;
-            // 
-            // _ClavProdXML
-            // 
-            this._ClavProdXML.HeaderText = "ClaveProducto";
-            this._ClavProdXML.Name = "_ClavProdXML";
-            this._ClavProdXML.Visible = false;
-            // 
-            // _ClavUnidMedXML
-            // 
-            this._ClavUnidMedXML.HeaderText = "ClavUnidMed";
-            this._ClavUnidMedXML.Name = "_ClavUnidMedXML";
-            this._ClavUnidMedXML.Visible = false;
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(162, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Total de Productos Registrados :";
             // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(840, 564);
+            this.ClientSize = new System.Drawing.Size(864, 611);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelShowDGVProductosView);
             this.Controls.Add(this.panelShowPhotoView);
@@ -480,6 +691,8 @@
             this.panelShowPhotoView.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -523,5 +736,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _IDProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn _ClavProdXML;
         private System.Windows.Forms.DataGridViewTextBoxColumn _ClavUnidMedXML;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnUltimaPagina;
+        private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnPrimeraPagina;
+        private System.Windows.Forms.Button btnActualizarMaximoProductos;
+        private System.Windows.Forms.TextBox txtMaximoPorPagina;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblUltimaPagina;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblNoRegistroPagina;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblCantidadRegistros;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -12,6 +12,12 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
+        private Paginar p;
+        string DataMemberDGV = "Productos";
+        string extra = string.Empty;
+        int maximo_x_pagina = 17;
+        int clickBoton = 0;
+
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         public static int proveedorElegido = 0;
@@ -258,6 +264,7 @@ namespace PuntoDeVentaV2
             if (panelShowDGVProductosView.Visible == true || panelShowDGVProductosView.Visible == false)
             {
                 panelShowDGVProductosView.Visible = false;
+                panel2.Visible = false;
                 panelShowPhotoView.Visible = true;
                 searchPhotoProd();
                 photoShow();
@@ -265,6 +272,7 @@ namespace PuntoDeVentaV2
             else if (panelShowPhotoView.Visible == true || panelShowPhotoView.Visible == false)
             {
                 panelShowDGVProductosView.Visible = false;
+                panel2.Visible = false;
                 panelShowPhotoView.Visible = true;
                 searchPhotoProd();
                 photoShow();
@@ -277,12 +285,14 @@ namespace PuntoDeVentaV2
             {
                 panelShowPhotoView.Visible = false;
                 panelShowDGVProductosView.Visible = true;
+                panel2.Visible = true;
                 searchToProdGral();
             }
             else if (panelShowPhotoView.Visible == true || panelShowPhotoView.Visible == false)
             {
                 panelShowPhotoView.Visible = false;
                 panelShowDGVProductosView.Visible = true;
+                panel2.Visible = true;
                 searchToProdGral();
             }
         }
@@ -593,7 +603,8 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
-                    CargarDatos();
+                    clickBoton = 0;
+                    CargarDatos(1);
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -605,6 +616,7 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
+                    clickBoton = 0;
                     CargarDatos(0);
                 }
                 else if (panelShowPhotoView.Visible == true)
@@ -617,7 +629,8 @@ namespace PuntoDeVentaV2
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
-                    CargarDatos();                                      // cargamos todos los registros
+                    clickBoton = 0;
+                    CargarDatos(2);                                      // cargamos todos los registros
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
@@ -655,8 +668,12 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+
             panelShowPhotoView.Visible = false;
             panelShowDGVProductosView.Visible = true;
+
+            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
 
             CargarDatos();
             cbOrden.SelectedIndex = 0;
@@ -694,61 +711,93 @@ namespace PuntoDeVentaV2
         private void CargarDatos(int status = 1, string busqueda = "")
         {
             int idProducto = 0;
-            string extra = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
                 extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%')";
             }
 
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-            
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", sql_con);
-            dr = sql_cmd.ExecuteReader();
+            if (status == 2)
+            {
+                if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
+                {
+                    p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID}", DataMemberDGV, maximo_x_pagina);
+                }
+            }
+            if (status == 1)
+            {
+                if (busqueda == "")
+                {
+                    extra = busqueda;
+                    if (DGVProductos.RowCount <= 0)
+                    {
+                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                    }
+                    else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
+                    {
+                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                    }
+                }
+                else if (busqueda != "")
+                {
+                    if (DGVProductos.RowCount >= 0 && clickBoton == 0)
+                    {
+                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                    }
+                }
+            }
+            if (status == 0)
+            {
+                if (busqueda == "")
+                {
+                    if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
+                    {
+                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                    }
+                }
+                else if (busqueda != "")
+                {
+                    if (DGVProductos.RowCount >= 0)
+                    {
+                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                    }
+                }
+            }
 
-            //DataTable table = new DataTable();
-            //Fill table with data 
-            //table = YourGetDataMethod(); 
-            //DataTableReader reader = table.CreateDataReader();
-            //SQLiteDataReader read = table.CreateDataReader();
+            DataSet datos = p.cargar();
+
+            DataTable dtDatos = datos.Tables[0];
 
             DGVProductos.Rows.Clear();
 
-            while (dr.Read())
+            foreach (DataRow filaDatos in dtDatos.Rows)
             {
                 number_of_rows = DGVProductos.Rows.Add();
-
                 DataGridViewRow row = DGVProductos.Rows[number_of_rows];
 
-                idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
-
+                idProducto = Convert.ToInt32(filaDatos["ID"].ToString());
                 row.Cells["_IDProducto"].Value = idProducto;
 
-                string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
-
+                string TipoProd = filaDatos["Tipo"].ToString();
                 row.Cells["CheckProducto"].Value = false;
 
-                row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+                row.Cells["Column1"].Value = filaDatos["Nombre"].ToString();
 
                 if (TipoProd == "P")
                 {
-                    row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+                    row.Cells["Column2"].Value = filaDatos["Stock"].ToString(); ;
                 }
                 else if (TipoProd == "S")
                 {
                     row.Cells["Column2"].Value = "0";
                 }
 
-                row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
-                row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
-                row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
-                row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
-                row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
-                row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
+                row.Cells["Column3"].Value = filaDatos["Precio"].ToString();
+                row.Cells["Column4"].Value = filaDatos["Categoria"].ToString();
+                row.Cells["Column5"].Value = filaDatos["ClaveInterna"].ToString();
+                row.Cells["Column6"].Value = filaDatos["CodigoBarras"].ToString();
+                row.Cells["Column14"].Value = filaDatos["Status"].ToString();
+                row.Cells["Column15"].Value = filaDatos["ProdImage"].ToString();
 
                 System.Drawing.Image editar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
                 System.Drawing.Image estado1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
@@ -765,7 +814,7 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Column7"].Value = editar;
 
-                string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
+                string estado = filaDatos["Status"].ToString();
                 if (estado == "1")
                 {
                     row.Cells["Column8"].Value = estado1;
@@ -779,7 +828,7 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Column10"].Value = generar;
 
-                string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
+                string ImgPath = filaDatos["ProdImage"].ToString();
                 if (ImgPath == "" || ImgPath == null)
                 {
                     row.Cells["Column11"].Value = imagen1;
@@ -805,12 +854,176 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Ajustar"].Value = ajustar;
 
-                row.Cells["_ClavProdXML"].Value = dr.GetValue(dr.GetOrdinal("ClaveProducto"));
-                row.Cells["_ClavUnidMedXML"].Value = dr.GetValue(dr.GetOrdinal("UnidadMedida"));
+                row.Cells["_ClavProdXML"].Value = filaDatos["ClaveProducto"].ToString();
+                row.Cells["_ClavUnidMedXML"].Value = filaDatos["UnidadMedida"].ToString();
             }
+            actualizar();
+            //int idProducto = 0;
+            //string extra = string.Empty;
 
-            dr.Close();
-            sql_con.Close();
+            //if (!string.IsNullOrWhiteSpace(busqueda))
+            //{
+            //    extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%')";
+            //}
+
+            //SQLiteConnection sql_con;
+            //SQLiteCommand sql_cmd;
+            //SQLiteDataReader dr;
+
+            //sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            //sql_con.Open();
+            //sql_cmd = new SQLiteCommand($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", sql_con);
+            //dr = sql_cmd.ExecuteReader();
+
+            ////DataTable table = new DataTable();
+            ////Fill table with data 
+            ////table = YourGetDataMethod(); 
+            ////DataTableReader reader = table.CreateDataReader();
+            ////SQLiteDataReader read = table.CreateDataReader();
+
+            //DGVProductos.Rows.Clear();
+
+            //while (dr.Read())
+            //{
+            //    number_of_rows = DGVProductos.Rows.Add();
+
+            //    DataGridViewRow row = DGVProductos.Rows[number_of_rows];
+
+            //    idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
+
+            //    row.Cells["_IDProducto"].Value = idProducto;
+
+            //    string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
+
+            //    row.Cells["CheckProducto"].Value = false;
+
+            //    row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
+
+            //    if (TipoProd == "P")
+            //    {
+            //        row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
+            //    }
+            //    else if (TipoProd == "S")
+            //    {
+            //        row.Cells["Column2"].Value = "0";
+            //    }
+
+            //    row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
+            //    row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
+            //    row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
+            //    row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
+            //    row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
+            //    row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
+
+            //    System.Drawing.Image editar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
+            //    System.Drawing.Image estado1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
+            //    System.Drawing.Image estado2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
+            //    System.Drawing.Image historial = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
+            //    System.Drawing.Image generar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
+            //    System.Drawing.Image imagen1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
+            //    System.Drawing.Image imagen2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
+            //    System.Drawing.Image etiqueta = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
+            //    System.Drawing.Image copy = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
+            //    System.Drawing.Image package = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
+            //    System.Drawing.Image product = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
+            //    System.Drawing.Image ajustar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
+
+            //    row.Cells["Column7"].Value = editar;
+
+            //    string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
+            //    if (estado == "1")
+            //    {
+            //        row.Cells["Column8"].Value = estado1;
+            //    }
+            //    else if (estado == "0")
+            //    {
+            //        row.Cells["Column8"].Value = estado2;
+            //    }
+
+            //    row.Cells["Column9"].Value = historial;
+
+            //    row.Cells["Column10"].Value = generar;
+
+            //    string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
+            //    if (ImgPath == "" || ImgPath == null)
+            //    {
+            //        row.Cells["Column11"].Value = imagen1;
+            //    }
+            //    else if (ImgPath != "" || ImgPath != null)
+            //    {
+            //        row.Cells["Column11"].Value = imagen2;
+            //    }
+
+            //    row.Cells["Column12"].Value = etiqueta;
+
+            //    row.Cells["Column13"].Value = copy;
+
+
+            //    if (TipoProd == "P")
+            //    {
+            //        row.Cells["Column16"].Value = product;
+            //    }
+            //    else if (TipoProd == "S")
+            //    {
+            //        row.Cells["Column16"].Value = package;
+            //    }
+
+            //    row.Cells["Ajustar"].Value = ajustar;
+
+            //    row.Cells["_ClavProdXML"].Value = dr.GetValue(dr.GetOrdinal("ClaveProducto"));
+            //    row.Cells["_ClavUnidMedXML"].Value = dr.GetValue(dr.GetOrdinal("UnidadMedida"));
+            //}
+
+            //dr.Close();
+            //sql_con.Close();
+        }
+
+        private void actualizar()
+        {
+            lblCantidadRegistros.Text = p.countRow().ToString();
+            lblNoRegistroPagina.Text = p.numPag().ToString();
+            lblUltimaPagina.Text = p.countPag().ToString();
+            txtMaximoPorPagina.Text = p.limitRow().ToString();
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+            p.actualizarTope(maximo_x_pagina);
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
         }
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
