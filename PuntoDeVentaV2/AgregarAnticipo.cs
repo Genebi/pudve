@@ -26,9 +26,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarAnticipo_Load(object sender, EventArgs e)
         {
-            //ComboBox Clientes
-            var clientes = mb.ObtenerClientes(FormPrincipal.userID);
-            cbClientes.Items.AddRange(clientes);
+            CargarClientes();
 
             //ComboBox Formas de pago
             Dictionary<string, string> pagos = new Dictionary<string, string>();
@@ -44,6 +42,13 @@ namespace PuntoDeVentaV2
             cbFormaPago.ValueMember = "Key";
 
             txtImporte.KeyPress += new KeyPressEventHandler(SoloDecimales);
+        }
+
+        private void CargarClientes()
+        {
+            //ComboBox Clientes
+            var clientes = mb.ObtenerClientes(FormPrincipal.userID);
+            cbClientes.Items.AddRange(clientes);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -78,6 +83,35 @@ namespace PuntoDeVentaV2
             }
 
             var cliente = cbClientes.GetItemText(cbClientes.SelectedItem);
+
+            if (string.IsNullOrWhiteSpace(cliente))
+            {
+                var existenClientes = mb.ObtenerClientes(FormPrincipal.userID);
+
+                if (existenClientes.Length > 0)
+                {
+                    MessageBox.Show("Es necesario seleccionar un cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    var decision = MessageBox.Show("No tienes clientes registrados en el sistema\nEs necesario registrar un cliente y seleccionarlo\npara guardar el anticipo", "Mensaje del Sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+                    if (decision == DialogResult.OK)
+                    {
+                        AgregarCliente ac = new AgregarCliente();
+
+                        ac.FormClosed += delegate
+                        {
+                            CargarClientes();
+                        };
+
+                        ac.ShowDialog();
+                    }
+                }
+
+                return;
+            }
+
             var formaPago = cbFormaPago.SelectedValue.ToString();
             var comentario = txtComentarios.Text;
             var status = "1";

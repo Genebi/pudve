@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
 
-            var consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID}";
+            var consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
 
             sql_cmd = new SQLiteCommand(consulta, sql_con);
 
