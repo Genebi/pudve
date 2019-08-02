@@ -1097,6 +1097,7 @@ namespace PuntoDeVentaV2
         private void Ventas_FormClosing(object sender, FormClosingEventArgs e)
         {
             mostrarVenta = 0;
+            listaAnticipos = string.Empty;
         }
 
         private void GenerarTicket(string[][] productos)
