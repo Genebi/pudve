@@ -866,17 +866,12 @@ namespace PuntoDeVentaV2
 
                         var anticipos = auxiliar.Split('-');
 
-                        //float totalAnticipos = 0;
-
                         foreach (string anticipo in anticipos)
                         {
                             var idAnticipo = Convert.ToInt32(anticipo);
 
                             cn.EjecutarConsulta(cs.CambiarStatusAnticipo(3, idAnticipo, FormPrincipal.userID));
-
-                            //var info = mb.ObtenerAnticipo(idAnticipo, FormPrincipal.userID);
-
-                            //totalAnticipos += float.Parse(info[1]);
+                            cn.EjecutarConsulta($"UPDATE Anticipos SET IDVenta = {idVenta} WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
                         }
 
                         //cn.EjecutarConsulta($"UPDATE Caja SET Anticipo = {totalAnticipos} WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion = '{FechaOperacion}'");
@@ -1059,7 +1054,7 @@ namespace PuntoDeVentaV2
 
         private void CargarVentaGuardada()
         {
-            string[] datos = cn.BuscarVentaGuardada(mostrarVenta);
+            string[] datos = cn.BuscarVentaGuardada(mostrarVenta, FormPrincipal.userID);
 
             cSubtotal.Text = datos[0];
             cIVA.Text = datos[1];

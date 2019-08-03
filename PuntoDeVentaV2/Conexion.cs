@@ -327,14 +327,14 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string[]  BuscarVentaGuardada(int IDVenta)
+        public string[]  BuscarVentaGuardada(int IDVenta, int IDUsuario)
         {
             List<string> lista = new List<string>();
 
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM Ventas WHERE ID = '{IDVenta}'";
+            sql_cmd.CommandText = $"SELECT * FROM Ventas WHERE ID = {IDVenta} AND IDUsuario = {IDUsuario}";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
