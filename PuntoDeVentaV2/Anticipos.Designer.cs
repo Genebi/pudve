@@ -37,6 +37,7 @@
             this.btnBuscarAnticipos = new System.Windows.Forms.Button();
             this.cbAnticipos = new System.Windows.Forms.ComboBox();
             this.DGVAnticipos = new System.Windows.Forms.DataGridView();
+            this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,7 +47,8 @@
             this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
             this.Status = new System.Windows.Forms.DataGridViewImageColumn();
             this.Devolver = new System.Windows.Forms.DataGridViewImageColumn();
-            this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
+            this.Info = new System.Windows.Forms.DataGridViewImageColumn();
+            this.IDVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
@@ -165,7 +167,9 @@
             this.Fecha,
             this.Ticket,
             this.Status,
-            this.Devolver});
+            this.Devolver,
+            this.Info,
+            this.IDVenta});
             this.DGVAnticipos.Location = new System.Drawing.Point(12, 141);
             this.DGVAnticipos.Name = "DGVAnticipos";
             this.DGVAnticipos.ReadOnly = true;
@@ -174,6 +178,13 @@
             this.DGVAnticipos.TabIndex = 8;
             this.DGVAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellClick);
             this.DGVAnticipos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellMouseEnter);
+            // 
+            // TTMensaje
+            // 
+            this.TTMensaje.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.TTMensaje.ForeColor = System.Drawing.Color.White;
+            this.TTMensaje.OwnerDraw = true;
+            this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
             // 
             // ID
             // 
@@ -238,12 +249,19 @@
             this.Devolver.ReadOnly = true;
             this.Devolver.Width = 35;
             // 
-            // TTMensaje
+            // Info
             // 
-            this.TTMensaje.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.TTMensaje.ForeColor = System.Drawing.Color.White;
-            this.TTMensaje.OwnerDraw = true;
-            this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
+            this.Info.HeaderText = "";
+            this.Info.Name = "Info";
+            this.Info.ReadOnly = true;
+            this.Info.Width = 35;
+            // 
+            // IDVenta
+            // 
+            this.IDVenta.HeaderText = "IDVenta";
+            this.IDVenta.Name = "IDVenta";
+            this.IDVenta.ReadOnly = true;
+            this.IDVenta.Visible = false;
             // 
             // Anticipos
             // 
@@ -285,5 +303,7 @@
         private System.Windows.Forms.DataGridViewImageColumn Ticket;
         private System.Windows.Forms.DataGridViewImageColumn Status;
         private System.Windows.Forms.DataGridViewImageColumn Devolver;
+        private System.Windows.Forms.DataGridViewImageColumn Info;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDVenta;
     }
 }

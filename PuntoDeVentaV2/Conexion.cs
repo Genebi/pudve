@@ -341,11 +341,14 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                lista.Add(dr[5].ToString()); //Subtotal
-                lista.Add(dr[6].ToString()); //IVA16
-                lista.Add(dr[8].ToString()); //Total
-                lista.Add(dr[9].ToString()); //Descuento
-                lista.Add(dr[10].ToString()); //Descuento general
+                lista.Add(dr["Subtotal"].ToString());
+                lista.Add(dr["IVA16"].ToString());
+                lista.Add(dr["Total"].ToString());
+                lista.Add(dr["Descuento"].ToString());
+                lista.Add(dr["DescuentoGeneral"].ToString());
+                lista.Add(dr["Folio"].ToString());
+                lista.Add(dr["Serie"].ToString());
+                lista.Add(dr["FechaOperacion"].ToString());
             }
 
             dr.Close();

@@ -80,6 +80,7 @@ namespace PuntoDeVentaV2
                 Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ban.png");
                 Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
                 Image devolver = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+                Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
                 Bitmap sinImagen = new Bitmap(1, 1);
                 sinImagen.SetPixel(0, 0, Color.White);
 
@@ -93,6 +94,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("Cliente"));
                 row.Cells["Empleado"].Value = "Administrador";
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("Fecha"))).ToString("yyyy-MM-dd HH:mm:ss");
+                row.Cells["IDVenta"].Value = dr.GetValue(dr.GetOrdinal("IDVenta"));
                 row.Cells["Ticket"].Value = ticket;
 
                 var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
@@ -101,17 +103,20 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Status"].Value = deshabilitar;
                     row.Cells["Devolver"].Value = devolver;
+                    row.Cells["Info"].Value = sinImagen;
                 }
                 else if (status == 2)
                 {
                     row.Cells["Status"].Value = habilitar;
                     row.Cells["Devolver"].Value = sinImagen;
+                    row.Cells["Info"].Value = sinImagen;
                 }
                 else
                 {
                     row.Cells["Status"].Value = sinImagen;
                     row.Cells["Devolver"].Value = sinImagen;
-                }  
+                    row.Cells["Info"].Value = info;
+                }
             }
 
             DGVAnticipos.ClearSelection();
@@ -170,9 +175,21 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    TTMensaje.Show(textoTT, this, DGVAnticipos.Location.X + cellRect.X - coordenadaX, DGVAnticipos.Location.Y + cellRect.Y, 1500);
+                    if (e.ColumnIndex == 9)
+                    {
+                        if (cbAnticipos.SelectedIndex == 2)
+                        {
+                            textoTT = "Ver detalles";
+                            coordenadaX = 72;
+                        }
+                    }
 
-                    textoTT = string.Empty;
+                    if (!string.IsNullOrWhiteSpace(textoTT))
+                    {
+                        TTMensaje.Show(textoTT, this, DGVAnticipos.Location.X + cellRect.X - coordenadaX, DGVAnticipos.Location.Y + cellRect.Y, 1500);
+
+                        textoTT = string.Empty;
+                    }
                 }
                 else
                 {
@@ -201,6 +218,7 @@ namespace PuntoDeVentaV2
                 int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
                 string fecha = DGVAnticipos.Rows[fila].Cells["Fecha"].Value.ToString();
                 float importe = float.Parse(DGVAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
+                int idVenta = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["IDVenta"].Value);
 
                 //Generar ticket
                 if (e.ColumnIndex == 6)
@@ -268,7 +286,17 @@ namespace PuntoDeVentaV2
                             da.ShowDialog();
                         }
                     }
-                    
+                }
+
+                if (e.ColumnIndex == 9)
+                {
+                    if (indice == 2)
+                    {
+                        var infoVenta = cn.BuscarVentaGuardada(idVenta, FormPrincipal.userID);
+                        var mensaje = $"ID de venta: {idVenta}\n\nTotal de venta: ${infoVenta[2]}\n\nFolio: {infoVenta[5]} Serie: {infoVenta[6]}\n\nFecha: {infoVenta[7]}";
+
+                        MessageBox.Show(mensaje, "Detalles de Venta", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
 
