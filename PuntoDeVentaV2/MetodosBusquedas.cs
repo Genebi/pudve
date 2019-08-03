@@ -260,6 +260,59 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public bool ComprobarCodigoClave(string codigoClave, int idUsuario)
+        {
+            bool respuesta = false;
+
+            if (!string.IsNullOrWhiteSpace(codigoClave))
+            {
+                DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Status = 1 AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')");
+
+                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    respuesta = true;
+                }
+                else
+                {
+                    DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigoClave}'");
+
+                    SQLiteDataReader info = sql_cmd.ExecuteReader();
+
+                    if (info.Read())
+                    {
+                        //Comprobar el ID del producto y el ID del Usuario
+                        while (info.Read())
+                        {
+                            var idProducto = Convert.ToInt32(info["IDProducto"].ToString());
+
+                            DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario}");
+
+                            SQLiteDataReader info2 = sql_cmd.ExecuteReader();
+
+                            if (info2.Read())
+                            {
+                                respuesta = true;
+                            }
+
+                            info2.Close();
+                        }
+                    }
+                    else
+                    {
+                        respuesta = false;
+                    }
+
+                    info.Close();
+                }
+
+                dr.Close();
+            }
+            
+            return respuesta;
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();

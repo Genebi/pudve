@@ -224,9 +224,9 @@ namespace PuntoDeVentaV2
             }
         }
 
-        // funsion para poder buscar en los productos 
-        // si coincide con los campos de de CodigoBarras
-        // respecto al stock del producto en su campo de NoIdentificacion
+        //funcion para poder buscar en los productos 
+        //si coincide con los campos de de CodigoBarras
+        //respecto al stock del producto en su campo de NoIdentificacion
         public void searchCodBar()
         {
             // preparamos el Query
@@ -1017,11 +1017,58 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                searchClavIntProd();                    // hacemos la busqueda que no se repita en CalveInterna
-                searchCodBar();                         // hacemos la busqueda que no se repita en CodigoBarra
+                //Hacemos la busqueda que no se repita en CalveInterna
+                //searchClavIntProd();
+                if (mb.ComprobarCodigoClave(claveIn, FormPrincipal.userID))
+                {
+                    MessageBox.Show($"El número de identificación {claveIn} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+                //Hacemos la busqueda que no se repita en CodigoBarra
+                //searchCodBar();
+                if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID))
+                {
+                    MessageBox.Show($"El número de identificación {codigoB} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
+                // recorrido para FlowLayoutPanel para ver cuantos TextBox
+                foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                {
+                    // hacemos un objeto para ver que tipo control es
+                    foreach (Control item in panel.Controls)
+                    {
+                        // ver si el control es TextBox
+                        if (item is TextBox)
+                        {
+                            var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                            codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                        }
+                    }
+                }
+
+                //Verificamos que los codigos de barra extra no esten registrados
+                if (codigosBarrras != null || codigosBarrras.Count != 0)
+                {
+                    // hacemos recorrido del List para gregarlos en los codigos de barras extras
+                    for (int pos = 0; pos < codigosBarrras.Count; pos++)
+                    {
+                        var existe = mb.ComprobarCodigoClave(codigosBarrras[pos], FormPrincipal.userID);
+
+                        if (existe)
+                        {
+                            MessageBox.Show($"El número de identificación {codigosBarrras[pos]} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            return;
+                        }
+                    }
+                }
+
                 if (resultadoSearchNoIdentificacion == 1 || resultadoSearchCodBar == 1)
                 {
-                    MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //MessageBox.Show("El número de identificación ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
@@ -1189,20 +1236,7 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                        // recorrido para FlowLayoutPanel para ver cuantos TextBox
-                        foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
-                        {
-                            // hacemos un objeto para ver que tipo control es
-                            foreach (Control item in panel.Controls)
-                            {
-                                // ver si el control es TextBox
-                                if (item is TextBox)
-                                {
-                                    var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
-                                    codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
-                                }
-                            }
-                        }
+
                         // verificamos si el List esta con algun registro 
                         if (codigosBarrras != null || codigosBarrras.Count != 0)
                         {
@@ -1635,12 +1669,13 @@ namespace PuntoDeVentaV2
             }
             else if (DatosSourceFinal == 4)
             {
+                
                 //MessageBox.Show("Proceso de registrar Nvo producto seleccionado del XML o Productos");
-                searchClavIntProd();                    // hacemos la busqueda que no se repita en CalveInterna
-                searchCodBar();                         // hacemos la busqueda que no se repita en CodigoBarra
+                //searchClavIntProd();                    // hacemos la busqueda que no se repita en CalveInterna
+                //searchCodBar();                         // hacemos la busqueda que no se repita en CodigoBarra
                 if (resultadoSearchNoIdentificacion == 1 || resultadoSearchCodBar == 1)
                 {
-                    MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 if (SearchProdResult.Rows.Count != 0 && resultadoSearchNoIdentificacion == 0)
                 {
@@ -1665,6 +1700,55 @@ namespace PuntoDeVentaV2
                         tipoProdNvoInsert = "S";
                     }
                     /*	Fin del codigo de Alejandro	*/
+
+                    //Hacemos la busqueda que no se repita en CalveInterna
+                    //searchClavIntProd();
+                    if (mb.ComprobarCodigoClave(claveInNvoInsert, FormPrincipal.userID))
+                    {
+                        MessageBox.Show($"El número de identificación {claveIn} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return;
+                    }
+                    //Hacemos la busqueda que no se repita en CodigoBarra
+                    //searchCodBar();
+                    if (mb.ComprobarCodigoClave(codigoBNvoInsert, FormPrincipal.userID))
+                    {
+                        MessageBox.Show($"El número de identificación {codigoB} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        return;
+                    }
+
+                    // recorrido para FlowLayoutPanel para ver cuantos TextBox
+                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                    {
+                        // hacemos un objeto para ver que tipo control es
+                        foreach (Control item in panel.Controls)
+                        {
+                            // ver si el control es TextBox
+                            if (item is TextBox)
+                            {
+                                var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                                codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                            }
+                        }
+                    }
+
+                    //Verificamos que los codigos de barra extra no esten registrados
+                    if (codigosBarrras != null || codigosBarrras.Count != 0)
+                    {
+                        // hacemos recorrido del List para gregarlos en los codigos de barras extras
+                        for (int pos = 0; pos < codigosBarrras.Count; pos++)
+                        {
+                            var existe = mb.ComprobarCodigoClave(codigosBarrras[pos], FormPrincipal.userID);
+
+                            if (existe)
+                            {
+                                MessageBox.Show($"El número de identificación {codigosBarrras[pos]} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                return;
+                            }
+                        }
+                    }
 
                     string[] guardar = new string[] { nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert, codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert, logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto };
                     //Se guardan los datos principales del producto
@@ -1717,20 +1801,7 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                        // recorrido para FlowLayoutPanel para ver cuantos TextBox
-                        foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
-                        {
-                            // hacemos un objeto para ver que tipo control es
-                            foreach (Control item in panel.Controls)
-                            {
-                                // ver si el control es TextBox
-                                if (item is TextBox)
-                                {
-                                    var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
-                                    codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
-                                }
-                            }
-                        }
+
                         // verificamos si el List esta con algun registro 
                         if (codigosBarrras != null || codigosBarrras.Count != 0)
                         {
