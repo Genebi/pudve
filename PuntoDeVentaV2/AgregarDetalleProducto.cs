@@ -31,22 +31,25 @@ namespace PuntoDeVentaV2
 
         private void cargarDatosProveedor(int idProveedor)
         {
-            var datos = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
+            //Para que no de error ya que nunca va a existir un proveedor con ID = 0
+            if (idProveedor > 0)
+            {
+                var datos = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
 
-            panelDatos.Visible = true;
-            lblNombreProveedor.Text = datos[0];
-            lblRFCProveedor.Text = datos[1];
-            lblCalleProveedor.Text = datos[2];
-            lblNoExtProveedor.Text = datos[3];
-            lblNoInterProveedor.Text = datos[4];
-            lblColoniaProveedor.Text = datos[5];
-            lblMunicipioProveedor.Text = datos[6];
-            lblEstadoProveedor.Text = datos[7];
-            lblCPProveedor.Text = datos[8];
-            lblEmailProveedor.Text = datos[9];
-            lblTelProveedor.Text = datos[10];
-
-            cbProveedores.Text = datos[0];
+                panelDatos.Visible = true;
+                lblNombreProveedor.Text = datos[0];
+                lblRFCProveedor.Text = datos[1];
+                lblCalleProveedor.Text = datos[2];
+                lblNoExtProveedor.Text = datos[3];
+                lblNoInterProveedor.Text = datos[4];
+                lblColoniaProveedor.Text = datos[5];
+                lblMunicipioProveedor.Text = datos[6];
+                lblEstadoProveedor.Text = datos[7];
+                lblCPProveedor.Text = datos[8];
+                lblEmailProveedor.Text = datos[9];
+                lblTelProveedor.Text = datos[10];
+                cbProveedores.Text = datos[0];
+            } 
         }
 
         private void CargarProveedores()
