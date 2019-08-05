@@ -2539,43 +2539,36 @@ namespace PuntoDeVentaV2
         private void btnDetalleProducto_Click(object sender, EventArgs e)
         {
             FormDetalleProducto = Application.OpenForms.OfType<AgregarDetalleProducto>().FirstOrDefault();
+
             if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
             {
                 //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
                 if (FormDetalleProducto == null)
                 {
                     FormDetalleProducto = new AgregarDetalleProducto();
-                    FormDetalleProducto.typeDatoProveedor = 1;
+                    //FormDetalleProducto.typeDatoProveedor = 1;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
                 else
                 {
-                    FormDetalleProducto.typeDatoProveedor = 1;
+                    //FormDetalleProducto.typeDatoProveedor = 1;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
             }
             if (DatosSourceFinal == 2)
             {
-                //MessageBox.Show("En Proceso para mostrar Proveedor...", "Seccion en proceso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                int idProductoEditar = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Productos WHERE ID = '{idEditarProducto}'", 1));
-                
-                int idProveedorConsultar = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDProveedor FROM DetallesProducto WHERE IDProducto = '{idProductoEditar}'", 2));
 
                 //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
                 if (FormDetalleProducto == null)
                 {
                     FormDetalleProducto = new AgregarDetalleProducto();
-                    FormDetalleProducto.typeDatoProveedor = 2;
-                    FormDetalleProducto.IDProveedorAsignado = idProveedorConsultar.ToString();
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
                 else
                 {
-                    FormDetalleProducto.IDProveedorAsignado = idProveedorConsultar.ToString();
-                    FormDetalleProducto.typeDatoProveedor = 2;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
