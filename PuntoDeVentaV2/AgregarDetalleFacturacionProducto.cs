@@ -54,6 +54,7 @@ namespace PuntoDeVentaV2
             typeOriginDataFinal = typeOriginData;
             UnidadMedidaFinal = UnidadMedida;
             ClaveMedidaFinal = ClaveProducto;
+            
         }
 
         public void limpiarCampos()
@@ -64,6 +65,29 @@ namespace PuntoDeVentaV2
 
         public void checarRadioButtons()
         {
+            //Editar
+            if (typeOriginData == 2)
+            {
+                var impuestoSeleccionado = AgregarEditarProducto.impuestoProductoFinal;
+
+                if (impuestoSeleccionado == "0%")
+                {
+                    rb0porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "16%")
+                {
+                    rb16porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "8%")
+                {
+                    rb8porCiento.Checked = true;
+                }
+                else if (impuestoSeleccionado == "Exento")
+                {
+                    rbExcento.Checked = true;
+                }
+            }
+
             double porcentajeTmp = 0;
             double precioTmp = 0;
 

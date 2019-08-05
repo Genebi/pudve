@@ -39,7 +39,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0, editarEstado = 0, numerofila = 0;
-        string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar;
+        string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar, impuestoProducto;
 
         DataTable dt, dtConsulta, fotos, registros;
         DataGridViewButtonColumn setup, record, barcode, foto, tag, copy;
@@ -437,6 +437,7 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila);
                         origenDeLosDatos = 2;
                     }
+
                     btnAgregarProducto.PerformClick();
                 }
                 else if (e.ColumnIndex == 8)
@@ -655,6 +656,7 @@ namespace PuntoDeVentaV2
             UnidadMedida = DGVProductos.Rows[fila].Cells["_ClavUnidMedXML"].Value.ToString();
             id = FormPrincipal.userID.ToString();
             idProductoEditar = DGVProductos.Rows[fila].Cells["_IDProducto"].Value.ToString();
+            impuestoProducto = DGVProductos.Rows[fila].Cells["Impuesto"].Value.ToString();
         }
 
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
@@ -920,8 +922,10 @@ namespace PuntoDeVentaV2
 
                 row.Cells["_ClavProdXML"].Value = filaDatos["ClaveProducto"].ToString();
                 row.Cells["_ClavUnidMedXML"].Value = filaDatos["UnidadMedida"].ToString();
+                row.Cells["Impuesto"].Value = filaDatos["Impuesto"].ToString();
             }
             actualizar();
+            #region codigo de respalda cargar datos sin paginador
             //int idProducto = 0;
             //string extra = string.Empty;
 
@@ -1040,6 +1044,7 @@ namespace PuntoDeVentaV2
 
             //dr.Close();
             //sql_con.Close();
+            #endregion
         }
 
         private void actualizar()
@@ -1176,6 +1181,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.claveProductoxml = ClaveProducto;
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.idEditarProducto = idProductoEditar;
+                    FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
             }
@@ -1198,6 +1204,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.claveProductoxml = ClaveProducto;
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.idEditarProducto = idProductoEditar;
+                    FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
             }
