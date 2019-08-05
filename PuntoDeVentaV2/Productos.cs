@@ -36,6 +36,7 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0, editarEstado = 0, numerofila = 0;
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar;
@@ -441,13 +442,15 @@ namespace PuntoDeVentaV2
                 else if (e.ColumnIndex == 8)
                 {
                     index = 0;
-                    DialogResult result = MessageBox.Show("Realmente desdea Modificar el estado?", "Advertencia", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (result == DialogResult.Yes)
+
+                    var resultado = MessageBox.Show("¿Realmente desea cambiar el estado del producto?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (resultado == DialogResult.Yes)
                     {
-                        numerofila = e.RowIndex;
-                        obtenerDatosDGVProductos(numerofila);
-                        status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
-                        ModificarStatusProducto();
+                        /*numerofila = e.RowIndex;
+                        //obtenerDatosDGVProductos(numerofila);
+                        //status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
+                        //ModificarStatusProducto();
                         if (status == "1")
                         {
                             cbMostrar.Text = "Deshabilitados";
@@ -456,7 +459,10 @@ namespace PuntoDeVentaV2
                         {
                             cbMostrar.Text = "Habilitados";
                         }
-                        DGVProductos.Refresh();
+
+                        DGVProductos.Refresh();*/
+                        DGVProductos.Rows[fila].Cells["CheckProducto"].Value = true;
+                        btnModificarEstado.PerformClick();
                     }
                 }
                 else if (e.ColumnIndex == 9)
@@ -599,6 +605,24 @@ namespace PuntoDeVentaV2
 
                     if (estado < 2)
                     {
+                        //Verificamos si el codigo de barras o clave ya esta usada en unos de los productos
+                        //actualmente habilitados, si es asi no debe dejar habilitar el producto y mostrara
+                        //un mensaje
+                        if (estado == 1)
+                        {
+                            var claveCodigos = mb.ObtenerClaveCodigosProducto(idProducto, FormPrincipal.userID);
+
+                            foreach (var codigo in claveCodigos)
+                            {
+                                if (mb.ComprobarCodigoClave(codigo, FormPrincipal.userID))
+                                {
+                                    MessageBox.Show($"El número de identificación {codigo} ya se esta utilizando\ncomo clave interna o código de barras de algún producto habilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                    return;
+                                }
+                            }
+                        }
+
                         cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
                     }
                 }
