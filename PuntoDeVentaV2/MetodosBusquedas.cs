@@ -287,7 +287,7 @@ namespace PuntoDeVentaV2
                         {
                             var idProducto = Convert.ToInt32(info["IDProducto"].ToString());
 
-                            DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario}");
+                            DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario} AND Status = 1");
 
                             SQLiteDataReader info2 = sql_cmd.ExecuteReader();
 
@@ -311,6 +311,34 @@ namespace PuntoDeVentaV2
             }
             
             return respuesta;
+        }
+
+        public string[] ObtenerClaveCodigosProducto(int idProducto, int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["ClaveInterna"].ToString());
+                lista.Add(dr["CodigoBarras"].ToString());
+
+                DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
+
+                SQLiteDataReader info = sql_cmd.ExecuteReader();
+
+                while (info.Read())
+                {
+                    lista.Add(info["CodigoBarraExtra"].ToString());
+                }
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
         }
 
         private void DatosConexion(string consulta)

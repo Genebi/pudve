@@ -37,27 +37,6 @@
             this.cbMostrar = new System.Windows.Forms.ComboBox();
             this.panelShowDGVProductosView = new System.Windows.Forms.Panel();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
-            this.CheckProducto = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column13 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Ajustar = new System.Windows.Forms.DataGridViewImageColumn();
-            this._IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._ClavProdXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this._ClavUnidMedXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -84,6 +63,29 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.CheckProducto = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Ajustar = new System.Windows.Forms.DataGridViewImageColumn();
+            this._IDProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._ClavProdXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this._ClavUnidMedXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -224,7 +226,8 @@
             this.Ajustar,
             this._IDProducto,
             this._ClavProdXML,
-            this._ClavUnidMedXML});
+            this._ClavUnidMedXML,
+            this.Impuesto});
             this.DGVProductos.Location = new System.Drawing.Point(10, 15);
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.ReadOnly = true;
@@ -235,153 +238,6 @@
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
-            // 
-            // CheckProducto
-            // 
-            this.CheckProducto.HeaderText = "";
-            this.CheckProducto.Name = "CheckProducto";
-            this.CheckProducto.ReadOnly = true;
-            this.CheckProducto.Width = 30;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.HeaderText = "Nombre";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Stock";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 65;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Precio";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 65;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Categoria";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Clave";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Código";
-            this.Column6.Name = "Column6";
-            this.Column6.ReadOnly = true;
-            this.Column6.Width = 102;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Editar";
-            this.Column7.Name = "Column7";
-            this.Column7.ReadOnly = true;
-            this.Column7.Width = 50;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Estado";
-            this.Column8.Name = "Column8";
-            this.Column8.ReadOnly = true;
-            this.Column8.Width = 50;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Historial";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
-            this.Column9.Width = 50;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Generar";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 50;
-            // 
-            // Column11
-            // 
-            this.Column11.HeaderText = "Imagen";
-            this.Column11.Name = "Column11";
-            this.Column11.ReadOnly = true;
-            this.Column11.Width = 50;
-            // 
-            // Column12
-            // 
-            this.Column12.HeaderText = "Etiqueta";
-            this.Column12.Name = "Column12";
-            this.Column12.ReadOnly = true;
-            this.Column12.Width = 50;
-            // 
-            // Column13
-            // 
-            this.Column13.HeaderText = "Copiar";
-            this.Column13.Name = "Column13";
-            this.Column13.ReadOnly = true;
-            this.Column13.Width = 50;
-            // 
-            // Column14
-            // 
-            this.Column14.HeaderText = "Status";
-            this.Column14.Name = "Column14";
-            this.Column14.ReadOnly = true;
-            this.Column14.Visible = false;
-            this.Column14.Width = 50;
-            // 
-            // Column15
-            // 
-            this.Column15.HeaderText = "ProdImage";
-            this.Column15.Name = "Column15";
-            this.Column15.ReadOnly = true;
-            this.Column15.Visible = false;
-            this.Column15.Width = 50;
-            // 
-            // Column16
-            // 
-            this.Column16.HeaderText = "Tipo";
-            this.Column16.Name = "Column16";
-            this.Column16.ReadOnly = true;
-            this.Column16.Width = 50;
-            // 
-            // Ajustar
-            // 
-            this.Ajustar.HeaderText = "Ajustar";
-            this.Ajustar.Name = "Ajustar";
-            this.Ajustar.ReadOnly = true;
-            this.Ajustar.Width = 50;
-            // 
-            // _IDProducto
-            // 
-            this._IDProducto.HeaderText = "ID";
-            this._IDProducto.Name = "_IDProducto";
-            this._IDProducto.ReadOnly = true;
-            this._IDProducto.Visible = false;
-            // 
-            // _ClavProdXML
-            // 
-            this._ClavProdXML.HeaderText = "ClaveProducto";
-            this._ClavProdXML.Name = "_ClavProdXML";
-            this._ClavProdXML.ReadOnly = true;
-            this._ClavProdXML.Visible = false;
-            // 
-            // _ClavUnidMedXML
-            // 
-            this._ClavUnidMedXML.HeaderText = "ClavUnidMed";
-            this._ClavUnidMedXML.Name = "_ClavUnidMedXML";
-            this._ClavUnidMedXML.ReadOnly = true;
-            this._ClavUnidMedXML.Visible = false;
             // 
             // panelShowPhotoView
             // 
@@ -623,12 +479,125 @@
             this.btnUltimaPagina.UseVisualStyleBackColor = true;
             this.btnUltimaPagina.Click += new System.EventHandler(this.btnUltimaPagina_Click);
             // 
-            // btnSiguiente
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Blue;
+            this.label4.Location = new System.Drawing.Point(462, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(21, 20);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "...";
+
+            // 
+            // label2
             // 
             this.btnSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnSiguiente.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSiguiente.Image = global::PuntoDeVentaV2.Properties.Resources.angle_right;
             this.btnSiguiente.Location = new System.Drawing.Point(499, 9);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(36, 30);
+            this.btnSiguiente.TabIndex = 11;
+            this.btnSiguiente.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Blue;
+            this.label2.Location = new System.Drawing.Point(371, 34);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(21, 20);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "...";
+
+            // 
+            // linkLblUltimaPagina
+            // 
+
+            this.btnAnterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAnterior.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAnterior.Image = global::PuntoDeVentaV2.Properties.Resources.angle_left;
+            this.btnAnterior.Location = new System.Drawing.Point(280, 9);
+
+            this.linkLblUltimaPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLblUltimaPagina.AutoSize = true;
+            this.linkLblUltimaPagina.Location = new System.Drawing.Point(485, 39);
+            this.linkLblUltimaPagina.Name = "linkLblUltimaPagina";
+            this.linkLblUltimaPagina.Size = new System.Drawing.Size(25, 13);
+            this.linkLblUltimaPagina.TabIndex = 17;
+            this.linkLblUltimaPagina.TabStop = true;
+            this.linkLblUltimaPagina.Text = "100";
+            this.linkLblUltimaPagina.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblUltimaPagina_LinkClicked);
+            // 
+            // linkLblPaginaSiguiente
+            // 
+            this.linkLblPaginaSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLblPaginaSiguiente.AutoSize = true;
+            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(443, 39);
+            this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(13, 13);
+            this.linkLblPaginaSiguiente.TabIndex = 16;
+            this.linkLblPaginaSiguiente.TabStop = true;
+            this.linkLblPaginaSiguiente.Text = "4";
+            this.linkLblPaginaSiguiente.Click += new System.EventHandler(this.linkLblPaginaSiguiente_Click);
+            // 
+            // linkLblPaginaActual
+            // 
+            this.linkLblPaginaActual.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLblPaginaActual.AutoSize = true;
+            this.linkLblPaginaActual.Location = new System.Drawing.Point(425, 39);
+            this.linkLblPaginaActual.Name = "linkLblPaginaActual";
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(13, 13);
+            this.linkLblPaginaActual.TabIndex = 15;
+            this.linkLblPaginaActual.TabStop = true;
+            this.linkLblPaginaActual.Text = "3";
+            this.linkLblPaginaActual.Click += new System.EventHandler(this.linkLblPaginaActual_Click);
+            // 
+            // linkLblPaginaAnterior
+            // 
+            this.linkLblPaginaAnterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLblPaginaAnterior.AutoSize = true;
+            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(401, 39);
+            this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(13, 13);
+            this.linkLblPaginaAnterior.TabIndex = 14;
+            this.linkLblPaginaAnterior.TabStop = true;
+            this.linkLblPaginaAnterior.Text = "2";
+            this.linkLblPaginaAnterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaAnterior_LinkClicked);
+            // 
+            // linkLblPrimeraPagina
+            // 
+            this.linkLblPrimeraPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLblPrimeraPagina.AutoSize = true;
+            this.linkLblPrimeraPagina.Location = new System.Drawing.Point(352, 39);
+            this.linkLblPrimeraPagina.Name = "linkLblPrimeraPagina";
+            this.linkLblPrimeraPagina.Size = new System.Drawing.Size(13, 13);
+            this.linkLblPrimeraPagina.TabIndex = 13;
+            this.linkLblPrimeraPagina.TabStop = true;
+            this.linkLblPrimeraPagina.Text = "1";
+            this.linkLblPrimeraPagina.Click += new System.EventHandler(this.linkLabel1_Click);
+            // 
+            // btnUltimaPagina
+            // 
+            this.btnUltimaPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnUltimaPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnUltimaPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_right;
+            this.btnUltimaPagina.Location = new System.Drawing.Point(560, 30);
+            this.btnUltimaPagina.Name = "btnUltimaPagina";
+            this.btnUltimaPagina.Size = new System.Drawing.Size(36, 30);
+            this.btnUltimaPagina.TabIndex = 12;
+            this.btnUltimaPagina.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.btnUltimaPagina.UseVisualStyleBackColor = true;
+            this.btnUltimaPagina.Click += new System.EventHandler(this.btnUltimaPagina_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnSiguiente.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSiguiente.Image = global::PuntoDeVentaV2.Properties.Resources.angle_right;
+            this.btnSiguiente.Location = new System.Drawing.Point(518, 30);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(36, 30);
             this.btnSiguiente.TabIndex = 11;
@@ -641,7 +610,8 @@
             this.btnAnterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnAnterior.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAnterior.Image = global::PuntoDeVentaV2.Properties.Resources.angle_left;
-            this.btnAnterior.Location = new System.Drawing.Point(280, 9);
+            this.btnAnterior.Location = new System.Drawing.Point(299, 30);
+
             this.btnAnterior.Name = "btnAnterior";
             this.btnAnterior.Size = new System.Drawing.Size(36, 30);
             this.btnAnterior.TabIndex = 10;
@@ -711,7 +681,165 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(149, 13);
             this.label1.TabIndex = 0;
+
             this.label1.Text = "No de Productos Regisrados: ";
+
+            this.label1.Text = "Total de Productos Registrados :";
+            // 
+            // CheckProducto
+            // 
+            this.CheckProducto.HeaderText = "";
+            this.CheckProducto.Name = "CheckProducto";
+            this.CheckProducto.ReadOnly = true;
+            this.CheckProducto.Width = 30;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Nombre";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Stock";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 65;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Precio";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 65;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Categoria";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Clave";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Código";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            this.Column6.Width = 102;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Editar";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 50;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Estado";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
+            this.Column8.Width = 50;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Historial";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            this.Column9.Width = 50;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Generar";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 50;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Imagen";
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            this.Column11.Width = 50;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "Etiqueta";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Width = 50;
+            // 
+            // Column13
+            // 
+            this.Column13.HeaderText = "Copiar";
+            this.Column13.Name = "Column13";
+            this.Column13.ReadOnly = true;
+            this.Column13.Width = 50;
+            // 
+            // Column14
+            // 
+            this.Column14.HeaderText = "Status";
+            this.Column14.Name = "Column14";
+            this.Column14.ReadOnly = true;
+            this.Column14.Visible = false;
+            this.Column14.Width = 50;
+            // 
+            // Column15
+            // 
+            this.Column15.HeaderText = "ProdImage";
+            this.Column15.Name = "Column15";
+            this.Column15.ReadOnly = true;
+            this.Column15.Visible = false;
+            this.Column15.Width = 50;
+            // 
+            // Column16
+            // 
+            this.Column16.HeaderText = "Tipo";
+            this.Column16.Name = "Column16";
+            this.Column16.ReadOnly = true;
+            this.Column16.Width = 50;
+            // 
+            // Ajustar
+            // 
+            this.Ajustar.HeaderText = "Ajustar";
+            this.Ajustar.Name = "Ajustar";
+            this.Ajustar.ReadOnly = true;
+            this.Ajustar.Width = 50;
+            // 
+            // _IDProducto
+            // 
+            this._IDProducto.HeaderText = "ID";
+            this._IDProducto.Name = "_IDProducto";
+            this._IDProducto.ReadOnly = true;
+            this._IDProducto.Visible = false;
+            // 
+            // _ClavProdXML
+            // 
+            this._ClavProdXML.HeaderText = "ClaveProducto";
+            this._ClavProdXML.Name = "_ClavProdXML";
+            this._ClavProdXML.ReadOnly = true;
+            this._ClavProdXML.Visible = false;
+            // 
+            // _ClavUnidMedXML
+            // 
+            this._ClavUnidMedXML.HeaderText = "ClavUnidMed";
+            this._ClavUnidMedXML.Name = "_ClavUnidMedXML";
+            this._ClavUnidMedXML.ReadOnly = true;
+            this._ClavUnidMedXML.Visible = false;
+            // 
+            // Impuesto
+            // 
+            this.Impuesto.HeaderText = "Impuesto %";
+            this.Impuesto.Name = "Impuesto";
+            this.Impuesto.ReadOnly = true;
+            this.Impuesto.Visible = false;
+
             // 
             // Productos
             // 
@@ -756,6 +884,23 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolTip TTipButtonText;
         private System.Windows.Forms.Timer timerBusqueda;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btnUltimaPagina;
+        private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnPrimeraPagina;
+        private System.Windows.Forms.Button btnActualizarMaximoProductos;
+        private System.Windows.Forms.TextBox txtMaximoPorPagina;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblCantidadRegistros;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel linkLblPaginaActual;
+        private System.Windows.Forms.LinkLabel linkLblPaginaAnterior;
+        private System.Windows.Forms.LinkLabel linkLblPrimeraPagina;
+        private System.Windows.Forms.LinkLabel linkLblUltimaPagina;
+        private System.Windows.Forms.LinkLabel linkLblPaginaSiguiente;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewCheckBoxColumn CheckProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -777,22 +922,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _IDProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn _ClavProdXML;
         private System.Windows.Forms.DataGridViewTextBoxColumn _ClavUnidMedXML;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnUltimaPagina;
-        private System.Windows.Forms.Button btnSiguiente;
-        private System.Windows.Forms.Button btnAnterior;
-        private System.Windows.Forms.Button btnPrimeraPagina;
-        private System.Windows.Forms.Button btnActualizarMaximoProductos;
-        private System.Windows.Forms.TextBox txtMaximoPorPagina;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label lblCantidadRegistros;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.LinkLabel linkLblPaginaActual;
-        private System.Windows.Forms.LinkLabel linkLblPaginaAnterior;
-        private System.Windows.Forms.LinkLabel linkLblPrimeraPagina;
-        private System.Windows.Forms.LinkLabel linkLblUltimaPagina;
-        private System.Windows.Forms.LinkLabel linkLblPaginaSiguiente;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Impuesto;
     }
 }

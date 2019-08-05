@@ -73,6 +73,7 @@ namespace PuntoDeVentaV2
         public string PrecioCompraXML { get; set; }
 
         public string idEditarProducto { get; set; }
+        public string impuestoSeleccionado { get; set; }
 
         public float ImporteProdNvo { get; set; }
         public float DescuentoProdNvo { get; set; }
@@ -105,6 +106,7 @@ namespace PuntoDeVentaV2
         static public string PrecioCompraXMLNvoProd;
 
         static public string idProductoFinal = string.Empty;
+        static public string impuestoProductoFinal = string.Empty;
 
 
         DataTable SearchProdResult, SearchCodBarExtResult, datosProductos;
@@ -618,6 +620,7 @@ namespace PuntoDeVentaV2
             impuestoProductoXML = impuestoProdXML;
             importeProductoXML = importeProdXML;
             idProductoFinal = idEditarProducto;
+            impuestoProductoFinal = impuestoSeleccionado;
 
             if (DatosSourceFinal == 3)
             {
