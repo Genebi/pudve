@@ -1027,7 +1027,7 @@ namespace PuntoDeVentaV2
 
             lblCantidadRegistros.Text = p.countRow().ToString();
 
-            lblNoRegistroPagina.Text = p.numPag().ToString();
+            //lblNoRegistroPagina.Text = p.numPag().ToString();
             linkLblPaginaActual.Text = p.numPag().ToString();
 
             BeforePage = p.numPag() - 1;
@@ -1064,7 +1064,7 @@ namespace PuntoDeVentaV2
                 }
             }
             
-            lblUltimaPagina.Text = p.countPag().ToString();
+            //lblUltimaPagina.Text = p.countPag().ToString();
             txtMaximoPorPagina.Text = p.limitRow().ToString();
         }
 
