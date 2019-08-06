@@ -15,50 +15,6 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        // Variables para mostrar el Proveedor asignado
-        public string IDProveedorAsignado { get; set; }
-        static public string IDProveedorAsignadoFinal = "";
-
-        // Variable para saber si es para mostrar o no proveedor asignado
-        public int typeDatoProveedor { get; set; }
-        static public int typeDatoProveedorFinal;
-
-        string queryProveedor;
-        DataTable dtProveedor;
-        DataRow rowProveedor;
-
-        private void cargarDatosProveedor()
-        {
-            IDProveedorAsignadoFinal = IDProveedorAsignado;
-            typeDatoProveedorFinal = typeDatoProveedor;
-
-            if (typeDatoProveedorFinal == 1)
-            {
-                panelDatos.Visible = false;
-                cbProveedores.SelectedIndex = 0;
-            }
-            if (typeDatoProveedorFinal == 2)
-            {
-                panelDatos.Visible = true;
-                queryProveedor = $"SELECT * FROM Proveedores WHERE ID = '{IDProveedorAsignadoFinal}'";
-                dtProveedor = cn.CargarDatos(queryProveedor);
-                rowProveedor = dtProveedor.Rows[0];
-                lblNombreProveedor.Text = rowProveedor["Nombre"].ToString();
-                lblRFCProveedor.Text = rowProveedor["RFC"].ToString();
-                lblCalleProveedor.Text = rowProveedor["Calle"].ToString();
-                lblNoExtProveedor.Text = rowProveedor["NoExterior"].ToString();
-                lblNoInterProveedor.Text = rowProveedor["NoInterior"].ToString();
-                lblColoniaProveedor.Text = rowProveedor["Colonia"].ToString();
-                lblMunicipioProveedor.Text = rowProveedor["Municipio"].ToString();
-                lblEstadoProveedor.Text = rowProveedor["Estado"].ToString();
-                lblCPProveedor.Text = rowProveedor["CodigoPostal"].ToString();
-                lblEmailProveedor.Text = rowProveedor["Email"].ToString();
-                lblTelProveedor.Text = rowProveedor["Telefono"].ToString();
-
-                cbProveedores.Text = rowProveedor["Nombre"].ToString();
-            }
-        }
-
         //Almacenar lista de proveedores del usuario
         string[] listaProveedores = new string[] { };
 
@@ -70,7 +26,22 @@ namespace PuntoDeVentaV2
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
             CargarProveedores();
-            cargarDatosProveedor();
+            //cargarDatosProveedor();
+        }
+
+        private void cargarDatosProveedor(int idProveedor)
+        {
+            //Para que no de error ya que nunca va a existir un proveedor con ID = 0
+            if (idProveedor > 0)
+            {
+                var datos = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
+
+                panelDatosProveedor.Visible = true;
+                lblNombreProveedor.Text = datos[0];
+                lblRFCProveedor.Text = datos[1];
+                lblTelProveedor.Text = datos[10];
+                cbProveedores.Text = datos[0];
+            } 
         }
 
         private void CargarProveedores()
@@ -96,8 +67,6 @@ namespace PuntoDeVentaV2
                 cbProveedores.DisplayMember = "Value";
                 cbProveedores.ValueMember = "Key";
 
-
-                listaOpciones.SetItemChecked(0, true);
                 lbProveedor.Visible = true;
                 cbProveedores.Visible = true;
                 cbProveedores.SelectedValue = "0";
@@ -111,6 +80,7 @@ namespace PuntoDeVentaV2
                     if (!string.IsNullOrEmpty(idProveedor))
                     {
                         cbProveedores.SelectedValue = idProveedor;
+                        cargarDatosProveedor(Convert.ToInt32(idProveedor));
                     }
                     else
                     {
@@ -128,7 +98,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void listaOpciones_SelectedIndexChanged(object sender, EventArgs e)
+        /*private void listaOpciones_SelectedIndexChanged(object sender, EventArgs e)
         {
             int indice = listaOpciones.SelectedIndex;
 
@@ -159,11 +129,11 @@ namespace PuntoDeVentaV2
                     cbProveedores.Visible = false;
                 }
             }
-        }
+        }*/
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
-            string detalles = null;
+            /*string detalles = null;
 
             foreach (int indice in listaOpciones.CheckedIndices)
             {
@@ -179,9 +149,31 @@ namespace PuntoDeVentaV2
                 //detalles = detalles.Remove(detalles.Length - 1);
 
                 AgregarEditarProducto.detallesProducto = detalles;
-            }
+            }*/
 
             this.Hide();
+        }
+
+        private void btnAgregarProveedor_Click(object sender, EventArgs e)
+        {
+            AgregarProveedor ap = new AgregarProveedor();
+
+            ap.FormClosed += delegate
+            {
+
+            };
+
+            ap.ShowDialog();
+        }
+
+        private void btnAgregarCategoria_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funciona 2");
+        }
+
+        private void btnAgregarUbicacion_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funciona 3");
         }
     }
 }
