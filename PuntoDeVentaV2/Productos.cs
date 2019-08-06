@@ -421,14 +421,14 @@ namespace PuntoDeVentaV2
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 0)
+                if (e.ColumnIndex == 0)    // CheckBox del Producto
                 {
                     numerofila = e.RowIndex;
                     //obtenerDatosDGVProductos(numerofila);
                     //editarEstado = 4;
                     //DGVProductos.Rows[fila].Cells["CheckProducto"].Value = true;
                 }
-                else if (e.ColumnIndex == 7)
+                else if (e.ColumnIndex == 7)    // Editar del Producto
                 {
                     if (seleccionadoDato == 0)
                     {
@@ -440,7 +440,7 @@ namespace PuntoDeVentaV2
 
                     btnAgregarProducto.PerformClick();
                 }
-                else if (e.ColumnIndex == 8)
+                else if (e.ColumnIndex == 8)    // Estado del Producto
                 {
                     index = 0;
 
@@ -466,13 +466,13 @@ namespace PuntoDeVentaV2
                         btnModificarEstado.PerformClick();
                     }
                 }
-                else if (e.ColumnIndex == 9)
+                else if (e.ColumnIndex == 9)    // Historial de compras del Producto
                 {
                     numerofila = e.RowIndex;
                     obtenerDatosDGVProductos(numerofila);
                     ViewRecordProducto();
                 }
-                else if (e.ColumnIndex == 10)
+                else if (e.ColumnIndex == 10)    // Generar Condigo de Barras del Producto
                 {
                     string codiBarProd = "";
                     numfila = e.RowIndex;
@@ -513,7 +513,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                else if (e.ColumnIndex == 11)
+                else if (e.ColumnIndex == 11)    // Imagen del Producto
                 {
                     numfila = e.RowIndex;
                     obtenerDatosDGVProductos(numfila);
@@ -531,7 +531,7 @@ namespace PuntoDeVentaV2
                         agregarFoto();
                     }
                 }
-                else if (e.ColumnIndex == 12)
+                else if (e.ColumnIndex == 12)    // Etiqueta del Producto
                 {
                     numerofila = e.RowIndex;
                     obtenerDatosDGVProductos(numerofila);
@@ -554,7 +554,7 @@ namespace PuntoDeVentaV2
                         MakeTagProd.BringToFront();
                     }
                 }
-                else if (e.ColumnIndex == 13)
+                else if (e.ColumnIndex == 13)    // Copiar el Producto
                 {
                     if (seleccionadoDato == 0)
                     {
@@ -565,7 +565,7 @@ namespace PuntoDeVentaV2
                     }
                     btnAgregarProducto.PerformClick();
                 }
-                else if (e.ColumnIndex == 17)
+                else if (e.ColumnIndex == 17)    // Ajustar del Producto
                 {
                     //Esta es la columna de la opcion "Ajustar"
                     AjustarProducto ap = new AjustarProducto(idProducto);
@@ -780,14 +780,21 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%')";
+                extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR P.ClaveInterna LIKE '%{busqueda}%')";
             }
 
             if (status == 2)
             {
                 if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
                 {
-                    p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID}", DataMemberDGV, maximo_x_pagina);
+                    if (busqueda == "")
+                    {
+                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID}", DataMemberDGV, maximo_x_pagina);
+                    }
+                    else if (busqueda != "")
+                    {
+                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} {extra}", DataMemberDGV, maximo_x_pagina);
+                    }
                 }
             }
             if (status == 1)
@@ -818,7 +825,7 @@ namespace PuntoDeVentaV2
                 {
                     if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
                     {
-                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                        p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
                 else if (busqueda != "")
@@ -1407,7 +1414,18 @@ namespace PuntoDeVentaV2
         private void timerBusqueda_Tick(object sender, EventArgs e)
         {
             timerBusqueda.Stop();
-            CargarDatos(1, txtBusqueda.Text);
+            if (cbMostrar.Text == "Habilitados")
+            {
+                CargarDatos(1, txtBusqueda.Text);
+            }
+            else if (cbMostrar.Text == "Deshabilitados")
+            {
+                CargarDatos(0, txtBusqueda.Text);
+            }
+            else if (cbMostrar.Text == "Todos")
+            {
+                CargarDatos(2, txtBusqueda.Text);
+            }
         }
 
         private void Productos_Paint(object sender, PaintEventArgs e)
