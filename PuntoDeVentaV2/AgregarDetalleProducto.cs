@@ -36,17 +36,9 @@ namespace PuntoDeVentaV2
             {
                 var datos = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
 
-                panelDatos.Visible = true;
+                panelDatosProveedor.Visible = true;
                 lblNombreProveedor.Text = datos[0];
                 lblRFCProveedor.Text = datos[1];
-                lblCalleProveedor.Text = datos[2];
-                lblNoExtProveedor.Text = datos[3];
-                lblNoInterProveedor.Text = datos[4];
-                lblColoniaProveedor.Text = datos[5];
-                lblMunicipioProveedor.Text = datos[6];
-                lblEstadoProveedor.Text = datos[7];
-                lblCPProveedor.Text = datos[8];
-                lblEmailProveedor.Text = datos[9];
                 lblTelProveedor.Text = datos[10];
                 cbProveedores.Text = datos[0];
             } 
@@ -75,8 +67,6 @@ namespace PuntoDeVentaV2
                 cbProveedores.DisplayMember = "Value";
                 cbProveedores.ValueMember = "Key";
 
-
-                listaOpciones.SetItemChecked(0, true);
                 lbProveedor.Visible = true;
                 cbProveedores.Visible = true;
                 cbProveedores.SelectedValue = "0";
@@ -108,7 +98,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void listaOpciones_SelectedIndexChanged(object sender, EventArgs e)
+        /*private void listaOpciones_SelectedIndexChanged(object sender, EventArgs e)
         {
             int indice = listaOpciones.SelectedIndex;
 
@@ -139,11 +129,11 @@ namespace PuntoDeVentaV2
                     cbProveedores.Visible = false;
                 }
             }
-        }
+        }*/
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
-            string detalles = null;
+            /*string detalles = null;
 
             foreach (int indice in listaOpciones.CheckedIndices)
             {
@@ -159,9 +149,31 @@ namespace PuntoDeVentaV2
                 //detalles = detalles.Remove(detalles.Length - 1);
 
                 AgregarEditarProducto.detallesProducto = detalles;
-            }
+            }*/
 
             this.Hide();
+        }
+
+        private void btnAgregarProveedor_Click(object sender, EventArgs e)
+        {
+            AgregarProveedor ap = new AgregarProveedor();
+
+            ap.FormClosed += delegate
+            {
+
+            };
+
+            ap.ShowDialog();
+        }
+
+        private void btnAgregarCategoria_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funciona 2");
+        }
+
+        private void btnAgregarUbicacion_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Funciona 3");
         }
     }
 }
