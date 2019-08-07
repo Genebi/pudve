@@ -2739,56 +2739,70 @@ namespace PuntoDeVentaV2
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
             string cadAux = string.Empty;
+
             PH = PConteidoProducto.Height;
             Hided = false;
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
 
-            cadAux = TituloForm.Substring(8);
-            if (cadAux == "Producto")
-            {
-                this.Text = cadAux+"s";
-            }
-            else if (cadAux == "Paquete")
-            {
-                this.Text = cadAux + "s";
-            }
-            else if (cadAux == "Servicio")
-            {
-                this.Text = cadAux + "s";
-            }
-            tituloSeccion.Text = TituloForm;
+            cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
 
-            if (DatosSourceFinal == 3)
+            if (cadAux == "Producto")           // si es un Producto
             {
-                cbTipo.SelectedIndex = 0;
-            }
-
-            if (DatosSourceFinal == 2)
-            {
-                txtStockProducto.Enabled = false;
-            }
-
-            if (DatosSourceFinal == 1)
-            {
-                txtStockProducto.Enabled = true;
-            }
-
-            if (ProdNombre.Equals(""))
-            {
+                this.Text = cadAux+"s";             // Ponemos el titulo del form en plural "Productos"
                 LimpiarCampos();
-                cargarDatosNvoProd();
                 cbTipo.Text = "Producto";
                 btnAdd.Visible = false;
                 ocultarPanel();
             }
-            else if (!ProdNombre.Equals(""))
+            else if (cadAux == "Paquete")       // si es un Paquete
             {
-                cargarDatos();
+                this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Paquetes"
+                LimpiarCampos();
+                cbTipo.Text = "Servicio / Paquete";
+                btnAdd.Visible = true;
                 ocultarPanel();
-                cargarCBProductos();
             }
+            else if (cadAux == "Servicio")      // si es un Servicio
+            {
+                this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Servicios"
+                LimpiarCampos();
+                cbTipo.Text = "Servicio / Paquete";
+                btnAdd.Visible = true;
+                ocultarPanel();
+            }
+            tituloSeccion.Text = TituloForm;    // Ponemos el Text del label TituloSeccion
+
+            if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
+            {
+                cbTipo.SelectedIndex = 0;
+            }
+
+            if (DatosSourceFinal == 2)      // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
+            {
+                txtStockProducto.Enabled = false;
+            }
+
+            if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
+            {
+                txtStockProducto.Enabled = true;
+            }
+
+            //if (ProdNombre.Equals(""))
+            //{
+            //    LimpiarCampos();
+            //    cargarDatosNvoProd();
+            //    cbTipo.Text = "Producto";
+            //    btnAdd.Visible = false;
+            //    ocultarPanel();
+            //}
+            //else if (!ProdNombre.Equals(""))
+            //{
+            //    cargarDatos();
+            //    ocultarPanel();
+            //    cargarCBProductos();
+            //}
         }
 
         private void cargarCBProductos()
