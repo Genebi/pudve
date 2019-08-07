@@ -1258,7 +1258,7 @@ namespace PuntoDeVentaV2
                         //Cierra la ventana donde se agregan los datos del producto
                         this.Close();
                     }
-                    else if (this.Text == "Paquetes")
+                    else if (this.Text == "Paquetes" || this.Text == "Servicios")
                     {
                         ProdServPaq = "S";
                         stock = "";
