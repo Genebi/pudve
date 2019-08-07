@@ -1146,76 +1146,39 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            if (origenDeLosDatos == 0)
-            {
-                FormAgregar.DatosSource = 1;
-            }
-            if (origenDeLosDatos == 2)
-            {
-                FormAgregar.DatosSource = 2;
-            }
-            if (origenDeLosDatos == 4)
-            {
-                FormAgregar.DatosSource = 4;
-            }
-
+            FormAgregar = new AgregarEditarProducto("Agregar Producto");
             FormAgregar.FormClosed += delegate
             {
                 CargarDatos();
             };
-
-            if (FormAgregar.Text == "")
-            {
-                FormAgregar = new AgregarEditarProducto("Agregar Producto");
-            }
-
             if (!FormAgregar.Visible)
             {
-                if (seleccionadoDato == 0)
-                {
-                    FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
-                }
-                else if (seleccionadoDato == 1)
-                {
-                    seleccionadoDato = 0;
-                    FormAgregar.ProdNombre = Nombre;
-                    FormAgregar.ProdStock = Stock;
-                    FormAgregar.ProdPrecio = Precio;
-                    FormAgregar.ProdCategoria = ProductoCategoria;
-                    FormAgregar.ProdClaveInterna = ClaveInterna;
-                    FormAgregar.ProdCodBarras = CodigoBarras;
-                    FormAgregar.claveProductoxml = ClaveProducto;
-                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
-                    FormAgregar.idEditarProducto = idProductoEditar;
-                    FormAgregar.impuestoSeleccionado = impuestoProducto;
-                    FormAgregar.ShowDialog();
-                }
+                FormAgregar.DatosSource = 1;
+                FormAgregar.ProdNombre = "";
+                FormAgregar.ShowDialog();
             }
             else
             {
-                if (seleccionadoDato == 0)
-                {
-                    FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
-                }
-                else if (seleccionadoDato == 1)
-                {
-                    seleccionadoDato = 0;
-                    FormAgregar.ProdNombre = Nombre;
-                    FormAgregar.ProdStock = Stock;
-                    FormAgregar.ProdPrecio = Precio;
-                    FormAgregar.ProdCategoria = ProductoCategoria;
-                    FormAgregar.ProdClaveInterna = ClaveInterna;
-                    FormAgregar.ProdCodBarras = CodigoBarras;
-                    FormAgregar.claveProductoxml = ClaveProducto;
-                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
-                    FormAgregar.idEditarProducto = idProductoEditar;
-                    FormAgregar.impuestoSeleccionado = impuestoProducto;
-                    FormAgregar.ShowDialog();
-                }
+                FormAgregar.DatosSource = 1;
+                FormAgregar.ProdNombre = "";
+                FormAgregar.ShowDialog();
             }
-            origenDeLosDatos = 0;
+        }
+
+        private void btnAgregarPaquete_Click(object sender, EventArgs e)
+        {
+            FormAgregar = new AgregarEditarProducto("Agregar Paquete");
+            FormAgregar.DatosSource = 1;
+            FormAgregar.ProdNombre = "";
+            FormAgregar.ShowDialog();
+        }
+
+        private void btnAgregarServicio_Click(object sender, EventArgs e)
+        {
+            FormAgregar = new AgregarEditarProducto("Agregar Servicio");
+            FormAgregar.DatosSource = 1;
+            FormAgregar.ProdNombre = "";
+            FormAgregar.ShowDialog();
         }
 
         private void ModificarStatusProducto()
