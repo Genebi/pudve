@@ -119,6 +119,7 @@
             this.checkUbicacion.TabIndex = 3;
             this.checkUbicacion.Text = "Ubicación";
             this.checkUbicacion.UseVisualStyleBackColor = true;
+            this.checkUbicacion.CheckedChanged += new System.EventHandler(this.checkUbicacion_CheckedChanged);
             // 
             // checkCategoria
             // 
@@ -130,6 +131,7 @@
             this.checkCategoria.TabIndex = 2;
             this.checkCategoria.Text = "Categoría";
             this.checkCategoria.UseVisualStyleBackColor = true;
+            this.checkCategoria.CheckedChanged += new System.EventHandler(this.checkCategoria_CheckedChanged);
             // 
             // btnAgregarProveedor
             // 
@@ -152,6 +154,7 @@
             this.checkProveedor.TabIndex = 0;
             this.checkProveedor.Text = "Proveedor";
             this.checkProveedor.UseVisualStyleBackColor = true;
+            this.checkProveedor.CheckedChanged += new System.EventHandler(this.checkProveedor_CheckedChanged);
             // 
             // lbProveedor
             // 

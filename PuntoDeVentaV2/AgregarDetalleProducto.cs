@@ -211,5 +211,26 @@ namespace PuntoDeVentaV2
 
             nuevaUbicacion.ShowDialog();
         }
+
+        private void checkProveedor_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkProveedor = checkProveedor.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void checkCategoria_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkCategoria = checkCategoria.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void checkUbicacion_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkUbicacion = checkUbicacion.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
     }
 }
