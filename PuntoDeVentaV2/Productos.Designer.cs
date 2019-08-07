@@ -65,7 +65,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAgregarPaquete = new System.Windows.Forms.Button();
             this.btnListView = new System.Windows.Forms.Button();
             this.btnPhotoView = new System.Windows.Forms.Button();
             this.btnModificarEstado = new System.Windows.Forms.Button();
@@ -438,7 +438,7 @@
             this.panel1.Location = new System.Drawing.Point(12, 6);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(841, 189);
+            this.panel1.Size = new System.Drawing.Size(841, 195);
             this.panel1.TabIndex = 15;
             // 
             // groupBox2
@@ -457,7 +457,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnAgregarPaquete);
             this.groupBox1.Controls.Add(this.btnAgregarProducto);
             this.groupBox1.Location = new System.Drawing.Point(650, 74);
             this.groupBox1.Name = "groupBox1";
@@ -483,22 +483,23 @@
             this.button2.Text = "Servicio";
             this.button2.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnAgregarPaquete
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(13, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(156, 27);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Paquete";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnAgregarPaquete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAgregarPaquete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarPaquete.FlatAppearance.BorderSize = 0;
+            this.btnAgregarPaquete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnAgregarPaquete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnAgregarPaquete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarPaquete.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnAgregarPaquete.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarPaquete.Location = new System.Drawing.Point(13, 50);
+            this.btnAgregarPaquete.Name = "btnAgregarPaquete";
+            this.btnAgregarPaquete.Size = new System.Drawing.Size(156, 27);
+            this.btnAgregarPaquete.TabIndex = 2;
+            this.btnAgregarPaquete.Text = "Paquete";
+            this.btnAgregarPaquete.UseVisualStyleBackColor = false;
+            this.btnAgregarPaquete.Click += new System.EventHandler(this.btnAgregarPaquete_Click);
             // 
             // btnListView
             // 
@@ -873,7 +874,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Impuesto;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAgregarPaquete;
         private System.Windows.Forms.Button button2;
     }
 }

@@ -1146,7 +1146,15 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            FormAgregar = new AgregarEditarProducto("Agregar un producto");
+            FormAgregar = new AgregarEditarProducto("Agregar Producto");
+            FormAgregar.DatosSource = 1;
+            FormAgregar.ProdNombre = "";
+            FormAgregar.ShowDialog();
+        }
+
+        private void btnAgregarPaquete_Click(object sender, EventArgs e)
+        {
+            FormAgregar = new AgregarEditarProducto("Agregar Paquete");
             FormAgregar.DatosSource = 1;
             FormAgregar.ProdNombre = "";
             FormAgregar.ShowDialog();
