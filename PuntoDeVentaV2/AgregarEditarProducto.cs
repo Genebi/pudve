@@ -2738,13 +2738,26 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            string cadAux = string.Empty;
             PH = PConteidoProducto.Height;
             Hided = false;
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
 
-            this.Text = TituloForm;
+            cadAux = TituloForm.Substring(8);
+            if (cadAux == "Producto")
+            {
+                this.Text = cadAux+"s";
+            }
+            else if (cadAux == "Paquete")
+            {
+                this.Text = cadAux + "s";
+            }
+            else if (cadAux == "Servicio")
+            {
+                this.Text = cadAux + "s";
+            }
             tituloSeccion.Text = TituloForm;
 
             if (DatosSourceFinal == 3)

@@ -64,7 +64,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnAgregarServicio = new System.Windows.Forms.Button();
             this.btnAgregarPaquete = new System.Windows.Forms.Button();
             this.btnListView = new System.Windows.Forms.Button();
             this.btnPhotoView = new System.Windows.Forms.Button();
@@ -456,7 +456,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.btnAgregarServicio);
             this.groupBox1.Controls.Add(this.btnAgregarPaquete);
             this.groupBox1.Controls.Add(this.btnAgregarProducto);
             this.groupBox1.Location = new System.Drawing.Point(650, 74);
@@ -466,22 +466,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Agregar: ";
             // 
-            // button2
+            // btnAgregarServicio
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(13, 84);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(156, 27);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Servicio";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnAgregarServicio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAgregarServicio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarServicio.FlatAppearance.BorderSize = 0;
+            this.btnAgregarServicio.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnAgregarServicio.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnAgregarServicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarServicio.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnAgregarServicio.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarServicio.Location = new System.Drawing.Point(13, 84);
+            this.btnAgregarServicio.Name = "btnAgregarServicio";
+            this.btnAgregarServicio.Size = new System.Drawing.Size(156, 27);
+            this.btnAgregarServicio.TabIndex = 3;
+            this.btnAgregarServicio.Text = "Servicio";
+            this.btnAgregarServicio.UseVisualStyleBackColor = false;
+            this.btnAgregarServicio.Click += new System.EventHandler(this.btnAgregarServicio_Click);
             // 
             // btnAgregarPaquete
             // 
@@ -875,6 +876,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnAgregarPaquete;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnAgregarServicio;
     }
 }

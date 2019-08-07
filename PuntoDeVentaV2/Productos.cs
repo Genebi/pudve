@@ -1160,6 +1160,14 @@ namespace PuntoDeVentaV2
             FormAgregar.ShowDialog();
         }
 
+        private void btnAgregarServicio_Click(object sender, EventArgs e)
+        {
+            FormAgregar = new AgregarEditarProducto("Agregar Servicio");
+            FormAgregar.DatosSource = 1;
+            FormAgregar.ProdNombre = "";
+            FormAgregar.ShowDialog();
+        }
+
         private void ModificarStatusProducto()
         {
             DataRow row;
