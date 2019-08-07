@@ -51,6 +51,8 @@ namespace PuntoDeVentaV2
         /****************************
 		*   Codigo de Emmanuel      *
 		****************************/
+        string TituloForm=string.Empty;
+
         public int DatosSource { set; get; }
         public string ProdNombre { set; get; }
         public string ProdStock { set; get; }
@@ -679,6 +681,7 @@ namespace PuntoDeVentaV2
 
         public AgregarEditarProducto(string titulo)
         {
+            TituloForm = titulo;
             InitializeComponent();
         }
 
@@ -2740,6 +2743,9 @@ namespace PuntoDeVentaV2
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
+
+            this.Text = TituloForm;
+            tituloSeccion.Text = TituloForm;
 
             if (DatosSourceFinal == 3)
             {
