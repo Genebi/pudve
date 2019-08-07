@@ -12,6 +12,7 @@ namespace PuntoDeVentaV2
         public static int Anticipos;
         public static int Caja;
         public static int CatalogoUnidadesMedida;
+        public static int Categorias;
         public static int CodigoBarrasExtras;
         public static int DescuentoCliente;
         public static int DescuentoMayoreo;
@@ -33,6 +34,7 @@ namespace PuntoDeVentaV2
         public static int RevisarInventario;
         public static int DetallesVenta;
         public static int Abonos;
+        public static int Ubicaciones;
         #endregion VariablesTablas
 
         public DBTables()
@@ -62,6 +64,8 @@ namespace PuntoDeVentaV2
             RevisarInventario = 15;
             DetallesVenta = 14;
             Abonos = 11;
+            Categorias = 3;
+            Ubicaciones = 3;
             #endregion InicializarVariables
         }
 
@@ -1513,7 +1517,7 @@ namespace PuntoDeVentaV2
         }
         #endregion TablaDetallesVenta
 
-        // Tabla de Abonos
+        // Tabla de Abonos 24
         #region TablaAbonos
         public int GetAbonos()
         {
@@ -1577,5 +1581,87 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaAbonos
+
+        // Tabla de Categorias 25
+        #region TablaCategorias
+        public int GetCategorias()
+        {
+            return Categorias;
+        }
+
+        public string PragmaTablaCategorias(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameCategorias(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaCategorias(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID        INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario INTEGER NOT NULL,
+                                              Nombre    TEXT    NOT NULL);";
+        }
+
+        public string QueryUpdateTablaCategorias(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             Nombre) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             Nombre 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaCategorias(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaCategorias
+
+        // Tabla de Ubicaciones 26
+        #region TablaCategorias
+        public int GetUbicaciones()
+        {
+            return Ubicaciones;
+        }
+
+        public string PragmaTablaUbicaciones(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameUbicaciones(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaUbicaciones(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID          INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario   INTEGER NOT NULL,
+                                              Descripcion TEXT);";
+        }
+
+        public string QueryUpdateTablaUbicaciones(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             Descripcion) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             Descripcion 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaUbicaciones(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaUbicaciones
     }
 }
