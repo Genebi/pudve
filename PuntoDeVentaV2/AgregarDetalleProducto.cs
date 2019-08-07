@@ -133,25 +133,24 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
-            /*string detalles = null;
+            string detalles = null;
 
-            foreach (int indice in listaOpciones.CheckedIndices)
+            if (checkProveedor.Checked)
             {
-                //Proveedor
-                if (indice == 0)
-                {
-                    detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text;// + "|";
-                }
+                detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text;
             }
+
 
             if (detalles != null)
             {
                 //detalles = detalles.Remove(detalles.Length - 1);
 
                 AgregarEditarProducto.detallesProducto = detalles;
-            }*/
 
-            this.Hide();
+                MessageBox.Show(detalles);
+            }
+
+            //this.Hide();
         }
 
         private void btnAgregarProveedor_Click(object sender, EventArgs e)
@@ -168,12 +167,26 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarCategoria_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funciona 2");
+            AgregarCategoria nuevaCategoria = new AgregarCategoria();
+
+            nuevaCategoria.FormClosed += delegate
+            {
+
+            };
+
+            nuevaCategoria.ShowDialog();
         }
 
         private void btnAgregarUbicacion_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funciona 3");
+            AgregarUbicacion nuevaUbicacion = new AgregarUbicacion();
+
+            nuevaUbicacion.FormClosed += delegate
+            {
+
+            };
+
+            nuevaUbicacion.ShowDialog();
         }
     }
 }

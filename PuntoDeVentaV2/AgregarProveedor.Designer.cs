@@ -483,9 +483,9 @@
             this.Controls.Add(this.tituloSeccion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AgregarProveedor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PUDVE - Nuevo Proveedor";
             this.Load += new System.EventHandler(this.AgregarProveedor_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
