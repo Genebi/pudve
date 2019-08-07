@@ -23,17 +23,6 @@ namespace PuntoDeVentaV2.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=BETARAYBILL\\JANDO;Initial Catalog=PuntoDeVenta;Integrated Security=Tr" +
-            "ue")]
-        public string PuntoDeVentaConnectionString {
-            get {
-                return ((string)(this["PuntoDeVentaConnectionString"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
@@ -120,13 +109,37 @@ namespace PuntoDeVentaV2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkProveedor {
             get {
-                return ((string)(this["Setting"]));
+                return ((bool)(this["checkProveedor"]));
             }
             set {
-                this["Setting"] = value;
+                this["checkProveedor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkCategoria {
+            get {
+                return ((bool)(this["checkCategoria"]));
+            }
+            set {
+                this["checkCategoria"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkUbicacion {
+            get {
+                return ((bool)(this["checkUbicacion"]));
+            }
+            set {
+                this["checkUbicacion"] = value;
             }
         }
     }

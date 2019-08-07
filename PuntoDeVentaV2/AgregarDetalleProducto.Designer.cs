@@ -31,6 +31,12 @@
             this.separadorInicial = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.btnAgregarUbicacion = new System.Windows.Forms.Button();
+            this.btnAgregarCategoria = new System.Windows.Forms.Button();
+            this.checkUbicacion = new System.Windows.Forms.CheckBox();
+            this.checkCategoria = new System.Windows.Forms.CheckBox();
+            this.btnAgregarProveedor = new System.Windows.Forms.Button();
+            this.checkProveedor = new System.Windows.Forms.CheckBox();
             this.lbProveedor = new System.Windows.Forms.Label();
             this.cbProveedores = new System.Windows.Forms.ComboBox();
             this.panelContenido = new System.Windows.Forms.Panel();
@@ -39,12 +45,12 @@
             this.lblRFCProveedor = new System.Windows.Forms.Label();
             this.lblNombreProveedor = new System.Windows.Forms.Label();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
-            this.checkProveedor = new System.Windows.Forms.CheckBox();
-            this.btnAgregarProveedor = new System.Windows.Forms.Button();
-            this.checkCategoria = new System.Windows.Forms.CheckBox();
-            this.checkUbicacion = new System.Windows.Forms.CheckBox();
-            this.btnAgregarCategoria = new System.Windows.Forms.Button();
-            this.btnAgregarUbicacion = new System.Windows.Forms.Button();
+            this.lbCategoria = new System.Windows.Forms.Label();
+            this.cbCategorias = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lbUbicacion = new System.Windows.Forms.Label();
+            this.cbUbicaciones = new System.Windows.Forms.ComboBox();
+            this.panelUbicacion = new System.Windows.Forms.Panel();
             this.panelMenu.SuspendLayout();
             this.panelContenido.SuspendLayout();
             this.panelDatosProveedor.SuspendLayout();
@@ -81,6 +87,72 @@
             this.panelMenu.Size = new System.Drawing.Size(186, 609);
             this.panelMenu.TabIndex = 21;
             // 
+            // btnAgregarUbicacion
+            // 
+            this.btnAgregarUbicacion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarUbicacion.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnAgregarUbicacion.Location = new System.Drawing.Point(154, 66);
+            this.btnAgregarUbicacion.Name = "btnAgregarUbicacion";
+            this.btnAgregarUbicacion.Size = new System.Drawing.Size(20, 20);
+            this.btnAgregarUbicacion.TabIndex = 5;
+            this.btnAgregarUbicacion.UseVisualStyleBackColor = true;
+            this.btnAgregarUbicacion.Click += new System.EventHandler(this.btnAgregarUbicacion_Click);
+            // 
+            // btnAgregarCategoria
+            // 
+            this.btnAgregarCategoria.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarCategoria.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnAgregarCategoria.Location = new System.Drawing.Point(154, 36);
+            this.btnAgregarCategoria.Name = "btnAgregarCategoria";
+            this.btnAgregarCategoria.Size = new System.Drawing.Size(20, 20);
+            this.btnAgregarCategoria.TabIndex = 4;
+            this.btnAgregarCategoria.UseVisualStyleBackColor = true;
+            this.btnAgregarCategoria.Click += new System.EventHandler(this.btnAgregarCategoria_Click);
+            // 
+            // checkUbicacion
+            // 
+            this.checkUbicacion.AutoSize = true;
+            this.checkUbicacion.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkUbicacion.Location = new System.Drawing.Point(6, 66);
+            this.checkUbicacion.Name = "checkUbicacion";
+            this.checkUbicacion.Size = new System.Drawing.Size(88, 21);
+            this.checkUbicacion.TabIndex = 3;
+            this.checkUbicacion.Text = "Ubicación";
+            this.checkUbicacion.UseVisualStyleBackColor = true;
+            // 
+            // checkCategoria
+            // 
+            this.checkCategoria.AutoSize = true;
+            this.checkCategoria.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkCategoria.Location = new System.Drawing.Point(6, 36);
+            this.checkCategoria.Name = "checkCategoria";
+            this.checkCategoria.Size = new System.Drawing.Size(88, 21);
+            this.checkCategoria.TabIndex = 2;
+            this.checkCategoria.Text = "Categoría";
+            this.checkCategoria.UseVisualStyleBackColor = true;
+            // 
+            // btnAgregarProveedor
+            // 
+            this.btnAgregarProveedor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarProveedor.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnAgregarProveedor.Location = new System.Drawing.Point(154, 6);
+            this.btnAgregarProveedor.Name = "btnAgregarProveedor";
+            this.btnAgregarProveedor.Size = new System.Drawing.Size(20, 20);
+            this.btnAgregarProveedor.TabIndex = 1;
+            this.btnAgregarProveedor.UseVisualStyleBackColor = true;
+            this.btnAgregarProveedor.Click += new System.EventHandler(this.btnAgregarProveedor_Click);
+            // 
+            // checkProveedor
+            // 
+            this.checkProveedor.AutoSize = true;
+            this.checkProveedor.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkProveedor.Location = new System.Drawing.Point(6, 6);
+            this.checkProveedor.Name = "checkProveedor";
+            this.checkProveedor.Size = new System.Drawing.Size(90, 21);
+            this.checkProveedor.TabIndex = 0;
+            this.checkProveedor.Text = "Proveedor";
+            this.checkProveedor.UseVisualStyleBackColor = true;
+            // 
             // lbProveedor
             // 
             this.lbProveedor.AutoSize = true;
@@ -105,6 +177,12 @@
             // 
             // panelContenido
             // 
+            this.panelContenido.Controls.Add(this.panelUbicacion);
+            this.panelContenido.Controls.Add(this.cbUbicaciones);
+            this.panelContenido.Controls.Add(this.lbUbicacion);
+            this.panelContenido.Controls.Add(this.panel1);
+            this.panelContenido.Controls.Add(this.cbCategorias);
+            this.panelContenido.Controls.Add(this.lbCategoria);
             this.panelContenido.Controls.Add(this.panelDatosProveedor);
             this.panelContenido.Controls.Add(this.cbProveedores);
             this.panelContenido.Controls.Add(this.lbProveedor);
@@ -173,71 +251,59 @@
             this.btnGuardarDetalles.UseVisualStyleBackColor = false;
             this.btnGuardarDetalles.Click += new System.EventHandler(this.btnGuardarDetalles_Click);
             // 
-            // checkProveedor
+            // lbCategoria
             // 
-            this.checkProveedor.AutoSize = true;
-            this.checkProveedor.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkProveedor.Location = new System.Drawing.Point(6, 6);
-            this.checkProveedor.Name = "checkProveedor";
-            this.checkProveedor.Size = new System.Drawing.Size(90, 21);
-            this.checkProveedor.TabIndex = 0;
-            this.checkProveedor.Text = "Proveedor";
-            this.checkProveedor.UseVisualStyleBackColor = true;
+            this.lbCategoria.AutoSize = true;
+            this.lbCategoria.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCategoria.Location = new System.Drawing.Point(5, 89);
+            this.lbCategoria.Name = "lbCategoria";
+            this.lbCategoria.Size = new System.Drawing.Size(69, 17);
+            this.lbCategoria.TabIndex = 25;
+            this.lbCategoria.Text = "Categoría";
             // 
-            // btnAgregarProveedor
+            // cbCategorias
             // 
-            this.btnAgregarProveedor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarProveedor.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarProveedor.Location = new System.Drawing.Point(154, 6);
-            this.btnAgregarProveedor.Name = "btnAgregarProveedor";
-            this.btnAgregarProveedor.Size = new System.Drawing.Size(20, 20);
-            this.btnAgregarProveedor.TabIndex = 1;
-            this.btnAgregarProveedor.UseVisualStyleBackColor = true;
-            this.btnAgregarProveedor.Click += new System.EventHandler(this.btnAgregarProveedor_Click);
+            this.cbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategorias.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCategorias.FormattingEnabled = true;
+            this.cbCategorias.Location = new System.Drawing.Point(82, 87);
+            this.cbCategorias.Name = "cbCategorias";
+            this.cbCategorias.Size = new System.Drawing.Size(236, 24);
+            this.cbCategorias.TabIndex = 26;
             // 
-            // checkCategoria
+            // panel1
             // 
-            this.checkCategoria.AutoSize = true;
-            this.checkCategoria.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCategoria.Location = new System.Drawing.Point(6, 36);
-            this.checkCategoria.Name = "checkCategoria";
-            this.checkCategoria.Size = new System.Drawing.Size(88, 21);
-            this.checkCategoria.TabIndex = 2;
-            this.checkCategoria.Text = "Categoría";
-            this.checkCategoria.UseVisualStyleBackColor = true;
+            this.panel1.Location = new System.Drawing.Point(8, 117);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(310, 40);
+            this.panel1.TabIndex = 27;
             // 
-            // checkUbicacion
+            // lbUbicacion
             // 
-            this.checkUbicacion.AutoSize = true;
-            this.checkUbicacion.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkUbicacion.Location = new System.Drawing.Point(6, 66);
-            this.checkUbicacion.Name = "checkUbicacion";
-            this.checkUbicacion.Size = new System.Drawing.Size(88, 21);
-            this.checkUbicacion.TabIndex = 3;
-            this.checkUbicacion.Text = "Ubicación";
-            this.checkUbicacion.UseVisualStyleBackColor = true;
+            this.lbUbicacion.AutoSize = true;
+            this.lbUbicacion.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbUbicacion.Location = new System.Drawing.Point(324, 89);
+            this.lbUbicacion.Name = "lbUbicacion";
+            this.lbUbicacion.Size = new System.Drawing.Size(69, 17);
+            this.lbUbicacion.TabIndex = 28;
+            this.lbUbicacion.Text = "Ubicación";
             // 
-            // btnAgregarCategoria
+            // cbUbicaciones
             // 
-            this.btnAgregarCategoria.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarCategoria.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarCategoria.Location = new System.Drawing.Point(154, 36);
-            this.btnAgregarCategoria.Name = "btnAgregarCategoria";
-            this.btnAgregarCategoria.Size = new System.Drawing.Size(20, 20);
-            this.btnAgregarCategoria.TabIndex = 4;
-            this.btnAgregarCategoria.UseVisualStyleBackColor = true;
-            this.btnAgregarCategoria.Click += new System.EventHandler(this.btnAgregarCategoria_Click);
+            this.cbUbicaciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUbicaciones.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbUbicaciones.FormattingEnabled = true;
+            this.cbUbicaciones.Location = new System.Drawing.Point(398, 87);
+            this.cbUbicaciones.Name = "cbUbicaciones";
+            this.cbUbicaciones.Size = new System.Drawing.Size(236, 24);
+            this.cbUbicaciones.TabIndex = 29;
             // 
-            // btnAgregarUbicacion
+            // panelUbicacion
             // 
-            this.btnAgregarUbicacion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarUbicacion.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarUbicacion.Location = new System.Drawing.Point(154, 66);
-            this.btnAgregarUbicacion.Name = "btnAgregarUbicacion";
-            this.btnAgregarUbicacion.Size = new System.Drawing.Size(20, 20);
-            this.btnAgregarUbicacion.TabIndex = 5;
-            this.btnAgregarUbicacion.UseVisualStyleBackColor = true;
-            this.btnAgregarUbicacion.Click += new System.EventHandler(this.btnAgregarUbicacion_Click);
+            this.panelUbicacion.Location = new System.Drawing.Point(328, 117);
+            this.panelUbicacion.Name = "panelUbicacion";
+            this.panelUbicacion.Size = new System.Drawing.Size(306, 40);
+            this.panelUbicacion.TabIndex = 28;
             // 
             // AgregarDetalleProducto
             // 
@@ -283,5 +349,11 @@
         private System.Windows.Forms.Button btnAgregarCategoria;
         private System.Windows.Forms.CheckBox checkUbicacion;
         private System.Windows.Forms.CheckBox checkCategoria;
+        private System.Windows.Forms.Panel panelUbicacion;
+        private System.Windows.Forms.ComboBox cbUbicaciones;
+        private System.Windows.Forms.Label lbUbicacion;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ComboBox cbCategorias;
+        private System.Windows.Forms.Label lbCategoria;
     }
 }

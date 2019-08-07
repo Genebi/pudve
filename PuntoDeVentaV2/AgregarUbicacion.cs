@@ -12,6 +12,8 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarUbicacion : Form
     {
+        Conexion cn = new Conexion();
+
         public AgregarUbicacion()
         {
             InitializeComponent();
@@ -24,15 +26,20 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var categoria = txtNombre.Text;
+            var ubicacion = txtNombre.Text;
 
-            if (string.IsNullOrWhiteSpace(categoria))
+            if (string.IsNullOrWhiteSpace(ubicacion))
             {
                 MessageBox.Show("Introduzca un nombre para la ubicación", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            MessageBox.Show(categoria);
+            int resultado = cn.EjecutarConsulta($"INSERT INTO Ubicaciones (IDUsuario, Descripcion) VALUES ('{FormPrincipal.userID}', '{ubicacion}')");
+            
+            if (resultado > 0)
+            {
+                this.Dispose();
+            }
         }
 
         private void txtNombre_KeyDown(object sender, KeyEventArgs e)

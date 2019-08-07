@@ -236,7 +236,6 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-
         public string[] ObtenerAnticipo(int idAnticipo, int idUsuario)
         {
             List<string> lista = new List<string>();
@@ -334,6 +333,42 @@ namespace PuntoDeVentaV2
                 {
                     lista.Add(info["CodigoBarraExtra"].ToString());
                 }
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] ObtenerCategorias(int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Categorias WHERE IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                lista.Add(dr["ID"] + "|" + dr["Nombre"]);
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] ObtenerUbicaciones(int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Ubicaciones WHERE IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                lista.Add(dr["ID"] + "|" + dr["Descripcion"]);
             }
 
             dr.Close();

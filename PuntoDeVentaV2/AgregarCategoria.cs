@@ -12,6 +12,8 @@ namespace PuntoDeVentaV2
 {
     public partial class AgregarCategoria : Form
     {
+        Conexion cn = new Conexion();
+
         public AgregarCategoria()
         {
             InitializeComponent();
@@ -37,7 +39,12 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            MessageBox.Show(categoria);
+            int resultado = cn.EjecutarConsulta($"INSERT INTO Categorias (IDUsuario, Nombre) VALUES ('{FormPrincipal.userID}', '{categoria}')");
+
+            if (resultado > 0)
+            {
+                this.Dispose();
+            }
         }
 
         private void AgregarCategoria_Shown(object sender, EventArgs e)

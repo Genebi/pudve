@@ -15,8 +15,9 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        //Almacenar lista de proveedores del usuario
         string[] listaProveedores = new string[] { };
+        string[] listaCategorias = new string[] { };
+        string[] listaUbicaciones = new string[] { };
 
         public AgregarDetalleProducto()
         {
@@ -26,7 +27,8 @@ namespace PuntoDeVentaV2
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
             CargarProveedores();
-            //cargarDatosProveedor();
+            CargarCategorias();
+            CargarUbicaciones();
         }
 
         private void cargarDatosProveedor(int idProveedor)
@@ -98,38 +100,59 @@ namespace PuntoDeVentaV2
             }
         }
 
-        /*private void listaOpciones_SelectedIndexChanged(object sender, EventArgs e)
+        private void CargarCategorias()
         {
-            int indice = listaOpciones.SelectedIndex;
+            listaCategorias = mb.ObtenerCategorias(FormPrincipal.userID);
 
-            //Proveedor
-            if (indice == 0)
+            if (listaCategorias.Length > 0)
             {
-                if (listaOpciones.GetItemChecked(indice) == true)
+                Dictionary<string, string> categorias = new Dictionary<string, string>();
+
+                categorias.Add("0", "Seleccionar una categoría...");
+
+                foreach (var categoria in listaCategorias)
                 {
-                    lbProveedor.Visible = true;
-                    cbProveedores.Visible = true;
+                    var auxiliar = categoria.Split('|');
 
-                    if (listaProveedores.Length == 0)
-                    {
-                        AgregarProveedor ap = new AgregarProveedor();
-
-                        ap.FormClosed += delegate
-                        {
-                            CargarProveedores();
-                            cbProveedores.SelectedIndex = 0;
-                        };
-
-                        ap.ShowDialog();
-                    }
+                    categorias.Add(auxiliar[0], auxiliar[1]);
                 }
-                else
-                {
-                    lbProveedor.Visible = false;
-                    cbProveedores.Visible = false;
-                }
+
+                cbCategorias.DataSource = categorias.ToArray();
+                cbCategorias.DisplayMember = "Value";
+                cbCategorias.ValueMember = "Key";
             }
-        }*/
+            else
+            {
+                cbCategorias.Items.Add("Seleccionar una categoría...");
+            }
+        }
+
+        private void CargarUbicaciones()
+        {
+            listaUbicaciones = mb.ObtenerUbicaciones(FormPrincipal.userID);
+
+            if (listaUbicaciones.Length > 0)
+            {
+                Dictionary<string, string> ubicaciones = new Dictionary<string, string>();
+
+                ubicaciones.Add("0", "Seleccionar una ubicación...");
+
+                foreach (var ubicacion in listaUbicaciones)
+                {
+                    var auxiliar = ubicacion.Split('|');
+
+                    ubicaciones.Add(auxiliar[0], auxiliar[1]);
+                }
+
+                cbUbicaciones.DataSource = ubicaciones.ToArray();
+                cbUbicaciones.DisplayMember = "Value";
+                cbUbicaciones.ValueMember = "Key";
+            }
+            else
+            {
+                cbUbicaciones.Items.Add("Seleccionar una ubicación...");
+            }
+        }
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
@@ -159,7 +182,7 @@ namespace PuntoDeVentaV2
 
             ap.FormClosed += delegate
             {
-
+                MessageBox.Show("Se cerro el form de proovedor");
             };
 
             ap.ShowDialog();
@@ -171,7 +194,7 @@ namespace PuntoDeVentaV2
 
             nuevaCategoria.FormClosed += delegate
             {
-
+                MessageBox.Show("Se cerro el form de categoria");
             };
 
             nuevaCategoria.ShowDialog();
@@ -183,7 +206,7 @@ namespace PuntoDeVentaV2
 
             nuevaUbicacion.FormClosed += delegate
             {
-
+                MessageBox.Show("Se cerro el form de ubicacion");
             };
 
             nuevaUbicacion.ShowDialog();
