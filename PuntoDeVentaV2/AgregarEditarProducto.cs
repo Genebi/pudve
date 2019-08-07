@@ -1089,12 +1089,12 @@ namespace PuntoDeVentaV2
                         FormAgregar.Close();
                         tipoDescuento = descuentos[0];
                     }
-                    if (tipoServPaq == "")
-                    {
-                        cbTipo.Text = "Producto";
-                        tipoServPaq = "Producto";
-                    }
-                    else if (tipoServPaq == "Producto")
+                    //if (tipoServPaq == "")
+                    //{
+                    //    cbTipo.Text = "Producto";
+                    //    tipoServPaq = "Producto";
+                    //}
+                    if (this.Text == "Productos")
                     {
                         guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto };
                         //Se guardan los datos principales del producto
@@ -1258,7 +1258,7 @@ namespace PuntoDeVentaV2
                         //Cierra la ventana donde se agregan los datos del producto
                         this.Close();
                     }
-                    else if (tipoServPaq == "Servicio / Paquete")
+                    else if (this.Text == "Paquetes")
                     {
                         ProdServPaq = "S";
                         stock = "";
