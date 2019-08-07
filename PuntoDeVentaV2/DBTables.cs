@@ -47,7 +47,7 @@ namespace PuntoDeVentaV2
             DescuentoCliente = 6;
             DescuentoMayoreo = 6;
             DetallesFacturacionProductos = 8;
-            DetallesProducto = 4;
+            DetallesProducto = 9;
             Empresas = 19;
             HisotorialCompras = 17;
             HistorialModificacionRecordProduct = 4;
@@ -455,22 +455,29 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaDetallesProducto(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              IDProducto INTEGER NOT NULL,
-                                              IDUsuario INTEGER NOT NULL,
-                                              Proveedor TEXT);";
+            return $@"CREATE TABLE '{tabla}' (ID          INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDProducto  INTEGER NOT NULL,
+                                              IDUsuario   INTEGER NOT NULL,
+                                              Proveedor   TEXT,
+                                              IDProveedor INTEGER DEFAULT (0),
+                                              Categoria   TEXT,
+                                              IDCategoria INTEGER DEFAULT (0),
+                                              Ubicacion   TEXT,
+                                              IDUbicacion INTEGER DEFAULT (0));";
         }
 
         public string QueryUpdateTablaDetallesProducto(string tabla)
         {
-            return $@"INSERT INTO '{tabla}' (ID, 
-                                             IDProducto, 
-                                             IDUsuario, 
-                                             Proveedor) 
-                                      SELECT ID, 
-                                             IDProducto, 
-                                             IDUsuario, 
-                                             Proveedor 
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDProducto,
+                                             IDUsuario,
+                                             Proveedor,
+                                             IDProveedor) 
+                                      SELECT ID,
+                                             IDProducto,
+                                             IDUsuario,
+                                             Proveedor,
+                                             IDProveedor 
                                        FROM '{tabla}_temp';";
         }
 
