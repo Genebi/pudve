@@ -19,6 +19,8 @@ namespace PuntoDeVentaV2
         string[] listaCategorias = new string[] { };
         string[] listaUbicaciones = new string[] { };
 
+        bool habilitarComboBoxes = false;
+
         public AgregarDetalleProducto()
         {
             InitializeComponent();
@@ -33,6 +35,8 @@ namespace PuntoDeVentaV2
             checkProveedor.Checked = Properties.Settings.Default.checkProveedor;
             checkCategoria.Checked = Properties.Settings.Default.checkCategoria;
             checkUbicacion.Checked = Properties.Settings.Default.checkUbicacion;
+
+            VisualizarContentido();
         }
 
         private void cargarDatosProveedor(int idProveedor)
@@ -42,7 +46,7 @@ namespace PuntoDeVentaV2
             {
                 var datos = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
 
-                panelDatosProveedor.Visible = true;
+                panelProveedor.Visible = true;
                 lblNombreProveedor.Text = datos[0];
                 lblRFCProveedor.Text = datos[1];
                 lblTelProveedor.Text = datos[10];
@@ -128,6 +132,7 @@ namespace PuntoDeVentaV2
             else
             {
                 cbCategorias.Items.Add("Seleccionar una categoría...");
+                cbCategorias.SelectedIndex = 0;
             }
         }
 
@@ -155,6 +160,7 @@ namespace PuntoDeVentaV2
             else
             {
                 cbUbicaciones.Items.Add("Seleccionar una ubicación...");
+                cbUbicaciones.SelectedIndex = 0;
             }
         }
 
@@ -164,13 +170,22 @@ namespace PuntoDeVentaV2
 
             if (checkProveedor.Checked)
             {
-                detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text;
+                detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text + "|";
             }
 
+            if (checkCategoria.Checked)
+            {
+                detalles += cbCategorias.SelectedValue + "-" + cbCategorias.Text + "|";
+            }
+
+            if (checkUbicacion.Checked)
+            {
+                detalles += cbUbicaciones.SelectedValue + "-" + cbUbicaciones.Text + "|";
+            }
 
             if (detalles != null)
             {
-                //detalles = detalles.Remove(detalles.Length - 1);
+                detalles = detalles.Remove(detalles.Length - 1);
 
                 AgregarEditarProducto.detallesProducto = detalles;
 
@@ -182,11 +197,15 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProveedor_Click(object sender, EventArgs e)
         {
+            habilitarComboBoxes = false;
+
             AgregarProveedor ap = new AgregarProveedor();
 
             ap.FormClosed += delegate
             {
                 CargarProveedores();
+
+                habilitarComboBoxes = true;
             };
 
             ap.ShowDialog();
@@ -194,11 +213,15 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarCategoria_Click(object sender, EventArgs e)
         {
+            habilitarComboBoxes = false;
+
             AgregarCategoria nuevaCategoria = new AgregarCategoria();
 
             nuevaCategoria.FormClosed += delegate
             {
                 CargarCategorias();
+
+                habilitarComboBoxes = true;
             };
 
             nuevaCategoria.ShowDialog();
@@ -206,11 +229,15 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarUbicacion_Click(object sender, EventArgs e)
         {
+            habilitarComboBoxes = false;
+
             AgregarUbicacion nuevaUbicacion = new AgregarUbicacion();
 
             nuevaUbicacion.FormClosed += delegate
             {
                 CargarUbicaciones();
+
+                habilitarComboBoxes = true;
             };
 
             nuevaUbicacion.ShowDialog();
@@ -221,6 +248,7 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.checkProveedor = checkProveedor.Checked;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
+            VisualizarContentido();
         }
 
         private void checkCategoria_CheckedChanged(object sender, EventArgs e)
@@ -228,6 +256,7 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.checkCategoria = checkCategoria.Checked;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
+            VisualizarContentido();
         }
 
         private void checkUbicacion_CheckedChanged(object sender, EventArgs e)
@@ -235,6 +264,109 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.checkUbicacion = checkUbicacion.Checked;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
+            VisualizarContentido();
+        }
+
+        private void VisualizarContentido()
+        {
+            if (checkProveedor.Checked)
+            {
+                panelProveedor.Visible = true;
+            }
+            else
+            {
+                panelProveedor.Visible = false;
+            }
+
+            if (checkCategoria.Checked)
+            {
+                panelCategoria.Visible = true;
+            }
+            else
+            {
+                panelCategoria.Visible = false;
+            }
+
+            if (checkUbicacion.Checked)
+            {
+                panelUbicacion.Visible = true;
+            }
+            else
+            {
+                panelUbicacion.Visible = false;
+            }
+        }
+
+        private void cbProveedores_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (habilitarComboBoxes)
+            {
+                if (listaProveedores.Length > 0)
+                {
+                    var idProveedor = Convert.ToInt32(cbProveedores.SelectedValue.ToString());
+
+                    if (idProveedor > 0)
+                    {
+                        cargarDatosProveedor(Convert.ToInt32(idProveedor));
+                        lblNombreProveedor.Visible = true;
+                        lblRFCProveedor.Visible = true;
+                        lblTelProveedor.Visible = true;
+                    }
+                    else
+                    {
+                        lblNombreProveedor.Visible = false;
+                        lblRFCProveedor.Visible = false;
+                        lblTelProveedor.Visible = false;
+                    }
+                }
+            }
+        }
+
+        private void cbCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (habilitarComboBoxes)
+            {
+                if (listaCategorias.Length > 0)
+                {
+                    var opcion = Convert.ToInt32(cbCategorias.SelectedValue.ToString());
+
+                    if (opcion > 0)
+                    {
+                        lbNombreCategoria.Text = cbCategorias.GetItemText(cbCategorias.SelectedItem);
+                        lbNombreCategoria.Visible = true;
+                    }
+                    else
+                    {
+                        lbNombreCategoria.Visible = false;
+                    }
+                }
+            }
+        }
+
+        private void cbUbicaciones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (habilitarComboBoxes)
+            {
+                if (listaUbicaciones.Length > 0)
+                {
+                    var opcion = Convert.ToInt32(cbUbicaciones.SelectedValue.ToString());
+
+                    if (opcion > 0)
+                    {
+                        lbNombreUbicacion.Text = cbUbicaciones.GetItemText(cbUbicaciones.SelectedItem);
+                        lbNombreUbicacion.Visible = true;
+                    }
+                    else
+                    {
+                        lbNombreUbicacion.Visible = false;
+                    }
+                }
+            }
+        }
+
+        private void AgregarDetalleProducto_Shown(object sender, EventArgs e)
+        {
+            habilitarComboBoxes = true;
         }
     }
 }
