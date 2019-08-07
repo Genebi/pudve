@@ -15,8 +15,9 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        //Almacenar lista de proveedores del usuario
         string[] listaProveedores = new string[] { };
+        string[] listaCategorias = new string[] { };
+        string[] listaUbicaciones = new string[] { };
 
         public AgregarDetalleProducto()
         {
@@ -26,7 +27,12 @@ namespace PuntoDeVentaV2
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
             CargarProveedores();
-            //cargarDatosProveedor();
+            CargarCategorias();
+            CargarUbicaciones();
+
+            checkProveedor.Checked = Properties.Settings.Default.checkProveedor;
+            checkCategoria.Checked = Properties.Settings.Default.checkCategoria;
+            checkUbicacion.Checked = Properties.Settings.Default.checkUbicacion;
         }
 
         private void cargarDatosProveedor(int idProveedor)
@@ -98,60 +104,80 @@ namespace PuntoDeVentaV2
             }
         }
 
-        /*private void listaOpciones_SelectedIndexChanged(object sender, EventArgs e)
+        private void CargarCategorias()
         {
-            int indice = listaOpciones.SelectedIndex;
+            listaCategorias = mb.ObtenerCategorias(FormPrincipal.userID);
 
-            //Proveedor
-            if (indice == 0)
+            if (listaCategorias.Length > 0)
             {
-                if (listaOpciones.GetItemChecked(indice) == true)
+                Dictionary<string, string> categorias = new Dictionary<string, string>();
+
+                categorias.Add("0", "Seleccionar una categoría...");
+
+                foreach (var categoria in listaCategorias)
                 {
-                    lbProveedor.Visible = true;
-                    cbProveedores.Visible = true;
+                    var auxiliar = categoria.Split('|');
 
-                    if (listaProveedores.Length == 0)
-                    {
-                        AgregarProveedor ap = new AgregarProveedor();
-
-                        ap.FormClosed += delegate
-                        {
-                            CargarProveedores();
-                            cbProveedores.SelectedIndex = 0;
-                        };
-
-                        ap.ShowDialog();
-                    }
+                    categorias.Add(auxiliar[0], auxiliar[1]);
                 }
-                else
-                {
-                    lbProveedor.Visible = false;
-                    cbProveedores.Visible = false;
-                }
+
+                cbCategorias.DataSource = categorias.ToArray();
+                cbCategorias.DisplayMember = "Value";
+                cbCategorias.ValueMember = "Key";
             }
-        }*/
+            else
+            {
+                cbCategorias.Items.Add("Seleccionar una categoría...");
+            }
+        }
+
+        private void CargarUbicaciones()
+        {
+            listaUbicaciones = mb.ObtenerUbicaciones(FormPrincipal.userID);
+
+            if (listaUbicaciones.Length > 0)
+            {
+                Dictionary<string, string> ubicaciones = new Dictionary<string, string>();
+
+                ubicaciones.Add("0", "Seleccionar una ubicación...");
+
+                foreach (var ubicacion in listaUbicaciones)
+                {
+                    var auxiliar = ubicacion.Split('|');
+
+                    ubicaciones.Add(auxiliar[0], auxiliar[1]);
+                }
+
+                cbUbicaciones.DataSource = ubicaciones.ToArray();
+                cbUbicaciones.DisplayMember = "Value";
+                cbUbicaciones.ValueMember = "Key";
+            }
+            else
+            {
+                cbUbicaciones.Items.Add("Seleccionar una ubicación...");
+            }
+        }
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
-            /*string detalles = null;
+            string detalles = null;
 
-            foreach (int indice in listaOpciones.CheckedIndices)
+            if (checkProveedor.Checked)
             {
-                //Proveedor
-                if (indice == 0)
-                {
-                    detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text;// + "|";
-                }
+                detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text;
             }
+
 
             if (detalles != null)
             {
                 //detalles = detalles.Remove(detalles.Length - 1);
 
                 AgregarEditarProducto.detallesProducto = detalles;
-            }*/
 
-            this.Hide();
+                MessageBox.Show(detalles);
+            }
+
+            //this.Hide();
         }
 
         private void btnAgregarProveedor_Click(object sender, EventArgs e)
@@ -160,7 +186,7 @@ namespace PuntoDeVentaV2
 
             ap.FormClosed += delegate
             {
-
+                CargarProveedores();
             };
 
             ap.ShowDialog();
@@ -168,12 +194,47 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarCategoria_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funciona 2");
+            AgregarCategoria nuevaCategoria = new AgregarCategoria();
+
+            nuevaCategoria.FormClosed += delegate
+            {
+                CargarCategorias();
+            };
+
+            nuevaCategoria.ShowDialog();
         }
 
         private void btnAgregarUbicacion_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Funciona 3");
+            AgregarUbicacion nuevaUbicacion = new AgregarUbicacion();
+
+            nuevaUbicacion.FormClosed += delegate
+            {
+                CargarUbicaciones();
+            };
+
+            nuevaUbicacion.ShowDialog();
+        }
+
+        private void checkProveedor_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkProveedor = checkProveedor.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void checkCategoria_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkCategoria = checkCategoria.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void checkUbicacion_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkUbicacion = checkUbicacion.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
     }
 }
