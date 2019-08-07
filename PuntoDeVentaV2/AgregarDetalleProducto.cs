@@ -29,6 +29,10 @@ namespace PuntoDeVentaV2
             CargarProveedores();
             CargarCategorias();
             CargarUbicaciones();
+
+            checkProveedor.Checked = Properties.Settings.Default.checkProveedor;
+            checkCategoria.Checked = Properties.Settings.Default.checkCategoria;
+            checkUbicacion.Checked = Properties.Settings.Default.checkUbicacion;
         }
 
         private void cargarDatosProveedor(int idProveedor)
@@ -182,7 +186,7 @@ namespace PuntoDeVentaV2
 
             ap.FormClosed += delegate
             {
-                MessageBox.Show("Se cerro el form de proovedor");
+                CargarProveedores();
             };
 
             ap.ShowDialog();
@@ -194,7 +198,7 @@ namespace PuntoDeVentaV2
 
             nuevaCategoria.FormClosed += delegate
             {
-                MessageBox.Show("Se cerro el form de categoria");
+                CargarCategorias();
             };
 
             nuevaCategoria.ShowDialog();
@@ -206,7 +210,7 @@ namespace PuntoDeVentaV2
 
             nuevaUbicacion.FormClosed += delegate
             {
-                MessageBox.Show("Se cerro el form de ubicacion");
+                CargarUbicaciones();
             };
 
             nuevaUbicacion.ShowDialog();

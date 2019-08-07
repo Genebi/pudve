@@ -51,9 +51,13 @@
             this.lbUbicacion = new System.Windows.Forms.Label();
             this.cbUbicaciones = new System.Windows.Forms.ComboBox();
             this.panelUbicacion = new System.Windows.Forms.Panel();
+            this.lbNombreCategoria = new System.Windows.Forms.Label();
+            this.lbNombreUbicacion = new System.Windows.Forms.Label();
             this.panelMenu.SuspendLayout();
             this.panelContenido.SuspendLayout();
             this.panelDatosProveedor.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panelUbicacion.SuspendLayout();
             this.SuspendLayout();
             // 
             // separadorInicial
@@ -276,6 +280,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.lbNombreCategoria);
             this.panel1.Location = new System.Drawing.Point(8, 117);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(310, 40);
@@ -303,10 +308,33 @@
             // 
             // panelUbicacion
             // 
+            this.panelUbicacion.Controls.Add(this.lbNombreUbicacion);
             this.panelUbicacion.Location = new System.Drawing.Point(328, 117);
             this.panelUbicacion.Name = "panelUbicacion";
             this.panelUbicacion.Size = new System.Drawing.Size(306, 40);
             this.panelUbicacion.TabIndex = 28;
+            // 
+            // lbNombreCategoria
+            // 
+            this.lbNombreCategoria.BackColor = System.Drawing.Color.White;
+            this.lbNombreCategoria.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNombreCategoria.ForeColor = System.Drawing.Color.Blue;
+            this.lbNombreCategoria.Location = new System.Drawing.Point(3, 9);
+            this.lbNombreCategoria.Name = "lbNombreCategoria";
+            this.lbNombreCategoria.Size = new System.Drawing.Size(304, 20);
+            this.lbNombreCategoria.TabIndex = 96;
+            this.lbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbNombreUbicacion
+            // 
+            this.lbNombreUbicacion.BackColor = System.Drawing.Color.White;
+            this.lbNombreUbicacion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNombreUbicacion.ForeColor = System.Drawing.Color.Blue;
+            this.lbNombreUbicacion.Location = new System.Drawing.Point(2, 9);
+            this.lbNombreUbicacion.Name = "lbNombreUbicacion";
+            this.lbNombreUbicacion.Size = new System.Drawing.Size(301, 20);
+            this.lbNombreUbicacion.TabIndex = 97;
+            this.lbNombreUbicacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AgregarDetalleProducto
             // 
@@ -329,6 +357,8 @@
             this.panelContenido.ResumeLayout(false);
             this.panelContenido.PerformLayout();
             this.panelDatosProveedor.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panelUbicacion.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -358,5 +388,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ComboBox cbCategorias;
         private System.Windows.Forms.Label lbCategoria;
+        private System.Windows.Forms.Label lbNombreUbicacion;
+        private System.Windows.Forms.Label lbNombreCategoria;
     }
 }
