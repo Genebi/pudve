@@ -1602,31 +1602,78 @@ namespace PuntoDeVentaV2
                         }
                     }
 
+                    // Para actualizar los detalles del producto
+                    int contador = 0;
+                    List<string> infoDetalle = new List<string>();
 
-                    //Para actualizar los detalles del producto
-                    if (detallesProducto != null)
+                    infoDetalle.Add(idProductoFinal.ToString());
+                    infoDetalle.Add(FormPrincipal.userID.ToString());
+
+                    if (!string.IsNullOrWhiteSpace(infoProveedor))
                     {
-                        //string[] listaDetalles = detallesProducto.Split('|');
+                        var auxiliar = infoProveedor.Split('|');
+                        var idProveedorTmp = auxiliar[0];
+                        var nombreProveedor = auxiliar[1];
 
-                        if (!string.IsNullOrWhiteSpace(detallesProducto))
-                        {
-                            var datosProveedor = detallesProducto.Split('-');
-                            var idProveedor = datosProveedor[0].Trim();
-                            var nombreProveedor = datosProveedor[1].Trim();
-
-                            if (idProveedor == "0") { nombreProveedor = string.Empty; }
-
-                            string[] guardar = new string[] { idProductoFinal, FormPrincipal.userID.ToString(), nombreProveedor, idProveedor };
-
-                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar, 1));
-
-                            FormDetalleProducto.Close();
-
-                            idProductoFinal = string.Empty;
-                        }
+                        infoDetalle.Add(nombreProveedor);
+                        infoDetalle.Add(idProveedorTmp);
+                        contador++;
+                    }
+                    else
+                    {
+                        infoDetalle.Add("");
+                        infoDetalle.Add("0");
                     }
 
-                    //Cierra la ventana donde se agregan los datos del producto
+                    if (!string.IsNullOrWhiteSpace(infoCategoria))
+                    {
+                        var auxiliar = infoCategoria.Split('|');
+                        var idCategoria = auxiliar[0];
+                        var nombreCategoria = auxiliar[1];
+
+                        infoDetalle.Add(nombreCategoria);
+                        infoDetalle.Add(idCategoria);
+                        contador++;
+                    }
+                    else
+                    {
+                        infoDetalle.Add("");
+                        infoDetalle.Add("0");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoUbicacion))
+                    {
+                        var auxiliar = infoUbicacion.Split('|');
+                        var idUbicacion = auxiliar[0];
+                        var nombreUbicacion = auxiliar[1];
+
+                        infoDetalle.Add(nombreUbicacion);
+                        infoDetalle.Add(idUbicacion);
+                        contador++;
+                    }
+                    else
+                    {
+                        infoDetalle.Add("");
+                        infoDetalle.Add("0");
+                    }
+
+                    if (contador > 0)
+                    {
+                        string[] guardar = infoDetalle.ToArray();
+                        //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+
+                        cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar, 1));
+
+                        FormDetalleProducto.Close();
+                    }
+
+                    infoProveedor = string.Empty;
+                    infoCategoria = string.Empty;
+                    infoUbicacion = string.Empty;
+                    idProductoFinal = string.Empty;
+                    // Fin de actualizar detalles de producto
+
+                    // Cierra la ventana donde se agregan los datos del producto
                     this.Close();
                 }
             }

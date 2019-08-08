@@ -181,7 +181,7 @@ namespace PuntoDeVentaV2
             //Actualizar
             if (tipo == 1)
             {
-                consulta = $"UPDATE DetallesProducto SET Proveedor = '{datos[2]}', IDProveedor = {datos[3]} WHERE IDProducto = {datos[0]} AND IDUsuario = {datos[1]}";
+                consulta = $"UPDATE DetallesProducto SET Proveedor = '{datos[2]}', IDProveedor = '{datos[3]}', Categoria = '{datos[4]}', IDCategoria = '{datos[5]}', Ubicacion = '{datos[6]}', IDUbicacion = '{datos[7]}' WHERE IDProducto = {datos[0]} AND IDUsuario = {datos[1]}";
             }
             
             return consulta;
