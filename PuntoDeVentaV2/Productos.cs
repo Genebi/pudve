@@ -437,8 +437,20 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila);
                         origenDeLosDatos = 2;
                     }
-
-                    btnAgregarProducto.PerformClick();
+                    var producto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), Convert.ToInt32(id));
+                    string typeProduct = producto[5];
+                    if (typeProduct == "S")
+                    {
+                        btnAgregarServicio.PerformClick();
+                    }
+                    else if (typeProduct == "PQ")
+                    {
+                        btnAgregarPaquete.PerformClick();
+                    }
+                    else if (typeProduct == "P")
+                    {
+                        btnAgregarProducto.PerformClick();
+                    }
                 }
                 else if (e.ColumnIndex == 8)    // Estado del Producto
                 {
@@ -864,6 +876,10 @@ namespace PuntoDeVentaV2
                 {
                     row.Cells["Column2"].Value = "0";
                 }
+                else if (TipoProd == "PQ")
+                {
+                    row.Cells["Column2"].Value = "0";
+                }
 
                 row.Cells["Column3"].Value = filaDatos["Precio"].ToString();
                 row.Cells["Column4"].Value = filaDatos["Categoria"].ToString();
@@ -921,6 +937,10 @@ namespace PuntoDeVentaV2
                     row.Cells["Column16"].Value = product;
                 }
                 else if (TipoProd == "S")
+                {
+                    row.Cells["Column16"].Value = package;
+                }
+                else if (TipoProd == "PQ")
                 {
                     row.Cells["Column16"].Value = package;
                 }
@@ -1146,65 +1166,265 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            FormAgregar = new AgregarEditarProducto("Agregar Producto");
             FormAgregar.FormClosed += delegate
             {
                 CargarDatos();
             };
             if (!FormAgregar.Visible)
             {
-                FormAgregar.DatosSource = 1;
-                FormAgregar.ProdNombre = "";
-                FormAgregar.ShowDialog();
+                if (origenDeLosDatos == 0)
+                {
+                    FormAgregar = new AgregarEditarProducto("Agregar Producto");
+                    FormAgregar.DatosSource = 1;
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (origenDeLosDatos == 2)
+                {
+                    FormAgregar = new AgregarEditarProducto("Editar Producto");
+                    FormAgregar.DatosSource = 2;
+                }
+                else if (origenDeLosDatos == 4)
+                {
+                    FormAgregar.DatosSource = 4;
+                }
+
+                if (seleccionadoDato == 0)
+                {
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (seleccionadoDato == 1)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = Nombre;
+                    FormAgregar.ProdStock = Stock;
+                    FormAgregar.ProdPrecio = Precio;
+                    FormAgregar.ProdCategoria = ProductoCategoria;
+                    FormAgregar.ProdClaveInterna = ClaveInterna;
+                    FormAgregar.ProdCodBarras = CodigoBarras;
+                    FormAgregar.claveProductoxml = ClaveProducto;
+                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
+                    FormAgregar.idEditarProducto = idProductoEditar;
+                    FormAgregar.impuestoSeleccionado = impuestoProducto;
+                    FormAgregar.ShowDialog();
+                }
             }
             else
             {
-                FormAgregar.DatosSource = 1;
-                FormAgregar.ProdNombre = "";
-                FormAgregar.ShowDialog();
+                if (origenDeLosDatos == 0)
+                {
+                    FormAgregar = new AgregarEditarProducto("Agregar Producto");
+                    FormAgregar.DatosSource = 1;
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (origenDeLosDatos == 2)
+                {
+                    FormAgregar = new AgregarEditarProducto("Editar Producto");
+                    FormAgregar.DatosSource = 2;
+                }
+                else if (origenDeLosDatos == 4)
+                {
+                    FormAgregar.DatosSource = 4;
+                }
+
+                if (seleccionadoDato == 0)
+                {
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (seleccionadoDato == 1)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = Nombre;
+                    FormAgregar.ProdStock = Stock;
+                    FormAgregar.ProdPrecio = Precio;
+                    FormAgregar.ProdCategoria = ProductoCategoria;
+                    FormAgregar.ProdClaveInterna = ClaveInterna;
+                    FormAgregar.ProdCodBarras = CodigoBarras;
+                    FormAgregar.claveProductoxml = ClaveProducto;
+                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
+                    FormAgregar.idEditarProducto = idProductoEditar;
+                    FormAgregar.impuestoSeleccionado = impuestoProducto;
+                    FormAgregar.ShowDialog();
+                }
             }
+            origenDeLosDatos = 0;
         }
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
-            FormAgregar = new AgregarEditarProducto("Agregar Paquete");
             FormAgregar.FormClosed += delegate
             {
                 CargarDatos();
             };
             if (!FormAgregar.Visible)
             {
-                FormAgregar.DatosSource = 1;
-                FormAgregar.ProdNombre = "";
-                FormAgregar.ShowDialog();
+                if (origenDeLosDatos == 0)
+                {
+                    FormAgregar = new AgregarEditarProducto("Agregar Paquete");
+                    FormAgregar.DatosSource = 1;
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (origenDeLosDatos == 2)
+                {
+                    FormAgregar = new AgregarEditarProducto("Editar Paquete");
+                    FormAgregar.DatosSource = 2;
+                }
+                else if (origenDeLosDatos == 4)
+                {
+                    FormAgregar.DatosSource = 4;
+                }
+
+                if (seleccionadoDato == 0)
+                {
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (seleccionadoDato == 1)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = Nombre;
+                    FormAgregar.ProdStock = Stock;
+                    FormAgregar.ProdPrecio = Precio;
+                    FormAgregar.ProdCategoria = ProductoCategoria;
+                    FormAgregar.ProdClaveInterna = ClaveInterna;
+                    FormAgregar.ProdCodBarras = CodigoBarras;
+                    FormAgregar.claveProductoxml = ClaveProducto;
+                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
+                    FormAgregar.idEditarProducto = idProductoEditar;
+                    FormAgregar.impuestoSeleccionado = impuestoProducto;
+                    FormAgregar.ShowDialog();
+                }
             }
             else
             {
-                FormAgregar.DatosSource = 1;
-                FormAgregar.ProdNombre = "";
-                FormAgregar.ShowDialog();
+                if (origenDeLosDatos == 0)
+                {
+                    FormAgregar = new AgregarEditarProducto("Agregar Paquete");
+                    FormAgregar.DatosSource = 1;
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (origenDeLosDatos == 2)
+                {
+                    FormAgregar = new AgregarEditarProducto("Editar Paquete");
+                    FormAgregar.DatosSource = 2;
+                }
+                else if (origenDeLosDatos == 4)
+                {
+                    FormAgregar.DatosSource = 4;
+                }
+
+                if (seleccionadoDato == 0)
+                {
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (seleccionadoDato == 1)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = Nombre;
+                    FormAgregar.ProdStock = Stock;
+                    FormAgregar.ProdPrecio = Precio;
+                    FormAgregar.ProdCategoria = ProductoCategoria;
+                    FormAgregar.ProdClaveInterna = ClaveInterna;
+                    FormAgregar.ProdCodBarras = CodigoBarras;
+                    FormAgregar.claveProductoxml = ClaveProducto;
+                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
+                    FormAgregar.idEditarProducto = idProductoEditar;
+                    FormAgregar.impuestoSeleccionado = impuestoProducto;
+                    FormAgregar.ShowDialog();
+                }
             }
+            origenDeLosDatos = 0;
         }
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
-            FormAgregar = new AgregarEditarProducto("Agregar Servicio");
             FormAgregar.FormClosed += delegate
             {
                 CargarDatos();
             };
             if (!FormAgregar.Visible)
             {
-                FormAgregar.DatosSource = 1;
-                FormAgregar.ProdNombre = "";
-                FormAgregar.ShowDialog();
+                if (origenDeLosDatos == 0)
+                {
+                    FormAgregar = new AgregarEditarProducto("Agregar Servicio");
+                    FormAgregar.DatosSource = 1;
+                }
+                else if (origenDeLosDatos == 2)
+                {
+                    FormAgregar = new AgregarEditarProducto("Editar Servicio");
+                    FormAgregar.DatosSource = 2;
+                }
+                else if (origenDeLosDatos == 4)
+                {
+                    FormAgregar.DatosSource = 4;
+                }
+
+                if (seleccionadoDato == 0)
+                {
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (seleccionadoDato == 1)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = Nombre;
+                    FormAgregar.ProdStock = Stock;
+                    FormAgregar.ProdPrecio = Precio;
+                    FormAgregar.ProdCategoria = ProductoCategoria;
+                    FormAgregar.ProdClaveInterna = ClaveInterna;
+                    FormAgregar.ProdCodBarras = CodigoBarras;
+                    FormAgregar.claveProductoxml = ClaveProducto;
+                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
+                    FormAgregar.idEditarProducto = idProductoEditar;
+                    FormAgregar.impuestoSeleccionado = impuestoProducto;
+                    FormAgregar.ShowDialog();
+                }
             }
             else
             {
-                FormAgregar.DatosSource = 1;
-                FormAgregar.ProdNombre = "";
-                FormAgregar.ShowDialog();
+                if (origenDeLosDatos == 0)
+                {
+                    FormAgregar = new AgregarEditarProducto("Agregar Servicio");
+                    FormAgregar.DatosSource = 1;
+                }
+                else if (origenDeLosDatos == 2)
+                {
+                    FormAgregar = new AgregarEditarProducto("Editar Servicio");
+                    FormAgregar.DatosSource = 2;
+                }
+                else if (origenDeLosDatos == 4)
+                {
+                    FormAgregar.DatosSource = 4;
+                }
+
+                if (seleccionadoDato == 0)
+                {
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ShowDialog();
+                }
+                else if (seleccionadoDato == 1)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = Nombre;
+                    FormAgregar.ProdStock = Stock;
+                    FormAgregar.ProdPrecio = Precio;
+                    FormAgregar.ProdCategoria = ProductoCategoria;
+                    FormAgregar.ProdClaveInterna = ClaveInterna;
+                    FormAgregar.ProdCodBarras = CodigoBarras;
+                    FormAgregar.claveProductoxml = ClaveProducto;
+                    FormAgregar.claveUnidadMedidaxml = UnidadMedida;
+                    FormAgregar.idEditarProducto = idProductoEditar;
+                    FormAgregar.impuestoSeleccionado = impuestoProducto;
+                    FormAgregar.ShowDialog();
+                }
             }
+            origenDeLosDatos = 0;
         }
 
         private void ModificarStatusProducto()

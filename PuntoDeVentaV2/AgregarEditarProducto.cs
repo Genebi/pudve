@@ -1008,7 +1008,7 @@ namespace PuntoDeVentaV2
                         {
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-                            
+
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
                             {
@@ -1100,7 +1100,7 @@ namespace PuntoDeVentaV2
                                 //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
 
                                 cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-
+                                
                                 FormDetalleProducto.Close();
                             }
 
@@ -1174,7 +1174,7 @@ namespace PuntoDeVentaV2
                                 string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
                                 cn.EjecutarConsulta(queryRecordHistorialProd);
                             }
-                            
+
                             //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                             if (descuentos.Any())
                             {
@@ -1217,7 +1217,14 @@ namespace PuntoDeVentaV2
                     }
                     else if (this.Text == "Paquetes" || this.Text == "Servicios")
                     {
-                        ProdServPaq = "S";
+                        if (this.Text == "Servicios")
+                        {
+                            ProdServPaq = "S";
+                        }
+                        else if (this.Text == "Paquetes")
+                        {
+                            ProdServPaq = "PQ";
+                        }
                         stock = "";
                         guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto };
                         //Se guardan los datos principales del producto
@@ -2801,32 +2808,68 @@ namespace PuntoDeVentaV2
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
-
-            cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
+            if (DatosSourceFinal == 1)
+            {
+                cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
+            }
+            else if (DatosSourceFinal == 2)
+            {
+                cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
+            }
 
             if (cadAux == "Producto")           // si es un Producto
             {
                 this.Text = cadAux+"s";             // Ponemos el titulo del form en plural "Productos"
-                LimpiarCampos();
-                cbTipo.Text = "Producto";
-                btnAdd.Visible = false;
-                ocultarPanel();
+                if (!ProdNombre.Equals(""))
+                {
+                    cargarDatos();
+                    ocultarPanel();
+                    cargarCBProductos();
+                }
+                else if (ProdNombre.Equals(""))
+                {
+                    LimpiarCampos();
+                    cargarDatosNvoProd();
+                    cbTipo.Text = "Producto";
+                    btnAdd.Visible = false;
+                    ocultarPanel();
+                }
             }
             else if (cadAux == "Paquete")       // si es un Paquete
             {
                 this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Paquetes"
-                LimpiarCampos();
-                cbTipo.Text = "Servicio / Paquete";
-                btnAdd.Visible = true;
-                ocultarPanel();
+                if (!ProdNombre.Equals(""))
+                {
+                    cargarDatos();
+                    ocultarPanel();
+                    cargarCBProductos();
+                }
+                else if (ProdNombre.Equals(""))
+                {
+                    LimpiarCampos();
+                    cargarDatosNvoProd();
+                    cbTipo.Text = "Producto";
+                    btnAdd.Visible = false;
+                    ocultarPanel();
+                }
             }
             else if (cadAux == "Servicio")      // si es un Servicio
             {
                 this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Servicios"
-                LimpiarCampos();
-                cbTipo.Text = "Servicio / Paquete";
-                btnAdd.Visible = true;
-                ocultarPanel();
+                if (!ProdNombre.Equals(""))
+                {
+                    cargarDatos();
+                    ocultarPanel();
+                    cargarCBProductos();
+                }
+                else if (ProdNombre.Equals(""))
+                {
+                    LimpiarCampos();
+                    cargarDatosNvoProd();
+                    cbTipo.Text = "Producto";
+                    btnAdd.Visible = false;
+                    ocultarPanel();
+                }
             }
             tituloSeccion.Text = TituloForm;    // Ponemos el Text del label TituloSeccion
 
