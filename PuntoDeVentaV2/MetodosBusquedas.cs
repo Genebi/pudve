@@ -158,9 +158,9 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string ObtenerIDProveedorProducto(int idProducto, int idUsuario)
+        public string[] DetallesProducto(int idProducto, int idUsuario)
         {
-            string idProveedor = string.Empty;
+            List<string> lista = new List<string>();
 
             DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
 
@@ -168,12 +168,17 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                idProveedor = dr[4].ToString(); //ID proveedor
+                lista.Add(dr["IDProveedor"].ToString());
+                lista.Add(dr["Proveedor"].ToString());
+                lista.Add(dr["IDCategoria"].ToString());
+                lista.Add(dr["Categoria"].ToString());
+                lista.Add(dr["IDUbicacion"].ToString());
+                lista.Add(dr["Ubicacion"].ToString());
             }
 
             dr.Close();
 
-            return idProveedor;
+            return lista.ToArray();
         }
 
         public string[] BuscarProductoInventario(string producto, int idUsuario, int tipo = 1)

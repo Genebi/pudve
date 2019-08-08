@@ -1662,7 +1662,6 @@ namespace PuntoDeVentaV2
                     }
 
                     // Para actualizar los detalles del producto
-                    int contador = 0;
                     List<string> infoDetalle = new List<string>();
 
                     infoDetalle.Add(idProductoFinal.ToString());
@@ -1676,7 +1675,6 @@ namespace PuntoDeVentaV2
 
                         infoDetalle.Add(nombreProveedor);
                         infoDetalle.Add(idProveedorTmp);
-                        contador++;
                     }
                     else
                     {
@@ -1692,7 +1690,6 @@ namespace PuntoDeVentaV2
 
                         infoDetalle.Add(nombreCategoria);
                         infoDetalle.Add(idCategoria);
-                        contador++;
                     }
                     else
                     {
@@ -1708,7 +1705,6 @@ namespace PuntoDeVentaV2
 
                         infoDetalle.Add(nombreUbicacion);
                         infoDetalle.Add(idUbicacion);
-                        contador++;
                     }
                     else
                     {
@@ -1716,15 +1712,14 @@ namespace PuntoDeVentaV2
                         infoDetalle.Add("0");
                     }
 
-                    if (contador > 0)
-                    {
-                        string[] guardar = infoDetalle.ToArray();
-                        //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
 
-                        cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar, 1));
+                    string[] guardarDetalles = infoDetalle.ToArray();
+                    //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
 
-                        FormDetalleProducto.Close();
-                    }
+                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardarDetalles, 1));
+
+                    FormDetalleProducto.Close();
+                    
 
                     infoProveedor = string.Empty;
                     infoCategoria = string.Empty;

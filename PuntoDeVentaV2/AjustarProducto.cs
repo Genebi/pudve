@@ -58,14 +58,14 @@ namespace PuntoDeVentaV2
                 cbProveedores.DisplayMember = "Value";
                 cbProveedores.ValueMember = "Key";
 
-                var proveedorActual = mb.ObtenerIDProveedorProducto(IDProducto, FormPrincipal.userID);
+                var proveedorActual = mb.DetallesProducto(IDProducto, FormPrincipal.userID);
 
-                if (string.IsNullOrWhiteSpace(proveedorActual))
+                if (string.IsNullOrWhiteSpace(proveedorActual[0]))
                 {
-                    proveedorActual = "0";
+                    proveedorActual[0] = "0";
                 }
 
-                cbProveedores.SelectedValue = proveedorActual;
+                cbProveedores.SelectedValue = proveedorActual[0];
             }
             else
             {

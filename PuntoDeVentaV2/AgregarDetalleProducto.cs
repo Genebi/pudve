@@ -76,26 +76,25 @@ namespace PuntoDeVentaV2
                 cbProveedores.DataSource = proveedores.ToArray();
                 cbProveedores.DisplayMember = "Value";
                 cbProveedores.ValueMember = "Key";
-
-                lbProveedor.Visible = true;
-                cbProveedores.Visible = true;
                 cbProveedores.SelectedValue = "0";
 
-                //Cuando se da click en la opcion editar producto
+                // Cuando se da click en la opcion editar producto
                 if (AgregarEditarProducto.DatosSourceFinal == 2)
                 {
                     var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
-                    var idProveedor = mb.ObtenerIDProveedorProducto(idProducto, FormPrincipal.userID);
+                    var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
 
-                    if (!string.IsNullOrEmpty(idProveedor))
+                    if (!string.IsNullOrEmpty(idProveedor[0]))
                     {
-                        cbProveedores.SelectedValue = idProveedor;
-                        cargarDatosProveedor(Convert.ToInt32(idProveedor));
+                        cbProveedores.SelectedValue = idProveedor[0];
+                        cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
                     }
                     else
                     {
                         cbProveedores.SelectedValue = "0";
                     }
+
+                    //cbProveedores_SelectedIndexChanged(this, EventArgs.Empty);
                 }
             }
             else
@@ -128,6 +127,22 @@ namespace PuntoDeVentaV2
                 cbCategorias.DataSource = categorias.ToArray();
                 cbCategorias.DisplayMember = "Value";
                 cbCategorias.ValueMember = "Key";
+
+                // Cuando se da click en la opcion editar producto
+                if (AgregarEditarProducto.DatosSourceFinal == 2)
+                {
+                    var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                    var idCategoria = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                    if (!string.IsNullOrEmpty(idCategoria[2]))
+                    {
+                        cbCategorias.SelectedValue = idCategoria[2];
+                    }
+                    else
+                    {
+                        cbCategorias.SelectedValue = "0";
+                    }
+                }
             }
             else
             {
@@ -156,6 +171,22 @@ namespace PuntoDeVentaV2
                 cbUbicaciones.DataSource = ubicaciones.ToArray();
                 cbUbicaciones.DisplayMember = "Value";
                 cbUbicaciones.ValueMember = "Key";
+
+                // Cuando se da click en la opcion editar producto
+                if (AgregarEditarProducto.DatosSourceFinal == 2)
+                {
+                    var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                    var idUbicacion = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                    if (!string.IsNullOrEmpty(idUbicacion[4]))
+                    {
+                        cbUbicaciones.SelectedValue = idUbicacion[4];
+                    }
+                    else
+                    {
+                        cbUbicaciones.SelectedValue = "0";
+                    }
+                }
             }
             else
             {
@@ -365,6 +396,13 @@ namespace PuntoDeVentaV2
         private void AgregarDetalleProducto_Shown(object sender, EventArgs e)
         {
             habilitarComboBoxes = true;
+
+            if (AgregarEditarProducto.DatosSourceFinal == 2)
+            {
+                cbProveedores_SelectedIndexChanged(this, EventArgs.Empty);
+                cbCategorias_SelectedIndexChanged(this, EventArgs.Empty);
+                cbUbicaciones_SelectedIndexChanged(this, EventArgs.Empty);
+            }
         }
     }
 }
