@@ -1228,25 +1228,77 @@ namespace PuntoDeVentaV2
                         {
                             var idProveedor = string.Empty;
 
-                            if (detallesProducto != null)
+                            // Para guardar los detalles del producto
+                            // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                            int contador = 0;
+                            List<string> infoDetalle = new List<string>();
+
+                            infoDetalle.Add(idProducto.ToString());
+                            infoDetalle.Add(FormPrincipal.userID.ToString());
+
+                            if (!string.IsNullOrWhiteSpace(infoProveedor))
                             {
-                                //string[] listaDetalles = detallesProducto.Split('|');
+                                var auxiliar = infoProveedor.Split('|');
+                                var idProveedorTmp = auxiliar[0];
+                                var nombreProveedor = auxiliar[1];
 
-                                if (!string.IsNullOrWhiteSpace(detallesProducto))
-                                {
-                                    var datosProveedor = detallesProducto.Split('-');
-                                    var idProveedorTmp = datosProveedor[0].Trim();
-                                    var nombreProveedor = datosProveedor[1].Trim();
-
-                                    idProveedor = idProveedorTmp;
-
-                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
-
-                                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-
-                                    FormDetalleProducto.Close();
-                                }
+                                idProveedor = idProveedorTmp;
+                                infoDetalle.Add(nombreProveedor);
+                                infoDetalle.Add(idProveedor);
+                                contador++;
                             }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(infoCategoria))
+                            {
+                                var auxiliar = infoCategoria.Split('|');
+                                var idCategoria = auxiliar[0];
+                                var nombreCategoria = auxiliar[1];
+
+                                infoDetalle.Add(nombreCategoria);
+                                infoDetalle.Add(idCategoria);
+                                contador++;
+                            }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(infoUbicacion))
+                            {
+                                var auxiliar = infoUbicacion.Split('|');
+                                var idUbicacion = auxiliar[0];
+                                var nombreUbicacion = auxiliar[1];
+
+                                infoDetalle.Add(nombreUbicacion);
+                                infoDetalle.Add(idUbicacion);
+                                contador++;
+                            }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (contador > 0)
+                            {
+                                guardar = infoDetalle.ToArray();
+                                //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+
+                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+
+                                FormDetalleProducto.Close();
+                            }
+
+                            infoProveedor = string.Empty;
+                            infoCategoria = string.Empty;
+                            infoUbicacion = string.Empty;
+                            // Fin del guardado de detalles del producto
 
                             if (DatosSourceFinal == 1)
                             {
