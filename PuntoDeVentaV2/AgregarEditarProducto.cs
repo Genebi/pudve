@@ -27,8 +27,12 @@ namespace PuntoDeVentaV2
         static public string impuestoProductoXML = string.Empty;
         static public string importeProductoXML = string.Empty;
  
-
+        // Para los detalles del producto: Proveedor, Categoria, etc.
         static public string detallesProducto = null;
+        static public string infoProveedor = string.Empty;
+        static public string infoCategoria = string.Empty;
+        static public string infoUbicacion = string.Empty;
+
 
         static public DataTable SearchDesCliente, SearchDesMayoreo;
         static public List<string> descuentos = new List<string>();
@@ -177,106 +181,6 @@ namespace PuntoDeVentaV2
         string NombreProducto = "";
         string CantidadProducto = "";
         string IDProducto = "";
-
-        // funsion para poder buscar en los productos 
-        // si coincide con los campos de de ClaveInterna
-        // respecto al stock del producto en su campo de NoIdentificacion
-        public void searchClavIntProd()
-        {
-            // preparamos el Query
-            //string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.ClaveInterna = '{txtClaveProducto.Text}' OR Prod.CodigoBarras = '{txtClaveProducto.Text}'";
-            //dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
-            //if (dtClaveInterna.Rows.Count > 0)  // si el resultado arroja al menos una fila
-            //{
-            //    resultadoSearchNoIdentificacion = 1;    // busqueda positiva
-            //    //MessageBox.Show("No Identificación Encontrado...\nen la claveInterna del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else if (dtClaveInterna.Rows.Count <= 0)    // si el resultado no arroja ninguna fila
-            //{
-            //    resultadoSearchNoIdentificacion = 0; // busqueda negativa
-            //    //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            // preparamos el Query
-            string search = $@"SELECT prod.ID, prod.IDUsuario, prod.Nombre, prod.Stock, prod.Precio, prod.CodigoBarras AS 'CodBar'
-                               FROM Productos prod
-                               WHERE IDUsuario = '{FormPrincipal.userID}'
-                               UNION
-                               SELECT prod1.ID, prod1.IDUsuario, prod1.Nombre, prod1.Stock, prod1.Precio, prod1.ClaveInterna AS 'ClavInt'
-                               FROM Productos prod1
-                               WHERE IDUsuario = '{FormPrincipal.userID}'
-                               UNION
-                               SELECT codBarExt.IDProducto, NULL, NULL, NULL, NULL, codBarExt.CodigoBarraExtra AS 'CodBarExtra'
-                               FROM CodigoBarrasExtras codBarExt
-                               ORDER BY Nombre, CodBar, ClavInt, CodBarExtra";
-            dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
-            foreach (DataRow row in dtClaveInterna.Rows)
-            {
-                string textoBuscar = row["CodBar"].ToString().Replace("\r\n", "").Trim();
-                string clavInterna = txtClaveProducto.Text;
-                if (textoBuscar != "")
-                {
-                    if (textoBuscar == clavInterna)
-                    {
-                        resultadoSearchNoIdentificacion = 1;    // busqueda positiva
-                        break;
-                    }
-                    else if (textoBuscar != clavInterna)
-                    {
-                        resultadoSearchNoIdentificacion = 0; // busqueda negativa
-                    }
-                }
-            }
-        }
-
-        //funcion para poder buscar en los productos 
-        //si coincide con los campos de de CodigoBarras
-        //respecto al stock del producto en su campo de NoIdentificacion
-        public void searchCodBar()
-        {
-            // preparamos el Query
-            //string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod WHERE Prod.IDUsuario = '{FormPrincipal.userID}' AND Prod.CodigoBarras = '{txtCodigoBarras.Text}' OR Prod.ClaveInterna = '{txtCodigoBarras.Text}'";
-            //dtCodBar = cn.CargarDatos(search);  // alamcenamos el resultado de la busqueda en dtClaveInterna
-            //if (dtCodBar.Rows.Count > 0)        // si el resultado arroja al menos una fila
-            //{
-            //    resultadoSearchCodBar = 1; // busqueda positiva
-            //    //MessageBox.Show("No Identificación Encontrado...\nen el Código de Barras del Producto\nEsta siendo utilizada actualmente en el Stock", "El Producto no puede registrarse", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //else if (dtCodBar.Rows.Count <= 0)  // si el resultado no arroja ninguna fila
-            //{
-            //    resultadoSearchCodBar = 0; // busqueda negativa
-            //    //MessageBox.Show("Codigo Bar Disponible", "Este Codigo libre", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            // preparamos el Query
-            string search = $@"SELECT prod.ID, prod.IDUsuario, prod.Nombre, prod.Stock, prod.Precio, prod.CodigoBarras AS 'CodBar'
-                               FROM Productos prod
-                               WHERE IDUsuario = '{FormPrincipal.userID}'
-                               UNION
-                               SELECT prod1.ID, prod1.IDUsuario, prod1.Nombre, prod1.Stock, prod1.Precio, prod1.ClaveInterna AS 'ClavInt'
-                               FROM Productos prod1
-                               WHERE IDUsuario = '{FormPrincipal.userID}'
-                               UNION
-                               SELECT codBarExt.IDProducto, NULL, NULL, NULL, NULL, codBarExt.CodigoBarraExtra AS 'CodBarExtra'
-                               FROM CodigoBarrasExtras codBarExt
-                               ORDER BY Nombre, CodBar, ClavInt, CodBarExtra";
-            dtCodBar = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
-            foreach (DataRow row in dtCodBar.Rows)
-            {
-                string textoBuscar = row["CodBar"].ToString().Replace("\r\n", "").Trim();
-                string codBar = txtCodigoBarras.Text;
-                if (textoBuscar != "")
-                {
-                    if (textoBuscar == codBar)
-                    {
-                        resultadoSearchCodBar = 1;    // busqueda positiva
-                        break;
-                    }
-                    else if (textoBuscar != codBar)
-                    {
-                        resultadoSearchCodBar = 0; // busqueda negativa
-                    }
-                }
-            }
-        }
 
         public void PrimerCodBarras()
         {
@@ -1133,33 +1037,86 @@ namespace PuntoDeVentaV2
 
                             var idProveedor = string.Empty;
 
-                            //Para guardar los detalles del producto
-                            if (detallesProducto != null)
+                            // Para guardar los detalles del producto
+                            // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                            int contador = 0;
+                            List<string> infoDetalle = new List<string>();
+
+                            infoDetalle.Add(idProducto.ToString());
+                            infoDetalle.Add(FormPrincipal.userID.ToString());
+
+                            if (!string.IsNullOrWhiteSpace(infoProveedor))
                             {
-                                //string[] listaDetalles = detallesProducto.Split('|');
+                                var auxiliar = infoProveedor.Split('|');
+                                var idProveedorTmp = auxiliar[0];
+                                var nombreProveedor = auxiliar[1];
 
-                                if (!string.IsNullOrWhiteSpace(detallesProducto))
-                                {
-                                    var datosProveedor = detallesProducto.Split('-');
-                                    var idProveedorTmp = datosProveedor[0].Trim();
-                                    var nombreProveedor = datosProveedor[1].Trim();
-
-                                    idProveedor = idProveedorTmp;
-
-                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
-
-                                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-
-                                    FormDetalleProducto.Close();
-                                } 
+                                idProveedor = idProveedorTmp;
+                                infoDetalle.Add(nombreProveedor);
+                                infoDetalle.Add(idProveedor);
+                                contador++;
                             }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(infoCategoria))
+                            {
+                                var auxiliar = infoCategoria.Split('|');
+                                var idCategoria = auxiliar[0];
+                                var nombreCategoria = auxiliar[1];
+
+                                infoDetalle.Add(nombreCategoria);
+                                infoDetalle.Add(idCategoria);
+                                contador++;
+                            }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(infoUbicacion))
+                            {
+                                var auxiliar = infoUbicacion.Split('|');
+                                var idUbicacion = auxiliar[0];
+                                var nombreUbicacion = auxiliar[1];
+
+                                infoDetalle.Add(nombreUbicacion);
+                                infoDetalle.Add(idUbicacion);
+                                contador++;
+                            }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (contador > 0)
+                            {
+                                guardar = infoDetalle.ToArray();
+                                //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+
+                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+
+                                FormDetalleProducto.Close();
+                            }
+
+                            infoProveedor = string.Empty;
+                            infoCategoria = string.Empty;
+                            infoUbicacion = string.Empty;
+                            // Fin del guardado de detalles del producto
+                            
 
                             if (DatosSourceFinal == 1)
                             {
                                 var conceptoProveedor = string.Empty;
                                 var rfcProveedor = string.Empty;
 
-                                //Datos para la tabla historial de compras
+                                // Datos para la tabla historial de compras al momento de registrar
+                                // Un producto nuevo manualmente
                                 if (idProveedor != "")
                                 {
                                     var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedor), FormPrincipal.userID);
@@ -1271,25 +1228,77 @@ namespace PuntoDeVentaV2
                         {
                             var idProveedor = string.Empty;
 
-                            if (detallesProducto != null)
+                            // Para guardar los detalles del producto
+                            // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                            int contador = 0;
+                            List<string> infoDetalle = new List<string>();
+
+                            infoDetalle.Add(idProducto.ToString());
+                            infoDetalle.Add(FormPrincipal.userID.ToString());
+
+                            if (!string.IsNullOrWhiteSpace(infoProveedor))
                             {
-                                //string[] listaDetalles = detallesProducto.Split('|');
+                                var auxiliar = infoProveedor.Split('|');
+                                var idProveedorTmp = auxiliar[0];
+                                var nombreProveedor = auxiliar[1];
 
-                                if (!string.IsNullOrWhiteSpace(detallesProducto))
-                                {
-                                    var datosProveedor = detallesProducto.Split('-');
-                                    var idProveedorTmp = datosProveedor[0].Trim();
-                                    var nombreProveedor = datosProveedor[1].Trim();
-
-                                    idProveedor = idProveedorTmp;
-
-                                    guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
-
-                                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-
-                                    FormDetalleProducto.Close();
-                                }
+                                idProveedor = idProveedorTmp;
+                                infoDetalle.Add(nombreProveedor);
+                                infoDetalle.Add(idProveedor);
+                                contador++;
                             }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(infoCategoria))
+                            {
+                                var auxiliar = infoCategoria.Split('|');
+                                var idCategoria = auxiliar[0];
+                                var nombreCategoria = auxiliar[1];
+
+                                infoDetalle.Add(nombreCategoria);
+                                infoDetalle.Add(idCategoria);
+                                contador++;
+                            }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(infoUbicacion))
+                            {
+                                var auxiliar = infoUbicacion.Split('|');
+                                var idUbicacion = auxiliar[0];
+                                var nombreUbicacion = auxiliar[1];
+
+                                infoDetalle.Add(nombreUbicacion);
+                                infoDetalle.Add(idUbicacion);
+                                contador++;
+                            }
+                            else
+                            {
+                                infoDetalle.Add("");
+                                infoDetalle.Add("0");
+                            }
+
+                            if (contador > 0)
+                            {
+                                guardar = infoDetalle.ToArray();
+                                //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+
+                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+
+                                FormDetalleProducto.Close();
+                            }
+
+                            infoProveedor = string.Empty;
+                            infoCategoria = string.Empty;
+                            infoUbicacion = string.Empty;
+                            // Fin del guardado de detalles del producto
 
                             if (DatosSourceFinal == 1)
                             {
@@ -1645,31 +1654,78 @@ namespace PuntoDeVentaV2
                         }
                     }
 
+                    // Para actualizar los detalles del producto
+                    int contador = 0;
+                    List<string> infoDetalle = new List<string>();
 
-                    //Para actualizar los detalles del producto
-                    if (detallesProducto != null)
+                    infoDetalle.Add(idProductoFinal.ToString());
+                    infoDetalle.Add(FormPrincipal.userID.ToString());
+
+                    if (!string.IsNullOrWhiteSpace(infoProveedor))
                     {
-                        //string[] listaDetalles = detallesProducto.Split('|');
+                        var auxiliar = infoProveedor.Split('|');
+                        var idProveedorTmp = auxiliar[0];
+                        var nombreProveedor = auxiliar[1];
 
-                        if (!string.IsNullOrWhiteSpace(detallesProducto))
-                        {
-                            var datosProveedor = detallesProducto.Split('-');
-                            var idProveedor = datosProveedor[0].Trim();
-                            var nombreProveedor = datosProveedor[1].Trim();
-
-                            if (idProveedor == "0") { nombreProveedor = string.Empty; }
-
-                            string[] guardar = new string[] { idProductoFinal, FormPrincipal.userID.ToString(), nombreProveedor, idProveedor };
-
-                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar, 1));
-
-                            FormDetalleProducto.Close();
-
-                            idProductoFinal = string.Empty;
-                        }
+                        infoDetalle.Add(nombreProveedor);
+                        infoDetalle.Add(idProveedorTmp);
+                        contador++;
+                    }
+                    else
+                    {
+                        infoDetalle.Add("");
+                        infoDetalle.Add("0");
                     }
 
-                    //Cierra la ventana donde se agregan los datos del producto
+                    if (!string.IsNullOrWhiteSpace(infoCategoria))
+                    {
+                        var auxiliar = infoCategoria.Split('|');
+                        var idCategoria = auxiliar[0];
+                        var nombreCategoria = auxiliar[1];
+
+                        infoDetalle.Add(nombreCategoria);
+                        infoDetalle.Add(idCategoria);
+                        contador++;
+                    }
+                    else
+                    {
+                        infoDetalle.Add("");
+                        infoDetalle.Add("0");
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(infoUbicacion))
+                    {
+                        var auxiliar = infoUbicacion.Split('|');
+                        var idUbicacion = auxiliar[0];
+                        var nombreUbicacion = auxiliar[1];
+
+                        infoDetalle.Add(nombreUbicacion);
+                        infoDetalle.Add(idUbicacion);
+                        contador++;
+                    }
+                    else
+                    {
+                        infoDetalle.Add("");
+                        infoDetalle.Add("0");
+                    }
+
+                    if (contador > 0)
+                    {
+                        string[] guardar = infoDetalle.ToArray();
+                        //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+
+                        cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar, 1));
+
+                        FormDetalleProducto.Close();
+                    }
+
+                    infoProveedor = string.Empty;
+                    infoCategoria = string.Empty;
+                    infoUbicacion = string.Empty;
+                    idProductoFinal = string.Empty;
+                    // Fin de actualizar detalles de producto
+
+                    // Cierra la ventana donde se agregan los datos del producto
                     this.Close();
                 }
             }

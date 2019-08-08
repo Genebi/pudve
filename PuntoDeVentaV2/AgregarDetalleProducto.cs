@@ -166,33 +166,31 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
-            string detalles = null;
-
             if (checkProveedor.Checked)
             {
-                detalles += cbProveedores.SelectedValue + "-" + cbProveedores.Text + "|";
+                if (Convert.ToInt32(cbProveedores.SelectedValue.ToString()) > 0)
+                {
+                    AgregarEditarProducto.infoProveedor = cbProveedores.SelectedValue + "|" + cbProveedores.Text;
+                } 
             }
 
             if (checkCategoria.Checked)
             {
-                detalles += cbCategorias.SelectedValue + "-" + cbCategorias.Text + "|";
+                if (Convert.ToInt32(cbCategorias.SelectedValue.ToString()) > 0)
+                {
+                    AgregarEditarProducto.infoCategoria = cbCategorias.SelectedValue + "|" + cbCategorias.Text;
+                } 
             }
 
             if (checkUbicacion.Checked)
             {
-                detalles += cbUbicaciones.SelectedValue + "-" + cbUbicaciones.Text + "|";
+                if (Convert.ToInt32(cbUbicaciones.SelectedValue.ToString()) > 0)
+                {
+                    AgregarEditarProducto.infoUbicacion = cbUbicaciones.SelectedValue + "|" + cbUbicaciones.Text;
+                }  
             }
 
-            if (detalles != null)
-            {
-                detalles = detalles.Remove(detalles.Length - 1);
-
-                AgregarEditarProducto.detallesProducto = detalles;
-
-                MessageBox.Show(detalles);
-            }
-
-            //this.Hide();
+            this.Hide();
         }
 
         private void btnAgregarProveedor_Click(object sender, EventArgs e)
