@@ -1166,29 +1166,23 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            FormAgregar.FormClosed += delegate
+            if (origenDeLosDatos == 0)
             {
-                CargarDatos();
-            };
+                FormAgregar.DatosSource = 1;
+                FormAgregar.Titulo = "Agregar Producto";
+            }
+            else if (origenDeLosDatos == 2)
+            {
+                FormAgregar.DatosSource = 2;
+                FormAgregar.Titulo = "Editar Producto";
+            }
+            else if (origenDeLosDatos == 4)
+            {
+                FormAgregar.DatosSource = 4;
+            }
+
             if (!FormAgregar.Visible)
             {
-                if (origenDeLosDatos == 0)
-                {
-                    FormAgregar = new AgregarEditarProducto("Agregar Producto");
-                    FormAgregar.DatosSource = 1;
-                    FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
-                }
-                else if (origenDeLosDatos == 2)
-                {
-                    FormAgregar = new AgregarEditarProducto("Editar Producto");
-                    FormAgregar.DatosSource = 2;
-                }
-                else if (origenDeLosDatos == 4)
-                {
-                    FormAgregar.DatosSource = 4;
-                }
-
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
@@ -1212,23 +1206,6 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                if (origenDeLosDatos == 0)
-                {
-                    FormAgregar = new AgregarEditarProducto("Agregar Producto");
-                    FormAgregar.DatosSource = 1;
-                    FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
-                }
-                else if (origenDeLosDatos == 2)
-                {
-                    FormAgregar = new AgregarEditarProducto("Editar Producto");
-                    FormAgregar.DatosSource = 2;
-                }
-                else if (origenDeLosDatos == 4)
-                {
-                    FormAgregar.DatosSource = 4;
-                }
-
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
@@ -1251,33 +1228,28 @@ namespace PuntoDeVentaV2
                 }
             }
             origenDeLosDatos = 0;
+            CargarDatos();
         }
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
-            FormAgregar.FormClosed += delegate
+            if (origenDeLosDatos == 0)
             {
-                CargarDatos();
-            };
+                FormAgregar.DatosSource = 1;
+                FormAgregar.Titulo = "Agregar Paquete";
+            }
+            else if (origenDeLosDatos == 2)
+            {
+                FormAgregar.DatosSource = 2;
+                FormAgregar.Titulo = "Editar Paquete";
+            }
+            else if (origenDeLosDatos == 4)
+            {
+                FormAgregar.DatosSource = 4;
+            }
+
             if (!FormAgregar.Visible)
             {
-                if (origenDeLosDatos == 0)
-                {
-                    FormAgregar = new AgregarEditarProducto("Agregar Paquete");
-                    FormAgregar.DatosSource = 1;
-                    FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
-                }
-                else if (origenDeLosDatos == 2)
-                {
-                    FormAgregar = new AgregarEditarProducto("Editar Paquete");
-                    FormAgregar.DatosSource = 2;
-                }
-                else if (origenDeLosDatos == 4)
-                {
-                    FormAgregar.DatosSource = 4;
-                }
-
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
@@ -1301,23 +1273,6 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                if (origenDeLosDatos == 0)
-                {
-                    FormAgregar = new AgregarEditarProducto("Agregar Paquete");
-                    FormAgregar.DatosSource = 1;
-                    FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
-                }
-                else if (origenDeLosDatos == 2)
-                {
-                    FormAgregar = new AgregarEditarProducto("Editar Paquete");
-                    FormAgregar.DatosSource = 2;
-                }
-                else if (origenDeLosDatos == 4)
-                {
-                    FormAgregar.DatosSource = 4;
-                }
-
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
@@ -1340,31 +1295,28 @@ namespace PuntoDeVentaV2
                 }
             }
             origenDeLosDatos = 0;
+            CargarDatos();
         }
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
-            FormAgregar.FormClosed += delegate
+            if (origenDeLosDatos == 0)
             {
-                CargarDatos();
-            };
+                FormAgregar.DatosSource = 1;
+                FormAgregar.Titulo = "Agregar Servicio";
+            }
+            else if (origenDeLosDatos == 2)
+            {
+                FormAgregar.DatosSource = 2;
+                FormAgregar.Titulo = "Editar Servicio";
+            }
+            else if (origenDeLosDatos == 4)
+            {
+                FormAgregar.DatosSource = 4;
+            }
+
             if (!FormAgregar.Visible)
             {
-                if (origenDeLosDatos == 0)
-                {
-                    FormAgregar = new AgregarEditarProducto("Agregar Servicio");
-                    FormAgregar.DatosSource = 1;
-                }
-                else if (origenDeLosDatos == 2)
-                {
-                    FormAgregar = new AgregarEditarProducto("Editar Servicio");
-                    FormAgregar.DatosSource = 2;
-                }
-                else if (origenDeLosDatos == 4)
-                {
-                    FormAgregar.DatosSource = 4;
-                }
-
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
@@ -1388,21 +1340,6 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                if (origenDeLosDatos == 0)
-                {
-                    FormAgregar = new AgregarEditarProducto("Agregar Servicio");
-                    FormAgregar.DatosSource = 1;
-                }
-                else if (origenDeLosDatos == 2)
-                {
-                    FormAgregar = new AgregarEditarProducto("Editar Servicio");
-                    FormAgregar.DatosSource = 2;
-                }
-                else if (origenDeLosDatos == 4)
-                {
-                    FormAgregar.DatosSource = 4;
-                }
-
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
@@ -1425,6 +1362,7 @@ namespace PuntoDeVentaV2
                 }
             }
             origenDeLosDatos = 0;
+            CargarDatos();
         }
 
         private void ModificarStatusProducto()

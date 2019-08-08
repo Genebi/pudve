@@ -57,6 +57,7 @@ namespace PuntoDeVentaV2
 		****************************/
         string TituloForm=string.Empty;
 
+        public string Titulo { set; get; }
         public int DatosSource { set; get; }
         public string ProdNombre { set; get; }
         public string ProdStock { set; get; }
@@ -585,7 +586,6 @@ namespace PuntoDeVentaV2
 
         public AgregarEditarProducto(string titulo)
         {
-            TituloForm = titulo;
             InitializeComponent();
         }
 
@@ -2796,6 +2796,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            TituloForm = Titulo;
+
             string cadAux = string.Empty;
 
             PH = PConteidoProducto.Height;
