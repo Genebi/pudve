@@ -84,10 +84,14 @@ namespace PuntoDeVentaV2
                     var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
                     var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
 
-                    if (!string.IsNullOrEmpty(idProveedor[0]))
+                    //MessageBox.Show(idProveedor[0].ToString());
+                    if (idProveedor.Length > 0)
                     {
-                        cbProveedores.SelectedValue = idProveedor[0];
-                        cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
+                        if (Convert.ToInt32(idProveedor[0].ToString()) > 0)
+                        {
+                            cbProveedores.SelectedValue = idProveedor[0];
+                            cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
+                        }
                     }
                     else
                     {
@@ -134,9 +138,12 @@ namespace PuntoDeVentaV2
                     var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
                     var idCategoria = mb.DetallesProducto(idProducto, FormPrincipal.userID);
 
-                    if (!string.IsNullOrEmpty(idCategoria[2]))
+                    if (idCategoria.Length > 0)
                     {
-                        cbCategorias.SelectedValue = idCategoria[2];
+                        if (Convert.ToInt32(idCategoria[2].ToString()) > 0)
+                        {
+                            cbCategorias.SelectedValue = idCategoria[2];
+                        }
                     }
                     else
                     {
@@ -178,9 +185,12 @@ namespace PuntoDeVentaV2
                     var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
                     var idUbicacion = mb.DetallesProducto(idProducto, FormPrincipal.userID);
 
-                    if (!string.IsNullOrEmpty(idUbicacion[4]))
+                    if (idUbicacion.Length > 0)
                     {
-                        cbUbicaciones.SelectedValue = idUbicacion[4];
+                        if (Convert.ToInt32(idUbicacion[4].ToString()) > 0)
+                        {
+                            cbUbicaciones.SelectedValue = idUbicacion[4];
+                        }
                     }
                     else
                     {

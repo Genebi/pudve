@@ -1179,6 +1179,7 @@ namespace PuntoDeVentaV2
             else if (origenDeLosDatos == 4)
             {
                 FormAgregar.DatosSource = 4;
+                FormAgregar.Titulo = "Copiar Producto";
             }
 
             if (!FormAgregar.Visible)
@@ -1246,6 +1247,7 @@ namespace PuntoDeVentaV2
             else if (origenDeLosDatos == 4)
             {
                 FormAgregar.DatosSource = 4;
+                FormAgregar.Titulo = "Copiar Paquete";
             }
 
             if (!FormAgregar.Visible)
@@ -1313,6 +1315,7 @@ namespace PuntoDeVentaV2
             else if (origenDeLosDatos == 4)
             {
                 FormAgregar.DatosSource = 4;
+                FormAgregar.Titulo = "Copiar Servicio";
             }
 
             if (!FormAgregar.Visible)

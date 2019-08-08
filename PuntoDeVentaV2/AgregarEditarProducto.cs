@@ -1718,8 +1718,10 @@ namespace PuntoDeVentaV2
 
                     cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardarDetalles, 1));
 
-                    FormDetalleProducto.Close();
-                    
+                    if (Convert.ToInt32(idProductoFinal) > 0)
+                    {
+                        FormDetalleProducto.Close();
+                    }
 
                     infoProveedor = string.Empty;
                     infoCategoria = string.Empty;
