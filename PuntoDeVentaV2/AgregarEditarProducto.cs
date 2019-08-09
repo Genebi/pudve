@@ -2838,6 +2838,7 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     cargarCBProductos();
                     PStock.Visible = true;
+                    PCantidadPaqServ.Visible = false;
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -2847,6 +2848,7 @@ namespace PuntoDeVentaV2
                     btnAdd.Visible = false;
                     ocultarPanel();
                     PStock.Visible = true;
+                    PCantidadPaqServ.Visible = false;
                 }
             }
             else if (cadAux == "Paquete")       // si es un Paquete
@@ -2858,6 +2860,8 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     cargarCBProductos();
                     PStock.Visible = false;
+                    lblCantPaqServ.Text = "Cantidad por paquete";
+                    PCantidadPaqServ.Visible = true;
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -2867,6 +2871,8 @@ namespace PuntoDeVentaV2
                     btnAdd.Visible = false;
                     ocultarPanel();
                     PStock.Visible = false;
+                    lblCantPaqServ.Text = "Cantidad por paquete";
+                    PCantidadPaqServ.Visible = true;
                 }
             }
             else if (cadAux == "Servicio")      // si es un Servicio
@@ -2878,6 +2884,8 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     cargarCBProductos();
                     PStock.Visible = false;
+                    lblCantPaqServ.Text = "Cantidad por servicio";
+                    PCantidadPaqServ.Visible = true;
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -2887,6 +2895,8 @@ namespace PuntoDeVentaV2
                     btnAdd.Visible = false;
                     ocultarPanel();
                     PStock.Visible = false;
+                    lblCantPaqServ.Text = "Cantidad por servicio";
+                    PCantidadPaqServ.Visible = true;
                 }
             }
             tituloSeccion.Text = TituloForm;    // Ponemos el Text del label TituloSeccion

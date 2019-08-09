@@ -74,6 +74,9 @@
             this.PDetalle = new System.Windows.Forms.Panel();
             this.PAccion = new System.Windows.Forms.Panel();
             this.btnProdUpdate = new System.Windows.Forms.Button();
+            this.PCantidadPaqServ = new System.Windows.Forms.Panel();
+            this.lblCantPaqServ = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -88,6 +91,7 @@
             this.PConteidoProducto.SuspendLayout();
             this.PDetalle.SuspendLayout();
             this.PAccion.SuspendLayout();
+            this.PCantidadPaqServ.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTipoProdPaq
@@ -426,6 +430,7 @@
             this.flowLayoutPanel1.Controls.Add(this.PCategoria);
             this.flowLayoutPanel1.Controls.Add(this.PClaveInterna);
             this.flowLayoutPanel1.Controls.Add(this.PCodigoBarras);
+            this.flowLayoutPanel1.Controls.Add(this.PCantidadPaqServ);
             this.flowLayoutPanel1.Controls.Add(this.PImagen);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(42, 5);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
@@ -512,7 +517,6 @@
             this.btnGenerarCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
-            //this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGenerarCB.Location = new System.Drawing.Point(183, 20);
             this.btnGenerarCB.Name = "btnGenerarCB";
@@ -527,11 +531,11 @@
             // PImagen
             // 
             this.PImagen.Controls.Add(this.groupBox1);
-            this.PImagen.Location = new System.Drawing.Point(484, 56);
+            this.PImagen.Location = new System.Drawing.Point(2, 281);
             this.PImagen.Margin = new System.Windows.Forms.Padding(2);
             this.PImagen.Name = "PImagen";
             this.PImagen.Size = new System.Drawing.Size(227, 221);
-            this.PImagen.TabIndex = 6;
+            this.PImagen.TabIndex = 7;
             // 
             // timerProdPaqSer
             // 
@@ -602,6 +606,33 @@
             this.btnProdUpdate.UseVisualStyleBackColor = false;
             this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
             // 
+            // PCantidadPaqServ
+            // 
+            this.PCantidadPaqServ.Controls.Add(this.textBox1);
+            this.PCantidadPaqServ.Controls.Add(this.lblCantPaqServ);
+            this.PCantidadPaqServ.Location = new System.Drawing.Point(485, 57);
+            this.PCantidadPaqServ.Name = "PCantidadPaqServ";
+            this.PCantidadPaqServ.Size = new System.Drawing.Size(184, 48);
+            this.PCantidadPaqServ.TabIndex = 6;
+            // 
+            // lblCantPaqServ
+            // 
+            this.lblCantPaqServ.AutoSize = true;
+            this.lblCantPaqServ.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.lblCantPaqServ.Location = new System.Drawing.Point(7, 3);
+            this.lblCantPaqServ.Name = "lblCantPaqServ";
+            this.lblCantPaqServ.Size = new System.Drawing.Size(47, 17);
+            this.lblCantPaqServ.TabIndex = 0;
+            this.lblCantPaqServ.Text = "label1";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(10, 22);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(165, 20);
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "0";
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -641,6 +672,8 @@
             this.PConteidoProducto.ResumeLayout(false);
             this.PDetalle.ResumeLayout(false);
             this.PAccion.ResumeLayout(false);
+            this.PCantidadPaqServ.ResumeLayout(false);
+            this.PCantidadPaqServ.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -691,5 +724,8 @@
         private System.Windows.Forms.CheckBox chkBoxConProductos;
         private System.Windows.Forms.Button btnProdUpdate;
         public System.Windows.Forms.TextBox txtPrecioCompra;
+        private System.Windows.Forms.Panel PCantidadPaqServ;
+        private System.Windows.Forms.Label lblCantPaqServ;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
