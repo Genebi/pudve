@@ -77,6 +77,7 @@
             this.PCantidadPaqServ = new System.Windows.Forms.Panel();
             this.lblCantPaqServ = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -608,11 +609,12 @@
             // 
             // PCantidadPaqServ
             // 
+            this.PCantidadPaqServ.Controls.Add(this.button1);
             this.PCantidadPaqServ.Controls.Add(this.textBox1);
             this.PCantidadPaqServ.Controls.Add(this.lblCantPaqServ);
             this.PCantidadPaqServ.Location = new System.Drawing.Point(485, 57);
             this.PCantidadPaqServ.Name = "PCantidadPaqServ";
-            this.PCantidadPaqServ.Size = new System.Drawing.Size(184, 48);
+            this.PCantidadPaqServ.Size = new System.Drawing.Size(184, 105);
             this.PCantidadPaqServ.TabIndex = 6;
             // 
             // lblCantPaqServ
@@ -632,6 +634,20 @@
             this.textBox1.Size = new System.Drawing.Size(165, 20);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "0";
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.Highlight;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(10, 63);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(165, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Relacionar Productos";
+            this.button1.UseVisualStyleBackColor = false;
             // 
             // AgregarEditarProducto
             // 
@@ -727,5 +743,6 @@
         private System.Windows.Forms.Panel PCantidadPaqServ;
         private System.Windows.Forms.Label lblCantPaqServ;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
