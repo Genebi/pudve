@@ -1527,7 +1527,7 @@ namespace PuntoDeVentaV2
                         {
                             string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProducto}'";
                             cn.EjecutarConsulta(queryBorrarProductosDeServicios);
-                            string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", "0" };
+                            string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
                             cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
                         } 
                         //Cierra la ventana donde se agregan los datos del producto
@@ -2670,6 +2670,58 @@ namespace PuntoDeVentaV2
             txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
             txtPrecioProducto.Focus();
             txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
+        }
+
+        private void txtCantPaqServ_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Para obligar a que sólo se introduzcan números
+            //if (Char.IsDigit(e.KeyChar))
+            //{
+            //    e.Handled = false;
+            //}
+            //else
+            //{
+            //    if (Char.IsControl(e.KeyChar))  // permitir teclas de control como retroceso
+            //    {
+            //        e.Handled = false;
+            //    }
+            //    else
+            //    {
+            //        // el resto de teclas pulsadas se desactivan
+            //        e.Handled = true;
+            //    }
+            //}
+            if (e.KeyChar == 8)     // tecla BackSpace
+            {
+                e.Handled = false;
+                return;
+            }
+            bool IsDec = false;
+            int nroDec = 0;
+            for (int i = 0; i < txtCantPaqServ.Text.Length; i++)       // recorrer la caja de texto
+            {
+                if (txtCantPaqServ.Text[i] == '.')      // ver si es un punto decimal
+                {
+                    IsDec = true;
+                }
+                if (IsDec && nroDec++ >= 2)     // incrementar la variable nroDec
+                {
+                    e.Handled = true;
+                    return;
+                }
+            }
+            if (e.KeyChar >= 48 && e.KeyChar <= 57)     // teclas del 0 hasta el 9
+            {
+                e.Handled = false;
+            }
+            else if (e.KeyChar == 46)   // tecla punto decimal " . "
+            {
+                e.Handled = (IsDec) ? true : false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
 
         private void pasarNumStockServicios()

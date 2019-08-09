@@ -76,7 +76,7 @@
             this.btnProdUpdate = new System.Windows.Forms.Button();
             this.PCantidadPaqServ = new System.Windows.Forms.Panel();
             this.lblCantPaqServ = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCantPaqServ = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
@@ -610,7 +610,7 @@
             // PCantidadPaqServ
             // 
             this.PCantidadPaqServ.Controls.Add(this.button1);
-            this.PCantidadPaqServ.Controls.Add(this.textBox1);
+            this.PCantidadPaqServ.Controls.Add(this.txtCantPaqServ);
             this.PCantidadPaqServ.Controls.Add(this.lblCantPaqServ);
             this.PCantidadPaqServ.Location = new System.Drawing.Point(485, 57);
             this.PCantidadPaqServ.Name = "PCantidadPaqServ";
@@ -627,13 +627,14 @@
             this.lblCantPaqServ.TabIndex = 0;
             this.lblCantPaqServ.Text = "label1";
             // 
-            // textBox1
+            // txtCantPaqServ
             // 
-            this.textBox1.Location = new System.Drawing.Point(10, 22);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(165, 20);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "0";
+            this.txtCantPaqServ.Location = new System.Drawing.Point(10, 22);
+            this.txtCantPaqServ.Name = "txtCantPaqServ";
+            this.txtCantPaqServ.Size = new System.Drawing.Size(165, 20);
+            this.txtCantPaqServ.TabIndex = 1;
+            this.txtCantPaqServ.Text = "0";
+            this.txtCantPaqServ.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPaqServ_KeyPress);
             // 
             // button1
             // 
@@ -742,7 +743,7 @@
         public System.Windows.Forms.TextBox txtPrecioCompra;
         private System.Windows.Forms.Panel PCantidadPaqServ;
         private System.Windows.Forms.Label lblCantPaqServ;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCantPaqServ;
         private System.Windows.Forms.Button button1;
     }
 }
