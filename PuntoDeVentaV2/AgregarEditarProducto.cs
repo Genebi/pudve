@@ -2863,6 +2863,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            PTypeAndCantProd.Visible = false;
+
             TituloForm = Titulo;
 
             string cadAux = string.Empty;
@@ -2902,6 +2904,7 @@ namespace PuntoDeVentaV2
                     PStock.Visible = true;
                     PCantidadPaqServ.Visible = false;
                 }
+                lblTipoProdPaq.Text = "Nombre del Producto";
             }
             else if (cadAux == "Paquete")       // si es un Paquete
             {
@@ -2926,6 +2929,7 @@ namespace PuntoDeVentaV2
                     lblCantPaqServ.Text = "Cantidad por paquete";
                     PCantidadPaqServ.Visible = true;
                 }
+                lblTipoProdPaq.Text = "Nombre del Paquete";
             }
             else if (cadAux == "Servicio")      // si es un Servicio
             {
@@ -2950,6 +2954,7 @@ namespace PuntoDeVentaV2
                     lblCantPaqServ.Text = "Cantidad por servicio";
                     PCantidadPaqServ.Visible = true;
                 }
+                lblTipoProdPaq.Text = "Nombre del Servicio";
             }
             tituloSeccion.Text = TituloForm;    // Ponemos el Text del label TituloSeccion
 

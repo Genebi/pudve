@@ -78,6 +78,7 @@
             this.lblCantPaqServ = new System.Windows.Forms.Label();
             this.txtCantPaqServ = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.PTypeAndCantProd = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -93,17 +94,18 @@
             this.PDetalle.SuspendLayout();
             this.PAccion.SuspendLayout();
             this.PCantidadPaqServ.SuspendLayout();
+            this.PTypeAndCantProd.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTipoProdPaq
             // 
             this.lblTipoProdPaq.AutoSize = true;
             this.lblTipoProdPaq.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTipoProdPaq.Location = new System.Drawing.Point(45, 85);
+            this.lblTipoProdPaq.Location = new System.Drawing.Point(45, 41);
             this.lblTipoProdPaq.Name = "lblTipoProdPaq";
-            this.lblTipoProdPaq.Size = new System.Drawing.Size(68, 17);
+            this.lblTipoProdPaq.Size = new System.Drawing.Size(149, 17);
             this.lblTipoProdPaq.TabIndex = 0;
-            this.lblTipoProdPaq.Text = "Producto";
+            this.lblTipoProdPaq.Text = "Nombre del Producto";
             // 
             // label2
             // 
@@ -156,7 +158,7 @@
             // 
             // txtNombreProducto
             // 
-            this.txtNombreProducto.Location = new System.Drawing.Point(47, 105);
+            this.txtNombreProducto.Location = new System.Drawing.Point(47, 61);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(692, 20);
             this.txtNombreProducto.TabIndex = 2;
@@ -360,7 +362,7 @@
             this.cbTipo.Items.AddRange(new object[] {
             "Producto",
             "Servicio / Paquete"});
-            this.cbTipo.Location = new System.Drawing.Point(79, 45);
+            this.cbTipo.Location = new System.Drawing.Point(47, 18);
             this.cbTipo.Margin = new System.Windows.Forms.Padding(2);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(165, 21);
@@ -372,24 +374,22 @@
             // PDetalleProdcuto
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
-            this.PDetalleProdcuto.Controls.Add(this.chkBoxConProductos);
+            this.PDetalleProdcuto.Controls.Add(this.PTypeAndCantProd);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
             this.PDetalleProdcuto.Controls.Add(this.txtNombreProducto);
-            this.PDetalleProdcuto.Controls.Add(this.cbTipo);
-            this.PDetalleProdcuto.Controls.Add(this.label10);
             this.PDetalleProdcuto.Controls.Add(this.tituloSeccion);
             this.PDetalleProdcuto.Dock = System.Windows.Forms.DockStyle.Top;
             this.PDetalleProdcuto.Location = new System.Drawing.Point(0, 0);
             this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
-            this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 140);
+            this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 92);
             this.PDetalleProdcuto.TabIndex = 27;
             // 
             // chkBoxConProductos
             // 
             this.chkBoxConProductos.AutoSize = true;
-            this.chkBoxConProductos.Location = new System.Drawing.Point(250, 46);
+            this.chkBoxConProductos.Location = new System.Drawing.Point(218, 19);
             this.chkBoxConProductos.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxConProductos.Name = "chkBoxConProductos";
             this.chkBoxConProductos.Size = new System.Drawing.Size(131, 17);
@@ -400,7 +400,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(744, 102);
+            this.btnAdd.Location = new System.Drawing.Point(744, 58);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(26, 25);
@@ -412,7 +412,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(44, 48);
+            this.label10.Location = new System.Drawing.Point(12, 21);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(34, 17);
@@ -518,10 +518,11 @@
             this.btnGenerarCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
+            this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGenerarCB.Location = new System.Drawing.Point(183, 20);
+            this.btnGenerarCB.Location = new System.Drawing.Point(183, 18);
             this.btnGenerarCB.Name = "btnGenerarCB";
-            this.btnGenerarCB.Size = new System.Drawing.Size(112, 23);
+            this.btnGenerarCB.Size = new System.Drawing.Size(112, 29);
             this.btnGenerarCB.TabIndex = 9;
             this.btnGenerarCB.Text = "Generar";
             this.btnGenerarCB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -546,7 +547,7 @@
             // 
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
             this.PConteidoProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PConteidoProducto.Location = new System.Drawing.Point(0, 140);
+            this.PConteidoProducto.Location = new System.Drawing.Point(0, 92);
             this.PConteidoProducto.Margin = new System.Windows.Forms.Padding(2);
             this.PConteidoProducto.Name = "PConteidoProducto";
             this.PConteidoProducto.Size = new System.Drawing.Size(838, 92);
@@ -571,7 +572,7 @@
             // 
             this.PDetalle.Controls.Add(this.flowLayoutPanel1);
             this.PDetalle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PDetalle.Location = new System.Drawing.Point(0, 232);
+            this.PDetalle.Location = new System.Drawing.Point(0, 184);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
             this.PDetalle.Size = new System.Drawing.Size(838, 305);
@@ -588,7 +589,7 @@
             this.PAccion.Controls.Add(this.label8);
             this.PAccion.Dock = System.Windows.Forms.DockStyle.Top;
             this.PAccion.ForeColor = System.Drawing.Color.White;
-            this.PAccion.Location = new System.Drawing.Point(0, 537);
+            this.PAccion.Location = new System.Drawing.Point(0, 489);
             this.PAccion.Margin = new System.Windows.Forms.Padding(2);
             this.PAccion.Name = "PAccion";
             this.PAccion.Size = new System.Drawing.Size(838, 122);
@@ -614,7 +615,7 @@
             this.PCantidadPaqServ.Controls.Add(this.lblCantPaqServ);
             this.PCantidadPaqServ.Location = new System.Drawing.Point(485, 57);
             this.PCantidadPaqServ.Name = "PCantidadPaqServ";
-            this.PCantidadPaqServ.Size = new System.Drawing.Size(184, 105);
+            this.PCantidadPaqServ.Size = new System.Drawing.Size(184, 96);
             this.PCantidadPaqServ.TabIndex = 6;
             // 
             // lblCantPaqServ
@@ -643,12 +644,22 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(10, 63);
+            this.button1.Location = new System.Drawing.Point(10, 64);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(165, 23);
+            this.button1.Size = new System.Drawing.Size(165, 26);
             this.button1.TabIndex = 2;
             this.button1.Text = "Relacionar Productos";
             this.button1.UseVisualStyleBackColor = false;
+            // 
+            // PTypeAndCantProd
+            // 
+            this.PTypeAndCantProd.Controls.Add(this.chkBoxConProductos);
+            this.PTypeAndCantProd.Controls.Add(this.label10);
+            this.PTypeAndCantProd.Controls.Add(this.cbTipo);
+            this.PTypeAndCantProd.Location = new System.Drawing.Point(472, 3);
+            this.PTypeAndCantProd.Name = "PTypeAndCantProd";
+            this.PTypeAndCantProd.Size = new System.Drawing.Size(366, 55);
+            this.PTypeAndCantProd.TabIndex = 31;
             // 
             // AgregarEditarProducto
             // 
@@ -691,6 +702,8 @@
             this.PAccion.ResumeLayout(false);
             this.PCantidadPaqServ.ResumeLayout(false);
             this.PCantidadPaqServ.PerformLayout();
+            this.PTypeAndCantProd.ResumeLayout(false);
+            this.PTypeAndCantProd.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -745,5 +758,6 @@
         private System.Windows.Forms.Label lblCantPaqServ;
         private System.Windows.Forms.TextBox txtCantPaqServ;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Panel PTypeAndCantProd;
     }
 }
