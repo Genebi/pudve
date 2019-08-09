@@ -2828,7 +2828,7 @@ namespace PuntoDeVentaV2
             {
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
             }
-
+            
             if (cadAux == "Producto")           // si es un Producto
             {
                 this.Text = cadAux+"s";             // Ponemos el titulo del form en plural "Productos"
@@ -2837,6 +2837,7 @@ namespace PuntoDeVentaV2
                     cargarDatos();
                     ocultarPanel();
                     cargarCBProductos();
+                    PStock.Visible = true;
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -2845,6 +2846,7 @@ namespace PuntoDeVentaV2
                     cbTipo.Text = "Producto";
                     btnAdd.Visible = false;
                     ocultarPanel();
+                    PStock.Visible = true;
                 }
             }
             else if (cadAux == "Paquete")       // si es un Paquete
@@ -2855,6 +2857,7 @@ namespace PuntoDeVentaV2
                     cargarDatos();
                     ocultarPanel();
                     cargarCBProductos();
+                    PStock.Visible = false;
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -2863,6 +2866,7 @@ namespace PuntoDeVentaV2
                     cbTipo.Text = "Producto";
                     btnAdd.Visible = false;
                     ocultarPanel();
+                    PStock.Visible = false;
                 }
             }
             else if (cadAux == "Servicio")      // si es un Servicio
@@ -2873,6 +2877,7 @@ namespace PuntoDeVentaV2
                     cargarDatos();
                     ocultarPanel();
                     cargarCBProductos();
+                    PStock.Visible = false;
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -2881,6 +2886,7 @@ namespace PuntoDeVentaV2
                     cbTipo.Text = "Producto";
                     btnAdd.Visible = false;
                     ocultarPanel();
+                    PStock.Visible = false;
                 }
             }
             tituloSeccion.Text = TituloForm;    // Ponemos el Text del label TituloSeccion
