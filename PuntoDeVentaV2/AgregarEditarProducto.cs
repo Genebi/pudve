@@ -2768,7 +2768,7 @@ namespace PuntoDeVentaV2
             {
                 if (PConteidoProducto.Height == 0)
                 {
-                    PConteidoProducto.Height = PConteidoProducto.Height + 92;
+                    PConteidoProducto.Height = PConteidoProducto.Height + 123;
                 }
                 if (PConteidoProducto.Height >= PH)
                 {
