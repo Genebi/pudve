@@ -50,6 +50,8 @@ namespace PuntoDeVentaV2
         public NvoProduct nvoProductoAdd = new NvoProduct();
         public CantidadProdServicio CantidadPordServPaq = new CantidadProdServicio();
 
+        public ListaProductos ListStock = new ListaProductos();
+
         int idProducto;
 
         /****************************
@@ -2726,6 +2728,22 @@ namespace PuntoDeVentaV2
             else
             {
                 e.Handled = true;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ListStock.FormClosed += delegate
+            {
+
+            };
+            if (!ListStock.Visible)
+            {
+                ListStock.ShowDialog();
+            }
+            else
+            {
+                ListStock.BringToFront();
             }
         }
 
