@@ -329,7 +329,7 @@ namespace PuntoDeVentaV2
             Titulo.Name = "Title";
             Titulo.Width = 400;
             Titulo.Height = 20;
-            Titulo.Text = "Descripción de productos que contiene el paquete:";
+            Titulo.Text = "Descripción de productos que contiene:";
             Titulo.Location = new Point(0, 0);
 
             flowLayoutPanel2.Controls.Add(Titulo);
