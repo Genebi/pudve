@@ -2778,6 +2778,10 @@ namespace PuntoDeVentaV2
                     {
                         mostrarProdServPaq();
                     }
+                    else if (idProductoBuscado != null && tipoProdServ == "PQ")
+                    {
+                        mostrarProdServPaq();
+                    }
                     else if (idProductoBuscado != null && dtNvoProductosDeServicios != null)
                     {
                         mostrarProdServPaq();
