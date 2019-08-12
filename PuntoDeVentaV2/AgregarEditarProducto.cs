@@ -290,16 +290,21 @@ namespace PuntoDeVentaV2
             SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
             queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
             SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
-            if (tipoProdServ == "S")
+            if (tipoProdServ == "S" || tipoProdServ == "PQ")
             {
+                DataRow rowProdServPaq;
                 queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
                 dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
+                rowProdServPaq = dtProductosDeServicios.Rows[0];
                 cbTipo.Text = "Servicio / Paquete";
                 if (dtProductosDeServicios.Rows.Count > 0)
                 {
-                    btnAdd.Visible = true;
-                    Hided = true;
-                    btnAdd.PerformClick();
+                    if (rowProdServPaq["NombreProducto"].ToString() != "")
+                    {
+                        btnAdd.Visible = true;
+                        Hided = true;
+                        btnAdd.PerformClick();
+                    }
                 }
             }
             else if (tipoProdServ == "P")
@@ -1614,13 +1619,13 @@ namespace PuntoDeVentaV2
                         }
                         ProductosDeServicios.Clear();
                     }
-                    else
-                    {
-                        string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
-                        cn.EjecutarConsulta(queryBorrarProductosDeServicios);
-                        string[] tmp = { "datetime('now', 'localtime')", "'{idProductoBuscado}'", "", "" };
-                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                    }
+                    //else
+                    //{
+                    //    string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+                    //    cn.EjecutarConsulta(queryBorrarProductosDeServicios);
+                    //    string[] tmp = { "datetime('now', 'localtime')", "'{idProductoBuscado}'", "", "" };
+                    //    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                    //}
                     // recorrido para FlowLayoutPanel para ver cuantos TextBox
                     foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                     {
@@ -2754,7 +2759,7 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos()
         {
-            cargarCBProductos();
+            cargarCBProductos(idEditarProducto);
         }
 
         private void timerProdPaqSer_Tick(object sender, EventArgs e)
@@ -2863,11 +2868,9 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
-            PTypeAndCantProd.Visible = false;
-
-            TituloForm = Titulo;
-
             string cadAux = string.Empty;
+            PTypeAndCantProd.Visible = false;
+            TituloForm = Titulo;
 
             PH = PConteidoProducto.Height;
             Hided = false;
@@ -2890,7 +2893,7 @@ namespace PuntoDeVentaV2
                 {
                     cargarDatos();
                     ocultarPanel();
-                    cargarCBProductos();
+                    //cargarCBProductos();
                     PStock.Visible = true;
                     PCantidadPaqServ.Visible = false;
                 }
@@ -2913,7 +2916,7 @@ namespace PuntoDeVentaV2
                 {
                     cargarDatos();
                     ocultarPanel();
-                    cargarCBProductos();
+                    cargarCBProductos(idEditarProducto);
                     PStock.Visible = false;
                     lblCantPaqServ.Text = "Cantidad por paquete";
                     PCantidadPaqServ.Visible = true;
@@ -2938,7 +2941,7 @@ namespace PuntoDeVentaV2
                 {
                     cargarDatos();
                     ocultarPanel();
-                    cargarCBProductos();
+                    cargarCBProductos(idEditarProducto);
                     PStock.Visible = false;
                     lblCantPaqServ.Text = "Cantidad por servicio";
                     PCantidadPaqServ.Visible = true;
@@ -2972,28 +2975,14 @@ namespace PuntoDeVentaV2
             {
                 txtStockProducto.Enabled = true;
             }
-
-            //if (ProdNombre.Equals(""))
-            //{
-            //    LimpiarCampos();
-            //    cargarDatosNvoProd();
-            //    cbTipo.Text = "Producto";
-            //    btnAdd.Visible = false;
-            //    ocultarPanel();
-            //}
-            //else if (!ProdNombre.Equals(""))
-            //{
-            //    cargarDatos();
-            //    ocultarPanel();
-            //    cargarCBProductos();
-            //}
         }
 
-        private void cargarCBProductos()
+        private void cargarCBProductos(string typePaqServ)
         {
             try
             {
                 datosProductos = new DataTable();
+                //queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
                 queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
                 datosProductos = cn.CargarDatos(queryProductos);
                 row = datosProductos.NewRow();

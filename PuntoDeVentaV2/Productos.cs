@@ -635,7 +635,6 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-
                         cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
                     }
                 }
