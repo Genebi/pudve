@@ -85,6 +85,11 @@ namespace PuntoDeVentaV2
             DGVStockProductos.Columns["ID"].Visible = false;
         }
 
+        private void ListaProductos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            AgregarEditarProducto.CBNombProd = NombreProdStr;
+        }
+
         private void DGVStockProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             numfila = DGVStockProductos.CurrentRow.Index;                           // variable para poder saber que fila fue la seleccionada

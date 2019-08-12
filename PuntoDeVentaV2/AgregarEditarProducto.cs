@@ -185,6 +185,10 @@ namespace PuntoDeVentaV2
         string CantidadProducto = "";
         string IDProducto = "";
 
+
+        public string CBNombProdPasado { get; set; }
+        static public string CBNombProd = String.Empty;
+
         public void PrimerCodBarras()
         {
             Contenido = "7777000001";
@@ -2300,68 +2304,129 @@ namespace PuntoDeVentaV2
             //flowLayoutPanel2.Controls.Clear();
 
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
-            panelHijo.Name = "panelGenerado" + id;
-            panelHijo.Width = 749;
-            panelHijo.Height = 50;
-            panelHijo.HorizontalScroll.Visible = false;
-
             Label lb1 = new Label();
-            lb1.Name = "labelProductoGenerado" + id;
-            lb1.Width = 60;
-            lb1.Height = 17;
-            lb1.Text = "Producto:";
-            //lb1.Location = new Point(10, 12);
-
             ComboBox cb = new ComboBox();
-            cb.Name = "comboBoxGenerador" + id;
-            cb.Width = 300;
-            cb.Height = 24;
-            try
-            {
-                cb.DisplayMember = "Nombre";
-                cb.ValueMember = "ID";
-                cb.DataSource = prodList;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cb.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cb.BackColor = System.Drawing.SystemColors.Window;
-            cb.FormattingEnabled = true;
-            //cb.Location = new Point(75, 12);
-
             Label lb2 = new Label();
-            lb2.Name = "labelCantidadGenerado" + id;
-            lb2.Width = 50;
-            lb2.Height = 17;
-            lb2.Text = "Cantidad:";
-            //lb2.Location = new Point(385, 12);
-
             TextBox tb = new TextBox();
-            tb.Name = "textBoxGenerado" + id;
-            tb.Width = 250;
-            tb.Height = 22;
-            tb.Text = "0";
-            tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
-            tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
-            //tb.Location = new Point(440, 12);
-
             Button bt = new Button();
-            bt.Cursor = Cursors.Hand;
-            bt.Text = "X";
-            bt.Name = "btnGenerado" + id;
-            bt.Height = 23;
-            bt.Width = 23;
-            bt.BackColor = ColorTranslator.FromHtml("#C00000");
-            bt.ForeColor = ColorTranslator.FromHtml("white");
-            bt.FlatStyle = FlatStyle.Flat;
-            bt.TextAlign = ContentAlignment.MiddleCenter;
-            bt.Anchor = AnchorStyles.Top;
-            bt.Click += new EventHandler(ClickBotonesProductos);
-            //bt.Location = new Point(695, 12);
 
+            if (CBNombProd == "" || CBNombProd == null)
+            {
+                panelHijo.Name = "panelGenerado" + id;
+                panelHijo.Width = 749;
+                panelHijo.Height = 50;
+                panelHijo.HorizontalScroll.Visible = false;
+                
+                lb1.Name = "labelProductoGenerado" + id;
+                lb1.Width = 60;
+                lb1.Height = 17;
+                lb1.Text = "Producto:";
+                //lb1.Location = new Point(10, 12);
+
+                cb.Name = "comboBoxGenerador" + id;
+                cb.Width = 300;
+                cb.Height = 24;
+                try
+                {
+                    cb.DisplayMember = "Nombre";
+                    cb.ValueMember = "ID";
+                    cb.DataSource = prodList;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Se produjo el siguiente error: CBProductos\n" + ex.Message.ToString(), "Error de aplicación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                cb.BackColor = System.Drawing.SystemColors.Window;
+                cb.FormattingEnabled = true;
+                //cb.Location = new Point(75, 12);
+
+                lb2.Name = "labelCantidadGenerado" + id;
+                lb2.Width = 50;
+                lb2.Height = 17;
+                lb2.Text = "Cantidad:";
+                //lb2.Location = new Point(385, 12);
+
+                tb.Name = "textBoxGenerado" + id;
+                tb.Width = 250;
+                tb.Height = 22;
+                tb.Text = "0";
+                tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+                tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+                //tb.Location = new Point(440, 12);
+
+                bt.Cursor = Cursors.Hand;
+                bt.Text = "X";
+                bt.Name = "btnGenerado" + id;
+                bt.Height = 23;
+                bt.Width = 23;
+                bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                bt.ForeColor = ColorTranslator.FromHtml("white");
+                bt.FlatStyle = FlatStyle.Flat;
+                bt.TextAlign = ContentAlignment.MiddleCenter;
+                bt.Anchor = AnchorStyles.Top;
+                bt.Click += new EventHandler(ClickBotonesProductos);
+                //bt.Location = new Point(695, 12);
+            }
+            else if (CBNombProd != "" || CBNombProd != null)
+            {
+                panelHijo.Name = "panelGenerado" + id;
+                panelHijo.Width = 749;
+                panelHijo.Height = 50;
+                panelHijo.HorizontalScroll.Visible = false;
+
+                lb1.Name = "labelProductoGenerado" + id;
+                lb1.Width = 60;
+                lb1.Height = 17;
+                lb1.Text = "Producto:";
+
+                cb.Name = "comboBoxGenerador" + id;
+                cb.Width = 300;
+                cb.Height = 24;
+                try
+                {
+                    foreach (var items in prodList)
+                    {
+                        cb.Items.Add(items.ToString());
+                    }
+                    cb.Text = CBNombProd;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                cb.BackColor = System.Drawing.SystemColors.Window;
+                cb.FormattingEnabled = true;
+                cb.Enter += new EventHandler(ComboBox_Enter);
+
+                lb2.Name = "labelCantidadGenerado" + id;
+                lb2.Width = 50;
+                lb2.Height = 17;
+                lb2.Text = "Cantidad:";
+
+                tb.Name = "textBoxGenerado" + id;
+                tb.Width = 250;
+                tb.Height = 22;
+                tb.Text = "0";
+                tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+                tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+
+                bt.Cursor = Cursors.Hand;
+                bt.Text = "X";
+                bt.Name = "btnGenerado" + id;
+                bt.Height = 23;
+                bt.Width = 23;
+                bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                bt.ForeColor = ColorTranslator.FromHtml("white");
+                bt.FlatStyle = FlatStyle.Flat;
+                bt.TextAlign = ContentAlignment.MiddleCenter;
+                bt.Anchor = AnchorStyles.Top;
+                bt.Click += new EventHandler(ClickBotonesProductos);
+            }
+            
             panelHijo.Controls.Add(lb1);
             panelHijo.Controls.Add(cb);
             panelHijo.Controls.Add(lb2);
@@ -2735,7 +2800,8 @@ namespace PuntoDeVentaV2
         {
             ListStock.FormClosed += delegate
             {
-
+                GenerarPanelProductosServPlus();
+                CBNombProd = "";
             };
             if (!ListStock.Visible)
             {

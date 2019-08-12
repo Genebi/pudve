@@ -120,6 +120,7 @@
             this.Name = "ListaProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListaProductos";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListaProductos_FormClosing);
             this.Load += new System.EventHandler(this.ListaProductos_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
