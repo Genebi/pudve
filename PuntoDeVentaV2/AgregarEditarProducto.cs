@@ -941,7 +941,7 @@ namespace PuntoDeVentaV2
                 //searchClavIntProd();
                 if (mb.ComprobarCodigoClave(claveIn, FormPrincipal.userID))
                 {
-                    MessageBox.Show($"El número de identificación {claveIn} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
                 }
@@ -949,7 +949,7 @@ namespace PuntoDeVentaV2
                 //searchCodBar();
                 if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID))
                 {
-                    MessageBox.Show($"El número de identificación {codigoB} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
                 }
@@ -979,7 +979,7 @@ namespace PuntoDeVentaV2
 
                         if (existe)
                         {
-                            MessageBox.Show($"El número de identificación {codigosBarrras[pos]} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show($"El número de identificación {codigosBarrras[pos]}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                             return;
                         }
@@ -1794,7 +1794,7 @@ namespace PuntoDeVentaV2
                     //searchClavIntProd();
                     if (mb.ComprobarCodigoClave(claveInNvoInsert, FormPrincipal.userID))
                     {
-                        MessageBox.Show($"El número de identificación {claveIn} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         return;
                     }
@@ -1802,7 +1802,7 @@ namespace PuntoDeVentaV2
                     //searchCodBar();
                     if (mb.ComprobarCodigoClave(codigoBNvoInsert, FormPrincipal.userID))
                     {
-                        MessageBox.Show($"El número de identificación {codigoB} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         return;
                     }
@@ -1832,7 +1832,7 @@ namespace PuntoDeVentaV2
 
                             if (existe)
                             {
-                                MessageBox.Show($"El número de identificación {codigosBarrras[pos]} ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show($"El número de identificación {codigosBarrras[pos]}\nya se esta utilizando\ncomo clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                                 return;
                             }
