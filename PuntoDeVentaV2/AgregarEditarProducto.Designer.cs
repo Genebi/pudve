@@ -547,7 +547,7 @@
             this.PCantidadPaqServ.Controls.Add(this.lblCantPaqServ);
             this.PCantidadPaqServ.Location = new System.Drawing.Point(485, 57);
             this.PCantidadPaqServ.Name = "PCantidadPaqServ";
-            this.PCantidadPaqServ.Size = new System.Drawing.Size(184, 96);
+            this.PCantidadPaqServ.Size = new System.Drawing.Size(184, 99);
             this.PCantidadPaqServ.TabIndex = 6;
             // 
             // button1

@@ -1106,6 +1106,7 @@ namespace PuntoDeVentaV2
             }
             else if (BeforePage < 1)
             {
+                linkLblPrimeraPagina.Visible = false;
                 linkLblPaginaAnterior.Visible = false;
                 if (AfterPage <= LastPage)
                 {
@@ -1116,6 +1117,7 @@ namespace PuntoDeVentaV2
                 {
                     linkLblPaginaSiguiente.Text = AfterPage.ToString();
                     linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
                 }
             }
             
