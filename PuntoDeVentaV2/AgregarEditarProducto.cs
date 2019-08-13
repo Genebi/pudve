@@ -2962,18 +2962,31 @@ namespace PuntoDeVentaV2
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
-            if (DatosSourceFinal == 1)
+            
+            if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
-                cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
+                cbTipo.SelectedIndex = 0;
+                PCantidadPaqServ.Visible = false;
+                cargarDatos();
             }
-            else if (DatosSourceFinal == 2)
+
+            if (DatosSourceFinal == 2)      // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
             {
+                txtStockProducto.Enabled = false;
+                button1.Visible = true;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
             }
-            
+
+            if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
+            {
+                txtStockProducto.Enabled = true;
+                cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
+                button1.Visible = false;
+            }
+
             if (cadAux == "Producto")           // si es un Producto
             {
-                this.Text = cadAux+"s";             // Ponemos el titulo del form en plural "Productos"
+                this.Text = cadAux + "s";             // Ponemos el titulo del form en plural "Productos"
                 if (!ProdNombre.Equals(""))
                 {
                     cargarDatos();
@@ -3045,21 +3058,6 @@ namespace PuntoDeVentaV2
                 lblTipoProdPaq.Text = "Nombre del Servicio";
             }
             tituloSeccion.Text = TituloForm;    // Ponemos el Text del label TituloSeccion
-
-            if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
-            {
-                cbTipo.SelectedIndex = 0;
-            }
-
-            if (DatosSourceFinal == 2)      // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
-            {
-                txtStockProducto.Enabled = false;
-            }
-
-            if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
-            {
-                txtStockProducto.Enabled = true;
-            }
         }
 
         private void cargarCBProductos(string typePaqServ)
