@@ -333,6 +333,7 @@ namespace PuntoDeVentaV2
             DGVentas.Rows[rowId].Cells["EliminarIndividual"].Value = img4;
 
             DGVentas.Sort(DGVentas.Columns["NumeroColumna"], System.ComponentModel.ListSortDirection.Descending);
+            DGVentas.ClearSelection();
         }
 
         private void DGVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)

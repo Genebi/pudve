@@ -52,6 +52,7 @@
             this.AgregarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
             this.RestarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
             this.EliminarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
+            this.NumeroColumna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCancelarVenta = new System.Windows.Forms.Button();
             this.btnGuardarVenta = new System.Windows.Forms.Button();
@@ -79,7 +80,6 @@
             this.lbCantidad = new System.Windows.Forms.Label();
             this.btnTerminarVenta = new System.Windows.Forms.Button();
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
-            this.NumeroColumna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -190,6 +190,7 @@
             this.DGVentas.Location = new System.Drawing.Point(3, 114);
             this.DGVentas.Name = "DGVentas";
             this.DGVentas.ReadOnly = true;
+            this.DGVentas.RowHeadersVisible = false;
             this.DGVentas.Size = new System.Drawing.Size(534, 203);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
@@ -199,60 +200,71 @@
             // 
             this.IDProducto.HeaderText = "_ID";
             this.IDProducto.Name = "IDProducto";
+            this.IDProducto.ReadOnly = true;
             this.IDProducto.Visible = false;
             // 
             // Stock
             // 
             this.Stock.HeaderText = "_Stock";
             this.Stock.Name = "Stock";
+            this.Stock.ReadOnly = true;
             this.Stock.Visible = false;
             // 
             // PrecioOriginal
             // 
             this.PrecioOriginal.HeaderText = "_PrecioOriginal";
             this.PrecioOriginal.Name = "PrecioOriginal";
+            this.PrecioOriginal.ReadOnly = true;
             this.PrecioOriginal.Visible = false;
             // 
             // DescuentoTipo
             // 
             this.DescuentoTipo.HeaderText = "_TipoDescuento";
             this.DescuentoTipo.Name = "DescuentoTipo";
+            this.DescuentoTipo.ReadOnly = true;
             this.DescuentoTipo.Visible = false;
             // 
             // TipoPS
             // 
             this.TipoPS.HeaderText = "_TIpoPS";
             this.TipoPS.Name = "TipoPS";
+            this.TipoPS.ReadOnly = true;
             this.TipoPS.Visible = false;
             // 
             // Cantidad
             // 
             this.Cantidad.HeaderText = "Cantidad";
             this.Cantidad.Name = "Cantidad";
+            this.Cantidad.ReadOnly = true;
             this.Cantidad.Width = 65;
             // 
             // Precio
             // 
             this.Precio.HeaderText = "Precio";
             this.Precio.Name = "Precio";
+            this.Precio.ReadOnly = true;
             this.Precio.Width = 65;
             // 
             // Descripcion
             // 
             this.Descripcion.HeaderText = "Descripción";
             this.Descripcion.Name = "Descripcion";
+            this.Descripcion.ReadOnly = true;
             this.Descripcion.Width = 130;
+            this.Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             // 
             // Descuento
             // 
             this.Descuento.HeaderText = "Descuento";
             this.Descuento.Name = "Descuento";
+            this.Descuento.ReadOnly = true;
             this.Descuento.Width = 65;
             // 
             // Importe
             // 
             this.Importe.HeaderText = "Importe";
             this.Importe.Name = "Importe";
+            this.Importe.ReadOnly = true;
             this.Importe.Width = 65;
             // 
             // AgregarMultiple
@@ -282,6 +294,13 @@
             this.EliminarIndividual.Name = "EliminarIndividual";
             this.EliminarIndividual.ReadOnly = true;
             this.EliminarIndividual.Width = 25;
+            // 
+            // NumeroColumna
+            // 
+            this.NumeroColumna.HeaderText = "NumeroColumna";
+            this.NumeroColumna.Name = "NumeroColumna";
+            this.NumeroColumna.ReadOnly = true;
+            this.NumeroColumna.Visible = false;
             // 
             // pictureBox1
             // 
@@ -627,12 +646,6 @@
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
-            // 
-            // NumeroColumna
-            // 
-            this.NumeroColumna.HeaderText = "NumeroColumna";
-            this.NumeroColumna.Name = "NumeroColumna";
-            this.NumeroColumna.Visible = false;
             // 
             // Ventas
             // 
