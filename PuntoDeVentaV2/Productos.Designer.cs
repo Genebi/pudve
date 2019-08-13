@@ -720,9 +720,9 @@
             // btnActualizarMaximoProductos
             // 
             this.btnActualizarMaximoProductos.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(752, 13);
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(687, 13);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
-            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(75, 23);
+            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(61, 23);
             this.btnActualizarMaximoProductos.TabIndex = 8;
             this.btnActualizarMaximoProductos.Text = "Actualizar";
             this.btnActualizarMaximoProductos.UseVisualStyleBackColor = true;
@@ -731,16 +731,17 @@
             // txtMaximoPorPagina
             // 
             this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtMaximoPorPagina.Location = new System.Drawing.Point(686, 14);
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(621, 14);
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 20);
             this.txtMaximoPorPagina.TabIndex = 7;
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMaximoPorPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaximoPorPagina_KeyDown);
             // 
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Location = new System.Drawing.Point(585, 8);
+            this.label7.Location = new System.Drawing.Point(521, 8);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(95, 32);
             this.label7.TabIndex = 6;
@@ -752,7 +753,7 @@
             this.lblCantidadRegistros.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblCantidadRegistros.BackColor = System.Drawing.SystemColors.Control;
             this.lblCantidadRegistros.ForeColor = System.Drawing.Color.Blue;
-            this.lblCantidadRegistros.Location = new System.Drawing.Point(176, 13);
+            this.lblCantidadRegistros.Location = new System.Drawing.Point(245, 13);
             this.lblCantidadRegistros.Name = "lblCantidadRegistros";
             this.lblCantidadRegistros.Size = new System.Drawing.Size(62, 23);
             this.lblCantidadRegistros.TabIndex = 1;
@@ -763,11 +764,12 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 18);
+            this.label1.Location = new System.Drawing.Point(141, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 13);
+            this.label1.Size = new System.Drawing.Size(99, 26);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Total de productos registrados :";
+            this.label1.Text = "Total de productos \r\nregistrados :";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel3
             // 

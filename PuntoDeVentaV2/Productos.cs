@@ -159,6 +159,17 @@ namespace PuntoDeVentaV2
             fotos = cn.CargarDatos(queryFotos);
         }
 
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                p.actualizarTope(maximo_x_pagina);
+                CargarDatos();
+                actualizar();
+            }
+        }
+
         private void searchPhotoProdInactivo()
         {
             queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Status = 0";
