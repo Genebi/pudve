@@ -2967,6 +2967,7 @@ namespace PuntoDeVentaV2
             {
                 cbTipo.SelectedIndex = 0;
                 PCantidadPaqServ.Visible = false;
+                cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 cargarDatos();
             }
 
