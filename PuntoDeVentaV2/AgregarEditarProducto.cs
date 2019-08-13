@@ -554,11 +554,11 @@ namespace PuntoDeVentaV2
             txtStockProducto.Text = ProdStockFinal;
             txtPrecioProducto.Text = ProdPrecioFinal;
             txtCategoriaProducto.Text = ProdCategoriaFinal;
-            txtClaveProducto.Text = ProdClaveInternaFinal;
+            txtClaveProducto.Text = ProdClaveInternaFinal.Trim();
 
             if (DatosSourceFinal == 2)
             {
-                txtCodigoBarras.Text = ProdCodBarrasFinal;
+                txtCodigoBarras.Text = ProdCodBarrasFinal.Trim();
                 cargarDatosExtra();
             }
             else if (DatosSourceFinal == 4)
@@ -603,7 +603,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                string texto = txtCodigoBarras.Text;
+                string texto = txtCodigoBarras.Text.Trim();
 
                 if (texto.Length >= 5)
                 {
@@ -911,8 +911,8 @@ namespace PuntoDeVentaV2
             var stock = txtStockProducto.Text;
             var precio = txtPrecioProducto.Text;
             var categoria = txtCategoriaProducto.Text;
-            var claveIn = txtClaveProducto.Text;
-            var codigoB = txtCodigoBarras.Text;
+            var claveIn = txtClaveProducto.Text.Trim();
+            var codigoB = txtCodigoBarras.Text.Trim();
             var ProdServPaq = "P".ToString();
             var tipoDescuento = "0";
             var idUsrNvo = FormPrincipal.userID.ToString();
@@ -1217,7 +1217,7 @@ namespace PuntoDeVentaV2
                             for (int pos = 0; pos < codigosBarrras.Count; pos++)
                             {
                                 // preparamos el Query
-                                string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos]}','{idProducto}')";
+                                string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos].Trim()}','{idProducto}')";
                                 cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
                             }
                         }
@@ -1528,7 +1528,7 @@ namespace PuntoDeVentaV2
                             for (int pos = 0; pos < codigosBarrras.Count; pos++)
                             {
                                 // preparamos el Query
-                                string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos]}','{idProducto}')";
+                                string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos].Trim()}','{idProducto}')";
                                 cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
                             }
                         }
@@ -1652,7 +1652,7 @@ namespace PuntoDeVentaV2
                         for (int pos = 0; pos < codigosBarrras.Count; pos++)
                         {
                             // preparamos el Query
-                            string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos]}','{idProductoBuscado}')";
+                            string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos].Trim()}','{idProductoBuscado}')";
                             cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
                         }
                     }
@@ -1775,8 +1775,8 @@ namespace PuntoDeVentaV2
                     var stockNvoInsert = txtStockProducto.Text;
                     var precioNvoInsert = txtPrecioProducto.Text;
                     var categoriaNvoInsert = txtCategoriaProducto.Text;
-                    var claveInNvoInsert = txtClaveProducto.Text;
-                    var codigoBNvoInsert = txtCodigoBarras.Text;
+                    var claveInNvoInsert = txtClaveProducto.Text.Trim();
+                    var codigoBNvoInsert = txtCodigoBarras.Text.Trim();
                     var tipoDescuentoNvoInsert = "0";
                     var idUsrNvoInsert = FormPrincipal.userID.ToString();
                     var tipoProdNvoInsert = "";
@@ -1898,7 +1898,7 @@ namespace PuntoDeVentaV2
                             for (int pos = 0; pos < codigosBarrras.Count; pos++)
                             {
                                 // preparamos el Query
-                                string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos]}','{idProducto}')";
+                                string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos].Trim()}','{idProducto}')";
                                 cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
                             }
                         }
@@ -2571,8 +2571,8 @@ namespace PuntoDeVentaV2
             var stock = txtStockProducto.Text;
             var precio = txtPrecioProducto.Text;
             var categoria = txtCategoriaProducto.Text;
-            var claveIn = txtClaveProducto.Text;
-            var codigoB = txtCodigoBarras.Text;
+            var claveIn = txtClaveProducto.Text.Trim();
+            var codigoB = txtCodigoBarras.Text.Trim();
 
             string queryProdSearch, queryProdServFound, queryProdUpdate, queryProdServUpdate, fech, prodSerPaq, buscar, comboBoxText, comboBoxValue;
 
