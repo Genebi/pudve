@@ -79,6 +79,7 @@
             this.lbCantidad = new System.Windows.Forms.Label();
             this.btnTerminarVenta = new System.Windows.Forms.Button();
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
+            this.NumeroColumna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -184,9 +185,11 @@
             this.AgregarMultiple,
             this.AgregarIndividual,
             this.RestarIndividual,
-            this.EliminarIndividual});
+            this.EliminarIndividual,
+            this.NumeroColumna});
             this.DGVentas.Location = new System.Drawing.Point(3, 114);
             this.DGVentas.Name = "DGVentas";
+            this.DGVentas.ReadOnly = true;
             this.DGVentas.Size = new System.Drawing.Size(534, 203);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
@@ -625,6 +628,12 @@
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
             // 
+            // NumeroColumna
+            // 
+            this.NumeroColumna.HeaderText = "NumeroColumna";
+            this.NumeroColumna.Name = "NumeroColumna";
+            this.NumeroColumna.Visible = false;
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -702,5 +711,6 @@
         private System.Windows.Forms.DataGridViewImageColumn AgregarIndividual;
         private System.Windows.Forms.DataGridViewImageColumn RestarIndividual;
         private System.Windows.Forms.DataGridViewImageColumn EliminarIndividual;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroColumna;
     }
 }

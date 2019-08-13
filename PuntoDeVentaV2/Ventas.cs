@@ -271,6 +271,7 @@ namespace PuntoDeVentaV2
             if (buscarvVentaGuardada == "#$%")
             {
                 //Agregamos la información
+                row.Cells["NumeroColumna"].Value = rowId;
                 row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
                 row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
                 row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
@@ -308,6 +309,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Agregamos la información
+                row.Cells["NumeroColumna"].Value = rowId;
                 row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
                 row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
                 row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
@@ -329,6 +331,8 @@ namespace PuntoDeVentaV2
             DGVentas.Rows[rowId].Cells["AgregarIndividual"].Value = img2;
             DGVentas.Rows[rowId].Cells["RestarIndividual"].Value = img3;
             DGVentas.Rows[rowId].Cells["EliminarIndividual"].Value = img4;
+
+            DGVentas.Sort(DGVentas.Columns["NumeroColumna"], System.ComponentModel.ListSortDirection.Descending);
         }
 
         private void DGVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -1419,11 +1423,11 @@ namespace PuntoDeVentaV2
                             if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
                             {
                                 //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                                var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
+                                var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
 
                                 cantidad += cantidadExtra;
 
-                                DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
+                                DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
 
                                 CantidadesFinalesVenta();
 
@@ -1461,13 +1465,13 @@ namespace PuntoDeVentaV2
                             if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
                             {
                                 //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                                var cantidad = Convert.ToInt32(DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value);
+                                var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
 
                                 cantidad += cantidadExtra;
 
                                 if (cantidad < 0) { cantidad = 1; }
 
-                                DGVentas.Rows[DGVentas.Rows.Count - 1].Cells["Cantidad"].Value = cantidad;
+                                DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
 
                                 CantidadesFinalesVenta();
 
