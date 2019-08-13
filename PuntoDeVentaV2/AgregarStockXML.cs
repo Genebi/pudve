@@ -399,6 +399,7 @@ namespace PuntoDeVentaV2
             {
                 datosAgregarNvoProd();
                 FormAgregar.DatosSource = origenDeLosDatos;
+                FormAgregar.Titulo = "Agregar Producto";
                 FormAgregar.ShowDialog();
                 origenDeLosDatos = 0;
             }
@@ -406,6 +407,7 @@ namespace PuntoDeVentaV2
             {
                 datosAgregarNvoProd();
                 FormAgregar.DatosSource = origenDeLosDatos;
+                FormAgregar.Titulo = "Agregar Producto";
                 FormAgregar.BringToFront();
                 origenDeLosDatos = 0;
             }
