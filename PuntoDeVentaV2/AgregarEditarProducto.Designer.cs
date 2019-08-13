@@ -55,10 +55,10 @@
             this.pictureBoxProducto = new System.Windows.Forms.PictureBox();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.PTypeAndCantProd = new System.Windows.Forms.Panel();
             this.chkBoxConProductos = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.PStock = new System.Windows.Forms.Panel();
             this.PPrecioOriginal = new System.Windows.Forms.Panel();
@@ -81,6 +81,12 @@
             this.btnProdUpdate = new System.Windows.Forms.Button();
             this.Ptitulo = new System.Windows.Forms.Panel();
             this.PType = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel8 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
@@ -98,13 +104,19 @@
             this.PAccion.SuspendLayout();
             this.Ptitulo.SuspendLayout();
             this.PType.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
+            this.flowLayoutPanel6.SuspendLayout();
+            this.flowLayoutPanel7.SuspendLayout();
+            this.flowLayoutPanel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTipoProdPaq
             // 
             this.lblTipoProdPaq.AutoSize = true;
             this.lblTipoProdPaq.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTipoProdPaq.Location = new System.Drawing.Point(45, 41);
+            this.lblTipoProdPaq.Location = new System.Drawing.Point(45, 8);
             this.lblTipoProdPaq.Name = "lblTipoProdPaq";
             this.lblTipoProdPaq.Size = new System.Drawing.Size(149, 17);
             this.lblTipoProdPaq.TabIndex = 0;
@@ -161,9 +173,9 @@
             // 
             // txtNombreProducto
             // 
-            this.txtNombreProducto.Location = new System.Drawing.Point(47, 61);
+            this.txtNombreProducto.Location = new System.Drawing.Point(39, 28);
             this.txtNombreProducto.Name = "txtNombreProducto";
-            this.txtNombreProducto.Size = new System.Drawing.Size(692, 20);
+            this.txtNombreProducto.Size = new System.Drawing.Size(722, 20);
             this.txtNombreProducto.TabIndex = 2;
             this.txtNombreProducto.Enter += new System.EventHandler(this.txtNombreProducto_Enter);
             // 
@@ -380,12 +392,21 @@
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
             this.PDetalleProdcuto.Controls.Add(this.txtNombreProducto);
-            this.PDetalleProdcuto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PDetalleProdcuto.Location = new System.Drawing.Point(0, 69);
+            this.PDetalleProdcuto.Location = new System.Drawing.Point(2, 2);
             this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
-            this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 92);
+            this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 57);
             this.PDetalleProdcuto.TabIndex = 27;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(766, 25);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(26, 25);
+            this.btnAdd.TabIndex = 29;
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // PTypeAndCantProd
             // 
@@ -416,16 +437,6 @@
             this.label10.Size = new System.Drawing.Size(34, 17);
             this.label10.TabIndex = 28;
             this.label10.Text = "Tipo";
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(744, 58);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(26, 25);
-            this.btnAdd.TabIndex = 29;
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -598,8 +609,7 @@
             // PConteidoProducto
             // 
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
-            this.PConteidoProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PConteidoProducto.Location = new System.Drawing.Point(0, 161);
+            this.PConteidoProducto.Location = new System.Drawing.Point(2, 2);
             this.PConteidoProducto.Margin = new System.Windows.Forms.Padding(2);
             this.PConteidoProducto.Name = "PConteidoProducto";
             this.PConteidoProducto.Size = new System.Drawing.Size(838, 140);
@@ -623,8 +633,7 @@
             // PDetalle
             // 
             this.PDetalle.Controls.Add(this.flowLayoutPanel1);
-            this.PDetalle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PDetalle.Location = new System.Drawing.Point(0, 301);
+            this.PDetalle.Location = new System.Drawing.Point(2, 2);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
             this.PDetalle.Size = new System.Drawing.Size(838, 305);
@@ -639,9 +648,8 @@
             this.PAccion.Controls.Add(this.btnGuardarProducto);
             this.PAccion.Controls.Add(this.label9);
             this.PAccion.Controls.Add(this.label8);
-            this.PAccion.Dock = System.Windows.Forms.DockStyle.Top;
             this.PAccion.ForeColor = System.Drawing.Color.White;
-            this.PAccion.Location = new System.Drawing.Point(0, 606);
+            this.PAccion.Location = new System.Drawing.Point(2, 2);
             this.PAccion.Margin = new System.Windows.Forms.Padding(2);
             this.PAccion.Name = "PAccion";
             this.PAccion.Size = new System.Drawing.Size(838, 122);
@@ -663,8 +671,7 @@
             // Ptitulo
             // 
             this.Ptitulo.Controls.Add(this.tituloSeccion);
-            this.Ptitulo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Ptitulo.Location = new System.Drawing.Point(0, 0);
+            this.Ptitulo.Location = new System.Drawing.Point(3, 3);
             this.Ptitulo.Name = "Ptitulo";
             this.Ptitulo.Size = new System.Drawing.Size(838, 36);
             this.Ptitulo.TabIndex = 33;
@@ -675,23 +682,81 @@
             this.PType.Controls.Add(this.label10);
             this.PType.Controls.Add(this.PTypeAndCantProd);
             this.PType.Controls.Add(this.cbTipo);
-            this.PType.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PType.Location = new System.Drawing.Point(0, 36);
+            this.PType.Location = new System.Drawing.Point(3, 3);
             this.PType.Name = "PType";
             this.PType.Size = new System.Drawing.Size(838, 33);
             this.PType.TabIndex = 34;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.Ptitulo);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(838, 39);
+            this.flowLayoutPanel3.TabIndex = 22;
+            // 
+            // flowLayoutPanel4
+            // 
+            this.flowLayoutPanel4.Controls.Add(this.PType);
+            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 39);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(838, 39);
+            this.flowLayoutPanel4.TabIndex = 35;
+            // 
+            // flowLayoutPanel5
+            // 
+            this.flowLayoutPanel5.Controls.Add(this.PDetalleProdcuto);
+            this.flowLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 78);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(838, 60);
+            this.flowLayoutPanel5.TabIndex = 36;
+            // 
+            // flowLayoutPanel6
+            // 
+            this.flowLayoutPanel6.Controls.Add(this.PConteidoProducto);
+            this.flowLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel6.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 138);
+            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(838, 145);
+            this.flowLayoutPanel6.TabIndex = 37;
+            // 
+            // flowLayoutPanel7
+            // 
+            this.flowLayoutPanel7.Controls.Add(this.PDetalle);
+            this.flowLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel7.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel7.Location = new System.Drawing.Point(0, 283);
+            this.flowLayoutPanel7.Name = "flowLayoutPanel7";
+            this.flowLayoutPanel7.Size = new System.Drawing.Size(838, 318);
+            this.flowLayoutPanel7.TabIndex = 38;
+            // 
+            // flowLayoutPanel8
+            // 
+            this.flowLayoutPanel8.Controls.Add(this.PAccion);
+            this.flowLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel8.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel8.Location = new System.Drawing.Point(0, 601);
+            this.flowLayoutPanel8.Name = "flowLayoutPanel8";
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(838, 134);
+            this.flowLayoutPanel8.TabIndex = 39;
             // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(838, 729);
-            this.Controls.Add(this.PAccion);
-            this.Controls.Add(this.PDetalle);
-            this.Controls.Add(this.PConteidoProducto);
-            this.Controls.Add(this.PDetalleProdcuto);
-            this.Controls.Add(this.PType);
-            this.Controls.Add(this.Ptitulo);
+            this.Controls.Add(this.flowLayoutPanel8);
+            this.Controls.Add(this.flowLayoutPanel7);
+            this.Controls.Add(this.flowLayoutPanel6);
+            this.Controls.Add(this.flowLayoutPanel5);
+            this.Controls.Add(this.flowLayoutPanel4);
+            this.Controls.Add(this.flowLayoutPanel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(858, 539);
@@ -728,6 +793,12 @@
             this.Ptitulo.PerformLayout();
             this.PType.ResumeLayout(false);
             this.PType.PerformLayout();
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel6.ResumeLayout(false);
+            this.flowLayoutPanel7.ResumeLayout(false);
+            this.flowLayoutPanel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -785,5 +856,11 @@
         private System.Windows.Forms.Panel PTypeAndCantProd;
         private System.Windows.Forms.Panel Ptitulo;
         private System.Windows.Forms.Panel PType;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel7;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel8;
     }
 }
