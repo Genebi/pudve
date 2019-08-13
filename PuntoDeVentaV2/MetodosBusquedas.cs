@@ -270,6 +270,8 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(codigoClave))
             {
+                codigoClave = codigoClave.Trim();
+
                 DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Status = 1 AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')");
 
                 SQLiteDataReader dr = sql_cmd.ExecuteReader();
