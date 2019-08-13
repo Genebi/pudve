@@ -79,10 +79,11 @@
             this.PDetalle = new System.Windows.Forms.Panel();
             this.PAccion = new System.Windows.Forms.Panel();
             this.btnProdUpdate = new System.Windows.Forms.Button();
+            this.Ptitulo = new System.Windows.Forms.Panel();
+            this.PType = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
             this.PDetalleProdcuto.SuspendLayout();
-            this.PTypeAndCantProd.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.PStock.SuspendLayout();
             this.PPrecioOriginal.SuspendLayout();
@@ -95,6 +96,8 @@
             this.PConteidoProducto.SuspendLayout();
             this.PDetalle.SuspendLayout();
             this.PAccion.SuspendLayout();
+            this.Ptitulo.SuspendLayout();
+            this.PType.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTipoProdPaq
@@ -270,7 +273,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(307, 16);
+            this.tituloSeccion.Location = new System.Drawing.Point(302, 4);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(235, 25);
             this.tituloSeccion.TabIndex = 21;
@@ -362,7 +365,7 @@
             this.cbTipo.Items.AddRange(new object[] {
             "Producto",
             "Servicio / Paquete"});
-            this.cbTipo.Location = new System.Drawing.Point(47, 18);
+            this.cbTipo.Location = new System.Drawing.Point(75, 7);
             this.cbTipo.Margin = new System.Windows.Forms.Padding(2);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(165, 21);
@@ -374,13 +377,11 @@
             // PDetalleProdcuto
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
-            this.PDetalleProdcuto.Controls.Add(this.PTypeAndCantProd);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
             this.PDetalleProdcuto.Controls.Add(this.txtNombreProducto);
-            this.PDetalleProdcuto.Controls.Add(this.tituloSeccion);
             this.PDetalleProdcuto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PDetalleProdcuto.Location = new System.Drawing.Point(0, 0);
+            this.PDetalleProdcuto.Location = new System.Drawing.Point(0, 69);
             this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
             this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 92);
@@ -388,18 +389,15 @@
             // 
             // PTypeAndCantProd
             // 
-            this.PTypeAndCantProd.Controls.Add(this.chkBoxConProductos);
-            this.PTypeAndCantProd.Controls.Add(this.label10);
-            this.PTypeAndCantProd.Controls.Add(this.cbTipo);
-            this.PTypeAndCantProd.Location = new System.Drawing.Point(472, 3);
+            this.PTypeAndCantProd.Location = new System.Drawing.Point(403, 6);
             this.PTypeAndCantProd.Name = "PTypeAndCantProd";
-            this.PTypeAndCantProd.Size = new System.Drawing.Size(366, 55);
+            this.PTypeAndCantProd.Size = new System.Drawing.Size(280, 20);
             this.PTypeAndCantProd.TabIndex = 31;
             // 
             // chkBoxConProductos
             // 
             this.chkBoxConProductos.AutoSize = true;
-            this.chkBoxConProductos.Location = new System.Drawing.Point(218, 19);
+            this.chkBoxConProductos.Location = new System.Drawing.Point(246, 9);
             this.chkBoxConProductos.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxConProductos.Name = "chkBoxConProductos";
             this.chkBoxConProductos.Size = new System.Drawing.Size(131, 17);
@@ -412,7 +410,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(12, 21);
+            this.label10.Location = new System.Drawing.Point(38, 9);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(34, 17);
@@ -601,7 +599,7 @@
             // 
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
             this.PConteidoProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PConteidoProducto.Location = new System.Drawing.Point(0, 92);
+            this.PConteidoProducto.Location = new System.Drawing.Point(0, 161);
             this.PConteidoProducto.Margin = new System.Windows.Forms.Padding(2);
             this.PConteidoProducto.Name = "PConteidoProducto";
             this.PConteidoProducto.Size = new System.Drawing.Size(838, 140);
@@ -626,7 +624,7 @@
             // 
             this.PDetalle.Controls.Add(this.flowLayoutPanel1);
             this.PDetalle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PDetalle.Location = new System.Drawing.Point(0, 232);
+            this.PDetalle.Location = new System.Drawing.Point(0, 301);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
             this.PDetalle.Size = new System.Drawing.Size(838, 305);
@@ -643,7 +641,7 @@
             this.PAccion.Controls.Add(this.label8);
             this.PAccion.Dock = System.Windows.Forms.DockStyle.Top;
             this.PAccion.ForeColor = System.Drawing.Color.White;
-            this.PAccion.Location = new System.Drawing.Point(0, 537);
+            this.PAccion.Location = new System.Drawing.Point(0, 606);
             this.PAccion.Margin = new System.Windows.Forms.Padding(2);
             this.PAccion.Name = "PAccion";
             this.PAccion.Size = new System.Drawing.Size(838, 122);
@@ -662,15 +660,38 @@
             this.btnProdUpdate.UseVisualStyleBackColor = false;
             this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
             // 
+            // Ptitulo
+            // 
+            this.Ptitulo.Controls.Add(this.tituloSeccion);
+            this.Ptitulo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.Ptitulo.Location = new System.Drawing.Point(0, 0);
+            this.Ptitulo.Name = "Ptitulo";
+            this.Ptitulo.Size = new System.Drawing.Size(838, 36);
+            this.Ptitulo.TabIndex = 33;
+            // 
+            // PType
+            // 
+            this.PType.Controls.Add(this.chkBoxConProductos);
+            this.PType.Controls.Add(this.label10);
+            this.PType.Controls.Add(this.PTypeAndCantProd);
+            this.PType.Controls.Add(this.cbTipo);
+            this.PType.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PType.Location = new System.Drawing.Point(0, 36);
+            this.PType.Name = "PType";
+            this.PType.Size = new System.Drawing.Size(838, 33);
+            this.PType.TabIndex = 34;
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 659);
+            this.ClientSize = new System.Drawing.Size(838, 729);
             this.Controls.Add(this.PAccion);
             this.Controls.Add(this.PDetalle);
             this.Controls.Add(this.PConteidoProducto);
             this.Controls.Add(this.PDetalleProdcuto);
+            this.Controls.Add(this.PType);
+            this.Controls.Add(this.Ptitulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(858, 539);
@@ -684,8 +705,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).EndInit();
             this.PDetalleProdcuto.ResumeLayout(false);
             this.PDetalleProdcuto.PerformLayout();
-            this.PTypeAndCantProd.ResumeLayout(false);
-            this.PTypeAndCantProd.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.PStock.ResumeLayout(false);
             this.PStock.PerformLayout();
@@ -705,6 +724,10 @@
             this.PConteidoProducto.ResumeLayout(false);
             this.PDetalle.ResumeLayout(false);
             this.PAccion.ResumeLayout(false);
+            this.Ptitulo.ResumeLayout(false);
+            this.Ptitulo.PerformLayout();
+            this.PType.ResumeLayout(false);
+            this.PType.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -760,5 +783,7 @@
         private System.Windows.Forms.TextBox txtCantPaqServ;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel PTypeAndCantProd;
+        private System.Windows.Forms.Panel Ptitulo;
+        private System.Windows.Forms.Panel PType;
     }
 }

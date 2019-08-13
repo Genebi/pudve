@@ -2954,7 +2954,7 @@ namespace PuntoDeVentaV2
         {
             seleccionListaStock = 0;
             string cadAux = string.Empty;
-            PTypeAndCantProd.Visible = false;
+            PType.Visible = false;
             TituloForm = Titulo;
 
             PH = PConteidoProducto.Height;
@@ -2967,6 +2967,7 @@ namespace PuntoDeVentaV2
             {
                 cbTipo.SelectedIndex = 0;
                 PCantidadPaqServ.Visible = false;
+                PType.Visible = true;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 cargarDatos();
             }
