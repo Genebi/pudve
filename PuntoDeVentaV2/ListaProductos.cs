@@ -45,6 +45,9 @@ namespace PuntoDeVentaV2
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
+        public delegate void pasarProducto(string dato);
+        public event pasarProducto nombreProducto;
+
         public void CargarDataGridView()    // metodo para poder cargar los datos al inicio
         {
             // el query que se usara en la base de datos
@@ -84,12 +87,7 @@ namespace PuntoDeVentaV2
             DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
             DGVStockProductos.Columns["ID"].Visible = false;
         }
-
-        private void ListaProductos_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            AgregarEditarProducto.CBNombProd = NombreProdStr;
-        }
-
+        
         private void DGVStockProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             numfila = DGVStockProductos.CurrentRow.Index;                           // variable para poder saber que fila fue la seleccionada
@@ -102,9 +100,7 @@ namespace PuntoDeVentaV2
             CodigoBarrasProdStr = DGVStockProductos[6, numfila].Value.ToString();   // almacenamos en la variable CodigoBarrasProdStr del resultado de la consulta en DB
 
             /************************************************************************
-            *                                                                       *
             *       verificamos en que campo va ir guardado la clave interna        *
-            *                                                                       *
             ************************************************************************/
             if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr == ""))         // en el caso los dos campos esten en blanco por default va ir en el de clave Interna
             {
@@ -124,10 +120,8 @@ namespace PuntoDeVentaV2
             }
 
             /****************************************************************
-            *                                                               * 
             *   registramos el valor de las viariables de arriba para       *
             *   poder hacerlas publicas hacia las demas formas              *
-            *                                                               *
             ****************************************************************/
             IdProdStrFin = IdProdStr;                               // almacenamos el valor de IdProducto
             NombreProdStrFin = NombreProdStr;                       // almacenamos el valor de NombreProd
@@ -139,6 +133,8 @@ namespace PuntoDeVentaV2
             consultadoDesdeListProd = 1;                            // almacenamos el valor si selecciono un producto
             consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
             opcionGuardarFin = opcionGuardar;                       // almacenamos el valor de opcionGuardar
+
+            nombreProducto(NombreProdStrFin);
             this.Close();                                           // cerramos la ventana 
         }
     }

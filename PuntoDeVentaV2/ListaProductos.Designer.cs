@@ -44,7 +44,7 @@
             this.panel1.Controls.Add(this.txtBoxSearchProd);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(410, 49);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(151, 52);
             this.panel1.TabIndex = 0;
@@ -52,7 +52,7 @@
             // txtBoxSearchProd
             // 
             this.txtBoxSearchProd.Location = new System.Drawing.Point(14, 23);
-            this.txtBoxSearchProd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBoxSearchProd.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxSearchProd.Name = "txtBoxSearchProd";
             this.txtBoxSearchProd.Size = new System.Drawing.Size(122, 20);
             this.txtBoxSearchProd.TabIndex = 1;
@@ -84,7 +84,7 @@
             // 
             this.panel2.Controls.Add(this.DGVStockProductos);
             this.panel2.Location = new System.Drawing.Point(14, 117);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(959, 526);
             this.panel2.TabIndex = 2;
@@ -98,7 +98,7 @@
             this.DGVStockProductos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.DGVStockProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVStockProductos.Location = new System.Drawing.Point(11, 11);
-            this.DGVStockProductos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DGVStockProductos.Margin = new System.Windows.Forms.Padding(2);
             this.DGVStockProductos.Name = "DGVStockProductos";
             this.DGVStockProductos.ReadOnly = true;
             this.DGVStockProductos.RowTemplate.Height = 24;
@@ -114,13 +114,12 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ListaProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ListaProductos";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ListaProductos_FormClosing);
             this.Load += new System.EventHandler(this.ListaProductos_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
