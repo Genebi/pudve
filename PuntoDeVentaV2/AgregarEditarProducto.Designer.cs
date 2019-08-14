@@ -617,9 +617,6 @@
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Control;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -652,7 +649,7 @@
             this.PAccion.Location = new System.Drawing.Point(2, 2);
             this.PAccion.Margin = new System.Windows.Forms.Padding(2);
             this.PAccion.Name = "PAccion";
-            this.PAccion.Size = new System.Drawing.Size(838, 122);
+            this.PAccion.Size = new System.Drawing.Size(838, 109);
             this.PAccion.TabIndex = 32;
             // 
             // btnProdUpdate
@@ -743,14 +740,14 @@
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPAccion.Location = new System.Drawing.Point(0, 601);
             this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(838, 134);
+            this.fLPAccion.Size = new System.Drawing.Size(838, 112);
             this.fLPAccion.TabIndex = 39;
             // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 729);
+            this.ClientSize = new System.Drawing.Size(838, 712);
             this.Controls.Add(this.fLPAccion);
             this.Controls.Add(this.fLPDetalle);
             this.Controls.Add(this.fLPContenidoProducto);

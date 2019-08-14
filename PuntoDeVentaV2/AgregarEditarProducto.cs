@@ -2882,10 +2882,10 @@ namespace PuntoDeVentaV2
                     {
                         GenerarPanelProductosServ();
                     }
-                    this.Height = 700;
-                    this.CenterToScreen();
-                    this.Refresh();
                 }
+                this.Height = 725;
+                this.CenterToScreen();
+                this.Refresh();
             }
             else
             {
@@ -2894,10 +2894,10 @@ namespace PuntoDeVentaV2
                 {
                     timerProdPaqSer.Stop();
                     Hided = true;
-                    this.Height = 600;
-                    this.CenterToScreen();
-                    this.Refresh();
+                    this.Height = 630;
                 }
+                this.CenterToScreen();
+                this.Refresh();
             }
         }
 
