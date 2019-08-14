@@ -209,7 +209,7 @@ namespace PuntoDeVentaV2
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
                     {
-                        var sumar = 1;
+                        Decimal sumar = 1;
 
                         if (cantidadExtra > 0)
                         {
@@ -219,16 +219,16 @@ namespace PuntoDeVentaV2
                         }
                         else if (cantidadExtra == 0)
                         {
-                            if (Convert.ToInt32(nudCantidadPS.Value) > 0)
+                            if (Convert.ToDecimal(nudCantidadPS.Value) > 0)
                             {
-                                sumar = Convert.ToInt32(nudCantidadPS.Value);
+                                sumar = Convert.ToDecimal(nudCantidadPS.Value);
                             }
 
                             nudCantidadPS.Value = 1;
                         }
 
-                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + sumar;
-                        float importe = cantidad * float.Parse(fila.Cells["Precio"].Value.ToString());
+                        Decimal cantidad = Convert.ToDecimal(fila.Cells["Cantidad"].Value) + sumar;
+                        float importe = float.Parse(cantidad.ToString()) * float.Parse(fila.Cells["Precio"].Value.ToString());
 
                         fila.Cells["Cantidad"].Value = cantidad;
                         fila.Cells["Importe"].Value = importe;
@@ -240,7 +240,8 @@ namespace PuntoDeVentaV2
                         if (tipoDescuento > 0)
                         {
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                            CalcularDescuento(datosDescuento, tipoDescuento, cantidad);
+                            // Debe cambiarse el tipo de datos de cantidad y corregir los errores que aparezcan
+                            // CalcularDescuento(datosDescuento, tipoDescuento, cantidad);
                         }
                     }
                 }
@@ -258,9 +259,9 @@ namespace PuntoDeVentaV2
             CantidadesFinalesVenta();
         }
 
-        private void AgregarProductoLista(string[] datosProducto, int cantidad = 1, bool ignorar = false)
+        private void AgregarProductoLista(string[] datosProducto, Decimal cantidad = 1, bool ignorar = false)
         {
-            int cantidadTmp = cantidad;
+            Decimal cantidadTmp = cantidad;
 
             //Se agrega la nueva fila y se obtiene el ID que tendrá
             int rowId = DGVentas.Rows.Add();
@@ -295,7 +296,7 @@ namespace PuntoDeVentaV2
                 {
                     if (Convert.ToInt32(nudCantidadPS.Value) > 0)
                     {
-                        cantidad = Convert.ToInt32(nudCantidadPS.Value);
+                        cantidad = Convert.ToDecimal(nudCantidadPS.Value);
                     }
 
                     nudCantidadPS.Value = 1;
@@ -583,7 +584,7 @@ namespace PuntoDeVentaV2
 
         private void CantidadesFinalesVenta()
         {
-            int    totalArticulos = 0;
+            Decimal totalArticulos = 0;
             double totalImporte   = 0;
             double totalDescuento = 0;
             double totalSubtotal  = 0;
@@ -609,13 +610,13 @@ namespace PuntoDeVentaV2
                 else if (porcentajeGeneral > 0)
                 {
                     var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);  //Precio original del producto
-                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);       //Cantidad de producto
+                    var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);       //Cantidad de producto
                     var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);    //Cantidad descuento del producto
 
-                    var descuento = (precioOriginal * cantidadProducto) - cantidadDescuento;
+                    var descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
                     descuento *= porcentajeGeneral;
 
-                    var importeProducto = precioOriginal * cantidadProducto;
+                    var importeProducto = precioOriginal * Convert.ToDouble(cantidadProducto);
                     importeProducto -= descuento;
                     importeProducto -= cantidadDescuento;
 
@@ -628,10 +629,10 @@ namespace PuntoDeVentaV2
                 else
                 {
                     var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
-                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                    var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                     var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
 
-                    var importeProducto = (precioOriginal * cantidadProducto) - cantidadDescuento;
+                    var importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
 
                     fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 

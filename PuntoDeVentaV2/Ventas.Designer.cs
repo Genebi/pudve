@@ -247,11 +247,10 @@
             // 
             // Descripcion
             // 
+            this.Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Descripcion.HeaderText = "Descripción";
             this.Descripcion.Name = "Descripcion";
             this.Descripcion.ReadOnly = true;
-            this.Descripcion.Width = 130;
-            this.Descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             // 
             // Descuento
             // 
@@ -596,6 +595,7 @@
             // 
             // nudCantidadPS
             // 
+            this.nudCantidadPS.DecimalPlaces = 2;
             this.nudCantidadPS.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCantidadPS.Location = new System.Drawing.Point(3, 31);
             this.nudCantidadPS.Minimum = new decimal(new int[] {
