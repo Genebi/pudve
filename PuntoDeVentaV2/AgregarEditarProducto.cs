@@ -301,7 +301,14 @@ namespace PuntoDeVentaV2
                 queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
                 dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
                 rowProdServPaq = dtProductosDeServicios.Rows[0];
-                cbTipo.Text = "Servicio / Paquete";
+                if (tipoProdServ == "S")
+                {
+                    cbTipo.Text = "Servicio";
+                }
+                else if (tipoProdServ == "PQ")
+                {
+                    cbTipo.Text = "Paquete";
+                }
                 if (dtProductosDeServicios.Rows.Count > 0)
                 {
                     if (rowProdServPaq["NombreProducto"].ToString() != "")
@@ -1008,7 +1015,7 @@ namespace PuntoDeVentaV2
                     //    cbTipo.Text = "Producto";
                     //    tipoServPaq = "Producto";
                     //}
-                    if (this.Text == "Productos")
+                    if (this.Text.Trim() == "Productos")
                     {
                         guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto };
                         //Se guardan los datos principales del producto
@@ -1225,13 +1232,13 @@ namespace PuntoDeVentaV2
                         //Cierra la ventana donde se agregan los datos del producto
                         this.Close();
                     }
-                    else if (this.Text == "Paquetes" || this.Text == "Servicios")
+                    else if (this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios")
                     {
-                        if (this.Text == "Servicios")
+                        if (this.Text.Trim() == "Servicios")
                         {
                             ProdServPaq = "S";
                         }
-                        else if (this.Text == "Paquetes")
+                        else if (this.Text.Trim() == "Paquetes")
                         {
                             ProdServPaq = "PQ";
                         }
@@ -1545,7 +1552,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        MessageBox.Show("Ha ocurrido un error al intentar registrar el producto");
+                        MessageBox.Show("Ha ocurrido un error al intentar registrar el producto", "Error de tipo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     /*	Fin del codigo de Alejandro	*/
                 }
@@ -1988,7 +1995,7 @@ namespace PuntoDeVentaV2
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto)
                 tituloSeccion.Text = TituloForm;
-                this.Text = cadAux;
+                this.Text = cadAux + "s";
                 if (PStock.Visible == false)
                 {
                     PStock.Visible = true;
@@ -2013,7 +2020,7 @@ namespace PuntoDeVentaV2
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Paquete)
                 tituloSeccion.Text = TituloForm;
-                this.Text = cadAux;
+                this.Text = cadAux + "s";
                 if (PStock.Visible == true)
                 {
                     PStock.Visible = false;
@@ -2039,7 +2046,7 @@ namespace PuntoDeVentaV2
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Servicio)
                 tituloSeccion.Text = TituloForm;
-                this.Text = cadAux;
+                this.Text = cadAux + "s";
                 if (PStock.Visible == true)
                 {
                     PStock.Visible = false;
@@ -2063,11 +2070,11 @@ namespace PuntoDeVentaV2
 
         private void ocultarPanel()
         {
-            if (Hided)
+            if (Hided)  // Si su valor es True
             {
                 timerProdPaqSer.Start();
             }
-            else
+            else  // Si su valor es False
             {
                 timerProdPaqSer.Start();
             }
@@ -2075,12 +2082,12 @@ namespace PuntoDeVentaV2
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (Hided)
+            if (Hided)  // Si su valor es True
             {
                 ocultarPanel();
                 btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-up.png");
             }
-            else
+            else  // Si su valor es False
             {
                 ocultarPanel();
                 btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");

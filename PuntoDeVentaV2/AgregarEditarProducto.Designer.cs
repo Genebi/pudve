@@ -610,6 +610,7 @@
             // PConteidoProducto
             // 
             this.PConteidoProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.PConteidoProducto.BackColor = System.Drawing.SystemColors.Control;
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
             this.PConteidoProducto.Location = new System.Drawing.Point(2, 2);
             this.PConteidoProducto.Margin = new System.Windows.Forms.Padding(2);
