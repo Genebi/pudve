@@ -2846,11 +2846,11 @@ namespace PuntoDeVentaV2
         {
             if (Hided)
             {
-                if (PConteidoProducto.Height == 0)
+                if (fLPContenidoProducto.Height == 0)
                 {
-                    PConteidoProducto.Height = PConteidoProducto.Height + 123;
+                    fLPContenidoProducto.Height = fLPContenidoProducto.Height + 123;
                 }
-                if (PConteidoProducto.Height >= PH)
+                if (fLPContenidoProducto.Height >= PH)
                 {
                     timerProdPaqSer.Stop();
                     Hided = false;
@@ -2889,8 +2889,8 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                PConteidoProducto.Height = PConteidoProducto.Height - 30;
-                if (PConteidoProducto.Height <= 0)
+                fLPContenidoProducto.Height = fLPContenidoProducto.Height - 30;
+                if (fLPContenidoProducto.Height <= 0)
                 {
                     timerProdPaqSer.Stop();
                     Hided = true;
@@ -2954,7 +2954,7 @@ namespace PuntoDeVentaV2
         {
             seleccionListaStock = 0;
             string cadAux = string.Empty;
-            PType.Visible = false;
+            fLPType.Visible = false;
             TituloForm = Titulo;
 
             PH = PConteidoProducto.Height;
@@ -2967,7 +2967,7 @@ namespace PuntoDeVentaV2
             {
                 cbTipo.SelectedIndex = 0;
                 PCantidadPaqServ.Visible = false;
-                PType.Visible = true;
+                fLPType.Visible = true;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 cargarDatos();
             }
