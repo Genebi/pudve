@@ -608,22 +608,24 @@
             // 
             // PConteidoProducto
             // 
+            this.PConteidoProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
             this.PConteidoProducto.Location = new System.Drawing.Point(2, 2);
             this.PConteidoProducto.Margin = new System.Windows.Forms.Padding(2);
             this.PConteidoProducto.Name = "PConteidoProducto";
-            this.PConteidoProducto.Size = new System.Drawing.Size(838, 140);
+            this.PConteidoProducto.Size = new System.Drawing.Size(836, 140);
             this.PConteidoProducto.TabIndex = 30;
             // 
             // flowLayoutPanel2
             // 
+            this.flowLayoutPanel2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Control;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(41, 7);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(20, 9);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(755, 123);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(805, 123);
             this.flowLayoutPanel2.TabIndex = 0;
             this.flowLayoutPanel2.WrapContents = false;
             // 

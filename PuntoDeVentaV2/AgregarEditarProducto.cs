@@ -2957,7 +2957,7 @@ namespace PuntoDeVentaV2
             fLPType.Visible = false;
             TituloForm = Titulo;
 
-            PH = PConteidoProducto.Height;
+            PH = fLPContenidoProducto.Height;
             Hided = false;
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
