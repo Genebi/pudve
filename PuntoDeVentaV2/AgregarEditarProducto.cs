@@ -1980,9 +1980,15 @@ namespace PuntoDeVentaV2
 
         private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
+            string cadAux = string.Empty;
             filtro = Convert.ToString(cbTipo.SelectedItem);      // tomamos el valor que se elige en el TextBox
             if (filtro == "Producto")                            // comparamos si el valor a filtrar es Producto
             {
+                Titulo = "Agregar Producto";
+                TituloForm = Titulo;
+                cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto)
+                tituloSeccion.Text = TituloForm;
+                this.Text = cadAux;
                 if (PStock.Visible == false)
                 {
                     PStock.Visible = true;
@@ -2001,8 +2007,13 @@ namespace PuntoDeVentaV2
                     chkBoxConProductos.Visible = false;
                 }
             }
-            else if (filtro == "Servicio / Paquete")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
+            else if (filtro == "Paquete")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
+                Titulo = "Agregar Paquete";
+                TituloForm = Titulo;
+                cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Paquete)
+                tituloSeccion.Text = TituloForm;
+                this.Text = cadAux;
                 if (PStock.Visible == true)
                 {
                     PStock.Visible = false;
@@ -2013,7 +2024,33 @@ namespace PuntoDeVentaV2
                 }
                 if (PStock.Visible == false && PPrecioOriginal.Visible == false)
                 {
-                    lblTipoProdPaq.Text = "Servicio / Paquete";
+                    lblTipoProdPaq.Text = "Paquete";
+                    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
+                    Hided = false;
+                    btnAdd.Visible = true;
+                    btnAdd.PerformClick();
+                    chkBoxConProductos.Checked = false;
+                    chkBoxConProductos.Visible = true;
+                }
+            }
+            else if (filtro == "Servicio")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
+            {
+                Titulo = "Agregar Servicio";
+                TituloForm = Titulo;
+                cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Servicio)
+                tituloSeccion.Text = TituloForm;
+                this.Text = cadAux;
+                if (PStock.Visible == true)
+                {
+                    PStock.Visible = false;
+                }
+                if (PPrecioOriginal.Visible == true)
+                {
+                    PPrecioOriginal.Visible = false;
+                }
+                if (PStock.Visible == false && PPrecioOriginal.Visible == false)
+                {
+                    lblTipoProdPaq.Text = "Servicio";
                     btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
                     Hided = false;
                     btnAdd.Visible = true;
