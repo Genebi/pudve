@@ -1748,11 +1748,17 @@ namespace PuntoDeVentaV2
 
                     cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardarDetalles, 1));
 
-                    if (Convert.ToInt32(idProductoFinal) > 0)
+                    foreach (Form frm in Application.OpenForms)
                     {
-                        FormDetalleProducto.Close();
+                        if (frm.GetType() == typeof(AgregarDetalleProducto))
+                        {
+                            if (Convert.ToInt32(idProductoFinal) > 0)
+                            {
+                                FormDetalleProducto.Close();
+                            }
+                        }
                     }
-
+                    
                     infoProveedor = string.Empty;
                     infoCategoria = string.Empty;
                     infoUbicacion = string.Empty;
