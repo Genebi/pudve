@@ -209,7 +209,7 @@ namespace PuntoDeVentaV2
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
                     {
-                        Decimal sumar = 1;
+                        decimal sumar = 1;
 
                         if (cantidadExtra > 0)
                         {
@@ -227,7 +227,7 @@ namespace PuntoDeVentaV2
                             nudCantidadPS.Value = 1;
                         }
 
-                        Decimal cantidad = Convert.ToDecimal(fila.Cells["Cantidad"].Value) + sumar;
+                        decimal cantidad = Convert.ToDecimal(fila.Cells["Cantidad"].Value) + sumar;
                         float importe = float.Parse(cantidad.ToString()) * float.Parse(fila.Cells["Precio"].Value.ToString());
 
                         fila.Cells["Cantidad"].Value = cantidad;
@@ -239,9 +239,8 @@ namespace PuntoDeVentaV2
 
                         if (tipoDescuento > 0)
                         {
-                            string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                            // Debe cambiarse el tipo de datos de cantidad y corregir los errores que aparezcan
-                            // CalcularDescuento(datosDescuento, tipoDescuento, cantidad);
+                            string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);     
+                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad));
                         }
                     }
                 }
@@ -259,25 +258,25 @@ namespace PuntoDeVentaV2
             CantidadesFinalesVenta();
         }
 
-        private void AgregarProductoLista(string[] datosProducto, Decimal cantidad = 1, bool ignorar = false)
+        private void AgregarProductoLista(string[] datosProducto, decimal cantidad = 1, bool ignorar = false)
         {
-            Decimal cantidadTmp = cantidad;
+            decimal cantidadTmp = cantidad;
 
-            //Se agrega la nueva fila y se obtiene el ID que tendrá
+            // Se agrega la nueva fila y se obtiene el ID que tendrá
             int rowId = DGVentas.Rows.Add();
 
-            //Obtener la nueva fila
+            // Obtener la nueva fila
             DataGridViewRow row = DGVentas.Rows[rowId];
 
             if (buscarvVentaGuardada == "#$%")
             {
-                //Agregamos la información
+                // Agregamos la información
                 row.Cells["NumeroColumna"].Value = rowId;
-                row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
-                row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
-                row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
-                row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
-                row.Cells["TipoPS"].Value = datosProducto[5]; //Este campo no es visible
+                row.Cells["IDProducto"].Value = datosProducto[0]; // Este campo no es visible
+                row.Cells["PrecioOriginal"].Value = datosProducto[2]; // Este campo no es visible
+                row.Cells["DescuentoTipo"].Value = datosProducto[3]; // Este campo tampoco es visible
+                row.Cells["Stock"].Value = datosProducto[4]; // Este campo no es visible
+                row.Cells["TipoPS"].Value = datosProducto[5]; // Este campo no es visible
                 row.Cells["Cantidad"].Value = datosProducto[6];
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
@@ -584,7 +583,7 @@ namespace PuntoDeVentaV2
 
         private void CantidadesFinalesVenta()
         {
-            Decimal totalArticulos = 0;
+            decimal totalArticulos = 0;
             double totalImporte   = 0;
             double totalDescuento = 0;
             double totalSubtotal  = 0;
@@ -826,8 +825,8 @@ namespace PuntoDeVentaV2
                             if (Tipo == "P")
                             {
                                 //Actualizar stock de productos
-                                var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
-                                var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                                var stock = Convert.ToDecimal(fila.Cells["Stock"].Value);
+                                var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                                 var restantes = (stock - vendidos).ToString();
 
                                 guardar = new string[] { IDProducto, restantes };
@@ -838,7 +837,7 @@ namespace PuntoDeVentaV2
                             //Servicio
                             if (Tipo == "S")
                             {
-                                var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                                var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
 
                                 var datosServicio = cn.ObtenerProductosServicio(Convert.ToInt32(IDProducto));
 
@@ -846,11 +845,11 @@ namespace PuntoDeVentaV2
                                 {
                                     var datosProducto = producto.Split('|');
                                     var idProducto = Convert.ToInt32(datosProducto[0]);
-                                    var stockRequerido = Convert.ToInt32(datosProducto[1]) * vendidos;
+                                    var stockRequerido = Convert.ToDecimal(datosProducto[1]) * vendidos;
 
                                     datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
                                     datosProducto = datosProducto[0].Split('|');
-                                    var stockActual = Convert.ToInt32(datosProducto[1]);
+                                    var stockActual = Convert.ToDecimal(datosProducto[1]);
 
                                     var restantes = (stockActual - stockRequerido).ToString();
 
@@ -889,11 +888,8 @@ namespace PuntoDeVentaV2
                 }
 
                 ListadoVentas.abrirNuevaVenta = true;
-
                 ventaGuardada = false;
-
                 mostrarVenta = 0;
-
                 listaAnticipos = string.Empty;
 
                 this.Dispose();
