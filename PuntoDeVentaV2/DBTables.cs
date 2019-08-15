@@ -781,24 +781,25 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaProductos(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                                              Nombre TEXT NOT NULL,
-                                              Stock INTEGER NOT NULL DEFAULT (0),
-                                              Precio REAL NOT NULL,
-                                              Categoria TEXT,
-                                              ClaveInterna TEXT,
-                                              CodigoBarras TEXT,
+            return $@"CREATE TABLE '{tabla}' (ID            INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                                              Nombre        TEXT    NOT NULL,
+                                              Stock         REAL    NOT NULL DEFAULT (0),
+                                              Precio        REAL    NOT NULL,
+                                              Categoria     TEXT,
+                                              ClaveInterna  TEXT,
+                                              CodigoBarras  TEXT,
                                               ClaveProducto TEXT,
-                                              UnidadMedida TEXT,
+                                              UnidadMedida  TEXT,
                                               TipoDescuento INTEGER DEFAULT 0,
-                                              IDUsuario INTEGER,
-                                              Status INT NOT NULL DEFAULT (1),
-                                              ProdImage TEXT,
-                                              Tipo TEXT NOT NULL DEFAULT P,
-                                              Base DECIMAL DEFAULT (0),
-                                              IVA DECIMAL DEFAULT (0),
-                                              Impuesto TEXT,
-                                              FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
+                                              IDUsuario     INTEGER,
+                                              Status        INT     NOT NULL DEFAULT (1),
+                                              ProdImage     TEXT,
+                                              Tipo          TEXT    NOT NULL DEFAULT P,
+                                              Base          DECIMAL DEFAULT (0),
+                                              IVA           DECIMAL DEFAULT (0),
+                                              Impuesto      TEXT,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES USuarios (ID));";
         }
 
         public string QueryUpdateTablaProductos(string tabla)
@@ -816,7 +817,10 @@ namespace PuntoDeVentaV2
                                              IDUsuario,
                                              Status,
                                              ProdImage,
-                                             Tipo) 
+                                             Tipo,
+                                             Base,
+                                             IVA,
+                                             Impuesto) 
                                       SELECT ID,
                                              Nombre,
                                              Stock,
@@ -830,7 +834,10 @@ namespace PuntoDeVentaV2
                                              IDUsuario,
                                              Status,
                                              ProdImage,
-                                             Tipo 
+                                             Tipo,
+                                             Base,
+                                             IVA,
+                                             Impuesto 
                                        FROM '{tabla}_temp';";
         }
 
@@ -859,14 +866,16 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaProductosDeServicios(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                                              Fecha DATETIME NOT NULL,
+            return $@"CREATE TABLE '{tabla}' (ID             INTEGER  NOT NULL PRIMARY KEY AUTOINCREMENT,
+                                              Fecha          DATETIME NOT NULL,
                                               IDServicio     INTEGER,
                                               IDProducto     INTEGER,
                                               NombreProducto TEXT     NOT NULL,
-                                              Cantidad       INTEGER  NOT NULL DEFAULT (0),
-                                              FOREIGN KEY (IDServicio) REFERENCES Productos (ID) ON DELETE CASCADE ON UPDATE CASCADE,
-                                              FOREIGN KEY (IDProducto) REFERENCES Productos (ID) ON DELETE CASCADE ON UPDATE CASCADE,
+                                              Cantidad       REAL     NOT NULL DEFAULT (0),
+                                              FOREIGN KEY (IDServicio)
+                                              REFERENCES Productos (ID) ON DELETE CASCADE ON UPDATE CASCADE,
+                                              FOREIGN KEY (IDProducto)
+                                              REFERENCES Productos (ID) ON DELETE CASCADE ON UPDATE CASCADE,
                                               UNIQUE (ID ASC));";
         }
 

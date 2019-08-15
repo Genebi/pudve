@@ -193,6 +193,8 @@ namespace PuntoDeVentaV2
 
         private void Login_Load(object sender, EventArgs e)
         {
+            //iniciarVariablesSistema();
+
             pathsOrigen = new string[] {_Assets,
                                         _BarCode,
                                         _BD,
@@ -252,6 +254,14 @@ namespace PuntoDeVentaV2
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;
             txtPassword.Text = Properties.Settings.Default.Password;
+        }
+
+        private void iniciarVariablesSistema()
+        {
+            Properties.Settings.Default.AlterProductos = 0;
+            Properties.Settings.Default.AlterProductosDeServicios = 0;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
 
         private void RevisarTablas()
@@ -1183,154 +1193,214 @@ namespace PuntoDeVentaV2
             // 13 Productos
             #region TablaProductos
             tabla = "Productos";
-            try
-            {
-                checkEmpty(tabla);
-            }
-            catch (Exception ex)
-            {
-                queryTabla = dbTables.QueryNvaTablaProductos(tabla);
-                cn.CrearTabla(queryTabla);
-            }
-            if (IsEmpty == true)
+            if (Properties.Settings.Default.AlterProductos == 0)
             {
                 try
                 {
-                    count = cn.CountColumnasTabla(dbTables.PragmaTablaProductos(tabla));
-                    if (dbTables.GetProductos() > count)
-                    {
-                        if (count == 0)
-                        {
-                            queryTabla = dbTables.QueryNvaTablaProductos(tabla);
-                            cn.CrearTabla(queryTabla);
-                        }
-                        if (count > 0 && count < dbTables.GetProductos())
-                        {
-                            cn.ForeginKeysOff();
-                            queryTabla = dbTables.QueryRenameProductos(tabla);
-                            cn.renameTable(queryTabla);
-                            queryTabla = dbTables.QueryNvaTablaProductos(tabla);
-                            cn.CrearTabla(queryTabla);
-                            cn.ForeginKeysOn();
-                            queryTabla = dbTables.QueryUpdateTablaProductos(tabla);
-                            cn.insertDataIntoTable(queryTabla);
-                            queryTabla = dbTables.DropTablaProductos(tabla);
-                            cn.dropOldTable(queryTabla);
-                        }
-                    }
+                    checkEmpty(tabla);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    queryTabla = dbTables.QueryNvaTablaProductos(tabla);
+                    cn.CrearTabla(queryTabla);
+                }
+                if (IsEmpty == false)
+                {
+                    cn.ForeginKeysOff();
+                    queryTabla = dbTables.QueryRenameProductos(tabla);
+                    cn.renameTable(queryTabla);
+                    queryTabla = dbTables.QueryNvaTablaProductos(tabla);
+                    cn.CrearTabla(queryTabla);
+                    cn.ForeginKeysOn();
+                    queryTabla = dbTables.QueryUpdateTablaProductos(tabla);
+                    cn.insertDataIntoTable(queryTabla);
+                    queryTabla = dbTables.DropTablaProductos(tabla);
+                    cn.dropOldTable(queryTabla);
+                    Properties.Settings.Default.AlterProductos = 1;
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
                 }
             }
-            else if (IsEmpty == false)
+            else if (Properties.Settings.Default.AlterProductos == 1)
             {
+                MessageBox.Show("Valor de AlterProductos = " + Properties.Settings.Default.AlterProductos.ToString(), "Valor de configuracion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 try
                 {
-                    count = cn.CountColumnasTabla(dbTables.PragmaTablaProductos(tabla));
-                    if (dbTables.GetProductos() > count)
-                    {
-                        if (count == 0)
-                        {
-                            queryTabla = dbTables.QueryNvaTablaProductos(tabla);
-                            cn.CrearTabla(queryTabla);
-                        }
-                        if (count > 0 && count < dbTables.GetProductos())
-                        {
-                            cn.ForeginKeysOff();
-                            queryTabla = dbTables.QueryRenameProductos(tabla);
-                            cn.renameTable(queryTabla);
-                            queryTabla = dbTables.QueryNvaTablaProductos(tabla);
-                            cn.CrearTabla(queryTabla);
-                            cn.ForeginKeysOn();
-                            queryTabla = dbTables.QueryUpdateTablaProductos(tabla);
-                            cn.insertDataIntoTable(queryTabla);
-                            queryTabla = dbTables.DropTablaProductos(tabla);
-                            cn.dropOldTable(queryTabla);
-                        }
-                    }
+                    checkEmpty(tabla);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    queryTabla = dbTables.QueryNvaTablaProductos(tabla);
+                    cn.CrearTabla(queryTabla);
+                }
+                if (IsEmpty == true)
+                {
+                    try
+                    {
+                        count = cn.CountColumnasTabla(dbTables.PragmaTablaProductos(tabla));
+                        if (dbTables.GetProductos() > count)
+                        {
+                            if (count == 0)
+                            {
+                                queryTabla = dbTables.QueryNvaTablaProductos(tabla);
+                                cn.CrearTabla(queryTabla);
+                            }
+                            if (count > 0 && count < dbTables.GetProductos())
+                            {
+                                cn.ForeginKeysOff();
+                                queryTabla = dbTables.QueryRenameProductos(tabla);
+                                cn.renameTable(queryTabla);
+                                queryTabla = dbTables.QueryNvaTablaProductos(tabla);
+                                cn.CrearTabla(queryTabla);
+                                cn.ForeginKeysOn();
+                                queryTabla = dbTables.QueryUpdateTablaProductos(tabla);
+                                cn.insertDataIntoTable(queryTabla);
+                                queryTabla = dbTables.DropTablaProductos(tabla);
+                                cn.dropOldTable(queryTabla);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else if (IsEmpty == false)
+                {
+                    try
+                    {
+                        count = cn.CountColumnasTabla(dbTables.PragmaTablaProductos(tabla));
+                        if (dbTables.GetProductos() > count)
+                        {
+                            if (count == 0)
+                            {
+                                queryTabla = dbTables.QueryNvaTablaProductos(tabla);
+                                cn.CrearTabla(queryTabla);
+                            }
+                            if (count > 0 && count < dbTables.GetProductos())
+                            {
+                                cn.ForeginKeysOff();
+                                queryTabla = dbTables.QueryRenameProductos(tabla);
+                                cn.renameTable(queryTabla);
+                                queryTabla = dbTables.QueryNvaTablaProductos(tabla);
+                                cn.CrearTabla(queryTabla);
+                                cn.ForeginKeysOn();
+                                queryTabla = dbTables.QueryUpdateTablaProductos(tabla);
+                                cn.insertDataIntoTable(queryTabla);
+                                queryTabla = dbTables.DropTablaProductos(tabla);
+                                cn.dropOldTable(queryTabla);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             #endregion TablaProductos
             // 14 ProductosDeServicios
             #region TablaProductosDeServicios
             tabla = "ProductosDeServicios";
-            try
-            {
-                checkEmpty(tabla);
-            }
-            catch (Exception ex)
-            {
-                queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
-                cn.CrearTabla(queryTabla);
-            }
-            if (IsEmpty == true)
+            if (Properties.Settings.Default.AlterProductosDeServicios == 0)
             {
                 try
                 {
-                    count = cn.CountColumnasTabla(dbTables.PragmaTablaProductosDeServicios(tabla));
-                    if (dbTables.GetProductosDeServicios() > count)
-                    {
-                        if (count == 0)
-                        {
-                            queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
-                            cn.CrearTabla(queryTabla);
-                        }
-                        if (count > 0 && count < dbTables.GetProductosDeServicios())
-                        {
-                            cn.ForeginKeysOff();
-                            queryTabla = dbTables.QueryRenameProductosDeServicios(tabla);
-                            cn.renameTable(queryTabla);
-                            queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
-                            cn.CrearTabla(queryTabla);
-                            cn.ForeginKeysOn();
-                            queryTabla = dbTables.QueryUpdateTablaProductosDeServicios(tabla);
-                            cn.insertDataIntoTable(queryTabla);
-                            queryTabla = dbTables.DropTablaProductosDeServicios(tabla);
-                            cn.dropOldTable(queryTabla);
-                        }
-                    }
+                    checkEmpty(tabla);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
+                    cn.CrearTabla(queryTabla);
+                }
+                if (IsEmpty == false)
+                {
+                    cn.ForeginKeysOff();
+                    queryTabla = dbTables.QueryRenameProductosDeServicios(tabla);
+                    cn.renameTable(queryTabla);
+                    queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
+                    cn.CrearTabla(queryTabla);
+                    cn.ForeginKeysOn();
+                    queryTabla = dbTables.QueryUpdateTablaProductosDeServicios(tabla);
+                    cn.insertDataIntoTable(queryTabla);
+                    queryTabla = dbTables.DropTablaProductosDeServicios(tabla);
+                    cn.dropOldTable(queryTabla);
                 }
             }
-            else if (IsEmpty == false)
+            else if (Properties.Settings.Default.AlterProductosDeServicios == 1)
             {
                 try
                 {
-                    count = cn.CountColumnasTabla(dbTables.PragmaTablaProductosDeServicios(tabla));
-                    if (dbTables.GetProductosDeServicios() > count)
-                    {
-                        if (count == 0)
-                        {
-                            queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
-                            cn.CrearTabla(queryTabla);
-                        }
-                        if (count > 0 && count < dbTables.GetProductosDeServicios())
-                        {
-                            cn.ForeginKeysOff();
-                            queryTabla = dbTables.QueryRenameProductosDeServicios(tabla);
-                            cn.renameTable(queryTabla);
-                            queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
-                            cn.CrearTabla(queryTabla);
-                            cn.ForeginKeysOn();
-                            queryTabla = dbTables.QueryUpdateTablaProductosDeServicios(tabla);
-                            cn.insertDataIntoTable(queryTabla);
-                            queryTabla = dbTables.DropTablaProductosDeServicios(tabla);
-                            cn.dropOldTable(queryTabla);
-                        }
-                    }
+                    checkEmpty(tabla);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
+                    cn.CrearTabla(queryTabla);
+                }
+                if (IsEmpty == true)
+                {
+                    try
+                    {
+                        count = cn.CountColumnasTabla(dbTables.PragmaTablaProductosDeServicios(tabla));
+                        if (dbTables.GetProductosDeServicios() > count)
+                        {
+                            if (count == 0)
+                            {
+                                queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
+                                cn.CrearTabla(queryTabla);
+                            }
+                            if (count > 0 && count < dbTables.GetProductosDeServicios())
+                            {
+                                cn.ForeginKeysOff();
+                                queryTabla = dbTables.QueryRenameProductosDeServicios(tabla);
+                                cn.renameTable(queryTabla);
+                                queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
+                                cn.CrearTabla(queryTabla);
+                                cn.ForeginKeysOn();
+                                queryTabla = dbTables.QueryUpdateTablaProductosDeServicios(tabla);
+                                cn.insertDataIntoTable(queryTabla);
+                                queryTabla = dbTables.DropTablaProductosDeServicios(tabla);
+                                cn.dropOldTable(queryTabla);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else if (IsEmpty == false)
+                {
+                    try
+                    {
+                        count = cn.CountColumnasTabla(dbTables.PragmaTablaProductosDeServicios(tabla));
+                        if (dbTables.GetProductosDeServicios() > count)
+                        {
+                            if (count == 0)
+                            {
+                                queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
+                                cn.CrearTabla(queryTabla);
+                            }
+                            if (count > 0 && count < dbTables.GetProductosDeServicios())
+                            {
+                                cn.ForeginKeysOff();
+                                queryTabla = dbTables.QueryRenameProductosDeServicios(tabla);
+                                cn.renameTable(queryTabla);
+                                queryTabla = dbTables.QueryNvaTablaProductosDeServicios(tabla);
+                                cn.CrearTabla(queryTabla);
+                                cn.ForeginKeysOn();
+                                queryTabla = dbTables.QueryUpdateTablaProductosDeServicios(tabla);
+                                cn.insertDataIntoTable(queryTabla);
+                                queryTabla = dbTables.DropTablaProductosDeServicios(tabla);
+                                cn.dropOldTable(queryTabla);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
             #endregion TablaProductosDeServicios

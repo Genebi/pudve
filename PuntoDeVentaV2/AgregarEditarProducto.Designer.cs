@@ -609,7 +609,6 @@
             // 
             // PConteidoProducto
             // 
-            this.PConteidoProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.PConteidoProducto.BackColor = System.Drawing.SystemColors.Control;
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
             this.PConteidoProducto.Location = new System.Drawing.Point(2, 2);
@@ -767,6 +766,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarEditarProducto_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarEditarProducto_FormClosed);
             this.Load += new System.EventHandler(this.AgregarEditarProducto_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.AgregarEditarProducto_Paint);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).EndInit();
             this.PDetalleProdcuto.ResumeLayout(false);

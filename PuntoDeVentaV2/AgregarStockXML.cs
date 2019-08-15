@@ -753,7 +753,21 @@ namespace PuntoDeVentaV2
         public void searchProd()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.Stock, Prod.ClaveInterna, Prod.CodigoBarras, Prod.Precio, Prod.Tipo, Prod.Status, codbarext.CodigoBarraExtra, codbarext.IDProducto FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            string search = $@"SELECT 
+                                      prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna,
+                                      prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status,
+                                      codbarext.CodigoBarraExtra,codbarext.IDProducto 
+                               FROM 
+                                    Productos prod 
+                               LEFT JOIN 
+                                    CodigoBarrasExtras codbarext 
+                               WHERE 
+                                    prod.IDUsuario = '{userId}' 
+                               AND 
+                                    prod.Status = 1 
+                               AND (prod.CodigoBarras = '{ClaveInterna}' 
+                                    OR prod.ClaveInterna = '{ClaveInterna}' 
+                                    OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
             dtProductos = cn.CargarDatos(search); // alamcenamos el resultado de la busqueda en dtProductos
             if (dtProductos.Rows.Count >= 1) // si el resultado arroja al menos una fila
             {
@@ -813,7 +827,22 @@ namespace PuntoDeVentaV2
         public void searchClavIntProd()
         {
             // preparamos el Query
-            string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            //string search = $"SELECT Prod.ID, Prod.Nombre, Prod.ClaveInterna, Prod.Stock, Prod.CodigoBarras, Prod.Precio FROM Productos Prod LEFT JOIN CodigoBarrasExtras codbarext ON codbarext.IDProducto = prod.ID WHERE Prod.IDUsuario = '{userId}' AND Prod.ClaveInterna = '{ClaveInterna}' OR Prod.CodigoBarras = '{ClaveInterna}' OR codbarext.CodigoBarraExtra = '{ClaveInterna}'";
+            string search = $@"SELECT 
+                                      prod.ID,prod.Nombre,prod.Stock,prod.ClaveInterna,
+                                      prod.CodigoBarras,prod.Precio,prod.Tipo,prod.Status,
+                                      codbarext.CodigoBarraExtra,codbarext.IDProducto 
+                               FROM 
+                                    Productos prod 
+                               LEFT JOIN 
+                                    CodigoBarrasExtras codbarext 
+                               WHERE 
+                                    prod.IDUsuario = '{userId}' 
+                               AND 
+                                    prod.Status = 1 
+                               AND (prod.CodigoBarras = '{ClaveInterna}' 
+                                    OR prod.ClaveInterna = '{ClaveInterna}' 
+                                    OR codbarext.CodigoBarraExtra = '{ClaveInterna}')";
             dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
             if (dtClaveInterna.Rows.Count > 0)          // si el resultado arroja al menos una fila
             {

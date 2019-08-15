@@ -188,6 +188,8 @@ namespace PuntoDeVentaV2
         static public string CBNombProd = String.Empty;
         static public int seleccionListaStock;
 
+        public static bool ejecutarMetodos = false;
+
         public void PrimerCodBarras()
         {
             Contenido = "7777000001";
@@ -2088,15 +2090,32 @@ namespace PuntoDeVentaV2
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            LoadPanelDatos();
+            //if (Hided)  // Si su valor es True
+            //{
+            //    ocultarPanel();
+            //    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-up.png");
+            //}
+            //else  // Si su valor es False
+            //{
+            //    ocultarPanel();
+            //    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
+            //}
+        }
+
+        private void LoadPanelDatos()
+        {
             if (Hided)  // Si su valor es True
             {
                 ocultarPanel();
                 btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-up.png");
+                MessageBox.Show("Valor true", "Valor", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else  // Si su valor es False
             {
                 ocultarPanel();
                 btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
+                MessageBox.Show("Valor false", "Valor", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -2859,6 +2878,27 @@ namespace PuntoDeVentaV2
             GenerarPanelProductosServPlus();
         }
 
+        private void AgregarEditarProducto_Paint(object sender, PaintEventArgs e)
+        {
+            if (ejecutarMetodos)
+            {
+                if (this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios")
+                {
+                    if (Hided)  // Si su valor es True
+                    {
+                        ocultarPanel();
+                        btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-up.png");
+                    }
+                    else  // Si su valor es False
+                    {
+                        ocultarPanel();
+                        btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
+                    }
+                }
+                ejecutarMetodos = false;
+            }
+        }
+
         private void pasarNumStockServicios()
         {
             CantidadPordServPaq.ShowDialog();
@@ -2894,11 +2934,13 @@ namespace PuntoDeVentaV2
 
         private void timerProdPaqSer_Tick(object sender, EventArgs e)
         {
-            if (Hided)
+            if (Hided)  // si es valor true
             {
                 if (fLPContenidoProducto.Height == 0)
                 {
-                    fLPContenidoProducto.Height = fLPContenidoProducto.Height + 123;
+                    int NewHeight = fLPContenidoProducto.Height + 123;
+                    fLPContenidoProducto.Height = NewHeight;
+                    MessageBox.Show("Valor true desde Height == " + fLPContenidoProducto.Height.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (fLPContenidoProducto.Height >= PH)
                 {
@@ -2936,8 +2978,9 @@ namespace PuntoDeVentaV2
                 this.Height = 725;
                 this.CenterToScreen();
                 this.Refresh();
+                MessageBox.Show("Valor true desde Height = " + fLPContenidoProducto.Height.ToString() + " >= " + PH.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
+            else    // si es false
             {
                 fLPContenidoProducto.Height = fLPContenidoProducto.Height - 30;
                 if (fLPContenidoProducto.Height <= 0)
@@ -2945,6 +2988,7 @@ namespace PuntoDeVentaV2
                     timerProdPaqSer.Stop();
                     Hided = true;
                     this.Height = 630;
+                    MessageBox.Show("Valor true desde Height <= " + fLPContenidoProducto.Height.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 this.CenterToScreen();
                 this.Refresh();
