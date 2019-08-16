@@ -60,12 +60,24 @@ namespace PuntoDeVentaV2
 
                 var proveedorActual = mb.DetallesProducto(IDProducto, FormPrincipal.userID);
 
-                if (string.IsNullOrWhiteSpace(proveedorActual[0]))
+                bool isEmpty = !proveedorActual.Any();
+
+                if (isEmpty)
                 {
-                    proveedorActual[0] = "0";
+                    //proveedorActual[0] = "0";
+                    cbProveedores.SelectedValue = 0;
+                }
+                else
+                {
+                    MessageBox.Show("Error al cargar proveedorActual", "Load Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
-                cbProveedores.SelectedValue = proveedorActual[0];
+                //if (string.IsNullOrWhiteSpace(proveedorActual[0]))
+                //{
+                //    proveedorActual[0] = "0";
+                //}
+
+                //cbProveedores.SelectedValue = proveedorActual[0];
             }
             else
             {
@@ -159,7 +171,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Datos para la tabla historial de compras
-                string[] datos = new string[] { producto, cantidadCompra, precioCompra, precioProducto.ToString(), fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
+                string[] datos = new string[] { producto, cantidadCompra, precioProducto.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
                 stockProducto += Convert.ToInt32(cantidadCompra);
 
