@@ -2936,11 +2936,11 @@ namespace PuntoDeVentaV2
         {
             if (Hided)  // si es valor true
             {
+                int NewHeight = fLPContenidoProducto.Height + 123;
                 if (fLPContenidoProducto.Height == 0)
                 {
-                    int NewHeight = fLPContenidoProducto.Height + 123;
                     fLPContenidoProducto.Height = NewHeight;
-                    MessageBox.Show("Valor true desde Height == " + fLPContenidoProducto.Height.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Valor true desde Height == " + fLPContenidoProducto.Height.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (fLPContenidoProducto.Height >= PH)
                 {
@@ -2974,11 +2974,16 @@ namespace PuntoDeVentaV2
                     {
                         GenerarPanelProductosServ();
                     }
+                    this.Height = 725;
+                    this.CenterToScreen();
+                    this.Refresh();
                 }
-                this.Height = 725;
-                this.CenterToScreen();
-                this.Refresh();
-                MessageBox.Show("Valor true desde Height = " + fLPContenidoProducto.Height.ToString() + " >= " + PH.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                {
+                    NewHeight = PH;
+                    fLPContenidoProducto.Height = NewHeight;
+                }
+                //MessageBox.Show("Valor true desde Height = " + fLPContenidoProducto.Height.ToString() + " >= " + PH.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else    // si es false
             {
@@ -2988,7 +2993,7 @@ namespace PuntoDeVentaV2
                     timerProdPaqSer.Stop();
                     Hided = true;
                     this.Height = 630;
-                    MessageBox.Show("Valor true desde Height <= " + fLPContenidoProducto.Height.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Valor true desde Height <= " + fLPContenidoProducto.Height.ToString(), "Valor Height", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 this.CenterToScreen();
                 this.Refresh();
