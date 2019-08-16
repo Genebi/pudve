@@ -2022,6 +2022,7 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     chkBoxConProductos.Checked = false;
                     chkBoxConProductos.Visible = false;
+                    txtCategoriaProducto.Text = "Productos";
                 }
             }
             else if (filtro == "Paquete")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
@@ -2048,6 +2049,7 @@ namespace PuntoDeVentaV2
                     btnAdd.PerformClick();
                     chkBoxConProductos.Checked = false;
                     chkBoxConProductos.Visible = true;
+                    txtCategoriaProducto.Text = "Paquetes";
                 }
             }
             else if (filtro == "Servicio")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
@@ -2074,6 +2076,7 @@ namespace PuntoDeVentaV2
                     btnAdd.PerformClick();
                     chkBoxConProductos.Checked = false;
                     chkBoxConProductos.Visible = true;
+                    txtCategoriaProducto.Text = "Servicios";
                 }
             }
         }
@@ -3106,6 +3109,7 @@ namespace PuntoDeVentaV2
                     PCantidadPaqServ.Visible = false;
                 }
                 lblTipoProdPaq.Text = "Nombre del Producto";
+                txtCategoriaProducto.Text = cadAux + "s";
             }
             else if (cadAux == "Paquete")       // si es un Paquete
             {
@@ -3131,6 +3135,7 @@ namespace PuntoDeVentaV2
                     PCantidadPaqServ.Visible = true;
                 }
                 lblTipoProdPaq.Text = "Nombre del Paquete";
+                txtCategoriaProducto.Text = cadAux + "s";
             }
             else if (cadAux == "Servicio")      // si es un Servicio
             {
@@ -3156,6 +3161,7 @@ namespace PuntoDeVentaV2
                     PCantidadPaqServ.Visible = true;
                 }
                 lblTipoProdPaq.Text = "Nombre del Servicio";
+                txtCategoriaProducto.Text = cadAux + "s";
             }
             tituloSeccion.Text = TituloForm;    // Ponemos el Text del label TituloSeccion
         }
