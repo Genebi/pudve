@@ -456,7 +456,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(42, 5);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(754, 286);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(754, 281);
             this.flowLayoutPanel1.TabIndex = 26;
             // 
             // PStock
@@ -636,7 +636,7 @@
             this.PDetalle.Location = new System.Drawing.Point(2, 2);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
-            this.PDetalle.Size = new System.Drawing.Size(838, 305);
+            this.PDetalle.Size = new System.Drawing.Size(838, 300);
             this.PDetalle.TabIndex = 31;
             // 
             // PAccion
@@ -733,7 +733,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 283);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(838, 318);
+            this.fLPDetalle.Size = new System.Drawing.Size(838, 303);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -741,7 +741,7 @@
             this.fLPAccion.Controls.Add(this.PAccion);
             this.fLPAccion.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPAccion.Location = new System.Drawing.Point(0, 601);
+            this.fLPAccion.Location = new System.Drawing.Point(0, 586);
             this.fLPAccion.Name = "fLPAccion";
             this.fLPAccion.Size = new System.Drawing.Size(838, 112);
             this.fLPAccion.TabIndex = 39;
@@ -750,7 +750,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 712);
+            this.ClientSize = new System.Drawing.Size(838, 697);
             this.Controls.Add(this.fLPAccion);
             this.Controls.Add(this.fLPDetalle);
             this.Controls.Add(this.fLPContenidoProducto);
