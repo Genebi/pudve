@@ -146,7 +146,15 @@ namespace PuntoDeVentaV2
             consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
             opcionGuardarFin = opcionGuardar;                       // almacenamos el valor de opcionGuardar
 
-            nombreProducto(NombreProdStrFin);
+            if (typeStockFinal == "Productos")
+            {
+                nombreProducto(NombreProdStrFin);
+            }
+            else if (typeStockFinal == "Paquetes" || typeStockFinal == "Servicios")
+            {
+                nombreProducto(IdProdStrFin);
+            }
+            
             this.Close();                                           // cerramos la ventana 
         }
     }

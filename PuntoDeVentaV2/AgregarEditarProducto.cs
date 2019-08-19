@@ -2874,14 +2874,29 @@ namespace PuntoDeVentaV2
         {
             ListaProductos ListStock = new ListaProductos();
             ListStock.nombreProducto += new ListaProductos.pasarProducto(ejecutar);
-            ListStock.TypeStock = this.Text;
+            if (this.Text.Trim() == "Productos")
+            {
+                ListStock.TypeStock = "Paquetes";
+            }
+            else if (this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios")
+            {
+                ListStock.TypeStock = "Productos";
+            }
             ListStock.ShowDialog();
         }
 
         private void ejecutar(string dato)
         {
             CBNombProd = dato;
-            GenerarPanelProductosServPlus();
+            int numero = 0;
+            if (!int.TryParse(CBNombProd, out numero))
+            {
+                GenerarPanelProductosServPlus();
+            }
+            else
+            {
+
+            }
         }
 
         private void AgregarEditarProducto_Paint(object sender, PaintEventArgs e)
@@ -3091,7 +3106,6 @@ namespace PuntoDeVentaV2
 
             if (cadAux == "Producto")           // si es un Producto
             {
-                this.Text = cadAux + "s";             // Ponemos el titulo del form en plural "Productos"
                 if (!ProdNombre.Equals(""))
                 {
                     cargarDatos();
@@ -3114,12 +3128,13 @@ namespace PuntoDeVentaV2
                     lblCantPaqServ.Text = "Relacionar con \nPaquete/Servicio";
                     button1.Text = "Paquete/Servicio";
                 }
+                this.Text = cadAux + "s";             // Ponemos el titulo del form en plural "Productos"
                 lblTipoProdPaq.Text = "Nombre del Producto";
                 txtCategoriaProducto.Text = cadAux + "s";
+                tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
             }
             else if (cadAux == "Paquete")       // si es un Paquete
             {
-                this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Paquetes"
                 if (!ProdNombre.Equals(""))
                 {
                     cargarDatos();
@@ -3142,12 +3157,13 @@ namespace PuntoDeVentaV2
                     lblCantPaqServ.Text = "Cantidad por paquete";
                     button1.Text = "Productos";
                 }
+                this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Paquetes"
                 lblTipoProdPaq.Text = "Nombre del Paquete";
                 txtCategoriaProducto.Text = cadAux + "s";
+                tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
             }
             else if (cadAux == "Servicio")      // si es un Servicio
             {
-                this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Servicios"
                 if (!ProdNombre.Equals(""))
                 {
                     cargarDatos();
@@ -3170,10 +3186,11 @@ namespace PuntoDeVentaV2
                     lblCantPaqServ.Text = "Cantidad por servicio";
                     button1.Text = "Productos";
                 }
+                this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Servicios"
                 lblTipoProdPaq.Text = "Nombre del Servicio";
                 txtCategoriaProducto.Text = cadAux + "s";
+                tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
             }
-            tituloSeccion.Text = TituloForm;    // Ponemos el Text del label TituloSeccion
         }
 
         private void cargarCBProductos(string typePaqServ)

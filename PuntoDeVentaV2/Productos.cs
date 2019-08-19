@@ -15,7 +15,7 @@ namespace PuntoDeVentaV2
         private Paginar p;
         string DataMemberDGV = "Productos";
         string extra = string.Empty;
-        int maximo_x_pagina = 17;
+        int maximo_x_pagina = 18;
         int clickBoton = 0;
 
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool recargarDatos = false;
 
-        public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar Producto");
+        public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
         public CodeBarMake MakeBarCode = new CodeBarMake();
@@ -1216,6 +1216,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
+                origenDeLosDatos = 0;
             }
             else
             {
@@ -1239,8 +1240,9 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
+                origenDeLosDatos = 0;
             }
-            origenDeLosDatos = 0;
+            //origenDeLosDatos = 0;
             CargarDatos();
         }
 
@@ -1284,6 +1286,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
+                origenDeLosDatos = 0;
             }
             else
             {
@@ -1307,8 +1310,9 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
+                origenDeLosDatos = 0;
             }
-            origenDeLosDatos = 0;
+            //origenDeLosDatos = 0;
             CargarDatos();
         }
 
@@ -1352,6 +1356,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
+                origenDeLosDatos = 0;
             }
             else
             {
@@ -1375,8 +1380,9 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
+                origenDeLosDatos = 0;
             }
-            origenDeLosDatos = 0;
+            //origenDeLosDatos = 0;
             CargarDatos();
         }
 
