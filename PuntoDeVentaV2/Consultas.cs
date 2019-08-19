@@ -125,6 +125,11 @@ namespace PuntoDeVentaV2
             return $"UPDATE Anticipos SET Status = {status} WHERE ID = {IDAnticipo} AND IDUsuario = {IDUsuario}";
         }
 
+        public string ProductosDeServicios(int idServ)
+        {
+            return $"SELECT POfSerPaq.Fecha, POfSerPaq.IDServicio, POfSerPaq.IDProducto, POfSerPaq.NombreProducto, POfSerPaq.Cantidad FROM ProductosDeServicios POfSerPaq WHERE POfSerPaq.IDServicio = '{idServ}'";
+        }
+
         public string GuardarProductosServPaq(string[] datos)
         {
             string consulta = "INSERT INTO ProductosDeServicios (Fecha, IDServicio, IDProducto, NombreProducto, Cantidad)";
