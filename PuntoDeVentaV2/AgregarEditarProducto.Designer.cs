@@ -577,7 +577,7 @@
             // 
             // txtCantPaqServ
             // 
-            this.txtCantPaqServ.Location = new System.Drawing.Point(10, 22);
+            this.txtCantPaqServ.Location = new System.Drawing.Point(10, 42);
             this.txtCantPaqServ.Name = "txtCantPaqServ";
             this.txtCantPaqServ.Size = new System.Drawing.Size(165, 20);
             this.txtCantPaqServ.TabIndex = 1;
@@ -586,13 +586,13 @@
             // 
             // lblCantPaqServ
             // 
-            this.lblCantPaqServ.AutoSize = true;
             this.lblCantPaqServ.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.lblCantPaqServ.Location = new System.Drawing.Point(7, 3);
             this.lblCantPaqServ.Name = "lblCantPaqServ";
-            this.lblCantPaqServ.Size = new System.Drawing.Size(47, 17);
+            this.lblCantPaqServ.Size = new System.Drawing.Size(174, 36);
             this.lblCantPaqServ.TabIndex = 0;
             this.lblCantPaqServ.Text = "label1";
+            this.lblCantPaqServ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PImagen
             // 

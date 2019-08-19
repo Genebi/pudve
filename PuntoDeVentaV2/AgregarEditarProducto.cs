@@ -3084,7 +3084,8 @@ namespace PuntoDeVentaV2
             {
                 txtStockProducto.Enabled = true;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
-                button1.Visible = false;
+                PCantidadPaqServ.Visible = true;
+                button1.Visible = true;
             }
 
             if (cadAux == "Producto")           // si es un Producto
@@ -3096,10 +3097,9 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     //cargarCBProductos();
                     PStock.Visible = true;
-                    PCantidadPaqServ.Visible = true;
                     txtCantPaqServ.Visible = false;
                     lblCantPaqServ.Text = "Relacionar con \nPaquete/Servicio";
-                    button1.Visible = true;
+                    button1.Text = "Paquete/Servicio";
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -3109,10 +3109,9 @@ namespace PuntoDeVentaV2
                     btnAdd.Visible = false;
                     ocultarPanel();
                     PStock.Visible = true;
-                    PCantidadPaqServ.Visible = true;
                     txtCantPaqServ.Visible = false;
                     lblCantPaqServ.Text = "Relacionar con \nPaquete/Servicio";
-                    button1.Visible = true;
+                    button1.Text = "Paquete/Servicio";
                 }
                 lblTipoProdPaq.Text = "Nombre del Producto";
                 txtCategoriaProducto.Text = cadAux + "s";
@@ -3126,8 +3125,9 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     cargarCBProductos(idEditarProducto);
                     PStock.Visible = false;
+                    txtCantPaqServ.Visible = true;
                     lblCantPaqServ.Text = "Cantidad por paquete";
-                    PCantidadPaqServ.Visible = true;
+                    button1.Text = "Productos";
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -3137,8 +3137,9 @@ namespace PuntoDeVentaV2
                     btnAdd.Visible = false;
                     ocultarPanel();
                     PStock.Visible = false;
+                    txtCantPaqServ.Visible = true;
                     lblCantPaqServ.Text = "Cantidad por paquete";
-                    PCantidadPaqServ.Visible = true;
+                    button1.Text = "Productos";
                 }
                 lblTipoProdPaq.Text = "Nombre del Paquete";
                 txtCategoriaProducto.Text = cadAux + "s";
@@ -3152,8 +3153,9 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     cargarCBProductos(idEditarProducto);
                     PStock.Visible = false;
+                    txtCantPaqServ.Visible = true;
                     lblCantPaqServ.Text = "Cantidad por servicio";
-                    PCantidadPaqServ.Visible = true;
+                    button1.Text = "Productos";
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -3163,8 +3165,9 @@ namespace PuntoDeVentaV2
                     btnAdd.Visible = false;
                     ocultarPanel();
                     PStock.Visible = false;
+                    txtCantPaqServ.Visible = true;
                     lblCantPaqServ.Text = "Cantidad por servicio";
-                    PCantidadPaqServ.Visible = true;
+                    button1.Text = "Productos";
                 }
                 lblTipoProdPaq.Text = "Nombre del Servicio";
                 txtCategoriaProducto.Text = cadAux + "s";
