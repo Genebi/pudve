@@ -43,10 +43,10 @@
             // 
             this.panel1.Controls.Add(this.txtBoxSearchProd);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(410, 49);
+            this.panel1.Location = new System.Drawing.Point(328, 49);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(151, 52);
+            this.panel1.Size = new System.Drawing.Size(327, 52);
             this.panel1.TabIndex = 0;
             // 
             // txtBoxSearchProd
@@ -54,7 +54,7 @@
             this.txtBoxSearchProd.Location = new System.Drawing.Point(14, 23);
             this.txtBoxSearchProd.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxSearchProd.Name = "txtBoxSearchProd";
-            this.txtBoxSearchProd.Size = new System.Drawing.Size(122, 20);
+            this.txtBoxSearchProd.Size = new System.Drawing.Size(296, 20);
             this.txtBoxSearchProd.TabIndex = 1;
             this.txtBoxSearchProd.TextChanged += new System.EventHandler(this.txtBoxSearchProd_TextChanged);
             // 

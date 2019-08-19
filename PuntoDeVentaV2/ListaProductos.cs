@@ -41,6 +41,9 @@ namespace PuntoDeVentaV2
         public static string CodigoBarrasProdStr;                   //  Variable interna para poder saber que Codigo de Barras
         public static int opcionGuardar;                            // Variable interna para poder saber que donde se va guardar el dato
 
+        public string TypeStock { get; set; }
+        public static string typeStockFinal;
+
         // variable de text para poder dirigirnos a la carpeta principal para
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
@@ -50,8 +53,17 @@ namespace PuntoDeVentaV2
 
         public void CargarDataGridView()    // metodo para poder cargar los datos al inicio
         {
-            // el query que se usara en la base de datos
-            buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
+            typeStockFinal = TypeStock;
+            if (typeStockFinal == "Productos")
+            {
+                // el query que se usara en la base de datos
+                buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
+            }
+            else if (typeStockFinal == "Paquetes" || typeStockFinal == "Servicios")
+            {
+                // el query que se usara en la base de datos
+                buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND (Tipo = 'S' OR Tipo = 'PQ')";
+            }
             DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
             DGVStockProductos.Columns["ID"].Visible = false;
         }

@@ -2874,6 +2874,7 @@ namespace PuntoDeVentaV2
         {
             ListaProductos ListStock = new ListaProductos();
             ListStock.nombreProducto += new ListaProductos.pasarProducto(ejecutar);
+            ListStock.TypeStock = this.Text;
             ListStock.ShowDialog();
         }
 
