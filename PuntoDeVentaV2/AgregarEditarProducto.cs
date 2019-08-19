@@ -3096,7 +3096,10 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     //cargarCBProductos();
                     PStock.Visible = true;
-                    PCantidadPaqServ.Visible = false;
+                    PCantidadPaqServ.Visible = true;
+                    txtCantPaqServ.Visible = false;
+                    lblCantPaqServ.Text = "Relacionar con \nPaquete/Servicio";
+                    button1.Visible = true;
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -3106,7 +3109,10 @@ namespace PuntoDeVentaV2
                     btnAdd.Visible = false;
                     ocultarPanel();
                     PStock.Visible = true;
-                    PCantidadPaqServ.Visible = false;
+                    PCantidadPaqServ.Visible = true;
+                    txtCantPaqServ.Visible = false;
+                    lblCantPaqServ.Text = "Relacionar con \nPaquete/Servicio";
+                    button1.Visible = true;
                 }
                 lblTipoProdPaq.Text = "Nombre del Producto";
                 txtCategoriaProducto.Text = cadAux + "s";
