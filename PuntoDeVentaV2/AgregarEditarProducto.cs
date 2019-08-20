@@ -302,7 +302,6 @@ namespace PuntoDeVentaV2
                 DataRow rowProdServPaq;
                 queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
                 dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
-                rowProdServPaq = dtProductosDeServicios.Rows[0];
                 if (tipoProdServ == "S")
                 {
                     cbTipo.Text = "Servicio";
@@ -311,13 +310,17 @@ namespace PuntoDeVentaV2
                 {
                     cbTipo.Text = "Paquete";
                 }
-                if (dtProductosDeServicios.Rows.Count > 0)
+                if (dtProductosDeServicios.Rows.Count != 0)
                 {
-                    if (rowProdServPaq["NombreProducto"].ToString() != "")
+                    rowProdServPaq = dtProductosDeServicios.Rows[0];
+                    if (dtProductosDeServicios.Rows.Count > 0)
                     {
-                        btnAdd.Visible = true;
-                        Hided = true;
-                        btnAdd.PerformClick();
+                        if (rowProdServPaq["NombreProducto"].ToString() != "")
+                        {
+                            btnAdd.Visible = true;
+                            Hided = true;
+                            btnAdd.PerformClick();
+                        }
                     }
                 }
             }
@@ -1034,17 +1037,20 @@ namespace PuntoDeVentaV2
                                 DataTable dtServiciosPaquetes;
                                 DataRow rowServPaq;
                                 dtServiciosPaquetes = cn.CargarDatos(cs.ProductosDeServicios(Convert.ToInt32(CBNombProd)));
-                                rowServPaq = dtServiciosPaquetes.Rows[0];
-                                cantidadProdAtService = rowServPaq["Cantidad"].ToString();
-                                string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
-                                int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
-                                if (SaveProdAtPQS > 0)
+                                if (dtServiciosPaquetes.Rows.Count != 0)
                                 {
-                                    //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    rowServPaq = dtServiciosPaquetes.Rows[0];
+                                    cantidadProdAtService = rowServPaq["Cantidad"].ToString();
+                                    string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
+                                    int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
+                                    if (SaveProdAtPQS > 0)
+                                    {
+                                        //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
                                 }
                             }
 
@@ -2989,7 +2995,10 @@ namespace PuntoDeVentaV2
             }
             else if (this.Text.Trim() == "Productos" && DatosSourceFinal == 1)
             {
-                ocultarPanel();
+                //if (fLPContenidoProducto.Visible == true)
+                //{
+                //    ocultarPanel();
+                //}
             }
         }
 
@@ -3074,19 +3083,47 @@ namespace PuntoDeVentaV2
                     }
                     else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 3)
                     {
-                        GenerarPanelProductosServ();
+                        if (flowLayoutPanel2.Controls.Count == 0)
+                        {
+                            GenerarPanelProductosServ();
+                        }
+                        else if (flowLayoutPanel2.Controls.Count > 0)
+                        {
+
+                        }
                     }
                     else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 3)
                     {
-                        GenerarPanelProductosServ();
+                        if (flowLayoutPanel2.Controls.Count == 0)
+                        {
+                            GenerarPanelProductosServ();
+                        }
+                        else if (flowLayoutPanel2.Controls.Count > 0)
+                        {
+
+                        }
                     }
                     else if ((idProductoBuscado != null || tipoProdServ != null) && DatosSourceFinal == 1)
                     {
-                        GenerarPanelProductosServ();
+                        if (flowLayoutPanel2.Controls.Count == 0)
+                        {
+                            GenerarPanelProductosServ();
+                        }
+                        else if (flowLayoutPanel2.Controls.Count > 0)
+                        {
+
+                        }
                     }
                     else if ((idProductoBuscado == null || tipoProdServ == null) && DatosSourceFinal == 1)
                     {
-                        GenerarPanelProductosServ();
+                        if (flowLayoutPanel2.Controls.Count == 0)
+                        {
+                            GenerarPanelProductosServ();
+                        }
+                        else if (flowLayoutPanel2.Controls.Count > 0)
+                        {
+
+                        }
                     }
                     this.Height = 725;
                     this.CenterToScreen();

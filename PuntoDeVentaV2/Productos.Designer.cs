@@ -623,6 +623,7 @@
             // btnSiguiente
             // 
             this.btnSiguiente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSiguiente.FlatAppearance.BorderSize = 0;
             this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSiguiente.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -638,6 +639,7 @@
             // btnUltimaPagina
             // 
             this.btnUltimaPagina.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnUltimaPagina.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUltimaPagina.FlatAppearance.BorderSize = 0;
             this.btnUltimaPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUltimaPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -664,6 +666,7 @@
             // btnPrimeraPagina
             // 
             this.btnPrimeraPagina.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnPrimeraPagina.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPrimeraPagina.FlatAppearance.BorderSize = 0;
             this.btnPrimeraPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrimeraPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -679,6 +682,7 @@
             // btnAnterior
             // 
             this.btnAnterior.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAnterior.FlatAppearance.BorderSize = 0;
             this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAnterior.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -707,6 +711,7 @@
             // 
             this.linkLblPaginaSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLblPaginaSiguiente.AutoSize = true;
+            this.linkLblPaginaSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(425, 18);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
@@ -720,6 +725,7 @@
             // 
             this.linkLblPaginaActual.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLblPaginaActual.AutoSize = true;
+            this.linkLblPaginaActual.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(402, 18);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
@@ -733,6 +739,7 @@
             // 
             this.linkLblPaginaAnterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLblPaginaAnterior.AutoSize = true;
+            this.linkLblPaginaAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaAnterior.Location = new System.Drawing.Point(378, 18);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
@@ -746,6 +753,7 @@
             // 
             this.btnActualizarMaximoProductos.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnActualizarMaximoProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(196)))), ((int)(((byte)(15)))));
+            this.btnActualizarMaximoProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarMaximoProductos.FlatAppearance.BorderSize = 0;
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Century", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

@@ -1093,7 +1093,6 @@ namespace PuntoDeVentaV2
 
             lblCantidadRegistros.Text = p.countRow().ToString();
 
-            //lblNoRegistroPagina.Text = p.numPag().ToString();
             linkLblPaginaActual.Text = p.numPag().ToString();
             linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
             linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
@@ -1134,7 +1133,6 @@ namespace PuntoDeVentaV2
                 }
             }
             
-            //lblUltimaPagina.Text = p.countPag().ToString();
             txtMaximoPorPagina.Text = p.limitRow().ToString();
         }
 
@@ -1248,8 +1246,6 @@ namespace PuntoDeVentaV2
                 }
                 origenDeLosDatos = 0;
             }
-            //origenDeLosDatos = 0;
-            //CargarDatos();
         }
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
@@ -1322,8 +1318,6 @@ namespace PuntoDeVentaV2
                 }
                 origenDeLosDatos = 0;
             }
-            //origenDeLosDatos = 0;
-            //CargarDatos();
         }
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
@@ -1396,8 +1390,6 @@ namespace PuntoDeVentaV2
                 }
                 origenDeLosDatos = 0;
             }
-            //origenDeLosDatos = 0;
-            //CargarDatos();
         }
 
         private void ModificarStatusProducto()
