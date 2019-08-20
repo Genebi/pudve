@@ -1220,7 +1220,6 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
-                origenDeLosDatos = 0;
             }
             else
             {
@@ -1244,8 +1243,16 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
-                origenDeLosDatos = 0;
             }
+            if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
+            {
+                actualizar();
+            }
+            else if (origenDeLosDatos == 0)
+            {
+                btnUltimaPagina.PerformClick();
+            }
+            origenDeLosDatos = 0;
         }
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
@@ -1292,7 +1299,6 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
-                origenDeLosDatos = 0;
             }
             else
             {
@@ -1316,8 +1322,16 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
-                origenDeLosDatos = 0;
             }
+            if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
+            {
+                actualizar();
+            }
+            else if (origenDeLosDatos == 0)
+            {
+                btnUltimaPagina.PerformClick();
+            }
+            origenDeLosDatos = 0;
         }
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
@@ -1364,7 +1378,6 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
-                origenDeLosDatos = 0;
             }
             else
             {
@@ -1388,8 +1401,16 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.ShowDialog();
                 }
-                origenDeLosDatos = 0;
             }
+            if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
+            {
+                actualizar();
+            }
+            else if (origenDeLosDatos == 0)
+            {
+                btnUltimaPagina.PerformClick();
+            }
+            origenDeLosDatos = 0;
         }
 
         private void ModificarStatusProducto()
