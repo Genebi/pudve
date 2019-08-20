@@ -2082,9 +2082,22 @@ namespace PuntoDeVentaV2
             filtro = Convert.ToString(cbTipo.SelectedItem);      // tomamos el valor que se elige en el TextBox
             if (filtro == "Producto")                            // comparamos si el valor a filtrar es Producto
             {
-                Titulo = "Agregar Producto";
+                if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
+                {
+                    Titulo = "Agregar Producto";
+                    cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto)
+                }
+                else if (DatosSourceFinal == 2)
+                {
+                    Titulo = "Editar Producto";
+                    cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto)
+                }
+                else if (DatosSourceFinal == 4)
+                {
+                    Titulo = "Copiar Producto";
+                    cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto)
+                }
                 TituloForm = Titulo;
-                cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto)
                 tituloSeccion.Text = TituloForm;
                 this.Text = cadAux + "s";
                 if (PStock.Visible == false)
@@ -3169,15 +3182,13 @@ namespace PuntoDeVentaV2
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 cargarDatos();
             }
-
-            if (DatosSourceFinal == 2)      // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
+            else if (DatosSourceFinal == 2)      // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
             {
                 txtStockProducto.Enabled = false;
                 button1.Visible = true;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
             }
-
-            if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
+            else if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
             {
                 txtStockProducto.Enabled = true;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
@@ -3212,7 +3223,18 @@ namespace PuntoDeVentaV2
                 this.Text = cadAux + "s";             // Ponemos el titulo del form en plural "Productos"
                 lblTipoProdPaq.Text = "Nombre del Producto";
                 txtCategoriaProducto.Text = cadAux + "s";
-                tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
+                {
+                    tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
+                else if (DatosSourceFinal == 2)
+                {
+                    tituloSeccion.Text = "Editar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
+                else if (DatosSourceFinal == 4)
+                {
+                    tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
             }
             else if (cadAux == "Paquete")       // si es un Paquete
             {
@@ -3241,7 +3263,18 @@ namespace PuntoDeVentaV2
                 this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Paquetes"
                 lblTipoProdPaq.Text = "Nombre del Paquete";
                 txtCategoriaProducto.Text = cadAux + "s";
-                tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
+                {
+                    tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
+                else if (DatosSourceFinal == 2)
+                {
+                    tituloSeccion.Text = "Editar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
+                else if (DatosSourceFinal == 4)
+                {
+                    tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
             }
             else if (cadAux == "Servicio")      // si es un Servicio
             {
@@ -3270,7 +3303,18 @@ namespace PuntoDeVentaV2
                 this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Servicios"
                 lblTipoProdPaq.Text = "Nombre del Servicio";
                 txtCategoriaProducto.Text = cadAux + "s";
-                tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
+                {
+                    tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
+                else if (DatosSourceFinal == 2)
+                {
+                    tituloSeccion.Text = "Editar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
+                else if (DatosSourceFinal == 4)
+                {
+                    tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                }
             }
         }
 
