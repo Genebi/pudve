@@ -1223,7 +1223,7 @@ namespace PuntoDeVentaV2
             }
             else if (Properties.Settings.Default.AlterProductos == 1)
             {
-                MessageBox.Show("Valor de AlterProductos = " + Properties.Settings.Default.AlterProductos.ToString(), "Valor de configuracion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Valor de AlterProductos = " + Properties.Settings.Default.AlterProductos.ToString(), "Valor de configuracion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 try
                 {
                     checkEmpty(tabla);

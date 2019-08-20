@@ -1862,7 +1862,6 @@ namespace PuntoDeVentaV2
             }
             else if (DatosSourceFinal == 4)
             {
-                
                 //MessageBox.Show("Proceso de registrar Nvo producto seleccionado del XML o Productos");
                 //searchClavIntProd();                    // hacemos la busqueda que no se repita en CalveInterna
                 //searchCodBar();                         // hacemos la busqueda que no se repita en CodigoBarra
