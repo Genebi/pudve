@@ -1095,6 +1095,8 @@ namespace PuntoDeVentaV2
 
             //lblNoRegistroPagina.Text = p.numPag().ToString();
             linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
 
             BeforePage = p.numPag() - 1;
             AfterPage = p.numPag() + 1;
@@ -1194,6 +1196,10 @@ namespace PuntoDeVentaV2
                 FormAgregar.Titulo = "Copiar Producto";
             }
 
+            FormAgregar.FormClosed += delegate
+            {
+                CargarDatos();
+            };
             if (!FormAgregar.Visible)
             {
                 if (seleccionadoDato == 0)
@@ -1243,7 +1249,7 @@ namespace PuntoDeVentaV2
                 origenDeLosDatos = 0;
             }
             //origenDeLosDatos = 0;
-            CargarDatos();
+            //CargarDatos();
         }
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
@@ -1264,6 +1270,10 @@ namespace PuntoDeVentaV2
                 FormAgregar.Titulo = "Copiar Paquete";
             }
 
+            FormAgregar.FormClosed += delegate 
+            {
+                CargarDatos();
+            };
             if (!FormAgregar.Visible)
             {
                 if (seleccionadoDato == 0)
@@ -1313,7 +1323,7 @@ namespace PuntoDeVentaV2
                 origenDeLosDatos = 0;
             }
             //origenDeLosDatos = 0;
-            CargarDatos();
+            //CargarDatos();
         }
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
@@ -1334,6 +1344,10 @@ namespace PuntoDeVentaV2
                 FormAgregar.Titulo = "Copiar Servicio";
             }
 
+            FormAgregar.FormClosed += delegate
+            {
+                CargarDatos();
+            };
             if (!FormAgregar.Visible)
             {
                 if (seleccionadoDato == 0)
@@ -1383,7 +1397,7 @@ namespace PuntoDeVentaV2
                 origenDeLosDatos = 0;
             }
             //origenDeLosDatos = 0;
-            CargarDatos();
+            //CargarDatos();
         }
 
         private void ModificarStatusProducto()

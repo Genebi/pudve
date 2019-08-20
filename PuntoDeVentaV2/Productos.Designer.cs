@@ -603,7 +603,7 @@
             this.panel4.Controls.Add(this.linkLblUltimaPagina);
             this.panel4.Controls.Add(this.btnSiguiente);
             this.panel4.Controls.Add(this.btnUltimaPagina);
-            this.panel4.Location = new System.Drawing.Point(439, 8);
+            this.panel4.Location = new System.Drawing.Point(448, 8);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(59, 32);
             this.panel4.TabIndex = 21;
@@ -656,7 +656,7 @@
             this.panel3.Controls.Add(this.btnPrimeraPagina);
             this.panel3.Controls.Add(this.btnAnterior);
             this.panel3.Controls.Add(this.linkLblPrimeraPagina);
-            this.panel3.Location = new System.Drawing.Point(320, 8);
+            this.panel3.Location = new System.Drawing.Point(314, 8);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 20;
@@ -707,9 +707,10 @@
             // 
             this.linkLblPaginaSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLblPaginaSiguiente.AutoSize = true;
-            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(423, 18);
+            this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(425, 18);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(13, 13);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 16;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "4";
@@ -719,9 +720,10 @@
             // 
             this.linkLblPaginaActual.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLblPaginaActual.AutoSize = true;
+            this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(402, 18);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(13, 13);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 15;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "3";
@@ -731,9 +733,10 @@
             // 
             this.linkLblPaginaAnterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLblPaginaAnterior.AutoSize = true;
-            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(381, 18);
+            this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(378, 18);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(13, 13);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 14;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
