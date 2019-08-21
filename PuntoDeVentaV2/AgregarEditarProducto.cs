@@ -326,6 +326,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (rowProdServPaq["NombreProducto"].ToString() == "")
                         {
+                            btnAdd.Visible = false;
                             txtCantPaqServ.Text = rowProdServPaq["Cantidad"].ToString();
                         }
                     }
