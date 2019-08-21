@@ -319,10 +319,10 @@ namespace PuntoDeVentaV2
                     {
                         if (rowProdServPaq["NombreProducto"].ToString() != "")
                         {
+                            txtCantPaqServ.Text = rowProdServPaq["Cantidad"].ToString();
                             btnAdd.Visible = true;
                             Hided = true;
                             btnAdd.PerformClick();
-                            txtCantPaqServ.Text = rowProdServPaq["Cantidad"].ToString();
                         }
                         else if (rowProdServPaq["NombreProducto"].ToString() == "")
                         {
