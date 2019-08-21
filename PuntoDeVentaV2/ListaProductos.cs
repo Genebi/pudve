@@ -48,7 +48,7 @@ namespace PuntoDeVentaV2
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-        public delegate void pasarProducto(string dato);
+        public delegate void pasarProducto(string nombProd_Paq_Serv, string id_Prod_Paq_Serv = "");
         public event pasarProducto nombreProducto;
 
         public void CargarDataGridView()    // metodo para poder cargar los datos al inicio
@@ -154,7 +154,7 @@ namespace PuntoDeVentaV2
 
             if (typeStockFinal == "Productos")
             {
-                nombreProducto(NombreProdStrFin);
+                nombreProducto(NombreProdStrFin, IdProdStrFin);
             }
             else if (typeStockFinal == "Paquetes" || typeStockFinal == "Servicios")
             {

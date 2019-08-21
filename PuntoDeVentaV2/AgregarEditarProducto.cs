@@ -186,6 +186,7 @@ namespace PuntoDeVentaV2
 
         public string CBNombProdPasado { get; set; }
         static public string CBNombProd = String.Empty;
+        static public string CBIdProd = String.Empty;
         static public int seleccionListaStock;
 
         public static bool ejecutarMetodos = false;
@@ -1052,6 +1053,19 @@ namespace PuntoDeVentaV2
                                         MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     }
                                 }
+                                else if(dtServiciosPaquetes.Rows.Count == 0)
+                                {
+                                    string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
+                                    int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
+                                    if (SaveProdAtPQS > 0)
+                                    {
+                                        //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
                             }
 
                             //Se realiza el proceso para guardar los detalles de facturación del producto
@@ -1387,14 +1401,20 @@ namespace PuntoDeVentaV2
                                 string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
                                 cn.EjecutarConsulta(queryRecordHistorialProd);
 
-                                //if (ProductosDeServicios == null || ProductosDeServicios.Count == 0)
-                                //{
-                                //    string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProducto}'";
-                                //    cn.EjecutarConsulta(queryBorrarProductosDeServicios);
-                                //    string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
-                                //    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                                //}
-                                if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
+                                if ((ProductosDeServicios.Count <= 0 || ProductosDeServicios == null) && fLPDetalleProducto.Visible == true)
+                                {
+                                    if (!CBIdProd.Equals(""))
+                                    {
+                                        string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
+                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                    }
+                                    else if (CBIdProd.Equals(""))
+                                    {
+                                        string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
+                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                    }
+                                }
+                                else if(ProductosDeServicios.Count >= 0)
                                 {
                                     ProductosDeServicios.Clear();
                                     // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
@@ -1440,7 +1460,6 @@ namespace PuntoDeVentaV2
                                         ProductosDeServicios.Add(prodSerPaq);
                                         prodSerPaq = null;
                                     }
-
                                     //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                                     if (ProductosDeServicios.Any())
                                     {
@@ -1454,7 +1473,7 @@ namespace PuntoDeVentaV2
                                         }
                                         ProductosDeServicios.Clear();
                                     }
-                                }
+                                } 
                             }
                             if (DatosSourceFinal == 3)
                             {
@@ -2195,16 +2214,6 @@ namespace PuntoDeVentaV2
         private void btnAdd_Click(object sender, EventArgs e)
         {
             LoadPanelDatos();
-            //if (Hided)  // Si su valor es True
-            //{
-            //    ocultarPanel();
-            //    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-up.png");
-            //}
-            //else  // Si su valor es False
-            //{
-            //    ocultarPanel();
-            //    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
-            //}
         }
 
         private void LoadPanelDatos()
@@ -2979,9 +2988,10 @@ namespace PuntoDeVentaV2
             ListStock.ShowDialog();
         }
 
-        private void ejecutar(string dato)
+        private void ejecutar(string nombProd_Paq_Serv, string id_Prod_Paq_Serv)
         {
-            CBNombProd = dato;
+            CBNombProd = nombProd_Paq_Serv;
+            CBIdProd = id_Prod_Paq_Serv;
             int numero = 0;
             if (!int.TryParse(CBNombProd, out numero))
             {
