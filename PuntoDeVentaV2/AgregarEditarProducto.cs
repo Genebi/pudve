@@ -229,6 +229,7 @@ namespace PuntoDeVentaV2
             txtCategoriaProducto.Text = "";
             txtClaveProducto.Text = "";
             txtCodigoBarras.Text = "";
+            txtCantPaqServ.Text = "0";
         }
 
         public void cargarCodBarExt()
@@ -321,6 +322,7 @@ namespace PuntoDeVentaV2
                             btnAdd.Visible = true;
                             Hided = true;
                             btnAdd.PerformClick();
+                            txtCantPaqServ.Text = rowProdServPaq["Cantidad"].ToString();
                         }
                     }
                 }
