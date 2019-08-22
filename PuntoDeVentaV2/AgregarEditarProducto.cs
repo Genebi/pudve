@@ -473,7 +473,10 @@ namespace PuntoDeVentaV2
                         {
                             cb.Items.Add(items.ToString());
                         }
-                        cb.Text = NombreProducto;
+                        if (!NombreProducto.Equals(""))
+                        {
+                            cb.Text = NombreProducto;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -1027,7 +1030,8 @@ namespace PuntoDeVentaV2
                     //}
                     if (this.Text.Trim() == "Productos")
                     {
-                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto };
+                        float PreciotoSave = float.Parse(Convert.ToDouble(precio).ToString());
+                        guardar = new string[] { nombre, stock, PreciotoSave.ToString(), categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
 
@@ -1051,6 +1055,8 @@ namespace PuntoDeVentaV2
                                     cantidadProdAtService = rowServPaq["Cantidad"].ToString();
                                     string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
                                     int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
+                                    string queryDaleteReg = $@"DELETE FROM ProductosDeServicios WHERE IDServicio = {CBNombProd} AND NombreProducto = ''";
+                                    cn.EjecutarConsulta(queryDaleteReg);
                                     if (SaveProdAtPQS > 0)
                                     {
                                         //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1189,7 +1195,7 @@ namespace PuntoDeVentaV2
                                     rfcProveedor = proveedorTmp[1];
                                 }
 
-                                guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+                                guardar = new string[] { nombre, stock, PreciotoSave.ToString(), txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
 
                                 cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
 
@@ -1218,7 +1224,7 @@ namespace PuntoDeVentaV2
                                 string descuentoXML = DescuentoXMLNvoProd;
                                 PrecioCompraXMLNvoProd = txtPrecioCompra.Text;
 
-                                string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{precio}','{descuentoXML}','{PrecioCompraXMLNvoProd}','{fechaCompleta}','{folio.Trim()}','{RFCEmisor.Trim()}','{nombreEmisor.Trim()}','{claveProdEmisor.Trim()}',datetime('now', 'localtime'),'{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
+                                string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{PreciotoSave}','{descuentoXML}','{PrecioCompraXMLNvoProd}','{fechaCompleta}','{folio.Trim()}','{RFCEmisor.Trim()}','{nombreEmisor.Trim()}','{claveProdEmisor.Trim()}',datetime('now', 'localtime'),'{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
 
                                 try
                                 {
@@ -3021,26 +3027,37 @@ namespace PuntoDeVentaV2
                             string[] queryAddToSaveReg = { $"{today.ToString("yyyy-MM-dd HH:mm:ss")}", $"{rowProdServPaq["IDServicio"].ToString()}", $"{CBIdProd}", $"{CBNombProd}", $"{rowProdServPaq["Cantidad"].ToString()}" };
                             cn.EjecutarConsulta(cs.GuardarProductosServPaq(queryAddToSaveReg));
                         }
-                        foreach (DataRow row in dtProductosDeServicios.Rows)
-                        {
-                            if (row["NombreProducto"].ToString() == "")
-                            {
-                                string queryDaleteReg = $@"DELETE FROM ProductosDeServicios WHERE ID = {row["ID"].ToString()}";
-                                cn.EjecutarConsulta(queryDaleteReg);
-                            }
-                        }
+                        string queryDaleteReg = $@"DELETE FROM ProductosDeServicios WHERE ID = {row["IDServicio"].ToString()} AND NombreProducto = ''";
+                        cn.EjecutarConsulta(queryDaleteReg);
                     }
                     CargarDatos();
                     ocultarPanel();
                     GenerarPanelProductosServPlus();
                 }
             }
-            else if (this.Text.Trim() == "Productos" && DatosSourceFinal == 1)
+            else if (this.Text.Trim() == "Productos")
             {
-                //if (fLPContenidoProducto.Visible == true)
-                //{
-                //    ocultarPanel();
-                //}
+                if (DatosSourceFinal == 1)
+                {
+
+                }
+                else if (DatosSourceFinal == 2)
+                {
+                    //string query = cs.ProductosDeServicios(Convert.ToInt32(CBIdProd));
+                    //dtServiciosPaquetes = cn.CargarDatos(cs.ProductosDeServicios(Convert.ToInt32(CBNombProd)));
+                    dtNvoProductosDeServicios = cn.CargarDatos(cs.ProductosDeServicios(Convert.ToInt32(CBIdProd)));
+                    rowProdServPaq = dtNvoProductosDeServicios.Rows[0];
+                    if (dtNvoProductosDeServicios.Rows.Count > 0)
+                    {
+                        if (rowProdServPaq["NombreProducto"].ToString() == "")
+                        {
+                            string[] queryAddToSaveReg = { $"{today.ToString("yyyy-MM-dd HH:mm:ss")}", $"{CBIdProd}", $"{idProductoFinal}", $"{ProdNombreFinal}", $"{rowProdServPaq["Cantidad"].ToString()}" };
+                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(queryAddToSaveReg));
+                        }
+                        string queryDaleteReg = $@"DELETE FROM ProductosDeServicios WHERE IDServicio = {CBIdProd} AND NombreProducto = ''";
+                        cn.EjecutarConsulta(queryDaleteReg);
+                    }
+                }
             }
         }
 

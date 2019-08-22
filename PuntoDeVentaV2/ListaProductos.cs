@@ -158,7 +158,7 @@ namespace PuntoDeVentaV2
             }
             else if (typeStockFinal == "Paquetes" || typeStockFinal == "Servicios")
             {
-                nombreProducto(IdProdStrFin);
+                nombreProducto(IdProdStrFin, IdProdStrFin);
             }
             
             this.Close();                                           // cerramos la ventana 
