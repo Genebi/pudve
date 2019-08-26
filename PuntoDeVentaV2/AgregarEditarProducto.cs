@@ -1401,6 +1401,12 @@ namespace PuntoDeVentaV2
                                 string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
                                 cn.EjecutarConsulta(queryRecordHistorialProd);
 
+                                if (flowLayoutPanel2.Controls.Count == 0)
+                                {
+                                    string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
+                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                }
+
                                 // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
                                 if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                                 {
