@@ -1052,6 +1052,16 @@ namespace PuntoDeVentaV2
                                     {
                                         MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     }
+                                    string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBNombProd}' AND (IDProducto = '' AND NombreProducto = '')";
+                                    int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
+                                    if (DeleteProdAtPQS > 0)
+                                    {
+                                        //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
                                 }
                                 else if(dtServiciosPaquetes.Rows.Count == 0)
                                 {
@@ -1679,6 +1689,16 @@ namespace PuntoDeVentaV2
                             rowServPaq = dtSearchServPaq.Rows[0];
                             string[] tmp = { $"{today.ToString("yyyy-MM-dd hh:mm:ss")}", $"{CBIdProd}", $"{idProductoBuscado}", $"{nombre}", $"{rowServPaq["Cantidad"].ToString()}" };
                             cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                            string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBIdProd}' AND (IDProducto = '' AND NombreProducto = '')";
+                            int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
+                            if (DeleteProdAtPQS > 0)
+                            {
+                                //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                     else if (this.Text.Trim().Equals("Paquetes") || this.Text.Trim().Equals("Servicios"))
