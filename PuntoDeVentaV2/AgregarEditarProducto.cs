@@ -3007,17 +3007,24 @@ namespace PuntoDeVentaV2
             {
                 if ((this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios") && DatosSourceFinal == 1)
                 {
+                    btnAdd.Visible = true;
                     CargarDatos();
-                    ocultarPanel();
+                    if (flowLayoutPanel2.Visible == true)
+                    {
+                        Hided = true;
+                        ocultarPanel();
+                    }
                     GenerarPanelProductosServPlus();
                 }
                 else if ((this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios") && DatosSourceFinal == 2)
                 {
-                    DateTime today = DateTime.Now;
-                    string[] guardar = { $"{today.ToString("yyyy-MM-dd hh:mm:ss")}", $"{idEditarProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
-                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(guardar));
+                    btnAdd.Visible = true;
                     CargarDatos();
-                    ocultarPanel();
+                    if (flowLayoutPanel2.Visible == true)
+                    {
+                        Hided = true;
+                        ocultarPanel();
+                    }
                     GenerarPanelProductosServPlus();
                 }
             }
@@ -3383,13 +3390,13 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cargarCBProductos(string typePaqServ)
+        private void cargarCBProductos(string typePaqServ = "P")
         {
             try
             {
                 datosProductos = new DataTable();
                 //queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
-                queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
+                queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = '{typePaqServ}'";
                 datosProductos = cn.CargarDatos(queryProductos);
                 row = datosProductos.NewRow();
                 row["ID"] = -1;
