@@ -1401,20 +1401,8 @@ namespace PuntoDeVentaV2
                                 string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
                                 cn.EjecutarConsulta(queryRecordHistorialProd);
 
-                                if ((ProductosDeServicios.Count <= 0 || ProductosDeServicios == null) && fLPDetalleProducto.Visible == true)
-                                {
-                                    if (!CBIdProd.Equals(""))
-                                    {
-                                        string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
-                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                                    }
-                                    else if (CBIdProd.Equals(""))
-                                    {
-                                        string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
-                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                                    }
-                                }
-                                else if(ProductosDeServicios.Count >= 0)
+                                // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
+                                if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                                 {
                                     ProductosDeServicios.Clear();
                                     // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
@@ -1435,8 +1423,7 @@ namespace PuntoDeVentaV2
                                                     string comboBoxValue = null;
                                                     buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
                                                     dtProductos = cn.CargarDatos(buscar);
-                                                    DataRow row = dtProductos.Rows[0];
-                                                    comboBoxValue = row["ID"].ToString();
+                                                    comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
                                                     prodSerPaq += fech + "|";
                                                     prodSerPaq += idProducto + "|";
                                                     prodSerPaq += comboBoxValue + "|";
@@ -1463,6 +1450,8 @@ namespace PuntoDeVentaV2
                                     //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                                     if (ProductosDeServicios.Any())
                                     {
+                                        string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+                                        cn.EjecutarConsulta(queryBorrarProductosDeServicios);
                                         foreach (var productosSP in ProductosDeServicios)
                                         {
                                             string[] tmp = productosSP.Split('|');
@@ -1473,7 +1462,8 @@ namespace PuntoDeVentaV2
                                         }
                                         ProductosDeServicios.Clear();
                                     }
-                                } 
+                                }
+                                flowLayoutPanel2.Controls.Clear();
                             }
                             if (DatosSourceFinal == 3)
                             {
@@ -1578,6 +1568,7 @@ namespace PuntoDeVentaV2
                                         ProductosDeServicios.Clear();
                                     }
                                 }
+                                flowLayoutPanel2.Controls.Clear();
                             }
                         }
                         if (respuesta > 0)
@@ -1748,6 +1739,7 @@ namespace PuntoDeVentaV2
                             }
                             ProductosDeServicios.Clear();
                         }
+                        flowLayoutPanel2.Controls.Clear();
                     }
                     
                     //label10.Text = idProductoBuscado;
@@ -3020,20 +3012,12 @@ namespace PuntoDeVentaV2
                 {
                     btnAdd.Visible = true;
                     CargarDatos();
-                    if (flowLayoutPanel2.Visible == true)
-                    {
-                        Hided = true;
-                        ocultarPanel();
-                    }
                     GenerarPanelProductosServPlus();
                 }
             }
             else if (this.Text.Trim() == "Productos" && DatosSourceFinal == 1)
             {
-                //if (fLPContenidoProducto.Visible == true)
-                //{
-                //    ocultarPanel();
-                //}
+                
             }
         }
 
@@ -3390,13 +3374,13 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cargarCBProductos(string typePaqServ = "P")
+        private void cargarCBProductos(string typePaqServ)
         {
             try
             {
                 datosProductos = new DataTable();
                 //queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
-                queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = '{typePaqServ}'";
+                queryProductos = $"SELECT ID, Nombre FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
                 datosProductos = cn.CargarDatos(queryProductos);
                 row = datosProductos.NewRow();
                 row["ID"] = -1;

@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool recargarDatos = false;
 
-        public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
+        //public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
         public AgregarStockXML FormXML = new AgregarStockXML();
         public RecordViewProduct ProductoRecord = new RecordViewProduct();
         public CodeBarMake MakeBarCode = new CodeBarMake();
@@ -1178,6 +1178,7 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
+            AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
             if (origenDeLosDatos == 0)
             {
                 FormAgregar.DatosSource = 1;
@@ -1257,6 +1258,7 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
+            AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
             if (origenDeLosDatos == 0)
             {
                 FormAgregar.DatosSource = 1;
@@ -1336,6 +1338,7 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
+            AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
             if (origenDeLosDatos == 0)
             {
                 FormAgregar.DatosSource = 1;
