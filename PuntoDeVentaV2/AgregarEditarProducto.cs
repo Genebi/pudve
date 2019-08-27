@@ -1129,7 +1129,7 @@ namespace PuntoDeVentaV2
                             // Fin del guardado de detalles del producto
                             
 
-                            if (DatosSourceFinal == 1)
+                            if (DatosSourceFinal == 1 || DatosSourceFinal == 2)
                             {
                                 // para relacionar productos con algun paquete/servicio
                                 int numero = 0;
@@ -1146,24 +1146,9 @@ namespace PuntoDeVentaV2
                                         cantidadProdAtService = rowServPaq["Cantidad"].ToString();
                                         string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
                                         int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
-                                        if (SaveProdAtPQS > 0)
-                                        {
-                                            //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        }
+                                        
                                         string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBNombProd}' AND (IDProducto = '' AND NombreProducto = '')";
                                         int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
-                                        if (DeleteProdAtPQS > 0)
-                                        {
-                                            //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        }
                                     }
                                     else if (dtServiciosPaquetes.Rows.Count == 0)
                                     {
