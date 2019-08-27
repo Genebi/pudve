@@ -1029,55 +1029,6 @@ namespace PuntoDeVentaV2
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
-                            // para relacionar productos con algun paquete/servicio
-                            int numero = 0;
-                            string cantidadProdAtService = string.Empty;
-                            if (int.TryParse(CBNombProd, out numero))
-                            {
-                                DateTime thisDay = DateTime.Today;
-                                DataTable dtServiciosPaquetes;
-                                DataRow rowServPaq;
-                                dtServiciosPaquetes = cn.CargarDatos(cs.ProductosDeServicios(Convert.ToInt32(CBNombProd)));
-                                if (dtServiciosPaquetes.Rows.Count != 0)
-                                {
-                                    rowServPaq = dtServiciosPaquetes.Rows[0];
-                                    cantidadProdAtService = rowServPaq["Cantidad"].ToString();
-                                    string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
-                                    int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
-                                    if (SaveProdAtPQS > 0)
-                                    {
-                                        //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                    string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBNombProd}' AND (IDProducto = '' AND NombreProducto = '')";
-                                    int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
-                                    if (DeleteProdAtPQS > 0)
-                                    {
-                                        //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                }
-                                else if(dtServiciosPaquetes.Rows.Count == 0)
-                                {
-                                    string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
-                                    int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
-                                    if (SaveProdAtPQS > 0)
-                                    {
-                                        //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                }
-                            }
-
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
                             {
@@ -1180,6 +1131,55 @@ namespace PuntoDeVentaV2
 
                             if (DatosSourceFinal == 1)
                             {
+                                // para relacionar productos con algun paquete/servicio
+                                int numero = 0;
+                                string cantidadProdAtService = string.Empty;
+                                if (int.TryParse(CBNombProd, out numero))
+                                {
+                                    DateTime thisDay = DateTime.Today;
+                                    DataTable dtServiciosPaquetes;
+                                    DataRow rowServPaq;
+                                    dtServiciosPaquetes = cn.CargarDatos(cs.ProductosDeServicios(Convert.ToInt32(CBNombProd)));
+                                    if (dtServiciosPaquetes.Rows.Count != 0)
+                                    {
+                                        rowServPaq = dtServiciosPaquetes.Rows[0];
+                                        cantidadProdAtService = rowServPaq["Cantidad"].ToString();
+                                        string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
+                                        int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
+                                        if (SaveProdAtPQS > 0)
+                                        {
+                                            //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                        string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBNombProd}' AND (IDProducto = '' AND NombreProducto = '')";
+                                        int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
+                                        if (DeleteProdAtPQS > 0)
+                                        {
+                                            //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                    }
+                                    else if (dtServiciosPaquetes.Rows.Count == 0)
+                                    {
+                                        string[] SaveProdAtService = new string[] { $"{thisDay.ToString("yyyy-MM-dd hh:mm:ss")}", CBNombProd, Convert.ToString(idProducto), nombre, cantidadProdAtService };
+                                        int SaveProdAtPQS = cn.EjecutarConsulta(cs.GuardarProductosServPaq(SaveProdAtService));
+                                        if (SaveProdAtPQS > 0)
+                                        {
+                                            //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                    }
+                                }
+
                                 var conceptoProveedor = string.Empty;
                                 var rfcProveedor = string.Empty;
 
@@ -3038,6 +3038,11 @@ namespace PuntoDeVentaV2
                 {
                     btnAdd.Visible = true;
                     CargarDatos();
+                    if (flowLayoutPanel2.Visible == true)
+                    {
+                        Hided = true;
+                        ocultarPanel();
+                    }
                     GenerarPanelProductosServPlus();
                 }
             }
