@@ -209,7 +209,7 @@ namespace PuntoDeVentaV2
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]))
                     {
-                        var sumar = 1;
+                        decimal sumar = 1;
 
                         if (cantidadExtra > 0)
                         {
@@ -219,16 +219,16 @@ namespace PuntoDeVentaV2
                         }
                         else if (cantidadExtra == 0)
                         {
-                            if (Convert.ToInt32(nudCantidadPS.Value) > 0)
+                            if (Convert.ToDecimal(nudCantidadPS.Value) > 0)
                             {
-                                sumar = Convert.ToInt32(nudCantidadPS.Value);
+                                sumar = Convert.ToDecimal(nudCantidadPS.Value);
                             }
 
                             nudCantidadPS.Value = 1;
                         }
 
-                        int cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value) + sumar;
-                        float importe = cantidad * float.Parse(fila.Cells["Precio"].Value.ToString());
+                        decimal cantidad = Convert.ToDecimal(fila.Cells["Cantidad"].Value) + sumar;
+                        float importe = float.Parse(cantidad.ToString()) * float.Parse(fila.Cells["Precio"].Value.ToString());
 
                         fila.Cells["Cantidad"].Value = cantidad;
                         fila.Cells["Importe"].Value = importe;
@@ -239,8 +239,8 @@ namespace PuntoDeVentaV2
 
                         if (tipoDescuento > 0)
                         {
-                            string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                            CalcularDescuento(datosDescuento, tipoDescuento, cantidad);
+                            string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);     
+                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad));
                         }
                     }
                 }
@@ -258,25 +258,25 @@ namespace PuntoDeVentaV2
             CantidadesFinalesVenta();
         }
 
-        private void AgregarProductoLista(string[] datosProducto, int cantidad = 1, bool ignorar = false)
+        private void AgregarProductoLista(string[] datosProducto, decimal cantidad = 1, bool ignorar = false)
         {
-            int cantidadTmp = cantidad;
+            decimal cantidadTmp = cantidad;
 
-            //Se agrega la nueva fila y se obtiene el ID que tendrá
+            // Se agrega la nueva fila y se obtiene el ID que tendrá
             int rowId = DGVentas.Rows.Add();
 
-            //Obtener la nueva fila
+            // Obtener la nueva fila
             DataGridViewRow row = DGVentas.Rows[rowId];
 
             if (buscarvVentaGuardada == "#$%")
             {
-                //Agregamos la información
+                // Agregamos la información
                 row.Cells["NumeroColumna"].Value = rowId;
-                row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
-                row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
-                row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
-                row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
-                row.Cells["TipoPS"].Value = datosProducto[5]; //Este campo no es visible
+                row.Cells["IDProducto"].Value = datosProducto[0]; // Este campo no es visible
+                row.Cells["PrecioOriginal"].Value = datosProducto[2]; // Este campo no es visible
+                row.Cells["DescuentoTipo"].Value = datosProducto[3]; // Este campo tampoco es visible
+                row.Cells["Stock"].Value = datosProducto[4]; // Este campo no es visible
+                row.Cells["TipoPS"].Value = datosProducto[5]; // Este campo no es visible
                 row.Cells["Cantidad"].Value = datosProducto[6];
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
@@ -295,7 +295,7 @@ namespace PuntoDeVentaV2
                 {
                     if (Convert.ToInt32(nudCantidadPS.Value) > 0)
                     {
-                        cantidad = Convert.ToInt32(nudCantidadPS.Value);
+                        cantidad = Convert.ToDecimal(nudCantidadPS.Value);
                     }
 
                     nudCantidadPS.Value = 1;
@@ -583,7 +583,7 @@ namespace PuntoDeVentaV2
 
         private void CantidadesFinalesVenta()
         {
-            int    totalArticulos = 0;
+            decimal totalArticulos = 0;
             double totalImporte   = 0;
             double totalDescuento = 0;
             double totalSubtotal  = 0;
@@ -609,13 +609,13 @@ namespace PuntoDeVentaV2
                 else if (porcentajeGeneral > 0)
                 {
                     var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);  //Precio original del producto
-                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);       //Cantidad de producto
+                    var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);       //Cantidad de producto
                     var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);    //Cantidad descuento del producto
 
-                    var descuento = (precioOriginal * cantidadProducto) - cantidadDescuento;
+                    var descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
                     descuento *= porcentajeGeneral;
 
-                    var importeProducto = precioOriginal * cantidadProducto;
+                    var importeProducto = precioOriginal * Convert.ToDouble(cantidadProducto);
                     importeProducto -= descuento;
                     importeProducto -= cantidadDescuento;
 
@@ -628,10 +628,10 @@ namespace PuntoDeVentaV2
                 else
                 {
                     var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
-                    var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                    var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                     var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
 
-                    var importeProducto = (precioOriginal * cantidadProducto) - cantidadDescuento;
+                    var importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
 
                     fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
@@ -825,8 +825,8 @@ namespace PuntoDeVentaV2
                             if (Tipo == "P")
                             {
                                 //Actualizar stock de productos
-                                var stock = Convert.ToInt32(fila.Cells["Stock"].Value);
-                                var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                                var stock = Convert.ToDecimal(fila.Cells["Stock"].Value);
+                                var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                                 var restantes = (stock - vendidos).ToString();
 
                                 guardar = new string[] { IDProducto, restantes };
@@ -837,7 +837,7 @@ namespace PuntoDeVentaV2
                             //Servicio
                             if (Tipo == "S")
                             {
-                                var vendidos = Convert.ToInt32(fila.Cells["Cantidad"].Value);
+                                var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
 
                                 var datosServicio = cn.ObtenerProductosServicio(Convert.ToInt32(IDProducto));
 
@@ -845,11 +845,11 @@ namespace PuntoDeVentaV2
                                 {
                                     var datosProducto = producto.Split('|');
                                     var idProducto = Convert.ToInt32(datosProducto[0]);
-                                    var stockRequerido = Convert.ToInt32(datosProducto[1]) * vendidos;
+                                    var stockRequerido = Convert.ToDecimal(datosProducto[1]) * vendidos;
 
                                     datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
                                     datosProducto = datosProducto[0].Split('|');
-                                    var stockActual = Convert.ToInt32(datosProducto[1]);
+                                    var stockActual = Convert.ToDecimal(datosProducto[1]);
 
                                     var restantes = (stockActual - stockRequerido).ToString();
 
@@ -888,11 +888,8 @@ namespace PuntoDeVentaV2
                 }
 
                 ListadoVentas.abrirNuevaVenta = true;
-
                 ventaGuardada = false;
-
                 mostrarVenta = 0;
-
                 listaAnticipos = string.Empty;
 
                 this.Dispose();
