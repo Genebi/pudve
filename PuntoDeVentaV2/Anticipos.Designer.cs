@@ -49,6 +49,7 @@
             this.Devolver = new System.Windows.Forms.DataGridViewImageColumn();
             this.Info = new System.Windows.Forms.DataGridViewImageColumn();
             this.IDVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
@@ -169,7 +170,8 @@
             this.Status,
             this.Devolver,
             this.Info,
-            this.IDVenta});
+            this.IDVenta,
+            this.FormaPago});
             this.DGVAnticipos.Location = new System.Drawing.Point(12, 141);
             this.DGVAnticipos.Name = "DGVAnticipos";
             this.DGVAnticipos.ReadOnly = true;
@@ -263,6 +265,13 @@
             this.IDVenta.ReadOnly = true;
             this.IDVenta.Visible = false;
             // 
+            // FormaPago
+            // 
+            this.FormaPago.HeaderText = "FormaPago";
+            this.FormaPago.Name = "FormaPago";
+            this.FormaPago.ReadOnly = true;
+            this.FormaPago.Visible = false;
+            // 
             // Anticipos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -305,5 +314,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Devolver;
         private System.Windows.Forms.DataGridViewImageColumn Info;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDVenta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FormaPago;
     }
 }

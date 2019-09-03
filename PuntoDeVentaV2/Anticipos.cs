@@ -95,6 +95,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Empleado"].Value = "Administrador";
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("Fecha"))).ToString("yyyy-MM-dd HH:mm:ss");
                 row.Cells["IDVenta"].Value = dr.GetValue(dr.GetOrdinal("IDVenta"));
+                row.Cells["FormaPago"].Value = dr.GetValue(dr.GetOrdinal("FormaPago"));
                 row.Cells["Ticket"].Value = ticket;
 
                 var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
@@ -215,12 +216,14 @@ namespace PuntoDeVentaV2
 
             if (fila >= 0)
             {
-                int idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
-                string fecha = DGVAnticipos.Rows[fila].Cells["Fecha"].Value.ToString();
-                float importe = float.Parse(DGVAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
-                int idVenta = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["IDVenta"].Value);
+                var idAnticipo = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["ID"].Value);
+                var fecha = DGVAnticipos.Rows[fila].Cells["Fecha"].Value.ToString();
+                var importe = float.Parse(DGVAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
+                var idVenta = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["IDVenta"].Value);
+                var formaPago = DGVAnticipos.Rows[fila].Cells["FormaPago"].Value.ToString();
 
-                //Generar ticket
+
+                // Generar ticket
                 if (e.ColumnIndex == 6)
                 {
                     rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
@@ -246,28 +249,30 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                //Habilitar/Deshabilitar
+                // Habilitar/Deshabilitar
                 if (e.ColumnIndex == 7)
                 {
                     if (indice < 2)
                     {
-                        //Deshabilitar
+                        // Deshabilitar
                         if (indice == 0)
                         {
                             cn.EjecutarConsulta(cs.CambiarStatusAnticipo(2, idAnticipo, FormPrincipal.userID));
+                            CajaHabilitarDeshabilitar(formaPago, importe, 1);
                         }
 
-                        //Habilitar
+                        // Habilitar
                         if (indice == 1)
                         {
                             cn.EjecutarConsulta(cs.CambiarStatusAnticipo(1, idAnticipo, FormPrincipal.userID));
+                            CajaHabilitarDeshabilitar(formaPago, importe, 2);
                         }
 
                         CargarDatos(cbAnticipos.SelectedIndex + 1);
                     }
                 }
 
-                //Devolver anticipo
+                // Devolver anticipo
                 if (e.ColumnIndex == 8)
                 {
                     if (indice == 0)
@@ -330,6 +335,50 @@ namespace PuntoDeVentaV2
         private void Anticipos_Resize(object sender, EventArgs e)
         {
             recargarDatos = false;
+        }
+
+        private void CajaHabilitarDeshabilitar(string formaPago, float importe, int tipo)
+        {
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            var efectivo = "0";
+            var cheque = "0";
+            var transferencia = "0";
+            var tarjeta = "0";
+            var vales = "0";
+            var credito = "0";
+
+            //Operacion para afectar la Caja
+            if (formaPago == "01") { efectivo = importe.ToString(); }
+            if (formaPago == "02") { cheque = importe.ToString(); }
+            if (formaPago == "03") { transferencia = importe.ToString(); }
+            if (formaPago == "04") { tarjeta = importe.ToString(); }
+            if (formaPago == "08") { vales = importe.ToString(); }
+
+            var cantidad = importe;
+            var operacion = string.Empty;
+            var comentario = string.Empty;
+
+            // Deshabilitar
+            if (tipo == 1)
+            {
+                operacion = "retiro";
+                comentario = "anticipo deshabilitado";
+            }
+
+            // Habilitar
+            if (tipo == 2)
+            {
+                operacion = "deposito";
+                comentario = "anticipo habilitado";
+            }
+
+            string[] datos = new string[] {
+                operacion, cantidad.ToString("0.00"), "0", comentario, fechaOperacion, FormPrincipal.userID.ToString(),
+                efectivo, tarjeta, vales, cheque, transferencia, credito, "0"
+            };
+
+            cn.EjecutarConsulta(cs.OperacionCaja(datos));
         }
     }
 }

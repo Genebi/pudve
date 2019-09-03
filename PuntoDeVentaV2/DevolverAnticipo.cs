@@ -34,7 +34,6 @@ namespace PuntoDeVentaV2
             pagos.Add("03", "03 - Transferencia electrónica de fondos");
             pagos.Add("04", "04 - Tarjeta de crédito");
             pagos.Add("08", "08 - Vales de despensa");
-            pagos.Add("99", "99 - Por definir");
 
             cbFormaPago.DataSource = pagos.ToArray();
             cbFormaPago.DisplayMember = "Value";
@@ -64,7 +63,6 @@ namespace PuntoDeVentaV2
             if (formaPago == "03") { transferencia = importe.ToString(); }
             if (formaPago == "04") { tarjeta = importe.ToString(); }
             if (formaPago == "08") { vales = importe.ToString(); }
-            if (formaPago == "99") { credito = importe.ToString(); }
 
             int resultado = cn.EjecutarConsulta(cs.CambiarStatusAnticipo(4, idAnticipo, FormPrincipal.userID));
             
