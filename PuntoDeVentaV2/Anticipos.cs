@@ -292,7 +292,7 @@ namespace PuntoDeVentaV2
 
                             da.FormClosed += delegate
                             {
-                                CargarDatos();
+                                CargarDatos(cbAnticipos.SelectedIndex + 1);
                             };
 
                             da.ShowDialog();
@@ -334,7 +334,7 @@ namespace PuntoDeVentaV2
         {
             if (recargarDatos)
             {
-                CargarDatos();
+                CargarDatos(cbAnticipos.SelectedIndex + 1);
                 recargarDatos = false;
             }
         }
