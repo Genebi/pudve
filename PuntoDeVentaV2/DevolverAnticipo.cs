@@ -17,16 +17,29 @@ namespace PuntoDeVentaV2
 
         private int idAnticipo = 0;
         private float importe = 0;
-        public DevolverAnticipo(int idAnticipo, float importe)
+        private int tipo = 0;
+
+        public DevolverAnticipo(int idAnticipo, float importe, int tipo = 1)
         {
             InitializeComponent();
 
             this.idAnticipo = idAnticipo;
             this.importe = importe;
+            this.tipo = tipo;
         }
 
         private void DevolverAnticipo_Load(object sender, EventArgs e)
         {
+            if (tipo == 1) {
+                this.Text = "PUDVE - Devolver Anticipo";
+                lbTitulo.Text = "Forma de pago para devolución";
+            }
+
+            if (tipo == 2) {
+                this.Text = "PUDVE - Habilitar Anticipo";
+                lbTitulo.Text = "Forma de pago para anticipo";
+            }
+
             //ComboBox Formas de pago
             Dictionary<string, string> pagos = new Dictionary<string, string>();
             pagos.Add("01", "01 - Efectivo");
@@ -64,17 +77,38 @@ namespace PuntoDeVentaV2
             if (formaPago == "04") { tarjeta = importe.ToString(); }
             if (formaPago == "08") { vales = importe.ToString(); }
 
-            int resultado = cn.EjecutarConsulta(cs.CambiarStatusAnticipo(4, idAnticipo, FormPrincipal.userID));
+            var status = 0;
+            var operacion = string.Empty;
+            var comentario = string.Empty;
+
+            // Devolver anticipo
+            if (tipo == 1)
+            {
+                status = 4;
+                operacion = "retiro";
+                comentario = "devolucion anticipo";
+            }
+
+            // Habilitar anticipo
+            if (tipo == 2)
+            {
+                status = 1;
+                operacion = "deposito";
+                comentario = "anticipo habilitado";
+            }
+
+            int resultado = cn.EjecutarConsulta(cs.CambiarStatusAnticipo(status, idAnticipo, FormPrincipal.userID));
             
             if (resultado > 0)
             {
+                cn.EjecutarConsulta($"UPDATE Anticipos SET FormaPago = '{formaPago}' WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
                 //Se devuelve el dinero del anticipo y se elimina el registro de la tabla Caja para que la cantidad total
                 //Que hay en caja sea correcta
                 //cn.EjecutarConsulta($"DELETE FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion = '{fecha}'");
                 var cantidad = importe;
 
                 string[] datos = new string[] {
-                    "retiro", cantidad.ToString("0.00"), "0", "devolucion anticipo", fechaOperacion, FormPrincipal.userID.ToString(),
+                    operacion, cantidad.ToString("0.00"), "0", comentario, fechaOperacion, FormPrincipal.userID.ToString(),
                     efectivo, tarjeta, vales, cheque, transferencia, credito, "0"
                 };
 

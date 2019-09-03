@@ -258,17 +258,24 @@ namespace PuntoDeVentaV2
                         if (indice == 0)
                         {
                             cn.EjecutarConsulta(cs.CambiarStatusAnticipo(2, idAnticipo, FormPrincipal.userID));
-                            CajaHabilitarDeshabilitar(formaPago, importe, 1);
+                            CajaDeshabilitar(formaPago, importe);
+                            CargarDatos(cbAnticipos.SelectedIndex + 1);
                         }
 
                         // Habilitar
                         if (indice == 1)
                         {
-                            cn.EjecutarConsulta(cs.CambiarStatusAnticipo(1, idAnticipo, FormPrincipal.userID));
-                            CajaHabilitarDeshabilitar(formaPago, importe, 2);
-                        }
+                            //cn.EjecutarConsulta(cs.CambiarStatusAnticipo(1, idAnticipo, FormPrincipal.userID));
 
-                        CargarDatos(cbAnticipos.SelectedIndex + 1);
+                            DevolverAnticipo da = new DevolverAnticipo(idAnticipo, importe, 2);
+
+                            da.FormClosed += delegate
+                            {
+                                CargarDatos(cbAnticipos.SelectedIndex + 1);
+                            };
+
+                            da.ShowDialog();
+                        }
                     }
                 }
 
@@ -337,7 +344,7 @@ namespace PuntoDeVentaV2
             recargarDatos = false;
         }
 
-        private void CajaHabilitarDeshabilitar(string formaPago, float importe, int tipo)
+        private void CajaDeshabilitar(string formaPago, float importe)
         {
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -356,25 +363,9 @@ namespace PuntoDeVentaV2
             if (formaPago == "08") { vales = importe.ToString(); }
 
             var cantidad = importe;
-            var operacion = string.Empty;
-            var comentario = string.Empty;
-
-            // Deshabilitar
-            if (tipo == 1)
-            {
-                operacion = "retiro";
-                comentario = "anticipo deshabilitado";
-            }
-
-            // Habilitar
-            if (tipo == 2)
-            {
-                operacion = "deposito";
-                comentario = "anticipo habilitado";
-            }
 
             string[] datos = new string[] {
-                operacion, cantidad.ToString("0.00"), "0", comentario, fechaOperacion, FormPrincipal.userID.ToString(),
+                "retiro", cantidad.ToString("0.00"), "0", "anticipo deshabilitado", fechaOperacion, FormPrincipal.userID.ToString(),
                 efectivo, tarjeta, vales, cheque, transferencia, credito, "0"
             };
 
