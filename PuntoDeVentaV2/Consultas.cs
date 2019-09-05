@@ -269,5 +269,7 @@ namespace PuntoDeVentaV2
                    consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
             return consulta;
         }
+
+        //hola mundo
     }
 }
