@@ -270,6 +270,10 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+
         //hola mundo
+
+        // hola Alejandro
+
     }
 }
