@@ -80,6 +80,7 @@
             // 
             // txtConcepto
             // 
+            this.txtConcepto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtConcepto.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConcepto.Location = new System.Drawing.Point(44, 112);
             this.txtConcepto.Name = "txtConcepto";
@@ -128,6 +129,7 @@
             // 
             // txtComentarios
             // 
+            this.txtComentarios.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtComentarios.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtComentarios.Location = new System.Drawing.Point(44, 270);
             this.txtComentarios.Multiline = true;

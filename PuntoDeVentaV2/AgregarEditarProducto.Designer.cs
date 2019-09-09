@@ -173,6 +173,7 @@
             // 
             // txtNombreProducto
             // 
+            this.txtNombreProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNombreProducto.Location = new System.Drawing.Point(39, 28);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(722, 20);
@@ -181,6 +182,7 @@
             // 
             // txtPrecioProducto
             // 
+            this.txtPrecioProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPrecioProducto.Location = new System.Drawing.Point(3, 24);
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(165, 20);
@@ -190,6 +192,7 @@
             // 
             // txtStockProducto
             // 
+            this.txtStockProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtStockProducto.Location = new System.Drawing.Point(4, 24);
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(165, 20);
@@ -198,6 +201,7 @@
             // 
             // txtClaveProducto
             // 
+            this.txtClaveProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClaveProducto.Location = new System.Drawing.Point(3, 23);
             this.txtClaveProducto.Name = "txtClaveProducto";
             this.txtClaveProducto.Size = new System.Drawing.Size(165, 20);
@@ -206,6 +210,7 @@
             // 
             // txtCategoriaProducto
             // 
+            this.txtCategoriaProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCategoriaProducto.Location = new System.Drawing.Point(3, 24);
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
             this.txtCategoriaProducto.Size = new System.Drawing.Size(165, 20);
@@ -215,6 +220,7 @@
             // 
             // txtCodigoBarras
             // 
+            this.txtCodigoBarras.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodigoBarras.Location = new System.Drawing.Point(3, 22);
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(165, 20);
@@ -481,6 +487,7 @@
             // 
             // txtPrecioCompra
             // 
+            this.txtPrecioCompra.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPrecioCompra.Location = new System.Drawing.Point(7, 24);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
             this.txtPrecioCompra.Size = new System.Drawing.Size(158, 20);
