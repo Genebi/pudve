@@ -309,6 +309,7 @@
             // 
             // txtConcepto
             // 
+            this.txtConcepto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConcepto.Location = new System.Drawing.Point(59, 202);
             this.txtConcepto.Multiline = true;
