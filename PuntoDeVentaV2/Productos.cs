@@ -218,6 +218,7 @@ namespace PuntoDeVentaV2
         private void cbOrden_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtro = Convert.ToString(cbOrden.SelectedItem);
+
             if (filtro == "A - Z")
             {
                 if (panelShowDGVProductosView.Visible == true)
@@ -891,7 +892,7 @@ namespace PuntoDeVentaV2
                     row.Cells["Column2"].Value = "0";
                 }
 
-                row.Cells["Column3"].Value = filaDatos["Precio"].ToString();
+                row.Cells["Column3"].Value = decimal.Parse(filaDatos["Precio"].ToString());
                 row.Cells["Column4"].Value = filaDatos["Categoria"].ToString();
                 row.Cells["Column5"].Value = filaDatos["ClaveInterna"].ToString();
                 row.Cells["Column6"].Value = filaDatos["CodigoBarras"].ToString();
@@ -1598,6 +1599,7 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos();
             };
+
             if (!FormXML.Visible)
             {
                 FormXML.OcultarPanelRegistro();
@@ -1612,6 +1614,7 @@ namespace PuntoDeVentaV2
         private void timerBusqueda_Tick(object sender, EventArgs e)
         {
             timerBusqueda.Stop();
+
             if (cbMostrar.Text == "Habilitados")
             {
                 CargarDatos(1, txtBusqueda.Text);
@@ -1633,6 +1636,8 @@ namespace PuntoDeVentaV2
                 CargarDatos();
 
                 recargarDatos = false;
+
+                cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
             }
         }
 
