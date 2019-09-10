@@ -80,7 +80,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(9, 10);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(838, 141);
             this.panel1.TabIndex = 0;
@@ -208,7 +208,7 @@
             this.DGVProductRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVProductRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVProductRecord.Location = new System.Drawing.Point(9, 306);
-            this.DGVProductRecord.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DGVProductRecord.Margin = new System.Windows.Forms.Padding(2);
             this.DGVProductRecord.Name = "DGVProductRecord";
             this.DGVProductRecord.ReadOnly = true;
             this.DGVProductRecord.RowTemplate.Height = 24;
@@ -239,7 +239,7 @@
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Location = new System.Drawing.Point(9, 152);
-            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(838, 149);
             this.panel2.TabIndex = 2;
@@ -280,9 +280,9 @@
             this.label12.Location = new System.Drawing.Point(183, 84);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(94, 13);
+            this.label12.Size = new System.Drawing.Size(89, 13);
             this.label12.TabIndex = 17;
-            this.label12.Text = "Precio de Compra:";
+            this.label12.Text = "Precio de  Venta:";
             // 
             // lblPrecioCompra
             // 
@@ -372,9 +372,9 @@
             this.label14.Location = new System.Drawing.Point(183, 107);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(86, 13);
+            this.label14.Size = new System.Drawing.Size(94, 13);
             this.label14.TabIndex = 7;
-            this.label14.Text = "Precio de Venta:";
+            this.label14.Text = "Precio de Compra:";
             // 
             // label13
             // 
@@ -444,7 +444,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.DGVProductRecord);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RecordViewProduct";

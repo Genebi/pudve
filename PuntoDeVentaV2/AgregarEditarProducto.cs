@@ -321,6 +321,7 @@ namespace PuntoDeVentaV2
                             btnAdd.Visible = true;
                             Hided = true;
                             btnAdd.PerformClick();
+                            txtCantPaqServ.Text = rowProdServPaq["Cantidad"].ToString();
                         }
                     }
                 }

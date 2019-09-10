@@ -171,7 +171,11 @@ namespace PuntoDeVentaV2
                 }
 
                 //Datos para la tabla historial de compras
-                string[] datos = new string[] { producto, cantidadCompra, precioProducto.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
+                //string[] datos = new string[] { producto, cantidadCompra, precioProducto.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
+                float preCompra = (float) Convert.ToDouble(precioCompra);
+                float preProduct = preCompra * (float) 1.60;
+
+                string[] datos = new string[] { producto, cantidadCompra, preProduct.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
                 stockProducto += Convert.ToInt32(cantidadCompra);
 

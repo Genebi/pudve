@@ -44,9 +44,9 @@ namespace PuntoDeVentaV2
                 lblClaveProducto.Text = DGVProductRecord[3, 0].Value.ToString();
                 lblFechaCompletaCompra.Text = DGVProductRecord[4, 0].Value.ToString();
                 lblCantidadCompra.Text = DGVProductRecord[5, 0].Value.ToString();
-                lblValorUnitarioProducto.Text = DGVProductRecord[8, 0].Value.ToString();
+                lblValorUnitarioProducto.Text = DGVProductRecord[6, 0].Value.ToString();
                 lblDescuentoProducto.Text = DGVProductRecord[7, 0].Value.ToString();
-                lblPrecioCompra.Text = DGVProductRecord[6, 0].Value.ToString();
+                lblPrecioCompra.Text = DGVProductRecord[8, 0].Value.ToString();
             }
         }
 
