@@ -570,6 +570,7 @@ namespace PuntoDeVentaV2
 
             txtNombreProducto.Text = ProdNombreFinal;
             txtStockProducto.Text = ProdStockFinal;
+            txtPrecioCompra.Text = ProdPrecioFinal;
             txtPrecioProducto.Text = ProdPrecioFinal;
             txtCategoriaProducto.Text = ProdCategoriaFinal;
             txtClaveProducto.Text = ProdClaveInternaFinal.Trim();
