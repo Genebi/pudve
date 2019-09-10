@@ -38,5 +38,11 @@
     <Setting Name="AlterProductosDeServicios" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="FiltroOrdenar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ordenar por:</Value>
+    </Setting>
+    <Setting Name="FiltroMostrar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Habilitados</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

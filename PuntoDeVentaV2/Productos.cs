@@ -219,7 +219,11 @@ namespace PuntoDeVentaV2
         {
             filtro = Convert.ToString(cbOrden.SelectedItem);
 
-            if (filtro == "A - Z")
+            Properties.Settings.Default.FiltroOrdenar = filtro;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            if (Properties.Settings.Default.FiltroOrdenar == "A - Z")
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
@@ -232,7 +236,7 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
-            else if (filtro == "Z - A")
+            else if (Properties.Settings.Default.FiltroOrdenar == "Z - A")
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
@@ -245,7 +249,7 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
-            else if (filtro == "Mayor precio")
+            else if (Properties.Settings.Default.FiltroOrdenar == "Mayor precio")
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
@@ -258,7 +262,7 @@ namespace PuntoDeVentaV2
                     photoShow(); 
                 }
             }
-            else if (filtro == "Menor precio")
+            else if (Properties.Settings.Default.FiltroOrdenar == "Menor precio")
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
@@ -271,7 +275,7 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
-            else if (filtro == "Ordenar por:")
+            else if (Properties.Settings.Default.FiltroOrdenar == "Ordenar por:")
             {
                 if (panelShowDGVProductosView.Visible == true)
                 {
@@ -685,6 +689,7 @@ namespace PuntoDeVentaV2
         private void cbMostrar_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtro = Convert.ToString(cbMostrar.SelectedItem);      // tomamos el valor que se elige en el TextBox
+
             if (filtro == "Habilitados")                            // comparamos si el valor a filtrar es Habilitados
             {
                 if (panelShowDGVProductosView.Visible == true)
@@ -765,11 +770,20 @@ namespace PuntoDeVentaV2
             linkLblUltimaPagina.Text = p.countPag().ToString();
 
             CargarDatos();
-            cbOrden.SelectedIndex = 0;
-            cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbMostrar.SelectedIndex = 0;
-            cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
-
+            if (!Properties.Settings.Default.FiltroOrdenar.Equals("Ordenar por:"))
+            {
+                cbOrden.Text = Properties.Settings.Default.FiltroOrdenar;
+                cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
+                cbMostrar.SelectedIndex = 0;
+                cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
+            }
+            else if (Properties.Settings.Default.FiltroOrdenar.Equals("Ordenar por:"))
+            {
+                cbOrden.SelectedIndex = 0;
+                cbOrden.DropDownStyle = ComboBoxStyle.DropDownList;
+                cbMostrar.SelectedIndex = 0;
+                cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
+            }
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 

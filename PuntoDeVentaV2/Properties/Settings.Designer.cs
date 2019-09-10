@@ -166,5 +166,29 @@ namespace PuntoDeVentaV2.Properties {
                 this["AlterProductosDeServicios"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Ordenar por:")]
+        public string FiltroOrdenar {
+            get {
+                return ((string)(this["FiltroOrdenar"]));
+            }
+            set {
+                this["FiltroOrdenar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Habilitados")]
+        public string FiltroMostrar {
+            get {
+                return ((string)(this["FiltroMostrar"]));
+            }
+            set {
+                this["FiltroMostrar"] = value;
+            }
+        }
     }
 }
