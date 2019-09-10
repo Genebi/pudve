@@ -448,9 +448,7 @@ namespace PuntoDeVentaV2
                     CantidadProducto = dtRow["Cantidad"].ToString();
                     IDProducto = dtRow["IDProducto"].ToString();
 
-                    if (!NombreProducto.Equals(""))
-                    {
-                        FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                    FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                         panelHijo.Name = "panelGenerado" + id;
                         panelHijo.Width = 749;
                         panelHijo.Height = 50;
@@ -523,7 +521,6 @@ namespace PuntoDeVentaV2
 
                         tb.Focus();
                         id++;
-                    }
                 }
             }
         }
@@ -1703,7 +1700,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -3131,11 +3128,25 @@ namespace PuntoDeVentaV2
                     Hided = false;
                     if (idProductoBuscado != null && tipoProdServ == "S")
                     {
-                        mostrarProdServPaq();
+                        if (flowLayoutPanel2.Controls.Count == 0)
+                        {
+                            mostrarProdServPaq();
+                        }
+                        else if (flowLayoutPanel2.Controls.Count > 0)
+                        {
+
+                        }
                     }
                     else if (idProductoBuscado != null && tipoProdServ == "PQ")
                     {
-                        mostrarProdServPaq();
+                        if (flowLayoutPanel2.Controls.Count == 0)
+                        {
+                            mostrarProdServPaq();
+                        }
+                        else if (flowLayoutPanel2.Controls.Count > 0)
+                        {
+
+                        }
                     }
                     else if (idProductoBuscado != null && dtNvoProductosDeServicios != null)
                     {
