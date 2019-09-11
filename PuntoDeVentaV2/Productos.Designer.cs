@@ -125,21 +125,21 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(361, 3);
+            this.tituloSeccion.Location = new System.Drawing.Point(238, 3);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(137, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(382, 25);
             this.tituloSeccion.TabIndex = 3;
-            this.tituloSeccion.Text = "PRODUCTOS";
+            this.tituloSeccion.Text = "PRODUCTOS, PAQUETES Y SERVICIOS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tituloBusqueda
             // 
             this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
-            this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(297, 21);
+            this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloBusqueda.Location = new System.Drawing.Point(297, 24);
             this.tituloBusqueda.Name = "tituloBusqueda";
-            this.tituloBusqueda.Size = new System.Drawing.Size(264, 20);
+            this.tituloBusqueda.Size = new System.Drawing.Size(233, 17);
             this.tituloBusqueda.TabIndex = 4;
             this.tituloBusqueda.Text = "Búsqueda avanzada de productos";
             this.tituloBusqueda.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
