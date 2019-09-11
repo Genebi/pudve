@@ -199,6 +199,17 @@ namespace PuntoDeVentaV2
                     {
                         Inventario.botonAceptar = true;
                     }
+
+                    int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float) Convert.ToDouble(precioCompra)));
+
+                    if (resul > 0)
+                    {
+                        //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        //MessageBox.Show("Precio de producto No se Actualizo del producto: " + IDProducto, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     
                     this.Close();
                 }
