@@ -3283,6 +3283,8 @@ namespace PuntoDeVentaV2
             Hided1 = false;
             flowLayoutPanel2.Controls.Clear();
             DatosSourceFinal = DatosSource;
+
+            PCategoria.Visible = false;
             
             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
