@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
 
                 var proveedorActual = mb.DetallesProducto(IDProducto, FormPrincipal.userID);
 
-                bool isEmpty = !proveedorActual.Any();
+                /*bool isEmpty = !proveedorActual.Any();
 
                 if (isEmpty)
                 {
@@ -70,14 +70,14 @@ namespace PuntoDeVentaV2
                 else
                 {
                     MessageBox.Show("Error al cargar proveedorActual", "Load Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }*/
+
+                if (string.IsNullOrWhiteSpace(proveedorActual[0]))
+                {
+                    proveedorActual[0] = "0";
                 }
 
-                //if (string.IsNullOrWhiteSpace(proveedorActual[0]))
-                //{
-                //    proveedorActual[0] = "0";
-                //}
-
-                //cbProveedores.SelectedValue = proveedorActual[0];
+                cbProveedores.SelectedValue = proveedorActual[0];
             }
             else
             {
