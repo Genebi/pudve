@@ -3291,12 +3291,14 @@ namespace PuntoDeVentaV2
                 fLPType.Visible = true;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 cargarDatos();
+                txtPrecioCompra.Enabled = true;
             }
             else if (DatosSourceFinal == 2)      // si el llamado de la ventana proviene del DataGridView (Ventana Productos)
             {
                 txtStockProducto.Enabled = false;
                 button1.Visible = true;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
+                txtPrecioCompra.Enabled = false;
             }
             else if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
             {
@@ -3304,6 +3306,7 @@ namespace PuntoDeVentaV2
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 PCantidadPaqServ.Visible = true;
                 button1.Visible = true;
+                txtPrecioCompra.Enabled = true;
             }
 
             if (cadAux == "Producto")           // si es un Producto

@@ -198,10 +198,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelShowDGVProductosView.Controls.Add(this.DGVProductos);
-            this.panelShowDGVProductosView.Location = new System.Drawing.Point(14, 196);
+            this.panelShowDGVProductosView.Location = new System.Drawing.Point(13, 196);
             this.panelShowDGVProductosView.Margin = new System.Windows.Forms.Padding(2);
             this.panelShowDGVProductosView.Name = "panelShowDGVProductosView";
-            this.panelShowDGVProductosView.Size = new System.Drawing.Size(838, 354);
+            this.panelShowDGVProductosView.Size = new System.Drawing.Size(839, 354);
             this.panelShowDGVProductosView.TabIndex = 13;
             // 
             // DGVProductos
@@ -240,7 +240,7 @@
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVProductos.Size = new System.Drawing.Size(816, 325);
+            this.DGVProductos.Size = new System.Drawing.Size(817, 325);
             this.DGVProductos.TabIndex = 2;
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
