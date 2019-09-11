@@ -120,6 +120,7 @@ namespace PuntoDeVentaV2
             txtTelefono.Text = telefono;
             LblRegimenActual.Text = regimen;
 
+
             // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
             {
@@ -307,11 +308,6 @@ namespace PuntoDeVentaV2
             data();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void MisDatos_Load(object sender, EventArgs e)
         {
             // asignamos el valor de userName que sea
@@ -335,26 +331,118 @@ namespace PuntoDeVentaV2
             {
                 btnBorrarImg.Image = Image.FromStream(IconoBtnBorrarImg);
             }
+
+            // Asignar evento para solo permitir numeros enteros
+            txtCodPost.KeyPress += new KeyPressEventHandler(SoloNumeros);
+            txtTelefono.KeyPress += new KeyPressEventHandler(SoloNumeros);
         }
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿Actualizara los datos del registro?", "Advertencia", 
-                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                // mandamos llamar la funcion actualizarVariables()
-                actualizarVariables();
+                MessageBox.Show("Ingrese el nombre completo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                // el string para hacer el UPDATE
-                actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}' WHERE ID = '{id}'";
+                txtNombre.Focus();
 
-                // realizamos la consulta desde el metodo
-                // que esta en la clase Conexion
-                cn.EjecutarConsulta(actualizar);
-
-                // Llamamos a la Funcion consulta
-                consulta();
+                return;
             }
+
+            if (!VerificarRFC(txtRFC.Text))
+            {
+                if (!string.IsNullOrWhiteSpace(txtRFC.Text))
+                {
+                    MessageBox.Show("El RFC no contiene un formato correcto, favor de verificarlo.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("El RFC no puede estar vacio, favor de verificarlo.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                txtRFC.Focus();
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtCodPost.Text))
+            {
+                MessageBox.Show("Se requiere el código postal", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                txtCodPost.Focus();
+
+                return;
+            }
+
+            if (!ValidarEmail(txtEmail.Text))
+            {
+                if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+                {
+                    MessageBox.Show("El formato del correo electrónico es incorrecto\n\nEjemplo: micorreo@ejemplo.com", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("El correo electrónico es requerido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                txtEmail.Focus();
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(LblRegimenActual.Text))
+            {
+                if (cbRegimen.SelectedIndex == 0)
+                {
+                    MessageBox.Show("Seleccione un régimen fiscal", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+            }
+
+            // mandamos llamar la funcion actualizarVariables()
+            actualizarVariables();
+
+            // el string para hacer el UPDATE
+            actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}' WHERE ID = '{id}'";
+
+            // realizamos la consulta desde el metodo
+            // que esta en la clase Conexion
+            cn.EjecutarConsulta(actualizar);
+
+            // Llamamos a la Funcion consulta
+            consulta();
+
+            MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private bool VerificarRFC(string rfc)
+        {
+            bool respuesta = false;
+
+            string regex = @"^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$";
+
+            Match verificar = Regex.Match(rfc, regex, RegexOptions.IgnoreCase);
+
+            if (verificar.Success)
+            {
+                var longitud = rfc.Length;
+
+                //Fisica
+                if (longitud == 13)
+                {
+                    rbPersonaFisica.PerformClick();
+                }
+                
+                //Moral
+                if (longitud == 12)
+                {
+                    rbPersonaMoral.PerformClick();
+                }
+
+                respuesta = true;
+            }
+
+            return respuesta;
         }
 
         private void rbPersonaFisica_Click(object sender, EventArgs e)
@@ -507,93 +595,27 @@ namespace PuntoDeVentaV2
             consulta();
         }
 
-        private void btnUpImage_Click(object sender, EventArgs e)
+        private bool ValidarEmail(string email)
         {
-            
+            try
+            {
+                var direccion = new System.Net.Mail.MailAddress(email);
+
+                return direccion.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        private void txtCodPost_KeyPress(object sender, KeyPressEventArgs e)
+        private void SoloNumeros(object sender, KeyPressEventArgs e)
         {
-            // Si No Es Numero  
-            if (!(char.IsNumber(e.KeyChar)) &&
-                // y Si No es Backspace(Borrar)
-                (e.KeyChar != (char)Keys.Back) &&
-                // y si no es Enter(Entrar) 
-                (e.KeyChar != (char)Keys.Enter) &&
-                // y si no es Return(Entrar o Intro del Teclado Numerico) 
-                (e.KeyChar != (char)Keys.Return) &&
-                // y si no es Delete(Del o Suprimir, Supr)  
-                (e.KeyChar != (char)Keys.Delete))
+            //permite 0-9, eliminar
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8))
             {
-                // Entonces 
-                // Lanzamos Mensaje diciendo que solo permite numeros 
-                MessageBox.Show("Solo se permiten numeros en el Campo Codigo Postal",
-                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                // Habilitamos el Handled = true para que no escriba nada si no son las teclas validadas 
                 e.Handled = true;
-                //Retornamos return; 
-            }
-            // entonces si las teclas son las permitidas Validamos
-            // si se presiona Enter 
-            else if (e.KeyChar == (char)Keys.Enter)
-            {
-                SendKeys.Send("{TAB}");
-                // mandamos un Tab para ir al siguiene campo 
-            }
-            // si se presiona Return (Intro del Teclado Numerico) 
-            else if (e.KeyChar == (char)Keys.Return)
-            {
-                SendKeys.Send("{TAB}");
-                // mandamos un Tab para ir al siguiene campo 
-            }
-        }
-
-        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Si No Es Numero  
-            if (!(char.IsNumber(e.KeyChar)) &&
-                // y Si No es Backspace(Borrar)
-                (e.KeyChar != (char)Keys.Back) &&
-                // y si no es Enter(Entrar) 
-                (e.KeyChar != (char)Keys.Enter) &&
-                // y si no es Return(Entrar o Intro del Teclado Numerico) 
-                (e.KeyChar != (char)Keys.Return) &&
-                // y si no es Delete(Del o Suprimir, Supr)  
-                (e.KeyChar != (char)Keys.Delete))
-            {
-                // Entonces 
-                // Lanzamos Mensaje diciendo que solo permite numeros 
-                MessageBox.Show("Solo se permiten numeros en el Campo Telefono",
-                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                // Habilitamos el Handled = true para que no escriba nada si no son las teclas validadas 
-                e.Handled = true;
-                //Retornamos return; 
-            }
-            // entonces si las teclas son las permitidas Validamos
-            // si se presiona Enter 
-            else if (e.KeyChar == (char)Keys.Enter)
-            {
-                SendKeys.Send("{TAB}");
-                // mandamos un Tab para ir al siguiene campo 
-            }
-            // si se presiona Return (Intro del Teclado Numerico) 
-            else if (e.KeyChar == (char)Keys.Return)
-            {
-                SendKeys.Send("{TAB}");
-                // mandamos un Tab para ir al siguiene campo 
-            }
-        }
-
-        private void txtEmail_Validating(object sender, CancelEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(txtEmail.Text))
-            {
-                Regex reg = new Regex(@"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*");
-                if (!reg.IsMatch(txtEmail.Text))
-                {
-                    MessageBox.Show("Formato no valido de Email", "Advertencia",
-                        MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+                return;
             }
         }
     }
