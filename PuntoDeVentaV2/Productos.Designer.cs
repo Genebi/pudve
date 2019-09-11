@@ -507,7 +507,7 @@
             // btnListView
             // 
             this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.th_list;
+            this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
             this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnListView.Location = new System.Drawing.Point(12, 142);
             this.btnListView.Margin = new System.Windows.Forms.Padding(2);
@@ -522,7 +522,7 @@
             // btnPhotoView
             // 
             this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
+            this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th_large;
             this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnPhotoView.Location = new System.Drawing.Point(152, 142);
             this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
