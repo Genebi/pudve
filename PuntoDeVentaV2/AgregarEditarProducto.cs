@@ -3146,6 +3146,60 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void AgregarEditarProducto_Shown(object sender, EventArgs e)
+        {
+            habilitarComboBoxes = true;
+
+            if (DatosSourceFinal == 2)
+            {
+                cbProveedores_SelectedIndexChanged(this, EventArgs.Empty);
+                cbCategorias_SelectedIndexChanged(this, EventArgs.Empty);
+                cbUbicaciones_SelectedIndexChanged(this, EventArgs.Empty);
+            }
+        }
+
+        private void cbCategorias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (habilitarComboBoxes)
+            {
+                if (listaCategorias.Length > 0)
+                {
+                    var opcion = Convert.ToInt32(cbCategorias.SelectedValue.ToString());
+
+                    if (opcion > 0)
+                    {
+                        lbNombreCategoria.Text = cbCategorias.GetItemText(cbCategorias.SelectedItem);
+                        lbNombreCategoria.Visible = true;
+                    }
+                    else
+                    {
+                        lbNombreCategoria.Visible = false;
+                    }
+                }
+            }
+        }
+
+        private void cbUbicaciones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (habilitarComboBoxes)
+            {
+                if (listaUbicaciones.Length > 0)
+                {
+                    var opcion = Convert.ToInt32(cbUbicaciones.SelectedValue.ToString());
+
+                    if (opcion > 0)
+                    {
+                        lbNombreUbicacion.Text = cbUbicaciones.GetItemText(cbUbicaciones.SelectedItem);
+                        lbNombreUbicacion.Visible = true;
+                    }
+                    else
+                    {
+                        lbNombreUbicacion.Visible = false;
+                    }
+                }
+            }
+        }
+
         private void timerProdPaqSer_Tick(object sender, EventArgs e)
         {
             if (Hided)  // si es valor true

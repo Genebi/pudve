@@ -902,6 +902,7 @@
             this.cbCategorias.Name = "cbCategorias";
             this.cbCategorias.Size = new System.Drawing.Size(231, 24);
             this.cbCategorias.TabIndex = 34;
+            this.cbCategorias.SelectedIndexChanged += new System.EventHandler(this.cbCategorias_SelectedIndexChanged);
             // 
             // panelUbicacion
             // 
@@ -934,6 +935,7 @@
             this.cbUbicaciones.Name = "cbUbicaciones";
             this.cbUbicaciones.Size = new System.Drawing.Size(231, 24);
             this.cbUbicaciones.TabIndex = 38;
+            this.cbUbicaciones.SelectedIndexChanged += new System.EventHandler(this.cbUbicaciones_SelectedIndexChanged);
             // 
             // lbUbicacion
             // 
@@ -966,6 +968,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarEditarProducto_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarEditarProducto_FormClosed);
             this.Load += new System.EventHandler(this.AgregarEditarProducto_Load);
+            this.Shown += new System.EventHandler(this.AgregarEditarProducto_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.AgregarEditarProducto_Paint);
             this.PDetalleProdcuto.ResumeLayout(false);
             this.PDetalleProdcuto.PerformLayout();
