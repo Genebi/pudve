@@ -15,6 +15,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        List<string> optionList;
+
         string[] listaProveedores = new string[] { };
         string[] listaCategorias = new string[] { };
         string[] listaUbicaciones = new string[] { };
@@ -37,7 +39,25 @@ namespace PuntoDeVentaV2
             checkUbicacion.Checked = Properties.Settings.Default.checkUbicacion;
 
             VisualizarContentido();
+            //verificarCheckboxLista();
         }
+
+        //private void verificarCheckboxLista()
+        //{
+        //    optionList = new List<string>();
+        //    foreach (Control cComponente in panelMenu.Controls)
+        //    {
+        //        if (cComponente is CheckBox)
+        //        {
+        //            CheckBox chk;
+        //            chk = (CheckBox)cComponente;
+        //            if (chk.Checked == true)
+        //            {
+        //                optionList.Add(chk.Text+"-"+chk.Checked.ToString());
+        //            }
+        //        }
+        //    }
+        //}
 
         private void cargarDatosProveedor(int idProveedor)
         {

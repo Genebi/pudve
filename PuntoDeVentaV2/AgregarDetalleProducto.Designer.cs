@@ -39,27 +39,27 @@
             this.checkProveedor = new System.Windows.Forms.CheckBox();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.panelContenido = new System.Windows.Forms.FlowLayoutPanel();
-            this.panelUbicacion = new System.Windows.Forms.Panel();
-            this.lbNombreUbicacion = new System.Windows.Forms.Label();
-            this.cbUbicaciones = new System.Windows.Forms.ComboBox();
-            this.lbUbicacion = new System.Windows.Forms.Label();
-            this.panelCategoria = new System.Windows.Forms.Panel();
-            this.lbNombreCategoria = new System.Windows.Forms.Label();
-            this.cbCategorias = new System.Windows.Forms.ComboBox();
-            this.lbCategoria = new System.Windows.Forms.Label();
             this.panelProveedor = new System.Windows.Forms.Panel();
             this.lblTelProveedor = new System.Windows.Forms.Label();
             this.lblRFCProveedor = new System.Windows.Forms.Label();
             this.lblNombreProveedor = new System.Windows.Forms.Label();
-            this.cbProveedores = new System.Windows.Forms.ComboBox();
             this.lbProveedor = new System.Windows.Forms.Label();
+            this.cbProveedores = new System.Windows.Forms.ComboBox();
             this.panelGrupoA = new System.Windows.Forms.FlowLayoutPanel();
+            this.panelCategoria = new System.Windows.Forms.Panel();
+            this.lbNombreCategoria = new System.Windows.Forms.Label();
+            this.lbCategoria = new System.Windows.Forms.Label();
+            this.cbCategorias = new System.Windows.Forms.ComboBox();
+            this.panelUbicacion = new System.Windows.Forms.Panel();
+            this.lbNombreUbicacion = new System.Windows.Forms.Label();
+            this.cbUbicaciones = new System.Windows.Forms.ComboBox();
+            this.lbUbicacion = new System.Windows.Forms.Label();
             this.panelMenu.SuspendLayout();
             this.panelContenido.SuspendLayout();
-            this.panelUbicacion.SuspendLayout();
-            this.panelCategoria.SuspendLayout();
             this.panelProveedor.SuspendLayout();
             this.panelGrupoA.SuspendLayout();
+            this.panelCategoria.SuspendLayout();
+            this.panelUbicacion.SuspendLayout();
             this.SuspendLayout();
             // 
             // separadorInicial
@@ -75,7 +75,7 @@
             this.txtFiltrar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFiltrar.Location = new System.Drawing.Point(11, 18);
             this.txtFiltrar.Name = "txtFiltrar";
-            this.txtFiltrar.Size = new System.Drawing.Size(148, 22);
+            this.txtFiltrar.Size = new System.Drawing.Size(168, 22);
             this.txtFiltrar.TabIndex = 20;
             this.txtFiltrar.Text = "Filtrar...";
             // 
@@ -97,7 +97,7 @@
             // 
             this.btnAgregarUbicacion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarUbicacion.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarUbicacion.Location = new System.Drawing.Point(154, 66);
+            this.btnAgregarUbicacion.Location = new System.Drawing.Point(159, 66);
             this.btnAgregarUbicacion.Name = "btnAgregarUbicacion";
             this.btnAgregarUbicacion.Size = new System.Drawing.Size(20, 20);
             this.btnAgregarUbicacion.TabIndex = 5;
@@ -108,7 +108,7 @@
             // 
             this.btnAgregarCategoria.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarCategoria.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarCategoria.Location = new System.Drawing.Point(154, 36);
+            this.btnAgregarCategoria.Location = new System.Drawing.Point(159, 36);
             this.btnAgregarCategoria.Name = "btnAgregarCategoria";
             this.btnAgregarCategoria.Size = new System.Drawing.Size(20, 20);
             this.btnAgregarCategoria.TabIndex = 4;
@@ -143,7 +143,7 @@
             // 
             this.btnAgregarProveedor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarProveedor.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarProveedor.Location = new System.Drawing.Point(154, 6);
+            this.btnAgregarProveedor.Location = new System.Drawing.Point(159, 6);
             this.btnAgregarProveedor.Name = "btnAgregarProveedor";
             this.btnAgregarProveedor.Size = new System.Drawing.Size(20, 20);
             this.btnAgregarProveedor.TabIndex = 1;
@@ -187,92 +187,6 @@
             this.panelContenido.Name = "panelContenido";
             this.panelContenido.Size = new System.Drawing.Size(645, 544);
             this.panelContenido.TabIndex = 27;
-            // 
-            // panelUbicacion
-            // 
-            this.panelUbicacion.Controls.Add(this.lbNombreUbicacion);
-            this.panelUbicacion.Controls.Add(this.cbUbicaciones);
-            this.panelUbicacion.Controls.Add(this.lbUbicacion);
-            this.panelUbicacion.Location = new System.Drawing.Point(324, 3);
-            this.panelUbicacion.Name = "panelUbicacion";
-            this.panelUbicacion.Size = new System.Drawing.Size(315, 74);
-            this.panelUbicacion.TabIndex = 36;
-            // 
-            // lbNombreUbicacion
-            // 
-            this.lbNombreUbicacion.BackColor = System.Drawing.Color.White;
-            this.lbNombreUbicacion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNombreUbicacion.ForeColor = System.Drawing.Color.Blue;
-            this.lbNombreUbicacion.Location = new System.Drawing.Point(6, 44);
-            this.lbNombreUbicacion.Name = "lbNombreUbicacion";
-            this.lbNombreUbicacion.Size = new System.Drawing.Size(301, 20);
-            this.lbNombreUbicacion.TabIndex = 97;
-            this.lbNombreUbicacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbNombreUbicacion.Visible = false;
-            // 
-            // cbUbicaciones
-            // 
-            this.cbUbicaciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbUbicaciones.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbUbicaciones.FormattingEnabled = true;
-            this.cbUbicaciones.Location = new System.Drawing.Point(76, 10);
-            this.cbUbicaciones.Name = "cbUbicaciones";
-            this.cbUbicaciones.Size = new System.Drawing.Size(231, 24);
-            this.cbUbicaciones.TabIndex = 38;
-            this.cbUbicaciones.SelectedIndexChanged += new System.EventHandler(this.cbUbicaciones_SelectedIndexChanged);
-            // 
-            // lbUbicacion
-            // 
-            this.lbUbicacion.AutoSize = true;
-            this.lbUbicacion.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbUbicacion.Location = new System.Drawing.Point(3, 12);
-            this.lbUbicacion.Name = "lbUbicacion";
-            this.lbUbicacion.Size = new System.Drawing.Size(69, 17);
-            this.lbUbicacion.TabIndex = 37;
-            this.lbUbicacion.Text = "Ubicación";
-            // 
-            // panelCategoria
-            // 
-            this.panelCategoria.Controls.Add(this.lbNombreCategoria);
-            this.panelCategoria.Controls.Add(this.lbCategoria);
-            this.panelCategoria.Controls.Add(this.cbCategorias);
-            this.panelCategoria.Location = new System.Drawing.Point(3, 3);
-            this.panelCategoria.Name = "panelCategoria";
-            this.panelCategoria.Size = new System.Drawing.Size(315, 74);
-            this.panelCategoria.TabIndex = 35;
-            // 
-            // lbNombreCategoria
-            // 
-            this.lbNombreCategoria.BackColor = System.Drawing.Color.White;
-            this.lbNombreCategoria.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNombreCategoria.ForeColor = System.Drawing.Color.Blue;
-            this.lbNombreCategoria.Location = new System.Drawing.Point(7, 44);
-            this.lbNombreCategoria.Name = "lbNombreCategoria";
-            this.lbNombreCategoria.Size = new System.Drawing.Size(300, 20);
-            this.lbNombreCategoria.TabIndex = 96;
-            this.lbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbNombreCategoria.Visible = false;
-            // 
-            // cbCategorias
-            // 
-            this.cbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCategorias.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCategorias.FormattingEnabled = true;
-            this.cbCategorias.Location = new System.Drawing.Point(76, 10);
-            this.cbCategorias.Name = "cbCategorias";
-            this.cbCategorias.Size = new System.Drawing.Size(231, 24);
-            this.cbCategorias.TabIndex = 34;
-            this.cbCategorias.SelectedIndexChanged += new System.EventHandler(this.cbCategorias_SelectedIndexChanged);
-            // 
-            // lbCategoria
-            // 
-            this.lbCategoria.AutoSize = true;
-            this.lbCategoria.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCategoria.Location = new System.Drawing.Point(4, 12);
-            this.lbCategoria.Name = "lbCategoria";
-            this.lbCategoria.Size = new System.Drawing.Size(69, 17);
-            this.lbCategoria.TabIndex = 33;
-            this.lbCategoria.Text = "Categoría";
             // 
             // panelProveedor
             // 
@@ -322,6 +236,16 @@
             this.lblNombreProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblNombreProveedor.Visible = false;
             // 
+            // lbProveedor
+            // 
+            this.lbProveedor.AutoSize = true;
+            this.lbProveedor.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProveedor.Location = new System.Drawing.Point(7, 13);
+            this.lbProveedor.Name = "lbProveedor";
+            this.lbProveedor.Size = new System.Drawing.Size(71, 17);
+            this.lbProveedor.TabIndex = 31;
+            this.lbProveedor.Text = "Proveedor";
+            // 
             // cbProveedores
             // 
             this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -333,16 +257,6 @@
             this.cbProveedores.TabIndex = 32;
             this.cbProveedores.SelectedIndexChanged += new System.EventHandler(this.cbProveedores_SelectedIndexChanged);
             // 
-            // lbProveedor
-            // 
-            this.lbProveedor.AutoSize = true;
-            this.lbProveedor.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbProveedor.Location = new System.Drawing.Point(7, 13);
-            this.lbProveedor.Name = "lbProveedor";
-            this.lbProveedor.Size = new System.Drawing.Size(71, 17);
-            this.lbProveedor.TabIndex = 31;
-            this.lbProveedor.Text = "Proveedor";
-            // 
             // panelGrupoA
             // 
             this.panelGrupoA.Controls.Add(this.panelCategoria);
@@ -351,6 +265,92 @@
             this.panelGrupoA.Name = "panelGrupoA";
             this.panelGrupoA.Size = new System.Drawing.Size(642, 87);
             this.panelGrupoA.TabIndex = 37;
+            // 
+            // panelCategoria
+            // 
+            this.panelCategoria.Controls.Add(this.lbNombreCategoria);
+            this.panelCategoria.Controls.Add(this.lbCategoria);
+            this.panelCategoria.Controls.Add(this.cbCategorias);
+            this.panelCategoria.Location = new System.Drawing.Point(3, 3);
+            this.panelCategoria.Name = "panelCategoria";
+            this.panelCategoria.Size = new System.Drawing.Size(315, 74);
+            this.panelCategoria.TabIndex = 35;
+            // 
+            // lbNombreCategoria
+            // 
+            this.lbNombreCategoria.BackColor = System.Drawing.Color.White;
+            this.lbNombreCategoria.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNombreCategoria.ForeColor = System.Drawing.Color.Blue;
+            this.lbNombreCategoria.Location = new System.Drawing.Point(7, 44);
+            this.lbNombreCategoria.Name = "lbNombreCategoria";
+            this.lbNombreCategoria.Size = new System.Drawing.Size(300, 20);
+            this.lbNombreCategoria.TabIndex = 96;
+            this.lbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbNombreCategoria.Visible = false;
+            // 
+            // lbCategoria
+            // 
+            this.lbCategoria.AutoSize = true;
+            this.lbCategoria.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCategoria.Location = new System.Drawing.Point(4, 12);
+            this.lbCategoria.Name = "lbCategoria";
+            this.lbCategoria.Size = new System.Drawing.Size(69, 17);
+            this.lbCategoria.TabIndex = 33;
+            this.lbCategoria.Text = "Categoría";
+            // 
+            // cbCategorias
+            // 
+            this.cbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategorias.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCategorias.FormattingEnabled = true;
+            this.cbCategorias.Location = new System.Drawing.Point(76, 10);
+            this.cbCategorias.Name = "cbCategorias";
+            this.cbCategorias.Size = new System.Drawing.Size(231, 24);
+            this.cbCategorias.TabIndex = 34;
+            this.cbCategorias.SelectedIndexChanged += new System.EventHandler(this.cbCategorias_SelectedIndexChanged);
+            // 
+            // panelUbicacion
+            // 
+            this.panelUbicacion.Controls.Add(this.lbNombreUbicacion);
+            this.panelUbicacion.Controls.Add(this.cbUbicaciones);
+            this.panelUbicacion.Controls.Add(this.lbUbicacion);
+            this.panelUbicacion.Location = new System.Drawing.Point(324, 3);
+            this.panelUbicacion.Name = "panelUbicacion";
+            this.panelUbicacion.Size = new System.Drawing.Size(315, 74);
+            this.panelUbicacion.TabIndex = 36;
+            // 
+            // lbNombreUbicacion
+            // 
+            this.lbNombreUbicacion.BackColor = System.Drawing.Color.White;
+            this.lbNombreUbicacion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNombreUbicacion.ForeColor = System.Drawing.Color.Blue;
+            this.lbNombreUbicacion.Location = new System.Drawing.Point(6, 44);
+            this.lbNombreUbicacion.Name = "lbNombreUbicacion";
+            this.lbNombreUbicacion.Size = new System.Drawing.Size(301, 20);
+            this.lbNombreUbicacion.TabIndex = 97;
+            this.lbNombreUbicacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbNombreUbicacion.Visible = false;
+            // 
+            // cbUbicaciones
+            // 
+            this.cbUbicaciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUbicaciones.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbUbicaciones.FormattingEnabled = true;
+            this.cbUbicaciones.Location = new System.Drawing.Point(76, 10);
+            this.cbUbicaciones.Name = "cbUbicaciones";
+            this.cbUbicaciones.Size = new System.Drawing.Size(231, 24);
+            this.cbUbicaciones.TabIndex = 38;
+            this.cbUbicaciones.SelectedIndexChanged += new System.EventHandler(this.cbUbicaciones_SelectedIndexChanged);
+            // 
+            // lbUbicacion
+            // 
+            this.lbUbicacion.AutoSize = true;
+            this.lbUbicacion.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbUbicacion.Location = new System.Drawing.Point(3, 12);
+            this.lbUbicacion.Name = "lbUbicacion";
+            this.lbUbicacion.Size = new System.Drawing.Size(69, 17);
+            this.lbUbicacion.TabIndex = 37;
+            this.lbUbicacion.Text = "Ubicación";
             // 
             // AgregarDetalleProducto
             // 
@@ -372,13 +372,13 @@
             this.panelMenu.ResumeLayout(false);
             this.panelMenu.PerformLayout();
             this.panelContenido.ResumeLayout(false);
-            this.panelUbicacion.ResumeLayout(false);
-            this.panelUbicacion.PerformLayout();
-            this.panelCategoria.ResumeLayout(false);
-            this.panelCategoria.PerformLayout();
             this.panelProveedor.ResumeLayout(false);
             this.panelProveedor.PerformLayout();
             this.panelGrupoA.ResumeLayout(false);
+            this.panelCategoria.ResumeLayout(false);
+            this.panelCategoria.PerformLayout();
+            this.panelUbicacion.ResumeLayout(false);
+            this.panelUbicacion.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
