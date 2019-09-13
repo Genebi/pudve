@@ -1146,30 +1146,44 @@ namespace PuntoDeVentaV2
         // funcion para actualizar el Stock
         public void ActualizarStock()
         {
-            int resultadoConsulta;                              // almacenamos el resultado sea 1 o 0
-            NombreProd = txtBoxDescripcionProd.Text;            // almacenamos el contenido del TextBox
+            // Almacenamos el resultado sea 1 o 0
+            int resultadoConsulta;
+            // Almacenamos el contenido del TextBox
+            NombreProd = txtBoxDescripcionProd.Text;
+
+            // Es un PRODUCTO
             if (dtProductos.Rows[0]["Tipo"].ToString() == "P")
             {
-                // hacemos el query para la actualizacion del Stock
+                // Hacemos el query para la actualizacion del Stock
                 query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
-                resultadoConsulta = cn.EjecutarConsulta(query);     // aqui vemos el resultado de la consulta
-                if (resultadoConsulta == 1)                         // si el resultado es 1
+                // Aqui vemos el resultado de la consulta
+                resultadoConsulta = cn.EjecutarConsulta(query);
+
+                /* Si el resultado es 1
+                if (resultadoConsulta == 1)                         
                 {
                     //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else                                                // si el resultado es 0
+                else
                 {
                     //MessageBox.Show("se actualizo mas" + resultadoConsulta);
-                }
+                }*/
             }
+            // Es un SERVICIO
             else if (dtProductos.Rows[0]["Tipo"].ToString() == "S")
             {
                 query = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre', prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', codBarExt.CodigoBarraExtra AS 'Codigo de Barras Extra', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN CodigoBarrasExtras AS codBarExt ON codBarExt.IDProducto = prod.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prod.ClaveInterna = '{ClaveInterna}' OR prod.CodigoBarras = '{ClaveInterna}' OR codBarExt.CodigoBarraExtra = '{ClaveInterna}'";
+
                 DataTable resultadoServicio = cn.CargarDatos(query);
+
                 int nvoStock, oldStock, stockService, numProd, numServicio;
+
                 numServicio = Convert.ToInt32(resultadoServicio.Rows[0]["Producto"].ToString());
+
                 string queryConsultaSinProductos = $"SELECT usr.NombreCompleto AS 'Usuario', prod.ID AS 'Producto', prod.Nombre AS 'Nombre',  prod.Stock AS 'Existencia', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Calve Interna', prod.CodigoBarras AS 'Codigo  de Barra', prod.Tipo AS 'Producto o Servicio', prodOfServ.IDServicio AS 'No de Servicio', prodOfServ.IDProducto AS 'No de Producto', prodOfServ.Cantidad AS 'Cantidad', prodOfServ.NombreProducto AS 'Producto Incluido' FROM Usuarios AS usr LEFT JOIN Productos AS prod ON prod.IDUsuario = usr.ID LEFT JOIN ProductosDeServicios AS prodOfServ ON prodOfServ.IDServicio = prod.ID WHERE usr.ID = '{userId}' AND prodOfServ.IDServicio = '{numServicio}'";
+
                 DataTable resultadoSinProducto = cn.CargarDatos(queryConsultaSinProductos);
+
                 if (resultadoSinProducto.Rows.Count == 0)
                 {
                     // si hay algo por hacer para solo los paquetes 
@@ -1178,20 +1192,45 @@ namespace PuntoDeVentaV2
                 else if (resultadoSinProducto.Rows.Count > 0)
                 {
                     numProd = Convert.ToInt32(resultadoServicio.Rows[0]["No de Producto"].ToString());
+
                     string searchProducto = $"SELECT * FROM Productos WHERE ID = '{numProd}'";
+
                     DataTable resultadoBuscarProd = cn.CargarDatos(searchProducto);
+
                     oldStock = Convert.ToInt32(resultadoBuscarProd.Rows[0]["Stock"].ToString());
+
                     stockService = Convert.ToInt32(resultadoServicio.Rows[0]["Cantidad"].ToString()) * stockProdXML;
+
                     nvoStock = oldStock + stockService;
+
                     string queryUpDateServicio = $"UPDATE Productos SET Stock = '{nvoStock}' WHERE ID = '{numProd}'";
-                    resultadoConsulta = cn.EjecutarConsulta(queryUpDateServicio);     // aqui vemos el resultado de la consulta
-                    if (resultadoConsulta == 1)                         // si el resultado es 1
+                    // Aqui vemos el resultado de la consulta
+                    resultadoConsulta = cn.EjecutarConsulta(queryUpDateServicio);
+                    /* si el resultado es 1
+                    if (resultadoConsulta == 1)
                     {
                         //MessageBox.Show("Se Acualizo el producto","Estado de Actualizacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    else                                                // si el resultado es 0
+                    else
                     {
                         //MessageBox.Show("se actualizo mas" + resultadoConsulta);
+                    }*/
+                }
+            }
+            // Es un PAQUETE
+            else if (dtProductos.Rows[0]["Tipo"].ToString() == "PQ")
+            {
+                // Obtener los productos relacionados al paquete (ID, Cantidad)
+                var datosPaquete = cn.ObtenerProductosServicio(Convert.ToInt32(idProducto));
+
+                if (datosPaquete.Length > 0)
+                {
+                    for (int i = 0; i < datosPaquete.Length; i++)
+                    {
+                        // Actualizar el stock del producto en la tabla de Productos
+                        var info = datosPaquete[i].Split('|');
+
+                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {info[1]} WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}");
                     }
                 }
             }
@@ -1237,6 +1276,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Error :" + ex);
             }
+
             date1 = DateTime.Now;
             fechaCompleta = date1.ToString("s");
             Year = fechaCompleta.Substring(0, found);
@@ -1769,127 +1809,174 @@ namespace PuntoDeVentaV2
 
         private void button2_Click(object sender, EventArgs e)
         {
-            /************************************
-            *   iniciamos las variables a 0     *
-            ************************************/
-            resultadoSearchNoIdentificacion = 0;                        // ponemos los valores en 0
-            resultadoSearchCodBar = 0;                                  // ponemos los valores en 0
-            textBoxNoIdentificacion = txtBoxClaveInternaProd.Text;      // tomamos el valor del TextBox para hacer la comparacion
+            // Iniciamos las variables a 0
 
-            if (consultListProd == 1)       // si el producto es seleccionado desde la lista del Producto
+            resultadoSearchNoIdentificacion = 0;
+            resultadoSearchCodBar = 0;
+            // Tomamos el valor del TextBox para hacer la comparacion
+            textBoxNoIdentificacion = txtBoxClaveInternaProd.Text;
+
+            // Si el producto es seleccionado desde la lista del Producto
+            if (consultListProd == 1)       
             {
-                PrecioProd = float.Parse(txtBoxPrecioProd.Text);                    // almacenamos el precio que tiene la caja de texto
-                PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);   // almacenamos el precio sugerido para hacer la comparacion
-                comprobarPrecioMayorIgualRecomendado();                             // Llamamos la funsion para comparar el precio del producto con el sugerido
-                NombreProd = txtBoxDescripcionProd.Text;                            // almacenamos el contenido del TextBox
-                verNvoStock();                                                      // funsion para ver el nvo stock
+                // Almacenamos el precio que tiene la caja de texto
+                PrecioProd = float.Parse(txtBoxPrecioProd.Text);
+                // Almacenamos el precio sugerido para hacer la comparacion                  
+                PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);
+                // Llamamos la funsion para comparar el precio del producto con el sugerido  
+                comprobarPrecioMayorIgualRecomendado();
+                // Almacenamos el contenido del TextBox
+                NombreProd = txtBoxDescripcionProd.Text;
+                // Funcion para ver el nvo stock
+                verNvoStock();
+
                 if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                 {
                     //MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
-                    if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)   // en caso que alguno de los dos campos esten en blanco
+                    if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)
                     {
+                        // En caso que alguno de los dos campos esten en blanco
                         RelacionarStockClaveInterna();
                     }
-                    else if (ListProd.opcionGuardarFin == 3)                    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
+                    else if (ListProd.opcionGuardarFin == 3)
                     {
+                        // En el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
                         RelacionarStockCodigoBarras();
                     }
-                    else if (ListProd.opcionGuardarFin == 4)                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
+                    else if (ListProd.opcionGuardarFin == 4)
                     {
+                        // En el caso que los dos campos tengan contenido se asigna el siguiente valor
                         CodigoBarrasExtras();
                     }
                     
-                    if (resultadoConsulta == 1)                         // si el resultado es 1
+                    if (resultadoConsulta == 1)                         
                     {
-                        
+                        // Si el resultado es 1
                     }
-                    else                                                // si el resultado es 0
+                    else
                     {
-                        
+                        // Si el resultado es 0
                     }
                 }
             }
             else if (seleccionarSugerido == 3 && txtBoxDescripcionProd.Text != "")
             {
-                prodRelacionadoXML();   // llamamos el metodo relacionar por XML
-                RecorrerXML();          // recorrer el archivo XML
+                // llamamos el metodo relacionar por XML
+                prodRelacionadoXML();
+                // recorrer el archivo XML  
+                RecorrerXML();
             }
             else if (seleccionarSugerido == 2 && seleccionSugeridoNomb != "")
             {
-                prodRelacionadoXML();   // llamamos el metodo relacionar por XML
-                RecorrerXML();          // recorrer el archivo XML
+                // llamamos el metodo relacionar por XML
+                prodRelacionadoXML();
+                // recorrer el archivo XML
+                RecorrerXML();
                 
             }
             else if (seleccionarSugerido == 1 && seleccionSugeridoNomb != "")
             {
-                prodRelacionadoXML();   // llamamos el metodo relacionar por XML
-                RecorrerXML();          // recorrer el archivo XML
+                // llamamos el metodo relacionar por XML
+                prodRelacionadoXML();
+                // recorrer el archivo XML
+                RecorrerXML();
 
             }
             else if (consultListProd == 0)
             {
-                if (resultadoSearchProd == 0)       // si la busqueda del producto da negativo (No esta el producto registrado asi con esa Clave Interna)
+                // si la busqueda del producto da negativo (No esta el producto registrado asi con esa Clave Interna)
+                if (resultadoSearchProd == 0)
                 {
-                    if (txtBoxPrecioProd.Text == "")    // si el TextBox esta sin contenido
+                    // si el TextBox esta sin contenido
+                    if (txtBoxPrecioProd.Text == "")
                     {
-                        PrecioProd = 0;     // la variable PrecioProd la iniciamos a 0
+                        // la variable PrecioProd la iniciamos a 0
+                        PrecioProd = 0;     
                     }
-                    if (lblPrecioRecomendadoProd.Text == "")    // si el Label esta sin contenido
+                    // si el Label esta sin contenido
+                    if (lblPrecioRecomendadoProd.Text == "")    
                     {
-                        PrecioProdToCompare = 1;    // la variable la ponemos en 1
-                        lblPrecioRecomendadoProd.Text = PrecioRecomendado.ToString("N2");   // asignamos el valor del lblPrecioRecomendado
+                        // la variable la ponemos en 1
+                        PrecioProdToCompare = 1;
+                        // asignamos el valor del lblPrecioRecomendado
+                        lblPrecioRecomendadoProd.Text = PrecioRecomendado.ToString("N2");
                     }
-                    comprobarPrecioMayorIgualRecomendado();                 // Llamamos la funsion para comparar el precio del producto con el sugerido
-                    if (lblStockProd.Text == "")    // si el label esta sin contenido
+
+                    // Llamamos la funcion para comparar el precio del producto con el sugerido
+                    comprobarPrecioMayorIgualRecomendado();
+
+                    // si el label esta sin contenido
+                    if (lblStockProd.Text == "")    
                     {
-                        stockProd = 0;  // la variable la ponemos a 0
+                        // la variable la ponemos a 0
+                        stockProd = 0;
                     }
-                    verNvoStock();          // funsion para ver el nvo stock
-                    if (NoClaveInterna != textBoxNoIdentificacion)          // si son diferentes los datos osea hubo un cambio
+
+                    // funcion para ver el nvo stock
+                    verNvoStock();
+
+                    // si son diferentes los datos osea hubo un cambio
+                    if (NoClaveInterna != textBoxNoIdentificacion)
                     {
-                        searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
-                        searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
-                        if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)     // si es que 
+                        // hacemos la busqueda que no se repita en CalveInterna
+                        searchClavIntProd();
+                        // hacemos la busqueda que no se repita en CodigoBarra       
+                        searchCodBar();
+
+                        if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                         {
 
                         }
                         else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                         {
-                            ActualizarStock();      // realizamos la actualizacion
-                            RecorrerXML();          // recorrer el archivo XML
+                            // realizamos la actualizacion
+                            ActualizarStock();
+                            // recorrer el archivo XML
+                            RecorrerXML();
                         }
                     }
-                    else                                                    // si no hubo un cambio
+                    // si no hubo un cambio
+                    else
                     {
 
                     }
-
                 }
-                else if (resultadoSearchProd == 1)       // si la busqueda del producto da positivo
+                // si la busqueda del producto da positivo
+                else if (resultadoSearchProd == 1)
                 {
-                    comprobarPrecioMayorIgualRecomendado();                 // Llamamos la funsion para comparar el precio del producto con el sugerido
-                    verNvoStock();                                          // funsion para ver el nvo stock
-                    if (NoClaveInterna != textBoxNoIdentificacion)          // si son diferentes los datos osea hubo un cambio
+                    // Llamamos la funcion para comparar el precio del producto con el sugerido
+                    comprobarPrecioMayorIgualRecomendado();
+                    // funcion para ver el nvo stock                
+                    verNvoStock();
+                    // si son diferentes los datos osea hubo un cambio
+                    if (NoClaveInterna != textBoxNoIdentificacion)
                     {
-                        searchClavIntProd();        // hacemos la busqueda que no se repita en CalveInterna
-                        searchCodBar();             // hacemos la busqueda que no se repita en CodigoBarra
-                        ActualizarStock();      // realizamos la actualizacion
-                        RecorrerXML();          // recorrer el archivo XML
+                        // hacemos la busqueda que no se repita en CalveInterna
+                        searchClavIntProd();
+                        // hacemos la busqueda que no se repita en CodigoBarra
+                        searchCodBar();
+                        // realizamos la actualizacion
+                        ActualizarStock();
+                        // recorrer el archivo XML
+                        RecorrerXML();
                     }
-                    else                                                    // si no hubo un cambio
+                    // si no hubo un cambio
+                    else
                     {
+                        
                         if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                         {
                             //MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                         }
                         else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                         {
-                            ActualizarStock();      // realizamos la actualizacion
-                            //MessageBox.Show("Actualización del Stock exitosa", "Actualziacion del Producto exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            RecorrerXML();          // recorrer el archivo XML
+                            // realizamos la actualizacion
+                            ActualizarStock();
+                            // recorrer el archivo XML
+                            RecorrerXML();
                         }
                     }
                 }
