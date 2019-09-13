@@ -3133,8 +3133,8 @@ namespace PuntoDeVentaV2
                     {
                         cargarDatosProveedor(Convert.ToInt32(idProveedor));
                         lblNombreProveedor.Visible = true;
-                        lblRFCProveedor.Visible = true;
-                        lblTelProveedor.Visible = true;
+                        lblRFCProveedor.Visible = false;
+                        lblTelProveedor.Visible = false;
                     }
                     else
                     {
@@ -3552,15 +3552,6 @@ namespace PuntoDeVentaV2
             else if (Properties.Settings.Default.checkCategoria == false)
             {
                 panelCategoria.Visible = false;
-            }
-
-            if (panelUbicacion.Visible == false && panelCategoria.Visible == false)
-            {
-                panelGrupoA.Visible = false;
-            }
-            else if (panelUbicacion.Visible == true || panelCategoria.Visible == true)
-            {
-                panelGrupoA.Visible = true;
             }
         }
 
