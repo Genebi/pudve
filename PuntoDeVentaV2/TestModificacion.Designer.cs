@@ -28,78 +28,248 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.PImagen = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.pictureBoxProducto = new System.Windows.Forms.PictureBox();
-            this.btnImagenes = new System.Windows.Forms.Button();
-            this.PImagen.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
+            this.panelCategoria = new System.Windows.Forms.Panel();
+            this.lbNombreCategoria = new System.Windows.Forms.Label();
+            this.lbCategoria = new System.Windows.Forms.Label();
+            this.cbCategorias = new System.Windows.Forms.ComboBox();
+            this.panelUbicacion = new System.Windows.Forms.Panel();
+            this.lbNombreUbicacion = new System.Windows.Forms.Label();
+            this.cbUbicaciones = new System.Windows.Forms.ComboBox();
+            this.lbUbicacion = new System.Windows.Forms.Label();
+            this.panelGrupoA = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.panelCategoria.SuspendLayout();
+            this.panelUbicacion.SuspendLayout();
+            this.panelGrupoA.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // PImagen
+            // panelCategoria
             // 
-            this.PImagen.Controls.Add(this.groupBox1);
-            this.PImagen.Location = new System.Drawing.Point(159, 51);
-            this.PImagen.Margin = new System.Windows.Forms.Padding(2);
-            this.PImagen.Name = "PImagen";
-            this.PImagen.Size = new System.Drawing.Size(149, 186);
-            this.PImagen.TabIndex = 8;
+            this.panelCategoria.Controls.Add(this.lbNombreCategoria);
+            this.panelCategoria.Controls.Add(this.lbCategoria);
+            this.panelCategoria.Controls.Add(this.cbCategorias);
+            this.panelCategoria.Location = new System.Drawing.Point(12, 12);
+            this.panelCategoria.Name = "panelCategoria";
+            this.panelCategoria.Size = new System.Drawing.Size(408, 55);
+            this.panelCategoria.TabIndex = 36;
             // 
-            // groupBox1
+            // lbNombreCategoria
             // 
-            this.groupBox1.Controls.Add(this.pictureBoxProducto);
-            this.groupBox1.Controls.Add(this.btnImagenes);
-            this.groupBox1.Location = new System.Drawing.Point(9, 8);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(128, 168);
-            this.groupBox1.TabIndex = 25;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Imagen";
+            this.lbNombreCategoria.BackColor = System.Drawing.Color.White;
+            this.lbNombreCategoria.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNombreCategoria.ForeColor = System.Drawing.Color.Blue;
+            this.lbNombreCategoria.Location = new System.Drawing.Point(57, 31);
+            this.lbNombreCategoria.Name = "lbNombreCategoria";
+            this.lbNombreCategoria.Size = new System.Drawing.Size(300, 20);
+            this.lbNombreCategoria.TabIndex = 96;
+            this.lbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbNombreCategoria.Visible = false;
             // 
-            // pictureBoxProducto
+            // lbCategoria
             // 
-            this.pictureBoxProducto.Location = new System.Drawing.Point(14, 21);
-            this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBoxProducto.Name = "pictureBoxProducto";
-            this.pictureBoxProducto.Size = new System.Drawing.Size(100, 86);
-            this.pictureBoxProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxProducto.TabIndex = 0;
-            this.pictureBoxProducto.TabStop = false;
+            this.lbCategoria.AutoSize = true;
+            this.lbCategoria.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCategoria.Location = new System.Drawing.Point(54, 6);
+            this.lbCategoria.Name = "lbCategoria";
+            this.lbCategoria.Size = new System.Drawing.Size(69, 17);
+            this.lbCategoria.TabIndex = 33;
+            this.lbCategoria.Text = "Categoría";
             // 
-            // btnImagenes
+            // cbCategorias
             // 
-            this.btnImagenes.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImagenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImagenes.Location = new System.Drawing.Point(14, 113);
-            this.btnImagenes.Name = "btnImagenes";
-            this.btnImagenes.Size = new System.Drawing.Size(100, 46);
-            this.btnImagenes.TabIndex = 10;
-            this.btnImagenes.Text = "Seleccionar imagen(es)";
-            this.btnImagenes.UseVisualStyleBackColor = true;
+            this.cbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCategorias.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCategorias.FormattingEnabled = true;
+            this.cbCategorias.Location = new System.Drawing.Point(126, 4);
+            this.cbCategorias.Name = "cbCategorias";
+            this.cbCategorias.Size = new System.Drawing.Size(231, 24);
+            this.cbCategorias.TabIndex = 34;
+            // 
+            // panelUbicacion
+            // 
+            this.panelUbicacion.Controls.Add(this.lbNombreUbicacion);
+            this.panelUbicacion.Controls.Add(this.cbUbicaciones);
+            this.panelUbicacion.Controls.Add(this.lbUbicacion);
+            this.panelUbicacion.Location = new System.Drawing.Point(12, 90);
+            this.panelUbicacion.Name = "panelUbicacion";
+            this.panelUbicacion.Size = new System.Drawing.Size(415, 55);
+            this.panelUbicacion.TabIndex = 37;
+            // 
+            // lbNombreUbicacion
+            // 
+            this.lbNombreUbicacion.BackColor = System.Drawing.Color.White;
+            this.lbNombreUbicacion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNombreUbicacion.ForeColor = System.Drawing.Color.Blue;
+            this.lbNombreUbicacion.Location = new System.Drawing.Point(66, 31);
+            this.lbNombreUbicacion.Name = "lbNombreUbicacion";
+            this.lbNombreUbicacion.Size = new System.Drawing.Size(301, 20);
+            this.lbNombreUbicacion.TabIndex = 97;
+            this.lbNombreUbicacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbNombreUbicacion.Visible = false;
+            // 
+            // cbUbicaciones
+            // 
+            this.cbUbicaciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUbicaciones.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbUbicaciones.FormattingEnabled = true;
+            this.cbUbicaciones.Location = new System.Drawing.Point(136, 3);
+            this.cbUbicaciones.Name = "cbUbicaciones";
+            this.cbUbicaciones.Size = new System.Drawing.Size(231, 24);
+            this.cbUbicaciones.TabIndex = 38;
+            // 
+            // lbUbicacion
+            // 
+            this.lbUbicacion.AutoSize = true;
+            this.lbUbicacion.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbUbicacion.Location = new System.Drawing.Point(63, 5);
+            this.lbUbicacion.Name = "lbUbicacion";
+            this.lbUbicacion.Size = new System.Drawing.Size(69, 17);
+            this.lbUbicacion.TabIndex = 37;
+            this.lbUbicacion.Text = "Ubicación";
+            // 
+            // panelGrupoA
+            // 
+            this.panelGrupoA.Controls.Add(this.panel1);
+            this.panelGrupoA.Controls.Add(this.panel2);
+            this.panelGrupoA.Location = new System.Drawing.Point(14, 131);
+            this.panelGrupoA.Name = "panelGrupoA";
+            this.panelGrupoA.Size = new System.Drawing.Size(835, 61);
+            this.panelGrupoA.TabIndex = 39;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(408, 55);
+            this.panel1.TabIndex = 35;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.Location = new System.Drawing.Point(57, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(300, 20);
+            this.label1.TabIndex = 96;
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(54, 6);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 17);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "Categoría";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(126, 4);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(231, 24);
+            this.comboBox1.TabIndex = 34;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.comboBox2);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Location = new System.Drawing.Point(417, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(415, 55);
+            this.panel2.TabIndex = 36;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Blue;
+            this.label3.Location = new System.Drawing.Point(66, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(301, 20);
+            this.label3.TabIndex = 97;
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.Visible = false;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(136, 3);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(231, 24);
+            this.comboBox2.TabIndex = 38;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(63, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(69, 17);
+            this.label4.TabIndex = 37;
+            this.label4.Text = "Ubicación";
             // 
             // TestModificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 323);
-            this.Controls.Add(this.PImagen);
+            this.ClientSize = new System.Drawing.Size(863, 323);
+            this.Controls.Add(this.panelGrupoA);
+            this.Controls.Add(this.panelUbicacion);
+            this.Controls.Add(this.panelCategoria);
             this.Name = "TestModificacion";
             this.Text = "TestModificacion";
-            this.PImagen.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).EndInit();
+            this.panelCategoria.ResumeLayout(false);
+            this.panelCategoria.PerformLayout();
+            this.panelUbicacion.ResumeLayout(false);
+            this.panelUbicacion.PerformLayout();
+            this.panelGrupoA.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel PImagen;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox pictureBoxProducto;
-        private System.Windows.Forms.Button btnImagenes;
+        private System.Windows.Forms.Panel panelCategoria;
+        private System.Windows.Forms.Label lbNombreCategoria;
+        private System.Windows.Forms.Label lbCategoria;
+        private System.Windows.Forms.ComboBox cbCategorias;
+        private System.Windows.Forms.Panel panelUbicacion;
+        private System.Windows.Forms.Label lbNombreUbicacion;
+        private System.Windows.Forms.ComboBox cbUbicaciones;
+        private System.Windows.Forms.Label lbUbicacion;
+        private System.Windows.Forms.FlowLayoutPanel panelGrupoA;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -3376,6 +3376,7 @@ namespace PuntoDeVentaV2
             CargarCategorias();
             CargarUbicaciones();
 
+            checarDetalleProducto();
 
             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
@@ -3521,6 +3522,45 @@ namespace PuntoDeVentaV2
                 {
                     tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
                 }
+            }
+        }
+
+        private void checarDetalleProducto()
+        {
+            if (Properties.Settings.Default.checkProveedor == true)
+            {
+                panelProveedor.Visible = true;
+            }
+            else if (Properties.Settings.Default.checkProveedor == false)
+            {
+                panelProveedor.Visible = false;
+            }
+
+            if (Properties.Settings.Default.checkUbicacion == true)
+            {
+                panelUbicacion.Visible = true;
+            }
+            else if (Properties.Settings.Default.checkUbicacion == false)
+            {
+                panelUbicacion.Visible = false;
+            }
+
+            if (Properties.Settings.Default.checkCategoria == true)
+            {
+                panelCategoria.Visible = true;
+            }
+            else if (Properties.Settings.Default.checkCategoria == false)
+            {
+                panelCategoria.Visible = false;
+            }
+
+            if (panelUbicacion.Visible == false && panelCategoria.Visible == false)
+            {
+                panelGrupoA.Visible = false;
+            }
+            else if (panelUbicacion.Visible == true || panelCategoria.Visible == true)
+            {
+                panelGrupoA.Visible = true;
             }
         }
 

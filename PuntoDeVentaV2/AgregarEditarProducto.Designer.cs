@@ -94,7 +94,7 @@
             this.lblNombreProveedor = new System.Windows.Forms.Label();
             this.lbProveedor = new System.Windows.Forms.Label();
             this.cbProveedores = new System.Windows.Forms.ComboBox();
-            this.panelGrupoA = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.panelCategoria = new System.Windows.Forms.Panel();
             this.lbNombreCategoria = new System.Windows.Forms.Label();
             this.lbCategoria = new System.Windows.Forms.Label();
@@ -103,6 +103,7 @@
             this.lbNombreUbicacion = new System.Windows.Forms.Label();
             this.cbUbicaciones = new System.Windows.Forms.ComboBox();
             this.lbUbicacion = new System.Windows.Forms.Label();
+            this.panelGrupoA = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalleProdcuto.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.PStock.SuspendLayout();
@@ -128,9 +129,10 @@
             this.fLPAccion.SuspendLayout();
             this.fLPDetallesProducto.SuspendLayout();
             this.panelProveedor.SuspendLayout();
-            this.panelGrupoA.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
             this.panelCategoria.SuspendLayout();
             this.panelUbicacion.SuspendLayout();
+            this.panelGrupoA.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTipoProdPaq
@@ -721,7 +723,7 @@
             this.fLPTitulo.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPTitulo.Location = new System.Drawing.Point(0, 0);
             this.fLPTitulo.Name = "fLPTitulo";
-            this.fLPTitulo.Size = new System.Drawing.Size(838, 26);
+            this.fLPTitulo.Size = new System.Drawing.Size(841, 26);
             this.fLPTitulo.TabIndex = 22;
             // 
             // fLPType
@@ -731,7 +733,7 @@
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 26);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(838, 29);
+            this.fLPType.Size = new System.Drawing.Size(841, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -740,7 +742,7 @@
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 55);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(838, 47);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(841, 47);
             this.fLPDetalleProducto.TabIndex = 36;
             // 
             // fLPContenidoProducto
@@ -748,9 +750,9 @@
             this.fLPContenidoProducto.Controls.Add(this.PConteidoProducto);
             this.fLPContenidoProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 231);
+            this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 237);
             this.fLPContenidoProducto.Name = "fLPContenidoProducto";
-            this.fLPContenidoProducto.Size = new System.Drawing.Size(838, 134);
+            this.fLPContenidoProducto.Size = new System.Drawing.Size(841, 134);
             this.fLPContenidoProducto.TabIndex = 37;
             // 
             // fLPDetalle
@@ -758,9 +760,9 @@
             this.fLPDetalle.Controls.Add(this.PDetalle);
             this.fLPDetalle.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPDetalle.Location = new System.Drawing.Point(0, 365);
+            this.fLPDetalle.Location = new System.Drawing.Point(0, 371);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(838, 275);
+            this.fLPDetalle.Size = new System.Drawing.Size(841, 275);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -768,19 +770,18 @@
             this.fLPAccion.Controls.Add(this.PAccion);
             this.fLPAccion.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPAccion.Location = new System.Drawing.Point(0, 640);
+            this.fLPAccion.Location = new System.Drawing.Point(0, 646);
             this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(838, 75);
+            this.fLPAccion.Size = new System.Drawing.Size(841, 75);
             this.fLPAccion.TabIndex = 39;
             // 
             // fLPDetallesProducto
             // 
-            this.fLPDetallesProducto.Controls.Add(this.panelProveedor);
-            this.fLPDetallesProducto.Controls.Add(this.panelGrupoA);
+            this.fLPDetallesProducto.Controls.Add(this.flowLayoutPanel3);
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 102);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(838, 129);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(841, 135);
             this.fLPDetallesProducto.TabIndex = 31;
             // 
             // panelProveedor
@@ -792,7 +793,7 @@
             this.panelProveedor.Controls.Add(this.cbProveedores);
             this.panelProveedor.Location = new System.Drawing.Point(3, 3);
             this.panelProveedor.Name = "panelProveedor";
-            this.panelProveedor.Size = new System.Drawing.Size(835, 57);
+            this.panelProveedor.Size = new System.Drawing.Size(832, 57);
             this.panelProveedor.TabIndex = 31;
             // 
             // lblTelProveedor
@@ -852,14 +853,15 @@
             this.cbProveedores.TabIndex = 32;
             this.cbProveedores.SelectedIndexChanged += new System.EventHandler(this.cbProveedores_SelectedIndexChanged);
             // 
-            // panelGrupoA
+            // flowLayoutPanel3
             // 
-            this.panelGrupoA.Controls.Add(this.panelCategoria);
-            this.panelGrupoA.Controls.Add(this.panelUbicacion);
-            this.panelGrupoA.Location = new System.Drawing.Point(3, 66);
-            this.panelGrupoA.Name = "panelGrupoA";
-            this.panelGrupoA.Size = new System.Drawing.Size(835, 61);
-            this.panelGrupoA.TabIndex = 38;
+            this.flowLayoutPanel3.Controls.Add(this.panelProveedor);
+            this.flowLayoutPanel3.Controls.Add(this.panelGrupoA);
+            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(837, 129);
+            this.flowLayoutPanel3.TabIndex = 40;
             // 
             // panelCategoria
             // 
@@ -869,14 +871,14 @@
             this.panelCategoria.Location = new System.Drawing.Point(3, 3);
             this.panelCategoria.Name = "panelCategoria";
             this.panelCategoria.Size = new System.Drawing.Size(408, 55);
-            this.panelCategoria.TabIndex = 35;
+            this.panelCategoria.TabIndex = 37;
             // 
             // lbNombreCategoria
             // 
             this.lbNombreCategoria.BackColor = System.Drawing.Color.White;
             this.lbNombreCategoria.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNombreCategoria.ForeColor = System.Drawing.Color.Blue;
-            this.lbNombreCategoria.Location = new System.Drawing.Point(57, 31);
+            this.lbNombreCategoria.Location = new System.Drawing.Point(57, 30);
             this.lbNombreCategoria.Name = "lbNombreCategoria";
             this.lbNombreCategoria.Size = new System.Drawing.Size(300, 20);
             this.lbNombreCategoria.TabIndex = 96;
@@ -911,15 +913,15 @@
             this.panelUbicacion.Controls.Add(this.lbUbicacion);
             this.panelUbicacion.Location = new System.Drawing.Point(417, 3);
             this.panelUbicacion.Name = "panelUbicacion";
-            this.panelUbicacion.Size = new System.Drawing.Size(415, 55);
-            this.panelUbicacion.TabIndex = 36;
+            this.panelUbicacion.Size = new System.Drawing.Size(408, 55);
+            this.panelUbicacion.TabIndex = 38;
             // 
             // lbNombreUbicacion
             // 
             this.lbNombreUbicacion.BackColor = System.Drawing.Color.White;
             this.lbNombreUbicacion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNombreUbicacion.ForeColor = System.Drawing.Color.Blue;
-            this.lbNombreUbicacion.Location = new System.Drawing.Point(66, 31);
+            this.lbNombreUbicacion.Location = new System.Drawing.Point(66, 30);
             this.lbNombreUbicacion.Name = "lbNombreUbicacion";
             this.lbNombreUbicacion.Size = new System.Drawing.Size(301, 20);
             this.lbNombreUbicacion.TabIndex = 97;
@@ -947,11 +949,20 @@
             this.lbUbicacion.TabIndex = 37;
             this.lbUbicacion.Text = "Ubicación";
             // 
+            // panelGrupoA
+            // 
+            this.panelGrupoA.Controls.Add(this.panelCategoria);
+            this.panelGrupoA.Controls.Add(this.panelUbicacion);
+            this.panelGrupoA.Location = new System.Drawing.Point(3, 66);
+            this.panelGrupoA.Name = "panelGrupoA";
+            this.panelGrupoA.Size = new System.Drawing.Size(832, 60);
+            this.panelGrupoA.TabIndex = 40;
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 729);
+            this.ClientSize = new System.Drawing.Size(841, 729);
             this.Controls.Add(this.fLPAccion);
             this.Controls.Add(this.fLPDetalle);
             this.Controls.Add(this.fLPContenidoProducto);
@@ -1005,11 +1016,12 @@
             this.fLPDetallesProducto.ResumeLayout(false);
             this.panelProveedor.ResumeLayout(false);
             this.panelProveedor.PerformLayout();
-            this.panelGrupoA.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
             this.panelCategoria.ResumeLayout(false);
             this.panelCategoria.PerformLayout();
             this.panelUbicacion.ResumeLayout(false);
             this.panelUbicacion.PerformLayout();
+            this.panelGrupoA.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1076,7 +1088,11 @@
         private System.Windows.Forms.Label lblNombreProveedor;
         private System.Windows.Forms.Label lbProveedor;
         private System.Windows.Forms.ComboBox cbProveedores;
-        private System.Windows.Forms.FlowLayoutPanel panelGrupoA;
+        private System.Windows.Forms.Panel PImagen;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.PictureBox pictureBoxProducto;
+        private System.Windows.Forms.Button btnImagenes;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Panel panelCategoria;
         private System.Windows.Forms.Label lbNombreCategoria;
         private System.Windows.Forms.Label lbCategoria;
@@ -1085,9 +1101,6 @@
         private System.Windows.Forms.Label lbNombreUbicacion;
         private System.Windows.Forms.ComboBox cbUbicaciones;
         private System.Windows.Forms.Label lbUbicacion;
-        private System.Windows.Forms.Panel PImagen;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.PictureBox pictureBoxProducto;
-        private System.Windows.Forms.Button btnImagenes;
+        private System.Windows.Forms.FlowLayoutPanel panelGrupoA;
     }
 }
