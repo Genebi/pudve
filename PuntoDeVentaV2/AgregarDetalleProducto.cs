@@ -38,6 +38,10 @@ namespace PuntoDeVentaV2
             checkCategoria.Checked = Properties.Settings.Default.checkCategoria;
             checkUbicacion.Checked = Properties.Settings.Default.checkUbicacion;
 
+            chkProveedor.Checked = Properties.Settings.Default.checkShowProveedor;
+            chkCategoria.Checked = Properties.Settings.Default.checkShowCategoria;
+            chkUbicacion.Checked = Properties.Settings.Default.checkShowUbicacion;
+
             VisualizarContentido();
             //verificarCheckboxLista();
         }
@@ -433,6 +437,27 @@ namespace PuntoDeVentaV2
                 cbCategorias_SelectedIndexChanged(this, EventArgs.Empty);
                 cbUbicaciones_SelectedIndexChanged(this, EventArgs.Empty);
             }
+        }
+
+        private void chkProveedor_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkShowProveedor = chkProveedor.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void chkCategoria_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkShowCategoria = chkCategoria.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void chkUbicacion_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.checkShowUbicacion = chkUbicacion.Checked;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
     }
 }

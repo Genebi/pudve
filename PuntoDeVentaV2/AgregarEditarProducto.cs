@@ -3527,29 +3527,29 @@ namespace PuntoDeVentaV2
 
         private void checarDetalleProducto()
         {
-            if (Properties.Settings.Default.checkProveedor == true)
+            if (Properties.Settings.Default.checkShowProveedor == true)
             {
                 panelProveedor.Visible = true;
             }
-            else if (Properties.Settings.Default.checkProveedor == false)
+            else if (Properties.Settings.Default.checkShowProveedor == false)
             {
                 panelProveedor.Visible = false;
             }
 
-            if (Properties.Settings.Default.checkUbicacion == true)
+            if (Properties.Settings.Default.checkShowUbicacion == true)
             {
                 panelUbicacion.Visible = true;
             }
-            else if (Properties.Settings.Default.checkUbicacion == false)
+            else if (Properties.Settings.Default.checkShowUbicacion == false)
             {
                 panelUbicacion.Visible = false;
             }
 
-            if (Properties.Settings.Default.checkCategoria == true)
+            if (Properties.Settings.Default.checkShowCategoria == true)
             {
                 panelCategoria.Visible = true;
             }
-            else if (Properties.Settings.Default.checkCategoria == false)
+            else if (Properties.Settings.Default.checkShowCategoria == false)
             {
                 panelCategoria.Visible = false;
             }

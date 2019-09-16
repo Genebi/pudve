@@ -44,5 +44,14 @@
     <Setting Name="FiltroMostrar" Type="System.String" Scope="User">
       <Value Profile="(Default)">Habilitados</Value>
     </Setting>
+    <Setting Name="checkShowProveedor" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="checkShowCategoria" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="checkShowUbicacion" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

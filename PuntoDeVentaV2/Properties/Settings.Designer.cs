@@ -190,5 +190,41 @@ namespace PuntoDeVentaV2.Properties {
                 this["FiltroMostrar"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkShowProveedor {
+            get {
+                return ((bool)(this["checkShowProveedor"]));
+            }
+            set {
+                this["checkShowProveedor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkShowCategoria {
+            get {
+                return ((bool)(this["checkShowCategoria"]));
+            }
+            set {
+                this["checkShowCategoria"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool checkShowUbicacion {
+            get {
+                return ((bool)(this["checkShowUbicacion"]));
+            }
+            set {
+                this["checkShowUbicacion"] = value;
+            }
+        }
     }
 }

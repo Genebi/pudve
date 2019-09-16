@@ -54,6 +54,9 @@
             this.lbNombreUbicacion = new System.Windows.Forms.Label();
             this.cbUbicaciones = new System.Windows.Forms.ComboBox();
             this.lbUbicacion = new System.Windows.Forms.Label();
+            this.chkProveedor = new System.Windows.Forms.CheckBox();
+            this.chkCategoria = new System.Windows.Forms.CheckBox();
+            this.chkUbicacion = new System.Windows.Forms.CheckBox();
             this.panelMenu.SuspendLayout();
             this.panelContenido.SuspendLayout();
             this.panelProveedor.SuspendLayout();
@@ -82,6 +85,9 @@
             // panelMenu
             // 
             this.panelMenu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelMenu.Controls.Add(this.chkUbicacion);
+            this.panelMenu.Controls.Add(this.chkCategoria);
+            this.panelMenu.Controls.Add(this.chkProveedor);
             this.panelMenu.Controls.Add(this.btnAgregarUbicacion);
             this.panelMenu.Controls.Add(this.btnAgregarCategoria);
             this.panelMenu.Controls.Add(this.checkUbicacion);
@@ -97,7 +103,7 @@
             // 
             this.btnAgregarUbicacion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarUbicacion.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarUbicacion.Location = new System.Drawing.Point(159, 66);
+            this.btnAgregarUbicacion.Location = new System.Drawing.Point(133, 66);
             this.btnAgregarUbicacion.Name = "btnAgregarUbicacion";
             this.btnAgregarUbicacion.Size = new System.Drawing.Size(20, 20);
             this.btnAgregarUbicacion.TabIndex = 5;
@@ -108,7 +114,7 @@
             // 
             this.btnAgregarCategoria.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarCategoria.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarCategoria.Location = new System.Drawing.Point(159, 36);
+            this.btnAgregarCategoria.Location = new System.Drawing.Point(133, 36);
             this.btnAgregarCategoria.Name = "btnAgregarCategoria";
             this.btnAgregarCategoria.Size = new System.Drawing.Size(20, 20);
             this.btnAgregarCategoria.TabIndex = 4;
@@ -143,7 +149,7 @@
             // 
             this.btnAgregarProveedor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarProveedor.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarProveedor.Location = new System.Drawing.Point(159, 6);
+            this.btnAgregarProveedor.Location = new System.Drawing.Point(133, 6);
             this.btnAgregarProveedor.Name = "btnAgregarProveedor";
             this.btnAgregarProveedor.Size = new System.Drawing.Size(20, 20);
             this.btnAgregarProveedor.TabIndex = 1;
@@ -352,6 +358,36 @@
             this.lbUbicacion.TabIndex = 37;
             this.lbUbicacion.Text = "Ubicación";
             // 
+            // chkProveedor
+            // 
+            this.chkProveedor.AutoSize = true;
+            this.chkProveedor.Location = new System.Drawing.Point(164, 9);
+            this.chkProveedor.Name = "chkProveedor";
+            this.chkProveedor.Size = new System.Drawing.Size(15, 14);
+            this.chkProveedor.TabIndex = 6;
+            this.chkProveedor.UseVisualStyleBackColor = true;
+            this.chkProveedor.CheckedChanged += new System.EventHandler(this.chkProveedor_CheckedChanged);
+            // 
+            // chkCategoria
+            // 
+            this.chkCategoria.AutoSize = true;
+            this.chkCategoria.Location = new System.Drawing.Point(164, 38);
+            this.chkCategoria.Name = "chkCategoria";
+            this.chkCategoria.Size = new System.Drawing.Size(15, 14);
+            this.chkCategoria.TabIndex = 7;
+            this.chkCategoria.UseVisualStyleBackColor = true;
+            this.chkCategoria.CheckedChanged += new System.EventHandler(this.chkCategoria_CheckedChanged);
+            // 
+            // chkUbicacion
+            // 
+            this.chkUbicacion.AutoSize = true;
+            this.chkUbicacion.Location = new System.Drawing.Point(164, 68);
+            this.chkUbicacion.Name = "chkUbicacion";
+            this.chkUbicacion.Size = new System.Drawing.Size(15, 14);
+            this.chkUbicacion.TabIndex = 8;
+            this.chkUbicacion.UseVisualStyleBackColor = true;
+            this.chkUbicacion.CheckedChanged += new System.EventHandler(this.chkUbicacion_CheckedChanged);
+            // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -411,5 +447,8 @@
         private System.Windows.Forms.Label lbNombreUbicacion;
         private System.Windows.Forms.ComboBox cbUbicaciones;
         private System.Windows.Forms.Label lbUbicacion;
+        private System.Windows.Forms.CheckBox chkCategoria;
+        private System.Windows.Forms.CheckBox chkProveedor;
+        private System.Windows.Forms.CheckBox chkUbicacion;
     }
 }
