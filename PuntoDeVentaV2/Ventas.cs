@@ -728,7 +728,7 @@ namespace PuntoDeVentaV2
 
         private void DatosVenta()
         {
-            //Datos generales de la venta
+            // Datos generales de la venta
             var IdEmpresa = FormPrincipal.userID.ToString();
             var Subtotal = cSubtotal.Text;
             var IVA16 = cIVA.Text;
@@ -763,14 +763,14 @@ namespace PuntoDeVentaV2
 
             if (VerificarStockProducto())
             {
-                //Se hace el guardado de la informacion general de la venta
+                // Se hace el guardado de la informacion general de la venta
                 int respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
 
                 if (respuesta > 0)
                 {
-                    //Operacion para afectar la tabla de Caja
-                    //var saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
-                    //var totalTmp = saldoActual + Convert.ToDouble(Total);
+                    // Operacion para afectar la tabla de Caja
+                    // var saldoActual = cn.ObtenerSaldoActual(FormPrincipal.userID);
+                    // var totalTmp = saldoActual + Convert.ToDouble(Total);
 
                     string[] datos = new string[] {
                         "deposito", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
@@ -780,10 +780,10 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
 
-                    //Obtener ID de la venta
+                    // Obtener ID de la venta
                     string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
 
-                    //Si mostrarVenta contine un valor mayor a cero quiere decir que es una venta guardada con la que se esta trabajando
+                    // Si mostrarVenta contine un valor mayor a cero quiere decir que es una venta guardada con la que se esta trabajando
                     if (mostrarVenta > 0)
                     {
                         idVenta = mostrarVenta.ToString();
@@ -791,12 +791,12 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta(cs.EliminarProductosVenta(Convert.ToInt32(idVenta)));
                     }
 
-                    //Array para almacenar la informacion de los productos vendidos
+                    // Array para almacenar la informacion de los productos vendidos
                     string[][] infoProductos = new string[DGVentas.Rows.Count][];
 
                     int contador = 0;
 
-                    //Datos de los productos vendidos
+                    // Datos de los productos vendidos
                     foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
                         var IDProducto = fila.Cells["IDProducto"].Value.ToString();
@@ -807,24 +807,24 @@ namespace PuntoDeVentaV2
 
                         guardar = new string[] { idVenta, IDProducto, Nombre, Cantidad, Precio };
 
-                        //Guardar info de los productos
+                        // Guardar info de los productos
                         infoProductos[contador] = guardar;
 
                         contador++;
 
-                        //Si es un producto lo guarda en la tabla de productos de venta
+                        // Si es un producto lo guarda en la tabla de productos de venta
                         if (Tipo == "P")
                         {
                             cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                         }
 
-                        //Si la venta no fue guardada con el boton "Guardar"
+                        // Si la venta no fue guardada con el boton "Guardar"
                         if (!ventaGuardada)
                         {
-                            //Producto
+                            // Producto
                             if (Tipo == "P")
                             {
-                                //Actualizar stock de productos
+                                // Actualizar stock de productos
                                 var stock = Convert.ToDecimal(fila.Cells["Stock"].Value);
                                 var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                                 var restantes = (stock - vendidos).ToString();
@@ -834,8 +834,8 @@ namespace PuntoDeVentaV2
                                 cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                             }
 
-                            //Servicio
-                            if (Tipo == "S")
+                            // Servicio o paquete
+                            if (Tipo == "S" || Tipo == "PQ")
                             {
                                 var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
 
@@ -859,12 +859,12 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            //Guardar detalles de la venta
+                            // Guardar detalles de la venta
                             DetallesVenta(idVenta);
                         }
                     }
 
-                    //Convertir la cadena que guarda los IDs de los anticipos usados en Array
+                    // Convertir la cadena que guarda los IDs de los anticipos usados en Array
                     if (!string.IsNullOrEmpty(listaAnticipos))
                     {
                         var auxiliar = listaAnticipos.Remove(listaAnticipos.Length - 1);
@@ -965,9 +965,9 @@ namespace PuntoDeVentaV2
         {
             bool respuesta = true;
 
-            //Comprobamos que la opcion stock negativo sea false para que se pueda realizar la venta
-            //verificando si el stock es suficiente para realizar la venta, de lo contrario se
-            //permitira hacer la venta incluso si el stock es insuficiente
+            // Comprobamos que la opcion stock negativo sea false para que se pueda realizar la venta
+            // verificando si el stock es suficiente para realizar la venta, de lo contrario se
+            // permitira hacer la venta incluso si el stock es insuficiente
             if (Properties.Settings.Default.StockNegativo == false)
             {
                 if (DGVentas.Rows.Count > 0)
@@ -978,7 +978,7 @@ namespace PuntoDeVentaV2
                         var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value);
                         var tipoPS = fila.Cells["TipoPS"].Value.ToString();
 
-                        //Es producto
+                        // Es producto
                         if (tipoPS == "P")
                         {
                             if (stock < cantidad)
@@ -993,16 +993,20 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        //Es servicio
-                        if (tipoPS == "S")
+                        // Es servicio o paquete
+                        if (tipoPS == "S" || tipoPS == "PQ")
                         {
                             var servicio = fila.Cells["Descripcion"].Value;
                             var idServicio = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+                            var categoria = string.Empty;
 
-                            //Obtener los productos relacionados (ID, Cantidad)
+                            if (tipoPS == "S") { categoria = "Servicio"; }
+                            if (tipoPS == "PQ") { categoria = "Paquete"; }
+
+                            // Obtener los productos relacionados (ID, Cantidad)
                             var datosServicio = cn.ObtenerProductosServicio(idServicio);
 
-                            //Verificar la cantidad de cada producto con el stock actual de ese producto individual
+                            // Verificar la cantidad de cada producto con el stock actual de ese producto individual
                             foreach (string producto in datosServicio)
                             {
                                 var datosProducto = producto.Split('|');
@@ -1017,7 +1021,7 @@ namespace PuntoDeVentaV2
 
                                 if (stockActual < stockRequerido)
                                 {
-                                    var mensaje = $"El stock de {nombreProducto} es insuficiente\nServicio: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+                                    var mensaje = $"El stock de {nombreProducto} es insuficiente\n{categoria}: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
 
                                     MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
