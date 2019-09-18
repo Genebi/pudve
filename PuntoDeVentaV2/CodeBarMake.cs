@@ -96,7 +96,8 @@ namespace PuntoDeVentaV2
             iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 10, iTextSharp.text.Font.NORMAL);      // aqui indicamos al iTextSharp use la fuente declarada
 
             doc.Open();     // comenzamos a escribir el documento de PDF
-            Paragraph paragraph = new Paragraph(new Chunk("www.pudve.com\nPunto de Venta Gratuito\n" + NombreProdFinal, font));  // declaramos la etiqueta
+            //Paragraph paragraph = new Paragraph(new Chunk("www.pudve.com\nPunto de Venta Gratuito\n" + NombreProdFinal, font));  // declaramos la etiqueta
+            Paragraph paragraph = new Paragraph(new Chunk(NombreProdFinal, font));  // declaramos la etiqueta
             paragraph.Leading = 8;      // le damos el interlineado del texto
             paragraph.Alignment = Element.ALIGN_CENTER;     // centramos el texto
             doc.Add(paragraph);     // lo agregamos la etiqueta al documento PDF

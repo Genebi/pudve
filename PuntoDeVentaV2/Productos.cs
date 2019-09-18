@@ -500,7 +500,7 @@ namespace PuntoDeVentaV2
                     obtenerDatosDGVProductos(numerofila);
                     ViewRecordProducto();
                 }
-                else if (e.ColumnIndex == 10)    // Generar Condigo de Barras del Producto
+                else if (e.ColumnIndex == 10)    // Generar Codigo de Barras del Producto
                 {
                     string codiBarProd = "";
                     numfila = e.RowIndex;
