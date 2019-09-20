@@ -60,6 +60,7 @@ namespace PuntoDeVentaV2
 
                 var proveedorActual = mb.DetallesProducto(IDProducto, FormPrincipal.userID);
 
+                // Comprueba si el producto tiene un proveedor asignado
                 if (proveedorActual.Length > 0)
                 {
                     cbProveedores.SelectedValue = proveedorActual[0];

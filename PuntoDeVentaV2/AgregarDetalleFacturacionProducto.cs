@@ -502,7 +502,7 @@ namespace PuntoDeVentaV2
             string clavePS = txtClaveProducto.Text;
             string claveUnidad = txtClaveUnidad.Text;
 
-            if (clavePS.Length < 8)
+            /*if (clavePS.Length < 8)
             {
                 MessageBox.Show("La clave de producto debe contener 8 dígitos.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -512,7 +512,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("La clave de unidad es requerida.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-            }
+            }*/
 
             string cadenaImpuestos = null;
 
