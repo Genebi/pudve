@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,15 +30,25 @@ namespace PuntoDeVentaV2
 
         private void btnRespaldo_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Seccion en proceso de hacer BackUp", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            guardarArchivo.Filter = "SQL (*.db)|*.db";
+            guardarArchivo.FilterIndex = 1;
+            guardarArchivo.RestoreDirectory = true;
 
-            try
+            if (guardarArchivo.ShowDialog() == DialogResult.OK)
             {
-                cn.BackUpDB();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al hacer BackUp: " + ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string archivoBD = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db";
+                string copiaDB = guardarArchivo.FileName;
+
+                try
+                {
+                    File.Copy(archivoBD, copiaDB);
+
+                    MessageBox.Show("Información respaldada exitosamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

@@ -31,6 +31,7 @@
             this.cbStockNegativo = new System.Windows.Forms.CheckBox();
             this.btnRespaldo = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
+            this.guardarArchivo = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -95,5 +96,6 @@
         private System.Windows.Forms.CheckBox cbStockNegativo;
         private System.Windows.Forms.Button btnRespaldo;
         private System.Windows.Forms.Label tituloSeccion;
+        private System.Windows.Forms.SaveFileDialog guardarArchivo;
     }
 }
