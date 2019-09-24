@@ -34,6 +34,7 @@ namespace PuntoDeVentaV2
             return InternetGetConnectedState(out Desc, 0);
         }
 
+        // Obtiene el numero serie de la tarjeta madre para guardarse al momento del registro
         private string TarjetaMadreID()
         {
             string mbInfo = string.Empty;
