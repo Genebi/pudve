@@ -38,6 +38,7 @@ namespace PuntoDeVentaV2
             {
                 string archivoBD = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db";
                 string copiaDB = guardarArchivo.FileName;
+                //string fecha = DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss");
 
                 try
                 {

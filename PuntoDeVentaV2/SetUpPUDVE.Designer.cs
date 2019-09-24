@@ -76,6 +76,11 @@
             this.tituloSeccion.Text = "CONFIGURACIÓN";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // guardarArchivo
+            // 
+            this.guardarArchivo.DefaultExt = "db";
+            this.guardarArchivo.Title = "Respaldar Información";
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

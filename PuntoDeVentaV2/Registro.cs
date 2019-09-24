@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Management;
+using System.Net.NetworkInformation;
 
 namespace PuntoDeVentaV2
 {
@@ -32,13 +34,31 @@ namespace PuntoDeVentaV2
             return InternetGetConnectedState(out Desc, 0);
         }
 
+        private string TarjetaMadreID()
+        {
+            string mbInfo = string.Empty;
+            ManagementScope scope = new ManagementScope("\\\\" + Environment.MachineName + "\\root\\cimv2");
+            scope.Connect();
+            ManagementObject wmiClass = new ManagementObject(scope, new ManagementPath("Win32_BaseBoard.Tag=\"Base Board\""), new ObjectGetOptions());
+
+            foreach (PropertyData propData in wmiClass.Properties)
+            {
+                if (propData.Name == "SerialNumber")
+                {
+                    mbInfo = Convert.ToString(propData.Value);
+                }    
+            }
+
+            return mbInfo;
+        }
+
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             if (ConectadoInternet())
             {
                 MySqlConnection conexion = new MySqlConnection();
 
-                conexion.ConnectionString = "server=208.109.252.94;database=PUDVE;uid=pudvesoftware;pwd=Steroids12;";
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
 
                 string usuario = txtUsuario.Text;
                 string password = txtPassword.Text;
@@ -68,7 +88,7 @@ namespace PuntoDeVentaV2
                         dr.Close();
 
                         //Limpiamos en caso que haya dado error si el usuario ya estaba registrado
-                        txtMensajeError.Text = "";
+                        txtMensajeError.Text = string.Empty;
 
                         string[] datos = new string[] { usuario, password, password2, razonSocial, email, telefono };
 
@@ -81,11 +101,11 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            txtMensajeError.Text = "";
+                            txtMensajeError.Text = string.Empty;
                         }
 
                         //Consulta de MySQL
-                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, fechaCreacion) VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', '{fechaCreacion}')";
+                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, fechaCreacion) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{fechaCreacion}')";
                         int resultado = registrar.ExecuteNonQuery();
 
                         //Consulta de SQLite
@@ -96,7 +116,7 @@ namespace PuntoDeVentaV2
 
                         if (respuesta > 0 && resultado > 0)
                         {
-                            int Id = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Usuarios WHERE Usuario = '" + usuario + "' AND Password = '" + password + "'", 1));
+                            int Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
 
                             FormPrincipal fp = new FormPrincipal();
 
