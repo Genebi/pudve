@@ -35,7 +35,7 @@ namespace PuntoDeVentaV2
         }
 
         // Obtiene el numero serie de la tarjeta madre para guardarse al momento del registro
-        private string TarjetaMadreID()
+        public static string TarjetaMadreID()
         {
             string mbInfo = string.Empty;
             ManagementScope scope = new ManagementScope("\\\\" + Environment.MachineName + "\\root\\cimv2");

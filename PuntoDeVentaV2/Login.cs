@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -92,35 +93,38 @@ namespace PuntoDeVentaV2
 
             if (usuario != "" && password != "")
             {
-                bool resultado = (bool)cn.EjecutarSelect("SELECT Usuario FROM Usuarios WHERE Usuario = '" + usuario + "' AND Password = '" + password + "'");
+                bool resultado = (bool)cn.EjecutarSelect($"SELECT Usuario FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'");
 
                 if (resultado == true)
                 {
-                    int Id = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Usuarios WHERE Usuario = '" + usuario + "' AND Password = '" + password + "'", 1));
-
-                    FormPrincipal fp = new FormPrincipal();
-
-                    // validacion para recordar los datos de Login
-                    if (checkBoxRecordarDatos.Checked == true)      // si es que el Check Box de Recordar los Datos esta marcado
+                    // Ejecutamos el metodo para comprobar que la licencia registrada corresponda al usuario
+                    if (ComprobarLicencia())
                     {
-                        GuardarDatosLogin();
+                        int Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
+
+                        FormPrincipal fp = new FormPrincipal();
+
+                        // validacion para recordar los datos de Login
+                        if (checkBoxRecordarDatos.Checked == true)      // si es que el Check Box de Recordar los Datos esta marcado
+                        {
+                            GuardarDatosLogin();
+                        }
+
+                        this.Hide();
+
+                        fp.IdUsuario = Id;
+                        fp.nickUsuario = usuario;
+                        fp.passwordUsuario = password;
+                        fp.TempIdUsuario = Id;
+                        fp.TempNickUsr = usuario;
+                        fp.TempPassUsr = password;
+                        fp.ShowDialog();
+
+                        this.Close();
                     }
-
-                    this.Hide();
-
-                    fp.IdUsuario = Id;
-                    fp.nickUsuario = usuario;
-                    fp.passwordUsuario = password;
-                    fp.TempIdUsuario = Id;
-                    fp.TempNickUsr = usuario;
-                    fp.TempPassUsr = password;
-                    fp.ShowDialog();
-
-                    this.Close();
                 }
                 else
                 {
-
                     txtMensaje.Text = "El usuario y/o contraseña son incorrectos";
                     txtPassword.Text = "";
                     txtPassword.Focus();
@@ -130,6 +134,72 @@ namespace PuntoDeVentaV2
             {
                 txtMensaje.Text = "Ingrese sus datos de inicio de sesión";
             }
+        }
+
+        private bool ComprobarLicencia()
+        {
+            bool verificado = Properties.Settings.Default.primerInicioSesion;
+
+            if (!verificado)
+            {
+                // Verificamos que haya conexion a internet
+                if (Registro.ConectadoInternet())
+                {
+                    MySqlConnection conexion = new MySqlConnection();
+
+                    conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                    try
+                    {
+                        conexion.Open();
+                        MySqlCommand consultar = conexion.CreateCommand();
+                        MySqlCommand actualizar = conexion.CreateCommand();
+
+                        // Verificamos si el usuario que se quiere registrar ya se encuentra registrado en la base de datos online
+                        consultar.CommandText = $"SELECT numeroSerie FROM Usuarios WHERE usuario = '{usuario}' AND password = '{password}' AND numeroSerie = '{Registro.TarjetaMadreID()}'";
+                        MySqlDataReader reader = consultar.ExecuteReader();
+                        
+                        // Los datos del usuario y el numero de serie coincide
+                        if (reader.Read())
+                        {
+                            reader.Close();
+
+                            // Actualizamos el cmapo de la base de datos de MySQL
+                            actualizar.CommandText = $"UPDATE Usuarios SET verificacionNS = 1 WHERE usuario = '{usuario}' AND password = '{password}'";
+                            int resultado = actualizar.ExecuteNonQuery();
+
+                            if (resultado > 0)
+                            {
+                                // Cambiamos la variable de configuracion a true para que permita hacer el inicio de sesion normal
+                                Properties.Settings.Default.primerInicioSesion = true;
+                                Properties.Settings.Default.Save();
+                                Properties.Settings.Default.Reload();
+
+                                verificado = true;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error al comprobar su licencia", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            reader.Close();
+                        }
+
+                        // Cerrar conexion de MySQL
+                        conexion.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Se requiere conexión a internet para el primer inicio de sesión", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            return verificado;
         }
 
         private void txtPassword_KeyDown(object sender, KeyEventArgs e)
