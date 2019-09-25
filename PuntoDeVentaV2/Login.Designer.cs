@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUsuario = new System.Windows.Forms.TextBox();
@@ -37,6 +38,9 @@
             this.txtMensaje = new System.Windows.Forms.Label();
             this.checkBoxRecordarDatos = new System.Windows.Forms.CheckBox();
             this.btnLimpiarDatos = new System.Windows.Forms.Button();
+            this.buscarArchivoBD = new System.Windows.Forms.OpenFileDialog();
+            this.btnImportar = new System.Windows.Forms.Button();
+            this.mensajeBoton = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -61,6 +65,7 @@
             // 
             // txtUsuario
             // 
+            this.txtUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtUsuario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsuario.Location = new System.Drawing.Point(120, 45);
             this.txtUsuario.Multiline = true;
@@ -68,7 +73,6 @@
             this.txtUsuario.Size = new System.Drawing.Size(190, 23);
             this.txtUsuario.TabIndex = 2;
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtUsuario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtUsuario_KeyUp);
             // 
             // txtPassword
             // 
@@ -151,11 +155,29 @@
             this.btnLimpiarDatos.UseVisualStyleBackColor = false;
             this.btnLimpiarDatos.Click += new System.EventHandler(this.btnLimpiarDatos_Click);
             // 
+            // buscarArchivoBD
+            // 
+            this.buscarArchivoBD.Title = "Seleccionar archivo para importar";
+            // 
+            // btnImportar
+            // 
+            this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImportar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImportar.Image = global::PuntoDeVentaV2.Properties.Resources.arrow_circle_up;
+            this.btnImportar.Location = new System.Drawing.Point(12, 281);
+            this.btnImportar.Name = "btnImportar";
+            this.btnImportar.Size = new System.Drawing.Size(25, 23);
+            this.btnImportar.TabIndex = 10;
+            this.mensajeBoton.SetToolTip(this.btnImportar, "Importar archivo de base de datos");
+            this.btnImportar.UseVisualStyleBackColor = true;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 319);
+            this.Controls.Add(this.btnImportar);
             this.Controls.Add(this.btnLimpiarDatos);
             this.Controls.Add(this.checkBoxRecordarDatos);
             this.Controls.Add(this.txtMensaje);
@@ -186,5 +208,8 @@
         private System.Windows.Forms.Label txtMensaje;
         private System.Windows.Forms.CheckBox checkBoxRecordarDatos;
         private System.Windows.Forms.Button btnLimpiarDatos;
+        private System.Windows.Forms.OpenFileDialog buscarArchivoBD;
+        private System.Windows.Forms.Button btnImportar;
+        private System.Windows.Forms.ToolTip mensajeBoton;
     }
 }

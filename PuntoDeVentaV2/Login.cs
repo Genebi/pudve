@@ -2413,14 +2413,38 @@ namespace PuntoDeVentaV2
             BorrarDatosLogin();
         }
 
+        private void btnImportar_Click(object sender, EventArgs e)
+        {
+            buscarArchivoBD.FileName = string.Empty;
+            buscarArchivoBD.Filter = "SQL (*.db)|*.db";
+            buscarArchivoBD.FilterIndex = 1;
+            buscarArchivoBD.RestoreDirectory = true;
+
+            if (buscarArchivoBD.ShowDialog() == DialogResult.OK)
+            {
+                var mensaje = string.Join(
+                    Environment.NewLine,
+                    "¿Estás seguro de importar el siguiente archivo",
+                    $"{buscarArchivoBD.FileName}?\n",
+                    "NOTA: Esta operación sobreescribirá el archivo",
+                    "actual de tu base de datos en caso de que exista",
+                    "alguno."
+                );
+
+                var respuesta = MessageBox.Show(mensaje, "Mensaje de confirmación", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.OK)
+                {
+                    var archivo = buscarArchivoBD.FileName.Split('\\');
+                    var nombreArchivo = archivo[archivo.Length - 1];
+                    MessageBox.Show(nombreArchivo);
+                }
+            }
+        }
+
         private void checkBoxRecordarDatos_CheckedChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void txtUsuario_KeyUp(object sender, KeyEventArgs e)
-        {
-            txtUsuario.CharacterCasing = CharacterCasing.Upper;
         }
     }
 }
