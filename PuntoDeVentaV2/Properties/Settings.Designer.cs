@@ -226,17 +226,5 @@ namespace PuntoDeVentaV2.Properties {
                 this["checkShowUbicacion"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool primerInicioSesion {
-            get {
-                return ((bool)(this["primerInicioSesion"]));
-            }
-            set {
-                this["primerInicioSesion"] = value;
-            }
-        }
     }
 }

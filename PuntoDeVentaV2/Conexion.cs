@@ -421,14 +421,26 @@ namespace PuntoDeVentaV2
             return resultado;
         }
 
-        public string[] DatosUsuario(int IDUsuario)
+        public string[] DatosUsuario(int IDUsuario = 0, int tipo = 0, string usuario = "", string password = "")
         {
+            string consulta = string.Empty;
+
+            if (tipo == 0)
+            {
+                consulta = $"SELECT * FROM Usuarios WHERE ID = '{IDUsuario}'";
+            }
+
+            if (tipo == 1)
+            {
+                consulta = $"SELECT * FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'";
+            }
+
             List<string> lista = new List<string>();
 
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM Usuarios WHERE ID = '{IDUsuario}'";
+            sql_cmd.CommandText = consulta;
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
@@ -447,6 +459,8 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[6].ToString()); //Email
                 lista.Add(dr[5].ToString()); //Telefono
                 lista.Add(dr[17].ToString()); //Logo
+                lista.Add(dr["VerificacionNS"].ToString());
+                lista.Add(dr["ID"].ToString());
             }
 
             dr.Close();

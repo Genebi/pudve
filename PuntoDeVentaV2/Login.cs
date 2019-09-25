@@ -138,7 +138,9 @@ namespace PuntoDeVentaV2
 
         private bool ComprobarLicencia()
         {
-            bool verificado = Properties.Settings.Default.primerInicioSesion;
+            var datos = cn.DatosUsuario(tipo: 1, usuario: usuario, password: password);
+
+            bool verificado = Convert.ToBoolean(Convert.ToInt32(datos[12]));
 
             if (!verificado)
             {
@@ -171,9 +173,7 @@ namespace PuntoDeVentaV2
                             if (resultado > 0)
                             {
                                 // Cambiamos la variable de configuracion a true para que permita hacer el inicio de sesion normal
-                                Properties.Settings.Default.primerInicioSesion = true;
-                                Properties.Settings.Default.Save();
-                                Properties.Settings.Default.Reload();
+                                cn.EjecutarConsulta($"UPDATE Usuarios SET VerificacionNS = 1 WHERE Usuario = '{usuario}' AND Password = '{password}'");
 
                                 verificado = true;
                             }

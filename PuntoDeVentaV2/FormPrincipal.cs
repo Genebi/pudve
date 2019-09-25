@@ -110,7 +110,7 @@ namespace PuntoDeVentaV2
 
         private void ObtenerDatosUsuario(int IDUsuario)
         {
-            datosUsuario = cn.DatosUsuario(IDUsuario);
+            datosUsuario = cn.DatosUsuario(IDUsuario: IDUsuario, tipo: 0);
         }
 
         private void btnProductos_Click(object sender, EventArgs e)
