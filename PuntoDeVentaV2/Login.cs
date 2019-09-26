@@ -2464,22 +2464,10 @@ namespace PuntoDeVentaV2
                             MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    catch (Exception ex )
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    // Renombramos el archivo de la base de datos seleccionado
-                    //nombreArchivo = nombreArchivo.Replace(nombreArchivo, "pudveDB.db");
-
-                    //var rutaDestino = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\" + nombreArchivo;
-                    /*try
-                    {
-                        //File.Copy();
-                    }
-                    catch(Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }*/
                 }
             }
         }
