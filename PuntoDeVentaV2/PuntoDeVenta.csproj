@@ -705,9 +705,6 @@
     <Content Include="PUDVE\BarCode\BarCode.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PUDVE\BD\BackupDb.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="PUDVE\BD\pudveDB.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

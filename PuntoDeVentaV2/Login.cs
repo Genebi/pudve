@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -320,7 +321,7 @@ namespace PuntoDeVentaV2
             // descomentar la Linea de abajo cuando estemos en Debug
             Properties.Settings.Default.rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
 
-            RevisarTablas();
+            //RevisarTablas();
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;
             txtPassword.Text = Properties.Settings.Default.Password;
@@ -2435,9 +2436,50 @@ namespace PuntoDeVentaV2
 
                 if (respuesta == DialogResult.OK)
                 {
-                    var archivo = buscarArchivoBD.FileName.Split('\\');
-                    var nombreArchivo = archivo[archivo.Length - 1];
-                    MessageBox.Show(nombreArchivo);
+                    var rutaArchivo = buscarArchivoBD.FileName;
+                    var infoArchivo = buscarArchivoBD.FileName.Split('\\');
+                    var nombreArchivo = infoArchivo[infoArchivo.Length - 1];
+                    var rutaTmp = rutaArchivo.Replace(nombreArchivo, "");
+
+                    try
+                    {
+                        File.Copy(rutaArchivo, rutaTmp + "pudveDB.db");
+
+                        try
+                        {
+                            var rutaDestino = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db";
+
+                            if (File.Exists(rutaDestino))
+                            {
+                                File.Delete(rutaDestino);
+                            }
+
+                            File.Copy(rutaTmp + "pudveDB.db", rutaDestino);
+                            File.Delete(rutaTmp + "pudveDB.db");
+
+                            MessageBox.Show("Importación realizada con éxito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex )
+                    {
+                        MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    // Renombramos el archivo de la base de datos seleccionado
+                    //nombreArchivo = nombreArchivo.Replace(nombreArchivo, "pudveDB.db");
+
+                    //var rutaDestino = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\" + nombreArchivo;
+                    /*try
+                    {
+                        //File.Copy();
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }*/
                 }
             }
         }
