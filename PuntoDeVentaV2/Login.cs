@@ -48,6 +48,7 @@ namespace PuntoDeVentaV2
         string tabla = string.Empty;
         string queryTabla = string.Empty;
         int count = 0;
+        int contadorMetodoTablas = 0;
 
         bool IsEmpty;
 
@@ -89,6 +90,17 @@ namespace PuntoDeVentaV2
 
         private void btnEntrar_Click(object sender, EventArgs e)
         {
+            // Condicion para ejecutar el metodo que comprueba los cambios en las tablas
+            // existentes, de esta manera ejecutamos el metodo una sola vez y no lo hacemos
+            // en el metodo Load ya que daba error para cuando se queria importar un archivo
+            // de base de datos en el boton que se agregue en el form de Login
+            if (contadorMetodoTablas == 0)
+            {
+                RevisarTablas();
+
+                contadorMetodoTablas = 1;
+            }
+
             usuario = txtUsuario.Text;
             password = txtPassword.Text;
 
@@ -2416,11 +2428,13 @@ namespace PuntoDeVentaV2
 
         private void btnImportar_Click(object sender, EventArgs e)
         {
+            // Inicializamos los valores por defecto del openFileDialog
             buscarArchivoBD.FileName = string.Empty;
             buscarArchivoBD.Filter = "SQL (*.db)|*.db";
             buscarArchivoBD.FilterIndex = 1;
             buscarArchivoBD.RestoreDirectory = true;
 
+            // Si ya selecciona el archivo de la base de datos se le muestra el siguiente mensaje
             if (buscarArchivoBD.ShowDialog() == DialogResult.OK)
             {
                 var mensaje = string.Join(
@@ -2434,27 +2448,39 @@ namespace PuntoDeVentaV2
 
                 var respuesta = MessageBox.Show(mensaje, "Mensaje de confirmación", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
+                // Si acepta el mensaje de confirmación realiza el siguiente procedimiento
                 if (respuesta == DialogResult.OK)
                 {
+                    // Se guarda la ruta completa junto con el nombre del archivo que se selecciono
                     var rutaArchivo = buscarArchivoBD.FileName;
+                    // Convertimos la ruta en un arreglo
                     var infoArchivo = buscarArchivoBD.FileName.Split('\\');
+                    // Guardamos SOLO el nombre del archivo original seleccionado
                     var nombreArchivo = infoArchivo[infoArchivo.Length - 1];
+                    // Creamos una ruta temporal del archivo seleccionado sin tomar en cuenta el nombre del archivo
                     var rutaTmp = rutaArchivo.Replace(nombreArchivo, "");
 
                     try
                     {
+                        // Copiamos el archivo original seleccionado en la misma ruta 
+                        // pero con diferente nombre de manera temporal
                         File.Copy(rutaArchivo, rutaTmp + "pudveDB.db");
 
                         try
                         {
+                            // Ruta del archivo actual de la base de datos
                             var rutaDestino = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db";
 
+                            // Si existe el archivo se elimina
                             if (File.Exists(rutaDestino))
                             {
                                 File.Delete(rutaDestino);
                             }
 
+                            // Copiamos el archivo creado temporalmente en la ruta
+                            // donde el programa buscara el archivo de la base de datos
                             File.Copy(rutaTmp + "pudveDB.db", rutaDestino);
+                            // Finalmente borramos el archivo temporal de la base de datos que se importo
                             File.Delete(rutaTmp + "pudveDB.db");
 
                             MessageBox.Show("Importación realizada con éxito", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
