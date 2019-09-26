@@ -58,7 +58,7 @@ namespace PuntoDeVentaV2
             Proveedores = 15;
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
-            Usuarios = 19;
+            Usuarios = 20;
             Ventas = 21;
             Clientes = 21;
             RevisarInventario = 15;
@@ -1141,25 +1141,26 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaUsuarios(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                                              Usuario TEXT NOT NULL,
-                                              Password TEXT NOT NULL,
-                                              RazonSocial TEXT NOT NULL,
-                                              RFC TEXT,
-                                              Telefono TEXT,
-                                              Email TEXT NOT NULL,
+            return $@"CREATE TABLE '{tabla}' (ID             INTEGER NOT NULL   PRIMARY KEY AUTOINCREMENT   UNIQUE,
+                                              Usuario        TEXT    NOT NULL,
+                                              Password       TEXT    NOT NULL,
+                                              RazonSocial    TEXT    NOT NULL,
+                                              RFC            TEXT,
+                                              Telefono       TEXT,
+                                              Email          TEXT    NOT NULL,
                                               NombreCompleto TEXT,
-                                              Calle TEXT,
-                                              NoExterior TEXT,
-                                              NoInterior TEXT,
-                                              Colonia TEXT,
-                                              Municipio TEXT,
-                                              Estado TEXT,
-                                              CodigoPostal TEXT,
-                                              Regimen TEXT,
-                                              TipoPersona TEXT,
-                                              LogoTipo TEXT,
-                                              Referencia_ID TEXT);";
+                                              Calle          TEXT,
+                                              NoExterior     TEXT,
+                                              NoInterior     TEXT,
+                                              Colonia        TEXT,
+                                              Municipio      TEXT,
+                                              Estado         TEXT,
+                                              CodigoPostal   TEXT,
+                                              Regimen        TEXT,
+                                              TipoPersona    TEXT,
+                                              LogoTipo       TEXT,
+                                              Referencia_ID  TEXT,
+                                              VerificacionNS INTEGER DEFAULT (0));";
         }
 
         public string QueryUpdateTablaUsuarios(string tabla)
