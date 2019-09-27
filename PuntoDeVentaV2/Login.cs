@@ -43,6 +43,8 @@ namespace PuntoDeVentaV2
         private string _SetGanancia = Directory.GetCurrentDirectory() + @"\PUDVE\settings\ganancia\";
         private string _SetnoCheckStock = Directory.GetCurrentDirectory() + @"\PUDVE\settings\noCheckStock\";
 
+        string baseDirectory = string.Empty, archivo = string.Empty;
+
         string[] pathsOrigen, pathsDestino;
 
         string tabla = string.Empty;
@@ -277,6 +279,20 @@ namespace PuntoDeVentaV2
         private void Login_Load(object sender, EventArgs e)
         {
             //iniciarVariablesSistema();
+
+            // Cuando estemos en Debug Descomenta estas dos siguientes lineas
+
+            baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            archivo = @"..\..\App.config";
+            Properties.Settings.Default.PathDebug = baseDirectory;
+            Properties.Settings.Default.FileDebug = archivo;
+
+            // Cuando estemos en Releasa Descomenta estas dos siguientes lineas
+
+            //baseDirectory = System.Windows.Forms.Application.StartupPath.ToString();
+            //Properties.Settings.Default.PathClickOnce = baseDirectory;
+            //archivo = "ModifyingSettingsAtRuntimeApp.exe.config";
+            //Properties.Settings.Default.FileClickOnce = archivo;
 
             pathsOrigen = new string[] {_Assets,
                                         _BarCode,

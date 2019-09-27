@@ -44,6 +44,7 @@ namespace PuntoDeVentaV2
 
             VisualizarContentido();
             //verificarCheckboxLista();
+            //MessageBox.Show("Variable de Setting:\nPath: " + Properties.Settings.Default.PathDebug + "\nArchivo: " + Properties.Settings.Default.FileDebug, "Variables Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //private void verificarCheckboxLista()
