@@ -230,48 +230,36 @@ namespace PuntoDeVentaV2.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PathClickOnce {
+        public string baseDirectory {
             get {
-                return ((string)(this["PathClickOnce"]));
+                return ((string)(this["baseDirectory"]));
             }
             set {
-                this["PathClickOnce"] = value;
+                this["baseDirectory"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FileClickOnce {
+        public string archivo {
             get {
-                return ((string)(this["FileClickOnce"]));
+                return ((string)(this["archivo"]));
             }
             set {
-                this["FileClickOnce"] = value;
+                this["archivo"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PathDebug {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TipoEjecucion {
             get {
-                return ((string)(this["PathDebug"]));
+                return ((int)(this["TipoEjecucion"]));
             }
             set {
-                this["PathDebug"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string FileDebug {
-            get {
-                return ((string)(this["FileDebug"]));
-            }
-            set {
-                this["FileDebug"] = value;
+                this["TipoEjecucion"] = value;
             }
         }
     }

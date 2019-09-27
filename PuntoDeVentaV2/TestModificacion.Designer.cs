@@ -99,7 +99,7 @@
             this.panelUbicacion.Controls.Add(this.lbNombreUbicacion);
             this.panelUbicacion.Controls.Add(this.cbUbicaciones);
             this.panelUbicacion.Controls.Add(this.lbUbicacion);
-            this.panelUbicacion.Location = new System.Drawing.Point(12, 90);
+            this.panelUbicacion.Location = new System.Drawing.Point(426, 12);
             this.panelUbicacion.Name = "panelUbicacion";
             this.panelUbicacion.Size = new System.Drawing.Size(415, 55);
             this.panelUbicacion.TabIndex = 37;
@@ -138,11 +138,10 @@
             // 
             // panelGrupoA
             // 
-            this.panelGrupoA.Controls.Add(this.panel1);
             this.panelGrupoA.Controls.Add(this.panel2);
-            this.panelGrupoA.Location = new System.Drawing.Point(14, 131);
+            this.panelGrupoA.Location = new System.Drawing.Point(428, 73);
             this.panelGrupoA.Name = "panelGrupoA";
-            this.panelGrupoA.Size = new System.Drawing.Size(835, 61);
+            this.panelGrupoA.Size = new System.Drawing.Size(422, 61);
             this.panelGrupoA.TabIndex = 39;
             // 
             // panel1
@@ -150,7 +149,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.comboBox1);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(14, 73);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(408, 55);
             this.panel1.TabIndex = 35;
@@ -192,7 +191,7 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.comboBox2);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Location = new System.Drawing.Point(417, 3);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(415, 55);
             this.panel2.TabIndex = 36;
@@ -233,7 +232,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 323);
+            this.ClientSize = new System.Drawing.Size(863, 733);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelGrupoA);
             this.Controls.Add(this.panelUbicacion);
             this.Controls.Add(this.panelCategoria);
@@ -271,5 +271,31 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.FlowLayoutPanel panelContenido;
+        private System.Windows.Forms.Panel panelProveedor;
+        private System.Windows.Forms.Label lblTelProveedor;
+        private System.Windows.Forms.Label lblRFCProveedor;
+        private System.Windows.Forms.Label lblNombreProveedor;
+        private System.Windows.Forms.Label lbProveedor;
+        private System.Windows.Forms.ComboBox cbProveedores;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panelMenu;
+        private System.Windows.Forms.CheckBox chkUbicacion;
+        private System.Windows.Forms.CheckBox chkCategoria;
+        private System.Windows.Forms.CheckBox chkProveedor;
+        private System.Windows.Forms.Button btnAgregarUbicacion;
+        private System.Windows.Forms.Button btnAgregarCategoria;
+        private System.Windows.Forms.CheckBox checkUbicacion;
+        private System.Windows.Forms.CheckBox checkCategoria;
+        private System.Windows.Forms.Button btnAgregarProveedor;
+        private System.Windows.Forms.CheckBox checkProveedor;
     }
 }
