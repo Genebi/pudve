@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -48,12 +47,12 @@ namespace PuntoDeVentaV2
             //xmlDoc.Load(AppDomain.CurrentDomain.BaseDirectory + @"..\..\App.config");
             if (Properties.Settings.Default.TipoEjecucion == 1)
             {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo);
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
             }
 
             if (Properties.Settings.Default.TipoEjecucion == 2)
             {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo);
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
             }
             
             appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
@@ -157,12 +156,12 @@ namespace PuntoDeVentaV2
                     // we also have an ApplicationName.exe.config.
                     if (Properties.Settings.Default.TipoEjecucion == 1)
                     {
-                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo);
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
                     }
 
                     if (Properties.Settings.Default.TipoEjecucion == 2)
                     {
-                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo);
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
                     }
                     xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
 
@@ -174,12 +173,12 @@ namespace PuntoDeVentaV2
                     appSettingsNode.AppendChild(newChild);
                     if (Properties.Settings.Default.TipoEjecucion == 1)
                     {
-                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo);
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
                     }
 
                     if (Properties.Settings.Default.TipoEjecucion == 2)
                     {
-                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo);
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
                     }
                     xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
                 }
@@ -213,21 +212,21 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                string path = string.Empty;
+                //string path = string.Empty;
                 try
                 {
                     if (Properties.Settings.Default.TipoEjecucion == 1)
                     {
-                        path = Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo;
-                        MessageBox.Show("Path del Archivo de configuración: " + path, "Direccion de archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo);
+                        //path = Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo;
+                        //MessageBox.Show("Path del Archivo de configuración: " + path, "Direccion de archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
                     }
 
                     if (Properties.Settings.Default.TipoEjecucion == 2)
                     {
-                        path = Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo;
-                        MessageBox.Show("Path del Archivo de configuración: " + path, "Direccion de archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo);
+                        //path = Properties.Settings.Default.baseDirectory +Properties.Settings.Default.archivo;
+                        //MessageBox.Show("Path del Archivo de configuración: " + path, "Direccion de archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
                     }
                     xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
                 }
@@ -259,7 +258,7 @@ namespace PuntoDeVentaV2
                         //checkBox1.Text = childNode.Attributes["key"].Value;
                         //checkBox1.Checked = Convert.ToBoolean(childNode.Attributes["value"].Value.ToLower());
                         //txtValor.Text = childNode.Attributes["value"].Value.ToLower().ToString();
-                        MessageBox.Show("Nombre clave: " + childNode.Attributes["key"].Value + " Su valor: " + childNode.Attributes["value"].Value.ToLower().ToString(), "Valor y Clave", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("Nombre clave: " + childNode.Attributes["key"].Value + " Su valor: " + childNode.Attributes["value"].Value.ToLower().ToString(), "Valor y Clave", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         break;
                     }
                 }
@@ -295,8 +294,26 @@ namespace PuntoDeVentaV2
                         break;
                     }
                 }
-                xmlDoc.Save(baseDirectory + @"\" + archivo);
-                xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+
+                try
+                {
+                    if (Properties.Settings.Default.TipoEjecucion == 1)
+                    {
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+                    }
+
+                    if (Properties.Settings.Default.TipoEjecucion == 2)
+                    {
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+                    }
+                    xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(), "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                //xmlDoc.Save(baseDirectory + @"\" + archivo);
+                //xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
                 loadFormConfig();
                 //ReadKey(strKey);
                 MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).", "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
