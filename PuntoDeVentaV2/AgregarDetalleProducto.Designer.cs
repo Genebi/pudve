@@ -37,10 +37,10 @@
             this.fLPCentralDetalle = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddDetalle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnRenameDetalle = new System.Windows.Forms.Button();
             this.btnDeleteDetalle = new System.Windows.Forms.Button();
+            this.btnRenameDetalle = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCerrar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -145,20 +145,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Procedimientos de Detalles:";
             // 
-            // btnRenameDetalle
-            // 
-            this.btnRenameDetalle.BackColor = System.Drawing.Color.RoyalBlue;
-            this.btnRenameDetalle.FlatAppearance.BorderSize = 0;
-            this.btnRenameDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRenameDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnRenameDetalle.ForeColor = System.Drawing.Color.White;
-            this.btnRenameDetalle.Location = new System.Drawing.Point(10, 68);
-            this.btnRenameDetalle.Name = "btnRenameDetalle";
-            this.btnRenameDetalle.Size = new System.Drawing.Size(130, 28);
-            this.btnRenameDetalle.TabIndex = 30;
-            this.btnRenameDetalle.Text = "Renombrar";
-            this.btnRenameDetalle.UseVisualStyleBackColor = false;
-            // 
             // btnDeleteDetalle
             // 
             this.btnDeleteDetalle.BackColor = System.Drawing.Color.DarkRed;
@@ -173,9 +159,24 @@
             this.btnDeleteDetalle.Text = "Eliminar";
             this.btnDeleteDetalle.UseVisualStyleBackColor = false;
             // 
+            // btnRenameDetalle
+            // 
+            this.btnRenameDetalle.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRenameDetalle.FlatAppearance.BorderSize = 0;
+            this.btnRenameDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRenameDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnRenameDetalle.ForeColor = System.Drawing.Color.White;
+            this.btnRenameDetalle.Location = new System.Drawing.Point(10, 68);
+            this.btnRenameDetalle.Name = "btnRenameDetalle";
+            this.btnRenameDetalle.Size = new System.Drawing.Size(130, 28);
+            this.btnRenameDetalle.TabIndex = 30;
+            this.btnRenameDetalle.Text = "Renombrar";
+            this.btnRenameDetalle.UseVisualStyleBackColor = false;
+            this.btnRenameDetalle.Click += new System.EventHandler(this.btnRenameDetalle_Click);
+            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnCerrar);
             this.groupBox2.Controls.Add(this.btnGuardarDetalles);
             this.groupBox2.Location = new System.Drawing.Point(562, 546);
             this.groupBox2.Name = "groupBox2";
@@ -183,18 +184,20 @@
             this.groupBox2.TabIndex = 31;
             this.groupBox2.TabStop = false;
             // 
-            // button1
+            // btnCerrar
             // 
-            this.button1.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.button1.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(57, 63);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(180, 41);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "Cencelar";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnCerrar.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.btnCerrar.FlatAppearance.BorderSize = 0;
+            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCerrar.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnCerrar.ForeColor = System.Drawing.Color.White;
+            this.btnCerrar.Location = new System.Drawing.Point(57, 63);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(180, 41);
+            this.btnCerrar.TabIndex = 27;
+            this.btnCerrar.Text = "Cencelar";
+            this.btnCerrar.UseVisualStyleBackColor = false;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // AgregarDetalleProducto
             // 
@@ -236,6 +239,6 @@
         private System.Windows.Forms.Button btnDeleteDetalle;
         private System.Windows.Forms.Button btnRenameDetalle;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCerrar;
     }
 }
