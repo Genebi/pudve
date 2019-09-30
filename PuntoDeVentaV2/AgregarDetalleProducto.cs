@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.IO;
 using Microsoft.Win32;
+
 using System.Configuration;
 using System.Collections.Specialized;
 
@@ -29,7 +30,7 @@ namespace PuntoDeVentaV2
 
         bool habilitarComboBoxes = false;
 
-        #region Modifying Configuration Settings at Runtime
+#region Modifying Configuration Settings at Runtime
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode appSettingsNode, newChild;
         ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle
@@ -39,6 +40,9 @@ namespace PuntoDeVentaV2
         int found = 0;
         NameValueCollection appSettings;
 
+        // this code will add a listviewtem
+        // to a listview for each database entry
+        // in the appSettings section of an App.config file.
         private void loadFormConfig()
         {
             //xmlDoc.Load(AppDomain.CurrentDomain.BaseDirectory + @"..\..\App.config");
@@ -106,9 +110,197 @@ namespace PuntoDeVentaV2
             }
         }
 
+        // Force a reload of the changed section. This 
+        // makes the new values available for reading.
         public static void RefreshAppSettings()
         {
             ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        // Determines if a key exist within the App.config
+        public bool KeyExist(string strKey)
+        {
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+            if (appSettingsNode != null)
+            {
+                // Attempt to locate the requested setting.
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == strKey)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // Adds a key and value to the App.config
+        public void AddKey(string strKey, string strValue)
+        {
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+            try
+            {
+                if (KeyExist(strKey))
+                {
+                    //throw new ArgumentException("Nombre clave: <" + strKey + "> ya existe en la configuración.");
+                    MessageBox.Show("Nombre clave: <" + strKey + "> ya existe en la configuración.", "Setting Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    newChild = appSettingsNode.FirstChild.Clone();
+                    newChild.Attributes["key"].Value = strKey;
+                    newChild.Attributes["value"].Value = strValue.ToLower();
+                    appSettingsNode.AppendChild(newChild);
+                    // We have to save the configuration in tow places,
+                    // because while we have a root App.config,
+                    // we also have an ApplicationName.exe.config.
+                    if (Properties.Settings.Default.TipoEjecucion == 1)
+                    {
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo);
+                    }
+
+                    if (Properties.Settings.Default.TipoEjecucion == 2)
+                    {
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo);
+                    }
+                    xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+
+                    ReadKey(strKey);
+
+                    newChild = appSettingsNode.FirstChild.Clone();
+                    newChild.Attributes["key"].Value = "chk" + strKey;
+                    newChild.Attributes["value"].Value = strValue.ToLower();
+                    appSettingsNode.AppendChild(newChild);
+                    if (Properties.Settings.Default.TipoEjecucion == 1)
+                    {
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo);
+                    }
+
+                    if (Properties.Settings.Default.TipoEjecucion == 2)
+                    {
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo);
+                    }
+                    xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                MessageBox.Show("Tipo de error: " + ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Updates a key within the App.config
+        private void UpdateKey(string strKey, string newValue)
+        {
+            if (!KeyExist(strKey))
+            {
+                //throw new ArgumentNullException("Nombre clave", " <" + strKey + "> no existe en la configuración. Actualización fallida.");
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+                // Attempt to locate the requested settings.
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == strKey)
+                    {
+                        childNode.Attributes["value"].Value = newValue.ToLower();
+                        //txtNombre.Text = childNode.Attributes["key"].Value.ToString();
+                        break;
+                    }
+                }
+
+                string path = string.Empty;
+                try
+                {
+                    if (Properties.Settings.Default.TipoEjecucion == 1)
+                    {
+                        path = Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo;
+                        MessageBox.Show("Path del Archivo de configuración: " + path, "Direccion de archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\..\" + Properties.Settings.Default.archivo);
+                    }
+
+                    if (Properties.Settings.Default.TipoEjecucion == 2)
+                    {
+                        path = Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo;
+                        MessageBox.Show("Path del Archivo de configuración: " + path, "Direccion de archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + @"\" + Properties.Settings.Default.archivo);
+                    }
+                    xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error al Intentar actualizar el archivo de configuración: " + e.Message.ToString(), "Error de archivo de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                
+                //ReadKey(strKey);
+            }
+        }
+
+        // Read a key within the App.config
+        public void ReadKey(string strKey)
+        {
+            if (!KeyExist(strKey))
+            {
+                //throw new ArgumentNullException("Nombre clave", " <" + strKey + "> no existe en la configuración. Actualización fallida.");
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Busqueda fallida.", "Error al leer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+                // Attempt to locate the requested settings.
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == strKey)
+                    {
+                        //checkBox1.Text = childNode.Attributes["key"].Value;
+                        //checkBox1.Checked = Convert.ToBoolean(childNode.Attributes["value"].Value.ToLower());
+                        //txtValor.Text = childNode.Attributes["value"].Value.ToLower().ToString();
+                        MessageBox.Show("Nombre clave: " + childNode.Attributes["key"].Value + " Su valor: " + childNode.Attributes["value"].Value.ToLower().ToString(), "Valor y Clave", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Deletes a key from the App.config
+        public void DeleteKey(string strKey)
+        {
+            string chkSettingUsr = "chk" + strKey;
+
+            if (!KeyExist(strKey))
+            {
+                throw new ArgumentNullException("Nombre clave", "<" + strKey + "> no existe en la configuración. Imposible Borrar.");
+            }
+            else
+            {
+                appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+                // Attempt to locate the requested setting.
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == strKey)
+                    {
+                        appSettingsNode.RemoveChild(childNode);
+                        break;
+                    }
+                }
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == chkSettingUsr)
+                    {
+                        appSettingsNode.RemoveChild(childNode);
+                        break;
+                    }
+                }
+                xmlDoc.Save(baseDirectory + @"\" + archivo);
+                xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                loadFormConfig();
+                //ReadKey(strKey);
+                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).", "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void BuscarTextoListView(ListView lstListView)
@@ -215,12 +407,40 @@ namespace PuntoDeVentaV2
         
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
-
+            CheckBox chekBoxClickDetalle = sender as CheckBox;
+            string name = string.Empty, value = string.Empty;
+            if (chekBoxClickDetalle.Checked == true)
+            {
+                name = chekBoxClickDetalle.Name.ToString();
+                value = chekBoxClickDetalle.Checked.ToString();
+            }
+            else if (chekBoxClickDetalle.Checked == false)
+            {
+                name = chekBoxClickDetalle.Name.ToString();
+                value = chekBoxClickDetalle.Checked.ToString();
+            }
+            UpdateKey(name, value);
+            RefreshAppSettings();
+            loadFormConfig();
         }
-
+        
         private void checkBoxSetting_CheckedChanged(object sender, EventArgs e)
         {
-            
+            CheckBox checkBoxClickSetting = sender as CheckBox;
+            string name = string.Empty, value = string.Empty;
+            if (checkBoxClickSetting.Checked == true)
+            {
+                name = checkBoxClickSetting.Name.ToString();
+                value = checkBoxClickSetting.Checked.ToString();
+            }
+            else if (checkBoxClickSetting.Checked == false)
+            {
+                name = checkBoxClickSetting.Name.ToString();
+                value = checkBoxClickSetting.Checked.ToString();
+            }
+            UpdateKey(name, value);
+            RefreshAppSettings();
+            loadFormConfig();
         }
 
         private void ClickBotonesProductos(object sender, EventArgs e)
@@ -228,7 +448,7 @@ namespace PuntoDeVentaV2
 
         }
 
-        #endregion Modifying Configuration Settings at Runtime
+#endregion Modifying Configuration Settings at Runtime
 
         public AgregarDetalleProducto()
         {
