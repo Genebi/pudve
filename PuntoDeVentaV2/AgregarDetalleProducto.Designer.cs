@@ -35,9 +35,16 @@
             this.fLPLateralConcepto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.fLPCentralDetalle = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAddDetalle = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnRenameDetalle = new System.Windows.Forms.Button();
+            this.btnDeleteDetalle = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // separadorInicial
@@ -63,11 +70,11 @@
             this.btnGuardarDetalles.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarDetalles.FlatAppearance.BorderSize = 0;
             this.btnGuardarDetalles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardarDetalles.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarDetalles.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarDetalles.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarDetalles.Location = new System.Drawing.Point(656, 621);
+            this.btnGuardarDetalles.Location = new System.Drawing.Point(57, 13);
             this.btnGuardarDetalles.Name = "btnGuardarDetalles";
-            this.btnGuardarDetalles.Size = new System.Drawing.Size(180, 28);
+            this.btnGuardarDetalles.Size = new System.Drawing.Size(180, 41);
             this.btnGuardarDetalles.TabIndex = 26;
             this.btnGuardarDetalles.Text = "Guardar";
             this.btnGuardarDetalles.UseVisualStyleBackColor = false;
@@ -96,39 +103,108 @@
             this.panel2.Controls.Add(this.fLPCentralDetalle);
             this.panel2.Location = new System.Drawing.Point(223, 55);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(618, 545);
+            this.panel2.Size = new System.Drawing.Size(618, 474);
             this.panel2.TabIndex = 28;
             // 
             // fLPCentralDetalle
             // 
+            this.fLPCentralDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fLPCentralDetalle.AutoScroll = true;
             this.fLPCentralDetalle.Location = new System.Drawing.Point(5, 5);
             this.fLPCentralDetalle.Name = "fLPCentralDetalle";
-            this.fLPCentralDetalle.Size = new System.Drawing.Size(608, 533);
+            this.fLPCentralDetalle.Size = new System.Drawing.Size(608, 463);
             this.fLPCentralDetalle.TabIndex = 0;
+            this.fLPCentralDetalle.WrapContents = false;
+            // 
+            // btnAddDetalle
+            // 
+            this.btnAddDetalle.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnAddDetalle.FlatAppearance.BorderSize = 0;
+            this.btnAddDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnAddDetalle.ForeColor = System.Drawing.Color.White;
+            this.btnAddDetalle.Location = new System.Drawing.Point(10, 28);
+            this.btnAddDetalle.Name = "btnAddDetalle";
+            this.btnAddDetalle.Size = new System.Drawing.Size(266, 28);
+            this.btnAddDetalle.TabIndex = 29;
+            this.btnAddDetalle.Text = "Agregar";
+            this.btnAddDetalle.UseVisualStyleBackColor = false;
+            this.btnAddDetalle.Click += new System.EventHandler(this.btnAddDetalle_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnDeleteDetalle);
+            this.groupBox1.Controls.Add(this.btnRenameDetalle);
+            this.groupBox1.Controls.Add(this.btnAddDetalle);
+            this.groupBox1.Location = new System.Drawing.Point(228, 546);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(289, 115);
+            this.groupBox1.TabIndex = 30;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Procedimientos de Detalles:";
+            // 
+            // btnRenameDetalle
+            // 
+            this.btnRenameDetalle.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRenameDetalle.FlatAppearance.BorderSize = 0;
+            this.btnRenameDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRenameDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnRenameDetalle.ForeColor = System.Drawing.Color.White;
+            this.btnRenameDetalle.Location = new System.Drawing.Point(10, 68);
+            this.btnRenameDetalle.Name = "btnRenameDetalle";
+            this.btnRenameDetalle.Size = new System.Drawing.Size(130, 28);
+            this.btnRenameDetalle.TabIndex = 30;
+            this.btnRenameDetalle.Text = "Renombrar";
+            this.btnRenameDetalle.UseVisualStyleBackColor = false;
+            // 
+            // btnDeleteDetalle
+            // 
+            this.btnDeleteDetalle.BackColor = System.Drawing.Color.DarkRed;
+            this.btnDeleteDetalle.FlatAppearance.BorderSize = 0;
+            this.btnDeleteDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnDeleteDetalle.ForeColor = System.Drawing.Color.White;
+            this.btnDeleteDetalle.Location = new System.Drawing.Point(146, 68);
+            this.btnDeleteDetalle.Name = "btnDeleteDetalle";
+            this.btnDeleteDetalle.Size = new System.Drawing.Size(130, 28);
+            this.btnDeleteDetalle.TabIndex = 31;
+            this.btnDeleteDetalle.Text = "Eliminar";
+            this.btnDeleteDetalle.UseVisualStyleBackColor = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnGuardarDetalles);
+            this.groupBox2.Location = new System.Drawing.Point(562, 546);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(279, 115);
+            this.groupBox2.TabIndex = 31;
+            this.groupBox2.TabStop = false;
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.ForestGreen;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.button1.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.button1.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(470, 621);
+            this.button1.Location = new System.Drawing.Point(57, 63);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(180, 28);
-            this.button1.TabIndex = 29;
-            this.button1.Text = "Agregar Detalle";
+            this.button1.Size = new System.Drawing.Size(180, 41);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Cencelar";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 666);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnGuardarDetalles);
             this.Controls.Add(this.txtFiltrar);
             this.Controls.Add(this.separadorInicial);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
@@ -140,6 +216,8 @@
             this.Shown += new System.EventHandler(this.AgregarDetalleProducto_Shown);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -153,6 +231,11 @@
         private System.Windows.Forms.FlowLayoutPanel fLPLateralConcepto;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.FlowLayoutPanel fLPCentralDetalle;
+        private System.Windows.Forms.Button btnAddDetalle;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnDeleteDetalle;
+        private System.Windows.Forms.Button btnRenameDetalle;
+        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button1;
     }
 }

@@ -482,6 +482,25 @@ namespace PuntoDeVentaV2
             //MessageBox.Show("Variable de Setting:\nPath: " + Properties.Settings.Default.PathDebug + "\nArchivo: " + Properties.Settings.Default.FileDebug, "Variables Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAddDetalle_Click(object sender, EventArgs e)
+        {
+            int XPos = 0, YPos = 0;
+            string nvoDetalle = string.Empty, nvoValor = string.Empty;
+            nvoValor = "false";
+            XPos = this.Width / 2;
+            YPos = this.Height / 2;
+            nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
+            AddKey(nvoDetalle, nvoValor);
+            RefreshAppSettings();
+            loadFormConfig();
+            BuscarTextoListView(settingDatabases);
+        }
+
         //private void verificarCheckboxLista()
         //{
         //    optionList = new List<string>();
