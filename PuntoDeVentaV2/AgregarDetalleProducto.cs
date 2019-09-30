@@ -29,7 +29,15 @@ namespace PuntoDeVentaV2
 
         bool habilitarComboBoxes = false;
 
-#region Modifying Configuration Settings at Runtime
+        int XPos = 0, YPos = 0;
+        string nvoDetalle = string.Empty, nvoValor = string.Empty, editValor = string.Empty;
+
+        public string getOldValue { get; set; }
+        public string getNewValue { get; set; }
+
+        string editDetelle = string.Empty, editDetalleNvo = string.Empty;
+
+        #region Modifying Configuration Settings at Runtime
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode appSettingsNode, newChild;
         ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle
@@ -207,6 +215,33 @@ namespace PuntoDeVentaV2
                     if (childNode.Attributes["key"].Value == strKey)
                     {
                         childNode.Attributes["value"].Value = newValue.ToLower();
+                        if (!editDetalleNvo.Equals(""))
+                        {
+                            childNode.Attributes["key"].Value = editDetalleNvo;
+                        }
+                        if (!editDetalleNvo.Equals("") && strKey.Equals(""))
+                        {
+                            childNode.Attributes["key"].Value = strKey;
+                        }
+                        //txtNombre.Text = childNode.Attributes["key"].Value.ToString();
+                        break;
+                    }
+                }
+
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == "chk" + strKey)
+                    {
+                        ReadKey("chk" + strKey);
+                        childNode.Attributes["value"].Value = editValor.ToLower();
+                        if (!editDetalleNvo.Equals(""))
+                        {
+                            childNode.Attributes["key"].Value = "chk" + editDetalleNvo;
+                        }
+                        if (!editDetalleNvo.Equals("") && strKey.Equals(""))
+                        {
+                            childNode.Attributes["key"].Value = "chk" + strKey;
+                        }
                         //txtNombre.Text = childNode.Attributes["key"].Value.ToString();
                         break;
                     }
@@ -259,6 +294,7 @@ namespace PuntoDeVentaV2
                         //checkBox1.Checked = Convert.ToBoolean(childNode.Attributes["value"].Value.ToLower());
                         //txtValor.Text = childNode.Attributes["value"].Value.ToLower().ToString();
                         //MessageBox.Show("Nombre clave: " + childNode.Attributes["key"].Value + " Su valor: " + childNode.Attributes["value"].Value.ToLower().ToString(), "Valor y Clave", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        editValor = childNode.Attributes["value"].Value.ToLower().ToString();
                         break;
                     }
                 }
@@ -436,7 +472,7 @@ namespace PuntoDeVentaV2
                 name = chekBoxClickDetalle.Name.ToString();
                 value = chekBoxClickDetalle.Checked.ToString();
             }
-            UpdateKey(name, value);
+            //UpdateKey(name, value);
             RefreshAppSettings();
             loadFormConfig();
         }
@@ -455,7 +491,7 @@ namespace PuntoDeVentaV2
                 name = checkBoxClickSetting.Name.ToString();
                 value = checkBoxClickSetting.Checked.ToString();
             }
-            UpdateKey(name, value);
+            //UpdateKey(name, value);
             RefreshAppSettings();
             loadFormConfig();
         }
@@ -482,23 +518,53 @@ namespace PuntoDeVentaV2
             //MessageBox.Show("Variable de Setting:\nPath: " + Properties.Settings.Default.PathDebug + "\nArchivo: " + Properties.Settings.Default.FileDebug, "Variables Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         private void btnAddDetalle_Click(object sender, EventArgs e)
         {
-            int XPos = 0, YPos = 0;
-            string nvoDetalle = string.Empty, nvoValor = string.Empty;
             nvoValor = "false";
             XPos = this.Width / 2;
             YPos = this.Height / 2;
             nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
-            AddKey(nvoDetalle, nvoValor);
+            if (!nvoDetalle.Equals(""))
+            {
+                AddKey(nvoDetalle, nvoValor);
+                RefreshAppSettings();
+                loadFormConfig();
+                BuscarTextoListView(settingDatabases);
+                editDetelle = string.Empty;
+                editDetalleNvo = string.Empty;
+            }
+            else if (nvoDetalle.Equals(""))
+            {
+                MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRenameDetalle_Click(object sender, EventArgs e)
+        {
+            //XPos = this.Width / 2;
+            //YPos = this.Height / 2;
+            //editDetelle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
+            RenombrarDetalle renameDetail = new RenombrarDetalle();
+            renameDetail.nombreDetalle += new RenombrarDetalle.pasarOldNameNewName(ejecutar);
+            renameDetail.ShowDialog();
+            ReadKey(editDetelle);
+            UpdateKey(editDetelle, editValor);
             RefreshAppSettings();
             loadFormConfig();
             BuscarTextoListView(settingDatabases);
+            editDetelle = string.Empty;
+            editDetalleNvo = string.Empty;
+        }
+
+        private void ejecutar(string oldName, string newName)
+        {
+            editDetelle = oldName;
+            editDetalleNvo = newName;
         }
 
         //private void verificarCheckboxLista()

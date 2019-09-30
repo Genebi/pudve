@@ -427,6 +427,12 @@
     <Compile Include="Registro.Designer.cs">
       <DependentUpon>Registro.cs</DependentUpon>
     </Compile>
+    <Compile Include="RenombrarDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RenombrarDetalle.Designer.cs">
+      <DependentUpon>RenombrarDetalle.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteFinalRevisarInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -611,6 +617,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Registro.resx">
       <DependentUpon>Registro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RenombrarDetalle.resx">
+      <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteFinalRevisarInventario.resx">
       <DependentUpon>ReporteFinalRevisarInventario.cs</DependentUpon>
