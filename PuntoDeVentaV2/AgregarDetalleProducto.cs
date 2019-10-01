@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
         bool habilitarComboBoxes = false;
 
         int XPos = 0, YPos = 0;
-        string nvoDetalle = string.Empty, nvoValor = string.Empty, editValor = string.Empty;
+        string nvoDetalle = string.Empty, nvoValor = string.Empty, editValor = string.Empty, deleteDetalle = string.Empty;
 
         public string getOldValue { get; set; }
         public string getNewValue { get; set; }
@@ -518,6 +518,35 @@ namespace PuntoDeVentaV2
             //MessageBox.Show("Variable de Setting:\nPath: " + Properties.Settings.Default.PathDebug + "\nArchivo: " + Properties.Settings.Default.FileDebug, "Variables Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void btnDeleteDetalle_Click(object sender, EventArgs e)
+        {
+            XPos = this.Width / 2;
+            YPos = this.Height / 2;
+            deleteDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Detalle a Eliminar:", "Detalle a Eliminar", "Escriba aquí su Detalle a Eliminar", XPos, YPos);
+            try
+            {
+                if (!deleteDetalle.Equals(""))
+                {
+                    if (KeyExist(deleteDetalle))
+                    {
+                        DeleteKey(deleteDetalle);
+                        RefreshAppSettings();
+                        loadFormConfig();
+                        BuscarTextoListView(settingDatabases);
+                        deleteDetalle = string.Empty;
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -529,18 +558,25 @@ namespace PuntoDeVentaV2
             XPos = this.Width / 2;
             YPos = this.Height / 2;
             nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
-            if (!nvoDetalle.Equals(""))
+            try
             {
-                AddKey(nvoDetalle, nvoValor);
-                RefreshAppSettings();
-                loadFormConfig();
-                BuscarTextoListView(settingDatabases);
-                editDetelle = string.Empty;
-                editDetalleNvo = string.Empty;
+                if (!nvoDetalle.Equals(""))
+                {
+                    AddKey(nvoDetalle, nvoValor);
+                    RefreshAppSettings();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
+                    editDetelle = string.Empty;
+                    editDetalleNvo = string.Empty;
+                }
+                else if (nvoDetalle.Equals(""))
+                {
+                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else if (nvoDetalle.Equals(""))
+            catch (Exception ex)
             {
-                MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -552,11 +588,18 @@ namespace PuntoDeVentaV2
             RenombrarDetalle renameDetail = new RenombrarDetalle();
             renameDetail.nombreDetalle += new RenombrarDetalle.pasarOldNameNewName(ejecutar);
             renameDetail.ShowDialog();
-            ReadKey(editDetelle);
-            UpdateKey(editDetelle, editValor);
-            RefreshAppSettings();
-            loadFormConfig();
-            BuscarTextoListView(settingDatabases);
+            if (!KeyExist(editDetalleNvo))
+            {
+                ReadKey(editDetelle);
+                UpdateKey(editDetelle, editValor);
+                RefreshAppSettings();
+                loadFormConfig();
+                BuscarTextoListView(settingDatabases);
+            }
+            else
+            {
+                MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             editDetelle = string.Empty;
             editDetalleNvo = string.Empty;
         }

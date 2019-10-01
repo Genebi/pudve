@@ -158,6 +158,7 @@
             this.btnDeleteDetalle.TabIndex = 31;
             this.btnDeleteDetalle.Text = "Eliminar";
             this.btnDeleteDetalle.UseVisualStyleBackColor = false;
+            this.btnDeleteDetalle.Click += new System.EventHandler(this.btnDeleteDetalle_Click);
             // 
             // btnRenameDetalle
             // 
