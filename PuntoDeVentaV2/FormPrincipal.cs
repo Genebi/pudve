@@ -195,7 +195,7 @@ namespace PuntoDeVentaV2
 
         private void btnCaja_Click(object sender, EventArgs e)
         {
-            AbrirFormulario<Caja>();
+            AbrirFormulario<CajaN>();
         }
 
         private void btnInventario_Click(object sender, EventArgs e)

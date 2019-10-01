@@ -16,5 +16,29 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
         }
+
+        private void btnReporteAgregar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Reporte agregar");
+        }
+
+        private void btnReporteRetirar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Reporte retirar");
+        }
+
+        private void btnAgregarDinero_Click(object sender, EventArgs e)
+        {
+            AgregarRetirarDinero agregar = new AgregarRetirarDinero();
+
+            agregar.ShowDialog();
+        }
+
+        private void btnRetirarDinero_Click(object sender, EventArgs e)
+        {
+            AgregarRetirarDinero retirar = new AgregarRetirarDinero();
+
+            retirar.ShowDialog();
+        }
     }
 }

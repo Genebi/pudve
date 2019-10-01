@@ -198,6 +198,12 @@
     <Compile Include="AgregarProveedor.Designer.cs">
       <DependentUpon>AgregarProveedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="AgregarRetirarDinero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarRetirarDinero.Designer.cs">
+      <DependentUpon>AgregarRetirarDinero.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarStockXML.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -245,6 +251,12 @@
     </Compile>
     <Compile Include="Caja.Designer.cs">
       <DependentUpon>Caja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CajaN.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CajaN.Designer.cs">
+      <DependentUpon>CajaN.cs</DependentUpon>
     </Compile>
     <Compile Include="CantidadProdServicio.cs">
       <SubType>Form</SubType>
@@ -505,6 +517,9 @@
     <EmbeddedResource Include="AgregarProveedor.resx">
       <DependentUpon>AgregarProveedor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AgregarRetirarDinero.resx">
+      <DependentUpon>AgregarRetirarDinero.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarStockXML.resx">
       <DependentUpon>AgregarStockXML.cs</DependentUpon>
     </EmbeddedResource>
@@ -528,6 +543,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Caja.resx">
       <DependentUpon>Caja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CajaN.resx">
+      <DependentUpon>CajaN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CantidadProdServicio.resx">
       <DependentUpon>CantidadProdServicio.cs</DependentUpon>
