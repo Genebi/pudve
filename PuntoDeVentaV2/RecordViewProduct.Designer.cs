@@ -280,9 +280,9 @@
             this.label12.Location = new System.Drawing.Point(183, 84);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(89, 13);
+            this.label12.Size = new System.Drawing.Size(94, 13);
             this.label12.TabIndex = 17;
-            this.label12.Text = "Precio de  Venta:";
+            this.label12.Text = "Precio de Compra:";
             // 
             // lblPrecioCompra
             // 
@@ -372,9 +372,9 @@
             this.label14.Location = new System.Drawing.Point(183, 107);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(94, 13);
+            this.label14.Size = new System.Drawing.Size(86, 13);
             this.label14.TabIndex = 7;
-            this.label14.Text = "Precio de Compra:";
+            this.label14.Text = "Precio de Venta:";
             // 
             // label13
             // 

@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         public string ProdNombre { get; set; }
         public string ProdStock { get; set; }
         public string ProdPrecio { get; set; }
+        public string ProdPrecioCompra { get; set; }
         public string ProdCategoria { get; set; }
         public string ProdClaveInterna { get; set; }
         public string ProdCodBarras { get; set; }
@@ -33,6 +34,7 @@ namespace PuntoDeVentaV2
         static public string ProdNombreFin = "";
         static public string ProdStockFin = "";
         static public string ProdPrecioFin = "";
+        static public string ProdPrecioCompraFin = "";
         static public string ProdCategoriaFin = "";
         static public string ProdClaveInternaFin = "";
         static public string ProdCodBarrasFin = "";
@@ -44,7 +46,7 @@ namespace PuntoDeVentaV2
         static public string UnidadMedidaXMLProdServicio = "";
         static public string DescuentoXMLNvoProdServicio = "";
 
-        float stockNvo, precioNvo;
+        float stockNvo, precioNvo, PrecioCompraNvo;
 
         string baseProducto = null;
         string ivaProducto = null;
@@ -173,6 +175,7 @@ namespace PuntoDeVentaV2
             ProdNombreFin = ProdNombre;
             ProdStockFin = ProdStock;
             ProdPrecioFin = ProdPrecio;
+            ProdPrecioCompraFin = ProdPrecioCompra;
             ProdCategoriaFin = ProdCategoria;
             ProdClaveInternaFin = ProdClaveInterna;
             ProdCodBarrasFin = ProdCodBarras;
@@ -188,7 +191,8 @@ namespace PuntoDeVentaV2
             txtNombreProducto.Text = ProdNombreFin;
             txtStockProducto.Text = ProdStockFin;
             cargarPrecio();
-            txtPrecioProducto.Text = precioNvo.ToString("N2");
+            txtPrecioVentaProducto.Text = precioNvo.ToString("N2");
+            txtPrecioCompra.Text = PrecioCompraNvo.ToString("N2");
             txtCategoriaProducto.Text = ProdCategoriaFin;
             txtClaveProducto.Text = ProdClaveInternaFin;
             txtCodigoBarras.Text = ProdCodBarrasFin;
@@ -396,6 +400,7 @@ namespace PuntoDeVentaV2
             stockNvo = (float)Convert.ToDouble(txtStockProducto.Text) * AgregarStockXML.stockProdXML;
             txtStockProducto.Text = stockNvo.ToString();
             precioNvo = ((float)Convert.ToDouble(ProdPrecioFin) * AgregarStockXML.stockProdXML) / stockNvo;
+            PrecioCompraNvo = (float)Convert.ToDouble(ProdPrecioCompraFin);
         }
 
         public void cargarDatosExtra()
@@ -484,7 +489,7 @@ namespace PuntoDeVentaV2
             nombre = txtNombreProducto.Text;
             ProdNombre = nombre;
             stock = txtStockProducto.Text;
-            precio = txtPrecioProducto.Text;
+            precio = txtPrecioVentaProducto.Text;
             categoria = txtCategoriaProducto.Text;
             claveIn = txtClaveProducto.Text;
             codigoB = txtCodigoBarras.Text;
@@ -527,7 +532,7 @@ namespace PuntoDeVentaV2
                     //Se obtiene la ID del último producto agregado
                     idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
-                    string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{txtPrecioProducto.Text}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
+                    string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{txtPrecioCompra.Text}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
                     try
                     {
                         cn.EjecutarConsulta(query);

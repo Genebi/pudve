@@ -549,6 +549,9 @@ namespace PuntoDeVentaV2
 
         public void cargarDatos()
         {
+            DataTable dtHistorialCompras;
+            DataRow rowHistorialCompras;
+
             ProdNombreFinal = ProdNombre;
             ProdStockFinal = ProdStock;
             ProdPrecioFinal = ProdPrecio;
@@ -572,11 +575,25 @@ namespace PuntoDeVentaV2
                 ClaveProdEmisorXMLNvoProd = ClaveProdEmisorProdXML;
                 DescuentoXMLNvoProd = DescuentoProdXML;
                 PrecioCompraXMLNvoProd = PrecioCompraXML;
+                txtPrecioCompra.Text = PrecioCompraXMLNvoProd;
             }
 
             txtNombreProducto.Text = ProdNombreFinal;
             txtStockProducto.Text = ProdStockFinal;
-            txtPrecioCompra.Text = ProdPrecioFinal;
+            if (!DatosSourceFinal.Equals(3))
+            {
+                dtHistorialCompras = cn.CargarDatos(cs.CargarHistorialDeCompras(idProductoFinal));
+                if (dtHistorialCompras.Rows.Count > 0)
+                {
+                    rowHistorialCompras = dtHistorialCompras.Rows[0];
+                    //txtPrecioCompra.Text = PrecioCompraXMLNvoProd;
+                    txtPrecioCompra.Text = rowHistorialCompras["ValorUnitario"].ToString();
+                }
+                else
+                {
+                    txtPrecioCompra.Text = "";
+                }
+            }
             txtPrecioProducto.Text = ProdPrecioFinal;
             txtCategoriaProducto.Text = ProdCategoriaFinal;
             txtClaveProducto.Text = ProdClaveInternaFinal.Trim();
@@ -3099,6 +3116,8 @@ namespace PuntoDeVentaV2
             nvoProductoAdd.ProdStock = CantProdServFinal;
             float price = (float)Convert.ToDouble(txtPrecioProducto.Text);
             nvoProductoAdd.ProdPrecio = price.ToString();
+            float priceCompra = (float)Convert.ToDouble(PrecioCompraXML) / Convert.ToUInt32(CantProdServFinal);
+            nvoProductoAdd.ProdPrecioCompra = priceCompra.ToString();
             nvoProductoAdd.ProdCategoria = "";
             nvoProductoAdd.ProdClaveInterna = "";
             nvoProductoAdd.ProdCodBarras = "";

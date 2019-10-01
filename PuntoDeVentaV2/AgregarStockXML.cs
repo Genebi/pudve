@@ -213,7 +213,7 @@ namespace PuntoDeVentaV2
         float cantidad;                         // convertimos el cantidad del Archivo XML para su posterior manipulacion
         float precioOriginalSinIVA;             // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
         float precioOriginalConIVA;             // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
-        public static float PrecioRecomendado;                // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
+        public static float PrecioRecomendado;  // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
         float importeReal;                      // calculamos importe real (cantidad * precioOriginalConIVA)
         float PrecioProd;                       // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
         float PrecioProdToCompare;              // almacenamos el precio sugerido para hacer la comparacion
@@ -296,6 +296,7 @@ namespace PuntoDeVentaV2
                 FormAgregar.NobEmisorProdXML = ds.Emisor.Nombre;
                 FormAgregar.ClaveProdEmisorProdXML = ds.Conceptos[index - 1].ClaveProdServ;
                 FormAgregar.DescuentoProdXML = ds.Conceptos[index - 1].Descuento;
+                FormAgregar.PrecioCompraXML = precioOriginalConIVA.ToString("N2");
             }
             //Asignamos el impuesto y el importe
             /*var cadena = ObtenerImpuestos(rutaXML, index - 1);
@@ -981,10 +982,10 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Error: " + ex.Message.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            precioOriginalSinIVA = (importe - descuento) / cantidad;                        // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
-            precioOriginalConIVA = precioOriginalSinIVA * (float)1.16;                      // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
+            precioOriginalSinIVA = (importe - descuento) / cantidad; // Calculamos el precio Original Sin IVA (importe - descuento)/cantidad
+            precioOriginalConIVA = precioOriginalSinIVA * (float)1.16; // Calculamos el precio Original Con IVA (precioOriginalSinIVA)*1.16
             lblPrecioOriginalXML.Text = precioOriginalConIVA.ToString("N2");
-            importeReal = cantidad * precioOriginalConIVA;                                  // calculamos importe real (cantidad * precioOriginalConIVA)
+            importeReal = cantidad * precioOriginalConIVA; // calculamos importe real (cantidad * precioOriginalConIVA)
             lblImpXML.Text = importeReal.ToString("N2");
             if (index == 0)
             {
@@ -1009,7 +1010,7 @@ namespace PuntoDeVentaV2
                 }
             }
             lblNoIdentificacionXML.Text = ClaveInterna;
-            PrecioRecomendado = precioOriginalConIVA * (float)1.60;             // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
+            PrecioRecomendado = precioOriginalConIVA * (float)1.60; // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
             try
             {
