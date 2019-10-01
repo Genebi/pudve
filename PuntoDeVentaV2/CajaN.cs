@@ -31,12 +31,22 @@ namespace PuntoDeVentaV2
         {
             AgregarRetirarDinero agregar = new AgregarRetirarDinero();
 
+            agregar.FormClosed += delegate
+            {
+
+            };
+
             agregar.ShowDialog();
         }
 
         private void btnRetirarDinero_Click(object sender, EventArgs e)
         {
-            AgregarRetirarDinero retirar = new AgregarRetirarDinero();
+            AgregarRetirarDinero retirar = new AgregarRetirarDinero(1);
+
+            retirar.FormClosed += delegate
+            {
+
+            };
 
             retirar.ShowDialog();
         }
