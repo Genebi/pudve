@@ -21,7 +21,13 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        #region Variables Globales
+
         List<string> optionList;
+
+        Dictionary<string, string> proveedores;
+
+        string[] datos;
 
         string[] listaProveedores = new string[] { };
         string[] listaCategorias = new string[] { };
@@ -37,7 +43,10 @@ namespace PuntoDeVentaV2
 
         string editDetelle = string.Empty, editDetalleNvo = string.Empty;
 
+        #endregion Variables Globales
+
         #region Modifying Configuration Settings at Runtime
+
         XmlDocument xmlDoc = new XmlDocument();
         XmlNode appSettingsNode, newChild;
         ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle
@@ -482,15 +491,74 @@ namespace PuntoDeVentaV2
                 {
                     nombrePanelContenido = "panelContenido" + chekBoxClickDetalle.Name.ToString();
 
-                    panelContenedor.Width = 590;
-                    panelContenedor.Height = 50;
-                    panelContenedor.BackColor = Color.Aqua;
+                    panelContenedor.Width = 600;
+                    panelContenedor.Height = 60;
+                    //panelContenedor.BackColor = Color.Aqua;
+                    panelContenedor.BackColor = Color.LightGray;
 
                     panelContenido.Name = nombrePanelContenido;
                     panelContenido.Width = 580;
-                    panelContenido.Height = 45;
-                    panelContenido.BackColor = Color.Brown;
+                    panelContenido.Height = 55;
+                    //panelContenido.BackColor = Color.Brown;
 
+                    Label lblNombreProveedor = new Label();
+                    lblNombreProveedor.Width = 190;
+                    lblNombreProveedor.Height = 20;
+                    lblNombreProveedor.Location = new Point(0, 33);
+                    lblNombreProveedor.BackColor = Color.Aquamarine;
+                    panelContenido.Controls.Add(lblNombreProveedor);
+
+                    Label lblRFCProveedor = new Label();
+                    lblRFCProveedor.Width = 190;
+                    lblRFCProveedor.Height = 20;
+                    lblRFCProveedor.Location = new Point(193, 33);
+                    lblRFCProveedor.BackColor = Color.AntiqueWhite;
+                    panelContenido.Controls.Add(lblRFCProveedor);
+
+                    int XcbProv = 0;
+                    CargarProveedores();
+                    XcbProv = panelContenido.Width / 2;
+
+                    ComboBox cbProveedor = new ComboBox();
+                    cbProveedor.Width = 400;
+                    cbProveedor.Height = 30;
+                    cbProveedor.Location = new Point(XcbProv-(cbProveedor.Width/2), 5);
+                    if (listaProveedores.Length > 0)
+                    {
+                        cbProveedor.DataSource = proveedores.ToArray();
+                        cbProveedor.DisplayMember = "Value";
+                        cbProveedor.ValueMember = "Key";
+                        cbProveedor.SelectedValue = "0";
+
+                        // Cuando se da click en la opcion editar producto
+                        if (AgregarEditarProducto.DatosSourceFinal == 2)
+                        {
+                            var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                            var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                            // MessageBox.Show(idProveedor[0].ToString());
+                            if (idProveedor.Length > 0)
+                            {
+                                if (Convert.ToInt32(idProveedor[0].ToString()) > 0)
+                                {
+                                    cbProveedor.SelectedValue = idProveedor;
+                                    cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
+                                    if (!datos.Equals(null))
+                                    {
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if(cbProveedor.Items.Count == 0)
+                    {
+                        cbProveedor.Items.Add("Seleccionar un proveedor...");
+                        cbProveedor.SelectedIndex = 0;
+                    }
+                    cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                    panelContenido.Controls.Add(cbProveedor);
                     panelContenedor.Controls.Add(panelContenido);
                 }
                 else
@@ -498,13 +566,14 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + chekBoxClickDetalle.Name.ToString();
 
                     panelContenedor.Width = 196;
-                    panelContenedor.Height = 50;
-                    panelContenedor.BackColor = Color.AliceBlue;
+                    panelContenedor.Height = 60;
+                    //panelContenedor.BackColor = Color.AliceBlue;
+                    panelContenedor.BackColor = Color.LightGray;
 
                     panelContenido.Name = nombrePanelContenido;
                     panelContenido.Width = 185;
-                    panelContenido.Height = 45;
-                    panelContenido.BackColor = Color.Brown;
+                    panelContenido.Height = 55;
+                    //panelContenido.BackColor = Color.Brown;
 
                     panelContenedor.Controls.Add(panelContenido);
                 }
@@ -521,6 +590,17 @@ namespace PuntoDeVentaV2
             RefreshAppSettings();
             loadFormConfig();
         }
+
+
+        private void cargarDatosProveedor(int idProveedor)
+        {
+            // Para que no de error ya que nunca va a existir un proveedor en ID = 0
+            if (idProveedor > 0)
+            {
+                datos = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
+            }
+        }
+
 
         private void encontrarPanel(string panelBuscado)
         {
@@ -558,7 +638,31 @@ namespace PuntoDeVentaV2
 
         }
 
-#endregion Modifying Configuration Settings at Runtime
+        #endregion Modifying Configuration Settings at Runtime
+
+        #region Proveedores Categorias Ubicaciones
+
+        private void CargarProveedores()
+        {
+            // Asignamos el Array con los nombres de los proveedores al comboBox
+            listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+
+            // Comprobar que ya exista al menos un Proveedor
+            if (listaProveedores.Length > 0)
+            {
+                proveedores = new Dictionary<string, string>();
+
+                proveedores.Add("0", "Seleccionar un proveedor...");
+
+                foreach (var proveedor in listaProveedores)
+                {
+                    var tmp = proveedor.Split('-');
+                    proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
+                }
+            }
+        }
+        
+        #endregion Proveedores Categorias Ubicaciones
 
         public AgregarDetalleProducto()
         {

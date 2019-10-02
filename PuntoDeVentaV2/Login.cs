@@ -287,7 +287,7 @@ namespace PuntoDeVentaV2
             // Cuando estemos en Releasa Descomenta estas dos siguientes lineas
 
             //Properties.Settings.Default.baseDirectory = System.Windows.Forms.Application.StartupPath.ToString();
-            //Properties.Settings.Default.archivo = "ModifyingSettingsAtRuntimeApp.exe.config";
+            //Properties.Settings.Default.archivo = @"\PuntoDeVentaV2.exe.config";
             //Properties.Settings.Default.TipoEjecucion = 2;
 
             Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
