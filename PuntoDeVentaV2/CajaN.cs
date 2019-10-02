@@ -50,5 +50,10 @@ namespace PuntoDeVentaV2
 
             retirar.ShowDialog();
         }
+
+        private void btnCorteCaja_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Corte caja");
+        }
     }
 }
