@@ -83,6 +83,7 @@
             this.label10.Size = new System.Drawing.Size(57, 17);
             this.label10.TabIndex = 216;
             this.label10.Text = "Crédito";
+            this.label10.Visible = false;
             // 
             // label9
             // 
@@ -169,6 +170,7 @@
             this.txtCredito.Size = new System.Drawing.Size(103, 23);
             this.txtCredito.TabIndex = 222;
             this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCredito.Visible = false;
             // 
             // txtTrans
             // 
@@ -213,6 +215,7 @@
             this.btnCancelar.TabIndex = 225;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnAceptar
             // 
@@ -228,6 +231,7 @@
             this.btnAceptar.TabIndex = 224;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // txtCheque
             // 
