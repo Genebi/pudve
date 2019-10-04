@@ -377,23 +377,6 @@ namespace PuntoDeVentaV2
 
             fLPLateralConcepto.Controls.Clear();
 
-            //FlowLayoutPanel panelTitulo = new FlowLayoutPanel();
-            //panelTitulo.Name = "panelTitulo" + id;
-            //panelTitulo.Width = 276;
-            //panelTitulo.Height = 30;
-            //panelTitulo.HorizontalScroll.Visible = false;
-
-            //Label Titulo = new Label();
-            //Titulo.Name = "Title";
-            //Titulo.Width = 276;
-            //Titulo.Height = 20;
-            //Titulo.Text = "Detalle de producto:";
-            //Titulo.Location = new Point(0, 0);
-
-            //panelTitulo.Controls.Add(Titulo);
-
-            //fLPLateralConcepto.Controls.Add(panelTitulo);
-
             for (int i = 0; i < settingDatabases.Items.Count; i++)
             {
                 chkDetalleProductoTxt = settingDatabases.Items[i].Text.ToString();
@@ -497,32 +480,45 @@ namespace PuntoDeVentaV2
                     panelContenedor.BackColor = Color.LightGray;
 
                     panelContenido.Name = nombrePanelContenido;
-                    panelContenido.Width = 580;
+                    panelContenido.Width = 594;
                     panelContenido.Height = 55;
                     //panelContenido.BackColor = Color.Brown;
 
                     Label lblNombreProveedor = new Label();
-                    lblNombreProveedor.Width = 190;
+                    lblNombreProveedor.Name = "lblNombre" + chekBoxClickDetalle.Name.ToString();
+                    lblNombreProveedor.Width = 320;
                     lblNombreProveedor.Height = 20;
-                    lblNombreProveedor.Location = new Point(0, 33);
-                    lblNombreProveedor.BackColor = Color.Aquamarine;
-                    panelContenido.Controls.Add(lblNombreProveedor);
+                    lblNombreProveedor.Location = new Point(3, 32);
+                    lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
+                    lblNombreProveedor.BackColor = Color.White;
 
                     Label lblRFCProveedor = new Label();
-                    lblRFCProveedor.Width = 190;
+                    lblRFCProveedor.Name = "lblRFC" + chekBoxClickDetalle.Name.ToString();
+                    lblRFCProveedor.Width = 110;
                     lblRFCProveedor.Height = 20;
-                    lblRFCProveedor.Location = new Point(193, 33);
-                    lblRFCProveedor.BackColor = Color.AntiqueWhite;
-                    panelContenido.Controls.Add(lblRFCProveedor);
+                    lblRFCProveedor.Location = new Point(360, 32);
+                    lblRFCProveedor.TextAlign = ContentAlignment.MiddleCenter;
+                    lblRFCProveedor.BackColor = Color.White;
+
+                    Label lblTelProveedor = new Label();
+                    lblTelProveedor.Name = "lblTel" + chekBoxClickDetalle.Name.ToString();
+                    lblTelProveedor.Width = 90;
+                    lblTelProveedor.Height = 20;
+                    lblTelProveedor.Location = new Point(500, 32);
+                    lblTelProveedor.TextAlign = ContentAlignment.MiddleCenter;
+                    lblTelProveedor.BackColor = Color.White;
 
                     int XcbProv = 0;
                     CargarProveedores();
                     XcbProv = panelContenido.Width / 2;
 
                     ComboBox cbProveedor = new ComboBox();
+                    cbProveedor.Name = "cb" + chekBoxClickDetalle.Name.ToString();
                     cbProveedor.Width = 400;
                     cbProveedor.Height = 30;
                     cbProveedor.Location = new Point(XcbProv-(cbProveedor.Width/2), 5);
+                    cbProveedor.SelectedIndexChanged += new System.EventHandler(cbProveedor_SelectValueChanged);
+
                     if (listaProveedores.Length > 0)
                     {
                         cbProveedor.DataSource = proveedores.ToArray();
@@ -536,8 +532,9 @@ namespace PuntoDeVentaV2
                             var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
                             var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
 
-                            // MessageBox.Show(idProveedor[0].ToString());
-                            if (idProveedor.Length > 0)
+                            int cantidad = idProveedor.Length;
+
+                            if (cantidad > 0)
                             {
                                 if (Convert.ToInt32(idProveedor[0].ToString()) > 0)
                                 {
@@ -545,7 +542,10 @@ namespace PuntoDeVentaV2
                                     cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
                                     if (!datos.Equals(null))
                                     {
-
+                                        lblNombreProveedor.Text = datos[0];
+                                        lblRFCProveedor.Text = datos[1];
+                                        lblTelProveedor.Text = datos[10];
+                                        cbProveedor.Text = datos[0];
                                     }
                                 }
                             }
@@ -559,6 +559,10 @@ namespace PuntoDeVentaV2
                     cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
 
                     panelContenido.Controls.Add(cbProveedor);
+                    panelContenido.Controls.Add(lblNombreProveedor);
+                    panelContenido.Controls.Add(lblRFCProveedor);
+                    panelContenido.Controls.Add(lblTelProveedor);
+
                     panelContenedor.Controls.Add(panelContenido);
                 }
                 else
@@ -591,6 +595,67 @@ namespace PuntoDeVentaV2
             loadFormConfig();
         }
 
+        private void cbProveedor_SelectValueChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            string cadena = string.Empty, namePanel = string.Empty;
+            string[] separadas;
+
+            namePanel = comboBox.Name.ToString().Remove(0, 2);
+
+            if (listaProveedores.Length > 0)
+            {
+                cadena = string.Join("",listaProveedores);
+                separadas = cadena.Split('-');
+                var idProveedor = Convert.ToInt32(separadas[0]);
+
+                if (idProveedor > 0)
+                {
+                    cargarDatosProveedor(Convert.ToInt32(idProveedor));
+                    llenarDatos(namePanel);
+                }
+            }
+        }
+
+        private void llenarDatos(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "cb" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datos[0];
+                                }
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datos[0];
+                                }
+                                else if (contLblHijo.Name == "lblRFC" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datos[1];
+                                }
+                                else if (contLblHijo.Name == "lblTel" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datos[10];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         private void cargarDatosProveedor(int idProveedor)
         {
@@ -681,6 +746,7 @@ namespace PuntoDeVentaV2
 
         private void btnDeleteDetalle_Click(object sender, EventArgs e)
         {
+            fLPCentralDetalle.Controls.Clear();
             XPos = this.Width / 2;
             YPos = this.Height / 2;
             deleteDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Detalle a Eliminar:", "Detalle a Eliminar", "Escriba aquí su Detalle a Eliminar", XPos, YPos);
@@ -715,6 +781,7 @@ namespace PuntoDeVentaV2
 
         private void btnAddDetalle_Click(object sender, EventArgs e)
         {
+            fLPCentralDetalle.Controls.Clear();
             nvoValor = "false";
             XPos = this.Width / 2;
             YPos = this.Height / 2;
@@ -743,6 +810,7 @@ namespace PuntoDeVentaV2
 
         private void btnRenameDetalle_Click(object sender, EventArgs e)
         {
+            fLPCentralDetalle.Controls.Clear();
             //XPos = this.Width / 2;
             //YPos = this.Height / 2;
             //editDetelle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
