@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
         Dictionary<string, string> proveedores;
         Dictionary<string, string> categorias;
         Dictionary<string, string> ubicaciones;
+        Dictionary<string, string> detallesGral;
 
         string[] datos;
         string[] separadas;
@@ -35,6 +36,7 @@ namespace PuntoDeVentaV2
         string[] listaProveedores = new string[] { };
         string[] listaCategorias = new string[] { };
         string[] listaUbicaciones = new string[] { };
+        string[] listaDetalleGral = new string[] { };
 
         bool habilitarComboBoxes = false;
 
@@ -732,6 +734,65 @@ namespace PuntoDeVentaV2
                     panelContenido.Height = 55;
                     //panelContenido.BackColor = Color.Brown;
 
+                    int XcbProv = 0;
+                    XcbProv = panelContenido.Width / 2;
+
+                    Label lblNombreDetalleGral = new Label();
+                    lblNombreDetalleGral.Name = "lblNombre" + chekBoxClickDetalle.Name.ToString();
+                    lblNombreDetalleGral.Width = 170;
+                    lblNombreDetalleGral.Height = 20;
+                    lblNombreDetalleGral.Location = new Point(XcbProv - (lblNombreDetalleGral.Width / 2), 32);
+                    lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
+                    lblNombreDetalleGral.BackColor = Color.White;
+
+                    CargarDetallesGral(chekBoxClickDetalle.Name.ToString());
+
+                    ComboBox cbDetalleGral = new ComboBox();
+                    cbDetalleGral.Name = "cb" + chekBoxClickDetalle.Name.ToString();
+                    cbDetalleGral.Width = 170;
+                    cbDetalleGral.Height = 30;
+                    cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
+                    cbDetalleGral.SelectedIndexChanged += new System.EventHandler(cbDetalleGral_SelectIndexChanged);
+                    cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                    if (listaDetalleGral.Length > 0)
+                    {
+                        cbDetalleGral.DataSource = detallesGral.ToArray();
+                        cbDetalleGral.DisplayMember = "Value";
+                        cbDetalleGral.ValueMember = "Key";
+                        cbDetalleGral.SelectedValue = "0";
+
+                        // Cuando se da click en la opcion editar producto
+                        if (AgregarEditarProducto.DatosSourceFinal == 2)
+                        {
+                            var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                            var idDetalleGral = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                            int cantidad = idDetalleGral.Length;
+
+                            if (cantidad > 0)
+                            {
+                                if (Convert.ToInt32(idDetalleGral[2].ToString()) > 0)
+                                {
+                                    var opcion = Convert.ToInt32(cbDetalleGral.SelectedValue.ToString());
+
+                                    if (opcion > 0)
+                                    {
+                                        lblNombreDetalleGral.Text = separadas[1].ToString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (cbDetalleGral.Items.Count == 0)
+                    {
+                        cbDetalleGral.Items.Add(chekBoxClickDetalle.Name.ToString() + "...");
+                        cbDetalleGral.SelectedIndex = 0;
+                    }
+
+                    panelContenido.Controls.Add(cbDetalleGral);
+                    panelContenido.Controls.Add(lblNombreDetalleGral);
+
                     panelContenedor.Controls.Add(panelContenido);
                 }
                 fLPCentralDetalle.Controls.Add(panelContenedor);
@@ -746,6 +807,68 @@ namespace PuntoDeVentaV2
             UpdateKey(name, value);
             RefreshAppSettings();
             loadFormConfig();
+        }
+
+        private void cbDetalleGral_SelectIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            string cadena = string.Empty, namePanel = string.Empty;
+            char[] delimiterChars = { '|' };
+            int comboBoxIndex = 0;
+
+            comboBoxIndex = comboBox.SelectedIndex;
+            namePanel = comboBox.Name.ToString().Remove(0, 2);
+            
+            if (listaDetalleGral.Length > 0)
+            {
+                int idDetalleGral = 0;
+
+                if (comboBoxIndex > 0)
+                {
+                    cadena = string.Join("", listaUbicaciones[comboBoxIndex - 1]);
+                    separadas = cadena.Split(delimiterChars);
+                    idDetalleGral = Convert.ToInt32(separadas[0]);
+                }
+                else if (comboBoxIndex <= 0)
+                {
+                    idDetalleGral = 0;
+                }
+
+                if (idDetalleGral > 0)
+                {
+                    //cargarDatosProveedor(Convert.ToInt32(idCategoria));
+                    llenarDatosDetalleGral(namePanel);
+                }
+            }
+        }
+
+        private void llenarDatosDetalleGral(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    contLblHijo.Text = separadas[1].ToString();
+                                    //contLblHijo.Text = "En Construcción está sección...";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void cbUbicacion_SelectIndexChanged(object sender, EventArgs e)
@@ -1048,6 +1171,33 @@ namespace PuntoDeVentaV2
             else
             {
                 ubicaciones.Add("0", "Ubicaciónes...");
+            }
+        }
+
+        private void CargarDetallesGral(string textBuscado)
+        {
+            string concepto = string.Empty;
+
+            detallesGral = new Dictionary<string, string>();
+
+            //listaDetalleGral = mb.ObtenerUbicaciones(FormPrincipal.userID);
+
+            concepto = textBuscado;
+
+            if (listaDetalleGral.Length > 0)
+            {
+                detallesGral.Add("0", concepto + "...");
+
+                foreach (var DetailGral in listaUbicaciones)
+                {
+                    var auxiliar = DetailGral.Split('|');
+
+                    detallesGral.Add(auxiliar[0], auxiliar[1]);
+                }
+            }
+            else
+            {
+                detallesGral.Add("0", concepto + "...");
             }
         }
 
