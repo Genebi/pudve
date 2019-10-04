@@ -26,8 +26,10 @@ namespace PuntoDeVentaV2
         List<string> optionList;
 
         Dictionary<string, string> proveedores;
+        Dictionary<string, string> categorias;
 
         string[] datos;
+        string[] separadas;
 
         string[] listaProveedores = new string[] { };
         string[] listaCategorias = new string[] { };
@@ -553,7 +555,7 @@ namespace PuntoDeVentaV2
                     }
                     else if(cbProveedor.Items.Count == 0)
                     {
-                        cbProveedor.Items.Add("Seleccionar un proveedor...");
+                        cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
                     }
                     cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -562,6 +564,81 @@ namespace PuntoDeVentaV2
                     panelContenido.Controls.Add(lblNombreProveedor);
                     panelContenido.Controls.Add(lblRFCProveedor);
                     panelContenido.Controls.Add(lblTelProveedor);
+
+                    panelContenedor.Controls.Add(panelContenido);
+                }
+                else if (panelContenedor.Name == "panelContenedorCategoria")
+                {
+                    nombrePanelContenido = "panelContenido" + chekBoxClickDetalle.Name.ToString();
+
+                    panelContenedor.Width = 196;
+                    panelContenedor.Height = 60;
+                    //panelContenedor.BackColor = Color.Aqua;
+                    panelContenedor.BackColor = Color.LightGray;
+
+                    panelContenido.Name = nombrePanelContenido;
+                    panelContenido.Width = 190;
+                    panelContenido.Height = 55;
+                    //panelContenido.BackColor = Color.Brown;
+
+                    int XcbProv = 0;
+                    XcbProv = panelContenido.Width / 2;
+
+                    Label lblNombreCategoria = new Label();
+                    lblNombreCategoria.Name = "lblNombre" + chekBoxClickDetalle.Name.ToString();
+                    lblNombreCategoria.Width = 170;
+                    lblNombreCategoria.Height = 20;
+                    lblNombreCategoria.Location = new Point(XcbProv - (lblNombreCategoria.Width / 2), 32);
+                    lblNombreCategoria.TextAlign = ContentAlignment.MiddleCenter;
+                    lblNombreCategoria.BackColor = Color.White;
+                    
+                    CargarCategorias();
+                    
+                    ComboBox cbCategoria = new ComboBox();
+                    cbCategoria.Name = "cb" + chekBoxClickDetalle.Name.ToString();
+                    cbCategoria.Width = 170;
+                    cbCategoria.Height = 30;
+                    cbCategoria.Location = new Point(XcbProv - (cbCategoria.Width / 2), 5);
+                    cbCategoria.SelectedIndexChanged += new System.EventHandler(cbCategoria_SelectIndexChanged);
+
+                    if (listaProveedores.Length > 0)
+                    {
+                        cbCategoria.DataSource = categorias.ToArray();
+                        cbCategoria.DisplayMember = "Value";
+                        cbCategoria.ValueMember = "Key";
+                        cbCategoria.SelectedValue = "0";
+
+                        // Cuando se da click en la opcion editar producto
+                        if (AgregarEditarProducto.DatosSourceFinal == 2)
+                        {
+                            var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                            var idCategoria = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                            int cantidad = idCategoria.Length;
+
+                            if (cantidad > 0)
+                            {
+                                if (Convert.ToInt32(idCategoria[2].ToString()) > 0)
+                                {
+                                    var opcion = Convert.ToInt32(cbCategoria.SelectedValue.ToString());
+
+                                    if (opcion > 0)
+                                    {
+                                        lblNombreCategoria.Text = separadas[1].ToString();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (cbCategoria.Items.Count == 0)
+                    {
+                        cbCategoria.Items.Add("Proveedores...");
+                        cbCategoria.SelectedIndex = 0;
+                    }
+                    cbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                    panelContenido.Controls.Add(cbCategoria);
+                    panelContenido.Controls.Add(lblNombreCategoria);
 
                     panelContenedor.Controls.Add(panelContenido);
                 }
@@ -595,11 +672,71 @@ namespace PuntoDeVentaV2
             loadFormConfig();
         }
 
+        private void cbCategoria_SelectIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            string cadena = string.Empty, namePanel = string.Empty;
+            char[] delimiterChars = { ' ', '|' };
+            int comboBoxIndex = 0;
+            
+            comboBoxIndex = comboBox.SelectedIndex;
+            namePanel = comboBox.Name.ToString().Remove(0, 2);
+
+            if (listaCategorias.Length > 0)
+            {
+                int idCategoria = 0;
+
+                if (comboBoxIndex > 0)
+                {
+                    cadena = string.Join("", listaCategorias[comboBoxIndex - 1]);
+                    separadas = cadena.Split(delimiterChars);
+                    idCategoria = Convert.ToInt32(separadas[0]);
+                }
+                else if (comboBoxIndex <= 0)
+                {
+                    idCategoria = 0;
+                }
+                
+                if (idCategoria > 0)
+                {
+                    //cargarDatosProveedor(Convert.ToInt32(idCategoria));
+                    llenarDatosCategoria(namePanel);
+                }
+            }
+        }
+
+        private void llenarDatosCategoria(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    contLblHijo.Text = separadas[1].ToString();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void cbProveedor_SelectValueChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
             string cadena = string.Empty, namePanel = string.Empty;
-            string[] separadas;
 
             namePanel = comboBox.Name.ToString().Remove(0, 2);
 
@@ -612,12 +749,12 @@ namespace PuntoDeVentaV2
                 if (idProveedor > 0)
                 {
                     cargarDatosProveedor(Convert.ToInt32(idProveedor));
-                    llenarDatos(namePanel);
+                    llenarDatosProveedor(namePanel);
                 }
             }
         }
 
-        private void llenarDatos(string textoBuscado)
+        private void llenarDatosProveedor(string textoBuscado)
         {
             string namePanel = string.Empty;
 
@@ -717,7 +854,7 @@ namespace PuntoDeVentaV2
             {
                 proveedores = new Dictionary<string, string>();
 
-                proveedores.Add("0", "Seleccionar un proveedor...");
+                proveedores.Add("0", "Proveedores...");
 
                 foreach (var proveedor in listaProveedores)
                 {
@@ -725,8 +862,35 @@ namespace PuntoDeVentaV2
                     proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
                 }
             }
+            else
+            {
+                proveedores.Add("0", "Proveedores...");
+            }
         }
-        
+
+        private void CargarCategorias()
+        {
+            listaCategorias = mb.ObtenerCategorias(FormPrincipal.userID);
+
+            categorias = new Dictionary<string, string>();
+
+            if (listaCategorias.Length > 0)
+            {
+                categorias.Add("0", "Categorías...");
+
+                foreach (var categoria in listaCategorias)
+                {
+                    var auxiliar = categoria.Split('|');
+
+                    categorias.Add(auxiliar[0], auxiliar[1]);
+                }
+            }
+            else
+            {
+                categorias.Add("0", "Categorías...");
+            }
+        }
+
         #endregion Proveedores Categorias Ubicaciones
 
         public AgregarDetalleProducto()
