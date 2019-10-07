@@ -477,7 +477,14 @@ namespace PuntoDeVentaV2
             }
             else if (textoBuscado.Equals("Categoria"))
             {
-                
+                AgregarCategoria nuevaCategoria = new AgregarCategoria();
+                nuevaCategoria.FormClosed += delegate
+                {
+                    fLPCentralDetalle.Controls.Clear();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
+                };
+                nuevaCategoria.ShowDialog();
             }
             else if (textoBuscado.Equals("Ubicacion"))
             {
