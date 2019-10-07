@@ -488,7 +488,14 @@ namespace PuntoDeVentaV2
             }
             else if (textoBuscado.Equals("Ubicacion"))
             {
-                //MessageBox.Show("El Botón precionado fue: " + textoBuscado, "Información del Botón", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AgregarUbicacion nuevaUbicacion = new AgregarUbicacion();
+                nuevaUbicacion.FormClosed += delegate
+                {
+                    fLPCentralDetalle.Controls.Clear();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
+                };
+                nuevaUbicacion.ShowDialog();
             }
             else
             {
