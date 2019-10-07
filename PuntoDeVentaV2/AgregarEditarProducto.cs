@@ -2929,12 +2929,14 @@ namespace PuntoDeVentaV2
                 {
                     FormDetalleProducto = new AgregarDetalleProducto();
                     //FormDetalleProducto.typeDatoProveedor = 1;
+                    FormDetalleProducto.getIdProducto = idProductoFinal;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
                 else
                 {
                     //FormDetalleProducto.typeDatoProveedor = 1;
+                    FormDetalleProducto.getIdProducto = idProductoFinal;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }

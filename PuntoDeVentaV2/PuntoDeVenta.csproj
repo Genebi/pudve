@@ -180,6 +180,12 @@
     <Compile Include="AgregarDetalleFacturacionProducto.Designer.cs">
       <DependentUpon>AgregarDetalleFacturacionProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="AgregarDetalleGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarDetalleGeneral.Designer.cs">
+      <DependentUpon>AgregarDetalleGeneral.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarDetalleProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -501,6 +507,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarDetalleFacturacionProducto.resx">
       <DependentUpon>AgregarDetalleFacturacionProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgregarDetalleGeneral.resx">
+      <DependentUpon>AgregarDetalleGeneral.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarDetalleProducto.resx">
       <DependentUpon>AgregarDetalleProducto.cs</DependentUpon>

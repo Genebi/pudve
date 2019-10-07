@@ -38,13 +38,12 @@ namespace PuntoDeVentaV2
         string[] listaUbicaciones = new string[] { };
         string[] listaDetalleGral = new string[] { };
 
-        bool habilitarComboBoxes = false;
-
         int XPos = 0, YPos = 0;
         string nvoDetalle = string.Empty, nvoValor = string.Empty, editValor = string.Empty, deleteDetalle = string.Empty;
 
-        public string getOldValue { get; set; }
-        public string getNewValue { get; set; }
+        public string getIdProducto { get; set; }
+
+        public static string finalIdProducto = string.Empty;
 
         string editDetelle = string.Empty, editDetalleNvo = string.Empty;
 
@@ -66,7 +65,6 @@ namespace PuntoDeVentaV2
         // in the appSettings section of an App.config file.
         private void loadFormConfig()
         {
-            //xmlDoc.Load(AppDomain.CurrentDomain.BaseDirectory + @"..\..\App.config");
             if (Properties.Settings.Default.TipoEjecucion == 1)
             {
                 xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
@@ -164,7 +162,6 @@ namespace PuntoDeVentaV2
             {
                 if (KeyExist(strKey))
                 {
-                    //throw new ArgumentException("Nombre clave: <" + strKey + "> ya existe en la configuración.");
                     MessageBox.Show("Nombre clave: <" + strKey + "> ya existe en la configuración.", "Setting Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -207,7 +204,6 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                //throw ex;
                 MessageBox.Show("Tipo de error: " + ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -217,7 +213,6 @@ namespace PuntoDeVentaV2
         {
             if (!KeyExist(strKey))
             {
-                //throw new ArgumentNullException("Nombre clave", " <" + strKey + "> no existe en la configuración. Actualización fallida.");
                 MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
@@ -237,7 +232,6 @@ namespace PuntoDeVentaV2
                         {
                             childNode.Attributes["key"].Value = strKey;
                         }
-                        //txtNombre.Text = childNode.Attributes["key"].Value.ToString();
                         break;
                     }
                 }
@@ -256,7 +250,6 @@ namespace PuntoDeVentaV2
                         {
                             childNode.Attributes["key"].Value = "chk" + strKey;
                         }
-                        //txtNombre.Text = childNode.Attributes["key"].Value.ToString();
                         break;
                     }
                 }
@@ -266,15 +259,11 @@ namespace PuntoDeVentaV2
                 {
                     if (Properties.Settings.Default.TipoEjecucion == 1)
                     {
-                        //path = Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo;
-                        //MessageBox.Show("Path del Archivo de configuración: " + path, "Direccion de archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
                     }
 
                     if (Properties.Settings.Default.TipoEjecucion == 2)
                     {
-                        //path = Properties.Settings.Default.baseDirectory +Properties.Settings.Default.archivo;
-                        //MessageBox.Show("Path del Archivo de configuración: " + path, "Direccion de archivo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
                     }
                     xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
@@ -283,8 +272,6 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Error al Intentar actualizar el archivo de configuración: " + e.Message.ToString(), "Error de archivo de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                
-                //ReadKey(strKey);
             }
         }
 
@@ -293,7 +280,6 @@ namespace PuntoDeVentaV2
         {
             if (!KeyExist(strKey))
             {
-                //throw new ArgumentNullException("Nombre clave", " <" + strKey + "> no existe en la configuración. Actualización fallida.");
                 MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Busqueda fallida.", "Error al leer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
@@ -304,10 +290,6 @@ namespace PuntoDeVentaV2
                 {
                     if (childNode.Attributes["key"].Value == strKey)
                     {
-                        //checkBox1.Text = childNode.Attributes["key"].Value;
-                        //checkBox1.Checked = Convert.ToBoolean(childNode.Attributes["value"].Value.ToLower());
-                        //txtValor.Text = childNode.Attributes["value"].Value.ToLower().ToString();
-                        //MessageBox.Show("Nombre clave: " + childNode.Attributes["key"].Value + " Su valor: " + childNode.Attributes["value"].Value.ToLower().ToString(), "Valor y Clave", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         editValor = childNode.Attributes["value"].Value.ToLower().ToString();
                         break;
                     }
@@ -362,10 +344,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(), "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                //xmlDoc.Save(baseDirectory + @"\" + archivo);
-                //xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
                 loadFormConfig();
-                //ReadKey(strKey);
                 MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).", "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -396,7 +375,6 @@ namespace PuntoDeVentaV2
                 panelContenedor.Width = 250;
                 panelContenedor.Height = 23;
                 panelContenedor.Name = "panel" + chkDetalleProductoTxt;
-                //panelContenedor.BackColor = Color.Aquamarine;
 
                 CheckBox check = new CheckBox();
                 check.Name = chkDetalleProductoTxt;
@@ -405,7 +383,6 @@ namespace PuntoDeVentaV2
                 check.Height = 24;
                 check.Location = new Point(0, 0);
                 check.CheckedChanged += checkBox_CheckedChanged;
-                //check.BackColor = Color.Aquamarine;
 
                 chkDetalleProductoVal = settingDatabases.Items[i].SubItems[1].Text.ToString();
                 if (chkDetalleProductoVal.Equals("true") || chkDetalleProductoVal.Equals("false"))
@@ -418,16 +395,12 @@ namespace PuntoDeVentaV2
                     Button bt = new Button();
                     bt.Name = "bt" + chkDetalleProductoTxt;
                     bt.Cursor = Cursors.Hand;
-                    //bt.Text = "+";
-                    //bt.Font = new Font(bt.Font.FontFamily, 11);
                     bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-                    //bt.Name = "btnGenerado" + id;
                     bt.Height = 23;
                     bt.Width = 23;
                     bt.BackColor = ColorTranslator.FromHtml("#5DADE2");
                     bt.ForeColor = ColorTranslator.FromHtml("white");
                     bt.FlatStyle = FlatStyle.Flat;
-                    //bt.TextAlign = ContentAlignment.MiddleCenter;
                     bt.Anchor = AnchorStyles.Top;
                     bt.Click += new EventHandler(bt_Click);
                     bt.Location = new Point(115, 0);
@@ -500,6 +473,16 @@ namespace PuntoDeVentaV2
             else
             {
                 //MessageBox.Show("El Botón precionado fue: " + textoBuscado, "Información del Botón", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                AgregarDetalleGeneral addDetailGral = new AgregarDetalleGeneral();
+                addDetailGral.FormClosed += delegate
+                {
+                    fLPCentralDetalle.Controls.Clear();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
+                };
+                addDetailGral.getChkName = textoBuscado;
+                addDetailGral.getIdUsr = FormPrincipal.userID.ToString();
+                addDetailGral.ShowDialog();
             }
         }
 
@@ -516,27 +499,23 @@ namespace PuntoDeVentaV2
             {
                 name = chekBoxClickDetalle.Name.ToString();
                 value = chekBoxClickDetalle.Checked.ToString();
-
-                nombrePanelContenedor = "panelContenedor" + chekBoxClickDetalle.Name.ToString();
-
+                nombrePanelContenedor = "panelContenedor" + name;
                 panelContenedor.Name = nombrePanelContenedor;
 
                 if (panelContenedor.Name == "panelContenedorProveedor")
                 {
-                    nombrePanelContenido = "panelContenido" + chekBoxClickDetalle.Name.ToString();
+                    nombrePanelContenido = "panelContenido" + name;
 
                     panelContenedor.Width = 600;
-                    panelContenedor.Height = 60;
-                    //panelContenedor.BackColor = Color.Aqua;
+                    panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
                     panelContenido.Name = nombrePanelContenido;
                     panelContenido.Width = 594;
                     panelContenido.Height = 55;
-                    //panelContenido.BackColor = Color.Brown;
 
                     Label lblNombreProveedor = new Label();
-                    lblNombreProveedor.Name = "lblNombre" + chekBoxClickDetalle.Name.ToString();
+                    lblNombreProveedor.Name = "lblNombre" + name;
                     lblNombreProveedor.Width = 320;
                     lblNombreProveedor.Height = 20;
                     lblNombreProveedor.Location = new Point(3, 32);
@@ -544,7 +523,7 @@ namespace PuntoDeVentaV2
                     lblNombreProveedor.BackColor = Color.White;
 
                     Label lblRFCProveedor = new Label();
-                    lblRFCProveedor.Name = "lblRFC" + chekBoxClickDetalle.Name.ToString();
+                    lblRFCProveedor.Name = "lblRFC" + name;
                     lblRFCProveedor.Width = 110;
                     lblRFCProveedor.Height = 20;
                     lblRFCProveedor.Location = new Point(360, 32);
@@ -552,7 +531,7 @@ namespace PuntoDeVentaV2
                     lblRFCProveedor.BackColor = Color.White;
 
                     Label lblTelProveedor = new Label();
-                    lblTelProveedor.Name = "lblTel" + chekBoxClickDetalle.Name.ToString();
+                    lblTelProveedor.Name = "lblTel" + name;
                     lblTelProveedor.Width = 90;
                     lblTelProveedor.Height = 20;
                     lblTelProveedor.Location = new Point(500, 32);
@@ -564,7 +543,7 @@ namespace PuntoDeVentaV2
                     XcbProv = panelContenido.Width / 2;
 
                     ComboBox cbProveedor = new ComboBox();
-                    cbProveedor.Name = "cb" + chekBoxClickDetalle.Name.ToString();
+                    cbProveedor.Name = "cb" + name;
                     cbProveedor.Width = 400;
                     cbProveedor.Height = 30;
                     cbProveedor.Location = new Point(XcbProv-(cbProveedor.Width/2), 5);
@@ -618,23 +597,21 @@ namespace PuntoDeVentaV2
                 }
                 else if (panelContenedor.Name == "panelContenedorCategoria")
                 {
-                    nombrePanelContenido = "panelContenido" + chekBoxClickDetalle.Name.ToString();
+                    nombrePanelContenido = "panelContenido" + name;
 
                     panelContenedor.Width = 196;
-                    panelContenedor.Height = 60;
-                    //panelContenedor.BackColor = Color.Aqua;
+                    panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
                     panelContenido.Name = nombrePanelContenido;
                     panelContenido.Width = 190;
                     panelContenido.Height = 55;
-                    //panelContenido.BackColor = Color.Brown;
 
                     int XcbProv = 0;
                     XcbProv = panelContenido.Width / 2;
 
                     Label lblNombreCategoria = new Label();
-                    lblNombreCategoria.Name = "lblNombre" + chekBoxClickDetalle.Name.ToString();
+                    lblNombreCategoria.Name = "lblNombre" + name;
                     lblNombreCategoria.Width = 170;
                     lblNombreCategoria.Height = 20;
                     lblNombreCategoria.Location = new Point(XcbProv - (lblNombreCategoria.Width / 2), 32);
@@ -644,7 +621,7 @@ namespace PuntoDeVentaV2
                     CargarCategorias();
                     
                     ComboBox cbCategoria = new ComboBox();
-                    cbCategoria.Name = "cb" + chekBoxClickDetalle.Name.ToString();
+                    cbCategoria.Name = "cb" + name;
                     cbCategoria.Width = 170;
                     cbCategoria.Height = 30;
                     cbCategoria.Location = new Point(XcbProv - (cbCategoria.Width / 2), 5);
@@ -693,23 +670,21 @@ namespace PuntoDeVentaV2
                 }
                 else if (panelContenedor.Name == "panelContenedorUbicacion")
                 {
-                    nombrePanelContenido = "panelContenido" + chekBoxClickDetalle.Name.ToString();
+                    nombrePanelContenido = "panelContenido" + name;
 
                     panelContenedor.Width = 196;
-                    panelContenedor.Height = 60;
-                    //panelContenedor.BackColor = Color.Aqua;
+                    panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
                     panelContenido.Name = nombrePanelContenido;
                     panelContenido.Width = 190;
                     panelContenido.Height = 55;
-                    //panelContenido.BackColor = Color.Brown;
 
                     int XcbProv = 0;
                     XcbProv = panelContenido.Width / 2;
 
                     Label lblNombreUbicacion = new Label();
-                    lblNombreUbicacion.Name = "lblNombre" + chekBoxClickDetalle.Name.ToString();
+                    lblNombreUbicacion.Name = "lblNombre" + name;
                     lblNombreUbicacion.Width = 170;
                     lblNombreUbicacion.Height = 20;
                     lblNombreUbicacion.Location = new Point(XcbProv - (lblNombreUbicacion.Width / 2), 32);
@@ -719,7 +694,7 @@ namespace PuntoDeVentaV2
                     CargarUbicaciones();
 
                     ComboBox cbUbicacion = new ComboBox();
-                    cbUbicacion.Name = "cb" + chekBoxClickDetalle.Name.ToString();
+                    cbUbicacion.Name = "cb" + name;
                     cbUbicacion.Width = 170;
                     cbUbicacion.Height = 30;
                     cbUbicacion.Location = new Point(XcbProv - (cbUbicacion.Width / 2), 5);
@@ -768,23 +743,21 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    nombrePanelContenido = "panelContenido" + chekBoxClickDetalle.Name.ToString();
+                    nombrePanelContenido = "panelContenido" + name;
 
                     panelContenedor.Width = 196;
-                    panelContenedor.Height = 60;
-                    //panelContenedor.BackColor = Color.AliceBlue;
+                    panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
                     panelContenido.Name = nombrePanelContenido;
                     panelContenido.Width = 185;
                     panelContenido.Height = 55;
-                    //panelContenido.BackColor = Color.Brown;
 
                     int XcbProv = 0;
                     XcbProv = panelContenido.Width / 2;
 
                     Label lblNombreDetalleGral = new Label();
-                    lblNombreDetalleGral.Name = "lblNombre" + chekBoxClickDetalle.Name.ToString();
+                    lblNombreDetalleGral.Name = "lblNombre" + name;
                     lblNombreDetalleGral.Width = 170;
                     lblNombreDetalleGral.Height = 20;
                     lblNombreDetalleGral.Location = new Point(XcbProv - (lblNombreDetalleGral.Width / 2), 32);
@@ -794,7 +767,7 @@ namespace PuntoDeVentaV2
                     CargarDetallesGral(chekBoxClickDetalle.Name.ToString());
 
                     ComboBox cbDetalleGral = new ComboBox();
-                    cbDetalleGral.Name = "cb" + chekBoxClickDetalle.Name.ToString();
+                    cbDetalleGral.Name = "cb" + name;
                     cbDetalleGral.Width = 170;
                     cbDetalleGral.Height = 30;
                     cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
@@ -848,7 +821,7 @@ namespace PuntoDeVentaV2
                 name = chekBoxClickDetalle.Name.ToString();
                 value = chekBoxClickDetalle.Checked.ToString();
 
-                encontrarPanel("panelContenedor" + chekBoxClickDetalle.Name.ToString());
+                encontrarPanel("panelContenedor" + name);
             }
             UpdateKey(name, value);
             RefreshAppSettings();
@@ -1267,6 +1240,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
+            finalIdProducto = getIdProducto;
+
             loadFormConfig();
 
             BuscarTextoListView(settingDatabases);
@@ -1277,13 +1252,20 @@ namespace PuntoDeVentaV2
 
         private void btnDeleteDetalle_Click(object sender, EventArgs e)
         {
-            fLPCentralDetalle.Controls.Clear();
             XPos = this.Width / 2;
             YPos = this.Height / 2;
             deleteDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese el Detalle a Eliminar:", "Detalle a Eliminar", "Escriba aquí su Detalle a Eliminar", XPos, YPos);
             try
             {
-                if (!deleteDetalle.Equals(""))
+                fLPCentralDetalle.Controls.Clear();
+                if (nvoDetalle.Equals("Escriba aquí su Detalle a Eliminar"))
+                {
+                    RefreshAppSettings();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
+                    MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (!deleteDetalle.Equals(""))
                 {
                     if (KeyExist(deleteDetalle))
                     {
@@ -1295,12 +1277,18 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        RefreshAppSettings();
+                        loadFormConfig();
+                        BuscarTextoListView(settingDatabases);
                         MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
+                RefreshAppSettings();
+                loadFormConfig();
+                BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -1312,14 +1300,21 @@ namespace PuntoDeVentaV2
 
         private void btnAddDetalle_Click(object sender, EventArgs e)
         {
-            fLPCentralDetalle.Controls.Clear();
             nvoValor = "false";
             XPos = this.Width / 2;
             YPos = this.Height / 2;
             nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
             try
             {
-                if (!nvoDetalle.Equals(""))
+                fLPCentralDetalle.Controls.Clear();
+                if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
+                {
+                    RefreshAppSettings();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
+                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (!nvoDetalle.Equals(""))
                 {
                     AddKey(nvoDetalle, nvoValor);
                     RefreshAppSettings();
@@ -1330,26 +1325,29 @@ namespace PuntoDeVentaV2
                 }
                 else if (nvoDetalle.Equals(""))
                 {
+                    RefreshAppSettings();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
+                RefreshAppSettings();
+                loadFormConfig();
+                BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnRenameDetalle_Click(object sender, EventArgs e)
         {
-            fLPCentralDetalle.Controls.Clear();
-            //XPos = this.Width / 2;
-            //YPos = this.Height / 2;
-            //editDetelle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
             RenombrarDetalle renameDetail = new RenombrarDetalle();
             renameDetail.nombreDetalle += new RenombrarDetalle.pasarOldNameNewName(ejecutar);
             renameDetail.ShowDialog();
             if (!KeyExist(editDetalleNvo))
             {
+                fLPCentralDetalle.Controls.Clear();
                 ReadKey(editDetelle);
                 UpdateKey(editDetelle, editValor);
                 RefreshAppSettings();
@@ -1358,6 +1356,9 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                RefreshAppSettings();
+                loadFormConfig();
+                BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             editDetelle = string.Empty;

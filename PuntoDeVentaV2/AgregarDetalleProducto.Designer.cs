@@ -32,8 +32,11 @@
             this.txtFiltrar = new System.Windows.Forms.TextBox();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.fLPLateralConcepto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.fLPCentralDetalle = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddDetalle = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -41,9 +44,6 @@
             this.btnRenameDetalle = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCerrar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -93,6 +93,24 @@
             this.panel1.Size = new System.Drawing.Size(215, 610);
             this.panel1.TabIndex = 27;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(116, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Agregar";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(40, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Detalle";
+            // 
             // fLPLateralConcepto
             // 
             this.fLPLateralConcepto.BackColor = System.Drawing.SystemColors.Control;
@@ -112,6 +130,16 @@
             this.panel2.Size = new System.Drawing.Size(618, 474);
             this.panel2.TabIndex = 28;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(239, 8);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(140, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Detalles Seleccionados";
+            // 
             // fLPCentralDetalle
             // 
             this.fLPCentralDetalle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -126,6 +154,7 @@
             // btnAddDetalle
             // 
             this.btnAddDetalle.BackColor = System.Drawing.Color.ForestGreen;
+            this.btnAddDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddDetalle.FlatAppearance.BorderSize = 0;
             this.btnAddDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
@@ -153,6 +182,7 @@
             // btnDeleteDetalle
             // 
             this.btnDeleteDetalle.BackColor = System.Drawing.Color.DarkRed;
+            this.btnDeleteDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDeleteDetalle.FlatAppearance.BorderSize = 0;
             this.btnDeleteDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
@@ -168,6 +198,7 @@
             // btnRenameDetalle
             // 
             this.btnRenameDetalle.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnRenameDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRenameDetalle.FlatAppearance.BorderSize = 0;
             this.btnRenameDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRenameDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
@@ -193,6 +224,7 @@
             // btnCerrar
             // 
             this.btnCerrar.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.btnCerrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCerrar.FlatAppearance.BorderSize = 0;
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold);
@@ -204,34 +236,6 @@
             this.btnCerrar.Text = "Cencelar";
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Detalle";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(116, 8);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Agregar";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(239, 8);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(140, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Detalles Seleccionados";
             // 
             // AgregarDetalleProducto
             // 
