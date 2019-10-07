@@ -135,7 +135,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM Proveedores WHERE ID = {idProveedor} AND IDUsuario = {idUsuario}");
+            DatosConexion($"SELECT * FROM Proveedores WHERE ID = {idProveedor} AND IDUsuario = {idUsuario} ORDER BY Nombre ASC");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -352,7 +352,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM Categorias WHERE IDUsuario = {idUsuario}");
+            DatosConexion($"SELECT * FROM Categorias WHERE IDUsuario = {idUsuario} ORDER BY Nombre ASC");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -370,7 +370,25 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM Ubicaciones WHERE IDUsuario = {idUsuario}");
+            DatosConexion($"SELECT * FROM Ubicaciones WHERE IDUsuario = {idUsuario} ORDER BY Descripcion ASC");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                lista.Add(dr["ID"] + "|" + dr["Descripcion"]);
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] ObtenerDetallesGral(int idUsuario, string detalle)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND ChckName = '{detalle}' ORDER BY Descripcion ASC");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 

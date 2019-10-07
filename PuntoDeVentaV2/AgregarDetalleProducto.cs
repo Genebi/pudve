@@ -472,7 +472,6 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                //MessageBox.Show("El Botón precionado fue: " + textoBuscado, "Información del Botón", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 AgregarDetalleGeneral addDetailGral = new AgregarDetalleGeneral();
                 addDetailGral.FormClosed += delegate
                 {
@@ -1210,15 +1209,15 @@ namespace PuntoDeVentaV2
 
             detallesGral = new Dictionary<string, string>();
 
-            //listaDetalleGral = mb.ObtenerUbicaciones(FormPrincipal.userID);
-
             concepto = textBuscado;
+
+            listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, concepto);
 
             if (listaDetalleGral.Length > 0)
             {
                 detallesGral.Add("0", concepto + "...");
 
-                foreach (var DetailGral in listaUbicaciones)
+                foreach (var DetailGral in listaDetalleGral)
                 {
                     var auxiliar = DetailGral.Split('|');
 
