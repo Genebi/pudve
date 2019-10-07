@@ -416,11 +416,12 @@ namespace PuntoDeVentaV2
 
                     // Agregamos el Botón de agregar item Más
                     Button bt = new Button();
+                    bt.Name = "bt" + chkDetalleProductoTxt;
                     bt.Cursor = Cursors.Hand;
                     //bt.Text = "+";
                     //bt.Font = new Font(bt.Font.FontFamily, 11);
                     bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-                    bt.Name = "btnGenerado" + id;
+                    //bt.Name = "btnGenerado" + id;
                     bt.Height = 23;
                     bt.Width = 23;
                     bt.BackColor = ColorTranslator.FromHtml("#5DADE2");
@@ -428,7 +429,7 @@ namespace PuntoDeVentaV2
                     bt.FlatStyle = FlatStyle.Flat;
                     //bt.TextAlign = ContentAlignment.MiddleCenter;
                     bt.Anchor = AnchorStyles.Top;
-                    bt.Click += new EventHandler(ClickBotonesProductos);
+                    bt.Click += new EventHandler(bt_Click);
                     bt.Location = new Point(115, 0);
                     panelContenedor.Controls.Add(bt);
                     panelHijo.Controls.Add(panelContenedor);
@@ -456,7 +457,38 @@ namespace PuntoDeVentaV2
                 fLPLateralConcepto.Controls.Add(panelHijo);
             }
         }
-        
+
+        private void bt_Click(object sender, EventArgs e)
+        {
+            Button botonPrecionado = sender as Button;
+            string nameBt = string.Empty, textoBuscado =  string.Empty;
+            nameBt = botonPrecionado.Name;
+            textoBuscado = nameBt.Remove(0,2);
+            if (textoBuscado.Equals("Proveedor"))
+            {
+                AgregarProveedor ap = new AgregarProveedor();
+                ap.FormClosed += delegate
+                {
+                    fLPCentralDetalle.Controls.Clear();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
+                };
+                ap.ShowDialog();
+            }
+            else if (textoBuscado.Equals("Categoria"))
+            {
+                
+            }
+            else if (textoBuscado.Equals("Ubicacion"))
+            {
+                //MessageBox.Show("El Botón precionado fue: " + textoBuscado, "Información del Botón", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                //MessageBox.Show("El Botón precionado fue: " + textoBuscado, "Información del Botón", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox chekBoxClickDetalle = sender as CheckBox;
@@ -997,14 +1029,25 @@ namespace PuntoDeVentaV2
         {
             ComboBox comboBox = sender as ComboBox;
             string cadena = string.Empty, namePanel = string.Empty;
+            char[] delimiterChars = { ' ', '|' };
+            int comboBoxIndex = 0;
 
+            comboBoxIndex = comboBox.SelectedIndex;
             namePanel = comboBox.Name.ToString().Remove(0, 2);
 
             if (listaProveedores.Length > 0)
             {
-                cadena = string.Join("",listaProveedores);
-                separadas = cadena.Split('-');
-                var idProveedor = Convert.ToInt32(separadas[0]);
+                int idProveedor = 0;
+                if (comboBoxIndex > 0)
+                {
+                    cadena = string.Join("", listaProveedores[comboBoxIndex - 1]);
+                    separadas = cadena.Split(delimiterChars);
+                    idProveedor = Convert.ToInt32(separadas[0]);
+                }
+                else if (comboBoxIndex <= 0)
+                {
+                    idProveedor = 0;
+                }
 
                 if (idProveedor > 0)
                 {
