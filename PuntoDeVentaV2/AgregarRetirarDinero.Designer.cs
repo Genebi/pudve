@@ -143,6 +143,7 @@
             this.txtVales.Size = new System.Drawing.Size(103, 23);
             this.txtVales.TabIndex = 221;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
             // txtTarjeta
             // 
@@ -152,6 +153,7 @@
             this.txtTarjeta.Size = new System.Drawing.Size(103, 23);
             this.txtTarjeta.TabIndex = 219;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
             // txtEfectivo
             // 
@@ -161,6 +163,7 @@
             this.txtEfectivo.Size = new System.Drawing.Size(103, 23);
             this.txtEfectivo.TabIndex = 217;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
             // txtCredito
             // 
@@ -171,6 +174,7 @@
             this.txtCredito.TabIndex = 222;
             this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCredito.Visible = false;
+            this.txtCredito.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCredito_KeyUp);
             // 
             // txtTrans
             // 
@@ -180,6 +184,7 @@
             this.txtTrans.Size = new System.Drawing.Size(103, 23);
             this.txtTrans.TabIndex = 220;
             this.txtTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTrans.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTrans_KeyUp);
             // 
             // lbSubtitulo
             // 
@@ -241,6 +246,7 @@
             this.txtCheque.Size = new System.Drawing.Size(103, 23);
             this.txtCheque.TabIndex = 218;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
             // lbTitulo
             // 

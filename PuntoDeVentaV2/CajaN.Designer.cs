@@ -884,6 +884,7 @@
             this.lbTAnticiposC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTAnticiposC.AutoSize = true;
             this.lbTAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
             this.lbTAnticiposC.Location = new System.Drawing.Point(154, 235);
             this.lbTAnticiposC.Name = "lbTAnticiposC";
             this.lbTAnticiposC.Size = new System.Drawing.Size(39, 17);
@@ -894,6 +895,7 @@
             // 
             this.lbAnticiposC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbAnticiposC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticiposC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
             this.lbAnticiposC.Location = new System.Drawing.Point(24, 235);
             this.lbAnticiposC.Name = "lbAnticiposC";
             this.lbAnticiposC.Size = new System.Drawing.Size(130, 35);
@@ -940,6 +942,7 @@
             this.lbTCreditoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTCreditoC.AutoSize = true;
             this.lbTCreditoC.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTCreditoC.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbTCreditoC.Location = new System.Drawing.Point(155, 205);
             this.lbTCreditoC.Name = "lbTCreditoC";
             this.lbTCreditoC.Size = new System.Drawing.Size(39, 17);
@@ -1084,6 +1087,7 @@
             this.Text = "CajaN";
             this.Load += new System.EventHandler(this.CajaN_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.CajaN_Paint);
+            this.Resize += new System.EventHandler(this.CajaN_Resize);
             this.panelFondo.ResumeLayout(false);
             this.tablaContenedor.ResumeLayout(false);
             this.panelDineroAgregado.ResumeLayout(false);
