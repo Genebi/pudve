@@ -451,6 +451,18 @@
     <Compile Include="RenombrarDetalle.Designer.cs">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteDineroAgregado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteDineroAgregado.Designer.cs">
+      <DependentUpon>ReporteDineroAgregado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReporteDineroRetirado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteDineroRetirado.Designer.cs">
+      <DependentUpon>ReporteDineroRetirado.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteFinalRevisarInventario.cs">
       <SubType>Form</SubType>
     </Compile>
