@@ -19,33 +19,47 @@ namespace PuntoDeVentaV2
     public partial class AgregarDetalleProducto : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         #region Variables Globales
 
-        List<string> optionList;
+        List<string> infoDetalle;
 
-        Dictionary<string, string> proveedores;
-        Dictionary<string, string> categorias;
-        Dictionary<string, string> ubicaciones;
-        Dictionary<string, string> detallesGral;
+        Dictionary<string, string>  proveedores, 
+                                    categorias, 
+                                    ubicaciones, 
+                                    detallesGral;
 
-        string[] datos;
-        string[] separadas;
+        string[]    datosProveedor, 
+                    separadas, 
+                    guardar;
 
-        string[] listaProveedores = new string[] { };
-        string[] listaCategorias = new string[] { };
-        string[] listaUbicaciones = new string[] { };
-        string[] listaDetalleGral = new string[] { };
+        string[]    listaProveedores = new string[] { }, 
+                    listaCategorias = new string[] { }, 
+                    listaUbicaciones = new string[] { }, 
+                    listaDetalleGral = new string[] { };
 
-        int XPos = 0, YPos = 0;
-        string nvoDetalle = string.Empty, nvoValor = string.Empty, editValor = string.Empty, deleteDetalle = string.Empty;
+        int XPos = 0, 
+            YPos = 0, 
+            idProveedor = 0, 
+            idCategoria = 0, 
+            idUbicacion = 0;
+
+        string  nvoDetalle = string.Empty, 
+                nvoValor = string.Empty, 
+                editValor = string.Empty, 
+                deleteDetalle = string.Empty,
+                nombreProveedor = string.Empty,
+                nombreCategoria = string.Empty,
+                nombreUbicacion = string.Empty;
 
         public string getIdProducto { get; set; }
 
         public static string finalIdProducto = string.Empty;
 
-        string editDetelle = string.Empty, editDetalleNvo = string.Empty;
+        string  editDetelle = string.Empty, 
+                editDetalleNvo = string.Empty;
 
         #endregion Variables Globales
 
@@ -569,12 +583,12 @@ namespace PuntoDeVentaV2
                                 {
                                     cbProveedor.SelectedValue = idProveedor;
                                     cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
-                                    if (!datos.Equals(null))
+                                    if (!datosProveedor.Equals(null))
                                     {
-                                        lblNombreProveedor.Text = datos[0];
-                                        lblRFCProveedor.Text = datos[1];
-                                        lblTelProveedor.Text = datos[10];
-                                        cbProveedor.Text = datos[0];
+                                        lblNombreProveedor.Text = datosProveedor[0];
+                                        lblRFCProveedor.Text = datosProveedor[1];
+                                        lblTelProveedor.Text = datosProveedor[10];
+                                        cbProveedor.Text = datosProveedor[0];
                                     }
                                 }
                             }
@@ -903,13 +917,15 @@ namespace PuntoDeVentaV2
 
             if (listaUbicaciones.Length > 0)
             {
-                int idUbicacion = 0;
+                idUbicacion = 0;
+                nombreUbicacion = string.Empty;
 
                 if (comboBoxIndex > 0)
                 {
                     cadena = string.Join("", listaUbicaciones[comboBoxIndex - 1]);
                     separadas = cadena.Split(delimiterChars);
                     idUbicacion = Convert.ToInt32(separadas[0]);
+                    nombreUbicacion = separadas[1].ToString();
                 }
                 else if (comboBoxIndex <= 0)
                 {
@@ -964,13 +980,15 @@ namespace PuntoDeVentaV2
 
             if (listaCategorias.Length > 0)
             {
-                int idCategoria = 0;
+                idCategoria = 0;
+                nombreCategoria = string.Empty;
 
                 if (comboBoxIndex > 0)
                 {
                     cadena = string.Join("", listaCategorias[comboBoxIndex - 1]);
                     separadas = cadena.Split(delimiterChars);
                     idCategoria = Convert.ToInt32(separadas[0]);
+                    nombreCategoria = separadas[1].ToString();
                 }
                 else if (comboBoxIndex <= 0)
                 {
@@ -1017,7 +1035,7 @@ namespace PuntoDeVentaV2
         {
             ComboBox comboBox = sender as ComboBox;
             string cadena = string.Empty, namePanel = string.Empty;
-            char[] delimiterChars = { ' ', '|' };
+            char[] delimiterChars = { '-' };
             int comboBoxIndex = 0;
 
             comboBoxIndex = comboBox.SelectedIndex;
@@ -1025,12 +1043,13 @@ namespace PuntoDeVentaV2
 
             if (listaProveedores.Length > 0)
             {
-                int idProveedor = 0;
+                idProveedor = 0;
                 if (comboBoxIndex > 0)
                 {
                     cadena = string.Join("", listaProveedores[comboBoxIndex - 1]);
                     separadas = cadena.Split(delimiterChars);
                     idProveedor = Convert.ToInt32(separadas[0]);
+                    nombreProveedor = separadas[1];
                 }
                 else if (comboBoxIndex <= 0)
                 {
@@ -1064,19 +1083,19 @@ namespace PuntoDeVentaV2
                             {
                                 if (contLblHijo.Name == "cb" + textoBuscado)
                                 {
-                                    contLblHijo.Text = datos[0];
+                                    contLblHijo.Text = datosProveedor[0];
                                 }
                                 if (contLblHijo.Name == "lblNombre" + textoBuscado)
                                 {
-                                    contLblHijo.Text = datos[0];
+                                    contLblHijo.Text = datosProveedor[0];
                                 }
                                 else if (contLblHijo.Name == "lblRFC" + textoBuscado)
                                 {
-                                    contLblHijo.Text = datos[1];
+                                    contLblHijo.Text = datosProveedor[1];
                                 }
                                 else if (contLblHijo.Name == "lblTel" + textoBuscado)
                                 {
-                                    contLblHijo.Text = datos[10];
+                                    contLblHijo.Text = datosProveedor[10];
                                 }
                             }
                         }
@@ -1090,7 +1109,7 @@ namespace PuntoDeVentaV2
             // Para que no de error ya que nunca va a existir un proveedor en ID = 0
             if (idProveedor > 0)
             {
-                datos = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
+                datosProveedor = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
             }
         }
 
@@ -1371,28 +1390,82 @@ namespace PuntoDeVentaV2
             editDetalleNvo = newName;
         }
 
-        //private void verificarCheckboxLista()
-        //{
-        //    optionList = new List<string>();
-        //    foreach (Control cComponente in panelMenu.Controls)
-        //    {
-        //        if (cComponente is CheckBox)
-        //        {
-        //            CheckBox chk;
-        //            chk = (CheckBox)cComponente;
-        //            if (chk.Checked == true)
-        //            {
-        //                optionList.Add(chk.Text+"-"+chk.Checked.ToString());
-        //            }
-        //        }
-        //    }
-        //}
-
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
-            
+            infoDetalle = new List<string>();
+
+            // verificar si tenemos un ID del Producto
+            if (!finalIdProducto.Equals(""))
+            {
+                infoDetalle.Add(finalIdProducto);
+            }
+            else
+            {
+                finalIdProducto = "0";
+            }
+            // agregamos la ID del Usuario
+            infoDetalle.Add(FormPrincipal.userID.ToString());
+            // verificamos si tenemos algun Nombre de Proveedor
+            if (!nombreProveedor.Equals(""))
+            {
+                infoDetalle.Add(nombreProveedor);
+            }
+            else
+            {
+                infoDetalle.Add("");
+            }
+            // verificar si tenemos un ID del Proveedor
+            if (!idProveedor.Equals(0))
+            {
+                infoDetalle.Add(idProveedor.ToString());
+            }
+            else
+            {
+                infoDetalle.Add("0");
+            }
+            // verificar si tenemos un Nombre de Categoria
+            if (!nombreCategoria.Equals(""))
+            {
+                infoDetalle.Add(nombreCategoria);
+            }
+            else
+            {
+                infoDetalle.Add("");
+            }
+            // verificar si tenemos un ID de la Categoria
+            if (!idCategoria.Equals(0))
+            {
+                infoDetalle.Add(idCategoria.ToString());
+            }
+            else
+            {
+                infoDetalle.Add("0");
+            }
+            // verificar si tenemos un Nombre de Ubicación
+            if (!nombreUbicacion.Equals(""))
+            {
+                infoDetalle.Add(nombreUbicacion);
+            }
+            else
+            {
+                infoDetalle.Add("");
+            }
+            // verificar si tenemos un ID de la Ubicación
+            if (!idUbicacion.Equals(0))
+            {
+                infoDetalle.Add(idUbicacion.ToString());
+            }
+            else
+            {
+                infoDetalle.Add("0");
+            }
+
+            guardar = infoDetalle.ToArray();
+            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+
+            this.Close();
         }
-        
+
         private void AgregarDetalleProducto_Shown(object sender, EventArgs e)
         {
             

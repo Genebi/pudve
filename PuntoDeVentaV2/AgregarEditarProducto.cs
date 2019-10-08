@@ -2948,11 +2948,13 @@ namespace PuntoDeVentaV2
                 if (FormDetalleProducto == null)
                 {
                     FormDetalleProducto = new AgregarDetalleProducto();
+                    FormDetalleProducto.getIdProducto = idProductoFinal;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
                 else
                 {
+                    FormDetalleProducto.getIdProducto = idProductoFinal;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
