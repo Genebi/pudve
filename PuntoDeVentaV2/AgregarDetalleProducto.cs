@@ -763,7 +763,7 @@ namespace PuntoDeVentaV2
                     lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
                     lblNombreDetalleGral.BackColor = Color.White;
 
-                    CargarDetallesGral(chekBoxClickDetalle.Name.ToString());
+                    CargarDetallesGral(name);
 
                     ComboBox cbDetalleGral = new ComboBox();
                     cbDetalleGral.Name = "cb" + name;
@@ -796,7 +796,7 @@ namespace PuntoDeVentaV2
 
                                     if (opcion > 0)
                                     {
-                                        lblNombreDetalleGral.Text = separadas[1].ToString();
+                                        //lblNombreDetalleGral.Text = separadas[1].ToString();
                                     }
                                 }
                             }
@@ -836,14 +836,16 @@ namespace PuntoDeVentaV2
 
             comboBoxIndex = comboBox.SelectedIndex;
             namePanel = comboBox.Name.ToString().Remove(0, 2);
-            
+
+            CargarDetallesGral(namePanel);
+
             if (listaDetalleGral.Length > 0)
             {
                 int idDetalleGral = 0;
 
                 if (comboBoxIndex > 0)
                 {
-                    cadena = string.Join("", listaUbicaciones[comboBoxIndex - 1]);
+                    cadena = string.Join("", listaDetalleGral[comboBoxIndex - 1]);
                     separadas = cadena.Split(delimiterChars);
                     idDetalleGral = Convert.ToInt32(separadas[0]);
                 }
@@ -1206,7 +1208,6 @@ namespace PuntoDeVentaV2
         private void CargarDetallesGral(string textBuscado)
         {
             string concepto = string.Empty;
-
             detallesGral = new Dictionary<string, string>();
 
             concepto = textBuscado;
