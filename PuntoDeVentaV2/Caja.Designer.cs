@@ -435,8 +435,8 @@
             // panelContenido
             // 
             this.panelContenido.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.panelContenido.Controls.Add(this.panelMetodos);
             this.panelContenido.Controls.Add(this.gbContenedor);
+            this.panelContenido.Controls.Add(this.panelMetodos);
             this.panelContenido.Location = new System.Drawing.Point(373, 113);
             this.panelContenido.Name = "panelContenido";
             this.panelContenido.Size = new System.Drawing.Size(491, 344);

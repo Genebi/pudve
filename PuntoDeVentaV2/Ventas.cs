@@ -773,7 +773,7 @@ namespace PuntoDeVentaV2
                     // var totalTmp = saldoActual + Convert.ToDouble(Total);
 
                     string[] datos = new string[] {
-                        "deposito", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                        "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
                         efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo
                     };
 
