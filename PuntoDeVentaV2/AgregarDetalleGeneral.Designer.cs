@@ -98,6 +98,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Name = "AgregarDetalleGeneral";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Nuevo Detalle";
             this.Load += new System.EventHandler(this.AgregarDetalleGeneral_Load);
             this.ResumeLayout(false);
