@@ -197,11 +197,56 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] ObtenerDatosDetalleGral(int idDetalleGral, int idUsuario, int idProducto)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario} AND IDDetalleGral = {idDetalleGral} ORDER BY IDDetalleGral ASC");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[1].ToString()); //IDProducto
+                lista.Add(dr[2].ToString()); //IDUsuario
+                lista.Add(dr[3].ToString()); //IDDetalleGral
+                lista.Add(dr[4].ToString()); //StatusDetalleGral
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] DetallesProducto(int idProducto, int idUsuario)
         {
             List<string> lista = new List<string>();
 
             DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["IDProveedor"].ToString());
+                lista.Add(dr["Proveedor"].ToString());
+                lista.Add(dr["IDCategoria"].ToString());
+                lista.Add(dr["Categoria"].ToString());
+                lista.Add(dr["IDUbicacion"].ToString());
+                lista.Add(dr["Ubicacion"].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] DetallesProductoGral(string Concepto, int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            //DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
+            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND Descripcion = '{Concepto}'");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 

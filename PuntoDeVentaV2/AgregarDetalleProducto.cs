@@ -34,6 +34,7 @@ namespace PuntoDeVentaV2
         string[]    datosProveedor,
                     datosCategoria,
                     datosUbicacion,
+                    datosDetalleGral,
                     separadas, 
                     guardar;
 
@@ -46,7 +47,8 @@ namespace PuntoDeVentaV2
             YPos = 0, 
             idProveedor = 0, 
             idCategoria = 0, 
-            idUbicacion = 0;
+            idUbicacion = 0,
+            idProductoDetalleGral;
 
         string  nvoDetalle = string.Empty, 
                 nvoValor = string.Empty, 
@@ -516,11 +518,10 @@ namespace PuntoDeVentaV2
                 value = chekBoxClickDetalle.Checked.ToString();
                 nombrePanelContenedor = "panelContenedor" + name;
                 panelContenedor.Name = nombrePanelContenedor;
+                nombrePanelContenido = "panelContenido" + name;
 
                 if (panelContenedor.Name == "panelContenedorProveedor")
                 {
-                    nombrePanelContenido = "panelContenido" + name;
-
                     panelContenedor.Width = 600;
                     panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
@@ -796,8 +797,28 @@ namespace PuntoDeVentaV2
                         // Cuando se da click en la opcion editar producto
                         if (AgregarEditarProducto.DatosSourceFinal == 2)
                         {
-                            var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
-                            var idDetalleGral = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+                            string Descripcion = string.Empty;
+
+                            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+                            {
+                                foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                                {
+                                    if (contSubHijo.Name == nombrePanelContenido)
+                                    {
+                                        if (contSubHijo is Label)
+                                        {
+                                            Descripcion = contSubHijo.Text;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            if (Descripcion.Equals("") || Descripcion.Equals(null))
+                            {
+                                Descripcion = "PanelContenido";
+                            }
+                            idProductoDetalleGral = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                            var idDetalleGral = mb.DetallesProductoGral(Descripcion, FormPrincipal.userID);
 
                             int cantidad = idDetalleGral.Length;
 
@@ -805,11 +826,10 @@ namespace PuntoDeVentaV2
                             {
                                 if (Convert.ToInt32(idDetalleGral[2].ToString()) > 0)
                                 {
-                                    var opcion = Convert.ToInt32(cbDetalleGral.SelectedValue.ToString());
-
-                                    if (opcion > 0)
+                                    cargarDatosDetalleGral(Convert.ToInt32(idDetalleGral[2].ToString()));
+                                    if (!datosDetalleGral.Equals(null))
                                     {
-                                        //lblNombreDetalleGral.Text = separadas[1].ToString();
+                                        //lblNombreUbicacion.Text = datosUbicacion[1].ToString();
                                     }
                                 }
                             }
@@ -1127,6 +1147,15 @@ namespace PuntoDeVentaV2
             if (idUbicacion > 0)
             {
                 datosUbicacion = mb.ObtenerDatosUbicacion(idUbicacion, FormPrincipal.userID);
+            }
+        }
+
+        private void cargarDatosDetalleGral(int idDetalleGral)
+        {
+            // Para que no de error ya que nunca va a existir un DetalleGral en ID = 0
+            if (idDetalleGral > 0)
+            {
+                datosDetalleGral = mb.ObtenerDatosDetalleGral(idDetalleGral, FormPrincipal.userID, idProductoDetalleGral);
             }
         }
         

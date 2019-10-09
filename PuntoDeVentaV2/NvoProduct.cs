@@ -612,14 +612,7 @@ namespace PuntoDeVentaV2
             //    resultadoSearchCodBar = 0;
             //}
             // preparamos el Query
-            string search = $@"SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.CodigoBarras AS 'CodBar'
-                               FROM Productos Prod
-                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
-                               UNION
-                               SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna AS 'ClavInt'
-                               FROM Productos Prod
-                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
-                               ORDER BY Prod.Nombre, CodBar, ClavInt";
+            string search = $@"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (CodigoBarras  = '{txtClaveProducto}' OR ClaveInterna = '{txtClaveProducto}')";
             dtCodBar = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
             foreach (DataRow row in dtCodBar.Rows)
             {
@@ -668,14 +661,7 @@ namespace PuntoDeVentaV2
             //    //MessageBox.Show("No Encontrado", "El Producto", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
             // preparamos el Query
-            string search = $@"SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.ClaveInterna AS 'ClavInt'
-                               FROM Productos Prod
-                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
-                               UNION
-                               SELECT Prod.ID, Prod.IDUsuario, Prod.Nombre, Prod.Stock, Prod.Precio, Prod.CodigoBarras AS 'CodBar'
-                               FROM Productos Prod
-                               WHERE Prod.IDUsuario = '{FormPrincipal.userID}'
-                               ORDER BY Prod.Nombre, ClavInt, CodBar";
+            string search = $@"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (CodigoBarras  = '{txtClaveProducto}' OR ClaveInterna = '{txtClaveProducto}')";
             dtClaveInterna = cn.CargarDatos(search);    // alamcenamos el resultado de la busqueda en dtClaveInterna
             foreach (DataRow row in dtClaveInterna.Rows)
             {
