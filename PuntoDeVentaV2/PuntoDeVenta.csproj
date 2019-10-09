@@ -660,6 +660,12 @@
     <EmbeddedResource Include="RenombrarDetalle.resx">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDineroAgregado.resx">
+      <DependentUpon>ReporteDineroAgregado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteDineroRetirado.resx">
+      <DependentUpon>ReporteDineroRetirado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteFinalRevisarInventario.resx">
       <DependentUpon>ReporteFinalRevisarInventario.cs</DependentUpon>
     </EmbeddedResource>

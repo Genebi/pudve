@@ -34,6 +34,8 @@ namespace PuntoDeVentaV2
         public static float retiroCheque = 0f;
         public static float retiroTrans = 0f;
 
+        public static DateTime fechaGeneral;
+
         public CajaN()
         {
             InitializeComponent();
@@ -46,7 +48,7 @@ namespace PuntoDeVentaV2
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
         {
-            ReporteDineroAgregado agregado = new ReporteDineroAgregado();
+            ReporteDineroAgregado agregado = new ReporteDineroAgregado(fechaGeneral);
 
             agregado.FormClosed += delegate
             {
@@ -125,6 +127,8 @@ namespace PuntoDeVentaV2
                 var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
+
+            fechaGeneral = fechaDefault;
 
             var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID}";
             consultaDos = new SQLiteCommand(consulta, sql_con);
