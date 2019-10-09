@@ -31,7 +31,9 @@ namespace PuntoDeVentaV2
                                     ubicaciones, 
                                     detallesGral;
 
-        string[]    datosProveedor, 
+        string[]    datosProveedor,
+                    datosCategoria,
+                    datosUbicacion,
                     separadas, 
                     guardar;
 
@@ -552,9 +554,10 @@ namespace PuntoDeVentaV2
                     lblTelProveedor.BackColor = Color.White;
 
                     int XcbProv = 0;
-                    CargarProveedores();
                     XcbProv = panelContenido.Width / 2;
 
+                    CargarProveedores();
+                    
                     ComboBox cbProveedor = new ComboBox();
                     cbProveedor.Name = "cb" + name;
                     cbProveedor.Width = 400;
@@ -581,14 +584,12 @@ namespace PuntoDeVentaV2
                             {
                                 if (Convert.ToInt32(idProveedor[0].ToString()) > 0)
                                 {
-                                    cbProveedor.SelectedValue = idProveedor;
                                     cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
                                     if (!datosProveedor.Equals(null))
                                     {
                                         lblNombreProveedor.Text = datosProveedor[0];
                                         lblRFCProveedor.Text = datosProveedor[1];
                                         lblTelProveedor.Text = datosProveedor[10];
-                                        cbProveedor.Text = datosProveedor[0];
                                     }
                                 }
                             }
@@ -659,11 +660,10 @@ namespace PuntoDeVentaV2
                             {
                                 if (Convert.ToInt32(idCategoria[2].ToString()) > 0)
                                 {
-                                    var opcion = Convert.ToInt32(cbCategoria.SelectedValue.ToString());
-
-                                    if (opcion > 0)
+                                    cargarDatosCategoria(Convert.ToInt32(idCategoria[2].ToString()));
+                                    if (!datosCategoria.Equals(null))
                                     {
-                                        lblNombreCategoria.Text = separadas[1].ToString();
+                                        lblNombreCategoria.Text = datosCategoria[1].ToString();
                                     }
                                 }
                             }
@@ -671,7 +671,7 @@ namespace PuntoDeVentaV2
                     }
                     else if (cbCategoria.Items.Count == 0)
                     {
-                        cbCategoria.Items.Add("Proveedores...");
+                        cbCategoria.Items.Add("Categoria...");
                         cbCategoria.SelectedIndex = 0;
                     }
                     cbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -732,11 +732,10 @@ namespace PuntoDeVentaV2
                             {
                                 if (Convert.ToInt32(idUbicacion[2].ToString()) > 0)
                                 {
-                                    var opcion = Convert.ToInt32(cbUbicacion.SelectedValue.ToString());
-
-                                    if (opcion > 0)
+                                    cargarDatosUbicacion(Convert.ToInt32(idUbicacion[2].ToString()));
+                                    if (!datosUbicacion.Equals(null))
                                     {
-                                        lblNombreUbicacion.Text = separadas[1].ToString();
+                                        lblNombreUbicacion.Text = datosUbicacion[1].ToString();
                                     }
                                 }
                             }
@@ -1113,7 +1112,24 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cargarDatosCategoria(int idCategoria)
+        {
+            // Para que no de error ya que nunca va a existir un categoria en ID = 0
+            if (idCategoria > 0)
+            {
+                datosCategoria = mb.ObtenerDatosCategoria(idCategoria, FormPrincipal.userID);
+            }
+        }
 
+        private void cargarDatosUbicacion(int idUbicacion)
+        {
+            // Para que no de error ya que nunca va a existir un ubicacion en ID = 0
+            if (idUbicacion > 0)
+            {
+                datosUbicacion = mb.ObtenerDatosUbicacion(idUbicacion, FormPrincipal.userID);
+            }
+        }
+        
         private void encontrarPanel(string panelBuscado)
         {
             foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
@@ -1392,6 +1408,21 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
+            saveProdDetail();
+            saveGralProdDetail();
+            this.Close();
+        }
+
+        private void saveGralProdDetail()
+        {
+            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            {
+                
+            }
+        }
+
+        private void saveProdDetail()
+        {
             infoDetalle = new List<string>();
 
             // verificar si tenemos un ID del Producto
@@ -1460,10 +1491,16 @@ namespace PuntoDeVentaV2
                 infoDetalle.Add("0");
             }
 
-            guardar = infoDetalle.ToArray();
-            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-
-            this.Close();
+            // Ejecutamos el proceso de guardado
+            try
+            {
+                guardar = infoDetalle.ToArray();
+                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("El proceso de guardado de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void AgregarDetalleProducto_Shown(object sender, EventArgs e)

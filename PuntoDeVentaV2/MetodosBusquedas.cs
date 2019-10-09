@@ -159,6 +159,44 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] ObtenerDatosCategoria(int idCategoria, int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Categorias WHERE ID = {idCategoria} AND IDUsuario = {idUsuario} ORDER BY Nombre ASC");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[1].ToString()); //IDUsuario
+                lista.Add(dr[2].ToString()); //Nombre
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] ObtenerDatosUbicacion(int idUbicacion, int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Ubicaciones WHERE ID = {idUbicacion} AND IDUsuario = {idUsuario} ORDER BY Descripcion ASC");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[1].ToString()); //IDUsuario
+                lista.Add(dr[2].ToString()); //Descripcion
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] DetallesProducto(int idProducto, int idUsuario)
         {
             List<string> lista = new List<string>();
