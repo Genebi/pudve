@@ -127,13 +127,11 @@
             // tituloSeccion
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(392, 19);
+            this.tituloSeccion.Location = new System.Drawing.Point(42, 19);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(186, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(900, 25);
             this.tituloSeccion.TabIndex = 22;
-            this.tituloSeccion.Text = "SALDO INICIAL $:";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btnReporteRetirar
@@ -1099,7 +1097,6 @@
             this.panelTotales.ResumeLayout(false);
             this.panelTotales.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

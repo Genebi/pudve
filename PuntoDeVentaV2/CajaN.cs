@@ -34,6 +34,8 @@ namespace PuntoDeVentaV2
         public static float retiroCheque = 0f;
         public static float retiroTrans = 0f;
 
+        public static DateTime fechaGeneral;
+
         public CajaN()
         {
             InitializeComponent();
@@ -46,12 +48,16 @@ namespace PuntoDeVentaV2
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Reporte agregar");
+            ReporteDineroAgregado agregado = new ReporteDineroAgregado(fechaGeneral);
+
+            agregado.ShowDialog();
         }
 
         private void btnReporteRetirar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Reporte retirar");
+            ReporteDineroRetirado retirado = new ReporteDineroRetirado(fechaGeneral);
+
+            retirado.ShowDialog();
         }
 
         private void btnAgregarDinero_Click(object sender, EventArgs e)
@@ -111,6 +117,8 @@ namespace PuntoDeVentaV2
                 var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 fechaDefault = Convert.ToDateTime(fechaTmp);
             }
+
+            fechaGeneral = fechaDefault;
 
             var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID}";
             consultaDos = new SQLiteCommand(consulta, sql_con);
@@ -226,6 +234,7 @@ namespace PuntoDeVentaV2
             lbTCredito.Text = "$" + vCredito.ToString("0.00");
             lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
             lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + vAnticipos).ToString("0.00");
+            tituloSeccion.Text = "SALDO INICIAL: $" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + vAnticipos).ToString("0.00");
 
             // Apartado ANTICIPOS RECIBIDOS
             lbTEfectivoA.Text = "$" + aEfectivo.ToString("0.00");
