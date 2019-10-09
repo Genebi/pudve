@@ -46,11 +46,11 @@ namespace PuntoDeVentaV2
                 DataGridViewRow row = DGVDepositos.Rows[rowId];
 
                 row.Cells["Empleado"].Value = "ADMIN";
-                row.Cells["Efectivo"].Value = dr.GetValue(dr.GetOrdinal("Efectivo"));
-                row.Cells["Tarjeta"].Value = dr.GetValue(dr.GetOrdinal("Tarjeta"));
-                row.Cells["Vales"].Value = dr.GetValue(dr.GetOrdinal("Vales"));
-                row.Cells["Cheque"].Value = dr.GetValue(dr.GetOrdinal("Cheque"));
-                row.Cells["Trans"].Value = dr.GetValue(dr.GetOrdinal("Transferencia"));
+                row.Cells["Efectivo"].Value = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
+                row.Cells["Tarjeta"].Value = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
+                row.Cells["Vales"].Value = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
+                row.Cells["Cheque"].Value = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
+                row.Cells["Trans"].Value = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
             }
 

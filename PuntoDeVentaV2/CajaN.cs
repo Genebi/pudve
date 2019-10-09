@@ -50,22 +50,12 @@ namespace PuntoDeVentaV2
         {
             ReporteDineroAgregado agregado = new ReporteDineroAgregado(fechaGeneral);
 
-            agregado.FormClosed += delegate
-            {
-
-            };
-
             agregado.ShowDialog();
         }
 
         private void btnReporteRetirar_Click(object sender, EventArgs e)
         {
-            ReporteDineroRetirado retirado = new ReporteDineroRetirado();
-
-            retirado.FormClosed += delegate
-            {
-
-            };
+            ReporteDineroRetirado retirado = new ReporteDineroRetirado(fechaGeneral);
 
             retirado.ShowDialog();
         }
