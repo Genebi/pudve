@@ -609,6 +609,7 @@ namespace PuntoDeVentaV2
                     panelContenido.Controls.Add(lblTelProveedor);
 
                     panelContenedor.Controls.Add(panelContenido);
+                    fLPCentralDetalle.Controls.Add(panelContenedor);
                 }
                 else if (panelContenedor.Name == "panelContenedorCategoria")
                 {
@@ -681,6 +682,7 @@ namespace PuntoDeVentaV2
                     panelContenido.Controls.Add(lblNombreCategoria);
 
                     panelContenedor.Controls.Add(panelContenido);
+                    fLPCentralDetalle.Controls.Add(panelContenedor);
                 }
                 else if (panelContenedor.Name == "panelContenedorUbicacion")
                 {
@@ -753,6 +755,7 @@ namespace PuntoDeVentaV2
                     panelContenido.Controls.Add(lblNombreUbicacion);
 
                     panelContenedor.Controls.Add(panelContenido);
+                    fLPCentralDetalle.Controls.Add(panelContenedor);
                 }
                 else
                 {
@@ -793,47 +796,6 @@ namespace PuntoDeVentaV2
                         cbDetalleGral.DisplayMember = "Value";
                         cbDetalleGral.ValueMember = "Key";
                         cbDetalleGral.SelectedValue = "0";
-
-                        // Cuando se da click en la opcion editar producto
-                        if (AgregarEditarProducto.DatosSourceFinal == 2)
-                        {
-                            string Descripcion = string.Empty;
-
-                            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
-                            {
-                                foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
-                                {
-                                    if (contSubHijo.Name == nombrePanelContenido)
-                                    {
-                                        if (contSubHijo is Label)
-                                        {
-                                            Descripcion = contSubHijo.Text;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            if (Descripcion.Equals("") || Descripcion.Equals(null))
-                            {
-                                Descripcion = "PanelContenido";
-                            }
-                            idProductoDetalleGral = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
-                            var idDetalleGral = mb.DetallesProductoGral(Descripcion, FormPrincipal.userID);
-
-                            int cantidad = idDetalleGral.Length;
-
-                            if (cantidad > 0)
-                            {
-                                if (Convert.ToInt32(idDetalleGral[2].ToString()) > 0)
-                                {
-                                    cargarDatosDetalleGral(Convert.ToInt32(idDetalleGral[2].ToString()));
-                                    if (!datosDetalleGral.Equals(null))
-                                    {
-                                        //lblNombreUbicacion.Text = datosUbicacion[1].ToString();
-                                    }
-                                }
-                            }
-                        }
                     }
                     else if (cbDetalleGral.Items.Count == 0)
                     {
@@ -843,10 +805,78 @@ namespace PuntoDeVentaV2
 
                     panelContenido.Controls.Add(cbDetalleGral);
                     panelContenido.Controls.Add(lblNombreDetalleGral);
-
                     panelContenedor.Controls.Add(panelContenido);
+                    fLPCentralDetalle.Controls.Add(panelContenedor);
+
+                    // Cuando se da click en la opcion editar producto
+                    if (AgregarEditarProducto.DatosSourceFinal == 2)
+                    {
+                        string Descripcion = string.Empty;
+
+                        foreach (Control contHijo in fLPCentralDetalle.Controls)
+                        {
+                            foreach (Control contSubHijo in contHijo.Controls)
+                            {
+                                if (contSubHijo.Name == nombrePanelContenido)
+                                {
+                                    foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                    {
+                                        if (contItemSubHijo is Label)
+                                        {
+                                            Descripcion = contItemSubHijo.Text;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (Descripcion.Equals("") || Descripcion.Equals(null))
+                        {
+                            Descripcion = nombrePanelContenido;
+                        }
+                        else if (!Descripcion.Equals(""))
+                        {
+
+                        }
+
+                        idProductoDetalleGral = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                        var DetalleGralPorPanel = mb.DetallesProductoGralPorPanel(Descripcion, FormPrincipal.userID, idProductoDetalleGral);
+
+                        int cantidad = DetalleGralPorPanel.Length;
+
+                        if (cantidad > 0)
+                        {
+                            if (Descripcion.Equals(nombrePanelContenido))
+                            {
+                                int idDetailGral = 0;
+                                idDetailGral = Convert.ToInt32(DetalleGralPorPanel[2].ToString());
+
+                                foreach (Control contHijo in fLPCentralDetalle.Controls)
+                                {
+                                    foreach (Control contSubHijo in contHijo.Controls)
+                                    {
+                                        if (contSubHijo.Name == nombrePanelContenido)
+                                        {
+                                            var idDetalleGral = mb.DetallesProductoGral(FormPrincipal.userID, idDetailGral);
+
+                                            foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                            {
+                                                if (contItemSubHijo is Label)
+                                                {
+                                                    contItemSubHijo.Text = idDetalleGral[2].ToString();
+                                                    break;
+                                                }
+                                            }
+
+                                            idDetalleGral = new string[] { };
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                fLPCentralDetalle.Controls.Add(panelContenedor);
             }
             else if (chekBoxClickDetalle.Checked == false)
             {
