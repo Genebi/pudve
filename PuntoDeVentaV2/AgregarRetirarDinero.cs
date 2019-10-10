@@ -95,6 +95,8 @@ namespace PuntoDeVentaV2
             {
                 string fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+                CajaN.fechaCorte = Convert.ToDateTime(fechaOperacion);
+
                 totalEfectivo -= CajaN.retiroEfectivo;
                 totalTarjeta -= CajaN.retiroTarjeta;
                 totalVales -= CajaN.retiroVales;
@@ -155,6 +157,7 @@ namespace PuntoDeVentaV2
 
             var concepto = txtConcepto.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            CajaN.fechaCorte = Convert.ToDateTime(fechaOperacion);
 
             var efectivo = ValidarCampos(txtEfectivo.Text);
             var tarjeta = ValidarCampos(txtTarjeta.Text);
@@ -201,7 +204,7 @@ namespace PuntoDeVentaV2
                         trans.ToString("0.00"), credito.ToString("0.00"), "0"
                     };
 
-                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                    cn.EjecutarConsulta(cs.OperacionCaja(datos)); 
                 }
                 
                 Dispose();

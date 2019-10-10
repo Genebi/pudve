@@ -38,6 +38,7 @@ namespace PuntoDeVentaV2
         public static float retiroTrans = 0f;
 
         public static DateTime fechaGeneral;
+        public static DateTime fechaCorte = Convert.ToDateTime("2019-10-10 12:00:35");
 
         public CajaN()
         {
@@ -89,11 +90,12 @@ namespace PuntoDeVentaV2
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
-            /*AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
+            AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
 
-            corte.FormClosed += delegate
+            /*corte.FormClosed += delegate
             {
                 CargarSaldo();
+                GenerarReporte(1);
             };
 
             corte.ShowDialog();*/
@@ -343,7 +345,7 @@ namespace PuntoDeVentaV2
             }
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaCorte.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n", fuenteNormal);
             //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
@@ -352,7 +354,7 @@ namespace PuntoDeVentaV2
             //domicilio.SetLeading(10, 0);
 
             /***************************************
-             ** Tabla con los productos ajustados **
+             ** Tabla con los datos ajustados **
              ***************************************/
             PdfPTable tabla = new PdfPTable(10);
             tabla.WidthPercentage = 100;
@@ -410,7 +412,7 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colEmpleado);
 
 
-            //Consulta para obtener los registros del Historial de compras
+            //Consulta para obtener los registros de las ventas
             /*SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
