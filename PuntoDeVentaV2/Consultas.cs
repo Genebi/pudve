@@ -197,6 +197,16 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string GuardarDetallesProductoGenerales(string[] datos)
+        {
+            string consulta = string.Empty;
+
+            consulta = "INSERT INTO DetallesProductoGenerales (IDProducto, IDUsuario, IDDetalleGral, StatusDetalleGral, panelContenido)";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}')";
+
+            return consulta;
+        }
+
         public string AjustarProducto(string[] datos, int tipo)
         {
             string consulta = string.Empty;

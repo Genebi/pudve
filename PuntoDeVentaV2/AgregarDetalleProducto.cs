@@ -24,7 +24,8 @@ namespace PuntoDeVentaV2
 
         #region Variables Globales
 
-        List<string> infoDetalle;
+        List<string>    infoDetalle,
+                        infoDetailProdGral;
 
         Dictionary<string, string>  proveedores, 
                                     categorias, 
@@ -1337,11 +1338,7 @@ namespace PuntoDeVentaV2
             finalIdProducto = getIdProducto;
 
             loadFormConfig();
-
             BuscarTextoListView(settingDatabases);
-
-            //verificarCheckboxLista();
-            //MessageBox.Show("Variable de Setting:\nPath: " + Properties.Settings.Default.PathDebug + "\nArchivo: " + Properties.Settings.Default.FileDebug, "Variables Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnDeleteDetalle_Click(object sender, EventArgs e)
@@ -1467,16 +1464,62 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
-            saveProdDetail();
+            //saveProdDetail();
             saveGralProdDetail();
             this.Close();
         }
 
         private void saveGralProdDetail()
         {
-            foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
+            string  Descripcion = string.Empty, 
+                    panel = string.Empty;
+
+            infoDetailProdGral = new List<string>();
+
+            foreach (Control contHijo in fLPCentralDetalle.Controls)
             {
-                
+                foreach (Control contSubHijo in contHijo.Controls)
+                {
+                    panel = contSubHijo.Name;
+                    if (!contSubHijo.Name.Equals("panelContenidoProveedor") )
+                    {
+                        if (!contSubHijo.Name.Equals("panelContenidoCategoria"))
+                        {
+                            if (!contSubHijo.Name.Equals("panelContenidoUbicacion"))
+                            {
+                                infoDetailProdGral.Add(finalIdProducto);
+                                infoDetailProdGral.Add(FormPrincipal.userID.ToString());
+                                foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                {
+                                    if (contItemSubHijo is Label)
+                                    {
+                                        Descripcion = contItemSubHijo.Text;
+                                        if (!Descripcion.Equals(""))
+                                        {
+                                            var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                                            infoDetailProdGral.Add(idFound[0].ToString());
+                                            infoDetailProdGral.Add("1");
+                                            infoDetailProdGral.Add(panel);
+                                        }
+
+                                        // Ejecutamos el proceso de guardado
+                                        try
+                                        {
+                                            guardar = infoDetailProdGral.ToArray();
+                                            cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                                            infoDetailProdGral.Clear();
+                                            break;
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show("El proceso de guardado de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
