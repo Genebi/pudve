@@ -241,23 +241,43 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string[] DetallesProductoGral(string Concepto, int idUsuario)
+        public string[] DetallesProductoGralPorPanel(string namePanel, int idUsuario, int idProducto)
         {
             List<string> lista = new List<string>();
 
             //DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
-            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND Descripcion = '{Concepto}'");
+            DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDUsuario = '{idUsuario}' AND panelContenido = '{namePanel}' AND IDProducto = '{idProducto}'");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
-                lista.Add(dr["IDProveedor"].ToString());
-                lista.Add(dr["Proveedor"].ToString());
-                lista.Add(dr["IDCategoria"].ToString());
-                lista.Add(dr["Categoria"].ToString());
-                lista.Add(dr["IDUbicacion"].ToString());
-                lista.Add(dr["Ubicacion"].ToString());
+                lista.Add(dr["IDProducto"].ToString());
+                lista.Add(dr["IDUsuario"].ToString());
+                lista.Add(dr["IDDetalleGral"].ToString());
+                lista.Add(dr["StatusDetalleGral"].ToString());
+                lista.Add(dr["panelContenido"].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] DetallesProductoGral(int idUsuario, int idProdDetailGral)
+        {
+            List<string> lista = new List<string>();
+
+            //DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
+            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND ID = '{idProdDetailGral}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["IDUsuario"].ToString());
+                lista.Add(dr["ChckName"].ToString());
+                lista.Add(dr["Descripcion"].ToString());
             }
 
             dr.Close();
