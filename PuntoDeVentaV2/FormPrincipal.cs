@@ -69,6 +69,7 @@ namespace PuntoDeVentaV2
             Directory.CreateDirectory(@"C:\Archivos PUDVE");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Reportes");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Reportes\Historial");
+            Directory.CreateDirectory(@"C:\Archivos PUDVE\Reportes\Caja");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos\Usuarios");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\MisDatos\CFDI");
