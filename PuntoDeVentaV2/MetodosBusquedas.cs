@@ -249,6 +249,7 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
+                lista.Add(dr["ID"].ToString());
                 lista.Add(dr["IDProveedor"].ToString());
                 lista.Add(dr["Proveedor"].ToString());
                 lista.Add(dr["IDCategoria"].ToString());
@@ -273,6 +274,7 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
+                lista.Add(dr["ID"].ToString());
                 lista.Add(dr["IDProducto"].ToString());
                 lista.Add(dr["IDUsuario"].ToString());
                 lista.Add(dr["IDDetalleGral"].ToString());

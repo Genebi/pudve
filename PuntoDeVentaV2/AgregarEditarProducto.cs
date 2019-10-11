@@ -3608,9 +3608,9 @@ namespace PuntoDeVentaV2
 
                     if (idUbicacion.Length > 0)
                     {
-                        if (Convert.ToInt32(idUbicacion[4].ToString()) > 0)
+                        if (Convert.ToInt32(idUbicacion[5].ToString()) > 0)
                         {
-                            cbUbicaciones.SelectedValue = idUbicacion[4];
+                            cbUbicaciones.SelectedValue = idUbicacion[5];
                         }
                     }
                     else
@@ -3655,9 +3655,9 @@ namespace PuntoDeVentaV2
 
                     if (idCategoria.Length > 0)
                     {
-                        if (Convert.ToInt32(idCategoria[2].ToString()) > 0)
+                        if (Convert.ToInt32(idCategoria[3].ToString()) > 0)
                         {
-                            cbCategorias.SelectedValue = idCategoria[2];
+                            cbCategorias.SelectedValue = idCategoria[3];
                         }
                     }
                     else
@@ -3708,8 +3708,8 @@ namespace PuntoDeVentaV2
                     {
                         if (Convert.ToInt32(idProveedor[0].ToString()) > 0)
                         {
-                            cbProveedores.SelectedValue = idProveedor[0];
-                            cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
+                            cbProveedores.SelectedValue = idProveedor[1];
+                            cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
                         }
                     }
                     else

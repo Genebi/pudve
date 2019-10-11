@@ -32,8 +32,8 @@ namespace PuntoDeVentaV2
                                     ubicaciones, 
                                     detallesGral;
 
-        Dictionary<int, Tuple<string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string>>(),
-                                                       diccionarioDetalleBasicos  = new Dictionary<int, Tuple<string, string, string>>();
+        Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(),
+                                                               diccionarioDetalleBasicos  = new Dictionary<int, Tuple<string, string, string, string>>();
 
         string[]    datosProveedor,
                     datosCategoria,
@@ -588,15 +588,15 @@ namespace PuntoDeVentaV2
 
                             if (cantidad > 0)
                             {
-                                if (Convert.ToInt32(idProveedor[0].ToString()) > 0)
+                                if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
                                 {
-                                    cargarDatosProveedor(Convert.ToInt32(idProveedor[0]));
+                                    cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
                                     if (!datosProveedor.Equals(null))
                                     {
                                         lblNombreProveedor.Text = datosProveedor[0];
                                         lblRFCProveedor.Text = datosProveedor[1];
                                         lblTelProveedor.Text = datosProveedor[10];
-                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string>(nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
+                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
                                         contadorIndex++;
                                     }
                                 }
@@ -667,13 +667,13 @@ namespace PuntoDeVentaV2
 
                             if (cantidad > 0)
                             {
-                                if (Convert.ToInt32(idCategoria[2].ToString()) > 0)
+                                if (Convert.ToInt32(idCategoria[3].ToString()) > 0)
                                 {
-                                    cargarDatosCategoria(Convert.ToInt32(idCategoria[2].ToString()));
+                                    cargarDatosCategoria(Convert.ToInt32(idCategoria[3].ToString()));
                                     if (!datosCategoria.Equals(null))
                                     {
                                         lblNombreCategoria.Text = datosCategoria[1].ToString();
-                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string>(nombrePanelContenido, idCategoria[2].ToString(), datosCategoria[1].ToString()));
+                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idCategoria[0].ToString(),  nombrePanelContenido, idCategoria[2].ToString(), datosCategoria[1].ToString()));
                                         contadorIndex++;
                                     }
                                 }
@@ -742,13 +742,13 @@ namespace PuntoDeVentaV2
 
                             if (cantidad > 0)
                             {
-                                if (Convert.ToInt32(idUbicacion[2].ToString()) > 0)
+                                if (Convert.ToInt32(idUbicacion[5].ToString()) > 0)
                                 {
-                                    cargarDatosUbicacion(Convert.ToInt32(idUbicacion[2].ToString()));
+                                    cargarDatosUbicacion(Convert.ToInt32(idUbicacion[5].ToString()));
                                     if (!datosUbicacion.Equals(null))
                                     {
                                         lblNombreUbicacion.Text = datosUbicacion[1].ToString();
-                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string>(nombrePanelContenido, idUbicacion[2].ToString(), datosUbicacion[1].ToString()));
+                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idUbicacion[0].ToString(), nombrePanelContenido, idUbicacion[2].ToString(), datosUbicacion[1].ToString()));
                                         contadorIndex++;
                                     }
                                 }
@@ -861,7 +861,7 @@ namespace PuntoDeVentaV2
                             if (Descripcion.Equals(nombrePanelContenido))
                             {
                                 int idDetailGral = 0;
-                                idDetailGral = Convert.ToInt32(DetalleGralPorPanel[2].ToString());
+                                idDetailGral = Convert.ToInt32(DetalleGralPorPanel[3].ToString());
 
                                 foreach (Control contHijo in fLPCentralDetalle.Controls)
                                 {
@@ -876,7 +876,7 @@ namespace PuntoDeVentaV2
                                                 if (contItemSubHijo is Label)
                                                 {
                                                     contItemSubHijo.Text = idDetalleGral[2].ToString();
-                                                    diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string>(nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
+                                                    diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string, string>(DetalleGralPorPanel[0].ToString(), nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
                                                     contadorIndex++;
                                                     break;
                                                 }
