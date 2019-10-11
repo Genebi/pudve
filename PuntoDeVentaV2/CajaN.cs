@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         public static bool recargarDatos = false;
 
@@ -306,98 +308,81 @@ namespace PuntoDeVentaV2
 
         private void GenerarReporte(int idReporte)
         {
+            // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
 
+            // Fuentes y Colores
             var colorFuenteNegrita = new BaseColor(Color.Black);
+            var colorFuenteBlanca = new BaseColor(Color.White);
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
 
-            int anchoLogo = 110;
-            int altoLogo = 60;
-
+            // Ruta donde se creara el archivo PDF
             var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_" + idReporte + ".pdf";
 
-            //float[] anchoColumnas = new float[] { 10f, 24f, 9f, 9f };
+            float[] anchoColumnas = new float[] { 30f, 30f, 20f, 20f, 20f, 40f, 20f, 20f, 30f, 30f };
 
             Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
-            string logotipo = datos[11];
-            //string encabezado = $"\n{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
-
             reporte.Open();
 
-            //Validación para verificar si existe logotipo
-            if (logotipo != "")
-            {
-                logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
-
-                if (System.IO.File.Exists(logotipo))
-                {
-                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
-                    logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
-                    logo.ScaleAbsolute(anchoLogo, altoLogo);
-                    reporte.Add(logo);
-                }
-            }
-
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaCorte.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n", fuenteNormal);
-            //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaCorte.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
-            //domicilio.Alignment = Element.ALIGN_CENTER;
-            //domicilio.SetLeading(10, 0);
 
-            /***************************************
-             ** Tabla con los datos ajustados **
-             ***************************************/
+            //==============================================
+            //===       TABLA DE VENTAS REALIZADAS       ===
+            //==============================================
+
             PdfPTable tabla = new PdfPTable(10);
             tabla.WidthPercentage = 100;
-            //tabla.SetWidths(anchoColumnas);
+            tabla.SetWidths(anchoColumnas);
 
             PdfPCell colCliente = new PdfPCell(new Phrase("Cliente", fuenteNegrita));
-            colCliente.BorderWidth = 1;
+            colCliente.BorderWidth = 0;
             colCliente.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colRFC = new PdfPCell(new Phrase("RFC", fuenteNegrita));
-            colRFC.BorderWidth = 1;
+            colRFC.BorderWidth = 0;
             colRFC.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colSubtotal = new PdfPCell(new Phrase("Subtotal", fuenteNegrita));
-            colSubtotal.BorderWidth = 1;
+            colSubtotal.BorderWidth = 0;
             colSubtotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colIVA = new PdfPCell(new Phrase("IVA", fuenteNegrita));
-            colIVA.BorderWidth = 1;
+            colIVA.BorderWidth = 0;
             colIVA.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colTotal = new PdfPCell(new Phrase("Total", fuenteNegrita));
-            colTotal.BorderWidth = 1;
+            colTotal.BorderWidth = 0;
             colTotal.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colFecha = new PdfPCell(new Phrase("Fecha", fuenteNegrita));
-            colFecha.BorderWidth = 1;
+            colFecha.BorderWidth = 0;
             colFecha.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colFolio = new PdfPCell(new Phrase("Folio", fuenteNegrita));
-            colFolio.BorderWidth = 1;
+            colFolio.BorderWidth = 0;
             colFolio.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colSerie = new PdfPCell(new Phrase("Serie", fuenteNegrita));
-            colSerie.BorderWidth = 1;
+            colSerie.BorderWidth = 0;
             colSerie.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colPago = new PdfPCell(new Phrase("Pago", fuenteNegrita));
-            colPago.BorderWidth = 1;
+            colPago.BorderWidth = 0;
             colPago.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colEmpleado = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
-            colEmpleado.BorderWidth = 1;
+            colEmpleado.BorderWidth = 0;
             colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
 
             tabla.AddCell(colCliente);
@@ -411,79 +396,190 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colPago);
             tabla.AddCell(colEmpleado);
 
-
-            //Consulta para obtener los registros de las ventas
-            /*SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
+            // Consulta para obtener los registros de las ventas
+            SQLiteConnection sql_con;
+            SQLiteCommand primerConsulta, segundaConsulta;
+            SQLiteDataReader drUno, drDos;
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM HistorialCompras WHERE IDUsuario = {FormPrincipal.userID} AND IDReporte = {idReporte}", sql_con);
-            dr = sql_cmd.ExecuteReader();
+            primerConsulta = new SQLiteCommand($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND FechaOperacion < '{fechaCorte.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
+            drUno = primerConsulta.ExecuteReader();
 
-            while (dr.Read())
+            var sumaSubtotal = 0f;
+            var sumaIVA = 0f;
+            var sumaTotal = 0f;
+
+            while (drUno.Read())
             {
-                var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
-                var proveedor = dr.GetValue(dr.GetOrdinal("NomEmisor")).ToString();
-                var unidades = dr.GetValue(dr.GetOrdinal("Cantidad")).ToString();
-                var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
-                var venta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Precio"))).ToString("0.00");
+                var idVenta = Convert.ToInt32(drUno.GetValue(drUno.GetOrdinal("ID")));
+                var subtotal = float.Parse(drUno.GetValue(drUno.GetOrdinal("Subtotal")).ToString());
+                var iva = float.Parse(drUno.GetValue(drUno.GetOrdinal("IVA16")).ToString());
+                var total = float.Parse(drUno.GetValue(drUno.GetOrdinal("Total")).ToString());
+                var folio = drUno.GetValue(drUno.GetOrdinal("Folio"));
+                var serie = drUno.GetValue(drUno.GetOrdinal("Serie"));
+                var fecha = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
-                var tmp = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                var stock = tmp[4];
+                sumaSubtotal += subtotal;
+                sumaIVA += iva;
+                sumaTotal += total;
 
-                DateTime fecha = (DateTime)dr.GetValue(dr.GetOrdinal("FechaLarga"));
-                var fechaCompra = fecha.ToString("yyyy-MM-dd");
+                segundaConsulta = new SQLiteCommand($"SELECT * FROM DetallesVenta WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}", sql_con);
+                drDos = segundaConsulta.ExecuteReader();
 
-                DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
-                var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+                var clienteNombre = string.Empty;
+                var clienteRFC = string.Empty;
+                var metodoPago = string.Empty;
 
-                PdfPCell colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
-                colProveedorTmp.BorderWidth = 1;
-                colProveedorTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                if (drDos.Read())
+                {
+                    var idCliente = Convert.ToInt32(drDos.GetValue(drDos.GetOrdinal("IDCliente")));
+                    var efectivo = float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+                    var tarjeta = float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+                    var vales = float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+                    var cheque = float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+                    var trans = float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+                    var credito = float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
 
-                PdfPCell colUnidadesTmp = new PdfPCell(new Phrase(unidades, fuenteNormal));
-                colUnidadesTmp.BorderWidth = 1;
-                colUnidadesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    metodoPago = (new[] {
+                        Tuple.Create("Efectivo", efectivo),
+                        Tuple.Create("Tarjeta", tarjeta),
+                        Tuple.Create("Vales", vales),
+                        Tuple.Create("Cheque", cheque),
+                        Tuple.Create("Transferencia", trans),
+                        Tuple.Create("Crédito", credito)
+                    }).OrderByDescending(t => t.Item2).First().Item1;
 
-                PdfPCell colPrecioCompraTmp = new PdfPCell(new Phrase("$" + compra, fuenteNormal));
-                colPrecioCompraTmp.BorderWidth = 1;
-                colPrecioCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    
+                    // Obtener datos del Cliente
+                    if (idCliente > 0)
+                    {
+                        var clienteTmp = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
+                        clienteNombre = clienteTmp[0];
+                        clienteRFC = clienteTmp[1];
+                    }
+                    else
+                    {
+                        clienteNombre = "Público General";
+                        clienteRFC = "XAXX010101000";
+                    }
+                }
 
-                PdfPCell colPrecioVentaTmp = new PdfPCell(new Phrase("$" + venta, fuenteNormal));
-                colPrecioVentaTmp.BorderWidth = 1;
-                colPrecioVentaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colClienteTmp = new PdfPCell(new Phrase(clienteNombre, fuenteNormal));
+                colClienteTmp.BorderWidth = 0;
+                colClienteTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colStockTmp = new PdfPCell(new Phrase(stock, fuenteNormal));
-                colStockTmp.BorderWidth = 1;
-                colStockTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colRFCTmp = new PdfPCell(new Phrase(clienteRFC, fuenteNormal));
+                colRFCTmp.BorderWidth = 0;
+                colRFCTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colFechaCompraTmp = new PdfPCell(new Phrase(fechaCompra, fuenteNormal));
-                colFechaCompraTmp.BorderWidth = 1;
-                colFechaCompraTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colSubtotalTmp = new PdfPCell(new Phrase(subtotal.ToString(), fuenteNormal));
+                colSubtotalTmp.BorderWidth = 0;
+                colSubtotalTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colFechaOperacionTmp = new PdfPCell(new Phrase(fechaOperacion, fuenteNormal));
-                colFechaOperacionTmp.BorderWidth = 1;
-                colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colIVATmp = new PdfPCell(new Phrase(iva.ToString(), fuenteNormal));
+                colIVATmp.BorderWidth = 0;
+                colIVATmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                tabla.AddCell(colProveedorTmp);
-                tabla.AddCell(colUnidadesTmp);
-                tabla.AddCell(colPrecioCompraTmp);
-                tabla.AddCell(colPrecioVentaTmp);
-                tabla.AddCell(colStockTmp);
-                tabla.AddCell(colFechaCompraTmp);
-                tabla.AddCell(colFechaOperacionTmp);
+                PdfPCell colTotalTmp = new PdfPCell(new Phrase(total.ToString(), fuenteNormal));
+                colTotalTmp.BorderWidth = 0;
+                colTotalTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                colFechaTmp.BorderWidth = 0;
+                colFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colFolioTmp = new PdfPCell(new Phrase(folio.ToString(), fuenteNormal));
+                colFolioTmp.BorderWidth = 0;
+                colFolioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colSerieTmp = new PdfPCell(new Phrase(serie.ToString(), fuenteNormal));
+                colSerieTmp.BorderWidth = 0;
+                colSerieTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colPagoTmp = new PdfPCell(new Phrase(metodoPago, fuenteNormal));
+                colPagoTmp.BorderWidth = 0;
+                colPagoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase("Admin", fuenteNormal));
+                colEmpleadoTmp.BorderWidth = 0;
+                colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                tabla.AddCell(colClienteTmp);
+                tabla.AddCell(colRFCTmp);
+                tabla.AddCell(colSubtotalTmp);
+                tabla.AddCell(colIVATmp);
+                tabla.AddCell(colTotalTmp);
+                tabla.AddCell(colFechaTmp);
+                tabla.AddCell(colFolioTmp);
+                tabla.AddCell(colSerieTmp);
+                tabla.AddCell(colPagoTmp);
+                tabla.AddCell(colEmpleadoTmp);
             }
 
-            /******************************************
-             ** Fin de la tabla                      **
-             ******************************************/
+            PdfPCell colSeparador = new PdfPCell(new Phrase(Chunk.NEWLINE));
+            colSeparador.Colspan = 10;
+            colSeparador.BorderWidth = 0;
+
+            PdfPCell colTituloTotal = new PdfPCell(new Phrase("TOTAL", fuenteTotales));
+            colTituloTotal.BorderWidth = 0;
+            colTituloTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTituloTotal.BackgroundColor = new BaseColor(Color.Red);
+
+            // Columna temporal para hacer espacio en los totales
+            PdfPCell colTmp1 = new PdfPCell(new Phrase("", fuenteTotales));
+            colTmp1.BorderWidth = 0;
+            colTmp1.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTmp1.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colCantidadSubtotal = new PdfPCell(new Phrase(sumaSubtotal.ToString(), fuenteTotales));
+            colCantidadSubtotal.BorderWidth = 0;
+            colCantidadSubtotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCantidadSubtotal.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colCantidadIVA = new PdfPCell(new Phrase(sumaIVA.ToString(), fuenteTotales));
+            colCantidadIVA.BorderWidth = 0;
+            colCantidadIVA.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCantidadIVA.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colCantidadTotal = new PdfPCell(new Phrase(sumaTotal.ToString(), fuenteTotales));
+            colCantidadTotal.BorderWidth = 0;
+            colCantidadTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCantidadTotal.BackgroundColor = new BaseColor(Color.Red);
+
+            // Columna temporal para hacer espacio en los totales
+            PdfPCell colTmp2 = new PdfPCell(new Phrase("", fuenteTotales));
+            colTmp2.Colspan = 5;
+            colTmp2.BorderWidth = 0;
+            colTmp2.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTmp2.BackgroundColor = new BaseColor(Color.Red);
+
+            tabla.AddCell(colSeparador);
+            tabla.AddCell(colTituloTotal);
+            tabla.AddCell(colTmp1);
+            tabla.AddCell(colCantidadSubtotal);
+            tabla.AddCell(colCantidadIVA);
+            tabla.AddCell(colCantidadTotal);
+            tabla.AddCell(colTmp2);
+
+            drUno.Close();
+            sql_con.Close();
+
+            //==============================================
+            //===    FIN  TABLA DE VENTAS REALIZADAS     ===
+            //==============================================
+
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+            //==============================================
+            //=== TABLA HISTORIAL DE DEPOSITOS Y RETIROS ===
+            //==============================================
 
             reporte.Add(titulo);
             reporte.Add(subTitulo);
-            //reporte.Add(domicilio);
             reporte.Add(tabla);
+            reporte.Add(linea);
 
             reporte.AddTitle("Reporte Corte de Caja");
             reporte.AddAuthor("PUDVE");
