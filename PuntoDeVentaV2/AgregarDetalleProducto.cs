@@ -32,6 +32,9 @@ namespace PuntoDeVentaV2
                                     ubicaciones, 
                                     detallesGral;
 
+        Dictionary<int, Tuple<string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string>>(),
+                                                       diccionarioDetalleBasicos  = new Dictionary<int, Tuple<string, string, string>>();
+
         string[]    datosProveedor,
                     datosCategoria,
                     datosUbicacion,
@@ -45,7 +48,8 @@ namespace PuntoDeVentaV2
                     listaDetalleGral = new string[] { };
 
         int XPos = 0, 
-            YPos = 0, 
+            YPos = 0,
+            contadorIndex = 0,
             idProveedor = 0, 
             idCategoria = 0, 
             idUbicacion = 0,
@@ -592,6 +596,8 @@ namespace PuntoDeVentaV2
                                         lblNombreProveedor.Text = datosProveedor[0];
                                         lblRFCProveedor.Text = datosProveedor[1];
                                         lblTelProveedor.Text = datosProveedor[10];
+                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string>(nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
+                                        contadorIndex++;
                                     }
                                 }
                             }
@@ -667,6 +673,8 @@ namespace PuntoDeVentaV2
                                     if (!datosCategoria.Equals(null))
                                     {
                                         lblNombreCategoria.Text = datosCategoria[1].ToString();
+                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string>(nombrePanelContenido, idCategoria[2].ToString(), datosCategoria[1].ToString()));
+                                        contadorIndex++;
                                     }
                                 }
                             }
@@ -740,6 +748,8 @@ namespace PuntoDeVentaV2
                                     if (!datosUbicacion.Equals(null))
                                     {
                                         lblNombreUbicacion.Text = datosUbicacion[1].ToString();
+                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string>(nombrePanelContenido, idUbicacion[2].ToString(), datosUbicacion[1].ToString()));
+                                        contadorIndex++;
                                     }
                                 }
                             }
@@ -845,7 +855,7 @@ namespace PuntoDeVentaV2
                         var DetalleGralPorPanel = mb.DetallesProductoGralPorPanel(Descripcion, FormPrincipal.userID, idProductoDetalleGral);
 
                         int cantidad = DetalleGralPorPanel.Length;
-
+                        
                         if (cantidad > 0)
                         {
                             if (Descripcion.Equals(nombrePanelContenido))
@@ -866,6 +876,8 @@ namespace PuntoDeVentaV2
                                                 if (contItemSubHijo is Label)
                                                 {
                                                     contItemSubHijo.Text = idDetalleGral[2].ToString();
+                                                    diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string>(nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
+                                                    contadorIndex++;
                                                     break;
                                                 }
                                             }
@@ -874,6 +886,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
+                                //contadorIndex = 0;
                             }
                         }
                     }
