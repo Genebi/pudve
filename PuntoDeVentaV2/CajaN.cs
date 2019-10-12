@@ -341,6 +341,7 @@ namespace PuntoDeVentaV2
             //===       TABLA DE VENTAS REALIZADAS       ===
             //==============================================
 
+            #region Tabla de Venta
             PdfPTable tabla = new PdfPTable(10);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
@@ -515,6 +516,8 @@ namespace PuntoDeVentaV2
                 tabla.AddCell(colSerieTmp);
                 tabla.AddCell(colPagoTmp);
                 tabla.AddCell(colEmpleadoTmp);
+
+                drDos.Close();
             }
 
             PdfPCell colSeparador = new PdfPCell(new Phrase(Chunk.NEWLINE));
@@ -564,7 +567,7 @@ namespace PuntoDeVentaV2
 
             drUno.Close();
             sql_con.Close();
-
+            #endregion
             //==============================================
             //===    FIN  TABLA DE VENTAS REALIZADAS     ===
             //==============================================
@@ -575,11 +578,53 @@ namespace PuntoDeVentaV2
             //==============================================
             //=== TABLA HISTORIAL DE DEPOSITOS Y RETIROS ===
             //==============================================
+            Paragraph tituloHistorial = new Paragraph("HISTORIAL DE DEPOSITOS Y RETIROS\n\n", fuenteGrande);
+            tituloHistorial.Alignment = Element.ALIGN_CENTER;
+
+            anchoColumnas = new float[] { 30f, 30f, 20f, 20f, 20f, 40f };
+
+            PdfPTable tablaHistorial = new PdfPTable(6);
+            tablaHistorial.WidthPercentage = 80;
+            tablaHistorial.SetWidths(anchoColumnas);
+
+            PdfPCell cEmpleado = new PdfPCell(new Phrase("Empleado", fuenteNegrita));
+            cEmpleado.BorderWidth = 0;
+            cEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell cTipo = new PdfPCell(new Phrase("Tipo", fuenteNegrita));
+            cTipo.BorderWidth = 0;
+            cTipo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell cCantidad = new PdfPCell(new Phrase("Cantidad", fuenteNegrita));
+            cCantidad.BorderWidth = 0;
+            cCantidad.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell cSaldo = new PdfPCell(new Phrase("Saldo", fuenteNegrita));
+            cSaldo.BorderWidth = 0;
+            cSaldo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell cFecha = new PdfPCell(new Phrase("Fecha", fuenteNegrita));
+            cFecha.BorderWidth = 0;
+            cFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell cConcepto = new PdfPCell(new Phrase("Concepto", fuenteNegrita));
+            cConcepto.BorderWidth = 0;
+            cConcepto.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            tablaHistorial.AddCell(cEmpleado);
+            tablaHistorial.AddCell(cTipo);
+            tablaHistorial.AddCell(cCantidad);
+            tablaHistorial.AddCell(cSaldo);
+            tablaHistorial.AddCell(cFecha);
+            tablaHistorial.AddCell(cConcepto);
+
 
             reporte.Add(titulo);
             reporte.Add(subTitulo);
             reporte.Add(tabla);
             reporte.Add(linea);
+            reporte.Add(tituloHistorial);
+            reporte.Add(tablaHistorial);
 
             reporte.AddTitle("Reporte Corte de Caja");
             reporte.AddAuthor("PUDVE");
