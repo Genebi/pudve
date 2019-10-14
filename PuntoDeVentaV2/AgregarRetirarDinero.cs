@@ -129,6 +129,8 @@ namespace PuntoDeVentaV2
 
                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
                 }
+
+                CajaN.botones = true;
             }
 
             Dispose();
@@ -204,7 +206,9 @@ namespace PuntoDeVentaV2
                         trans.ToString("0.00"), credito.ToString("0.00"), "0"
                     };
 
-                    cn.EjecutarConsulta(cs.OperacionCaja(datos)); 
+                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+
+                    CajaN.botones = true;
                 }
                 
                 Dispose();
