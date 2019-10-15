@@ -97,7 +97,7 @@ namespace PuntoDeVentaV2
         {
             cantidadesReporte = ObtenerCantidades();
 
-            AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
+            /*AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
 
             corte.FormClosed += delegate
             {
@@ -111,7 +111,9 @@ namespace PuntoDeVentaV2
                 }
             };
 
-            corte.ShowDialog();
+            corte.ShowDialog();*/
+
+            GenerarTicket();
         }
 
         private string[] ObtenerCantidades()
@@ -393,7 +395,6 @@ namespace PuntoDeVentaV2
             //===========================================
             //===       TABLAS DE CORTE DE CAJA       ===
             //===========================================
-
             #region Tabla de Venta
 
             // Cantidades de las columnas
@@ -932,7 +933,6 @@ namespace PuntoDeVentaV2
             //===============================
             //===    TABLA DE DEPOSITOS   ===
             //===============================
-
             #region Tabla de Depositos
             anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
@@ -1045,7 +1045,6 @@ namespace PuntoDeVentaV2
             sql_con.Close();
 
             #endregion
-
             //===============================
             //=== FIN TABLA DE DEPOSITOS  ===
             //===============================
@@ -1054,6 +1053,7 @@ namespace PuntoDeVentaV2
             //=========================
             //=== TABLA DE RETIROS  ===
             //=========================
+            #region Tabla de Retiros
             Paragraph tituloRetiros = new Paragraph("HISTORIAL DE RETIROS\n\n", fuenteGrande);
             tituloRetiros.Alignment = Element.ALIGN_CENTER;
 
@@ -1161,6 +1161,7 @@ namespace PuntoDeVentaV2
             dr.Close();
             sql_con.Close();
 
+            #endregion
             //=============================
             //=== FIN TABLA DE RETIROS  ===
             //=============================
@@ -1185,6 +1186,108 @@ namespace PuntoDeVentaV2
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.ShowDialog();
+        }
+
+
+        private void GenerarTicket()
+        {
+            var datos = FormPrincipal.datosUsuario;
+
+            //Medidas de ticket de 57 y 80 mm
+            //57mm = 161.28 pt
+            //80mm = 226.08 pt
+
+            var tipoPapel = 57;
+            var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
+            var altoPapel = Convert.ToInt32(anchoPapel + 54);
+
+            //Variables y arreglos para el contenido de la tabla
+            float[] anchoColumnas = new float[] { };
+
+            int medidaFuenteMensaje = 0;
+            int medidaFuenteNegrita = 0;
+            int medidaFuenteNormal = 0;
+            int medidaFuenteGrande = 0;
+
+            int separadores = 0;
+            int anchoLogo = 0;
+            int altoLogo = 0;
+            int espacio = 0;
+
+            if (tipoPapel == 80)
+            {
+                anchoColumnas = new float[] { 20f, 20f };
+                medidaFuenteMensaje = 10;
+                medidaFuenteGrande = 10;
+                medidaFuenteNegrita = 8;
+                medidaFuenteNormal = 8;
+            }
+            else if (tipoPapel == 57)
+            {
+                anchoColumnas = new float[] { 20f, 20f };
+                medidaFuenteMensaje = 6;
+                medidaFuenteGrande = 8;
+                medidaFuenteNegrita = 6;
+                medidaFuenteNormal = 6;
+            }
+
+            // Ruta donde se creara el archivo PDF
+            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaCorte.ToString("yyyyMMddHHmmss") + ".pdf";
+
+            Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(rutaArchivo, FileMode.Create));
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteGrande);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteMensaje);
+
+            ticket.Open();
+
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaCorte.ToString("yyyy-MM-dd HH:mm:ss"), fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
+
+            /**************************************
+             ** TABLA VENTAS **
+             **************************************/
+
+            PdfPTable tabla = new PdfPTable(2);
+            tabla.WidthPercentage = 100;
+            tabla.SetWidths(anchoColumnas);
+
+            PdfPCell colEfectivo = new PdfPCell(new Phrase("Efectivo", fuenteNormal));
+            colEfectivo.BorderWidth = 0;
+            colEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            PdfPCell colEfectivoC = new PdfPCell(new Phrase("0.00", fuenteNormal));
+            colEfectivoC.BorderWidth = 0;
+            colEfectivoC.HorizontalAlignment = Element.ALIGN_CENTER;
+
+            tabla.AddCell(colEfectivo);
+            tabla.AddCell(colEfectivoC);
+
+            /*************************
+             ** FIN TABLA DE VENTAS **
+             *************************/
+
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+            ticket.Add(titulo);
+            ticket.Add(subTitulo);
+            ticket.Add(linea);
+            ticket.Add(tabla);
+
+            ticket.AddTitle("Ticket Corte Caja");
+            ticket.AddAuthor("PUDVE");
+            ticket.Close();
+            writer.Close();
+
+            VisualizadorTickets vt = new VisualizadorTickets(rutaArchivo, rutaArchivo);
+            vt.ShowDialog();
         }
     }
 }
