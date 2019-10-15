@@ -1,8 +1,12 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -181,6 +185,18 @@ namespace PuntoDeVentaV2
 
             if (resultado > 0)
             {
+                // Para generar Ticket al depositar dinero
+                if (operacion == 0)
+                {
+                    GenerarTicket(datos);
+                }
+
+                // Para generar Ticket al retirar dinero
+                if (operacion == 1)
+                {
+                    GenerarTicket(datos);
+                }
+
                 // Corte
                 if (operacion == 2)
                 {
@@ -213,6 +229,161 @@ namespace PuntoDeVentaV2
                 
                 Dispose();
             }
+        }
+
+        private void GenerarTicket(string[] info)
+        {
+            
+            var datos = FormPrincipal.datosUsuario;
+
+            // tipo 0 = Agregar dinero
+            // tipo 1 = Retirar dinero
+
+            //Medidas de ticket de 57 y 80 mm
+            //57mm = 161.28 pt
+            //80mm = 226.08 pt
+
+            var tipoPapel = 57;
+            var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
+            var altoPapel = Convert.ToInt32(anchoPapel + 54);
+
+            int medidaFuenteMensaje = 0;
+            int medidaFuenteNegrita = 0;
+            int medidaFuenteNormal = 0;
+            int medidaFuenteGrande = 0;
+
+            int separadores = 0;
+            int anchoLogo = 0;
+            int altoLogo = 0;
+            int espacio = 0;
+
+            if (tipoPapel == 80)
+            {
+                medidaFuenteMensaje = 10;
+                medidaFuenteGrande = 10;
+                medidaFuenteNegrita = 8;
+                medidaFuenteNormal = 8;
+            }
+            else if (tipoPapel == 57)
+            {
+                medidaFuenteMensaje = 6;
+                medidaFuenteGrande = 8;
+                medidaFuenteNegrita = 6;
+                medidaFuenteNormal = 6;
+            }
+
+            // Ruta donde se creara el archivo PDF
+            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\ticket_caja_" + Convert.ToDateTime(info[4]).ToString("yyyyMMddHHmmss") + ".pdf";
+
+            Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(rutaArchivo, FileMode.Create));
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteGrande);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteMensaje);
+
+            ticket.Open();
+
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+            Paragraph subTitulo = new Paragraph("Ticket " + info[0].ToUpper() + "\nFecha: " + info[4] + "\nEmpleado: ADMIN", fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
+
+            string contenido = $"Empleado: ADMIN\nEfectivo: ${info[6]}\nTarjeta: ${info[7]}\nVales: ${info[8]}\nCheque: ${info[9]}\nTransferencia: ${info[10]}";
+            Paragraph cuerpo = new Paragraph(contenido, fuenteNormal);
+            cuerpo.Alignment = Element.ALIGN_CENTER;
+
+            float[] anchoColumnas = new float[] { 20f, 20f };
+
+            PdfPTable tabla = new PdfPTable(2);
+            tabla.WidthPercentage = 100;
+            tabla.SetWidths(anchoColumnas);
+
+            //======================================================================
+            PdfPCell colEfectivo = new PdfPCell(new Phrase("Efectivo", fuenteNormal));
+            colEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colEfectivo.BorderWidth = 0;
+
+            PdfPCell colEfectivoC = new PdfPCell(new Phrase($"${info[6]}", fuenteNormal));
+            colEfectivoC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colEfectivoC.BorderWidth = 0;
+
+            PdfPCell colTarjeta = new PdfPCell(new Phrase("Tarjeta", fuenteNormal));
+            colTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTarjeta.BorderWidth = 0;
+
+            PdfPCell colTarjetaC = new PdfPCell(new Phrase($"${info[7]}", fuenteNormal));
+            colTarjetaC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTarjetaC.BorderWidth = 0;
+
+            PdfPCell colVales = new PdfPCell(new Phrase("Vales", fuenteNormal));
+            colVales.HorizontalAlignment = Element.ALIGN_CENTER;
+            colVales.BorderWidth = 0;
+
+            PdfPCell colValesC = new PdfPCell(new Phrase($"${info[8]}", fuenteNormal));
+            colValesC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colValesC.BorderWidth = 0;
+
+            PdfPCell colCheque = new PdfPCell(new Phrase("Cheque", fuenteNormal));
+            colCheque.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCheque.BorderWidth = 0;
+
+            PdfPCell colChequeC = new PdfPCell(new Phrase($"${info[9]}", fuenteNormal));
+            colChequeC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colChequeC.BorderWidth = 0;
+
+            PdfPCell colTrans = new PdfPCell(new Phrase("Transferencia", fuenteNormal));
+            colTrans.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTrans.BorderWidth = 0;
+
+            PdfPCell colTransC = new PdfPCell(new Phrase($"${info[10]}", fuenteNormal));
+            colTransC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colTransC.BorderWidth = 0;
+
+            tabla.AddCell(colEfectivo);
+            tabla.AddCell(colEfectivoC);
+            tabla.AddCell(colTarjeta);
+            tabla.AddCell(colTarjetaC);
+            tabla.AddCell(colVales);
+            tabla.AddCell(colValesC);
+            tabla.AddCell(colCheque);
+            tabla.AddCell(colChequeC);
+            tabla.AddCell(colTrans);
+            tabla.AddCell(colTransC);
+
+            //======================================================================
+
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+            linea.SetLeading(0.5F, 0.5F);
+
+            Paragraph concepto = new Paragraph("CONCEPTO", fuenteNegrita);
+            concepto.Alignment = Element.ALIGN_CENTER;
+
+            Paragraph conceptoExtra = new Paragraph(info[3], fuenteNormal);
+            conceptoExtra.Alignment = Element.ALIGN_CENTER;
+
+            ticket.Add(titulo);
+            ticket.Add(subTitulo);
+            ticket.Add(linea);
+            ticket.Add(tabla);
+            ticket.Add(linea);
+
+            if (!string.IsNullOrWhiteSpace(info[3]))
+            {
+                ticket.Add(concepto);
+                ticket.Add(conceptoExtra);
+            }
+
+            ticket.AddTitle("Ticket Corte Caja");
+            ticket.AddAuthor("PUDVE");
+            ticket.Close();
+            writer.Close();
+
+            VisualizadorTickets vt = new VisualizadorTickets(rutaArchivo, rutaArchivo);
+            vt.ShowDialog();
         }
 
         private float ValidarCampos(string cantidad)

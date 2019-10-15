@@ -1204,12 +1204,6 @@ namespace PuntoDeVentaV2
             //Variables y arreglos para el contenido de la tabla
             float[] anchoColumnas = new float[] { };
 
-            string txtDescripcion = string.Empty;
-            string txtCantidad = string.Empty;
-            string txtImporte = string.Empty;
-            string txtPrecio = string.Empty;
-            string salto = string.Empty;
-
             int medidaFuenteMensaje = 0;
             int medidaFuenteNegrita = 0;
             int medidaFuenteNormal = 0;
@@ -1222,45 +1216,26 @@ namespace PuntoDeVentaV2
 
             if (tipoPapel == 80)
             {
-                anchoColumnas = new float[] { 10f, 24f, 9f, 9f };
-                txtDescripcion = "Descripción";
-                txtCantidad = "Cantidad";
-                txtImporte = "Importe";
-                txtPrecio = "Precio";
-                separadores = 81;
-                anchoLogo = 110;
-                altoLogo = 60;
-                espacio = 10;
-
+                anchoColumnas = new float[] { 20f, 20f };
                 medidaFuenteMensaje = 10;
                 medidaFuenteGrande = 10;
                 medidaFuenteNegrita = 8;
                 medidaFuenteNormal = 8;
-
-                salto = "\n";
             }
             else if (tipoPapel == 57)
             {
-                anchoColumnas = new float[] { 10f, 20f, 9f, 9f };
-                txtDescripcion = "Descripción";
-                txtImporte = "Imp.";
-                txtCantidad = "Cant.";
-                txtPrecio = "Prec.";
-                separadores = 75;
-                anchoLogo = 80;
-                altoLogo = 40;
-                espacio = 8;
-
+                anchoColumnas = new float[] { 20f, 20f };
                 medidaFuenteMensaje = 6;
                 medidaFuenteGrande = 8;
                 medidaFuenteNegrita = 6;
                 medidaFuenteNormal = 6;
-
-                salto = string.Empty;
             }
 
+            // Ruta donde se creara el archivo PDF
+            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaCorte.ToString("yyyyMMddHHmmss") + ".pdf";
+
             Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
-            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaCorte.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(rutaArchivo, FileMode.Create));
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
@@ -1269,82 +1244,50 @@ namespace PuntoDeVentaV2
 
             ticket.Open();
 
-            Paragraph titulo = new Paragraph(datos[0] + "\n", fuenteGrande);
-
-
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaCorte.ToString("yyyy-MM-dd HH:mm:ss"), fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
 
             /**************************************
-             ** Tabla con los productos vendidos **
+             ** TABLA VENTAS **
              **************************************/
 
-            PdfPTable tabla = new PdfPTable(4);
+            PdfPTable tabla = new PdfPTable(2);
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
-            PdfPCell colCantidad = new PdfPCell(new Phrase(txtCantidad, fuenteNegrita));
-            colCantidad.BorderWidth = 0;
+            PdfPCell colEfectivo = new PdfPCell(new Phrase("Efectivo", fuenteNormal));
+            colEfectivo.BorderWidth = 0;
+            colEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colDescripcion = new PdfPCell(new Phrase(txtDescripcion, fuenteNegrita));
-            colDescripcion.BorderWidth = 0;
+            PdfPCell colEfectivoC = new PdfPCell(new Phrase("0.00", fuenteNormal));
+            colEfectivoC.BorderWidth = 0;
+            colEfectivoC.HorizontalAlignment = Element.ALIGN_CENTER;
 
-            PdfPCell colPrecio = new PdfPCell(new Phrase(txtPrecio, fuenteNegrita));
-            colPrecio.BorderWidth = 0;
+            tabla.AddCell(colEfectivo);
+            tabla.AddCell(colEfectivoC);
 
-            PdfPCell colImporte = new PdfPCell(new Phrase(txtImporte, fuenteNegrita));
-            colImporte.BorderWidth = 0;
+            /*************************
+             ** FIN TABLA DE VENTAS **
+             *************************/
 
-            tabla.AddCell(colCantidad);
-            tabla.AddCell(colDescripcion);
-            tabla.AddCell(colPrecio);
-            tabla.AddCell(colImporte);
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
 
-            PdfPCell separadorInicial = new PdfPCell(new Phrase(new string('-', separadores), fuenteNormal));
-            separadorInicial.BorderWidth = 0;
-            separadorInicial.Colspan = 4;
-
-            tabla.AddCell(separadorInicial);
-
-
-
-            PdfPCell separadorFinal = new PdfPCell(new Phrase(new string('-', separadores), fuenteNormal));
-            separadorFinal.BorderWidth = 0;
-            separadorFinal.Colspan = 4;
-
-            PdfPCell totalVenta = new PdfPCell(new Phrase("TOTAL: $", fuenteNormal));
-            totalVenta.BorderWidth = 0;
-            totalVenta.HorizontalAlignment = Element.ALIGN_RIGHT;
-            totalVenta.Colspan = 4;
-
-            tabla.AddCell(separadorFinal);
-            tabla.AddCell(totalVenta);
-
-            /******************************************
-             ** Fin tabla con los productos vendidos **
-             ******************************************/
-
-            Paragraph mensaje = new Paragraph("Cambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.", fuenteMensaje);
-            mensaje.Alignment = Element.ALIGN_CENTER;
-
-            var culture = new System.Globalization.CultureInfo("es-MX");
-            var dia = culture.DateTimeFormat.GetDayName(DateTime.Today.DayOfWeek);
-            var fecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm tt");
-
-            dia = cn.Capitalizar(dia);
-
-            Paragraph diaVenta = new Paragraph($"\n{dia} - {fecha} - ID Venta: ", fuenteNormal);
-            diaVenta.Alignment = Element.ALIGN_CENTER;
-
-            //ticket.Add(titulo);
+            ticket.Add(titulo);
+            ticket.Add(subTitulo);
+            ticket.Add(linea);
             ticket.Add(tabla);
-            ticket.Add(mensaje);
-            ticket.Add(diaVenta);
 
-            ticket.AddTitle("Ticket Venta");
+            ticket.AddTitle("Ticket Corte Caja");
             ticket.AddAuthor("PUDVE");
             ticket.Close();
             writer.Close();
+
+            VisualizadorTickets vt = new VisualizadorTickets(rutaArchivo, rutaArchivo);
+            vt.ShowDialog();
         }
     }
 }
