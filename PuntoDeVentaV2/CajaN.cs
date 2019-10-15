@@ -97,7 +97,7 @@ namespace PuntoDeVentaV2
         {
             cantidadesReporte = ObtenerCantidades();
 
-            AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
+            /*AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
 
             corte.FormClosed += delegate
             {
@@ -111,7 +111,9 @@ namespace PuntoDeVentaV2
                 }
             };
 
-            corte.ShowDialog();
+            corte.ShowDialog();*/
+
+            GenerarTicket();
         }
 
         private string[] ObtenerCantidades()
@@ -393,7 +395,6 @@ namespace PuntoDeVentaV2
             //===========================================
             //===       TABLAS DE CORTE DE CAJA       ===
             //===========================================
-
             #region Tabla de Venta
 
             // Cantidades de las columnas
@@ -932,7 +933,6 @@ namespace PuntoDeVentaV2
             //===============================
             //===    TABLA DE DEPOSITOS   ===
             //===============================
-
             #region Tabla de Depositos
             anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
@@ -1045,7 +1045,6 @@ namespace PuntoDeVentaV2
             sql_con.Close();
 
             #endregion
-
             //===============================
             //=== FIN TABLA DE DEPOSITOS  ===
             //===============================
@@ -1054,6 +1053,7 @@ namespace PuntoDeVentaV2
             //=========================
             //=== TABLA DE RETIROS  ===
             //=========================
+            #region Tabla de Retiros
             Paragraph tituloRetiros = new Paragraph("HISTORIAL DE RETIROS\n\n", fuenteGrande);
             tituloRetiros.Alignment = Element.ALIGN_CENTER;
 
@@ -1161,6 +1161,7 @@ namespace PuntoDeVentaV2
             dr.Close();
             sql_con.Close();
 
+            #endregion
             //=============================
             //=== FIN TABLA DE RETIROS  ===
             //=============================
@@ -1185,6 +1186,165 @@ namespace PuntoDeVentaV2
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.ShowDialog();
+        }
+
+
+        private void GenerarTicket()
+        {
+            var datos = FormPrincipal.datosUsuario;
+
+            //Medidas de ticket de 57 y 80 mm
+            //57mm = 161.28 pt
+            //80mm = 226.08 pt
+
+            var tipoPapel = 57;
+            var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
+            var altoPapel = Convert.ToInt32(anchoPapel + 54);
+
+            //Variables y arreglos para el contenido de la tabla
+            float[] anchoColumnas = new float[] { };
+
+            string txtDescripcion = string.Empty;
+            string txtCantidad = string.Empty;
+            string txtImporte = string.Empty;
+            string txtPrecio = string.Empty;
+            string salto = string.Empty;
+
+            int medidaFuenteMensaje = 0;
+            int medidaFuenteNegrita = 0;
+            int medidaFuenteNormal = 0;
+            int medidaFuenteGrande = 0;
+
+            int separadores = 0;
+            int anchoLogo = 0;
+            int altoLogo = 0;
+            int espacio = 0;
+
+            if (tipoPapel == 80)
+            {
+                anchoColumnas = new float[] { 10f, 24f, 9f, 9f };
+                txtDescripcion = "Descripción";
+                txtCantidad = "Cantidad";
+                txtImporte = "Importe";
+                txtPrecio = "Precio";
+                separadores = 81;
+                anchoLogo = 110;
+                altoLogo = 60;
+                espacio = 10;
+
+                medidaFuenteMensaje = 10;
+                medidaFuenteGrande = 10;
+                medidaFuenteNegrita = 8;
+                medidaFuenteNormal = 8;
+
+                salto = "\n";
+            }
+            else if (tipoPapel == 57)
+            {
+                anchoColumnas = new float[] { 10f, 20f, 9f, 9f };
+                txtDescripcion = "Descripción";
+                txtImporte = "Imp.";
+                txtCantidad = "Cant.";
+                txtPrecio = "Prec.";
+                separadores = 75;
+                anchoLogo = 80;
+                altoLogo = 40;
+                espacio = 8;
+
+                medidaFuenteMensaje = 6;
+                medidaFuenteGrande = 8;
+                medidaFuenteNegrita = 6;
+                medidaFuenteNormal = 6;
+
+                salto = string.Empty;
+            }
+
+            Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaCorte.ToString("yyyyMMddHHmmss") + ".pdf", FileMode.Create));
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteGrande);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteMensaje);
+
+            ticket.Open();
+
+            Paragraph titulo = new Paragraph(datos[0] + "\n", fuenteGrande);
+
+
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+
+            /**************************************
+             ** Tabla con los productos vendidos **
+             **************************************/
+
+            PdfPTable tabla = new PdfPTable(4);
+            tabla.WidthPercentage = 100;
+            tabla.SetWidths(anchoColumnas);
+
+            PdfPCell colCantidad = new PdfPCell(new Phrase(txtCantidad, fuenteNegrita));
+            colCantidad.BorderWidth = 0;
+
+            PdfPCell colDescripcion = new PdfPCell(new Phrase(txtDescripcion, fuenteNegrita));
+            colDescripcion.BorderWidth = 0;
+
+            PdfPCell colPrecio = new PdfPCell(new Phrase(txtPrecio, fuenteNegrita));
+            colPrecio.BorderWidth = 0;
+
+            PdfPCell colImporte = new PdfPCell(new Phrase(txtImporte, fuenteNegrita));
+            colImporte.BorderWidth = 0;
+
+            tabla.AddCell(colCantidad);
+            tabla.AddCell(colDescripcion);
+            tabla.AddCell(colPrecio);
+            tabla.AddCell(colImporte);
+
+            PdfPCell separadorInicial = new PdfPCell(new Phrase(new string('-', separadores), fuenteNormal));
+            separadorInicial.BorderWidth = 0;
+            separadorInicial.Colspan = 4;
+
+            tabla.AddCell(separadorInicial);
+
+
+
+            PdfPCell separadorFinal = new PdfPCell(new Phrase(new string('-', separadores), fuenteNormal));
+            separadorFinal.BorderWidth = 0;
+            separadorFinal.Colspan = 4;
+
+            PdfPCell totalVenta = new PdfPCell(new Phrase("TOTAL: $", fuenteNormal));
+            totalVenta.BorderWidth = 0;
+            totalVenta.HorizontalAlignment = Element.ALIGN_RIGHT;
+            totalVenta.Colspan = 4;
+
+            tabla.AddCell(separadorFinal);
+            tabla.AddCell(totalVenta);
+
+            /******************************************
+             ** Fin tabla con los productos vendidos **
+             ******************************************/
+
+            Paragraph mensaje = new Paragraph("Cambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.", fuenteMensaje);
+            mensaje.Alignment = Element.ALIGN_CENTER;
+
+            var culture = new System.Globalization.CultureInfo("es-MX");
+            var dia = culture.DateTimeFormat.GetDayName(DateTime.Today.DayOfWeek);
+            var fecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm tt");
+
+            dia = cn.Capitalizar(dia);
+
+            Paragraph diaVenta = new Paragraph($"\n{dia} - {fecha} - ID Venta: ", fuenteNormal);
+            diaVenta.Alignment = Element.ALIGN_CENTER;
+
+            //ticket.Add(titulo);
+            ticket.Add(tabla);
+            ticket.Add(mensaje);
+            ticket.Add(diaVenta);
+
+            ticket.AddTitle("Ticket Venta");
+            ticket.AddAuthor("PUDVE");
+            ticket.Close();
+            writer.Close();
         }
     }
 }
