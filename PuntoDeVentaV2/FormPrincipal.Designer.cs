@@ -48,7 +48,6 @@
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
             this.temporizadorConsulta = new System.Windows.Forms.Timer(this.components);
-            this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -370,11 +369,6 @@
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
-            // temporizador_respaldo
-            // 
-            this.temporizador_respaldo.Interval = 900000;
-            this.temporizador_respaldo.Tick += new System.EventHandler(this.temporizador_respaldo_Tick);
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -413,7 +407,6 @@
         private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnEmpresas;
-        private System.Windows.Forms.Timer temporizador_respaldo;
     }
 }
 
