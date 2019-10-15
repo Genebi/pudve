@@ -130,7 +130,7 @@ namespace PuntoDeVentaV2
                             chkDatabase.Items.Add(lvi);
                         }
                     }
-
+                    
                     for (int i = 0; i < appSettings.Count; i++)
                     {
                         string foundSetting = string.Empty;
@@ -673,7 +673,7 @@ namespace PuntoDeVentaV2
                                     if (!datosCategoria.Equals(null))
                                     {
                                         lblNombreCategoria.Text = datosCategoria[1].ToString();
-                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idCategoria[0].ToString(),  nombrePanelContenido, idCategoria[2].ToString(), datosCategoria[1].ToString()));
+                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idCategoria[0].ToString(),  nombrePanelContenido, idCategoria[5].ToString(), datosCategoria[1].ToString()));
                                         contadorIndex++;
                                     }
                                 }
@@ -748,7 +748,7 @@ namespace PuntoDeVentaV2
                                     if (!datosUbicacion.Equals(null))
                                     {
                                         lblNombreUbicacion.Text = datosUbicacion[1].ToString();
-                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idUbicacion[0].ToString(), nombrePanelContenido, idUbicacion[2].ToString(), datosUbicacion[1].ToString()));
+                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idUbicacion[0].ToString(), nombrePanelContenido, idUbicacion[3].ToString(), datosUbicacion[1].ToString()));
                                         contadorIndex++;
                                     }
                                 }
@@ -886,7 +886,6 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
-                                //contadorIndex = 0;
                             }
                         }
                     }
@@ -1478,7 +1477,35 @@ namespace PuntoDeVentaV2
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
             //saveProdDetail();
-            saveGralProdDetail();
+            //saveGralProdDetail();
+            int countChkDatabase = 0;
+            Tuple<string,string,string,string> value;
+            if (diccionarioDetallesGeneral.Count > 0)
+            {
+                for (int i = 0; i < diccionarioDetallesGeneral.Count; i++)
+                {
+                    countChkDatabase++;
+                }
+            }
+            MessageBox.Show("Cantidad de Items: " + countChkDatabase.ToString(), "Total de Items", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            for (int i = 0; i <= countChkDatabase; i++)
+            {
+                if (diccionarioDetallesGeneral.TryGetValue(i, out value))
+                {
+                    if (value.Item2.Equals("panelContenidoTalla"))
+                    {
+                        MessageBox.Show("Setting General\nEncontrado: " + value.Item4.ToString(), "Encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (value.Item2.Equals("panelContenidoCaducidad"))
+                    {
+                        MessageBox.Show("Setting General\nEncontrado: " + value.Item4.ToString(), "Encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Setting General\nNo encontrado...", "No existe ese valor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
             this.Close();
         }
 
@@ -1500,32 +1527,42 @@ namespace PuntoDeVentaV2
                         {
                             if (!contSubHijo.Name.Equals("panelContenidoUbicacion"))
                             {
-                                infoDetailProdGral.Add(finalIdProducto);
-                                infoDetailProdGral.Add(FormPrincipal.userID.ToString());
-                                foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                foreach (var itemDiccionarioDetallesGral in diccionarioDetallesGeneral)
                                 {
-                                    if (contItemSubHijo is Label)
+                                    if (itemDiccionarioDetallesGral.Value.Item2.Equals(contSubHijo.Name))
                                     {
-                                        Descripcion = contItemSubHijo.Text;
-                                        if (!Descripcion.Equals(""))
-                                        {
-                                            var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                            infoDetailProdGral.Add(idFound[0].ToString());
-                                            infoDetailProdGral.Add("1");
-                                            infoDetailProdGral.Add(panel);
-                                        }
 
-                                        // Ejecutamos el proceso de guardado
-                                        try
+                                    }
+                                    else if (!itemDiccionarioDetallesGral.Value.Item2.Equals(contSubHijo.Name))
+                                    {
+                                        infoDetailProdGral.Add(finalIdProducto);
+                                        infoDetailProdGral.Add(FormPrincipal.userID.ToString());
+                                        foreach (Control contItemSubHijo in contSubHijo.Controls)
                                         {
-                                            guardar = infoDetailProdGral.ToArray();
-                                            cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
-                                            infoDetailProdGral.Clear();
-                                            break;
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show("El proceso de guardado de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            if (contItemSubHijo is Label)
+                                            {
+                                                Descripcion = contItemSubHijo.Text;
+                                                if (!Descripcion.Equals(""))
+                                                {
+                                                    var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                                                    infoDetailProdGral.Add(idFound[0].ToString());
+                                                    infoDetailProdGral.Add("1");
+                                                    infoDetailProdGral.Add(panel);
+                                                }
+
+                                                // Ejecutamos el proceso de guardado
+                                                try
+                                                {
+                                                    guardar = infoDetailProdGral.ToArray();
+                                                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                                                    infoDetailProdGral.Clear();
+                                                    break;
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("El proceso de guardado de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
                                         }
                                     }
                                 }
