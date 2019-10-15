@@ -207,6 +207,15 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ActualizarDetallesProductoGenerales(string[] datos)
+        {
+            string consulta = string.Empty;
+
+            consulta = $"UPDATE DetallesProductoGenerales SET IDDetalleGral = '{datos[1]}' WHERE ID = '{datos[0]}'";
+
+            return consulta;
+        }
+
         public string AjustarProducto(string[] datos, int tipo)
         {
             string consulta = string.Empty;

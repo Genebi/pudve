@@ -528,7 +528,7 @@
             this.btnGenerarCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
-            //this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
+            this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGenerarCB.Location = new System.Drawing.Point(149, 7);
             this.btnGenerarCB.Name = "btnGenerarCB";
