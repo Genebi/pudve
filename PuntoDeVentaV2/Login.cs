@@ -2503,6 +2503,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion TablaDetalleGeneral
+            // 28 DetallesProductoGenerales
+            #region TablaDetallesProductoGenerales
+            tabla = "DetallesProductoGenerales";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaDetallesProductoGenerales(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaDetallesProductoGenerales(tabla));
+                    if (dbTables.GetDetallesProductoGenerales() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaDetallesProductoGenerales(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetDetallesProductoGenerales())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameDetallesProductoGenerales(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaDetallesProductoGenerales(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaDetallesProductoGenerales(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaDetallesProductoGenerales(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaDetallesProductoGenerales(tabla));
+                    if (dbTables.GetDetallesProductoGenerales() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaDetallesProductoGenerales(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetDetallesProductoGenerales())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameDetallesProductoGenerales(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaDetallesProductoGenerales(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaDetallesProductoGenerales(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaDetallesProductoGenerales(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion TablaDetallesProductoGenerales
         }
 
         private bool checkEmpty(object tabla)
