@@ -197,6 +197,27 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ActualizarProveedorDetallesDelProducto(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE DetallesProducto SET IDProveedor = '{datos[1]}', Proveedor = '{datos[2]}' WHERE ID = '{datos[0]}'";
+            return consulta;
+        }
+
+        public string ActualizarProveedorDetallesDeCategoria(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE DetallesProducto SET IDCategoria = '{datos[1]}', Categoria = '{datos[2]}' WHERE ID = '{datos[0]}'";
+            return consulta;
+        }
+
+        public string ActualizarProveedorDetallesDeUbicacion(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE DetallesProducto SET IDUbicacion = '{datos[1]}', Ubicacion = '{datos[2]}' WHERE ID = '{datos[0]}'";
+            return consulta;
+        }
+
         public string GuardarDetallesProductoGenerales(string[] datos)
         {
             string consulta = string.Empty;

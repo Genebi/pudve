@@ -239,6 +239,78 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] obtenerIdDetallesProveedor(int idUsuario, string Descripcion)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Proveedores WHERE IDUsuario = '{idUsuario}' AND Nombre = '{Descripcion}' ORDER BY Nombre ASC");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[0].ToString());  //ID
+                lista.Add(dr[1].ToString());  //IDUsuario
+                lista.Add(dr[2].ToString());  //Nombre
+                lista.Add(dr[3].ToString());  //RFC
+                lista.Add(dr[4].ToString());  //Calle
+                lista.Add(dr[5].ToString());  //NoExterior
+                lista.Add(dr[6].ToString());  //NoInterior
+                lista.Add(dr[7].ToString());  //Colonia
+                lista.Add(dr[8].ToString());  //Municipio
+                lista.Add(dr[9].ToString());  //Estado
+                lista.Add(dr[10].ToString()); //CodigoPostal
+                lista.Add(dr[11].ToString()); //Email
+                lista.Add(dr[12].ToString()); //Telefono
+                lista.Add(dr[13].ToString()); //FechaOperacion
+                lista.Add(dr[14].ToString()); //Status
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] obtenerIdDetallesCategorias(int idUsuario, string Descripcion)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Categorias WHERE IDUsuario = '{idUsuario}' AND Nombre = '{Descripcion}' ORDER BY Nombre ASC");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[0].ToString());  //ID
+                lista.Add(dr[1].ToString());  //IDUsuario
+                lista.Add(dr[2].ToString());  //Nombre
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] obtenerIdDetallesUbicacion(int idUsuario, string Descripcion)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM Ubicaciones WHERE IDUsuario = '{idUsuario}' AND Descripcion = '{Descripcion}' ORDER BY Descripcion ASC");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[0].ToString());  //ID
+                lista.Add(dr[1].ToString());  //IDUsuario
+                lista.Add(dr[2].ToString());  //Descripcion
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] DetallesProducto(int idProducto, int idUsuario)
         {
             List<string> lista = new List<string>();
