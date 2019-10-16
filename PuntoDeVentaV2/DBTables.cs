@@ -36,6 +36,7 @@ namespace PuntoDeVentaV2
         public static int Abonos;
         public static int Ubicaciones;
         public static int DetalleGeneral;
+        public static int DetallesProductoGenerales;
     #endregion VariablesTablas
 
         public DBTables()
