@@ -334,6 +334,7 @@
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Genera_respaldos.cs" />
     <Compile Include="InformacionVenta.cs">
       <SubType>Form</SubType>
     </Compile>

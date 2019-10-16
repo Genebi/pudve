@@ -205,5 +205,11 @@ namespace PuntoDeVentaV2
         {
             AbrirFormulario<Inventario>();
         }
+
+        private void temporizador_respaldo_Tick(object sender, EventArgs e)
+        {
+            //Por el momento en comentarios, no eliminarlo
+            //Genera_respaldos.respaldar();
+        }
     }
 }
