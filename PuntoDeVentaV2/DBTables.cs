@@ -36,7 +36,6 @@ namespace PuntoDeVentaV2
         public static int Abonos;
         public static int Ubicaciones;
         public static int DetalleGeneral;
-        public static int DetallesProductoGenerales;
     #endregion VariablesTablas
 
         public DBTables()
@@ -69,7 +68,6 @@ namespace PuntoDeVentaV2
             Categorias = 3;
             Ubicaciones = 3;
             DetalleGeneral = 4;
-            DetallesProductoGenerales = 6;
         #endregion InicializarVariables
         }
 
@@ -1684,5 +1682,46 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaUbicaciones
+
+        // Tabla de DetalleGeneral 27
+        #region TablaDetalleGeneral
+        public int GetDetalleGeneral()
+        {
+            return DetalleGeneral;
+        }
+
+        public string PragmaTablaDetalleGeneral(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameDetalleGeneral(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaDetalleGeneral(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID          INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario   INTEGER NOT NULL,
+                                              Descripcion TEXT);";
+        }
+
+        public string QueryUpdateTablaDetalleGeneral(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             Descripcion) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             Descripcion 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaDetalleGeneral(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaDetalleGeneral
     }
 }
