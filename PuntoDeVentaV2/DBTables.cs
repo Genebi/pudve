@@ -69,6 +69,7 @@ namespace PuntoDeVentaV2
             Categorias = 3;
             Ubicaciones = 3;
             DetalleGeneral = 4;
+            DetallesProductoGenerales = 6;
         #endregion InicializarVariables
         }
 
