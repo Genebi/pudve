@@ -8,7 +8,7 @@ namespace PuntoDeVentaV2
 {
     class DBTables
     {
-        #region VariablesTablas
+    #region VariablesTablas
         public static int Anticipos;
         public static int Caja;
         public static int CatalogoUnidadesMedida;
@@ -35,11 +35,13 @@ namespace PuntoDeVentaV2
         public static int DetallesVenta;
         public static int Abonos;
         public static int Ubicaciones;
-        #endregion VariablesTablas
+        public static int DetalleGeneral;
+        public static int DetallesProductoGenerales;
+    #endregion VariablesTablas
 
         public DBTables()
         {
-            #region InicializarVariables
+        #region InicializarVariables
             Anticipos = 11;
             Caja = 14;
             CatalogoUnidadesMedida = 3;
@@ -66,7 +68,9 @@ namespace PuntoDeVentaV2
             Abonos = 11;
             Categorias = 3;
             Ubicaciones = 3;
-            #endregion InicializarVariables
+            DetalleGeneral = 4;
+            DetallesProductoGenerales = 6;
+        #endregion InicializarVariables
         }
 
         // Tabla de Anticipos 01
