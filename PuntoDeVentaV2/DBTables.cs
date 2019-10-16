@@ -1706,16 +1706,21 @@ namespace PuntoDeVentaV2
         {
             return $@"CREATE TABLE '{tabla}' (ID          INTEGER PRIMARY KEY AUTOINCREMENT,
                                               IDUsuario   INTEGER NOT NULL,
-                                              Descripcion TEXT);";
+                                              ChckName    TEXT    NOT NULL,
+                                              Descripcion TEXT    NOT NULL,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE);";
         }
 
         public string QueryUpdateTablaDetalleGeneral(string tabla)
         {
             return $@"INSERT INTO '{tabla}' (ID,
                                              IDUsuario,
+                                             ChckName,
                                              Descripcion) 
                                       SELECT ID,
                                              IDUsuario,
+                                             ChckName,
                                              Descripcion 
                                         FROM '{tabla}_temp';";
         }
@@ -1725,5 +1730,61 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaDetalleGeneral
+
+        // Tabla de DetallesProductoGenerales 28
+        #region TablaDetallesProductoGenerales
+        public int GetDetallesProductoGenerales()
+        {
+            return DetallesProductoGenerales;
+        }
+
+        public string PragmaTablaDetallesProductoGenerales(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameDetallesProductoGenerales(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaDetallesProductoGenerales(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID                INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDProducto        INTEGER NOT NULL,
+                                              IDUsuario         INTEGER NOT NULL,
+                                              IDDetalleGral     INTEGER NOT NULL,
+                                              StatusDetalleGral INTEGER NOT NULL  DEFAULT (1),
+                                              panelContenido    TEXT    NOT NULL  DEFAULT panelContenido,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE,
+                                              FOREIGN KEY (IDProducto)
+                                              REFERENCES Productos (ID) ON DELETE CASCADE  ON UPDATE CASCADE,
+                                              FOREIGN KEY (IDDetalleGral)
+                                              REFERENCES DetalleGeneral (ID) ON DELETE CASCADE   ON UPDATE CASCADE);";
+        }
+
+        public string QueryUpdateTablaDetallesProductoGenerales(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDProducto,
+                                             IDUsuario,
+                                             IDDetalleGral,
+                                             StatusDetalleGral,
+                                             panelContenido) 
+                                      SELECT ID,
+                                             IDProducto,
+                                             IDUsuario,
+                                             IDDetalleGral,
+                                             StatusDetalleGral,
+                                             panelContenido 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaDetallesProductoGenerales(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaDetallesProductoGenerales
     }
 }
