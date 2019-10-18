@@ -1653,6 +1653,9 @@ namespace PuntoDeVentaV2
                                     // Verificamos si el control es de tipo Label
                                     if (contSubItemHijo is Label)
                                     {
+                                        // Verificamos si el nombre del label es lblNombreProveedor
+                                        // esto soló para que haga este proceso en el label del
+                                        // nombre y no en el resto de los label
                                         if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
                                         {
                                             // Verificamos si la Descripcion ya existe en el Diccionario de Detalles Basicos
@@ -1687,18 +1690,22 @@ namespace PuntoDeVentaV2
                                                             }
                                                             // Obtenemos todos los datos del Detalles en Basicos
                                                             var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
-                                                            // Obtenemos el ID del Detalles Basicos
-                                                            infoDetalle.Add(idFound[0].ToString());
-                                                            infoDetalle.Add(idFound[2].ToString());
+                                                            infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                            infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
                                                             // Ejecutamos el proceso de guardado
                                                             try
                                                             {
+                                                                // Convertimos la Lista lo que tengan almacenado
+                                                                // a un Array para guardarlo en la variable guardar
                                                                 guardar = infoDetalle.ToArray();
+                                                                // usamos la variable guardar para hacer el
+                                                                // query para poder hacer la actualizacion
                                                                 cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
-                                                                infoDetalle.Clear();
+                                                                infoDetalle.Clear(); // limpiamos de informacion la Lista
                                                             }
                                                             catch (Exception ex)
                                                             {
+                                                                // si hubo algun error de actualización se envia un mensaje al usuario
                                                                 MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                             }
                                                             break;
@@ -1751,18 +1758,22 @@ namespace PuntoDeVentaV2
                                                         }
                                                         // Obtenemos todos los datos del Detalles en Basicos
                                                         var idFound = mb.obtenerIdDetallesCategorias(FormPrincipal.userID, Descripcion);
-                                                        // Obtenemos el ID del Detalles Basicos
-                                                        infoDetalle.Add(idFound[0].ToString());
-                                                        infoDetalle.Add(idFound[2].ToString());
+                                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
                                                         // Ejecutamos el proceso de guardado
                                                         try
                                                         {
+                                                            // Convertimos la Lista lo que tengan almacenado
+                                                            // a un Array para guardarlo en la variable guardar
                                                             guardar = infoDetalle.ToArray();
+                                                            // usamos la variable guardar para hacer el
+                                                            // query para poder hacer la actualizacion
                                                             cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDeCategoria(guardar));
-                                                            infoDetalle.Clear();
+                                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
                                                         }
                                                         catch (Exception ex)
                                                         {
+                                                            // si hubo algun error de actualización se envia un mensaje al usuario
                                                             MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                         }
                                                         break;
@@ -1813,18 +1824,22 @@ namespace PuntoDeVentaV2
                                                         }
                                                         // Obtenemos todos los datos del Detalles en Basicos
                                                         var idFound = mb.obtenerIdDetallesUbicacion(FormPrincipal.userID, Descripcion);
-                                                        // Obtenemos el ID del Detalles Basicos
-                                                        infoDetalle.Add(idFound[0].ToString());
-                                                        infoDetalle.Add(idFound[2].ToString());
+                                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
                                                         // Ejecutamos el proceso de guardado
                                                         try
                                                         {
+                                                            // Convertimos la Lista lo que tengan almacenado
+                                                            // a un Array para guardarlo en la variable guardar
                                                             guardar = infoDetalle.ToArray();
+                                                            // usamos la variable guardar para hacer el
+                                                            // query para poder hacer la actualizacion
                                                             cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDeUbicacion(guardar));
-                                                            infoDetalle.Clear();
+                                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
                                                         }
                                                         catch (Exception ex)
                                                         {
+                                                            // si hubo algun error de actualización se envia un mensaje al usuario
                                                             MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                                         }
                                                         break;
@@ -1836,7 +1851,306 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                        // aqui va el Else
+                        // sí es False
+                        else if (!alreadyStoredPanelConteido)
+                        {
+                            bool resultadoConsulta;
+                            try
+                            {
+                                resultadoConsulta = (bool)cn.EjecutarSelect(cs.VerificarDetallesProducto(finalIdProducto, Convert.ToString(FormPrincipal.userID)));
+                                if (resultadoConsulta == false)
+                                {
+                                    // verificamos que sea el PanelContenido sea el de Proveedor
+                                    if (contSubHijo.Name.Equals("panelContenidoProveedor"))
+                                    {
+                                        // Recorremos los controles en el PanelContenido
+                                        foreach (Control contSubItemHijo in contSubHijo.Controls)
+                                        {
+                                            // Verificamos si el control es de tipo Label
+                                            if (contSubItemHijo is Label)
+                                            {
+                                                // Verificamos si el nombre del label es lblNombreProveedor
+                                                // esto soló para que haga este proceso en el label del
+                                                // nombre y no en el resto de los label
+                                                if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
+                                                {
+                                                    if (!contSubItemHijo.Text.Equals(""))
+                                                    {
+                                                        infoDetalle.Add(finalIdProducto);
+                                                        infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
+                                                        Descripcion = contSubItemHijo.Text;
+                                                        var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
+                                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                        // Ejecutamos el proceso de guardado
+                                                        try
+                                                        {
+                                                            // Convertimos la Lista lo que tengan almacenado
+                                                            // a un Array para guardarlo en la variable guardar
+                                                            guardar = infoDetalle.ToArray();
+                                                            // usamos la variable guardar para hacer el
+                                                            // query para poder hacer la actualizacion
+                                                            cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
+                                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            // si hubo algun error de actualización se envia un mensaje al usuario
+                                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                        }
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else if (contSubHijo.Name.Equals("panelContenidoCategoria"))
+                                    {
+                                        // Recorremos los controles en el PanelContenido
+                                        foreach (Control contSubItemHijo in contSubHijo.Controls)
+                                        {
+                                            // Verificamos si el control es de tipo Label
+                                            if (contSubItemHijo is Label)
+                                            {
+                                                // Verificamos si el nombre del label es lblNombreProveedor
+                                                // esto soló para que haga este proceso en el label del
+                                                // nombre y no en el resto de los label
+                                                if (contSubItemHijo.Name.Equals("lblNombreCategoria"))
+                                                {
+                                                    if (!contSubItemHijo.Text.Equals(""))
+                                                    {
+                                                        infoDetalle.Add(finalIdProducto);
+                                                        infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
+                                                        Descripcion = contSubItemHijo.Text;
+                                                        var idFound = mb.obtenerIdDetallesCategorias(FormPrincipal.userID, Descripcion);
+                                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                        // Ejecutamos el proceso de guardado
+                                                        try
+                                                        {
+                                                            // Convertimos la Lista lo que tengan almacenado
+                                                            // a un Array para guardarlo en la variable guardar
+                                                            guardar = infoDetalle.ToArray();
+                                                            // usamos la variable guardar para hacer el
+                                                            // query para poder hacer la actualizacion
+                                                            cn.EjecutarConsulta(cs.GuardarCategoriaDetallesDelProducto(guardar));
+                                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            // si hubo algun error de actualización se envia un mensaje al usuario
+                                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                        }
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else if (contSubHijo.Name.Equals("panelContenidoUbicacion"))
+                                    {
+                                        // Recorremos los controles en el PanelContenido
+                                        foreach (Control contSubItemHijo in contSubHijo.Controls)
+                                        {
+                                            // Verificamos si el control es de tipo Label
+                                            if (contSubItemHijo is Label)
+                                            {
+                                                // Verificamos si el nombre del label es lblNombreProveedor
+                                                // esto soló para que haga este proceso en el label del
+                                                // nombre y no en el resto de los label
+                                                if (contSubItemHijo.Name.Equals("lblNombreUbicacion"))
+                                                {
+                                                    if (!contSubItemHijo.Text.Equals(""))
+                                                    {
+                                                        infoDetalle.Add(finalIdProducto);
+                                                        infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
+                                                        Descripcion = contSubItemHijo.Text;
+                                                        var idFound = mb.obtenerIdDetallesUbicacion(FormPrincipal.userID, Descripcion);
+                                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                        // Ejecutamos el proceso de guardado
+                                                        try
+                                                        {
+                                                            // Convertimos la Lista lo que tengan almacenado
+                                                            // a un Array para guardarlo en la variable guardar
+                                                            guardar = infoDetalle.ToArray();
+                                                            // usamos la variable guardar para hacer el
+                                                            // query para poder hacer la actualizacion
+                                                            cn.EjecutarConsulta(cs.GuardarUbicacionDetallesDelProducto(guardar));
+                                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            // si hubo algun error de actualización se envia un mensaje al usuario
+                                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                        }
+                                                    }
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (resultadoConsulta == true)
+                                {
+                                    // Verificamos si el nombre del PanelContenedor que sea Igual a panelContenedorProveedor
+                                    if (contHijo.Name.Equals("panelContenedorProveedor") ||
+                                        contHijo.Name.Equals("panelContenedorCategoria") ||
+                                        contHijo.Name.Equals("panelContenedorUbicacion"))
+                                    {
+                                        // Recorremos los controles en el PanelContenedor
+                                        foreach (Control contSubHijoUpdate in contHijo.Controls)
+                                        {
+                                            // verificamos que sea el PanelContenido sea el de Proveedor
+                                            if (contSubHijo.Name.Equals("panelContenidoProveedor"))
+                                            {
+                                                // Recorremos los controles en el PanelContenido
+                                                foreach (Control contSubItemHijo in contSubHijo.Controls)
+                                                {
+                                                    // Verificamos si el control es de tipo Label
+                                                    if (contSubItemHijo is Label)
+                                                    {
+                                                        // Verificamos si el nombre del label es lblNombreProveedor
+                                                        // esto soló para que haga este proceso en el label del
+                                                        // nombre y no en el resto de los label
+                                                        if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
+                                                        {
+                                                            // recorremos el diccionario Detalles Basicos
+                                                            Descripcion = contSubItemHijo.Text;
+                                                            // Obtenemos todos los datos del Detalles en Basicos
+                                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
+                                                            infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                            infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                            try
+                                                            {
+                                                                // Convertimos la Lista lo que tengan almacenado
+                                                                // a un Array para guardarlo en la variable guardar
+                                                                guardar = infoDetalle.ToArray();
+                                                                // usamos la variable guardar para hacer el
+                                                                // query para poder hacer la actualizacion
+                                                                cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                                                                infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                            }
+                                                            catch (Exception ex)
+                                                            {
+                                                                // si hubo algun error de actualización se envia un mensaje al usuario
+                                                                MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                            }
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else if (contSubHijo.Name.Equals("panelContenidoCategoria"))
+                                            {
+                                                // Recorremos los controles en el PanelContenido
+                                                foreach (Control contSubItemHijo in contSubHijo.Controls)
+                                                {
+                                                    // Verificamos si el control es de tipo Label
+                                                    if (contSubItemHijo is Label)
+                                                    {
+                                                        // Verificamos si el nombre del label es lblNombreProveedor
+                                                        // esto soló para que haga este proceso en el label del
+                                                        // nombre y no en el resto de los label
+                                                        if (contSubItemHijo.Name.Equals("lblNombreCategoria"))
+                                                        {
+                                                            if (!contSubItemHijo.Text.Equals(""))
+                                                            {
+                                                                var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                                                                var idDetalleProducto = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                                                                int cantidad = idDetalleProducto.Length;
+
+                                                                if (cantidad > 0)
+                                                                {
+                                                                    infoDetalle.Add(idDetalleProducto[0].ToString()); // ID DetallesProducto
+                                                                    Descripcion = contSubItemHijo.Text;
+                                                                    var idFound = mb.obtenerIdDetallesCategorias(FormPrincipal.userID, Descripcion);
+                                                                    infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                                    infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                                    // Ejecutamos el proceso de guardado
+                                                                    try
+                                                                    {
+                                                                        // Convertimos la Lista lo que tengan almacenado
+                                                                        // a un Array para guardarlo en la variable guardar
+                                                                        guardar = infoDetalle.ToArray();
+                                                                        // usamos la variable guardar para hacer el
+                                                                        // query para poder hacer la actualizacion
+                                                                        cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDeCategoria(guardar));
+                                                                        infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                                    }
+                                                                    catch (Exception ex)
+                                                                    {
+                                                                        // si hubo algun error de actualización se envia un mensaje al usuario
+                                                                        MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                            else if (contSubHijo.Name.Equals("panelContenidoUbicacion"))
+                                            {
+                                                // Recorremos los controles en el PanelContenido
+                                                foreach (Control contSubItemHijo in contSubHijo.Controls)
+                                                {
+                                                    // Verificamos si el control es de tipo Label
+                                                    if (contSubItemHijo is Label)
+                                                    {
+                                                        // Verificamos si el nombre del label es lblNombreProveedor
+                                                        // esto soló para que haga este proceso en el label del
+                                                        // nombre y no en el resto de los label
+                                                        if (contSubItemHijo.Name.Equals("lblNombreUbicacion"))
+                                                        {
+                                                            if (!contSubItemHijo.Text.Equals(""))
+                                                            {
+                                                                var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                                                                var idDetalleProducto = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                                                                int cantidad = idDetalleProducto.Length;
+
+                                                                if (cantidad > 0)
+                                                                {
+                                                                    infoDetalle.Add(idDetalleProducto[0].ToString()); // ID DetallesProducto
+                                                                    Descripcion = contSubItemHijo.Text;
+                                                                    var idFound = mb.obtenerIdDetallesUbicacion(FormPrincipal.userID, Descripcion);
+                                                                    infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                                    infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                                    // Ejecutamos el proceso de guardado
+                                                                    try
+                                                                    {
+                                                                        // Convertimos la Lista lo que tengan almacenado
+                                                                        // a un Array para guardarlo en la variable guardar
+                                                                        guardar = infoDetalle.ToArray();
+                                                                        // usamos la variable guardar para hacer el
+                                                                        // query para poder hacer la actualizacion
+                                                                        cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDeUbicacion(guardar));
+                                                                        infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                                    }
+                                                                    catch (Exception ex)
+                                                                    {
+                                                                        // si hubo algun error de actualización se envia un mensaje al usuario
+                                                                        MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                // si hubo algun error de actualización se envia un mensaje al usuario
+                                MessageBox.Show("En el proceso de registrar Nuevo de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
                     }
                 }
             }

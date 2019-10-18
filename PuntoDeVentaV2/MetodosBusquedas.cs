@@ -379,7 +379,7 @@ namespace PuntoDeVentaV2
 
             return lista.ToArray();
         }
-
+        
         public string[] BuscarProductoInventario(string producto, int idUsuario, int tipo = 1)
         {
             List<string> lista = new List<string>();

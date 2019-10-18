@@ -196,7 +196,7 @@ namespace PuntoDeVentaV2
             
             return consulta;
         }
-
+        
         public string ActualizarProveedorDetallesDelProducto(string[] datos)
         {
             string consulta = string.Empty;
@@ -218,6 +218,27 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string GuardarProveedorDetallesDelProducto(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $"INSERT INTO DetallesProducto(IDProducto, IDUsuario, Proveedor, IDProveedor) VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
+            return consulta;
+        }
+
+        public string GuardarCategoriaDetallesDelProducto(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $"INSERT INTO DetallesProducto(IDProducto, IDUsuario, Categoria, IDCategoria) VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
+            return consulta;
+        }
+
+        public string GuardarUbicacionDetallesDelProducto(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $"INSERT INTO DetallesProducto(IDProducto, IDUsuario, Ubicacion, IDUbicacion) VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
+            return consulta;
+        }
+
         public string GuardarDetallesProductoGenerales(string[] datos)
         {
             string consulta = string.Empty;
@@ -234,6 +255,13 @@ namespace PuntoDeVentaV2
 
             consulta = $"UPDATE DetallesProductoGenerales SET IDDetalleGral = '{datos[1]}' WHERE ID = '{datos[0]}'";
 
+            return consulta;
+        }
+
+        public string VerificarDetallesProducto(string idProducto, string idUsuario)
+        {
+            string consulta = string.Empty;
+            consulta = $"SELECT * FROM DetallesProducto WHERE IDProducto = '{idProducto}' AND IDUsuario = '{idUsuario}'";
             return consulta;
         }
 
