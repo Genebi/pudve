@@ -61,7 +61,7 @@ namespace PuntoDeVentaV2
         const string fichero = @"\PUDVE\settings\folioventa\setupFolioVenta.txt";       // directorio donde esta el archivo de numero de codigo de barras consecutivo
         string Contenido;                                                               // para obtener el numero que tiene el codigo de barras en el arhivo
 
-        long folioVenta;                                                                // variable entera para llevar un consecutivo de codigo de barras
+        long folioVenta; // variable entera para llevar un consecutivo de codigo de barras
 
         string buscarvVentaGuardada = null, folio = null;
 
@@ -70,6 +70,7 @@ namespace PuntoDeVentaV2
         string[] datosProducto;
         private bool sumarProducto = false;
         private bool restarProducto = false;
+        private bool buscarVG = false; // Buscar venta guardada
         
 
         public Ventas()
@@ -185,8 +186,8 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    //Este codigo es para cuando intenta agregar mas cantidad de algun producto
-                    //desde el buscador de producto, solo aplica para sumar y restar producto
+                    // Este codigo es para cuando intenta agregar mas cantidad de algun producto
+                    // desde el buscador de producto, solo aplica para sumar y restar producto
                     sumarProducto = true;
                     restarProducto = true;
 
@@ -194,13 +195,23 @@ namespace PuntoDeVentaV2
 
                     sumarProducto = false;
                     restarProducto = false;
+
+                    //===============================================================
+                    // Esto se ejecuta para si el patron de busqueda coincide con la 
+                    // busqueda de una venta guardada
+
+                    buscarVG = true;
+
+                    txtBuscadorProducto_KeyUp(sender, e);
+
+                    buscarVG = false;
                 }  
             }
         }
 
         private void AgregarProducto(string[] datosProducto)
         {
-            if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == "#$%")
+            if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == "#")
             {
                 AgregarProductoLista(datosProducto);
             }
@@ -272,7 +283,7 @@ namespace PuntoDeVentaV2
             // Obtener la nueva fila
             DataGridViewRow row = DGVentas.Rows[rowId];
 
-            if (buscarvVentaGuardada == "#$%")
+            if (buscarvVentaGuardada == "#")
             {
                 // Agregamos la información
                 row.Cells["NumeroColumna"].Value = rowId;
@@ -596,7 +607,7 @@ namespace PuntoDeVentaV2
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
-                if (buscarvVentaGuardada == "#$%")
+                if (buscarvVentaGuardada == "#")
                 {
                     var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
                     var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);
@@ -1394,7 +1405,7 @@ namespace PuntoDeVentaV2
             string cuartoPatron = @"^\d+\*\s";                  //  (digito+(Signo*)+espacioBlanco) 5* 15665132
             string quintoPatron = @"^\d+\s\*";                  //  (digito+(Signo*)+espacioBlanco) 5 *15665132
             string sextoPatron = @"^\d+\*";                     //  (digito+(Signo*)+espacioBlanco) 5*15665132
-            string septimoPatron = @"^\d+\s";                  //  (#$%+espacioBlanco) #$% FolioDeVenta
+            string septimoPatron = @"^#\s\d+";                  //  (#$%+espacioBlanco) #$% FolioDeVenta
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
@@ -1563,23 +1574,15 @@ namespace PuntoDeVentaV2
             }
             else if (septimaCoincidencia.Success)
             {
-                //MessageBox.Show("Mafufada");
                 // #$% FolioDeVenta
 
-                if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
+                if (buscarVG)
                 {
-                    var respuesta = MessageBox.Show(txtBuscadorProducto.Text, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    
-                    if (respuesta == DialogResult.OK)
-                    {
-                        Console.WriteLine(txtBuscadorProducto.Text);
-                    }
+                    var resultado = septimaCoincidencia.Value.Trim().Split(' ');
+                    buscarvVentaGuardada = resultado[0];
+                    //cadena = Regex.Replace(cadena, septimoPatron, string.Empty);
+                    folio = resultado[1];
                 }
-
-                var resultado = septimaCoincidencia.Value.Trim().Split(' ');
-                buscarvVentaGuardada  = resultado[0];
-                cadena = Regex.Replace(cadena, septimoPatron, string.Empty);
-                folio = cadena;
             }
 
             ocultarResultados();
@@ -1668,11 +1671,13 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (buscarvVentaGuardada == "#$%")
+
+            if (buscarvVentaGuardada == "#")
             {
                 txtBuscadorProducto.Text = "";
                 string[] datosVentaGuardada = cn.ObtenerVentaGuardada(FormPrincipal.userID, Convert.ToInt32(folio));
                 AgregarProducto(datosVentaGuardada);
+                buscarvVentaGuardada = "";
             }
 
             if (listaProductos.Visible == true)
