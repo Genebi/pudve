@@ -10,7 +10,8 @@ namespace PuntoDeVentaV2
 {
     class Paginar
     {
-        private String ps_cadena = "Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;";
+        //private String ps_cadena = "Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;";
+        private string ps_cadena = string.Empty;
         private int _inicio = 0;
         private int _tope = 0;
 
@@ -32,6 +33,15 @@ namespace PuntoDeVentaV2
             this._datamember = s_datamember;
 
             DataTable auxiliar;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                ps_cadena = "Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;";
+            }
+            else
+            {
+                ps_cadena = "Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;";
+            }
 
             SQLiteConnection connection = new SQLiteConnection(ps_cadena);
             this._adapter = new SQLiteDataAdapter(s_query, connection);

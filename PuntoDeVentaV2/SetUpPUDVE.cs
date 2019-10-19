@@ -26,6 +26,11 @@ namespace PuntoDeVentaV2
             {
                 cbStockNegativo.Checked = true;
             }
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                txtNombreServidor.Text = Properties.Settings.Default.Hosting;
+            }
         }
 
         private void btnRespaldo_Click(object sender, EventArgs e)
@@ -58,6 +63,21 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.StockNegativo = cbStockNegativo.Checked;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
+        }
+
+        private void btnGuardarServidor_Click(object sender, EventArgs e)
+        {
+            /*if (string.IsNullOrWhiteSpace(txtNombreServidor.Text))
+            {
+                MessageBox.Show("Es necesario indicar el nombre de la Máquina Servidor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }*/
+
+            Properties.Settings.Default.Hosting = txtNombreServidor.Text;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            MessageBox.Show(Properties.Settings.Default.Hosting);
         }
     }
 }

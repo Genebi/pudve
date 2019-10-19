@@ -64,7 +64,16 @@ namespace PuntoDeVentaV2
 
         public void Conectarse()
         {
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+            else
+            {
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+
+            //sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
         }
 
@@ -233,20 +242,21 @@ namespace PuntoDeVentaV2
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT usr.LogoTipo, usr.Usuario, usr.Calle, usr.NoExterior, usr.NoInterior, usr.Municipio, usr.Colonia, usr.CodigoPostal, usr.RFC, usr.Email, usr.Telefono, prod.ID AS 'NoProd', prod.Nombre AS 'NomProd', prod.Precio AS 'CostoProd', prod.TipoDescuento, prod.Stock, prod.Tipo, saleProd.Cantidad, saleProd.Nombre AS 'NomVenta', saleProd.Precio AS 'CostoVenta', sale.FechaOperacion, sale.ID FROM Usuarios AS usr LEFT JOIN Ventas AS sale ON sale.IDUsuario = usr.ID LEFT JOIN ProductosVenta AS saleProd ON saleProd.IDVenta = sale.ID LEFT JOIN Productos AS prod ON prod.ID = saleProd.IDProducto WHERE usr.ID = '{IDUsuario}' AND sale.Status = '2' AND sale.ID = '{IDFolio}'";
+            //sql_cmd.CommandText = $"SELECT usr.LogoTipo, usr.Usuario, usr.Calle, usr.NoExterior, usr.NoInterior, usr.Municipio, usr.Colonia, usr.CodigoPostal, usr.RFC, usr.Email, usr.Telefono, prod.ID AS 'NoProd', prod.Nombre AS 'NomProd', prod.Precio AS 'CostoProd', prod.TipoDescuento, prod.Stock, prod.Tipo, saleProd.Cantidad, saleProd.Nombre AS 'NomVenta', saleProd.Precio AS 'CostoVenta', sale.FechaOperacion, sale.ID FROM Usuarios AS usr LEFT JOIN Ventas AS sale ON sale.IDUsuario = usr.ID LEFT JOIN ProductosVenta AS saleProd ON saleProd.IDVenta = sale.ID LEFT JOIN Productos AS prod ON prod.ID = saleProd.IDProducto WHERE usr.ID = '{IDUsuario}' AND sale.Status = '2' AND sale.ID = '{IDFolio}'";
+            sql_cmd.CommandText = $"SELECT D.IDProducto, D.Nombre, D.Precio, P.TipoDescuento, P.Stock, P.Tipo, D.Cantidad  FROM Ventas V INNER JOIN ProductosVenta D INNER JOIN Productos P ON V.ID = D.IDVenta AND D.IDProducto = P.ID WHERE V.IDUsuario = {IDUsuario} AND V.Status = '2' AND V.Folio = {IDFolio}";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
-                lista.Add(dr[11].ToString());  //ID producto
-                lista.Add(dr[12].ToString());  //Nombre
-                lista.Add(dr[13].ToString());  //Precio
-                lista.Add(dr[14].ToString());  //Tipo descuento
-                lista.Add(dr[15].ToString());  //Stock
-                lista.Add(dr[16].ToString());  //Tipo (producto o servicio)
-                lista.Add(dr[17].ToString());  //Cantidad de la venta
+                lista.Add(dr[0].ToString());  //ID producto
+                lista.Add(dr[1].ToString());  //Nombre
+                lista.Add(dr[2].ToString());  //Precio
+                lista.Add(dr[3].ToString());  //Tipo descuento
+                lista.Add(dr[4].ToString());  //Stock
+                lista.Add(dr[5].ToString());  //Tipo (producto o servicio)
+                lista.Add(dr[6].ToString());  //Cantidad de la venta
             }
 
             dr.Close();

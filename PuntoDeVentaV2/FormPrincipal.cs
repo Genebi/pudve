@@ -88,6 +88,7 @@ namespace PuntoDeVentaV2
         private void obtenerDatosCheckStock()
         {
             // Leer fichero que tiene el numero de CheckInventario
+
             using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + ficheroNumCheck))
             {
                 Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
