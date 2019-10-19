@@ -15,7 +15,14 @@ namespace PuntoDeVentaV2
 
         public void Conexion()
         {
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+            else
+            {
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
         }
 
         public string[] ObtenerDetallesVenta(int idVenta, int idUsuario)
@@ -526,6 +533,29 @@ namespace PuntoDeVentaV2
             dr.Close();
 
             return lista.ToArray();
+        }
+
+        public string ObtenerMaximoFolio(int idUsuario)
+        {
+            var folio = string.Empty;
+
+            DatosConexion($"SELECT MAX(Folio) AS Folio FROM Ventas WHERE IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                folio = dr["Folio"].ToString();
+
+                if (string.IsNullOrWhiteSpace(folio))
+                {
+                    folio = "1";
+                }
+            }
+
+            dr.Close();
+
+            return folio;
         }
 
         private void DatosConexion(string consulta)

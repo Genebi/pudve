@@ -67,11 +67,11 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarServidor_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtNombreServidor.Text))
+            /*if (string.IsNullOrWhiteSpace(txtNombreServidor.Text))
             {
                 MessageBox.Show("Es necesario indicar el nombre de la Máquina Servidor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            }
+            }*/
 
             Properties.Settings.Default.Hosting = txtNombreServidor.Text;
             Properties.Settings.Default.Save();

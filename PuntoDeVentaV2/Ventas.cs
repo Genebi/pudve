@@ -113,6 +113,10 @@ namespace PuntoDeVentaV2
             btnEliminarTodos.BackgroundImageLayout  = ImageLayout.Center;
             btnUltimoTicket.BackgroundImageLayout   = ImageLayout.Center;
             btnPresupuesto.BackgroundImageLayout    = ImageLayout.Center;
+
+            /*string tmp = @"\\" + Properties.Settings.Default.Hosting + "\\Users\\Acer\\AppData\\Roaming" + fichero;
+            string fileContents = File.ReadAllText(tmp);
+            MessageBox.Show(fileContents);*/
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)
@@ -898,11 +902,22 @@ namespace PuntoDeVentaV2
 
         private void aumentoFolio()
         {
-            // leemos el archivo de codigo de barras que lleva el consecutivo
-            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
+            /*if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
-                Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+                Contenido = mb.ObtenerMaximoFolio(FormPrincipal.userID);
             }
+            else
+            {
+                // leemos el archivo de codigo de barras que lleva el consecutivo
+                using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
+                {
+                    Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
+                }
+            }*/
+
+            Contenido = mb.ObtenerMaximoFolio(FormPrincipal.userID);
+            
+
             if (Contenido == "")        // si el contenido es vacio 
             {
                 PrimerFolioVenta();      // iniciamos el conteo del folio de venta
@@ -921,10 +936,20 @@ namespace PuntoDeVentaV2
             folioVenta++;
             Contenido = folioVenta.ToString();
 
-            using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
+            /*if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
-                outfile.WriteLine(Contenido);
+                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.Hosting + fichero))
+                {
+                    outfile.WriteLine(Contenido);
+                }
             }
+            else
+            {
+                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
+                {
+                    outfile.WriteLine(Contenido);
+                }
+            }*/
         }
 
         private void PrimerFolioVenta()
@@ -1540,6 +1565,17 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("Mafufada");
                 // #$% FolioDeVenta
+
+                if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
+                {
+                    var respuesta = MessageBox.Show(txtBuscadorProducto.Text, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    if (respuesta == DialogResult.OK)
+                    {
+                        Console.WriteLine(txtBuscadorProducto.Text);
+                    }
+                }
+
                 var resultado = septimaCoincidencia.Value.Trim().Split(' ');
                 buscarvVentaGuardada  = resultado[0];
                 cadena = Regex.Replace(cadena, septimoPatron, string.Empty);
