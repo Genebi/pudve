@@ -217,6 +217,122 @@ namespace PuntoDeVentaV2
             return false;
         }
 
+        private void BuscarTextoListView(ListView lstListView)
+        {
+            int id = 0, row = 0;
+            string nameChk = string.Empty,
+                   valorChk = string.Empty,
+                   chkDetalleProductoTxt = string.Empty,
+                   chkDetalleProductoVal = string.Empty,
+                   chkSettingVariableTxt = string.Empty,
+                   chkSettingVariableVal = string.Empty;
+
+            flowLayoutPanel3.Controls.Clear();
+
+            for (int i = 0; i < settingDatabases.Items.Count; i++)
+            {
+                chkDetalleProductoTxt = settingDatabases.Items[i].Text.ToString();
+
+                FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                panelHijo.Name = "panelGenerado" + id;
+                panelHijo.Width = 258;
+                panelHijo.Height = 29;
+                panelHijo.HorizontalScroll.Visible = false;
+
+                Panel panelContenedor = new Panel();
+                panelContenedor.Width = 250;
+                panelContenedor.Height = 23;
+                panelContenedor.Name = "panel" + chkDetalleProductoTxt;
+
+                CheckBox check = new CheckBox();
+                check.Name = chkDetalleProductoTxt;
+                check.Text = chkDetalleProductoTxt;
+                check.Width = 110;
+                check.Height = 24;
+                check.Location = new Point(0, 0);
+                check.CheckedChanged += checkBox_CheckedChanged;
+
+                chkDetalleProductoVal = settingDatabases.Items[i].SubItems[1].Text.ToString();
+                if (chkDetalleProductoVal.Equals("true") || chkDetalleProductoVal.Equals("false"))
+                {
+                    check.Checked = Convert.ToBoolean(chkDetalleProductoVal);
+                    panelContenedor.Controls.Add(check);
+                    panelHijo.Controls.Add(panelContenedor);
+
+                    // Agregamos el Botón de agregar item Más
+                    Button bt = new Button();
+                    bt.Name = "bt" + chkDetalleProductoTxt;
+                    bt.Cursor = Cursors.Hand;
+                    bt.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+                    bt.Height = 23;
+                    bt.Width = 23;
+                    bt.BackColor = ColorTranslator.FromHtml("#5DADE2");
+                    bt.ForeColor = ColorTranslator.FromHtml("white");
+                    bt.FlatStyle = FlatStyle.Flat;
+                    bt.Anchor = AnchorStyles.Top;
+                    bt.Click += new EventHandler(bt_Click);
+                    bt.Location = new Point(115, 0);
+                    panelContenedor.Controls.Add(bt);
+                    panelHijo.Controls.Add(panelContenedor);
+
+                    if (row < chkDatabase.Items.Count)
+                    {
+                        chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
+                        CheckBox checkSetting = new CheckBox();
+                        checkSetting.Name = chkSettingVariableTxt;
+                        checkSetting.Width = 20;
+                        checkSetting.Height = 24;
+                        checkSetting.Location = new Point(155, 0);
+                        checkSetting.CheckedChanged += checkBoxSetting_CheckedChanged;
+
+                        chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
+                        {
+                            checkSetting.Checked = Convert.ToBoolean(chkSettingVariableVal);
+                            panelContenedor.Controls.Add(checkSetting);
+                            panelHijo.Controls.Add(panelContenedor);
+                        }
+                        row++;
+                    }
+                }
+                fLPLateralConcepto.Controls.Add(panelHijo);
+            }
+        }
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chekBoxClickDetalle = sender as CheckBox;
+            FlowLayoutPanel panelContenedor = new FlowLayoutPanel();
+            Panel panelContenido = new Panel();
+            string name = string.Empty, value = string.Empty;
+            string nombrePanelContenedor = string.Empty;
+            string nombrePanelContenido = string.Empty;
+
+            if (chekBoxClickDetalle.Checked == true)
+            {
+                name = chekBoxClickDetalle.Name.ToString();
+                value = chekBoxClickDetalle.Checked.ToString();
+                nombrePanelContenedor = "panelContenedor" + name;
+                panelContenedor.Name = nombrePanelContenedor;
+                nombrePanelContenido = "panelContenido" + name;
+
+                if (panelContenedor.Name == "panelContenedorProveedor")
+                {
+
+                }
+            }
+        }
+
+        private void bt_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void checkBoxSetting_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
         #endregion Modifying Configuration Settings at Runtime
 
         bool habilitarComboBoxes = false;
@@ -3476,6 +3592,9 @@ namespace PuntoDeVentaV2
 
             PCategoria.Visible = false;
             fLPDetallesProducto.Visible = true;
+
+            loadFormConfig();
+            BuscarTextoListView(settingDatabases);
 
             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
