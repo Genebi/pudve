@@ -393,7 +393,8 @@ namespace PuntoDeVentaV2
 
             if (!KeyExist(strKey))
             {
-                throw new ArgumentNullException("Nombre clave", "<" + strKey + "> no existe en la configuración. Imposible Borrar.");
+                MessageBox.Show("Nombre clave < " + strKey + " > no existe en la configuración.Imposible Borrar.",
+                                    "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -431,10 +432,12 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(), "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(), 
+                                    "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 loadFormConfig();
-                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).", "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).", 
+                                "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -654,20 +657,28 @@ namespace PuntoDeVentaV2
 
                             if (cantidad > 0)
                             {
-                                if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
+                                if (!idProveedor[1].Equals(""))
                                 {
-                                    cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
-                                    if (!datosProveedor.Equals(null))
+                                    if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
                                     {
-                                        lblNombreProveedor.Text = datosProveedor[0];
-                                        lblRFCProveedor.Text = datosProveedor[1];
-                                        lblTelProveedor.Text = datosProveedor[10];
-                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
-                                        contadorIndex++;
+                                        cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
+                                        if (!datosProveedor.Equals(null))
+                                        {
+                                            lblNombreProveedor.Text = datosProveedor[0];
+                                            lblRFCProveedor.Text = datosProveedor[1];
+                                            lblTelProveedor.Text = datosProveedor[10];
+                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
+                                            contadorIndex++;
+                                        }
                                     }
                                 }
                             }
                         }
+                    }
+                    else if (listaProveedores.Length < 0)
+                    {
+                        cbProveedor.Items.Add("Proveedores...");
+                        cbProveedor.SelectedIndex = 0;
                     }
                     else if(cbProveedor.Items.Count == 0)
                     {
@@ -733,18 +744,26 @@ namespace PuntoDeVentaV2
 
                             if (cantidad > 0)
                             {
-                                if (Convert.ToInt32(idCategoria[3].ToString()) > 0)
+                                if (!idCategoria[3].Equals(""))
                                 {
-                                    cargarDatosCategoria(Convert.ToInt32(idCategoria[3].ToString()));
-                                    if (!datosCategoria.Equals(null))
+                                    if (Convert.ToInt32(idCategoria[3].ToString()) > 0)
                                     {
-                                        lblNombreCategoria.Text = datosCategoria[1].ToString();
-                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idCategoria[0].ToString(),  nombrePanelContenido, idCategoria[5].ToString(), datosCategoria[1].ToString()));
-                                        contadorIndex++;
+                                        cargarDatosCategoria(Convert.ToInt32(idCategoria[3].ToString()));
+                                        if (!datosCategoria.Equals(null))
+                                        {
+                                            lblNombreCategoria.Text = datosCategoria[1].ToString();
+                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idCategoria[0].ToString(), nombrePanelContenido, idCategoria[5].ToString(), datosCategoria[1].ToString()));
+                                            contadorIndex++;
+                                        }
                                     }
                                 }
                             }
                         }
+                    }
+                    else if (listaCategorias.Length < 0)
+                    {
+                        cbCategoria.Items.Add("Categoria...");
+                        cbCategoria.SelectedIndex = 0;
                     }
                     else if (cbCategoria.Items.Count == 0)
                     {
@@ -808,18 +827,26 @@ namespace PuntoDeVentaV2
 
                             if (cantidad > 0)
                             {
-                                if (Convert.ToInt32(idUbicacion[5].ToString()) > 0)
+                                if (!idUbicacion[5].Equals(""))
                                 {
-                                    cargarDatosUbicacion(Convert.ToInt32(idUbicacion[5].ToString()));
-                                    if (!datosUbicacion.Equals(null))
+                                    if (Convert.ToInt32(idUbicacion[5].ToString()) > 0)
                                     {
-                                        lblNombreUbicacion.Text = datosUbicacion[1].ToString();
-                                        diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idUbicacion[0].ToString(), nombrePanelContenido, idUbicacion[3].ToString(), datosUbicacion[1].ToString()));
-                                        contadorIndex++;
+                                        cargarDatosUbicacion(Convert.ToInt32(idUbicacion[5].ToString()));
+                                        if (!datosUbicacion.Equals(null))
+                                        {
+                                            lblNombreUbicacion.Text = datosUbicacion[1].ToString();
+                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idUbicacion[0].ToString(), nombrePanelContenido, idUbicacion[3].ToString(), datosUbicacion[1].ToString()));
+                                            contadorIndex++;
+                                        }
                                     }
                                 }
                             }
                         }
+                    }
+                    else if (listaUbicaciones.Length < 0)
+                    {
+                        cbUbicacion.Items.Add("Ubicaciones...");
+                        cbUbicacion.SelectedIndex = 0;
                     }
                     else if (cbUbicacion.Items.Count == 0)
                     {
@@ -1313,11 +1340,11 @@ namespace PuntoDeVentaV2
             // Asignamos el Array con los nombres de los proveedores al comboBox
             listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
 
+            proveedores = new Dictionary<string, string>();
+
             // Comprobar que ya exista al menos un Proveedor
             if (listaProveedores.Length > 0)
             {
-                proveedores = new Dictionary<string, string>();
-
                 proveedores.Add("0", "Proveedores...");
 
                 foreach (var proveedor in listaProveedores)
@@ -1359,10 +1386,10 @@ namespace PuntoDeVentaV2
         {
             listaUbicaciones = mb.ObtenerUbicaciones(FormPrincipal.userID);
 
+            ubicaciones = new Dictionary<string, string>();
+
             if (listaUbicaciones.Length > 0)
             {
-                ubicaciones = new Dictionary<string, string>();
-
                 ubicaciones.Add("0", "Ubicaciónes...");
 
                 foreach (var ubicacion in listaUbicaciones)
@@ -1436,20 +1463,34 @@ namespace PuntoDeVentaV2
                 }
                 else if (!deleteDetalle.Equals(""))
                 {
-                    if (KeyExist(deleteDetalle))
+                    if (deleteDetalle.Equals("Proveedor") ||
+                        deleteDetalle.Equals("Categoria") ||
+                        deleteDetalle.Equals("Ubicacion"))
                     {
-                        DeleteKey(deleteDetalle);
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor, Categoria, Ubicacion)\nya que son las configuraciónes basicas\nUsted esta Intentando realizar dichas operaciones\nsobre la configuración: " + deleteDetalle.ToString(),
+                                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         RefreshAppSettings();
                         loadFormConfig();
                         BuscarTextoListView(settingDatabases);
-                        deleteDetalle = string.Empty;
                     }
                     else
                     {
-                        RefreshAppSettings();
-                        loadFormConfig();
-                        BuscarTextoListView(settingDatabases);
-                        MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (KeyExist(deleteDetalle))
+                        {
+                            DeleteKey(deleteDetalle);
+                            RefreshAppSettings();
+                            loadFormConfig();
+                            BuscarTextoListView(settingDatabases);
+                            deleteDetalle = string.Empty;
+                        }
+                        else
+                        {
+                            RefreshAppSettings();
+                            loadFormConfig();
+                            BuscarTextoListView(settingDatabases);
+                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", 
+                                            "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
             }
@@ -1522,6 +1563,9 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor, Categoria, Ubicacion)\nya que son las configuraciónes basicas\nUsted esta Intentando realizar dichas operaciones\nsobre la configuración: " + editDetelle.ToString(),
                                     "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    RefreshAppSettings();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
                 }
                 else
                 {

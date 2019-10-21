@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -9,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace PuntoDeVentaV2
 {
@@ -55,9 +58,166 @@ namespace PuntoDeVentaV2
         /****************************
 		*   Codigo de Emmanuel      *
 		****************************/
-        string[] listaProveedores = new string[] { };
-        string[] listaCategorias = new string[] { };
-        string[] listaUbicaciones = new string[] { };
+        
+        #region Variables Globales
+
+        List<string> infoDetalle,
+                        infoDetailProdGral;
+
+        Dictionary<string, string> proveedores,
+                                    categorias,
+                                    ubicaciones,
+                                    detallesGral;
+
+        Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(),
+                                                               diccionarioDetalleBasicos = new Dictionary<int, Tuple<string, string, string, string>>();
+
+        string[] datosProveedor,
+                    datosCategoria,
+                    datosUbicacion,
+                    datosDetalleGral,
+                    separadas,
+                    guardar;
+
+        string[] listaProveedores = new string[] { },
+                    listaCategorias = new string[] { },
+                    listaUbicaciones = new string[] { },
+                    listaDetalleGral = new string[] { };
+
+        int XPos = 0,
+            YPos = 0,
+            contadorIndex = 0,
+            idProveedor = 0,
+            idCategoria = 0,
+            idUbicacion = 0,
+            idProductoDetalleGral;
+
+        string nvoDetalle = string.Empty,
+                nvoValor = string.Empty,
+                editValor = string.Empty,
+                deleteDetalle = string.Empty,
+                nombreProveedor = string.Empty,
+                nombreCategoria = string.Empty,
+                nombreUbicacion = string.Empty;
+
+        public string getIdProducto { get; set; }
+
+        public static string finalIdProducto = string.Empty;
+
+        string editDetelle = string.Empty,
+                editDetalleNvo = string.Empty;
+
+        #endregion Variables Globales
+
+
+        #region Modifying Configuration Settings at Runtime
+
+        XmlDocument xmlDoc = new XmlDocument();
+        XmlNode appSettingsNode, newChild;
+        ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle
+        ListView settingDatabases = new ListView(); // ListView para los CheckBox de Sistema
+        ListViewItem lvi;
+        string connStr, keyName;
+        int found = 0;
+        NameValueCollection appSettings;
+
+        // this code will add a listviewtem
+        // to a listview for each database entry
+        // in the appSettings section of an App.config file.
+        private void loadFormConfig()
+        {
+            if (Properties.Settings.Default.TipoEjecucion == 1)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            if (Properties.Settings.Default.TipoEjecucion == 2)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+
+            chkDatabase.Items.Clear();
+            settingDatabases.Items.Clear();
+
+            lvi = new ListViewItem();
+
+            try
+            {
+                chkDatabase.Clear();
+                settingDatabases.Clear();
+
+                appSettings = ConfigurationManager.AppSettings;
+
+                if (appSettings.Count == 0)
+                {
+                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia", 
+                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (appSettings.Count > 0)
+                {
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found >= 0)
+                        {
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            chkDatabase.Items.Add(lvi);
+                        }
+                    }
+
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        string foundSetting = string.Empty;
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found <= -1)
+                        {
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            settingDatabases.Items.Add(lvi);
+                        }
+                    }
+                }
+            }
+            catch (ConfigurationException e)
+            {
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), 
+                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Force a reload of the changed section. This 
+        // makes the new values available for reading.
+        public static void RefreshAppSettings()
+        {
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        // Determines if a key exist within the App.config
+        public bool KeyExist(string strKey)
+        {
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+            if (appSettingsNode != null)
+            {
+                // Attempt to locate the requested setting.
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == strKey)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        #endregion Modifying Configuration Settings at Runtime
 
         bool habilitarComboBoxes = false;
 
@@ -3145,85 +3305,6 @@ namespace PuntoDeVentaV2
             cargarCBProductos(idEditarProducto);
         }
 
-        private void cbProveedores_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (habilitarComboBoxes)
-            {
-                if (listaProveedores.Length > 0)
-                {
-                    var idProveedor = Convert.ToInt32(cbProveedores.SelectedValue.ToString());
-
-                    if (idProveedor > 0)
-                    {
-                        cargarDatosProveedor(Convert.ToInt32(idProveedor));
-                        lblNombreProveedor.Visible = true;
-                        lblRFCProveedor.Visible = false;
-                        lblTelProveedor.Visible = false;
-                    }
-                    else
-                    {
-                        lblNombreProveedor.Visible = false;
-                        lblRFCProveedor.Visible = false;
-                        lblTelProveedor.Visible = false;
-                    }
-                }
-            }
-        }
-
-        private void AgregarEditarProducto_Shown(object sender, EventArgs e)
-        {
-            habilitarComboBoxes = true;
-
-            if (DatosSourceFinal == 2)
-            {
-                cbProveedores_SelectedIndexChanged(this, EventArgs.Empty);
-                cbCategorias_SelectedIndexChanged(this, EventArgs.Empty);
-                cbUbicaciones_SelectedIndexChanged(this, EventArgs.Empty);
-            }
-        }
-
-        private void cbCategorias_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (habilitarComboBoxes)
-            {
-                if (listaCategorias.Length > 0)
-                {
-                    var opcion = Convert.ToInt32(cbCategorias.SelectedValue.ToString());
-
-                    if (opcion > 0)
-                    {
-                        lbNombreCategoria.Text = cbCategorias.GetItemText(cbCategorias.SelectedItem);
-                        lbNombreCategoria.Visible = true;
-                    }
-                    else
-                    {
-                        lbNombreCategoria.Visible = false;
-                    }
-                }
-            }
-        }
-
-        private void cbUbicaciones_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (habilitarComboBoxes)
-            {
-                if (listaUbicaciones.Length > 0)
-                {
-                    var opcion = Convert.ToInt32(cbUbicaciones.SelectedValue.ToString());
-
-                    if (opcion > 0)
-                    {
-                        lbNombreUbicacion.Text = cbUbicaciones.GetItemText(cbUbicaciones.SelectedItem);
-                        lbNombreUbicacion.Visible = true;
-                    }
-                    else
-                    {
-                        lbNombreUbicacion.Visible = false;
-                    }
-                }
-            }
-        }
-
         private void timerProdPaqSer_Tick(object sender, EventArgs e)
         {
             if (Hided)  // si es valor true
@@ -3396,12 +3477,6 @@ namespace PuntoDeVentaV2
             PCategoria.Visible = false;
             fLPDetallesProducto.Visible = true;
 
-            CargarProveedores();
-            CargarCategorias();
-            CargarUbicaciones();
-
-            checarDetalleProducto();
-
             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
                 cbTipo.SelectedIndex = 0;
@@ -3546,202 +3621,6 @@ namespace PuntoDeVentaV2
                 {
                     tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
                 }
-            }
-        }
-
-        private void checarDetalleProducto()
-        {
-            if (Properties.Settings.Default.checkShowProveedor == true)
-            {
-                panelProveedor.Visible = true;
-            }
-            else if (Properties.Settings.Default.checkShowProveedor == false)
-            {
-                panelProveedor.Visible = false;
-            }
-
-            if (Properties.Settings.Default.checkShowUbicacion == true)
-            {
-                panelUbicacion.Visible = true;
-            }
-            else if (Properties.Settings.Default.checkShowUbicacion == false)
-            {
-                panelUbicacion.Visible = false;
-            }
-
-            if (Properties.Settings.Default.checkShowCategoria == true)
-            {
-                panelCategoria.Visible = true;
-            }
-            else if (Properties.Settings.Default.checkShowCategoria == false)
-            {
-                panelCategoria.Visible = false;
-            }
-        }
-
-        private void CargarUbicaciones()
-        {
-            listaUbicaciones = mb.ObtenerUbicaciones(FormPrincipal.userID);
-
-            if (listaUbicaciones.Length > 0)
-            {
-                Dictionary<string, string> ubicaciones = new Dictionary<string, string>();
-
-                ubicaciones.Add("0", "Seleccionar una ubicación...");
-
-                foreach (var ubicacion in listaUbicaciones)
-                {
-                    var auxiliar = ubicacion.Split('|');
-
-                    ubicaciones.Add(auxiliar[0], auxiliar[1]);
-                }
-
-                cbUbicaciones.DataSource = ubicaciones.ToArray();
-                cbUbicaciones.DisplayMember = "Value";
-                cbUbicaciones.ValueMember = "Key";
-
-                // Cuando se da click en la opcion editar producto
-                if (DatosSourceFinal == 2)
-                {
-                    var idProducto = Convert.ToInt32(idEditarProducto);
-                    var idUbicacion = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                    if (idUbicacion.Length > 0)
-                    {
-                        if (Convert.ToInt32(idUbicacion[5].ToString()) > 0)
-                        {
-                            cbUbicaciones.SelectedValue = idUbicacion[5];
-                        }
-                    }
-                    else
-                    {
-                        cbUbicaciones.SelectedValue = "0";
-                    }
-                }
-            }
-            else
-            {
-                cbUbicaciones.Items.Add("Seleccionar una ubicación...");
-                cbUbicaciones.SelectedIndex = 0;
-            }
-        }
-
-        private void CargarCategorias()
-        {
-            listaCategorias = mb.ObtenerCategorias(FormPrincipal.userID);
-
-            if (listaCategorias.Length > 0)
-            {
-                Dictionary<string, string> categorias = new Dictionary<string, string>();
-
-                categorias.Add("0", "Seleccionar una categoría...");
-
-                foreach (var categoria in listaCategorias)
-                {
-                    var auxiliar = categoria.Split('|');
-
-                    categorias.Add(auxiliar[0], auxiliar[1]);
-                }
-
-                cbCategorias.DataSource = categorias.ToArray();
-                cbCategorias.DisplayMember = "Value";
-                cbCategorias.ValueMember = "Key";
-
-                // Cuando se da click en la opcion editar producto
-                if (AgregarEditarProducto.DatosSourceFinal == 2)
-                {
-                    var idProducto = Convert.ToInt32(idEditarProducto);
-                    var idCategoria = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                    if (idCategoria.Length > 0)
-                    {
-                        if (Convert.ToInt32(idCategoria[3].ToString()) > 0)
-                        {
-                            cbCategorias.SelectedValue = idCategoria[3];
-                        }
-                    }
-                    else
-                    {
-                        cbCategorias.SelectedValue = "0";
-                    }
-                }
-            }
-            else
-            {
-                cbCategorias.Items.Add("Seleccionar una categoría...");
-                cbCategorias.SelectedIndex = 0;
-            }
-        }
-
-        private void CargarProveedores()
-        {
-            //Asignamos el array con los nombres de los proveedores al combobox
-            listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
-
-            //Comprobar que ya exista al menos un proveedor
-            if (listaProveedores.Length > 0)
-            {
-                Dictionary<string, string> proveedores = new Dictionary<string, string>();
-
-                proveedores.Add("0", "Seleccionar un proveedor...");
-
-                foreach (var proveedor in listaProveedores)
-                {
-                    var tmp = proveedor.Split('-');
-
-                    proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
-                }
-
-                cbProveedores.DataSource = proveedores.ToArray();
-                cbProveedores.DisplayMember = "Value";
-                cbProveedores.ValueMember = "Key";
-                cbProveedores.SelectedValue = "0";
-
-                // Cuando se da click en la opcion editar producto
-                if (DatosSourceFinal == 2)
-                {
-                    var idProducto = Convert.ToInt32(idEditarProducto);
-                    var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                    //MessageBox.Show(idProveedor[0].ToString());
-                    if (idProveedor.Length > 0)
-                    {
-                        if (Convert.ToInt32(idProveedor[0].ToString()) > 0)
-                        {
-                            cbProveedores.SelectedValue = idProveedor[1];
-                            cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
-                        }
-                    }
-                    else
-                    {
-                        cbProveedores.SelectedValue = "0";
-                    }
-
-                    //cbProveedores_SelectedIndexChanged(this, EventArgs.Empty);
-                }
-            }
-            else
-            {
-                if (cbProveedores.Items.Count == 0)
-                {
-                    cbProveedores.Items.Add("Seleccionar un proveedor...");
-                    cbProveedores.SelectedIndex = 0;
-                }
-            }
-        }
-
-        private void cargarDatosProveedor(int idProveedor)
-        {
-            //Para que no de error ya que nunca va a existir un proveedor con ID = 0
-            if (idProveedor > 0)
-            {
-                var datos = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
-
-                panelProveedor.Visible = true;
-                lblNombreProveedor.Text = datos[0];
-                lblRFCProveedor.Text = datos[1];
-                lblTelProveedor.Text = datos[10];
-                cbProveedores.Text = datos[0];
             }
         }
 

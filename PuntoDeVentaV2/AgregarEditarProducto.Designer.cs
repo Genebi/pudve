@@ -89,17 +89,6 @@
             this.fLPAccion = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetallesProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.panelProveedor = new System.Windows.Forms.Panel();
-            this.lblTelProveedor = new System.Windows.Forms.Label();
-            this.lblRFCProveedor = new System.Windows.Forms.Label();
-            this.lblNombreProveedor = new System.Windows.Forms.Label();
-            this.cbProveedores = new System.Windows.Forms.ComboBox();
-            this.panelUbicacion = new System.Windows.Forms.Panel();
-            this.lbNombreUbicacion = new System.Windows.Forms.Label();
-            this.cbUbicaciones = new System.Windows.Forms.ComboBox();
-            this.panelCategoria = new System.Windows.Forms.Panel();
-            this.lbNombreCategoria = new System.Windows.Forms.Label();
-            this.cbCategorias = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.PStock.SuspendLayout();
@@ -124,10 +113,6 @@
             this.fLPDetalle.SuspendLayout();
             this.fLPAccion.SuspendLayout();
             this.fLPDetallesProducto.SuspendLayout();
-            this.flowLayoutPanel3.SuspendLayout();
-            this.panelProveedor.SuspendLayout();
-            this.panelUbicacion.SuspendLayout();
-            this.panelCategoria.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTipoProdPaq
@@ -782,135 +767,10 @@
             // 
             // flowLayoutPanel3
             // 
-            this.flowLayoutPanel3.Controls.Add(this.panelProveedor);
-            this.flowLayoutPanel3.Controls.Add(this.panelUbicacion);
-            this.flowLayoutPanel3.Controls.Add(this.panelCategoria);
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(837, 64);
             this.flowLayoutPanel3.TabIndex = 40;
-            // 
-            // panelProveedor
-            // 
-            this.panelProveedor.Controls.Add(this.lblTelProveedor);
-            this.panelProveedor.Controls.Add(this.lblRFCProveedor);
-            this.panelProveedor.Controls.Add(this.lblNombreProveedor);
-            this.panelProveedor.Controls.Add(this.cbProveedores);
-            this.panelProveedor.Location = new System.Drawing.Point(3, 3);
-            this.panelProveedor.Name = "panelProveedor";
-            this.panelProveedor.Size = new System.Drawing.Size(269, 57);
-            this.panelProveedor.TabIndex = 31;
-            // 
-            // lblTelProveedor
-            // 
-            this.lblTelProveedor.BackColor = System.Drawing.Color.White;
-            this.lblTelProveedor.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTelProveedor.ForeColor = System.Drawing.Color.Blue;
-            this.lblTelProveedor.Location = new System.Drawing.Point(273, 32);
-            this.lblTelProveedor.Name = "lblTelProveedor";
-            this.lblTelProveedor.Size = new System.Drawing.Size(130, 20);
-            this.lblTelProveedor.TabIndex = 95;
-            this.lblTelProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTelProveedor.Visible = false;
-            // 
-            // lblRFCProveedor
-            // 
-            this.lblRFCProveedor.BackColor = System.Drawing.Color.White;
-            this.lblRFCProveedor.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRFCProveedor.ForeColor = System.Drawing.Color.Blue;
-            this.lblRFCProveedor.Location = new System.Drawing.Point(272, 7);
-            this.lblRFCProveedor.Name = "lblRFCProveedor";
-            this.lblRFCProveedor.Size = new System.Drawing.Size(145, 20);
-            this.lblRFCProveedor.TabIndex = 92;
-            this.lblRFCProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblRFCProveedor.Visible = false;
-            // 
-            // lblNombreProveedor
-            // 
-            this.lblNombreProveedor.BackColor = System.Drawing.Color.White;
-            this.lblNombreProveedor.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombreProveedor.ForeColor = System.Drawing.Color.Blue;
-            this.lblNombreProveedor.Location = new System.Drawing.Point(7, 32);
-            this.lblNombreProveedor.Name = "lblNombreProveedor";
-            this.lblNombreProveedor.Size = new System.Drawing.Size(254, 20);
-            this.lblNombreProveedor.TabIndex = 87;
-            this.lblNombreProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNombreProveedor.Visible = false;
-            // 
-            // cbProveedores
-            // 
-            this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbProveedores.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbProveedores.FormattingEnabled = true;
-            this.cbProveedores.Location = new System.Drawing.Point(4, 3);
-            this.cbProveedores.Name = "cbProveedores";
-            this.cbProveedores.Size = new System.Drawing.Size(258, 24);
-            this.cbProveedores.TabIndex = 32;
-            this.cbProveedores.SelectedIndexChanged += new System.EventHandler(this.cbProveedores_SelectedIndexChanged);
-            // 
-            // panelUbicacion
-            // 
-            this.panelUbicacion.Controls.Add(this.lbNombreUbicacion);
-            this.panelUbicacion.Controls.Add(this.cbUbicaciones);
-            this.panelUbicacion.Location = new System.Drawing.Point(278, 3);
-            this.panelUbicacion.Name = "panelUbicacion";
-            this.panelUbicacion.Size = new System.Drawing.Size(280, 55);
-            this.panelUbicacion.TabIndex = 38;
-            // 
-            // lbNombreUbicacion
-            // 
-            this.lbNombreUbicacion.BackColor = System.Drawing.Color.White;
-            this.lbNombreUbicacion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNombreUbicacion.ForeColor = System.Drawing.Color.Blue;
-            this.lbNombreUbicacion.Location = new System.Drawing.Point(8, 30);
-            this.lbNombreUbicacion.Name = "lbNombreUbicacion";
-            this.lbNombreUbicacion.Size = new System.Drawing.Size(269, 20);
-            this.lbNombreUbicacion.TabIndex = 97;
-            this.lbNombreUbicacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbNombreUbicacion.Visible = false;
-            // 
-            // cbUbicaciones
-            // 
-            this.cbUbicaciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbUbicaciones.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbUbicaciones.FormattingEnabled = true;
-            this.cbUbicaciones.Location = new System.Drawing.Point(5, 3);
-            this.cbUbicaciones.Name = "cbUbicaciones";
-            this.cbUbicaciones.Size = new System.Drawing.Size(272, 24);
-            this.cbUbicaciones.TabIndex = 38;
-            this.cbUbicaciones.SelectedIndexChanged += new System.EventHandler(this.cbUbicaciones_SelectedIndexChanged);
-            // 
-            // panelCategoria
-            // 
-            this.panelCategoria.Controls.Add(this.lbNombreCategoria);
-            this.panelCategoria.Controls.Add(this.cbCategorias);
-            this.panelCategoria.Location = new System.Drawing.Point(564, 3);
-            this.panelCategoria.Name = "panelCategoria";
-            this.panelCategoria.Size = new System.Drawing.Size(256, 55);
-            this.panelCategoria.TabIndex = 37;
-            // 
-            // lbNombreCategoria
-            // 
-            this.lbNombreCategoria.BackColor = System.Drawing.Color.White;
-            this.lbNombreCategoria.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNombreCategoria.ForeColor = System.Drawing.Color.Blue;
-            this.lbNombreCategoria.Location = new System.Drawing.Point(4, 30);
-            this.lbNombreCategoria.Name = "lbNombreCategoria";
-            this.lbNombreCategoria.Size = new System.Drawing.Size(245, 20);
-            this.lbNombreCategoria.TabIndex = 96;
-            this.lbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lbNombreCategoria.Visible = false;
-            // 
-            // cbCategorias
-            // 
-            this.cbCategorias.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCategorias.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCategorias.FormattingEnabled = true;
-            this.cbCategorias.Location = new System.Drawing.Point(3, 3);
-            this.cbCategorias.Name = "cbCategorias";
-            this.cbCategorias.Size = new System.Drawing.Size(249, 24);
-            this.cbCategorias.TabIndex = 34;
-            this.cbCategorias.SelectedIndexChanged += new System.EventHandler(this.cbCategorias_SelectedIndexChanged);
             // 
             // AgregarEditarProducto
             // 
@@ -934,7 +794,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarEditarProducto_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarEditarProducto_FormClosed);
             this.Load += new System.EventHandler(this.AgregarEditarProducto_Load);
-            this.Shown += new System.EventHandler(this.AgregarEditarProducto_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.AgregarEditarProducto_Paint);
             this.PDetalleProdcuto.ResumeLayout(false);
             this.PDetalleProdcuto.PerformLayout();
@@ -969,10 +828,6 @@
             this.fLPDetalle.ResumeLayout(false);
             this.fLPAccion.ResumeLayout(false);
             this.fLPDetallesProducto.ResumeLayout(false);
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.panelProveedor.ResumeLayout(false);
-            this.panelUbicacion.ResumeLayout(false);
-            this.panelCategoria.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1033,21 +888,10 @@
         private System.Windows.Forms.FlowLayoutPanel fLPDetalle;
         private System.Windows.Forms.FlowLayoutPanel fLPAccion;
         private System.Windows.Forms.FlowLayoutPanel fLPDetallesProducto;
-        private System.Windows.Forms.Panel panelProveedor;
-        private System.Windows.Forms.Label lblTelProveedor;
-        private System.Windows.Forms.Label lblRFCProveedor;
-        private System.Windows.Forms.Label lblNombreProveedor;
-        private System.Windows.Forms.ComboBox cbProveedores;
         private System.Windows.Forms.Panel PImagen;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox pictureBoxProducto;
         private System.Windows.Forms.Button btnImagenes;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private System.Windows.Forms.Panel panelCategoria;
-        private System.Windows.Forms.Label lbNombreCategoria;
-        private System.Windows.Forms.ComboBox cbCategorias;
-        private System.Windows.Forms.Panel panelUbicacion;
-        private System.Windows.Forms.Label lbNombreUbicacion;
-        private System.Windows.Forms.ComboBox cbUbicaciones;
     }
 }
