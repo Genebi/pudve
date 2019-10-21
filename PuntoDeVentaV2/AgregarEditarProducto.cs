@@ -204,7 +204,6 @@ namespace PuntoDeVentaV2
 
         public void AumentarCodBarras()
         {
-            //txtCodigoBarras.Text = Contenido;
             string txtBoxName;
             txtBoxName=_lastEnteredControl.Name;
             if (txtBoxName != "cbTipo" && txtBoxName != "txtNombreProducto" && txtBoxName != "txtStockProducto" && txtBoxName != "txtPrecioProducto" && txtBoxName != "txtCategoriaProducto")
@@ -214,11 +213,12 @@ namespace PuntoDeVentaV2
                 CodigoDeBarras = long.Parse(Contenido);
                 CodigoDeBarras++;
                 Contenido = CodigoDeBarras.ToString();
+                txtCodigoBarras.Text = Contenido;
 
-                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
+                /*using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
                 {
                     outfile.WriteLine(Contenido);
-                }
+                }*/
             }
             else
             {
@@ -756,10 +756,13 @@ namespace PuntoDeVentaV2
             ********************************/
 
             // leemos el archivo de codigo de barras que lleva el consecutivo
-            using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
+            /*using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
             {
                 Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
-            }
+            }*/
+
+            Contenido = mb.ObtenerMaximoCodigo(FormPrincipal.userID);
+
             if (Contenido == "")        // si el contenido es vacio 
             {
                 PrimerCodBarras();      // iniciamos el conteo del codigo de barras
