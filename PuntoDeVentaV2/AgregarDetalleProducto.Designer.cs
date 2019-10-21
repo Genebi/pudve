@@ -254,7 +254,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Detalles Producto";
             this.Load += new System.EventHandler(this.AgregarDetalleProducto_Load);
-            this.Shown += new System.EventHandler(this.AgregarDetalleProducto_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

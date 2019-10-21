@@ -234,11 +234,73 @@ namespace PuntoDeVentaV2
         // Updates a key within the App.config
         private void UpdateKey(string strKey, string newValue)
         {
+            // Verificamos si existe esa configuracion
             if (!KeyExist(strKey))
             {
-                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", 
+                                "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
+            else // si es que si existe
+            {
+                appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+                // Attempt to locate the requested settings.
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == strKey)
+                    {
+                        childNode.Attributes["value"].Value = newValue.ToLower();
+                        if (!strKey.Equals(""))
+                        {
+                            childNode.Attributes["key"].Value = strKey;
+                        }
+                        break;
+                    }
+                }
+
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == "chk" + strKey)
+                    {
+                        ReadKey("chk" + strKey);
+                        childNode.Attributes["value"].Value = editValor.ToLower();
+                        if (!strKey.Equals(""))
+                        {
+                            childNode.Attributes["key"].Value = "chk" + strKey;
+                        }
+                        break;
+                    }
+                }
+
+                //string path = string.Empty;
+                try
+                {
+                    if (Properties.Settings.Default.TipoEjecucion == 1)
+                    {
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+                    }
+
+                    if (Properties.Settings.Default.TipoEjecucion == 2)
+                    {
+                        xmlDoc.Save(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+                    }
+                    xmlDoc.Save(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error al Intentar actualizar el archivo de configuración: " + e.Message.ToString(), "Error de archivo de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void RenameKey(string strKey, string newValue)
+        {
+            // Verificamos si existe esa configuracion
+            if (!KeyExist(strKey))
+            {
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.",
+                                "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else // si es que si existe
             {
                 appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
                 // Attempt to locate the requested settings.
@@ -250,6 +312,8 @@ namespace PuntoDeVentaV2
                         if (!editDetalleNvo.Equals(""))
                         {
                             childNode.Attributes["key"].Value = editDetalleNvo;
+                            cn.EjecutarConsulta(cs.UpdateDetalleGeneral(editDetelle, editDetalleNvo));
+                            cn.EjecutarConsulta(cs.UpdateDetallesProductoGenerales("panelContenido" + editDetelle, "panelContenido" + editDetalleNvo));
                         }
                         if (!editDetalleNvo.Equals("") && strKey.Equals(""))
                         {
@@ -268,6 +332,8 @@ namespace PuntoDeVentaV2
                         if (!editDetalleNvo.Equals(""))
                         {
                             childNode.Attributes["key"].Value = "chk" + editDetalleNvo;
+                            cn.EjecutarConsulta(cs.UpdateDetalleGeneral("chk" + editDetelle, "chk" + editDetalleNvo));
+                            cn.EjecutarConsulta(cs.UpdateDetallesProductoGenerales("panelContenido" + editDetelle, "panelContenido" + editDetalleNvo));
                         }
                         if (!editDetalleNvo.Equals("") && strKey.Equals(""))
                         {
@@ -1450,12 +1516,22 @@ namespace PuntoDeVentaV2
             renameDetail.ShowDialog();
             if (!KeyExist(editDetalleNvo))
             {
-                fLPCentralDetalle.Controls.Clear();
-                ReadKey(editDetelle);
-                UpdateKey(editDetelle, editValor);
-                RefreshAppSettings();
-                loadFormConfig();
-                BuscarTextoListView(settingDatabases);
+                if (editDetelle.Equals("Proveedor") ||
+                    editDetelle.Equals("Categoria") ||
+                    editDetelle.Equals("Ubicacion"))
+                {
+                    MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor, Categoria, Ubicacion)\nya que son las configuraciónes basicas\nUsted esta Intentando realizar dichas operaciones\nsobre la configuración: " + editDetelle.ToString(),
+                                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    fLPCentralDetalle.Controls.Clear();
+                    ReadKey(editDetelle);
+                    RenameKey(editDetelle, editValor);
+                    RefreshAppSettings();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
+                }
             }
             else
             {
@@ -2154,11 +2230,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-        }
-
-        private void AgregarDetalleProducto_Shown(object sender, EventArgs e)
-        {
-            
         }
     }
 }

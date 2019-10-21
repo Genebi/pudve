@@ -258,6 +258,20 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string UpdateDetalleGeneral(string oldNameSetting, string newNameSetting)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE DetalleGeneral SET ChckName = '{newNameSetting}' WHERE ChckName = '{oldNameSetting}'";
+            return consulta;
+        }
+
+        public string UpdateDetallesProductoGenerales(string oldNamePanel, string newNamePanel)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE DetallesProductoGenerales SET panelContenido = '{newNamePanel}' WHERE panelContenido = '{oldNamePanel}'";
+            return consulta;
+        }
+
         public string VerificarDetallesProducto(string idProducto, string idUsuario)
         {
             string consulta = string.Empty;
