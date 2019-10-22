@@ -653,6 +653,24 @@ namespace PuntoDeVentaV2
             return codigo;
         }
 
+        public string[] ObtenerRevisionInventario(int idRevision, int idUsuario)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM RevisarInventario WHERE ID = {idRevision} AND IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["IDAlmacen"].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();

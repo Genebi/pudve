@@ -14,7 +14,7 @@ namespace PuntoDeVentaV2
     public partial class RevisarInventario : Form
     {
         Conexion cn = new Conexion();
-        ConexionNet cnRed = new ConexionNet();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         const string fichero = @"\PUDVE\settings\noCheckStock\checkStock.txt";  // directorio donde esta el archivo de numero de codigo de barras consecutivo
         const string fichero1 = @"\PUDVE\settings\noCheckStock\checkDateStock.txt";
@@ -44,7 +44,7 @@ namespace PuntoDeVentaV2
         {
             //queryTaerStock = $"SELECT * FROM RevisarInventario WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Fecha DESC, Nombre ASC";
             queryTaerStock = $"SELECT * FROM RevisarInventario ORDER BY Fecha DESC, Nombre ASC";
-            dtRevisarStockResultado = cnRed.CargarDatos(queryTaerStock);
+            dtRevisarStockResultado = cn.CargarDatos(queryTaerStock);
         }
 
         private void cargardatos()
@@ -199,6 +199,8 @@ namespace PuntoDeVentaV2
             DateTime CurrentDate, RecordDate;
             string ClavInterna, CodigoBarras, cadauxiliar, dia, mes, Year;
 
+            string consultaStock = string.Empty;
+
             if (ComprobarFecha != "")
             {
                 dia = ComprobarFecha.Substring(0, 2);
@@ -214,12 +216,18 @@ namespace PuntoDeVentaV2
                 Year = ComprobarFecha.Substring(6, 4);
                 RecordDate = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(mes), Convert.ToInt32(dia));
             }
+
             CurrentDate = DateTime.Now.Date;
+
             if (Stock != txtCantidadStock.Text)
             {
                 if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
+
+                    var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
+
+                    consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
                 }
                 else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
                 {
@@ -247,10 +255,16 @@ namespace PuntoDeVentaV2
                                                                          '{TypeProd}',
                                                                          '{StatusRevInventario}',
                                                                          '{StatusInventHecho}')";
+
+                    consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
                 }
                 else if ((NoRevision == 0) && (StatusInventariado == 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
+
+                    var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
+
+                    consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
                 }
                 else
                 {
@@ -267,8 +281,13 @@ namespace PuntoDeVentaV2
                                                                        StatusRevision = '{StatusRevInventario}', 
                                                                        StatusInventariado = '{StatusInventHecho}'
                                                                  WHERE ID = '{ID}'";
+
+                    consultaStock = $"UPDATE Productos SET Stock = '{Stock}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
                 }
+
                 cn.EjecutarConsulta(queryUpdateStock);
+                cn.EjecutarConsulta(consultaStock);
+
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
                     //MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -283,6 +302,8 @@ namespace PuntoDeVentaV2
                 if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
+
+                    consultaStock = string.Empty;
                 }
                 else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
                 {
@@ -310,10 +331,14 @@ namespace PuntoDeVentaV2
                                                                          '{TypeProd}',
                                                                          '{StatusRevInventario}',
                                                                          '{StatusInventHecho}')";
+
+                    consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
                 }
                 else if ((NoRevision == 0) && (StatusInventariado == 0))
                 {
                     queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
+
+                    consultaStock = string.Empty;
                 }
                 else
                 {
@@ -330,8 +355,17 @@ namespace PuntoDeVentaV2
                                                                        StatusRevision = '{StatusRevInventario}', 
                                                                        StatusInventariado = '{StatusRev}'
                                                                  WHERE ID = '{ID}'";
+
+                    consultaStock = $"UPDATE Productos SET Stock = '{Stock}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
                 }
+
                 cn.EjecutarConsulta(queryUpdateStock);
+
+                if (!string.IsNullOrEmpty(consultaStock))
+                {
+                    cn.EjecutarConsulta(consultaStock);
+                }
+
                 if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                 {
                     //MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -341,6 +375,7 @@ namespace PuntoDeVentaV2
                     LaPosicion += 1;
                 }
             }
+
             llenarTabla();
             LimpiarCampos();
         }
@@ -757,6 +792,10 @@ namespace PuntoDeVentaV2
                 {
                     try
                     {
+                        // Se eliminan los registros de la tabla antes de recargar de nuevo la tabla con
+                        // los productos actualizados
+                        cn.EjecutarConsulta($"DELETE FROM {tablaRevisarInventario}");
+
                         queryTaerStock = $@"INSERT INTO '{tablaRevisarInventario}' (IDAlmacen, 
                                                                                     Nombre, 
                                                                                     ClaveInterna, 
