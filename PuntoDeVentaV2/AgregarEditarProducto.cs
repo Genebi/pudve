@@ -295,7 +295,7 @@ namespace PuntoDeVentaV2
                         row++;
                     }
                 }
-                fLPLateralConcepto.Controls.Add(panelHijo);
+                //fLPLateralConcepto.Controls.Add(panelHijo);
             }
         }
 
