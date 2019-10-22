@@ -82,6 +82,7 @@ namespace PuntoDeVentaV2
         {
             Conectarse();
             sql_con.Open();
+
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = consulta;
             int resultado = sql_cmd.ExecuteNonQuery();

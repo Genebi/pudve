@@ -648,6 +648,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            dr.Close();
+
             return codigo;
         }
 
