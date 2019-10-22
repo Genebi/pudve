@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -45,6 +46,7 @@
             this.btnSiguiente = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
+            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -198,7 +200,7 @@
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Century751 SeBd BT", 21.75F, System.Drawing.FontStyle.Italic);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Italic);
             this.button1.Location = new System.Drawing.Point(225, 25);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(171, 55);
@@ -209,7 +211,7 @@
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Font = new System.Drawing.Font("Century751 SeBd BT", 21.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSiguiente.ForeColor = System.Drawing.Color.Red;
             this.btnSiguiente.Location = new System.Drawing.Point(23, 25);
             this.btnSiguiente.Name = "btnSiguiente";
@@ -239,6 +241,11 @@
             this.lblNoRevision.TabIndex = 4;
             this.lblNoRevision.Text = "0";
             this.lblNoRevision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // timerBusqueda
+            // 
+            this.timerBusqueda.Interval = 1000;
+            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
             // RevisarInventario
             // 
@@ -287,5 +294,6 @@
         private System.Windows.Forms.Label lblNoRegistro;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblNoRevision;
+        private System.Windows.Forms.Timer timerBusqueda;
     }
 }

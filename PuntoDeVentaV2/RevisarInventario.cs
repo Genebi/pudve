@@ -31,6 +31,7 @@ namespace PuntoDeVentaV2
         string cadenaClavInterna, cadenaAuxClavInterna, cadenaCodigoBarras, cadenaAuxCodigoBarras;
         string ID, IDAlmacen, Nombre, StockAlmacen, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario, NumRevInventario, FechaRegInventario, IDUser, TypeProd, StatusRevInventario, StatusInventHecho;
 
+        
         DataTable dtRevisarStockResultado;
         DataRow dr;
         int NoReg, index, LaPosicion, registro, StatusRev;
@@ -185,7 +186,7 @@ namespace PuntoDeVentaV2
 
         private void txtBoxBuscarCodigoBarras_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if ((int)e.KeyChar == (int)Keys.Enter)
+            if (e.KeyChar == (int)Keys.Enter)
             {
                 btnSiguiente.PerformClick();
             }
@@ -480,13 +481,28 @@ namespace PuntoDeVentaV2
             ClearTable(dtRevisarStockResultado);
         }
 
+
+        private void timerBusqueda_Tick(object sender, EventArgs e)
+        {
+            timerBusqueda.Stop();
+
+            buscadorCodigoBarras();
+        }
+
         private void txtBoxBuscarCodigoBarras_TextChanged(object sender, EventArgs e)
         {
+            timerBusqueda.Stop();
+            timerBusqueda.Start();
+        }
+
+        private void buscadorCodigoBarras()
+        {
             index = 0;
-            
+
             if (txtBoxBuscarCodigoBarras.Text != string.Empty)
             {
                 buscarStock = txtBoxBuscarCodigoBarras.Text;
+
                 try
                 {
                     foreach (DataRow row in dtRevisarStockResultado.Rows)
