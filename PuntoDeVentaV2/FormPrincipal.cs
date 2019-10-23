@@ -83,6 +83,8 @@ namespace PuntoDeVentaV2
             TempUserPass = TempPassUsr;
 
             ObtenerDatosUsuario(userID);
+
+            this.Text = "PUDVE - Punto de Venta | " + userNickName;
         }
 
         private void obtenerDatosCheckStock()

@@ -72,8 +72,7 @@
             this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 33);
             this.txtBoxBuscarCodigoBarras.TabIndex = 0;
             this.txtBoxBuscarCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtBoxBuscarCodigoBarras.TextChanged += new System.EventHandler(this.txtBoxBuscarCodigoBarras_TextChanged);
-            this.txtBoxBuscarCodigoBarras.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxBuscarCodigoBarras_KeyPress);
+            this.txtBoxBuscarCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxBuscarCodigoBarras_KeyDown);
             // 
             // groupBox2
             // 
@@ -112,6 +111,7 @@
             this.txtCantidadStock.TabIndex = 8;
             this.txtCantidadStock.Text = "0";
             this.txtCantidadStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidadStock.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadStock_KeyDown);
             this.txtCantidadStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadStock_KeyPress);
             // 
             // label6
@@ -241,11 +241,6 @@
             this.lblNoRevision.TabIndex = 4;
             this.lblNoRevision.Text = "0";
             this.lblNoRevision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // timerBusqueda
-            // 
-            this.timerBusqueda.Interval = 1000;
-            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
             // RevisarInventario
             // 
