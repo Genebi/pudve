@@ -31,7 +31,6 @@ namespace PuntoDeVentaV2
         string cadenaClavInterna, cadenaAuxClavInterna, cadenaCodigoBarras, cadenaAuxCodigoBarras;
         string ID, IDAlmacen, Nombre, StockAlmacen, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario, NumRevInventario, FechaRegInventario, IDUser, TypeProd, StatusRevInventario, StatusInventHecho;
 
-        
         DataTable dtRevisarStockResultado;
         DataRow dr;
         int NoReg, index, LaPosicion, registro, StatusRev;
@@ -88,7 +87,7 @@ namespace PuntoDeVentaV2
                     if (result == DialogResult.Yes)
                     {
                         registro = LaPosicion + 1;
-                        txtBoxBuscarCodigoBarras.Text = string.Empty;
+                        //txtBoxBuscarCodigoBarras.Text = string.Empty;
                         txtCantidadStock.Focus();
                         txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                     }
@@ -104,7 +103,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     registro = LaPosicion + 1;
-                    txtBoxBuscarCodigoBarras.Text = string.Empty;
+                    //txtBoxBuscarCodigoBarras.Text = string.Empty;
                     txtCantidadStock.Focus();
                     txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                 }
@@ -136,7 +135,7 @@ namespace PuntoDeVentaV2
                     if (result == DialogResult.Yes)
                     {
                         registro = LaPosicion + 1;
-                        txtBoxBuscarCodigoBarras.Text = string.Empty;
+                        //txtBoxBuscarCodigoBarras.Text = string.Empty;
                         txtCantidadStock.Focus();
                         txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                     }
@@ -152,7 +151,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     registro = LaPosicion + 1;
-                    txtBoxBuscarCodigoBarras.Text = string.Empty;
+                    //txtBoxBuscarCodigoBarras.Text = string.Empty;
                     txtCantidadStock.Focus();
                     txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                 }
@@ -163,7 +162,7 @@ namespace PuntoDeVentaV2
                 if (result == DialogResult.Yes)
                 {
                     registro = LaPosicion + 1;
-                    txtBoxBuscarCodigoBarras.Text = string.Empty;
+                    //txtBoxBuscarCodigoBarras.Text = string.Empty;
                     txtCantidadStock.Focus();
                     txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                 }
@@ -184,318 +183,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtBoxBuscarCodigoBarras_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (int)Keys.Enter)
-            {
-                btnSiguiente.PerformClick();
-            }
-        }
-
-        private void btnSiguiente_Click(object sender, EventArgs e)
-        {
-            StatusRev = 1;
-            DataTable dtResultInsert;
-            DataRow row;
-            DateTime CurrentDate, RecordDate;
-            string ClavInterna, CodigoBarras, cadauxiliar, dia, mes, Year;
-
-            string consultaStock = string.Empty;
-
-            if (ComprobarFecha != "")
-            {
-                dia = ComprobarFecha.Substring(0, 2);
-                mes = ComprobarFecha.Substring(3, 2);
-                Year = ComprobarFecha.Substring(6, 4);
-                RecordDate = new DateTime(Convert.ToInt32(Year),Convert.ToInt32(mes),Convert.ToInt32(dia));
-            }
-            else
-            {
-                ComprobarFecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                dia = ComprobarFecha.Substring(0, 2);
-                mes = ComprobarFecha.Substring(3, 2);
-                Year = ComprobarFecha.Substring(6, 4);
-                RecordDate = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(mes), Convert.ToInt32(dia));
-            }
-
-            CurrentDate = DateTime.Now.Date;
-
-            if (Stock != txtCantidadStock.Text)
-            {
-                if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
-                {
-                    queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
-
-                    var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
-
-                    consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
-                }
-                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
-                {
-                    queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
-                                                                         Nombre, 
-                                                                         ClaveInterna, 
-                                                                         CodigoBarras, 
-                                                                         StockAlmacen, 
-                                                                         StockFisico, 
-                                                                         NoRevision, 
-                                                                         Fecha, 
-                                                                         IDUsuario, 
-                                                                         Tipo, 
-                                                                         StatusRevision, 
-                                                                         StatusInventariado)
-                                                                 VALUES ('{IDAlmacen}',
-                                                                         '{Nombre}',
-                                                                         '{cadenaAuxClavInterna}',
-                                                                         '{cadenaAuxCodigoBarras}',
-                                                                         '{StockAlmacen}',
-                                                                         '{txtCantidadStock.Text}',
-                                                                         '{NoActualCheckStock}',
-                                                                         '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}',
-                                                                         '{IDUser}',
-                                                                         '{TypeProd}',
-                                                                         '{StatusRevInventario}',
-                                                                         '{StatusInventHecho}')";
-
-                    consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
-                }
-                else if ((NoRevision == 0) && (StatusInventariado == 0))
-                {
-                    queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
-
-                    var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
-
-                    consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
-                }
-                else
-                {
-                    queryUpdateStock = $@"UPDATE RevisarInventario SET IDAlmacen = '{IDAlmacen}', 
-                                                                       Nombre = '{Nombre}', 
-                                                                       ClaveInterna = '{cadenaAuxClavInterna}', 
-                                                                       CodigoBarras = '{cadenaAuxCodigoBarras}', 
-                                                                       StockAlmacen = '{StockAlmacen}', 
-                                                                       StockFisico = '{Stock}', 
-                                                                       NoRevision = '{NoActualCheckStock}', 
-                                                                       Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
-                                                                       IDUsuario = '{IDUser}', 
-                                                                       Tipo = '{TypeProd}', 
-                                                                       StatusRevision = '{StatusRevInventario}', 
-                                                                       StatusInventariado = '{StatusInventHecho}'
-                                                                 WHERE ID = '{ID}'";
-
-                    consultaStock = $"UPDATE Productos SET Stock = '{Stock}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
-                }
-
-                cn.EjecutarConsulta(queryUpdateStock);
-                cn.EjecutarConsulta(consultaStock);
-
-                if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
-                {
-                    //MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    LaPosicion += 1;
-                }
-            }
-            else if (Stock == txtCantidadStock.Text)
-            {
-                if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
-                {
-                    queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
-
-                    consultaStock = string.Empty;
-                }
-                else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
-                {
-                    queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
-                                                                         Nombre, 
-                                                                         ClaveInterna, 
-                                                                         CodigoBarras, 
-                                                                         StockAlmacen, 
-                                                                         StockFisico, 
-                                                                         NoRevision, 
-                                                                         Fecha, 
-                                                                         IDUsuario, 
-                                                                         Tipo, 
-                                                                         StatusRevision, 
-                                                                         StatusInventariado)
-                                                                 VALUES ('{IDAlmacen}',
-                                                                         '{Nombre}',
-                                                                         '{cadenaAuxClavInterna}',
-                                                                         '{cadenaAuxCodigoBarras}',
-                                                                         '{StockAlmacen}',
-                                                                         '{txtCantidadStock.Text}',
-                                                                         '{NoActualCheckStock}',
-                                                                         '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}',
-                                                                         '{IDUser}',
-                                                                         '{TypeProd}',
-                                                                         '{StatusRevInventario}',
-                                                                         '{StatusInventHecho}')";
-
-                    consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
-                }
-                else if ((NoRevision == 0) && (StatusInventariado == 0))
-                {
-                    queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
-
-                    consultaStock = string.Empty;
-                }
-                else
-                {
-                    queryUpdateStock = $@"UPDATE RevisarInventario SET IDAlmacen = '{IDAlmacen}', 
-                                                                       Nombre = '{Nombre}', 
-                                                                       ClaveInterna = '{cadenaAuxClavInterna}', 
-                                                                       CodigoBarras = '{cadenaAuxCodigoBarras}', 
-                                                                       StockAlmacen = '{StockAlmacen}', 
-                                                                       StockFisico = '{Stock}', 
-                                                                       NoRevision = '{NoActualCheckStock}', 
-                                                                       Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
-                                                                       IDUsuario = '{IDUser}', 
-                                                                       Tipo = '{TypeProd}', 
-                                                                       StatusRevision = '{StatusRevInventario}', 
-                                                                       StatusInventariado = '{StatusRev}'
-                                                                 WHERE ID = '{ID}'";
-
-                    consultaStock = $"UPDATE Productos SET Stock = '{Stock}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
-                }
-
-                cn.EjecutarConsulta(queryUpdateStock);
-
-                if (!string.IsNullOrEmpty(consultaStock))
-                {
-                    cn.EjecutarConsulta(consultaStock);
-                }
-
-                if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
-                {
-                    //MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    LaPosicion += 1;
-                }
-            }
-
-            llenarTabla();
-            LimpiarCampos();
-        }
-
-        private void LimpiarCampos()
-        {
-            NoReg = 0;
-            LaPosicion = 0;
-            IsEmpty = false;
-
-            ID = string.Empty;
-            Nombre = string.Empty;
-            Stock = string.Empty;
-            ClaveInterna = string.Empty;
-            CodigoBarras = string.Empty;
-            Fecha = string.Empty;
-            IDUsuario = string.Empty;
-
-            buscarStock = string.Empty;
-
-            lblNombreProducto.Text = string.Empty;
-            lblCodigoDeBarras.Text = string.Empty;
-            txtCantidadStock.Text = string.Empty;
-            txtBoxBuscarCodigoBarras.Text = string.Empty;
-            txtCantidadStock.Text = "0";
-            txtBoxBuscarCodigoBarras.Focus();
-        }
-
-        private void txtCantidadStock_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Para obligar a que sólo se introduzcan números
-            if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                if (Char.IsControl(e.KeyChar))  // permitir teclas de control como retroceso
-                {
-                    e.Handled = false;
-                }
-                else
-                {
-                    e.Handled = true;   // el resto de teclas pulsadas se desactivan
-                }
-            }
-            if ((int)e.KeyChar == (int)Keys.Enter)
-            {
-                btnSiguiente.PerformClick();
-                txtBoxBuscarCodigoBarras.Text = string.Empty;
-                txtBoxBuscarCodigoBarras.Focus();
-            }
-        }
-
-        private void RevisarInventario_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            RiniciarStatusRevision();
-            this.Hide();
-        }
-
-        public RevisarInventario()
-        {
-            InitializeComponent();
-            cantidadStock = 0;
-            SearchBarCode = string.Empty;
-            NoReg = -1;
-        }
-
-        private void btnReducirStock_Click(object sender, EventArgs e)
-        {
-            if (txtCantidadStock.Text == "0")
-            {
-                MessageBox.Show("No se permite tener stock menor a = " + txtCantidadStock.Text, "Error al Disminuir Stock", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (!txtCantidadStock.Equals("0"))
-            {
-                cantidadStock = Convert.ToInt32(txtCantidadStock.Text);
-                cantidadStock--;
-                if (cantidadStock >= 0)
-                {
-                    txtCantidadStock.Text = Convert.ToString(cantidadStock);
-                    txtCantidadStock.Focus();
-                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
-                }
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            RiniciarStatusRevision();
-            Properties.Settings.Default.InicioFinInventario = 2;
-            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
-            this.Hide();
-            this.Close();
-        }
-
-        private void RiniciarStatusRevision()
-        {
-            StatusRev = 0;
-            queryUpdateStock = $"UPDATE RevisarInventario SET StatusRevision = '{StatusRev}' WHERE IDUsuario = '{FormPrincipal.userID}'";
-            cn.EjecutarConsulta(queryUpdateStock);
-            ClearTable(dtRevisarStockResultado);
-        }
-
-
-        private void timerBusqueda_Tick(object sender, EventArgs e)
-        {
-            timerBusqueda.Stop();
-
-            buscadorCodigoBarras();
-        }
-
-        private void txtBoxBuscarCodigoBarras_TextChanged(object sender, EventArgs e)
-        {
-            timerBusqueda.Stop();
-            timerBusqueda.Start();
-        }
-
-        private void buscadorCodigoBarras()
+        private void buscarCodigoBarras()
         {
             index = 0;
 
@@ -632,6 +320,318 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void txtBoxBuscarCodigoBarras_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                buscarCodigoBarras();
+                /*if (!string.IsNullOrWhiteSpace(txtBoxBuscarCodigoBarras.Text))
+                {
+                    btnSiguiente.PerformClick();
+                }*/
+            }
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtBoxBuscarCodigoBarras.Text))
+            {
+                StatusRev = 1;
+                DataTable dtResultInsert;
+                DataRow row;
+                DateTime CurrentDate, RecordDate;
+                string ClavInterna, CodigoBarras, cadauxiliar, dia, mes, Year;
+
+                string consultaStock = string.Empty;
+
+                if (ComprobarFecha != "")
+                {
+                    dia = ComprobarFecha.Substring(0, 2);
+                    mes = ComprobarFecha.Substring(3, 2);
+                    Year = ComprobarFecha.Substring(6, 4);
+                    RecordDate = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(mes), Convert.ToInt32(dia));
+                }
+                else
+                {
+                    ComprobarFecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                    dia = ComprobarFecha.Substring(0, 2);
+                    mes = ComprobarFecha.Substring(3, 2);
+                    Year = ComprobarFecha.Substring(6, 4);
+                    RecordDate = new DateTime(Convert.ToInt32(Year), Convert.ToInt32(mes), Convert.ToInt32(dia));
+                }
+
+                CurrentDate = DateTime.Now.Date;
+
+                if (Stock != txtCantidadStock.Text)
+                {
+                    if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
+                    {
+                        queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
+
+                        var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
+
+                        consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
+                    }
+                    else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
+                    {
+                        queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
+                                                                         Nombre, 
+                                                                         ClaveInterna, 
+                                                                         CodigoBarras, 
+                                                                         StockAlmacen, 
+                                                                         StockFisico, 
+                                                                         NoRevision, 
+                                                                         Fecha, 
+                                                                         IDUsuario, 
+                                                                         Tipo, 
+                                                                         StatusRevision, 
+                                                                         StatusInventariado)
+                                                                 VALUES ('{IDAlmacen}',
+                                                                         '{Nombre}',
+                                                                         '{cadenaAuxClavInterna}',
+                                                                         '{cadenaAuxCodigoBarras}',
+                                                                         '{StockAlmacen}',
+                                                                         '{txtCantidadStock.Text}',
+                                                                         '{NoActualCheckStock}',
+                                                                         '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}',
+                                                                         '{IDUser}',
+                                                                         '{TypeProd}',
+                                                                         '{StatusRevInventario}',
+                                                                         '{StatusInventHecho}')";
+
+                        consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
+                    }
+                    else if ((NoRevision == 0) && (StatusInventariado == 0))
+                    {
+                        queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
+
+                        var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
+
+                        consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
+                    }
+                    else
+                    {
+                        queryUpdateStock = $@"UPDATE RevisarInventario SET IDAlmacen = '{IDAlmacen}', 
+                                                                       Nombre = '{Nombre}', 
+                                                                       ClaveInterna = '{cadenaAuxClavInterna}', 
+                                                                       CodigoBarras = '{cadenaAuxCodigoBarras}', 
+                                                                       StockAlmacen = '{StockAlmacen}', 
+                                                                       StockFisico = '{Stock}', 
+                                                                       NoRevision = '{NoActualCheckStock}', 
+                                                                       Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
+                                                                       IDUsuario = '{IDUser}', 
+                                                                       Tipo = '{TypeProd}', 
+                                                                       StatusRevision = '{StatusRevInventario}', 
+                                                                       StatusInventariado = '{StatusInventHecho}'
+                                                                 WHERE ID = '{ID}'";
+
+                        consultaStock = $"UPDATE Productos SET Stock = '{Stock}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
+                    }
+
+                    cn.EjecutarConsulta(queryUpdateStock);
+                    cn.EjecutarConsulta(consultaStock);
+
+                    if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
+                    {
+                        //MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        LaPosicion += 1;
+                    }
+                }
+                else if (Stock == txtCantidadStock.Text)
+                {
+                    if ((NoRevision == NoActualCheckStock) && (StatusInventariado != 0))
+                    {
+                        queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
+
+                        consultaStock = string.Empty;
+                    }
+                    else if ((NoRevision != NoActualCheckStock) && (StatusInventariado != 0))
+                    {
+                        queryUpdateStock = $@"INSERT INTO RevisarInventario (IDAlmacen, 
+                                                                         Nombre, 
+                                                                         ClaveInterna, 
+                                                                         CodigoBarras, 
+                                                                         StockAlmacen, 
+                                                                         StockFisico, 
+                                                                         NoRevision, 
+                                                                         Fecha, 
+                                                                         IDUsuario, 
+                                                                         Tipo, 
+                                                                         StatusRevision, 
+                                                                         StatusInventariado)
+                                                                 VALUES ('{IDAlmacen}',
+                                                                         '{Nombre}',
+                                                                         '{cadenaAuxClavInterna}',
+                                                                         '{cadenaAuxCodigoBarras}',
+                                                                         '{StockAlmacen}',
+                                                                         '{txtCantidadStock.Text}',
+                                                                         '{NoActualCheckStock}',
+                                                                         '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}',
+                                                                         '{IDUser}',
+                                                                         '{TypeProd}',
+                                                                         '{StatusRevInventario}',
+                                                                         '{StatusInventHecho}')";
+
+                        consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
+                    }
+                    else if ((NoRevision == 0) && (StatusInventariado == 0))
+                    {
+                        queryUpdateStock = $"UPDATE RevisarInventario SET Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
+
+                        consultaStock = string.Empty;
+                    }
+                    else
+                    {
+                        queryUpdateStock = $@"UPDATE RevisarInventario SET IDAlmacen = '{IDAlmacen}', 
+                                                                       Nombre = '{Nombre}', 
+                                                                       ClaveInterna = '{cadenaAuxClavInterna}', 
+                                                                       CodigoBarras = '{cadenaAuxCodigoBarras}', 
+                                                                       StockAlmacen = '{StockAlmacen}', 
+                                                                       StockFisico = '{Stock}', 
+                                                                       NoRevision = '{NoActualCheckStock}', 
+                                                                       Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
+                                                                       IDUsuario = '{IDUser}', 
+                                                                       Tipo = '{TypeProd}', 
+                                                                       StatusRevision = '{StatusRevInventario}', 
+                                                                       StatusInventariado = '{StatusRev}'
+                                                                 WHERE ID = '{ID}'";
+
+                        consultaStock = $"UPDATE Productos SET Stock = '{Stock}' WHERE ID = {IDAlmacen} AND IDUsuario = {FormPrincipal.userID}";
+                    }
+
+                    cn.EjecutarConsulta(queryUpdateStock);
+
+                    if (!string.IsNullOrEmpty(consultaStock))
+                    {
+                        cn.EjecutarConsulta(consultaStock);
+                    }
+
+                    if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
+                    {
+                        //MessageBox.Show("Esté es el último Registro", "Último Registro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        LaPosicion += 1;
+                    }
+                }
+
+                llenarTabla();
+                LimpiarCampos();
+            }
+        }
+
+        private void LimpiarCampos()
+        {
+            NoReg = 0;
+            LaPosicion = 0;
+            IsEmpty = false;
+
+            ID = string.Empty;
+            Nombre = string.Empty;
+            Stock = string.Empty;
+            ClaveInterna = string.Empty;
+            CodigoBarras = string.Empty;
+            Fecha = string.Empty;
+            IDUsuario = string.Empty;
+
+            buscarStock = string.Empty;
+
+            lblNombreProducto.Text = string.Empty;
+            lblCodigoDeBarras.Text = string.Empty;
+            txtCantidadStock.Text = string.Empty;
+            txtBoxBuscarCodigoBarras.Text = string.Empty;
+            txtCantidadStock.Text = "0";
+            txtBoxBuscarCodigoBarras.Focus();
+        }
+
+        private void txtCantidadStock_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Para obligar a que sólo se introduzcan números
+            if (char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                if (char.IsControl(e.KeyChar))  // permitir teclas de control como retroceso
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;   // el resto de teclas pulsadas se desactivan
+                }
+            }
+        }
+
+        private void txtCantidadStock_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                if (!string.IsNullOrWhiteSpace(txtBoxBuscarCodigoBarras.Text))
+                {
+                    btnSiguiente.PerformClick();
+                    txtBoxBuscarCodigoBarras.Text = string.Empty;
+                    txtBoxBuscarCodigoBarras.Focus();
+                }
+            }
+        }
+
+        private void RevisarInventario_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            RiniciarStatusRevision();
+            this.Hide();
+        }
+
+        public RevisarInventario()
+        {
+            InitializeComponent();
+            cantidadStock = 0;
+            SearchBarCode = string.Empty;
+            NoReg = -1;
+        }
+
+        private void btnReducirStock_Click(object sender, EventArgs e)
+        {
+            if (txtCantidadStock.Text == "0")
+            {
+                MessageBox.Show("No se permite tener stock menor a = " + txtCantidadStock.Text, "Error al Disminuir Stock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            if (!txtCantidadStock.Equals("0"))
+            {
+                cantidadStock = Convert.ToInt32(txtCantidadStock.Text);
+                cantidadStock--;
+                if (cantidadStock >= 0)
+                {
+                    txtCantidadStock.Text = Convert.ToString(cantidadStock);
+                    txtCantidadStock.Focus();
+                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RiniciarStatusRevision();
+            Properties.Settings.Default.InicioFinInventario = 2;
+            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            this.Hide();
+            this.Close();
+        }
+
+        private void RiniciarStatusRevision()
+        {
+            StatusRev = 0;
+            queryUpdateStock = $"UPDATE RevisarInventario SET StatusRevision = '{StatusRev}' WHERE IDUsuario = '{FormPrincipal.userID}'";
+            cn.EjecutarConsulta(queryUpdateStock);
+            ClearTable(dtRevisarStockResultado);
+        }
+
 
         private void btnAumentarStock_Click(object sender, EventArgs e)
         {
