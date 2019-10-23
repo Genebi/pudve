@@ -976,127 +976,8 @@ namespace PuntoDeVentaV2
                 row.Cells["_ClavUnidMedXML"].Value = filaDatos["UnidadMedida"].ToString();
                 row.Cells["Impuesto"].Value = filaDatos["Impuesto"].ToString();
             }
+
             actualizar();
-            #region codigo de respalda cargar datos sin paginador
-            //int idProducto = 0;
-            //string extra = string.Empty;
-
-            //if (!string.IsNullOrWhiteSpace(busqueda))
-            //{
-            //    extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%')";
-            //}
-
-            //SQLiteConnection sql_con;
-            //SQLiteCommand sql_cmd;
-            //SQLiteDataReader dr;
-
-            //sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            //sql_con.Open();
-            //sql_cmd = new SQLiteCommand($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", sql_con);
-            //dr = sql_cmd.ExecuteReader();
-
-            ////DataTable table = new DataTable();
-            ////Fill table with data 
-            ////table = YourGetDataMethod(); 
-            ////DataTableReader reader = table.CreateDataReader();
-            ////SQLiteDataReader read = table.CreateDataReader();
-
-            //DGVProductos.Rows.Clear();
-
-            //while (dr.Read())
-            //{
-            //    number_of_rows = DGVProductos.Rows.Add();
-
-            //    DataGridViewRow row = DGVProductos.Rows[number_of_rows];
-
-            //    idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
-
-            //    row.Cells["_IDProducto"].Value = idProducto;
-
-            //    string TipoProd = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
-
-            //    row.Cells["CheckProducto"].Value = false;
-
-            //    row.Cells["Column1"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-
-            //    if (TipoProd == "P")
-            //    {
-            //        row.Cells["Column2"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
-            //    }
-            //    else if (TipoProd == "S")
-            //    {
-            //        row.Cells["Column2"].Value = "0";
-            //    }
-
-            //    row.Cells["Column3"].Value = dr.GetValue(dr.GetOrdinal("Precio"));
-            //    row.Cells["Column4"].Value = dr.GetValue(dr.GetOrdinal("Categoria"));
-            //    row.Cells["Column5"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
-            //    row.Cells["Column6"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
-            //    row.Cells["Column14"].Value = dr.GetValue(dr.GetOrdinal("Status"));
-            //    row.Cells["Column15"].Value = dr.GetValue(dr.GetOrdinal("ProdImage"));
-
-            //    System.Drawing.Image editar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
-            //    System.Drawing.Image estado1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
-            //    System.Drawing.Image estado2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\close.png");
-            //    System.Drawing.Image historial = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\line-chart.png");
-            //    System.Drawing.Image generar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\barcode.png");
-            //    System.Drawing.Image imagen1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-o.png");
-            //    System.Drawing.Image imagen2 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-picture-o.png");
-            //    System.Drawing.Image etiqueta = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\tag.png");
-            //    System.Drawing.Image copy = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\copy.png");
-            //    System.Drawing.Image package = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Servicio.png");
-            //    System.Drawing.Image product = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\Producto.png");
-            //    System.Drawing.Image ajustar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\cog.png");
-
-            //    row.Cells["Column7"].Value = editar;
-
-            //    string estado = dr.GetValue(dr.GetOrdinal("Status")).ToString();
-            //    if (estado == "1")
-            //    {
-            //        row.Cells["Column8"].Value = estado1;
-            //    }
-            //    else if (estado == "0")
-            //    {
-            //        row.Cells["Column8"].Value = estado2;
-            //    }
-
-            //    row.Cells["Column9"].Value = historial;
-
-            //    row.Cells["Column10"].Value = generar;
-
-            //    string ImgPath = dr.GetValue(dr.GetOrdinal("ProdImage")).ToString();
-            //    if (ImgPath == "" || ImgPath == null)
-            //    {
-            //        row.Cells["Column11"].Value = imagen1;
-            //    }
-            //    else if (ImgPath != "" || ImgPath != null)
-            //    {
-            //        row.Cells["Column11"].Value = imagen2;
-            //    }
-
-            //    row.Cells["Column12"].Value = etiqueta;
-
-            //    row.Cells["Column13"].Value = copy;
-
-
-            //    if (TipoProd == "P")
-            //    {
-            //        row.Cells["Column16"].Value = product;
-            //    }
-            //    else if (TipoProd == "S")
-            //    {
-            //        row.Cells["Column16"].Value = package;
-            //    }
-
-            //    row.Cells["Ajustar"].Value = ajustar;
-
-            //    row.Cells["_ClavProdXML"].Value = dr.GetValue(dr.GetOrdinal("ClaveProducto"));
-            //    row.Cells["_ClavUnidMedXML"].Value = dr.GetValue(dr.GetOrdinal("UnidadMedida"));
-            //}
-
-            //dr.Close();
-            //sql_con.Close();
-            #endregion
         }
 
         private void actualizar()
@@ -1652,6 +1533,8 @@ namespace PuntoDeVentaV2
                 recargarDatos = false;
 
                 cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
+
+                txtBusqueda.Text = string.Empty;
             }
         }
 
