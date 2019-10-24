@@ -1708,21 +1708,24 @@ namespace PuntoDeVentaV2
                                             infoDetailProdGral.Add(FormPrincipal.userID.ToString());
                                             Descripcion = contSubItemHijo.Text;
                                             var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                            infoDetailProdGral.Add(idFound[0].ToString());
-                                            infoDetailProdGral.Add("1");
-                                            infoDetailProdGral.Add(contSubHijo.Name);
-                                            // Ejecutamos el proceso de guardado
-                                            try
+                                            if (idFound.Length > 0)
                                             {
-                                                guardar = infoDetailProdGral.ToArray();
-                                                cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
-                                                infoDetailProdGral.Clear();
+                                                infoDetailProdGral.Add(idFound[0].ToString());
+                                                infoDetailProdGral.Add("1");
+                                                infoDetailProdGral.Add(contSubHijo.Name);
+                                                // Ejecutamos el proceso de guardado
+                                                try
+                                                {
+                                                    guardar = infoDetailProdGral.ToArray();
+                                                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                                                    infoDetailProdGral.Clear();
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                                break;
                                             }
-                                            catch (Exception ex)
-                                            {
-                                                MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            }
-                                            break;
                                         }
                                     }
                                 }
@@ -1737,7 +1740,7 @@ namespace PuntoDeVentaV2
         {
             // Variables para poder hacer el control 
             // de registro y actualizacion de la tabla
-            string Descripcion = string.Empty,
+            string  Descripcion = string.Empty,
                     panel = string.Empty;
 
             // lista para almacenar los datos
