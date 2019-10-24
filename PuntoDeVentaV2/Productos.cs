@@ -817,6 +817,8 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
+                // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
+
                 extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR P.ClaveInterna LIKE '%{busqueda}%')";
             }
 
@@ -834,6 +836,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
             if (status == 1)
             {
                 if (busqueda == "")
@@ -856,6 +859,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
             if (status == 0)
             {
                 if (busqueda == "")

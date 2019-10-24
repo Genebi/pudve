@@ -787,7 +787,7 @@ namespace PuntoDeVentaV2
                                                                                     prod.IDUsuario, 
                                                                                     prod.Tipo
                                                                              FROM '{tablaProductos}' prod 
-                                                                             WHERE NOT EXISTS (
+                                                                             WHERE prod.IDUsuario = {FormPrincipal.userID} AND NOT EXISTS (
 	                                                                             SELECT RIt.IDAlmacen, 
                                                                                         RIt.Nombre, 
                                                                                         RIt.ClaveInterna, 
@@ -831,7 +831,7 @@ namespace PuntoDeVentaV2
                                                                                     prod.IDUsuario, 
                                                                                     prod.Tipo
                                                                              FROM '{tablaProductos}' prod 
-                                                                             WHERE NOT EXISTS (
+                                                                             WHERE prod.IDUsuario = {FormPrincipal.userID} AND NOT EXISTS (
 	                                                                             SELECT RIt.IDAlmacen, 
                                                                                         RIt.Nombre, 
                                                                                         RIt.ClaveInterna, 
@@ -859,7 +859,7 @@ namespace PuntoDeVentaV2
 
         private bool checkEmpty(string tabla)
         {
-            string queryTableCheck = $"SELECT * FROM '{tabla}'";
+            string queryTableCheck = $"SELECT * FROM '{tabla}' WHERE IDUsuario = {FormPrincipal.userID}";
             IsEmpty = cn.IsEmptyTable(queryTableCheck);
             return IsEmpty;
         }
