@@ -108,267 +108,7 @@ namespace PuntoDeVentaV2
                 editDetalleNvo = string.Empty;
 
         #endregion Variables Globales
-
-
-        #region Modifying Configuration Settings at Runtime
-
-        XmlDocument xmlDoc = new XmlDocument();
-        XmlNode appSettingsNode, newChild;
-        ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle
-        ListView settingDatabases = new ListView(); // ListView para los CheckBox de Sistema
-        ListViewItem lvi;
-        string connStr, keyName;
-        int found = 0;
-        NameValueCollection appSettings;
-
-        // this code will add a listviewtem
-        // to a listview for each database entry
-        // in the appSettings section of an App.config file.
-        private void loadFormConfig()
-        {
-            if (Properties.Settings.Default.TipoEjecucion == 1)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            if (Properties.Settings.Default.TipoEjecucion == 2)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
-
-            chkDatabase.Items.Clear();
-            settingDatabases.Items.Clear();
-
-            lvi = new ListViewItem();
-
-            try
-            {
-                chkDatabase.Clear();
-                settingDatabases.Clear();
-
-                appSettings = ConfigurationManager.AppSettings;
-
-                if (appSettings.Count == 0)
-                {
-                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia", 
-                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                if (appSettings.Count > 0)
-                {
-                    for (int i = 0; i < appSettings.Count; i++)
-                    {
-                        connStr = appSettings[i];
-                        keyName = appSettings.GetKey(i);
-                        found = keyName.IndexOf("chk", 0, 3);
-                        if (found >= 0)
-                        {
-                            lvi = new ListViewItem(keyName);
-                            lvi.SubItems.Add(connStr);
-                            chkDatabase.Items.Add(lvi);
-                        }
-                    }
-
-                    for (int i = 0; i < appSettings.Count; i++)
-                    {
-                        string foundSetting = string.Empty;
-                        connStr = appSettings[i];
-                        keyName = appSettings.GetKey(i);
-                        found = keyName.IndexOf("chk", 0, 3);
-                        if (found <= -1)
-                        {
-                            lvi = new ListViewItem(keyName);
-                            lvi.SubItems.Add(connStr);
-                            settingDatabases.Items.Add(lvi);
-                        }
-                    }
-                }
-            }
-            catch (ConfigurationException e)
-            {
-                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), 
-                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // Force a reload of the changed section. This 
-        // makes the new values available for reading.
-        public static void RefreshAppSettings()
-        {
-            ConfigurationManager.RefreshSection("appSettings");
-        }
-
-        // Determines if a key exist within the App.config
-        public bool KeyExist(string strKey)
-        {
-            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
-            if (appSettingsNode != null)
-            {
-                // Attempt to locate the requested setting.
-                foreach (XmlNode childNode in appSettingsNode)
-                {
-                    if (childNode.Attributes["key"].Value == strKey)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        private void BuscarChkBoxListView(ListView lstListView)
-        {
-            int id = 0, 
-                row = 0;
-
-            string  nameChk = string.Empty,
-                    valorChk = string.Empty,
-                    chkSettingVariableTxt = string.Empty,
-                    chkSettingVariableVal = string.Empty,
-                    name = string.Empty,
-                    value = string.Empty,
-                    nombrePanelContenedor = string.Empty,
-                    nombrePanelContenido = string.Empty;
-
-            flowLayoutPanel3.Controls.Clear();
-
-            for (int i = 0; i < lstListView.Items.Count; i++)
-            {
-                name = lstListView.Items[i].Text.ToString();
-                value = lstListView.Items[i].SubItems[1].Text.ToString();
-
-                nombrePanelContenedor = "panelContenedor" + name;
-                nombrePanelContenido = "panelContenido" + name;
-
-                Panel panelContenedor = new Panel();
-                panelContenedor.Width = 266;
-                panelContenedor.Height = 58;
-                panelContenedor.Name = nombrePanelContenedor;
-                //panelContenedor.BackColor = Color.Aqua;
-
-                chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
-
-                if (chkSettingVariableVal.Equals("true"))
-                {
-                    name = chkSettingVariableTxt;
-                    value = chkSettingVariableVal;
-                    Panel panelContenido = new Panel();
-                    panelContenido.Name = nombrePanelContenido;
-                    panelContenido.Width = 258;
-                    panelContenido.Height = 55;
-                    //panelContenido.BackColor = Color.Beige;
-
-                    Label lblNombreProveedor = new Label();
-                    lblNombreProveedor.Name = "lblNombre" + name;
-                    lblNombreProveedor.Width = 248;
-                    lblNombreProveedor.Height = 20;
-                    lblNombreProveedor.Location = new Point(3, 32);
-                    lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
-                    lblNombreProveedor.BackColor = Color.White;
-
-                    int XcbProv = 0;
-                    XcbProv = panelContenido.Width / 2;
-
-                    CargarProveedores();
-
-                    ComboBox cbProveedor = new ComboBox();
-                    cbProveedor.Name = "cb" + name;
-                    cbProveedor.Width = 200;
-                    cbProveedor.Height = 30;
-                    cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
-                    cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
-                    if (listaProveedores.Length > 0)
-                    {
-                        cbProveedor.DataSource = proveedores.ToArray();
-                        cbProveedor.DisplayMember = "Value";
-                        cbProveedor.ValueMember = "Key";
-                        cbProveedor.SelectedValue = "0";
-
-                        // Cuando se le da click en la opcion editar producto
-                        if (DatosSourceFinal == 2)
-                        {
-                            var idProducto = Convert.ToInt32(idProductoFinal);
-                            var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                            int cantidad = idProveedor.Length;
-
-                            if (cantidad > 0)
-                            {
-                                if (!idProveedor[1].Equals(""))
-                                {
-                                    if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
-                                    {
-                                        cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
-                                        if (!datosProveedor.Equals(null))
-                                        {
-                                            lblNombreProveedor.Text = datosProveedor[0];
-                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
-                                            contadorIndex++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (listaProveedores.Length < 0)
-                    {
-                        cbProveedor.Items.Add("Proveedores...");
-                        cbProveedor.SelectedIndex = 0;
-                    }
-                    else if (cbProveedor.Items.Count == 0)
-                    {
-                        cbProveedor.Items.Add("Proveedores...");
-                        cbProveedor.SelectedIndex = 0;
-                    }
-                    cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
-
-                    panelContenido.Controls.Add(cbProveedor);
-                    panelContenido.Controls.Add(lblNombreProveedor);
-
-                    panelContenedor.Controls.Add(panelContenido);
-                    flowLayoutPanel3.Controls.Add(panelContenedor);
-                }
-                // aqui se continua con los demas else if
-                // Categoria
-
-                // Ubicacion
-
-            }
-        }
-
-        private void comboBoxProveedor_SelectValueChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void cargarDatosProveedor(int v)
-        {
-            
-        }
-
-        private void CargarProveedores()
-        {
-            
-        }
-
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void bt_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void checkBoxSetting_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        #endregion Modifying Configuration Settings at Runtime
-
+        
         bool habilitarComboBoxes = false;
 
         string TituloForm=string.Empty;
@@ -507,6 +247,369 @@ namespace PuntoDeVentaV2
 
         public static bool ejecutarMetodos = false;
         private object cbProveedor_SelectValueChanged;
+
+        #region Modifying Configuration Settings at Runtime
+
+        XmlDocument xmlDoc = new XmlDocument();
+        XmlNode appSettingsNode, newChild;
+        ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle
+        ListView settingDatabases = new ListView(); // ListView para los CheckBox de Sistema
+        ListViewItem lvi;
+        string connStr, keyName;
+        int found = 0;
+        NameValueCollection appSettings;
+
+        // this code will add a listviewtem
+        // to a listview for each database entry
+        // in the appSettings section of an App.config file.
+        private void loadFormConfig()
+        {
+            if (Properties.Settings.Default.TipoEjecucion == 1)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            if (Properties.Settings.Default.TipoEjecucion == 2)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+
+            chkDatabase.Items.Clear();
+            settingDatabases.Items.Clear();
+
+            lvi = new ListViewItem();
+
+            try
+            {
+                chkDatabase.Clear();
+                settingDatabases.Clear();
+
+                appSettings = ConfigurationManager.AppSettings;
+
+                if (appSettings.Count == 0)
+                {
+                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia",
+                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (appSettings.Count > 0)
+                {
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found >= 0)
+                        {
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            chkDatabase.Items.Add(lvi);
+                        }
+                    }
+
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        string foundSetting = string.Empty;
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found <= -1)
+                        {
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            settingDatabases.Items.Add(lvi);
+                        }
+                    }
+                }
+            }
+            catch (ConfigurationException e)
+            {
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
+                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Force a reload of the changed section. This 
+        // makes the new values available for reading.
+        public static void RefreshAppSettings()
+        {
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        // Determines if a key exist within the App.config
+        public bool KeyExist(string strKey)
+        {
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+            if (appSettingsNode != null)
+            {
+                // Attempt to locate the requested setting.
+                foreach (XmlNode childNode in appSettingsNode)
+                {
+                    if (childNode.Attributes["key"].Value == strKey)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private void BuscarChkBoxListView(ListView lstListView)
+        {
+            int id = 0,
+                row = 0;
+
+            string nameChk = string.Empty,
+                    valorChk = string.Empty,
+                    chkSettingVariableTxt = string.Empty,
+                    chkSettingVariableVal = string.Empty,
+                    name = string.Empty,
+                    value = string.Empty,
+                    nombrePanelContenedor = string.Empty,
+                    nombrePanelContenido = string.Empty;
+
+            flowLayoutPanel3.Controls.Clear();
+
+            for (int i = 0; i < lstListView.Items.Count; i++)
+            {
+                name = lstListView.Items[i].Text.ToString();
+                value = lstListView.Items[i].SubItems[1].Text.ToString();
+
+                if (name.Equals("chkProveedor") && value.Equals("true"))
+                {
+                    nombrePanelContenedor = "panelContenedor" + name;
+                    nombrePanelContenido = "panelContenido" + name;
+
+                    Panel panelContenedor = new Panel();
+                    panelContenedor.Width = 266;
+                    panelContenedor.Height = 58;
+                    panelContenedor.Name = nombrePanelContenedor;
+                    //panelContenedor.BackColor = Color.Aqua;
+
+                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                    
+                    if (chkSettingVariableVal.Equals("true"))
+                    {
+                        name = chkSettingVariableTxt;
+                        value = chkSettingVariableVal;
+                        Panel panelContenido = new Panel();
+                        panelContenido.Name = nombrePanelContenido;
+                        panelContenido.Width = 258;
+                        panelContenido.Height = 55;
+
+                        Label lblNombreProveedor = new Label();
+                        lblNombreProveedor.Name = "lblNombre" + name;
+                        lblNombreProveedor.Width = 248;
+                        lblNombreProveedor.Height = 20;
+                        lblNombreProveedor.Location = new Point(3, 32);
+                        lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
+                        lblNombreProveedor.BackColor = Color.White;
+
+                        int XcbProv = 0;
+                        XcbProv = panelContenido.Width / 2;
+
+                        CargarProveedores();
+
+                        ComboBox cbProveedor = new ComboBox();
+                        cbProveedor.Name = "cb" + name;
+                        cbProveedor.Width = 200;
+                        cbProveedor.Height = 30;
+                        cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
+                        cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
+                        if (listaProveedores.Length > 0)
+                        {
+                            cbProveedor.DataSource = proveedores.ToArray();
+                            cbProveedor.DisplayMember = "Value";
+                            cbProveedor.ValueMember = "Key";
+                            cbProveedor.SelectedValue = "0";
+
+                            // Cuando se le da click en la opcion editar producto
+                            if (DatosSourceFinal == 2)
+                            {
+                                var idProducto = Convert.ToInt32(idEditarProducto);
+                                var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                                int cantidad = idProveedor.Length;
+
+                                if (cantidad > 0)
+                                {
+                                    if (!idProveedor[1].Equals(""))
+                                    {
+                                        if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
+                                        {
+                                            cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
+                                            if (!datosProveedor.Equals(null))
+                                            {
+                                                lblNombreProveedor.Text = datosProveedor[0];
+                                                diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
+                                                contadorIndex++;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (listaProveedores.Length < 0)
+                        {
+                            cbProveedor.Items.Add("Proveedores...");
+                            cbProveedor.SelectedIndex = 0;
+                        }
+                        else if (cbProveedor.Items.Count == 0)
+                        {
+                            cbProveedor.Items.Add("Proveedores...");
+                            cbProveedor.SelectedIndex = 0;
+                        }
+                        cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                        panelContenido.Controls.Add(cbProveedor);
+                        panelContenido.Controls.Add(lblNombreProveedor);
+
+                        panelContenedor.Controls.Add(panelContenido);
+                        flowLayoutPanel3.Controls.Add(panelContenedor);
+                    }
+                } // aqui se continua con los demas else if
+                else if (name.Equals("chkCategoria") && value.Equals("true"))// Categoria
+                {
+                    
+                }
+                else if (name.Equals("chkUbicacion") && value.Equals("true"))// Ubicacion
+                {
+                    
+                }
+                else if ((!name.Equals("chkProveedor") || 
+                          !name.Equals("chkCategoria") || 
+                          !name.Equals("chkUbicacion")) 
+                          && value.Equals("true"))// cualquier otro 
+                {
+                    
+                }
+            }
+        }
+
+        private void comboBoxProveedor_SelectValueChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            string cadena = string.Empty, namePanel = string.Empty;
+            char[] delimiterChars = { '-' };
+            int comboBoxIndex = 0;
+
+            comboBoxIndex = comboBox.SelectedIndex;
+            namePanel = comboBox.Name.ToString().Remove(0, 2);
+
+            if (listaProveedores.Length > 0)
+            {
+                idProveedor = 0;
+                if (comboBoxIndex > 0)
+                {
+                    cadena = string.Join("", listaProveedores[comboBoxIndex - 1]);
+                    separadas = cadena.Split(delimiterChars);
+                    idProveedor = Convert.ToInt32(separadas[0]);
+                    nombreProveedor = separadas[1];
+                }
+                else if (comboBoxIndex <= 0)
+                {
+                    idProveedor = 0;
+                }
+
+                if (idProveedor > 0)
+                {
+                    cargarDatosProveedor(Convert.ToInt32(idProveedor));
+                    llenarDatosProveedor(namePanel);
+                }
+            }
+        }
+
+        private void llenarDatosProveedor(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "cb" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datosProveedor[0];
+                                }
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datosProveedor[0];
+                                }
+                                else if (contLblHijo.Name == "lblRFC" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datosProveedor[1];
+                                }
+                                else if (contLblHijo.Name == "lblTel" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datosProveedor[10];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void cargarDatosProveedor(int idProveedor)
+        {
+            // Para que no de error ya que nunca va a existir un proveedor en ID = 0
+            if (idProveedor > 0)
+            {
+                datosProveedor = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
+            }
+        }
+
+        private void CargarProveedores()
+        {
+            // Asignamos el Array con los nombres de los proveedores al comboBox
+            listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+
+            proveedores = new Dictionary<string, string>();
+
+            // Comprobar que ya exista al menos un Proveedor
+            if (listaProveedores.Length > 0)
+            {
+                proveedores.Add("0", "Proveedores...");
+
+                foreach (var proveedor in listaProveedores)
+                {
+                    var tmp = proveedor.Split('-');
+                    proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
+                }
+            }
+            else
+            {
+                proveedores.Add("0", "Proveedores...");
+            }
+        }
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxSetting_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion Modifying Configuration Settings at Runtime
 
         public void PrimerCodBarras()
         {
@@ -3634,7 +3737,7 @@ namespace PuntoDeVentaV2
             flowLayoutPanel3.VerticalScroll.Visible = true;
 
             loadFormConfig();
-            BuscarChkBoxListView(settingDatabases);
+            BuscarChkBoxListView(chkDatabase);
 
             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
