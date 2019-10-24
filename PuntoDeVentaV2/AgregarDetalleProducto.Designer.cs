@@ -253,6 +253,7 @@
             this.Name = "AgregarDetalleProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Detalles Producto";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarDetalleProducto_FormClosed);
             this.Load += new System.EventHandler(this.AgregarDetalleProducto_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

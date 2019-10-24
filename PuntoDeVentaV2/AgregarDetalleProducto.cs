@@ -1031,6 +1031,16 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void AgregarDetalleProducto_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            AgregarEditarProducto addEditProducto = Application.OpenForms.OfType<AgregarEditarProducto>().FirstOrDefault();
+
+            if (addEditProducto != null)
+            {
+                addEditProducto.actualizarDetallesProducto();
+            }
+        }
+
         private void llenarDatosDetalleGral(string textoBuscado)
         {
             string namePanel = string.Empty;

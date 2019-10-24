@@ -360,7 +360,7 @@ namespace PuntoDeVentaV2
             int id = 0,
                 row = 0;
 
-            string nameChk = string.Empty,
+            string  nameChk = string.Empty,
                     valorChk = string.Empty,
                     chkSettingVariableTxt = string.Empty,
                     chkSettingVariableVal = string.Empty,
@@ -478,13 +478,173 @@ namespace PuntoDeVentaV2
                 {
                     
                 }
-                else if ((!name.Equals("chkProveedor") || 
-                          !name.Equals("chkCategoria") || 
-                          !name.Equals("chkUbicacion")) 
+                else if ((!name.Equals("chkProveedor") ||
+                          !name.Equals("chkCategoria") ||
+                          !name.Equals("chkUbicacion"))
                           && value.Equals("true"))// cualquier otro 
                 {
-                    
+                    nombrePanelContenedor = "panelContenedor" + name.ToString().Remove(0, 3);
+                    nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
+
+                    Panel panelContenedor = new Panel();
+                    panelContenedor.Width = 266;
+                    panelContenedor.Height = 58;
+                    panelContenedor.Name = nombrePanelContenedor;
+
+                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+
+                    if (chkSettingVariableVal.Equals("true"))
+                    {
+                        name = chkSettingVariableTxt;
+                        value = chkSettingVariableVal;
+
+                        Panel panelContenido = new Panel();
+                        panelContenido.Name = nombrePanelContenido;
+                        panelContenido.Width = 258;
+                        panelContenido.Height = 55;
+
+                        Label lblNombreDetalleGral = new Label();
+                        lblNombreDetalleGral.Name = "lblNombre" + name;
+                        lblNombreDetalleGral.Width = 248;
+                        lblNombreDetalleGral.Height = 20;
+                        lblNombreDetalleGral.Location = new Point(3, 32);
+                        lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
+                        lblNombreDetalleGral.BackColor = Color.White;
+
+                        int XcbProv = 0;
+                        XcbProv = panelContenido.Width / 2;
+
+                        CargarDetallesGral(name.ToString().Remove(0, 3));
+
+                        ComboBox cbDetalleGral = new ComboBox();
+                        cbDetalleGral.Name = "cb" + name;
+                        cbDetalleGral.Width = 200;
+                        cbDetalleGral.Height = 30;
+                        cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
+                        cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
+                        cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                        if (listaDetalleGral.Length > 0)
+                        {
+                            cbDetalleGral.DataSource = detallesGral.ToArray();
+                            cbDetalleGral.DisplayMember = "value";
+                            cbDetalleGral.ValueMember = "Key";
+                            cbDetalleGral.SelectedValue = "0";
+                        }
+                        else if (cbDetalleGral.Items.Count == 0)
+                        {
+                            cbDetalleGral.Items.Add(name.ToString().Remove(0, 3) + "...");
+                            cbDetalleGral.SelectedIndex = 0;
+                        }
+                        panelContenido.Controls.Add(cbDetalleGral);
+                        panelContenido.Controls.Add(lblNombreDetalleGral);
+                        panelContenedor.Controls.Add(panelContenido);
+                        flowLayoutPanel3.Controls.Add(panelContenedor);
+
+                        // Cuando se da click en la opcion editar producto
+                        if (DatosSourceFinal == 2)
+                        {
+                            string Descripcion = string.Empty;
+
+                            foreach (Control contHijo in flowLayoutPanel3.Controls)
+                            {
+                                foreach (Control contSubHijo in contHijo.Controls)
+                                {
+                                    if (contSubHijo.Name == nombrePanelContenido)
+                                    {
+                                        foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                        {
+                                            if (contItemSubHijo is Label)
+                                            {
+                                                Descripcion = contItemSubHijo.Text;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (Descripcion.Equals("") || Descripcion.Equals(null))
+                            {
+                                Descripcion = nombrePanelContenido;
+                            }
+                            else if (!Descripcion.Equals(""))
+                            {
+
+                            }
+
+                            idProductoDetalleGral = Convert.ToInt32(idEditarProducto);
+                            var DetalleGralPorPanel = mb.DetallesProductoGralPorPanel(Descripcion, FormPrincipal.userID, idProductoDetalleGral);
+
+                            int cantidad = DetalleGralPorPanel.Length;
+
+                            if (cantidad > 0)
+                            {
+                                if (Descripcion.Equals(nombrePanelContenido))
+                                {
+                                    int idDetailGral = 0;
+                                    idDetailGral = Convert.ToInt32(DetalleGralPorPanel[3].ToString());
+
+                                    foreach (Control contHijo in flowLayoutPanel3.Controls)
+                                    {
+                                        foreach (Control contSubHijo in contHijo.Controls)
+                                        {
+                                            if (contSubHijo.Name == nombrePanelContenido)
+                                            {
+                                                var idDetalleGral = mb.DetallesProductoGral(FormPrincipal.userID, idDetailGral);
+
+                                                foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                                {
+                                                    if (contItemSubHijo is Label)
+                                                    {
+                                                        contItemSubHijo.Text = idDetalleGral[2].ToString();
+                                                        diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string, string>(DetalleGralPorPanel[0].ToString(), nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
+                                                        contadorIndex++;
+                                                        break;
+                                                    }
+                                                }
+
+                                                idDetalleGral = new string[] { };
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
+            }
+        }
+
+        private void ComboBoxDetalleGral_SelectValueChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void CargarDetallesGral(string textBuscado)
+        {
+            string concepto = string.Empty;
+            detallesGral = new Dictionary<string, string>();
+
+            concepto = textBuscado;
+
+            listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, concepto);
+
+            if (listaDetalleGral.Length > 0)
+            {
+                detallesGral.Add("0", concepto + "...");
+
+                foreach (var DetailGral in listaDetalleGral)
+                {
+                    var auxiliar = DetailGral.Split('|');
+
+                    detallesGral.Add(auxiliar[0], auxiliar[1]);
+                }
+            }
+            else
+            {
+                detallesGral.Add("0", concepto + "...");
             }
         }
 
@@ -3360,7 +3520,6 @@ namespace PuntoDeVentaV2
             }
             if (DatosSourceFinal == 2)
             {
-
                 //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
                 if (FormDetalleProducto == null)
                 {
@@ -3736,8 +3895,7 @@ namespace PuntoDeVentaV2
 
             flowLayoutPanel3.VerticalScroll.Visible = true;
 
-            loadFormConfig();
-            BuscarChkBoxListView(chkDatabase);
+            actualizarDetallesProducto();
 
             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
@@ -3884,6 +4042,12 @@ namespace PuntoDeVentaV2
                     tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
                 }
             }
+        }
+
+        public void actualizarDetallesProducto()
+        {
+            loadFormConfig();
+            BuscarChkBoxListView(chkDatabase);
         }
 
         private void cargarCBProductos(string typePaqServ)
