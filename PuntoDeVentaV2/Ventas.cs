@@ -1042,28 +1042,31 @@ namespace PuntoDeVentaV2
                             // Obtener los productos relacionados (ID, Cantidad)
                             var datosServicio = cn.ObtenerProductosServicio(idServicio);
 
-                            // Verificar la cantidad de cada producto con el stock actual de ese producto individual
-                            foreach (string producto in datosServicio)
+                            if (datosServicio.Length > 0)
                             {
-                                var datosProducto = producto.Split('|');
-                                var idProducto = Convert.ToInt32(datosProducto[0]);
-                                var stockRequerido = Convert.ToInt32(datosProducto[1]) * cantidad;
-
-                                datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
-                                datosProducto = datosProducto[0].Split('|');
-
-                                var nombreProducto = datosProducto[0];
-                                var stockActual = Convert.ToInt32(datosProducto[1]);
-
-                                if (stockActual < stockRequerido)
+                                // Verificar la cantidad de cada producto con el stock actual de ese producto individual
+                                foreach (string producto in datosServicio)
                                 {
-                                    var mensaje = $"El stock de {nombreProducto} es insuficiente\n{categoria}: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+                                    var datosProducto = producto.Split('|');
+                                    var idProducto = Convert.ToInt32(datosProducto[0]);
+                                    var stockRequerido = Convert.ToInt32(datosProducto[1]) * cantidad;
 
-                                    MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+                                    datosProducto = datosProducto[0].Split('|');
 
-                                    respuesta = false;
+                                    var nombreProducto = datosProducto[0];
+                                    var stockActual = Convert.ToInt32(datosProducto[1]);
 
-                                    break;
+                                    if (stockActual < stockRequerido)
+                                    {
+                                        var mensaje = $"El stock de {nombreProducto} es insuficiente\n{categoria}: {servicio}\nStock actual: {stockActual}\nRequerido: {stockRequerido}";
+
+                                        MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                        respuesta = false;
+
+                                        break;
+                                    }
                                 }
                             }
                         }
