@@ -546,6 +546,8 @@ namespace PuntoDeVentaV2
                 {
                     lista.Add(info["CodigoBarraExtra"].ToString());
                 }
+
+                info.Close();
             }
 
             dr.Close();
@@ -664,6 +666,24 @@ namespace PuntoDeVentaV2
             if (dr.Read())
             {
                 lista.Add(dr["IDAlmacen"].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] BuscarCodigoBarrasExtra(string codigo)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigo}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["IDProducto"].ToString());
             }
 
             dr.Close();
