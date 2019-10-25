@@ -1210,7 +1210,7 @@ namespace PuntoDeVentaV2
                 salto = string.Empty;
             }
 
-            Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
+            Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 3, 0);
             PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + productos[0][0] + ".pdf", FileMode.Create));
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
@@ -1358,7 +1358,7 @@ namespace PuntoDeVentaV2
                 p.Start();
 
                 p.WaitForInputIdle();
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(5000);
 
                 if (false == p.CloseMainWindow())
                 {

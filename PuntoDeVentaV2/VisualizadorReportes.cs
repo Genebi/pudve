@@ -42,7 +42,7 @@ namespace PuntoDeVentaV2
                 p.Start();
 
                 p.WaitForInputIdle();
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(5000);
 
                 if (false == p.CloseMainWindow())
                 {
