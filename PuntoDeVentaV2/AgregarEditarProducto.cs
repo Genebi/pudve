@@ -470,18 +470,7 @@ namespace PuntoDeVentaV2
                         flowLayoutPanel3.Controls.Add(panelContenedor);
                     }
                 } // aqui se continua con los demas else if
-                else if (name.Equals("chkCategoria") && value.Equals("true"))// Categoria
-                {
-                    
-                }
-                else if (name.Equals("chkUbicacion") && value.Equals("true"))// Ubicacion
-                {
-                    
-                }
-                else if ((!name.Equals("chkProveedor") ||
-                          !name.Equals("chkCategoria") ||
-                          !name.Equals("chkUbicacion"))
-                          && value.Equals("true"))// cualquier otro 
+                else if (!name.Equals("chkProveedor") && value.Equals("true"))// cualquier otro 
                 {
                     nombrePanelContenedor = "panelContenedor" + name.ToString().Remove(0, 3);
                     nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
