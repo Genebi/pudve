@@ -1144,13 +1144,29 @@ namespace PuntoDeVentaV2
         {
             var datos = FormPrincipal.datosUsuario;
 
-            //Medidas de ticket de 57 y 80 mm
-            //57mm = 161.28 pt
-            //80mm = 226.08 pt
+            // Medidas de ticket de 57 y 80 mm
+            // 1 pulgada = 2.54 cm = 72 puntos = 25.4 mm
+            // 57mm = 161.28 pt
+            // 80mm = 226.08 pt
 
             var tipoPapel  = 80;
             var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
-            var altoPapel  = Convert.ToInt32(anchoPapel + 54);
+            var altoPapel  = Convert.ToInt32(anchoPapel + 64); // 54
+
+            if (productos.Length > 3)
+            {
+                var filas = productos.Length / 2.54;
+                filas *= 25.4;
+                altoPapel += Convert.ToInt32(filas);
+
+                for (int i = 0; i < productos.Length; i++)
+                {
+                    if (productos[i][2].Length > 18)
+                    {
+                        altoPapel += 20;
+                    }
+                }
+            }
 
             //Variables y arreglos para el contenido de la tabla
             float[] anchoColumnas = new float[] { };
@@ -1319,7 +1335,7 @@ namespace PuntoDeVentaV2
              ** Fin tabla con los productos vendidos **
              ******************************************/
 
-            Paragraph mensaje = new Paragraph("Cambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.", fuenteMensaje);
+            Paragraph mensaje = new Paragraph("\nCambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.", fuenteNormal);
             mensaje.Alignment = Element.ALIGN_CENTER;
 
             var culture = new System.Globalization.CultureInfo("es-MX");
@@ -1349,7 +1365,7 @@ namespace PuntoDeVentaV2
             {
                 ProcessStartInfo info = new ProcessStartInfo();
                 info.Verb = "print";
-                info.FileName = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + idVenta + ".pdf";
+                info.FileName = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
                 info.CreateNoWindow = true;
                 info.WindowStyle = ProcessWindowStyle.Hidden;
 
