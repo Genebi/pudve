@@ -1675,13 +1675,33 @@ namespace PuntoDeVentaV2
 
             if (listaProductos.Visible == false && txtBuscadorProducto.Text != "buscar producto o servicio...")
             {
+                int idProducto = 0;
+
+                // Verificamos si existe en la tabla de codigos de barra extra
+                var datosTmp = mb.BuscarCodigoBarrasExtra(txtBuscadorProducto.Text.Trim());
+
+                if (datosTmp.Length > 0)
+                {
+                    // Verificar que pertenece al usuario
+                    var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID}");
+                    
+                    if (verificarUsuario)
+                    {
+                        idProducto = Convert.ToInt32(datosTmp[0]);
+                    }
+                }
+
                 string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
 
                 DataTable searchProd = cn.CargarDatos(querySearchProd);
 
                 if (searchProd.Rows.Count > 0)
                 {
-                    int idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
+                    idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
+                }
+
+                if (idProducto > 0)
+                {
                     string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                     txtBuscadorProducto.Text = "";
                     txtBuscadorProducto.Focus();
