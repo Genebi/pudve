@@ -239,6 +239,18 @@ namespace PuntoDeVentaV2
 
                 if (resultado > 0)
                 {
+                    //Productos
+                    if (apartado == 1)
+                    {
+                        Productos.botonAceptar = true;
+                    }
+
+                    //Inventario
+                    if (apartado == 2)
+                    {
+                        Inventario.botonAceptar = true;
+                    }
+
                     //Datos del producto que se actualizará
                     datos = new string[] { IDProducto.ToString(), stockProducto.ToString() };
 

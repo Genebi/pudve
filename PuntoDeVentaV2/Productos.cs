@@ -605,6 +605,8 @@ namespace PuntoDeVentaV2
                             CargarDatos();
 
                             idReporte++;
+
+                            botonAceptar = false;
                         }
                     };
 
@@ -1114,6 +1116,7 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos();
             };
+
             if (!FormAgregar.Visible)
             {
                 if (seleccionadoDato == 0)
@@ -1160,6 +1163,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.ShowDialog();
                 }
             }
+
             if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
             {
                 actualizar();
@@ -1168,6 +1172,7 @@ namespace PuntoDeVentaV2
             {
                 btnUltimaPagina.PerformClick();
             }
+
             origenDeLosDatos = 0;
         }
 
