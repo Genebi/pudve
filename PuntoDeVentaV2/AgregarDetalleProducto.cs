@@ -61,7 +61,8 @@ namespace PuntoDeVentaV2
                 deleteDetalle = string.Empty,
                 nombreProveedor = string.Empty,
                 nombreCategoria = string.Empty,
-                nombreUbicacion = string.Empty;
+                nombreUbicacion = string.Empty,
+                mensajeDetalleProducto = string.Empty;
 
         public string getIdProducto { get; set; }
 
@@ -1031,6 +1032,19 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                XPos = this.Width / 2;
+                YPos = this.Height / 2;
+                mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR MENSAJE AL PRODUCTO ACTUAL\nDE SUGERENCIA PARA QUE AL COMPRADOR\nSE LE LEA AL VENDERSELO",
+                                                                                    "Mensaje de Sugerencia del Producto",
+                                                                                    "Agrega aqui tú Mensaje personalizado", XPos, YPos);
+
+            }
+        }
+
         private void AgregarDetalleProducto_FormClosed(object sender, FormClosedEventArgs e)
         {
             AgregarEditarProducto addEditProducto = Application.OpenForms.OfType<AgregarEditarProducto>().FirstOrDefault();
@@ -1473,11 +1487,9 @@ namespace PuntoDeVentaV2
                 }
                 else if (!deleteDetalle.Equals(""))
                 {
-                    if (deleteDetalle.Equals("Proveedor") ||
-                        deleteDetalle.Equals("Categoria") ||
-                        deleteDetalle.Equals("Ubicacion"))
+                    if (deleteDetalle.Equals("Proveedor"))
                     {
-                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor, Categoria, Ubicacion)\nya que son las configuraciónes basicas\nUsted esta Intentando realizar dichas operaciones\nsobre la configuración: " + deleteDetalle.ToString(),
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor)\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(),
                                         "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         RefreshAppSettings();
                         loadFormConfig();
@@ -1567,11 +1579,9 @@ namespace PuntoDeVentaV2
             renameDetail.ShowDialog();
             if (!KeyExist(editDetalleNvo))
             {
-                if (editDetelle.Equals("Proveedor") ||
-                    editDetelle.Equals("Categoria") ||
-                    editDetelle.Equals("Ubicacion"))
+                if (editDetelle.Equals("Proveedor"))
                 {
-                    MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor, Categoria, Ubicacion)\nya que son las configuraciónes basicas\nUsted esta Intentando realizar dichas operaciones\nsobre la configuración: " + editDetelle.ToString(),
+                    MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor)\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
                                     "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     RefreshAppSettings();
                     loadFormConfig();
