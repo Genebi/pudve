@@ -372,9 +372,11 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        //hola mundo
+        public string ActualizarCBGenerado(string codigo, int idUsuario)
+        {
+            string consulta = $"UPDATE CodigoBarrasGenerado SET CodigoBarras = '{codigo}' WHERE IDUsuario = {idUsuario}";
 
-        // hola Alejandro
-
+            return consulta;
+        }
     }
 }

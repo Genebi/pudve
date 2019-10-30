@@ -632,29 +632,6 @@ namespace PuntoDeVentaV2
             return folio;
         }
 
-        public string ObtenerMaximoCodigo(int idUsuario)
-        {
-            var codigo = string.Empty;
-
-            DatosConexion($"SELECT CodigoBarras AS Codigo FROM Productos WHERE IDUsuario = {idUsuario} ORDER BY ID DESC LIMIT 1");
-
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
-
-            if (dr.Read())
-            {
-                codigo = dr["Codigo"].ToString();
-
-                if (string.IsNullOrWhiteSpace(codigo))
-                {
-                    codigo = "7777000001";
-                }
-            }
-
-            dr.Close();
-
-            return codigo;
-        }
-
         public string[] ObtenerRevisionInventario(int idRevision, int idUsuario)
         {
             List<string> lista = new List<string>();
@@ -689,6 +666,24 @@ namespace PuntoDeVentaV2
             dr.Close();
 
             return lista.ToArray();
+        }
+
+        public string ObtenerCBGenerado(int idUsuario)
+        {
+            string codigo = string.Empty;
+
+            DatosConexion($"SELECT * FROM CodigoBarrasGenerado WHERE IDUsuario = {idUsuario}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                codigo = dr["CodigoBarras"].ToString();
+            }
+
+            dr.Close();
+
+            return codigo;
         }
 
         private void DatosConexion(string consulta)
