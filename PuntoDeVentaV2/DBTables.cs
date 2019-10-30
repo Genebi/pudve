@@ -38,6 +38,7 @@ namespace PuntoDeVentaV2
         public static int DetalleGeneral;
         public static int DetallesProductoGenerales;
         public static int ProductMessage;
+        public static int CodigoBarrasGenerado;
     #endregion VariablesTablas
 
         public DBTables()
@@ -72,6 +73,7 @@ namespace PuntoDeVentaV2
             DetalleGeneral = 4;
             DetallesProductoGenerales = 6;
             ProductMessage = 3;
+            CodigoBarrasGenerado = 3;
         #endregion InicializarVariables
         }
 
@@ -1834,5 +1836,47 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaProductMessage
+
+        // Tabla de CodigoBarrasGenerado 30
+        #region TablaCodigoBarrasGenerado
+        public int GetCodigoBarrasGenerado()
+        {
+            return CodigoBarrasGenerado;
+        }
+
+        public string PragmaTablaCodigoBarrasGenerado(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameCodigoBarrasGenerado(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaCodigoBarrasGenerado(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID           INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario    INTEGER,
+                                              CodigoBarras TEXT
+                                             );";
+        }
+
+        public string QueryUpdateTablaCodigoBarrasGenerado(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             CodigoBarras) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             CodigoBarras 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaCodigoBarrasGenerado(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaCodigoBarrasGenerado
     }
 }
