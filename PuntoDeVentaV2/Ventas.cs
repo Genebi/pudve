@@ -160,7 +160,7 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyDown(object sender, KeyEventArgs e)
         {
-            //Tecla borrar y suprimir
+            // Tecla borrar y suprimir
             if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
             {
                 if (txtBuscadorProducto.Text == string.Empty)
@@ -169,14 +169,24 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            //Enter
+            // Enter
             if (e.KeyData == Keys.Enter)
             {
                 if (listaProductos.Visible)
                 {
-                    //Verifica si la lista esta visible y contiene un producto al menos
-                    //si la lista no tiene el focus le agregada el focus y selecciona el primer producto
-                    //que muestra por defecto y ejecuta el evento enter de la lista para agregar el producto
+                    // Si busca un producto por codigo de barras o clave le da prioridad a este metodo
+                    // si encuentra un producto lo va a mostrar de lo contrario la ejecucion seguira y
+                    // se mostrara el primer producto que aparezca en la lista
+                    var respuesta = BuscarProductoPorCodigo();
+
+                    if (respuesta)
+                    {
+                        return;
+                    }
+
+                    // Verifica si la lista esta visible y contiene un producto al menos
+                    // si la lista no tiene el focus le agregada el focus y selecciona el primer producto
+                    // que muestra por defecto y ejecuta el evento enter de la lista para agregar el producto
                     if (!listaProductos.Focused)
                     {
                         listaProductos.SelectedIndex = 0;
@@ -186,6 +196,11 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    // Le da prioridad a buscar un producto por codigo de barras o clave
+                    BuscarProductoPorCodigo();
+
+
+                    //===============================================================
                     // Este codigo es para cuando intenta agregar mas cantidad de algun producto
                     // desde el buscador de producto, solo aplica para sumar y restar producto
                     sumarProducto = true;
@@ -207,6 +222,52 @@ namespace PuntoDeVentaV2
                     buscarVG = false;
                 }  
             }
+        }
+
+        private bool BuscarProductoPorCodigo()
+        {
+            bool existe = false;
+
+            if (txtBuscadorProducto.Text != "BUSCAR PRODUCTO O SERVICIO...")
+            {
+                int idProducto = 0;
+
+                // Verificamos si existe en la tabla de codigos de barra extra
+                var datosTmp = mb.BuscarCodigoBarrasExtra(txtBuscadorProducto.Text.Trim());
+
+                if (datosTmp.Length > 0)
+                {
+                    // Verificar que pertenece al usuario
+                    var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID}");
+
+                    if (verificarUsuario)
+                    {
+                        idProducto = Convert.ToInt32(datosTmp[0]);
+                    }
+                }
+
+                string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
+
+                DataTable searchProd = cn.CargarDatos(querySearchProd);
+
+                if (searchProd.Rows.Count > 0)
+                {
+                    idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
+                }
+
+                if (idProducto > 0)
+                {
+                    string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                    txtBuscadorProducto.Text = "";
+                    txtBuscadorProducto.Focus();
+                    ocultarResultados();
+                    AgregarProducto(datosProducto);
+
+                    existe = true;
+                }
+            }
+
+            return existe;
         }
 
         private void AgregarProducto(string[] datosProducto)
@@ -1673,7 +1734,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (listaProductos.Visible == false && txtBuscadorProducto.Text != "BUSCAR PRODUCTO O SERVICIO...")
+            /*if (listaProductos.Visible == false && txtBuscadorProducto.Text != "BUSCAR PRODUCTO O SERVICIO...")
             {
                 int idProducto = 0;
 
@@ -1708,7 +1769,7 @@ namespace PuntoDeVentaV2
                     ocultarResultados();
                     AgregarProducto(datosProducto);
                 }
-            }
+            }*/
 
 
             if (buscarvVentaGuardada == "#")
