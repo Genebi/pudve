@@ -44,7 +44,7 @@
             this.btnRenameDetalle = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCerrar = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -238,23 +238,23 @@
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
-            // checkBox1
+            // chkBoxProductMessage
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(223, 17);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(129, 17);
-            this.checkBox1.TabIndex = 32;
-            this.checkBox1.Text = "Mensaje del Producto";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.chkBoxProductMessage.AutoSize = true;
+            this.chkBoxProductMessage.Location = new System.Drawing.Point(223, 17);
+            this.chkBoxProductMessage.Name = "chkBoxProductMessage";
+            this.chkBoxProductMessage.Size = new System.Drawing.Size(173, 17);
+            this.chkBoxProductMessage.TabIndex = 32;
+            this.chkBoxProductMessage.Text = "Agrega un mensaje al producto";
+            this.chkBoxProductMessage.UseVisualStyleBackColor = true;
+            this.chkBoxProductMessage.CheckedChanged += new System.EventHandler(this.chkBoxProductMessage_CheckedChanged);
             // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 666);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.chkBoxProductMessage);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
@@ -296,6 +296,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkBoxProductMessage;
     }
 }

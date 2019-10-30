@@ -1032,9 +1032,9 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void chkBoxProductMessage_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox1.Checked == true)
+            if (chkBoxProductMessage.Checked == true)
             {
                 XPos = this.Width / 2;
                 YPos = this.Height / 2;
@@ -1475,6 +1475,23 @@ namespace PuntoDeVentaV2
 
             loadFormConfig();
             BuscarTextoListView(settingDatabases);
+
+            verificarProductMessage();
+        }
+
+        private void verificarProductMessage()
+        {
+            DataTable dtProdMessg;
+            dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(finalIdProducto));
+            if (dtProdMessg.Rows.Count > 0)
+            {
+                //MessageBox.Show("SI Tiene Datos");
+                //chkBoxProductMessage.Text = "";
+            }
+            else if (dtProdMessg.Rows.Count <= 0)
+            {
+                //MessageBox.Show("NO Tiene Datos");
+            }
         }
 
         private void btnDeleteDetalle_Click(object sender, EventArgs e)
