@@ -1808,10 +1808,11 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaProductMessage(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID               INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                                              IDProducto       INTEGER,
-                                              ProductOfMessage TEXT,
-                                              FOREIGN KEY (IDProducto) REFERENCES Productos (ID) ON UPDATE CASCADE  ON DELETE CASCADE
+            return $@"CREATE TABLE '{tabla}' (ID                      INTEGER NOT NULL    PRIMARY KEY AUTOINCREMENT    UNIQUE,
+                                              IDProducto              INTEGER,
+                                              ProductOfMessage        TEXT,
+                                              ProductMessageActivated BOOLEAN DEFAULT (0),
+                                              FOREIGN KEY (IDProducto)    REFERENCES Productos (ID) ON UPDATE CASCADE  ON DELETE CASCADE
                                              );";
         }
 
@@ -1819,10 +1820,12 @@ namespace PuntoDeVentaV2
         {
             return $@"INSERT INTO '{tabla}' (ID,
                                              IDProducto,
-                                             ProductOfMessage) 
+                                             ProductOfMessage,
+                                             ProductMessageActivated) 
                                       SELECT ID,
                                              IDProducto,
-                                             ProductOfMessage 
+                                             ProductOfMessage,
+                                             ProductMessageActivated 
                                         FROM '{tabla}_temp';";
         }
 
