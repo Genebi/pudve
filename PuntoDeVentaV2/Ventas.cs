@@ -122,7 +122,7 @@ namespace PuntoDeVentaV2
 
         private void BuscarTieneFoco(object sender, EventArgs e)
         {
-            if (txtBuscadorProducto.Text == "buscar producto o servicio...")
+            if (txtBuscadorProducto.Text == "BUSCAR PRODUCTO O SERVICIO...")
             {
                 txtBuscadorProducto.Text = "";
             }
@@ -132,7 +132,7 @@ namespace PuntoDeVentaV2
         {
             if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
             {
-                txtBuscadorProducto.Text = "buscar producto o servicio...";
+                txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
                 
             }
         }
@@ -1673,7 +1673,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (listaProductos.Visible == false && txtBuscadorProducto.Text != "buscar producto o servicio...")
+            if (listaProductos.Visible == false && txtBuscadorProducto.Text != "BUSCAR PRODUCTO O SERVICIO...")
             {
                 int idProducto = 0;
 
