@@ -1499,6 +1499,7 @@ namespace PuntoDeVentaV2
                 chkBoxProductMessage.Text = "El Producto ya tiene mensaje asignado.";
                 chkBoxProductMessage.Checked = Convert.ToBoolean(drProdMessg["ProductMessageActivated"]);
                 chkBoxProductMessage.BackColor = Color.Green;
+                chkBoxProductMessage.ForeColor = Color.White;
             }
             else if (dtProdMessg.Rows.Count <= 0)
             {
