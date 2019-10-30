@@ -1491,6 +1491,7 @@ namespace PuntoDeVentaV2
             else if (dtProdMessg.Rows.Count <= 0)
             {
                 //MessageBox.Show("NO Tiene Datos");
+                chkBoxProductMessage.Text = "Agrega un mensaje al producto";
             }
         }
 
