@@ -35,6 +35,9 @@ namespace PuntoDeVentaV2
         Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(),
                                                                diccionarioDetalleBasicos  = new Dictionary<int, Tuple<string, string, string, string>>();
 
+        DataTable dtProdMessg;
+        DataRow drProdMessg;
+
         string[]    datosProveedor,
                     datosCategoria,
                     datosUbicacion,
@@ -1481,12 +1484,13 @@ namespace PuntoDeVentaV2
 
         private void verificarProductMessage()
         {
-            DataTable dtProdMessg;
             dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(finalIdProducto));
             if (dtProdMessg.Rows.Count > 0)
             {
                 //MessageBox.Show("SI Tiene Datos");
+                drProdMessg = dtProdMessg.Rows[0];
                 chkBoxProductMessage.Text = "El Producto ya tiene mensaje asignado.";
+                chkBoxProductMessage.Checked = Convert.ToBoolean(drProdMessg["ProductMessageActivated"]);
             }
             else if (dtProdMessg.Rows.Count <= 0)
             {
