@@ -1496,7 +1496,7 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("SI Tiene Datos");
                 drProdMessg = dtProdMessg.Rows[0];
-                chkBoxProductMessage.Text = "El Producto ya tiene mensaje asignado.";
+                chkBoxProductMessage.Text = "El producto ya tiene mensaje asignado.";
                 chkBoxProductMessage.Checked = Convert.ToBoolean(drProdMessg["ProductMessageActivated"]);
                 chkBoxProductMessage.BackColor = Color.Green;
                 chkBoxProductMessage.ForeColor = Color.White;
@@ -1507,6 +1507,7 @@ namespace PuntoDeVentaV2
                 chkBoxProductMessage.Text = "Agrega un mensaje al producto";
                 chkBoxProductMessage.Checked = false;
                 chkBoxProductMessage.BackColor = Color.Blue;
+                chkBoxProductMessage.ForeColor = Color.White;
             }
         }
 
