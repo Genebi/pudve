@@ -2657,6 +2657,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion TablaProductMessage
+            // 30 CodigoBarrasGenerado
+            #region TablaCodigoBarrasGenerado
+            tabla = "CodigoBarrasGenerado";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaCodigoBarrasGenerado(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaCodigoBarrasGenerado(tabla));
+                    if (dbTables.GetCodigoBarrasGenerado() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaCodigoBarrasGenerado(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetCodigoBarrasGenerado())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameCodigoBarrasGenerado(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaCodigoBarrasGenerado(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaCodigoBarrasGenerado(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaCodigoBarrasGenerado(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaCodigoBarrasGenerado(tabla));
+                    if (dbTables.GetCodigoBarrasGenerado() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaCodigoBarrasGenerado(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetCodigoBarrasGenerado())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameCodigoBarrasGenerado(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaCodigoBarrasGenerado(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaCodigoBarrasGenerado(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaCodigoBarrasGenerado(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion TablaCodigoBarrasGenerado
         }
 
         private bool checkEmpty(object tabla)
