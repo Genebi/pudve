@@ -156,13 +156,13 @@
             // 
             // txtBuscadorProducto
             // 
-            this.txtBuscadorProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.txtBuscadorProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBuscadorProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 31);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
             this.txtBuscadorProducto.Size = new System.Drawing.Size(443, 23);
             this.txtBuscadorProducto.TabIndex = 5;
-            this.txtBuscadorProducto.Text = "buscar producto o servicio...";
+            this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
             this.txtBuscadorProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyUp);
             // 

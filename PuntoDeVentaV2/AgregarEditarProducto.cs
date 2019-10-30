@@ -2276,8 +2276,10 @@ namespace PuntoDeVentaV2
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
                     if (this.Text.Trim().Equals("Productos"))
                     {
+                        //MessageBox.Show("Entro a productos");
                         if (!CBNombProd.Equals("") || !CBIdProd.Equals(""))
                         {
+                            MessageBox.Show("Si es producto no debe entrar aqui");
                             DateTime today = DateTime.Now;
                             DataTable dtSearchServPaq;
                             DataRow rowServPaq;

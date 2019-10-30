@@ -228,7 +228,7 @@ namespace PuntoDeVentaV2
             {
                 //dr[0] = ID del producto
                 //dr[1] = Nombre producto
-                lista.Add(dr[0].ToString(), dr[1].ToString().ToLower());
+                lista.Add(dr[0].ToString(), dr[1].ToString().ToUpper());
             }
 
             dr.Close();
