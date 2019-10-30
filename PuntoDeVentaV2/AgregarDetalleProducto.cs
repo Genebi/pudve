@@ -1496,6 +1496,7 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("NO Tiene Datos");
                 chkBoxProductMessage.Text = "Agrega un mensaje al producto";
+                chkBoxProductMessage.Checked = false;
             }
         }
 
