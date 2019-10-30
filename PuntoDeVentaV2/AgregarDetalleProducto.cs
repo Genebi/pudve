@@ -1037,21 +1037,28 @@ namespace PuntoDeVentaV2
 
         private void chkBoxProductMessage_CheckedChanged(object sender, EventArgs e)
         {
-            if (chkBoxProductMessage.Checked == true)
+            if (dtProdMessg.Rows.Count <= 0)
             {
-                XPos = this.Width / 2;
-                YPos = this.Height / 2;
-                mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR MENSAJE AL PRODUCTO ACTUAL\nDE SUGERENCIA PARA QUE AL COMPRADOR\nSE LE LEA AL VENDERSELO",
-                                                                                    "Mensaje de Sugerencia del Producto",
-                                                                                    "", XPos, YPos);
-                if (mensajeDetalleProducto.Equals(""))
+                if (chkBoxProductMessage.Checked == true)
                 {
-                    MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    XPos = this.Width / 2;
+                    YPos = this.Height / 2;
+                    mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR MENSAJE AL PRODUCTO ACTUAL\nDE SUGERENCIA PARA QUE AL COMPRADOR\nSE LE LEA AL VENDERSELO",
+                                                                                        "Mensaje de Sugerencia del Producto",
+                                                                                        "", XPos, YPos);
+                    if (mensajeDetalleProducto.Equals(""))
+                    {
+                        MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else if (!mensajeDetalleProducto.Equals(""))
+                    {
+                        cn.EjecutarConsulta(cs.GuardarProductMessage(finalIdProducto, mensajeDetalleProducto, "1"));
+                    }
                 }
-                else if (!mensajeDetalleProducto.Equals(""))
-                {
-                    cn.EjecutarConsulta(cs.GuardarProductMessage(finalIdProducto, mensajeDetalleProducto, "1"));
-                }
+            }
+            else if (dtProdMessg.Rows.Count > 0)
+            {
+
             }
         }
 
@@ -1491,6 +1498,7 @@ namespace PuntoDeVentaV2
                 drProdMessg = dtProdMessg.Rows[0];
                 chkBoxProductMessage.Text = "El Producto ya tiene mensaje asignado.";
                 chkBoxProductMessage.Checked = Convert.ToBoolean(drProdMessg["ProductMessageActivated"]);
+                chkBoxProductMessage.BackColor = Color.Green;
             }
             else if (dtProdMessg.Rows.Count <= 0)
             {

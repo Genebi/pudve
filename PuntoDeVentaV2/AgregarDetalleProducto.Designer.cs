@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.separadorInicial = new System.Windows.Forms.Label();
-            this.txtFiltrar = new System.Windows.Forms.TextBox();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,15 +57,6 @@
             this.separadorInicial.Name = "separadorInicial";
             this.separadorInicial.Size = new System.Drawing.Size(830, 2);
             this.separadorInicial.TabIndex = 19;
-            // 
-            // txtFiltrar
-            // 
-            this.txtFiltrar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFiltrar.Location = new System.Drawing.Point(11, 14);
-            this.txtFiltrar.Name = "txtFiltrar";
-            this.txtFiltrar.Size = new System.Drawing.Size(168, 22);
-            this.txtFiltrar.TabIndex = 20;
-            this.txtFiltrar.Text = "Filtrar...";
             // 
             // btnGuardarDetalles
             // 
@@ -241,7 +231,7 @@
             // chkBoxProductMessage
             // 
             this.chkBoxProductMessage.AutoSize = true;
-            this.chkBoxProductMessage.Location = new System.Drawing.Point(223, 17);
+            this.chkBoxProductMessage.Location = new System.Drawing.Point(9, 17);
             this.chkBoxProductMessage.Name = "chkBoxProductMessage";
             this.chkBoxProductMessage.Size = new System.Drawing.Size(173, 17);
             this.chkBoxProductMessage.TabIndex = 32;
@@ -259,7 +249,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.txtFiltrar);
             this.Controls.Add(this.separadorInicial);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
@@ -281,7 +270,6 @@
 
         #endregion
         private System.Windows.Forms.Label separadorInicial;
-        private System.Windows.Forms.TextBox txtFiltrar;
         private System.Windows.Forms.Button btnGuardarDetalles;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FlowLayoutPanel fLPLateralConcepto;
