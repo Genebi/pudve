@@ -1040,8 +1040,15 @@ namespace PuntoDeVentaV2
                 YPos = this.Height / 2;
                 mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR MENSAJE AL PRODUCTO ACTUAL\nDE SUGERENCIA PARA QUE AL COMPRADOR\nSE LE LEA AL VENDERSELO",
                                                                                     "Mensaje de Sugerencia del Producto",
-                                                                                    "Agrega aqui tú Mensaje personalizado", XPos, YPos);
-
+                                                                                    "", XPos, YPos);
+                if (mensajeDetalleProducto.Equals(""))
+                {
+                    MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (!mensajeDetalleProducto.Equals(""))
+                {
+                    cn.EjecutarConsulta(cs.GuardarProductMessage(finalIdProducto, mensajeDetalleProducto, "1"));
+                }
             }
         }
 
@@ -1773,9 +1780,7 @@ namespace PuntoDeVentaV2
                 // Obtenemos el nombre del del Control = PanelContenedor
                 panel = contHijo.Name;
                 // Verificamos si el nombre del PanelContenedor que sea Igual a panelContenedorProveedor
-                if (contHijo.Name.Equals("panelContenedorProveedor") ||
-                    contHijo.Name.Equals("panelContenedorCategoria") ||
-                    contHijo.Name.Equals("panelContenedorUbicacion"))
+                if (contHijo.Name.Equals("panelContenedorProveedor"))
                 {
                     // Recorremos los controles en el PanelContenedor
                     foreach (Control contSubHijo in contHijo.Controls)

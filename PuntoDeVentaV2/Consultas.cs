@@ -279,6 +279,14 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string GuardarProductMessage(string idProducto, string ProductMessage, string ProductMessageActivated)
+        {
+            string consulta = string.Empty;
+            consulta = "INSERT INTO ProductMessage (IDProducto, ProductOfMessage, ProductMessageActivated)";
+            consulta += $"VALUES ('{idProducto}', '{ProductMessage}', '{ProductMessageActivated}')";
+            return consulta;
+        }
+
         public string AjustarProducto(string[] datos, int tipo)
         {
             string consulta = string.Empty;
