@@ -763,6 +763,8 @@ namespace PuntoDeVentaV2
         public void PrimerCodBarras()
         {
             Contenido = "7777000001";
+
+            cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, CodigoBarras) VALUES ('{FormPrincipal.userID}', '{Contenido}')");
         }
 
         public void AumentarCodBarras()
@@ -777,6 +779,8 @@ namespace PuntoDeVentaV2
                 CodigoDeBarras++;
                 Contenido = CodigoDeBarras.ToString();
                 txtCodigoBarras.Text = Contenido;
+
+                cn.EjecutarConsulta(cs.ActualizarCBGenerado(Contenido, FormPrincipal.userID));
 
                 /*using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
                 {
@@ -1307,31 +1311,13 @@ namespace PuntoDeVentaV2
 
         private void btnGenerarCB_Click(object sender, EventArgs e)
         {
-            /****************************
-            *                           *
-            *   Codigo de Alejandro     *
-            *                           *
-            ****************************/
-
-            //string fecha = DateTime.Now.ToString();
-            //fecha = fecha.Replace(" ", "");
-            //fecha = fecha.Replace("/", "");
-            //fecha = fecha.Replace(":", "");
-            //fecha = fecha.Substring(3, 11);
-
-            //txtCodigoBarras.Text = fecha;
-
-            /********************************
-            *   Fin de Codigo Alejandro     *
-            ********************************/
-
             // leemos el archivo de codigo de barras que lleva el consecutivo
             /*using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
             {
                 Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
             }*/
 
-            Contenido = mb.ObtenerMaximoCodigo(FormPrincipal.userID);
+            Contenido = mb.ObtenerCBGenerado(FormPrincipal.userID);
 
             if (Contenido == "")        // si el contenido es vacio 
             {
