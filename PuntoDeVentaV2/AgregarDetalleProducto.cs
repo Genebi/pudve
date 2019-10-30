@@ -1486,7 +1486,7 @@ namespace PuntoDeVentaV2
             if (dtProdMessg.Rows.Count > 0)
             {
                 //MessageBox.Show("SI Tiene Datos");
-                //chkBoxProductMessage.Text = "";
+                chkBoxProductMessage.Text = "El Producto ya tiene mensaje asignado.";
             }
             else if (dtProdMessg.Rows.Count <= 0)
             {
