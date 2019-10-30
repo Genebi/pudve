@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
         public static int Ubicaciones;
         public static int DetalleGeneral;
         public static int DetallesProductoGenerales;
+        public static int ProductMessage;
     #endregion VariablesTablas
 
         public DBTables()
@@ -70,6 +71,7 @@ namespace PuntoDeVentaV2
             Ubicaciones = 3;
             DetalleGeneral = 4;
             DetallesProductoGenerales = 6;
+            ProductMessage = 3;
         #endregion InicializarVariables
         }
 
@@ -1786,5 +1788,48 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaDetallesProductoGenerales
+
+        // Tabla de ProductMessage 29
+        #region TablaProductMessage
+        public int GetProductMessage()
+        {
+            return ProductMessage;
+        }
+
+        public string PragmaTablaProductMessage(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameProductMessage(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaProductMessage(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID               INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+                                              IDProducto       INTEGER,
+                                              ProductOfMessage TEXT,
+                                              FOREIGN KEY (IDProducto) REFERENCES Productos (ID) ON UPDATE CASCADE  ON DELETE CASCADE
+                                             );";
+        }
+
+        public string QueryUpdateTablaProductMessage(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDProducto,
+                                             ProductOfMessage) 
+                                      SELECT ID,
+                                             IDProducto,
+                                             ProductOfMessage 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaProductMessage(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaProductMessage
     }
 }
