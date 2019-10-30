@@ -1019,78 +1019,85 @@ namespace PuntoDeVentaV2
                     IDProducto = dtRow["IDProducto"].ToString();
 
                     FlowLayoutPanel panelHijo = new FlowLayoutPanel();
-                        panelHijo.Name = "panelGenerado" + id;
-                        panelHijo.Width = 749;
-                        panelHijo.Height = 50;
-                        panelHijo.HorizontalScroll.Visible = false;
+                    panelHijo.Name = "panelGenerado" + id;
+                    panelHijo.Width = 749;
+                    panelHijo.Height = 50;
+                    panelHijo.HorizontalScroll.Visible = false;
 
-                        Label lb1 = new Label();
-                        lb1.Name = "labelProductoGenerado" + id;
-                        lb1.Width = 60;
-                        lb1.Height = 17;
-                        lb1.Text = "Producto:";
+                    Label lb1 = new Label();
+                    lb1.Name = "labelProductoGenerado" + id;
+                    lb1.Width = 60;
+                    lb1.Height = 17;
+                    lb1.Text = "Producto:";
 
-                        ComboBox cb = new ComboBox();
-                        cb.Name = "comboBoxGenerador" + id;
-                        cb.Width = 300;
-                        cb.Height = 24;
-                        try
+                    ComboBox cb = new ComboBox();
+                    cb.Name = "comboBoxGenerador" + id;
+                    cb.Width = 300;
+                    cb.Height = 24;
+
+                    try
+                    {
+                        foreach (var items in prodList)
                         {
-                            foreach (var items in prodList)
-                            {
-                                cb.Items.Add(items.ToString());
-                            }
-                            cb.Text = NombreProducto;
+                            cb.Items.Add(items.ToString());
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                        cb.AutoCompleteSource = AutoCompleteSource.ListItems;
-                        cb.BackColor = System.Drawing.SystemColors.Window;
-                        cb.FormattingEnabled = true;
-                        cb.Enter += new EventHandler(ComboBox_Enter);
 
-                        Label lb2 = new Label();
-                        lb2.Name = "labelCantidadGenerado" + id;
-                        lb2.Width = 50;
-                        lb2.Height = 17;
-                        lb2.Text = "Cantidad:";
+                        // Actualizar nombre del producto que se muestra
+                        var datosTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
 
-                        TextBox tb = new TextBox();
-                        tb.Name = "textBoxGenerado" + id;
-                        tb.Width = 250;
-                        tb.Height = 22;
-                        tb.Text = CantidadProducto;
-                        tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
-                        tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
+                        //cb.Text = NombreProducto;
+                        cb.Text = datosTmp[1];
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("error: " + ex.Message.ToString(), "error Text", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    cb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    cb.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    cb.BackColor = System.Drawing.SystemColors.Window;
+                    cb.DropDownStyle = ComboBoxStyle.DropDownList;
+                    cb.FormattingEnabled = true;
+                    cb.Enter += new EventHandler(ComboBox_Enter);
 
-                        Button bt = new Button();
-                        bt.Cursor = Cursors.Hand;
-                        bt.Text = "X";
-                        bt.Name = "btnGenerado" + id;
-                        bt.Height = 23;
-                        bt.Width = 23;
-                        bt.BackColor = ColorTranslator.FromHtml("#C00000");
-                        bt.ForeColor = ColorTranslator.FromHtml("white");
-                        bt.FlatStyle = FlatStyle.Flat;
-                        bt.TextAlign = ContentAlignment.MiddleCenter;
-                        bt.Anchor = AnchorStyles.Top;
-                        bt.Click += new EventHandler(ClickBotonesProductos);
+                    Label lb2 = new Label();
+                    lb2.Name = "labelCantidadGenerado" + id;
+                    lb2.Width = 50;
+                    lb2.Height = 17;
+                    lb2.Text = "Cantidad:";
 
-                        panelHijo.Controls.Add(lb1);
-                        panelHijo.Controls.Add(cb);
-                        panelHijo.Controls.Add(lb2);
-                        panelHijo.Controls.Add(tb);
-                        panelHijo.Controls.Add(bt);
-                        panelHijo.FlowDirection = FlowDirection.LeftToRight;
+                    TextBox tb = new TextBox();
+                    tb.Name = "textBoxGenerado" + id;
+                    tb.Width = 250;
+                    tb.Height = 22;
+                    tb.Text = CantidadProducto;
+                    tb.Enter += new EventHandler(TextBoxProductosServ_Enter);
+                    tb.KeyDown += new KeyEventHandler(TexBoxProductosServ_Keydown);
 
-                        flowLayoutPanel2.Controls.Add(panelHijo);
-                        flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+                    Button bt = new Button();
+                    bt.Cursor = Cursors.Hand;
+                    bt.Text = "X";
+                    bt.Name = "btnGenerado" + id;
+                    bt.Height = 23;
+                    bt.Width = 23;
+                    bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                    bt.ForeColor = ColorTranslator.FromHtml("white");
+                    bt.FlatStyle = FlatStyle.Flat;
+                    bt.TextAlign = ContentAlignment.MiddleCenter;
+                    bt.Anchor = AnchorStyles.Top;
+                    bt.Click += new EventHandler(ClickBotonesProductos);
 
-                        tb.Focus();
-                        id++;
+                    panelHijo.Controls.Add(lb1);
+                    panelHijo.Controls.Add(cb);
+                    panelHijo.Controls.Add(lb2);
+                    panelHijo.Controls.Add(tb);
+                    panelHijo.Controls.Add(bt);
+                    panelHijo.FlowDirection = FlowDirection.LeftToRight;
+
+                    flowLayoutPanel2.Controls.Add(panelHijo);
+                    flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+
+                    tb.Focus();
+                    id++;
                 }
             }
         }
@@ -2891,12 +2898,14 @@ namespace PuntoDeVentaV2
                     cb.Name = "comboBoxGenerador" + id;
                     cb.Width = 300;
                     cb.Height = 24;
+
                     try
                     {
                         foreach (var items in prodList)
                         {
                             cb.Items.Add(items.ToString());
                         }
+
                         cb.Text = NombreProducto;
                     }
                     catch (Exception ex)
@@ -4074,6 +4083,7 @@ namespace PuntoDeVentaV2
         private void ProductoList()
         {
             prodList = new List<ItemsProductoComboBox>();
+
             for (int i = 0; i < datosProductos.Rows.Count; i++)
             {
                 ItemsProductoComboBox itemCBProd = new ItemsProductoComboBox();
