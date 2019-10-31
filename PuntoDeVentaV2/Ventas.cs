@@ -71,7 +71,9 @@ namespace PuntoDeVentaV2
         private bool sumarProducto = false;
         private bool restarProducto = false;
         private bool buscarVG = false; // Buscar venta guardada
-        
+
+        DataTable dtProdMessg;
+        DataRow drProdMessg;
 
         public Ventas()
         {
@@ -243,6 +245,19 @@ namespace PuntoDeVentaV2
                     if (verificarUsuario)
                     {
                         idProducto = Convert.ToInt32(datosTmp[0]);
+                        using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
+                        {
+                            if (dtProdMessg.Rows.Count > 0)
+                            {
+                                drProdMessg = dtProdMessg.Rows[0];
+                                MessageBox.Show("Sugerirle al cliente que:\n" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
+                                                "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else if (dtProdMessg.Rows.Count <= 0)
+                            {
+                                //MessageBox.Show("Producto sin mensaje", "Mensaje para el Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
                     }
                 }
 
@@ -257,6 +272,19 @@ namespace PuntoDeVentaV2
 
                 if (idProducto > 0)
                 {
+                    using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
+                    {
+                        if (dtProdMessg.Rows.Count > 0)
+                        {
+                            drProdMessg = dtProdMessg.Rows[0];
+                            MessageBox.Show("Sugerirle al cliente que:\n" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
+                                            "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (dtProdMessg.Rows.Count <= 0)
+                        {
+                            //MessageBox.Show("Producto sin mensaje", "Mensaje para el Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
                     string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                     txtBuscadorProducto.Text = "";
                     txtBuscadorProducto.Focus();
@@ -1478,14 +1506,17 @@ namespace PuntoDeVentaV2
 
         #region Expresiones regulares para buscar producto
         private string VerificarPatronesBusqueda(string cadena)
-        {
-            string primerPatron = @"^\d+\s\*\s";               //  (digito+espacioBlanco*espacioBlanco) 5 * 15665132
-            string segundoPatron = @"^(\+\d+)|(\d+\+)$";        //  ((Signo+)digito+ || digito+(Signo+)) +2
-            string tercerPatron = @"^(\-\d+)|(\d+\-)$";        //  ((Signo-)digito+ || digito+(Signo-)) -1
-            string cuartoPatron = @"^\d+\*\s";                  //  (digito+(Signo*)+espacioBlanco) 5* 15665132
-            string quintoPatron = @"^\d+\s\*";                  //  (digito+(Signo*)+espacioBlanco) 5 *15665132
-            string sextoPatron = @"^\d+\*";                     //  (digito+(Signo*)+espacioBlanco) 5*15665132
-            string septimoPatron = @"^#\s\d+";                  //  (#$%+espacioBlanco) #$% FolioDeVenta
+        {                                                   //  -----------------------------------------------------------------
+                                                            //  |   Expresion Regular                       |   Ejemplo         |
+                                                            //  |---------------------------------------------------------------|
+            string primerPatron = @"^\d+\s\*\s";            //  |   (digito+espacioBlanco*espacioBlanco)    |   5 * 15665132    |
+            string segundoPatron = @"^(\+\d+)|(\d+\+)$";    //  |   ((Signo+)digito+ || digito+(Signo+))    |   +2 || 2+        |
+            string tercerPatron = @"^(\-\d+)|(\d+\-)$";     //  |   ((Signo-)digito+ || digito+(Signo-))    |   -1 || 1-        |
+            string cuartoPatron = @"^\d+\*\s";              //  |   (digito+(Signo*)+espacioBlanco)         |   5* 15665132     |
+            string quintoPatron = @"^\d+\s\*";              //  |   (digito+(Signo*)+espacioBlanco)         |   5 *15665132     |
+            string sextoPatron = @"^\d+\*";                 //  |   (digito+(Signo*)+espacioBlanco)         |   5*15665132      |
+            string septimoPatron = @"^#\s\d+";              //  |   (#+espacioBlanco)                       |   # FolioDeVenta  |
+                                                            //  -----------------------------------------------------------------
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
@@ -1817,6 +1848,20 @@ namespace PuntoDeVentaV2
             idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
 
             datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+            using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
+            {
+                if (dtProdMessg.Rows.Count > 0)
+                {
+                    drProdMessg = dtProdMessg.Rows[0];
+                    MessageBox.Show("Sugerirle al cliente que:\n" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
+                                    "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else if (dtProdMessg.Rows.Count <= 0)
+                {
+                    //MessageBox.Show("Producto sin mensaje", "Mensaje para el Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
 
             //borrar producto a buscar
             txtBuscadorProducto.Text = "";
