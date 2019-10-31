@@ -1037,9 +1037,9 @@ namespace PuntoDeVentaV2
 
         private void chkBoxProductMessage_CheckedChanged(object sender, EventArgs e)
         {
-            if (dtProdMessg.Rows.Count <= 0)
+            if (chkBoxProductMessage.Checked == true)
             {
-                if (chkBoxProductMessage.Checked == true)
+                if (dtProdMessg.Rows.Count <= 0)
                 {
                     XPos = this.Width / 2;
                     YPos = this.Height / 2;
@@ -1048,17 +1048,29 @@ namespace PuntoDeVentaV2
                                                                                         "", XPos, YPos);
                     if (mensajeDetalleProducto.Equals(""))
                     {
-                        MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (!mensajeDetalleProducto.Equals(""))
                     {
                         cn.EjecutarConsulta(cs.GuardarProductMessage(finalIdProducto, mensajeDetalleProducto, "1"));
                     }
                 }
-            }
-            else if (dtProdMessg.Rows.Count > 0)
-            {
-
+                else if (dtProdMessg.Rows.Count > 0)
+                {
+                    XPos = this.Width / 2;
+                    YPos = this.Height / 2;
+                    mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("ACTUALIZA EL MENSAJE DEL PRODUCTO\nPARA DAR SUGERENCIA AL COMPRADOR\n QUE SE LE VA VENDER",
+                                                                                        "Actualizar Sugerencia del Producto",
+                                                                                        "", XPos, YPos);
+                    if (mensajeDetalleProducto.Equals(""))
+                    {
+                        //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else if (!mensajeDetalleProducto.Equals(""))
+                    {
+                        cn.EjecutarConsulta(cs.UpdateProductMessage(mensajeDetalleProducto, drProdMessg["ID"].ToString()));
+                    }
+                }
             }
         }
 
@@ -1070,6 +1082,11 @@ namespace PuntoDeVentaV2
             {
                 addEditProducto.actualizarDetallesProducto();
             }
+        }
+
+        private void AgregarDetalleProducto_Shown(object sender, EventArgs e)
+        {
+            verificarProductMessage();
         }
 
         private void llenarDatosDetalleGral(string textoBuscado)
@@ -1485,8 +1502,6 @@ namespace PuntoDeVentaV2
 
             loadFormConfig();
             BuscarTextoListView(settingDatabases);
-
-            verificarProductMessage();
         }
 
         private void verificarProductMessage()

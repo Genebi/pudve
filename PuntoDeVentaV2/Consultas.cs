@@ -294,6 +294,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string UpdateProductMessage(string Messg, string idMessg)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE ProductMessage SET ProductOfMessage = '{Messg}' WHERE ID = '{idMessg}'";
+            return consulta;
+        }
+
         public string AjustarProducto(string[] datos, int tipo)
         {
             string consulta = string.Empty;
