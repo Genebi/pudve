@@ -261,7 +261,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
+                string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}')";
 
                 DataTable searchProd = cn.CargarDatos(querySearchProd);
 
