@@ -1057,18 +1057,23 @@ namespace PuntoDeVentaV2
                 }
                 else if (dtProdMessg.Rows.Count > 0)
                 {
-                    XPos = this.Width / 2;
-                    YPos = this.Height / 2;
-                    mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("ACTUALIZA EL MENSAJE DEL PRODUCTO\nPARA DAR SUGERENCIA AL COMPRADOR\n QUE SE LE VA VENDER",
-                                                                                        "Actualizar Sugerencia del Producto",
-                                                                                        $"{drProdMessg["ProductOfMessage"]}", XPos, YPos);
-                    if (mensajeDetalleProducto.Equals(""))
+                    string Activo = string.Empty;
+                    Activo = drProdMessg["ProductMessageActivated"].ToString();
+                    if (Activo.Equals("False"))
                     {
-                        //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (!mensajeDetalleProducto.Equals(""))
-                    {
-                        cn.EjecutarConsulta(cs.UpdateProductMessage(mensajeDetalleProducto, drProdMessg["ID"].ToString()));
+                        XPos = this.Width / 2;
+                        YPos = this.Height / 2;
+                        mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("ACTUALIZA EL MENSAJE DEL PRODUCTO\nPARA DAR SUGERENCIA AL COMPRADOR\n QUE SE LE VA VENDER",
+                                                                                            "Actualizar Sugerencia del Producto",
+                                                                                            $"{drProdMessg["ProductOfMessage"]}", XPos, YPos);
+                        if (mensajeDetalleProducto.Equals(""))
+                        {
+                            //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else if (!mensajeDetalleProducto.Equals(""))
+                        {
+                            cn.EjecutarConsulta(cs.UpdateProductMessage(mensajeDetalleProducto, drProdMessg["ID"].ToString()));
+                        }
                     }
                 }
             }
