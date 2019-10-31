@@ -250,7 +250,7 @@ namespace PuntoDeVentaV2
                             if (dtProdMessg.Rows.Count > 0)
                             {
                                 drProdMessg = dtProdMessg.Rows[0];
-                                MessageBox.Show("Sugerirle al cliente que:\n" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
+                                MessageBox.Show("" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
                                                 "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             else if (dtProdMessg.Rows.Count <= 0)
@@ -277,7 +277,7 @@ namespace PuntoDeVentaV2
                         if (dtProdMessg.Rows.Count > 0)
                         {
                             drProdMessg = dtProdMessg.Rows[0];
-                            MessageBox.Show("Sugerirle al cliente que:\n" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
+                            MessageBox.Show("" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
                                             "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else if (dtProdMessg.Rows.Count <= 0)
@@ -1854,7 +1854,7 @@ namespace PuntoDeVentaV2
                 if (dtProdMessg.Rows.Count > 0)
                 {
                     drProdMessg = dtProdMessg.Rows[0];
-                    MessageBox.Show("Sugerirle al cliente que:\n" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
+                    MessageBox.Show("" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
                                     "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if (dtProdMessg.Rows.Count <= 0)
