@@ -241,8 +241,8 @@ namespace PuntoDeVentaV2
 
 
         public string CBNombProdPasado { get; set; }
-        static public string CBNombProd = String.Empty;
-        static public string CBIdProd = String.Empty;
+        static public string CBNombProd = string.Empty;
+        static public string CBIdProd = string.Empty;
         static public int seleccionListaStock;
 
         public static bool ejecutarMetodos = false;
@@ -1768,6 +1768,10 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
+                                // Limpiar variables para evitar error de agregar servicio y despues editar producto
+                                CBIdProd = string.Empty;
+                                CBNombProd = string.Empty;
+
                                 var conceptoProveedor = string.Empty;
                                 var rfcProveedor = string.Empty;
 
@@ -2274,29 +2278,37 @@ namespace PuntoDeVentaV2
                 {
                     queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}'  WHERE ID = '{idProductoBuscado}'";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
+
                     if (this.Text.Trim().Equals("Productos"))
                     {
-                        //MessageBox.Show("Entro a productos");
                         if (!CBNombProd.Equals("") || !CBIdProd.Equals(""))
                         {
-                            MessageBox.Show("Si es producto no debe entrar aqui");
                             DateTime today = DateTime.Now;
                             DataTable dtSearchServPaq;
                             DataRow rowServPaq;
                             dtSearchServPaq = cn.CargarDatos(cs.ProductosDeServicios(Convert.ToInt32(CBIdProd)));
-                            rowServPaq = dtSearchServPaq.Rows[0];
-                            string[] tmp = { $"{today.ToString("yyyy-MM-dd hh:mm:ss")}", $"{CBIdProd}", $"{idProductoBuscado}", $"{nombre}", $"{rowServPaq["Cantidad"].ToString()}" };
-                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                            string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBIdProd}' AND (IDProducto = '' AND NombreProducto = '')";
-                            int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
-                            if (DeleteProdAtPQS > 0)
+
+                            if (dtSearchServPaq.Rows.Count > 0)
                             {
-                                //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                rowServPaq = dtSearchServPaq.Rows[0];
+                                string[] tmp = { $"{today.ToString("yyyy-MM-dd hh:mm:ss")}", $"{CBIdProd}", $"{idProductoBuscado}", $"{nombre}", $"{rowServPaq["Cantidad"].ToString()}" };
+                                cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBIdProd}' AND (IDProducto = '' AND NombreProducto = '')";
+                                int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
+                                if (DeleteProdAtPQS > 0)
+                                {
+                                    //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    //MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
                             }
-                            else
-                            {
-                                //MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
+
+                            // Limpiar para evitar error de relacionar producto a servicio 
+                            // y despues editar cualquier producto cualquiera
+                            CBIdProd = string.Empty;
+                            CBNombProd = string.Empty;
                         }
                     }
                     else if (this.Text.Trim().Equals("Paquetes") || this.Text.Trim().Equals("Servicios"))
@@ -3657,6 +3669,11 @@ namespace PuntoDeVentaV2
             {
                 
             }
+
+            // Limpiar para evitar error de relacionar producto a servicio 
+            // y despues editar cualquier producto cualquiera
+            CBIdProd = string.Empty;
+            CBNombProd = string.Empty;
         }
 
         private void AgregarEditarProducto_Paint(object sender, PaintEventArgs e)
