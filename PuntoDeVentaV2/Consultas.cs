@@ -290,7 +290,7 @@ namespace PuntoDeVentaV2
         public string ObtenerProductMessage(string idProducto)
         {
             string consulta = string.Empty;
-            consulta = $"SELECT * FROM ProductMessage WHERE IDProducto = '{idProducto}'";
+            consulta = $"SELECT * FROM ProductMessage WHERE IDProducto = '{idProducto}' AND ProductMessageActivated = 1";
             return consulta;
         }
 
