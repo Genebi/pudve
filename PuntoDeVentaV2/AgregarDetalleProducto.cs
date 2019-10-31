@@ -1061,7 +1061,7 @@ namespace PuntoDeVentaV2
                     YPos = this.Height / 2;
                     mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("ACTUALIZA EL MENSAJE DEL PRODUCTO\nPARA DAR SUGERENCIA AL COMPRADOR\n QUE SE LE VA VENDER",
                                                                                         "Actualizar Sugerencia del Producto",
-                                                                                        "", XPos, YPos);
+                                                                                        $"{drProdMessg["ProductOfMessage"]}", XPos, YPos);
                     if (mensajeDetalleProducto.Equals(""))
                     {
                         //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1513,7 +1513,7 @@ namespace PuntoDeVentaV2
 
         private void verificarProductMessage()
         {
-            dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(finalIdProducto));
+            dtProdMessg = cn.CargarDatos(cs.ObtenerAllProductMessage(finalIdProducto));
             if (dtProdMessg.Rows.Count > 0)
             {
                 //MessageBox.Show("SI Tiene Datos");

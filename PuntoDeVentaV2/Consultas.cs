@@ -287,6 +287,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ObtenerAllProductMessage(string idProducto)
+        {
+            string consulta = string.Empty;
+            consulta = $"SELECT * FROM ProductMessage WHERE IDProducto = '{idProducto}'";
+            return consulta;
+        }
+
         public string ObtenerProductMessage(string idProducto)
         {
             string consulta = string.Empty;
