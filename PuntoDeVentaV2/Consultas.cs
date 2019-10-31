@@ -297,7 +297,14 @@ namespace PuntoDeVentaV2
         public string UpdateProductMessage(string Messg, string idMessg)
         {
             string consulta = string.Empty;
-            consulta = $"UPDATE ProductMessage SET ProductOfMessage = '{Messg}' WHERE ID = '{idMessg}'";
+            consulta = $"UPDATE ProductMessage SET ProductOfMessage = '{Messg}', ProductMessageActivated = 1 WHERE ID = '{idMessg}'";
+            return consulta;
+        }
+
+        public string DesactivarProductMessage(string idProdMessg)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE ProductMessage SET ProductMessageActivated = 0 WHERE ID = '{idProdMessg}'";
             return consulta;
         }
 

@@ -1072,6 +1072,13 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else if (chkBoxProductMessage.Checked == false)
+            {
+                if (dtProdMessg.Rows.Count > 0)
+                {
+                    cn.EjecutarConsulta(cs.DesactivarProductMessage(drProdMessg["ID"].ToString()));
+                }
+            }
         }
 
         private void AgregarDetalleProducto_FormClosed(object sender, FormClosedEventArgs e)
