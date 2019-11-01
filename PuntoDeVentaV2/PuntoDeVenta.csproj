@@ -391,6 +391,7 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="MetodosBusquedas.cs" />
+    <Compile Include="MetodosGenerales.cs" />
     <Compile Include="MisDatos.cs">
       <SubType>Form</SubType>
     </Compile>
