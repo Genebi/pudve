@@ -47,7 +47,12 @@ namespace PuntoDeVentaV2
         {
             //ComboBox Clientes
             var clientes = mb.ObtenerClientes(FormPrincipal.userID);
-            cbClientes.Items.AddRange(clientes);
+
+            if (clientes.Length > 0)
+            {
+                cbClientes.Items.AddRange(clientes);
+                cbClientes.SelectedIndex = 0;
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -87,25 +92,16 @@ namespace PuntoDeVentaV2
             {
                 var existenClientes = mb.ObtenerClientes(FormPrincipal.userID);
 
-                if (existenClientes.Length > 0)
+                if (existenClientes.Length == 0)
                 {
-                    MessageBox.Show("Es necesario seleccionar un cliente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    var decision = MessageBox.Show("No tienes clientes registrados en el sistema\nEs necesario registrar un cliente y seleccionarlo\npara guardar el anticipo", "Mensaje del Sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    AgregarCliente ac = new AgregarCliente();
 
-                    if (decision == DialogResult.OK)
+                    ac.FormClosed += delegate
                     {
-                        AgregarCliente ac = new AgregarCliente();
+                        CargarClientes();
+                    };
 
-                        ac.FormClosed += delegate
-                        {
-                            CargarClientes();
-                        };
-
-                        ac.ShowDialog();
-                    }
+                    ac.ShowDialog();
                 }
 
                 return;
