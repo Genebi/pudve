@@ -470,6 +470,11 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string temporal(string codigoClave, int idUsuario)
+        {
+            return $"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Status = 1 AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')";
+        }
+
         public bool ComprobarCodigoClave(string codigoClave, int idUsuario)
         {
             bool respuesta = false;
@@ -478,7 +483,7 @@ namespace PuntoDeVentaV2
             {
                 codigoClave = codigoClave.Trim();
 
-                DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Status = 1 AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')");
+                DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = '{idUsuario}' AND Status = '1' AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')");
 
                 SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -488,11 +493,12 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigoClave}'");
+                    //DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigoClave}'");
+                    DatosConexion($"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {idUsuario} AND CB.CodigoBarraExtra = '{codigoClave}'");
 
                     SQLiteDataReader info = sql_cmd.ExecuteReader();
 
-                    if (info.Read())
+                    if (info.HasRows)
                     {
                         //Comprobar el ID del producto y el ID del Usuario
                         while (info.Read())

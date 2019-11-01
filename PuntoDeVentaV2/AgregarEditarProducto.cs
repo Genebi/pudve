@@ -2276,7 +2276,36 @@ namespace PuntoDeVentaV2
             {
                 if (SearchProdResult.Rows.Count != 0)
                 {
-                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}'  WHERE ID = '{idProductoBuscado}'";
+                    // Verificar existencia de codigo de barra al actualizar
+                    if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID, Convert.ToInt32(idProductoBuscado)))
+                    {
+                        MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // Verificar existencia de codigo de barra al actualizar
+                    if (mb.ComprobarCodigoClave(claveIn, FormPrincipal.userID, Convert.ToInt32(idProductoBuscado)))
+                    {
+                        MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // Verificar si los codigos de barra extra ya existen al actualizar producto, servicio o paquete
+                    if (codigosBarrras != null || codigosBarrras.Count != 0)
+                    {
+                        for (int pos = 0; pos < codigosBarrras.Count; pos++)
+                        {
+                            var existe = mb.ComprobarCodigoClave(codigosBarrras[pos], FormPrincipal.userID, Convert.ToInt32(idProductoBuscado));
+
+                            if (existe)
+                            {
+                                MessageBox.Show($"El número de identificación {codigosBarrras[pos]}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
+                    }
+
+                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}'  WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
                     if (this.Text.Trim().Equals("Productos"))
