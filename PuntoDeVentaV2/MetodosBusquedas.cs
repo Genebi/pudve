@@ -475,7 +475,7 @@ namespace PuntoDeVentaV2
             return $"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Status = 1 AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')";
         }
 
-        public bool ComprobarCodigoClave(string codigoClave, int idUsuario)
+        public bool ComprobarCodigoClave(string codigoClave, int idUsuario, int idProductoTMP = 0)
         {
             bool respuesta = false;
 
@@ -483,13 +483,27 @@ namespace PuntoDeVentaV2
             {
                 codigoClave = codigoClave.Trim();
 
-                DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = '{idUsuario}' AND Status = '1' AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')");
+                DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Status = 1 AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')");
 
                 SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
                 if (dr.Read())
                 {
                     respuesta = true;
+
+                    if (idProductoTMP > 0)
+                    {
+                        var idProducto = Convert.ToInt32(dr["ID"].ToString());
+
+                        if (idProductoTMP != idProducto)
+                        {
+                            respuesta = true;
+                        }
+                        else
+                        {
+                            respuesta = false;
+                        }
+                    }
                 }
                 else
                 {
@@ -512,6 +526,14 @@ namespace PuntoDeVentaV2
                             if (info2.Read())
                             {
                                 respuesta = true;
+
+                                if (idProductoTMP > 0)
+                                {
+                                    if (idProductoTMP == Convert.ToInt32(info2["ID"].ToString()))
+                                    {
+                                        respuesta = false;
+                                    }
+                                }
                             }
 
                             info2.Close();

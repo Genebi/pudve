@@ -1580,6 +1580,7 @@ namespace PuntoDeVentaV2
                         if (existe)
                         {
                             MessageBox.Show($"El número de identificación {codigosBarrras[pos]}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            codigosBarrras.Clear();
                             return;
                         }
                     }
