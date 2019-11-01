@@ -396,7 +396,7 @@ namespace PuntoDeVentaV2
             //Busqueda por codigo de barra y/o clave
             if (tipo == 1)
             {
-                consulta = $"SELECT ID FROM Productos WHERE IDUsuario = {idUsuario} AND (CodigoBarras = '{producto}' OR ClaveInterna = '{producto}')";
+                consulta = $"SELECT ID FROM Productos WHERE IDUsuario = {idUsuario} AND (CodigoBarras = '{producto}' OR ClaveInterna = '{producto}') AND Status = '1'";
                 consulta += $" UNION SELECT IDProducto AS ID FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{producto}'";
 
                 DatosConexion(consulta);
@@ -407,7 +407,7 @@ namespace PuntoDeVentaV2
                 {
                     var idProducto = Convert.ToInt32(datos["ID"].ToString());
 
-                    consulta = $"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario}";
+                    consulta = $"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario} AND Status = '1'";
 
                     DatosConexion(consulta);
 
@@ -432,7 +432,7 @@ namespace PuntoDeVentaV2
             //Busqueda por nombre
             if (tipo == 2)
             {
-                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Nombre LIKE '%{producto}%'";
+                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Nombre LIKE '%{producto}%' AND Status = '1'";
 
                 DatosConexion(consulta);
 
