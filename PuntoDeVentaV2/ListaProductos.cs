@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
                 label2.Text = "Stock Existente";
                 label1.Text = "Buscar Producto:";
                 // el query que se usara en la base de datos
-                buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P'";
+                buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P' AND Status = '1'";
             }
             else if (typeStockFinal == "Paquetes" || typeStockFinal == "Servicios")
             {
@@ -68,7 +68,7 @@ namespace PuntoDeVentaV2
                 label2.Text = "Paquetes o Servicios Existentes";
                 label1.Text = "Buscar Paquetes/Servicios:";
                 // el query que se usara en la base de datos
-                buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND (Tipo = 'S' OR Tipo = 'PQ')";
+                buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND (Tipo = 'S' OR Tipo = 'PQ') AND Status = '1'";
             }
             DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
             DGVStockProductos.Columns["ID"].Visible = false;
