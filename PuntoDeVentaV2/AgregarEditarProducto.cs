@@ -2291,6 +2291,21 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    // recorrido para FlowLayoutPanel para ver cuantos TextBox
+                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                    {
+                        // hacemos un objeto para ver que tipo control es
+                        foreach (Control item in panel.Controls)
+                        {
+                            // ver si el control es TextBox
+                            if (item is TextBox)
+                            {
+                                var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                                codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                            }
+                        }
+                    }
+
                     // Verificar si los codigos de barra extra ya existen al actualizar producto, servicio o paquete
                     if (codigosBarrras != null || codigosBarrras.Count != 0)
                     {
@@ -2301,6 +2316,7 @@ namespace PuntoDeVentaV2
                             if (existe)
                             {
                                 MessageBox.Show($"El número de identificación {codigosBarrras[pos]}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                codigosBarrras.Clear();
                                 return;
                             }
                         }
@@ -2414,20 +2430,7 @@ namespace PuntoDeVentaV2
                         string deleteCodBarExt = $"DELETE FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
                         cn.EjecutarConsulta(deleteCodBarExt);
                     }
-                    // recorrido para FlowLayoutPanel para ver cuantos TextBox
-                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
-                    {
-                        // hacemos un objeto para ver que tipo control es
-                        foreach (Control item in panel.Controls)
-                        {
-                            // ver si el control es TextBox
-                            if (item is TextBox)
-                            {
-                                var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
-                                codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
-                            }
-                        }
-                    }
+                    
                     // verificamos si el List esta con algun registro 
                     if (codigosBarrras != null || codigosBarrras.Count != 0)
                     {
@@ -2439,7 +2442,9 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
                         }
                     }
+
                     codigosBarrras.Clear();
+
                     //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                     if (descuentos.Any())
                     {

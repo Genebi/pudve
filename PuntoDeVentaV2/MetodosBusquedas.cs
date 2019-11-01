@@ -477,6 +477,61 @@ namespace PuntoDeVentaV2
 
         public bool ComprobarCodigoClave(string codigoClave, int idUsuario, int idProductoTMP = 0)
         {
+            string[] codigos = new string[] { };
+            // Si es un producto, servicio o paquete que se esta editando
+            if (idProductoTMP > 0)
+            {
+                List<string> lista = new List<string>();
+
+                // Obtenemos todos los codigos de barra y clave que tenga registrado
+                DatosConexion($"SELECT ClaveInterna, CodigoBarras FROM Productos WHERE ID = {idProductoTMP} AND IDUsuario = {idUsuario}");
+
+                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    if (!string.IsNullOrWhiteSpace(dr["ClaveInterna"].ToString()))
+                    {
+                        lista.Add(dr["ClaveInterna"].ToString());
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(dr["CodigoBarras"].ToString()))
+                    {
+                        lista.Add(dr["CodigoBarras"].ToString());
+                    }
+                }
+
+                dr.Close();
+
+                // Obtener todos los codigos de la tabla de codigos de barra extra
+                DatosConexion($"SELECT CB.CodigoBarraExtra FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {idUsuario} AND CB.IDProducto = {idProductoTMP}");
+
+                SQLiteDataReader info = sql_cmd.ExecuteReader();
+
+                if (info.HasRows)
+                {
+                    while (info.Read())
+                    {
+                        if (!string.IsNullOrWhiteSpace(info["CodigoBarraExtra"].ToString()))
+                        {
+                            lista.Add(info["CodigoBarraExtra"].ToString());
+                        }
+                    }
+                }
+
+                info.Close();
+
+                codigos = lista.ToArray();
+            }
+
+            if (codigos.Length > 0)
+            {
+                if (codigos.Contains(codigoClave))
+                {
+                    return false;
+                }
+            }
+
             bool respuesta = false;
 
             if (!string.IsNullOrWhiteSpace(codigoClave))
@@ -490,20 +545,6 @@ namespace PuntoDeVentaV2
                 if (dr.Read())
                 {
                     respuesta = true;
-
-                    if (idProductoTMP > 0)
-                    {
-                        var idProducto = Convert.ToInt32(dr["ID"].ToString());
-
-                        if (idProductoTMP != idProducto)
-                        {
-                            respuesta = true;
-                        }
-                        else
-                        {
-                            respuesta = false;
-                        }
-                    }
                 }
                 else
                 {
@@ -526,14 +567,6 @@ namespace PuntoDeVentaV2
                             if (info2.Read())
                             {
                                 respuesta = true;
-
-                                if (idProductoTMP > 0)
-                                {
-                                    if (idProductoTMP == Convert.ToInt32(info2["ID"].ToString()))
-                                    {
-                                        respuesta = false;
-                                    }
-                                }
                             }
 
                             info2.Close();
