@@ -179,7 +179,7 @@ namespace PuntoDeVentaV2
             {
                 txtBoxBuscarCodigoBarras.Text = string.Empty;
                 txtBoxBuscarCodigoBarras.Focus();
-                MessageBox.Show("Producto no encontrado.", "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Producto no encontrado / deshabilitado.", "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -787,7 +787,7 @@ namespace PuntoDeVentaV2
                                                                                     prod.IDUsuario, 
                                                                                     prod.Tipo
                                                                              FROM '{tablaProductos}' prod 
-                                                                             WHERE prod.IDUsuario = {FormPrincipal.userID} AND NOT EXISTS (
+                                                                             WHERE prod.IDUsuario = {FormPrincipal.userID} AND prod.Status = '1' AND NOT EXISTS (
 	                                                                             SELECT RIt.IDAlmacen, 
                                                                                         RIt.Nombre, 
                                                                                         RIt.ClaveInterna, 
@@ -831,7 +831,7 @@ namespace PuntoDeVentaV2
                                                                                     prod.IDUsuario, 
                                                                                     prod.Tipo
                                                                              FROM '{tablaProductos}' prod 
-                                                                             WHERE prod.IDUsuario = {FormPrincipal.userID} AND NOT EXISTS (
+                                                                             WHERE prod.IDUsuario = {FormPrincipal.userID} AND prod.Status = '1' AND NOT EXISTS (
 	                                                                             SELECT RIt.IDAlmacen, 
                                                                                         RIt.Nombre, 
                                                                                         RIt.ClaveInterna, 
