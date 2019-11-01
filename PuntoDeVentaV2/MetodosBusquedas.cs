@@ -470,11 +470,6 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string temporal(string codigoClave, int idUsuario)
-        {
-            return $"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Status = 1 AND (CodigoBarras  = '{codigoClave}' OR ClaveInterna = '{codigoClave}')";
-        }
-
         public bool ComprobarCodigoClave(string codigoClave, int idUsuario, int idProductoTMP = 0)
         {
             string[] codigos = new string[] { };
