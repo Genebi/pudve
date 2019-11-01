@@ -172,6 +172,7 @@ namespace PuntoDeVentaV2
                         listaProductos.Visible = true;
                         listaProductos.SelectedIndex = 0;
                         listaProductos.Focus();
+                        txtBusqueda.Focus();
                     }
                 }
             }

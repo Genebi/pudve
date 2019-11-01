@@ -35,6 +35,7 @@
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
+            this.bntTerminar = new System.Windows.Forms.Button();
             this.listaProductos = new System.Windows.Forms.ListBox();
             this.tituloBusqueda = new System.Windows.Forms.Label();
             this.txtBusqueda = new System.Windows.Forms.TextBox();
@@ -47,7 +48,6 @@
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
-            this.bntTerminar = new System.Windows.Forms.Button();
             this.panelBotones.SuspendLayout();
             this.panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
@@ -150,6 +150,25 @@
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
             // 
+            // bntTerminar
+            // 
+            this.bntTerminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bntTerminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.bntTerminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bntTerminar.FlatAppearance.BorderSize = 0;
+            this.bntTerminar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.bntTerminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bntTerminar.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bntTerminar.ForeColor = System.Drawing.Color.White;
+            this.bntTerminar.Location = new System.Drawing.Point(695, 319);
+            this.bntTerminar.Name = "bntTerminar";
+            this.bntTerminar.Size = new System.Drawing.Size(150, 30);
+            this.bntTerminar.TabIndex = 104;
+            this.bntTerminar.Text = "Terminar";
+            this.bntTerminar.UseVisualStyleBackColor = false;
+            this.bntTerminar.Click += new System.EventHandler(this.bntTerminar_Click);
+            // 
             // listaProductos
             // 
             this.listaProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -181,6 +200,7 @@
             // 
             this.txtBusqueda.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBusqueda.Location = new System.Drawing.Point(125, 46);
             this.txtBusqueda.Name = "txtBusqueda";
@@ -264,25 +284,6 @@
             // 
             this.timerBusqueda.Interval = 1000;
             this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
-            // 
-            // bntTerminar
-            // 
-            this.bntTerminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bntTerminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.bntTerminar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bntTerminar.FlatAppearance.BorderSize = 0;
-            this.bntTerminar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.bntTerminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bntTerminar.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntTerminar.ForeColor = System.Drawing.Color.White;
-            this.bntTerminar.Location = new System.Drawing.Point(695, 319);
-            this.bntTerminar.Name = "bntTerminar";
-            this.bntTerminar.Size = new System.Drawing.Size(150, 30);
-            this.bntTerminar.TabIndex = 104;
-            this.bntTerminar.Text = "Terminar";
-            this.bntTerminar.UseVisualStyleBackColor = false;
-            this.bntTerminar.Click += new System.EventHandler(this.bntTerminar_Click);
             // 
             // Inventario
             // 
