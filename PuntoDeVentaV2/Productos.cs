@@ -820,7 +820,7 @@ namespace PuntoDeVentaV2
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
                 // Original
-                extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR P.ClaveInterna LIKE '%{busqueda}%')";
+                extra = $"AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR P.ClaveInterna LIKE '%{busqueda}%')";
 
                 // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
                 var infoProducto = mb.BuscarCodigoBarrasExtra(busqueda.Trim());
