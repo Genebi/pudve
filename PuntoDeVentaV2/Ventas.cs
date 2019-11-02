@@ -1448,13 +1448,139 @@ namespace PuntoDeVentaV2
             writer.Close();
         }
 
-        private void ImprimirTicket(string idVenta)
+        private void GenerarTicketCaja()
+        {
+            int folioTicket = Properties.Settings.Default.folioAbrirCaja + 1;
+
+            Properties.Settings.Default.folioAbrirCaja = folioTicket;
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            var datos = FormPrincipal.datosUsuario;
+
+            // Medidas de ticket de 57 y 80 mm
+            // 1 pulgada = 2.54 cm = 72 puntos = 25.4 mm
+            // 57mm = 161.28 pt
+            // 80mm = 226.08 pt
+
+            var tipoPapel = 80;
+            var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
+            var altoPapel = Convert.ToInt32(anchoPapel + 64); // 54
+
+            string txtDescripcion = string.Empty;
+            string txtCantidad = string.Empty;
+            string txtImporte = string.Empty;
+            string txtPrecio = string.Empty;
+            string salto = string.Empty;
+
+            int medidaFuenteMensaje = 0;
+            int medidaFuenteNegrita = 0;
+            int medidaFuenteNormal = 0;
+            int medidaFuenteGrande = 0;
+
+            int separadores = 0;
+            int anchoLogo = 0;
+            int altoLogo = 0;
+            int espacio = 0;
+
+            if (tipoPapel == 80)
+            {
+                separadores = 81;
+                anchoLogo = 110;
+                altoLogo = 60;
+                espacio = 10;
+
+                medidaFuenteMensaje = 10;
+                medidaFuenteGrande = 10;
+                medidaFuenteNegrita = 8;
+                medidaFuenteNormal = 8;
+
+                salto = "\n";
+            }
+            else if (tipoPapel == 57)
+            {
+
+                separadores = 75;
+                anchoLogo = 80;
+                altoLogo = 40;
+                espacio = 8;
+
+                medidaFuenteMensaje = 6;
+                medidaFuenteGrande = 8;
+                medidaFuenteNegrita = 6;
+                medidaFuenteNormal = 6;
+
+                salto = string.Empty;
+            }
+
+            Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 3, 0);
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_" + folioTicket + ".pdf", FileMode.Create));
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteGrande);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteMensaje);
+
+            string logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            string encabezado = $"{salto}{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
+
+            ticket.Open();
+
+            //Validación para verificar si existe logotipo
+            if (logotipo != "")
+            {
+                if (File.Exists(logotipo))
+                {
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
+                    logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+                    logo.ScaleAbsolute(anchoLogo, altoLogo);
+                    ticket.Add(logo);
+                }
+            }
+
+            Paragraph titulo = new Paragraph(datos[0] + "\n", fuenteGrande);
+            Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            domicilio.Alignment = Element.ALIGN_CENTER;
+            domicilio.SetLeading(espacio, 0);
+
+            var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss tt");
+
+            Paragraph mensaje = new Paragraph("\n*** CAJA ABIERTA ***\n" + fecha, fuenteGrande);
+            mensaje.Alignment = Element.ALIGN_CENTER;
+
+            ticket.Add(titulo);
+            ticket.Add(domicilio);
+            ticket.Add(mensaje);
+
+            ticket.AddTitle("Ticket Caja Abierta");
+            ticket.AddAuthor("PUDVE");
+            ticket.Close();
+            writer.Close();
+
+            ImprimirTicket(folioTicket.ToString(), 1);
+        }
+
+        private void ImprimirTicket(string idVenta, int tipo = 0)
         {
             try
             {
+                var ruta = string.Empty;
+
+                if (tipo == 0)
+                {
+                    ruta = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
+                }
+
+                if (tipo == 1)
+                {
+                    ruta = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_{idVenta}.pdf";
+                }
+
                 ProcessStartInfo info = new ProcessStartInfo();
                 info.Verb = "print";
-                info.FileName = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
+                info.FileName = ruta;
                 info.CreateNoWindow = true;
                 info.WindowStyle = ProcessWindowStyle.Hidden;
 
@@ -1830,6 +1956,11 @@ namespace PuntoDeVentaV2
                     e.IsInputKey = true;
                     break;
             }
+        }
+
+        private void btnAbrirCaja_Click(object sender, EventArgs e)
+        {
+            GenerarTicketCaja();
         }
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)

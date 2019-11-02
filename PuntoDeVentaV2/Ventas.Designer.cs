@@ -57,7 +57,7 @@
             this.btnCancelarVenta = new System.Windows.Forms.Button();
             this.btnGuardarVenta = new System.Windows.Forms.Button();
             this.btnAnticipos = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnAbrirCaja = new System.Windows.Forms.Button();
             this.btnVentasGuardadas = new System.Windows.Forms.Button();
             this.listaProductos = new System.Windows.Forms.ListBox();
             this.lbNumeroArticulos = new System.Windows.Forms.Label();
@@ -348,17 +348,18 @@
             this.btnAnticipos.UseVisualStyleBackColor = true;
             this.btnAnticipos.Click += new System.EventHandler(this.btnAnticipos_Click);
             // 
-            // button4
+            // btnAbrirCaja
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(898, 31);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 16;
-            this.button4.Text = "Abrir Caja";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnAbrirCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAbrirCaja.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAbrirCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbrirCaja.Location = new System.Drawing.Point(898, 31);
+            this.btnAbrirCaja.Name = "btnAbrirCaja";
+            this.btnAbrirCaja.Size = new System.Drawing.Size(75, 23);
+            this.btnAbrirCaja.TabIndex = 16;
+            this.btnAbrirCaja.Text = "Abrir Caja";
+            this.btnAbrirCaja.UseVisualStyleBackColor = true;
+            this.btnAbrirCaja.Click += new System.EventHandler(this.btnAbrirCaja_Click);
             // 
             // btnVentasGuardadas
             // 
@@ -571,7 +572,7 @@
             this.panel1.Controls.Add(this.lbDescuento);
             this.panel1.Controls.Add(this.btnAnticipos);
             this.panel1.Controls.Add(this.lbAnticipo);
-            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.btnAbrirCaja);
             this.panel1.Controls.Add(this.lbIVA);
             this.panel1.Controls.Add(this.btnVentasGuardadas);
             this.panel1.Controls.Add(this.lbSubtotal);
@@ -685,7 +686,7 @@
         private System.Windows.Forms.Button btnCancelarVenta;
         private System.Windows.Forms.Button btnGuardarVenta;
         private System.Windows.Forms.Button btnAnticipos;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnAbrirCaja;
         private System.Windows.Forms.Button btnVentasGuardadas;
         private System.Windows.Forms.Button btnUltimoTicket;
         private System.Windows.Forms.Button btnPresupuesto;
