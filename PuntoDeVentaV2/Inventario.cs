@@ -22,7 +22,7 @@ namespace PuntoDeVentaV2
 
         RevisarInventario checkInventory = new RevisarInventario();
         ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
-
+        
         public static int NumRevActivo;
         public static string proveedorElegido = string.Empty;
         public static int idReporte = 0;
@@ -206,6 +206,7 @@ namespace PuntoDeVentaV2
                     {
                         listaProductos.SelectedIndex--;
                         e.Handled = true;
+                        //txtBusqueda.Focus();
                     }
                 }
                 //Presiono hacia abajo
@@ -217,36 +218,12 @@ namespace PuntoDeVentaV2
                     {
                         listaProductos.SelectedIndex++;
                         e.Handled = true;
+                        //txtBusqueda.Focus();
                     }
                 }
-                else if (listaProductos.Items.Count > 0 && e.KeyCode == Keys.Enter)
+                else if (listaProductos.SelectedIndex == 0)
                 {
-                    if (listaProductos.SelectedIndex > 0 || listaProductos.SelectedIndex < (listaProductos.Items.Count - 1))
-                    {
-                        listaProductos.Focus();
-                        ocultarResultados();
-                        txtBusqueda.Text = "";
-                        txtBusqueda.Focus();
-
-                        var info = listaProductos.Items[listaProductos.SelectedIndex].ToString().Split('-');
-                        var idProducto = Convert.ToInt32(info[0]);
-
-                        AjustarProducto ap = new AjustarProducto(idProducto, 2);
-
-                        ap.FormClosed += delegate
-                        {
-                            if (botonAceptar)
-                            {
-                                var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-
-                                AgregarProductoDGV(producto);
-
-                                botonAceptar = false;
-                            }
-                        };
-
-                        ap.ShowDialog();
-                    }
+                    listaProductos_KeyDown(sender, e);
                 }
             }
         }
@@ -295,9 +272,7 @@ namespace PuntoDeVentaV2
                     if (botonAceptar)
                     {
                         var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-
                         AgregarProductoDGV(producto);
-
                         botonAceptar = false;
                     }
                 };
