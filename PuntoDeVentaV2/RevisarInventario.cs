@@ -28,8 +28,8 @@ namespace PuntoDeVentaV2
 
         int cantidadStock;
         string SearchBarCode, queryTaerStock, queryUpdateStock, tablaProductos, tablaRevisarInventario, buscarStock;
-        string cadenaClavInterna, cadenaAuxClavInterna, cadenaCodigoBarras, cadenaAuxCodigoBarras;
-        string ID, IDAlmacen, Nombre, StockAlmacen, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario, NumRevInventario, FechaRegInventario, IDUser, TypeProd, StatusRevInventario, StatusInventHecho;
+        string cadenaClavInterna, cadenaAuxClavInterna, cadenaCodigoBarras, cadenaAuxCodigoBarras, cadenaAuxPrecioProducto;
+        string ID, IDAlmacen, Nombre, StockAlmacen, Stock, ClaveInterna, CodigoBarras, Fecha, IDUsuario, NumRevInventario, FechaRegInventario, IDUser, TypeProd, StatusRevInventario, StatusInventHecho, PrecioProducto;
 
         DataTable dtRevisarStockResultado;
         DataRow dr;
@@ -66,6 +66,7 @@ namespace PuntoDeVentaV2
                     lblCodigoDeBarras.Text = dr["CodigoBarras"].ToString();
                     Stock = dr["StockFisico"].ToString();
                 }
+                lblPrecioProducto.Text = dr["PrecioProducto"].ToString();
                 txtCantidadStock.Text = dr["StockAlmacen"].ToString();
                 NoRevision = Convert.ToInt32(dr["NoRevision"].ToString());
                 ComprobarFecha = dr["Fecha"].ToString();
@@ -200,7 +201,7 @@ namespace PuntoDeVentaV2
 
                         cadenaCodigoBarras = row["CodigoBarras"].ToString();
                         cadenaAuxCodigoBarras = cadenaCodigoBarras.Replace("\r\n", " ");
-
+                        
                         string NoRevInvent = row["NoRevision"].ToString();
 
                         if (cadenaAuxClavInterna.Trim() == buscarStock && NoRevInvent == NoActualCheckStock.ToString())
@@ -217,6 +218,7 @@ namespace PuntoDeVentaV2
                             TypeProd = row["Tipo"].ToString();
                             StatusRevInventario = row["StatusRevision"].ToString();
                             StatusInventHecho = row["StatusInventariado"].ToString();
+                            PrecioProducto = row["PrecioProducto"].ToString();
                             NoReg = 1;
                             break;
                         }
@@ -234,6 +236,7 @@ namespace PuntoDeVentaV2
                             TypeProd = row["Tipo"].ToString();
                             StatusRevInventario = row["StatusRevision"].ToString();
                             StatusInventHecho = row["StatusInventariado"].ToString();
+                            PrecioProducto = row["PrecioProducto"].ToString();
                             NoReg = 1;
                             break;
                         }
@@ -251,6 +254,7 @@ namespace PuntoDeVentaV2
                             TypeProd = row["Tipo"].ToString();
                             StatusRevInventario = row["StatusRevision"].ToString();
                             StatusInventHecho = row["StatusInventariado"].ToString();
+                            PrecioProducto = row["PrecioProducto"].ToString();
                             NoReg = 1;
                             break;
                         }
@@ -268,6 +272,7 @@ namespace PuntoDeVentaV2
                             TypeProd = row["Tipo"].ToString();
                             StatusRevInventario = row["StatusRevision"].ToString();
                             StatusInventHecho = row["StatusInventariado"].ToString();
+                            PrecioProducto = row["PrecioProducto"].ToString();
                             NoReg = 1;
                             break;
                         }
@@ -285,6 +290,7 @@ namespace PuntoDeVentaV2
                             TypeProd = row["Tipo"].ToString();
                             StatusRevInventario = row["StatusRevision"].ToString();
                             StatusInventHecho = row["StatusInventariado"].ToString();
+                            PrecioProducto = row["PrecioProducto"].ToString();
                             NoReg = 1;
                             break;
                         }
@@ -302,6 +308,7 @@ namespace PuntoDeVentaV2
                             TypeProd = row["Tipo"].ToString();
                             StatusRevInventario = row["StatusRevision"].ToString();
                             StatusInventHecho = row["StatusInventariado"].ToString();
+                            PrecioProducto = row["PrecioProducto"].ToString();
                             NoReg = 1;
                             break;
                         }

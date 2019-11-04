@@ -47,6 +47,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblPrecioProducto = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -76,6 +79,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.lblPrecioProducto);
+            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.lblNoRegistro);
             this.groupBox2.Controls.Add(this.txtCantidadStock);
             this.groupBox2.Controls.Add(this.label6);
@@ -162,7 +168,7 @@
             this.lblCodigoDeBarras.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.lblCodigoDeBarras.Location = new System.Drawing.Point(18, 139);
             this.lblCodigoDeBarras.Name = "lblCodigoDeBarras";
-            this.lblCodigoDeBarras.Size = new System.Drawing.Size(387, 32);
+            this.lblCodigoDeBarras.Size = new System.Drawing.Size(176, 32);
             this.lblCodigoDeBarras.TabIndex = 2;
             this.lblCodigoDeBarras.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -242,6 +248,36 @@
             this.lblNoRevision.Text = "0";
             this.lblNoRevision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(225, 120);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Precio :";
+            // 
+            // lblPrecioProducto
+            // 
+            this.lblPrecioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblPrecioProducto.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblPrecioProducto.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.lblPrecioProducto.Location = new System.Drawing.Point(262, 139);
+            this.lblPrecioProducto.Name = "lblPrecioProducto";
+            this.lblPrecioProducto.Size = new System.Drawing.Size(134, 32);
+            this.lblPrecioProducto.TabIndex = 11;
+            this.lblPrecioProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(225, 145);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(19, 20);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "$";
+            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,5 +326,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblNoRevision;
         private System.Windows.Forms.Timer timerBusqueda;
+        private System.Windows.Forms.Label lblPrecioProducto;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
