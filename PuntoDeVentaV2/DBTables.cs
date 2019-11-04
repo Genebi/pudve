@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
             HisotorialCompras = 17;
             HistorialModificacionRecordProduct = 4;
             ProductoRelacionadoXML = 5;
-            Productos = 17;
+            Productos = 19;
             ProductosDeServicios = 6;
             ProductosVenta = 6;
             Proveedores = 15;
@@ -789,25 +789,26 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaProductos(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID            INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                                              Nombre        TEXT    NOT NULL,
-                                              Stock         REAL    NOT NULL DEFAULT (0),
-                                              Precio        REAL    NOT NULL,
-                                              Categoria     TEXT,
-                                              ClaveInterna  TEXT,
-                                              CodigoBarras  TEXT,
-                                              ClaveProducto TEXT,
-                                              UnidadMedida  TEXT,
-                                              TipoDescuento INTEGER DEFAULT 0,
-                                              IDUsuario     INTEGER,
-                                              Status        INT     NOT NULL DEFAULT (1),
-                                              ProdImage     TEXT,
-                                              Tipo          TEXT    NOT NULL DEFAULT P,
-                                              Base          DECIMAL DEFAULT (0),
-                                              IVA           DECIMAL DEFAULT (0),
-                                              Impuesto      TEXT,
-                                              FOREIGN KEY (IDUsuario)
-                                              REFERENCES USuarios (ID));";
+            return $@"CREATE TABLE '{tabla}' (ID             INTEGER NOT NULL   PRIMARY KEY AUTOINCREMENT   UNIQUE,
+                                              Nombre         TEXT    NOT NULL,
+                                              Stock          REAL    NOT NULL   DEFAULT (0),
+                                              Precio         REAL    NOT NULL,
+                                              Categoria      TEXT,
+                                              ClaveInterna   TEXT,
+                                              CodigoBarras   TEXT,
+                                              ClaveProducto  TEXT,
+                                              UnidadMedida   TEXT,
+                                              TipoDescuento  INTEGER DEFAULT 0,
+                                              IDUsuario      INTEGER,
+                                              Status         INT     NOT NULL   DEFAULT (1),
+                                              ProdImage      TEXT,
+                                              Tipo           TEXT    NOT NULL   DEFAULT P,
+                                              Base           DECIMAL DEFAULT (0),
+                                              IVA            DECIMAL DEFAULT (0),
+                                              Impuesto       TEXT,
+                                              NombreAlterno1 TEXT,
+                                              NombreAlterno2 TEXT,
+                                              FOREIGN KEY (IDUsuario)	REFERENCES USuarios (ID));";
         }
 
         public string QueryUpdateTablaProductos(string tabla)

@@ -777,7 +777,8 @@ namespace PuntoDeVentaV2
                                                                                     StockAlmacen, 
                                                                                     StockFisico, 
                                                                                     IDUsuario, 
-                                                                                    Tipo)
+                                                                                    Tipo,
+                                                                                    PrecioProducto)
                                                                              SELECT prod.ID, 
                                                                                     prod.Nombre, 
                                                                                     prod.ClaveInterna,  
@@ -785,7 +786,8 @@ namespace PuntoDeVentaV2
                                                                                     prod.Stock, 
                                                                                     prod.Stock, 
                                                                                     prod.IDUsuario, 
-                                                                                    prod.Tipo
+                                                                                    prod.Tipo,
+                                                                                    prod.Precio
                                                                              FROM '{tablaProductos}' prod 
                                                                              WHERE prod.IDUsuario = {FormPrincipal.userID} AND prod.Status = '1' AND NOT EXISTS (
 	                                                                             SELECT RIt.IDAlmacen, 
@@ -795,7 +797,8 @@ namespace PuntoDeVentaV2
                                                                                         RIt.StockAlmacen, 
                                                                                         RIt.StockFisico, 
                                                                                         RIt.IDUsuario, 
-                                                                                        RIt.Tipo 
+                                                                                        RIt.Tipo,
+                                                                                        RIt.PrecioProducto
 	                                                                             FROM '{tablaRevisarInventario}' RIt 
 	                                                                             WHERE prod.ID = RIt.IDAlmacen
                                                                                  AND prod.Nombre = RIt.Nombre);";
@@ -821,7 +824,8 @@ namespace PuntoDeVentaV2
                                                                                     StockAlmacen, 
                                                                                     StockFisico, 
                                                                                     IDUsuario, 
-                                                                                    Tipo)
+                                                                                    Tipo,
+                                                                                    PrecioProducto)
                                                                              SELECT prod.ID, 
                                                                                     prod.Nombre, 
                                                                                     prod.ClaveInterna,  
@@ -829,7 +833,8 @@ namespace PuntoDeVentaV2
                                                                                     prod.Stock, 
                                                                                     prod.Stock, 
                                                                                     prod.IDUsuario, 
-                                                                                    prod.Tipo
+                                                                                    prod.Tipo,
+                                                                                    prod.Precio
                                                                              FROM '{tablaProductos}' prod 
                                                                              WHERE prod.IDUsuario = {FormPrincipal.userID} AND prod.Status = '1' AND NOT EXISTS (
 	                                                                             SELECT RIt.IDAlmacen, 
@@ -839,7 +844,8 @@ namespace PuntoDeVentaV2
                                                                                         RIt.StockAlmacen, 
                                                                                         RIt.StockFisico, 
                                                                                         RIt.IDUsuario, 
-                                                                                        RIt.Tipo 
+                                                                                        RIt.Tipo,
+                                                                                        RIt.PrecioProducto 
 	                                                                             FROM '{tablaRevisarInventario}' RIt 
 	                                                                             WHERE prod.ID = RIt.IDAlmacen
                                                                                  AND prod.Nombre = RIt.Nombre);";
