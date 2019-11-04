@@ -261,7 +261,7 @@
             // 
             this.lblPrecioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.lblPrecioProducto.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.lblPrecioProducto.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.lblPrecioProducto.ForeColor = System.Drawing.Color.DarkRed;
             this.lblPrecioProducto.Location = new System.Drawing.Point(262, 139);
             this.lblPrecioProducto.Name = "lblPrecioProducto";
             this.lblPrecioProducto.Size = new System.Drawing.Size(134, 32);

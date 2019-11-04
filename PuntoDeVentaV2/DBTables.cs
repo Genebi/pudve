@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
             Usuarios = 20;
             Ventas = 21;
             Clientes = 21;
-            RevisarInventario = 15;
+            RevisarInventario = 16;
             DetallesVenta = 14;
             Abonos = 11;
             Categorias = 3;
@@ -1441,6 +1441,7 @@ namespace PuntoDeVentaV2
                                               Tipo TEXT,
                                               StatusRevision INT DEFAULT (0),
                                               StatusInventariado INT DEFAULT (0),
+                                              PrecioProducto     REAL,
                                               FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
         }
 
