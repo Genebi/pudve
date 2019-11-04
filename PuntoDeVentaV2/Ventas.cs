@@ -8,6 +8,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Data;
+using System.Linq;
 
 namespace PuntoDeVentaV2
 {
@@ -1961,6 +1962,16 @@ namespace PuntoDeVentaV2
         private void btnAbrirCaja_Click(object sender, EventArgs e)
         {
             GenerarTicketCaja();
+        }
+
+        private void Ventas_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Productos Product = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (Product != null)
+            {
+                Product.CargarDatos();
+            }
         }
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)

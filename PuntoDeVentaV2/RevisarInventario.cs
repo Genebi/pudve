@@ -55,58 +55,125 @@ namespace PuntoDeVentaV2
                 StatusInventariado = 0;
                 registro = 0;
                 dr = dtRevisarStockResultado.Rows[LaPosicion];
-                lblNombreProducto.Text = dr["Nombre"].ToString();
-                if (dr["ClaveInterna"].ToString() != "")
+                if (dr["Tipo"].Equals("P"))
                 {
-                    lblCodigoDeBarras.Text = dr["ClaveInterna"].ToString();
-                    Stock = dr["StockFisico"].ToString();
-                } 
-                else
-                {
-                    lblCodigoDeBarras.Text = dr["CodigoBarras"].ToString();
-                    Stock = dr["StockFisico"].ToString();
-                }
-                lblPrecioProducto.Text = dr["PrecioProducto"].ToString();
-                txtCantidadStock.Text = dr["StockAlmacen"].ToString();
-                NoRevision = Convert.ToInt32(dr["NoRevision"].ToString());
-                ComprobarFecha = dr["Fecha"].ToString();
-                if (ComprobarFecha != "")
-                {
-                    fecha = Convert.ToDateTime(dr["Fecha"].ToString());
-                    auxDate = fecha.ToString();
-                    ComprobarFecha = auxDate.Substring(0, 10);
-                }
-                else
-                {
-                    ComprobarFecha = "";
-                }
-                StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
-                auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
-                if ((NoRevision == NoActualCheckStock) && (StatusInventariado == 1))
-                {
-                    DialogResult result = MessageBox.Show("Producto Inventariado\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                    if (result == DialogResult.Yes)
+                    lblNombreProducto.Text = dr["Nombre"].ToString();
+                    if (dr["ClaveInterna"].ToString() != "")
+                    {
+                        lblCodigoDeBarras.Text = dr["ClaveInterna"].ToString();
+                        Stock = dr["StockFisico"].ToString();
+                    }
+                    else
+                    {
+                        lblCodigoDeBarras.Text = dr["CodigoBarras"].ToString();
+                        Stock = dr["StockFisico"].ToString();
+                    }
+                    lblPrecioProducto.Text = dr["PrecioProducto"].ToString();
+                    txtCantidadStock.Text = dr["StockAlmacen"].ToString();
+                    NoRevision = Convert.ToInt32(dr["NoRevision"].ToString());
+                    ComprobarFecha = dr["Fecha"].ToString();
+                    if (ComprobarFecha != "")
+                    {
+                        fecha = Convert.ToDateTime(dr["Fecha"].ToString());
+                        auxDate = fecha.ToString();
+                        ComprobarFecha = auxDate.Substring(0, 10);
+                    }
+                    else
+                    {
+                        ComprobarFecha = "";
+                    }
+                    StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
+                    auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
+                    if ((NoRevision == NoActualCheckStock) && (StatusInventariado == 1))
+                    {
+                        DialogResult result = MessageBox.Show("Producto Inventariado\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (result == DialogResult.Yes)
+                        {
+                            registro = LaPosicion + 1;
+                            //txtBoxBuscarCodigoBarras.Text = string.Empty;
+                            txtCantidadStock.Focus();
+                            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                        }
+                        else if (result == DialogResult.No)
+                        {
+                            LimpiarCampos();
+                        }
+                        else if (result == DialogResult.Cancel)
+                        {
+                            LimpiarCampos();
+                        }
+                    }
+                    else
                     {
                         registro = LaPosicion + 1;
                         //txtBoxBuscarCodigoBarras.Text = string.Empty;
                         txtCantidadStock.Focus();
                         txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                     }
-                    else if (result == DialogResult.No)
-                    {
-                        LimpiarCampos();
-                    }
-                    else if (result == DialogResult.Cancel)
-                    {
-                        LimpiarCampos();
-                    }
                 }
-                else
+                else if (!dr["Tipo"].Equals("P"))
                 {
-                    registro = LaPosicion + 1;
-                    //txtBoxBuscarCodigoBarras.Text = string.Empty;
-                    txtCantidadStock.Focus();
-                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                    if (dr["Tipo"].Equals("PQ"))
+                    {
+                        MessageBox.Show("El código de barras pertenece a un Paquete", "Que tipo es Paquete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (dr["Tipo"].Equals("S"))
+                    {
+                        MessageBox.Show("El código de barras pertenece a un Servicio", "Que tipo es Servicio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    lblNombreProducto.Text = dr["Nombre"].ToString();
+                    if (dr["ClaveInterna"].ToString() != "")
+                    {
+                        lblCodigoDeBarras.Text = dr["ClaveInterna"].ToString();
+                        Stock = dr["StockFisico"].ToString();
+                    }
+                    else
+                    {
+                        lblCodigoDeBarras.Text = dr["CodigoBarras"].ToString();
+                        Stock = dr["StockFisico"].ToString();
+                    }
+                    lblPrecioProducto.Text = dr["PrecioProducto"].ToString();
+                    txtCantidadStock.Text = dr["StockAlmacen"].ToString();
+                    NoRevision = Convert.ToInt32(dr["NoRevision"].ToString());
+                    ComprobarFecha = dr["Fecha"].ToString();
+                    if (ComprobarFecha != "")
+                    {
+                        fecha = Convert.ToDateTime(dr["Fecha"].ToString());
+                        auxDate = fecha.ToString();
+                        ComprobarFecha = auxDate.Substring(0, 10);
+                    }
+                    else
+                    {
+                        ComprobarFecha = "";
+                    }
+                    StatusInventariado = Convert.ToInt32(dr["StatusInventariado"].ToString());
+                    auxCurrentDate = DateTime.Now.ToString("dd/MM/yyyy");
+                    if ((NoRevision == NoActualCheckStock) && (StatusInventariado == 1))
+                    {
+                        DialogResult result = MessageBox.Show("Producto Inventariado\nDesea Modificarlo...", "Ya Inventariado", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (result == DialogResult.Yes)
+                        {
+                            registro = LaPosicion + 1;
+                            //txtBoxBuscarCodigoBarras.Text = string.Empty;
+                            txtCantidadStock.Focus();
+                            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                        }
+                        else if (result == DialogResult.No)
+                        {
+                            LimpiarCampos();
+                        }
+                        else if (result == DialogResult.Cancel)
+                        {
+                            LimpiarCampos();
+                        }
+                    }
+                    else
+                    {
+                        registro = LaPosicion + 1;
+                        //txtBoxBuscarCodigoBarras.Text = string.Empty;
+                        txtCantidadStock.Focus();
+                        txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                    }
                 }
             }
             else if (NoReg == 0 && buscarStock == string.Empty)

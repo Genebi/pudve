@@ -661,6 +661,7 @@
             this.Name = "Ventas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Ventas_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Ventas_FormClosed);
             this.Load += new System.EventHandler(this.Ventas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
