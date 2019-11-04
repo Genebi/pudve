@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace PuntoDeVentaV2
     public partial class FormPrincipal : Form
     {
         Conexion cn = new Conexion();
+        MetodosGenerales mg = new MetodosGenerales();
 
         public static string[] datosUsuario = new string[] { };
 
@@ -85,6 +87,50 @@ namespace PuntoDeVentaV2
             ObtenerDatosUsuario(userID);
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
+
+            ActualizarNombres();
+        }
+
+        private void ActualizarNombres()
+        {
+            IDictionary<int, string> datos = new Dictionary<int, string>();
+
+            SQLiteConnection sql_con;
+            SQLiteCommand sql_cmd;
+            SQLiteDataReader dr;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+            else
+            {
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+
+            sql_con.Open();
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID}", sql_con);
+            dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                var idProducto = Convert.ToInt32(dr["ID"].ToString());
+                var nombreProducto = dr["Nombre"].ToString();
+
+                datos.Add(new KeyValuePair<int, string>(idProducto, nombreProducto));
+            }
+
+            dr.Close();
+            sql_con.Close();
+
+            foreach (KeyValuePair<int, string> ele  in datos)
+            {
+                var idProducto = ele.Key;
+                var nombreAlterno1 = mg.RemoverCaracteres(ele.Value);
+                var nombreAlterno2 = mg.RemoverPreposiciones(ele.Value);
+
+                cn.EjecutarConsulta($"UPDATE Productos SET NombreAlterno1 = '{nombreAlterno1}', NombreAlterno2 = '{nombreAlterno2}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+            }
         }
 
         private void obtenerDatosCheckStock()
