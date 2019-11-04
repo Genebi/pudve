@@ -152,6 +152,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void DGVListaEmpresas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void btnNvaEmpresa_Click(object sender, EventArgs e)
         {
             // creamos un delegado para el manejo del evento

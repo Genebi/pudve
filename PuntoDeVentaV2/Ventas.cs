@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Data;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace PuntoDeVentaV2
 {

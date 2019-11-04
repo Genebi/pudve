@@ -47,18 +47,20 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Location = new System.Drawing.Point(10, 11);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(195, 34);
+            this.label1.Size = new System.Drawing.Size(156, 27);
             this.label1.TabIndex = 0;
             this.label1.Text = "Empresas de:";
             // 
             // LblNombreUsr
             // 
             this.LblNombreUsr.Font = new System.Drawing.Font("Century Gothic", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblNombreUsr.Location = new System.Drawing.Point(19, 73);
+            this.LblNombreUsr.Location = new System.Drawing.Point(14, 59);
+            this.LblNombreUsr.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LblNombreUsr.Name = "LblNombreUsr";
-            this.LblNombreUsr.Size = new System.Drawing.Size(1382, 57);
+            this.LblNombreUsr.Size = new System.Drawing.Size(1036, 46);
             this.LblNombreUsr.TabIndex = 1;
             this.LblNombreUsr.Text = "Nombre de Usuario";
             this.LblNombreUsr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -67,9 +69,10 @@
             // 
             this.label3.Font = new System.Drawing.Font("Century Gothic", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label3.Location = new System.Drawing.Point(19, 156);
+            this.label3.Location = new System.Drawing.Point(14, 127);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(685, 38);
+            this.label3.Size = new System.Drawing.Size(514, 31);
             this.label3.TabIndex = 2;
             this.label3.Text = "Tipo de Persona";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -78,9 +81,10 @@
             // 
             this.label4.Font = new System.Drawing.Font("Century Gothic", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.label4.Location = new System.Drawing.Point(726, 156);
+            this.label4.Location = new System.Drawing.Point(544, 127);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(675, 38);
+            this.label4.Size = new System.Drawing.Size(506, 31);
             this.label4.TabIndex = 3;
             this.label4.Text = "R.F.C.:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -88,9 +92,10 @@
             // LblTipoPersona
             // 
             this.LblTipoPersona.Font = new System.Drawing.Font("Century Gothic", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.LblTipoPersona.Location = new System.Drawing.Point(19, 220);
+            this.LblTipoPersona.Location = new System.Drawing.Point(14, 179);
+            this.LblTipoPersona.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LblTipoPersona.Name = "LblTipoPersona";
-            this.LblTipoPersona.Size = new System.Drawing.Size(685, 51);
+            this.LblTipoPersona.Size = new System.Drawing.Size(514, 41);
             this.LblTipoPersona.TabIndex = 4;
             this.LblTipoPersona.Text = "Física / Moral";
             this.LblTipoPersona.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -98,9 +103,10 @@
             // LblRFC
             // 
             this.LblRFC.Font = new System.Drawing.Font("Century Gothic", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.LblRFC.Location = new System.Drawing.Point(731, 220);
+            this.LblRFC.Location = new System.Drawing.Point(548, 179);
+            this.LblRFC.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.LblRFC.Name = "LblRFC";
-            this.LblRFC.Size = new System.Drawing.Size(670, 51);
+            this.LblRFC.Size = new System.Drawing.Size(502, 41);
             this.LblRFC.TabIndex = 5;
             this.LblRFC.Text = "R.F.C. de la persona";
             this.LblRFC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -133,7 +139,8 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.DGVListaEmpresas.DefaultCellStyle = dataGridViewCellStyle2;
             this.DGVListaEmpresas.EnableHeadersVisualStyles = false;
-            this.DGVListaEmpresas.Location = new System.Drawing.Point(19, 313);
+            this.DGVListaEmpresas.Location = new System.Drawing.Point(14, 254);
+            this.DGVListaEmpresas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DGVListaEmpresas.Name = "DGVListaEmpresas";
             this.DGVListaEmpresas.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -145,9 +152,10 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DGVListaEmpresas.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DGVListaEmpresas.RowTemplate.Height = 24;
-            this.DGVListaEmpresas.Size = new System.Drawing.Size(1382, 321);
+            this.DGVListaEmpresas.Size = new System.Drawing.Size(1036, 261);
             this.DGVListaEmpresas.TabIndex = 6;
             this.DGVListaEmpresas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaEmpresas_CellClick);
+            this.DGVListaEmpresas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaEmpresas_CellContentClick);
             this.DGVListaEmpresas.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaEmpresas_CellDoubleClick);
             this.DGVListaEmpresas.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGVListaEmpresas_CellFormatting);
             this.DGVListaEmpresas.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.DGVListaEmpresas_CellPainting);
@@ -157,9 +165,10 @@
             this.btnNvaEmpresa.BackColor = System.Drawing.Color.Green;
             this.btnNvaEmpresa.Font = new System.Drawing.Font("Century Gothic", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNvaEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnNvaEmpresa.Location = new System.Drawing.Point(1191, 690);
+            this.btnNvaEmpresa.Location = new System.Drawing.Point(893, 561);
+            this.btnNvaEmpresa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNvaEmpresa.Name = "btnNvaEmpresa";
-            this.btnNvaEmpresa.Size = new System.Drawing.Size(210, 58);
+            this.btnNvaEmpresa.Size = new System.Drawing.Size(158, 47);
             this.btnNvaEmpresa.TabIndex = 7;
             this.btnNvaEmpresa.Text = "Empresa";
             this.btnNvaEmpresa.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -168,9 +177,9 @@
             // 
             // Empresas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1431, 789);
+            this.ClientSize = new System.Drawing.Size(1016, 596);
             this.Controls.Add(this.btnNvaEmpresa);
             this.Controls.Add(this.DGVListaEmpresas);
             this.Controls.Add(this.LblRFC);
@@ -179,6 +188,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LblNombreUsr);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Empresas";
             this.Text = "Empresas";
             this.Load += new System.EventHandler(this.Empresas_Load);
