@@ -22,7 +22,6 @@ namespace PuntoDeVentaV2
         //Status 5 = Facturas
         //Status 6 = Presupuestos
 
-        string[] productos;
         float porcentajeGeneral = 0;
         bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
@@ -58,7 +57,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        //NameValueCollection datos;
+        // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productosD; 
 
         const string fichero = @"\PUDVE\settings\folioventa\setupFolioVenta.txt";       // directorio donde esta el archivo de numero de codigo de barras consecutivo
@@ -68,7 +67,7 @@ namespace PuntoDeVentaV2
 
         string buscarvVentaGuardada = null, folio = null;
 
-        int index = 0, idProducto;
+        int idProducto;
         string producto;
         string[] datosProducto;
         private bool sumarProducto = false;
@@ -81,24 +80,6 @@ namespace PuntoDeVentaV2
         public Ventas()
         {
             InitializeComponent();
-
-            CargarProductosServicios();
-        }
-
-        public void CargarProductosServicios()
-        {
-            /*AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
-            datos = new NameValueCollection();
-
-            //Cargar lista de productos actuales
-            datos = cn.ObtenerProductos(FormPrincipal.userID);
-            productos = new string[datos.Count];
-            datos.CopyTo(productos, 0);*/
-
-            //coleccion.AddRange(productos);
-            /*txtBuscadorProducto.AutoCompleteCustomSource = coleccion;
-            txtBuscadorProducto.AutoCompleteMode = AutoCompleteMode.None;
-            txtBuscadorProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;*/
         }
 
         private void Ventas_Load(object sender, EventArgs e)
@@ -1884,10 +1865,12 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            // Regresa un diccionario
             var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
 
             if (resultados.Count > 0)
             {
+                // Guardamos los datos devueltos temporalmente en productosD
                 productosD = resultados;
 
                 foreach (var item in resultados)
@@ -1897,54 +1880,6 @@ namespace PuntoDeVentaV2
                     listaProductos.SelectedIndex = 0;
                 }
             }
-
-            /*foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
-            {
-                if (s.Contains(txtBuscadorProducto.Text))
-                {
-                    listaProductos.Items.Add(s);
-                    listaProductos.Visible = true;
-                    listaProductos.SelectedIndex = 0;
-                }
-            }*/
-
-            /*if (listaProductos.Visible == false && txtBuscadorProducto.Text != "BUSCAR PRODUCTO O SERVICIO...")
-            {
-                int idProducto = 0;
-
-                // Verificamos si existe en la tabla de codigos de barra extra
-                var datosTmp = mb.BuscarCodigoBarrasExtra(txtBuscadorProducto.Text.Trim());
-
-                if (datosTmp.Length > 0)
-                {
-                    // Verificar que pertenece al usuario
-                    var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID}");
-                    
-                    if (verificarUsuario)
-                    {
-                        idProducto = Convert.ToInt32(datosTmp[0]);
-                    }
-                }
-
-                string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}'";
-
-                DataTable searchProd = cn.CargarDatos(querySearchProd);
-
-                if (searchProd.Rows.Count > 0)
-                {
-                    idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
-                }
-
-                if (idProducto > 0)
-                {
-                    string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                    txtBuscadorProducto.Text = "";
-                    txtBuscadorProducto.Focus();
-                    ocultarResultados();
-                    AgregarProducto(datosProducto);
-                }
-            }*/
-
 
             if (buscarvVentaGuardada == "#")
             {

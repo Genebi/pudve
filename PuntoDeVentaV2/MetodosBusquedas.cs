@@ -757,7 +757,6 @@ namespace PuntoDeVentaV2
                 while (dr.Read())
                 {
                     lista.Add(Convert.ToInt32(dr["ID"].ToString()), dr["Nombre"].ToString());
-                    //lista.Add(new ListaCustom { IDProducto = Convert.ToInt32(dr["ID"].ToString()), NombreProducto = dr["Nombre"].ToString() });
                 }
             }
 

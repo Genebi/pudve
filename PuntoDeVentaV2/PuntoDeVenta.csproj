@@ -360,7 +360,6 @@
     <Compile Include="ListaClientes.Designer.cs">
       <DependentUpon>ListaClientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListaCustom.cs" />
     <Compile Include="ListadoAnticipos.cs">
       <SubType>Form</SubType>
     </Compile>
