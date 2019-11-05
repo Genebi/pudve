@@ -137,7 +137,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.Red;
-            this.label21.Location = new System.Drawing.Point(124, 428);
+            this.label21.Location = new System.Drawing.Point(308, 428);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(14, 17);
             this.label21.TabIndex = 78;
@@ -205,9 +205,9 @@
             this.label15.Location = new System.Drawing.Point(22, 429);
             this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(106, 16);
+            this.label15.Size = new System.Drawing.Size(289, 16);
             this.label15.TabIndex = 25;
-            this.label15.Text = "Cambiar Régimen";
+            this.label15.Text = "Cambiar Régimen ( Selecciona un Tipo de Persona )";
             // 
             // groupBox1
             // 
