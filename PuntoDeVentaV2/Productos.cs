@@ -170,6 +170,48 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void DGVProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var fila = DGVProductos.CurrentCell.RowIndex;
+
+            int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
+
+            //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
+            if (e.RowIndex >= 0)
+            {
+                // Editar el Producto, Paquete o Servicio
+                if (e.ColumnIndex == 1 ||
+                    e.ColumnIndex == 2 ||
+                    e.ColumnIndex == 3 ||
+                    e.ColumnIndex == 4 ||
+                    e.ColumnIndex == 5 ||
+                    e.ColumnIndex == 6)
+                {
+                    if (seleccionadoDato == 0)
+                    {
+                        seleccionadoDato = 1;
+                        numerofila = e.RowIndex;
+                        obtenerDatosDGVProductos(numerofila);
+                        origenDeLosDatos = 2;
+                    }
+                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), Convert.ToInt32(id));
+                    string typeProduct = producto[5];
+                    if (typeProduct == "S")
+                    {
+                        btnAgregarServicio.PerformClick();
+                    }
+                    else if (typeProduct == "PQ")
+                    {
+                        btnAgregarPaquete.PerformClick();
+                    }
+                    else if (typeProduct == "P")
+                    {
+                        btnAgregarProducto.PerformClick();
+                    }
+                }
+            }
+        }
+
         private void searchPhotoProdInactivo()
         {
             queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Status = 0";

@@ -245,6 +245,7 @@
             this.DGVProductos.TabIndex = 2;
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
+            this.DGVProductos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentDoubleClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             // 
             // CheckProducto
