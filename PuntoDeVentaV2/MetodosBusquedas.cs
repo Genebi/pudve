@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
@@ -740,6 +742,27 @@ namespace PuntoDeVentaV2
             dr.Close();
 
             return codigo;
+        }
+
+        public Dictionary<int, string> BuscarProducto(string busqueda)
+        {
+            Dictionary<int, string> lista = new Dictionary<int, string>();
+
+            DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{busqueda}%' OR NombreAlterno1 LIKE '%{busqueda}%' Or NombreAlterno2 LIKE '%{busqueda}%')");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    lista.Add(Convert.ToInt32(dr["ID"].ToString()), dr["Nombre"].ToString());
+                }
+            }
+
+            dr.Close();
+
+            return lista;
         }
 
         private void DatosConexion(string consulta)

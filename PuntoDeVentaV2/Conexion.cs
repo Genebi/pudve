@@ -212,30 +212,6 @@ namespace PuntoDeVentaV2
             return DT;
         }
 
-        public NameValueCollection ObtenerProductos(int IDUsuario)
-        {
-            NameValueCollection lista = new NameValueCollection();
-
-            Conectarse();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM Productos WHERE IDUsuario = {IDUsuario} AND Status = 1";
-            sql_cmd.ExecuteNonQuery();
-
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
-
-            while (dr.Read())
-            {
-                //dr[0] = ID del producto
-                //dr[1] = Nombre producto
-                lista.Add(dr[0].ToString(), dr[1].ToString().ToUpper());
-            }
-
-            dr.Close();
-
-            return lista;
-        }
-
         public string[] ObtenerVentaGuardada(int IDUsuario, int IDFolio)
         {
             List<string> lista = new List<string>();
