@@ -249,6 +249,9 @@ namespace PuntoDeVentaV2
         int totalProdSugerido;              // Se obtiene la cantidad de productos sugeridos
         int origenDeLosDatos = 0;
 
+        DataTable dtSearchProveedor;
+        DataRow drSearchProveedor;
+
         private void ActivarBtnSi()
         {
             button2.Enabled = true;
@@ -266,37 +269,43 @@ namespace PuntoDeVentaV2
             {
                 FormAgregar.ProdNombre = ds.Conceptos[index].Descripcion;                   // pasamos la descripcion
                 FormAgregar.ProdStock = ds.Conceptos[index].Cantidad;                       // pasamos la cantidad del XML
-                FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
-                FormAgregar.txtPrecioCompra.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
+                FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                  // pasamos el precio recomendado
+                FormAgregar.txtPrecioCompra.Text = precioOriginalConIVA.ToString("N2");     // pasamos el precio origianl del XML
                 FormAgregar.ProdClaveInterna = ds.Conceptos[index].NoIdentificacion;        // pasamos la claveInterna del XML
 
-                FormAgregar.claveProductoxml = ds.Conceptos[index].ClaveProdServ;
-                FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index].ClaveUnidad;
-                FormAgregar.fechaProdXML = ds.Fecha;
-                FormAgregar.FolioProdXML = ds.Folio;
-                FormAgregar.RFCProdXML = ds.Emisor.Rfc;
-                FormAgregar.NobEmisorProdXML = ds.Emisor.Nombre;
-                FormAgregar.ClaveProdEmisorProdXML = ds.Conceptos[index].ClaveProdServ;
-                FormAgregar.DescuentoProdXML = ds.Conceptos[index].Descuento;
-                FormAgregar.PrecioCompraXML = precioOriginalConIVA.ToString("N2");
+                FormAgregar.claveProductoxml = ds.Conceptos[index].ClaveProdServ;           // pasamos la Clave del producto XML
+                FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index].ClaveUnidad;         // pasamos la Clave de Unidad XML
+                FormAgregar.fechaProdXML = ds.Fecha;                                        // pasamos la fecha del XML
+                FormAgregar.FolioProdXML = ds.Folio;                                        // pasamos el folio del XML
+                FormAgregar.RFCProdXML = ds.Emisor.Rfc;                                     // pasamos el RFC del Emisor
+                FormAgregar.NobEmisorProdXML = ds.Emisor.Nombre;                            // pasamos el Nombre del Emisor 
+                FormAgregar.ClaveProdEmisorProdXML = ds.Conceptos[index].ClaveProdServ;     // pasamos la Clave del Producto del Emisor
+                FormAgregar.DescuentoProdXML = ds.Conceptos[index].Descuento;               // pasamos el Descuento del Producto
+                FormAgregar.PrecioCompraXML = precioOriginalConIVA.ToString("N2");          // pasamos el Precio Original con IVA
+
+                FormAgregar.idProveedorXML = drSearchProveedor["ID"].ToString();            // pasamos el id del Proveedor
+                FormAgregar.nameProveedorXML = drSearchProveedor["Nombre"].ToString();      // pasamos el nombre del Proveedor
             }
             else if (index >= 1)
             {
                 FormAgregar.ProdNombre = ds.Conceptos[index - 1].Descripcion;                   // pasamos la descripcion
                 FormAgregar.ProdStock = ds.Conceptos[index - 1].Cantidad;                       // pasamos la cantidad del XML
                 FormAgregar.ProdPrecio = PrecioRecomendado.ToString("N2");                      // pasamos el precio recomendado
-                FormAgregar.txtPrecioCompra.Text = precioOriginalConIVA.ToString("N2");       // pasamos el precio origianl del XML
+                FormAgregar.txtPrecioCompra.Text = precioOriginalConIVA.ToString("N2");         // pasamos el precio origianl del XML
                 FormAgregar.ProdClaveInterna = ds.Conceptos[index - 1].NoIdentificacion;        // pasamos la claveInterna del XML
                 
-                FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;
-                FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;
-                FormAgregar.fechaProdXML = ds.Fecha;
-                FormAgregar.FolioProdXML = ds.Folio;
-                FormAgregar.RFCProdXML = ds.Emisor.Rfc;
-                FormAgregar.NobEmisorProdXML = ds.Emisor.Nombre;
-                FormAgregar.ClaveProdEmisorProdXML = ds.Conceptos[index - 1].ClaveProdServ;
-                FormAgregar.DescuentoProdXML = ds.Conceptos[index - 1].Descuento;
-                FormAgregar.PrecioCompraXML = precioOriginalConIVA.ToString("N2");
+                FormAgregar.claveProductoxml = ds.Conceptos[index - 1].ClaveProdServ;           // pasamos la Clave del Producto XML
+                FormAgregar.claveUnidadMedidaxml = ds.Conceptos[index - 1].ClaveUnidad;         // pasamos la Clave de Unidad XML
+                FormAgregar.fechaProdXML = ds.Fecha;                                            // pasamos la fecha XML
+                FormAgregar.FolioProdXML = ds.Folio;                                            // pasamos el folio XML
+                FormAgregar.RFCProdXML = ds.Emisor.Rfc;                                         // pasamos el RFC del Emisor
+                FormAgregar.NobEmisorProdXML = ds.Emisor.Nombre;                                // pasamos el Nombre del Emisor
+                FormAgregar.ClaveProdEmisorProdXML = ds.Conceptos[index - 1].ClaveProdServ;     // pasamos la Clave Producto del Emisor
+                FormAgregar.DescuentoProdXML = ds.Conceptos[index - 1].Descuento;               // pasamos el Descuento del Producto
+                FormAgregar.PrecioCompraXML = precioOriginalConIVA.ToString("N2");              // pasamos el Precio Original con IVA
+
+                FormAgregar.idProveedorXML = drSearchProveedor["ID"].ToString();            // pasamos el id del Proveedor
+                FormAgregar.nameProveedorXML = drSearchProveedor["Nombre"].ToString();      // pasamos el nombre del Proveedor
             }
             //Asignamos el impuesto y el importe
             /*var cadena = ObtenerImpuestos(rutaXML, index - 1);
@@ -368,9 +377,13 @@ namespace PuntoDeVentaV2
             origenDeLosDatos = 3;
 
             string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
-            DataTable dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
-
-            if (dtSearchProveedor.Rows.Count <= 0)
+            dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
+            
+            if (dtSearchProveedor.Rows.Count > 0)
+            {
+                drSearchProveedor = dtSearchProveedor.Rows[0];
+            }
+            else if (dtSearchProveedor.Rows.Count <= 0)
             {
                 string fechaOperacion, fechaXML = ds.Fecha, fecha, hora;
                 fecha = fechaXML.Substring(0,10);
@@ -378,8 +391,10 @@ namespace PuntoDeVentaV2
                 fechaOperacion = fecha + " " + hora;
                 string queryAddProveedor = $@"INSERT INTO Proveedores (IDUsuario, Nombre, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{ds.Emisor.Nombre.Trim()}', '{ds.Emisor.Rfc.Trim()}', '{fechaOperacion}')";
                 cn.EjecutarConsulta(queryAddProveedor);
+                dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
+                drSearchProveedor = dtSearchProveedor.Rows[0];
             }
-
+            
             FormAgregar.FormClosed += delegate
             {
                 // recorrer el archivo XML

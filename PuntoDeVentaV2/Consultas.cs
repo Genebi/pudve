@@ -156,6 +156,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string GuardarDetallesDelProducto(int idProducto, int idUsuario, string nombreProveedor, int idProveedor)
+        {
+            string consulta =   "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor, IDProveedor)";
+                   consulta += $"VALUES ('{idProducto}', '{idUsuario}', '{nombreProveedor}', '{idProveedor}')";
+            return consulta;
+        }
+
         public string GuardarProveedor(string[] datos, int tipo = 0)
         {
             string consulta = string.Empty;

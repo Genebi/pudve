@@ -142,6 +142,8 @@ namespace PuntoDeVentaV2
         public float ImporteProdNvo { get; set; }
         public float DescuentoProdNvo { get; set; }
         public int CantidadProdNvo { get; set; }
+        public string idProveedorXML { get; set; }
+        public string nameProveedorXML { get; set; }
 
         static public int DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
@@ -1620,6 +1622,8 @@ namespace PuntoDeVentaV2
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
+                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, nameProveedorXML.ToString(), Convert.ToInt32(idProveedorXML.ToString())));
+
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
                             {
@@ -1893,6 +1897,7 @@ namespace PuntoDeVentaV2
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
                         //Se obtiene la ID del último producto agregado
                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+                        cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, nameProveedorXML.ToString(), Convert.ToInt32(idProveedorXML.ToString())));
                         if (respuesta > 0)
                         {
                             var idProveedor = string.Empty;

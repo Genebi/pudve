@@ -1459,7 +1459,7 @@ namespace PuntoDeVentaV2
                                              Nombre,
                                              ClaveInterna,
                                              CodigoBarras,
-                                             Stock,
+                                             StockFisico,
                                              Fecha,
                                              IDUsuario,
                                              'P' 
