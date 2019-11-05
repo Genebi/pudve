@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     public partial class RevisarInventario : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         const string fichero = @"\PUDVE\settings\noCheckStock\checkStock.txt";  // directorio donde esta el archivo de numero de codigo de barras consecutivo
@@ -113,14 +114,29 @@ namespace PuntoDeVentaV2
                 }
                 else if (!dr["Tipo"].Equals("P"))
                 {
+                    string IDServPQ = string.Empty, ProductServPq = string.Empty;
+                    DataTable dtServPQ;
+
+                    IDServPQ = dr["IDAlmacen"].ToString();
+
+                    using (dtServPQ = cn.CargarDatos(cs.ObtenerProductosServPaq(IDServPQ)))
+                    {
+                        foreach (DataRow row in dtServPQ.Rows)
+                        {
+                            ProductServPq += "Producto: " + row["NombreProducto"].ToString() + " Cantidad: " + row["Cantidad"].ToString() + "\n";
+                        }
+                    }
+
                     if (dr["Tipo"].Equals("PQ"))
                     {
-                        MessageBox.Show("El código de barras pertenece a un Paquete", "Que tipo es Paquete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("El código de barras pertenece a un Paquete\nContiene :\n" + ProductServPq, "Que tipo es Paquete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     }
                     else if (dr["Tipo"].Equals("S"))
                     {
-                        MessageBox.Show("El código de barras pertenece a un Servicio", "Que tipo es Servicio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("El código de barras pertenece a un Servicio\nContiene :\n" + ProductServPq, "Que tipo es Servicio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+
                     lblNombreProducto.Text = dr["Nombre"].ToString();
                     if (dr["ClaveInterna"].ToString() != "")
                     {

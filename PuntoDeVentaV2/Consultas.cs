@@ -150,6 +150,12 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ObtenerProductosServPaq(string idServPQ)
+        {
+            string consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServPQ}'";
+            return consulta;
+        }
+
         public string GuardarProveedor(string[] datos, int tipo = 0)
         {
             string consulta = string.Empty;
