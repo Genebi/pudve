@@ -769,8 +769,6 @@ namespace PuntoDeVentaV2
 
             p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
 
-            btnPrimeraPagina.PerformClick();
-
             linkLblUltimaPagina.Text = p.countPag().ToString();
 
             CargarDatos();
@@ -815,7 +813,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public void CargarDatos(int status = 1, string busqueda = "")
+        private void CargarDatos(int status = 1, string busqueda = "")
         {
             int idProducto = 0;
 

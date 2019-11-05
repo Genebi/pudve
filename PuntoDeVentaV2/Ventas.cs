@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Data;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace PuntoDeVentaV2
 {
@@ -57,7 +58,8 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        NameValueCollection datos;
+        //NameValueCollection datos;
+        Dictionary<int, string> productosD; 
 
         const string fichero = @"\PUDVE\settings\folioventa\setupFolioVenta.txt";       // directorio donde esta el archivo de numero de codigo de barras consecutivo
         string Contenido;                                                               // para obtener el numero que tiene el codigo de barras en el arhivo
@@ -85,18 +87,18 @@ namespace PuntoDeVentaV2
 
         public void CargarProductosServicios()
         {
-            AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
+            /*AutoCompleteStringCollection coleccion = new AutoCompleteStringCollection();
             datos = new NameValueCollection();
 
             //Cargar lista de productos actuales
             datos = cn.ObtenerProductos(FormPrincipal.userID);
             productos = new string[datos.Count];
-            datos.CopyTo(productos, 0);
+            datos.CopyTo(productos, 0);*/
 
-            coleccion.AddRange(productos);
-            txtBuscadorProducto.AutoCompleteCustomSource = coleccion;
+            //coleccion.AddRange(productos);
+            /*txtBuscadorProducto.AutoCompleteCustomSource = coleccion;
             txtBuscadorProducto.AutoCompleteMode = AutoCompleteMode.None;
-            txtBuscadorProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            txtBuscadorProducto.AutoCompleteSource = AutoCompleteSource.CustomSource;*/
         }
 
         private void Ventas_Load(object sender, EventArgs e)
@@ -1882,7 +1884,21 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
+            var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
+
+            if (resultados.Count > 0)
+            {
+                productosD = resultados;
+
+                foreach (var item in resultados)
+                {
+                    listaProductos.Items.Add(item.Value);
+                    listaProductos.Visible = true;
+                    listaProductos.SelectedIndex = 0;
+                }
+            }
+
+            /*foreach (string s in txtBuscadorProducto.AutoCompleteCustomSource)
             {
                 if (s.Contains(txtBuscadorProducto.Text))
                 {
@@ -1890,7 +1906,7 @@ namespace PuntoDeVentaV2
                     listaProductos.Visible = true;
                     listaProductos.SelectedIndex = 0;
                 }
-            }
+            }*/
 
             /*if (listaProductos.Visible == false && txtBuscadorProducto.Text != "BUSCAR PRODUCTO O SERVICIO...")
             {
@@ -1964,16 +1980,6 @@ namespace PuntoDeVentaV2
             GenerarTicketCaja();
         }
 
-        private void Ventas_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Productos Product = Application.OpenForms.OfType<Productos>().FirstOrDefault();
-
-            if (Product != null)
-            {
-                Product.CargarDatos();
-            }
-        }
-
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -1987,7 +1993,8 @@ namespace PuntoDeVentaV2
             //Se obtiene el texto del item seleccionado del ListBox
             producto = listaProductos.Items[listaProductos.SelectedIndex].ToString();
             //Se obtiene el indice del array donde se encuentra el producto seleccionado
-            idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
+            //idProducto = Convert.ToInt32(datos.GetKey(Array.IndexOf(productos, producto)));
+            idProducto = productosD.FirstOrDefault(x => x.Value == producto).Key;
 
             datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
 
