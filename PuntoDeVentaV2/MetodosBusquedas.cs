@@ -748,7 +748,7 @@ namespace PuntoDeVentaV2
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
-            DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{busqueda}%' OR NombreAlterno1 LIKE '%{busqueda}%' Or NombreAlterno2 LIKE '%{busqueda}%')");
+            DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{busqueda}%' OR NombreAlterno1 LIKE '%{busqueda}%' Or NombreAlterno2 LIKE '%{busqueda}%')");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 

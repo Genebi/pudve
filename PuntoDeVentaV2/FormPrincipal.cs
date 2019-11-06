@@ -88,10 +88,10 @@ namespace PuntoDeVentaV2
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
 
-            ActualizarNombres();
+            //ActualizarNombres();
         }
 
-        private void ActualizarNombres()
+        /*private void ActualizarNombres()
         {
             IDictionary<int, string> datos = new Dictionary<int, string>();
 
@@ -131,7 +131,7 @@ namespace PuntoDeVentaV2
 
                 cn.EjecutarConsulta($"UPDATE Productos SET NombreAlterno1 = '{nombreAlterno1}', NombreAlterno2 = '{nombreAlterno2}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
             }
-        }
+        }*/
 
         private void obtenerDatosCheckStock()
         {
