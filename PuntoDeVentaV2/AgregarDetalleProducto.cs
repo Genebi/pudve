@@ -24,43 +24,43 @@ namespace PuntoDeVentaV2
 
         #region Variables Globales
 
-        List<string>    infoDetalle,
+        List<string> infoDetalle,
                         infoDetailProdGral;
 
-        Dictionary<string, string>  proveedores, 
-                                    categorias, 
-                                    ubicaciones, 
+        Dictionary<string, string> proveedores,
+                                    categorias,
+                                    ubicaciones,
                                     detallesGral;
 
         Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(),
-                                                               diccionarioDetalleBasicos  = new Dictionary<int, Tuple<string, string, string, string>>();
+                                                               diccionarioDetalleBasicos = new Dictionary<int, Tuple<string, string, string, string>>();
 
         DataTable dtProdMessg;
         DataRow drProdMessg;
 
-        string[]    datosProveedor,
+        string[] datosProveedor,
                     datosCategoria,
                     datosUbicacion,
                     datosDetalleGral,
-                    separadas, 
+                    separadas,
                     guardar;
 
-        string[]    listaProveedores = new string[] { }, 
-                    listaCategorias = new string[] { }, 
-                    listaUbicaciones = new string[] { }, 
+        string[] listaProveedores = new string[] { },
+                    listaCategorias = new string[] { },
+                    listaUbicaciones = new string[] { },
                     listaDetalleGral = new string[] { };
 
-        int XPos = 0, 
+        int XPos = 0,
             YPos = 0,
             contadorIndex = 0,
-            idProveedor = 0, 
-            idCategoria = 0, 
+            idProveedor = 0,
+            idCategoria = 0,
             idUbicacion = 0,
             idProductoDetalleGral;
 
-        string  nvoDetalle = string.Empty, 
-                nvoValor = string.Empty, 
-                editValor = string.Empty, 
+        string nvoDetalle = string.Empty,
+                nvoValor = string.Empty,
+                editValor = string.Empty,
                 deleteDetalle = string.Empty,
                 nombreProveedor = string.Empty,
                 nombreCategoria = string.Empty,
@@ -71,7 +71,7 @@ namespace PuntoDeVentaV2
 
         public static string finalIdProducto = string.Empty;
 
-        string  editDetelle = string.Empty, 
+        string editDetelle = string.Empty,
                 editDetalleNvo = string.Empty;
 
         #endregion Variables Globales
@@ -101,7 +101,7 @@ namespace PuntoDeVentaV2
             {
                 xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
             }
-            
+
             appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
 
             chkDatabase.Items.Clear();
@@ -134,7 +134,7 @@ namespace PuntoDeVentaV2
                             chkDatabase.Items.Add(lvi);
                         }
                     }
-                    
+
                     for (int i = 0; i < appSettings.Count; i++)
                     {
                         string foundSetting = string.Empty;
@@ -241,7 +241,7 @@ namespace PuntoDeVentaV2
             // Verificamos si existe esa configuracion
             if (!KeyExist(strKey))
             {
-                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", 
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.",
                                 "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else // si es que si existe
@@ -436,11 +436,11 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(), 
+                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(),
                                     "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 loadFormConfig();
-                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).", 
+                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).",
                                 "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -530,9 +530,9 @@ namespace PuntoDeVentaV2
         private void bt_Click(object sender, EventArgs e)
         {
             Button botonPrecionado = sender as Button;
-            string nameBt = string.Empty, textoBuscado =  string.Empty;
+            string nameBt = string.Empty, textoBuscado = string.Empty;
             nameBt = botonPrecionado.Name;
-            textoBuscado = nameBt.Remove(0,2);
+            textoBuscado = nameBt.Remove(0, 2);
             if (textoBuscado.Equals("Proveedor"))
             {
                 AgregarProveedor ap = new AgregarProveedor();
@@ -636,12 +636,12 @@ namespace PuntoDeVentaV2
                     XcbProv = panelContenido.Width / 2;
 
                     CargarProveedores();
-                    
+
                     ComboBox cbProveedor = new ComboBox();
                     cbProveedor.Name = "cb" + name;
                     cbProveedor.Width = 400;
                     cbProveedor.Height = 30;
-                    cbProveedor.Location = new Point(XcbProv-(cbProveedor.Width/2), 5);
+                    cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                     cbProveedor.SelectedIndexChanged += new System.EventHandler(cbProveedor_SelectValueChanged);
 
                     if (listaProveedores.Length > 0)
@@ -684,7 +684,7 @@ namespace PuntoDeVentaV2
                         cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
                     }
-                    else if(cbProveedor.Items.Count == 0)
+                    else if (cbProveedor.Items.Count == 0)
                     {
                         cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
@@ -721,9 +721,9 @@ namespace PuntoDeVentaV2
                     lblNombreCategoria.Location = new Point(XcbProv - (lblNombreCategoria.Width / 2), 32);
                     lblNombreCategoria.TextAlign = ContentAlignment.MiddleCenter;
                     lblNombreCategoria.BackColor = Color.White;
-                    
+
                     CargarCategorias();
-                    
+
                     ComboBox cbCategoria = new ComboBox();
                     cbCategoria.Name = "cb" + name;
                     cbCategoria.Width = 170;
@@ -952,7 +952,7 @@ namespace PuntoDeVentaV2
                         var DetalleGralPorPanel = mb.DetallesProductoGralPorPanel(Descripcion, FormPrincipal.userID, idProductoDetalleGral);
 
                         int cantidad = DetalleGralPorPanel.Length;
-                        
+
                         if (cantidad > 0)
                         {
                             if (Descripcion.Equals(nombrePanelContenido))
@@ -1199,7 +1199,7 @@ namespace PuntoDeVentaV2
             string cadena = string.Empty, namePanel = string.Empty;
             char[] delimiterChars = { ' ', '|' };
             int comboBoxIndex = 0;
-            
+
             comboBoxIndex = comboBox.SelectedIndex;
             namePanel = comboBox.Name.ToString().Remove(0, 2);
 
@@ -1219,7 +1219,7 @@ namespace PuntoDeVentaV2
                 {
                     idCategoria = 0;
                 }
-                
+
                 if (idCategoria > 0)
                 {
                     //cargarDatosProveedor(Convert.ToInt32(idCategoria));
@@ -1364,12 +1364,12 @@ namespace PuntoDeVentaV2
                 datosDetalleGral = mb.ObtenerDatosDetalleGral(idDetalleGral, FormPrincipal.userID, idProductoDetalleGral);
             }
         }
-        
+
         private void encontrarPanel(string panelBuscado)
         {
             foreach (Control contHijo in fLPCentralDetalle.Controls.OfType<Control>())
             {
-                if(contHijo.Name == panelBuscado)
+                if (contHijo.Name == panelBuscado)
                 {
                     fLPCentralDetalle.Controls.Remove(contHijo);
                     break;
@@ -1578,7 +1578,7 @@ namespace PuntoDeVentaV2
                             RefreshAppSettings();
                             loadFormConfig();
                             BuscarTextoListView(settingDatabases);
-                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", 
+                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros",
                                             "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
@@ -1693,7 +1693,7 @@ namespace PuntoDeVentaV2
         {
             // Variables para poder hacer el control 
             // de registro y actualizacion de la tabla
-            string Descripcion = string.Empty,
+            string  Descripcion = string.Empty,
                     panel = string.Empty;
 
             // lista para almacenar los datos
@@ -1708,113 +1708,113 @@ namespace PuntoDeVentaV2
                 // Verificamos si el nombre del PanelContenedor no sea Igual a panelContenedorProveedor
                 if (!contHijo.Name.Equals("panelContenedorProveedor"))
                 {
-                    // Verificamos si el nombre del PanelContenedor no sea Igual a panelContenedorCategoria
-                    if (!contHijo.Name.Equals("panelContenedorCategoria"))
+                    // Recorremos los controles en el PanelContenedor
+                    foreach (Control contSubHijo in contHijo.Controls)
                     {
-                        // Verificamos si el nombre del PanelContenedor no sea Igual a panelContenedorUbicacion
-                        if (!contHijo.Name.Equals("panelContenedorUbicacion"))
+                        // Verificamos si el PanelContenido ya existe en el Diccionario de Detalle General
+                        // sí ya esta el registro del PanelContenido la variable sera true
+                        // sí no esta el registro del PanelContenido la variable sera false
+                        bool alreadyStoredPanelConteido = diccionarioDetallesGeneral.Any(x => x.Value.Item2 == contSubHijo.Name);
+                        // sí es True
+                        if (alreadyStoredPanelConteido)
                         {
-                            // Recorremos los controles en el PanelContenedor
-                            foreach (Control contSubHijo in contHijo.Controls)
+                            // Recorremos los controles en el PanelContenido
+                            foreach (Control contSubItemHijo in contSubHijo.Controls)
                             {
-                                // Verificamos si el PanelContenido ya existe en el Diccionario de Detalle General
-                                // sí ya esta el registro del PanelContenido la variable sera true
-                                // sí no esta el registro del PanelContenido la variable sera false
-                                bool alreadyStoredPanelConteido = diccionarioDetallesGeneral.Any(x => x.Value.Item2 == contSubHijo.Name);
-                                // sí es True
-                                if (alreadyStoredPanelConteido)
+                                // Verificamos si el control es de tipo Label
+                                if (contSubItemHijo is Label)
                                 {
-                                    // Recorremos los controles en el PanelContenido
-                                    foreach (Control contSubItemHijo in contSubHijo.Controls)
+                                    // Verificamos si la Descripcion ya existe en el Diccionario de Detalle General
+                                    // sí ya esta el registro de la Descripcion la variable sera true
+                                    // sí no esta el registro de la Descripcion la variable sera false
+                                    bool alreadyStoredDescripcion = diccionarioDetallesGeneral.Any(x => x.Value.Item4 == contSubItemHijo.Text);
+                                    // sí es True
+                                    if (alreadyStoredDescripcion)
                                     {
-                                        // Verificamos si el control es de tipo Label
-                                        if (contSubItemHijo is Label)
+                                        // No se han detectado cambios en los registros
+                                        break;
+                                    }
+                                    // sí es False
+                                    else if (!alreadyStoredDescripcion)
+                                    {
+                                        // Se han detectado cambios en alguno de los registros
+                                        Descripcion = contSubItemHijo.Text;
+                                        // recorremos el diccionario Detalles Generales
+                                        foreach (var item in diccionarioDetallesGeneral)
                                         {
-                                            // Verificamos si la Descripcion ya existe en el Diccionario de Detalle General
-                                            // sí ya esta el registro de la Descripcion la variable sera true
-                                            // sí no esta el registro de la Descripcion la variable sera false
-                                            bool alreadyStoredDescripcion = diccionarioDetallesGeneral.Any(x => x.Value.Item4 == contSubItemHijo.Text);
-                                            // sí es True
-                                            if (alreadyStoredDescripcion)
+                                            // comparamos si el nombre del Panel es el mismo que el del Diccionario
+                                            if (item.Value.Item2.Equals(contSubHijo.Name))
                                             {
-                                                // No se han detectado cambios en los registros
-                                                break;
-                                            }
-                                            // sí es False
-                                            else if (!alreadyStoredDescripcion)
-                                            {
-                                                // Se han detectado cambios en alguno de los registros
-                                                Descripcion = contSubItemHijo.Text;
-                                                // recorremos el diccionario Detalles Generales
-                                                foreach (var item in diccionarioDetallesGeneral)
+                                                // verificamos que sea diferente la Descripcion
+                                                if (!item.Value.Item4.Equals(Descripcion))
                                                 {
-                                                    // comparamos si el nombre del Panel es el mismo que el del Diccionario
-                                                    if (item.Value.Item2.Equals(contSubHijo.Name))
-                                                    {
-                                                        // verificamos que sea diferente la Descripcion
-                                                        if (!item.Value.Item4.Equals(Descripcion))
-                                                        {
-                                                            // agregamos el ID
-                                                            infoDetailProdGral.Add(item.Value.Item1.ToString());
-                                                            break;
-                                                        }
-                                                    }
+                                                    // agregamos el ID
+                                                    infoDetailProdGral.Add(item.Value.Item1.ToString());
+                                                    break;
                                                 }
-                                                // Obtenemos todos los datos del Detalle en General
-                                                var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                                // Obtenemos el ID del Detalle General
-                                                infoDetailProdGral.Add(idFound[0].ToString());
-                                                // Ejecutamos el proceso de guardado
-                                                try
-                                                {
-                                                    guardar = infoDetailProdGral.ToArray();
-                                                    cn.EjecutarConsulta(cs.ActualizarDetallesProductoGenerales(guardar));
-                                                    infoDetailProdGral.Clear();
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                }
-                                                break;
                                             }
                                         }
+                                        // Obtenemos todos los datos del Detalle en General
+                                        var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                                        // Obtenemos el ID del Detalle General
+                                        infoDetailProdGral.Add(idFound[0].ToString());
+                                        // Ejecutamos el proceso de guardado
+                                        try
+                                        {
+                                            guardar = infoDetailProdGral.ToArray();
+                                            cn.EjecutarConsulta(cs.ActualizarDetallesProductoGenerales(guardar));
+                                            infoDetailProdGral.Clear();
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                        break;
                                     }
                                 }
-                                // sí es False
-                                else if (!alreadyStoredPanelConteido)
+                            }
+                        }
+                        // sí es False
+                        else if (!alreadyStoredPanelConteido)
+                        {
+                            // Se ha detectado un nuevo Registro
+                            // Recorremos los controles en el PanelContenido
+                            foreach (Control contSubItemHijo in contSubHijo.Controls)
+                            {
+                                // Verificamos si el control es de tipo Label
+                                if (contSubItemHijo is Label)
                                 {
-                                    // Se ha detectado un nuevo Registro
-                                    // Recorremos los controles en el PanelContenido
-                                    foreach (Control contSubItemHijo in contSubHijo.Controls)
+                                    if (!finalIdProducto.Equals(""))
                                     {
-                                        // Verificamos si el control es de tipo Label
-                                        if (contSubItemHijo is Label)
+                                        // Se almacenan los datos para 
+                                        // el posterior registro
+                                        infoDetailProdGral.Add(finalIdProducto);
+                                        infoDetailProdGral.Add(FormPrincipal.userID.ToString());
+                                        Descripcion = contSubItemHijo.Text;
+                                        var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                                        if (idFound.Length > 0)
                                         {
-                                            // Se almacenan los datos para 
-                                            // el posterior registro
-                                            infoDetailProdGral.Add(finalIdProducto);
-                                            infoDetailProdGral.Add(FormPrincipal.userID.ToString());
-                                            Descripcion = contSubItemHijo.Text;
-                                            var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                            if (idFound.Length > 0)
+                                            infoDetailProdGral.Add(idFound[0].ToString());
+                                            infoDetailProdGral.Add("1");
+                                            infoDetailProdGral.Add(contSubHijo.Name);
+                                            // Ejecutamos el proceso de guardado
+                                            try
                                             {
-                                                infoDetailProdGral.Add(idFound[0].ToString());
-                                                infoDetailProdGral.Add("1");
-                                                infoDetailProdGral.Add(contSubHijo.Name);
-                                                // Ejecutamos el proceso de guardado
-                                                try
-                                                {
-                                                    guardar = infoDetailProdGral.ToArray();
-                                                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
-                                                    infoDetailProdGral.Clear();
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                }
-                                                break;
+                                                guardar = infoDetailProdGral.ToArray();
+                                                cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                                                infoDetailProdGral.Clear();
                                             }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                            break;
                                         }
+                                    }
+                                    else if (finalIdProducto.Equals(""))
+                                    {
+                                        MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                                     }
                                 }
                             }
@@ -1828,7 +1828,7 @@ namespace PuntoDeVentaV2
         {
             // Variables para poder hacer el control 
             // de registro y actualizacion de la tabla
-            string  Descripcion = string.Empty,
+            string Descripcion = string.Empty,
                     panel = string.Empty;
 
             // lista para almacenar los datos
@@ -1894,6 +1894,7 @@ namespace PuntoDeVentaV2
                                                             // verificamos que sea diferente la Descripcion
                                                             if (!item.Value.Item4.Equals(Descripcion))
                                                             {
+
                                                                 // agregamos el ID
                                                                 infoDetalle.Add(item.Value.Item1.ToString());
                                                             }
@@ -1919,139 +1920,6 @@ namespace PuntoDeVentaV2
                                                             }
                                                             break;
                                                         }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            // verificamos que sea el PanelContenido sea el de Categoria
-                            else if (contSubHijo.Name.Equals("panelContenidoCategoria"))
-                            {
-                                // Recorremos los controles en el PanelContenido
-                                foreach (Control contSubItemHijo in contSubHijo.Controls)
-                                {
-                                    // Verificamos si el control es de tipo Label
-                                    if (contSubItemHijo is Label)
-                                    {
-                                        // Verificamos si la Descripcion ya existe en el Diccionario de Detalles Basicos
-                                        // sí ya esta el registro de la Descripcion la variable sera true
-                                        // sí no esta el registro de la Descripcion la variable sera false
-                                        bool alreadyStoredDescripcion = diccionarioDetalleBasicos.Any(x => x.Value.Item4 == contSubItemHijo.Text);
-                                        // sí es True
-                                        if (alreadyStoredDescripcion)
-                                        {
-                                            // No se han detectado cambios en los registros
-                                            break;
-                                        }
-                                        // sí es False
-                                        else if (!alreadyStoredDescripcion)
-                                        {
-                                            // recorremos el diccionario Detalles Basicos
-                                            foreach (var item in diccionarioDetalleBasicos)
-                                            {
-                                                // verificamos que la descripcion no es igual
-                                                if (!item.Value.Item4.Equals(contSubHijo.Text))
-                                                {
-                                                    // Se han detectado cambios en alguno de los registros
-                                                    Descripcion = contSubItemHijo.Text;
-                                                    // comparamos si el nombre del Panel es el mismo que el del Diccionario
-                                                    if (item.Value.Item2.Equals(contSubHijo.Name))
-                                                    {
-                                                        // verificamos que sea diferente la Descripcion
-                                                        if (!item.Value.Item4.Equals(Descripcion))
-                                                        {
-                                                            // agregamos el ID
-                                                            infoDetalle.Add(item.Value.Item1.ToString());
-                                                        }
-                                                        // Obtenemos todos los datos del Detalles en Basicos
-                                                        var idFound = mb.obtenerIdDetallesCategorias(FormPrincipal.userID, Descripcion);
-                                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                        // Ejecutamos el proceso de guardado
-                                                        try
-                                                        {
-                                                            // Convertimos la Lista lo que tengan almacenado
-                                                            // a un Array para guardarlo en la variable guardar
-                                                            guardar = infoDetalle.ToArray();
-                                                            // usamos la variable guardar para hacer el
-                                                            // query para poder hacer la actualizacion
-                                                            cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDeCategoria(guardar));
-                                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
-                                                        }
-                                                        catch (Exception ex)
-                                                        {
-                                                            // si hubo algun error de actualización se envia un mensaje al usuario
-                                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                        }
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            else if (contSubHijo.Name.Equals("panelContenidoUbicacion"))
-                            {
-                                // Recorremos los controles en el PanelContenido
-                                foreach (Control contSubItemHijo in contSubHijo.Controls)
-                                {
-                                    // Verificamos si el control es de tipo Label
-                                    if (contSubItemHijo is Label)
-                                    {
-                                        // Verificamos si la Descripcion ya existe en el Diccionario de Detalles Basicos
-                                        // sí ya esta el registro de la Descripcion la variable sera true
-                                        // sí no esta el registro de la Descripcion la variable sera false
-                                        bool alreadyStoredDescripcion = diccionarioDetalleBasicos.Any(x => x.Value.Item4 == contSubItemHijo.Text);
-                                        // sí es True
-                                        if (alreadyStoredDescripcion)
-                                        {
-                                            // No se han detectado cambios en los registros
-                                            break;
-                                        }
-                                        // sí es False
-                                        else if (!alreadyStoredDescripcion)
-                                        {
-                                            // recorremos el diccionario Detalles Basicos
-                                            foreach (var item in diccionarioDetalleBasicos)
-                                            {
-                                                // verificamos que la descripcion no es igual
-                                                if (!item.Value.Item4.Equals(contSubHijo.Text))
-                                                {
-                                                    // Se han detectado cambios en alguno de los registros
-                                                    Descripcion = contSubItemHijo.Text;
-                                                    // comparamos si el nombre del Panel es el mismo que el del Diccionario
-                                                    if (item.Value.Item2.Equals(contSubHijo.Name))
-                                                    {
-                                                        // verificamos que sea diferente la Descripcion
-                                                        if (!item.Value.Item4.Equals(Descripcion))
-                                                        {
-                                                            // agregamos el ID
-                                                            infoDetalle.Add(item.Value.Item1.ToString());
-                                                        }
-                                                        // Obtenemos todos los datos del Detalles en Basicos
-                                                        var idFound = mb.obtenerIdDetallesUbicacion(FormPrincipal.userID, Descripcion);
-                                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                        // Ejecutamos el proceso de guardado
-                                                        try
-                                                        {
-                                                            // Convertimos la Lista lo que tengan almacenado
-                                                            // a un Array para guardarlo en la variable guardar
-                                                            guardar = infoDetalle.ToArray();
-                                                            // usamos la variable guardar para hacer el
-                                                            // query para poder hacer la actualizacion
-                                                            cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDeUbicacion(guardar));
-                                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
-                                                        }
-                                                        catch (Exception ex)
-                                                        {
-                                                            // si hubo algun error de actualización se envia un mensaje al usuario
-                                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                        }
-                                                        break;
                                                     }
                                                 }
                                             }
@@ -2085,27 +1953,41 @@ namespace PuntoDeVentaV2
                                                 {
                                                     if (!contSubItemHijo.Text.Equals(""))
                                                     {
-                                                        infoDetalle.Add(finalIdProducto);
-                                                        infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
-                                                        Descripcion = contSubItemHijo.Text;
-                                                        var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
-                                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                        // Ejecutamos el proceso de guardado
-                                                        try
+                                                        if (!finalIdProducto.Equals(""))
                                                         {
-                                                            // Convertimos la Lista lo que tengan almacenado
-                                                            // a un Array para guardarlo en la variable guardar
-                                                            guardar = infoDetalle.ToArray();
-                                                            // usamos la variable guardar para hacer el
-                                                            // query para poder hacer la actualizacion
-                                                            cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
-                                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                            infoDetalle.Add(finalIdProducto);
+                                                            infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
+                                                            Descripcion = contSubItemHijo.Text;
+                                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
+                                                            infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                            infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                            // Ejecutamos el proceso de guardado
+                                                            try
+                                                            {
+                                                                // Convertimos la Lista lo que tengan almacenado
+                                                                // a un Array para guardarlo en la variable guardar
+                                                                guardar = infoDetalle.ToArray();
+                                                                // usamos la variable guardar para hacer el
+                                                                // query para poder hacer la actualizacion
+                                                                cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
+                                                                infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                            }
+                                                            catch (Exception ex)
+                                                            {
+                                                                // si hubo algun error de actualización se envia un mensaje al usuario
+                                                                MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                            }
                                                         }
-                                                        catch (Exception ex)
+                                                        else if (finalIdProducto.Equals(""))
                                                         {
-                                                            // si hubo algun error de actualización se envia un mensaje al usuario
-                                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                            MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            infoDetalle.Add(finalIdProducto);
+                                                            infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
+                                                            Descripcion = contSubItemHijo.Text;
+                                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
+                                                            infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                            infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                            AgregarEditarProducto.detalleProductoBasico = infoDetalle;
                                                         }
                                                     }
                                                 }
