@@ -599,6 +599,11 @@
             this.nudCantidadPS.DecimalPlaces = 2;
             this.nudCantidadPS.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCantidadPS.Location = new System.Drawing.Point(3, 31);
+            this.nudCantidadPS.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
             this.nudCantidadPS.Minimum = new decimal(new int[] {
             100,
             0,

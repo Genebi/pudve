@@ -141,7 +141,7 @@
             this.txtVales.Location = new System.Drawing.Point(71, 125);
             this.txtVales.Name = "txtVales";
             this.txtVales.Size = new System.Drawing.Size(103, 23);
-            this.txtVales.TabIndex = 221;
+            this.txtVales.TabIndex = 3;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
@@ -151,7 +151,7 @@
             this.txtTarjeta.Location = new System.Drawing.Point(71, 93);
             this.txtTarjeta.Name = "txtTarjeta";
             this.txtTarjeta.Size = new System.Drawing.Size(103, 23);
-            this.txtTarjeta.TabIndex = 219;
+            this.txtTarjeta.TabIndex = 2;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
@@ -161,7 +161,7 @@
             this.txtEfectivo.Location = new System.Drawing.Point(71, 59);
             this.txtEfectivo.Name = "txtEfectivo";
             this.txtEfectivo.Size = new System.Drawing.Size(103, 23);
-            this.txtEfectivo.TabIndex = 217;
+            this.txtEfectivo.TabIndex = 1;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
@@ -182,7 +182,7 @@
             this.txtTrans.Location = new System.Drawing.Point(297, 93);
             this.txtTrans.Name = "txtTrans";
             this.txtTrans.Size = new System.Drawing.Size(103, 23);
-            this.txtTrans.TabIndex = 220;
+            this.txtTrans.TabIndex = 5;
             this.txtTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTrans.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTrans_KeyUp);
             // 
@@ -204,7 +204,7 @@
             this.txtConcepto.Multiline = true;
             this.txtConcepto.Name = "txtConcepto";
             this.txtConcepto.Size = new System.Drawing.Size(327, 45);
-            this.txtConcepto.TabIndex = 223;
+            this.txtConcepto.TabIndex = 6;
             // 
             // btnCancelar
             // 
@@ -217,7 +217,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(56, 273);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(160, 24);
-            this.btnCancelar.TabIndex = 225;
+            this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -233,7 +233,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(223, 273);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(160, 24);
-            this.btnAceptar.TabIndex = 224;
+            this.btnAceptar.TabIndex = 7;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -244,7 +244,7 @@
             this.txtCheque.Location = new System.Drawing.Point(297, 58);
             this.txtCheque.Name = "txtCheque";
             this.txtCheque.Size = new System.Drawing.Size(103, 23);
-            this.txtCheque.TabIndex = 218;
+            this.txtCheque.TabIndex = 4;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
