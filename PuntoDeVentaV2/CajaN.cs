@@ -95,9 +95,9 @@ namespace PuntoDeVentaV2
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
-            cantidadesReporte = ObtenerCantidades();
+            //cantidadesReporte = ObtenerCantidades();
 
-            /*AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
+            AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
 
             corte.FormClosed += delegate
             {
@@ -105,15 +105,15 @@ namespace PuntoDeVentaV2
 
                 if (botones == true)
                 {
-                    GenerarReporte();
+                    //GenerarReporte();
 
                     botones = false;
                 }
             };
 
-            corte.ShowDialog();*/
+            corte.ShowDialog();
 
-            GenerarTicket();
+            //GenerarTicket();
         }
 
         private string[] ObtenerCantidades()
