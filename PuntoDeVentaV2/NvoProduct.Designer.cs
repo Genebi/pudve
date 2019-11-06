@@ -91,6 +91,7 @@
             // 
             // txtNombreProducto
             // 
+            this.txtNombreProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNombreProducto.Location = new System.Drawing.Point(116, 68);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(740, 20);

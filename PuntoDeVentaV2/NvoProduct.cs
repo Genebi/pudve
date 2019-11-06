@@ -31,6 +31,8 @@ namespace PuntoDeVentaV2
         public string ClaveProdEmisorProdServicioXML { get; set; }
         public string UnidadMedidaProdServicioXML { get; set; }
         public string DescuentoProdServicioXML { get; set; }
+        public string NameNvoProveedorXML { get; set; }
+        public string IdNvoProveedorXML { get; set; }
 
         static public string ProdNombreFin = "";
         static public string ProdStockFin = "";
@@ -46,6 +48,8 @@ namespace PuntoDeVentaV2
         static public string ClaveProdEmisorXMLNvoProdServicio = "";
         static public string UnidadMedidaXMLProdServicio = "";
         static public string DescuentoXMLNvoProdServicio = "";
+        static public string nameProveedorXML;
+        static public string idProveedorXML;
 
         float stockNvo, precioNvo, PrecioCompraNvo;
 
@@ -188,6 +192,8 @@ namespace PuntoDeVentaV2
             ClaveProdEmisorXMLNvoProdServicio = ClaveProdEmisorProdServicioXML;
             UnidadMedidaXMLProdServicio = UnidadMedidaProdServicioXML;
             DescuentoXMLNvoProdServicio = DescuentoProdServicioXML;
+            idProveedorXML = IdNvoProveedorXML;
+            nameProveedorXML = NameNvoProveedorXML;
 
             txtNombreProducto.Text = ProdNombreFin;
             txtStockProducto.Text = ProdStockFin;
@@ -529,10 +535,14 @@ namespace PuntoDeVentaV2
                     string nombreEmisor = NobEmisorXMLNvoProdServicio;
                     string claveProdEmisor = ClaveProdEmisorXMLNvoProdServicio;
                     string descuentoXML = DescuentoXMLNvoProdServicio;
+                    string NombreProveedorXML = nameProveedorXML;
+                    string numeroProveedorXML = idProveedorXML;
 
                     //Se obtiene la ID del último producto agregado
                     idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
+                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, NombreProveedorXML, Convert.ToInt32(numeroProveedorXML)));
+                    
                     string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{txtPrecioCompra.Text}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
                     try
                     {

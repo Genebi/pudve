@@ -1622,7 +1622,10 @@ namespace PuntoDeVentaV2
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
-                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, nameProveedorXML.ToString(), Convert.ToInt32(idProveedorXML.ToString())));
+                            if (DatosSourceFinal == 3)
+                            {
+                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, nameProveedorXML.ToString(), Convert.ToInt32(idProveedorXML.ToString())));
+                            }
 
                             //Se realiza el proceso para guardar los detalles de facturación del producto
                             if (datosImpuestos != null)
@@ -1897,7 +1900,10 @@ namespace PuntoDeVentaV2
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
                         //Se obtiene la ID del último producto agregado
                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-                        cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, nameProveedorXML.ToString(), Convert.ToInt32(idProveedorXML.ToString())));
+                        if (DatosSourceFinal == 3)
+                        {
+                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, nameProveedorXML.ToString(), Convert.ToInt32(idProveedorXML.ToString())));
+                        }
                         if (respuesta > 0)
                         {
                             var idProveedor = string.Empty;
@@ -3761,6 +3767,8 @@ namespace PuntoDeVentaV2
             nvoProductoAdd.ClaveProdEmisorProdServicioXML = ClaveProdEmisorXMLNvoProd;
             nvoProductoAdd.UnidadMedidaProdServicioXML = claveUnidadMedida;
             nvoProductoAdd.DescuentoProdServicioXML = DescuentoXMLNvoProd;
+            nvoProductoAdd.IdNvoProveedorXML = idProveedorXML;
+            nvoProductoAdd.NameNvoProveedorXML = nameProveedorXML;
         }
 
         private void txtCategoriaProducto_TextChanged(object sender, EventArgs e)

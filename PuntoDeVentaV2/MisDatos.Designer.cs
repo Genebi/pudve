@@ -244,7 +244,6 @@
             this.rbPersonaMoral.Name = "rbPersonaMoral";
             this.rbPersonaMoral.Size = new System.Drawing.Size(62, 21);
             this.rbPersonaMoral.TabIndex = 1;
-            this.rbPersonaMoral.TabStop = true;
             this.rbPersonaMoral.Text = "Moral";
             this.rbPersonaMoral.UseVisualStyleBackColor = true;
             this.rbPersonaMoral.Click += new System.EventHandler(this.rbPersonaMoral_Click);
@@ -252,6 +251,7 @@
             // rbPersonaFisica
             // 
             this.rbPersonaFisica.AutoSize = true;
+            this.rbPersonaFisica.Checked = true;
             this.rbPersonaFisica.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbPersonaFisica.Location = new System.Drawing.Point(10, 29);
             this.rbPersonaFisica.Margin = new System.Windows.Forms.Padding(2);
