@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
 
         static public DataTable SearchDesCliente, SearchDesMayoreo;
         static public List<string> descuentos = new List<string>();
+        static public List<string> detalleProductoBasico = new List<string>();
 
         List<string> prodServPaq = new List<string>();
 
@@ -1596,7 +1597,7 @@ namespace PuntoDeVentaV2
                 else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
                     string[] guardar;
-                    int respuesta=0;
+                    int respuesta = 0;
                     /****************************
                     *	codigo de Alejandro		*
                     ****************************/
@@ -1654,76 +1655,86 @@ namespace PuntoDeVentaV2
 
                             var idProveedor = string.Empty;
 
+                            bool isEmpty = !detalleProductoBasico.Any();
+                            
+                            if (!isEmpty)
+                            {
+                                // Para guardar los detalles del producto
+                                // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                                guardar = detalleProductoBasico.ToArray();
+                                cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
+                            }
+
                             // Para guardar los detalles del producto
                             // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
-                            int contador = 0;
-                            List<string> infoDetalle = new List<string>();
+                            //int contador = 0;
+                            //List<string> infoDetalle = new List<string>();
 
-                            infoDetalle.Add(idProducto.ToString());
-                            infoDetalle.Add(FormPrincipal.userID.ToString());
+                            //infoDetalle.Add(idProducto.ToString());
+                            //infoDetalle.Add(FormPrincipal.userID.ToString());
 
-                            if (!string.IsNullOrWhiteSpace(infoProveedor))
-                            {
-                                var auxiliar = infoProveedor.Split('|');
-                                var idProveedorTmp = auxiliar[0];
-                                var nombreProveedor = auxiliar[1];
+                            //if (!string.IsNullOrWhiteSpace(infoProveedor))
+                            //{
+                            //    var auxiliar = infoProveedor.Split('|');
+                            //    var idProveedorTmp = auxiliar[0];
+                            //    var nombreProveedor = auxiliar[1];
 
-                                idProveedor = idProveedorTmp;
-                                infoDetalle.Add(nombreProveedor);
-                                infoDetalle.Add(idProveedor);
-                                contador++;
-                            }
-                            else
-                            {
-                                infoDetalle.Add("");
-                                infoDetalle.Add("0");
-                            }
+                            //    idProveedor = idProveedorTmp;
+                            //    infoDetalle.Add(nombreProveedor);
+                            //    infoDetalle.Add(idProveedor);
+                            //    contador++;
+                            //}
+                            //else
+                            //{
+                            //    infoDetalle.Add("");
+                            //    infoDetalle.Add("0");
+                            //}
 
-                            if (!string.IsNullOrWhiteSpace(infoCategoria))
-                            {
-                                var auxiliar = infoCategoria.Split('|');
-                                var idCategoria = auxiliar[0];
-                                var nombreCategoria = auxiliar[1];
+                            //if (!string.IsNullOrWhiteSpace(infoCategoria))
+                            //{
+                            //    var auxiliar = infoCategoria.Split('|');
+                            //    var idCategoria = auxiliar[0];
+                            //    var nombreCategoria = auxiliar[1];
 
-                                infoDetalle.Add(nombreCategoria);
-                                infoDetalle.Add(idCategoria);
-                                contador++;
-                            }
-                            else
-                            {
-                                infoDetalle.Add("");
-                                infoDetalle.Add("0");
-                            }
+                            //    infoDetalle.Add(nombreCategoria);
+                            //    infoDetalle.Add(idCategoria);
+                            //    contador++;
+                            //}
+                            //else
+                            //{
+                            //    infoDetalle.Add("");
+                            //    infoDetalle.Add("0");
+                            //}
 
-                            if (!string.IsNullOrWhiteSpace(infoUbicacion))
-                            {
-                                var auxiliar = infoUbicacion.Split('|');
-                                var idUbicacion = auxiliar[0];
-                                var nombreUbicacion = auxiliar[1];
+                            //if (!string.IsNullOrWhiteSpace(infoUbicacion))
+                            //{
+                            //    var auxiliar = infoUbicacion.Split('|');
+                            //    var idUbicacion = auxiliar[0];
+                            //    var nombreUbicacion = auxiliar[1];
 
-                                infoDetalle.Add(nombreUbicacion);
-                                infoDetalle.Add(idUbicacion);
-                                contador++;
-                            }
-                            else
-                            {
-                                infoDetalle.Add("");
-                                infoDetalle.Add("0");
-                            }
+                            //    infoDetalle.Add(nombreUbicacion);
+                            //    infoDetalle.Add(idUbicacion);
+                            //    contador++;
+                            //}
+                            //else
+                            //{
+                            //    infoDetalle.Add("");
+                            //    infoDetalle.Add("0");
+                            //}
 
-                            if (contador > 0)
-                            {
-                                guardar = infoDetalle.ToArray();
-                                //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+                            //if (contador > 0)
+                            //{
+                            //    guardar = infoDetalle.ToArray();
+                            //    //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
 
-                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+                            //    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
                                 
-                                FormDetalleProducto.Close();
-                            }
+                            //    FormDetalleProducto.Close();
+                            //}
 
-                            infoProveedor = string.Empty;
-                            infoCategoria = string.Empty;
-                            infoUbicacion = string.Empty;
+                            //infoProveedor = string.Empty;
+                            //infoCategoria = string.Empty;
+                            //infoUbicacion = string.Empty;
                             // Fin del guardado de detalles del producto
                             
                             if (DatosSourceFinal == 1)
