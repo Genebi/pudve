@@ -107,6 +107,12 @@ namespace PuntoDeVentaV2
                 totalCheque -= CajaN.retiroCheque;
                 totalTransferencia -= CajaN.retiroTrans;
 
+                if (totalEfectivo <= 0) { totalEfectivo = 0; }
+                if (totalTarjeta <= 0) { totalTarjeta = 0; }
+                if (totalVales <= 0) { totalVales = 0; }
+                if (totalCheque <= 0) { totalCheque = 0; }
+                if (totalTransferencia <= 0) { totalTransferencia = 0; }
+
 
                 var cantidad = totalEfectivo + totalTarjeta + totalVales + totalCheque + totalTransferencia + totalCredito;
 
@@ -174,6 +180,25 @@ namespace PuntoDeVentaV2
 
             // Se guardan las cantidades que el usuario es lo que va a retirar
             var cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
+
+            // Si es igual a cero no procede la operacion
+            if (cantidad == 0)
+            {
+                var mensaje = string.Empty;
+
+                if (operacion == 1 || operacion == 2)
+                {
+                    mensaje = "La cantidad a retirar debe ser mayor a cero";
+                }
+                else
+                {
+                    mensaje = "La cantidad a depositar debe ser mayor a cero";
+                }
+
+                MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
 
             string[] datos = new string[] {
                 tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),

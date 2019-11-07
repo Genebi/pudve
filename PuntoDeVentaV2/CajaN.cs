@@ -340,11 +340,11 @@ namespace PuntoDeVentaV2
             lbTTotalCaja.Text = "$" + (subtotal - dineroRetirado).ToString("0.00");
 
             // Variables de clase
-            totalEfectivo = efectivo;
-            totalTarjeta = tarjeta;
-            totalVales = vales;
-            totalCheque = cheque;
-            totalTransferencia = trans;
+            totalEfectivo = efectivo - retiroEfectivo;
+            totalTarjeta = tarjeta - retiroTarjeta;
+            totalVales = vales - retiroVales;
+            totalCheque = cheque - retiroCheque;
+            totalTransferencia = trans - retiroTrans;
             totalCredito = credito;
         }
         #endregion
