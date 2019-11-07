@@ -1813,7 +1813,7 @@ namespace PuntoDeVentaV2
                                     }
                                     else if (finalIdProducto.Equals(""))
                                     {
-                                        MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                     }
                                 }
@@ -1980,7 +1980,7 @@ namespace PuntoDeVentaV2
                                                         }
                                                         else if (finalIdProducto.Equals(""))
                                                         {
-                                                            MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                             infoDetalle.Add(finalIdProducto);
                                                             infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
                                                             Descripcion = contSubItemHijo.Text;
