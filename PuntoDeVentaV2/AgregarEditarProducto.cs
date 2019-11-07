@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         static public DataTable SearchDesCliente, SearchDesMayoreo;
         static public List<string> descuentos = new List<string>();
         static public List<string> detalleProductoBasico = new List<string>();
+        static public List<string> detalleProductoGeneral = new List<string>();
 
         List<string> prodServPaq = new List<string>();
 
@@ -1920,77 +1921,88 @@ namespace PuntoDeVentaV2
                         {
                             var idProveedor = string.Empty;
 
-                            // Para guardar los detalles del producto
-                            // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
-                            int contador = 0;
-                            List<string> infoDetalle = new List<string>();
+                            bool isEmpty = !detalleProductoBasico.Any();
 
-                            infoDetalle.Add(idProducto.ToString());
-                            infoDetalle.Add(FormPrincipal.userID.ToString());
-
-                            if (!string.IsNullOrWhiteSpace(infoProveedor))
+                            if (!isEmpty)
                             {
-                                var auxiliar = infoProveedor.Split('|');
-                                var idProveedorTmp = auxiliar[0];
-                                var nombreProveedor = auxiliar[1];
-
-                                idProveedor = idProveedorTmp;
-                                infoDetalle.Add(nombreProveedor);
-                                infoDetalle.Add(idProveedor);
-                                contador++;
-                            }
-                            else
-                            {
-                                infoDetalle.Add("");
-                                infoDetalle.Add("0");
+                                // Para guardar los detalles del producto
+                                // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                                guardar = detalleProductoBasico.ToArray();
+                                guardar[0] = idProducto.ToString();
+                                cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
                             }
 
-                            if (!string.IsNullOrWhiteSpace(infoCategoria))
-                            {
-                                var auxiliar = infoCategoria.Split('|');
-                                var idCategoria = auxiliar[0];
-                                var nombreCategoria = auxiliar[1];
+                            //// Para guardar los detalles del producto
+                            //// Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                            //int contador = 0;
+                            //List<string> infoDetalle = new List<string>();
 
-                                infoDetalle.Add(nombreCategoria);
-                                infoDetalle.Add(idCategoria);
-                                contador++;
-                            }
-                            else
-                            {
-                                infoDetalle.Add("");
-                                infoDetalle.Add("0");
-                            }
+                            //infoDetalle.Add(idProducto.ToString());
+                            //infoDetalle.Add(FormPrincipal.userID.ToString());
 
-                            if (!string.IsNullOrWhiteSpace(infoUbicacion))
-                            {
-                                var auxiliar = infoUbicacion.Split('|');
-                                var idUbicacion = auxiliar[0];
-                                var nombreUbicacion = auxiliar[1];
+                            //if (!string.IsNullOrWhiteSpace(infoProveedor))
+                            //{
+                            //    var auxiliar = infoProveedor.Split('|');
+                            //    var idProveedorTmp = auxiliar[0];
+                            //    var nombreProveedor = auxiliar[1];
 
-                                infoDetalle.Add(nombreUbicacion);
-                                infoDetalle.Add(idUbicacion);
-                                contador++;
-                            }
-                            else
-                            {
-                                infoDetalle.Add("");
-                                infoDetalle.Add("0");
-                            }
+                            //    idProveedor = idProveedorTmp;
+                            //    infoDetalle.Add(nombreProveedor);
+                            //    infoDetalle.Add(idProveedor);
+                            //    contador++;
+                            //}
+                            //else
+                            //{
+                            //    infoDetalle.Add("");
+                            //    infoDetalle.Add("0");
+                            //}
 
-                            if (contador > 0)
-                            {
-                                guardar = infoDetalle.ToArray();
-                                //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+                            //if (!string.IsNullOrWhiteSpace(infoCategoria))
+                            //{
+                            //    var auxiliar = infoCategoria.Split('|');
+                            //    var idCategoria = auxiliar[0];
+                            //    var nombreCategoria = auxiliar[1];
 
-                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+                            //    infoDetalle.Add(nombreCategoria);
+                            //    infoDetalle.Add(idCategoria);
+                            //    contador++;
+                            //}
+                            //else
+                            //{
+                            //    infoDetalle.Add("");
+                            //    infoDetalle.Add("0");
+                            //}
 
-                                FormDetalleProducto.Close();
-                            }
+                            //if (!string.IsNullOrWhiteSpace(infoUbicacion))
+                            //{
+                            //    var auxiliar = infoUbicacion.Split('|');
+                            //    var idUbicacion = auxiliar[0];
+                            //    var nombreUbicacion = auxiliar[1];
 
-                            infoProveedor = string.Empty;
-                            infoCategoria = string.Empty;
-                            infoUbicacion = string.Empty;
-                            // Fin del guardado de detalles del producto
+                            //    infoDetalle.Add(nombreUbicacion);
+                            //    infoDetalle.Add(idUbicacion);
+                            //    contador++;
+                            //}
+                            //else
+                            //{
+                            //    infoDetalle.Add("");
+                            //    infoDetalle.Add("0");
+                            //}
+
+                            //if (contador > 0)
+                            //{
+                            //    guardar = infoDetalle.ToArray();
+                            //    //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+
+                            //    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
+
+                            //    FormDetalleProducto.Close();
+                            //}
+
+                            //infoProveedor = string.Empty;
+                            //infoCategoria = string.Empty;
+                            //infoUbicacion = string.Empty;
+                            //// Fin del guardado de detalles del producto
 
                             if (DatosSourceFinal == 1 || DatosSourceFinal == 2)
                             {
@@ -3951,6 +3963,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            detalleProductoBasico.Clear();
             seleccionListaStock = 0;
             string cadAux = string.Empty;
             fLPType.Visible = false;
@@ -4126,20 +4139,58 @@ namespace PuntoDeVentaV2
                 // Cuando se da click en la opcion editar producto
                 if (DatosSourceFinal == 1)
                 {
-                    string Descripcion = string.Empty;
+                    string  Descripcion = string.Empty,
+                            name = string.Empty,
+                            value = string.Empty,
+                            namegral = string.Empty;
 
-                    foreach (Control contHijo in flowLayoutPanel3.Controls)
+                    for (int i = 0; i < chkDatabase.Items.Count; i++)
                     {
-                        foreach (Control contSubHijo in contHijo.Controls)
+                        name = chkDatabase.Items[i].Text.ToString();
+                        value = chkDatabase.Items[i].SubItems[1].Text.ToString();
+                        foreach (Control contHijo in flowLayoutPanel3.Controls)
                         {
-                            if (contSubHijo.Name.Equals("panelContenidochkProveedor"))
+                            foreach (Control contSubHijo in contHijo.Controls)
                             {
-                                foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
                                 {
-                                    if (contItemSubHijo is Label)
+                                    foreach (Control contItemSubHijo in contSubHijo.Controls)
                                     {
-                                        contItemSubHijo.Text = detalleProductoBasico[2].ToString();
-                                        break;
+                                        if (contItemSubHijo is Label)
+                                        {
+                                            contItemSubHijo.Text = detalleProductoBasico[2].ToString();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (int i = 0; i < chkDatabase.Items.Count; i++)
+                    {
+                        name = chkDatabase.Items[i].Text.ToString().Remove(0, 3);
+                        value = chkDatabase.Items[i].SubItems[1].Text.ToString();
+                        foreach (Control contHijo in flowLayoutPanel3.Controls)
+                        {
+                            foreach (Control contSubHijo in contHijo.Controls)
+                            {
+                                if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
+                                {
+                                    for (int j = 0; j < detalleProductoGeneral.Count; j++)
+                                    {
+                                        namegral = detalleProductoGeneral[j].ToString();
+                                        if (namegral.Equals(name) &&
+                                            contSubHijo.Name.Equals("panelContenido" + name))
+                                        {
+                                            foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                            {
+                                                if (contItemSubHijo is Label)
+                                                {
+                                                    contItemSubHijo.Text = detalleProductoGeneral[j + 2].ToString();
+                                                    break;
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }

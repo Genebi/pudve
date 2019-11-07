@@ -1814,7 +1814,14 @@ namespace PuntoDeVentaV2
                                     else if (finalIdProducto.Equals(""))
                                     {
                                         //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                                        infoDetailProdGral.Add(finalIdProducto);
+                                        infoDetailProdGral.Add(Convert.ToString(FormPrincipal.userID));
+                                        Descripcion = contSubItemHijo.Text;
+                                        var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                                        infoDetailProdGral.Add(idFound[2].ToString()); // Obtenemos el ChckName Detalles Basicos
+                                        infoDetailProdGral.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                        infoDetailProdGral.Add(idFound[3].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                        AgregarEditarProducto.detalleProductoGeneral = infoDetailProdGral;
                                     }
                                 }
                             }
