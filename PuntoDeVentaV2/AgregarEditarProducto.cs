@@ -4120,6 +4120,33 @@ namespace PuntoDeVentaV2
         {
             loadFormConfig();
             BuscarChkBoxListView(chkDatabase);
+            bool isEmpty = !detalleProductoBasico.Any();
+            if (!isEmpty)
+            {
+                // Cuando se da click en la opcion editar producto
+                if (DatosSourceFinal == 1)
+                {
+                    string Descripcion = string.Empty;
+
+                    foreach (Control contHijo in flowLayoutPanel3.Controls)
+                    {
+                        foreach (Control contSubHijo in contHijo.Controls)
+                        {
+                            if (contSubHijo.Name.Equals("panelContenidochkProveedor"))
+                            {
+                                foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                {
+                                    if (contItemSubHijo is Label)
+                                    {
+                                        contItemSubHijo.Text = detalleProductoBasico[2].ToString();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void cargarCBProductos(string typePaqServ)
