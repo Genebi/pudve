@@ -2361,6 +2361,17 @@ namespace PuntoDeVentaV2
                     queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}'  WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
+                   bool isEmpty = !detalleProductoBasico.Any();
+
+                    if (!isEmpty)
+                    {
+                        // Para guardar los detalles del producto
+                        // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                        guardar = detalleProductoBasico.ToArray();
+                        guardar[0] = idProductoBuscado.ToString();
+                        cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
+                    }
+
                     if (this.Text.Trim().Equals("Productos"))
                     {
                         if (!CBNombProd.Equals("") || !CBIdProd.Equals(""))
@@ -2508,81 +2519,83 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    // Para actualizar los detalles del producto
-                    List<string> infoDetalle = new List<string>();
-
-                    infoDetalle.Add(idProductoFinal.ToString());
-                    infoDetalle.Add(FormPrincipal.userID.ToString());
-
-                    if (!string.IsNullOrWhiteSpace(infoProveedor))
-                    {
-                        var auxiliar = infoProveedor.Split('|');
-                        var idProveedorTmp = auxiliar[0];
-                        var nombreProveedor = auxiliar[1];
-
-                        infoDetalle.Add(nombreProveedor);
-                        infoDetalle.Add(idProveedorTmp);
-                    }
-                    else
-                    {
-                        infoDetalle.Add("");
-                        infoDetalle.Add("0");
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(infoCategoria))
-                    {
-                        var auxiliar = infoCategoria.Split('|');
-                        var idCategoria = auxiliar[0];
-                        var nombreCategoria = auxiliar[1];
-
-                        infoDetalle.Add(nombreCategoria);
-                        infoDetalle.Add(idCategoria);
-                    }
-                    else
-                    {
-                        infoDetalle.Add("");
-                        infoDetalle.Add("0");
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(infoUbicacion))
-                    {
-                        var auxiliar = infoUbicacion.Split('|');
-                        var idUbicacion = auxiliar[0];
-                        var nombreUbicacion = auxiliar[1];
-
-                        infoDetalle.Add(nombreUbicacion);
-                        infoDetalle.Add(idUbicacion);
-                    }
-                    else
-                    {
-                        infoDetalle.Add("");
-                        infoDetalle.Add("0");
-                    }
 
 
-                    string[] guardarDetalles = infoDetalle.ToArray();
-                    //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+                    //// Para actualizar los detalles del producto
+                    //List<string> infoDetalle = new List<string>();
 
-                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardarDetalles, 1));
+                    //infoDetalle.Add(idProductoFinal.ToString());
+                    //infoDetalle.Add(FormPrincipal.userID.ToString());
 
-                    foreach (Form frm in Application.OpenForms)
-                    {
-                        if (frm.GetType() == typeof(AgregarDetalleProducto))
-                        {
-                            if (Convert.ToInt32(idProductoFinal) > 0)
-                            {
-                                //FormDetalleProducto.Close();
-                                frm.Close();
-                                break;
-                            }
-                        }
-                    }
+                    //if (!string.IsNullOrWhiteSpace(infoProveedor))
+                    //{
+                    //    var auxiliar = infoProveedor.Split('|');
+                    //    var idProveedorTmp = auxiliar[0];
+                    //    var nombreProveedor = auxiliar[1];
+
+                    //    infoDetalle.Add(nombreProveedor);
+                    //    infoDetalle.Add(idProveedorTmp);
+                    //}
+                    //else
+                    //{
+                    //    infoDetalle.Add("");
+                    //    infoDetalle.Add("0");
+                    //}
+
+                    //if (!string.IsNullOrWhiteSpace(infoCategoria))
+                    //{
+                    //    var auxiliar = infoCategoria.Split('|');
+                    //    var idCategoria = auxiliar[0];
+                    //    var nombreCategoria = auxiliar[1];
+
+                    //    infoDetalle.Add(nombreCategoria);
+                    //    infoDetalle.Add(idCategoria);
+                    //}
+                    //else
+                    //{
+                    //    infoDetalle.Add("");
+                    //    infoDetalle.Add("0");
+                    //}
+
+                    //if (!string.IsNullOrWhiteSpace(infoUbicacion))
+                    //{
+                    //    var auxiliar = infoUbicacion.Split('|');
+                    //    var idUbicacion = auxiliar[0];
+                    //    var nombreUbicacion = auxiliar[1];
+
+                    //    infoDetalle.Add(nombreUbicacion);
+                    //    infoDetalle.Add(idUbicacion);
+                    //}
+                    //else
+                    //{
+                    //    infoDetalle.Add("");
+                    //    infoDetalle.Add("0");
+                    //}
+
+
+                    //string[] guardarDetalles = infoDetalle.ToArray();
+                    ////guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
+
+                    //cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardarDetalles, 1));
+
+                    //foreach (Form frm in Application.OpenForms)
+                    //{
+                    //    if (frm.GetType() == typeof(AgregarDetalleProducto))
+                    //    {
+                    //        if (Convert.ToInt32(idProductoFinal) > 0)
+                    //        {
+                    //            //FormDetalleProducto.Close();
+                    //            frm.Close();
+                    //            break;
+                    //        }
+                    //    }
+                    //}
                     
-                    infoProveedor = string.Empty;
-                    infoCategoria = string.Empty;
-                    infoUbicacion = string.Empty;
-                    idProductoFinal = string.Empty;
-                    // Fin de actualizar detalles de producto
+                    //infoProveedor = string.Empty;
+                    //infoCategoria = string.Empty;
+                    //infoUbicacion = string.Empty;
+                    //idProductoFinal = string.Empty;
+                    //// Fin de actualizar detalles de producto
 
                     // Cierra la ventana donde se agregan los datos del producto
                     this.Close();
