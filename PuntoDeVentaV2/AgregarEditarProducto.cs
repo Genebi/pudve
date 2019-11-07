@@ -1958,11 +1958,13 @@ namespace PuntoDeVentaV2
                                 for (int i = 0; i < detalleProductoGeneral.Count; i = i += 5)
                                 {
                                     guardar[i] = idProducto.ToString();
+
                                     saveDetailProd[0] = guardar[i].ToString();
                                     saveDetailProd[1] = guardar[i + 1].ToString();
                                     saveDetailProd[2] = guardar[i + 3].ToString();
                                     saveDetailProd[3] = "1";
                                     saveDetailProd[4] = "panelContenido" + guardar[i + 2].ToString();
+
                                     cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(saveDetailProd));
                                 }
                             }
