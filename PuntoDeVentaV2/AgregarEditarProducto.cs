@@ -1662,6 +1662,7 @@ namespace PuntoDeVentaV2
                                 // Para guardar los detalles del producto
                                 // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
                                 guardar = detalleProductoBasico.ToArray();
+                                guardar[0] = idProducto.ToString();
                                 cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
                             }
 
