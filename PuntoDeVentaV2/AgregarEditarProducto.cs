@@ -1597,7 +1597,8 @@ namespace PuntoDeVentaV2
                 }
                 else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
-                    string[] guardar;
+                    string[] guardar, saveDetailProd;
+                    saveDetailProd = new string[] { "", "", "", "", "" };
                     int respuesta = 0;
                     /****************************
                     *	codigo de Alejandro		*
@@ -1665,6 +1666,23 @@ namespace PuntoDeVentaV2
                                 guardar = detalleProductoBasico.ToArray();
                                 guardar[0] = idProducto.ToString();
                                 cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
+                            }
+
+                            isEmpty = !detalleProductoGeneral.Any();
+                            
+                            if (!isEmpty)
+                            {
+                                guardar = detalleProductoGeneral.ToArray();
+                                for (int i = 0; i < detalleProductoGeneral.Count; i = i += 5)
+                                {
+                                    guardar[i] = idProducto.ToString();
+                                    saveDetailProd[0] = guardar[i].ToString();
+                                    saveDetailProd[1] = guardar[i + 1].ToString();
+                                    saveDetailProd[2] = guardar[i + 3].ToString();
+                                    saveDetailProd[3] = "1";
+                                    saveDetailProd[4] = "panelContenido" + guardar[i + 2].ToString();
+                                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(saveDetailProd));
+                                }
                             }
 
                             // Para guardar los detalles del producto
@@ -1930,6 +1948,23 @@ namespace PuntoDeVentaV2
                                 guardar = detalleProductoBasico.ToArray();
                                 guardar[0] = idProducto.ToString();
                                 cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
+                            }
+
+                            isEmpty = !detalleProductoGeneral.Any();
+
+                            if (!isEmpty)
+                            {
+                                guardar = detalleProductoGeneral.ToArray();
+                                for (int i = 0; i < detalleProductoGeneral.Count; i = i += 5)
+                                {
+                                    guardar[i] = idProducto.ToString();
+                                    saveDetailProd[0] = guardar[i].ToString();
+                                    saveDetailProd[1] = guardar[i + 1].ToString();
+                                    saveDetailProd[2] = guardar[i + 3].ToString();
+                                    saveDetailProd[3] = "1";
+                                    saveDetailProd[4] = "panelContenido" + guardar[i + 2].ToString();
+                                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(saveDetailProd));
+                                }
                             }
 
                             //// Para guardar los detalles del producto
@@ -2518,9 +2553,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-
-
-
+                    
                     //// Para actualizar los detalles del producto
                     //List<string> infoDetalle = new List<string>();
 
