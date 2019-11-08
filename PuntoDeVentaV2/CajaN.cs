@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
         public static float retiroTrans = 0f;
 
         public static DateTime fechaGeneral;
-        public static DateTime fechaCorte = Convert.ToDateTime("2019-10-10 12:00:35");
+        public static DateTime fechaUltimoCorte = Convert.ToDateTime("2019-10-10 12:00:35");
 
         private string[] cantidadesReporte;
 
@@ -379,7 +379,7 @@ namespace PuntoDeVentaV2
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
 
             // Ruta donde se creara el archivo PDF
-            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaCorte.ToString("yyyyMMddHHmmss") + ".pdf";
+            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaUltimoCorte.ToString("yyyyMMddHHmmss") + ".pdf";
 
             Document reporte = new Document(PageSize.A3);
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -387,7 +387,7 @@ namespace PuntoDeVentaV2
             reporte.Open();
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaCorte.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
@@ -1232,7 +1232,7 @@ namespace PuntoDeVentaV2
             }
 
             // Ruta donde se creara el archivo PDF
-            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaCorte.ToString("yyyyMMddHHmmss") + ".pdf";
+            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaUltimoCorte.ToString("yyyyMMddHHmmss") + ".pdf";
 
             Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
             PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(rutaArchivo, FileMode.Create));
@@ -1245,7 +1245,7 @@ namespace PuntoDeVentaV2
             ticket.Open();
 
             Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaCorte.ToString("yyyy-MM-dd HH:mm:ss"), fuenteNormal);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss"), fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;

@@ -101,11 +101,11 @@ namespace PuntoDeVentaV2
 
                 CajaN.fechaCorte = Convert.ToDateTime(fechaOperacion);
 
-                totalEfectivo -= CajaN.retiroEfectivo;
+                /*totalEfectivo -= CajaN.retiroEfectivo;
                 totalTarjeta -= CajaN.retiroTarjeta;
                 totalVales -= CajaN.retiroVales;
                 totalCheque -= CajaN.retiroCheque;
-                totalTransferencia -= CajaN.retiroTrans;
+                totalTransferencia -= CajaN.retiroTrans;*/
 
                 if (totalEfectivo <= 0) { totalEfectivo = 0; }
                 if (totalTarjeta <= 0) { totalTarjeta = 0; }
@@ -231,11 +231,11 @@ namespace PuntoDeVentaV2
                     // Solo cuando es corte se hace esta resta, al total de cada forma de pago
                     // se le resta lo que el usuario quiere retirar menos el total retirado de cada
                     // forma de pago antes de que se haga el corte de caja
-                    efectivo = totalEfectivo - efectivo - CajaN.retiroEfectivo;
-                    tarjeta = totalTarjeta - tarjeta - CajaN.retiroTarjeta;
-                    cheque = totalCheque - cheque - CajaN.retiroCheque;
-                    vales = totalVales - vales - CajaN.retiroVales;
-                    trans = totalTransferencia - trans - CajaN.retiroTrans;
+                    efectivo = totalEfectivo - efectivo;// - CajaN.retiroEfectivo;
+                    tarjeta = totalTarjeta - tarjeta;// - CajaN.retiroTarjeta;
+                    cheque = totalCheque - cheque;// - CajaN.retiroCheque;
+                    vales = totalVales - vales;// - CajaN.retiroVales;
+                    trans = totalTransferencia - trans;// - CajaN.retiroTrans;
 
                     cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
 
@@ -427,7 +427,7 @@ namespace PuntoDeVentaV2
         {
             TextBox campo = tb as TextBox;
 
-            MessageBox.Show("La cantidad a retirar no puede ser mayor a $" + cantidad, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show("La cantidad a retirar no puede ser mayor a $" + cantidad.ToString("N2"), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             campo.Text = cantidad.ToString();
             campo.SelectionStart = campo.Text.Length;
