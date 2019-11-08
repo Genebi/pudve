@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbCredito = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -51,7 +51,7 @@
             // 
             // gbContenedor
             // 
-            this.gbContenedor.Controls.Add(this.label10);
+            this.gbContenedor.Controls.Add(this.lbCredito);
             this.gbContenedor.Controls.Add(this.label9);
             this.gbContenedor.Controls.Add(this.label7);
             this.gbContenedor.Controls.Add(this.label6);
@@ -74,15 +74,15 @@
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
             // 
-            // label10
+            // lbCredito
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(200, 128);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(57, 17);
-            this.label10.TabIndex = 216;
-            this.label10.Text = "Crédito";
+            this.lbCredito.AutoSize = true;
+            this.lbCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCredito.Location = new System.Drawing.Point(200, 128);
+            this.lbCredito.Name = "lbCredito";
+            this.lbCredito.Size = new System.Drawing.Size(57, 17);
+            this.lbCredito.TabIndex = 216;
+            this.lbCredito.Text = "Crédito";
             // 
             // label9
             // 
@@ -278,7 +278,7 @@
         #endregion
 
         private System.Windows.Forms.GroupBox gbContenedor;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lbCredito;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;

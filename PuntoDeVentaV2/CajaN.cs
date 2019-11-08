@@ -105,21 +105,21 @@ namespace PuntoDeVentaV2
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
-            //cantidadesReporte = ObtenerCantidades();
+            cantidadesReporte = ObtenerCantidades();
 
             AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
 
             corte.FormClosed += delegate
             {
-                CargarSaldoInicial();
-                CargarSaldo();
-
                 if (botones == true)
                 {
-                    //GenerarReporte();
+                    GenerarReporte();
 
                     botones = false;
                 }
+
+                CargarSaldoInicial();
+                CargarSaldo();
             };
 
             corte.ShowDialog();
@@ -416,6 +416,9 @@ namespace PuntoDeVentaV2
             var cantidades = cantidadesReporte;
 
             float[] anchoColumnas = new float[] { 120f, 80f, 100f, 100f, 100f, 100f, 120f, 80f };
+
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
 
             // Encabezados
             PdfPTable tabla = new PdfPTable(8);
@@ -945,6 +948,11 @@ namespace PuntoDeVentaV2
             //===    FIN  TABLAS DE CORTE DE CAJA     ===
             //===========================================
 
+            reporte.Add(titulo);
+            reporte.Add(subTitulo);
+            reporte.Add(tabla);
+            reporte.Add(linea);
+   
             //===============================
             //===    TABLA DE DEPOSITOS   ===
             //===============================
@@ -954,106 +962,113 @@ namespace PuntoDeVentaV2
             Paragraph tituloDepositos = new Paragraph("HISTORIAL DE DEPOSITOS\n\n", fuenteGrande);
             tituloDepositos.Alignment = Element.ALIGN_CENTER;
 
-            PdfPTable tablaDepositos = new PdfPTable(7);
-            tablaDepositos.WidthPercentage = 100;
-            tablaDepositos.SetWidths(anchoColumnas);
-
-            PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
-            colEmpleado.BorderWidth = 0;
-            colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
-            colEmpleado.Padding = 3;
-
-            PdfPCell colDepositoEfectivo = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
-            colDepositoEfectivo.BorderWidth = 0;
-            colDepositoEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoEfectivo.Padding = 3;
-
-            PdfPCell colDepositoTarjeta = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
-            colDepositoTarjeta.BorderWidth = 0;
-            colDepositoTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoTarjeta.Padding = 3;
-
-            PdfPCell colDepositoVales = new PdfPCell(new Phrase("VALES", fuenteNegrita));
-            colDepositoVales.BorderWidth = 0;
-            colDepositoVales.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoVales.Padding = 3;
-
-            PdfPCell colDepositoCheque = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
-            colDepositoCheque.BorderWidth = 0;
-            colDepositoCheque.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoCheque.Padding = 3;
-
-            PdfPCell colDepositoTrans = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
-            colDepositoTrans.BorderWidth = 0;
-            colDepositoTrans.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoTrans.Padding = 3;
-
-            PdfPCell colDepositoFecha = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
-            colDepositoFecha.BorderWidth = 0;
-            colDepositoFecha.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoFecha.Padding = 3;
-
-            tablaDepositos.AddCell(colEmpleado);
-            tablaDepositos.AddCell(colDepositoEfectivo);
-            tablaDepositos.AddCell(colDepositoTarjeta);
-            tablaDepositos.AddCell(colDepositoVales);
-            tablaDepositos.AddCell(colDepositoCheque);
-            tablaDepositos.AddCell(colDepositoTrans);
-            tablaDepositos.AddCell(colDepositoFecha);
-
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaGeneral}'", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
-            while (dr.Read())
+            if (dr.HasRows)
             {
-                var efectivo = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
-                var tarjeta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
-                var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
-                var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
-                var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
-                var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                PdfPTable tablaDepositos = new PdfPTable(7);
+                tablaDepositos.WidthPercentage = 100;
+                tablaDepositos.SetWidths(anchoColumnas);
 
-                PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
-                colEmpleadoTmp.BorderWidth = 0;
-                colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
+                colEmpleado.BorderWidth = 0;
+                colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
+                colEmpleado.Padding = 3;
 
-                PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
-                colDepositoEfectivoTmp.BorderWidth = 0;
-                colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoEfectivo = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
+                colDepositoEfectivo.BorderWidth = 0;
+                colDepositoEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoEfectivo.Padding = 3;
 
-                PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
-                colDepositoTarjetaTmp.BorderWidth = 0;
-                colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoTarjeta = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
+                colDepositoTarjeta.BorderWidth = 0;
+                colDepositoTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoTarjeta.Padding = 3;
 
-                PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
-                colDepositoValesTmp.BorderWidth = 0;
-                colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoVales = new PdfPCell(new Phrase("VALES", fuenteNegrita));
+                colDepositoVales.BorderWidth = 0;
+                colDepositoVales.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoVales.Padding = 3;
 
-                PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
-                colDepositoChequeTmp.BorderWidth = 0;
-                colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoCheque = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
+                colDepositoCheque.BorderWidth = 0;
+                colDepositoCheque.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoCheque.Padding = 3;
 
-                PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
-                colDepositoTransTmp.BorderWidth = 0;
-                colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoTrans = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
+                colDepositoTrans.BorderWidth = 0;
+                colDepositoTrans.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoTrans.Padding = 3;
 
-                PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                colDepositoFechaTmp.BorderWidth = 0;
-                colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoFecha = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
+                colDepositoFecha.BorderWidth = 0;
+                colDepositoFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoFecha.Padding = 3;
 
-                tablaDepositos.AddCell(colEmpleadoTmp);
-                tablaDepositos.AddCell(colDepositoEfectivoTmp);
-                tablaDepositos.AddCell(colDepositoTarjetaTmp);
-                tablaDepositos.AddCell(colDepositoValesTmp);
-                tablaDepositos.AddCell(colDepositoChequeTmp);
-                tablaDepositos.AddCell(colDepositoTransTmp);
-                tablaDepositos.AddCell(colDepositoFechaTmp);
+                tablaDepositos.AddCell(colEmpleado);
+                tablaDepositos.AddCell(colDepositoEfectivo);
+                tablaDepositos.AddCell(colDepositoTarjeta);
+                tablaDepositos.AddCell(colDepositoVales);
+                tablaDepositos.AddCell(colDepositoCheque);
+                tablaDepositos.AddCell(colDepositoTrans);
+                tablaDepositos.AddCell(colDepositoFecha);
+
+                while (dr.Read())
+                {
+                    var efectivo = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
+                    var tarjeta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
+                    var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
+                    var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
+                    var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
+                    var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+
+                    PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
+                    colEmpleadoTmp.BorderWidth = 0;
+                    colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
+                    colDepositoEfectivoTmp.BorderWidth = 0;
+                    colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
+                    colDepositoTarjetaTmp.BorderWidth = 0;
+                    colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
+                    colDepositoValesTmp.BorderWidth = 0;
+                    colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
+                    colDepositoChequeTmp.BorderWidth = 0;
+                    colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
+                    colDepositoTransTmp.BorderWidth = 0;
+                    colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                    colDepositoFechaTmp.BorderWidth = 0;
+                    colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    tablaDepositos.AddCell(colEmpleadoTmp);
+                    tablaDepositos.AddCell(colDepositoEfectivoTmp);
+                    tablaDepositos.AddCell(colDepositoTarjetaTmp);
+                    tablaDepositos.AddCell(colDepositoValesTmp);
+                    tablaDepositos.AddCell(colDepositoChequeTmp);
+                    tablaDepositos.AddCell(colDepositoTransTmp);
+                    tablaDepositos.AddCell(colDepositoFechaTmp);
+                }
+
+                reporte.Add(tituloDepositos);
+                reporte.Add(tablaDepositos);
+                reporte.Add(linea);
             }
 
             dr.Close();
@@ -1072,107 +1087,127 @@ namespace PuntoDeVentaV2
             Paragraph tituloRetiros = new Paragraph("HISTORIAL DE RETIROS\n\n", fuenteGrande);
             tituloRetiros.Alignment = Element.ALIGN_CENTER;
 
-            PdfPTable tablaRetiros = new PdfPTable(7);
-            tablaRetiros.WidthPercentage = 100;
-            tablaRetiros.SetWidths(anchoColumnas);
-
-            PdfPCell colEmpleadoR = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
-            colEmpleadoR.BorderWidth = 0;
-            colEmpleadoR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colEmpleadoR.Padding = 3;
-
-            PdfPCell colDepositoEfectivoR = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
-            colDepositoEfectivoR.BorderWidth = 0;
-            colDepositoEfectivoR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoEfectivoR.Padding = 3;
-
-            PdfPCell colDepositoTarjetaR = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
-            colDepositoTarjetaR.BorderWidth = 0;
-            colDepositoTarjetaR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoTarjetaR.Padding = 3;
-
-            PdfPCell colDepositoValesR = new PdfPCell(new Phrase("VALES", fuenteNegrita));
-            colDepositoValesR.BorderWidth = 0;
-            colDepositoValesR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoValesR.Padding = 3;
-
-            PdfPCell colDepositoChequeR = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
-            colDepositoChequeR.BorderWidth = 0;
-            colDepositoChequeR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoChequeR.Padding = 3;
-
-            PdfPCell colDepositoTransR = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
-            colDepositoTransR.BorderWidth = 0;
-            colDepositoTransR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoTransR.Padding = 3;
-
-            PdfPCell colDepositoFechaR = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
-            colDepositoFechaR.BorderWidth = 0;
-            colDepositoFechaR.HorizontalAlignment = Element.ALIGN_CENTER;
-            colDepositoFechaR.Padding = 3;
-
-            tablaRetiros.AddCell(colEmpleadoR);
-            tablaRetiros.AddCell(colDepositoEfectivoR);
-            tablaRetiros.AddCell(colDepositoTarjetaR);
-            tablaRetiros.AddCell(colDepositoValesR);
-            tablaRetiros.AddCell(colDepositoChequeR);
-            tablaRetiros.AddCell(colDepositoTransR);
-            tablaRetiros.AddCell(colDepositoFechaR);
-
-            //SQLiteCommand sql_cmd;
-            //SQLiteDataReader dr;
+            anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
             sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND FechaOperacion > '{fechaGeneral}'", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND FechaOperacion > '{fechaGeneral.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
-            while (dr.Read())
+            if (dr.HasRows)
             {
-                var efectivo = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
-                var tarjeta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
-                var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
-                var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
-                var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
-                var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                PdfPTable tablaRetiros = new PdfPTable(8);
+                tablaRetiros.WidthPercentage = 100;
+                tablaRetiros.SetWidths(anchoColumnas);
 
-                PdfPCell colEmpleadoTmpR = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
-                colEmpleadoTmpR.BorderWidth = 0;
-                colEmpleadoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colEmpleadoR = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
+                colEmpleadoR.BorderWidth = 0;
+                colEmpleadoR.HorizontalAlignment = Element.ALIGN_CENTER;
+                colEmpleadoR.Padding = 3;
 
-                PdfPCell colDepositoEfectivoTmpR = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
-                colDepositoEfectivoTmpR.BorderWidth = 0;
-                colDepositoEfectivoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoEfectivoR = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
+                colDepositoEfectivoR.BorderWidth = 0;
+                colDepositoEfectivoR.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoEfectivoR.Padding = 3;
 
-                PdfPCell colDepositoTarjetaTmpR = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
-                colDepositoTarjetaTmpR.BorderWidth = 0;
-                colDepositoTarjetaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoTarjetaR = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
+                colDepositoTarjetaR.BorderWidth = 0;
+                colDepositoTarjetaR.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoTarjetaR.Padding = 3;
 
-                PdfPCell colDepositoValesTmpR = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
-                colDepositoValesTmpR.BorderWidth = 0;
-                colDepositoValesTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoValesR = new PdfPCell(new Phrase("VALES", fuenteNegrita));
+                colDepositoValesR.BorderWidth = 0;
+                colDepositoValesR.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoValesR.Padding = 3;
 
-                PdfPCell colDepositoChequeTmpR = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
-                colDepositoChequeTmpR.BorderWidth = 0;
-                colDepositoChequeTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoChequeR = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
+                colDepositoChequeR.BorderWidth = 0;
+                colDepositoChequeR.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoChequeR.Padding = 3;
 
-                PdfPCell colDepositoTransTmpR = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
-                colDepositoTransTmpR.BorderWidth = 0;
-                colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoTransR = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
+                colDepositoTransR.BorderWidth = 0;
+                colDepositoTransR.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoTransR.Padding = 3;
 
-                PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                colDepositoFechaTmpR.BorderWidth = 0;
-                colDepositoFechaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                PdfPCell colDepositoCreditoR = new PdfPCell(new Phrase("CRÉDITO", fuenteNegrita));
+                colDepositoCreditoR.BorderWidth = 0;
+                colDepositoCreditoR.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoCreditoR.Padding = 3;
 
-                tablaRetiros.AddCell(colEmpleadoTmpR);
-                tablaRetiros.AddCell(colDepositoEfectivoTmpR);
-                tablaRetiros.AddCell(colDepositoTarjetaTmpR);
-                tablaRetiros.AddCell(colDepositoValesTmpR);
-                tablaRetiros.AddCell(colDepositoChequeTmpR);
-                tablaRetiros.AddCell(colDepositoTransTmpR);
-                tablaRetiros.AddCell(colDepositoFechaTmpR);
+                PdfPCell colDepositoFechaR = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
+                colDepositoFechaR.BorderWidth = 0;
+                colDepositoFechaR.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoFechaR.Padding = 3;
+
+                tablaRetiros.AddCell(colEmpleadoR);
+                tablaRetiros.AddCell(colDepositoEfectivoR);
+                tablaRetiros.AddCell(colDepositoTarjetaR);
+                tablaRetiros.AddCell(colDepositoValesR);
+                tablaRetiros.AddCell(colDepositoChequeR);
+                tablaRetiros.AddCell(colDepositoTransR);
+                tablaRetiros.AddCell(colDepositoCreditoR);
+                tablaRetiros.AddCell(colDepositoFechaR);
+
+                //SQLiteCommand sql_cmd;
+                //SQLiteDataReader dr;
+
+                while (dr.Read())
+                {
+                    var efectivo = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Efectivo"))).ToString("0.00");
+                    var tarjeta = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Tarjeta"))).ToString("0.00");
+                    var vales = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Vales"))).ToString("0.00");
+                    var cheque = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Cheque"))).ToString("0.00");
+                    var trans = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Transferencia"))).ToString("0.00");
+                    var credito = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("Credito"))).ToString("0.00");
+                    var fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+
+                    PdfPCell colEmpleadoTmpR = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
+                    colEmpleadoTmpR.BorderWidth = 0;
+                    colEmpleadoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoEfectivoTmpR = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
+                    colDepositoEfectivoTmpR.BorderWidth = 0;
+                    colDepositoEfectivoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoTarjetaTmpR = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
+                    colDepositoTarjetaTmpR.BorderWidth = 0;
+                    colDepositoTarjetaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoValesTmpR = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
+                    colDepositoValesTmpR.BorderWidth = 0;
+                    colDepositoValesTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoChequeTmpR = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
+                    colDepositoChequeTmpR.BorderWidth = 0;
+                    colDepositoChequeTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoTransTmpR = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
+                    colDepositoTransTmpR.BorderWidth = 0;
+                    colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
+                    colDepositoCreditoTmpR.BorderWidth = 0;
+                    colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                    colDepositoFechaTmpR.BorderWidth = 0;
+                    colDepositoFechaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    tablaRetiros.AddCell(colEmpleadoTmpR);
+                    tablaRetiros.AddCell(colDepositoEfectivoTmpR);
+                    tablaRetiros.AddCell(colDepositoTarjetaTmpR);
+                    tablaRetiros.AddCell(colDepositoValesTmpR);
+                    tablaRetiros.AddCell(colDepositoChequeTmpR);
+                    tablaRetiros.AddCell(colDepositoTransTmpR);
+                    tablaRetiros.AddCell(colDepositoCreditoTmpR);
+                    tablaRetiros.AddCell(colDepositoFechaTmpR);
+                }
+
+                reporte.Add(tituloRetiros);
+                reporte.Add(tablaRetiros);
             }
-
+            
             dr.Close();
             sql_con.Close();
 
@@ -1180,19 +1215,6 @@ namespace PuntoDeVentaV2
             //=============================
             //=== FIN TABLA DE RETIROS  ===
             //=============================
-
-            // Linea serapadora
-            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
-
-            reporte.Add(titulo);
-            reporte.Add(subTitulo);
-            reporte.Add(tabla);
-            reporte.Add(linea);
-            reporte.Add(tituloDepositos);
-            reporte.Add(tablaDepositos);
-            reporte.Add(linea);
-            reporte.Add(tituloRetiros);
-            reporte.Add(tablaRetiros);
 
             reporte.AddTitle("Reporte Corte de Caja");
             reporte.AddAuthor("PUDVE");

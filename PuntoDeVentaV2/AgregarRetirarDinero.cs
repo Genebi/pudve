@@ -45,6 +45,8 @@ namespace PuntoDeVentaV2
             {
                 lbTitulo.Text = "Cantidad a depositar";
                 lbSubtitulo.Text = "Concepto del depósito";
+                lbCredito.Visible = false;
+                txtCredito.Visible = false;
             }
             else if (operacion == 1)
             {
