@@ -373,6 +373,14 @@ namespace PuntoDeVentaV2
             colTransC.HorizontalAlignment = Element.ALIGN_CENTER;
             colTransC.BorderWidth = 0;
 
+            PdfPCell colCredito = new PdfPCell(new Phrase("Crédito", fuenteNormal));
+            colCredito.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCredito.BorderWidth = 0;
+
+            PdfPCell colCreditoC = new PdfPCell(new Phrase($"${info[11]}", fuenteNormal));
+            colCreditoC.HorizontalAlignment = Element.ALIGN_CENTER;
+            colCreditoC.BorderWidth = 0;
+
             tabla.AddCell(colEfectivo);
             tabla.AddCell(colEfectivoC);
             tabla.AddCell(colTarjeta);
@@ -383,6 +391,8 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colChequeC);
             tabla.AddCell(colTrans);
             tabla.AddCell(colTransC);
+            tabla.AddCell(colCredito);
+            tabla.AddCell(colCreditoC);
 
             //======================================================================
 
