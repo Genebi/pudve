@@ -54,7 +54,13 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
-            // Obtener fecha de ultimo corte de caja realizado
+            // Obtener saldo inicial
+            CargarSaldoInicial();
+        }
+
+        private void CargarSaldoInicial()
+        {
+            tituloSeccion.Text = "SALDO INICIAL: $" + mb.SaldoInicialCaja(FormPrincipal.userID).ToString("0.00");
         }
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
@@ -77,6 +83,7 @@ namespace PuntoDeVentaV2
 
             agregar.FormClosed += delegate
             {
+                CargarSaldoInicial();
                 CargarSaldo();
             };
 
@@ -89,6 +96,7 @@ namespace PuntoDeVentaV2
 
             retirar.FormClosed += delegate
             {
+                CargarSaldoInicial();
                 CargarSaldo();
             };
 
@@ -103,6 +111,7 @@ namespace PuntoDeVentaV2
 
             corte.FormClosed += delegate
             {
+                CargarSaldoInicial();
                 CargarSaldo();
 
                 if (botones == true)
@@ -306,7 +315,6 @@ namespace PuntoDeVentaV2
             lbTCredito.Text = "$" + vCredito.ToString("0.00");
             lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
             lbTVentas.Text = "$" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + vAnticipos).ToString("0.00");
-            tituloSeccion.Text = "SALDO INICIAL: $" + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + vAnticipos).ToString("0.00");
 
             // Apartado ANTICIPOS RECIBIDOS
             lbTEfectivoA.Text = "$" + aEfectivo.ToString("0.00");
@@ -359,6 +367,7 @@ namespace PuntoDeVentaV2
         {
             if (recargarDatos)
             {
+                CargarSaldoInicial();
                 CargarSaldo();
                 recargarDatos = false;
             }

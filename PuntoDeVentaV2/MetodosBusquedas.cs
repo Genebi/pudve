@@ -769,19 +769,32 @@ namespace PuntoDeVentaV2
         {
             float saldo = 0f;
 
-            DatosConexion($"SELECT * FROM Caja WHERE IDUsuario = {idUsuario} AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+            DatosConexion($"SELECT ID FROM Caja WHERE IDUsuario = {idUsuario} AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
             if (dr.Read())
             {
-                saldo += float.Parse(dr["Efectivo"].ToString());
-                saldo += float.Parse(dr["Tarjeta"].ToString());
-                saldo += float.Parse(dr["Vales"].ToString());
-                saldo += float.Parse(dr["Cheque"].ToString());
-                saldo += float.Parse(dr["Transferencia"].ToString());
-                saldo += float.Parse(dr["Credito"].ToString());
+                var idCaja = Convert.ToInt32(dr["ID"].ToString());
+
+                DatosConexion($"SELECT * FROM Caja WHERE IDUsuario = {idUsuario} AND Operacion = 'venta' AND ID > {idCaja} ORDER BY ID LIMIT 1");
+
+                SQLiteDataReader info = sql_cmd.ExecuteReader();
+
+                if (info.Read())
+                {
+                    saldo += float.Parse(info["Efectivo"].ToString());
+                    saldo += float.Parse(info["Tarjeta"].ToString());
+                    saldo += float.Parse(info["Vales"].ToString());
+                    saldo += float.Parse(info["Cheque"].ToString());
+                    saldo += float.Parse(info["Transferencia"].ToString());
+                    saldo += float.Parse(info["Credito"].ToString());
+                }
+
+                info.Close();
             }
+
+            dr.Close();
 
             return saldo;
         }
