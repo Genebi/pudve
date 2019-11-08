@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
 
         // 0 = Depositar
         // 1 = Retirar
+        // 2 = Corte
         int operacion = 0;
 
         private float totalEfectivo = 0f;
@@ -54,7 +55,7 @@ namespace PuntoDeVentaV2
             {
                 lbTitulo.Text = "Cantidad a retirar";
                 lbSubtitulo.Text = "Concepto del retiro";
-                btnCancelar.Text = "Corte sin retiro";
+                //btnCancelar.Text = "Corte sin retiro";
             }
 
             txtEfectivo.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -70,7 +71,7 @@ namespace PuntoDeVentaV2
             totalCheque = CajaN.totalCheque;
             totalTransferencia = CajaN.totalTransferencia;
             totalCredito = CajaN.totalCredito;
-    }
+        }
 
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
@@ -95,17 +96,17 @@ namespace PuntoDeVentaV2
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             // Solo se ejecuta cuando es Corte de caja
-            if (operacion == 2)
+            /*if (operacion == 2)
             {
                 string fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                CajaN.fechaCorte = Convert.ToDateTime(fechaOperacion);
+                CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
 
-                /*totalEfectivo -= CajaN.retiroEfectivo;
-                totalTarjeta -= CajaN.retiroTarjeta;
-                totalVales -= CajaN.retiroVales;
-                totalCheque -= CajaN.retiroCheque;
-                totalTransferencia -= CajaN.retiroTrans;*/
+                //totalEfectivo -= CajaN.retiroEfectivo;
+                //totalTarjeta -= CajaN.retiroTarjeta;
+                //totalVales -= CajaN.retiroVales;
+                //totalCheque -= CajaN.retiroCheque;
+                //totalTransferencia -= CajaN.retiroTrans;
 
                 if (totalEfectivo <= 0) { totalEfectivo = 0; }
                 if (totalTarjeta <= 0) { totalTarjeta = 0; }
@@ -141,7 +142,7 @@ namespace PuntoDeVentaV2
                 }
 
                 CajaN.botones = true;
-            }
+            }*/
 
             Dispose();
         }
@@ -161,7 +162,8 @@ namespace PuntoDeVentaV2
             {
                 tipoOperacion = "retiro";
             }
-
+            
+            // Corte de caja
             if (operacion == 2)
             {
                 tipoOperacion = "corte";
@@ -169,7 +171,7 @@ namespace PuntoDeVentaV2
 
             var concepto = txtConcepto.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            CajaN.fechaCorte = Convert.ToDateTime(fechaOperacion);
+            CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
 
             var efectivo = ValidarCampos(txtEfectivo.Text);
             var tarjeta = ValidarCampos(txtTarjeta.Text);
@@ -181,22 +183,25 @@ namespace PuntoDeVentaV2
             // Se guardan las cantidades que el usuario es lo que va a retirar
             var cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
 
-            // Si es igual a cero no procede la operacion
+            // Si es igual a cero no procede la operacion de depositar o retirar
             if (cantidad == 0)
             {
-                var mensaje = string.Empty;
-
-                if (operacion == 1 || operacion == 2)
+                if (operacion == 0 || operacion == 1)
                 {
-                    mensaje = "La cantidad a retirar debe ser mayor a cero";
-                }
-                else
-                {
-                    mensaje = "La cantidad a depositar debe ser mayor a cero";
-                }
+                    var mensaje = string.Empty;
 
-                MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                    if (operacion == 1)
+                    {
+                        mensaje = "La cantidad a retirar debe ser mayor a cero";
+                    }
+                    else if (operacion == 0)
+                    {
+                        mensaje = "La cantidad a depositar debe ser mayor a cero";
+                    }
+
+                    MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
             }
 
 
@@ -236,6 +241,7 @@ namespace PuntoDeVentaV2
                     cheque = totalCheque - cheque;// - CajaN.retiroCheque;
                     vales = totalVales - vales;// - CajaN.retiroVales;
                     trans = totalTransferencia - trans;// - CajaN.retiroTrans;
+                    credito = totalCredito - credito;
 
                     cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
 

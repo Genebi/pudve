@@ -83,7 +83,6 @@
             this.label10.Size = new System.Drawing.Size(57, 17);
             this.label10.TabIndex = 216;
             this.label10.Text = "Crédito";
-            this.label10.Visible = false;
             // 
             // label9
             // 
@@ -171,9 +170,8 @@
             this.txtCredito.Location = new System.Drawing.Point(297, 125);
             this.txtCredito.Name = "txtCredito";
             this.txtCredito.Size = new System.Drawing.Size(103, 23);
-            this.txtCredito.TabIndex = 222;
+            this.txtCredito.TabIndex = 6;
             this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCredito.Visible = false;
             this.txtCredito.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCredito_KeyUp);
             // 
             // txtTrans
@@ -204,7 +202,7 @@
             this.txtConcepto.Multiline = true;
             this.txtConcepto.Name = "txtConcepto";
             this.txtConcepto.Size = new System.Drawing.Size(327, 45);
-            this.txtConcepto.TabIndex = 6;
+            this.txtConcepto.TabIndex = 7;
             // 
             // btnCancelar
             // 
@@ -217,7 +215,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(56, 273);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(160, 24);
-            this.btnCancelar.TabIndex = 8;
+            this.btnCancelar.TabIndex = 9;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -233,7 +231,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(223, 273);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(160, 24);
-            this.btnAceptar.TabIndex = 7;
+            this.btnAceptar.TabIndex = 8;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);

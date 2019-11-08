@@ -39,10 +39,12 @@ namespace PuntoDeVentaV2
         public static float retiroVales = 0f;
         public static float retiroCheque = 0f;
         public static float retiroTrans = 0f;
+        public static float retiroCredito = 0f;
 
         public static DateTime fechaGeneral;
-        public static DateTime fechaUltimoCorte = Convert.ToDateTime("2019-10-10 12:00:35");
+        public static DateTime fechaUltimoCorte;// = Convert.ToDateTime("2019-10-10 12:00:35");
 
+        private float saldoInicial = 0f;
         private string[] cantidadesReporte;
 
         public CajaN()
@@ -52,7 +54,7 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
-            
+            // Obtener fecha de ultimo corte de caja realizado
         }
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
@@ -230,6 +232,7 @@ namespace PuntoDeVentaV2
             retiroVales = 0f;
             retiroCheque = 0f;
             retiroTrans = 0f;
+            retiroCredito = 0f;
 
             while (drDos.Read())
             {
@@ -282,6 +285,9 @@ namespace PuntoDeVentaV2
 
                     dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
                     retiroTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+
+                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+                    retiroCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
                 }
             }
 
@@ -345,7 +351,7 @@ namespace PuntoDeVentaV2
             totalVales = vales - retiroVales;
             totalCheque = cheque - retiroCheque;
             totalTransferencia = trans - retiroTrans;
-            totalCredito = credito;
+            totalCredito = credito - retiroCredito;
         }
         #endregion
 

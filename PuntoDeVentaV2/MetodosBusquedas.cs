@@ -765,6 +765,27 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
+        public float SaldoInicialCaja(int idUsuario)
+        {
+            float saldo = 0f;
+
+            DatosConexion($"SELECT * FROM Caja WHERE IDUsuario = {idUsuario} AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                saldo += float.Parse(dr["Efectivo"].ToString());
+                saldo += float.Parse(dr["Tarjeta"].ToString());
+                saldo += float.Parse(dr["Vales"].ToString());
+                saldo += float.Parse(dr["Cheque"].ToString());
+                saldo += float.Parse(dr["Transferencia"].ToString());
+                saldo += float.Parse(dr["Credito"].ToString());
+            }
+
+            return saldo;
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();
