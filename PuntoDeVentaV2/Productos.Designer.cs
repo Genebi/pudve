@@ -248,6 +248,7 @@
             this.DGVProductos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentDoubleClick);
             this.DGVProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellDoubleClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
+            this.DGVProductos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseLeave);
             // 
             // CheckProducto
             // 
