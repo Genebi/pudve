@@ -448,7 +448,7 @@ namespace PuntoDeVentaV2
                     textoTTipButtonMsg = "Seleccionar Producto";
                     coordenadaX = 110;
                     coordenadaY = -200;
-                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
+                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, DGVProductos.Location.Y + cellRect.Y - coordenadaY, 980);
                     textoTTipButtonMsg = string.Empty;
                 }
                 else if (e.ColumnIndex >= 7)
@@ -502,7 +502,7 @@ namespace PuntoDeVentaV2
                         coordenadaX = 90;
                         coordenadaY = -200;
                     }
-                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
+                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, DGVProductos.Location.Y + cellRect.Y - coordenadaY, 980);
                     textoTTipButtonMsg = string.Empty;
                 }
                 else
