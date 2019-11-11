@@ -39,8 +39,12 @@
             this.checkBoxRecordarDatos = new System.Windows.Forms.CheckBox();
             this.btnLimpiarDatos = new System.Windows.Forms.Button();
             this.buscarArchivoBD = new System.Windows.Forms.OpenFileDialog();
-            this.btnImportar = new System.Windows.Forms.Button();
             this.mensajeBoton = new System.Windows.Forms.ToolTip(this.components);
+            this.menuLogin = new System.Windows.Forms.MenuStrip();
+            this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.desvincularPCMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importarBaseDeDatosMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuLogin.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -159,25 +163,44 @@
             // 
             this.buscarArchivoBD.Title = "Seleccionar archivo para importar";
             // 
-            // btnImportar
+            // menuLogin
             // 
-            this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImportar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImportar.Image = global::PuntoDeVentaV2.Properties.Resources.arrow_circle_up;
-            this.btnImportar.Location = new System.Drawing.Point(12, 281);
-            this.btnImportar.Name = "btnImportar";
-            this.btnImportar.Size = new System.Drawing.Size(25, 23);
-            this.btnImportar.TabIndex = 10;
-            this.mensajeBoton.SetToolTip(this.btnImportar, "Importar archivo de base de datos");
-            this.btnImportar.UseVisualStyleBackColor = true;
-            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
+            this.menuLogin.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.opcionesToolStripMenuItem});
+            this.menuLogin.Location = new System.Drawing.Point(0, 0);
+            this.menuLogin.Name = "menuLogin";
+            this.menuLogin.Size = new System.Drawing.Size(420, 24);
+            this.menuLogin.TabIndex = 11;
+            this.menuLogin.Text = "Menu";
+            // 
+            // opcionesToolStripMenuItem
+            // 
+            this.opcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.desvincularPCMenuItem,
+            this.importarBaseDeDatosMenuItem});
+            this.opcionesToolStripMenuItem.Image = global::PuntoDeVentaV2.Properties.Resources.bars;
+            this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
+            this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
+            // 
+            // desvincularPCMenuItem
+            // 
+            this.desvincularPCMenuItem.Name = "desvincularPCMenuItem";
+            this.desvincularPCMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.desvincularPCMenuItem.Text = "Desvincular PC en red";
+            this.desvincularPCMenuItem.Click += new System.EventHandler(this.desvincularPCMenuItem_Click);
+            // 
+            // importarBaseDeDatosMenuItem
+            // 
+            this.importarBaseDeDatosMenuItem.Name = "importarBaseDeDatosMenuItem";
+            this.importarBaseDeDatosMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.importarBaseDeDatosMenuItem.Text = "Importar base de datos";
+            this.importarBaseDeDatosMenuItem.Click += new System.EventHandler(this.importarBaseDeDatosMenuItem_Click);
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 319);
-            this.Controls.Add(this.btnImportar);
             this.Controls.Add(this.btnLimpiarDatos);
             this.Controls.Add(this.checkBoxRecordarDatos);
             this.Controls.Add(this.txtMensaje);
@@ -187,11 +210,15 @@
             this.Controls.Add(this.txtUsuario);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.menuLogin);
+            this.MainMenuStrip = this.menuLogin;
             this.MaximizeBox = false;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Inicio de sesión";
             this.Load += new System.EventHandler(this.Login_Load);
+            this.menuLogin.ResumeLayout(false);
+            this.menuLogin.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,7 +236,10 @@
         private System.Windows.Forms.CheckBox checkBoxRecordarDatos;
         private System.Windows.Forms.Button btnLimpiarDatos;
         private System.Windows.Forms.OpenFileDialog buscarArchivoBD;
-        private System.Windows.Forms.Button btnImportar;
         private System.Windows.Forms.ToolTip mensajeBoton;
+        private System.Windows.Forms.MenuStrip menuLogin;
+        private System.Windows.Forms.ToolStripMenuItem opcionesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem desvincularPCMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importarBaseDeDatosMenuItem;
     }
 }
