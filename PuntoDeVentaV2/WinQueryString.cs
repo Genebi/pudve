@@ -21,5 +21,10 @@ namespace PuntoDeVentaV2
         {
             this.Close();
         }
+
+        private void cbTipoFiltro_Click(object sender, EventArgs e)
+        {
+            cbTipoFiltro.DroppedDown = true;
+        }
     }
 }
