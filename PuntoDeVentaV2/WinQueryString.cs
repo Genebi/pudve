@@ -50,6 +50,7 @@ namespace PuntoDeVentaV2
 
         private void validarChkBox()
         {
+            cbTipoFiltroStock.SelectedIndex = 0;
             if (chkBoxStock.Checked.Equals(true))
             {
                 txtCantStock.Enabled = true;
