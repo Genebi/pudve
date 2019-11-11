@@ -23,11 +23,6 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
-        private void cbTipoFiltro_Click(object sender, EventArgs e)
-        {
-            cbTipoFiltro.DroppedDown = true;
-        }
-
         private void txtCantStock_KeyPress(object sender, KeyPressEventArgs e)
         {
             CultureInfo cc = System.Threading.Thread.CurrentThread.CurrentCulture;
@@ -58,11 +53,14 @@ namespace PuntoDeVentaV2
             if (chkBoxStock.Checked.Equals(true))
             {
                 txtCantStock.Enabled = true;
+                cbTipoFiltroStock.Enabled = true;
                 txtCantStock.Text = "";
+                txtCantStock.Focus();
             }
             else if (chkBoxStock.Checked.Equals(false))
             {
                 txtCantStock.Enabled = false;
+                cbTipoFiltroStock.Enabled = false;
                 txtCantStock.Text = "";
             }
         }
@@ -70,6 +68,11 @@ namespace PuntoDeVentaV2
         private void chkBoxStock_CheckedChanged(object sender, EventArgs e)
         {
             validarChkBox();
+        }
+
+        private void cbTipoFiltroStock_Click(object sender, EventArgs e)
+        {
+            cbTipoFiltroStock.DroppedDown = true;
         }
     }
 }

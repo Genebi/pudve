@@ -31,7 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtCantStock = new System.Windows.Forms.TextBox();
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
-            this.cbTipoFiltro = new System.Windows.Forms.ComboBox();
+            this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -41,9 +41,10 @@
             // 
             this.groupBox1.Controls.Add(this.txtCantStock);
             this.groupBox1.Controls.Add(this.chkBoxStock);
+            this.groupBox1.Controls.Add(this.cbTipoFiltroStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(216, 100);
+            this.groupBox1.Size = new System.Drawing.Size(467, 100);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
@@ -67,22 +68,22 @@
             this.chkBoxStock.UseVisualStyleBackColor = true;
             this.chkBoxStock.CheckedChanged += new System.EventHandler(this.chkBoxStock_CheckedChanged);
             // 
-            // cbTipoFiltro
+            // cbTipoFiltroStock
             // 
-            this.cbTipoFiltro.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cbTipoFiltro.FormattingEnabled = true;
-            this.cbTipoFiltro.Items.AddRange(new object[] {
+            this.cbTipoFiltroStock.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbTipoFiltroStock.FormattingEnabled = true;
+            this.cbTipoFiltroStock.Items.AddRange(new object[] {
             "No Aplica",
             "Mayor Igual",
             "Menor Igual",
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltro.Location = new System.Drawing.Point(27, 158);
-            this.cbTipoFiltro.Name = "cbTipoFiltro";
-            this.cbTipoFiltro.Size = new System.Drawing.Size(216, 21);
-            this.cbTipoFiltro.TabIndex = 1;
-            this.cbTipoFiltro.Click += new System.EventHandler(this.cbTipoFiltro_Click);
+            this.cbTipoFiltroStock.Location = new System.Drawing.Point(216, 27);
+            this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
+            this.cbTipoFiltroStock.Size = new System.Drawing.Size(216, 21);
+            this.cbTipoFiltroStock.TabIndex = 1;
+            this.cbTipoFiltroStock.Click += new System.EventHandler(this.cbTipoFiltroStock_Click);
             // 
             // btnAplicar
             // 
@@ -92,7 +93,7 @@
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(148, 196);
+            this.btnAplicar.Location = new System.Drawing.Point(399, 154);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
             this.btnAplicar.TabIndex = 2;
@@ -107,7 +108,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(36, 196);
+            this.btnCancelar.Location = new System.Drawing.Point(287, 154);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(95, 43);
             this.btnCancelar.TabIndex = 3;
@@ -119,10 +120,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(275, 261);
+            this.ClientSize = new System.Drawing.Size(524, 217);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAplicar);
-            this.Controls.Add(this.cbTipoFiltro);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -142,7 +142,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtCantStock;
         private System.Windows.Forms.CheckBox chkBoxStock;
-        private System.Windows.Forms.ComboBox cbTipoFiltro;
+        private System.Windows.Forms.ComboBox cbTipoFiltroStock;
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnCancelar;
     }
