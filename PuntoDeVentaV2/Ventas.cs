@@ -229,30 +229,31 @@ namespace PuntoDeVentaV2
                     if (verificarUsuario)
                     {
                         idProducto = Convert.ToInt32(datosTmp[0]);
-                        using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
+
+                        /*using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
                         {
                             if (dtProdMessg.Rows.Count > 0)
                             {
                                 drProdMessg = dtProdMessg.Rows[0];
-                                MessageBox.Show("" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
-                                                "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(drProdMessg["ProductOfMessage"].ToString().ToUpper(), "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
-                            else if (dtProdMessg.Rows.Count <= 0)
-                            {
-                                //MessageBox.Show("Producto sin mensaje", "Mensaje para el Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
+                        }*/
                     }
                 }
 
-                string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}')";
 
-                DataTable searchProd = cn.CargarDatos(querySearchProd);
-
-                if (searchProd.Rows.Count > 0)
+                if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
                 {
-                    idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
+                    string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}')";
+
+                    DataTable searchProd = cn.CargarDatos(querySearchProd);
+
+                    if (searchProd.Rows.Count > 0)
+                    {
+                        idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
+                    }
                 }
+                
 
                 if (idProducto > 0)
                 {
@@ -261,14 +262,10 @@ namespace PuntoDeVentaV2
                         if (dtProdMessg.Rows.Count > 0)
                         {
                             drProdMessg = dtProdMessg.Rows[0];
-                            MessageBox.Show("" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
-                                            "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else if (dtProdMessg.Rows.Count <= 0)
-                        {
-                            //MessageBox.Show("Producto sin mensaje", "Mensaje para el Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show(drProdMessg["ProductOfMessage"].ToString().ToUpper(), "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
+
                     string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                     txtBuscadorProducto.Text = "";
                     txtBuscadorProducto.Focus();
