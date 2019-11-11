@@ -65,6 +65,7 @@
             this.chkBoxStock.TabIndex = 0;
             this.chkBoxStock.Text = "Stock";
             this.chkBoxStock.UseVisualStyleBackColor = true;
+            this.chkBoxStock.CheckedChanged += new System.EventHandler(this.chkBoxStock_CheckedChanged);
             // 
             // cbTipoFiltro
             // 

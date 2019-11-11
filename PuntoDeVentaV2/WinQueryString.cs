@@ -64,5 +64,10 @@ namespace PuntoDeVentaV2
                 txtCantStock.Enabled = false;
             }
         }
+
+        private void chkBoxStock_CheckedChanged(object sender, EventArgs e)
+        {
+            validarChkBox();
+        }
     }
 }
