@@ -95,5 +95,10 @@ namespace PuntoDeVentaV2
                                 "Error de captura del Precio", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void cbTipoFiltroPrecio_Click(object sender, EventArgs e)
+        {
+            cbTipoFiltroPrecio.DroppedDown = true;
+        }
     }
 }
