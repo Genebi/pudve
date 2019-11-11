@@ -1222,7 +1222,7 @@ namespace PuntoDeVentaV2
             // 57mm = 161.28 pt
             // 80mm = 226.08 pt
 
-            var tipoPapel  = 80;
+            var tipoPapel = 80;
             var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
             var altoPapel  = Convert.ToInt32(anchoPapel + 68); // 54 64
 
@@ -1284,7 +1284,7 @@ namespace PuntoDeVentaV2
             }
             else if (tipoPapel == 57)
             {
-                anchoColumnas = new float[] { 10f, 20f, 9f, 9f, 9f };
+                anchoColumnas = new float[] { 7f, 20f, 11f, 11f, 13f };
                 txtDescripcion = "Descripción";
                 txtImporte = "Imp.";
                 txtCantidad = "Cant.";
