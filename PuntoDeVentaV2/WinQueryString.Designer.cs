@@ -34,11 +34,13 @@
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.txtCantStock);
             this.groupBox1.Controls.Add(this.chkBoxStock);
             this.groupBox1.Controls.Add(this.cbTipoFiltroStock);
@@ -117,6 +119,16 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.button2_Click);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(26, 65);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(56, 17);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "Precio";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -146,5 +158,6 @@
         private System.Windows.Forms.ComboBox cbTipoFiltroStock;
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
