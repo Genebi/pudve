@@ -1767,7 +1767,7 @@ namespace PuntoDeVentaV2
                                         }
                                         catch (Exception ex)
                                         {
-                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
                                         break;
                                     }
@@ -1806,7 +1806,7 @@ namespace PuntoDeVentaV2
                                             }
                                             catch (Exception ex)
                                             {
-                                                MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                             }
                                             break;
                                         }
@@ -1835,7 +1835,7 @@ namespace PuntoDeVentaV2
         {
             // Variables para poder hacer el control 
             // de registro y actualizacion de la tabla
-            string Descripcion = string.Empty,
+            string  Descripcion = string.Empty,
                     panel = string.Empty;
 
             // lista para almacenar los datos

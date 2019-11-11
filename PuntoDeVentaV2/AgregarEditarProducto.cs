@@ -64,7 +64,7 @@ namespace PuntoDeVentaV2
         
         #region Variables Globales
 
-        List<string> infoDetalle,
+        List<string>    infoDetalle,
                         infoDetailProdGral;
 
         Dictionary<string, string> proveedores,
@@ -75,14 +75,14 @@ namespace PuntoDeVentaV2
         Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(),
                                                                diccionarioDetalleBasicos = new Dictionary<int, Tuple<string, string, string, string>>();
 
-        string[] datosProveedor,
+        string[]    datosProveedor,
                     datosCategoria,
                     datosUbicacion,
                     datosDetalleGral,
                     separadas,
                     guardar;
 
-        string[] listaProveedores = new string[] { },
+        string[]    listaProveedores = new string[] { },
                     listaCategorias = new string[] { },
                     listaUbicaciones = new string[] { },
                     listaDetalleGral = new string[] { };
@@ -95,7 +95,7 @@ namespace PuntoDeVentaV2
             idUbicacion = 0,
             idProductoDetalleGral;
 
-        string nvoDetalle = string.Empty,
+        string  nvoDetalle = string.Empty,
                 nvoValor = string.Empty,
                 editValor = string.Empty,
                 deleteDetalle = string.Empty,
@@ -107,7 +107,7 @@ namespace PuntoDeVentaV2
 
         public static string finalIdProducto = string.Empty;
 
-        string editDetelle = string.Empty,
+        string  editDetelle = string.Empty,
                 editDetalleNvo = string.Empty;
 
         #endregion Variables Globales
@@ -147,7 +147,7 @@ namespace PuntoDeVentaV2
         public string idProveedorXML { get; set; }
         public string nameProveedorXML { get; set; }
 
-        static public int DatosSourceFinal = 0;
+        static public int    DatosSourceFinal = 0;
         static public string ProdNombreFinal = "";
         static public string ProdStockFinal = "";
         static public string ProdPrecioFinal = "";
@@ -158,7 +158,7 @@ namespace PuntoDeVentaV2
 
         static public float ImporteNvoProd = 0;
         static public float DescuentoNvoProd = 0;
-        static public int CantidadNvoProd = 0;
+        static public int   CantidadNvoProd = 0;
 
         float precioOriginalSinIVA = 0;
         float precioOriginalConIVA = 0;
@@ -177,36 +177,44 @@ namespace PuntoDeVentaV2
         static public string impuestoProductoFinal = string.Empty;
 
 
-        DataTable SearchProdResult, SearchCodBarExtResult, datosProductos;
+        DataTable   SearchProdResult, 
+                    SearchCodBarExtResult, 
+                    datosProductos;
 
         OpenFileDialog f;       // declaramos el objeto de OpenFileDialog
 
         // objeto para el manejo de las imagenes
-        FileStream File, File1;
-        FileInfo info;
+        FileStream  File, 
+                    File1;
 
-        string queryBuscarProd, idProductoBuscado, queryUpdateProd, queryInsertProd, queryBuscarCodBarExt, queryBuscarDescuentoCliente, queryDesMayoreo, queryProductosDeServicios, queryNvoProductosDeServicios;
+        FileInfo    info;
+
+        string  queryBuscarProd, 
+                idProductoBuscado, 
+                queryUpdateProd, 
+                queryInsertProd, 
+                queryBuscarCodBarExt, 
+                queryBuscarDescuentoCliente, 
+                queryDesMayoreo, 
+                queryProductosDeServicios, 
+                queryNvoProductosDeServicios;
+
         int respuesta;
 
-        DataTable dtProductosDeServicios, dtNvoProductosDeServicios=null;
+        DataTable   dtProductosDeServicios, 
+                    dtNvoProductosDeServicios=null;
 
         // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
-        // nombre de archivo
-        string fileName;
-        // directorio origen de la imagen
-        string oldDirectory;
-        // directorio para guardar el archivo
-        string fileSavePath;
-        // Nuevo nombre del archivo
-        string NvoFileName;
 
-        string logoTipo = "";
-
-        string tipoProdServ;
-
-        string queryProductos;
-
+        string  fileName,           // nombre de archivo
+                oldDirectory,       // directorio origen de la imagen
+                fileSavePath,       // directorio para guardar el archivo
+                NvoFileName,        // Nuevo nombre del archivo
+                logoTipo = "",      // Path de la Imagen de Logotipo
+                tipoProdServ,       // Que tipo de Servicio es
+                queryProductos;     // Query para busquedas de Productos
+        
         DataRow row, rowNvoProd;
 
         Control _lastEnteredControl;    // para saber cual fue el ultimo control con el cursor activo
@@ -215,25 +223,26 @@ namespace PuntoDeVentaV2
         // poder jalar las imagenes o cualquier cosa que tengamos hay en ese directorio
         //public string rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-        const string fichero = @"\PUDVE\settings\codbar\setupCodBar.txt";     // directorio donde esta el archivo de numero de codigo de barras consecutivo
-        string Contenido;                                               // para obtener el numero que tiene el codigo de barras en el arhivo
+        // directorio donde esta el archivo de numero de codigo de barras consecutivo
+        const string fichero = @"\PUDVE\settings\codbar\setupCodBar.txt"; 
+        string Contenido;   // para obtener el numero que tiene el codigo de barras en el arhivo
 
-        long CodigoDeBarras;                                            // variable entera para llevar un consecutivo de codigo de barras
+        long CodigoDeBarras;    // variable entera para llevar un consecutivo de codigo de barras
 
         List<string> codigosBarrras = new List<string>();   // para agregar los datos extras de codigos de barras
 
-        public DataTable dtClaveInterna;        // almacena el resultado de la funcion de CargarDatos de la funcion searchClavIntProd
-        public DataTable dtCodBar;              // almacena el resultado de la funcion de CargarDatos de la funcion searchCodBar
+        public DataTable dtClaveInterna;    // almacena el resultado de la funcion de CargarDatos de la funcion searchClavIntProd
+        public DataTable dtCodBar;  // almacena el resultado de la funcion de CargarDatos de la funcion searchCodBar
 
         int resultadoSearchNoIdentificacion;    // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchClavIntProd()
-        int resultadoSearchCodBar;              // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchCodBar()
+        int resultadoSearchCodBar;  // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchCodBar()
 
         string filtro;
 
         int PH;
         bool Hided, Hided1;
 
-        List<string> ProductosDeServicios = new List<string>();     // para agregar los productos del servicio o paquete
+        List<string> ProductosDeServicios = new List<string>(); // para agregar los productos del servicio o paquete
         List<ItemsProductoComboBox> prodList;
 
         int numCombo = 1, indexItem = 1, totCB=0;
@@ -867,47 +876,50 @@ namespace PuntoDeVentaV2
         {
             queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
             SearchProdResult = cn.CargarDatos(queryBuscarProd);
-            idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();
-            tipoProdServ = SearchProdResult.Rows[0]["Tipo"].ToString();
-            queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
-            SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
-            cargarCodBarExt();
-            queryBuscarDescuentoCliente = $"SELECT * FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
-            SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
-            queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
-            SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
-            if (tipoProdServ == "S" || tipoProdServ == "PQ")
+            if (SearchProdResult.Rows.Count > 0)
             {
-                DataRow rowProdServPaq;
-                queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
-                dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
-                if (tipoProdServ == "S")
+                idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();
+                tipoProdServ = SearchProdResult.Rows[0]["Tipo"].ToString();
+                queryBuscarCodBarExt = $"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
+                SearchCodBarExtResult = cn.CargarDatos(queryBuscarCodBarExt);
+                cargarCodBarExt();
+                queryBuscarDescuentoCliente = $"SELECT * FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
+                SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
+                queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
+                SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
+                if (tipoProdServ == "S" || tipoProdServ == "PQ")
                 {
-                    cbTipo.Text = "Servicio";
-                }
-                else if (tipoProdServ == "PQ")
-                {
-                    cbTipo.Text = "Paquete";
-                }
-                if (dtProductosDeServicios.Rows.Count != 0)
-                {
-                    rowProdServPaq = dtProductosDeServicios.Rows[0];
-                    if (dtProductosDeServicios.Rows.Count > 0)
+                    DataRow rowProdServPaq;
+                    queryProductosDeServicios = $"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+                    dtProductosDeServicios = cn.CargarDatos(queryProductosDeServicios);
+                    if (tipoProdServ == "S")
                     {
-                        if (rowProdServPaq["NombreProducto"].ToString() != "")
+                        cbTipo.Text = "Servicio";
+                    }
+                    else if (tipoProdServ == "PQ")
+                    {
+                        cbTipo.Text = "Paquete";
+                    }
+                    if (dtProductosDeServicios.Rows.Count != 0)
+                    {
+                        rowProdServPaq = dtProductosDeServicios.Rows[0];
+                        if (dtProductosDeServicios.Rows.Count > 0)
                         {
-                            btnAdd.Visible = true;
-                            Hided = true;
-                            btnAdd.PerformClick();
-                            txtCantPaqServ.Text = rowProdServPaq["Cantidad"].ToString();
+                            if (rowProdServPaq["NombreProducto"].ToString() != "")
+                            {
+                                btnAdd.Visible = true;
+                                Hided = true;
+                                btnAdd.PerformClick();
+                                txtCantPaqServ.Text = rowProdServPaq["Cantidad"].ToString();
+                            }
                         }
                     }
                 }
-            }
-            else if (tipoProdServ == "P")
-            {
-                cbTipo.Text = "Producto";
-                btnAdd.Visible = false;
+                else if (tipoProdServ == "P")
+                {
+                    cbTipo.Text = "Producto";
+                    btnAdd.Visible = false;
+                }
             }
         }
 
@@ -916,16 +928,11 @@ namespace PuntoDeVentaV2
             NombreProducto = "";
             CantidadProducto = "";
             IDProducto = "";
-
-
+            
             chkBoxConProductos.Visible = true;
             id = 0;
             flowLayoutPanel2.Controls.Clear();
-            //if (DatosSourceFinal == 1)
-            //{
-            //    flowLayoutPanel2.Controls.Clear();
-            //}
-
+            
             Label Titulo = new Label();
             Titulo.Name = "Title";
             Titulo.Width = 400;
@@ -1145,7 +1152,19 @@ namespace PuntoDeVentaV2
             idProductoFinal = idEditarProducto;
             impuestoProductoFinal = impuestoSeleccionado;
 
-            if (DatosSourceFinal == 3)
+            txtNombreProducto.Text = ProdNombreFinal;
+            txtStockProducto.Text = ProdStockFinal;
+
+            txtPrecioProducto.Text = ProdPrecioFinal;
+            txtCategoriaProducto.Text = ProdCategoriaFinal;
+            txtClaveProducto.Text = ProdClaveInternaFinal.Trim();
+
+            if (DatosSourceFinal.Equals(2))
+            {
+                txtCodigoBarras.Text = ProdCodBarrasFinal.Trim();
+                cargarDatosExtra();
+            }
+            else if (DatosSourceFinal.Equals(3))
             {
                 FechaXMLNvoProd = fechaProdXML;
                 FolioXMLNvoProd = FolioProdXML;
@@ -1156,11 +1175,7 @@ namespace PuntoDeVentaV2
                 PrecioCompraXMLNvoProd = PrecioCompraXML;
                 txtPrecioCompra.Text = PrecioCompraXMLNvoProd;
             }
-
-            txtNombreProducto.Text = ProdNombreFinal;
-            txtStockProducto.Text = ProdStockFinal;
-
-            if (!DatosSourceFinal.Equals(3))
+            else if (!DatosSourceFinal.Equals(3))
             {
                 dtHistorialCompras = cn.CargarDatos(cs.CargarHistorialDeCompras(idProductoFinal));
                 if (dtHistorialCompras.Rows.Count > 0)
@@ -1173,15 +1188,6 @@ namespace PuntoDeVentaV2
                 {
                     txtPrecioCompra.Text = "";
                 }
-            }
-            txtPrecioProducto.Text = ProdPrecioFinal;
-            txtCategoriaProducto.Text = ProdCategoriaFinal;
-            txtClaveProducto.Text = ProdClaveInternaFinal.Trim();
-
-            if (DatosSourceFinal == 2)
-            {
-                txtCodigoBarras.Text = ProdCodBarrasFinal.Trim();
-                cargarDatosExtra();
             }
             else if (DatosSourceFinal == 4)
             {
@@ -3510,11 +3516,23 @@ namespace PuntoDeVentaV2
             var claveIn = txtClaveProducto.Text.Trim();
             var codigoB = txtCodigoBarras.Text.Trim();
 
-            string queryProdSearch, queryProdServFound, queryProdUpdate, queryProdServUpdate, fech, prodSerPaq, buscar, comboBoxText, comboBoxValue;
+            string  queryProdSearch, 
+                    queryProdServFound, 
+                    queryProdUpdate, 
+                    queryProdServUpdate, 
+                    fech, 
+                    prodSerPaq, 
+                    buscar, 
+                    comboBoxText, 
+                    comboBoxValue;
 
-            DataTable dtProdFound, dtProdSerFound, rowProdUpdate, dtProductos;
+            DataTable   dtProdFound, 
+                        dtProdSerFound, 
+                        rowProdUpdate, 
+                        dtProductos;
 
-            DataRow rowProdFound, row;
+            DataRow rowProdFound, 
+                    row;
 
             queryProdSearch = $"SELECT * FROM Productos WHERE Nombre = '{nombre}' AND Precio = '{precio}'";
             dtProdFound = cn.CargarDatos(queryProdSearch);
