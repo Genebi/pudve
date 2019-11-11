@@ -38,8 +38,8 @@ namespace PuntoDeVentaV2
             else
             {
                 e.Handled = true;
-                MessageBox.Show("Soló son permitidos numeros\nen este campo de Stock", 
-                                "Error de captura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Soló son permitidos numeros\nen este campo de Stock",
+                                "Error de captura del Stock", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -74,6 +74,26 @@ namespace PuntoDeVentaV2
         private void cbTipoFiltroStock_Click(object sender, EventArgs e)
         {
             cbTipoFiltroStock.DroppedDown = true;
+        }
+
+        private void txtCantPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            CultureInfo cc = System.Threading.Thread.CurrentThread.CurrentCulture;
+
+            if (char.IsNumber(e.KeyChar) || e.KeyChar.ToString() == cc.NumberFormat.NumberDecimalSeparator)
+            {
+                e.Handled = false;
+            }
+            else if (char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+                MessageBox.Show("Soló son permitidos numeros\nen este campo de Precio",
+                                "Error de captura del Precio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

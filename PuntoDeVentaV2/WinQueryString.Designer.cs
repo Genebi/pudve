@@ -35,11 +35,13 @@
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.txtCantPrecio = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtCantPrecio);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.txtCantStock);
             this.groupBox1.Controls.Add(this.chkBoxStock);
@@ -129,6 +131,14 @@
             this.checkBox1.Text = "Precio";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
+            // txtCantPrecio
+            // 
+            this.txtCantPrecio.Location = new System.Drawing.Point(117, 63);
+            this.txtCantPrecio.Name = "txtCantPrecio";
+            this.txtCantPrecio.Size = new System.Drawing.Size(77, 20);
+            this.txtCantPrecio.TabIndex = 3;
+            this.txtCantPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPrecio_KeyPress);
+            // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,5 +169,6 @@
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox txtCantPrecio;
     }
 }
