@@ -71,6 +71,7 @@
             // cbTipoFiltroStock
             // 
             this.cbTipoFiltroStock.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbTipoFiltroStock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoFiltroStock.FormattingEnabled = true;
             this.cbTipoFiltroStock.Items.AddRange(new object[] {
             "No Aplica",
