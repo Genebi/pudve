@@ -333,6 +333,25 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            WinQueryString FiltroAvanzado = new WinQueryString();
+
+            FiltroAvanzado.FormClosed += delegate
+            {
+                
+            };
+
+            if (!FiltroAvanzado.Visible)
+            {
+                FiltroAvanzado.ShowDialog();
+            }
+            else
+            {
+                FiltroAvanzado.BringToFront();
+            }
+        }
+
         private void searchPhotoProdInactivo()
         {
             queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Status = 0";

@@ -520,6 +520,12 @@
     <Compile Include="VisualizadorTickets.Designer.cs">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinQueryString.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinQueryString.Designer.cs">
+      <DependentUpon>WinQueryString.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AgregarAnticipo.resx">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </EmbeddedResource>
@@ -695,6 +701,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorTickets.resx">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinQueryString.resx">
+      <DependentUpon>WinQueryString.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
