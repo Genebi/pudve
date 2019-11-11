@@ -54,6 +54,7 @@
             this.txtCantStock.Name = "txtCantStock";
             this.txtCantStock.Size = new System.Drawing.Size(77, 20);
             this.txtCantStock.TabIndex = 1;
+            this.txtCantStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantStock_KeyPress);
             // 
             // chkBoxStock
             // 
