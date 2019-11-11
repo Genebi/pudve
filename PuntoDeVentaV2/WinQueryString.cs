@@ -58,10 +58,12 @@ namespace PuntoDeVentaV2
             if (chkBoxStock.Checked.Equals(true))
             {
                 txtCantStock.Enabled = true;
+                txtCantStock.Text = "";
             }
             else if (chkBoxStock.Checked.Equals(false))
             {
                 txtCantStock.Enabled = false;
+                txtCantStock.Text = "";
             }
         }
 
