@@ -47,5 +47,22 @@ namespace PuntoDeVentaV2
                                 "Error de captura", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void WinQueryString_Load(object sender, EventArgs e)
+        {
+            validarChkBox();
+        }
+
+        private void validarChkBox()
+        {
+            if (chkBoxStock.Checked.Equals(true))
+            {
+                txtCantStock.Enabled = true;
+            }
+            else if (chkBoxStock.Checked.Equals(false))
+            {
+                txtCantStock.Enabled = false;
+            }
+        }
     }
 }
