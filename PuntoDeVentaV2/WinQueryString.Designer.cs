@@ -46,7 +46,7 @@
             this.groupBox1.Controls.Add(this.cbTipoFiltroStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(467, 100);
+            this.groupBox1.Size = new System.Drawing.Size(490, 100);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
@@ -82,9 +82,9 @@
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltroStock.Location = new System.Drawing.Point(216, 27);
+            this.cbTipoFiltroStock.Location = new System.Drawing.Point(233, 27);
             this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
-            this.cbTipoFiltroStock.Size = new System.Drawing.Size(216, 21);
+            this.cbTipoFiltroStock.Size = new System.Drawing.Size(234, 21);
             this.cbTipoFiltroStock.TabIndex = 1;
             this.cbTipoFiltroStock.Click += new System.EventHandler(this.cbTipoFiltroStock_Click);
             // 
@@ -133,7 +133,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 217);
+            this.ClientSize = new System.Drawing.Size(547, 217);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.groupBox1);
