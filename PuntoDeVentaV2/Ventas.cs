@@ -1899,11 +1899,23 @@ namespace PuntoDeVentaV2
 
             // Regresa un diccionario
             var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
+            int coincidencias = resultados.Count;
 
-            if (resultados.Count > 0)
+            if (coincidencias > 0)
             {
                 // Guardamos los datos devueltos temporalmente en productosD
                 productosD = resultados;
+
+                // Calculamos la altura del listBox
+                var alturaLista = (coincidencias * 17) + 20;
+
+                listaProductos.Height = alturaLista;
+
+                // Si la cantidad de productos es mayor o igual a 15 establecemos una altura maxima para que haga scroll
+                if (coincidencias >= 15)
+                {
+                    listaProductos.Height = 275;
+                }
 
                 foreach (var item in resultados)
                 {
