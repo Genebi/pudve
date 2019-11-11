@@ -2689,7 +2689,16 @@ namespace PuntoDeVentaV2
             BorrarDatosLogin();
         }
 
-        private void btnImportar_Click(object sender, EventArgs e)
+        private void desvincularPCMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Hosting = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+
+            MessageBox.Show("La PC ha sido desvinculada correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void importarBaseDeDatosMenuItem_Click(object sender, EventArgs e)
         {
             // Inicializamos los valores por defecto del openFileDialog
             buscarArchivoBD.FileName = string.Empty;
