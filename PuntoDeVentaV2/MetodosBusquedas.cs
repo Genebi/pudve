@@ -712,16 +712,19 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigo}'");
-
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
-
-            if (dr.Read())
+            if (!string.IsNullOrWhiteSpace(codigo))
             {
-                lista.Add(dr["IDProducto"].ToString());
-            }
+                DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigo}'");
 
-            dr.Close();
+                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    lista.Add(dr["IDProducto"].ToString());
+                }
+
+                dr.Close();
+            }
 
             return lista.ToArray();
         }
