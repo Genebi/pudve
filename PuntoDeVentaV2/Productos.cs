@@ -254,6 +254,85 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void DGVProductos_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var textoTTipButtonMsg = string.Empty;
+                int coordenadaX = 0, coordenadaY = 0;
+                System.Drawing.Rectangle cellRect = DGVProductos.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+
+                if (e.ColumnIndex == 0)
+                {
+                    textoTTipButtonMsg = "";
+                    coordenadaX = 110;
+                    coordenadaY = -200;
+                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, 
+                                        DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
+                    textoTTipButtonMsg = string.Empty;
+                }
+                else if (e.ColumnIndex >= 7)
+                {
+                    DGVProductos.Cursor = Cursors.Hand;
+                    if (e.ColumnIndex == 7)
+                    {
+                        textoTTipButtonMsg = "";
+                        coordenadaX = 90;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 8)
+                    {
+                        textoTTipButtonMsg = "";
+                        coordenadaX = 160;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 9)
+                    {
+                        textoTTipButtonMsg = "";
+                        coordenadaX = 105;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 10)
+                    {
+                        textoTTipButtonMsg = "";
+                        coordenadaX = 130;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 11)
+                    {
+                        textoTTipButtonMsg = "";
+                        coordenadaX = 110;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 12)
+                    {
+                        textoTTipButtonMsg = "";
+                        coordenadaX = 155;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 13)
+                    {
+                        textoTTipButtonMsg = "";
+                        coordenadaX = 85;
+                        coordenadaY = -200;
+                    }
+                    if (e.ColumnIndex == 16)
+                    {
+                        textoTTipButtonMsg = "";
+                        coordenadaX = 90;
+                        coordenadaY = -200;
+                    }
+                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, 
+                                        DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
+                    textoTTipButtonMsg = string.Empty;
+                }
+                else
+                {
+                    DGVProductos.Cursor = Cursors.Default;
+                }
+            }
+        }
+
         private void searchPhotoProdInactivo()
         {
             queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Status = 0";
