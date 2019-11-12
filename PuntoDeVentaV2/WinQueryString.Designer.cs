@@ -57,6 +57,7 @@
             // 
             // cbTipoFiltroPrecio
             // 
+            this.cbTipoFiltroPrecio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoFiltroPrecio.FormattingEnabled = true;
             this.cbTipoFiltroPrecio.Items.AddRange(new object[] {
             "No Aplica",
