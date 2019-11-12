@@ -31,7 +31,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cbTipoFiltroPrecio = new System.Windows.Forms.ComboBox();
             this.txtCantPrecio = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkBoxPrecio = new System.Windows.Forms.CheckBox();
             this.txtCantStock = new System.Windows.Forms.TextBox();
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
@@ -44,7 +44,7 @@
             // 
             this.groupBox1.Controls.Add(this.cbTipoFiltroPrecio);
             this.groupBox1.Controls.Add(this.txtCantPrecio);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.chkBoxPrecio);
             this.groupBox1.Controls.Add(this.txtCantStock);
             this.groupBox1.Controls.Add(this.chkBoxStock);
             this.groupBox1.Controls.Add(this.cbTipoFiltroStock);
@@ -80,15 +80,16 @@
             this.txtCantPrecio.TabIndex = 5;
             this.txtCantPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPrecio_KeyPress);
             // 
-            // checkBox1
+            // chkBoxPrecio
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(26, 65);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(56, 17);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Precio";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkBoxPrecio.AutoSize = true;
+            this.chkBoxPrecio.Location = new System.Drawing.Point(26, 65);
+            this.chkBoxPrecio.Name = "chkBoxPrecio";
+            this.chkBoxPrecio.Size = new System.Drawing.Size(56, 17);
+            this.chkBoxPrecio.TabIndex = 3;
+            this.chkBoxPrecio.Text = "Precio";
+            this.chkBoxPrecio.UseVisualStyleBackColor = true;
+            this.chkBoxPrecio.CheckedChanged += new System.EventHandler(this.chkBoxPrecio_CheckedChanged);
             // 
             // txtCantStock
             // 
@@ -187,7 +188,7 @@
         private System.Windows.Forms.ComboBox cbTipoFiltroStock;
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkBoxPrecio;
         private System.Windows.Forms.TextBox txtCantPrecio;
         private System.Windows.Forms.ComboBox cbTipoFiltroPrecio;
     }

@@ -64,6 +64,21 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroStock.Enabled = false;
                 txtCantStock.Text = "";
             }
+
+            cbTipoFiltroPrecio.SelectedIndex = 0;
+            if (chkBoxPrecio.Checked.Equals(true))
+            {
+                txtCantPrecio.Enabled = true;
+                cbTipoFiltroPrecio.Enabled = true;
+                txtCantPrecio.Text = "";
+                txtCantPrecio.Focus();
+            }
+            else if (chkBoxPrecio.Checked.Equals(false))
+            {
+                txtCantPrecio.Enabled = false;
+                cbTipoFiltroPrecio.Enabled = false;
+                txtCantPrecio.Text = "";
+            }
         }
 
         private void chkBoxStock_CheckedChanged(object sender, EventArgs e)
@@ -99,6 +114,11 @@ namespace PuntoDeVentaV2
         private void cbTipoFiltroPrecio_Click(object sender, EventArgs e)
         {
             cbTipoFiltroPrecio.DroppedDown = true;
+        }
+
+        private void chkBoxPrecio_CheckedChanged(object sender, EventArgs e)
+        {
+            validarChkBox();
         }
     }
 }
