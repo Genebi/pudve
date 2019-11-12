@@ -13,7 +13,7 @@ namespace PuntoDeVentaV2
 {
     public partial class WinQueryString : Form
     {
-        bool filtroStock;
+        bool filtroStock, filtroPrecio;
 
         public WinQueryString()
         {
@@ -85,16 +85,36 @@ namespace PuntoDeVentaV2
             cbTipoFiltroPrecio.SelectedIndex = 0;
             if (chkBoxPrecio.Checked.Equals(true))
             {
+                filtroPrecio = Convert.ToBoolean(chkBoxPrecio.Checked);
+
+                Properties.Settings.Default.chkFiltroStock = chkBoxPrecio.Checked;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
                 txtCantPrecio.Enabled = true;
                 cbTipoFiltroPrecio.Enabled = true;
                 txtCantPrecio.Text = "";
+                //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+                //{
+                //    MessageBox.Show("Valor del chkFiltroPrecio es:\nTrue", "Valor del CheckBox chkFiltroPrecio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
                 txtCantPrecio.Focus();
             }
             else if (chkBoxPrecio.Checked.Equals(false))
             {
+                filtroPrecio = Convert.ToBoolean(chkBoxPrecio.Checked);
+
+                Properties.Settings.Default.chkFiltroStock = chkBoxPrecio.Checked;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
                 txtCantPrecio.Enabled = false;
                 cbTipoFiltroPrecio.Enabled = false;
                 txtCantPrecio.Text = "";
+                //if (Properties.Settings.Default.chkFiltroPrecio.Equals(false))
+                //{
+                //    MessageBox.Show("Valor del chkFiltroPrecio es:\nFalse", "Valor del CheckBox chkFiltroPrecio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
             }
         }
 
