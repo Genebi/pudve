@@ -66,7 +66,7 @@
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(210, 63);
+            this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(117, 63);
             this.cbTipoFiltroPrecio.Name = "cbTipoFiltroPrecio";
             this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(234, 21);
             this.cbTipoFiltroPrecio.TabIndex = 4;
@@ -74,10 +74,10 @@
             // 
             // txtCantPrecio
             // 
-            this.txtCantPrecio.Location = new System.Drawing.Point(117, 63);
+            this.txtCantPrecio.Location = new System.Drawing.Point(367, 63);
             this.txtCantPrecio.Name = "txtCantPrecio";
             this.txtCantPrecio.Size = new System.Drawing.Size(77, 20);
-            this.txtCantPrecio.TabIndex = 3;
+            this.txtCantPrecio.TabIndex = 5;
             this.txtCantPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPrecio_KeyPress);
             // 
             // checkBox1
@@ -86,16 +86,16 @@
             this.checkBox1.Location = new System.Drawing.Point(26, 65);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(56, 17);
-            this.checkBox1.TabIndex = 2;
+            this.checkBox1.TabIndex = 3;
             this.checkBox1.Text = "Precio";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // txtCantStock
             // 
-            this.txtCantStock.Location = new System.Drawing.Point(117, 27);
+            this.txtCantStock.Location = new System.Drawing.Point(367, 27);
             this.txtCantStock.Name = "txtCantStock";
             this.txtCantStock.Size = new System.Drawing.Size(77, 20);
-            this.txtCantStock.TabIndex = 1;
+            this.txtCantStock.TabIndex = 2;
             this.txtCantStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantStock_KeyPress);
             // 
             // chkBoxStock
@@ -121,9 +121,9 @@
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltroStock.Location = new System.Drawing.Point(210, 27);
+            this.cbTipoFiltroStock.Location = new System.Drawing.Point(117, 27);
             this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
-            this.cbTipoFiltroStock.Size = new System.Drawing.Size(234, 21);
+            this.cbTipoFiltroStock.Size = new System.Drawing.Size(235, 21);
             this.cbTipoFiltroStock.TabIndex = 1;
             this.cbTipoFiltroStock.Click += new System.EventHandler(this.cbTipoFiltroStock_Click);
             // 
@@ -138,7 +138,7 @@
             this.btnAplicar.Location = new System.Drawing.Point(399, 154);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
-            this.btnAplicar.TabIndex = 2;
+            this.btnAplicar.TabIndex = 6;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = false;
             // 
@@ -153,7 +153,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(287, 154);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(95, 43);
-            this.btnCancelar.TabIndex = 3;
+            this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.button2_Click);
