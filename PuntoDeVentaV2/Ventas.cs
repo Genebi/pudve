@@ -890,7 +890,14 @@ namespace PuntoDeVentaV2
                         var Precio = fila.Cells["Precio"].Value.ToString();
                         var Tipo = fila.Cells["TipoPS"].Value.ToString();
 
-                        guardar = new string[] { idVenta, IDProducto, Nombre, Cantidad, Precio, DescuentoGeneral };
+                        var DescuentoIndividual = fila.Cells["Descuento"].Value.ToString();
+                        var ImporteIndividual = fila.Cells["Importe"].Value.ToString();
+
+                        // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
+                        guardar = new string[] {
+                            idVenta, IDProducto, Nombre, Cantidad, Precio,
+                            DescuentoGeneral, DescuentoIndividual, ImporteIndividual, Descuento, Total
+                        };
 
                         // Guardar info de los productos
                         infoProductos[contador] = guardar;
@@ -1221,7 +1228,7 @@ namespace PuntoDeVentaV2
 
             var tipoPapel = 80;
             var anchoPapel = Convert.ToInt32(Math.Floor((((tipoPapel * 0.10) * 72) / 2.54)));
-            var altoPapel  = Convert.ToInt32(anchoPapel + 68); // 54 64
+            var altoPapel  = Convert.ToInt32(anchoPapel + 72); // 54 64 68
 
             if (productos.Length > 3)
             {
@@ -1367,9 +1374,10 @@ namespace PuntoDeVentaV2
 
             tabla.AddCell(separadorInicial);
 
-
-            float totalTicket = 0;
-            float totalDescuento = 0;
+            float descuentoProductos = 0;
+            float descuentoGeneral = 0;
+            float totalDescuento = float.Parse(productos[0][8]);
+            float totalTicket = float.Parse(productos[0][9]);
 
             var longitud = productos.Length;
 
@@ -1385,31 +1393,16 @@ namespace PuntoDeVentaV2
                 PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + float.Parse(productos[i][4]).ToString("0.00"), fuenteNormal));
                 colPrecioTmp.BorderWidth = 0;
 
-                var totalDesc = 0f;
+                float descuento = float.Parse(productos[i][6]);
+                float importe = float.Parse(productos[i][7]);
 
-                if (!string.IsNullOrWhiteSpace(productos[i][5]))
-                {
-                    var descuento = float.Parse(productos[i][5]);
+                descuentoProductos += descuento;
 
-                    if (descuento > 0)
-                    {
-                        // totalDesc = (cantidad producto * precio producto) * porcentaje de descuento
-                        totalDesc = (float.Parse(productos[i][3]) * float.Parse(productos[i][4])) * descuento;
-                    }
-                }
-
-                // importe = (cantidad producto * precio producto) - total descuento
-                var importe = (float.Parse(productos[i][3]) * float.Parse(productos[i][4])) - totalDesc;
-
-                totalDescuento += totalDesc;
-
-                PdfPCell colDescTmp = new PdfPCell(new Phrase("$" + totalDesc.ToString("0.00"), fuenteNormal));
+                PdfPCell colDescTmp = new PdfPCell(new Phrase("$" + descuento.ToString("0.00"), fuenteNormal));
                 colDescTmp.BorderWidth = 0;
 
                 PdfPCell colImporteTmp = new PdfPCell(new Phrase("$" + importe.ToString("0.00"), fuenteNormal));
                 colImporteTmp.BorderWidth = 0;
-
-                totalTicket += importe;
 
                 tabla.AddCell(colCantidadTmp);
                 tabla.AddCell(colDescripcionTmp);
@@ -1422,10 +1415,18 @@ namespace PuntoDeVentaV2
             separadorFinal.BorderWidth = 0;
             separadorFinal.Colspan = 5;
 
-            PdfPCell colTotalDescuento = new PdfPCell(new Phrase("Descuento: $" + totalDescuento.ToString("0.00"), fuenteNormal));
+            PdfPCell colTotalDescuento = new PdfPCell(new Phrase("Descuento productos: $" + descuentoProductos.ToString("0.00"), fuenteNormal));
             colTotalDescuento.BorderWidth = 0;
             colTotalDescuento.HorizontalAlignment = Element.ALIGN_RIGHT;
             colTotalDescuento.Colspan = 5;
+
+            var descuentoG = txtDescuentoGeneral.Text;
+            descuentoGeneral = totalDescuento - descuentoProductos;
+
+            PdfPCell colDescuentoGeneral = new PdfPCell(new Phrase($"Descuento general ({descuentoG}%): $" + descuentoGeneral.ToString("0.00"), fuenteNormal));
+            colDescuentoGeneral.BorderWidth = 0;
+            colDescuentoGeneral.HorizontalAlignment = Element.ALIGN_RIGHT;
+            colDescuentoGeneral.Colspan = 5;
 
             PdfPCell totalVenta = new PdfPCell(new Phrase("TOTAL: $" + totalTicket.ToString("0.00"), fuenteNormal));
             totalVenta.BorderWidth = 0;
@@ -1434,6 +1435,12 @@ namespace PuntoDeVentaV2
 
             tabla.AddCell(separadorFinal);
             tabla.AddCell(colTotalDescuento);
+
+            if (descuentoGeneral > 0)
+            {
+                tabla.AddCell(colDescuentoGeneral);
+            }
+            
             tabla.AddCell(totalVenta);
 
             /******************************************
