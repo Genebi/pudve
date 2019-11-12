@@ -13,14 +13,11 @@ namespace PuntoDeVentaV2
 {
     public partial class WinQueryString : Form
     {
+        bool filtroStock;
+
         public WinQueryString()
         {
             InitializeComponent();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void txtCantStock_KeyPress(object sender, KeyPressEventArgs e)
@@ -53,16 +50,36 @@ namespace PuntoDeVentaV2
             cbTipoFiltroStock.SelectedIndex = 0;
             if (chkBoxStock.Checked.Equals(true))
             {
+                filtroStock = Convert.ToBoolean(chkBoxStock.Checked);
+
+                Properties.Settings.Default.chkFiltroStock = chkBoxStock.Checked;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
                 txtCantStock.Enabled = true;
                 cbTipoFiltroStock.Enabled = true;
                 txtCantStock.Text = "";
+                //if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+                //{
+                //    MessageBox.Show("Valor del chkFiltroStock es:\nTrue", "Valor del CheckBox chkFiltroStock", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
                 txtCantStock.Focus();
             }
             else if (chkBoxStock.Checked.Equals(false))
             {
+                filtroStock = Convert.ToBoolean(chkBoxStock.Checked);
+
+                Properties.Settings.Default.chkFiltroStock = chkBoxStock.Checked;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
                 txtCantStock.Enabled = false;
                 cbTipoFiltroStock.Enabled = false;
                 txtCantStock.Text = "";
+                //if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+                //{
+                //    MessageBox.Show("Valor del chkFiltroStock es:\nFalse", "Valor del CheckBox chkFiltroStock", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //}
             }
 
             cbTipoFiltroPrecio.SelectedIndex = 0;
@@ -119,6 +136,16 @@ namespace PuntoDeVentaV2
         private void chkBoxPrecio_CheckedChanged(object sender, EventArgs e)
         {
             validarChkBox();
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAplicar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

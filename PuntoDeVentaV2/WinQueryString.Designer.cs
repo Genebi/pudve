@@ -50,7 +50,7 @@
             this.groupBox1.Controls.Add(this.cbTipoFiltroStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(467, 100);
+            this.groupBox1.Size = new System.Drawing.Size(326, 100);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
@@ -68,13 +68,13 @@
             "Menor Que"});
             this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(117, 63);
             this.cbTipoFiltroPrecio.Name = "cbTipoFiltroPrecio";
-            this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(234, 21);
+            this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(92, 21);
             this.cbTipoFiltroPrecio.TabIndex = 4;
             this.cbTipoFiltroPrecio.Click += new System.EventHandler(this.cbTipoFiltroPrecio_Click);
             // 
             // txtCantPrecio
             // 
-            this.txtCantPrecio.Location = new System.Drawing.Point(367, 63);
+            this.txtCantPrecio.Location = new System.Drawing.Point(226, 63);
             this.txtCantPrecio.Name = "txtCantPrecio";
             this.txtCantPrecio.Size = new System.Drawing.Size(77, 20);
             this.txtCantPrecio.TabIndex = 5;
@@ -83,7 +83,7 @@
             // chkBoxPrecio
             // 
             this.chkBoxPrecio.AutoSize = true;
-            this.chkBoxPrecio.Location = new System.Drawing.Point(26, 65);
+            this.chkBoxPrecio.Location = new System.Drawing.Point(32, 65);
             this.chkBoxPrecio.Name = "chkBoxPrecio";
             this.chkBoxPrecio.Size = new System.Drawing.Size(56, 17);
             this.chkBoxPrecio.TabIndex = 3;
@@ -93,7 +93,7 @@
             // 
             // txtCantStock
             // 
-            this.txtCantStock.Location = new System.Drawing.Point(367, 27);
+            this.txtCantStock.Location = new System.Drawing.Point(226, 27);
             this.txtCantStock.Name = "txtCantStock";
             this.txtCantStock.Size = new System.Drawing.Size(77, 20);
             this.txtCantStock.TabIndex = 2;
@@ -102,7 +102,7 @@
             // chkBoxStock
             // 
             this.chkBoxStock.AutoSize = true;
-            this.chkBoxStock.Location = new System.Drawing.Point(26, 29);
+            this.chkBoxStock.Location = new System.Drawing.Point(32, 29);
             this.chkBoxStock.Name = "chkBoxStock";
             this.chkBoxStock.Size = new System.Drawing.Size(54, 17);
             this.chkBoxStock.TabIndex = 0;
@@ -124,7 +124,7 @@
             "Menor Que"});
             this.cbTipoFiltroStock.Location = new System.Drawing.Point(117, 27);
             this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
-            this.cbTipoFiltroStock.Size = new System.Drawing.Size(235, 21);
+            this.cbTipoFiltroStock.Size = new System.Drawing.Size(92, 21);
             this.cbTipoFiltroStock.TabIndex = 1;
             this.cbTipoFiltroStock.Click += new System.EventHandler(this.cbTipoFiltroStock_Click);
             // 
@@ -136,12 +136,13 @@
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(399, 154);
+            this.btnAplicar.Location = new System.Drawing.Point(258, 154);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
             this.btnAplicar.TabIndex = 6;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = false;
+            this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
             // 
             // btnCancelar
             // 
@@ -151,19 +152,19 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(287, 154);
+            this.btnCancelar.Location = new System.Drawing.Point(141, 154);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(95, 43);
             this.btnCancelar.TabIndex = 7;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.button2_Click);
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(547, 217);
+            this.ClientSize = new System.Drawing.Size(389, 217);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.groupBox1);
