@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbTipoFiltroPrecio = new System.Windows.Forms.ComboBox();
+            this.txtCantPrecio = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.txtCantStock = new System.Windows.Forms.TextBox();
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.txtCantPrecio = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.cbTipoFiltroPrecio);
             this.groupBox1.Controls.Add(this.txtCantPrecio);
             this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.txtCantStock);
@@ -50,10 +50,44 @@
             this.groupBox1.Controls.Add(this.cbTipoFiltroStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 35);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(490, 100);
+            this.groupBox1.Size = new System.Drawing.Size(467, 100);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
+            // 
+            // cbTipoFiltroPrecio
+            // 
+            this.cbTipoFiltroPrecio.FormattingEnabled = true;
+            this.cbTipoFiltroPrecio.Items.AddRange(new object[] {
+            "No Aplica",
+            "Mayor Igual",
+            "Menor Igual",
+            "Igual Que",
+            "Mayor Que",
+            "Menor Que"});
+            this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(210, 63);
+            this.cbTipoFiltroPrecio.Name = "cbTipoFiltroPrecio";
+            this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(234, 21);
+            this.cbTipoFiltroPrecio.TabIndex = 4;
+            this.cbTipoFiltroPrecio.Click += new System.EventHandler(this.cbTipoFiltroPrecio_Click);
+            // 
+            // txtCantPrecio
+            // 
+            this.txtCantPrecio.Location = new System.Drawing.Point(117, 63);
+            this.txtCantPrecio.Name = "txtCantPrecio";
+            this.txtCantPrecio.Size = new System.Drawing.Size(77, 20);
+            this.txtCantPrecio.TabIndex = 3;
+            this.txtCantPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPrecio_KeyPress);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(26, 65);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(56, 17);
+            this.checkBox1.TabIndex = 2;
+            this.checkBox1.Text = "Precio";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // txtCantStock
             // 
@@ -86,7 +120,7 @@
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltroStock.Location = new System.Drawing.Point(233, 27);
+            this.cbTipoFiltroStock.Location = new System.Drawing.Point(210, 27);
             this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
             this.cbTipoFiltroStock.Size = new System.Drawing.Size(234, 21);
             this.cbTipoFiltroStock.TabIndex = 1;
@@ -123,39 +157,6 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.button2_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(26, 65);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(56, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Precio";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // txtCantPrecio
-            // 
-            this.txtCantPrecio.Location = new System.Drawing.Point(117, 63);
-            this.txtCantPrecio.Name = "txtCantPrecio";
-            this.txtCantPrecio.Size = new System.Drawing.Size(77, 20);
-            this.txtCantPrecio.TabIndex = 3;
-            this.txtCantPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPrecio_KeyPress);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "No Aplica",
-            "Mayor Igual",
-            "Menor Igual",
-            "Igual Que",
-            "Mayor Que",
-            "Menor Que"});
-            this.comboBox1.Location = new System.Drawing.Point(233, 63);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(234, 21);
-            this.comboBox1.TabIndex = 4;
-            // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -187,6 +188,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.TextBox txtCantPrecio;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbTipoFiltroPrecio;
     }
 }
