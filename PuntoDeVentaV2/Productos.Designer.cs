@@ -113,7 +113,7 @@
             this.btnAgregarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(13, 17);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(13, 12);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
             this.btnAgregarProducto.Size = new System.Drawing.Size(156, 27);
             this.btnAgregarProducto.TabIndex = 1;
@@ -151,9 +151,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(120, 44);
+            this.txtBusqueda.Location = new System.Drawing.Point(91, 44);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(619, 23);
+            this.txtBusqueda.Size = new System.Drawing.Size(654, 23);
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
@@ -170,7 +170,7 @@
             "Z - A",
             "Mayor precio",
             "Menor precio"});
-            this.cbOrden.Location = new System.Drawing.Point(16, 19);
+            this.cbOrden.Location = new System.Drawing.Point(16, 15);
             this.cbOrden.Name = "cbOrden";
             this.cbOrden.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbOrden.Size = new System.Drawing.Size(137, 25);
@@ -187,7 +187,7 @@
             "Habilitados",
             "Deshabilitados",
             "Todos"});
-            this.cbMostrar.Location = new System.Drawing.Point(16, 51);
+            this.cbMostrar.Location = new System.Drawing.Point(16, 47);
             this.cbMostrar.Name = "cbMostrar";
             this.cbMostrar.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.cbMostrar.Size = new System.Drawing.Size(137, 25);
@@ -458,7 +458,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(753, 44);
+            this.button1.Location = new System.Drawing.Point(751, 44);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 15;
@@ -471,12 +471,11 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.cbOrden);
             this.groupBox2.Controls.Add(this.cbMostrar);
-            this.groupBox2.Location = new System.Drawing.Point(469, 85);
+            this.groupBox2.Location = new System.Drawing.Point(469, 83);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(168, 93);
+            this.groupBox2.Size = new System.Drawing.Size(168, 80);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = " Ordenar: ";
             // 
             // groupBox1
             // 
@@ -484,12 +483,11 @@
             this.groupBox1.Controls.Add(this.btnAgregarServicio);
             this.groupBox1.Controls.Add(this.btnAgregarPaquete);
             this.groupBox1.Controls.Add(this.btnAgregarProducto);
-            this.groupBox1.Location = new System.Drawing.Point(650, 72);
+            this.groupBox1.Location = new System.Drawing.Point(650, 69);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(178, 118);
+            this.groupBox1.Size = new System.Drawing.Size(178, 116);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = " Agregar: ";
             // 
             // btnAgregarServicio
             // 
@@ -501,7 +499,7 @@
             this.btnAgregarServicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarServicio.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnAgregarServicio.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarServicio.Location = new System.Drawing.Point(13, 84);
+            this.btnAgregarServicio.Location = new System.Drawing.Point(13, 79);
             this.btnAgregarServicio.Name = "btnAgregarServicio";
             this.btnAgregarServicio.Size = new System.Drawing.Size(156, 27);
             this.btnAgregarServicio.TabIndex = 3;
@@ -519,7 +517,7 @@
             this.btnAgregarPaquete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarPaquete.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnAgregarPaquete.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarPaquete.Location = new System.Drawing.Point(13, 50);
+            this.btnAgregarPaquete.Location = new System.Drawing.Point(13, 45);
             this.btnAgregarPaquete.Name = "btnAgregarPaquete";
             this.btnAgregarPaquete.Size = new System.Drawing.Size(156, 27);
             this.btnAgregarPaquete.TabIndex = 2;
@@ -532,7 +530,7 @@
             this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
             this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListView.Location = new System.Drawing.Point(12, 139);
+            this.btnListView.Location = new System.Drawing.Point(12, 126);
             this.btnListView.Margin = new System.Windows.Forms.Padding(2);
             this.btnListView.Name = "btnListView";
             this.btnListView.Size = new System.Drawing.Size(136, 49);
@@ -547,7 +545,7 @@
             this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th_large;
             this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhotoView.Location = new System.Drawing.Point(152, 139);
+            this.btnPhotoView.Location = new System.Drawing.Point(152, 126);
             this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
             this.btnPhotoView.Name = "btnPhotoView";
             this.btnPhotoView.Size = new System.Drawing.Size(159, 49);
@@ -562,7 +560,7 @@
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
             this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(152, 85);
+            this.btnModificarEstado.Location = new System.Drawing.Point(152, 72);
             this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificarEstado.Name = "btnModificarEstado";
             this.btnModificarEstado.Size = new System.Drawing.Size(159, 49);
@@ -578,7 +576,7 @@
             this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
-            this.btnAgregarXML.Location = new System.Drawing.Point(12, 85);
+            this.btnAgregarXML.Location = new System.Drawing.Point(12, 72);
             this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregarXML.Name = "btnAgregarXML";
             this.btnAgregarXML.Size = new System.Drawing.Size(136, 49);

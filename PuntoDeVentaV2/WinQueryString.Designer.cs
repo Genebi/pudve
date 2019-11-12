@@ -126,6 +126,7 @@
             this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
             this.cbTipoFiltroStock.Size = new System.Drawing.Size(92, 21);
             this.cbTipoFiltroStock.TabIndex = 1;
+            this.cbTipoFiltroStock.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroStock_SelectedIndexChanged);
             this.cbTipoFiltroStock.Click += new System.EventHandler(this.cbTipoFiltroStock_Click);
             // 
             // btnAplicar

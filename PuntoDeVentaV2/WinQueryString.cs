@@ -13,7 +13,15 @@ namespace PuntoDeVentaV2
 {
     public partial class WinQueryString : Form
     {
-        bool filtroStock, filtroPrecio;
+        bool    filtroStock, 
+                filtroPrecio;
+
+        string  strFiltroStock = string.Empty, 
+                strFiltroPrecio = string.Empty,
+                strOpcionCBStock = string.Empty,
+                strOpcionCBPrecio = string.Empty,
+                strTxtStock = string.Empty,
+                strTxtPrecio = string.Empty;
 
         public WinQueryString()
         {
@@ -42,6 +50,11 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
+            cbTipoFiltroStock.SelectedIndex = 0;
+            cbTipoFiltroStock.SelectedIndex = 0;
+
+            cbTipoFiltroStock_SelectedIndexChanged(sender, e);
+
             validarChkBox();
         }
 
@@ -52,34 +65,26 @@ namespace PuntoDeVentaV2
             {
                 filtroStock = Convert.ToBoolean(chkBoxStock.Checked);
 
-                Properties.Settings.Default.chkFiltroStock = chkBoxStock.Checked;
+                Properties.Settings.Default.chkFiltroStock = filtroStock;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
                 txtCantStock.Enabled = true;
                 cbTipoFiltroStock.Enabled = true;
                 txtCantStock.Text = "";
-                //if (Properties.Settings.Default.chkFiltroStock.Equals(true))
-                //{
-                //    MessageBox.Show("Valor del chkFiltroStock es:\nTrue", "Valor del CheckBox chkFiltroStock", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //}
                 txtCantStock.Focus();
             }
             else if (chkBoxStock.Checked.Equals(false))
             {
                 filtroStock = Convert.ToBoolean(chkBoxStock.Checked);
 
-                Properties.Settings.Default.chkFiltroStock = chkBoxStock.Checked;
+                Properties.Settings.Default.chkFiltroStock = filtroStock;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
                 txtCantStock.Enabled = false;
                 cbTipoFiltroStock.Enabled = false;
                 txtCantStock.Text = "";
-                //if (Properties.Settings.Default.chkFiltroStock.Equals(false))
-                //{
-                //    MessageBox.Show("Valor del chkFiltroStock es:\nFalse", "Valor del CheckBox chkFiltroStock", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //}
             }
 
             cbTipoFiltroPrecio.SelectedIndex = 0;
@@ -87,40 +92,78 @@ namespace PuntoDeVentaV2
             {
                 filtroPrecio = Convert.ToBoolean(chkBoxPrecio.Checked);
 
-                Properties.Settings.Default.chkFiltroStock = chkBoxPrecio.Checked;
+                Properties.Settings.Default.chkFiltroStock = filtroStock;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
                 txtCantPrecio.Enabled = true;
                 cbTipoFiltroPrecio.Enabled = true;
                 txtCantPrecio.Text = "";
-                //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
-                //{
-                //    MessageBox.Show("Valor del chkFiltroPrecio es:\nTrue", "Valor del CheckBox chkFiltroPrecio", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //}
                 txtCantPrecio.Focus();
             }
             else if (chkBoxPrecio.Checked.Equals(false))
             {
                 filtroPrecio = Convert.ToBoolean(chkBoxPrecio.Checked);
 
-                Properties.Settings.Default.chkFiltroStock = chkBoxPrecio.Checked;
+                Properties.Settings.Default.chkFiltroStock = filtroStock;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
                 txtCantPrecio.Enabled = false;
                 cbTipoFiltroPrecio.Enabled = false;
                 txtCantPrecio.Text = "";
-                //if (Properties.Settings.Default.chkFiltroPrecio.Equals(false))
-                //{
-                //    MessageBox.Show("Valor del chkFiltroPrecio es:\nFalse", "Valor del CheckBox chkFiltroPrecio", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //}
             }
         }
 
         private void chkBoxStock_CheckedChanged(object sender, EventArgs e)
         {
             validarChkBox();
+        }
+
+        private void cbTipoFiltroStock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtroStock = Properties.Settings.Default.chkFiltroStock;
+
+            strOpcionCBStock = Convert.ToString(cbTipoFiltroStock.SelectedItem);
+
+            if (filtroStock.Equals(true))
+            {
+                strTxtStock = txtCantStock.Text;
+
+                strFiltroStock = "Stock ";
+
+                if (!strTxtStock.Equals(""))
+                {
+                    if (strOpcionCBStock.Equals("No Aplica"))
+                    {
+                        strFiltroStock = "";
+                    }
+                    else if (strOpcionCBStock.Equals("Mayor Igual"))
+                    {
+                        strFiltroStock += $">= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Menor Igual"))
+                    {
+                        strFiltroStock += $"<= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Igual Que"))
+                    {
+                        strFiltroStock += $"= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Mayor Que"))
+                    {
+                        strFiltroStock += $"> ";
+                    }
+                    else if (strOpcionCBStock.Equals("Menor Que"))
+                    {
+                        strFiltroStock += $"< ";
+                    }
+                }
+                else if (strTxtStock.Equals(""))
+                {
+                    strFiltroStock = "";
+                }
+            }
         }
 
         private void cbTipoFiltroStock_Click(object sender, EventArgs e)
@@ -165,7 +208,46 @@ namespace PuntoDeVentaV2
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
+            cbTipoFiltroStock_SelectedIndexChanged(sender, e);
 
+            filtroStock = Properties.Settings.Default.chkFiltroStock;
+            
+            if (filtroStock.Equals(true))
+            {
+                strTxtStock = txtCantStock.Text;
+
+                if (!strTxtStock.Equals(""))
+                {
+                    if (!strOpcionCBStock.Equals("No Aplica"))
+                    {
+                        strFiltroStock += "\'" + strTxtStock + "\'";
+
+                        Properties.Settings.Default.strFiltroStock = strFiltroStock;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+
+                        MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                                    "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.strFiltroStock = string.Empty;
+
+                        MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                                    "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else if (strTxtStock.Equals(""))
+                {
+                    strFiltroStock = "";
+                    MessageBox.Show("Favor de Introducior una Cantidad de Stock\nLa Cadena de Filtro es: " + strFiltroStock, 
+                                    "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (filtroStock.Equals(false))
+            {
+                MessageBox.Show("Que Paso...");
+            }
         }
     }
 }

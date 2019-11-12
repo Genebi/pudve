@@ -298,5 +298,17 @@ namespace PuntoDeVentaV2.Properties {
                 this["chkFiltroPrecio"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string strFiltroStock {
+            get {
+                return ((string)(this["strFiltroStock"]));
+            }
+            set {
+                this["strFiltroStock"] = value;
+            }
+        }
     }
 }
