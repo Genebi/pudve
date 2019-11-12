@@ -36,7 +36,8 @@
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
             this.btnAplicar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnClean = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             this.groupBox1.Controls.Add(this.txtCantStock);
             this.groupBox1.Controls.Add(this.chkBoxStock);
             this.groupBox1.Controls.Add(this.cbTipoFiltroStock);
-            this.groupBox1.Location = new System.Drawing.Point(27, 35);
+            this.groupBox1.Location = new System.Drawing.Point(27, 23);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(326, 100);
             this.groupBox1.TabIndex = 0;
@@ -137,7 +138,7 @@
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(258, 154);
+            this.btnAplicar.Location = new System.Drawing.Point(258, 142);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
             this.btnAplicar.TabIndex = 6;
@@ -145,28 +146,44 @@
             this.btnAplicar.UseVisualStyleBackColor = false;
             this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
             // 
-            // btnCancelar
+            // btnClean
             // 
-            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(141, 154);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(95, 43);
-            this.btnCancelar.TabIndex = 7;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnClean.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnClean.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnClean.FlatAppearance.BorderSize = 0;
+            this.btnClean.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClean.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClean.ForeColor = System.Drawing.Color.White;
+            this.btnClean.Location = new System.Drawing.Point(144, 142);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(95, 43);
+            this.btnClean.TabIndex = 7;
+            this.btnClean.Text = "Limpiar";
+            this.btnClean.UseVisualStyleBackColor = false;
+            this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.DarkGray;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Century", 12F);
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Location = new System.Drawing.Point(27, 143);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(95, 43);
+            this.btnClose.TabIndex = 8;
+            this.btnClose.Text = "Cerrar";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 217);
-            this.Controls.Add(this.btnCancelar);
+            this.ClientSize = new System.Drawing.Size(389, 206);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
@@ -175,6 +192,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Filtro Avanzado de Productos";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WinQueryString_FormClosed);
             this.Load += new System.EventHandler(this.WinQueryString_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -189,9 +207,10 @@
         private System.Windows.Forms.CheckBox chkBoxStock;
         private System.Windows.Forms.ComboBox cbTipoFiltroStock;
         private System.Windows.Forms.Button btnAplicar;
-        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnClean;
         private System.Windows.Forms.CheckBox chkBoxPrecio;
         private System.Windows.Forms.TextBox txtCantPrecio;
         private System.Windows.Forms.ComboBox cbTipoFiltroPrecio;
+        private System.Windows.Forms.Button btnClose;
     }
 }

@@ -166,6 +166,33 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void WinQueryString_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (producto != null)
+            {
+                producto.actualizarBtnFiltro();
+            }
+        }
+
+        private void btnClean_Click(object sender, EventArgs e)
+        {
+            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (producto != null)
+            {
+                producto.inicializarVariablesFiltro();
+            }
+
+            this.Close();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private void cbTipoFiltroStock_Click(object sender, EventArgs e)
         {
             cbTipoFiltroStock.DroppedDown = true;
@@ -203,7 +230,7 @@ namespace PuntoDeVentaV2
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)
@@ -225,23 +252,25 @@ namespace PuntoDeVentaV2
                         Properties.Settings.Default.strFiltroStock = strFiltroStock;
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
-
-                        MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                                    "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                        //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
                         Properties.Settings.Default.strFiltroStock = string.Empty;
 
-                        MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                                    "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                        //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                    this.Close();
                 }
                 else if (strTxtStock.Equals(""))
                 {
                     strFiltroStock = "";
-                    MessageBox.Show("Favor de Introducior una Cantidad de Stock\nLa Cadena de Filtro es: " + strFiltroStock, 
-                                    "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Stock", 
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCantStock.Focus();
                 }
             }
             else if (filtroStock.Equals(false))

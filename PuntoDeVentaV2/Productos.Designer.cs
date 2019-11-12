@@ -62,7 +62,7 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnFilterSearch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnAgregarServicio = new System.Windows.Forms.Button();
@@ -433,7 +433,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnFilterSearch);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.tituloSeccion);
@@ -449,22 +449,25 @@
             this.panel1.Size = new System.Drawing.Size(841, 195);
             this.panel1.TabIndex = 15;
             // 
-            // button1
+            // btnFilterSearch
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.ForestGreen;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(751, 44);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Filtro";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnFilterSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFilterSearch.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnFilterSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFilterSearch.FlatAppearance.BorderSize = 0;
+            this.btnFilterSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFilterSearch.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnFilterSearch.ForeColor = System.Drawing.Color.White;
+            this.btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
+            this.btnFilterSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnFilterSearch.Location = new System.Drawing.Point(751, 44);
+            this.btnFilterSearch.Name = "btnFilterSearch";
+            this.btnFilterSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnFilterSearch.TabIndex = 15;
+            this.btnFilterSearch.Text = "Filtro";
+            this.btnFilterSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnFilterSearch.UseVisualStyleBackColor = false;
+            this.btnFilterSearch.Click += new System.EventHandler(this.btnFilterSearch_Click);
             // 
             // groupBox2
             // 
@@ -921,6 +924,6 @@
         private System.Windows.Forms.Button btnAgregarServicio;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnFilterSearch;
     }
 }

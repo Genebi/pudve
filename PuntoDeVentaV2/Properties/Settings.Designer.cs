@@ -301,7 +301,7 @@ namespace PuntoDeVentaV2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
         public string strFiltroStock {
             get {
                 return ((string)(this["strFiltroStock"]));

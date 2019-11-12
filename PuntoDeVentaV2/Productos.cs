@@ -333,13 +333,13 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnFilterSearch_Click(object sender, EventArgs e)
         {
             WinQueryString FiltroAvanzado = new WinQueryString();
 
             FiltroAvanzado.FormClosed += delegate
             {
-                
+
             };
 
             if (!FiltroAvanzado.Visible)
@@ -953,6 +953,8 @@ namespace PuntoDeVentaV2
 
             linkLblUltimaPagina.Text = p.countPag().ToString();
 
+            actualizarBtnFiltro();
+
             CargarDatos();
             if (!Properties.Settings.Default.FiltroOrdenar.Equals("Ordenar por:"))
             {
@@ -969,6 +971,27 @@ namespace PuntoDeVentaV2
                 cbMostrar.DropDownStyle = ComboBoxStyle.DropDownList;
             }
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
+        }
+
+        public void inicializarVariablesFiltro()
+        {
+            Properties.Settings.Default.chkFiltroPrecio = false;
+            Properties.Settings.Default.chkFiltroStock = false;
+            Properties.Settings.Default.strFiltroStock = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        public void actualizarBtnFiltro()
+        {
+            if (!Properties.Settings.Default.strFiltroStock.Equals(""))
+            {
+                btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+            }
+            else if (Properties.Settings.Default.strFiltroStock.Equals(""))
+            {
+                btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
+            }
         }
 
         private void MostrarCheckBox()
