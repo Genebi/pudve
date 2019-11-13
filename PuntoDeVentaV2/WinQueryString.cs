@@ -50,33 +50,50 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
+            //MessageBox.Show("Valor de checkBox: " + Properties.Settings.Default.chkFiltroStock);
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
                 string strOperadorAndCant;
                 string[] strList;
-                char[] separator = { ' ' };
-
-                strOperadorAndCant = Properties.Settings.Default.strFiltroStock;
-
-                strList = strOperadorAndCant.Split(separator);
-
-                //MessageBox.Show("La Lista es:\n" + strList[0].ToString() + 
-                //                "\n" + strList[1].ToString() + 
-                //                "\n" + strList[2].ToString());
-
+                char[] separator = { ' ', '\'' };
                 chkBoxStock.Checked = Properties.Settings.Default.chkFiltroStock;
+                strOperadorAndCant = Properties.Settings.Default.strFiltroStock;
+                if (!strOperadorAndCant.Equals(""))
+                {
+                    strList = strOperadorAndCant.Split(separator);
+                    //MessageBox.Show("La Lista es:\n" + strList[0].ToString() +
+                    //                "\n" + strList[1].ToString() +
+                    //                "\n" + strList[3].ToString());
+                    txtCantStock.Text = strList[3].ToString();
+                    if (strList[1].ToString().Equals(">="))
+                    {
+                        cbTipoFiltroStock.SelectedIndex = 1;
+                    }
+                    else if (strList[1].ToString().Equals("<="))
+                    {
+                        cbTipoFiltroStock.SelectedIndex = 2;
+                    }
+                    else if (strList[1].ToString().Equals("="))
+                    {
+                        cbTipoFiltroStock.SelectedIndex = 3;
+                    }
+                    else if (strList[1].ToString().Equals(">"))
+                    {
+                        cbTipoFiltroStock.SelectedIndex = 4;
+                    }
+                    else if (strList[1].ToString().Equals("<"))
+                    {
+                        cbTipoFiltroStock.SelectedIndex = 5;
+                    }
+                }
             }
             else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
             {
                 chkBoxStock.Checked = false;
                 cbTipoFiltroStock.SelectedIndex = 0;
+                cbTipoFiltroStock_SelectedIndexChanged(sender, e);
+                validarChkBox();
             }
-            
-            cbTipoFiltroStock.SelectedIndex = 0;
-
-            cbTipoFiltroStock_SelectedIndexChanged(sender, e);
-
-            validarChkBox();
         }
 
         private void validarChkBox()
