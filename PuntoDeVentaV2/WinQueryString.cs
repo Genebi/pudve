@@ -90,6 +90,49 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroStock.SelectedIndex = 0;
                 cbTipoFiltroStock_SelectedIndexChanged(sender, e);
                 validarChkBoxStock();
+            }
+            if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+            {
+                string strOperadorAndCant;
+                string[] strList;
+                char[] separator = { ' ' };
+                chkBoxPrecio.Checked = Properties.Settings.Default.chkFiltroPrecio;
+                strOperadorAndCant = Properties.Settings.Default.strFiltroPrecio;
+                if (!strOperadorAndCant.Equals(""))
+                {
+                    strList = strOperadorAndCant.Split(separator);
+                    if (strList.Length > 1)
+                    {
+                        txtCantPrecio.Text = strList[2].ToString();
+
+                        if (strList[1].ToString().Equals(">="))
+                        {
+                            cbTipoFiltroPrecio.SelectedIndex = 1;
+                        }
+                        else if (strList[1].ToString().Equals("<="))
+                        {
+                            cbTipoFiltroPrecio.SelectedIndex = 2;
+                        }
+                        else if (strList[1].ToString().Equals("="))
+                        {
+                            cbTipoFiltroPrecio.SelectedIndex = 3;
+                        }
+                        else if (strList[1].ToString().Equals(">"))
+                        {
+                            cbTipoFiltroPrecio.SelectedIndex = 4;
+                        }
+                        else if (strList[1].ToString().Equals("<"))
+                        {
+                            cbTipoFiltroPrecio.SelectedIndex = 5;
+                        }
+                    }
+                }
+            }
+            else if (Properties.Settings.Default.chkFiltroPrecio.Equals(false))
+            {
+                chkBoxPrecio.Checked = false;
+                cbTipoFiltroPrecio.SelectedIndex = 0;
+                cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
                 validarChkBoxPrecio();
             }
         }
@@ -131,7 +174,7 @@ namespace PuntoDeVentaV2
             {
                 filtroPrecio = Convert.ToBoolean(chkBoxPrecio.Checked);
 
-                Properties.Settings.Default.chkFiltroStock = filtroStock;
+                Properties.Settings.Default.chkFiltroPrecio = filtroPrecio;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
@@ -144,7 +187,7 @@ namespace PuntoDeVentaV2
             {
                 filtroPrecio = Convert.ToBoolean(chkBoxPrecio.Checked);
 
-                Properties.Settings.Default.chkFiltroStock = filtroStock;
+                Properties.Settings.Default.chkFiltroPrecio = filtroPrecio;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
@@ -317,84 +360,95 @@ namespace PuntoDeVentaV2
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             cbTipoFiltroStock_SelectedIndexChanged(sender, e);
-
             filtroStock = Properties.Settings.Default.chkFiltroStock;
-
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
-
             filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
-            
-            if (filtroStock.Equals(true))
+
+            DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", 
+                                                  "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
             {
-                strTxtStock = txtCantStock.Text;
-
-                if (!strTxtStock.Equals(""))
+                if (filtroStock.Equals(true))
                 {
-                    if (!strOpcionCBStock.Equals("No Aplica"))
-                    {
-                        strFiltroStock += strTxtStock;
+                    strTxtStock = txtCantStock.Text;
 
-                        Properties.Settings.Default.strFiltroStock = strFiltroStock;
-                        Properties.Settings.Default.Save();
-                        Properties.Settings.Default.Reload();
-                        //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                        //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
+                    if (!strTxtStock.Equals(""))
                     {
-                        Properties.Settings.Default.strFiltroStock = string.Empty;
-                        //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                        //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (!strOpcionCBStock.Equals("No Aplica"))
+                        {
+                            strFiltroStock += strTxtStock;
+
+                            Properties.Settings.Default.strFiltroStock = strFiltroStock;
+                            Properties.Settings.Default.Save();
+                            Properties.Settings.Default.Reload();
+                            //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                            //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.strFiltroStock = string.Empty;
+                            //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                            //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        //this.Close();
                     }
-                    this.Close();
+                    else if (strTxtStock.Equals(""))
+                    {
+                        strFiltroStock = "";
+                        MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Stock",
+                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCantStock.Focus();
+                    }
                 }
-                else if (strTxtStock.Equals(""))
+                else if (filtroStock.Equals(false))
                 {
-                    strFiltroStock = "";
-                    MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Stock", 
-                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCantStock.Focus();
+                    MessageBox.Show("Que Paso...\nFalta Seleccionar Stock.");
                 }
+                if (filtroPrecio.Equals(true))
+                {
+                    strTxtPrecio = txtCantPrecio.Text;
+
+                    if (!strTxtPrecio.Equals(""))
+                    {
+                        if (!strOpcionCBPrecio.Equals("No Aplica"))
+                        {
+                            strFiltroPrecio += strTxtPrecio;
+
+                            Properties.Settings.Default.strFiltroPrecio = strFiltroPrecio;
+                            Properties.Settings.Default.Save();
+                            Properties.Settings.Default.Reload();
+                            //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                            //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.strFiltroPrecio = string.Empty;
+                            //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                            //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        //this.Close();
+                    }
+                    else if (strTxtPrecio.Equals(""))
+                    {
+                        strFiltroPrecio = "";
+                        MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Precio",
+                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtCantPrecio.Focus();
+                    }
+                }
+                else if (filtroPrecio.Equals(false))
+                {
+                    MessageBox.Show("Que Paso...\nFalta Seleccionar Precio.");
+                }
+                this.Close();
             }
-            else if (filtroStock.Equals(false))
+            else if (result == DialogResult.No)
             {
-                MessageBox.Show("Que Paso...\nFalta Seleccionar Stock.");
+                this.Close();
             }
-            else if (filtroPrecio.Equals(true))
+            else if (result == DialogResult.Cancel)
             {
-                strTxtPrecio = txtCantPrecio.Text;
-
-                if (!strTxtPrecio.Equals(""))
-                {
-                    if (!strOpcionCBPrecio.Equals("No Aplica"))
-                    {
-                        strFiltroPrecio += strTxtPrecio;
-
-                        Properties.Settings.Default.strFiltroPrecio = strFiltroPrecio;
-                        Properties.Settings.Default.Save();
-                        Properties.Settings.Default.Reload();
-                        //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                        //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        Properties.Settings.Default.strFiltroPrecio = string.Empty;
-                        //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                        //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    this.Close();
-                }
-                else if (strTxtPrecio.Equals(""))
-                {
-                    strFiltroPrecio = "";
-                    MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Precio",
-                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtCantPrecio.Focus();
-                }
-            }
-            else if (filtroPrecio.Equals(false))
-            {
-                MessageBox.Show("Que Paso...\nFalta Seleccionar Precio.");
+                txtCantStock.Focus();
             }
         }
     }
