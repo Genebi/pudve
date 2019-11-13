@@ -944,24 +944,39 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            string filtroConSinFiltroAvanzado = string.Empty;
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
 
             panelShowPhotoView.Visible = false;
             panelShowDGVProductosView.Visible = true;
+
+            filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = 1 {extra}";
+
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
-                p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock.ToString()} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
+                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
             }
-            else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+            if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
             {
-                p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
+                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
             }
+            p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+
+            //if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+            //{
+            //    p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock.ToString()} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
+            //}
+            //else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+            //{
+            //    p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
+            //}
             
             linkLblUltimaPagina.Text = p.countPag().ToString();
 
             actualizarBtnFiltro();
 
             CargarDatos();
+
             if (!Properties.Settings.Default.FiltroOrdenar.Equals("Ordenar por:"))
             {
                 cbOrden.Text = Properties.Settings.Default.FiltroOrdenar;
@@ -1028,6 +1043,7 @@ namespace PuntoDeVentaV2
         public void CargarDatos(int status = 1, string busqueda = "")
         {
             int idProducto = 0;
+            string filtroConSinFiltroAvanzado = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
@@ -1057,28 +1073,30 @@ namespace PuntoDeVentaV2
                 {
                     if (busqueda == "")
                     {
+                        filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID}";
                         if (Properties.Settings.Default.chkFiltroStock.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                         //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID}", DataMemberDGV, maximo_x_pagina);
                     }
                     else if (busqueda != "")
                     {
+                        filtroConSinFiltroAvanzado = $"SELECT* FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = { FormPrincipal.userID} {extra}";
                         if (Properties.Settings.Default.chkFiltroStock.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                         //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
@@ -1091,26 +1109,30 @@ namespace PuntoDeVentaV2
                     extra = busqueda;
                     if (DGVProductos.RowCount <= 0)
                     {
+                        filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}";
                         if (Properties.Settings.Default.chkFiltroStock.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                         //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                     else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
                     {
+                        filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}";
                         if (Properties.Settings.Default.chkFiltroStock.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                         //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
@@ -1118,14 +1140,16 @@ namespace PuntoDeVentaV2
                 {
                     if (DGVProductos.RowCount >= 0 && clickBoton == 0)
                     {
+                        filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}";
                         if (Properties.Settings.Default.chkFiltroStock.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                         //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
@@ -1137,14 +1161,16 @@ namespace PuntoDeVentaV2
                 {
                     if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
                     {
+                        filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status}";
                         if (Properties.Settings.Default.chkFiltroStock.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock} AND P.Status = {status}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                         //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
@@ -1152,14 +1178,16 @@ namespace PuntoDeVentaV2
                 {
                     if (DGVProductos.RowCount >= 0)
                     {
+                        filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}";
                         if (Properties.Settings.Default.chkFiltroStock.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
                         {
-                            p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
+                            filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
+                        p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                         //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                 }

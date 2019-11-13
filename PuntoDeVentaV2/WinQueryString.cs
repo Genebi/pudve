@@ -390,7 +390,6 @@ namespace PuntoDeVentaV2
                             //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
                             //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        //this.Close();
                     }
                     else if (strTxtStock.Equals(""))
                     {
@@ -426,7 +425,6 @@ namespace PuntoDeVentaV2
                             //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
                             //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        //this.Close();
                     }
                     else if (strTxtPrecio.Equals(""))
                     {
