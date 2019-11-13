@@ -50,7 +50,16 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
-            cbTipoFiltroStock.SelectedIndex = 0;
+            if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+            {
+                chkBoxStock.Checked = Properties.Settings.Default.chkFiltroStock;
+            }
+            else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
+            {
+                chkBoxStock.Checked = false;
+                cbTipoFiltroStock.SelectedIndex = 0;
+            }
+            
             cbTipoFiltroStock.SelectedIndex = 0;
 
             cbTipoFiltroStock_SelectedIndexChanged(sender, e);
