@@ -55,16 +55,13 @@ namespace PuntoDeVentaV2
             {
                 string strOperadorAndCant;
                 string[] strList;
-                char[] separator = { ' ', '\'' };
+                char[] separator = { ' ' };
                 chkBoxStock.Checked = Properties.Settings.Default.chkFiltroStock;
                 strOperadorAndCant = Properties.Settings.Default.strFiltroStock;
                 if (!strOperadorAndCant.Equals(""))
                 {
                     strList = strOperadorAndCant.Split(separator);
-                    //MessageBox.Show("La Lista es:\n" + strList[0].ToString() +
-                    //                "\n" + strList[1].ToString() +
-                    //                "\n" + strList[3].ToString());
-                    txtCantStock.Text = strList[3].ToString();
+                    txtCantStock.Text = strList[2].ToString();
                     if (strList[1].ToString().Equals(">="))
                     {
                         cbTipoFiltroStock.SelectedIndex = 1;
@@ -176,11 +173,11 @@ namespace PuntoDeVentaV2
                     {
                         strFiltroStock = "";
                     }
-                    else if (strOpcionCBStock.Equals("Mayor Igual"))
+                    else if (strOpcionCBStock.Equals("Mayor o Igual Que"))
                     {
                         strFiltroStock += $">= ";
                     }
-                    else if (strOpcionCBStock.Equals("Menor Igual"))
+                    else if (strOpcionCBStock.Equals("Menor o Igual Que"))
                     {
                         strFiltroStock += $"<= ";
                     }
@@ -211,6 +208,7 @@ namespace PuntoDeVentaV2
             if (producto != null)
             {
                 producto.actualizarBtnFiltro();
+                producto.CargarDatos();
             }
         }
 
@@ -285,19 +283,17 @@ namespace PuntoDeVentaV2
                 {
                     if (!strOpcionCBStock.Equals("No Aplica"))
                     {
-                        strFiltroStock += "\'" + strTxtStock + "\'";
+                        strFiltroStock += strTxtStock;
 
                         Properties.Settings.Default.strFiltroStock = strFiltroStock;
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
-                        
                         //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
                         //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
                         Properties.Settings.Default.strFiltroStock = string.Empty;
-
                         //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
                         //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
