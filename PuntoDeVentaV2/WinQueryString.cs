@@ -52,6 +52,18 @@ namespace PuntoDeVentaV2
         {
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
+                string strOperadorAndCant;
+                string[] strList;
+                char[] separator = { ' ' };
+
+                strOperadorAndCant = Properties.Settings.Default.strFiltroStock;
+
+                strList = strOperadorAndCant.Split(separator);
+
+                //MessageBox.Show("La Lista es:\n" + strList[0].ToString() + 
+                //                "\n" + strList[1].ToString() + 
+                //                "\n" + strList[2].ToString());
+
                 chkBoxStock.Checked = Properties.Settings.Default.chkFiltroStock;
             }
             else if (Properties.Settings.Default.chkFiltroStock.Equals(false))

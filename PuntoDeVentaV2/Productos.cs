@@ -992,6 +992,7 @@ namespace PuntoDeVentaV2
             {
                 btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
             }
+            MessageBox.Show("Filtro: " + Properties.Settings.Default.strFiltroStock);
         }
 
         private void MostrarCheckBox()
