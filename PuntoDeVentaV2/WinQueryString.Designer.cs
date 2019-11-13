@@ -71,6 +71,7 @@
             this.cbTipoFiltroPrecio.Name = "cbTipoFiltroPrecio";
             this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(116, 21);
             this.cbTipoFiltroPrecio.TabIndex = 4;
+            this.cbTipoFiltroPrecio.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroPrecio_SelectedIndexChanged);
             this.cbTipoFiltroPrecio.Click += new System.EventHandler(this.cbTipoFiltroPrecio_Click);
             // 
             // txtCantPrecio

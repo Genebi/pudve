@@ -89,11 +89,12 @@ namespace PuntoDeVentaV2
                 chkBoxStock.Checked = false;
                 cbTipoFiltroStock.SelectedIndex = 0;
                 cbTipoFiltroStock_SelectedIndexChanged(sender, e);
-                validarChkBox();
+                validarChkBoxStock();
+                validarChkBoxPrecio();
             }
         }
 
-        private void validarChkBox()
+        private void validarChkBoxStock()
         {
             cbTipoFiltroStock.SelectedIndex = 0;
             if (chkBoxStock.Checked.Equals(true))
@@ -121,7 +122,10 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroStock.Enabled = false;
                 txtCantStock.Text = "";
             }
+        }
 
+        private void validarChkBoxPrecio()
+        {
             cbTipoFiltroPrecio.SelectedIndex = 0;
             if (chkBoxPrecio.Checked.Equals(true))
             {
@@ -152,7 +156,7 @@ namespace PuntoDeVentaV2
 
         private void chkBoxStock_CheckedChanged(object sender, EventArgs e)
         {
-            validarChkBox();
+            validarChkBoxStock();
         }
 
         private void cbTipoFiltroStock_SelectedIndexChanged(object sender, EventArgs e)
@@ -229,6 +233,52 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
+        private void cbTipoFiltroPrecio_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
+
+            strOpcionCBPrecio = Convert.ToString(cbTipoFiltroPrecio.SelectedItem);
+
+            if (filtroPrecio.Equals(true))
+            {
+                strTxtPrecio = txtCantPrecio.Text;
+
+                strFiltroPrecio = "Precio ";
+
+                if (!strTxtPrecio.Equals(""))
+                {
+                    if (strOpcionCBStock.Equals("No Aplica"))
+                    {
+                        strFiltroPrecio = "";
+                    }
+                    else if (strOpcionCBStock.Equals("Mayor o Igual Que"))
+                    {
+                        strFiltroPrecio += $">= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Menor o Igual Que"))
+                    {
+                        strFiltroPrecio += $"<= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Igual Que"))
+                    {
+                        strFiltroPrecio += $"= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Mayor Que"))
+                    {
+                        strFiltroPrecio += $"> ";
+                    }
+                    else if (strOpcionCBStock.Equals("Menor Que"))
+                    {
+                        strFiltroPrecio += $"< ";
+                    }
+                }
+                else if (strTxtPrecio.Equals(""))
+                {
+                    strFiltroPrecio = "";
+                }
+            }
+        }
+
         private void cbTipoFiltroStock_Click(object sender, EventArgs e)
         {
             cbTipoFiltroStock.DroppedDown = true;
@@ -261,12 +311,7 @@ namespace PuntoDeVentaV2
 
         private void chkBoxPrecio_CheckedChanged(object sender, EventArgs e)
         {
-            validarChkBox();
-        }
-
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            
+            validarChkBoxPrecio();
         }
 
         private void btnAplicar_Click(object sender, EventArgs e)
@@ -274,6 +319,10 @@ namespace PuntoDeVentaV2
             cbTipoFiltroStock_SelectedIndexChanged(sender, e);
 
             filtroStock = Properties.Settings.Default.chkFiltroStock;
+
+            cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
+
+            filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
             
             if (filtroStock.Equals(true))
             {
@@ -309,7 +358,43 @@ namespace PuntoDeVentaV2
             }
             else if (filtroStock.Equals(false))
             {
-                MessageBox.Show("Que Paso...");
+                MessageBox.Show("Que Paso...\nFalta Seleccionar Stock.");
+            }
+            else if (filtroPrecio.Equals(true))
+            {
+                strTxtPrecio = txtCantPrecio.Text;
+
+                if (!strTxtPrecio.Equals(""))
+                {
+                    if (!strOpcionCBPrecio.Equals("No Aplica"))
+                    {
+                        strFiltroPrecio += strTxtPrecio;
+
+                        Properties.Settings.Default.strFiltroPrecio = strFiltroPrecio;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+                        //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                        //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.strFiltroPrecio = string.Empty;
+                        //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
+                        //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    this.Close();
+                }
+                else if (strTxtPrecio.Equals(""))
+                {
+                    strFiltroPrecio = "";
+                    MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Precio",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCantPrecio.Focus();
+                }
+            }
+            else if (filtroPrecio.Equals(false))
+            {
+                MessageBox.Show("Que Paso...\nFalta Seleccionar Precio.");
             }
         }
     }
