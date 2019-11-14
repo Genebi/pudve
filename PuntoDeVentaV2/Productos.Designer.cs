@@ -452,7 +452,7 @@
             // btnFilterSearch
             // 
             this.btnFilterSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFilterSearch.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnFilterSearch.BackColor = System.Drawing.Color.YellowGreen;
             this.btnFilterSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFilterSearch.FlatAppearance.BorderSize = 0;
             this.btnFilterSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -460,11 +460,12 @@
             this.btnFilterSearch.ForeColor = System.Drawing.Color.White;
             this.btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
             this.btnFilterSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFilterSearch.Location = new System.Drawing.Point(751, 44);
+            this.btnFilterSearch.Location = new System.Drawing.Point(760, 44);
             this.btnFilterSearch.Name = "btnFilterSearch";
-            this.btnFilterSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnFilterSearch.Size = new System.Drawing.Size(68, 23);
             this.btnFilterSearch.TabIndex = 15;
             this.btnFilterSearch.Text = "Filtro";
+            this.btnFilterSearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFilterSearch.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnFilterSearch.UseVisualStyleBackColor = false;
             this.btnFilterSearch.Click += new System.EventHandler(this.btnFilterSearch_Click);
