@@ -206,10 +206,10 @@ namespace PuntoDeVentaV2
         {
             filtroStock = Properties.Settings.Default.chkFiltroStock;
 
-            strOpcionCBStock = Convert.ToString(cbTipoFiltroStock.SelectedItem);
-
             if (filtroStock.Equals(true))
             {
+                strOpcionCBStock = Convert.ToString(cbTipoFiltroStock.SelectedItem);
+
                 strTxtStock = txtCantStock.Text;
 
                 strFiltroStock = "Stock ";
@@ -222,23 +222,23 @@ namespace PuntoDeVentaV2
                     }
                     else if (strOpcionCBStock.Equals("Mayor o Igual Que"))
                     {
-                        strFiltroStock += $">= ";
+                        strFiltroStock += ">= ";
                     }
                     else if (strOpcionCBStock.Equals("Menor o Igual Que"))
                     {
-                        strFiltroStock += $"<= ";
+                        strFiltroStock += "<= ";
                     }
                     else if (strOpcionCBStock.Equals("Igual Que"))
                     {
-                        strFiltroStock += $"= ";
+                        strFiltroStock += "= ";
                     }
                     else if (strOpcionCBStock.Equals("Mayor Que"))
                     {
-                        strFiltroStock += $"> ";
+                        strFiltroStock += "> ";
                     }
                     else if (strOpcionCBStock.Equals("Menor Que"))
                     {
-                        strFiltroStock += $"< ";
+                        strFiltroStock += "< ";
                     }
                 }
                 else if (strTxtStock.Equals(""))
@@ -280,39 +280,39 @@ namespace PuntoDeVentaV2
         {
             filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
 
-            strOpcionCBPrecio = Convert.ToString(cbTipoFiltroPrecio.SelectedItem);
-
             if (filtroPrecio.Equals(true))
             {
+                strOpcionCBPrecio = Convert.ToString(cbTipoFiltroPrecio.SelectedItem);
+
                 strTxtPrecio = txtCantPrecio.Text;
 
                 strFiltroPrecio = "Precio ";
 
                 if (!strTxtPrecio.Equals(""))
                 {
-                    if (strOpcionCBStock.Equals("No Aplica"))
+                    if (strOpcionCBPrecio.Equals("No Aplica"))
                     {
                         strFiltroPrecio = "";
                     }
-                    else if (strOpcionCBStock.Equals("Mayor o Igual Que"))
+                    else if (strOpcionCBPrecio.Equals("Mayor o Igual Que"))
                     {
-                        strFiltroPrecio += $">= ";
+                        strFiltroPrecio += ">= ";
                     }
-                    else if (strOpcionCBStock.Equals("Menor o Igual Que"))
+                    else if (strOpcionCBPrecio.Equals("Menor o Igual Que"))
                     {
-                        strFiltroPrecio += $"<= ";
+                        strFiltroPrecio += "<= ";
                     }
-                    else if (strOpcionCBStock.Equals("Igual Que"))
+                    else if (strOpcionCBPrecio.Equals("Igual Que"))
                     {
-                        strFiltroPrecio += $"= ";
+                        strFiltroPrecio += "= ";
                     }
-                    else if (strOpcionCBStock.Equals("Mayor Que"))
+                    else if (strOpcionCBPrecio.Equals("Mayor Que"))
                     {
-                        strFiltroPrecio += $"> ";
+                        strFiltroPrecio += "> ";
                     }
-                    else if (strOpcionCBStock.Equals("Menor Que"))
+                    else if (strOpcionCBPrecio.Equals("Menor Que"))
                     {
-                        strFiltroPrecio += $"< ";
+                        strFiltroPrecio += "< ";
                     }
                 }
                 else if (strTxtPrecio.Equals(""))
@@ -401,7 +401,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (filtroStock.Equals(false))
                 {
-                    MessageBox.Show("Que Paso...\nFalta Seleccionar Stock.");
+                    //MessageBox.Show("Que Paso...\nFalta Seleccionar Stock.");
                 }
                 if (filtroPrecio.Equals(true))
                 {
@@ -436,7 +436,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (filtroPrecio.Equals(false))
                 {
-                    MessageBox.Show("Que Paso...\nFalta Seleccionar Precio.");
+                    //MessageBox.Show("Que Paso...\nFalta Seleccionar Precio.");
                 }
                 this.Close();
             }

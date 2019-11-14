@@ -952,11 +952,11 @@ namespace PuntoDeVentaV2
 
             filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = 1 {extra}";
 
-            if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+            if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
             {
                 filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
             }
-            if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+            if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
             {
                 filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
             }
@@ -1074,11 +1074,11 @@ namespace PuntoDeVentaV2
                     if (busqueda == "")
                     {
                         filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID}";
-                        if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
@@ -1088,11 +1088,11 @@ namespace PuntoDeVentaV2
                     else if (busqueda != "")
                     {
                         filtroConSinFiltroAvanzado = $"SELECT* FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = { FormPrincipal.userID} {extra}";
-                        if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
@@ -1110,11 +1110,11 @@ namespace PuntoDeVentaV2
                     if (DGVProductos.RowCount <= 0)
                     {
                         filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}";
-                        if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
@@ -1124,11 +1124,11 @@ namespace PuntoDeVentaV2
                     else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
                     {
                         filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}";
-                        if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
@@ -1141,11 +1141,11 @@ namespace PuntoDeVentaV2
                     if (DGVProductos.RowCount >= 0 && clickBoton == 0)
                     {
                         filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}";
-                        if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
@@ -1162,11 +1162,11 @@ namespace PuntoDeVentaV2
                     if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
                     {
                         filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status}";
-                        if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
@@ -1179,11 +1179,11 @@ namespace PuntoDeVentaV2
                     if (DGVProductos.RowCount >= 0)
                     {
                         filtroConSinFiltroAvanzado = $"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}";
-                        if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
                         }
-                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+                        if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
