@@ -802,6 +802,25 @@ namespace PuntoDeVentaV2
             return saldo;
         }
 
+        public string[] ObtenerOpcionesPropiedad(int idUsuario, string propiedad)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUsuario} AND ChckName = '{propiedad}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    lista.Add(dr["Descripcion"].ToString());
+                }
+            }
+
+            return lista.ToArray();
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();

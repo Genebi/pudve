@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Collections.Generic;
 
 namespace PuntoDeVentaV2
 {
@@ -24,6 +25,9 @@ namespace PuntoDeVentaV2
         public static int idReporte = 0;
         public static bool botonAceptar = false;
         public static bool recargarDatos = false;
+        // Este array es para guardar los productos seleccionados que seran tomados
+        // en cuenta para el boton de "Asignar"
+        public static Dictionary<int, string> productosSeleccionados;
 
         //public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
         public AgregarStockXML FormXML = new AgregarStockXML();
@@ -1294,6 +1298,7 @@ namespace PuntoDeVentaV2
                 row.Cells["_ClavProdXML"].Value = filaDatos["ClaveProducto"].ToString();
                 row.Cells["_ClavUnidMedXML"].Value = filaDatos["UnidadMedida"].ToString();
                 row.Cells["Impuesto"].Value = filaDatos["Impuesto"].ToString();
+                row.Cells["TipoProducto"].Value = TipoProd;
             }
 
             actualizar();
@@ -1857,6 +1862,44 @@ namespace PuntoDeVentaV2
                 cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
 
                 txtBusqueda.Text = string.Empty;
+            }
+        }
+
+        private void btnAsignarMultiple_Click(object sender, EventArgs e)
+        {
+            Dictionary<int, string> lista = new Dictionary<int, string>();
+
+            // Obtener ID de los productos seleccionados
+            foreach (DataGridViewRow row in DGVProductos.Rows)
+            {
+                // Verificamos que el checkbox este marcado
+                if ((bool)row.Cells["CheckProducto"].Value == true)
+                {
+                    var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+                    var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
+
+                    lista.Add(idProducto, tipoProducto);
+                }
+            }
+
+            productosSeleccionados = lista;
+
+            if (productosSeleccionados.Count > 0)
+            {
+                AsignarMultipleProductos am = new AsignarMultipleProductos();
+
+                am.FormClosed += delegate
+                {
+                    CargarDatos();
+                };
+
+                am.ShowDialog();
+            }
+            else
+            {
+                var mensaje = "Seleccione al menos un producto para habilitar esta opción";
+
+                MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

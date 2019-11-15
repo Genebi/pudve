@@ -26,9 +26,9 @@ namespace PuntoDeVentaV2
             return $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path', P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{idUser}' AND P.Status = '{status}'";
         }
 
-        public string SetUpPrecioProductos(int id, float precio)
+        public string SetUpPrecioProductos(int id, float precio, int idUsuario)
         {
-            return $"UPDATE Productos SET Precio = '{precio}' WHERE ID = '{id}'";
+            return $"UPDATE Productos SET Precio = '{precio}' WHERE ID = '{id}' AND IDUsuario = {idUsuario}";
         }
 
         public string ActualizarStatusProducto(int status, int idProducto, int idUsuario)
@@ -104,7 +104,7 @@ namespace PuntoDeVentaV2
 
         public string ActualizarStockProductos(string[] datos)
         {
-            return $"UPDATE Productos SET Stock = '{datos[1]}' WHERE ID = '{datos[0]}'";
+            return $"UPDATE Productos SET Stock = '{datos[1]}' WHERE ID = '{datos[0]}' AND IDUsuario = {datos[2]}";
         }
 
         public string Ventas(int id)
@@ -189,22 +189,22 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string GuardarDetallesDelProducto(string[] datos, int tipo = 0)
+        public string GuardarProveedorProducto(string[] datos, int tipo = 0)
         {
             string consulta = string.Empty;
 
             //Insertar
             if (tipo == 0)
             {
-                consulta = "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor, IDProveedor, Categoria, IDCategoria, Ubicacion, IDUbicacion)";
-                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}')";
+                consulta = "INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor, IDProveedor)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
 
             }
 
             //Actualizar
             if (tipo == 1)
             {
-                consulta = $"UPDATE DetallesProducto SET Proveedor = '{datos[2]}', IDProveedor = '{datos[3]}', Categoria = '{datos[4]}', IDCategoria = '{datos[5]}', Ubicacion = '{datos[6]}', IDUbicacion = '{datos[7]}' WHERE IDProducto = {datos[0]} AND IDUsuario = {datos[1]}";
+                consulta = $"UPDATE DetallesProducto SET Proveedor = '{datos[2]}', IDProveedor = '{datos[3]}' WHERE IDProducto = {datos[0]} AND IDUsuario = {datos[1]}";
             }
             
             return consulta;

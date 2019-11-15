@@ -191,7 +191,7 @@ namespace PuntoDeVentaV2
                         Inventario.botonAceptar = true;
                     }
 
-                    int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float) Convert.ToDouble(precioCompra)));
+                    int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float) Convert.ToDouble(precioCompra), FormPrincipal.userID));
 
                     if (resul > 0)
                     {

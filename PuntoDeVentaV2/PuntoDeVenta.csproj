@@ -253,6 +253,18 @@
     <Compile Include="AsignarCreditoVenta.Designer.cs">
       <DependentUpon>AsignarCreditoVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="AsignarMultipleProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AsignarMultipleProductos.Designer.cs">
+      <DependentUpon>AsignarMultipleProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AsignarPropiedad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AsignarPropiedad.Designer.cs">
+      <DependentUpon>AsignarPropiedad.cs</DependentUpon>
+    </Compile>
     <Compile Include="Caja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -576,6 +588,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AsignarCreditoVenta.resx">
       <DependentUpon>AsignarCreditoVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AsignarMultipleProductos.resx">
+      <DependentUpon>AsignarMultipleProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AsignarPropiedad.resx">
+      <DependentUpon>AsignarPropiedad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Caja.resx">
       <DependentUpon>Caja.cs</DependentUpon>
