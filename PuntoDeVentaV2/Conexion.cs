@@ -255,14 +255,14 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                lista.Add(dr[0].ToString());  //ID producto
-                lista.Add(dr[1].ToString());  //Nombre
-                lista.Add(dr[3].ToString());  //Precio
-                lista.Add(dr[9].ToString());  //Tipo descuento
-                lista.Add(dr[2].ToString());  //Stock
-                lista.Add(dr[13].ToString()); //Tipo (producto o servicio)
-                lista.Add(dr[5].ToString()); //Clave
-                lista.Add(dr[6].ToString()); //Codigo de barras
+                lista.Add(dr[0].ToString());    //ID producto
+                lista.Add(dr[1].ToString());    //Nombre
+                lista.Add(dr[3].ToString());    //Precio
+                lista.Add(dr[9].ToString());    //Tipo descuento
+                lista.Add(dr[2].ToString());    //Stock
+                lista.Add(dr[13].ToString());   //Tipo (producto o servicio)
+                lista.Add(dr[5].ToString());    //Clave
+                lista.Add(dr[6].ToString());    //Codigo de barras
             }
 
             dr.Close();
