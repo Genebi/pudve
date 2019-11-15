@@ -150,7 +150,7 @@ namespace PuntoDeVentaV2
 
                 txtCantStock.Enabled = true;
                 cbTipoFiltroStock.Enabled = true;
-                txtCantStock.Text = "";
+                txtCantStock.Text = "0.0";
                 txtCantStock.Focus();
             }
             else if (chkBoxStock.Checked.Equals(false))
@@ -163,7 +163,7 @@ namespace PuntoDeVentaV2
 
                 txtCantStock.Enabled = false;
                 cbTipoFiltroStock.Enabled = false;
-                txtCantStock.Text = "";
+                txtCantStock.Text = "0.0";
             }
         }
 
@@ -180,7 +180,7 @@ namespace PuntoDeVentaV2
 
                 txtCantPrecio.Enabled = true;
                 cbTipoFiltroPrecio.Enabled = true;
-                txtCantPrecio.Text = "";
+                txtCantPrecio.Text = "0.0";
                 txtCantPrecio.Focus();
             }
             else if (chkBoxPrecio.Checked.Equals(false))
@@ -193,7 +193,7 @@ namespace PuntoDeVentaV2
 
                 txtCantPrecio.Enabled = false;
                 cbTipoFiltroPrecio.Enabled = false;
-                txtCantPrecio.Text = "";
+                txtCantPrecio.Text = "0.0";
             }
         }
 

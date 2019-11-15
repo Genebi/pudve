@@ -76,10 +76,13 @@
             // 
             // txtCantPrecio
             // 
-            this.txtCantPrecio.Location = new System.Drawing.Point(249, 63);
+            this.txtCantPrecio.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtCantPrecio.Location = new System.Drawing.Point(249, 62);
             this.txtCantPrecio.Name = "txtCantPrecio";
-            this.txtCantPrecio.Size = new System.Drawing.Size(77, 20);
+            this.txtCantPrecio.Size = new System.Drawing.Size(77, 23);
             this.txtCantPrecio.TabIndex = 5;
+            this.txtCantPrecio.Text = "0.0";
+            this.txtCantPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPrecio_KeyPress);
             // 
             // chkBoxPrecio
@@ -95,10 +98,13 @@
             // 
             // txtCantStock
             // 
-            this.txtCantStock.Location = new System.Drawing.Point(249, 27);
+            this.txtCantStock.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtCantStock.Location = new System.Drawing.Point(249, 26);
             this.txtCantStock.Name = "txtCantStock";
-            this.txtCantStock.Size = new System.Drawing.Size(77, 20);
+            this.txtCantStock.Size = new System.Drawing.Size(77, 23);
             this.txtCantStock.TabIndex = 2;
+            this.txtCantStock.Text = "0.0";
+            this.txtCantStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantStock.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantStock_KeyPress);
             // 
             // chkBoxStock
