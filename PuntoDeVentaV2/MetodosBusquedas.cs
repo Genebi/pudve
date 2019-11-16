@@ -802,9 +802,9 @@ namespace PuntoDeVentaV2
             return saldo;
         }
 
-        public string[] ObtenerOpcionesPropiedad(int idUsuario, string propiedad)
+        public Dictionary<int, string> ObtenerOpcionesPropiedad(int idUsuario, string propiedad)
         {
-            List<string> lista = new List<string>();
+            Dictionary<int, string> lista = new Dictionary<int, string>();
 
             DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUsuario} AND ChckName = '{propiedad}'");
 
@@ -814,11 +814,11 @@ namespace PuntoDeVentaV2
             {
                 while (dr.Read())
                 {
-                    lista.Add(dr["Descripcion"].ToString());
+                    lista.Add(Convert.ToInt32(dr["ID"]), dr["Descripcion"].ToString());
                 }
             }
 
-            return lista.ToArray();
+            return lista;
         }
 
         private void DatosConexion(string consulta)

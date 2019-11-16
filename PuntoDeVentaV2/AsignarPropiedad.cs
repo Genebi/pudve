@@ -114,7 +114,7 @@ namespace PuntoDeVentaV2
                 // Consulta para obtener todas las opciones registradas para esa propiedad
                 var opciones = mb.ObtenerOpcionesPropiedad(FormPrincipal.userID, propiedad);
 
-                if (opciones.Length > 0)
+                if (opciones.Count > 0)
                 {
                     // Aqui van todos los que son dinamicos agregados en detalle de producto
                     ComboBox cbPropiedad = new ComboBox();
@@ -123,8 +123,9 @@ namespace PuntoDeVentaV2
                     cbPropiedad.Height = 20;
                     cbPropiedad.Font = fuente;
                     cbPropiedad.DropDownStyle = ComboBoxStyle.DropDownList;
-                    cbPropiedad.Items.AddRange(opciones);
-                    cbPropiedad.SelectedIndex = 0;
+                    cbPropiedad.DataSource = opciones.ToArray();
+                    cbPropiedad.DisplayMember = "Value";
+                    cbPropiedad.ValueMember = "Key";
                     cbPropiedad.Location = new Point(15, 70);
 
                     panelContenedor.Controls.Add(cbPropiedad);
@@ -268,7 +269,30 @@ namespace PuntoDeVentaV2
             {
                 ComboBox combo = (ComboBox)this.Controls.Find("cb" + propiedad, true)[0];
 
-                MessageBox.Show(combo.SelectedItem.ToString());
+                var idPropiedad = combo.SelectedValue.ToString();
+                var nombreOpcion = combo.Text;
+                var nombrePanel = "panelContenido" + propiedad;
+
+                foreach (var producto in productos)
+                {
+                    var existe = (bool)cn.EjecutarSelect($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND panelContenido = '{nombrePanel}'");
+
+                    if (existe)
+                    {
+                        // UPDATE tabla DetallesProductoGenerales
+                        cn.EjecutarConsulta($"UPDATE DetallesProductoGenerales SET IDDetalleGral = {idPropiedad} WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+                    else
+                    {
+                        // INSERT tabla DetallesProductoGenerales
+                        datos = new string[] {
+                            producto.Key.ToString(), FormPrincipal.userID.ToString(),
+                            idPropiedad, "1", nombrePanel
+                        };
+
+                        cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(datos));
+                    }
+                }
             }
 
             Dispose();
