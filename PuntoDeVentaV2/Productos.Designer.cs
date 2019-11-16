@@ -59,10 +59,10 @@
             this._ClavProdXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._ClavUnidMedXML = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Impuesto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TipoProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnAsignarMultiple = new System.Windows.Forms.Button();
             this.btnFilterSearch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -91,7 +91,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.TipoProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAsignarMultiple = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -408,6 +408,13 @@
             this.Impuesto.ReadOnly = true;
             this.Impuesto.Visible = false;
             // 
+            // TipoProducto
+            // 
+            this.TipoProducto.HeaderText = "TipoProducto";
+            this.TipoProducto.Name = "TipoProducto";
+            this.TipoProducto.ReadOnly = true;
+            this.TipoProducto.Visible = false;
+            // 
             // panelShowPhotoView
             // 
             this.panelShowPhotoView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -452,24 +459,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(841, 195);
             this.panel1.TabIndex = 15;
-            // 
-            // btnAsignarMultiple
-            // 
-            this.btnAsignarMultiple.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnAsignarMultiple.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAsignarMultiple.FlatAppearance.BorderSize = 0;
-            this.btnAsignarMultiple.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnAsignarMultiple.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnAsignarMultiple.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAsignarMultiple.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnAsignarMultiple.ForeColor = System.Drawing.Color.White;
-            this.btnAsignarMultiple.Location = new System.Drawing.Point(320, 148);
-            this.btnAsignarMultiple.Name = "btnAsignarMultiple";
-            this.btnAsignarMultiple.Size = new System.Drawing.Size(103, 27);
-            this.btnAsignarMultiple.TabIndex = 16;
-            this.btnAsignarMultiple.Text = "Servicio";
-            this.btnAsignarMultiple.UseVisualStyleBackColor = false;
-            this.btnAsignarMultiple.Click += new System.EventHandler(this.btnAsignarMultiple_Click);
             // 
             // btnFilterSearch
             // 
@@ -855,12 +844,21 @@
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // TipoProducto
+            // btnAsignarMultiple
             // 
-            this.TipoProducto.HeaderText = "TipoProducto";
-            this.TipoProducto.Name = "TipoProducto";
-            this.TipoProducto.ReadOnly = true;
-            this.TipoProducto.Visible = false;
+            this.btnAsignarMultiple.BackColor = System.Drawing.Color.Green;
+            this.btnAsignarMultiple.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAsignarMultiple.FlatAppearance.BorderSize = 0;
+            this.btnAsignarMultiple.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAsignarMultiple.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAsignarMultiple.ForeColor = System.Drawing.Color.White;
+            this.btnAsignarMultiple.Location = new System.Drawing.Point(320, 147);
+            this.btnAsignarMultiple.Name = "btnAsignarMultiple";
+            this.btnAsignarMultiple.Size = new System.Drawing.Size(110, 28);
+            this.btnAsignarMultiple.TabIndex = 16;
+            this.btnAsignarMultiple.Text = "Asignar";
+            this.btnAsignarMultiple.UseVisualStyleBackColor = false;
+            this.btnAsignarMultiple.Click += new System.EventHandler(this.btnAsignarMultiple_Click);
             // 
             // Productos
             // 
@@ -955,7 +953,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button btnFilterSearch;
-        private System.Windows.Forms.Button btnAsignarMultiple;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoProducto;
+        private System.Windows.Forms.Button btnAsignarMultiple;
     }
 }
