@@ -64,14 +64,54 @@ namespace PuntoDeVentaV2
 
             var propiedad = btn.Tag.ToString();
 
-            if (propiedad != "Codigo")
-            {
-                Label lbCustom = new Label();
-                lbCustom.Text = "Prueba";
-                lbCustom.Width = 150;
+            Label lbCustom = new Label();
+            lbCustom.Text = propiedad;
+            lbCustom.Name = "lbCustom" + propiedad;
+            lbCustom.Tag = propiedad;
+            lbCustom.DoubleClick += new EventHandler(EditarLabel_dobleClick);
 
-                panelEtiqueta.Controls.Add(lbCustom);
-                ControlExtension.Draggable(lbCustom, true);
+            TextBox txtCustom = new TextBox();
+            txtCustom.Name = "txtCustom" + propiedad;
+            txtCustom.BorderStyle = BorderStyle.None;
+            txtCustom.KeyDown += new KeyEventHandler(TerminarEdicion_KeyDown);
+            txtCustom.Tag = propiedad;
+            txtCustom.Visible = false;
+
+            panelEtiqueta.Controls.Add(lbCustom);
+            panelEtiqueta.Controls.Add(txtCustom);
+            ControlExtension.Draggable(lbCustom, true);
+        }
+
+        private void EditarLabel_dobleClick(object sender, EventArgs e)
+        {
+            Label label = (Label)sender;
+            var posicionX = label.Location.X;
+            var posicionY = label.Location.Y;
+            var propiedad = label.Tag.ToString();
+            label.Visible = false;
+
+            TextBox txtBox = (TextBox)this.Controls.Find("txtCustom" + propiedad, true)[0];
+            txtBox.Location = new Point(posicionX, posicionY);
+            txtBox.Visible = true;
+            txtBox.Focus();
+        }
+
+        private void TerminarEdicion_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Con enter se termina de editar
+            if (e.KeyData == Keys.Enter)
+            {
+                TextBox txtbox = (TextBox)sender;
+                txtbox.Visible = false;
+
+                Label label = (Label)this.Controls.Find("lbCustom" + txtbox.Tag, true)[0];
+                label.Text = txtbox.Text;
+
+                var infoTexto = TextRenderer.MeasureText(txtbox.Text, new Font("Century Gothic", label.Font.Size));
+
+                label.Width = infoTexto.Width;
+                label.Height = infoTexto.Height;
+                label.Visible = true;
             }
         }
 
