@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     public partial class GenerarEtiqueta : Form
     {
         int alturaEjeY = 10;
+        string labelConFocus = string.Empty;
 
         public GenerarEtiqueta()
         {
@@ -68,7 +69,9 @@ namespace PuntoDeVentaV2
             lbCustom.Text = propiedad;
             lbCustom.Name = "lbCustom" + propiedad;
             lbCustom.Tag = propiedad;
+            lbCustom.Cursor = Cursors.Hand;
             lbCustom.DoubleClick += new EventHandler(EditarLabel_dobleClick);
+            lbCustom.Click += new EventHandler(AsignarFocus_Click);
 
             TextBox txtCustom = new TextBox();
             txtCustom.Name = "txtCustom" + propiedad;
@@ -94,6 +97,13 @@ namespace PuntoDeVentaV2
             txtBox.Location = new Point(posicionX, posicionY);
             txtBox.Visible = true;
             txtBox.Focus();
+        }
+
+        private void AsignarFocus_Click(object sender, EventArgs e)
+        {
+            Label label = (Label)sender;
+
+            labelConFocus = label.Name;
         }
 
         private void TerminarEdicion_KeyDown(object sender, KeyEventArgs e)
@@ -176,6 +186,41 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void btnAumentar_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(labelConFocus))
+            {
+                Label label = (Label)this.Controls.Find(labelConFocus, true)[0];
+                Font fuente = new Font("Century Gothic", label.Font.Size + 1);
+                label.Font = fuente;
+
+                var infoTexto = TextRenderer.MeasureText(label.Text, new Font("Century Gothic", label.Font.Size));
+
+                label.Width = infoTexto.Width;
+                label.Height = infoTexto.Height;
+            }
+        }
+
+        private void btnReducir_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(labelConFocus))
+            {
+                Label label = (Label)this.Controls.Find(labelConFocus, true)[0];
+                Font fuente = new Font("Century Gothic", label.Font.Size - 1);
+                label.Font = fuente;
+
+                var infoTexto = TextRenderer.MeasureText(label.Text, new Font("Century Gothic", label.Font.Size));
+
+                label.Width = infoTexto.Width;
+                label.Height = infoTexto.Height;
+            }
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Guardar");
         }
     }
 }
