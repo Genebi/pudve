@@ -13,13 +13,18 @@ namespace PuntoDeVentaV2
 {
     public partial class WinQueryString : Form
     {
-        bool    filtroStock, 
-                filtroPrecio;
+        Conexion cn = new Conexion();
 
-        string  strFiltroStock = string.Empty, 
+        bool    filtroStock, 
+                filtroPrecio,
+                filtroProveedor;
+
+        string strFiltroStock = string.Empty,
                 strFiltroPrecio = string.Empty,
+                strFiltroProveedor = string.Empty,
                 strOpcionCBStock = string.Empty,
                 strOpcionCBPrecio = string.Empty,
+                strOpcionCBProveedor = string.Empty,
                 strTxtStock = string.Empty,
                 strTxtPrecio = string.Empty;
 
@@ -50,7 +55,12 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
-            //MessageBox.Show("Valor de checkBox: " + Properties.Settings.Default.chkFiltroStock);
+            comboBoxProveedor.Items.Add("Selecciona un Proveedor...");
+            comboBoxProveedor.SelectedIndex = 0;
+            DataTable dtProveedores;
+            string QueryProveedor = string.Empty;
+            QueryProveedor = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID}";
+
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
                 string strOperadorAndCant;
@@ -135,6 +145,47 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
                 validarChkBoxPrecio();
             }
+
+            if (Properties.Settings.Default.chkFiltroProveedor.Equals(true))
+            {
+                chckBoxProveedor.Checked = Properties.Settings.Default.chkFiltroProveedor;
+                using (dtProveedores = cn.CargarDatos(QueryProveedor))
+                {
+                    if (dtProveedores.Rows.Count > 0)
+                    {
+                        comboBoxProveedor.Items.Add("Selecciona un Proveedor...");
+                        foreach(DataRow row in dtProveedores.Rows)
+                        {
+                            comboBoxProveedor.Items.Add(row["Nombre"].ToString());
+                        }
+                    }
+                    else
+                    {
+                        comboBoxProveedor.Items.Add("No cuenta con Proveedores...");
+                        comboBoxProveedor.SelectedIndex = 0;
+                    }
+                }
+            }
+            else if (Properties.Settings.Default.chkFiltroProveedor.Equals(false))
+            {
+                chckBoxProveedor.Checked = Properties.Settings.Default.chkFiltroProveedor;
+                using (dtProveedores = cn.CargarDatos(QueryProveedor))
+                {
+                    if (dtProveedores.Rows.Count > 0)
+                    {
+                        comboBoxProveedor.Items.Add("Selecciona un Proveedor...");
+                        foreach (DataRow row in dtProveedores.Rows)
+                        {
+                            comboBoxProveedor.Items.Add(row["Nombre"].ToString());
+                        }
+                    }
+                    else
+                    {
+                        comboBoxProveedor.Items.Add("No cuenta con Proveedores...");
+                        comboBoxProveedor.SelectedIndex = 0;
+                    }
+                }
+            }
         }
 
         private void validarChkBoxStock()
@@ -202,80 +253,6 @@ namespace PuntoDeVentaV2
             validarChkBoxStock();
         }
 
-        private void cbTipoFiltroStock_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            filtroStock = Properties.Settings.Default.chkFiltroStock;
-
-            if (filtroStock.Equals(true))
-            {
-                strOpcionCBStock = Convert.ToString(cbTipoFiltroStock.SelectedItem);
-
-                strTxtStock = txtCantStock.Text;
-
-                strFiltroStock = "Stock ";
-
-                if (!strTxtStock.Equals(""))
-                {
-                    if (strOpcionCBStock.Equals("No Aplica"))
-                    {
-                        strFiltroStock = "";
-                    }
-                    else if (strOpcionCBStock.Equals("Mayor o Igual Que"))
-                    {
-                        strFiltroStock += ">= ";
-                    }
-                    else if (strOpcionCBStock.Equals("Menor o Igual Que"))
-                    {
-                        strFiltroStock += "<= ";
-                    }
-                    else if (strOpcionCBStock.Equals("Igual Que"))
-                    {
-                        strFiltroStock += "= ";
-                    }
-                    else if (strOpcionCBStock.Equals("Mayor Que"))
-                    {
-                        strFiltroStock += "> ";
-                    }
-                    else if (strOpcionCBStock.Equals("Menor Que"))
-                    {
-                        strFiltroStock += "< ";
-                    }
-                }
-                else if (strTxtStock.Equals(""))
-                {
-                    strFiltroStock = "";
-                }
-            }
-        }
-
-        private void WinQueryString_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
-
-            if (producto != null)
-            {
-                producto.actualizarBtnFiltro();
-                producto.CargarDatos();
-            }
-        }
-
-        private void btnClean_Click(object sender, EventArgs e)
-        {
-            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
-
-            if (producto != null)
-            {
-                producto.inicializarVariablesFiltro();
-            }
-
-            this.Close();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void cbTipoFiltroPrecio_SelectedIndexChanged(object sender, EventArgs e)
         {
             filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
@@ -327,6 +304,21 @@ namespace PuntoDeVentaV2
             cbTipoFiltroStock.DroppedDown = true;
         }
 
+        private void txtCantPrecio_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cbTipoFiltroPrecio_Click(object sender, EventArgs e)
+        {
+            cbTipoFiltroPrecio.DroppedDown = true;
+        }
+
+        private void chkBoxPrecio_CheckedChanged(object sender, EventArgs e)
+        {
+            validarChkBoxPrecio();
+        }
+
         private void txtCantPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
             CultureInfo cc = System.Threading.Thread.CurrentThread.CurrentCulture;
@@ -347,16 +339,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cbTipoFiltroPrecio_Click(object sender, EventArgs e)
-        {
-            cbTipoFiltroPrecio.DroppedDown = true;
-        }
-
-        private void chkBoxPrecio_CheckedChanged(object sender, EventArgs e)
-        {
-            validarChkBoxPrecio();
-        }
-
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             cbTipoFiltroStock_SelectedIndexChanged(sender, e);
@@ -364,7 +346,7 @@ namespace PuntoDeVentaV2
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
             filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
 
-            DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", 
+            DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección",
                                                   "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
@@ -449,5 +431,109 @@ namespace PuntoDeVentaV2
                 txtCantStock.Focus();
             }
         }
-    }
+
+        private void cbTipoFiltroStock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtroStock = Properties.Settings.Default.chkFiltroStock;
+
+            if (filtroStock.Equals(true))
+            {
+                strOpcionCBStock = Convert.ToString(cbTipoFiltroStock.SelectedItem);
+
+                strTxtStock = txtCantStock.Text;
+
+                strFiltroStock = "Stock ";
+
+                if (!strTxtStock.Equals(""))
+                {
+                    if (strOpcionCBStock.Equals("No Aplica"))
+                    {
+                        strFiltroStock = "";
+                    }
+                    else if (strOpcionCBStock.Equals("Mayor o Igual Que"))
+                    {
+                        strFiltroStock += ">= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Menor o Igual Que"))
+                    {
+                        strFiltroStock += "<= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Igual Que"))
+                    {
+                        strFiltroStock += "= ";
+                    }
+                    else if (strOpcionCBStock.Equals("Mayor Que"))
+                    {
+                        strFiltroStock += "> ";
+                    }
+                    else if (strOpcionCBStock.Equals("Menor Que"))
+                    {
+                        strFiltroStock += "< ";
+                    }
+                }
+                else if (strTxtStock.Equals(""))
+                {
+                    strFiltroStock = "";
+                }
+            }
+        }
+
+        private void WinQueryString_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (producto != null)
+            {
+                producto.actualizarBtnFiltro();
+                producto.CargarDatos();
+            }
+        }
+
+        private void btnClean_Click(object sender, EventArgs e)
+        {
+            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (producto != null)
+            {
+                producto.inicializarVariablesFiltro();
+            }
+
+            this.Close();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void chckBoxProveedor_CheckedChanged(object sender, EventArgs e)
+        {
+            validarChkBoxProveedor();
+        }
+
+        private void validarChkBoxProveedor()
+        {
+            if (chckBoxProveedor.Checked.Equals(true))
+            {
+                filtroProveedor = Convert.ToBoolean(chckBoxProveedor.Checked);
+
+                Properties.Settings.Default.chkFiltroProveedor = filtroProveedor;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
+                comboBoxProveedor.Enabled = true;
+                comboBoxProveedor.Focus();
+            }
+            else if (chckBoxProveedor.Checked.Equals(false))
+            {
+                filtroProveedor = Convert.ToBoolean(chckBoxProveedor.Checked);
+
+                Properties.Settings.Default.chkFiltroProveedor = filtroProveedor;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
+                comboBoxProveedor.Enabled = false;
+            }
+        }
+    }    
 }

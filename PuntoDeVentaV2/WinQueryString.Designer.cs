@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBoxProveedor = new System.Windows.Forms.ComboBox();
+            this.chckBoxProveedor = new System.Windows.Forms.CheckBox();
             this.cbTipoFiltroPrecio = new System.Windows.Forms.ComboBox();
             this.txtCantPrecio = new System.Windows.Forms.TextBox();
             this.chkBoxPrecio = new System.Windows.Forms.CheckBox();
@@ -43,6 +45,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.comboBoxProveedor);
+            this.groupBox1.Controls.Add(this.chckBoxProveedor);
             this.groupBox1.Controls.Add(this.cbTipoFiltroPrecio);
             this.groupBox1.Controls.Add(this.txtCantPrecio);
             this.groupBox1.Controls.Add(this.chkBoxPrecio);
@@ -51,10 +55,29 @@
             this.groupBox1.Controls.Add(this.cbTipoFiltroStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(343, 100);
+            this.groupBox1.Size = new System.Drawing.Size(367, 145);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
+            // 
+            // comboBoxProveedor
+            // 
+            this.comboBoxProveedor.FormattingEnabled = true;
+            this.comboBoxProveedor.Location = new System.Drawing.Point(128, 104);
+            this.comboBoxProveedor.Name = "comboBoxProveedor";
+            this.comboBoxProveedor.Size = new System.Drawing.Size(214, 21);
+            this.comboBoxProveedor.TabIndex = 7;
+            // 
+            // chckBoxProveedor
+            // 
+            this.chckBoxProveedor.AutoSize = true;
+            this.chckBoxProveedor.Location = new System.Drawing.Point(32, 106);
+            this.chckBoxProveedor.Name = "chckBoxProveedor";
+            this.chckBoxProveedor.Size = new System.Drawing.Size(75, 17);
+            this.chckBoxProveedor.TabIndex = 6;
+            this.chckBoxProveedor.Text = "Proveedor";
+            this.chckBoxProveedor.UseVisualStyleBackColor = true;
+            this.chckBoxProveedor.CheckedChanged += new System.EventHandler(this.chckBoxProveedor_CheckedChanged);
             // 
             // cbTipoFiltroPrecio
             // 
@@ -67,7 +90,7 @@
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(112, 63);
+            this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(128, 63);
             this.cbTipoFiltroPrecio.Name = "cbTipoFiltroPrecio";
             this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(116, 21);
             this.cbTipoFiltroPrecio.TabIndex = 4;
@@ -77,12 +100,13 @@
             // txtCantPrecio
             // 
             this.txtCantPrecio.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtCantPrecio.Location = new System.Drawing.Point(249, 62);
+            this.txtCantPrecio.Location = new System.Drawing.Point(265, 62);
             this.txtCantPrecio.Name = "txtCantPrecio";
             this.txtCantPrecio.Size = new System.Drawing.Size(77, 23);
             this.txtCantPrecio.TabIndex = 5;
             this.txtCantPrecio.Text = "0.0";
             this.txtCantPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantPrecio.Click += new System.EventHandler(this.txtCantPrecio_Click);
             this.txtCantPrecio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantPrecio_KeyPress);
             // 
             // chkBoxPrecio
@@ -99,7 +123,7 @@
             // txtCantStock
             // 
             this.txtCantStock.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtCantStock.Location = new System.Drawing.Point(249, 26);
+            this.txtCantStock.Location = new System.Drawing.Point(265, 26);
             this.txtCantStock.Name = "txtCantStock";
             this.txtCantStock.Size = new System.Drawing.Size(77, 23);
             this.txtCantStock.TabIndex = 2;
@@ -130,7 +154,7 @@
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltroStock.Location = new System.Drawing.Point(112, 27);
+            this.cbTipoFiltroStock.Location = new System.Drawing.Point(128, 27);
             this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
             this.cbTipoFiltroStock.Size = new System.Drawing.Size(116, 21);
             this.cbTipoFiltroStock.TabIndex = 1;
@@ -145,7 +169,7 @@
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(275, 142);
+            this.btnAplicar.Location = new System.Drawing.Point(299, 187);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
             this.btnAplicar.TabIndex = 6;
@@ -161,7 +185,7 @@
             this.btnClean.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClean.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClean.ForeColor = System.Drawing.Color.White;
-            this.btnClean.Location = new System.Drawing.Point(154, 142);
+            this.btnClean.Location = new System.Drawing.Point(165, 187);
             this.btnClean.Name = "btnClean";
             this.btnClean.Size = new System.Drawing.Size(95, 43);
             this.btnClean.TabIndex = 7;
@@ -176,7 +200,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Century", 12F);
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(27, 143);
+            this.btnClose.Location = new System.Drawing.Point(27, 188);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(95, 43);
             this.btnClose.TabIndex = 8;
@@ -188,7 +212,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(407, 206);
+            this.ClientSize = new System.Drawing.Size(422, 259);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnAplicar);
@@ -219,5 +243,7 @@
         private System.Windows.Forms.TextBox txtCantPrecio;
         private System.Windows.Forms.ComboBox cbTipoFiltroPrecio;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.CheckBox chckBoxProveedor;
+        private System.Windows.Forms.ComboBox comboBoxProveedor;
     }
 }

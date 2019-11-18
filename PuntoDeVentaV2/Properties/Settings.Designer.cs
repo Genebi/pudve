@@ -322,5 +322,29 @@ namespace PuntoDeVentaV2.Properties {
                 this["strFiltroPrecio"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool chkFiltroProveedor {
+            get {
+                return ((bool)(this["chkFiltroProveedor"]));
+            }
+            set {
+                this["chkFiltroProveedor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
+        public string strFiltroProveedor {
+            get {
+                return ((string)(this["strFiltroProveedor"]));
+            }
+            set {
+                this["strFiltroProveedor"] = value;
+            }
+        }
     }
 }
