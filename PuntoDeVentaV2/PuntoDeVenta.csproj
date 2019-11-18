@@ -88,6 +88,10 @@
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Control.Draggable, Version=1.0.5049.269, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Control.Draggable.1.0.5049.269\lib\net35-Client\Control.Draggable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -345,6 +349,12 @@
     </Compile>
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarEtiqueta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarEtiqueta.Designer.cs">
+      <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
     </Compile>
     <Compile Include="Genera_respaldos.cs" />
     <Compile Include="InformacionVenta.cs">
@@ -627,6 +637,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarEtiqueta.resx">
+      <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
