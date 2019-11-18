@@ -2012,7 +2012,9 @@ namespace PuntoDeVentaV2
 
         private void btnEtiqueta_Click(object sender, EventArgs e)
         {
+            GenerarEtiqueta ge = new GenerarEtiqueta();
 
+            ge.ShowDialog();
         }
 
         private void Productos_Resize(object sender, EventArgs e)
