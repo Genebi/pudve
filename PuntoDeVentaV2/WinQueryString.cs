@@ -312,6 +312,17 @@ namespace PuntoDeVentaV2
             cbTipoFiltroPrecio.DroppedDown = true;
         }
 
+        private void comboBoxProveedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtroProveedor = Properties.Settings.Default.chkFiltroProveedor;
+
+            if (filtroProveedor.Equals(true))
+            {
+                strOpcionCBProveedor = Convert.ToString(comboBoxProveedor.SelectedItem);
+                //strFiltroProveedor=
+            }
+        }
+
         private void chkBoxPrecio_CheckedChanged(object sender, EventArgs e)
         {
             validarChkBoxPrecio();

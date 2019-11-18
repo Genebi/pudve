@@ -921,7 +921,7 @@ namespace PuntoDeVentaV2
                                 var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                                 var restantes = (stock - vendidos).ToString();
 
-                                guardar = new string[] { IDProducto, restantes };
+                                guardar = new string[] { IDProducto, restantes, FormPrincipal.userID.ToString() };
 
                                 cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                             }
@@ -945,7 +945,7 @@ namespace PuntoDeVentaV2
 
                                     var restantes = (stockActual - stockRequerido).ToString();
 
-                                    guardar = new string[] { idProducto.ToString(), restantes };
+                                    guardar = new string[] { idProducto.ToString(), restantes, FormPrincipal.userID.ToString() };
 
                                     cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                                 }

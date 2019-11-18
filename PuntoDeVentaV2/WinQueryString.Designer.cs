@@ -68,6 +68,7 @@
             this.comboBoxProveedor.Name = "comboBoxProveedor";
             this.comboBoxProveedor.Size = new System.Drawing.Size(214, 21);
             this.comboBoxProveedor.TabIndex = 7;
+            this.comboBoxProveedor.SelectedIndexChanged += new System.EventHandler(this.comboBoxProveedor_SelectedIndexChanged);
             // 
             // chckBoxProveedor
             // 

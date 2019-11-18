@@ -175,7 +175,7 @@ namespace PuntoDeVentaV2
                 if (resultado > 0)
                 {
                     //Datos del producto que se actualizará
-                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString() };
+                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
 
                     cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
 
@@ -252,7 +252,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //Datos del producto que se actualizará
-                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString() };
+                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
 
                     cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
 
