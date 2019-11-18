@@ -35,6 +35,7 @@
             this.btnAumentar = new System.Windows.Forms.Button();
             this.btnReducir = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.btnFuentes = new System.Windows.Forms.Button();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +57,7 @@
             // panelBotones
             // 
             this.panelBotones.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelBotones.Controls.Add(this.btnFuentes);
             this.panelBotones.Controls.Add(this.btnReducir);
             this.panelBotones.Controls.Add(this.btnAumentar);
             this.panelBotones.Location = new System.Drawing.Point(622, 2);
@@ -103,6 +105,17 @@
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
+            // btnFuentes
+            // 
+            this.btnFuentes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFuentes.Image = global::PuntoDeVentaV2.Properties.Resources.font;
+            this.btnFuentes.Location = new System.Drawing.Point(16, 161);
+            this.btnFuentes.Name = "btnFuentes";
+            this.btnFuentes.Size = new System.Drawing.Size(25, 25);
+            this.btnFuentes.TabIndex = 2;
+            this.btnFuentes.UseVisualStyleBackColor = true;
+            this.btnFuentes.Click += new System.EventHandler(this.btnFuentes_Click);
+            // 
             // GenerarEtiqueta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -134,5 +147,6 @@
         private System.Windows.Forms.Button btnReducir;
         private System.Windows.Forms.Button btnAumentar;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Button btnFuentes;
     }
 }
