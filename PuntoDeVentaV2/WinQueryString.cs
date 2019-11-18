@@ -55,8 +55,6 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
-            comboBoxProveedor.Items.Add("Selecciona un Proveedor...");
-            comboBoxProveedor.SelectedIndex = 0;
             DataTable dtProveedores;
             string QueryProveedor = string.Empty;
             QueryProveedor = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID}";
@@ -162,8 +160,8 @@ namespace PuntoDeVentaV2
                     else
                     {
                         comboBoxProveedor.Items.Add("No cuenta con Proveedores...");
-                        comboBoxProveedor.SelectedIndex = 0;
                     }
+                    comboBoxProveedor.SelectedIndex = 0;
                 }
             }
             else if (Properties.Settings.Default.chkFiltroProveedor.Equals(false))
@@ -182,8 +180,8 @@ namespace PuntoDeVentaV2
                     else
                     {
                         comboBoxProveedor.Items.Add("No cuenta con Proveedores...");
-                        comboBoxProveedor.SelectedIndex = 0;
                     }
+                    comboBoxProveedor.SelectedIndex = 0;
                 }
             }
         }
