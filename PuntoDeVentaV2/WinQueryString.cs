@@ -15,7 +15,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
 
-        bool    filtroStock, 
+        bool filtroStock,
                 filtroPrecio,
                 filtroProveedor;
 
@@ -27,6 +27,8 @@ namespace PuntoDeVentaV2
                 strOpcionCBProveedor = string.Empty,
                 strTxtStock = string.Empty,
                 strTxtPrecio = string.Empty;
+
+        DataTable dtProveedor;
 
         public WinQueryString()
         {
@@ -55,10 +57,6 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
-            DataTable dtProveedores;
-            string QueryProveedor = string.Empty;
-            QueryProveedor = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID}";
-
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
                 string strOperadorAndCant;
@@ -147,42 +145,40 @@ namespace PuntoDeVentaV2
             if (Properties.Settings.Default.chkFiltroProveedor.Equals(true))
             {
                 chckBoxProveedor.Checked = Properties.Settings.Default.chkFiltroProveedor;
-                using (dtProveedores = cn.CargarDatos(QueryProveedor))
+
+                string queryProviderList = $"SELECT ID, Nombre FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+
+                dtProveedor = cn.CargarDatos(queryProviderList);
+                if (dtProveedor.Rows.Count > 0)
                 {
-                    if (dtProveedores.Rows.Count > 0)
-                    {
-                        comboBoxProveedor.Items.Add("Selecciona un Proveedor...");
-                        foreach(DataRow row in dtProveedores.Rows)
-                        {
-                            comboBoxProveedor.Items.Add(row["Nombre"].ToString());
-                        }
-                    }
-                    else
-                    {
-                        comboBoxProveedor.Items.Add("No cuenta con Proveedores...");
-                    }
-                    comboBoxProveedor.SelectedIndex = 0;
+                    comboBoxProveedor.DataSource = dtProveedor;
+                    comboBoxProveedor.DisplayMember = "Nombre";
+                    comboBoxProveedor.ValueMember = "ID";
                 }
+                else if (dtProveedor.Rows.Count < 0)
+                {
+                    comboBoxProveedor.Items.Add("No Tiene Proveedores para seleccionar...");
+                }
+                comboBoxProveedor.Enabled = true;
             }
             else if (Properties.Settings.Default.chkFiltroProveedor.Equals(false))
             {
                 chckBoxProveedor.Checked = Properties.Settings.Default.chkFiltroProveedor;
-                using (dtProveedores = cn.CargarDatos(QueryProveedor))
+
+                string queryProviderList = $"SELECT ID, Nombre FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+
+                dtProveedor = cn.CargarDatos(queryProviderList);
+                if (dtProveedor.Rows.Count > 0)
                 {
-                    if (dtProveedores.Rows.Count > 0)
-                    {
-                        comboBoxProveedor.Items.Add("Selecciona un Proveedor...");
-                        foreach (DataRow row in dtProveedores.Rows)
-                        {
-                            comboBoxProveedor.Items.Add(row["Nombre"].ToString());
-                        }
-                    }
-                    else
-                    {
-                        comboBoxProveedor.Items.Add("No cuenta con Proveedores...");
-                    }
-                    comboBoxProveedor.SelectedIndex = 0;
+                    comboBoxProveedor.DataSource = dtProveedor;
+                    comboBoxProveedor.DisplayMember = "Nombre";
+                    comboBoxProveedor.ValueMember = "ID";
                 }
+                else if (dtProveedor.Rows.Count < 0)
+                {
+                    comboBoxProveedor.Items.Add("No Tiene Proveedores para seleccionar...");
+                }
+                comboBoxProveedor.Enabled = false;
             }
         }
 
@@ -304,7 +300,7 @@ namespace PuntoDeVentaV2
 
         private void txtCantPrecio_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cbTipoFiltroPrecio_Click(object sender, EventArgs e)
@@ -316,10 +312,12 @@ namespace PuntoDeVentaV2
         {
             filtroProveedor = Properties.Settings.Default.chkFiltroProveedor;
 
+            strOpcionCBProveedor = Convert.ToString(comboBoxProveedor.SelectedItem);
+
             if (filtroProveedor.Equals(true))
             {
-                strOpcionCBProveedor = Convert.ToString(comboBoxProveedor.SelectedItem);
-                //strFiltroProveedor=
+                string valor = ((System.Data.DataRowView)comboBoxProveedor.SelectedItem).Row.ItemArray[0].ToString();
+                strFiltroProveedor = $"Prov.ID = {valor}";
             }
         }
 
@@ -354,6 +352,8 @@ namespace PuntoDeVentaV2
             filtroStock = Properties.Settings.Default.chkFiltroStock;
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
             filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
+            comboBoxProveedor_SelectedIndexChanged(sender, e);
+            filtroProveedor = Properties.Settings.Default.chkFiltroProveedor;
 
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección",
                                                   "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -428,6 +428,23 @@ namespace PuntoDeVentaV2
                 else if (filtroPrecio.Equals(false))
                 {
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Precio.");
+                }
+                else if (filtroProveedor.Equals(true))
+                {
+                    if (!strOpcionCBProveedor.Equals(""))
+                    {
+                        Properties.Settings.Default.strFiltroProveedor = strFiltroProveedor;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.strFiltroProveedor = string.Empty;
+                    }
+                }
+                else if (filtroPrecio.Equals(false))
+                {
+                    //MessageBox.Show("Que Paso...\nFalta Seleccionar Proveedor.");
                 }
                 this.Close();
             }
@@ -544,5 +561,5 @@ namespace PuntoDeVentaV2
                 comboBoxProveedor.Enabled = false;
             }
         }
-    }    
+    }
 }
