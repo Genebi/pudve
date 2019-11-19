@@ -98,11 +98,26 @@ namespace PuntoDeVentaV2
             if (IsEmpty == true)
             {
                 DGVRevisionStock.DataSource = dtFinalReportCheckStockToDay;
+
+                if (DGVRevisionStock.Rows.Count > 0)
+                {
+                    foreach (DataGridViewRow row in DGVRevisionStock.Rows)
+                    {
+                        var idProducto = Convert.ToInt32(row.Cells["IDAlmacen"].Value);
+
+                        cn.EjecutarConsulta($"UPDATE Productos SET NumeroRevision = {FilterNumActiveRecord} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+                }
             }
             else if (IsEmpty == false)
             {
                 MessageBox.Show("La base de datos de Checar Stock verificado no tiene registros", "No tiene registros", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ActualizarNumeroRevisionProductos()
+        {
+
         }
 
         private void cargarTabla()
