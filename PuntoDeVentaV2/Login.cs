@@ -278,18 +278,12 @@ namespace PuntoDeVentaV2
         {
             //iniciarVariablesSistema();
 
-            // Cuando estemos en Debug Descomenta estas dos siguientes lineas
+            // Cuando estemos en Release Descomenta la siguiente linea
+            //modoRelease();
 
-            Properties.Settings.Default.baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            Properties.Settings.Default.archivo = @"..\..\App.config";
-            Properties.Settings.Default.TipoEjecucion = 1;
-
-            // Cuando estemos en Releasa Descomenta estas dos siguientes lineas
-
-            //Properties.Settings.Default.baseDirectory = System.Windows.Forms.Application.StartupPath.ToString();
-            //Properties.Settings.Default.archivo = @"\PuntoDeVentaV2.exe.config";
-            //Properties.Settings.Default.TipoEjecucion = 2;
-
+            // Cuando estemos en Debug Descomenta la siguiente linea
+            modoDebug();
+            
             Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
             Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
 
@@ -341,17 +335,31 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.pathPUDVE = pathPUDVESistema;
             Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
             Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
-
-            // descomentar la linea de abajo en caso de hacer el Release
-            //Properties.Settings.Default.rutaDirectorio = Properties.Settings.Default.pathPUDVE;
-
-            // descomentar la Linea de abajo cuando estemos en Debug
-            Properties.Settings.Default.rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
-
+            
             //RevisarTablas();
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;
             txtPassword.Text = Properties.Settings.Default.Password;
+        }
+
+        private void modoDebug()
+        {
+            
+            Properties.Settings.Default.baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            Properties.Settings.Default.archivo = @"..\..\App.config";
+            Properties.Settings.Default.TipoEjecucion = 1;
+
+            Properties.Settings.Default.rutaDirectorio = Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory()));
+        }
+
+        private void modoRelease()
+        {
+            
+            Properties.Settings.Default.baseDirectory = System.Windows.Forms.Application.StartupPath.ToString();
+            Properties.Settings.Default.archivo = @"\PuntoDeVentaV2.exe.config";
+            Properties.Settings.Default.TipoEjecucion = 2;
+
+            Properties.Settings.Default.rutaDirectorio = Properties.Settings.Default.pathPUDVE;
         }
 
         private void iniciarVariablesSistema()
