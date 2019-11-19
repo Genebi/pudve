@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
@@ -19,10 +20,12 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
+                //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             }
             else
             {
+                //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             }
         }
