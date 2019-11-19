@@ -46,6 +46,7 @@
             // 
             // panelEtiqueta
             // 
+            this.panelEtiqueta.BackColor = System.Drawing.SystemColors.Window;
             this.panelEtiqueta.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelEtiqueta.Location = new System.Drawing.Point(250, 75);
             this.panelEtiqueta.Name = "panelEtiqueta";
