@@ -16,7 +16,7 @@ namespace PuntoDeVentaV2
         int alturaEjeY = 10;
         string labelConFocus = string.Empty;
 
-        public static string fuenteSeleccionada = string.Empty;
+        //public static string fuenteSeleccionada = string.Empty;
 
         public GenerarEtiqueta()
         {
@@ -26,6 +26,14 @@ namespace PuntoDeVentaV2
         private void GenerarEtiqueta_Load(object sender, EventArgs e)
         {
             CargarPropiedades();
+
+            // Cargar combobox con las fuentes del sistema
+            foreach (FontFamily fuente in FontFamily.Families)
+            {
+                cbFuentes.Items.Add(fuente.Name.ToString());
+            }
+
+            cbFuentes.SelectedItem = "Arial";
         }
 
         private FlowLayoutPanel GenerarPropiedad(string nombreProdiedad, string textoLabel)
@@ -56,6 +64,7 @@ namespace PuntoDeVentaV2
             panelPropiedad.Controls.Add(lbPropiedad);
             panelPropiedad.Controls.Add(btnPropiedad);
 
+            // La altura entre dos propiedades
             alturaEjeY += 35;
 
             return panelPropiedad;
@@ -97,6 +106,9 @@ namespace PuntoDeVentaV2
 
             TextBox txtBox = (TextBox)this.Controls.Find("txtCustom" + propiedad, true)[0];
             txtBox.Location = new Point(posicionX, posicionY);
+            txtBox.Font = new Font(label.Font.FontFamily, label.Font.Size);
+            txtBox.Width = label.Width;
+            txtBox.Height = label.Height;
             txtBox.Visible = true;
             txtBox.Focus();
         }
@@ -119,7 +131,7 @@ namespace PuntoDeVentaV2
                 Label label = (Label)this.Controls.Find("lbCustom" + txtbox.Tag, true)[0];
                 label.Text = txtbox.Text;
 
-                var infoTexto = TextRenderer.MeasureText(txtbox.Text, new Font(label.Font.FontFamily, label.Font.Size));
+                var infoTexto = TextRenderer.MeasureText(label.Text, new Font(label.Font.FontFamily, label.Font.Size));
 
                 label.Width = infoTexto.Width;
                 label.Height = infoTexto.Height;
@@ -155,33 +167,6 @@ namespace PuntoDeVentaV2
                 label.Width = infoTexto.Width;
                 label.Height = infoTexto.Height;
             }
-        }
-
-        private void btnFuentes_Click(object sender, EventArgs e)
-        {
-            ListadoFuentes lf = new ListadoFuentes();
-
-            lf.FormClosed += delegate
-            {
-                if (!string.IsNullOrWhiteSpace(fuenteSeleccionada))
-                {
-                    if (!string.IsNullOrWhiteSpace(labelConFocus))
-                    {
-                        Label label = (Label)this.Controls.Find(labelConFocus, true)[0];
-                        Font fuente = new Font(fuenteSeleccionada, label.Font.Size);
-                        label.Font = fuente;
-
-                        var infoTexto = TextRenderer.MeasureText(label.Text, new Font(label.Font.FontFamily, label.Font.Size));
-
-                        label.Width = infoTexto.Width;
-                        label.Height = infoTexto.Height;
-                    }
-
-                    fuenteSeleccionada = string.Empty;
-                }
-            };
-
-            lf.ShowDialog();
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -250,6 +235,23 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void cbFuentes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(labelConFocus))
+            {
+                var fuenteSeleccionada = cbFuentes.SelectedItem.ToString();
+
+                Label label = (Label)this.Controls.Find(labelConFocus, true)[0];
+                Font fuente = new Font(fuenteSeleccionada, label.Font.Size);
+                label.Font = fuente;
+
+                var infoTexto = TextRenderer.MeasureText(label.Text, new Font(label.Font.FontFamily, label.Font.Size));
+
+                label.Width = infoTexto.Width;
+                label.Height = infoTexto.Height;
+            } 
         }
     }
 }
