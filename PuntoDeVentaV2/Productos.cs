@@ -1316,7 +1316,7 @@ namespace PuntoDeVentaV2
                 }
 
                 row.Cells["Column3"].Value = decimal.Parse(filaDatos["Precio"].ToString());
-                row.Cells["Column4"].Value = filaDatos["Categoria"].ToString();
+                row.Cells["Column4"].Value = filaDatos["NumeroRevision"].ToString(); //filaDatos["Categoria"].ToString();
                 row.Cells["Column5"].Value = filaDatos["ClaveInterna"].ToString();
                 row.Cells["Column6"].Value = filaDatos["CodigoBarras"].ToString();
                 row.Cells["Column14"].Value = filaDatos["Status"].ToString();

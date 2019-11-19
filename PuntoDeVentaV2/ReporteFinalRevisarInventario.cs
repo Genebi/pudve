@@ -115,11 +115,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void ActualizarNumeroRevisionProductos()
-        {
-
-        }
-
         private void cargarTabla()
         {
             queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{FilterNumActiveRecord}' ORDER BY Fecha DESC, Nombre ASC";
