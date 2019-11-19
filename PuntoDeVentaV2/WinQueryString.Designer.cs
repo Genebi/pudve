@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
@@ -42,7 +43,6 @@
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +62,15 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 167);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(486, 100);
+            this.flowLayoutPanel1.TabIndex = 11;
+            this.flowLayoutPanel1.WrapContents = false;
             // 
             // label1
             // 
@@ -234,15 +243,6 @@
             this.btnClose.Text = "Cerrar";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 167);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(486, 100);
-            this.flowLayoutPanel1.TabIndex = 11;
-            this.flowLayoutPanel1.WrapContents = false;
             // 
             // WinQueryString
             // 
