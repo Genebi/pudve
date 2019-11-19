@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
             HisotorialCompras = 17;
             HistorialModificacionRecordProduct = 4;
             ProductoRelacionadoXML = 5;
-            Productos = 19;
+            Productos = 20;
             ProductosDeServicios = 6;
             ProductosVenta = 6;
             Proveedores = 15;
@@ -808,6 +808,7 @@ namespace PuntoDeVentaV2
                                               Impuesto       TEXT,
                                               NombreAlterno1 TEXT,
                                               NombreAlterno2 TEXT,
+                                              NumeroRevision INTEGER DEFAULT (0),
                                               FOREIGN KEY (IDUsuario)	REFERENCES USuarios (ID));";
         }
 
@@ -829,7 +830,9 @@ namespace PuntoDeVentaV2
                                              Tipo,
                                              Base,
                                              IVA,
-                                             Impuesto) 
+                                             Impuesto,
+                                             NombreAlterno1,
+                                             NombreAlterno2) 
                                       SELECT ID,
                                              Nombre,
                                              Stock,
@@ -846,7 +849,9 @@ namespace PuntoDeVentaV2
                                              Tipo,
                                              Base,
                                              IVA,
-                                             Impuesto 
+                                             Impuesto,
+                                             NombreAlterno1,
+                                             NombreAlterno2 
                                        FROM '{tabla}_temp';";
         }
 
