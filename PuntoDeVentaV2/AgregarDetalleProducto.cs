@@ -1555,9 +1555,11 @@ namespace PuntoDeVentaV2
                 }
                 else if (!deleteDetalle.Equals(""))
                 {
-                    if (deleteDetalle.Equals("Proveedor"))
+                    if (deleteDetalle.Equals("Proveedor") || deleteDetalle.Equals("StockNecesario"))
                     {
-                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor)\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(),
+                        var mensaje = deleteDetalle;
+
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n("+ mensaje +")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(),
                                         "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         RefreshAppSettings();
                         loadFormConfig();
@@ -1647,10 +1649,13 @@ namespace PuntoDeVentaV2
             renameDetail.ShowDialog();
             if (!KeyExist(editDetalleNvo))
             {
-                if (editDetelle.Equals("Proveedor"))
+                if (editDetelle.Equals("Proveedor") || editDetelle.Equals("StockNecesario"))
                 {
-                    MessageBox.Show("No se puede Renombrar ó Eliminar\n(Proveedor)\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
+                    var mensaje = editDetelle;
+
+                    MessageBox.Show("No se puede Renombrar ó Eliminar\n("+ mensaje +")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
                                     "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    fLPCentralDetalle.Controls.Clear();
                     RefreshAppSettings();
                     loadFormConfig();
                     BuscarTextoListView(settingDatabases);
