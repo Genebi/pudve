@@ -224,27 +224,18 @@ namespace PuntoDeVentaV2
                 if (datosTmp.Length > 0)
                 {
                     // Verificar que pertenece al usuario
-                    var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID}");
+                    var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
 
                     if (verificarUsuario)
                     {
                         idProducto = Convert.ToInt32(datosTmp[0]);
-
-                        /*using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
-                        {
-                            if (dtProdMessg.Rows.Count > 0)
-                            {
-                                drProdMessg = dtProdMessg.Rows[0];
-                                MessageBox.Show(drProdMessg["ProductOfMessage"].ToString().ToUpper(), "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }*/
                     }
                 }
 
 
                 if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
                 {
-                    string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}')";
+                    string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}') AND Status = 1";
 
                     DataTable searchProd = cn.CargarDatos(querySearchProd);
 
