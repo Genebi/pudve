@@ -35,6 +35,7 @@
             this.btnAumentar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.cbFuentes = new System.Windows.Forms.ComboBox();
+            this.btnEliminar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panelPropiedades
@@ -103,11 +104,23 @@
             this.cbFuentes.TabIndex = 5;
             this.cbFuentes.SelectedIndexChanged += new System.EventHandler(this.cbFuentes_SelectedIndexChanged);
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminar.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+            this.btnEliminar.Location = new System.Drawing.Point(494, 35);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(25, 25);
+            this.btnEliminar.TabIndex = 6;
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // GenerarEtiqueta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 361);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.cbFuentes);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnReducir);
@@ -135,5 +148,6 @@
         private System.Windows.Forms.Button btnAumentar;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cbFuentes;
+        private System.Windows.Forms.Button btnEliminar;
     }
 }

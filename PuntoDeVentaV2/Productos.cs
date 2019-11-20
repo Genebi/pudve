@@ -621,19 +621,19 @@ namespace PuntoDeVentaV2
             var fila = DGVProductos.CurrentCell.RowIndex;
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
+            var tipoProducto = DGVProductos.Rows[fila].Cells["TipoProducto"].Value.ToString();
 
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 0)    // CheckBox del Producto
+                // CheckBox del producto
+                if (e.ColumnIndex == 0)
                 {
                     numerofila = e.RowIndex;
-                    //obtenerDatosDGVProductos(numerofila);
-                    //editarEstado = 4;
-                    //DGVProductos.Rows[fila].Cells["CheckProducto"].Value = true;
                 }
-                else if (e.ColumnIndex == 7)    // Editar del Producto
+                else if (e.ColumnIndex == 7)
                 {
+                    // Editar el producto
                     if (seleccionadoDato == 0)
                     {
                         seleccionadoDato = 1;
@@ -641,8 +641,10 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila);
                         origenDeLosDatos = 2;
                     }
+
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), Convert.ToInt32(id));
                     string typeProduct = producto[5];
+
                     if (typeProduct == "S")
                     {
                         btnAgregarServicio.PerformClick();
@@ -656,48 +658,33 @@ namespace PuntoDeVentaV2
                         btnAgregarProducto.PerformClick();
                     }
                 }
-                else if (e.ColumnIndex == 8)    // Estado del Producto
+                else if (e.ColumnIndex == 8)
                 {
+                    // Estado del producto
                     index = 0;
 
                     var resultado = MessageBox.Show("¿Realmente desea cambiar el estado del producto?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                     if (resultado == DialogResult.Yes)
                     {
-                        /*numerofila = e.RowIndex;
-                        //obtenerDatosDGVProductos(numerofila);
-                        //status = DGVProductos.Rows[numerofila].Cells["Column14"].Value.ToString();
-                        //ModificarStatusProducto();
-                        if (status == "1")
-                        {
-                            cbMostrar.Text = "Deshabilitados";
-                        }
-                        else if (status == "0")
-                        {
-                            cbMostrar.Text = "Habilitados";
-                        }
-
-                        DGVProductos.Refresh();*/
                         DGVProductos.Rows[fila].Cells["CheckProducto"].Value = true;
                         btnModificarEstado.PerformClick();
                     }
                 }
-                else if (e.ColumnIndex == 9)    // Historial de compras del Producto
+                else if (e.ColumnIndex == 9)
                 {
+                    // Historial de compras del Producto
                     numerofila = e.RowIndex;
                     obtenerDatosDGVProductos(numerofila);
                     ViewRecordProducto();
                 }
-                else if (e.ColumnIndex == 10)    // Generar Codigo de Barras del Producto
+                else if (e.ColumnIndex == 10)
                 {
+                    // Generar Codigo de Barras del Producto
                     string codiBarProd = "";
                     numfila = e.RowIndex;
                     obtenerDatosDGVProductos(numfila);
 
-                    MakeBarCode.FormClosed += delegate
-                    {
-
-                    };
                     if (!MakeBarCode.Visible)
                     {
                         MakeBarCode.NombreProd = Nombre;
@@ -729,8 +716,9 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                else if (e.ColumnIndex == 11)    // Imagen del Producto
+                else if (e.ColumnIndex == 11)
                 {
+                    // Imagen del Producto
                     numfila = e.RowIndex;
                     obtenerDatosDGVProductos(numfila);
 
@@ -747,14 +735,12 @@ namespace PuntoDeVentaV2
                         agregarFoto();
                     }
                 }
-                else if (e.ColumnIndex == 12)    // Etiqueta del Producto
+                else if (e.ColumnIndex == 12)
                 {
+                    // Etiqueta del Producto
                     numerofila = e.RowIndex;
                     obtenerDatosDGVProductos(numerofila);
-                    MakeTagProd.FormClosed += delegate
-                    {
 
-                    };
                     if (!MakeTagProd.Visible)
                     {
                         MakeTagProd.NombreProd = Nombre;
@@ -770,8 +756,9 @@ namespace PuntoDeVentaV2
                         MakeTagProd.BringToFront();
                     }
                 }
-                else if (e.ColumnIndex == 13)    // Copiar el Producto
+                else if (e.ColumnIndex == 13)
                 {
+                    // Copiar el Producto
                     if (seleccionadoDato == 0)
                     {
                         seleccionadoDato = 1;
@@ -781,24 +768,30 @@ namespace PuntoDeVentaV2
                     }
                     btnAgregarProducto.PerformClick();
                 }
-                else if (e.ColumnIndex == 17)    // Ajustar del Producto
+                else if (e.ColumnIndex == 17)
                 {
-                    //Esta es la columna de la opcion "Ajustar"
-                    AjustarProducto ap = new AjustarProducto(idProducto);
+                    // Ajustar del Producto
 
-                    ap.FormClosed += delegate
+                    // La opcion ajustar solo debe funcionar para los tipo Producto
+                    if (tipoProducto == "P")
                     {
-                        if (botonAceptar)
+                        //Esta es la columna de la opcion "Ajustar"
+                        AjustarProducto ap = new AjustarProducto(idProducto);
+
+                        ap.FormClosed += delegate
                         {
-                            CargarDatos();
+                            if (botonAceptar)
+                            {
+                                CargarDatos();
 
-                            idReporte++;
+                                idReporte++;
 
-                            botonAceptar = false;
-                        }
-                    };
+                                botonAceptar = false;
+                            }
+                        };
 
-                    ap.ShowDialog();
+                        ap.ShowDialog();
+                    } 
                 }
             }
         }
@@ -1283,6 +1276,10 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            // Pixel en blanco para poner en las columnas que no va a mostrar un icono
+            Bitmap sinImagen = new Bitmap(1, 1);
+            sinImagen.SetPixel(0, 0, Color.White);
+
             DataSet datos = p.cargar();
 
             DataTable dtDatos = datos.Tables[0];
@@ -1369,17 +1366,19 @@ namespace PuntoDeVentaV2
                 if (TipoProd == "P")
                 {
                     row.Cells["Column16"].Value = product;
+                    row.Cells["Ajustar"].Value = ajustar;
                 }
                 else if (TipoProd == "S")
                 {
                     row.Cells["Column16"].Value = package;
+                    row.Cells["Ajustar"].Value = sinImagen;
                 }
                 else if (TipoProd == "PQ")
                 {
                     row.Cells["Column16"].Value = package;
+                    row.Cells["Ajustar"].Value = sinImagen;
                 }
 
-                row.Cells["Ajustar"].Value = ajustar;
 
                 row.Cells["_ClavProdXML"].Value = filaDatos["ClaveProducto"].ToString();
                 row.Cells["_ClavUnidMedXML"].Value = filaDatos["UnidadMedida"].ToString();

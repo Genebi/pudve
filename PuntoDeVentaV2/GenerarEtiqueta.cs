@@ -116,7 +116,8 @@ namespace PuntoDeVentaV2
         private void AsignarFocus_Click(object sender, EventArgs e)
         {
             Label label = (Label)sender;
-
+            label.BorderStyle = BorderStyle.FixedSingle;
+            label.TextAlign = ContentAlignment.MiddleCenter;
             labelConFocus = label.Name;
         }
 
@@ -167,6 +168,11 @@ namespace PuntoDeVentaV2
                 label.Width = infoTexto.Width;
                 label.Height = infoTexto.Height;
             }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
