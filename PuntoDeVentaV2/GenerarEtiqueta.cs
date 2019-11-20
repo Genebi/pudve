@@ -154,8 +154,21 @@ namespace PuntoDeVentaV2
             txtCustom.Tag = propiedad;
             txtCustom.Visible = false;
 
+            
+
             panelEtiqueta.Controls.Add(lbCustom);
             panelEtiqueta.Controls.Add(txtCustom);
+            // Para el codigo de barras
+            if (propiedad.Equals("Codigo"))
+            {
+                Panel panelCustom = new Panel();
+                panelCustom.Name = "panelCustom" + propiedad;
+                panelCustom.Width = 100;
+                panelCustom.Height = 50;
+                panelEtiqueta.Controls.Add(panelCustom);
+                ControlExtension.Draggable(panelCustom, true);
+            }
+
             ControlExtension.Draggable(lbCustom, true);
         }
 
@@ -203,6 +216,12 @@ namespace PuntoDeVentaV2
                 label.Height = infoTexto.Height;
                 label.BackColor = Color.Transparent;
                 label.Visible = true;
+
+                // Verificar si se termino la edicion de la propiedad codigo de barras
+                if (label.Name.Equals("lbCustomCodigo"))
+                {
+                    GenerarCodigoBarras(label.Text);
+                }
             }
         }
 
@@ -299,6 +318,22 @@ namespace PuntoDeVentaV2
             Label label = sender as Label;
 
             label.BackColor = Color.Aquamarine;
+        }
+
+        private void GenerarCodigoBarras(string txtCodigo)
+        {
+            BarcodeLib.Barcode codigo = new BarcodeLib.Barcode();
+
+            try
+            {
+                Panel panelCustom = (Panel)this.Controls.Find("panelCustomCodigo", true)[0];
+
+                panelCustom.BackgroundImage = codigo.Encode(BarcodeLib.TYPE.CODE128, txtCodigo, Color.Black, Color.White, 100, 40);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar código de barras para la etiqueta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
