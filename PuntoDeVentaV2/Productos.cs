@@ -858,7 +858,8 @@ namespace PuntoDeVentaV2
             Nombre = DGVProductos.Rows[fila].Cells["Column1"].Value.ToString();
             Stock = DGVProductos.Rows[fila].Cells["Column2"].Value.ToString();
             Precio = DGVProductos.Rows[fila].Cells["Column3"].Value.ToString();
-            ProductoCategoria = DGVProductos.Rows[fila].Cells["Column4"].Value.ToString();
+            //ProductoCategoria = DGVProductos.Rows[fila].Cells["Column4"].Value.ToString();
+            ProductoCategoria = DGVProductos.Rows[fila].Cells["Categoria"].Value.ToString();
             ClaveInterna = DGVProductos.Rows[fila].Cells["Column5"].Value.ToString();
             CodigoBarras = DGVProductos.Rows[fila].Cells["Column6"].Value.ToString();
             savePath = DGVProductos.Rows[fila].Cells["Column15"].Value.ToString();
@@ -1313,7 +1314,7 @@ namespace PuntoDeVentaV2
                 }
 
                 row.Cells["Column3"].Value = decimal.Parse(filaDatos["Precio"].ToString());
-                row.Cells["Column4"].Value = filaDatos["NumeroRevision"].ToString(); //filaDatos["Categoria"].ToString();
+                row.Cells["Column4"].Value = filaDatos["NumeroRevision"].ToString(); //filaDatos["Categoria"].ToString(); esta era la de categoria
                 row.Cells["Column5"].Value = filaDatos["ClaveInterna"].ToString();
                 row.Cells["Column6"].Value = filaDatos["CodigoBarras"].ToString();
                 row.Cells["Column14"].Value = filaDatos["Status"].ToString();
@@ -1384,6 +1385,7 @@ namespace PuntoDeVentaV2
                 row.Cells["_ClavUnidMedXML"].Value = filaDatos["UnidadMedida"].ToString();
                 row.Cells["Impuesto"].Value = filaDatos["Impuesto"].ToString();
                 row.Cells["TipoProducto"].Value = TipoProd;
+                row.Cells["Categoria"].Value = filaDatos["Categoria"].ToString();
             }
 
             actualizar();
