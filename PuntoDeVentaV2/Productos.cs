@@ -178,6 +178,13 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            var apartado = cbMostrar.SelectedItem.ToString();
+
+            if (apartado.Equals("Deshabilitados"))
+            {
+                return;
+            }
+
             var fila = DGVProductos.CurrentCell.RowIndex;
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
@@ -220,6 +227,13 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            var apartado = cbMostrar.SelectedItem.ToString();
+
+            if (apartado.Equals("Deshabilitados"))
+            {
+                return;
+            }
+
             var fila = DGVProductos.CurrentCell.RowIndex;
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
@@ -618,8 +632,15 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var fila = DGVProductos.CurrentCell.RowIndex;
+            var apartado = cbMostrar.SelectedItem.ToString();
 
+            if (apartado.Equals("Deshabilitados"))
+            {
+                return;
+            }
+            
+
+            var fila = DGVProductos.CurrentCell.RowIndex;
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
             var tipoProducto = DGVProductos.Rows[fila].Cells["TipoProducto"].Value.ToString();
 
@@ -770,7 +791,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 17)
                 {
-                    // Ajustar del Producto
+                    // Ajustar el Producto
 
                     // La opcion ajustar solo debe funcionar para los tipo Producto
                     if (tipoProducto == "P")
