@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
@@ -49,7 +49,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.flowLayoutPanel1);
+            this.groupBox1.Controls.Add(this.fLPDetalleProducto);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.comboBoxProveedor);
@@ -63,14 +63,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
             // 
-            // flowLayoutPanel1
+            // fLPDetalleProducto
             // 
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 167);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(486, 100);
-            this.flowLayoutPanel1.TabIndex = 11;
-            this.flowLayoutPanel1.WrapContents = false;
+            this.fLPDetalleProducto.AutoScroll = true;
+            this.fLPDetalleProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 167);
+            this.fLPDetalleProducto.Name = "fLPDetalleProducto";
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(486, 100);
+            this.fLPDetalleProducto.TabIndex = 11;
+            this.fLPDetalleProducto.WrapContents = false;
             // 
             // label1
             // 
@@ -285,6 +286,6 @@
         private System.Windows.Forms.ComboBox comboBoxProveedor;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel fLPDetalleProducto;
     }
 }

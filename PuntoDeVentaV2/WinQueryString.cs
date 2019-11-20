@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
@@ -8,12 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace PuntoDeVentaV2
 {
     public partial class WinQueryString : Form
     {
         Conexion cn = new Conexion();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         bool filtroStock,
                 filtroPrecio,
@@ -27,6 +31,46 @@ namespace PuntoDeVentaV2
                 strOpcionCBProveedor = string.Empty,
                 strTxtStock = string.Empty,
                 strTxtPrecio = string.Empty;
+
+        string[] listaProveedores = new string[] { },
+                    listaCategorias = new string[] { },
+                    listaUbicaciones = new string[] { },
+                    listaDetalleGral = new string[] { };
+
+        string[] datosProveedor,
+                    datosCategoria,
+                    datosUbicacion,
+                    datosDetalleGral,
+                    separadas,
+                    guardar;
+
+        int XPos = 0,
+            YPos = 0,
+            contadorIndex = 0,
+            idProveedor = 0,
+            idCategoria = 0,
+            idUbicacion = 0,
+            idProductoDetalleGral;
+
+        string nvoDetalle = string.Empty,
+                nvoValor = string.Empty,
+                editValor = string.Empty,
+                deleteDetalle = string.Empty,
+                nombreProveedor = string.Empty,
+                nombreCategoria = string.Empty,
+                nombreUbicacion = string.Empty;
+
+        Dictionary<string, string> proveedores,
+                                   categorias,
+                                   ubicaciones,
+                                   detallesGral;
+
+        static public List<string> detalleProductoBasico = new List<string>();
+        static public List<string> detalleProductoGeneral = new List<string>();
+
+        Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(),
+                                                               diccionarioDetalleBasicos = new Dictionary<int, Tuple<string, string, string, string>>();
+
 
         DataTable dtProveedor;
 
@@ -54,6 +98,527 @@ namespace PuntoDeVentaV2
                                 "Error de captura del Stock", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public void actualizarVistaDetallesProducto()
+        {
+            loadFormConfig();
+            BuscarChkBoxListView(chkDatabase);
+            bool isEmpty = !detalleProductoBasico.Any();
+            if (!isEmpty)
+            {
+                // Cuando se da click en la opcion editar producto
+                //if (DatosSourceFinal == 1)
+                //{
+                    string Descripcion = string.Empty,
+                            name = string.Empty,
+                            value = string.Empty,
+                            namegral = string.Empty;
+
+                    for (int i = 0; i < chkDatabase.Items.Count; i++)
+                    {
+                        name = chkDatabase.Items[i].Text.ToString();
+                        Text.ToString();
+                        value = chkDatabase.Items[i].SubItems[1].Text.ToString();
+                        foreach (Control contHijo in fLPDetalleProducto.Controls)
+                        {
+                            foreach (Control contSubHijo in contHijo.Controls)
+                            {
+                                if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
+                                {
+                                    foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                    {
+                                        if (contItemSubHijo is Label)
+                                        {
+                                            contItemSubHijo.Text = detalleProductoBasico[2].ToString();
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (int i = 0; i < chkDatabase.Items.Count; i++)
+                    {
+                        name = chkDatabase.Items[i].Text.ToString().Remove(0, 3);
+                        value = chkDatabase.Items[i].SubItems[1].Text.ToString();
+                        foreach (Control contHijo in fLPDetalleProducto.Controls)
+                        {
+                            foreach (Control contSubHijo in contHijo.Controls)
+                            {
+                                if (contSubHijo.Name.Equals("panelContenido" + name) && value.Equals("true"))
+                                {
+                                    for (int j = 0; j < detalleProductoGeneral.Count; j++)
+                                    {
+                                        namegral = detalleProductoGeneral[j].ToString();
+                                        if (namegral.Equals(name) &&
+                                                    contSubHijo.Name.Equals("panelContenido" + name))
+                                        {
+                                            foreach (Control contItemSubHijo in contSubHijo.Controls)
+                                            {
+                                                if (contItemSubHijo is Label)
+                                                {
+                                                    contItemSubHijo.Text = detalleProductoGeneral[j + 2].ToString();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                //}
+            }
+        }
+
+        #region Modifying Configuration Settings at Runtime
+        XmlDocument xmlDoc = new XmlDocument();
+        XmlNode appSettingsNode, newChild;
+        ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle
+        ListView settingDatabases = new ListView(); // ListView para los CheckBox de Sistema
+        ListViewItem lvi;
+        string connStr, keyName;
+        int found = 0;
+        NameValueCollection appSettings;
+
+        // this code will add a listviewtem
+        // to a listview for each database entry
+        // in the appSettings section of an App.config file.
+        private void loadFormConfig()
+        {
+            if (Properties.Settings.Default.TipoEjecucion == 1)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            if (Properties.Settings.Default.TipoEjecucion == 2)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+
+            chkDatabase.Items.Clear();
+            settingDatabases.Items.Clear();
+
+            lvi = new ListViewItem();
+
+            try
+            {
+                chkDatabase.Clear();
+                settingDatabases.Clear();
+
+                appSettings = ConfigurationManager.AppSettings;
+
+                if (appSettings.Count == 0)
+                {
+                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia",
+                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (appSettings.Count > 0)
+                {
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found >= 0)
+                        {
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            chkDatabase.Items.Add(lvi);
+                        }
+                    }
+
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        string foundSetting = string.Empty;
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found <= -1)
+                        {
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            settingDatabases.Items.Add(lvi);
+                        }
+                    }
+                }
+            }
+            catch (ConfigurationException e)
+            {
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
+                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BuscarChkBoxListView(ListView lstListView)
+        {
+            int id = 0,
+                row = 0;
+
+            string nameChk = string.Empty,
+                    valorChk = string.Empty,
+                    chkSettingVariableTxt = string.Empty,
+                    chkSettingVariableVal = string.Empty,
+                    name = string.Empty,
+                    value = string.Empty,
+                    nombrePanelContenedor = string.Empty,
+                    nombrePanelContenido = string.Empty;
+
+            fLPDetalleProducto.Controls.Clear();
+
+            for (int i = 0; i < lstListView.Items.Count; i++)
+            {
+                name = lstListView.Items[i].Text.ToString();
+                value = lstListView.Items[i].SubItems[1].Text.ToString();
+
+                if (name.Equals("chkProveedor") && value.Equals("true"))
+                {
+                    nombrePanelContenedor = "panelContenedor" + name;
+                    nombrePanelContenido = "panelContenido" + name;
+
+                    Panel panelContenedor = new Panel();
+                    panelContenedor.Width = 266;
+                    panelContenedor.Height = 58;
+                    panelContenedor.Name = nombrePanelContenedor;
+                    //panelContenedor.BackColor = Color.Aqua;
+
+                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+
+                    if (chkSettingVariableVal.Equals("true"))
+                    {
+                        name = chkSettingVariableTxt;
+                        value = chkSettingVariableVal;
+                        Panel panelContenido = new Panel();
+                        panelContenido.Name = nombrePanelContenido;
+                        panelContenido.Width = 258;
+                        panelContenido.Height = 55;
+
+                        Label lblNombreProveedor = new Label();
+                        lblNombreProveedor.Name = "lblNombre" + name;
+                        lblNombreProveedor.Width = 248;
+                        lblNombreProveedor.Height = 20;
+                        lblNombreProveedor.Location = new Point(3, 32);
+                        lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
+                        lblNombreProveedor.BackColor = Color.White;
+
+                        int XcbProv = 0;
+                        XcbProv = panelContenido.Width / 2;
+
+                        CargarProveedores();
+
+                        ComboBox cbProveedor = new ComboBox();
+                        cbProveedor.Name = "cb" + name;
+                        cbProveedor.Width = 200;
+                        cbProveedor.Height = 30;
+                        cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
+                        cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
+                        if (listaProveedores.Length > 0)
+                        {
+                            cbProveedor.DataSource = proveedores.ToArray();
+                            cbProveedor.DisplayMember = "Value";
+                            cbProveedor.ValueMember = "Key";
+                            cbProveedor.SelectedValue = "0";
+
+                            // Cuando se le da click en la opcion editar producto
+                            //if (DatosSourceFinal == 2)
+                            //{
+                            //    var idProducto = Convert.ToInt32(idEditarProducto);
+                            //    var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                            //    int cantidad = idProveedor.Length;
+
+                            //    if (cantidad > 0)
+                            //    {
+                            //        if (!idProveedor[1].Equals(""))
+                            //        {
+                            //            if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
+                            //            {
+                            //                cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
+                            //                if (!datosProveedor.Equals(null))
+                            //                {
+                            //                    lblNombreProveedor.Text = datosProveedor[0];
+                            //                    diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
+                            //                    contadorIndex++;
+                            //                }
+                            //            }
+                            //        }
+                            //    }
+                            //}
+                        }
+                        else if (listaProveedores.Length < 0)
+                        {
+                            cbProveedor.Items.Add("Proveedores...");
+                            cbProveedor.SelectedIndex = 0;
+                        }
+                        else if (cbProveedor.Items.Count == 0)
+                        {
+                            cbProveedor.Items.Add("Proveedores...");
+                            cbProveedor.SelectedIndex = 0;
+                        }
+                        cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                        panelContenido.Controls.Add(cbProveedor);
+                        panelContenido.Controls.Add(lblNombreProveedor);
+
+                        panelContenedor.Controls.Add(panelContenido);
+                        fLPDetalleProducto.Controls.Add(panelContenedor);
+                    }
+                } // aqui se continua con los demas else if
+                else if (!name.Equals("chkProveedor") && value.Equals("true"))// cualquier otro 
+                {
+                    nombrePanelContenedor = "panelContenedor" + name.ToString().Remove(0, 3);
+                    nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
+
+                    Panel panelContenedor = new Panel();
+                    panelContenedor.Width = 266;
+                    panelContenedor.Height = 58;
+                    panelContenedor.Name = nombrePanelContenedor;
+
+                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+
+                    if (chkSettingVariableVal.Equals("true"))
+                    {
+                        name = chkSettingVariableTxt;
+                        value = chkSettingVariableVal;
+
+                        Panel panelContenido = new Panel();
+                        panelContenido.Name = nombrePanelContenido;
+                        panelContenido.Width = 258;
+                        panelContenido.Height = 55;
+
+                        Label lblNombreDetalleGral = new Label();
+                        lblNombreDetalleGral.Name = "lblNombre" + name;
+                        lblNombreDetalleGral.Width = 248;
+                        lblNombreDetalleGral.Height = 20;
+                        lblNombreDetalleGral.Location = new Point(3, 32);
+                        lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
+                        lblNombreDetalleGral.BackColor = Color.White;
+
+                        int XcbProv = 0;
+                        XcbProv = panelContenido.Width / 2;
+
+                        CargarDetallesGral(name.ToString().Remove(0, 3));
+
+                        ComboBox cbDetalleGral = new ComboBox();
+                        cbDetalleGral.Name = "cb" + name;
+                        cbDetalleGral.Width = 200;
+                        cbDetalleGral.Height = 30;
+                        cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
+                        cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
+                        cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
+
+                        if (listaDetalleGral.Length > 0)
+                        {
+                            cbDetalleGral.DataSource = detallesGral.ToArray();
+                            cbDetalleGral.DisplayMember = "value";
+                            cbDetalleGral.ValueMember = "Key";
+                            cbDetalleGral.SelectedValue = "0";
+                        }
+                        else if (cbDetalleGral.Items.Count == 0)
+                        {
+                            cbDetalleGral.Items.Add(name.ToString().Remove(0, 3) + "...");
+                            cbDetalleGral.SelectedIndex = 0;
+                        }
+                        panelContenido.Controls.Add(cbDetalleGral);
+                        panelContenido.Controls.Add(lblNombreDetalleGral);
+                        panelContenedor.Controls.Add(panelContenido);
+                        fLPDetalleProducto.Controls.Add(panelContenedor);
+
+                        // Cuando se da click en la opcion editar producto
+                        //if (DatosSourceFinal == 2)
+                        //{
+                        //    string Descripcion = string.Empty;
+
+                        //    foreach (Control contHijo in fLPDetalleProducto.Controls)
+                        //    {
+                        //        foreach (Control contSubHijo in contHijo.Controls)
+                        //        {
+                        //            if (contSubHijo.Name == nombrePanelContenido)
+                        //            {
+                        //                foreach (Control contItemSubHijo in contSubHijo.Controls)
+                        //                {
+                        //                    if (contItemSubHijo is Label)
+                        //                    {
+                        //                        Descripcion = contItemSubHijo.Text;
+                        //                        break;
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+
+                        //    if (Descripcion.Equals("") || Descripcion.Equals(null))
+                        //    {
+                        //        Descripcion = nombrePanelContenido;
+                        //    }
+                        //    else if (!Descripcion.Equals(""))
+                        //    {
+
+                        //    }
+
+                        //    //idProductoDetalleGral = Convert.ToInt32(idEditarProducto);
+                        //    //var DetalleGralPorPanel = mb.DetallesProductoGralPorPanel(Descripcion, FormPrincipal.userID, idProductoDetalleGral);
+
+                        //    int cantidad = DetalleGralPorPanel.Length;
+
+                        //    if (cantidad > 0)
+                        //    {
+                        //        if (Descripcion.Equals(nombrePanelContenido))
+                        //        {
+                        //            int idDetailGral = 0;
+                        //            idDetailGral = Convert.ToInt32(DetalleGralPorPanel[3].ToString());
+
+                        //            foreach (Control contHijo in fLPDetalleProducto.Controls)
+                        //            {
+                        //                foreach (Control contSubHijo in contHijo.Controls)
+                        //                {
+                        //                    if (contSubHijo.Name == nombrePanelContenido)
+                        //                    {
+                        //                        var idDetalleGral = mb.DetallesProductoGral(FormPrincipal.userID, idDetailGral);
+
+                        //                        foreach (Control contItemSubHijo in contSubHijo.Controls)
+                        //                        {
+                        //                            if (contItemSubHijo is Label)
+                        //                            {
+                        //                                contItemSubHijo.Text = idDetalleGral[2].ToString();
+                        //                                diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string, string>(DetalleGralPorPanel[0].ToString(), nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
+                        //                                contadorIndex++;
+                        //                                break;
+                        //                            }
+                        //                        }
+
+                        //                        idDetalleGral = new string[] { };
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
+                    }
+                }
+            }
+        }
+        
+        private void CargarProveedores()
+        {
+            // Asignamos el Array con los nombres de los proveedores al comboBox
+            listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+
+            proveedores = new Dictionary<string, string>();
+
+            // Comprobar que ya exista al menos un Proveedor
+            if (listaProveedores.Length > 0)
+            {
+                proveedores.Add("0", "Proveedores...");
+
+                foreach (var proveedor in listaProveedores)
+                {
+                    var tmp = proveedor.Split('-');
+                    proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
+                }
+            }
+            else
+            {
+                proveedores.Add("0", "Proveedores...");
+            }
+        }
+
+        private void comboBoxProveedor_SelectValueChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = sender as ComboBox;
+            string cadena = string.Empty, namePanel = string.Empty;
+            char[] delimiterChars = { '-' };
+            int comboBoxIndex = 0;
+
+            comboBoxIndex = comboBox.SelectedIndex;
+            namePanel = comboBox.Name.ToString().Remove(0, 2);
+
+            if (listaProveedores.Length > 0)
+            {
+                idProveedor = 0;
+                if (comboBoxIndex > 0)
+                {
+                    cadena = string.Join("", listaProveedores[comboBoxIndex - 1]);
+                    separadas = cadena.Split(delimiterChars);
+                    idProveedor = Convert.ToInt32(separadas[0]);
+                    nombreProveedor = separadas[1];
+                }
+                else if (comboBoxIndex <= 0)
+                {
+                    idProveedor = 0;
+                }
+
+                if (idProveedor > 0)
+                {
+                    cargarDatosProveedor(Convert.ToInt32(idProveedor));
+                    llenarDatosProveedor(namePanel);
+                }
+            }
+        }
+
+        private void CargarDetallesGral(string v)
+        {
+            
+        }
+
+        private void ComboBoxDetalleGral_SelectValueChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void cargarDatosProveedor(int idProveedor)
+        {
+            // Para que no de error ya que nunca va a existir un proveedor en ID = 0
+            if (idProveedor > 0)
+            {
+                datosProveedor = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
+            }
+        }
+
+        private void llenarDatosProveedor(string textoBuscado)
+        {
+            string namePanel = string.Empty;
+
+            namePanel = "panelContenedor" + textoBuscado;
+
+            foreach (Control contHijo in fLPDetalleProducto.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + textoBuscado;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "cb" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datosProveedor[0];
+                                }
+                                if (contLblHijo.Name == "lblNombre" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datosProveedor[0];
+                                }
+                                else if (contLblHijo.Name == "lblRFC" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datosProveedor[1];
+                                }
+                                else if (contLblHijo.Name == "lblTel" + textoBuscado)
+                                {
+                                    contLblHijo.Text = datosProveedor[10];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        #endregion Modifying Configuration Settings at Runtime
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
@@ -180,6 +745,8 @@ namespace PuntoDeVentaV2
                 }
                 comboBoxProveedor.Enabled = false;
             }
+            loadFormConfig();
+            BuscarChkBoxListView(chkDatabase);
         }
 
         private void validarChkBoxStock()
