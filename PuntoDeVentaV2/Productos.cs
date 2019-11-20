@@ -178,6 +178,13 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            var apartado = cbMostrar.SelectedItem.ToString();
+
+            if (apartado.Equals("Deshabilitados"))
+            {
+                return;
+            }
+
             var fila = DGVProductos.CurrentCell.RowIndex;
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
@@ -220,6 +227,13 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            var apartado = cbMostrar.SelectedItem.ToString();
+
+            if (apartado.Equals("Deshabilitados"))
+            {
+                return;
+            }
+
             var fila = DGVProductos.CurrentCell.RowIndex;
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
