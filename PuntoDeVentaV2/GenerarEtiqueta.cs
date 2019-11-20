@@ -36,6 +36,69 @@ namespace PuntoDeVentaV2
             cbFuentes.SelectedItem = "Arial";
         }
 
+        private void CargarPropiedades()
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+
+            if (Properties.Settings.Default.TipoEjecucion == 1)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            if (Properties.Settings.Default.TipoEjecucion == 2)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            // Obtenemos el nodo principal de las propiedades del archivo App.config
+            XmlNode appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+
+            //======================================================================
+
+            // PANEL NOMBRE PRODUCTO
+            panelPropiedades.Controls.Add(GenerarPropiedad("Nombre", "Nombre"));
+
+            // PANEL CODIGO DE BARRAS
+            panelPropiedades.Controls.Add(GenerarPropiedad("Codigo", "Código de barras"));
+
+            // PANEL CLAVE DE PRODUCTO
+            panelPropiedades.Controls.Add(GenerarPropiedad("Clave", "Clave"));
+
+            // PANEL STOCK
+            panelPropiedades.Controls.Add(GenerarPropiedad("Stock", "Stock"));
+
+            // PANEL PRECIO
+            panelPropiedades.Controls.Add(GenerarPropiedad("Precio", "Precio"));
+
+            //======================================================================
+            foreach (XmlNode childNode in appSettingsNode)
+            {
+                var key = childNode.Attributes["key"].Value;
+                var value = Convert.ToBoolean(childNode.Attributes["value"].Value);
+
+                // Ignoramos los checkbox secundarios de cada propiedad
+                if (key.Substring(0, 3) == "chk")
+                {
+                    continue;
+                }
+
+                // Si el valor de la propiedad es true (esta habilitado)
+                if (value == true)
+                {
+                    // Este valor de proveedor esta agregado por defecto
+                    if (key == "Proveedor")
+                    {
+                        panelPropiedades.Controls.Add(GenerarPropiedad("Proveedor", "Proveedor"));
+                    }
+                    else
+                    {
+                        // Aqui consultamos y agregamos todos los restantes
+                        panelPropiedades.Controls.Add(GenerarPropiedad(key, key));
+                    }
+                }
+            }
+        }
+
         private FlowLayoutPanel GenerarPropiedad(string nombreProdiedad, string textoLabel)
         {
             FlowLayoutPanel panelPropiedad = new FlowLayoutPanel();
@@ -83,6 +146,7 @@ namespace PuntoDeVentaV2
             lbCustom.Cursor = Cursors.Hand;
             lbCustom.DoubleClick += new EventHandler(EditarLabel_dobleClick);
             lbCustom.Click += new EventHandler(AsignarFocus_Click);
+            lbCustom.MouseDown += new MouseEventHandler(AgregarSeleccion);
 
             TextBox txtCustom = new TextBox();
             txtCustom.Name = "txtCustom" + propiedad;
@@ -118,7 +182,7 @@ namespace PuntoDeVentaV2
 
             Label label = (Label)sender;
             label.TextAlign = ContentAlignment.MiddleCenter;
-            label.BackColor = Color.Aqua;
+            label.BackColor = Color.Aquamarine;
             labelConFocus = label.Name;
         }
 
@@ -193,69 +257,6 @@ namespace PuntoDeVentaV2
             MessageBox.Show("Guardar");
         }
 
-        private void CargarPropiedades()
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (Properties.Settings.Default.TipoEjecucion == 1)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            if (Properties.Settings.Default.TipoEjecucion == 2)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            // Obtenemos el nodo principal de las propiedades del archivo App.config
-            XmlNode appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
-
-            //======================================================================
-
-            // PANEL NOMBRE PRODUCTO
-            panelPropiedades.Controls.Add(GenerarPropiedad("Nombre", "Nombre"));
-
-            // PANEL CODIGO DE BARRAS
-            panelPropiedades.Controls.Add(GenerarPropiedad("Codigo", "Código de barras"));
-
-            // PANEL CLAVE DE PRODUCTO
-            panelPropiedades.Controls.Add(GenerarPropiedad("Clave", "Clave"));
-
-            // PANEL STOCK
-            panelPropiedades.Controls.Add(GenerarPropiedad("Stock", "Stock"));
-
-            // PANEL PRECIO
-            panelPropiedades.Controls.Add(GenerarPropiedad("Precio", "Precio"));
-
-            //======================================================================
-            foreach (XmlNode childNode in appSettingsNode)
-            {
-                var key = childNode.Attributes["key"].Value;
-                var value = Convert.ToBoolean(childNode.Attributes["value"].Value);
-
-                // Ignoramos los checkbox secundarios de cada propiedad
-                if (key.Substring(0, 3) == "chk")
-                {
-                    continue;
-                }
-
-                // Si el valor de la propiedad es true (esta habilitado)
-                if (value == true)
-                {
-                    // Este valor de proveedor esta agregado por defecto
-                    if (key == "Proveedor")
-                    {
-                        panelPropiedades.Controls.Add(GenerarPropiedad("Proveedor", "Proveedor"));
-                    }
-                    else
-                    {
-                        // Aqui consultamos y agregamos todos los restantes
-                        panelPropiedades.Controls.Add(GenerarPropiedad(key, key));
-                    }
-                }
-            }
-        }
-
         private void cbFuentes_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(labelConFocus))
@@ -289,6 +290,15 @@ namespace PuntoDeVentaV2
                     label.BackColor = Color.Transparent;
                 }
             }
+        }
+
+        private void AgregarSeleccion(object sender, MouseEventArgs e)
+        {
+            QuitarSeleccion();
+
+            Label label = sender as Label;
+
+            label.BackColor = Color.Aquamarine;
         }
     }
 }
