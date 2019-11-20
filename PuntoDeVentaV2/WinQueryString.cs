@@ -560,9 +560,30 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void CargarDetallesGral(string v)
+        private void CargarDetallesGral(string textBuscado)
         {
-            
+            string concepto = string.Empty;
+            detallesGral = new Dictionary<string, string>();
+
+            concepto = textBuscado;
+
+            listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, concepto);
+
+            if (listaDetalleGral.Length > 0)
+            {
+                detallesGral.Add("0", concepto + "...");
+
+                foreach (var DetailGral in listaDetalleGral)
+                {
+                    var auxiliar = DetailGral.Split('|');
+
+                    detallesGral.Add(auxiliar[0], auxiliar[1]);
+                }
+            }
+            else
+            {
+                detallesGral.Add("0", concepto + "...");
+            }
         }
 
         private void ComboBoxDetalleGral_SelectValueChanged(object sender, EventArgs e)
