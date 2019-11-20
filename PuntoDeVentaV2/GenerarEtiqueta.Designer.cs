@@ -53,6 +53,7 @@
             this.panelEtiqueta.Name = "panelEtiqueta";
             this.panelEtiqueta.Size = new System.Drawing.Size(420, 122);
             this.panelEtiqueta.TabIndex = 1;
+            this.panelEtiqueta.Click += new System.EventHandler(this.panelEtiqueta_Click);
             // 
             // btnReducir
             // 

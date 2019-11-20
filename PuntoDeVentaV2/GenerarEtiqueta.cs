@@ -86,7 +86,6 @@ namespace PuntoDeVentaV2
 
             TextBox txtCustom = new TextBox();
             txtCustom.Name = "txtCustom" + propiedad;
-            txtCustom.BorderStyle = BorderStyle.None;
             txtCustom.KeyDown += new KeyEventHandler(TerminarEdicion_KeyDown);
             txtCustom.Tag = propiedad;
             txtCustom.Visible = false;
@@ -115,9 +114,11 @@ namespace PuntoDeVentaV2
 
         private void AsignarFocus_Click(object sender, EventArgs e)
         {
+            QuitarSeleccion();
+
             Label label = (Label)sender;
-            label.BorderStyle = BorderStyle.FixedSingle;
             label.TextAlign = ContentAlignment.MiddleCenter;
+            label.BackColor = Color.Aqua;
             labelConFocus = label.Name;
         }
 
@@ -136,6 +137,7 @@ namespace PuntoDeVentaV2
 
                 label.Width = infoTexto.Width;
                 label.Height = infoTexto.Height;
+                label.BackColor = Color.Transparent;
                 label.Visible = true;
             }
         }
@@ -172,7 +174,18 @@ namespace PuntoDeVentaV2
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(labelConFocus))
+            {
+                var txtBox = labelConFocus.Substring(2);
 
+                foreach (Control item in panelEtiqueta.Controls)
+                {
+                    if (item.Name == labelConFocus || item.Name == txtBox)
+                    {
+                        panelEtiqueta.Controls.Remove(item);
+                    }
+                }
+            }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -258,6 +271,24 @@ namespace PuntoDeVentaV2
                 label.Width = infoTexto.Width;
                 label.Height = infoTexto.Height;
             } 
+        }
+
+        private void panelEtiqueta_Click(object sender, EventArgs e)
+        {
+            QuitarSeleccion();
+        }
+
+        private void QuitarSeleccion()
+        {
+            labelConFocus = string.Empty;
+
+            foreach (Control label in panelEtiqueta.Controls)
+            {
+                if (label is Label)
+                {
+                    label.BackColor = Color.Transparent;
+                }
+            }
         }
     }
 }
