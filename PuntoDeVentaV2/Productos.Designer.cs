@@ -473,9 +473,9 @@
             this.btnEtiqueta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEtiqueta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEtiqueta.ForeColor = System.Drawing.Color.White;
-            this.btnEtiqueta.Location = new System.Drawing.Point(320, 113);
+            this.btnEtiqueta.Location = new System.Drawing.Point(341, 149);
             this.btnEtiqueta.Name = "btnEtiqueta";
-            this.btnEtiqueta.Size = new System.Drawing.Size(110, 28);
+            this.btnEtiqueta.Size = new System.Drawing.Size(105, 28);
             this.btnEtiqueta.TabIndex = 17;
             this.btnEtiqueta.Text = "Etiqueta";
             this.btnEtiqueta.UseVisualStyleBackColor = false;
@@ -489,9 +489,9 @@
             this.btnAsignarMultiple.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAsignarMultiple.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAsignarMultiple.ForeColor = System.Drawing.Color.White;
-            this.btnAsignarMultiple.Location = new System.Drawing.Point(320, 147);
+            this.btnAsignarMultiple.Location = new System.Drawing.Point(230, 149);
             this.btnAsignarMultiple.Name = "btnAsignarMultiple";
-            this.btnAsignarMultiple.Size = new System.Drawing.Size(110, 28);
+            this.btnAsignarMultiple.Size = new System.Drawing.Size(105, 28);
             this.btnAsignarMultiple.TabIndex = 16;
             this.btnAsignarMultiple.Text = "Asignar";
             this.btnAsignarMultiple.UseVisualStyleBackColor = false;
@@ -523,7 +523,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.cbOrden);
             this.groupBox2.Controls.Add(this.cbMostrar);
-            this.groupBox2.Location = new System.Drawing.Point(469, 83);
+            this.groupBox2.Location = new System.Drawing.Point(469, 105);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(168, 80);
             this.groupBox2.TabIndex = 14;
@@ -582,10 +582,10 @@
             this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
             this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListView.Location = new System.Drawing.Point(12, 126);
+            this.btnListView.Location = new System.Drawing.Point(230, 117);
             this.btnListView.Margin = new System.Windows.Forms.Padding(2);
             this.btnListView.Name = "btnListView";
-            this.btnListView.Size = new System.Drawing.Size(136, 49);
+            this.btnListView.Size = new System.Drawing.Size(105, 28);
             this.btnListView.TabIndex = 12;
             this.btnListView.Text = "Lista";
             this.btnListView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -597,10 +597,10 @@
             this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th_large;
             this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPhotoView.Location = new System.Drawing.Point(152, 126);
+            this.btnPhotoView.Location = new System.Drawing.Point(341, 117);
             this.btnPhotoView.Margin = new System.Windows.Forms.Padding(2);
             this.btnPhotoView.Name = "btnPhotoView";
-            this.btnPhotoView.Size = new System.Drawing.Size(159, 49);
+            this.btnPhotoView.Size = new System.Drawing.Size(105, 28);
             this.btnPhotoView.TabIndex = 11;
             this.btnPhotoView.Text = "Mosaico";
             this.btnPhotoView.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -610,14 +610,14 @@
             // btnModificarEstado
             // 
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.cogs;
+            this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.list_alt;
             this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnModificarEstado.Location = new System.Drawing.Point(152, 72);
+            this.btnModificarEstado.Location = new System.Drawing.Point(11, 149);
             this.btnModificarEstado.Margin = new System.Windows.Forms.Padding(2);
             this.btnModificarEstado.Name = "btnModificarEstado";
-            this.btnModificarEstado.Size = new System.Drawing.Size(159, 49);
+            this.btnModificarEstado.Size = new System.Drawing.Size(205, 28);
             this.btnModificarEstado.TabIndex = 10;
-            this.btnModificarEstado.Text = "Deshabilitar   Seleccionados";
+            this.btnModificarEstado.Text = "Deshabilitar seleccionados";
             this.btnModificarEstado.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnModificarEstado.UseVisualStyleBackColor = true;
             this.btnModificarEstado.Click += new System.EventHandler(this.btnModificarEstado_Click);
@@ -628,10 +628,10 @@
             this.btnAgregarXML.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarXML.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarXML.Image = global::PuntoDeVentaV2.Properties.Resources.cart_plus;
-            this.btnAgregarXML.Location = new System.Drawing.Point(12, 72);
+            this.btnAgregarXML.Location = new System.Drawing.Point(11, 117);
             this.btnAgregarXML.Margin = new System.Windows.Forms.Padding(2);
             this.btnAgregarXML.Name = "btnAgregarXML";
-            this.btnAgregarXML.Size = new System.Drawing.Size(136, 49);
+            this.btnAgregarXML.Size = new System.Drawing.Size(205, 28);
             this.btnAgregarXML.TabIndex = 8;
             this.btnAgregarXML.Text = "Agregar XML";
             this.btnAgregarXML.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;

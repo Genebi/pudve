@@ -897,6 +897,9 @@ namespace PuntoDeVentaV2
 
             if (filtro == "Habilitados")                            // comparamos si el valor a filtrar es Habilitados
             {
+                btnModificarEstado.Enabled = true;
+                btnModificarEstado.Text = "Deshabilitar seleccionados";
+
                 if (panelShowDGVProductosView.Visible == true)
                 {
                     clickBoton = 0;
@@ -910,6 +913,9 @@ namespace PuntoDeVentaV2
             }
             else if (filtro == "Deshabilitados")                    // comparamos si el valor a filtrar es Deshabilitados
             {
+                btnModificarEstado.Enabled = true;
+                btnModificarEstado.Text = "Habilitar seleccionados";
+
                 if (panelShowDGVProductosView.Visible == true)
                 {
                     clickBoton = 0;
@@ -921,12 +927,16 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
-            else if (filtro == "Todos")                             // comparamos si el valor a filtrar es Todos
+            else if (filtro == "Todos")
             {
+                // comparamos si el valor a filtrar es Todos
+                btnModificarEstado.Enabled = false;
+
                 if (panelShowDGVProductosView.Visible == true)
                 {
                     clickBoton = 0;
-                    CargarDatos(2);                                      // cargamos todos los registros
+                    // cargamos todos los registros
+                    CargarDatos(2);
                 }
                 else if (panelShowPhotoView.Visible == true)
                 {
