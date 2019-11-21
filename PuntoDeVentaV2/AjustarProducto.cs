@@ -83,6 +83,8 @@ namespace PuntoDeVentaV2
             precioProducto = float.Parse(datos[2]);
             stockProducto = Convert.ToInt32(datos[4]);
             ActiveControl = txtCantidadCompra;
+
+            txt_en_stock.Text = stockProducto.ToString();
             
 
             //Eventos para los campos que solo requieren cantidades
@@ -90,6 +92,7 @@ namespace PuntoDeVentaV2
             txtCantidadCompra.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtAumentar.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtDisminuir.KeyPress += new KeyPressEventHandler(SoloNumeros);
+            
         }
 
         private void rbProducto_CheckedChanged(object sender, EventArgs e)
@@ -101,8 +104,8 @@ namespace PuntoDeVentaV2
 
         private void rbAjustar_CheckedChanged(object sender, EventArgs e)
         {
-            panelComprado.Visible = false;
-            panelAjustar.Visible = true;
+            panelComprado.Visible = false; 
+            panelAjustar.Visible = true; 
             RestaurarValores(2);
         }
 
@@ -269,6 +272,14 @@ namespace PuntoDeVentaV2
             txtAumentar.Text = string.Empty;
             txtDisminuir.Text = string.Empty;
 
+            lb_aumentar_stock.Visible = false;
+            lb_aumentar_stock_total.Visible = false;
+            lb_disminuir_stock.Visible = false;
+            lb_disminuir_stock_total.Visible = false;
+            lb_aumentar_stock_total.Text = "0";
+            lb_disminuir_stock_total.Text = "0";
+
+
             if (valorCB == 1)
             {
                 txtCantidadCompra.Focus();
@@ -285,11 +296,17 @@ namespace PuntoDeVentaV2
             if (txtAumentar.Text != "")
             {
                 txtDisminuir.Enabled = false;
+                lb_aumentar_stock.Visible = true;
+                lb_aumentar_stock_total.Visible = true;
             }
             else
             {
                 txtDisminuir.Enabled = true;
+                lb_aumentar_stock.Visible = false;
+                lb_aumentar_stock_total.Visible = false;
             }
+
+            suma_resta_stock(1);
         }
 
         private void txtDisminuir_KeyUp(object sender, KeyEventArgs e)
@@ -297,11 +314,17 @@ namespace PuntoDeVentaV2
             if (txtDisminuir.Text != "")
             {
                 txtAumentar.Enabled = false;
+                lb_disminuir_stock.Visible = true;
+                lb_disminuir_stock_total.Visible = true;
             }
             else
             {
                 txtAumentar.Enabled = true;
+                lb_disminuir_stock.Visible = false;
+                lb_disminuir_stock_total.Visible = false;
             }
+
+            suma_resta_stock(2);
         }
 
         private void SoloNumeros(object sender, KeyPressEventArgs e)
@@ -337,6 +360,32 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 btnAceptar.PerformClick();
+            }
+        }
+
+        private void suma_resta_stock(int opc)
+        {
+            int suma = 0, resta = 0, aumentar = 0, disminuir = 0;
+
+            if (opc == 1)
+            {
+                if(txtAumentar.Text != "")
+                {
+                    aumentar = Convert.ToInt32(txtAumentar.Text);
+                }
+
+                suma = Convert.ToInt32(txt_en_stock.Text) + aumentar;
+                lb_aumentar_stock_total.Text = suma.ToString();
+            }
+            if(opc == 2)
+            {
+                if(txtDisminuir.Text != "")
+                {
+                    disminuir = Convert.ToInt32(txtDisminuir.Text);
+                }
+
+                resta = Convert.ToInt32(txt_en_stock.Text) - disminuir; 
+                lb_disminuir_stock_total.Text = resta.ToString();
             }
         }
     }
