@@ -58,7 +58,7 @@
             this.groupBox1.Controls.Add(this.chkBoxStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(498, 276);
+            this.groupBox1.Size = new System.Drawing.Size(524, 276);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
@@ -69,7 +69,7 @@
             this.fLPDetalleProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 167);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(486, 100);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(512, 100);
             this.fLPDetalleProducto.TabIndex = 11;
             this.fLPDetalleProducto.WrapContents = false;
             // 
@@ -92,7 +92,7 @@
             this.panel1.Controls.Add(this.cbTipoFiltroPrecio);
             this.panel1.Location = new System.Drawing.Point(115, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(377, 79);
+            this.panel1.Size = new System.Drawing.Size(403, 79);
             this.panel1.TabIndex = 8;
             // 
             // cbTipoFiltroStock
@@ -109,7 +109,7 @@
             "Menor Que"});
             this.cbTipoFiltroStock.Location = new System.Drawing.Point(16, 8);
             this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
-            this.cbTipoFiltroStock.Size = new System.Drawing.Size(240, 21);
+            this.cbTipoFiltroStock.Size = new System.Drawing.Size(272, 21);
             this.cbTipoFiltroStock.TabIndex = 1;
             this.cbTipoFiltroStock.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroStock_SelectedIndexChanged);
             this.cbTipoFiltroStock.Click += new System.EventHandler(this.cbTipoFiltroStock_Click);
@@ -117,7 +117,7 @@
             // txtCantStock
             // 
             this.txtCantStock.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtCantStock.Location = new System.Drawing.Point(275, 6);
+            this.txtCantStock.Location = new System.Drawing.Point(310, 6);
             this.txtCantStock.Name = "txtCantStock";
             this.txtCantStock.Size = new System.Drawing.Size(77, 23);
             this.txtCantStock.TabIndex = 2;
@@ -128,7 +128,7 @@
             // txtCantPrecio
             // 
             this.txtCantPrecio.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtCantPrecio.Location = new System.Drawing.Point(275, 42);
+            this.txtCantPrecio.Location = new System.Drawing.Point(310, 42);
             this.txtCantPrecio.Name = "txtCantPrecio";
             this.txtCantPrecio.Size = new System.Drawing.Size(77, 23);
             this.txtCantPrecio.TabIndex = 5;
@@ -150,7 +150,7 @@
             "Menor Que"});
             this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(16, 44);
             this.cbTipoFiltroPrecio.Name = "cbTipoFiltroPrecio";
-            this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(240, 21);
+            this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(272, 21);
             this.cbTipoFiltroPrecio.TabIndex = 4;
             this.cbTipoFiltroPrecio.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroPrecio_SelectedIndexChanged);
             this.cbTipoFiltroPrecio.Click += new System.EventHandler(this.cbTipoFiltroPrecio_Click);
@@ -161,7 +161,7 @@
             this.comboBoxProveedor.FormattingEnabled = true;
             this.comboBoxProveedor.Location = new System.Drawing.Point(131, 142);
             this.comboBoxProveedor.Name = "comboBoxProveedor";
-            this.comboBoxProveedor.Size = new System.Drawing.Size(336, 21);
+            this.comboBoxProveedor.Size = new System.Drawing.Size(371, 21);
             this.comboBoxProveedor.TabIndex = 7;
             this.comboBoxProveedor.SelectedIndexChanged += new System.EventHandler(this.comboBoxProveedor_SelectedIndexChanged);
             // 
@@ -216,7 +216,7 @@
             // 
             // btnClean
             // 
-            this.btnClean.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnClean.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(196)))), ((int)(((byte)(15)))));
             this.btnClean.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnClean.FlatAppearance.BorderSize = 0;
             this.btnClean.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -232,7 +232,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.BackColor = System.Drawing.Color.DarkGray;
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnClose.FlatAppearance.BorderSize = 0;
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Century", 12F);
@@ -249,7 +249,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(553, 396);
+            this.ClientSize = new System.Drawing.Size(576, 396);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnAplicar);
