@@ -273,6 +273,7 @@ namespace PuntoDeVentaV2
 
             if (txtBoxBuscarCodigoBarras.Text != string.Empty)
             {
+                // Est es el codigo de barras a buscar
                 buscarStock = txtBoxBuscarCodigoBarras.Text;
 
                 try
@@ -397,80 +398,96 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
-                            var infoProducto = mb.BuscarCodigoBarrasExtra(buscarStock.Trim());
-                            if (infoProducto.Length > 0)
-                            {
-                                // Verificar que el ID del producto pertenezca al usuasio
-                                var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(infoProducto[0]), FormPrincipal.userID);
-                                // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
-                                // se busca directamente con base en su ID 
-                                foreach (DataRow rowNew in dtRevisarStockResultado.Rows)
-                                {
-                                    string idProductoFount = rowNew["IDAlmacen"].ToString();
-
-                                    if (idProductoFount.Trim() == verificarUsuario[0].ToString() && NoRevInvent == NoActualCheckStock.ToString())
-                                    {
-                                        LaPosicion = dtRevisarStockResultado.Rows.IndexOf(rowNew);
-                                        ID = rowNew["ID"].ToString();
-                                        IDAlmacen = rowNew["IDAlmacen"].ToString();
-                                        Nombre = rowNew["Nombre"].ToString();
-                                        StockAlmacen = rowNew["StockAlmacen"].ToString();
-                                        Stock = rowNew["StockFisico"].ToString();
-                                        NumRevInventario = rowNew["NoRevision"].ToString();
-                                        FechaRegInventario = rowNew["Fecha"].ToString();
-                                        IDUser = rowNew["IDUsuario"].ToString();
-                                        TypeProd = rowNew["Tipo"].ToString();
-                                        StatusRevInventario = rowNew["StatusRevision"].ToString();
-                                        StatusInventHecho = rowNew["StatusInventariado"].ToString();
-                                        PrecioProducto = rowNew["PrecioProducto"].ToString();
-                                        NoReg = 1;
-                                        break;
-                                    }
-                                    else if (idProductoFount.Trim() == verificarUsuario[0].ToString() && rowNew["NoRevision"].ToString() == "0")
-                                    {
-                                        LaPosicion = dtRevisarStockResultado.Rows.IndexOf(rowNew);
-                                        ID = rowNew["ID"].ToString();
-                                        IDAlmacen = rowNew["IDAlmacen"].ToString();
-                                        Nombre = rowNew["Nombre"].ToString();
-                                        StockAlmacen = rowNew["StockAlmacen"].ToString();
-                                        Stock = rowNew["StockFisico"].ToString();
-                                        NumRevInventario = rowNew["NoRevision"].ToString();
-                                        FechaRegInventario = rowNew["Fecha"].ToString();
-                                        IDUser = rowNew["IDUsuario"].ToString();
-                                        TypeProd = rowNew["Tipo"].ToString();
-                                        StatusRevInventario = rowNew["StatusRevision"].ToString();
-                                        StatusInventHecho = rowNew["StatusInventariado"].ToString();
-                                        PrecioProducto = rowNew["PrecioProducto"].ToString();
-                                        NoReg = 1;
-                                        break;
-                                    }
-                                    else if (idProductoFount.Trim() == verificarUsuario[0].ToString() && rowNew["NoRevision"].ToString() != "0")
-                                    {
-                                        LaPosicion = dtRevisarStockResultado.Rows.IndexOf(rowNew);
-                                        ID = rowNew["ID"].ToString();
-                                        IDAlmacen = rowNew["IDAlmacen"].ToString();
-                                        Nombre = rowNew["Nombre"].ToString();
-                                        StockAlmacen = rowNew["StockAlmacen"].ToString();
-                                        Stock = rowNew["StockFisico"].ToString();
-                                        NumRevInventario = rowNew["NoRevision"].ToString();
-                                        FechaRegInventario = rowNew["Fecha"].ToString();
-                                        IDUser = rowNew["IDUsuario"].ToString();
-                                        TypeProd = rowNew["Tipo"].ToString();
-                                        StatusRevInventario = rowNew["StatusRevision"].ToString();
-                                        StatusInventHecho = rowNew["StatusInventariado"].ToString();
-                                        PrecioProducto = rowNew["PrecioProducto"].ToString();
-                                        NoReg = 1;
-                                        break;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                NoReg = 0;
-                            }
+                            NoReg = 0;
+                            //break;
                         }
                     }
+
+
+                    // El contenido de lo que esta en este IF estaba dentro del else que aparece arriba
+                    if (NoReg == 0)
+                    {
+
+                        // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
+                        var infoProducto = mb.BuscarCodigoBarrasExtra(buscarStock.Trim());
+                        //MessageBox.Show("Termino la busqueda");
+
+                        if (infoProducto.Length > 0)
+                        {
+                            // Verificar que el ID del producto pertenezca al usuasio
+                            var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(infoProducto[0]), FormPrincipal.userID);
+                            // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
+                            // se busca directamente con base en su ID 
+                            foreach (DataRow rowNew in dtRevisarStockResultado.Rows)
+                            {
+                                string NoRevInvent = rowNew["NoRevision"].ToString();
+                                string idProductoFount = rowNew["IDAlmacen"].ToString();
+
+                                if (idProductoFount.Trim() == verificarUsuario[0].ToString() && NoRevInvent == NoActualCheckStock.ToString())
+                                {
+                                    //MessageBox.Show("Entro aqui 1");
+                                    LaPosicion = dtRevisarStockResultado.Rows.IndexOf(rowNew);
+                                    ID = rowNew["ID"].ToString();
+                                    IDAlmacen = rowNew["IDAlmacen"].ToString();
+                                    Nombre = rowNew["Nombre"].ToString();
+                                    StockAlmacen = rowNew["StockAlmacen"].ToString();
+                                    Stock = rowNew["StockFisico"].ToString();
+                                    NumRevInventario = rowNew["NoRevision"].ToString();
+                                    FechaRegInventario = rowNew["Fecha"].ToString();
+                                    IDUser = rowNew["IDUsuario"].ToString();
+                                    TypeProd = rowNew["Tipo"].ToString();
+                                    StatusRevInventario = rowNew["StatusRevision"].ToString();
+                                    StatusInventHecho = rowNew["StatusInventariado"].ToString();
+                                    PrecioProducto = rowNew["PrecioProducto"].ToString();
+                                    NoReg = 1;
+                                    break;
+                                }
+                                else if (idProductoFount.Trim() == verificarUsuario[0].ToString() && rowNew["NoRevision"].ToString() == "0")
+                                {
+                                    //MessageBox.Show("Entro aqui 2");
+                                    LaPosicion = dtRevisarStockResultado.Rows.IndexOf(rowNew);
+                                    ID = rowNew["ID"].ToString();
+                                    IDAlmacen = rowNew["IDAlmacen"].ToString();
+                                    Nombre = rowNew["Nombre"].ToString();
+                                    StockAlmacen = rowNew["StockAlmacen"].ToString();
+                                    Stock = rowNew["StockFisico"].ToString();
+                                    NumRevInventario = rowNew["NoRevision"].ToString();
+                                    FechaRegInventario = rowNew["Fecha"].ToString();
+                                    IDUser = rowNew["IDUsuario"].ToString();
+                                    TypeProd = rowNew["Tipo"].ToString();
+                                    StatusRevInventario = rowNew["StatusRevision"].ToString();
+                                    StatusInventHecho = rowNew["StatusInventariado"].ToString();
+                                    PrecioProducto = rowNew["PrecioProducto"].ToString();
+                                    NoReg = 1;
+                                    break;
+                                }
+                                else if (idProductoFount.Trim() == verificarUsuario[0].ToString() && rowNew["NoRevision"].ToString() != "0")
+                                {
+                                    //MessageBox.Show("Entro aqui 3");
+                                    LaPosicion = dtRevisarStockResultado.Rows.IndexOf(rowNew);
+                                    ID = rowNew["ID"].ToString();
+                                    IDAlmacen = rowNew["IDAlmacen"].ToString();
+                                    Nombre = rowNew["Nombre"].ToString();
+                                    StockAlmacen = rowNew["StockAlmacen"].ToString();
+                                    Stock = rowNew["StockFisico"].ToString();
+                                    NumRevInventario = rowNew["NoRevision"].ToString();
+                                    FechaRegInventario = rowNew["Fecha"].ToString();
+                                    IDUser = rowNew["IDUsuario"].ToString();
+                                    TypeProd = rowNew["Tipo"].ToString();
+                                    StatusRevInventario = rowNew["StatusRevision"].ToString();
+                                    StatusInventHecho = rowNew["StatusInventariado"].ToString();
+                                    PrecioProducto = rowNew["PrecioProducto"].ToString();
+                                    NoReg = 1;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            NoReg = 0;
+                        }
+                    }
+
                     cargardatos();
                 }
                 catch (DataException ex)
@@ -964,6 +981,8 @@ namespace PuntoDeVentaV2
 	                                                                             WHERE prod.ID = RIt.IDAlmacen
                                                                                  AND prod.Nombre = RIt.Nombre);";
                         cn.EjecutarConsulta(queryTaerStock);
+
+                        //MessageBox.Show("Ya termino el try");
                     }
                     catch (Exception ex)
                     {
@@ -1011,6 +1030,8 @@ namespace PuntoDeVentaV2
 	                                                                             WHERE prod.ID = RIt.IDAlmacen
                                                                                  AND prod.Nombre = RIt.Nombre);";
                         cn.EjecutarConsulta(queryTaerStock);
+
+                        //MessageBox.Show("Segundo try termino");
                     }
                     catch (Exception ex)
                     {
