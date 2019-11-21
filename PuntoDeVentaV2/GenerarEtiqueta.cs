@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -273,6 +274,14 @@ namespace PuntoDeVentaV2
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            int ancho = panelEtiqueta.Size.Width;
+            int alto = panelEtiqueta.Size.Height;
+
+            Bitmap bm = new Bitmap(ancho, alto);
+            panelEtiqueta.DrawToBitmap(bm, new Rectangle(0, 0, ancho, alto));
+
+            bm.Save(@"C:\Archivos PUDVE\TestDrawToBitmap.bmp", ImageFormat.Bmp);
+
             MessageBox.Show("Guardar");
         }
 
