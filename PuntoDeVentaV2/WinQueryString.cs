@@ -279,8 +279,8 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name;
 
                     Panel panelContenedor = new Panel();
-                    panelContenedor.Width = 266;
-                    panelContenedor.Height = 58;
+                    panelContenedor.Width = 480;
+                    panelContenedor.Height = 40;
                     panelContenedor.Name = nombrePanelContenedor;
                     //panelContenedor.BackColor = Color.Aqua;
 
@@ -293,16 +293,17 @@ namespace PuntoDeVentaV2
                         value = chkSettingVariableVal;
                         Panel panelContenido = new Panel();
                         panelContenido.Name = nombrePanelContenido;
-                        panelContenido.Width = 258;
-                        panelContenido.Height = 55;
+                        panelContenido.Width = 476;
+                        panelContenido.Height = 38;
+                        //panelContenido.BackColor = Color.Red;
 
-                        Label lblNombreProveedor = new Label();
-                        lblNombreProveedor.Name = "lblNombre" + name;
-                        lblNombreProveedor.Width = 248;
-                        lblNombreProveedor.Height = 20;
-                        lblNombreProveedor.Location = new Point(3, 32);
-                        lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
-                        lblNombreProveedor.BackColor = Color.White;
+                        //Label lblNombreProveedor = new Label();
+                        //lblNombreProveedor.Name = "lblNombre" + name;
+                        //lblNombreProveedor.Width = 248;
+                        //lblNombreProveedor.Height = 20;
+                        //lblNombreProveedor.Location = new Point(3, 32);
+                        //lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
+                        //lblNombreProveedor.BackColor = Color.White;
 
                         int XcbProv = 0;
                         XcbProv = panelContenido.Width / 2;
@@ -311,9 +312,9 @@ namespace PuntoDeVentaV2
 
                         ComboBox cbProveedor = new ComboBox();
                         cbProveedor.Name = "cb" + name;
-                        cbProveedor.Width = 200;
-                        cbProveedor.Height = 30;
-                        cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
+                        cbProveedor.Width = 336;
+                        cbProveedor.Height = 21;
+                        cbProveedor.Location = new Point(119, 10);
                         cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
                         if (listaProveedores.Length > 0)
                         {
@@ -350,18 +351,18 @@ namespace PuntoDeVentaV2
                         }
                         else if (listaProveedores.Length < 0)
                         {
-                            cbProveedor.Items.Add("Proveedores...");
+                            cbProveedor.Items.Add("Selecciona un Proveedor");
                             cbProveedor.SelectedIndex = 0;
                         }
                         else if (cbProveedor.Items.Count == 0)
                         {
-                            cbProveedor.Items.Add("Proveedores...");
+                            cbProveedor.Items.Add("Selecciona un Proveedor");
                             cbProveedor.SelectedIndex = 0;
                         }
                         cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
 
                         panelContenido.Controls.Add(cbProveedor);
-                        panelContenido.Controls.Add(lblNombreProveedor);
+                        //panelContenido.Controls.Add(lblNombreProveedor);
 
                         panelContenedor.Controls.Add(panelContenido);
                         fLPDetalleProducto.Controls.Add(panelContenedor);
@@ -513,7 +514,7 @@ namespace PuntoDeVentaV2
             // Comprobar que ya exista al menos un Proveedor
             if (listaProveedores.Length > 0)
             {
-                proveedores.Add("0", "Proveedores...");
+                proveedores.Add("0", "Selecciona un Proveedor");
 
                 foreach (var proveedor in listaProveedores)
                 {
@@ -523,7 +524,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                proveedores.Add("0", "Proveedores...");
+                proveedores.Add("0", "Selecciona un Proveedor");
             }
         }
 
