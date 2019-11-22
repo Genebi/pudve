@@ -191,21 +191,18 @@ namespace PuntoDeVentaV2
                     // desde el buscador de producto, solo aplica para sumar y restar producto
                     sumarProducto = true;
                     restarProducto = true;
-
-                    txtBuscadorProducto_KeyUp(sender, e);
-
-                    sumarProducto = false;
-                    restarProducto = false;
-
                     //===============================================================
                     // Esto se ejecuta para si el patron de busqueda coincide con la 
                     // busqueda de una venta guardada
-
                     buscarVG = true;
 
-                    txtBuscadorProducto_KeyUp(sender, e);
+                    //txtBuscadorProducto_KeyUp(sender, e);
+                    OperacionBusqueda();
 
+                    sumarProducto = false;
+                    restarProducto = false;
                     buscarVG = false;
+                  
                 }  
             }
         }
@@ -1883,7 +1880,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
+        private void OperacionBusqueda()
         {
             listaProductos.Items.Clear();
 
@@ -1937,6 +1934,19 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
+        {
+            txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
+
+            if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
+            {
+                timerBusqueda.Interval = 1;
+            }
+
+            timerBusqueda.Stop();
+            timerBusqueda.Start();
+        }
+
         private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ProductoSeleccionado();
@@ -1963,6 +1973,13 @@ namespace PuntoDeVentaV2
             {
                 ProductoSeleccionado();
             }
+        }
+
+        private void timerBusqueda_Tick(object sender, EventArgs e)
+        {
+            timerBusqueda.Interval = 1000;
+            timerBusqueda.Stop();
+            OperacionBusqueda();
         }
 
         private void ProductoSeleccionado()
