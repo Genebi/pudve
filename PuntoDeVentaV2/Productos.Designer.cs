@@ -64,6 +64,7 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnEtiqueta = new System.Windows.Forms.Button();
             this.btnAsignarMultiple = new System.Windows.Forms.Button();
             this.btnFilterSearch = new System.Windows.Forms.Button();
@@ -117,9 +118,9 @@
             this.btnAgregarProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProducto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarProducto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAgregarProducto.Location = new System.Drawing.Point(13, 12);
+            this.btnAgregarProducto.Location = new System.Drawing.Point(8, 14);
             this.btnAgregarProducto.Name = "btnAgregarProducto";
-            this.btnAgregarProducto.Size = new System.Drawing.Size(156, 27);
+            this.btnAgregarProducto.Size = new System.Drawing.Size(105, 61);
             this.btnAgregarProducto.TabIndex = 1;
             this.btnAgregarProducto.Text = "Producto";
             this.btnAgregarProducto.UseVisualStyleBackColor = false;
@@ -130,7 +131,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(238, 3);
+            this.tituloSeccion.Location = new System.Drawing.Point(289, 3);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(382, 25);
             this.tituloSeccion.TabIndex = 3;
@@ -142,7 +143,7 @@
             this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(297, 24);
+            this.tituloBusqueda.Location = new System.Drawing.Point(348, 24);
             this.tituloBusqueda.Name = "tituloBusqueda";
             this.tituloBusqueda.Size = new System.Drawing.Size(233, 17);
             this.tituloBusqueda.TabIndex = 4;
@@ -157,7 +158,7 @@
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBusqueda.Location = new System.Drawing.Point(91, 44);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(654, 23);
+            this.txtBusqueda.Size = new System.Drawing.Size(755, 23);
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
@@ -207,7 +208,7 @@
             this.panelShowDGVProductosView.Location = new System.Drawing.Point(13, 196);
             this.panelShowDGVProductosView.Margin = new System.Windows.Forms.Padding(2);
             this.panelShowDGVProductosView.Name = "panelShowDGVProductosView";
-            this.panelShowDGVProductosView.Size = new System.Drawing.Size(839, 354);
+            this.panelShowDGVProductosView.Size = new System.Drawing.Size(940, 354);
             this.panelShowDGVProductosView.TabIndex = 13;
             // 
             // DGVProductos
@@ -248,7 +249,7 @@
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVProductos.Size = new System.Drawing.Size(817, 325);
+            this.DGVProductos.Size = new System.Drawing.Size(918, 325);
             this.DGVProductos.TabIndex = 2;
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
@@ -435,7 +436,7 @@
             this.panelShowPhotoView.Location = new System.Drawing.Point(12, 198);
             this.panelShowPhotoView.Margin = new System.Windows.Forms.Padding(2);
             this.panelShowPhotoView.Name = "panelShowPhotoView";
-            this.panelShowPhotoView.Size = new System.Drawing.Size(838, 403);
+            this.panelShowPhotoView.Size = new System.Drawing.Size(939, 403);
             this.panelShowPhotoView.TabIndex = 14;
             // 
             // fLPShowPhoto
@@ -447,13 +448,14 @@
             this.fLPShowPhoto.Location = new System.Drawing.Point(10, 15);
             this.fLPShowPhoto.Margin = new System.Windows.Forms.Padding(2);
             this.fLPShowPhoto.Name = "fLPShowPhoto";
-            this.fLPShowPhoto.Size = new System.Drawing.Size(816, 374);
+            this.fLPShowPhoto.Size = new System.Drawing.Size(917, 374);
             this.fLPShowPhoto.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.btnEtiqueta);
             this.panel1.Controls.Add(this.btnAsignarMultiple);
             this.panel1.Controls.Add(this.btnFilterSearch);
@@ -469,8 +471,19 @@
             this.panel1.Location = new System.Drawing.Point(12, 6);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(841, 195);
+            this.panel1.Size = new System.Drawing.Size(942, 195);
             this.panel1.TabIndex = 15;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(90, 70);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(756, 39);
+            this.flowLayoutPanel1.TabIndex = 18;
             // 
             // btnEtiqueta
             // 
@@ -515,7 +528,7 @@
             this.btnFilterSearch.ForeColor = System.Drawing.Color.White;
             this.btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
             this.btnFilterSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFilterSearch.Location = new System.Drawing.Point(760, 44);
+            this.btnFilterSearch.Location = new System.Drawing.Point(861, 44);
             this.btnFilterSearch.Name = "btnFilterSearch";
             this.btnFilterSearch.Size = new System.Drawing.Size(68, 23);
             this.btnFilterSearch.TabIndex = 15;
@@ -530,7 +543,7 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.cbOrden);
             this.groupBox2.Controls.Add(this.cbMostrar);
-            this.groupBox2.Location = new System.Drawing.Point(469, 105);
+            this.groupBox2.Location = new System.Drawing.Point(495, 105);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(168, 80);
             this.groupBox2.TabIndex = 14;
@@ -542,14 +555,15 @@
             this.groupBox1.Controls.Add(this.btnAgregarServicio);
             this.groupBox1.Controls.Add(this.btnAgregarPaquete);
             this.groupBox1.Controls.Add(this.btnAgregarProducto);
-            this.groupBox1.Location = new System.Drawing.Point(650, 69);
+            this.groupBox1.Location = new System.Drawing.Point(698, 105);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(178, 116);
+            this.groupBox1.Size = new System.Drawing.Size(231, 82);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             // 
             // btnAgregarServicio
             // 
+            this.btnAgregarServicio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAgregarServicio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnAgregarServicio.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarServicio.FlatAppearance.BorderSize = 0;
@@ -558,9 +572,9 @@
             this.btnAgregarServicio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarServicio.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnAgregarServicio.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarServicio.Location = new System.Drawing.Point(13, 79);
+            this.btnAgregarServicio.Location = new System.Drawing.Point(118, 48);
             this.btnAgregarServicio.Name = "btnAgregarServicio";
-            this.btnAgregarServicio.Size = new System.Drawing.Size(156, 27);
+            this.btnAgregarServicio.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarServicio.TabIndex = 3;
             this.btnAgregarServicio.Text = "Servicio";
             this.btnAgregarServicio.UseVisualStyleBackColor = false;
@@ -568,6 +582,7 @@
             // 
             // btnAgregarPaquete
             // 
+            this.btnAgregarPaquete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAgregarPaquete.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnAgregarPaquete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarPaquete.FlatAppearance.BorderSize = 0;
@@ -576,9 +591,9 @@
             this.btnAgregarPaquete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarPaquete.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnAgregarPaquete.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarPaquete.Location = new System.Drawing.Point(13, 45);
+            this.btnAgregarPaquete.Location = new System.Drawing.Point(118, 14);
             this.btnAgregarPaquete.Name = "btnAgregarPaquete";
-            this.btnAgregarPaquete.Size = new System.Drawing.Size(156, 27);
+            this.btnAgregarPaquete.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarPaquete.TabIndex = 2;
             this.btnAgregarPaquete.Text = "Paquete";
             this.btnAgregarPaquete.UseVisualStyleBackColor = false;
@@ -673,7 +688,7 @@
             this.panel2.Controls.Add(this.label1);
             this.panel2.Location = new System.Drawing.Point(12, 550);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(840, 51);
+            this.panel2.Size = new System.Drawing.Size(941, 51);
             this.panel2.TabIndex = 17;
             // 
             // panel4
@@ -682,7 +697,7 @@
             this.panel4.Controls.Add(this.linkLblUltimaPagina);
             this.panel4.Controls.Add(this.btnSiguiente);
             this.panel4.Controls.Add(this.btnUltimaPagina);
-            this.panel4.Location = new System.Drawing.Point(448, 8);
+            this.panel4.Location = new System.Drawing.Point(498, 8);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(59, 32);
             this.panel4.TabIndex = 21;
@@ -737,7 +752,7 @@
             this.panel3.Controls.Add(this.btnPrimeraPagina);
             this.panel3.Controls.Add(this.btnAnterior);
             this.panel3.Controls.Add(this.linkLblPrimeraPagina);
-            this.panel3.Location = new System.Drawing.Point(314, 8);
+            this.panel3.Location = new System.Drawing.Point(364, 8);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 20;
@@ -792,7 +807,7 @@
             this.linkLblPaginaSiguiente.AutoSize = true;
             this.linkLblPaginaSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(425, 18);
+            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(475, 18);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
             this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 16;
@@ -806,7 +821,7 @@
             this.linkLblPaginaActual.AutoSize = true;
             this.linkLblPaginaActual.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaActual.Location = new System.Drawing.Point(402, 18);
+            this.linkLblPaginaActual.Location = new System.Drawing.Point(452, 18);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
             this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 15;
@@ -820,7 +835,7 @@
             this.linkLblPaginaAnterior.AutoSize = true;
             this.linkLblPaginaAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(378, 18);
+            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(428, 18);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
             this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 14;
@@ -837,7 +852,7 @@
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Century", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
-            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(714, 13);
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(764, 13);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
             this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(80, 23);
             this.btnActualizarMaximoProductos.TabIndex = 8;
@@ -848,7 +863,7 @@
             // txtMaximoPorPagina
             // 
             this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtMaximoPorPagina.Location = new System.Drawing.Point(648, 14);
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(698, 14);
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 20);
             this.txtMaximoPorPagina.TabIndex = 7;
@@ -858,7 +873,7 @@
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Location = new System.Drawing.Point(521, 8);
+            this.label7.Location = new System.Drawing.Point(571, 8);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(116, 32);
             this.label7.TabIndex = 6;
@@ -870,7 +885,7 @@
             this.lblCantidadRegistros.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblCantidadRegistros.BackColor = System.Drawing.SystemColors.Control;
             this.lblCantidadRegistros.ForeColor = System.Drawing.Color.Blue;
-            this.lblCantidadRegistros.Location = new System.Drawing.Point(245, 13);
+            this.lblCantidadRegistros.Location = new System.Drawing.Point(295, 13);
             this.lblCantidadRegistros.Name = "lblCantidadRegistros";
             this.lblCantidadRegistros.Size = new System.Drawing.Size(62, 23);
             this.lblCantidadRegistros.TabIndex = 1;
@@ -881,7 +896,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(141, 11);
+            this.label1.Location = new System.Drawing.Point(191, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(99, 26);
             this.label1.TabIndex = 0;
@@ -892,7 +907,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(864, 611);
+            this.ClientSize = new System.Drawing.Size(965, 611);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelShowDGVProductosView);
@@ -985,5 +1000,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Impuesto;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
