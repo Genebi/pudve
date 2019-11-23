@@ -1710,14 +1710,26 @@ namespace PuntoDeVentaV2
                             {
                                 //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
                                 var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
-
+                                
                                 cantidad += cantidadExtra;
 
+                                // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
+                                float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
+
                                 DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
+                                DGVentas.Rows[0].Cells["Importe"].Value = importe;
+
+                                // Se agrego esta parte de descuento
+                                int idProducto = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+                                int tipoDescuento = Convert.ToInt32(DGVentas.Rows[0].Cells["DescuentoTipo"].Value);
+
+                                if (tipoDescuento > 0)
+                                {
+                                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                                    CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
+                                }
 
                                 CantidadesFinalesVenta();
-
-                                //nudCantidadPS.Value = cantidadExtra;
 
                                 cantidadExtra = 0;
                             }
@@ -1757,11 +1769,23 @@ namespace PuntoDeVentaV2
 
                                 if (cantidad < 0) { cantidad = 1; }
 
+                                // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
+                                float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
+
                                 DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
+                                DGVentas.Rows[0].Cells["Importe"].Value = importe;
+
+                                // Se agrego esta parte de descuento
+                                int idProducto = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+                                int tipoDescuento = Convert.ToInt32(DGVentas.Rows[0].Cells["DescuentoTipo"].Value);
+
+                                if (tipoDescuento > 0)
+                                {
+                                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                                    CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
+                                };
 
                                 CantidadesFinalesVenta();
-
-                                //nudCantidadPS.Value = cantidadExtra;
 
                                 cantidadExtra = 0;
                             }
