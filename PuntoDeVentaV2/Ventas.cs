@@ -317,8 +317,6 @@ namespace PuntoDeVentaV2
                             CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), numeroFila);
                         }
 
-                        MessageBox.Show(numeroFila.ToString());
-
                         CantidadesFinalesVenta();
 
                         break;
