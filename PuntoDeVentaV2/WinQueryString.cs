@@ -297,14 +297,6 @@ namespace PuntoDeVentaV2
                         panelContenido.Height = 38;
                         //panelContenido.BackColor = Color.Red;
 
-                        CheckBox check = new CheckBox();
-                        check.Name = "chkBox" + name;
-                        check.Text = name.Remove(0, 3);
-                        check.Width = 90;
-                        check.Height = 24;
-                        check.Location = new Point(10, 10);
-                        check.CheckedChanged += checkBox_CheckedChanged;
-
                         int XcbProv = 0;
                         XcbProv = panelContenido.Width / 2;
 
@@ -315,6 +307,7 @@ namespace PuntoDeVentaV2
                         cbProveedor.Width = 336;
                         cbProveedor.Height = 21;
                         cbProveedor.Location = new Point(119, 10);
+                        cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
                         cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
 
                         if (listaProveedores.Length > 0)
@@ -335,10 +328,18 @@ namespace PuntoDeVentaV2
                             cbProveedor.SelectedIndex = 0;
                         }
                         cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
-
-                        panelContenido.Controls.Add(check);
                         panelContenido.Controls.Add(cbProveedor);
+                        panelContenedor.Controls.Add(panelContenido);
+                        fLPDetalleProducto.Controls.Add(panelContenedor);
 
+                        CheckBox check = new CheckBox();
+                        check.Name = "chkBox" + name;
+                        check.Text = name.Remove(0, 3);
+                        check.Width = 90;
+                        check.Height = 24;
+                        check.Location = new Point(10, 10);
+                        check.CheckedChanged += checkBox_CheckedChanged;
+                        panelContenido.Controls.Add(check);
                         panelContenedor.Controls.Add(panelContenido);
                         fLPDetalleProducto.Controls.Add(panelContenedor);
                     }
@@ -481,7 +482,11 @@ namespace PuntoDeVentaV2
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
-            
+            CheckBox cbProvider = sender as CheckBox;
+            if (cbProvider.Checked.Equals(true))
+            {
+                
+            }
         }
 
         private void CargarProveedores()
