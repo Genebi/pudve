@@ -80,6 +80,7 @@
             this.lbCantidad = new System.Windows.Forms.Label();
             this.btnTerminarVenta = new System.Windows.Forms.Button();
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
+            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -653,6 +654,11 @@
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
             // 
+            // timerBusqueda
+            // 
+            this.timerBusqueda.Interval = 1000;
+            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -731,5 +737,6 @@
         private System.Windows.Forms.DataGridViewImageColumn RestarIndividual;
         private System.Windows.Forms.DataGridViewImageColumn EliminarIndividual;
         private System.Windows.Forms.DataGridViewTextBoxColumn NumeroColumna;
+        private System.Windows.Forms.Timer timerBusqueda;
     }
 }

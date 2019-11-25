@@ -191,21 +191,18 @@ namespace PuntoDeVentaV2
                     // desde el buscador de producto, solo aplica para sumar y restar producto
                     sumarProducto = true;
                     restarProducto = true;
-
-                    txtBuscadorProducto_KeyUp(sender, e);
-
-                    sumarProducto = false;
-                    restarProducto = false;
-
                     //===============================================================
                     // Esto se ejecuta para si el patron de busqueda coincide con la 
                     // busqueda de una venta guardada
-
                     buscarVG = true;
 
-                    txtBuscadorProducto_KeyUp(sender, e);
+                    //txtBuscadorProducto_KeyUp(sender, e);
+                    OperacionBusqueda();
 
+                    sumarProducto = false;
+                    restarProducto = false;
                     buscarVG = false;
+                  
                 }  
             }
         }
@@ -310,14 +307,21 @@ namespace PuntoDeVentaV2
                         fila.Cells["Importe"].Value = importe;
                         existe = true;
 
-                        int idProducto = Convert.ToInt32(datosProducto[0]);
-                        int tipoDescuento = Convert.ToInt32(datosProducto[3]);
+                        int idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+                        int tipoDescuento = Convert.ToInt32(fila.Cells["DescuentoTipo"].Value);
+                        int numeroFila = fila.Index;// DGVentas.CurrentCell.RowIndex;
 
                         if (tipoDescuento > 0)
                         {
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);     
-                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad));
+                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), numeroFila);
                         }
+
+                        MessageBox.Show(numeroFila.ToString());
+
+                        CantidadesFinalesVenta();
+
+                        break;
                     }
                 }
 
@@ -395,7 +399,25 @@ namespace PuntoDeVentaV2
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 row.Cells["Descuento"].Value = 0;
-                row.Cells["Importe"].Value = datosProducto[2];
+
+                //row.Cells["Importe"].Value = datosProducto[2];
+
+                // Se agrego esto para calcular el descuento del producto cuando se agrega por primera vez
+                // y se agrega la cantidad con una de las combinaciones del teclado en la barra de busqueda
+                float importe = Convert.ToInt32(cantidad) * float.Parse(datosProducto[2]);
+
+                row.Cells["Importe"].Value = importe;
+
+                int idProducto = Convert.ToInt32(datosProducto[0]);
+                int tipoDescuento = Convert.ToInt32(datosProducto[3]);
+
+                if (tipoDescuento > 0)
+                {
+                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                    CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                }
+
+                CantidadesFinalesVenta();
             }
             
             System.Drawing.Image img1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\plus-square.png");
@@ -1713,14 +1735,26 @@ namespace PuntoDeVentaV2
                             {
                                 //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
                                 var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
-
+                                
                                 cantidad += cantidadExtra;
 
+                                // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
+                                float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
+
                                 DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
+                                DGVentas.Rows[0].Cells["Importe"].Value = importe;
+
+                                // Se agrego esta parte de descuento
+                                int idProducto = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+                                int tipoDescuento = Convert.ToInt32(DGVentas.Rows[0].Cells["DescuentoTipo"].Value);
+
+                                if (tipoDescuento > 0)
+                                {
+                                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                                    CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
+                                }
 
                                 CantidadesFinalesVenta();
-
-                                //nudCantidadPS.Value = cantidadExtra;
 
                                 cantidadExtra = 0;
                             }
@@ -1760,11 +1794,23 @@ namespace PuntoDeVentaV2
 
                                 if (cantidad < 0) { cantidad = 1; }
 
+                                // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
+                                float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
+
                                 DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
+                                DGVentas.Rows[0].Cells["Importe"].Value = importe;
+
+                                // Se agrego esta parte de descuento
+                                int idProducto = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+                                int tipoDescuento = Convert.ToInt32(DGVentas.Rows[0].Cells["DescuentoTipo"].Value);
+
+                                if (tipoDescuento > 0)
+                                {
+                                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                                    CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
+                                };
 
                                 CantidadesFinalesVenta();
-
-                                //nudCantidadPS.Value = cantidadExtra;
 
                                 cantidadExtra = 0;
                             }
@@ -1883,7 +1929,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
+        private void OperacionBusqueda()
         {
             listaProductos.Items.Clear();
 
@@ -1937,6 +1983,19 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
+        {
+            txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
+
+            if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
+            {
+                timerBusqueda.Interval = 1;
+            }
+
+            timerBusqueda.Stop();
+            timerBusqueda.Start();
+        }
+
         private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ProductoSeleccionado();
@@ -1963,6 +2022,13 @@ namespace PuntoDeVentaV2
             {
                 ProductoSeleccionado();
             }
+        }
+
+        private void timerBusqueda_Tick(object sender, EventArgs e)
+        {
+            timerBusqueda.Interval = 1000;
+            timerBusqueda.Stop();
+            OperacionBusqueda();
         }
 
         private void ProductoSeleccionado()
