@@ -171,8 +171,8 @@ namespace PuntoDeVentaV2
                         {
                             registro = LaPosicion + 1;
                             //txtBoxBuscarCodigoBarras.Text = string.Empty;
-                            txtCantidadStock.Focus();
-                            txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                            //txtCantidadStock.Focus();
+                            //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                         }
                         else if (result == DialogResult.No)
                         {
@@ -187,9 +187,10 @@ namespace PuntoDeVentaV2
                     {
                         registro = LaPosicion + 1;
                         //txtBoxBuscarCodigoBarras.Text = string.Empty;
-                        txtCantidadStock.Focus();
-                        txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                        //txtCantidadStock.Focus();
+                        //txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                     }
+                    btnSiguiente.PerformClick();
                 }
             }
             else if (NoReg == 0 && buscarStock == string.Empty)
