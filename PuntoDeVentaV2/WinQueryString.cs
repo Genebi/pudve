@@ -257,7 +257,7 @@ namespace PuntoDeVentaV2
             int id = 0,
                 row = 0;
 
-            string nameChk = string.Empty,
+            string  nameChk = string.Empty,
                     valorChk = string.Empty,
                     chkSettingVariableTxt = string.Empty,
                     chkSettingVariableVal = string.Empty,
@@ -297,13 +297,13 @@ namespace PuntoDeVentaV2
                         panelContenido.Height = 38;
                         //panelContenido.BackColor = Color.Red;
 
-                        //Label lblNombreProveedor = new Label();
-                        //lblNombreProveedor.Name = "lblNombre" + name;
-                        //lblNombreProveedor.Width = 248;
-                        //lblNombreProveedor.Height = 20;
-                        //lblNombreProveedor.Location = new Point(3, 32);
-                        //lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
-                        //lblNombreProveedor.BackColor = Color.White;
+                        CheckBox check = new CheckBox();
+                        check.Name = "chkBox" + name;
+                        check.Text = name.Remove(0, 3);
+                        check.Width = 90;
+                        check.Height = 24;
+                        check.Location = new Point(10, 10);
+                        check.CheckedChanged += checkBox_CheckedChanged;
 
                         int XcbProv = 0;
                         XcbProv = panelContenido.Width / 2;
@@ -316,38 +316,13 @@ namespace PuntoDeVentaV2
                         cbProveedor.Height = 21;
                         cbProveedor.Location = new Point(119, 10);
                         cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
+
                         if (listaProveedores.Length > 0)
                         {
                             cbProveedor.DataSource = proveedores.ToArray();
                             cbProveedor.DisplayMember = "Value";
                             cbProveedor.ValueMember = "Key";
                             cbProveedor.SelectedValue = "0";
-
-                            // Cuando se le da click en la opcion editar producto
-                            //if (DatosSourceFinal == 2)
-                            //{
-                            //    var idProducto = Convert.ToInt32(idEditarProducto);
-                            //    var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                            //    int cantidad = idProveedor.Length;
-
-                            //    if (cantidad > 0)
-                            //    {
-                            //        if (!idProveedor[1].Equals(""))
-                            //        {
-                            //            if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
-                            //            {
-                            //                cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
-                            //                if (!datosProveedor.Equals(null))
-                            //                {
-                            //                    lblNombreProveedor.Text = datosProveedor[0];
-                            //                    diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
-                            //                    contadorIndex++;
-                            //                }
-                            //            }
-                            //        }
-                            //    }
-                            //}
                         }
                         else if (listaProveedores.Length < 0)
                         {
@@ -361,8 +336,8 @@ namespace PuntoDeVentaV2
                         }
                         cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
 
+                        panelContenido.Controls.Add(check);
                         panelContenido.Controls.Add(cbProveedor);
-                        //panelContenido.Controls.Add(lblNombreProveedor);
 
                         panelContenedor.Controls.Add(panelContenido);
                         fLPDetalleProducto.Controls.Add(panelContenedor);
@@ -503,7 +478,12 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-        
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
         private void CargarProveedores()
         {
             // Asignamos el Array con los nombres de los proveedores al comboBox
