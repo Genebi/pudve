@@ -307,14 +307,21 @@ namespace PuntoDeVentaV2
                         fila.Cells["Importe"].Value = importe;
                         existe = true;
 
-                        int idProducto = Convert.ToInt32(datosProducto[0]);
-                        int tipoDescuento = Convert.ToInt32(datosProducto[3]);
+                        int idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+                        int tipoDescuento = Convert.ToInt32(fila.Cells["DescuentoTipo"].Value);
+                        int numeroFila = fila.Index;// DGVentas.CurrentCell.RowIndex;
 
                         if (tipoDescuento > 0)
                         {
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);     
-                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad));
+                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), numeroFila);
                         }
+
+                        MessageBox.Show(numeroFila.ToString());
+
+                        CantidadesFinalesVenta();
+
+                        break;
                     }
                 }
 
@@ -392,7 +399,25 @@ namespace PuntoDeVentaV2
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 row.Cells["Descuento"].Value = 0;
-                row.Cells["Importe"].Value = datosProducto[2];
+
+                //row.Cells["Importe"].Value = datosProducto[2];
+
+                // Se agrego esto para calcular el descuento del producto cuando se agrega por primera vez
+                // y se agrega la cantidad con una de las combinaciones del teclado en la barra de busqueda
+                float importe = Convert.ToInt32(cantidad) * float.Parse(datosProducto[2]);
+
+                row.Cells["Importe"].Value = importe;
+
+                int idProducto = Convert.ToInt32(datosProducto[0]);
+                int tipoDescuento = Convert.ToInt32(datosProducto[3]);
+
+                if (tipoDescuento > 0)
+                {
+                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                    CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                }
+
+                CantidadesFinalesVenta();
             }
             
             System.Drawing.Image img1 = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\plus-square.png");
