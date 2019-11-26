@@ -35,6 +35,7 @@ namespace PuntoDeVentaV2
         static public string infoProveedor = string.Empty;
         static public string infoCategoria = string.Empty;
         static public string infoUbicacion = string.Empty;
+        static public string stockNecesario = string.Empty;
 
 
         static public DataTable SearchDesCliente, SearchDesMayoreo;
@@ -4063,6 +4064,11 @@ namespace PuntoDeVentaV2
                 button1.Visible = true;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 txtPrecioCompra.Enabled = false;
+
+                //var detallesTmp = mb.DetallesProducto(Convert.ToInt32(idEditarProducto), FormPrincipal.userID);
+                //stockNecesario = detallesTmp[7];
+
+                //MessageBox.Show(idEditarProducto);
             }
             else if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
             {
