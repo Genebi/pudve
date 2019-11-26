@@ -35,7 +35,7 @@ namespace PuntoDeVentaV2
         static public string infoProveedor = string.Empty;
         static public string infoCategoria = string.Empty;
         static public string infoUbicacion = string.Empty;
-        static public string stockNecesario = string.Empty;
+        static public string stockNecesario = "0";
 
 
         static public DataTable SearchDesCliente, SearchDesMayoreo;

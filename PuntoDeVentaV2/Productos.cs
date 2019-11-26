@@ -1574,6 +1574,8 @@ namespace PuntoDeVentaV2
             FormAgregar.FormClosed += delegate
             {
                 CargarDatos();
+
+                AgregarEditarProducto.stockNecesario = "0";
             };
 
             if (!FormAgregar.Visible)
