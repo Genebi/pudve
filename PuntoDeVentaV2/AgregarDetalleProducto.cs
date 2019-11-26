@@ -1689,9 +1689,11 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
-            saveProdDetail();
+            var stockNecesario = txtStockNecesario.Text;
+
+            /*saveProdDetail();
             saveGralProdDetail();
-            this.Close();
+            this.Close();*/
         }
 
         private void saveGralProdDetail()
