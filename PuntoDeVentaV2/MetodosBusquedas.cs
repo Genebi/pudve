@@ -734,7 +734,8 @@ namespace PuntoDeVentaV2
                              INNER JOIN ProductosDeServicios AS ProdServ
                              ON ProdServ.IDProducto = prod.ID
                              WHERE prod.ID = '{prodID}'
-                             AND usr.ID = '{usrID}'");
+                             AND usr.ID = '{usrID}'
+                             AND prod.Tipo = 'P'");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 

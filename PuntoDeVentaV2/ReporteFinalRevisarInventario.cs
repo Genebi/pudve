@@ -15,6 +15,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         DataTable dtFinalReportCheckStockToDay;
 
+        MetodosBusquedas mb = new MetodosBusquedas();
+
         public static int FilterNumActiveRecord;
 
         public int GetFilterNumActiveRecord { get; set; }
@@ -22,6 +24,8 @@ namespace PuntoDeVentaV2
         bool IsEmpty;
         int CantidadAlmacen, CantidadFisico, Diferencias;
         string queryFiltroReporteStock, tabla, queryUpdateCalculos, FechaRevision, soloFechaRevision, fechaActual;
+
+        string consultaStockPaqServ = string.Empty;
 
         private void FiltroNumRevisionActiva()
         {
@@ -104,8 +108,18 @@ namespace PuntoDeVentaV2
                     foreach (DataGridViewRow row in DGVRevisionStock.Rows)
                     {
                         var idProducto = Convert.ToInt32(row.Cells["IDAlmacen"].Value);
-
+                        
                         cn.EjecutarConsulta($"UPDATE Productos SET NumeroRevision = {FilterNumActiveRecord} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+
+                        var infoGetPaqServ = mb.ObtenerPaqueteServicioAsignado(Convert.ToInt32(idProducto.ToString()), FormPrincipal.userID);
+
+                        var IsEmptyList = infoGetPaqServ.Length;
+
+                        if (IsEmptyList > 0)
+                        {
+                            consultaStockPaqServ = $"UPDATE Productos SET NumeroRevision = '{infoGetPaqServ[4].ToString()}' WHERE ID = {infoGetPaqServ[6].ToString()} AND IDUsuario = {infoGetPaqServ[0].ToString()}";
+                            cn.EjecutarConsulta(consultaStockPaqServ);
+                        }
                     }
                 }
             }

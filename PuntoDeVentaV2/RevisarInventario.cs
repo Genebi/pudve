@@ -549,7 +549,7 @@ namespace PuntoDeVentaV2
 
                             var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
 
-                            var infoGetPaqServ = mb.ObtenerPaqueteServicioAsignado(Convert.ToInt32(info[0].ToString()), FormPrincipal.userID);
+                            //var infoGetPaqServ = mb.ObtenerPaqueteServicioAsignado(Convert.ToInt32(info[0].ToString()), FormPrincipal.userID);
 
                             consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
                         }
@@ -591,7 +591,7 @@ namespace PuntoDeVentaV2
                             var infoGetPaqServ = mb.ObtenerPaqueteServicioAsignado(Convert.ToInt32(info[0].ToString()), FormPrincipal.userID);
 
                             consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
-                            consultaStockPaqServ = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
+                            //consultaStockPaqServ = $"UPDATE Productos SET NumeroRevision = '{infoGetPaqServ[4].ToString()}' WHERE ID = {infoGetPaqServ[6].ToString()} AND IDUsuario = {infoGetPaqServ[0].ToString()}";
                         }
                         else
                         {
@@ -614,7 +614,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(queryUpdateStock);
                         cn.EjecutarConsulta(consultaStock);
-                        cn.EjecutarConsulta(consultaStockPaqServ);
+                        //cn.EjecutarConsulta(consultaStockPaqServ);
 
                         if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                         {
