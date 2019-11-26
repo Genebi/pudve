@@ -1102,14 +1102,16 @@ namespace PuntoDeVentaV2
             {
                 var coincidencias = mb.BusquedaCoincidencias(busqueda);
 
+                // Si hay concidencias de la busqueda de la palabra
                 if (coincidencias.Count > 0)
                 {
                     extra = string.Empty;
 
+                    // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
+                    // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
                     var extra2 = string.Empty;
                     int contadorTmp = 1;
-                    //MessageBox.Show(coincidencias.Count.ToString());
-                    //var listaCoincidencias = coincidencias.OrderBy(x => x.Value);
+
                     var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
 
                     extra += " AND P.ID IN (";
@@ -1123,11 +1125,13 @@ namespace PuntoDeVentaV2
                         contadorTmp++;
                     }
 
+                    // Eliminamos el último caracter que es una coma (,)
                     extra = extra.Remove(extra.Length - 1);
 
                     extra += ") ORDER BY CASE P.ID ";
                     extra2 += "END";
 
+                    // Concatenamos las dos variables para formar por completo la sentencia sql
                     extra += extra2;
                 }
                 else

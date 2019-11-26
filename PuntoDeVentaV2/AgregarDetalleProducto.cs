@@ -1555,7 +1555,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (!deleteDetalle.Equals(""))
                 {
-                    if (deleteDetalle.Equals("Proveedor") || deleteDetalle.Equals("StockNecesario"))
+                    if (deleteDetalle.Equals("Proveedor"))
                     {
                         var mensaje = deleteDetalle;
 
@@ -1649,7 +1649,7 @@ namespace PuntoDeVentaV2
             renameDetail.ShowDialog();
             if (!KeyExist(editDetalleNvo))
             {
-                if (editDetelle.Equals("Proveedor") || editDetelle.Equals("StockNecesario"))
+                if (editDetelle.Equals("Proveedor"))
                 {
                     var mensaje = editDetelle;
 
