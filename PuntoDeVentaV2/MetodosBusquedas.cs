@@ -340,7 +340,6 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["Categoria"].ToString());
                 lista.Add(dr["IDUbicacion"].ToString());
                 lista.Add(dr["Ubicacion"].ToString());
-                lista.Add(dr["StockNecesario"].ToString());
             }
 
             dr.Close();

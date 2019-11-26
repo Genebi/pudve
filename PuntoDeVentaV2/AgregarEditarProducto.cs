@@ -4065,10 +4065,13 @@ namespace PuntoDeVentaV2
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 txtPrecioCompra.Enabled = false;
 
-                //var detallesTmp = mb.DetallesProducto(Convert.ToInt32(idEditarProducto), FormPrincipal.userID);
-                //stockNecesario = detallesTmp[7];
+                var detallesProductoTmp = cn.BuscarProducto(Convert.ToInt32(idEditarProducto), FormPrincipal.userID);
 
-                //MessageBox.Show(idEditarProducto);
+                if (detallesProductoTmp.Length > 0)
+                {
+                    stockNecesario = detallesProductoTmp[8];
+                }
+
             }
             else if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
             {

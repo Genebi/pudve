@@ -1516,6 +1516,16 @@ namespace PuntoDeVentaV2
             BuscarTextoListView(settingDatabases);
 
             txtStockNecesario.KeyPress += new KeyPressEventHandler(SoloDecimales);
+
+            if (!string.IsNullOrEmpty(AgregarEditarProducto.stockNecesario))
+            {
+                int stockTmp = Convert.ToInt32(AgregarEditarProducto.stockNecesario);
+
+                if (stockTmp > 0)
+                {
+                    txtStockNecesario.Text = stockTmp.ToString();
+                }
+            }
         }
 
         private void verificarProductMessage()
@@ -1692,6 +1702,8 @@ namespace PuntoDeVentaV2
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
             var stockNecesario = txtStockNecesario.Text;
+
+            AgregarEditarProducto.stockNecesario = stockNecesario;
 
             saveProdDetail();
             saveGralProdDetail();
