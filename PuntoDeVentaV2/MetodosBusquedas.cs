@@ -711,6 +711,48 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] ObtenerPaqueteServicioAsignado(int prodID, int usrID)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($@"SELECT 
+                                -- Fields of Users
+                                usr.ID as 'Num_Usuario',
+                                usr.Usuario as 'Usuario',
+                                -- Fields of Products
+                                prod.ID as 'Num_Prod',
+                                prod.Nombre as 'Nombre_Producto',
+                                prod.Tipo as 'Tipo_Prod',
+                                prod.NumeroRevision as 'Num_Revision',
+                                -- Fields of Service of Products
+                                ProdServ.ID as 'Num_Relacion',
+                                ProdServ.IDServicio as 'Num_ServProd'
+                             FROM Productos AS prod
+                             INNER JOIN Usuarios AS usr
+                             ON usr.ID = prod.IDUsuario
+                             INNER JOIN ProductosDeServicios AS ProdServ
+                             ON ProdServ.IDProducto = prod.ID
+                             WHERE prod.ID = '{prodID}'
+                             AND usr.ID = '{usrID}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["Num_Usuario"].ToString());
+                lista.Add(dr["Usuario"].ToString());
+                lista.Add(dr["Num_Prod"].ToString());
+                lista.Add(dr["Nombre_Producto"].ToString());
+                lista.Add(dr["Num_Revision"].ToString());
+                lista.Add(dr["Num_Relacion"].ToString());
+                lista.Add(dr["Num_ServProd"].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] BuscarCodigoBarrasExtra(string codigo)
         {
             List<string> lista = new List<string>();

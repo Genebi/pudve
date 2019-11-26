@@ -520,7 +520,8 @@ namespace PuntoDeVentaV2
                     DateTime CurrentDate, RecordDate;
                     string ClavInterna, CodigoBarras, cadauxiliar, dia, mes, Year;
 
-                    string consultaStock = string.Empty;
+                    string consultaStock = string.Empty,
+                            consultaStockPaqServ = string.Empty;
 
                     if (ComprobarFecha != "")
                     {
@@ -547,6 +548,8 @@ namespace PuntoDeVentaV2
                             queryUpdateStock = $"UPDATE RevisarInventario SET StockFisico = '{txtCantidadStock.Text}', Fecha = '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', StatusRevision = '{StatusRev}', StatusInventariado = '{StatusRev}', NoRevision = '{NoActualCheckStock}' WHERE ID = '{ID}'";
 
                             var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
+
+                            var infoGetPaqServ = mb.ObtenerPaqueteServicioAsignado(Convert.ToInt32(info[0].ToString()), FormPrincipal.userID);
 
                             consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
                         }
@@ -585,7 +588,10 @@ namespace PuntoDeVentaV2
 
                             var info = mb.ObtenerRevisionInventario(Convert.ToInt32(ID), FormPrincipal.userID);
 
+                            var infoGetPaqServ = mb.ObtenerPaqueteServicioAsignado(Convert.ToInt32(info[0].ToString()), FormPrincipal.userID);
+
                             consultaStock = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
+                            consultaStockPaqServ = $"UPDATE Productos SET Stock = '{txtCantidadStock.Text}' WHERE ID = {info[0]} AND IDUsuario = {FormPrincipal.userID}";
                         }
                         else
                         {
@@ -608,6 +614,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(queryUpdateStock);
                         cn.EjecutarConsulta(consultaStock);
+                        cn.EjecutarConsulta(consultaStockPaqServ);
 
                         if (LaPosicion == dtRevisarStockResultado.Rows.Count - 1)
                         {
