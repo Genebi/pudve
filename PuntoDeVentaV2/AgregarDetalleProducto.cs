@@ -1514,6 +1514,8 @@ namespace PuntoDeVentaV2
 
             loadFormConfig();
             BuscarTextoListView(settingDatabases);
+
+            txtStockNecesario.KeyPress += new KeyPressEventHandler(SoloDecimales);
         }
 
         private void verificarProductMessage()
@@ -1691,9 +1693,28 @@ namespace PuntoDeVentaV2
         {
             var stockNecesario = txtStockNecesario.Text;
 
-            /*saveProdDetail();
+            saveProdDetail();
             saveGralProdDetail();
-            this.Close();*/
+            this.Close();
+        }
+
+        private void SoloDecimales(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                {
+                    e.Handled = true;
+                }
+            }
         }
 
         private void saveGralProdDetail()
