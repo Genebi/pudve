@@ -1703,6 +1703,11 @@ namespace PuntoDeVentaV2
         {
             var stockNecesario = txtStockNecesario.Text;
 
+            if (string.IsNullOrWhiteSpace(stockNecesario))
+            {
+                stockNecesario = "0";
+            }
+
             AgregarEditarProducto.stockNecesario = stockNecesario;
 
             saveProdDetail();
@@ -1858,10 +1863,14 @@ namespace PuntoDeVentaV2
                                         infoDetailProdGral.Add(Convert.ToString(FormPrincipal.userID));
                                         Descripcion = contSubItemHijo.Text;
                                         var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                        infoDetailProdGral.Add(idFound[2].ToString()); // Obtenemos el ChckName Detalles Basicos
-                                        infoDetailProdGral.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                        infoDetailProdGral.Add(idFound[3].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                        AgregarEditarProducto.detalleProductoGeneral = infoDetailProdGral;
+
+                                        if (idFound.Length > 0)
+                                        {
+                                            infoDetailProdGral.Add(idFound[2].ToString()); // Obtenemos el ChckName Detalles Basicos
+                                            infoDetailProdGral.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                            infoDetailProdGral.Add(idFound[3].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                            AgregarEditarProducto.detalleProductoGeneral = infoDetailProdGral;
+                                        }
                                     }
                                 }
                             }
