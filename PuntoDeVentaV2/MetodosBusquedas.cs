@@ -824,6 +824,39 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
+        public Dictionary<int, int> BusquedaCoincidencias(string frase)
+        {
+            Dictionary<int, int> coincidencias = new Dictionary<int, int>();
+
+            string[] palabras = frase.Split(' ');
+
+            foreach (var palabra in palabras)
+            {
+                DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
+
+                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        if (coincidencias.ContainsKey(Convert.ToInt32(dr["ID"].ToString())))
+                        {
+                            coincidencias[Convert.ToInt32(dr["ID"].ToString())] += 1;
+                        }
+                        else
+                        {
+                            coincidencias.Add(Convert.ToInt32(dr["ID"].ToString()), 1);
+                        }
+                    }
+                }
+
+                dr.Close();
+            }
+
+            return coincidencias;
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();

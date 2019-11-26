@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PuntoDeVentaV2
 {
@@ -1099,8 +1100,41 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                // Original
-                extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR P.ClaveInterna LIKE '%{busqueda}%')";
+                var coincidencias = mb.BusquedaCoincidencias(busqueda);
+
+                if (coincidencias.Count > 0)
+                {
+                    extra = string.Empty;
+
+                    var extra2 = string.Empty;
+                    int contadorTmp = 1;
+                    //MessageBox.Show(coincidencias.Count.ToString());
+                    //var listaCoincidencias = coincidencias.OrderBy(x => x.Value);
+                    var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
+
+                    extra += " AND P.ID IN (";
+
+                    foreach (var producto in listaCoincidencias)
+                    {
+                        extra += $"{producto.Key},";
+
+                        extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+
+                        contadorTmp++;
+                    }
+
+                    extra = extra.Remove(extra.Length - 1);
+
+                    extra += ") ORDER BY CASE P.ID ";
+                    extra2 += "END";
+
+                    extra += extra2;
+                }
+                else
+                {
+                    // Original
+                    extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR P.ClaveInterna LIKE '%{busqueda}%')";
+                }
 
                 // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
                 var infoProducto = mb.BuscarCodigoBarrasExtra(busqueda.Trim());
