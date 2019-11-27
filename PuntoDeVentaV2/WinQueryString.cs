@@ -338,7 +338,7 @@ namespace PuntoDeVentaV2
                         check.Width = 90;
                         check.Height = 24;
                         check.Location = new Point(10, 10);
-                        check.CheckedChanged += checkBox_CheckedChanged;
+                        check.CheckedChanged += checkBoxProveedor_CheckedChanged;
                         panelContenido.Controls.Add(check);
                         panelContenedor.Controls.Add(panelContenido);
                         fLPDetalleProducto.Controls.Add(panelContenedor);
@@ -480,12 +480,52 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxProveedor_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cbProvider = sender as CheckBox;
             if (cbProvider.Checked.Equals(true))
             {
-                
+                foreach (Control controlHijo in fLPDetalleProducto.Controls)
+                {
+                    if ((controlHijo.Name.Equals("panelContenedorchkProveedor")) && (controlHijo is Panel))
+                    {
+                        foreach (Control subControlHijo in controlHijo.Controls)
+                        {
+                            if ((subControlHijo.Name.Equals("panelContenidochkProveedor")) && (subControlHijo is Panel))
+                            {
+                                foreach (Control intoSubControlHijo in subControlHijo.Controls)
+                                {
+                                    if ((intoSubControlHijo.Name.Equals("cbchkProveedor")) && (intoSubControlHijo is ComboBox))
+                                    {
+                                        intoSubControlHijo.Enabled = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (cbProvider.Checked.Equals(false))
+            {
+                foreach (Control controlHijo in fLPDetalleProducto.Controls)
+                {
+                    if ((controlHijo.Name.Equals("panelContenedorchkProveedor")) && (controlHijo is Panel))
+                    {
+                        foreach (Control subControlHijo in controlHijo.Controls)
+                        {
+                            if ((subControlHijo.Name.Equals("panelContenidochkProveedor")) && (subControlHijo is Panel))
+                            {
+                                foreach (Control intoSubControlHijo in subControlHijo.Controls)
+                                {
+                                    if ((intoSubControlHijo.Name.Equals("cbchkProveedor")) && (intoSubControlHijo is ComboBox))
+                                    {
+                                        intoSubControlHijo.Enabled = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
             HisotorialCompras = 17;
             HistorialModificacionRecordProduct = 4;
             ProductoRelacionadoXML = 5;
-            Productos = 20;
+            Productos = 21;
             ProductosDeServicios = 6;
             ProductosVenta = 6;
             Proveedores = 15;
@@ -809,7 +809,8 @@ namespace PuntoDeVentaV2
                                               NombreAlterno1 TEXT,
                                               NombreAlterno2 TEXT,
                                               NumeroRevision INTEGER DEFAULT (0),
-                                              FOREIGN KEY (IDUsuario)	REFERENCES USuarios (ID));";
+                                              StockNecesario INTEGER DEFAULT (0),
+                                              FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
         }
 
         public string QueryUpdateTablaProductos(string tabla)
@@ -832,7 +833,8 @@ namespace PuntoDeVentaV2
                                              IVA,
                                              Impuesto,
                                              NombreAlterno1,
-                                             NombreAlterno2) 
+                                             NombreAlterno2,
+                                             NumeroRevision) 
                                       SELECT ID,
                                              Nombre,
                                              Stock,
@@ -851,7 +853,8 @@ namespace PuntoDeVentaV2
                                              IVA,
                                              Impuesto,
                                              NombreAlterno1,
-                                             NombreAlterno2 
+                                             NombreAlterno2,
+                                             NumeroRevision 
                                        FROM '{tabla}_temp';";
         }
 
