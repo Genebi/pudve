@@ -873,31 +873,87 @@ namespace PuntoDeVentaV2
 
             string[] palabras = frase.Split(' ');
 
-            foreach (var palabra in palabras)
+            if (palabras.Length > 0)
             {
-                DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
-
-                SQLiteDataReader dr = sql_cmd.ExecuteReader();
-
-                if (dr.HasRows)
+                foreach (var palabra in palabras)
                 {
-                    while (dr.Read())
+                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
+
+                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
                     {
-                        if (coincidencias.ContainsKey(Convert.ToInt32(dr["ID"].ToString())))
+                        while (dr.Read())
                         {
-                            coincidencias[Convert.ToInt32(dr["ID"].ToString())] += 1;
-                        }
-                        else
-                        {
-                            coincidencias.Add(Convert.ToInt32(dr["ID"].ToString()), 1);
+                            var id = Convert.ToInt32(dr["ID"].ToString());
+
+                            if (coincidencias.ContainsKey(id))
+                            {
+                                coincidencias[id] += 1;
+                            }
+                            else
+                            {
+                                coincidencias.Add(id, 1);
+                            }
                         }
                     }
-                }
 
-                dr.Close();
+                    dr.Close();
+                }
             }
 
             return coincidencias;
+        }
+
+        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase)
+        {
+            Dictionary<int, string> lista = new Dictionary<int, string>();
+
+            Dictionary<int, Tuple<int, string>> coincidencias = new Dictionary<int, Tuple<int, string>>();
+
+            string[] palabras = frase.Split(' ');
+
+            if (palabras.Length > 0)
+            {
+                foreach (var palabra in palabras)
+                {
+                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
+
+                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            var id = Convert.ToInt32(dr["ID"].ToString());
+                            var nombre = dr["Nombre"].ToString();
+
+                            if (coincidencias.ContainsKey(id))
+                            {
+                                coincidencias[id] = Tuple.Create(coincidencias[id].Item1 + 1, nombre);
+                            }
+                            else
+                            {
+                                coincidencias.Add(id, new Tuple<int, string>(1, nombre));
+                            }
+                        }
+                    }
+
+                    dr.Close();
+                }
+            }
+            
+            if (coincidencias.Count > 0)
+            {
+                var listaCoincidencias = from entry in coincidencias orderby entry.Value.Item1 descending select entry;
+
+                foreach (var producto in listaCoincidencias)
+                {
+                    lista.Add(producto.Key, producto.Value.Item2);
+                }
+            }
+
+            return lista;
         }
 
         public string UltimaFechaCorte()
