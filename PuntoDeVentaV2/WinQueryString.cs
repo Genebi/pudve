@@ -416,7 +416,7 @@ namespace PuntoDeVentaV2
             CheckBox chkGralDetail = sender as CheckBox;
             string nameChkBox = string.Empty;
 
-            nameChkBox = chkGralDetail.Name.ToString().Remove(0, 6);
+            nameChkBox = chkGralDetail.Name.ToString().Remove(0, 9);
 
             if (chkGralDetail.Checked.Equals(true))
             {
