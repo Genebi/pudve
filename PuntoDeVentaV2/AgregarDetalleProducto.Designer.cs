@@ -35,6 +35,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.fLPLateralConcepto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtStockNecesario = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.fLPCentralDetalle = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddDetalle = new System.Windows.Forms.Button();
@@ -44,8 +46,6 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
-            this.txtStockNecesario = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -124,6 +124,22 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(618, 474);
             this.panel2.TabIndex = 28;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Stock Necesario";
+            // 
+            // txtStockNecesario
+            // 
+            this.txtStockNecesario.Location = new System.Drawing.Point(110, 39);
+            this.txtStockNecesario.Name = "txtStockNecesario";
+            this.txtStockNecesario.Size = new System.Drawing.Size(120, 20);
+            this.txtStockNecesario.TabIndex = 2;
             // 
             // label3
             // 
@@ -228,7 +244,7 @@
             this.btnCerrar.Name = "btnCerrar";
             this.btnCerrar.Size = new System.Drawing.Size(180, 41);
             this.btnCerrar.TabIndex = 27;
-            this.btnCerrar.Text = "Cencelar";
+            this.btnCerrar.Text = "Cancelar";
             this.btnCerrar.UseVisualStyleBackColor = false;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
@@ -242,22 +258,6 @@
             this.chkBoxProductMessage.Text = "Agrega un mensaje al producto";
             this.chkBoxProductMessage.UseVisualStyleBackColor = true;
             this.chkBoxProductMessage.CheckedChanged += new System.EventHandler(this.chkBoxProductMessage_CheckedChanged);
-            // 
-            // txtStockNecesario
-            // 
-            this.txtStockNecesario.Location = new System.Drawing.Point(110, 39);
-            this.txtStockNecesario.Name = "txtStockNecesario";
-            this.txtStockNecesario.Size = new System.Drawing.Size(120, 20);
-            this.txtStockNecesario.TabIndex = 2;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 42);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Stock Necesario";
             // 
             // AgregarDetalleProducto
             // 
