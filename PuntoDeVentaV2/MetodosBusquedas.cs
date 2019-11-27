@@ -913,6 +913,8 @@ namespace PuntoDeVentaV2
                 fecha = dr["FechaOperacion"].ToString();
             }
 
+            dr.Close();
+
             return fecha;
         }
 
