@@ -175,6 +175,8 @@ namespace PuntoDeVentaV2
             AbrirFormulario<ListadoVentas>();
 
             ListadoVentas.abrirNuevaVenta = true;
+
+            ListadoVentas.recargarDatos = true;
         }
 
         private void btnClientes_Click(object sender, EventArgs e)

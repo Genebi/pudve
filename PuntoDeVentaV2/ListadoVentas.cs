@@ -22,7 +22,9 @@ namespace PuntoDeVentaV2
 
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
+        private DateTime fechaUltimoCorte;
 
+        public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
 
         public ListadoVentas()
@@ -51,6 +53,9 @@ namespace PuntoDeVentaV2
             cbVentas.SelectedIndex = 0;
             cbTipoVentas.SelectedIndex = 0;
 
+
+            fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
+
             CargarDatos();
         }
 
@@ -69,9 +74,9 @@ namespace PuntoDeVentaV2
             {
                 sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             }
-            
+
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = '{estado}' AND IDUsuario = '{FormPrincipal.userID}'", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVListadoVentas.Rows.Clear();
@@ -437,12 +442,22 @@ namespace PuntoDeVentaV2
 
                 abrirNuevaVenta = false;
             }
+
+            if (recargarDatos)
+            {
+                fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
+
+                CargarDatos();
+
+                recargarDatos = false;
+            }
         }
 
         //Se agrego para que no se abra la ventana nueva venta al cambiar el tamaño del form
         private void ListadoVentas_Resize(object sender, EventArgs e)
         {
             abrirNuevaVenta = false;
+            recargarDatos = false;
         }
     }
 }
