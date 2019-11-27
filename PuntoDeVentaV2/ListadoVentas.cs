@@ -436,13 +436,6 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Paint(object sender, PaintEventArgs e)
         {
-            if (abrirNuevaVenta)
-            {
-                btnNuevaVenta.PerformClick();
-
-                abrirNuevaVenta = false;
-            }
-
             if (recargarDatos)
             {
                 fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
@@ -451,13 +444,20 @@ namespace PuntoDeVentaV2
 
                 recargarDatos = false;
             }
+
+            if (abrirNuevaVenta)
+            {
+                btnNuevaVenta.PerformClick();
+
+                abrirNuevaVenta = false;
+            }
         }
 
         //Se agrego para que no se abra la ventana nueva venta al cambiar el tamaño del form
         private void ListadoVentas_Resize(object sender, EventArgs e)
         {
-            abrirNuevaVenta = false;
             recargarDatos = false;
+            abrirNuevaVenta = false;
         }
     }
 }
