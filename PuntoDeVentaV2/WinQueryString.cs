@@ -327,7 +327,6 @@ namespace PuntoDeVentaV2
                             cbProveedor.Items.Add("Selecciona un Proveedor");
                             cbProveedor.SelectedIndex = 0;
                         }
-                        cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
                         panelContenido.Controls.Add(cbProveedor);
                         panelContenedor.Controls.Add(panelContenido);
                         fLPDetalleProducto.Controls.Add(panelContenedor);
@@ -350,8 +349,8 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
 
                     Panel panelContenedor = new Panel();
-                    panelContenedor.Width = 266;
-                    panelContenedor.Height = 58;
+                    panelContenedor.Width = 480;
+                    panelContenedor.Height = 40;
                     panelContenedor.Name = nombrePanelContenedor;
 
                     chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
@@ -364,16 +363,8 @@ namespace PuntoDeVentaV2
 
                         Panel panelContenido = new Panel();
                         panelContenido.Name = nombrePanelContenido;
-                        panelContenido.Width = 258;
-                        panelContenido.Height = 55;
-
-                        Label lblNombreDetalleGral = new Label();
-                        lblNombreDetalleGral.Name = "lblNombre" + name;
-                        lblNombreDetalleGral.Width = 248;
-                        lblNombreDetalleGral.Height = 20;
-                        lblNombreDetalleGral.Location = new Point(3, 32);
-                        lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
-                        lblNombreDetalleGral.BackColor = Color.White;
+                        panelContenido.Width = 476;
+                        panelContenido.Height = 38;
 
                         int XcbProv = 0;
                         XcbProv = panelContenido.Width / 2;
@@ -382,11 +373,11 @@ namespace PuntoDeVentaV2
 
                         ComboBox cbDetalleGral = new ComboBox();
                         cbDetalleGral.Name = "cb" + name;
-                        cbDetalleGral.Width = 200;
-                        cbDetalleGral.Height = 30;
-                        cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
-                        cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
+                        cbDetalleGral.Width = 336;
+                        cbDetalleGral.Height = 21;
+                        cbDetalleGral.Location = new Point(119, 10);
                         cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
+                        cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
 
                         if (listaDetalleGral.Length > 0)
                         {
@@ -401,80 +392,73 @@ namespace PuntoDeVentaV2
                             cbDetalleGral.SelectedIndex = 0;
                         }
                         panelContenido.Controls.Add(cbDetalleGral);
-                        panelContenido.Controls.Add(lblNombreDetalleGral);
                         panelContenedor.Controls.Add(panelContenido);
                         fLPDetalleProducto.Controls.Add(panelContenedor);
 
-                        // Cuando se da click en la opcion editar producto
-                        //if (DatosSourceFinal == 2)
-                        //{
-                        //    string Descripcion = string.Empty;
+                        CheckBox checkDetalleGral = new CheckBox();
+                        checkDetalleGral.Name = "chkBox" + name;
+                        checkDetalleGral.Text = name.Remove(0, 3);
+                        checkDetalleGral.Width = 90;
+                        checkDetalleGral.Height = 24;
+                        checkDetalleGral.Location = new Point(10, 10);
+                        checkDetalleGral.CheckedChanged += checkBoxDetalleGral_CheckedChanged;
+                        
+                        panelContenido.Controls.Add(checkDetalleGral);
+                        panelContenedor.Controls.Add(panelContenido);
+                        fLPDetalleProducto.Controls.Add(panelContenedor);
+                    }
+                }
+            }
+        }
 
-                        //    foreach (Control contHijo in fLPDetalleProducto.Controls)
-                        //    {
-                        //        foreach (Control contSubHijo in contHijo.Controls)
-                        //        {
-                        //            if (contSubHijo.Name == nombrePanelContenido)
-                        //            {
-                        //                foreach (Control contItemSubHijo in contSubHijo.Controls)
-                        //                {
-                        //                    if (contItemSubHijo is Label)
-                        //                    {
-                        //                        Descripcion = contItemSubHijo.Text;
-                        //                        break;
-                        //                    }
-                        //                }
-                        //            }
-                        //        }
-                        //    }
+        private void checkBoxDetalleGral_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox chkGralDetail = sender as CheckBox;
+            string nameChkBox = string.Empty;
 
-                        //    if (Descripcion.Equals("") || Descripcion.Equals(null))
-                        //    {
-                        //        Descripcion = nombrePanelContenido;
-                        //    }
-                        //    else if (!Descripcion.Equals(""))
-                        //    {
+            nameChkBox = chkGralDetail.Name.ToString().Remove(0, 6);
 
-                        //    }
-
-                        //    //idProductoDetalleGral = Convert.ToInt32(idEditarProducto);
-                        //    //var DetalleGralPorPanel = mb.DetallesProductoGralPorPanel(Descripcion, FormPrincipal.userID, idProductoDetalleGral);
-
-                        //    int cantidad = DetalleGralPorPanel.Length;
-
-                        //    if (cantidad > 0)
-                        //    {
-                        //        if (Descripcion.Equals(nombrePanelContenido))
-                        //        {
-                        //            int idDetailGral = 0;
-                        //            idDetailGral = Convert.ToInt32(DetalleGralPorPanel[3].ToString());
-
-                        //            foreach (Control contHijo in fLPDetalleProducto.Controls)
-                        //            {
-                        //                foreach (Control contSubHijo in contHijo.Controls)
-                        //                {
-                        //                    if (contSubHijo.Name == nombrePanelContenido)
-                        //                    {
-                        //                        var idDetalleGral = mb.DetallesProductoGral(FormPrincipal.userID, idDetailGral);
-
-                        //                        foreach (Control contItemSubHijo in contSubHijo.Controls)
-                        //                        {
-                        //                            if (contItemSubHijo is Label)
-                        //                            {
-                        //                                contItemSubHijo.Text = idDetalleGral[2].ToString();
-                        //                                diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string, string>(DetalleGralPorPanel[0].ToString(), nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
-                        //                                contadorIndex++;
-                        //                                break;
-                        //                            }
-                        //                        }
-
-                        //                        idDetalleGral = new string[] { };
-                        //                    }
-                        //                }
-                        //            }
-                        //        }
-                        //    }
-                        //}
+            if (chkGralDetail.Checked.Equals(true))
+            {
+                foreach (Control controlHijo in fLPDetalleProducto.Controls)
+                {
+                    if (controlHijo.Name.Equals("panelContenedor" + nameChkBox))
+                    {
+                        foreach (Control subControlHijo in controlHijo.Controls)
+                        {
+                            if (subControlHijo.Name.Equals("panelContenido" + nameChkBox))
+                            {
+                                foreach (Control intoSubControlHijo in subControlHijo.Controls)
+                                {
+                                    if (intoSubControlHijo is ComboBox)
+                                    {
+                                        intoSubControlHijo.Enabled = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (chkGralDetail.Checked.Equals(false))
+            {
+                foreach (Control controlHijo in fLPDetalleProducto.Controls)
+                {
+                    if (controlHijo.Name.Equals("panelContenedor" + nameChkBox))
+                    {
+                        foreach (Control subControlHijo in controlHijo.Controls)
+                        {
+                            if (subControlHijo.Name.Equals("panelContenido" + nameChkBox))
+                            {
+                                foreach (Control intoSubControlHijo in subControlHijo.Controls)
+                                {
+                                    if (intoSubControlHijo is ComboBox)
+                                    {
+                                        intoSubControlHijo.Enabled = false;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
