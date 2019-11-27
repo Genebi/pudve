@@ -1940,7 +1940,8 @@ namespace PuntoDeVentaV2
             }
 
             // Regresa un diccionario
-            var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
+            //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
+            var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text);
             int coincidencias = resultados.Count;
 
             if (coincidencias > 0)
