@@ -174,6 +174,7 @@ namespace PuntoDeVentaV2
         {
             AbrirFormulario<ListadoVentas>();
 
+            ListadoVentas.recargarDatos = true;
             ListadoVentas.abrirNuevaVenta = true;
         }
 

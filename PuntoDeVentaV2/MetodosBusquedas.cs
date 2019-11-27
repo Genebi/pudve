@@ -900,6 +900,24 @@ namespace PuntoDeVentaV2
             return coincidencias;
         }
 
+        public string UltimaFechaCorte()
+        {
+            string fecha = DateTime.MinValue.ToString();
+
+            DatosConexion($"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                fecha = dr["FechaOperacion"].ToString();
+            }
+
+            dr.Close();
+
+            return fecha;
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();
