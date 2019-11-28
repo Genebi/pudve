@@ -1890,5 +1890,97 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaCodigoBarrasGenerado
+
+        // Tabla de CodigoBarrasGenerado 31
+        #region TablaEmpleados
+        public int GetEmpleados()
+        {
+            return Empleados;
+        }
+
+        public string PragmaTablaEmpleados(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameEmpleados(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaEmpleados(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID           INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario    INTEGER NOT NULL,
+                                              nombre       TEXT,
+                                              usuario      TEXT    NOT NULL,
+                                              contrasena   TEXT    NOT NULL,
+                                              estatus      INTEGER DEFAULT 1,
+                                              p_anticipo   INTEGER DEFAULT 1,
+                                              p_caja       INTEGER DEFAULT 1,
+                                              p_cliente    INTEGER DEFAULT 1,
+                                              p_config     INTEGER DEFAULT 1,
+                                              p_empleado   INTEGER DEFAULT 1,
+                                              p_empresa    INTEGER DEFAULT 1,
+                                              p_factura    INTEGER DEFAULT 1,
+                                              p_inventario INTEGER DEFAULT 1,
+                                              p_mdatos     INTEGER DEFAULT 1,
+                                              p_producto   INTEGER DEFAULT 1,
+                                              p_proveedor  INTEGER DEFAULT 1,
+                                              p_reporte    INTEGER DEFAULT 1,
+                                              p_servicio   INTEGER DEFAULT 1,
+                                              p_venta      INTEGER DEFAULT 1);";
+        }
+
+        public string QueryUpdateTablaEmpleados(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             nombre,
+                                             usuario,
+                                             contrasena,
+                                             estatus,
+                                             p_anticipo,
+                                             p_caja,
+                                             p_cliente,
+                                             p_config,
+                                             p_empleado,
+                                             p_empresa,
+                                             p_factura,
+                                             p_inventario,
+                                             p_mdatos,
+                                             p_producto,
+                                             p_proveedor,
+                                             p_reporte,
+                                             p_servicio,
+                                             p_venta) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             nombre,
+                                             usuario,
+                                             contrasena,
+                                             estatus,
+                                             p_anticipo,
+                                             p_caja,
+                                             p_cliente,
+                                             p_config,
+                                             p_empleado,
+                                             p_empresa,
+                                             p_factura,
+                                             p_inventario,
+                                             p_mdatos,
+                                             p_producto,
+                                             p_proveedor,
+                                             p_reporte,
+                                             p_servicio,
+                                             p_venta 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaEmpleados(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaEmpleados
     }
 }
