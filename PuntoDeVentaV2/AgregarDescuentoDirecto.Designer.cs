@@ -37,6 +37,7 @@
             this.lbPorcentaje = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
+            this.lbTotalDescuento = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbProducto
@@ -52,6 +53,7 @@
             // 
             // lbPrecio
             // 
+            this.lbPrecio.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPrecio.Location = new System.Drawing.Point(18, 50);
             this.lbPrecio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPrecio.Name = "lbPrecio";
@@ -62,12 +64,13 @@
             // 
             // lbDescuento
             // 
-            this.lbDescuento.Location = new System.Drawing.Point(18, 181);
+            this.lbDescuento.AutoSize = true;
+            this.lbDescuento.Location = new System.Drawing.Point(77, 181);
             this.lbDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbDescuento.Name = "lbDescuento";
-            this.lbDescuento.Size = new System.Drawing.Size(350, 17);
+            this.lbDescuento.Size = new System.Drawing.Size(126, 17);
             this.lbDescuento.TabIndex = 2;
-            this.lbDescuento.Text = "Total del descuento";
+            this.lbDescuento.Text = "Total descuento $:";
             this.lbDescuento.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtCantidad
@@ -77,14 +80,19 @@
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(132, 23);
             this.txtCantidad.TabIndex = 3;
+            this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyUp);
             // 
             // txtPorcentaje
             // 
             this.txtPorcentaje.Location = new System.Drawing.Point(236, 120);
             this.txtPorcentaje.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPorcentaje.MaxLength = 3;
             this.txtPorcentaje.Name = "txtPorcentaje";
             this.txtPorcentaje.Size = new System.Drawing.Size(132, 23);
             this.txtPorcentaje.TabIndex = 4;
+            this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPorcentaje.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPorcentaje_KeyUp);
             // 
             // lbCantidad
             // 
@@ -121,6 +129,7 @@
             this.btnAceptar.TabIndex = 28;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // primerSeparador
             // 
@@ -133,11 +142,22 @@
             this.primerSeparador.TabIndex = 29;
             this.primerSeparador.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // lbTotalDescuento
+            // 
+            this.lbTotalDescuento.Location = new System.Drawing.Point(201, 181);
+            this.lbTotalDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbTotalDescuento.Name = "lbTotalDescuento";
+            this.lbTotalDescuento.Size = new System.Drawing.Size(167, 17);
+            this.lbTotalDescuento.TabIndex = 30;
+            this.lbTotalDescuento.Text = "0.00";
+            this.lbTotalDescuento.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // AgregarDescuentoDirecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 266);
+            this.Controls.Add(this.lbTotalDescuento);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.lbPorcentaje);
@@ -154,6 +174,7 @@
             this.MinimizeBox = false;
             this.Name = "AgregarDescuentoDirecto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.AgregarDescuentoDirecto_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -170,5 +191,6 @@
         private System.Windows.Forms.Label lbPorcentaje;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label primerSeparador;
+        private System.Windows.Forms.Label lbTotalDescuento;
     }
 }

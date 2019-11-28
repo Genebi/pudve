@@ -454,9 +454,19 @@ namespace PuntoDeVentaV2
                 // Descuento
                 if (e.ColumnIndex == 8)
                 {
-                    AgregarDescuentoDirecto ad = new AgregarDescuentoDirecto();
+                    var nombreProducto = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
+                    var precioProducto = DGVentas.Rows[celda].Cells["Precio"].Value.ToString();
+                    var datos = new string[] { nombreProducto, precioProducto };
 
-                    ad.ShowDialog();
+                    using (var formDescuento = new AgregarDescuentoDirecto(datos))
+                    {
+                        var resultado = formDescuento.ShowDialog();
+
+                        if (resultado == DialogResult.OK)
+                        {
+                            MessageBox.Show(formDescuento.TotalDescuento);
+                        }
+                    }
                 }
 
                 // Agregar multiple
