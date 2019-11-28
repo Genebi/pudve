@@ -1666,17 +1666,26 @@ namespace PuntoDeVentaV2
 
         #region Expresiones regulares para buscar producto
         private string VerificarPatronesBusqueda(string cadena)
-        {                                                   //  -----------------------------------------------------------------
-                                                            //  |   Expresion Regular                       |   Ejemplo         |
-                                                            //  |---------------------------------------------------------------|
-            string primerPatron = @"^\d+\s\*\s";            //  |   (digito+espacioBlanco*espacioBlanco)    |   5 * 15665132    |
-            string segundoPatron = @"^(\+\d+)|(\d+\+)$";    //  |   ((Signo+)digito+ || digito+(Signo+))    |   +2 || 2+        |
-            string tercerPatron = @"^(\-\d+)|(\d+\-)$";     //  |   ((Signo-)digito+ || digito+(Signo-))    |   -1 || 1-        |
-            string cuartoPatron = @"^\d+\*\s";              //  |   (digito+(Signo*)+espacioBlanco)         |   5* 15665132     |
-            string quintoPatron = @"^\d+\s\*";              //  |   (digito+(Signo*)+espacioBlanco)         |   5 *15665132     |
-            string sextoPatron = @"^\d+\*";                 //  |   (digito+(Signo*)+espacioBlanco)         |   5*15665132      |
-            string septimoPatron = @"^#\s\d+";              //  |   (#+espacioBlanco)                       |   # FolioDeVenta  |
-                                                            //  -----------------------------------------------------------------
+        {
+            //  -----------------------------------------------------------------
+            //  |   Expresion Regular                       |   Ejemplo         |
+            //  |---------------------------------------------------------------|
+            //  |   (digito+espacioBlanco*espacioBlanco)    |   5 * 15665132    |
+            //  |   ((Signo+)digito+ || digito+(Signo+))    |   +2 || 2+        |
+            //  |   ((Signo-)digito+ || digito+(Signo-))    |   -1 || 1-        |
+            //  |   (digito+(Signo*)+espacioBlanco)         |   5* 15665132     |
+            //  |   (digito+(Signo*)+espacioBlanco)         |   5 *15665132     |
+            //  |   (digito+(Signo*)+espacioBlanco)         |   5*15665132      |
+            //  |   (#+espacioBlanco)                       |   # FolioDeVenta  |
+            //  -----------------------------------------------------------------
+
+            string primerPatron = @"^\d+\s\*\s";
+            string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
+            string tercerPatron = @"^(\-\d+)|(\d+\-)$";
+            string cuartoPatron = @"^\d+\*\s";
+            string quintoPatron = @"^\d+\s\*";
+            string sextoPatron = @"^\d+\*";
+            string septimoPatron = @"^#\s\d+";
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
@@ -1710,16 +1719,26 @@ namespace PuntoDeVentaV2
             {
                 if (sumarProducto)
                 {
-                    var resultado = segundaCoincidencia.Value.Trim().Split('+');
+                    //var resultado = segundaCoincidencia.Value.Trim().Split('+');
+                    var resultado = segundaCoincidencia.Value.Trim();
 
-                    if (resultado[0] != string.Empty)
+                    if (resultado.Equals("+") || resultado.Equals("++"))
                     {
-                        cantidadExtra = Convert.ToInt32(resultado[0]);
+                        cantidadExtra = 1;
                     }
                     else
                     {
-                        cantidadExtra = Convert.ToInt32(resultado[1]);
-                    }
+                        var infoTmp = resultado.Split('+');
+
+                        if (infoTmp[0] != string.Empty)
+                        {
+                            cantidadExtra = Convert.ToInt32(infoTmp[0]);
+                        }
+                        else
+                        {
+                            cantidadExtra = Convert.ToInt32(infoTmp[1]);
+                        }
+                    } 
 
                     cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
 
