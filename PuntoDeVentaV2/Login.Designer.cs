@@ -178,7 +178,7 @@
             this.opcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.desvincularPCMenuItem,
             this.importarBaseDeDatosMenuItem});
-            this.opcionesToolStripMenuItem.Image = global::PuntoDeVentaV2.Properties.Resources.bars;
+            //this.opcionesToolStripMenuItem.Image = global::PuntoDeVentaV2.Properties.Resources.bars;
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
             // 

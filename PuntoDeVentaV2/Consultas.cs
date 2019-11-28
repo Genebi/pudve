@@ -419,5 +419,28 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string guardar_editar_empleado(string[] datos, int opc= 0)
+        {
+            string cons = "";
+
+            // Guardar
+
+            if(opc == 1)
+            {
+                cons = "INSERT INTO Empleados (IDUsuario, nombre, usuario, contrasena)";
+                cons += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
+            }
+
+            // Ajustar permisos
+
+            if(opc == 2)
+            {
+                cons = $"UPDATE Empleados SET p_anticipo='{datos[2]}', p_caja='{datos[3]}', p_cliente='{datos[4]}', p_config='{datos[5]}', p_empleado='{datos[6]}', p_empresa='{datos[7]}', p_factura='{datos[8]}', p_inventario='{datos[9]}', p_mdatos='{datos[10]}', p_producto='{datos[11]}', p_proveedor='{datos[12]}', p_reporte='{datos[13]}', p_servicio='{datos[14]}', p_venta='{datos[15]}' WHERE ID='{datos[1]}' AND IDUsuario='{datos[0]}'";
+
+            }
+
+            return cons;
+        }
     }
 }
