@@ -75,6 +75,7 @@ namespace PuntoDeVentaV2
             DetallesProductoGenerales = 6;
             ProductMessage = 3;
             CodigoBarrasGenerado = 3;
+            Empleados = 20;
         #endregion InicializarVariables
         }
 
