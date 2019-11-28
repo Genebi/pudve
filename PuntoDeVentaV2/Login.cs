@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace PuntoDeVentaV2
 {
@@ -106,14 +107,64 @@ namespace PuntoDeVentaV2
 
             if (usuario != "" && password != "")
             {
-                bool resultado = (bool)cn.EjecutarSelect($"SELECT Usuario FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'");
+
+                // Verifica si es el usuaro principal, o un empleado 
+
+                bool resultado = false;
+                int tipo_us = 0;
+                string usuario_empleado = "";
+                string password_empleado = "";
+
+                string formato_usuario = "^[A-Z&Ñ]+@[A-Z&Ñ0-9]+$";
+
+                Regex exp = new Regex(formato_usuario);
+                
+                if (exp.IsMatch(usuario)) // Es un empleado
+                {
+                    tipo_us = 1;
+                    
+                    resultado = (bool)cn.EjecutarSelect($"SELECT usuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'");
+
+                    // Obtiene solo el nombre de usuario principal 
+
+                    string[] partir = usuario.Split('@');
+
+                    usuario = partir[0];
+                    usuario_empleado = partir[1]; 
+                    password_empleado = password;
+
+
+                    // Consulta password de la cuenta principal.
+                    // Se hace para que al momento de enviar los datos a la comprobación de la licencia
+                    // no marque error por el password incorrecto.
+
+                    string c_password_usuariop = Convert.ToString(cn.EjecutarSelect($"SELECT Password FROM Usuarios WHERE Usuario = '{usuario}'", 4));
+                    password = c_password_usuariop;
+                }
+                else // Es el usuario principal
+                {
+                    resultado = (bool)cn.EjecutarSelect($"SELECT Usuario FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'");
+                }
+
 
                 if (resultado == true)
                 {
                     // Ejecutamos el metodo para comprobar que la licencia registrada corresponda al usuario
                     if (ComprobarLicencia())
                     {
-                        int Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
+                        int Id = 0;
+
+                        if (tipo_us == 0) // Usuario principal
+                        {
+                            Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
+                        }
+                        else // Empleado
+                        {
+                            usuario = usuario + "@" + usuario_empleado;
+                            password = password_empleado;
+
+                            Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDUsuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 3));
+                        }
 
                         FormPrincipal fp = new FormPrincipal();
 

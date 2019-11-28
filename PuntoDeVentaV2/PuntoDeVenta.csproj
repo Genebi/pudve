@@ -233,6 +233,18 @@
     <Compile Include="AgregarUbicacion.Designer.cs">
       <DependentUpon>AgregarUbicacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Agregar_empleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agregar_empleado.Designer.cs">
+      <DependentUpon>Agregar_empleado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Agregar_empleado_permisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Agregar_empleado_permisos.Designer.cs">
+      <DependentUpon>Agregar_empleado_permisos.cs</DependentUpon>
+    </Compile>
     <Compile Include="AjustarProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +349,12 @@
     </Compile>
     <Compile Include="DevolverAnticipo.Designer.cs">
       <DependentUpon>DevolverAnticipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Empleados.Designer.cs">
+      <DependentUpon>Empleados.cs</DependentUpon>
     </Compile>
     <Compile Include="Empresas.cs">
       <SubType>Form</SubType>
@@ -587,6 +605,12 @@
     <EmbeddedResource Include="AgregarUbicacion.resx">
       <DependentUpon>AgregarUbicacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Agregar_empleado.resx">
+      <DependentUpon>Agregar_empleado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Agregar_empleado_permisos.resx">
+      <DependentUpon>Agregar_empleado_permisos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AjustarProducto.resx">
       <DependentUpon>AjustarProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -631,6 +655,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DevolverAnticipo.resx">
       <DependentUpon>DevolverAnticipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Empleados.resx">
+      <DependentUpon>Empleados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>

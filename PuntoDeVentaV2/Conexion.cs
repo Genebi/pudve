@@ -121,6 +121,18 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["IDProveedor"]; //IDProveedor de la tabla DetallesProducto
                 }
+                if(tipo == 3)
+                {
+                    respuesta = dr["IDUsuario"]; // ID del usuario principal
+                }
+                if(tipo == 4)
+                {
+                    respuesta = dr["Password"]; // Password del usuario principal
+                }
+                if(tipo == 5)
+                {
+                    respuesta = dr["ID"]; // ID del empleado
+                }
             }
 
             if (tipo == 0)

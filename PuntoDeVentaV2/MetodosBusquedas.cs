@@ -982,5 +982,35 @@ namespace PuntoDeVentaV2
             sql_cmd.CommandText = consulta;
             sql_cmd.ExecuteNonQuery();
         }
+
+        public string[] obtener_permisos_empleado(int id_empleado, int id_usuario)
+        {
+            List<string> list = new List<string>();
+
+            DatosConexion($"SELECT * FROM Empleados WHERE ID={id_empleado} AND IDUsuario = {id_usuario}");
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                list.Add(dr[6].ToString()); // anticipo
+                list.Add(dr[7].ToString()); // caja
+                list.Add(dr[8].ToString());
+                list.Add(dr[9].ToString());
+                list.Add(dr[10].ToString()); // empleado
+                list.Add(dr[11].ToString()); 
+                list.Add(dr[12].ToString()); // factura
+                list.Add(dr[13].ToString());
+                list.Add(dr[14].ToString()); 
+                list.Add(dr[15].ToString()); // producto
+                list.Add(dr[16].ToString());
+                list.Add(dr[17].ToString()); // reporte
+                list.Add(dr[18].ToString()); 
+                list.Add(dr[19].ToString()); // venta
+            }
+
+            dr.Close();
+
+            return list.ToArray();
+        }
     }
 }

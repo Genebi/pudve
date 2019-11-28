@@ -41,8 +41,11 @@
             this.txtCantidadCompra = new System.Windows.Forms.TextBox();
             this.txtPrecioCompra = new System.Windows.Forms.TextBox();
             this.panelAjustar = new System.Windows.Forms.Panel();
+            this.txt_en_stock = new System.Windows.Forms.TextBox();
+            this.lb_en_stock = new System.Windows.Forms.Label();
             this.lb_disminuir_stock_total = new System.Windows.Forms.Label();
             this.lb_disminuir_stock = new System.Windows.Forms.Label();
+            this.lb_aumentar_stock_total = new System.Windows.Forms.Label();
             this.lb_aumentar_stock = new System.Windows.Forms.Label();
             this.lbDisminuir = new System.Windows.Forms.Label();
             this.lbAumentar = new System.Windows.Forms.Label();
@@ -54,9 +57,6 @@
             this.lbSeparador2 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.lb_en_stock = new System.Windows.Forms.Label();
-            this.txt_en_stock = new System.Windows.Forms.TextBox();
-            this.lb_aumentar_stock_total = new System.Windows.Forms.Label();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
             this.SuspendLayout();
@@ -212,6 +212,28 @@
             this.panelAjustar.TabIndex = 4;
             this.panelAjustar.Visible = false;
             // 
+            // txt_en_stock
+            // 
+            this.txt_en_stock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_en_stock.Enabled = false;
+            this.txt_en_stock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_en_stock.Location = new System.Drawing.Point(75, 58);
+            this.txt_en_stock.Name = "txt_en_stock";
+            this.txt_en_stock.Size = new System.Drawing.Size(50, 22);
+            this.txt_en_stock.TabIndex = 10;
+            this.txt_en_stock.Text = "12";
+            this.txt_en_stock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lb_en_stock
+            // 
+            this.lb_en_stock.AutoSize = true;
+            this.lb_en_stock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_en_stock.Location = new System.Drawing.Point(72, 34);
+            this.lb_en_stock.Name = "lb_en_stock";
+            this.lb_en_stock.Size = new System.Drawing.Size(56, 17);
+            this.lb_en_stock.TabIndex = 8;
+            this.lb_en_stock.Text = "En stock";
+            // 
             // lb_disminuir_stock_total
             // 
             this.lb_disminuir_stock_total.AutoSize = true;
@@ -235,6 +257,18 @@
             this.lb_disminuir_stock.TabIndex = 6;
             this.lb_disminuir_stock.Text = "Total stock";
             this.lb_disminuir_stock.Visible = false;
+            // 
+            // lb_aumentar_stock_total
+            // 
+            this.lb_aumentar_stock_total.AutoSize = true;
+            this.lb_aumentar_stock_total.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_aumentar_stock_total.ForeColor = System.Drawing.Color.Red;
+            this.lb_aumentar_stock_total.Location = new System.Drawing.Point(269, 85);
+            this.lb_aumentar_stock_total.Name = "lb_aumentar_stock_total";
+            this.lb_aumentar_stock_total.Size = new System.Drawing.Size(15, 16);
+            this.lb_aumentar_stock_total.TabIndex = 5;
+            this.lb_aumentar_stock_total.Text = "0";
+            this.lb_aumentar_stock_total.Visible = false;
             // 
             // lb_aumentar_stock
             // 
@@ -356,40 +390,6 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
-            // lb_en_stock
-            // 
-            this.lb_en_stock.AutoSize = true;
-            this.lb_en_stock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_en_stock.Location = new System.Drawing.Point(72, 34);
-            this.lb_en_stock.Name = "lb_en_stock";
-            this.lb_en_stock.Size = new System.Drawing.Size(56, 17);
-            this.lb_en_stock.TabIndex = 8;
-            this.lb_en_stock.Text = "En stock";
-            // 
-            // txt_en_stock
-            // 
-            this.txt_en_stock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txt_en_stock.Enabled = false;
-            this.txt_en_stock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_en_stock.Location = new System.Drawing.Point(75, 58);
-            this.txt_en_stock.Name = "txt_en_stock";
-            this.txt_en_stock.Size = new System.Drawing.Size(50, 22);
-            this.txt_en_stock.TabIndex = 10;
-            this.txt_en_stock.Text = "12";
-            this.txt_en_stock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // lb_aumentar_stock_total
-            // 
-            this.lb_aumentar_stock_total.AutoSize = true;
-            this.lb_aumentar_stock_total.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_aumentar_stock_total.ForeColor = System.Drawing.Color.Red;
-            this.lb_aumentar_stock_total.Location = new System.Drawing.Point(269, 85);
-            this.lb_aumentar_stock_total.Name = "lb_aumentar_stock_total";
-            this.lb_aumentar_stock_total.Size = new System.Drawing.Size(15, 16);
-            this.lb_aumentar_stock_total.TabIndex = 5;
-            this.lb_aumentar_stock_total.Text = "0";
-            this.lb_aumentar_stock_total.Visible = false;
             // 
             // AjustarProducto
             // 
