@@ -81,6 +81,7 @@
             this.txtCantidad.Size = new System.Drawing.Size(132, 23);
             this.txtCantidad.TabIndex = 3;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
             this.txtCantidad.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyUp);
             // 
             // txtPorcentaje
@@ -92,6 +93,7 @@
             this.txtPorcentaje.Size = new System.Drawing.Size(132, 23);
             this.txtPorcentaje.TabIndex = 4;
             this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPorcentaje.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPorcentaje_KeyDown);
             this.txtPorcentaje.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPorcentaje_KeyUp);
             // 
             // lbCantidad

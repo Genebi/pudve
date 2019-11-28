@@ -456,7 +456,9 @@ namespace PuntoDeVentaV2
                 {
                     var nombreProducto = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
                     var precioProducto = DGVentas.Rows[celda].Cells["Precio"].Value.ToString();
-                    var datos = new string[] { nombreProducto, precioProducto };
+                    var cantidadProducto = DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString();
+
+                    var datos = new string[] { nombreProducto, precioProducto, cantidadProducto };
 
                     using (var formDescuento = new AgregarDescuentoDirecto(datos))
                     {

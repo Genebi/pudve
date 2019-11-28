@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
 
         private string nombreProducto;
         private double precioProducto;
+        private double cantidadProducto;
 
         public AgregarDescuentoDirecto(string[] datos)
         {
@@ -23,6 +24,7 @@ namespace PuntoDeVentaV2
 
             this.nombreProducto = datos[0];
             this.precioProducto = Convert.ToDouble(datos[1]);
+            this.cantidadProducto = Convert.ToDouble(datos[2]);
         }
 
         private void AgregarDescuentoDirecto_Load(object sender, EventArgs e)
@@ -30,10 +32,10 @@ namespace PuntoDeVentaV2
             lbProducto.Text = nombreProducto;
             lbPrecio.Text = "$" + precioProducto.ToString("0.00");
 
-            txtCantidad.Focus();
-
             txtCantidad.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtPorcentaje.KeyPress += new KeyPressEventHandler(SoloDecimales);
+
+            txtCantidad.Focus();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -62,13 +64,13 @@ namespace PuntoDeVentaV2
 
                 var cantidad = Convert.ToDouble(txtCantidad.Text);
 
-                if (cantidad <= precioProducto)
+                if (cantidad < precioProducto)
                 {
                     lbTotalDescuento.Text = cantidad.ToString("0.00");
                 }
                 else
                 {
-                    txtCantidad.Text = precioProducto.ToString("0.00");
+                    txtCantidad.Text = (precioProducto - 1).ToString("0.00");
                     cantidad = Convert.ToDouble(txtCantidad.Text);
                     lbTotalDescuento.Text = cantidad.ToString("0.00");
 
@@ -92,16 +94,16 @@ namespace PuntoDeVentaV2
 
                 var porcentaje = Convert.ToDouble(txtPorcentaje.Text);
 
-                if (porcentaje <= 100)
+                if (porcentaje < 100)
                 {
-                    var descuento = precioProducto * (porcentaje / 100);
+                    var descuento = (precioProducto * cantidadProducto) * (porcentaje / 100);
                     lbTotalDescuento.Text = descuento.ToString("0.00");
                 }
                 else
                 {
-                    txtPorcentaje.Text = "100";
+                    txtPorcentaje.Text = "99";
                     porcentaje = Convert.ToDouble(txtPorcentaje.Text);
-                    var descuento = precioProducto * (porcentaje / 100);
+                    var descuento = (precioProducto * cantidadProducto) * (porcentaje / 100);
                     lbTotalDescuento.Text = descuento.ToString("0.00");
 
                     txtPorcentaje.SelectionStart = txtPorcentaje.Text.Length;
@@ -117,20 +119,36 @@ namespace PuntoDeVentaV2
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
         {
-            //permite 0-9, eliminar y decimal
+            // Permite 0-9, eliminar y decimal
             if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
             {
                 e.Handled = true;
                 return;
             }
 
-            //verifica que solo un decimal este permitido
+            // Verifica que solo un decimal este permitido
             if (e.KeyChar == 46)
             {
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                 {
                     e.Handled = true;
                 }
+            }
+        }
+
+        private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+        }
+
+        private void txtPorcentaje_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
             }
         }
     }
