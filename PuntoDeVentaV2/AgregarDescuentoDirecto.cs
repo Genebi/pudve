@@ -38,10 +38,18 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var descuento = txtCantidad.Text;
+            var descuento = Convert.ToDouble(lbTotalDescuento.Text);
 
-            this.TotalDescuento = descuento;
-            this.DialogResult = DialogResult.OK;
+            if (descuento > 0)
+            {
+                this.TotalDescuento = lbTotalDescuento.Text;
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                this.DialogResult = DialogResult.Cancel;
+            }
+
             this.Close();
         }
 
@@ -54,7 +62,19 @@ namespace PuntoDeVentaV2
 
                 var cantidad = Convert.ToDouble(txtCantidad.Text);
 
-                lbTotalDescuento.Text = cantidad.ToString("0.00");
+                if (cantidad <= precioProducto)
+                {
+                    lbTotalDescuento.Text = cantidad.ToString("0.00");
+                }
+                else
+                {
+                    txtCantidad.Text = precioProducto.ToString("0.00");
+                    cantidad = Convert.ToDouble(txtCantidad.Text);
+                    lbTotalDescuento.Text = cantidad.ToString("0.00");
+
+                    txtCantidad.SelectionStart = txtCantidad.Text.Length;
+                    txtCantidad.SelectionLength = 0;
+                }
             }
             else
             {

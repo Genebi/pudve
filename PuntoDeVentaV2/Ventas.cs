@@ -464,7 +464,7 @@ namespace PuntoDeVentaV2
 
                         if (resultado == DialogResult.OK)
                         {
-                            MessageBox.Show(formDescuento.TotalDescuento);
+                            DGVentas.Rows[celda].Cells["Descuento"].Value = formDescuento.TotalDescuento;
                         }
                     }
                 }
