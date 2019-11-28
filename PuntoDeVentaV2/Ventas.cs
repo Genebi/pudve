@@ -447,51 +447,38 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var celda = DGVentas.CurrentCell.RowIndex;
-
-            //Agregar multiple
-            if (e.ColumnIndex == 10)
+            try
             {
-                indiceFila = e.RowIndex;
+                var celda = DGVentas.CurrentCell.RowIndex;
 
-                AgregarMultiplesProductos agregarMultiple = new AgregarMultiplesProductos();
-
-                agregarMultiple.FormClosed += delegate
+                // Descuento
+                if (e.ColumnIndex == 8)
                 {
-                    AgregarMultiplesProductos();
-                    agregarMultiple.Dispose();
-                };
+                    AgregarDescuentoDirecto ad = new AgregarDescuentoDirecto();
 
-                agregarMultiple.ShowDialog();
-            }
-
-            //Agregar individual
-            if (e.ColumnIndex == 11)
-            {
-                int cantidad  = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value) + 1;
-                float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
-
-                DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
-                DGVentas.Rows[celda].Cells["Importe"].Value = importe;
-
-                int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
-                int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
-
-                if (tipoDescuento > 0)
-                {
-                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                    CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
+                    ad.ShowDialog();
                 }
-            }
 
-            //Restar individual
-            if (e.ColumnIndex == 12)
-            {
-                int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
-
-                if (cantidad > 0)
+                // Agregar multiple
+                if (e.ColumnIndex == 10)
                 {
-                    cantidad -= 1;
+                    indiceFila = e.RowIndex;
+
+                    AgregarMultiplesProductos agregarMultiple = new AgregarMultiplesProductos();
+
+                    agregarMultiple.FormClosed += delegate
+                    {
+                        AgregarMultiplesProductos();
+                        agregarMultiple.Dispose();
+                    };
+
+                    agregarMultiple.ShowDialog();
+                }
+
+                // Agregar individual
+                if (e.ColumnIndex == 11)
+                {
+                    int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value) + 1;
                     float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
 
                     DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
@@ -506,13 +493,42 @@ namespace PuntoDeVentaV2
                         CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
                     }
                 }
-            }
 
-            //Eliminar individual
-            if (e.ColumnIndex == 13)
-            {
-                DGVentas.Rows.RemoveAt(celda);
+                // Restar individual
+                if (e.ColumnIndex == 12)
+                {
+                    int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
+
+                    if (cantidad > 0)
+                    {
+                        cantidad -= 1;
+                        float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
+
+                        DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
+                        DGVentas.Rows[celda].Cells["Importe"].Value = importe;
+
+                        int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+                        int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
+
+                        if (tipoDescuento > 0)
+                        {
+                            string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                            CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
+                        }
+                    }
+                }
+
+                // Eliminar individual
+                if (e.ColumnIndex == 13)
+                {
+                    DGVentas.Rows.RemoveAt(celda);
+                }
             }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            
 
             DGVentas.ClearSelection();
             CantidadesFinalesVenta();
