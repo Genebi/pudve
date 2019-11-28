@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
         public static int DetallesProductoGenerales;
         public static int ProductMessage;
         public static int CodigoBarrasGenerado;
+        public static int Empleados;
     #endregion VariablesTablas
 
         public DBTables()

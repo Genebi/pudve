@@ -337,6 +337,10 @@ namespace PuntoDeVentaV2
                         check.Width = 90;
                         check.Height = 24;
                         check.Location = new Point(10, 10);
+                        if (value.Equals("true"))
+                        {
+                            check.Checked = false;
+                        }
                         check.CheckedChanged += checkBoxProveedor_CheckedChanged;
                         panelContenido.Controls.Add(check);
                         panelContenedor.Controls.Add(panelContenido);
@@ -401,6 +405,10 @@ namespace PuntoDeVentaV2
                         checkDetalleGral.Width = 90;
                         checkDetalleGral.Height = 24;
                         checkDetalleGral.Location = new Point(10, 10);
+                        if (value.Equals("true"))
+                        {
+                            checkDetalleGral.Checked = false;
+                        }
                         checkDetalleGral.CheckedChanged += checkBoxDetalleGral_CheckedChanged;
                         
                         panelContenido.Controls.Add(checkDetalleGral);
@@ -737,47 +745,57 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
                 validarChkBoxPrecio();
             }
-
-            if (Properties.Settings.Default.chkFiltroProveedor.Equals(true))
-            {
-                chckBoxProveedor.Checked = Properties.Settings.Default.chkFiltroProveedor;
-
-                string queryProviderList = $"SELECT ID, Nombre FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
-
-                dtProveedor = cn.CargarDatos(queryProviderList);
-                if (dtProveedor.Rows.Count > 0)
-                {
-                    comboBoxProveedor.DataSource = dtProveedor;
-                    comboBoxProveedor.DisplayMember = "Nombre";
-                    comboBoxProveedor.ValueMember = "ID";
-                }
-                else if (dtProveedor.Rows.Count < 0)
-                {
-                    comboBoxProveedor.Items.Add("No Tiene Proveedores para seleccionar...");
-                }
-                comboBoxProveedor.Enabled = true;
-            }
-            else if (Properties.Settings.Default.chkFiltroProveedor.Equals(false))
-            {
-                chckBoxProveedor.Checked = Properties.Settings.Default.chkFiltroProveedor;
-
-                string queryProviderList = $"SELECT ID, Nombre FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
-
-                dtProveedor = cn.CargarDatos(queryProviderList);
-                if (dtProveedor.Rows.Count > 0)
-                {
-                    comboBoxProveedor.DataSource = dtProveedor;
-                    comboBoxProveedor.DisplayMember = "Nombre";
-                    comboBoxProveedor.ValueMember = "ID";
-                }
-                else if (dtProveedor.Rows.Count < 0)
-                {
-                    comboBoxProveedor.Items.Add("No Tiene Proveedores para seleccionar...");
-                }
-                comboBoxProveedor.Enabled = false;
-            }
+            
             loadFormConfig();
             BuscarChkBoxListView(chkDatabase);
+
+            verificarChkBoxDinamicos();
+        }
+
+        private void verificarChkBoxDinamicos()
+        {
+            bool verificado = false;
+            foreach (Control controlHijo in fLPDetalleProducto.Controls)
+            {
+                if (controlHijo is Panel)
+                {
+                    foreach (Control subControlHijo in controlHijo.Controls)
+                    {
+                        if (subControlHijo is Panel)
+                        {
+                            foreach (Control intoSubControlHijo in subControlHijo.Controls)
+                            {
+                                if (intoSubControlHijo is CheckBox)
+                                {
+                                    CheckBox chk;
+                                    chk = (CheckBox)intoSubControlHijo;
+                                    if (chk.Checked.Equals(true))
+                                    {
+                                        verificado = chk.Checked;
+                                    }
+                                    else if (chk.Checked.Equals(false))
+                                    {
+                                        verificado = chk.Checked;
+                                    }
+                                }
+                                if (intoSubControlHijo is ComboBox)
+                                {
+                                    ComboBox cb;
+                                    cb = (ComboBox)intoSubControlHijo;
+                                    if (verificado.Equals(true))
+                                    {
+                                        cb.Enabled = true;
+                                    }
+                                    else if (verificado.Equals(false))
+                                    {
+                                        cb.Enabled = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void validarChkBoxStock()
@@ -906,19 +924,6 @@ namespace PuntoDeVentaV2
             cbTipoFiltroPrecio.DroppedDown = true;
         }
 
-        private void comboBoxProveedor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            filtroProveedor = Properties.Settings.Default.chkFiltroProveedor;
-
-            strOpcionCBProveedor = Convert.ToString(comboBoxProveedor.SelectedItem);
-
-            if (filtroProveedor.Equals(true))
-            {
-                string valor = ((System.Data.DataRowView)comboBoxProveedor.SelectedItem).Row.ItemArray[0].ToString();
-                strFiltroProveedor = $"Prov.ID = {valor}";
-            }
-        }
-
         private void chkBoxPrecio_CheckedChanged(object sender, EventArgs e)
         {
             validarChkBoxPrecio();
@@ -950,8 +955,6 @@ namespace PuntoDeVentaV2
             filtroStock = Properties.Settings.Default.chkFiltroStock;
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
             filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
-            comboBoxProveedor_SelectedIndexChanged(sender, e);
-            filtroProveedor = Properties.Settings.Default.chkFiltroProveedor;
 
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección",
                                                   "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -1128,36 +1131,6 @@ namespace PuntoDeVentaV2
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void chckBoxProveedor_CheckedChanged(object sender, EventArgs e)
-        {
-            validarChkBoxProveedor();
-        }
-
-        private void validarChkBoxProveedor()
-        {
-            if (chckBoxProveedor.Checked.Equals(true))
-            {
-                filtroProveedor = Convert.ToBoolean(chckBoxProveedor.Checked);
-
-                Properties.Settings.Default.chkFiltroProveedor = filtroProveedor;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
-
-                comboBoxProveedor.Enabled = true;
-                comboBoxProveedor.Focus();
-            }
-            else if (chckBoxProveedor.Checked.Equals(false))
-            {
-                filtroProveedor = Convert.ToBoolean(chckBoxProveedor.Checked);
-
-                Properties.Settings.Default.chkFiltroProveedor = filtroProveedor;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
-
-                comboBoxProveedor.Enabled = false;
-            }
         }
     }
 }

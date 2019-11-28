@@ -36,8 +36,6 @@
             this.txtCantStock = new System.Windows.Forms.TextBox();
             this.txtCantPrecio = new System.Windows.Forms.TextBox();
             this.cbTipoFiltroPrecio = new System.Windows.Forms.ComboBox();
-            this.comboBoxProveedor = new System.Windows.Forms.ComboBox();
-            this.chckBoxProveedor = new System.Windows.Forms.CheckBox();
             this.chkBoxPrecio = new System.Windows.Forms.CheckBox();
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
             this.btnAplicar = new System.Windows.Forms.Button();
@@ -52,8 +50,6 @@
             this.groupBox1.Controls.Add(this.fLPDetalleProducto);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.panel1);
-            this.groupBox1.Controls.Add(this.comboBoxProveedor);
-            this.groupBox1.Controls.Add(this.chckBoxProveedor);
             this.groupBox1.Controls.Add(this.chkBoxPrecio);
             this.groupBox1.Controls.Add(this.chkBoxStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 23);
@@ -67,9 +63,9 @@
             // 
             this.fLPDetalleProducto.AutoScroll = true;
             this.fLPDetalleProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 167);
+            this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 122);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(512, 100);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(512, 133);
             this.fLPDetalleProducto.TabIndex = 11;
             this.fLPDetalleProducto.WrapContents = false;
             // 
@@ -78,7 +74,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(58, 111);
+            this.label1.Location = new System.Drawing.Point(58, 102);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(385, 20);
             this.label1.TabIndex = 10;
@@ -90,9 +86,9 @@
             this.panel1.Controls.Add(this.txtCantStock);
             this.panel1.Controls.Add(this.txtCantPrecio);
             this.panel1.Controls.Add(this.cbTipoFiltroPrecio);
-            this.panel1.Location = new System.Drawing.Point(115, 19);
+            this.panel1.Location = new System.Drawing.Point(81, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(403, 79);
+            this.panel1.Size = new System.Drawing.Size(437, 79);
             this.panel1.TabIndex = 8;
             // 
             // cbTipoFiltroStock
@@ -107,9 +103,9 @@
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltroStock.Location = new System.Drawing.Point(16, 8);
+            this.cbTipoFiltroStock.Location = new System.Drawing.Point(49, 8);
             this.cbTipoFiltroStock.Name = "cbTipoFiltroStock";
-            this.cbTipoFiltroStock.Size = new System.Drawing.Size(272, 21);
+            this.cbTipoFiltroStock.Size = new System.Drawing.Size(273, 21);
             this.cbTipoFiltroStock.TabIndex = 1;
             this.cbTipoFiltroStock.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroStock_SelectedIndexChanged);
             this.cbTipoFiltroStock.Click += new System.EventHandler(this.cbTipoFiltroStock_Click);
@@ -117,7 +113,7 @@
             // txtCantStock
             // 
             this.txtCantStock.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtCantStock.Location = new System.Drawing.Point(310, 6);
+            this.txtCantStock.Location = new System.Drawing.Point(342, 6);
             this.txtCantStock.Name = "txtCantStock";
             this.txtCantStock.Size = new System.Drawing.Size(77, 23);
             this.txtCantStock.TabIndex = 2;
@@ -128,7 +124,7 @@
             // txtCantPrecio
             // 
             this.txtCantPrecio.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtCantPrecio.Location = new System.Drawing.Point(310, 42);
+            this.txtCantPrecio.Location = new System.Drawing.Point(342, 42);
             this.txtCantPrecio.Name = "txtCantPrecio";
             this.txtCantPrecio.Size = new System.Drawing.Size(77, 23);
             this.txtCantPrecio.TabIndex = 5;
@@ -148,38 +144,17 @@
             "Igual Que",
             "Mayor Que",
             "Menor Que"});
-            this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(16, 44);
+            this.cbTipoFiltroPrecio.Location = new System.Drawing.Point(49, 44);
             this.cbTipoFiltroPrecio.Name = "cbTipoFiltroPrecio";
-            this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(272, 21);
+            this.cbTipoFiltroPrecio.Size = new System.Drawing.Size(273, 21);
             this.cbTipoFiltroPrecio.TabIndex = 4;
             this.cbTipoFiltroPrecio.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroPrecio_SelectedIndexChanged);
             this.cbTipoFiltroPrecio.Click += new System.EventHandler(this.cbTipoFiltroPrecio_Click);
             // 
-            // comboBoxProveedor
-            // 
-            this.comboBoxProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxProveedor.FormattingEnabled = true;
-            this.comboBoxProveedor.Location = new System.Drawing.Point(131, 142);
-            this.comboBoxProveedor.Name = "comboBoxProveedor";
-            this.comboBoxProveedor.Size = new System.Drawing.Size(371, 21);
-            this.comboBoxProveedor.TabIndex = 7;
-            this.comboBoxProveedor.SelectedIndexChanged += new System.EventHandler(this.comboBoxProveedor_SelectedIndexChanged);
-            // 
-            // chckBoxProveedor
-            // 
-            this.chckBoxProveedor.AutoSize = true;
-            this.chckBoxProveedor.Location = new System.Drawing.Point(32, 144);
-            this.chckBoxProveedor.Name = "chckBoxProveedor";
-            this.chckBoxProveedor.Size = new System.Drawing.Size(75, 17);
-            this.chckBoxProveedor.TabIndex = 6;
-            this.chckBoxProveedor.Text = "Proveedor";
-            this.chckBoxProveedor.UseVisualStyleBackColor = true;
-            this.chckBoxProveedor.CheckedChanged += new System.EventHandler(this.chckBoxProveedor_CheckedChanged);
-            // 
             // chkBoxPrecio
             // 
             this.chkBoxPrecio.AutoSize = true;
-            this.chkBoxPrecio.Location = new System.Drawing.Point(32, 65);
+            this.chkBoxPrecio.Location = new System.Drawing.Point(19, 65);
             this.chkBoxPrecio.Name = "chkBoxPrecio";
             this.chkBoxPrecio.Size = new System.Drawing.Size(56, 17);
             this.chkBoxPrecio.TabIndex = 3;
@@ -190,7 +165,7 @@
             // chkBoxStock
             // 
             this.chkBoxStock.AutoSize = true;
-            this.chkBoxStock.Location = new System.Drawing.Point(32, 29);
+            this.chkBoxStock.Location = new System.Drawing.Point(19, 29);
             this.chkBoxStock.Name = "chkBoxStock";
             this.chkBoxStock.Size = new System.Drawing.Size(54, 17);
             this.chkBoxStock.TabIndex = 0;
@@ -282,8 +257,6 @@
         private System.Windows.Forms.TextBox txtCantPrecio;
         private System.Windows.Forms.ComboBox cbTipoFiltroPrecio;
         private System.Windows.Forms.Button btnClose;
-        private System.Windows.Forms.CheckBox chckBoxProveedor;
-        private System.Windows.Forms.ComboBox comboBoxProveedor;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel fLPDetalleProducto;
