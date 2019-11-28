@@ -221,17 +221,13 @@ namespace PuntoDeVentaV2
             {
                 AbrirFormulario<ListadoVentas>();
 
-<<<<<<< HEAD
-            ListadoVentas.recargarDatos = true;
-            ListadoVentas.abrirNuevaVenta = true;
-=======
+                ListadoVentas.recargarDatos = true;
                 ListadoVentas.abrirNuevaVenta = true;
             }
             else
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
->>>>>>> ApartadoEmpleados
         }
 
         private void btnClientes_Click(object sender, EventArgs e)
