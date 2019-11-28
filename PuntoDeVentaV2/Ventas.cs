@@ -1984,6 +1984,16 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
         {
+            var busqueda = txtBuscadorProducto.Text;
+
+            if (busqueda.Equals(".4."))
+            {
+                timerBusqueda.Interval = 1;
+                txtBuscadorProducto.Text = string.Empty;
+                btnAbrirCaja.PerformClick();
+                return;
+            }
+
             txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
 
             if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
