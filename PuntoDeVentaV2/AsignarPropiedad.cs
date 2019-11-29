@@ -79,6 +79,8 @@ namespace PuntoDeVentaV2
                 {
                     Dictionary<int, string> lista = new Dictionary<int, string>();
 
+                    lista.Add(0, "Seleccionar proveedor...");
+
                     foreach (string proveedor in listaProveedores)
                     {
                         var info = proveedor.Split('-');
@@ -101,6 +103,26 @@ namespace PuntoDeVentaV2
                     panelContenedor.Controls.Add(GenerarBoton(0, "cancelarProveedor"));
                     panelContenedor.Controls.Add(GenerarBoton(1, "aceptarProveedor"));
 
+                    // Verificamos si fue solo un producto el que se selecciono para buscar si ya tiene
+                    // proveedor registrado, si tiene uno registrado ese producto lo selecciona por defecto
+                    // en el combobox
+                    if (productos.Count == 1)
+                    {
+                        var idProducto = productos.Keys.First();
+                        var detalleProducto = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                        if (detalleProducto.Length > 0)
+                        {
+                            var idProveedor = Convert.ToInt32(detalleProducto[1]);
+
+                            var datosProveedor = mb.ObtenerDatosProveedor(idProveedor, FormPrincipal.userID);
+
+                            if (datosProveedor.Length > 0)
+                            {
+                                cbProveedores.SelectedValue = idProveedor;
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -243,27 +265,35 @@ namespace PuntoDeVentaV2
                 var idProveedor = Convert.ToInt32(combo.SelectedValue.ToString());
                 var proveedor = combo.Text;
                 
-                foreach (var producto in productos)
+                if (idProveedor > 0)
                 {
-                    // Comprobar si existe registro en la tabla DetallesProducto
-                    var existe = mb.DetallesProducto(producto.Key, FormPrincipal.userID);
+                    foreach (var producto in productos)
+                    {
+                        // Comprobar si existe registro en la tabla DetallesProducto
+                        var existe = mb.DetallesProducto(producto.Key, FormPrincipal.userID);
 
-                    datos = new string[] {
+                        datos = new string[] {
                             producto.Key.ToString(), FormPrincipal.userID.ToString(),
                             proveedor, idProveedor.ToString()
-                    };
+                        };
 
-                    if (existe.Length > 0)
-                    {
-                        // Hacemos un UPDATE
-                        cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos, 1));
-                    }
-                    else
-                    {
-                        // Hacemos un INSERT
-                        cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos));
+                        if (existe.Length > 0)
+                        {
+                            // Hacemos un UPDATE
+                            cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos, 1));
+                        }
+                        else
+                        {
+                            // Hacemos un INSERT
+                            cn.EjecutarConsulta(cs.GuardarProveedorProducto(datos));
+                        }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Es necesario seleccionar un proveedor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }  
             }
             else
             {

@@ -1375,6 +1375,7 @@ namespace PuntoDeVentaV2
 
         private void btnDetalleFacturacion_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show("Entro aqui precio | " + precioProducto);
             if (txtPrecioProducto.Text == "")
             {
                 MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
