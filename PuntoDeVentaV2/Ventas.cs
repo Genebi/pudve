@@ -215,8 +215,10 @@ namespace PuntoDeVentaV2
             {
                 int idProducto = 0;
 
+                string codigo = txtBuscadorProducto.Text.Trim();
+
                 // Verificamos si existe en la tabla de codigos de barra extra
-                var datosTmp = mb.BuscarCodigoBarrasExtra(txtBuscadorProducto.Text.Trim());
+                var datosTmp = mb.BuscarCodigoBarrasExtra(codigo);
 
                 if (datosTmp.Length > 0)
                 {
@@ -232,7 +234,7 @@ namespace PuntoDeVentaV2
 
                 if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
                 {
-                    string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{txtBuscadorProducto.Text}' OR CodigoBarras = '{txtBuscadorProducto.Text}') AND Status = 1";
+                    string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1";
 
                     DataTable searchProd = cn.CargarDatos(querySearchProd);
 
@@ -261,6 +263,21 @@ namespace PuntoDeVentaV2
                     AgregarProducto(datosProducto);
 
                     existe = true;
+                }
+                else
+                {
+                    var rutaSonido = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Sounds\sonido_alarma.wav";
+                    var player = new System.Media.SoundPlayer(rutaSonido);
+                    player.Play();
+
+                    var respuesta = MessageBox.Show($"El código o clave {codigo} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    if (respuesta == DialogResult.OK)
+                    {
+                        txtBuscadorProducto.Text = string.Empty;
+                        txtBuscadorProducto.Focus();
+                        player.Stop();
+                    }
                 }
             }
 
