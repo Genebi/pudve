@@ -10,6 +10,8 @@ using System.Text.RegularExpressions;
 using System.Data;
 using System.Linq;
 using System.Collections.Generic;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 
 namespace PuntoDeVentaV2
 {
@@ -266,9 +268,8 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var rutaSonido = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Sounds\sonido_alarma.wav";
-                    var player = new System.Media.SoundPlayer(rutaSonido);
-                    player.Play();
+                    // Se reproducto cuando el codigo o clave buscado no esta registrado
+                    ReproducirSonido();
 
                     var respuesta = MessageBox.Show($"El código o clave {codigo} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -276,12 +277,25 @@ namespace PuntoDeVentaV2
                     {
                         txtBuscadorProducto.Text = string.Empty;
                         txtBuscadorProducto.Focus();
-                        player.Stop();
                     }
                 }
             }
 
             return existe;
+        }
+
+        private void ReproducirSonido()
+        {
+            var rutaSonido = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Sounds\sonido_alarma.wav";
+
+            var archivo = new AudioFileReader(rutaSonido);
+            var trimmed = new OffsetSampleProvider(archivo);
+            trimmed.SkipOver = TimeSpan.FromSeconds(0);
+            trimmed.Take = TimeSpan.FromSeconds(2);
+
+            var player = new WaveOutEvent();
+            player.Init(trimmed);
+            player.Play();
         }
 
         private void AgregarProducto(string[] datosProducto)
