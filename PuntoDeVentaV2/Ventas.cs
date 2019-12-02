@@ -199,7 +199,7 @@ namespace PuntoDeVentaV2
                     buscarVG = true;
 
                     //txtBuscadorProducto_KeyUp(sender, e);
-                    OperacionBusqueda();
+                    OperacionBusqueda(1);
 
                     sumarProducto = false;
                     restarProducto = false;
@@ -213,74 +213,79 @@ namespace PuntoDeVentaV2
         {
             bool existe = false;
 
-            if (txtBuscadorProducto.Text != "BUSCAR PRODUCTO O SERVICIO...")
+            var busqueda = txtBuscadorProducto.Text;
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                int idProducto = 0;
-
-                string codigo = txtBuscadorProducto.Text.Trim();
-
-                // Verificamos si existe en la tabla de codigos de barra extra
-                var datosTmp = mb.BuscarCodigoBarrasExtra(codigo);
-
-                if (datosTmp.Length > 0)
+                if (txtBuscadorProducto.Text != "BUSCAR PRODUCTO O SERVICIO...")
                 {
-                    // Verificar que pertenece al usuario
-                    var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+                    int idProducto = 0;
 
-                    if (verificarUsuario)
+                    string codigo = txtBuscadorProducto.Text.Trim();
+
+                    // Verificamos si existe en la tabla de codigos de barra extra
+                    var datosTmp = mb.BuscarCodigoBarrasExtra(codigo);
+
+                    if (datosTmp.Length > 0)
                     {
-                        idProducto = Convert.ToInt32(datosTmp[0]);
-                    }
-                }
+                        // Verificar que pertenece al usuario
+                        var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
 
-
-                if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
-                {
-                    string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1";
-
-                    DataTable searchProd = cn.CargarDatos(querySearchProd);
-
-                    if (searchProd.Rows.Count > 0)
-                    {
-                        idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
-                    }
-                }
-                
-
-                if (idProducto > 0)
-                {
-                    using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
-                    {
-                        if (dtProdMessg.Rows.Count > 0)
+                        if (verificarUsuario)
                         {
-                            drProdMessg = dtProdMessg.Rows[0];
-                            MessageBox.Show(drProdMessg["ProductOfMessage"].ToString().ToUpper(), "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            idProducto = Convert.ToInt32(datosTmp[0]);
                         }
                     }
 
-                    string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                    txtBuscadorProducto.Text = "";
-                    txtBuscadorProducto.Focus();
-                    ocultarResultados();
-                    AgregarProducto(datosProducto);
 
-                    existe = true;
-                }
-                else
-                {
-                    // Se reproducto cuando el codigo o clave buscado no esta registrado
-                    /*ReproducirSonido();
-
-                    var respuesta = MessageBox.Show($"El código o clave {codigo} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    if (respuesta == DialogResult.OK)
+                    if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
                     {
-                        txtBuscadorProducto.Text = string.Empty;
+                        string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1";
+
+                        DataTable searchProd = cn.CargarDatos(querySearchProd);
+
+                        if (searchProd.Rows.Count > 0)
+                        {
+                            idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
+                        }
+                    }
+
+
+                    if (idProducto > 0)
+                    {
+                        using (dtProdMessg = cn.CargarDatos(cs.ObtenerProductMessage(Convert.ToString(idProducto))))
+                        {
+                            if (dtProdMessg.Rows.Count > 0)
+                            {
+                                drProdMessg = dtProdMessg.Rows[0];
+                                MessageBox.Show(drProdMessg["ProductOfMessage"].ToString().ToUpper(), "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+
+                        string[] datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                        txtBuscadorProducto.Text = "";
                         txtBuscadorProducto.Focus();
-                    }*/
+                        ocultarResultados();
+                        AgregarProducto(datosProducto);
+
+                        existe = true;
+                    }
+                    else
+                    {
+                        // Se reproducto cuando el codigo o clave buscado no esta registrado
+                        /*ReproducirSonido();
+
+                        var respuesta = MessageBox.Show($"El código o clave {codigo} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        if (respuesta == DialogResult.OK)
+                        {
+                            txtBuscadorProducto.Text = string.Empty;
+                            txtBuscadorProducto.Focus();
+                        }*/
+                    }
                 }
             }
-
+            
             return existe;
         }
 
@@ -359,7 +364,9 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\no-image.png");
+                            //PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\no-image.png");
+                            PBImagen.Image = null;
+                            PBImagen.Refresh();
                         }
 
                         break;
@@ -450,7 +457,9 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\no-image.png");
+                    //PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\no-image.png");
+                    PBImagen.Image = null;
+                    PBImagen.Refresh();
                 }
 
                 //row.Cells["Importe"].Value = datosProducto[2];
@@ -2053,7 +2062,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void OperacionBusqueda()
+        private void OperacionBusqueda(int tipo = 0)
         {
             listaProductos.Items.Clear();
 
@@ -2067,7 +2076,7 @@ namespace PuntoDeVentaV2
 
             // Regresa un diccionario
             //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
-            var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text);
+            var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim());
             int coincidencias = resultados.Count;
 
             if (coincidencias > 0)
@@ -2091,6 +2100,22 @@ namespace PuntoDeVentaV2
                     listaProductos.Items.Add(item.Value);
                     listaProductos.Visible = true;
                     listaProductos.SelectedIndex = 0;
+                }
+            }
+            else
+            {
+                if (tipo == 1)
+                {
+                    // Se reproducto cuando el codigo o clave buscado no esta registrado
+                    ReproducirSonido();
+
+                    var respuesta = MessageBox.Show($"El código o clave {txtBuscadorProducto.Text} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    if (respuesta == DialogResult.OK)
+                    {
+                        txtBuscadorProducto.Text = string.Empty;
+                        txtBuscadorProducto.Focus();
+                    }
                 }
             }
 
