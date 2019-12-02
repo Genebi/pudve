@@ -745,7 +745,7 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
                 validarChkBoxPrecio();
             }
-            
+
             loadFormConfig();
             BuscarChkBoxListView(chkDatabase);
 
@@ -1125,11 +1125,6 @@ namespace PuntoDeVentaV2
                 producto.inicializarVariablesFiltro();
             }
 
-            this.Close();
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
             this.Close();
         }
     }

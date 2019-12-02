@@ -40,7 +40,6 @@
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,7 +53,7 @@
             this.groupBox1.Controls.Add(this.chkBoxStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(524, 276);
+            this.groupBox1.Size = new System.Drawing.Size(524, 268);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Seleccion de Filtrado: ";
@@ -181,7 +180,7 @@
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(430, 305);
+            this.btnAplicar.Location = new System.Drawing.Point(338, 319);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
             this.btnAplicar.TabIndex = 6;
@@ -197,7 +196,7 @@
             this.btnClean.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClean.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClean.ForeColor = System.Drawing.Color.White;
-            this.btnClean.Location = new System.Drawing.Point(223, 305);
+            this.btnClean.Location = new System.Drawing.Point(111, 319);
             this.btnClean.Name = "btnClean";
             this.btnClean.Size = new System.Drawing.Size(95, 43);
             this.btnClean.TabIndex = 7;
@@ -205,27 +204,11 @@
             this.btnClean.UseVisualStyleBackColor = false;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
-            // btnClose
-            // 
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Century", 12F);
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(27, 305);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(95, 43);
-            this.btnClose.TabIndex = 8;
-            this.btnClose.Text = "Cerrar";
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(576, 396);
-            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.groupBox1);
@@ -256,7 +239,6 @@
         private System.Windows.Forms.CheckBox chkBoxPrecio;
         private System.Windows.Forms.TextBox txtCantPrecio;
         private System.Windows.Forms.ComboBox cbTipoFiltroPrecio;
-        private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel fLPDetalleProducto;
