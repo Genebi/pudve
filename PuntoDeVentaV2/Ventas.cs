@@ -269,7 +269,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     // Se reproducto cuando el codigo o clave buscado no esta registrado
-                    ReproducirSonido();
+                    /*ReproducirSonido();
 
                     var respuesta = MessageBox.Show($"El código o clave {codigo} no esta registrado en el sistema", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -277,7 +277,7 @@ namespace PuntoDeVentaV2
                     {
                         txtBuscadorProducto.Text = string.Empty;
                         txtBuscadorProducto.Focus();
-                    }
+                    }*/
                 }
             }
 
