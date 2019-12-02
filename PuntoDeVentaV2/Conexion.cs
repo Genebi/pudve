@@ -267,15 +267,16 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                lista.Add(dr["ID"].ToString());    //ID producto
-                lista.Add(dr["Nombre"].ToString());    //Nombre
-                lista.Add(dr["Precio"].ToString());    //Precio
-                lista.Add(dr["TipoDescuento"].ToString());    //Tipo descuento
-                lista.Add(dr["Stock"].ToString());    //Stock
-                lista.Add(dr["Tipo"].ToString());   //Tipo (producto o servicio)
-                lista.Add(dr["ClaveInterna"].ToString());    //Clave
-                lista.Add(dr["CodigoBarras"].ToString());    //Codigo de barras
+                lista.Add(dr["ID"].ToString()); // ID producto
+                lista.Add(dr["Nombre"].ToString()); // Nombre
+                lista.Add(dr["Precio"].ToString()); // Precio
+                lista.Add(dr["TipoDescuento"].ToString()); // Tipo descuento
+                lista.Add(dr["Stock"].ToString()); // Stock
+                lista.Add(dr["Tipo"].ToString()); // Tipo (producto o servicio)
+                lista.Add(dr["ClaveInterna"].ToString()); // Clave
+                lista.Add(dr["CodigoBarras"].ToString()); // Codigo de barras
                 lista.Add(dr["StockNecesario"].ToString());
+                lista.Add(dr["ProdImage"].ToString()); // Imagen
             }
 
             dr.Close();

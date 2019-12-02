@@ -75,17 +75,17 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.PBImagen = new System.Windows.Forms.PictureBox();
             this.lbPS = new System.Windows.Forms.Label();
             this.nudCantidadPS = new System.Windows.Forms.NumericUpDown();
             this.lbCantidad = new System.Windows.Forms.Label();
             this.btnTerminarVenta = new System.Windows.Forms.Button();
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
-            this.PBImagen = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidadPS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidadPS)).BeginInit();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -239,14 +239,14 @@
             this.Cantidad.HeaderText = "Cantidad";
             this.Cantidad.Name = "Cantidad";
             this.Cantidad.ReadOnly = true;
-            this.Cantidad.Width = 65;
+            this.Cantidad.Width = 55;
             // 
             // Precio
             // 
             this.Precio.HeaderText = "Precio";
             this.Precio.Name = "Precio";
             this.Precio.ReadOnly = true;
-            this.Precio.Width = 65;
+            this.Precio.Width = 50;
             // 
             // Descripcion
             // 
@@ -267,7 +267,7 @@
             this.Importe.HeaderText = "Importe";
             this.Importe.Name = "Importe";
             this.Importe.ReadOnly = true;
-            this.Importe.Width = 65;
+            this.Importe.Width = 50;
             // 
             // AgregarMultiple
             // 
@@ -304,7 +304,7 @@
             this.NumeroColumna.ReadOnly = true;
             this.NumeroColumna.Visible = false;
             // 
-            // ImageProducto
+            // ImagenProducto
             // 
             this.ImagenProducto.HeaderText = "ImagenProducto";
             this.ImagenProducto.Name = "ImagenProducto";
@@ -586,6 +586,16 @@
             this.panel1.Size = new System.Drawing.Size(1221, 423);
             this.panel1.TabIndex = 34;
             // 
+            // PBImagen
+            // 
+            this.PBImagen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PBImagen.Location = new System.Drawing.Point(998, 99);
+            this.PBImagen.Name = "PBImagen";
+            this.PBImagen.Size = new System.Drawing.Size(220, 220);
+            this.PBImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PBImagen.TabIndex = 42;
+            this.PBImagen.TabStop = false;
+            // 
             // lbPS
             // 
             this.lbPS.AutoSize = true;
@@ -660,15 +670,6 @@
             this.timerBusqueda.Interval = 1000;
             this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
-            // PBImagen
-            // 
-            this.PBImagen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PBImagen.Location = new System.Drawing.Point(968, 70);
-            this.PBImagen.Name = "PBImagen";
-            this.PBImagen.Size = new System.Drawing.Size(250, 250);
-            this.PBImagen.TabIndex = 42;
-            this.PBImagen.TabStop = false;
-            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -687,8 +688,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCantidadPS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCantidadPS)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

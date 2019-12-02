@@ -350,6 +350,18 @@ namespace PuntoDeVentaV2
 
                         CantidadesFinalesVenta();
 
+                        // Imagen del producto
+                        var imagen = fila.Cells["ImagenProducto"].Value.ToString();
+
+                        if (!string.IsNullOrEmpty(imagen))
+                        {
+                            PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen);
+                        }
+                        else
+                        {
+                            PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\no-image.png");
+                        }
+
                         break;
                     }
                 }
@@ -428,6 +440,18 @@ namespace PuntoDeVentaV2
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 row.Cells["Descuento"].Value = 0;
+                row.Cells["ImagenProducto"].Value = datosProducto[9];
+
+                var imagen = row.Cells["ImagenProducto"].Value.ToString();
+
+                if (!string.IsNullOrEmpty(imagen))
+                {
+                    PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen);
+                }
+                else
+                {
+                    PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\no-image.png");
+                }
 
                 //row.Cells["Importe"].Value = datosProducto[2];
 
