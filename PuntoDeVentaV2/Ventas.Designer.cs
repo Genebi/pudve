@@ -451,12 +451,12 @@
             // 
             this.lbTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTotal.AutoSize = true;
-            this.lbTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotal.Location = new System.Drawing.Point(740, 246);
+            this.lbTotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotal.Location = new System.Drawing.Point(740, 262);
             this.lbTotal.Name = "lbTotal";
-            this.lbTotal.Size = new System.Drawing.Size(43, 17);
+            this.lbTotal.Size = new System.Drawing.Size(74, 22);
             this.lbTotal.TabIndex = 25;
-            this.lbTotal.Text = "Total:";
+            this.lbTotal.Text = "Total $:";
             // 
             // cNumeroArticulos
             // 
@@ -519,10 +519,10 @@
             // 
             this.cTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cTotal.AutoSize = true;
-            this.cTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cTotal.Location = new System.Drawing.Point(902, 246);
+            this.cTotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cTotal.Location = new System.Drawing.Point(811, 262);
             this.cTotal.Name = "cTotal";
-            this.cTotal.Size = new System.Drawing.Size(33, 17);
+            this.cTotal.Size = new System.Drawing.Size(48, 22);
             this.cTotal.TabIndex = 31;
             this.cTotal.Text = "0.00";
             // 
@@ -595,6 +595,7 @@
             // PBImagen
             // 
             this.PBImagen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PBImagen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PBImagen.Location = new System.Drawing.Point(998, 99);
             this.PBImagen.Name = "PBImagen";
             this.PBImagen.Size = new System.Drawing.Size(220, 220);
@@ -652,7 +653,7 @@
             this.btnTerminarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTerminarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTerminarVenta.Location = new System.Drawing.Point(881, 297);
+            this.btnTerminarVenta.Location = new System.Drawing.Point(860, 297);
             this.btnTerminarVenta.Name = "btnTerminarVenta";
             this.btnTerminarVenta.Size = new System.Drawing.Size(75, 23);
             this.btnTerminarVenta.TabIndex = 37;
