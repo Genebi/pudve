@@ -834,6 +834,30 @@ namespace PuntoDeVentaV2
             cIVA.Text = totalIVA16.ToString("0.00");
             cTotal.Text = totalImporte.ToString("0.00");
             cSubtotal.Text = totalSubtotal.ToString("0.00");
+
+            // Se ocultan si las cantidades de este campo son igual a 0
+            if (totalAnticipos > 0)
+            {
+                lbAnticipo.Visible = true;
+                cAnticipo.Visible = true;
+            }
+            else
+            {
+                lbAnticipo.Visible = false;
+                cAnticipo.Visible = false;
+            }
+
+            if (totalDescuento > 0)
+            {
+                lbDescuento.Visible = true;
+                cDescuento.Visible = true;
+            }
+            else
+            {
+                lbDescuento.Visible = false;
+                cDescuento.Visible = false;
+            }
+
             cAnticipo.Text = totalAnticipos.ToString("0.00");
             cDescuento.Text = totalDescuento.ToString("0.00");
             cNumeroArticulos.Text = totalArticulos.ToString();

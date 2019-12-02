@@ -433,6 +433,7 @@
             this.lbAnticipo.Size = new System.Drawing.Size(66, 17);
             this.lbAnticipo.TabIndex = 23;
             this.lbAnticipo.Text = "Anticipo:";
+            this.lbAnticipo.Visible = false;
             // 
             // lbDescuento
             // 
@@ -444,6 +445,7 @@
             this.lbDescuento.Size = new System.Drawing.Size(81, 17);
             this.lbDescuento.TabIndex = 24;
             this.lbDescuento.Text = "Descuento:";
+            this.lbDescuento.Visible = false;
             // 
             // lbTotal
             // 
@@ -499,6 +501,7 @@
             this.cAnticipo.Size = new System.Drawing.Size(33, 17);
             this.cAnticipo.TabIndex = 29;
             this.cAnticipo.Text = "0.00";
+            this.cAnticipo.Visible = false;
             // 
             // cDescuento
             // 
@@ -510,6 +513,7 @@
             this.cDescuento.Size = new System.Drawing.Size(33, 17);
             this.cDescuento.TabIndex = 30;
             this.cDescuento.Text = "0.00";
+            this.cDescuento.Visible = false;
             // 
             // cTotal
             // 
@@ -532,6 +536,7 @@
             this.lbIVA8.Size = new System.Drawing.Size(54, 17);
             this.lbIVA8.TabIndex = 32;
             this.lbIVA8.Text = "IVA 8%:";
+            this.lbIVA8.Visible = false;
             // 
             // cIVA8
             // 
@@ -543,6 +548,7 @@
             this.cIVA8.Size = new System.Drawing.Size(33, 17);
             this.cIVA8.TabIndex = 33;
             this.cIVA8.Text = "0.00";
+            this.cIVA8.Visible = false;
             // 
             // panel1
             // 
