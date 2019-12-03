@@ -143,6 +143,27 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] ObtenerDetalleGral(int idDetalleGral, int idUsr)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM DetalleGeneral WHERE ID = '{idDetalleGral}' AND IDUsuario = '{idUsr}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[0].ToString()); //ID
+                lista.Add(dr[1].ToString()); //IDUsuario
+                lista.Add(dr[2].ToString()); //ChckName
+                lista.Add(dr[3].ToString()); //Descripcion
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] ObtenerDatosProveedor(int idProveedor, int idUsuario)
         {
             List<string> lista = new List<string>();
@@ -382,6 +403,27 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
+                lista.Add(dr["IDUsuario"].ToString());
+                lista.Add(dr["ChckName"].ToString());
+                lista.Add(dr["Descripcion"].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
+        public string[] GetDetalleGeneral(int idUsuario, string Descripcion)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = '{idUsuario}' AND Descripcion = '{Descripcion}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr["ID"].ToString());
                 lista.Add(dr["IDUsuario"].ToString());
                 lista.Add(dr["ChckName"].ToString());
                 lista.Add(dr["Descripcion"].ToString());
