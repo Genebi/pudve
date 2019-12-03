@@ -271,6 +271,15 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(string[] datos)
+        {
+            string consulta = string.Empty;
+
+            consulta = $"UPDATE DetallesProductoGenerales SET IDDetalleGral = '{datos[3]}' WHERE IDProducto = '{datos[0]}' AND IDUsuario = '{datos[1]}' AND panelContenido = '{datos[2]}'";
+
+            return consulta;
+        }
+
         public string UpdateDetalleGeneral(string oldNameSetting, string newNameSetting)
         {
             string consulta = string.Empty;
