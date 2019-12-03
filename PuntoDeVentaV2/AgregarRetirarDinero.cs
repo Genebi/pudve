@@ -67,7 +67,9 @@ namespace PuntoDeVentaV2
             txtTrans.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtVales.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
-            totalEfectivo = CajaN.totalEfectivo;
+            // NOTA: Se le suma saldo inicial a efectivo porque se tiene que guardar el valor y anteriormente
+            // se tomaba en cuenta el saldo inicial en el apartado de totales del apartado Ventas
+            totalEfectivo = CajaN.totalEfectivo + CajaN.saldoInicial;
             totalTarjeta = CajaN.totalTarjeta;
             totalVales = CajaN.totalVales;
             totalCheque = CajaN.totalCheque;
@@ -239,9 +241,7 @@ namespace PuntoDeVentaV2
                     // se le resta lo que el usuario quiere retirar menos el total retirado de cada
                     // forma de pago antes de que se haga el corte de caja
 
-                    // NOTA: Se le suma saldo inicial a efectivo porque se tiene que guardar el valor y anteriormente
-                    // se tomaba en cuenta el saldo inicial en el apartado de totales del apartado Ventas
-                    efectivo = (totalEfectivo + CajaN.saldoInicial) - efectivo;// - CajaN.retiroEfectivo;
+                    efectivo = totalEfectivo - efectivo;// - CajaN.retiroEfectivo;
                     tarjeta = totalTarjeta - tarjeta;// - CajaN.retiroTarjeta;
                     cheque = totalCheque - cheque;// - CajaN.retiroCheque;
                     vales = totalVales - vales;// - CajaN.retiroVales;
