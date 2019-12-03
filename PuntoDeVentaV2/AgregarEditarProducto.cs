@@ -1547,7 +1547,8 @@ namespace PuntoDeVentaV2
                 //Validar que el precio no sea menor al precio original del producto/servicio
                 if (Convert.ToDouble(precio) < Convert.ToDouble(txtPrecioCompra.Text))
                 {
-                    MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El precio no puede ser mayor al precio original", 
+                                    "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
                 }
@@ -1556,14 +1557,16 @@ namespace PuntoDeVentaV2
                 //searchClavIntProd();
                 if (mb.ComprobarCodigoClave(claveIn, FormPrincipal.userID))
                 {
-                    MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", 
+                                     "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 //Hacemos la busqueda que no se repita en CodigoBarra
                 //searchCodBar();
                 if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID))
                 {
-                    MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", 
+                                     "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -1692,78 +1695,6 @@ namespace PuntoDeVentaV2
                                     cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(saveDetailProd));
                                 }
                             }
-
-                            // Para guardar los detalles del producto
-                            // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
-                            //int contador = 0;
-                            //List<string> infoDetalle = new List<string>();
-
-                            //infoDetalle.Add(idProducto.ToString());
-                            //infoDetalle.Add(FormPrincipal.userID.ToString());
-
-                            //if (!string.IsNullOrWhiteSpace(infoProveedor))
-                            //{
-                            //    var auxiliar = infoProveedor.Split('|');
-                            //    var idProveedorTmp = auxiliar[0];
-                            //    var nombreProveedor = auxiliar[1];
-
-                            //    idProveedor = idProveedorTmp;
-                            //    infoDetalle.Add(nombreProveedor);
-                            //    infoDetalle.Add(idProveedor);
-                            //    contador++;
-                            //}
-                            //else
-                            //{
-                            //    infoDetalle.Add("");
-                            //    infoDetalle.Add("0");
-                            //}
-
-                            //if (!string.IsNullOrWhiteSpace(infoCategoria))
-                            //{
-                            //    var auxiliar = infoCategoria.Split('|');
-                            //    var idCategoria = auxiliar[0];
-                            //    var nombreCategoria = auxiliar[1];
-
-                            //    infoDetalle.Add(nombreCategoria);
-                            //    infoDetalle.Add(idCategoria);
-                            //    contador++;
-                            //}
-                            //else
-                            //{
-                            //    infoDetalle.Add("");
-                            //    infoDetalle.Add("0");
-                            //}
-
-                            //if (!string.IsNullOrWhiteSpace(infoUbicacion))
-                            //{
-                            //    var auxiliar = infoUbicacion.Split('|');
-                            //    var idUbicacion = auxiliar[0];
-                            //    var nombreUbicacion = auxiliar[1];
-
-                            //    infoDetalle.Add(nombreUbicacion);
-                            //    infoDetalle.Add(idUbicacion);
-                            //    contador++;
-                            //}
-                            //else
-                            //{
-                            //    infoDetalle.Add("");
-                            //    infoDetalle.Add("0");
-                            //}
-
-                            //if (contador > 0)
-                            //{
-                            //    guardar = infoDetalle.ToArray();
-                            //    //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
-
-                            //    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-                                
-                            //    FormDetalleProducto.Close();
-                            //}
-
-                            //infoProveedor = string.Empty;
-                            //infoCategoria = string.Empty;
-                            //infoUbicacion = string.Empty;
-                            // Fin del guardado de detalles del producto
                             
                             if (DatosSourceFinal == 1)
                             {
@@ -1976,78 +1907,6 @@ namespace PuntoDeVentaV2
                                     cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(saveDetailProd));
                                 }
                             }
-
-                            //// Para guardar los detalles del producto
-                            //// Ejemplo: Proveedor, Categoria, Ubicacion, etc.
-                            //int contador = 0;
-                            //List<string> infoDetalle = new List<string>();
-
-                            //infoDetalle.Add(idProducto.ToString());
-                            //infoDetalle.Add(FormPrincipal.userID.ToString());
-
-                            //if (!string.IsNullOrWhiteSpace(infoProveedor))
-                            //{
-                            //    var auxiliar = infoProveedor.Split('|');
-                            //    var idProveedorTmp = auxiliar[0];
-                            //    var nombreProveedor = auxiliar[1];
-
-                            //    idProveedor = idProveedorTmp;
-                            //    infoDetalle.Add(nombreProveedor);
-                            //    infoDetalle.Add(idProveedor);
-                            //    contador++;
-                            //}
-                            //else
-                            //{
-                            //    infoDetalle.Add("");
-                            //    infoDetalle.Add("0");
-                            //}
-
-                            //if (!string.IsNullOrWhiteSpace(infoCategoria))
-                            //{
-                            //    var auxiliar = infoCategoria.Split('|');
-                            //    var idCategoria = auxiliar[0];
-                            //    var nombreCategoria = auxiliar[1];
-
-                            //    infoDetalle.Add(nombreCategoria);
-                            //    infoDetalle.Add(idCategoria);
-                            //    contador++;
-                            //}
-                            //else
-                            //{
-                            //    infoDetalle.Add("");
-                            //    infoDetalle.Add("0");
-                            //}
-
-                            //if (!string.IsNullOrWhiteSpace(infoUbicacion))
-                            //{
-                            //    var auxiliar = infoUbicacion.Split('|');
-                            //    var idUbicacion = auxiliar[0];
-                            //    var nombreUbicacion = auxiliar[1];
-
-                            //    infoDetalle.Add(nombreUbicacion);
-                            //    infoDetalle.Add(idUbicacion);
-                            //    contador++;
-                            //}
-                            //else
-                            //{
-                            //    infoDetalle.Add("");
-                            //    infoDetalle.Add("0");
-                            //}
-
-                            //if (contador > 0)
-                            //{
-                            //    guardar = infoDetalle.ToArray();
-                            //    //guardar = new string[] { idProducto.ToString(), FormPrincipal.userID.ToString(), nombreProveedor, idProveedorTmp };
-
-                            //    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(guardar));
-
-                            //    FormDetalleProducto.Close();
-                            //}
-
-                            //infoProveedor = string.Empty;
-                            //infoCategoria = string.Empty;
-                            //infoUbicacion = string.Empty;
-                            //// Fin del guardado de detalles del producto
 
                             if (DatosSourceFinal == 1 || DatosSourceFinal == 2)
                             {
@@ -2406,7 +2265,31 @@ namespace PuntoDeVentaV2
                     queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}'  WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
-                   bool isEmpty = !detalleProductoBasico.Any();
+                    var idProveedor = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+                    string nvoNombreProveedorDetalleProducto = string.Empty;
+
+                    foreach (Control ctrlHijo in flowLayoutPanel3.Controls)
+                    {
+                        foreach (Control subCtrlHijo in ctrlHijo.Controls)
+                        {
+                            foreach (Control intoSubCtrlHijo in subCtrlHijo.Controls)
+                            {
+                                if (intoSubCtrlHijo is Label && intoSubCtrlHijo.Name.Equals("lblNombrechkProveedor"))
+                                {
+                                    if (!intoSubCtrlHijo.Text.Equals(idProveedor[2].ToString()))
+                                    {
+                                        nvoNombreProveedorDetalleProducto = intoSubCtrlHijo.Text;
+                                        var dataProvaider = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, nvoNombreProveedorDetalleProducto);
+                                        string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), dataProvaider[2].ToString(), dataProvaider[0].ToString() };
+                                        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    bool isEmpty = !detalleProductoBasico.Any();
 
                     if (!isEmpty)
                     {

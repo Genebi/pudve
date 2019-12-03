@@ -1570,7 +1570,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2019-11-21
+        ///   Looks up a localized string similar to 2019-11-26
         ///.
         /// </summary>
         internal static string checkDateStock {
@@ -1580,7 +1580,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 31
+        ///   Looks up a localized string similar to 37
         ///.
         /// </summary>
         internal static string checkStock {
@@ -6407,6 +6407,15 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("soccer_ball_o", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream sonido_alarma {
+            get {
+                return ResourceManager.GetStream("sonido_alarma", resourceCulture);
             }
         }
         
