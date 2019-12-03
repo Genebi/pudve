@@ -3294,6 +3294,9 @@
     <Content Include="PUDVE\settings\noCheckStock\checkStock.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\Sounds\sonido_alarma.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="setup.ico" />
   </ItemGroup>
   <ItemGroup />
