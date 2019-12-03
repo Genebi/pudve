@@ -44,7 +44,7 @@ namespace PuntoDeVentaV2
         public static DateTime fechaGeneral;
         public static DateTime fechaUltimoCorte;// = Convert.ToDateTime("2019-10-10 12:00:35");
 
-        private float saldoInicial = 0f;
+        public static float saldoInicial = 0f;
         private string[] cantidadesReporte;
 
         public CajaN()
@@ -60,7 +60,8 @@ namespace PuntoDeVentaV2
 
         private void CargarSaldoInicial()
         {
-            tituloSeccion.Text = "SALDO INICIAL: $" + mb.SaldoInicialCaja(FormPrincipal.userID).ToString("0.00");
+            saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
+            tituloSeccion.Text = "SALDO INICIAL: $" + saldoInicial.ToString("0.00");
         }
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
@@ -170,6 +171,8 @@ namespace PuntoDeVentaV2
             lista.Add(lbTAgregado.Text);
             lista.Add(lbTTotalCaja.Text);
 
+            lista.Add(lbTSaldoInicial.Text);
+
             return lista.ToArray();
         }
 
@@ -243,6 +246,8 @@ namespace PuntoDeVentaV2
             retiroTrans = 0f;
             retiroCredito = 0f;
 
+            int saltar = 0;
+
             while (drDos.Read())
             {
                 string operacion = drDos.GetValue(drDos.GetOrdinal("Operacion")).ToString();
@@ -251,6 +256,12 @@ namespace PuntoDeVentaV2
 
                 if (operacion == "venta" && fechaOperacion > fechaDefault)
                 {
+                    if (saltar == 0)
+                    {
+                        saltar++;
+                        continue;
+                    }
+
                     vEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
                     vTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
                     vVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
@@ -340,7 +351,7 @@ namespace PuntoDeVentaV2
             trans = vTrans + aTrans + dTrans;
             credito = vCredito;
             anticipos = vAnticipos;
-            subtotal = efectivo + tarjeta + vales + cheque + trans + credito;
+            subtotal = efectivo + tarjeta + vales + cheque + trans + credito + saldoInicial;
 
             lbTEfectivoC.Text = "$" + efectivo.ToString("0.00");
             lbTTarjetaC.Text = "$" + tarjeta.ToString("0.00");
@@ -349,6 +360,7 @@ namespace PuntoDeVentaV2
             lbTTransC.Text = "$" + trans.ToString("0.00");
             lbTCreditoC.Text = "$" + credito.ToString("0.00");
             lbTAnticiposC.Text = "$" + anticipos.ToString("0.00");
+            lbTSaldoInicial.Text = "$" + saldoInicial.ToString("0.00");
             lbTSubtotal.Text = "$" + subtotal.ToString("0.00");
             lbTDineroRetirado.Text = "$" + dineroRetirado.ToString("0.00");
             lbTTotalCaja.Text = "$" + (subtotal - dineroRetirado).ToString("0.00");
@@ -808,6 +820,40 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colAnticiposTotal);
             tabla.AddCell(colAnticiposTotalC);
 
+            // Linea de SALDO INICIAL
+            PdfPCell colSaldoInicial_I = new PdfPCell(new Phrase("", fuenteNormal));
+            colSaldoInicial_I.Colspan = 2;
+            colSaldoInicial_I.BorderWidth = 0;
+            colSaldoInicial_I.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSaldoInicial_I.Padding = 3;
+
+            PdfPCell colSaldoInicial_II = new PdfPCell(new Phrase("", fuenteNormal));
+            colSaldoInicial_II.Colspan = 2;
+            colSaldoInicial_II.BorderWidth = 0;
+            colSaldoInicial_II.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSaldoInicial_II.Padding = 3;
+
+            PdfPCell colSaldoInicial_III = new PdfPCell(new Phrase("", fuenteNormal));
+            colSaldoInicial_III.Colspan = 2;
+            colSaldoInicial_III.BorderWidth = 0;
+            colSaldoInicial_III.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSaldoInicial_III.Padding = 3;
+
+            PdfPCell colSaldoInicial_IV = new PdfPCell(new Phrase($"Saldo inicial", fuenteNormal));
+            colSaldoInicial_IV.BorderWidth = 0;
+            colSaldoInicial_IV.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSaldoInicial_IV.Padding = 3;
+
+            PdfPCell colSaldoInicialC_IV = new PdfPCell(new Phrase($"{cantidades[30]}", fuenteNormal));
+            colSaldoInicialC_IV.BorderWidth = 0;
+            colSaldoInicialC_IV.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSaldoInicialC_IV.Padding = 3;
+
+            tabla.AddCell(colSaldoInicial_I);
+            tabla.AddCell(colSaldoInicial_II);
+            tabla.AddCell(colSaldoInicial_III);
+            tabla.AddCell(colSaldoInicial_IV);
+            tabla.AddCell(colSaldoInicialC_IV);
 
             // Linea de SUBTOTAL
             PdfPCell colSubVentas = new PdfPCell(new Phrase("", fuenteNormal));

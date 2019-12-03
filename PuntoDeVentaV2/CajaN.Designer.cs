@@ -105,6 +105,8 @@
             this.lbValesC = new System.Windows.Forms.Label();
             this.lbTarjetaC = new System.Windows.Forms.Label();
             this.lbEfectivoC = new System.Windows.Forms.Label();
+            this.lbSaldoInicial = new System.Windows.Forms.Label();
+            this.lbTSaldoInicial = new System.Windows.Forms.Label();
             this.panelFondo.SuspendLayout();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
@@ -252,7 +254,7 @@
             this.tablaContenedor.Name = "tablaContenedor";
             this.tablaContenedor.RowCount = 1;
             this.tablaContenedor.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tablaContenedor.Size = new System.Drawing.Size(900, 363);
+            this.tablaContenedor.Size = new System.Drawing.Size(900, 394);
             this.tablaContenedor.TabIndex = 111;
             // 
             // panelDineroAgregado
@@ -274,7 +276,7 @@
             this.panelDineroAgregado.Controls.Add(this.lbEfectivoD);
             this.panelDineroAgregado.Location = new System.Drawing.Point(452, 4);
             this.panelDineroAgregado.Name = "panelDineroAgregado";
-            this.panelDineroAgregado.Size = new System.Drawing.Size(217, 355);
+            this.panelDineroAgregado.Size = new System.Drawing.Size(217, 386);
             this.panelDineroAgregado.TabIndex = 108;
             // 
             // tituloDinero
@@ -294,7 +296,7 @@
             this.lbTAgregado.AutoSize = true;
             this.lbTAgregado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTAgregado.ForeColor = System.Drawing.Color.Red;
-            this.lbTAgregado.Location = new System.Drawing.Point(151, 335);
+            this.lbTAgregado.Location = new System.Drawing.Point(151, 365);
             this.lbTAgregado.Name = "lbTAgregado";
             this.lbTAgregado.Size = new System.Drawing.Size(39, 17);
             this.lbTAgregado.TabIndex = 13;
@@ -306,7 +308,7 @@
             this.lbTotalAgregado.AutoSize = true;
             this.lbTotalAgregado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalAgregado.ForeColor = System.Drawing.Color.Red;
-            this.lbTotalAgregado.Location = new System.Drawing.Point(20, 335);
+            this.lbTotalAgregado.Location = new System.Drawing.Point(20, 365);
             this.lbTotalAgregado.Name = "lbTotalAgregado";
             this.lbTotalAgregado.Size = new System.Drawing.Size(101, 17);
             this.lbTotalAgregado.TabIndex = 12;
@@ -441,7 +443,7 @@
             this.panelAnticipos.Controls.Add(this.lbEfectivoA);
             this.panelAnticipos.Location = new System.Drawing.Point(228, 4);
             this.panelAnticipos.Name = "panelAnticipos";
-            this.panelAnticipos.Size = new System.Drawing.Size(217, 355);
+            this.panelAnticipos.Size = new System.Drawing.Size(217, 386);
             this.panelAnticipos.TabIndex = 109;
             // 
             // tituloAnticipos
@@ -461,7 +463,7 @@
             this.lbTAnticiposA.AutoSize = true;
             this.lbTAnticiposA.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTAnticiposA.ForeColor = System.Drawing.Color.Red;
-            this.lbTAnticiposA.Location = new System.Drawing.Point(150, 335);
+            this.lbTAnticiposA.Location = new System.Drawing.Point(150, 365);
             this.lbTAnticiposA.Name = "lbTAnticiposA";
             this.lbTAnticiposA.Size = new System.Drawing.Size(39, 17);
             this.lbTAnticiposA.TabIndex = 13;
@@ -473,7 +475,7 @@
             this.lbTotalAnticipos.AutoSize = true;
             this.lbTotalAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalAnticipos.ForeColor = System.Drawing.Color.Red;
-            this.lbTotalAnticipos.Location = new System.Drawing.Point(19, 335);
+            this.lbTotalAnticipos.Location = new System.Drawing.Point(19, 365);
             this.lbTotalAnticipos.Name = "lbTotalAnticipos";
             this.lbTotalAnticipos.Size = new System.Drawing.Size(96, 17);
             this.lbTotalAnticipos.TabIndex = 12;
@@ -612,7 +614,7 @@
             this.panelVentas.Controls.Add(this.lbEfectivo);
             this.panelVentas.Location = new System.Drawing.Point(4, 4);
             this.panelVentas.Name = "panelVentas";
-            this.panelVentas.Size = new System.Drawing.Size(217, 355);
+            this.panelVentas.Size = new System.Drawing.Size(217, 386);
             this.panelVentas.TabIndex = 107;
             // 
             // lbTAnticipos
@@ -653,7 +655,7 @@
             this.lbTVentas.AutoSize = true;
             this.lbTVentas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTVentas.ForeColor = System.Drawing.Color.Red;
-            this.lbTVentas.Location = new System.Drawing.Point(151, 335);
+            this.lbTVentas.Location = new System.Drawing.Point(151, 365);
             this.lbTVentas.Name = "lbTVentas";
             this.lbTVentas.Size = new System.Drawing.Size(39, 17);
             this.lbTVentas.TabIndex = 13;
@@ -665,7 +667,7 @@
             this.lbVentas.AutoSize = true;
             this.lbVentas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbVentas.ForeColor = System.Drawing.Color.Red;
-            this.lbVentas.Location = new System.Drawing.Point(18, 335);
+            this.lbVentas.Location = new System.Drawing.Point(18, 365);
             this.lbVentas.Name = "lbVentas";
             this.lbVentas.Size = new System.Drawing.Size(101, 17);
             this.lbVentas.TabIndex = 12;
@@ -807,8 +809,10 @@
             // 
             this.panelTotales.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelTotales.Controls.Add(this.lbTSaldoInicial);
             this.panelTotales.Controls.Add(this.lbTDineroRetirado);
             this.panelTotales.Controls.Add(this.lbTSubtotal);
+            this.panelTotales.Controls.Add(this.lbSaldoInicial);
             this.panelTotales.Controls.Add(this.lbDineroRetirado);
             this.panelTotales.Controls.Add(this.lbSubtotal);
             this.panelTotales.Controls.Add(this.lbTAnticiposC);
@@ -830,7 +834,7 @@
             this.panelTotales.Controls.Add(this.lbEfectivoC);
             this.panelTotales.Location = new System.Drawing.Point(676, 4);
             this.panelTotales.Name = "panelTotales";
-            this.panelTotales.Size = new System.Drawing.Size(220, 355);
+            this.panelTotales.Size = new System.Drawing.Size(220, 386);
             this.panelTotales.TabIndex = 111;
             // 
             // lbTDineroRetirado
@@ -838,7 +842,7 @@
             this.lbTDineroRetirado.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTDineroRetirado.AutoSize = true;
             this.lbTDineroRetirado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTDineroRetirado.Location = new System.Drawing.Point(155, 305);
+            this.lbTDineroRetirado.Location = new System.Drawing.Point(155, 335);
             this.lbTDineroRetirado.Name = "lbTDineroRetirado";
             this.lbTDineroRetirado.Size = new System.Drawing.Size(39, 17);
             this.lbTDineroRetirado.TabIndex = 22;
@@ -849,7 +853,7 @@
             this.lbTSubtotal.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTSubtotal.AutoSize = true;
             this.lbTSubtotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTSubtotal.Location = new System.Drawing.Point(154, 275);
+            this.lbTSubtotal.Location = new System.Drawing.Point(154, 305);
             this.lbTSubtotal.Name = "lbTSubtotal";
             this.lbTSubtotal.Size = new System.Drawing.Size(39, 17);
             this.lbTSubtotal.TabIndex = 21;
@@ -860,7 +864,7 @@
             this.lbDineroRetirado.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbDineroRetirado.AutoSize = true;
             this.lbDineroRetirado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDineroRetirado.Location = new System.Drawing.Point(24, 305);
+            this.lbDineroRetirado.Location = new System.Drawing.Point(24, 335);
             this.lbDineroRetirado.Name = "lbDineroRetirado";
             this.lbDineroRetirado.Size = new System.Drawing.Size(98, 17);
             this.lbDineroRetirado.TabIndex = 20;
@@ -871,7 +875,7 @@
             this.lbSubtotal.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbSubtotal.AutoSize = true;
             this.lbSubtotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtotal.Location = new System.Drawing.Point(24, 275);
+            this.lbSubtotal.Location = new System.Drawing.Point(24, 305);
             this.lbSubtotal.Name = "lbSubtotal";
             this.lbSubtotal.Size = new System.Drawing.Size(107, 17);
             this.lbSubtotal.TabIndex = 19;
@@ -917,7 +921,7 @@
             this.lbTTotalCaja.AutoSize = true;
             this.lbTTotalCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTTotalCaja.ForeColor = System.Drawing.Color.Red;
-            this.lbTTotalCaja.Location = new System.Drawing.Point(155, 335);
+            this.lbTTotalCaja.Location = new System.Drawing.Point(154, 365);
             this.lbTTotalCaja.Name = "lbTTotalCaja";
             this.lbTTotalCaja.Size = new System.Drawing.Size(39, 17);
             this.lbTTotalCaja.TabIndex = 13;
@@ -929,7 +933,7 @@
             this.lbTotalCaja.AutoSize = true;
             this.lbTotalCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalCaja.ForeColor = System.Drawing.Color.Red;
-            this.lbTotalCaja.Location = new System.Drawing.Point(24, 335);
+            this.lbTotalCaja.Location = new System.Drawing.Point(24, 365);
             this.lbTotalCaja.Name = "lbTotalCaja";
             this.lbTotalCaja.Size = new System.Drawing.Size(86, 17);
             this.lbTotalCaja.TabIndex = 12;
@@ -1068,6 +1072,28 @@
             this.lbEfectivoC.TabIndex = 0;
             this.lbEfectivoC.Text = "Efectivo";
             // 
+            // lbSaldoInicial
+            // 
+            this.lbSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbSaldoInicial.AutoSize = true;
+            this.lbSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSaldoInicial.Location = new System.Drawing.Point(24, 275);
+            this.lbSaldoInicial.Name = "lbSaldoInicial";
+            this.lbSaldoInicial.Size = new System.Drawing.Size(80, 17);
+            this.lbSaldoInicial.TabIndex = 23;
+            this.lbSaldoInicial.Text = "Saldo inicial";
+            // 
+            // lbTSaldoInicial
+            // 
+            this.lbTSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTSaldoInicial.AutoSize = true;
+            this.lbTSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTSaldoInicial.Location = new System.Drawing.Point(155, 275);
+            this.lbTSaldoInicial.Name = "lbTSaldoInicial";
+            this.lbTSaldoInicial.Size = new System.Drawing.Size(39, 17);
+            this.lbTSaldoInicial.TabIndex = 24;
+            this.lbTSaldoInicial.Text = "$0.00";
+            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1179,5 +1205,7 @@
         private System.Windows.Forms.Label lbValesC;
         private System.Windows.Forms.Label lbTarjetaC;
         private System.Windows.Forms.Label lbEfectivoC;
+        private System.Windows.Forms.Label lbTSaldoInicial;
+        private System.Windows.Forms.Label lbSaldoInicial;
     }
 }

@@ -238,7 +238,10 @@ namespace PuntoDeVentaV2
                     // Solo cuando es corte se hace esta resta, al total de cada forma de pago
                     // se le resta lo que el usuario quiere retirar menos el total retirado de cada
                     // forma de pago antes de que se haga el corte de caja
-                    efectivo = totalEfectivo - efectivo;// - CajaN.retiroEfectivo;
+
+                    // NOTA: Se le suma saldo inicial a efectivo porque se tiene que guardar el valor y anteriormente
+                    // se tomaba en cuenta el saldo inicial en el apartado de totales del apartado Ventas
+                    efectivo = (totalEfectivo + CajaN.saldoInicial) - efectivo;// - CajaN.retiroEfectivo;
                     tarjeta = totalTarjeta - tarjeta;// - CajaN.retiroTarjeta;
                     cheque = totalCheque - cheque;// - CajaN.retiroCheque;
                     vales = totalVales - vales;// - CajaN.retiroVales;
