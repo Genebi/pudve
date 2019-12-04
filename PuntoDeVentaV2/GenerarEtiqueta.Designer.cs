@@ -49,9 +49,9 @@
             // 
             this.panelEtiqueta.BackColor = System.Drawing.SystemColors.Window;
             this.panelEtiqueta.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelEtiqueta.Location = new System.Drawing.Point(250, 75);
+            this.panelEtiqueta.Location = new System.Drawing.Point(315, 43);
             this.panelEtiqueta.Name = "panelEtiqueta";
-            this.panelEtiqueta.Size = new System.Drawing.Size(420, 122);
+            this.panelEtiqueta.Size = new System.Drawing.Size(280, 200);
             this.panelEtiqueta.TabIndex = 1;
             this.panelEtiqueta.Click += new System.EventHandler(this.panelEtiqueta_Click);
             // 
@@ -59,7 +59,7 @@
             // 
             this.btnReducir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReducir.Image = global::PuntoDeVentaV2.Properties.Resources.search_minus;
-            this.btnReducir.Location = new System.Drawing.Point(463, 35);
+            this.btnReducir.Location = new System.Drawing.Point(447, 12);
             this.btnReducir.Name = "btnReducir";
             this.btnReducir.Size = new System.Drawing.Size(25, 25);
             this.btnReducir.TabIndex = 1;
@@ -70,7 +70,7 @@
             // 
             this.btnAumentar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAumentar.Image = ((System.Drawing.Image)(resources.GetObject("btnAumentar.Image")));
-            this.btnAumentar.Location = new System.Drawing.Point(432, 35);
+            this.btnAumentar.Location = new System.Drawing.Point(416, 12);
             this.btnAumentar.Name = "btnAumentar";
             this.btnAumentar.Size = new System.Drawing.Size(25, 25);
             this.btnAumentar.TabIndex = 0;
@@ -99,9 +99,9 @@
             // 
             this.cbFuentes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFuentes.FormattingEnabled = true;
-            this.cbFuentes.Location = new System.Drawing.Point(250, 214);
+            this.cbFuentes.Location = new System.Drawing.Point(333, 258);
             this.cbFuentes.Name = "cbFuentes";
-            this.cbFuentes.Size = new System.Drawing.Size(420, 25);
+            this.cbFuentes.Size = new System.Drawing.Size(250, 25);
             this.cbFuentes.TabIndex = 5;
             this.cbFuentes.SelectedIndexChanged += new System.EventHandler(this.cbFuentes_SelectedIndexChanged);
             // 
@@ -109,7 +109,7 @@
             // 
             this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEliminar.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
-            this.btnEliminar.Location = new System.Drawing.Point(494, 35);
+            this.btnEliminar.Location = new System.Drawing.Point(478, 12);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(25, 25);
             this.btnEliminar.TabIndex = 6;
