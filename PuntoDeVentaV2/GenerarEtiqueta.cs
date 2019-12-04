@@ -145,20 +145,20 @@ namespace PuntoDeVentaV2
             lbCustom.Name = "lbCustom" + propiedad;
             lbCustom.Tag = propiedad;
             lbCustom.Cursor = Cursors.Hand;
-            lbCustom.DoubleClick += new EventHandler(EditarLabel_dobleClick);
+            //lbCustom.DoubleClick += new EventHandler(EditarLabel_dobleClick);
             lbCustom.Click += new EventHandler(AsignarFocus_Click);
             lbCustom.MouseDown += new MouseEventHandler(AgregarSeleccion);
 
-            TextBox txtCustom = new TextBox();
+            /*TextBox txtCustom = new TextBox();
             txtCustom.Name = "txtCustom" + propiedad;
             txtCustom.KeyDown += new KeyEventHandler(TerminarEdicion_KeyDown);
             txtCustom.Tag = propiedad;
-            txtCustom.Visible = false;
+            txtCustom.Visible = false;*/
 
             
 
-            panelEtiqueta.Controls.Add(lbCustom);
-            panelEtiqueta.Controls.Add(txtCustom);
+            
+            //panelEtiqueta.Controls.Add(txtCustom);
             // Para el codigo de barras
             if (propiedad.Equals("Codigo"))
             {
@@ -167,13 +167,19 @@ namespace PuntoDeVentaV2
                 panelCustom.Width = 100;
                 panelCustom.Height = 50;
                 panelEtiqueta.Controls.Add(panelCustom);
+
+                GenerarCodigoBarras("1020304050");
+
                 ControlExtension.Draggable(panelCustom, true);
             }
-
-            ControlExtension.Draggable(lbCustom, true);
+            else
+            {
+                panelEtiqueta.Controls.Add(lbCustom);
+                ControlExtension.Draggable(lbCustom, true);
+            }
         }
 
-        private void EditarLabel_dobleClick(object sender, EventArgs e)
+        /*private void EditarLabel_dobleClick(object sender, EventArgs e)
         {
             Label label = (Label)sender;
             var posicionX = label.Location.X;
@@ -188,7 +194,7 @@ namespace PuntoDeVentaV2
             txtBox.Height = label.Height;
             txtBox.Visible = true;
             txtBox.Focus();
-        }
+        }*/
 
         private void AsignarFocus_Click(object sender, EventArgs e)
         {
@@ -200,7 +206,7 @@ namespace PuntoDeVentaV2
             labelConFocus = label.Name;
         }
 
-        private void TerminarEdicion_KeyDown(object sender, KeyEventArgs e)
+        /*private void TerminarEdicion_KeyDown(object sender, KeyEventArgs e)
         {
             // Con enter se termina de editar
             if (e.KeyData == Keys.Enter)
@@ -224,7 +230,7 @@ namespace PuntoDeVentaV2
                     GenerarCodigoBarras(label.Text);
                 }
             }
-        }
+        }*/
 
         private void btnReducir_Click(object sender, EventArgs e)
         {
@@ -274,15 +280,17 @@ namespace PuntoDeVentaV2
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            QuitarSeleccion();
+
             int ancho = panelEtiqueta.Size.Width;
             int alto = panelEtiqueta.Size.Height;
 
             Bitmap bm = new Bitmap(ancho, alto);
             panelEtiqueta.DrawToBitmap(bm, new Rectangle(0, 0, ancho, alto));
 
-            bm.Save(@"C:\Archivos PUDVE\TestDrawToBitmap.bmp", ImageFormat.Bmp);
+            bm.Save(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\plantilla_1.bmp", ImageFormat.Bmp);
 
-            MessageBox.Show("Guardar");
+            MessageBox.Show("Plantilla guardada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cbFuentes_SelectedIndexChanged(object sender, EventArgs e)
@@ -337,7 +345,7 @@ namespace PuntoDeVentaV2
             {
                 Panel panelCustom = (Panel)this.Controls.Find("panelCustomCodigo", true)[0];
 
-                panelCustom.BackgroundImage = codigo.Encode(BarcodeLib.TYPE.CODE128, txtCodigo, Color.Black, Color.White, 100, 40);
+                panelCustom.BackgroundImage = codigo.Encode(BarcodeLib.TYPE.CODE128, txtCodigo, Color.Black, Color.White, 90, 20);
             }
             catch (Exception ex)
             {
