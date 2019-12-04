@@ -688,9 +688,12 @@ namespace PuntoDeVentaV2
                                 if (contLblHijo.Name == "lblNombre" + textoBuscado)
                                 {
                                     contLblHijo.Text = datosDetalleGral[3];
-                                    nvoConceptoDetalleProducto = contLblHijo.Text;
-                                    string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel, idGralDetail[0].ToString() };
-                                    int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
+                                    if (DatosSourceFinal == 2)
+                                    {
+                                        nvoConceptoDetalleProducto = contLblHijo.Text;
+                                        string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel, idGralDetail[0].ToString() };
+                                        int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
+                                    }
                                 }
                             }
                         }
@@ -771,6 +774,9 @@ namespace PuntoDeVentaV2
         private void llenarDatosProveedor(string textoBuscado)
         {
             string namePanel = string.Empty;
+            string nvoNombreProveedorDetalleProducto = string.Empty;
+
+            var idProveedor = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
 
             namePanel = "panelContenedor" + textoBuscado;
 
@@ -800,6 +806,13 @@ namespace PuntoDeVentaV2
                                 else if (contLblHijo.Name == "lblTel" + textoBuscado)
                                 {
                                     contLblHijo.Text = datosProveedor[10];
+                                }
+                                if (DatosSourceFinal == 2)
+                                {
+                                    nvoNombreProveedorDetalleProducto = datosProveedor[0];
+                                    var dataProvaider = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, nvoNombreProveedorDetalleProducto);
+                                    string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), dataProvaider[2].ToString(), dataProvaider[0].ToString() };
+                                    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
                                 }
                             }
                         }
@@ -2347,59 +2360,6 @@ namespace PuntoDeVentaV2
 
                     queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}'  WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
-
-                    string  nvoNombreProveedorDetalleProducto = string.Empty,
-                            nvoConceptoDetalleProducto = string.Empty;
-
-                    var idProveedor = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
-                    
-                    foreach (Control ctrlHijo in flowLayoutPanel3.Controls)
-                    {
-                        foreach (Control subCtrlHijo in ctrlHijo.Controls)
-                        {
-                            foreach (Control intoSubCtrlHijo in subCtrlHijo.Controls)
-                            {
-                                if (intoSubCtrlHijo is Label && intoSubCtrlHijo.Name.Equals("lblNombrechkProveedor"))
-                                {
-                                    if (!intoSubCtrlHijo.Text.Equals(idProveedor[2].ToString()) && !intoSubCtrlHijo.Text.Equals(""))
-                                    {
-                                        nvoNombreProveedorDetalleProducto = intoSubCtrlHijo.Text;
-                                        var dataProvaider = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, nvoNombreProveedorDetalleProducto);
-                                        string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), dataProvaider[2].ToString(), dataProvaider[0].ToString() };
-                                        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    var idGralDetail = mb.GetDetalleGeneral(FormPrincipal.userID, gralDetailGralSelected);
-
-                    foreach (Control ctrlHijo in flowLayoutPanel3.Controls) // FlowLayoutPanel
-                    {
-                        foreach (Control subCtrlHijo in ctrlHijo.Controls)  // PanelContenedor
-                        {
-                            foreach (Control intoSubCtrlHijo in subCtrlHijo.Controls)   // PanelContenido
-                            {
-                                if (!subCtrlHijo.Name.Equals("panelContenidochkProveedor"))
-                                {
-                                    string panelName = string.Empty;
-                                    panelName = "panelContenido" + subCtrlHijo.Name.Remove(0, 14);
-                                    if (intoSubCtrlHijo is Label)
-                                    {
-                                        if (intoSubCtrlHijo.Text.Equals(idGralDetail[3].ToString()) && !intoSubCtrlHijo.Text.Equals(""))
-                                        {
-                                            nvoConceptoDetalleProducto = intoSubCtrlHijo.Text;
-                                            string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), panelName, idGralDetail[0].ToString() };
-                                            int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
 
                     bool isEmpty = !detalleProductoBasico.Any();
 
