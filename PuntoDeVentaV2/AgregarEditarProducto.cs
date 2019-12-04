@@ -691,8 +691,16 @@ namespace PuntoDeVentaV2
                                     if (DatosSourceFinal == 2)
                                     {
                                         nvoConceptoDetalleProducto = contLblHijo.Text;
-                                        string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel, idGralDetail[0].ToString() };
-                                        int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
+                                        string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel, idGralDetail[0].ToString(), "1" };
+                                        var resultadoBuscarDetalleGeneralProducto = mb.obtenerUnDetalleProductoGenerales(idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel);
+                                        if (!resultadoBuscarDetalleGeneralProducto.Count().Equals(0))
+                                        {
+                                            int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
+                                        }
+                                        else if (resultadoBuscarDetalleGeneralProducto.Count().Equals(0))
+                                        {
+                                            int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesComboBox(dataSave));
+                                        }
                                     }
                                 }
                             }
@@ -812,7 +820,15 @@ namespace PuntoDeVentaV2
                                     nvoNombreProveedorDetalleProducto = datosProveedor[0];
                                     var dataProvaider = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, nvoNombreProveedorDetalleProducto);
                                     string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), dataProvaider[2].ToString(), dataProvaider[0].ToString() };
-                                    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                    var resultadoBusquedaDetallesProducto = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+                                    if (!resultadoBusquedaDetallesProducto.Count().Equals(0))
+                                    {
+                                        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                    }
+                                    else if (resultadoBusquedaDetallesProducto.Count().Equals(0))
+                                    {
+                                        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave));
+                                    }
                                 }
                             }
                         }

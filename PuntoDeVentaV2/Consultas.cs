@@ -262,6 +262,16 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string GuardarDetallesProductoGeneralesComboBox(string[] datos)
+        {
+            string consulta = string.Empty;
+
+            consulta = "INSERT INTO DetallesProductoGenerales (IDProducto, IDUsuario, IDDetalleGral, StatusDetalleGral, panelContenido)";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[3]}', '{datos[4]}', '{datos[2]}')";
+
+            return consulta;
+        }
+
         public string ActualizarDetallesProductoGenerales(string[] datos)
         {
             string consulta = string.Empty;
