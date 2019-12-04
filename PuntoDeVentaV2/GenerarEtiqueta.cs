@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -280,7 +281,20 @@ namespace PuntoDeVentaV2
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtNombreArchivo.Text))
+            {
+                MessageBox.Show("Ingrese el nombre para su plantilla", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                txtNombreArchivo.Focus();
+
+                return;
+            }
+
+            string nombreArchivo = txtNombreArchivo.Text + ".txt";
+            string nombreImagen = txtNombreArchivo.Text + ".bmp";
+
             QuitarSeleccion();
+            PropiedadesControles(nombreArchivo);
 
             int ancho = panelEtiqueta.Size.Width;
             int alto = panelEtiqueta.Size.Height;
@@ -288,9 +302,73 @@ namespace PuntoDeVentaV2
             Bitmap bm = new Bitmap(ancho, alto);
             panelEtiqueta.DrawToBitmap(bm, new Rectangle(0, 0, ancho, alto));
 
-            bm.Save(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\plantilla_1.bmp", ImageFormat.Bmp);
+            bm.Save(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\" + nombreImagen, ImageFormat.Bmp);
 
             MessageBox.Show("Plantilla guardada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            /*var nombreArchivo = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\plantilla_1.txt";
+
+            using (var leer = new StreamReader(nombreArchivo))
+            {
+                string linea = string.Empty;
+                var contador = 1;
+
+                while ((linea = leer.ReadLine()) != null)
+                {
+                    var datos = linea.Split('|');
+
+                    var nombreFuente = datos[0];
+                    var tamano = float.Parse(datos[1]);
+                    Font fuente = new Font(nombreFuente, tamano);
+
+                    var lbNombre = string.Empty;
+
+                    if (contador == 1) { lbNombre = "Nombre largo de prueba"; }
+                    if (contador == 2) { lbNombre = "Stock"; }
+                    if (contador == 3) { lbNombre = "Precio"; }
+
+                    Label lbCustom = new Label();
+                    lbCustom.Text = lbNombre;
+                    lbCustom.Font = fuente;
+
+                    var infoTexto = TextRenderer.MeasureText(lbCustom.Text, new Font(lbCustom.Font.FontFamily, lbCustom.Font.Size));
+
+                    lbCustom.Width = infoTexto.Width;
+                    lbCustom.Height = infoTexto.Height;
+
+                    lbCustom.Location = new Point(Convert.ToInt32(datos[2]), Convert.ToInt32(datos[3]));
+
+                    panelEtiqueta.Controls.Add(lbCustom);
+
+                    contador++;
+                }
+            }*/
+
+            Dispose();
+        }
+
+        private void PropiedadesControles(string nombre)
+        {
+            var nombreArchivo = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\" + nombre;
+            var archivo = File.Create(nombreArchivo);
+            archivo.Close();
+
+            foreach (Control item in panelEtiqueta.Controls)
+            {
+                if (item is Label)
+                {
+                    var nombreFuente = item.Font.Name;
+                    var tamanoFuente = item.Font.Size;
+                    var posicionX = item.Location.X;
+                    var posicionY = item.Location.Y;
+                    
+                    var datos = $"{nombreFuente}|{tamanoFuente}|{posicionX}|{posicionY}";
+
+                    using (TextWriter tw = new StreamWriter(nombreArchivo, true))
+                    {
+                        tw.WriteLine(datos);
+                    }
+                }
+            }
         }
 
         private void cbFuentes_SelectedIndexChanged(object sender, EventArgs e)
