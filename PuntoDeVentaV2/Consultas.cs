@@ -44,6 +44,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string GuardarNvaImagen(int idProducto, string imgProducto)
+        {
+            string consulta = $"UPDATE Productos SET ProdImage = '{imgProducto}' WHERE ID = '{idProducto}'";
+
+            return consulta;
+        }
+
         public string GuardarDetallesProducto(string[] datos, int idProducto)
         {
             string consulta = "INSERT INTO DetallesFacturacionProductos (Tipo, Impuesto, TipoFactor, TasaCuota, Definir, Importe, IDProducto)";
