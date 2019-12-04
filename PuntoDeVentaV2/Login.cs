@@ -30,6 +30,7 @@ namespace PuntoDeVentaV2
         private string _pathSetGanancia = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\settings\ganancia\";
         private string _pathnoCheckStock = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\settings\noCheckStock\";
         private string _pathSettignSound = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Sounds\";
+        private string _pathPlantillaEtiqueta = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Plantillas\";
 
         private string _Assets = Directory.GetCurrentDirectory() + @"\PUDVE\assets\";
         private string _BarCode = Directory.GetCurrentDirectory() + @"\PUDVE\BarCode\";
@@ -45,6 +46,7 @@ namespace PuntoDeVentaV2
         private string _SetGanancia = Directory.GetCurrentDirectory() + @"\PUDVE\settings\ganancia\";
         private string _SetnoCheckStock = Directory.GetCurrentDirectory() + @"\PUDVE\settings\noCheckStock\";
         private string _SetSettingSound = Directory.GetCurrentDirectory() + @"\PUDVE\Sounds\";
+        private string _SetPlantillaEtiqueta = Directory.GetCurrentDirectory() + @"\PUDVE\Plantillas\";
 
         string[] pathsOrigen, pathsDestino;
 
@@ -353,7 +355,8 @@ namespace PuntoDeVentaV2
                                         _SetFolioVenta,
                                         _SetGanancia,
                                         _SetnoCheckStock,
-                                        _SetSettingSound };
+                                        _SetSettingSound,
+                                        _SetPlantillaEtiqueta };
 
             pathsDestino = new string[] {   _pathAssets,
                                             _pathBarCode,
@@ -368,7 +371,8 @@ namespace PuntoDeVentaV2
                                             _pathSetFolioVenta,
                                             _pathSetGanancia,
                                             _pathnoCheckStock,
-                                            _pathSettignSound };
+                                            _pathSettignSound,
+                                            _pathPlantillaEtiqueta };
 
             createDir(pathsDestino);
 
