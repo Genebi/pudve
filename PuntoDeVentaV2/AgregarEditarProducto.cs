@@ -670,6 +670,10 @@ namespace PuntoDeVentaV2
 
             namePanel = "panelContenedor" + textoBuscado.Remove(0, 3);
 
+            string nvoConceptoDetalleProducto = string.Empty;
+
+            var idGralDetail = mb.GetDetalleGeneral(FormPrincipal.userID, gralDetailGralSelected);
+
             foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
             {
                 if (contHijo.Name == namePanel)
@@ -684,6 +688,9 @@ namespace PuntoDeVentaV2
                                 if (contLblHijo.Name == "lblNombre" + textoBuscado)
                                 {
                                     contLblHijo.Text = datosDetalleGral[3];
+                                    nvoConceptoDetalleProducto = contLblHijo.Text;
+                                    string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel, idGralDetail[0].ToString() };
+                                    int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
                                 }
                             }
                         }
