@@ -251,6 +251,29 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] obtenerUnDetalleProductoGenerales(string idProducto, string idUsuario, string panel)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = '{idProducto}' AND IDUsuario = '{idUsuario}' AND panelContenido = '{panel}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[0].ToString()); // ID
+                lista.Add(dr[1].ToString()); // IDProducto
+                lista.Add(dr[2].ToString()); // IDUsuario
+                lista.Add(dr[3].ToString()); // IDDetalleGral
+                lista.Add(dr[4].ToString()); // StatusDetalleGral
+                lista.Add(dr[5].ToString()); // panelContenido
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public string[] obtenerIdDetalleGeneral(int idUsuario, string Descripcion)
         {
             List<string> lista = new List<string>();

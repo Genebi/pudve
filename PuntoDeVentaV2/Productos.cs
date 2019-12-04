@@ -1820,31 +1820,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        /*private void ModificarStatusProductoChkBox()
-        {
-            DataRow row;
-            // Preparamos el Query que haremos segun la fila seleccionada
-            buscar = $"SELECT * FROM Productos WHERE Nombre = '{Nombre}' AND Precio = '{Precio}' AND Stock = '{Stock}' AND ClaveInterna = '{ClaveInterna}' AND CodigoBarras = '{CodigoBarras}' AND IDUsuario = '{id}'";
-            dt = cn.CargarDatos(buscar);    // almacenamos el resultado de la Funcion CargarDatos que esta en la calse Consultas
-            row = dt.Rows[0];
-            Id_Prod_select = Convert.ToString(row["ID"]);       // almacenamos el Id del producto
-            status = Convert.ToString(row["Status"]);           // almacenamos el status
-            if (status == "0")                              // si el status es 0
-            {
-                // preparamos el Query 
-                buscar = $"UPDATE Productos SET Status = '1' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
-                dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
-                //cn.EjecutarConsulta(buscar);                              // acutualizamos los datos
-            }
-            else if (status == "1")                         // si el status es 1
-            {
-                // preparamos el Query 
-                buscar = $"UPDATE Productos SET Status = '0' WHERE ID = '{Id_Prod_select}' AND IDUsuario = '{id}'";
-                dtConsulta = cn.CargarDatos(buscar);                    // acutualizamos los datos
-                //cn.EjecutarConsulta(buscar);                              // acutualizamos los datos
-            }
-        }*/
-
         private void ViewRecordProducto()
         {
             ProductoRecord.FormClosed += delegate
