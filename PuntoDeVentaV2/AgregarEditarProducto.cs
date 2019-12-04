@@ -4042,6 +4042,30 @@ namespace PuntoDeVentaV2
                 if (detallesProductoTmp.Length > 0)
                 {
                     stockNecesario = detallesProductoTmp[8];
+                    logoTipo = detallesProductoTmp[9];      // Obtenemos el nuevo Path
+                    if (pictureBoxProducto.Image != null)
+                    {
+                        pictureBoxProducto.Image.Dispose(); // Liberamos el pictureBox para poder borrar su imagen
+                        if (!logoTipo.Equals(""))
+                        {
+                            // leemos el archivo de imagen y lo ponemos el pictureBox
+                            using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
+                            {
+                                pictureBoxProducto.Image = Image.FromStream(File);      // carrgamos la imagen en el PictureBox
+                            }
+                        }
+                    }
+                    else if (pictureBoxProducto.Image == null)
+                    {
+                        if (!logoTipo.Equals(""))
+                        {
+                            // leemos el archivo de imagen y lo ponemos el pictureBox
+                            using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
+                            {
+                                pictureBoxProducto.Image = Image.FromStream(File);      // carrgamos la imagen en el PictureBox
+                            }
+                        }
+                    }
                 }
 
             }
