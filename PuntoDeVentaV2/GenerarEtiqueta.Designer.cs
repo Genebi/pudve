@@ -36,6 +36,9 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.cbFuentes = new System.Windows.Forms.ComboBox();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.txtNombreArchivo = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panelPropiedades
@@ -49,7 +52,7 @@
             // 
             this.panelEtiqueta.BackColor = System.Drawing.SystemColors.Window;
             this.panelEtiqueta.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelEtiqueta.Location = new System.Drawing.Point(315, 43);
+            this.panelEtiqueta.Location = new System.Drawing.Point(315, 20);
             this.panelEtiqueta.Name = "panelEtiqueta";
             this.panelEtiqueta.Size = new System.Drawing.Size(280, 200);
             this.panelEtiqueta.TabIndex = 1;
@@ -59,7 +62,7 @@
             // 
             this.btnReducir.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReducir.Image = global::PuntoDeVentaV2.Properties.Resources.search_minus;
-            this.btnReducir.Location = new System.Drawing.Point(447, 12);
+            this.btnReducir.Location = new System.Drawing.Point(601, 51);
             this.btnReducir.Name = "btnReducir";
             this.btnReducir.Size = new System.Drawing.Size(25, 25);
             this.btnReducir.TabIndex = 1;
@@ -70,7 +73,7 @@
             // 
             this.btnAumentar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAumentar.Image = ((System.Drawing.Image)(resources.GetObject("btnAumentar.Image")));
-            this.btnAumentar.Location = new System.Drawing.Point(416, 12);
+            this.btnAumentar.Location = new System.Drawing.Point(601, 20);
             this.btnAumentar.Name = "btnAumentar";
             this.btnAumentar.Size = new System.Drawing.Size(25, 25);
             this.btnAumentar.TabIndex = 0;
@@ -87,9 +90,9 @@
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
-            this.btnGuardar.Location = new System.Drawing.Point(514, 322);
+            this.btnGuardar.Location = new System.Drawing.Point(491, 305);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(156, 27);
+            this.btnGuardar.Size = new System.Drawing.Size(150, 23);
             this.btnGuardar.TabIndex = 4;
             this.btnGuardar.Text = "Guardar Plantilla";
             this.btnGuardar.UseVisualStyleBackColor = false;
@@ -99,9 +102,9 @@
             // 
             this.cbFuentes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbFuentes.FormattingEnabled = true;
-            this.cbFuentes.Location = new System.Drawing.Point(333, 258);
+            this.cbFuentes.Location = new System.Drawing.Point(315, 226);
             this.cbFuentes.Name = "cbFuentes";
-            this.cbFuentes.Size = new System.Drawing.Size(250, 25);
+            this.cbFuentes.Size = new System.Drawing.Size(280, 25);
             this.cbFuentes.TabIndex = 5;
             this.cbFuentes.SelectedIndexChanged += new System.EventHandler(this.cbFuentes_SelectedIndexChanged);
             // 
@@ -109,18 +112,46 @@
             // 
             this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEliminar.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
-            this.btnEliminar.Location = new System.Drawing.Point(478, 12);
+            this.btnEliminar.Location = new System.Drawing.Point(601, 82);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(25, 25);
             this.btnEliminar.TabIndex = 6;
             this.btnEliminar.UseVisualStyleBackColor = true;
             this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
+            // txtNombreArchivo
+            // 
+            this.txtNombreArchivo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtNombreArchivo.Location = new System.Drawing.Point(315, 305);
+            this.txtNombreArchivo.Name = "txtNombreArchivo";
+            this.txtNombreArchivo.Size = new System.Drawing.Size(170, 23);
+            this.txtNombreArchivo.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(248, 308);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Nombre";
+            // 
+            // label9
+            // 
+            this.label9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label9.Location = new System.Drawing.Point(238, 274);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(440, 2);
+            this.label9.TabIndex = 19;
+            // 
             // GenerarEtiqueta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 361);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtNombreArchivo);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.cbFuentes);
             this.Controls.Add(this.btnGuardar);
@@ -138,6 +169,7 @@
             this.Text = "PUDVE - Personalizar etiqueta";
             this.Load += new System.EventHandler(this.GenerarEtiqueta_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -150,5 +182,8 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cbFuentes;
         private System.Windows.Forms.Button btnEliminar;
+        private System.Windows.Forms.TextBox txtNombreArchivo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label9;
     }
 }
