@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Text.RegularExpressions;
 
 namespace PuntoDeVentaV2
 {
@@ -149,6 +150,30 @@ namespace PuntoDeVentaV2
 
                 return;
             }
+
+            // Valida longitud y formato del RFC
+            if (txtRFC.TextLength < 12)
+            {
+                MessageBox.Show("La longitud del RFC es incorrecta.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                string formato_rfc = "^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
+
+                Regex exp = new Regex(formato_rfc);
+
+                if (exp.IsMatch(txtRFC.Text))
+                {
+                }
+                else
+                {
+                    MessageBox.Show("El formato del RFC no es valido.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+            }
+            
 
             string[] datos = new string[]
             {
@@ -397,6 +422,19 @@ namespace PuntoDeVentaV2
 
             //Guardamos la string en el archivo XML
             File.WriteAllText(rutaXML, xml);
+        }
+
+        private void valida_longitud(object sender, EventArgs e)
+        {
+            int tam = txtRFC.TextLength;
+
+            if (tam > 0 & (tam == 12 | tam == 13))
+            {
+            }
+            else
+            {
+                MessageBox.Show("La longitud del RFC es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

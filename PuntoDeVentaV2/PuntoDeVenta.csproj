@@ -524,6 +524,12 @@
     <Compile Include="SetUpPUDVE.Designer.cs">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Subir_archivos_digitales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Subir_archivos_digitales.Designer.cs">
+      <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
+    </Compile>
     <Compile Include="TagMake.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -741,6 +747,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetUpPUDVE.resx">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Subir_archivos_digitales.resx">
+      <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TagMake.resx">
       <DependentUpon>TagMake.cs</DependentUpon>

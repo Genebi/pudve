@@ -183,7 +183,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleFacturacionProducto_Load(object sender, EventArgs e)
         {
-            cargarDatos();
+            cargarDatos(); Console.WriteLine("aa-->"+AgregarEditarProducto.precioProducto);
             //Se definen los valores que tendran los ComboBox y TextBox por default
             //al abrir la ventana por primera vez
             precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
