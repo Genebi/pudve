@@ -2115,6 +2115,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnEtiqueta_Click(object sender, EventArgs e)
         {
             GenerarEtiqueta ge = new GenerarEtiqueta();

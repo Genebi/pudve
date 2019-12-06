@@ -156,9 +156,6 @@ namespace PuntoDeVentaV2
             txtCustom.Tag = propiedad;
             txtCustom.Visible = false;*/
 
-            
-
-            
             //panelEtiqueta.Controls.Add(txtCustom);
             // Para el codigo de barras
             if (propiedad.Equals("Codigo"))
@@ -167,6 +164,7 @@ namespace PuntoDeVentaV2
                 panelCustom.Name = "panelCustom" + propiedad;
                 panelCustom.Width = 100;
                 panelCustom.Height = 50;
+                panelCustom.Tag = propiedad;
                 panelEtiqueta.Controls.Add(panelCustom);
 
                 GenerarCodigoBarras("1020304050");
@@ -281,6 +279,8 @@ namespace PuntoDeVentaV2
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            QuitarSeleccion();
+
             if (string.IsNullOrWhiteSpace(txtNombreArchivo.Text))
             {
                 MessageBox.Show("Ingrese el nombre para su plantilla", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -290,17 +290,18 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+
             string nombreArchivo = txtNombreArchivo.Text + ".txt";
             string nombreImagen = txtNombreArchivo.Text + ".bmp";
-
-            QuitarSeleccion();
-            PropiedadesControles(nombreArchivo);
 
             int ancho = panelEtiqueta.Size.Width;
             int alto = panelEtiqueta.Size.Height;
 
             Bitmap bm = new Bitmap(ancho, alto);
             panelEtiqueta.DrawToBitmap(bm, new Rectangle(0, 0, ancho, alto));
+
+            // Crea el archivo .txt con todas las propiedades de los label
+            PropiedadesControles(nombreArchivo);
 
             bm.Save(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\" + nombreImagen, ImageFormat.Bmp);
 
@@ -354,14 +355,15 @@ namespace PuntoDeVentaV2
 
             foreach (Control item in panelEtiqueta.Controls)
             {
-                if (item is Label)
+                if (item is Label || item is Panel)
                 {
                     var nombreFuente = item.Font.Name;
                     var tamanoFuente = item.Font.Size;
                     var posicionX = item.Location.X;
                     var posicionY = item.Location.Y;
+                    var propiedad = item.Tag.ToString();
                     
-                    var datos = $"{nombreFuente}|{tamanoFuente}|{posicionX}|{posicionY}";
+                    var datos = $"{nombreFuente}|{tamanoFuente}|{posicionX}|{posicionY}|{propiedad}";
 
                     using (TextWriter tw = new StreamWriter(nombreArchivo, true))
                     {
