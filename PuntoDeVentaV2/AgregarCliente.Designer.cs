@@ -32,6 +32,9 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbUsoCFDI = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
@@ -65,9 +68,6 @@
             this.txtRFC = new System.Windows.Forms.TextBox();
             this.txtNombreComercial = new System.Windows.Forms.TextBox();
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbUsoCFDI = new System.Windows.Forms.ComboBox();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -143,6 +143,38 @@
             this.label14.Size = new System.Drawing.Size(185, 17);
             this.label14.TabIndex = 80;
             this.label14.Text = "DATOS EXTRA FACTURACIÓN";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.Red;
+            this.label20.Location = new System.Drawing.Point(110, 445);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(14, 17);
+            this.label20.TabIndex = 79;
+            this.label20.Text = "*";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(30, 447);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label4.Size = new System.Drawing.Size(81, 17);
+            this.label4.TabIndex = 78;
+            this.label4.Text = "Uso del CFDI";
+            // 
+            // cbUsoCFDI
+            // 
+            this.cbUsoCFDI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUsoCFDI.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbUsoCFDI.FormattingEnabled = true;
+            this.cbUsoCFDI.Location = new System.Drawing.Point(152, 445);
+            this.cbUsoCFDI.Name = "cbUsoCFDI";
+            this.cbUsoCFDI.Size = new System.Drawing.Size(446, 24);
+            this.cbUsoCFDI.TabIndex = 16;
             // 
             // label19
             // 
@@ -369,6 +401,7 @@
             this.txtTelefono.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTelefono.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefono.Location = new System.Drawing.Point(418, 335);
+            this.txtTelefono.MaxLength = 10;
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(180, 21);
             this.txtTelefono.TabIndex = 15;
@@ -429,6 +462,7 @@
             this.txtCP.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCP.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCP.Location = new System.Drawing.Point(152, 245);
+            this.txtCP.MaxLength = 7;
             this.txtCP.Name = "txtCP";
             this.txtCP.Size = new System.Drawing.Size(180, 21);
             this.txtCP.TabIndex = 9;
@@ -479,10 +513,12 @@
             this.txtRFC.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRFC.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRFC.Location = new System.Drawing.Point(152, 110);
+            this.txtRFC.MaxLength = 13;
             this.txtRFC.Name = "txtRFC";
             this.txtRFC.Size = new System.Drawing.Size(180, 21);
             this.txtRFC.TabIndex = 3;
             this.txtRFC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRFC.Leave += new System.EventHandler(this.valida_longitud);
             // 
             // txtNombreComercial
             // 
@@ -503,38 +539,6 @@
             this.txtRazonSocial.Size = new System.Drawing.Size(446, 21);
             this.txtRazonSocial.TabIndex = 1;
             this.txtRazonSocial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.Red;
-            this.label20.Location = new System.Drawing.Point(110, 445);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(14, 17);
-            this.label20.TabIndex = 79;
-            this.label20.Text = "*";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(30, 447);
-            this.label4.Name = "label4";
-            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label4.Size = new System.Drawing.Size(81, 17);
-            this.label4.TabIndex = 78;
-            this.label4.Text = "Uso del CFDI";
-            // 
-            // cbUsoCFDI
-            // 
-            this.cbUsoCFDI.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbUsoCFDI.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbUsoCFDI.FormattingEnabled = true;
-            this.cbUsoCFDI.Location = new System.Drawing.Point(152, 445);
-            this.cbUsoCFDI.Name = "cbUsoCFDI";
-            this.cbUsoCFDI.Size = new System.Drawing.Size(446, 24);
-            this.cbUsoCFDI.TabIndex = 16;
             // 
             // AgregarCliente
             // 

@@ -75,11 +75,22 @@
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lb_fvencimiento = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.btn_vnt_subir_archivos = new System.Windows.Forms.Button();
+            this.txt_llave = new System.Windows.Forms.TextBox();
+            this.txt_certificado = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.lbSeparador1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -568,7 +579,7 @@
             this.btnActualizarDatos.Location = new System.Drawing.Point(411, 508);
             this.btnActualizarDatos.Margin = new System.Windows.Forms.Padding(2);
             this.btnActualizarDatos.Name = "btnActualizarDatos";
-            this.btnActualizarDatos.Size = new System.Drawing.Size(165, 55);
+            this.btnActualizarDatos.Size = new System.Drawing.Size(165, 45);
             this.btnActualizarDatos.TabIndex = 2;
             this.btnActualizarDatos.Text = "Guardar";
             this.btnActualizarDatos.UseVisualStyleBackColor = false;
@@ -667,11 +678,121 @@
             this.panel3.Size = new System.Drawing.Size(974, 462);
             this.panel3.TabIndex = 4;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.lb_fvencimiento);
+            this.panel4.Controls.Add(this.label24);
+            this.panel4.Controls.Add(this.btn_vnt_subir_archivos);
+            this.panel4.Controls.Add(this.txt_llave);
+            this.panel4.Controls.Add(this.txt_certificado);
+            this.panel4.Controls.Add(this.label26);
+            this.panel4.Controls.Add(this.label23);
+            this.panel4.Controls.Add(this.label22);
+            this.panel4.Location = new System.Drawing.Point(12, 564);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(974, 122);
+            this.panel4.TabIndex = 5;
+            // 
+            // lb_fvencimiento
+            // 
+            this.lb_fvencimiento.AutoSize = true;
+            this.lb_fvencimiento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_fvencimiento.ForeColor = System.Drawing.Color.Blue;
+            this.lb_fvencimiento.Location = new System.Drawing.Point(681, 46);
+            this.lb_fvencimiento.Name = "lb_fvencimiento";
+            this.lb_fvencimiento.Size = new System.Drawing.Size(11, 17);
+            this.lb_fvencimiento.TabIndex = 8;
+            this.lb_fvencimiento.Text = ".";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.Blue;
+            this.label24.Location = new System.Drawing.Point(551, 46);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(124, 17);
+            this.label24.TabIndex = 7;
+            this.label24.Text = "Fecha vencimiento";
+            // 
+            // btn_vnt_subir_archivos
+            // 
+            this.btn_vnt_subir_archivos.BackColor = System.Drawing.Color.Green;
+            this.btn_vnt_subir_archivos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_vnt_subir_archivos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_vnt_subir_archivos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_vnt_subir_archivos.ForeColor = System.Drawing.Color.White;
+            this.btn_vnt_subir_archivos.Location = new System.Drawing.Point(811, 67);
+            this.btn_vnt_subir_archivos.Name = "btn_vnt_subir_archivos";
+            this.btn_vnt_subir_archivos.Size = new System.Drawing.Size(119, 30);
+            this.btn_vnt_subir_archivos.TabIndex = 6;
+            this.btn_vnt_subir_archivos.Text = "Actualizar";
+            this.btn_vnt_subir_archivos.UseVisualStyleBackColor = false;
+            this.btn_vnt_subir_archivos.Click += new System.EventHandler(this.btn_vnt_subir_archivos_Click);
+            // 
+            // txt_llave
+            // 
+            this.txt_llave.Cursor = System.Windows.Forms.Cursors.No;
+            this.txt_llave.Location = new System.Drawing.Point(183, 79);
+            this.txt_llave.Name = "txt_llave";
+            this.txt_llave.ReadOnly = true;
+            this.txt_llave.Size = new System.Drawing.Size(350, 20);
+            this.txt_llave.TabIndex = 5;
+            // 
+            // txt_certificado
+            // 
+            this.txt_certificado.Cursor = System.Windows.Forms.Cursors.No;
+            this.txt_certificado.Location = new System.Drawing.Point(183, 45);
+            this.txt_certificado.Name = "txt_certificado";
+            this.txt_certificado.ReadOnly = true;
+            this.txt_certificado.Size = new System.Drawing.Size(350, 20);
+            this.txt_certificado.TabIndex = 4;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(25, 80);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(117, 17);
+            this.label26.TabIndex = 2;
+            this.label26.Text = "Llave digital (.key)";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(14, 13);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(137, 18);
+            this.label23.TabIndex = 1;
+            this.label23.Text = "Archivos digitales";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(25, 46);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(152, 17);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "Certificado digital (.cer)";
+            // 
+            // lbSeparador1
+            // 
+            this.lbSeparador1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbSeparador1.Location = new System.Drawing.Point(18, 561);
+            this.lbSeparador1.Name = "lbSeparador1";
+            this.lbSeparador1.Size = new System.Drawing.Size(962, 2);
+            this.lbSeparador1.TabIndex = 20;
+            // 
             // MisDatos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 591);
+            this.ClientSize = new System.Drawing.Size(998, 726);
+            this.Controls.Add(this.lbSeparador1);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btnActualizarDatos);
             this.Controls.Add(this.label1);
@@ -687,6 +808,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -741,5 +864,15 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox txt_llave;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lbSeparador1;
+        private System.Windows.Forms.TextBox txt_certificado;
+        private System.Windows.Forms.Button btn_vnt_subir_archivos;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label lb_fvencimiento;
     }
 }

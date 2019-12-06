@@ -468,5 +468,26 @@ namespace PuntoDeVentaV2
 
             return cons;
         }
+
+        public string archivos_digitales(string[] datos, int opc= 0)
+        {
+            string cons = "";
+
+            // Guardar/borrar fecha vencimiento y número del certificado
+            if(opc == 1)
+            {
+                cons = $"UPDATE Usuarios SET num_certificado='{datos[1]}', fecha_caducidad_cer='{datos[2]}', password_cer='{datos[3]}' WHERE ID='{datos[0]}'";
+            }
+            if(opc == 2)
+            {
+                cons = $"SELECT RFC, fecha_caducidad_cer, password_cer FROM Usuarios WHERE ID='{datos[0]}'";
+            }
+            if(opc == 3)
+            {
+                cons = $"UPDATE Usuarios SET password_cer='{datos[1]}' WHERE ID='{datos[0]}'";
+            }
+
+            return cons;
+        }
     }
 }

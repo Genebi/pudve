@@ -58,6 +58,8 @@ namespace PuntoDeVentaV2
 
         // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
+        // ruta donde estan guardados los archivos digitales
+        string ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD\";
 
         // objeto para el manejo de las imagenes
         FileStream File,File1;
@@ -157,6 +159,12 @@ namespace PuntoDeVentaV2
             // hacemos que el comboBox tenga la carga  
             // de valores de la tabla RegimenFiscal
             cargarComboBox();
+
+
+
+            // Cargar datos de los archivos digitales
+
+            cargar_archivos();
         }
 
         public void cargarComboBox()
@@ -372,6 +380,13 @@ namespace PuntoDeVentaV2
 
                 return;
             }
+            if(txtCodPost.TextLength < 5)
+            {
+                MessageBox.Show("La longitud del código postal es incorrecta.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodPost.Focus();
+
+                return;
+            }
 
             if (!ValidarEmail(txtEmail.Text))
             {
@@ -457,6 +472,18 @@ namespace PuntoDeVentaV2
             // se le asigna a la variable tipoPersona
             // el valor que es tipo de Moral
             tipoPersona = "Moral";
+        }
+
+        private void btn_vnt_subir_archivos_Click(object sender, EventArgs e)
+        {
+            Subir_archivos_digitales subir_arch = new Subir_archivos_digitales();
+
+            subir_arch.FormClosed += delegate
+            {
+                cargar_archivos();
+            };
+
+            subir_arch.ShowDialog();
         }
 
         private void rbPersonaFisica_CheckedChanged(object sender, EventArgs e)
@@ -616,6 +643,53 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
                 return;
+            }
+        }
+
+        private void cargar_archivos()
+        {
+            if (Directory.Exists(ruta_archivos_guadados))
+            {
+                string[] nombres = new string[2];
+                int i = 0;
+                string[] id_usuario = new string[] { FormPrincipal.userID.ToString() };
+                DataTable result;
+                DataRow row;
+
+
+                DirectoryInfo dir = new DirectoryInfo(ruta_archivos_guadados);
+
+                foreach (var arch in dir.GetFiles())
+                {
+                    nombres[i] = arch.Name;
+
+                    i++;
+                }
+
+                txt_certificado.Text = nombres[0];
+                txt_llave.Text = nombres[1];
+
+
+                // Obtiene fecha de caducidad
+
+                if(txt_certificado.Text != "")
+                {
+                    result = cn.CargarDatos(cs.archivos_digitales(id_usuario, 2));
+
+                    if (result.Rows.Count != 0)
+                    {
+                        row = result.Rows[0];
+
+                        string fecha = row["fecha_caducidad_cer"].ToString();
+
+                        if (fecha != "")
+                        {
+                            string fech = fecha.Substring(0, 10);
+
+                            lb_fvencimiento.Text = fech;
+                        }
+                    }
+                }
             }
         }
     }
