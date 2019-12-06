@@ -1,0 +1,4 @@
+Century Gothic|15.75|89|5|Nombre
+Century Gothic|9.75|81|54|Codigo
+Century Gothic|13.75|210|168|Stock
+Century Gothic|9.75|11|160|Color

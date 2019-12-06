@@ -2117,9 +2117,31 @@ namespace PuntoDeVentaV2
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            using (var formImprimir = new ImprimirEtiqueta())
+            Dictionary<int, string> lista = new Dictionary<int, string>();
+
+            // Obtener ID de los productos seleccionados
+            foreach (DataGridViewRow row in DGVProductos.Rows)
             {
-                var resultado = formImprimir.ShowDialog();
+                // Verificamos que el checkbox este marcado
+                if ((bool)row.Cells["CheckProducto"].Value == true)
+                {
+                    var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+                    var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
+
+                    lista.Add(idProducto, tipoProducto);
+                }
+            }
+
+            if (lista.Count > 0)
+            {
+                using (var formImprimir = new ImprimirEtiqueta(lista))
+                {
+                    var resultado = formImprimir.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione al menos un producto para habilitar esta opción", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

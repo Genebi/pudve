@@ -13,10 +13,14 @@ namespace PuntoDeVentaV2
 {
     public partial class ImprimirEtiqueta : Form
     {
+        Dictionary<int, string> productos;
+
         private string[] nombrePlantillas;
-        public ImprimirEtiqueta()
+        public ImprimirEtiqueta(Dictionary<int, string> lista)
         {
             InitializeComponent();
+
+            this.productos = lista;
         }
 
         private void ImprimirEtiqueta_Load(object sender, EventArgs e)
@@ -54,11 +58,10 @@ namespace PuntoDeVentaV2
 
             if (indice > 0)
             {
-                panelEtiqueta.BorderStyle = BorderStyle.None;
-
                 var plantilla = nombre + ".bmp";
                 var rutaPlantilla = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\" + plantilla;
 
+                panelEtiqueta.BorderStyle = BorderStyle.None;
                 panelEtiqueta.BackgroundImage = Image.FromFile(rutaPlantilla);
             }
             else
