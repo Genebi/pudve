@@ -385,6 +385,12 @@
       <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
     </Compile>
     <Compile Include="Genera_respaldos.cs" />
+    <Compile Include="ImprimirEtiqueta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImprimirEtiqueta.Designer.cs">
+      <DependentUpon>ImprimirEtiqueta.cs</DependentUpon>
+    </Compile>
     <Compile Include="InformacionVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -680,6 +686,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarEtiqueta.resx">
       <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImprimirEtiqueta.resx">
+      <DependentUpon>ImprimirEtiqueta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
