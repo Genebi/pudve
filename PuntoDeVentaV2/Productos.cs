@@ -2117,7 +2117,10 @@ namespace PuntoDeVentaV2
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-
+            using (var formImprimir = new ImprimirEtiqueta())
+            {
+                var resultado = formImprimir.ShowDialog();
+            }
         }
 
         private void btnEtiqueta_Click(object sender, EventArgs e)
