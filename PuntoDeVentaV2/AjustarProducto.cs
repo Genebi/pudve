@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         private string producto = string.Empty;
         private float precioProducto = 0;
         private int stockProducto = 0;
+        private int stockExistencia = 0;
         private int apartado = 0;
 
         private string[] listaProveedores = new string[] { };
@@ -82,6 +83,7 @@ namespace PuntoDeVentaV2
             producto = datos[1];
             precioProducto = float.Parse(datos[2]);
             stockProducto = Convert.ToInt32(datos[4]);
+            stockExistencia = stockProducto;
             ActiveControl = txtCantidadCompra;
 
             txt_en_stock.Text = stockProducto.ToString();
@@ -173,39 +175,92 @@ namespace PuntoDeVentaV2
 
                 stockProducto += Convert.ToInt32(cantidadCompra);
 
-                int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 1));
-
-                if (resultado > 0)
+                if (stockProducto >= 1000)
                 {
-                    //Datos del producto que se actualizará
-                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-
-                    //Productos
-                    if (apartado == 1)
+                    int sumaStock = Convert.ToInt32(cantidadCompra.ToString()) + stockExistencia;
+                    DialogResult resultadoOpccionProductoComprado = MessageBox.Show("Realmente desea comprar la cantidade de : " + cantidadCompra.ToString() + 
+                                                                                    "\nel Stock actual es : " + stockExistencia.ToString() +
+                                                                                    "\nel nuevo stock será : " + sumaStock.ToString() + 
+                                                                                    "\nselecciona una opción por favor.", 
+                                                                                    "Advertencia de Cantidad de Compra", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (resultadoOpccionProductoComprado.Equals(DialogResult.Yes))
                     {
-                        Productos.botonAceptar = true;
-                    }
+                        int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 1));
 
-                    //Inventario
-                    if (apartado == 2)
-                    {
-                        Inventario.botonAceptar = true;
-                    }
+                        if (resultado > 0)
+                        {
+                            //Datos del producto que se actualizará
+                            datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
 
-                    int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float) Convert.ToDouble(precioCompra), FormPrincipal.userID));
+                            cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
 
-                    if (resul > 0)
-                    {
-                        //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //Productos
+                            if (apartado == 1)
+                            {
+                                Productos.botonAceptar = true;
+                            }
+
+                            //Inventario
+                            if (apartado == 2)
+                            {
+                                Inventario.botonAceptar = true;
+                            }
+
+                            int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float)Convert.ToDouble(precioCompra), FormPrincipal.userID));
+
+                            if (resul > 0)
+                            {
+                                //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                //MessageBox.Show("Precio de producto No se Actualizo del producto: " + IDProducto, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+                            this.Close();
+                        }
                     }
-                    else
+                    else if (resultadoOpccionProductoComprado.Equals(DialogResult.No))
                     {
-                        //MessageBox.Show("Precio de producto No se Actualizo del producto: " + IDProducto, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        txtCantidadCompra.Focus();
                     }
-                    
-                    this.Close();
+                }
+                else if (stockProducto < 1000)
+                {
+                    int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 1));
+
+                    if (resultado > 0)
+                    {
+                        //Datos del producto que se actualizará
+                        datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                        cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                        //Productos
+                        if (apartado == 1)
+                        {
+                            Productos.botonAceptar = true;
+                        }
+
+                        //Inventario
+                        if (apartado == 2)
+                        {
+                            Inventario.botonAceptar = true;
+                        }
+
+                        int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float)Convert.ToDouble(precioCompra), FormPrincipal.userID));
+
+                        if (resul > 0)
+                        {
+                            //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            //MessageBox.Show("Precio de producto No se Actualizo del producto: " + IDProducto, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
+                        this.Close();
+                    }
                 }
             }
 
