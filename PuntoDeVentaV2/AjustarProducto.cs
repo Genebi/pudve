@@ -270,11 +270,82 @@ namespace PuntoDeVentaV2
                 int auxiliar = 0;
                 var aumentar = txtAumentar.Text;
                 var disminuir = txtDisminuir.Text;
+                //Datos para la tabla historial de compras
+                string[] datos;
 
                 if (aumentar != "")
                 {
                     auxiliar = Convert.ToInt32(aumentar);
                     stockProducto += auxiliar;
+
+                    //Datos para la tabla historial de compras
+                    datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString(), "Ajuste", "Ajuste", "Ajuste", fechaOperacion };
+
+                    if (stockProducto >= 1000)
+                    {
+                        int sumaStock = Convert.ToInt32(aumentar.ToString()) + stockExistencia;
+                        DialogResult resultadoOpccionProductoComprado = MessageBox.Show("Realmente desea aumentar la cantidade de : " + aumentar.ToString() +
+                                                                                        "\nel Stock actual es : " + stockExistencia.ToString() +
+                                                                                        "\nel nuevo stock será : " + sumaStock.ToString() +
+                                                                                        "\nselecciona una opción por favor.",
+                                                                                        "Advertencia de Cantidad de Compra", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (resultadoOpccionProductoComprado.Equals(DialogResult.Yes))
+                        {
+                            int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
+
+                            if (resultado > 0)
+                            {
+                                //Productos
+                                if (apartado == 1)
+                                {
+                                    Productos.botonAceptar = true;
+                                }
+
+                                //Inventario
+                                if (apartado == 2)
+                                {
+                                    Inventario.botonAceptar = true;
+                                }
+
+                                //Datos del producto que se actualizará
+                                datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                                cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                                this.Close();
+                            }
+                        }
+                        else if (resultadoOpccionProductoComprado.Equals(DialogResult.No))
+                        {
+                            txtAumentar.Focus();
+                        }
+                    }
+                    else if (stockProducto < 1000)
+                    {
+                        int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
+
+                        if (resultado > 0)
+                        {
+                            //Productos
+                            if (apartado == 1)
+                            {
+                                Productos.botonAceptar = true;
+                            }
+
+                            //Inventario
+                            if (apartado == 2)
+                            {
+                                Inventario.botonAceptar = true;
+                            }
+
+                            //Datos del producto que se actualizará
+                            datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                            cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                            this.Close();
+                        }
+                    }
                 }
 
                 if (disminuir != "")
@@ -288,33 +359,6 @@ namespace PuntoDeVentaV2
                     }
 
                     auxiliar *= -1;
-                }
-
-                //Datos para la tabla historial de compras
-                string[] datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString(), "Ajuste", "Ajuste", "Ajuste", fechaOperacion };
-
-                int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
-
-                if (resultado > 0)
-                {
-                    //Productos
-                    if (apartado == 1)
-                    {
-                        Productos.botonAceptar = true;
-                    }
-
-                    //Inventario
-                    if (apartado == 2)
-                    {
-                        Inventario.botonAceptar = true;
-                    }
-
-                    //Datos del producto que se actualizará
-                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-
-                    this.Close();
                 }
             }
         }
