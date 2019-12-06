@@ -374,6 +374,8 @@ namespace PuntoDeVentaV2
                                             _pathSettignSound,
                                             _pathPlantillaEtiqueta };
 
+            createDir(pathsOrigen);
+
             createDir(pathsDestino);
 
             try
