@@ -1,2 +1,0 @@
-Broadway|34.75|25|35
-Copperplate Gothic Bold|25.75|71|106
