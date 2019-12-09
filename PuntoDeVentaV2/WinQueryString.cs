@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,9 +69,9 @@ namespace PuntoDeVentaV2
         static public List<string> detalleProductoBasico = new List<string>();
         static public List<string> detalleProductoGeneral = new List<string>();
 
-        Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(),
-                                                               diccionarioDetalleBasicos = new Dictionary<int, Tuple<string, string, string, string>>();
+        Dictionary<string, Tuple<string, string, string, string>> diccionarioDetalleBasicos = new Dictionary<string, Tuple<string, string, string, string>>();
 
+        string saveDirectoryFile;
 
         DataTable dtProveedor;
 
@@ -659,8 +660,115 @@ namespace PuntoDeVentaV2
         }
         #endregion Modifying Configuration Settings at Runtime
 
+        #region Dictionary Values
+        int usrNo = 0;
+
+        string line = string.Empty,
+                path = string.Empty,
+                pathTemp = string.Empty,
+                fileName = "DiccionarioDetalleBasicos.txt",
+                fileTempName = "tempDicBasic.txt",
+                rutaCompletaFile = string.Empty,
+                rutaCompletaTempFile = string.Empty,
+                chkName = string.Empty,
+                chkValue = string.Empty,
+                itemCB = string.Empty,
+                cbName = string.Empty;
+
+        string[] words;
+
+        char[] delimiter = { '|' };
+
+        private void saveDictionary()
+        {
+            usrNo = FormPrincipal.userID;
+            path += saveDirectoryFile + usrNo + @"\";
+            pathTemp += saveDirectoryFile + usrNo + @"\";
+            if (usrNo > 0)
+            {
+                if (!File.Exists(path + fileName))
+                {
+                    Directory.CreateDirectory(path);
+                    using (File.Create(path + fileName)) { }
+                }
+                if (File.Exists(path + fileName))
+                {
+                    rutaCompletaFile = path + fileName;
+                    rutaCompletaTempFile = pathTemp + fileTempName;
+                    if (File.Exists(rutaCompletaFile))
+                    {
+                        string text = File.ReadAllText(rutaCompletaFile);
+                        text.Replace("\r\n", "");
+                        if (!text.Length.Equals(0))
+                        {
+                            //if ()
+                            //{
+
+                            //}
+                        }
+                        else if (text.Length.Equals(0))
+                        {
+                            foreach (Control itemControl in fLPDetalleProducto.Controls)
+                            {
+                                foreach (Control subItemControl in itemControl.Controls)
+                                {
+                                    foreach (Control intoSubItemControl in subItemControl.Controls)
+                                    {
+                                        if (intoSubItemControl is CheckBox)
+                                        {
+                                            CheckBox chk = (CheckBox)intoSubItemControl;
+                                            if (chk.Name.Equals("chkBoxchkProveedor"))
+                                            {
+                                                chkName = chk.Name.ToString();
+                                                chkValue = chk.Checked.ToString();
+                                            }
+                                            else if (!chk.Name.Equals("chkBoxchkProveedor"))
+                                            {
+                                                chkName = chk.Name.ToString();
+                                                chkValue = chk.Checked.ToString();
+                                            }
+                                        }
+                                        if (intoSubItemControl is ComboBox)
+                                        {
+                                            ComboBox cb = (ComboBox)intoSubItemControl;
+                                            if (cb.Name.Equals("cbchkProveedor"))
+                                            {
+                                                itemCB = cb.Text;
+                                                cbName = cb.Name;
+                                            }
+                                            else if (!cb.Name.Equals("cbchkProveedor"))
+                                            {
+                                                itemCB = cb.Text;
+                                                cbName = cb.Name;
+                                            }
+                                        }
+                                    }
+                                    diccionarioDetalleBasicos.Add(usrNo.ToString(), new Tuple<string, string, string, string>(chkName, chkValue, itemCB, cbName));
+                                    usrNo++;
+                                }
+                            }
+                            using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+                            {
+                                foreach (var entry in diccionarioDetalleBasicos)
+                                {
+                                    file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (usrNo.Equals(0))
+            {
+                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario", "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion Dictionary Values
+
         private void WinQueryString_Load(object sender, EventArgs e)
         {
+            saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
+
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
                 string strOperadorAndCant;
@@ -750,6 +858,8 @@ namespace PuntoDeVentaV2
             BuscarChkBoxListView(chkDatabase);
 
             verificarChkBoxDinamicos();
+
+            saveDictionary();
         }
 
         private void verificarChkBoxDinamicos()

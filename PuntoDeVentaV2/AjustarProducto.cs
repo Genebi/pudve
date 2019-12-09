@@ -126,18 +126,18 @@ namespace PuntoDeVentaV2
 
             if (apartado == 1)
             {
-                reporte = Productos.idReporte; 
+                reporte = Productos.idReporte;
             }
 
             if (apartado == 2)
             {
                 reporte = Inventario.idReporte;
             }
-            
+
 
             var comentario = txtComentarios.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            
+
             //Producto comprado
             if (rbProducto.Checked)
             {
@@ -168,99 +168,46 @@ namespace PuntoDeVentaV2
 
                 //Datos para la tabla historial de compras
                 //string[] datos = new string[] { producto, cantidadCompra, precioProducto.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
-                float preCompra = (float) Convert.ToDouble(precioCompra);
-                float preProduct = preCompra * (float) 1.60;
+                float preCompra = (float)Convert.ToDouble(precioCompra);
+                float preProduct = preCompra * (float)1.60;
 
                 string[] datos = new string[] { producto, cantidadCompra, preProduct.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
                 stockProducto += Convert.ToInt32(cantidadCompra);
 
-                if (stockProducto >= 1000)
+                int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 1));
+
+                if (resultado > 0)
                 {
-                    int sumaStock = Convert.ToInt32(cantidadCompra.ToString()) + stockExistencia;
-                    DialogResult resultadoOpccionProductoComprado = MessageBox.Show("Realmente desea comprar la cantidade de : " + cantidadCompra.ToString() + 
-                                                                                    "\nel Stock actual es : " + stockExistencia.ToString() +
-                                                                                    "\nel nuevo stock será : " + sumaStock.ToString() + 
-                                                                                    "\nselecciona una opción por favor.", 
-                                                                                    "Advertencia de Cantidad de Compra", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (resultadoOpccionProductoComprado.Equals(DialogResult.Yes))
+                    //Datos del producto que se actualizará
+                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                    //Productos
+                    if (apartado == 1)
                     {
-                        int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 1));
-
-                        if (resultado > 0)
-                        {
-                            //Datos del producto que se actualizará
-                            datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                            cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-
-                            //Productos
-                            if (apartado == 1)
-                            {
-                                Productos.botonAceptar = true;
-                            }
-
-                            //Inventario
-                            if (apartado == 2)
-                            {
-                                Inventario.botonAceptar = true;
-                            }
-
-                            int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float)Convert.ToDouble(precioCompra), FormPrincipal.userID));
-
-                            if (resul > 0)
-                            {
-                                //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            else
-                            {
-                                //MessageBox.Show("Precio de producto No se Actualizo del producto: " + IDProducto, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-
-                            this.Close();
-                        }
+                        Productos.botonAceptar = true;
                     }
-                    else if (resultadoOpccionProductoComprado.Equals(DialogResult.No))
+
+                    //Inventario
+                    if (apartado == 2)
                     {
-                        txtCantidadCompra.Focus();
+                        Inventario.botonAceptar = true;
                     }
-                }
-                else if (stockProducto < 1000)
-                {
-                    int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 1));
 
-                    if (resultado > 0)
+                    int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float)Convert.ToDouble(precioCompra), FormPrincipal.userID));
+
+                    if (resul > 0)
                     {
-                        //Datos del producto que se actualizará
-                        datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                        cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-
-                        //Productos
-                        if (apartado == 1)
-                        {
-                            Productos.botonAceptar = true;
-                        }
-
-                        //Inventario
-                        if (apartado == 2)
-                        {
-                            Inventario.botonAceptar = true;
-                        }
-
-                        int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float)Convert.ToDouble(precioCompra), FormPrincipal.userID));
-
-                        if (resul > 0)
-                        {
-                            //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            //MessageBox.Show("Precio de producto No se Actualizo del producto: " + IDProducto, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-
-                        this.Close();
+                        //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                    else
+                    {
+                        //MessageBox.Show("Precio de producto No se Actualizo del producto: " + IDProducto, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    this.Close();
                 }
             }
 
@@ -270,82 +217,11 @@ namespace PuntoDeVentaV2
                 int auxiliar = 0;
                 var aumentar = txtAumentar.Text;
                 var disminuir = txtDisminuir.Text;
-                //Datos para la tabla historial de compras
-                string[] datos;
 
                 if (aumentar != "")
                 {
                     auxiliar = Convert.ToInt32(aumentar);
                     stockProducto += auxiliar;
-
-                    //Datos para la tabla historial de compras
-                    datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString(), "Ajuste", "Ajuste", "Ajuste", fechaOperacion };
-
-                    if (stockProducto >= 1000)
-                    {
-                        int sumaStock = Convert.ToInt32(aumentar.ToString()) + stockExistencia;
-                        DialogResult resultadoOpccionProductoComprado = MessageBox.Show("Realmente desea aumentar la cantidade de : " + aumentar.ToString() +
-                                                                                        "\nel Stock actual es : " + stockExistencia.ToString() +
-                                                                                        "\nel nuevo stock será : " + sumaStock.ToString() +
-                                                                                        "\nselecciona una opción por favor.",
-                                                                                        "Advertencia de Cantidad de Compra", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (resultadoOpccionProductoComprado.Equals(DialogResult.Yes))
-                        {
-                            int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
-
-                            if (resultado > 0)
-                            {
-                                //Productos
-                                if (apartado == 1)
-                                {
-                                    Productos.botonAceptar = true;
-                                }
-
-                                //Inventario
-                                if (apartado == 2)
-                                {
-                                    Inventario.botonAceptar = true;
-                                }
-
-                                //Datos del producto que se actualizará
-                                datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                                cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-
-                                this.Close();
-                            }
-                        }
-                        else if (resultadoOpccionProductoComprado.Equals(DialogResult.No))
-                        {
-                            txtAumentar.Focus();
-                        }
-                    }
-                    else if (stockProducto < 1000)
-                    {
-                        int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
-
-                        if (resultado > 0)
-                        {
-                            //Productos
-                            if (apartado == 1)
-                            {
-                                Productos.botonAceptar = true;
-                            }
-
-                            //Inventario
-                            if (apartado == 2)
-                            {
-                                Inventario.botonAceptar = true;
-                            }
-
-                            //Datos del producto que se actualizará
-                            datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
-
-                            cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-
-                            this.Close();
-                        }
-                    }
                 }
 
                 if (disminuir != "")
@@ -359,6 +235,33 @@ namespace PuntoDeVentaV2
                     }
 
                     auxiliar *= -1;
+                }
+
+                //Datos para la tabla historial de compras
+                string[] datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString(), "Ajuste", "Ajuste", "Ajuste", fechaOperacion };
+
+                int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
+
+                if (resultado > 0)
+                {
+                    //Productos
+                    if (apartado == 1)
+                    {
+                        Productos.botonAceptar = true;
+                    }
+
+                    //Inventario
+                    if (apartado == 2)
+                    {
+                        Inventario.botonAceptar = true;
+                    }
+
+                    //Datos del producto que se actualizará
+                    datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                    cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                    this.Close();
                 }
             }
         }

@@ -1,0 +1,3 @@
+11|chkBoxchkProveedor|False|Selecciona un Proveedor|cbchkProveedor
+12|chkBoxchkColor|False|Color...|cbchkColor
+13|chkBoxchkTalla|False|Talla...|cbchkTalla
