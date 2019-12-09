@@ -806,11 +806,43 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario", "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dictionaryLoad()
+        {
+            bool isEmpty = (diccionarioDetalleBasicos.Count == 0);
+            usrNo = FormPrincipal.userID;
+            if (usrNo > 0)
+            {
+                if (isEmpty.Equals(false))
+                {
+                    MessageBox.Show("El Diccionario esta vacio", "Archivo no tiene contenido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (isEmpty.Equals(true))
+                {
+                    diccionarioDetalleBasicos.Clear();
+                    using (StreamReader file = new StreamReader(path + usrNo + @"\" + fileName))
+                    {
+                        while ((line = file.ReadLine()) != null)
+                        {
+                            words = line.Split(delimiter);
+                            diccionarioDetalleBasicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+                        }
+                        file.Close();
+                    }
+                }
+            }
+            else if (usrNo.Equals(0))
+            {
+                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario", "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion Dictionary Values
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
             saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
+
+            path = saveDirectoryFile;
 
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
@@ -901,6 +933,8 @@ namespace PuntoDeVentaV2
             BuscarChkBoxListView(chkDatabase);
 
             verificarChkBoxDinamicos();
+
+            dictionaryLoad();
 
             saveDictionary();
         }
