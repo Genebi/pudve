@@ -682,8 +682,8 @@ namespace PuntoDeVentaV2
         private void saveDictionary()
         {
             usrNo = FormPrincipal.userID;
-            path += saveDirectoryFile + usrNo + @"\";
-            pathTemp += saveDirectoryFile + usrNo + @"\";
+            path = saveDirectoryFile + usrNo + @"\";
+            pathTemp = saveDirectoryFile + usrNo + @"\";
             if (usrNo > 0)
             {
                 if (!File.Exists(path + fileName))
@@ -701,10 +701,53 @@ namespace PuntoDeVentaV2
                         text.Replace("\r\n", "");
                         if (!text.Length.Equals(0))
                         {
-                            //if ()
-                            //{
-
-                            //}
+                            diccionarioDetalleBasicos.Clear();
+                            foreach (Control itemControl in fLPDetalleProducto.Controls)
+                            {
+                                foreach (Control subItemControl in itemControl.Controls)
+                                {
+                                    foreach (Control intoSubItemControl in subItemControl.Controls)
+                                    {
+                                        if (intoSubItemControl is CheckBox)
+                                        {
+                                            CheckBox chk = (CheckBox)intoSubItemControl;
+                                            if (chk.Name.Equals("chkBoxchkProveedor"))
+                                            {
+                                                chkName = chk.Name.ToString();
+                                                chkValue = chk.Checked.ToString().ToLower();
+                                            }
+                                            else if (!chk.Name.Equals("chkBoxchkProveedor"))
+                                            {
+                                                chkName = chk.Name.ToString();
+                                                chkValue = chk.Checked.ToString().ToLower();
+                                            }
+                                        }
+                                        if (intoSubItemControl is ComboBox)
+                                        {
+                                            ComboBox cb = (ComboBox)intoSubItemControl;
+                                            if (cb.Name.Equals("cbchkProveedor"))
+                                            {
+                                                itemCB = cb.Text;
+                                                cbName = cb.Name;
+                                            }
+                                            else if (!cb.Name.Equals("cbchkProveedor"))
+                                            {
+                                                itemCB = cb.Text;
+                                                cbName = cb.Name;
+                                            }
+                                        }
+                                    }
+                                    diccionarioDetalleBasicos.Add(usrNo.ToString(), new Tuple<string, string, string, string>(chkName, chkValue, itemCB, cbName));
+                                    usrNo++;
+                                }
+                            }
+                            using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+                            {
+                                foreach (var entry in diccionarioDetalleBasicos)
+                                {
+                                    file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                                }
+                            }
                         }
                         else if (text.Length.Equals(0))
                         {
@@ -1157,6 +1200,7 @@ namespace PuntoDeVentaV2
                 {
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Proveedor.");
                 }
+                saveDictionary();
                 this.Close();
             }
             else if (result == DialogResult.No)
