@@ -69,6 +69,7 @@
             this.btnImprimir.TabIndex = 5;
             this.btnImprimir.Text = "Imprimir Plantilla";
             this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // ImprimirEtiqueta
             // 

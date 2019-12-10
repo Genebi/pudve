@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
     {
         int alturaEjeY = 10;
         string labelConFocus = string.Empty;
+        bool allowResize = false;
 
         //public static string fuenteSeleccionada = string.Empty;
 
@@ -165,6 +166,10 @@ namespace PuntoDeVentaV2
                 panelCustom.Width = 100;
                 panelCustom.Height = 50;
                 panelCustom.Tag = propiedad;
+                //panelCustom.MouseDown += new MouseEventHandler(panelCustom_MouseDown);
+                //panelCustom.MouseUp += new MouseEventHandler(panelCustom_MouseUp);
+                //panelCustom.MouseMove += new MouseEventHandler(panelCustom_MouseMove);
+
                 panelEtiqueta.Controls.Add(panelCustom);
 
                 GenerarCodigoBarras("1020304050");
@@ -175,6 +180,28 @@ namespace PuntoDeVentaV2
             {
                 panelEtiqueta.Controls.Add(lbCustom);
                 ControlExtension.Draggable(lbCustom, true);
+            }
+        }
+
+
+        private void panelCustom_MouseDown(object sender, MouseEventArgs e)
+        {
+            allowResize = true;
+        }
+
+        private void panelCustom_MouseUp(object sender, MouseEventArgs e)
+        {
+            allowResize = false;
+        }
+
+        private void panelCustom_MouseMove(object sender, MouseEventArgs e)
+        {
+            Panel panelCustom = (Panel)this.Controls.Find("panelCustomCodigo", true)[0];
+
+            if (allowResize)
+            {
+                panelCustom.Height = e.Y;// panelEtiqueta.Top + e.Y;
+                panelCustom.Width = e.X;// panelEtiqueta.Left + e.X;
             }
         }
 
@@ -306,44 +333,7 @@ namespace PuntoDeVentaV2
             bm.Save(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\" + nombreImagen, ImageFormat.Bmp);
 
             MessageBox.Show("Plantilla guardada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            /*var nombreArchivo = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\plantilla_1.txt";
-
-            using (var leer = new StreamReader(nombreArchivo))
-            {
-                string linea = string.Empty;
-                var contador = 1;
-
-                while ((linea = leer.ReadLine()) != null)
-                {
-                    var datos = linea.Split('|');
-
-                    var nombreFuente = datos[0];
-                    var tamano = float.Parse(datos[1]);
-                    Font fuente = new Font(nombreFuente, tamano);
-
-                    var lbNombre = string.Empty;
-
-                    if (contador == 1) { lbNombre = "Nombre largo de prueba"; }
-                    if (contador == 2) { lbNombre = "Stock"; }
-                    if (contador == 3) { lbNombre = "Precio"; }
-
-                    Label lbCustom = new Label();
-                    lbCustom.Text = lbNombre;
-                    lbCustom.Font = fuente;
-
-                    var infoTexto = TextRenderer.MeasureText(lbCustom.Text, new Font(lbCustom.Font.FontFamily, lbCustom.Font.Size));
-
-                    lbCustom.Width = infoTexto.Width;
-                    lbCustom.Height = infoTexto.Height;
-
-                    lbCustom.Location = new Point(Convert.ToInt32(datos[2]), Convert.ToInt32(datos[3]));
-
-                    panelEtiqueta.Controls.Add(lbCustom);
-
-                    contador++;
-                }
-            }*/
-
+     
             Dispose();
         }
 
