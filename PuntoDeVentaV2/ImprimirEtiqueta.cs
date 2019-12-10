@@ -70,5 +70,56 @@ namespace PuntoDeVentaV2
                 panelEtiqueta.BorderStyle = BorderStyle.FixedSingle;
             }
         }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            // Obtenemos el nombre de la plantilla seleccionada para buscar el .txt con los datos
+            var indice = cbPlantillas.SelectedIndex;
+            var plantilla = cbPlantillas.SelectedItem.ToString();
+
+            if (indice > 0)
+            {
+                var nombreArchivo = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Plantillas\" + plantilla + ".txt";
+
+                using (var leer = new StreamReader(nombreArchivo))
+                {
+                    var linea = string.Empty;
+
+                    while ((linea = leer.ReadLine()) != null)
+                    {
+                        var datos = linea.Split('|');
+
+                        var nombreFuente = datos[0];
+                        var tamanoFuente = float.Parse(datos[1]);
+                        var posicionX = datos[2];
+                        var posicionY = datos[3];
+                        var nombrePropiedad = datos[4];
+
+                        // Cuando es codigo de barras el que se va agregar
+                        if (nombrePropiedad == "Codigo")
+                        {
+
+                        }
+                        else
+                        {
+                            Font fuente = new Font(nombreFuente, tamanoFuente);
+
+                            Label lbCustom = new Label();
+                            lbCustom.Text = "";
+                            lbCustom.Font = fuente;
+
+                            var infoTexto = TextRenderer.MeasureText(lbCustom.Text, new Font(lbCustom.Font.FontFamily, lbCustom.Font.Size));
+
+                            lbCustom.Width = infoTexto.Width;
+                            lbCustom.Height = infoTexto.Height;
+
+                            lbCustom.Location = new Point(Convert.ToInt32(posicionX), Convert.ToInt32(posicionY));
+
+                            panelEtiqueta.Controls.Add(lbCustom);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
