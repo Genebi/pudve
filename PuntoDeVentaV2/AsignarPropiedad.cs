@@ -40,7 +40,21 @@ namespace PuntoDeVentaV2
         {
             Font fuente = new Font("Century Gothic", 10.0f);
             
-            if (propiedad == "Stock")
+            if (propiedad == "Mensaje")
+            {
+                TextBox tbMensaje = new TextBox();
+                tbMensaje.Name = "tb" + propiedad;
+                tbMensaje.Width = 200;
+                tbMensaje.Height = 20;
+                tbMensaje.TextAlign = HorizontalAlignment.Center;
+                tbMensaje.Font = fuente;
+                tbMensaje.Location = new Point(65, 70);
+
+                panelContenedor.Controls.Add(tbMensaje);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
+            }
+            else if (propiedad == "Stock")
             {
                 TextBox tbStock = new TextBox();
                 tbStock.Name = "tb" + propiedad;
@@ -213,7 +227,36 @@ namespace PuntoDeVentaV2
 
             string[] datos;
 
-            if (propiedad == "Stock")
+            if (propiedad == "Mensaje")
+            {
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensaje", true)[0];
+
+                var mensaje = txtMensaje.Text;
+
+                if (string.IsNullOrWhiteSpace(mensaje))
+                {
+                    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                foreach (var producto in productos)
+                {
+                    // Comprobar si existe ya un mensaje para este producto
+                    var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM ProductMessage WHERE IDProducto = {producto.Key}"));
+
+                    if (comprobar > 0)
+                    {
+                        // UPDATE
+                        cn.EjecutarConsulta($"UPDATE ProductMessage SET ProductOfMessage = '{mensaje}' WHERE IDProducto = {producto.Key}");
+                    }
+                    else
+                    {
+                        // INSERT
+                        cn.EjecutarConsulta($"INSERT INTO ProductMessage (IDProducto, ProductOfMessage, ProductMessageActivated) VALUES ('{producto.Key}', '{mensaje}', '1')");
+                    }
+                }
+            }
+            else if (propiedad == "Stock")
             {
                 TextBox txtStock = (TextBox)this.Controls.Find("tbStock", true)[0];
 
@@ -234,6 +277,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     MessageBox.Show("Ingrese una cantidad para stock", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }    
             }
             else if (propiedad == "Precio")
@@ -254,6 +298,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     MessageBox.Show("Ingrese el precio para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
             }

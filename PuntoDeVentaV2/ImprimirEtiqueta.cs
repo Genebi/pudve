@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
 {
     public partial class ImprimirEtiqueta : Form
     {
+
         Dictionary<int, string> productos;
 
         private string[] nombrePlantillas;
@@ -83,39 +84,46 @@ namespace PuntoDeVentaV2
 
                 using (var leer = new StreamReader(nombreArchivo))
                 {
-                    var linea = string.Empty;
-
-                    while ((linea = leer.ReadLine()) != null)
+                    foreach (var producto in productos)
                     {
-                        var datos = linea.Split('|');
+                        // Buscar datos del producto
+                        //var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
 
-                        var nombreFuente = datos[0];
-                        var tamanoFuente = float.Parse(datos[1]);
-                        var posicionX = datos[2];
-                        var posicionY = datos[3];
-                        var nombrePropiedad = datos[4];
 
-                        // Cuando es codigo de barras el que se va agregar
-                        if (nombrePropiedad == "Codigo")
+                        var linea = string.Empty;
+
+                        while ((linea = leer.ReadLine()) != null)
                         {
+                            var datos = linea.Split('|');
 
-                        }
-                        else
-                        {
-                            Font fuente = new Font(nombreFuente, tamanoFuente);
+                            var nombreFuente = datos[0];
+                            var tamanoFuente = float.Parse(datos[1]);
+                            var posicionX = datos[2];
+                            var posicionY = datos[3];
+                            var nombrePropiedad = datos[4];
 
-                            Label lbCustom = new Label();
-                            lbCustom.Text = "";
-                            lbCustom.Font = fuente;
+                            // Cuando es codigo de barras el que se va agregar
+                            if (nombrePropiedad == "Codigo")
+                            {
 
-                            var infoTexto = TextRenderer.MeasureText(lbCustom.Text, new Font(lbCustom.Font.FontFamily, lbCustom.Font.Size));
+                            }
+                            else
+                            {
+                                Font fuente = new Font(nombreFuente, tamanoFuente);
 
-                            lbCustom.Width = infoTexto.Width;
-                            lbCustom.Height = infoTexto.Height;
+                                Label lbCustom = new Label();
+                                lbCustom.Text = "";
+                                lbCustom.Font = fuente;
 
-                            lbCustom.Location = new Point(Convert.ToInt32(posicionX), Convert.ToInt32(posicionY));
+                                var infoTexto = TextRenderer.MeasureText(lbCustom.Text, new Font(lbCustom.Font.FontFamily, lbCustom.Font.Size));
 
-                            panelEtiqueta.Controls.Add(lbCustom);
+                                lbCustom.Width = infoTexto.Width;
+                                lbCustom.Height = infoTexto.Height;
+
+                                lbCustom.Location = new Point(Convert.ToInt32(posicionX), Convert.ToInt32(posicionY));
+
+                                panelEtiqueta.Controls.Add(lbCustom);
+                            }
                         }
                     }
                 }

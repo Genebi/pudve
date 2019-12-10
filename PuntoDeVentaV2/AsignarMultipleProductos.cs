@@ -59,14 +59,41 @@ namespace PuntoDeVentaV2
             XmlNode appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
 
             //======================================================================
-            
+
+            // PANEL MENSAJE
+            FlowLayoutPanel panelMensaje = new FlowLayoutPanel();
+            panelMensaje.Name = "panelMensaje";
+            panelMensaje.Width = 350;
+            panelMensaje.Height = 30;
+            panelMensaje.FlowDirection = FlowDirection.LeftToRight;
+            panelMensaje.Location = new Point(3, 10);
+            panelMensaje.BorderStyle = BorderStyle.FixedSingle;
+
+            Label lbMensaje = new Label();
+            lbMensaje.Text = "Agregar mensaje";
+            lbMensaje.Name = "lbMensaje";
+            lbMensaje.Width = 100;
+            lbMensaje.Height = 20;
+            lbMensaje.TextAlign = ContentAlignment.MiddleCenter;
+
+            Button btnMensaje = new Button();
+            btnMensaje.Name = "btnMensaje";
+            btnMensaje.Text = "Asignar";
+            btnMensaje.Cursor = Cursors.Hand;
+            btnMensaje.Tag = "Mensaje";
+            btnMensaje.Click += new EventHandler(botonAsignar_Click);
+
+            panelMensaje.Controls.Add(lbMensaje);
+            panelMensaje.Controls.Add(btnMensaje);
+            panelContenedor.Controls.Add(panelMensaje);
+
             // PANEL STOCK
             FlowLayoutPanel panelStock = new FlowLayoutPanel();
             panelStock.Name = "panelStock";
             panelStock.Width = 350;
             panelStock.Height = 30;
             panelStock.FlowDirection = FlowDirection.LeftToRight;
-            panelStock.Location = new Point(3, 10);
+            panelStock.Location = new Point(3, 45);
             panelStock.BorderStyle = BorderStyle.FixedSingle;
 
             Label lbStock = new Label();
@@ -85,7 +112,6 @@ namespace PuntoDeVentaV2
 
             panelStock.Controls.Add(lbStock);
             panelStock.Controls.Add(btnStock);
-
             panelContenedor.Controls.Add(panelStock);
 
             // PANEL PRECIO
@@ -94,7 +120,7 @@ namespace PuntoDeVentaV2
             panelPrecio.Width = 350;
             panelPrecio.Height = 30;
             panelPrecio.FlowDirection = FlowDirection.LeftToRight;
-            panelPrecio.Location = new Point(3, 45);
+            panelPrecio.Location = new Point(3, 80);
             panelPrecio.BorderStyle = BorderStyle.FixedSingle;
 
             Label lbPrecio = new Label();
@@ -113,10 +139,9 @@ namespace PuntoDeVentaV2
 
             panelPrecio.Controls.Add(lbPrecio);
             panelPrecio.Controls.Add(btnPrecio);
-
             panelContenedor.Controls.Add(panelPrecio);
 
-            int alturaEjeY = 80;
+            int alturaEjeY = 115;
 
             //======================================================================
             foreach (XmlNode childNode in appSettingsNode)
