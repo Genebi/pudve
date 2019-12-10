@@ -1,3 +1,3 @@
-11|chkBoxchkProveedor|true|CORIBA & CORNEJO S. DE R.L. DE C.V.|cbchkProveedor
-12|chkBoxchkColor|true|ROJO|cbchkColor
-13|chkBoxchkTalla|true|24|cbchkTalla
+11|chkBoxchkProveedor|True|CORIBA & CORNEJO S. DE R.L. DE C.V.|cbchkProveedor
+12|chkBoxchkColor|True|AMARILLO|cbchkColor
+13|chkBoxchkTalla|True|24|cbchkTalla

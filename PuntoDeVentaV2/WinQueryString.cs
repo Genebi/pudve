@@ -714,12 +714,12 @@ namespace PuntoDeVentaV2
                                             if (chk.Name.Equals("chkBoxchkProveedor"))
                                             {
                                                 chkName = chk.Name.ToString();
-                                                chkValue = chk.Checked.ToString().ToLower();
+                                                chkValue = chk.Checked.ToString();
                                             }
                                             else if (!chk.Name.Equals("chkBoxchkProveedor"))
                                             {
                                                 chkName = chk.Name.ToString();
-                                                chkValue = chk.Checked.ToString().ToLower();
+                                                chkValue = chk.Checked.ToString();
                                             }
                                         }
                                         if (intoSubItemControl is ComboBox)
@@ -829,11 +829,43 @@ namespace PuntoDeVentaV2
                         }
                         file.Close();
                     }
+                    fillFieldsBasicsDetail();
                 }
             }
             else if (usrNo.Equals(0))
             {
-                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario", "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario", 
+                                "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void fillFieldsBasicsDetail()
+        {
+            var nombre = string.Empty;
+            foreach (Control itemControl in fLPDetalleProducto.Controls)
+            {
+                nombre = itemControl.Name;
+                foreach (Control subItemControl in itemControl.Controls)
+                {
+                    nombre = subItemControl.Name;
+                    foreach (Control intoSubItemControl in subItemControl.Controls)
+                    {
+                        nombre = intoSubItemControl.Name;
+                        foreach (var item in diccionarioDetalleBasicos)
+                        {
+                            if (intoSubItemControl is CheckBox && intoSubItemControl.Name.Equals(item.Value.Item1))
+                            {
+                                CheckBox chk = (CheckBox)intoSubItemControl;
+                                chk.Checked = Convert.ToBoolean(item.Value.Item2);
+                            }
+                            if (intoSubItemControl is ComboBox && intoSubItemControl.Name.Equals(item.Value.Item4))
+                            {
+                                ComboBox cb = (ComboBox)intoSubItemControl;
+                                cb.Text = item.Value.Item3;
+                            }
+                        }
+                    }
+                }
             }
         }
         #endregion Dictionary Values
