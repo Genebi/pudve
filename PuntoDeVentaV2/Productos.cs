@@ -89,6 +89,9 @@ namespace PuntoDeVentaV2
 
         string filtroConSinFiltroAvanzado = string.Empty;
 
+        string[] palabras;
+        List<string> auxWord;
+
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -966,6 +969,27 @@ namespace PuntoDeVentaV2
                 fotos = cn.CargarDatos(buscarStock);
                 photoShow();
             }
+
+            cargarListaDeEtiquetas();
+        }
+
+        private void cargarListaDeEtiquetas()
+        {
+            palabras = txtBusqueda.Text.Split(' ');
+            for (int i = 0; i < palabras.Length; i++)
+            {
+                if (auxWord.Count == 0)
+                {
+                    auxWord.Add(palabras[i]);
+                }
+                else if (!auxWord.Contains(palabras[i]))
+                {
+                    if (auxWord.Count != 0)
+                    {
+                        auxWord.Add(palabras[i]);
+                    }
+                }
+            }
         }
 
         public Productos()
@@ -977,6 +1001,8 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            auxWord = new List<string>();
+
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
 
             panelShowPhotoView.Visible = false;
