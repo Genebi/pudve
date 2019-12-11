@@ -1039,6 +1039,54 @@ namespace PuntoDeVentaV2
             return fecha;
         }
 
+        public string[] BuscarCodigoInventario(string codigo)
+        {
+            string[] datos = new string[] { };
+
+            int idProducto = 0;
+
+            DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{codigo}' OR ClaveInterna = '{codigo}') AND Status = 1");
+
+            SQLiteDataReader info = sql_cmd.ExecuteReader();
+
+            if (info.Read())
+            {
+                idProducto = Convert.ToInt32(info["ID"]);
+
+                info.Close();
+            }
+            else
+            {
+                var infoProducto = BuscarCodigoBarrasExtra(codigo);
+
+                if (infoProducto.Length > 0)
+                {
+                    idProducto = Convert.ToInt32(infoProducto[0]);
+                }
+            }
+
+
+            if (idProducto > 0)
+            {
+                DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+
+                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    datos = new string[] {
+                        dr["Nombre"].ToString(),
+                        dr["Stock"].ToString(),
+                        dr["Precio"].ToString(),
+                        dr["ClaveInterna"].ToString(),
+                        dr["CodigoBarras"].ToString()
+                    };
+                }
+            }
+
+            return datos;
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();

@@ -270,12 +270,36 @@ namespace PuntoDeVentaV2
 
         private void buscarCodigoBarras()
         {
-            index = 0;
+            //index = 0;
 
             if (txtBoxBuscarCodigoBarras.Text != string.Empty)
             {
+                var codigo = txtBoxBuscarCodigoBarras.Text;
+
+                var infoProducto = mb.BuscarCodigoInventario(codigo);
+
+                if (infoProducto.Length > 0)
+                {
+                    lblNombreProducto.Text = infoProducto[0];
+
+                    if (string.IsNullOrEmpty(infoProducto[3]))
+                    {
+                        lblCodigoDeBarras.Text = codigo;
+                    }
+                    else
+                    {
+                        lblCodigoDeBarras.Text = infoProducto[3];
+                    }
+
+                    lblPrecioProducto.Text = infoProducto[2];
+                    txtCantidadStock.Text = infoProducto[1];
+                }
+                else
+                {
+                    MessageBox.Show("No hay datos");
+                }
                 // Est es el codigo de barras a buscar
-                buscarStock = txtBoxBuscarCodigoBarras.Text;
+                /*buscarStock = txtBoxBuscarCodigoBarras.Text;
 
                 try
                 {
@@ -496,7 +520,7 @@ namespace PuntoDeVentaV2
                     txtBoxBuscarCodigoBarras.Text = string.Empty;
                     txtBoxBuscarCodigoBarras.Focus();
                     MessageBox.Show("Al buscar el Producto paso un.\nError: " + ex.Message.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                }*/
             }
         }
 
