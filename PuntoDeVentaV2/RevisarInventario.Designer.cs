@@ -32,6 +32,9 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblPrecioProducto = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.lblNoRegistro = new System.Windows.Forms.Label();
             this.txtCantidadStock = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -42,14 +45,11 @@
             this.lblNombreProducto = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnTerminar = new System.Windows.Forms.Button();
             this.btnSiguiente = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblPrecioProducto = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -97,6 +97,36 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Datos del Producto: ";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(225, 145);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(19, 20);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "$";
+            // 
+            // lblPrecioProducto
+            // 
+            this.lblPrecioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblPrecioProducto.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblPrecioProducto.ForeColor = System.Drawing.Color.DarkRed;
+            this.lblPrecioProducto.Location = new System.Drawing.Point(262, 139);
+            this.lblPrecioProducto.Name = "lblPrecioProducto";
+            this.lblPrecioProducto.Size = new System.Drawing.Size(134, 32);
+            this.lblPrecioProducto.TabIndex = 11;
+            this.lblPrecioProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(225, 120);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Precio :";
             // 
             // lblNoRegistro
             // 
@@ -196,7 +226,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.btnTerminar);
             this.groupBox3.Controls.Add(this.btnSiguiente);
             this.groupBox3.Location = new System.Drawing.Point(12, 470);
             this.groupBox3.Name = "groupBox3";
@@ -204,16 +234,16 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
-            // button1
+            // btnTerminar
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Italic);
-            this.button1.Location = new System.Drawing.Point(225, 25);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(171, 55);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Terminar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Italic);
+            this.btnTerminar.Location = new System.Drawing.Point(225, 25);
+            this.btnTerminar.Name = "btnTerminar";
+            this.btnTerminar.Size = new System.Drawing.Size(171, 55);
+            this.btnTerminar.TabIndex = 1;
+            this.btnTerminar.Text = "Terminar";
+            this.btnTerminar.UseVisualStyleBackColor = true;
+            this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
             // 
             // btnSiguiente
             // 
@@ -247,36 +277,6 @@
             this.lblNoRevision.TabIndex = 4;
             this.lblNoRevision.Text = "0";
             this.lblNoRevision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(225, 120);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Precio :";
-            // 
-            // lblPrecioProducto
-            // 
-            this.lblPrecioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblPrecioProducto.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.lblPrecioProducto.ForeColor = System.Drawing.Color.DarkRed;
-            this.lblPrecioProducto.Location = new System.Drawing.Point(262, 139);
-            this.lblPrecioProducto.Name = "lblPrecioProducto";
-            this.lblPrecioProducto.Size = new System.Drawing.Size(134, 32);
-            this.lblPrecioProducto.TabIndex = 11;
-            this.lblPrecioProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(225, 145);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(19, 20);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "$";
             // 
             // RevisarInventario
             // 
@@ -321,7 +321,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtCantidadStock;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnTerminar;
         private System.Windows.Forms.Label lblNoRegistro;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblNoRevision;

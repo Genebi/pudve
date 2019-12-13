@@ -54,7 +54,7 @@ namespace PuntoDeVentaV2
 
             checkInventory.FormClosing += delegate
             {
-                GetNumRevActive = Convert.ToInt32(checkInventory.NoActualCheckStock);
+                //GetNumRevActive = Convert.ToInt32(checkInventory.NoActualCheckStock);
                 CargarNumRevActivo();
 
                 FinalReportReviewInventory.FormClosed += delegate

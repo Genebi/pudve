@@ -1079,10 +1079,35 @@ namespace PuntoDeVentaV2
                         dr["Stock"].ToString(),
                         dr["Precio"].ToString(),
                         dr["ClaveInterna"].ToString(),
-                        dr["CodigoBarras"].ToString()
+                        dr["CodigoBarras"].ToString(),
+                        idProducto.ToString()
                     };
                 }
             }
+
+            return datos;
+        }
+
+        public string[] DatosRevisionInventario()
+        {
+            string[] datos = new string[] { };
+
+            var fecha = string.Empty;
+            var revision = string.Empty;
+
+            DatosConexion($"SELECT * FROM CodigoBarrasGenerado WHERE IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                fecha = dr["FechaInventario"].ToString();
+                revision = dr["NoRevision"].ToString();
+
+                datos = new string[] { fecha, revision };
+            }
+
+            dr.Close();
 
             return datos;
         }

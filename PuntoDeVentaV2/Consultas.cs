@@ -489,5 +489,23 @@ namespace PuntoDeVentaV2
 
             return cons;
         }
+
+        public string GuardarRevisarInventario(string[] datos, int tipo = 0)
+        {
+            string consulta = string.Empty;
+
+            if (tipo == 0)
+            {
+                consulta = "INSERT INTO RevisarInventario (IDAlmancen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}')";
+            }
+
+            if (tipo == 1)
+            {
+
+            }
+
+            return consulta;
+        }
     }
 }
