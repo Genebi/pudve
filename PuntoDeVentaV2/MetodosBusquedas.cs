@@ -1083,6 +1083,8 @@ namespace PuntoDeVentaV2
                         idProducto.ToString()
                     };
                 }
+
+                dr.Close();
             }
 
             return datos;
@@ -1105,6 +1107,28 @@ namespace PuntoDeVentaV2
                 revision = dr["NoRevision"].ToString();
 
                 datos = new string[] { fecha, revision };
+            }
+
+            dr.Close();
+
+            return datos;
+        }
+
+        public string[] DatosProductoInventariado(int idProducto)
+        {
+            string[] datos = new string[] { };
+
+            DatosConexion($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                datos = new string[]
+                {
+                    dr["StockFisico"].ToString(),
+                    dr["StockAlmacen"].ToString()
+                };
             }
 
             dr.Close();
