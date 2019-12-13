@@ -2084,70 +2084,122 @@ namespace PuntoDeVentaV2
         private void crearEtiquetaDinamica()
         {
             fLPDynamicTags.Controls.Clear();
-            //fLPDynamicTags.BackColor = Color.Beige;
 
-            Panel panelEtiqueta = new Panel();
-            panelEtiqueta.Name = "pEtiqueta";
-            panelEtiqueta.Width = 140;
-            panelEtiqueta.Height = 32;
-            panelEtiqueta.Location = new Point(0, 2);
-            //panelEtiqueta.BackColor = Color.AliceBlue;
+            bool isEmptyAuxWord = !auxWord.Any();
+            string nameItemLista = string.Empty;
 
-            Label lblLeft = new Label();
-            lblLeft.Name = "LabelIzquierdo";
-            lblLeft.Width = 9;
-            lblLeft.Height = 23;
-            lblLeft.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelLeft;
-            lblLeft.Location = new Point(2, 2);
-            panelEtiqueta.Controls.Add(lblLeft);
+            if (!isEmptyAuxWord)
+            {
+                foreach (var itemLista in auxWord)
+                {
+                    nameItemLista = itemLista;
 
-            Panel panelTagTex = new Panel();
-            panelTagTex.Name = "PanelTagTex";
-            panelTagTex.Size = size;
-            panelTagTex.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.backgroundMiddleLabel;
-            panelTagTex.BackgroundImageLayout = ImageLayout.Stretch;
-            panelTagTex.Location = new Point(lblLeft.Location.X + lblLeft.Width, 4);
-            panelEtiqueta.Controls.Add(panelTagTex);
+                    Panel panelEtiqueta = new Panel();
+                    panelEtiqueta.Name = "pEtiqueta" + nameItemLista;
+                    panelEtiqueta.Width = 140;
+                    panelEtiqueta.Height = 32;
+                    panelEtiqueta.Location = new Point(0, 2);
+                    //panelEtiqueta.BackColor = Color.AliceBlue;
 
-            //label2.Text = auxWord[0].ToString();
-            Ancho = auxWord[0].Length * 11;
-            //label3.Text = Ancho.ToString();
+                    Label lblLeft = new Label();
+                    lblLeft.Name = "LabelIzquierdo" + nameItemLista;
+                    lblLeft.Width = 9;
+                    lblLeft.Height = 23;
+                    lblLeft.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelLeft;
+                    lblLeft.Location = new Point(2, 2);
+                    panelEtiqueta.Controls.Add(lblLeft);
 
-            Label lblTextFiltro = new Label();
-            lblTextFiltro.Height = 17;
-            lblTextFiltro.Location = new Point(0, 0);
-            lblTextFiltro.BackColor = Color.Transparent;
-            lblTextFiltro.Text = auxWord[0].ToString();
-            lblTextFiltro.ForeColor = Color.Red;
-            lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
+                    Panel panelTagTex = new Panel();
+                    panelTagTex.Name = "PanelTagTex" + nameItemLista;
+                    panelTagTex.Size = size;
+                    panelTagTex.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.backgroundMiddleLabel;
+                    panelTagTex.BackgroundImageLayout = ImageLayout.Stretch;
+                    panelTagTex.Location = new Point(lblLeft.Location.X + lblLeft.Width, 4);
+                    panelEtiqueta.Controls.Add(panelTagTex);
 
-            panelTagTex.Controls.Add(lblTextFiltro);
+                    //label2.Text = auxWord[0].ToString();
+                    Ancho = nameItemLista.Length * 11;
+                    //label3.Text = Ancho.ToString();
 
-            panelTagTex.Size = new Size(Ancho + 4, Alto);
+                    Label lblTextFiltro = new Label();
+                    lblTextFiltro.Height = 17;
+                    lblTextFiltro.Location = new Point(0, 0);
+                    lblTextFiltro.BackColor = Color.Transparent;
+                    lblTextFiltro.Text = nameItemLista.ToString();
+                    lblTextFiltro.ForeColor = Color.Red;
+                    lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
 
-            Button btnRight = new Button();
-            btnRight.Name = "btnRight";
-            btnRight.Width = 20;
-            btnRight.Height = 20;
-            btnRight.FlatStyle = FlatStyle.Flat;
-            btnRight.FlatAppearance.BorderSize = 0;
-            btnRight.ImageAlign = ContentAlignment.MiddleCenter;
-            btnRight.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelRight;
-            btnRight.Cursor = Cursors.Hand;
-            btnRight.Location = new Point(panelTagTex.Location.X + panelTagTex.Width - 3, 3);
-            panelEtiqueta.Controls.Add(btnRight);
+                    panelTagTex.Controls.Add(lblTextFiltro);
 
-            fLPDynamicTags.Controls.Add(panelEtiqueta);
+                    panelTagTex.Size = new Size(Ancho + 4, Alto);
+
+                    Button btnRight = new Button();
+                    btnRight.Name = "btnRight" + nameItemLista;
+                    btnRight.Width = 20;
+                    btnRight.Height = 20;
+                    btnRight.FlatStyle = FlatStyle.Flat;
+                    btnRight.FlatAppearance.BorderSize = 0;
+                    btnRight.ImageAlign = ContentAlignment.MiddleCenter;
+                    btnRight.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelRight;
+                    btnRight.Cursor = Cursors.Hand;
+                    btnRight.Location = new Point(panelTagTex.Location.X + panelTagTex.Width - 3, 3);
+                    btnRight.Click += new EventHandler(btnRight_Click);
+                    panelEtiqueta.Controls.Add(btnRight);
+
+                    fLPDynamicTags.Controls.Add(panelEtiqueta);
+                }
+            }
+            else if (isEmptyAuxWord)
+            {
+                //MessageBox.Show("Lista sin Contenido");
+                txtBusqueda.Focus();
+            }
+        }
+
+        private void btnRight_Click(object sender, EventArgs e)
+        {
+            Button btnTag = (Button)sender;
+            string name = string.Empty;
+            name = btnTag.Name.Remove(0, 8);
+            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons
+                .YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                {
+                    if (item is Panel)
+                    {
+                        if (item.Name.Equals("pEtiqueta" + name))
+                        {
+                            fLPDynamicTags.Controls.Remove(item);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < auxWord.Count; i++)
+                {
+                    if (auxWord[i].Equals(name))
+                    {
+                        auxWord.RemoveAt(i);
+                    }
+                }
+
+                txtBusqueda.Focus();
+            }
+            else if (result == DialogResult.No)
+            {
+                txtBusqueda.Focus();
+            }
         }
 
         private void picBoxTagTex_Paint(object sender, PaintEventArgs e)
         {
-            label2.Text = auxWord[0].ToString();
+            //label2.Text = auxWord[0].ToString();
             //label3.Text = auxWord[0].Length.ToString();
             //Ancho = CalculateHeightWidth(label2.Text);
             //label3.Text = Ancho.ToString();
             Ancho = auxWord[0].Length * 11;
-            label3.Text = Ancho.ToString();
+            //label3.Text = Ancho.ToString();
 
             using (System.Drawing.Font myFont = new System.Drawing.Font("Century Gothic", 10))
             {
@@ -2162,19 +2214,22 @@ namespace PuntoDeVentaV2
 
         private void cargarListaDeEtiquetas()
         {
-            palabras = txtBusqueda.Text.Split(' ');
-            auxWord.Clear();
-            for (int i = 0; i < palabras.Length; i++)
+            if (!txtBusqueda.Text.Equals(""))
             {
-                if (auxWord.Count == 0)
+                palabras = txtBusqueda.Text.Split(' ');
+                auxWord.Clear();
+                for (int i = 0; i < palabras.Length; i++)
                 {
-                    auxWord.Add(palabras[i]);
-                }
-                else if (!auxWord.Contains(palabras[i]))
-                {
-                    if (auxWord.Count != 0)
+                    if (auxWord.Count == 0)
                     {
                         auxWord.Add(palabras[i]);
+                    }
+                    else if (!auxWord.Contains(palabras[i]))
+                    {
+                        if (auxWord.Count != 0)
+                        {
+                            auxWord.Add(palabras[i]);
+                        }
                     }
                 }
             }
