@@ -14,6 +14,10 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
+        string strTag = string.Empty;
+        int Ancho = 80, Alto = 19;
+        Size size, strSize;
+
         private Paginar p;
         string DataMemberDGV = "Productos";
         string extra = string.Empty;
@@ -879,6 +883,11 @@ namespace PuntoDeVentaV2
             master.Checked = false;
         }
 
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public void obtenerDatosDGVProductos(int fila)
         {
             Nombre = DGVProductos.Rows[fila].Cells["Column1"].Value.ToString();
@@ -969,27 +978,6 @@ namespace PuntoDeVentaV2
                 fotos = cn.CargarDatos(buscarStock);
                 photoShow();
             }
-
-            cargarListaDeEtiquetas();
-        }
-
-        private void cargarListaDeEtiquetas()
-        {
-            palabras = txtBusqueda.Text.Split(' ');
-            for (int i = 0; i < palabras.Length; i++)
-            {
-                if (auxWord.Count == 0)
-                {
-                    auxWord.Add(palabras[i]);
-                }
-                else if (!auxWord.Contains(palabras[i]))
-                {
-                    if (auxWord.Count != 0)
-                    {
-                        auxWord.Add(palabras[i]);
-                    }
-                }
-            }
         }
 
         public Productos()
@@ -997,6 +985,8 @@ namespace PuntoDeVentaV2
             InitializeComponent();
 
             MostrarCheckBox();
+
+            size = new Size(Ancho, Alto);
         }
 
         private void Productos_Load(object sender, EventArgs e)
@@ -2086,6 +2076,107 @@ namespace PuntoDeVentaV2
             else if (cbMostrar.Text == "Todos")
             {
                 CargarDatos(2, txtBusqueda.Text);
+            }
+            cargarListaDeEtiquetas();
+            crearEtiquetaDinamica();
+        }
+
+        private void crearEtiquetaDinamica()
+        {
+            fLPDynamicTags.Controls.Clear();
+            //fLPDynamicTags.BackColor = Color.Beige;
+
+            Panel panelEtiqueta = new Panel();
+            panelEtiqueta.Name = "pEtiqueta";
+            panelEtiqueta.Width = 140;
+            panelEtiqueta.Height = 32;
+            panelEtiqueta.Location = new Point(0, 2);
+            //panelEtiqueta.BackColor = Color.AliceBlue;
+
+            Label lblLeft = new Label();
+            lblLeft.Name = "LabelIzquierdo";
+            lblLeft.Width = 9;
+            lblLeft.Height = 23;
+            lblLeft.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelLeft;
+            lblLeft.Location = new Point(2, 2);
+            panelEtiqueta.Controls.Add(lblLeft);
+
+            Panel panelTagTex = new Panel();
+            panelTagTex.Name = "PanelTagTex";
+            panelTagTex.Size = size;
+            panelTagTex.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.backgroundMiddleLabel;
+            panelTagTex.BackgroundImageLayout = ImageLayout.Stretch;
+            panelTagTex.Location = new Point(lblLeft.Location.X + lblLeft.Width, 4);
+            panelEtiqueta.Controls.Add(panelTagTex);
+
+            //label2.Text = auxWord[0].ToString();
+            Ancho = auxWord[0].Length * 11;
+            //label3.Text = Ancho.ToString();
+
+            Label lblTextFiltro = new Label();
+            lblTextFiltro.Height = 17;
+            lblTextFiltro.Location = new Point(0, 0);
+            lblTextFiltro.BackColor = Color.Transparent;
+            lblTextFiltro.Text = auxWord[0].ToString();
+            lblTextFiltro.ForeColor = Color.Red;
+            lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
+
+            panelTagTex.Controls.Add(lblTextFiltro);
+
+            panelTagTex.Size = new Size(Ancho + 4, Alto);
+
+            Button btnRight = new Button();
+            btnRight.Name = "btnRight";
+            btnRight.Width = 20;
+            btnRight.Height = 20;
+            btnRight.FlatStyle = FlatStyle.Flat;
+            btnRight.FlatAppearance.BorderSize = 0;
+            btnRight.ImageAlign = ContentAlignment.MiddleCenter;
+            btnRight.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelRight;
+            btnRight.Cursor = Cursors.Hand;
+            btnRight.Location = new Point(panelTagTex.Location.X + panelTagTex.Width - 3, 3);
+            panelEtiqueta.Controls.Add(btnRight);
+
+            fLPDynamicTags.Controls.Add(panelEtiqueta);
+        }
+
+        private void picBoxTagTex_Paint(object sender, PaintEventArgs e)
+        {
+            label2.Text = auxWord[0].ToString();
+            //label3.Text = auxWord[0].Length.ToString();
+            //Ancho = CalculateHeightWidth(label2.Text);
+            //label3.Text = Ancho.ToString();
+            Ancho = auxWord[0].Length * 11;
+            label3.Text = Ancho.ToString();
+
+            using (System.Drawing.Font myFont = new System.Drawing.Font("Century Gothic", 10))
+            {
+                foreach (var item in auxWord)
+                {
+                    strTag = item;
+                    e.Graphics.DrawString(strTag, myFont, Brushes.Red, new Point(0, 1));
+                    break;
+                }
+            }
+        }
+
+        private void cargarListaDeEtiquetas()
+        {
+            palabras = txtBusqueda.Text.Split(' ');
+            auxWord.Clear();
+            for (int i = 0; i < palabras.Length; i++)
+            {
+                if (auxWord.Count == 0)
+                {
+                    auxWord.Add(palabras[i]);
+                }
+                else if (!auxWord.Contains(palabras[i]))
+                {
+                    if (auxWord.Count != 0)
+                    {
+                        auxWord.Add(palabras[i]);
+                    }
+                }
             }
         }
 

@@ -64,7 +64,8 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnImprimir = new System.Windows.Forms.Button();
+            this.fLPDynamicTags = new System.Windows.Forms.FlowLayoutPanel();
             this.btnEtiqueta = new System.Windows.Forms.Button();
             this.btnAsignarMultiple = new System.Windows.Forms.Button();
             this.btnFilterSearch = new System.Windows.Forms.Button();
@@ -95,7 +96,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnImprimir = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -132,7 +132,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(289, 3);
+            this.tituloSeccion.Location = new System.Drawing.Point(289, 1);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(382, 25);
             this.tituloSeccion.TabIndex = 3;
@@ -144,7 +144,7 @@
             this.tituloBusqueda.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(348, 24);
+            this.tituloBusqueda.Location = new System.Drawing.Point(348, 23);
             this.tituloBusqueda.Name = "tituloBusqueda";
             this.tituloBusqueda.Size = new System.Drawing.Size(233, 17);
             this.tituloBusqueda.TabIndex = 4;
@@ -157,7 +157,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(91, 44);
+            this.txtBusqueda.Location = new System.Drawing.Point(91, 43);
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(755, 23);
             this.txtBusqueda.TabIndex = 5;
@@ -457,7 +457,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnImprimir);
-            this.panel1.Controls.Add(this.flowLayoutPanel1);
+            this.panel1.Controls.Add(this.fLPDynamicTags);
             this.panel1.Controls.Add(this.btnEtiqueta);
             this.panel1.Controls.Add(this.btnAsignarMultiple);
             this.panel1.Controls.Add(this.btnFilterSearch);
@@ -476,16 +476,32 @@
             this.panel1.Size = new System.Drawing.Size(942, 195);
             this.panel1.TabIndex = 15;
             // 
-            // flowLayoutPanel1
+            // btnImprimir
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnImprimir.BackColor = System.Drawing.Color.Green;
+            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimir.FlatAppearance.BorderSize = 0;
+            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImprimir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.ForeColor = System.Drawing.Color.White;
+            this.btnImprimir.Location = new System.Drawing.Point(452, 149);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(85, 28);
+            this.btnImprimir.TabIndex = 19;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // fLPDynamicTags
+            // 
+            this.fLPDynamicTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(90, 70);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(756, 39);
-            this.flowLayoutPanel1.TabIndex = 18;
+            this.fLPDynamicTags.AutoScroll = true;
+            this.fLPDynamicTags.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPDynamicTags.Location = new System.Drawing.Point(90, 70);
+            this.fLPDynamicTags.Name = "fLPDynamicTags";
+            this.fLPDynamicTags.Size = new System.Drawing.Size(756, 38);
+            this.fLPDynamicTags.TabIndex = 18;
             // 
             // btnEtiqueta
             // 
@@ -530,7 +546,7 @@
             this.btnFilterSearch.ForeColor = System.Drawing.Color.White;
             this.btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
             this.btnFilterSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnFilterSearch.Location = new System.Drawing.Point(861, 44);
+            this.btnFilterSearch.Location = new System.Drawing.Point(861, 43);
             this.btnFilterSearch.Name = "btnFilterSearch";
             this.btnFilterSearch.Size = new System.Drawing.Size(68, 23);
             this.btnFilterSearch.TabIndex = 15;
@@ -905,22 +921,6 @@
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnImprimir
-            // 
-            this.btnImprimir.BackColor = System.Drawing.Color.Green;
-            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImprimir.FlatAppearance.BorderSize = 0;
-            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnImprimir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImprimir.ForeColor = System.Drawing.Color.White;
-            this.btnImprimir.Location = new System.Drawing.Point(452, 149);
-            this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(85, 28);
-            this.btnImprimir.TabIndex = 19;
-            this.btnImprimir.Text = "Imprimir";
-            this.btnImprimir.UseVisualStyleBackColor = false;
-            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
-            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1018,7 +1018,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Impuesto;
         private System.Windows.Forms.DataGridViewTextBoxColumn TipoProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Categoria;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel fLPDynamicTags;
         private System.Windows.Forms.Button btnImprimir;
     }
 }

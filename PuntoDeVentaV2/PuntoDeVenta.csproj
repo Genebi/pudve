@@ -3285,6 +3285,15 @@
     <Content Include="PUDVE\icon\black\save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\Tags\backgroundMiddleLabel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\Tags\imageLabelLeft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\Tags\imageLabelRight.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\MisDatos\Usuarios\Usuarios.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
