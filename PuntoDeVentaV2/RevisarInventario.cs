@@ -86,39 +86,73 @@ namespace PuntoDeVentaV2
 
                     idProducto = Convert.ToInt32(infoProducto[5]);
 
-                    // Verificar si este producto ya fue inventariado
-                    var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
-
-                    if (inventariado)
+                    // Verificar si es un producto
+                    if (infoProducto[6] == "P")
                     {
-                        var respuesta = MessageBox.Show("Este producto ya fue inventariado\n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        // Verificar si este producto ya fue inventariado
+                        var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
 
-                        if (respuesta == DialogResult.Yes)
+                        if (inventariado)
                         {
-                            var infoInventariado = mb.DatosProductoInventariado(idProducto);
+                            var respuesta = MessageBox.Show("Este producto ya fue inventariado\n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                            if (infoInventariado.Length > 0)
+                            if (respuesta == DialogResult.Yes)
                             {
-                                // Se asigna el stock registrado en la tabla RevisarInventario
-                                txtCantidadStock.Text = infoInventariado[0];
+                                var infoInventariado = mb.DatosProductoInventariado(idProducto);
+
+                                if (infoInventariado.Length > 0)
+                                {
+                                    // Se asigna el stock registrado en la tabla RevisarInventario
+                                    txtCantidadStock.Text = infoInventariado[0];
+                                }
+                            }
+
+                            if (respuesta == DialogResult.No)
+                            {
+                                LimpiarCampos();
+                                txtBoxBuscarCodigoBarras.Focus();
+                                return;
                             }
                         }
-
-                        if (respuesta == DialogResult.No)
+                        else
                         {
-                            LimpiarCampos();
-                            txtBoxBuscarCodigoBarras.Focus();
-                            return;
+                            // Se asigna el stock registrado en la tabla Productos
+                            txtCantidadStock.Text = infoProducto[1];
                         }
+
+                        txtCantidadStock.Focus();
+                        txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
                     }
                     else
                     {
-                        // Se asigna el stock registrado en la tabla Productos
-                        txtCantidadStock.Text = infoProducto[1];
-                    }
+                        var nombreProductos = string.Empty;
 
-                    txtCantidadStock.Focus();
-                    txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+                        var productosRelacionados = mb.ProductosServicio(idProducto);
+
+                        if (productosRelacionados.Count > 0)
+                        {
+                            nombreProductos += "Contiene los siguientes productos:\n\n";
+
+                            foreach (var relacionado in productosRelacionados)
+                            {
+                                nombreProductos += "Producto: " + relacionado.Value.Item1 + " Cantidad: " + relacionado.Value.Item2 + "\n";
+                            }
+                        }
+
+                        // Verificar si es un servicio o paquete y mostrar los productos relacionados
+                        if (infoProducto[6] == "S")
+                        {
+                            MessageBox.Show($"El código de barras pertenece a un SERVICIO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
+                        if (infoProducto[6] == "PQ")
+                        {
+                            MessageBox.Show($"El código de barras pertenece a un PAQUETE\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
+                        LimpiarCampos();
+                        txtBoxBuscarCodigoBarras.Focus();
+                    }
                 }
                 else
                 {

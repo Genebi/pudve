@@ -1080,7 +1080,8 @@ namespace PuntoDeVentaV2
                         dr["Precio"].ToString(),
                         dr["ClaveInterna"].ToString(),
                         dr["CodigoBarras"].ToString(),
-                        idProducto.ToString()
+                        idProducto.ToString(),
+                        dr["Tipo"].ToString()
                     };
                 }
 
@@ -1129,6 +1130,35 @@ namespace PuntoDeVentaV2
                     dr["StockFisico"].ToString(),
                     dr["StockAlmacen"].ToString()
                 };
+            }
+
+            dr.Close();
+
+            return datos;
+        }
+
+        public Dictionary<int, Tuple<string, string>> ProductosServicio(int idServPQ)
+        {
+            Dictionary<int, Tuple<string, string>> datos = new Dictionary<int, Tuple<string, string>>();
+
+            DatosConexion($"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServPQ}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    var producto = dr["NombreProducto"].ToString();
+
+                    if (!string.IsNullOrEmpty(producto))
+                    {
+                        var id = Convert.ToInt32(dr["IDProducto"].ToString());
+                        var cantidad = dr["Cantidad"].ToString();
+
+                        datos.Add(id, new Tuple<string, string>(producto, cantidad));
+                    }
+                }
             }
 
             dr.Close();
