@@ -2099,7 +2099,7 @@ namespace PuntoDeVentaV2
                     panelEtiqueta.Width = 140;
                     panelEtiqueta.Height = 32;
                     panelEtiqueta.Location = new Point(0, 2);
-                    //panelEtiqueta.BackColor = Color.AliceBlue;
+                    //panelEtiqueta.BackColor = Color.Red;
 
                     Label lblLeft = new Label();
                     lblLeft.Name = "LabelIzquierdo" + nameItemLista;
@@ -2117,9 +2117,7 @@ namespace PuntoDeVentaV2
                     panelTagTex.Location = new Point(lblLeft.Location.X + lblLeft.Width, 4);
                     panelEtiqueta.Controls.Add(panelTagTex);
 
-                    //label2.Text = auxWord[0].ToString();
                     Ancho = nameItemLista.Length * 11;
-                    //label3.Text = Ancho.ToString();
 
                     Label lblTextFiltro = new Label();
                     lblTextFiltro.Height = 17;
@@ -2146,12 +2144,13 @@ namespace PuntoDeVentaV2
                     btnRight.Click += new EventHandler(btnRight_Click);
                     panelEtiqueta.Controls.Add(btnRight);
 
+                    panelEtiqueta.Width = Ancho + 35;
+
                     fLPDynamicTags.Controls.Add(panelEtiqueta);
                 }
             }
             else if (isEmptyAuxWord)
             {
-                //MessageBox.Show("Lista sin Contenido");
                 txtBusqueda.Focus();
             }
         }
