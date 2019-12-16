@@ -42,17 +42,6 @@ namespace PuntoDeVentaV2
                 datosInventario = mb.DatosRevisionInventario();
                 fechaInventario = datosInventario[0];
                 numeroRevision = datosInventario[1];
-
-                // Comprobar si hay un inventario iniciado
-                var existeInventario = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE NoRevision = {numeroRevision} AND IDUsuario = {FormPrincipal.userID}");
-
-                if (!existeInventario)
-                {
-                    // Actualizar el numero de revision despues de haber cargado la informacion previa
-                    var numeroRevisionTmp = Convert.ToInt32(numeroRevision) + 1;
-
-                    cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}");
-                }
             }
             else
             {
@@ -64,6 +53,9 @@ namespace PuntoDeVentaV2
             }
 
             lblNoRevision.Text = numeroRevision;
+
+            // Asignamos el numero de revision para que cargue los productos en el reporte al cerrar el form
+            Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
         }
 
         private void buscarCodigoBarras()
@@ -188,6 +180,7 @@ namespace PuntoDeVentaV2
                     // Si ya fue inventariado el producto actualizamos informacion
                     if (existe)
                     {
+                        var info = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                         var datosProducto = mb.DatosProductoInventariado(idProducto);
 
                         var stockFisico = txtCantidadStock.Text;
@@ -195,7 +188,7 @@ namespace PuntoDeVentaV2
                         var diferencia = Convert.ToInt32(datosProducto[1]) - Convert.ToInt32(stockFisico);
 
                         // Actualizar datos en RevisarInventario
-                        cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
+                        cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
 
                         // Actualizar stock del producto
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
@@ -313,16 +306,20 @@ namespace PuntoDeVentaV2
             txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
         }
 
-        private void AumentarNumConteo()
-        {
-
-        }
-
         private void btnTerminar_Click(object sender, EventArgs e)
         {
+            // Guardamos los dos Datos de las variables del sistema
             //Properties.Settings.Default.InicioFinInventario = 2;
-            //Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
-            Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
+            //Properties.Settings.Default.Save();
+
+            // Actualizar el numero de revision despues de haber terminado el inventario
+            var numeroRevisionTmp = Convert.ToInt32(numeroRevision) + 1;
+
+            cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            // Cambiamos el valor de la variable para eliminar los registros de la tabla RevisarInventario con el numero de revision
+            Inventario.limpiarTabla = true;
+
             this.Hide();
             this.Close();
         }

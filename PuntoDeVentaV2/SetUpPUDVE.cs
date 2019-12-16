@@ -14,6 +14,9 @@ namespace PuntoDeVentaV2
     public partial class SetUpPUDVE : Form
     {
         Conexion cn = new Conexion();
+        MetodosBusquedas mb = new MetodosBusquedas();
+
+        private int numeroRevision = 0;
 
         public SetUpPUDVE()
         {
@@ -31,6 +34,27 @@ namespace PuntoDeVentaV2
             {
                 txtNombreServidor.Text = Properties.Settings.Default.Hosting;
             }
+
+            // Numero de revision inventario
+            var datosInventario = mb.DatosRevisionInventario();
+
+            // Si existe un registro en la tabla obtiene los datos de lo contrario hace un insert para
+            // que exista la configuracion necesaria
+            if (datosInventario.Length > 0)
+            {
+                datosInventario = mb.DatosRevisionInventario();
+                numeroRevision = Convert.ToInt32(datosInventario[1]);
+            }
+            else
+            {
+                cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, FechaInventario, NoRevision) VALUES ('{FormPrincipal.userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '1')");
+
+                datosInventario = mb.DatosRevisionInventario();
+                numeroRevision = Convert.ToInt32(datosInventario[1]);
+            }
+
+            txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtNumeroRevision.Text = numeroRevision.ToString();
         }
 
         private void btnRespaldo_Click(object sender, EventArgs e)
@@ -67,17 +91,49 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarServidor_Click(object sender, EventArgs e)
         {
-            /*if (string.IsNullOrWhiteSpace(txtNombreServidor.Text))
-            {
-                MessageBox.Show("Es necesario indicar el nombre de la Máquina Servidor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }*/
-
             Properties.Settings.Default.Hosting = txtNombreServidor.Text;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-            MessageBox.Show(Properties.Settings.Default.Hosting);
+            MessageBox.Show("Información guardada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnGuardarRevision_Click(object sender, EventArgs e)
+        {
+            var numeroRevision = txtNumeroRevision.Text;
+
+            if (string.IsNullOrWhiteSpace(numeroRevision))
+            {
+                MessageBox.Show("Es necesario asignar un número de revisión", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var respuesta = cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevision} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (respuesta > 0)
+            {
+                MessageBox.Show("Información guardada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+
+        private void SoloDecimales(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                {
+                    e.Handled = true;
+                }
+            }
         }
     }
 }

@@ -24,6 +24,8 @@ namespace PuntoDeVentaV2
         ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
         
         public static int NumRevActivo = 0;
+        public static bool limpiarTabla = false;
+
         public static string proveedorElegido = string.Empty;
         public static int idReporte = 0;
         public static bool botonAceptar = false;
@@ -103,6 +105,8 @@ namespace PuntoDeVentaV2
             {
                 ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
                 reporte.GetFilterNumActiveRecord = NumRevActivo;
+                reporte.limpiarTabla = limpiarTabla;
+                limpiarTabla = false;
                 reporte.ShowDialog();
             };
 
