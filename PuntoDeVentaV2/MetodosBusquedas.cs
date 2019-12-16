@@ -1128,7 +1128,8 @@ namespace PuntoDeVentaV2
                 datos = new string[]
                 {
                     dr["StockFisico"].ToString(),
-                    dr["StockAlmacen"].ToString()
+                    dr["StockAlmacen"].ToString(),
+                    dr["Fecha"].ToString()
                 };
             }
 

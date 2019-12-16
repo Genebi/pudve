@@ -23,7 +23,7 @@ namespace PuntoDeVentaV2
         RevisarInventario checkInventory = new RevisarInventario();
         ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
         
-        public static int NumRevActivo;
+        public static int NumRevActivo = 0;
         public static string proveedorElegido = string.Empty;
         public static int idReporte = 0;
         public static bool botonAceptar = false;
@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
 
         private void CargarNumRevActivo()
         {
-            NumRevActivo = GetNumRevActive;
+            //NumRevActivo = GetNumRevActive;
         }
 
         public Inventario()
@@ -49,7 +49,7 @@ namespace PuntoDeVentaV2
         {
             panelContenedor.Visible = false;
 
-            FormCollection fOpen = Application.OpenForms;
+            /*FormCollection fOpen = Application.OpenForms;
             List<string> tempFormOpen = new List<string>();
 
             checkInventory.FormClosing += delegate
@@ -95,7 +95,18 @@ namespace PuntoDeVentaV2
             else
             {
                 checkInventory.ShowDialog();
-            }
+            }*/
+
+            RevisarInventario revisar = new RevisarInventario();
+
+            revisar.FormClosed += delegate
+            {
+                ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                reporte.GetFilterNumActiveRecord = NumRevActivo;
+                reporte.ShowDialog();
+            };
+
+            revisar.ShowDialog();
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)

@@ -37,15 +37,22 @@ namespace PuntoDeVentaV2
             // que exista la configuracion necesaria
             if (datosInventario.Length > 0)
             {
-                if (string.IsNullOrEmpty(datosInventario[0]))
-                {
-                    cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET FechaInventario = '{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE IDUsuario = {FormPrincipal.userID}");
+                cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET FechaInventario = '{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE IDUsuario = {FormPrincipal.userID}");
 
-                    datosInventario = mb.DatosRevisionInventario();
-                }
-
+                datosInventario = mb.DatosRevisionInventario();
                 fechaInventario = datosInventario[0];
                 numeroRevision = datosInventario[1];
+
+                // Comprobar si hay un inventario iniciado
+                var existeInventario = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE NoRevision = {numeroRevision} AND IDUsuario = {FormPrincipal.userID}");
+
+                if (!existeInventario)
+                {
+                    // Actualizar el numero de revision despues de haber cargado la informacion previa
+                    var numeroRevisionTmp = Convert.ToInt32(numeroRevision) + 1;
+
+                    cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}");
+                }
             }
             else
             {
@@ -94,24 +101,24 @@ namespace PuntoDeVentaV2
 
                         if (inventariado)
                         {
-                            var respuesta = MessageBox.Show("Este producto ya fue inventariado\n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            var infoInventariado = mb.DatosProductoInventariado(idProducto);
 
-                            if (respuesta == DialogResult.Yes)
+                            if (infoInventariado.Length > 0)
                             {
-                                var infoInventariado = mb.DatosProductoInventariado(idProducto);
+                                var respuesta = MessageBox.Show("Este producto ya fue inventariado\nFecha: "+ infoInventariado[2] +" \n\n¿Desea modificarlo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                                if (infoInventariado.Length > 0)
+                                if (respuesta == DialogResult.Yes)
                                 {
                                     // Se asigna el stock registrado en la tabla RevisarInventario
                                     txtCantidadStock.Text = infoInventariado[0];
                                 }
-                            }
 
-                            if (respuesta == DialogResult.No)
-                            {
-                                LimpiarCampos();
-                                txtBoxBuscarCodigoBarras.Focus();
-                                return;
+                                if (respuesta == DialogResult.No)
+                                {
+                                    LimpiarCampos();
+                                    txtBoxBuscarCodigoBarras.Focus();
+                                    return;
+                                }
                             }
                         }
                         else
@@ -187,7 +194,11 @@ namespace PuntoDeVentaV2
                         var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         var diferencia = Convert.ToInt32(datosProducto[1]) - Convert.ToInt32(stockFisico);
 
+                        // Actualizar datos en RevisarInventario
                         cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
+
+                        // Actualizar stock del producto
+                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         LimpiarCampos();
                     }
@@ -207,6 +218,9 @@ namespace PuntoDeVentaV2
 
                         // Guardamos la informacion en la tabla de RevisarInventario
                         cn.EjecutarConsulta(cs.GuardarRevisarInventario(datos));
+
+                        // Actualizar stock del producto
+                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         LimpiarCampos();
                         txtBoxBuscarCodigoBarras.Focus();
@@ -306,8 +320,9 @@ namespace PuntoDeVentaV2
 
         private void btnTerminar_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.InicioFinInventario = 2;
-            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            //Properties.Settings.Default.InicioFinInventario = 2;
+            //Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
             this.Hide();
             this.Close();
         }
