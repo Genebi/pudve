@@ -88,6 +88,14 @@ namespace PuntoDeVentaV2
                     // Verificar si es un producto
                     if (infoProducto[6] == "P")
                     {
+                        // Verificar si el producto tiene un mensaje para mostrarse al realizar inventario
+                        var mensajeInventario = mb.MensajeInventario(idProducto);
+
+                        if (!string.IsNullOrEmpty(mensajeInventario))
+                        {
+                            MessageBox.Show(mensajeInventario, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
                         // Verificar si este producto ya fue inventariado
                         var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
 
@@ -174,6 +182,19 @@ namespace PuntoDeVentaV2
             {
                 if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
                 {
+                    var cantidadStock = long.Parse(txtCantidadStock.Text);
+
+                    if (cantidadStock >= 1000)
+                    {
+                        var respuesta = MessageBox.Show("¿Estás seguro de agregar esta cantidad al stock?\n\nCantidad: " + cantidadStock, "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (respuesta == DialogResult.No)
+                        {
+                            txtCantidadStock.Focus();
+                            return;
+                        }
+                    }
+
                     // Comprobamos si el producto ya fue revisado
                     var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
 
@@ -251,8 +272,8 @@ namespace PuntoDeVentaV2
                     if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
                     {
                         btnSiguiente.PerformClick();
-                        txtBoxBuscarCodigoBarras.Text = string.Empty;
-                        txtBoxBuscarCodigoBarras.Focus();
+                        //txtBoxBuscarCodigoBarras.Text = string.Empty;
+                        //txtBoxBuscarCodigoBarras.Focus();
                     }
                 }
             }
