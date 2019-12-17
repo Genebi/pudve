@@ -178,6 +178,7 @@
             this.Name = "SetUpPUDVE";
             this.Text = "PUDVE - Configuración";
             this.Load += new System.EventHandler(this.SetUpPUDVE_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.SetUpPUDVE_Paint);
             this.ResumeLayout(false);
             this.PerformLayout();
 

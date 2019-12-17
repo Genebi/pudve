@@ -331,6 +331,8 @@ namespace PuntoDeVentaV2
             if(config == 1)
             {
                 AbrirFormulario<SetUpPUDVE>();
+
+                SetUpPUDVE.recargarDatos = true;
             }
             else
             {

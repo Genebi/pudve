@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private int numeroRevision = 0;
+        public static bool recargarDatos = false;
 
         public SetUpPUDVE()
         {
@@ -35,6 +36,14 @@ namespace PuntoDeVentaV2
                 txtNombreServidor.Text = Properties.Settings.Default.Hosting;
             }
 
+            VerificarDatosInventario();
+
+            txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtNumeroRevision.Text = numeroRevision.ToString();
+        }
+
+        private void VerificarDatosInventario()
+        {
             // Numero de revision inventario
             var datosInventario = mb.DatosRevisionInventario();
 
@@ -52,9 +61,6 @@ namespace PuntoDeVentaV2
                 datosInventario = mb.DatosRevisionInventario();
                 numeroRevision = Convert.ToInt32(datosInventario[1]);
             }
-
-            txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
-            txtNumeroRevision.Text = numeroRevision.ToString();
         }
 
         private void btnRespaldo_Click(object sender, EventArgs e)
@@ -133,6 +139,16 @@ namespace PuntoDeVentaV2
                 {
                     e.Handled = true;
                 }
+            }
+        }
+
+        private void SetUpPUDVE_Paint(object sender, PaintEventArgs e)
+        {
+            if (recargarDatos)
+            {
+                VerificarDatosInventario();
+                txtNumeroRevision.Text = numeroRevision.ToString();
+                recargarDatos = false;
             }
         }
     }
