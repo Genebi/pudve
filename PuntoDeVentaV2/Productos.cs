@@ -2191,6 +2191,7 @@ namespace PuntoDeVentaV2
                 }
 
                 txtBusqueda.Text = newCadenaBusqueda.Trim();
+                txtBusqueda.Select(txtBusqueda.Text.Length, 0);
                 txtBusqueda.Focus();
             }
             else if (result == DialogResult.No)
