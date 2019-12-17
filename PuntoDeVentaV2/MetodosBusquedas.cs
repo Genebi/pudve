@@ -1167,11 +1167,22 @@ namespace PuntoDeVentaV2
             return datos;
         }
         
-        public string MensajeInventario(int idProducto)
+        public string MensajeInventario(int idProducto, int tipo = 0)
         {
             string mensaje = string.Empty;
+            string consulta = string.Empty;
 
-            DatosConexion($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {idProducto}");
+            if (tipo == 0)
+            {
+                consulta = $"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {idProducto}";
+            }
+
+            if (tipo == 1)
+            {
+                consulta = $"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {idProducto} AND Activo = 1";
+            }
+
+            DatosConexion(consulta);
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 

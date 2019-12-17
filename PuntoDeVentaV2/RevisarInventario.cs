@@ -89,7 +89,7 @@ namespace PuntoDeVentaV2
                     if (infoProducto[6] == "P")
                     {
                         // Verificar si el producto tiene un mensaje para mostrarse al realizar inventario
-                        var mensajeInventario = mb.MensajeInventario(idProducto);
+                        var mensajeInventario = mb.MensajeInventario(idProducto, 1);
 
                         if (!string.IsNullOrEmpty(mensajeInventario))
                         {

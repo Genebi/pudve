@@ -22,6 +22,8 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        private bool eventoMensajeInventario = false;
+
         #region Variables Globales
 
         List<string> infoDetalle,
@@ -1094,30 +1096,33 @@ namespace PuntoDeVentaV2
             // campo "Activo" con valor de 0 para que no muestre el mensaje en los apartados que se
             // vaya a utilizar, de lo contrario no hacemos nada
 
-            var activo = chkMensajeInventario.Checked;
-
-            if (activo)
+            if (eventoMensajeInventario)
             {
-                var existe = (bool)cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+                var activo = chkMensajeInventario.Checked;
 
-                if (existe)
+                if (activo)
                 {
-                    cn.EjecutarConsulta($"UPDATE MensajesInventario SET Activo = 1 WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+                    var existe = (bool)cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+
+                    if (existe)
+                    {
+                        cn.EjecutarConsulta($"UPDATE MensajesInventario SET Activo = 1 WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+                    }
+
+                    using (var mensaje = new AgregarMensajeInventario())
+                    {
+                        mensaje.idProducto = Convert.ToInt32(finalIdProducto);
+                        mensaje.ShowDialog();
+                    }
                 }
-
-                using (var mensaje = new AgregarMensajeInventario())
+                else
                 {
-                    mensaje.idProducto = Convert.ToInt32(finalIdProducto);
-                    mensaje.ShowDialog();
-                }
-            }
-            else
-            {
-                var existe = (bool)cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+                    var existe = (bool)cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
 
-                if (existe)
-                {
-                    cn.EjecutarConsulta($"UPDATE MensajesInventario SET Activo = 0 WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+                    if (existe)
+                    {
+                        cn.EjecutarConsulta($"UPDATE MensajesInventario SET Activo = 0 WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+                    }
                 }
             }
         }
@@ -1563,6 +1568,21 @@ namespace PuntoDeVentaV2
                     txtStockNecesario.Text = stockTmp.ToString();
                 }
             }
+
+
+            // Verificar si tiene mensaje para mostrar el checkbox habilitado
+            var mensajeInventario = mb.MensajeInventario(Convert.ToInt32(finalIdProducto), 1);
+
+            if (!string.IsNullOrEmpty(mensajeInventario))
+            {
+                chkMensajeInventario.Checked = true;
+            }
+            else
+            {
+                chkMensajeInventario.Checked = false;
+            }
+
+            eventoMensajeInventario = true;
         }
 
         private void verificarProductMessage()

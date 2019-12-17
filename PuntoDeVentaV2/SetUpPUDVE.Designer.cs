@@ -38,6 +38,7 @@
             this.btnGuardarRevision = new System.Windows.Forms.Button();
             this.txtNumeroRevision = new System.Windows.Forms.TextBox();
             this.lbNumeroRevision = new System.Windows.Forms.Label();
+            this.btnLimpiarTabla = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -161,11 +162,30 @@
             this.lbNumeroRevision.TabIndex = 106;
             this.lbNumeroRevision.Text = "Número revisión inventario";
             // 
+            // btnLimpiarTabla
+            // 
+            this.btnLimpiarTabla.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnLimpiarTabla.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimpiarTabla.FlatAppearance.BorderSize = 0;
+            this.btnLimpiarTabla.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnLimpiarTabla.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnLimpiarTabla.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiarTabla.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiarTabla.ForeColor = System.Drawing.Color.White;
+            this.btnLimpiarTabla.Location = new System.Drawing.Point(350, 294);
+            this.btnLimpiarTabla.Name = "btnLimpiarTabla";
+            this.btnLimpiarTabla.Size = new System.Drawing.Size(190, 30);
+            this.btnLimpiarTabla.TabIndex = 109;
+            this.btnLimpiarTabla.Text = "Limpiar tabla inventario";
+            this.btnLimpiarTabla.UseVisualStyleBackColor = false;
+            this.btnLimpiarTabla.Click += new System.EventHandler(this.btnLimpiarTabla_Click);
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.btnLimpiarTabla);
             this.Controls.Add(this.btnGuardarRevision);
             this.Controls.Add(this.txtNumeroRevision);
             this.Controls.Add(this.lbNumeroRevision);
@@ -195,5 +215,6 @@
         private System.Windows.Forms.Button btnGuardarRevision;
         private System.Windows.Forms.TextBox txtNumeroRevision;
         private System.Windows.Forms.Label lbNumeroRevision;
+        private System.Windows.Forms.Button btnLimpiarTabla;
     }
 }

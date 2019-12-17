@@ -122,6 +122,15 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnLimpiarTabla_Click(object sender, EventArgs e)
+        {
+            int resultado = cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (resultado > 0)
+            {
+                MessageBox.Show("Operación terminada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
         {
