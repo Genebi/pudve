@@ -1089,14 +1089,35 @@ namespace PuntoDeVentaV2
 
         private void chkMensajeInventario_CheckedChanged(object sender, EventArgs e)
         {
+            // Si esta desmarcado el checkbox o lo desmarcamos, verificamos si existe un
+            // registro en la tabla de mensajes para inventario, si existe actualizamos el 
+            // campo "Activo" con valor de 0 para que no muestre el mensaje en los apartados que se
+            // vaya a utilizar, de lo contrario no hacemos nada
+
             var activo = chkMensajeInventario.Checked;
 
             if (activo)
             {
+                var existe = (bool)cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+
+                if (existe)
+                {
+                    cn.EjecutarConsulta($"UPDATE MensajesInventario SET Activo = 1 WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+                }
+
                 using (var mensaje = new AgregarMensajeInventario())
                 {
                     mensaje.idProducto = Convert.ToInt32(finalIdProducto);
                     mensaje.ShowDialog();
+                }
+            }
+            else
+            {
+                var existe = (bool)cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
+
+                if (existe)
+                {
+                    cn.EjecutarConsulta($"UPDATE MensajesInventario SET Activo = 0 WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {finalIdProducto}");
                 }
             }
         }

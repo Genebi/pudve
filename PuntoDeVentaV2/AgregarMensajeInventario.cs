@@ -29,7 +29,9 @@ namespace PuntoDeVentaV2
         private void AgregarMensajeInventario_Load(object sender, EventArgs e)
         {
             // Verificamos si ya tiene un mensaje asignado o no
-            if (string.IsNullOrEmpty(mb.MensajeInventario(idProducto)))
+            var mensaje = mb.MensajeInventario(idProducto);
+
+            if (string.IsNullOrEmpty(mensaje))
             {
                 operacion = 0;
                 lbMensaje.Text = "Asignar Mensaje";
@@ -38,6 +40,8 @@ namespace PuntoDeVentaV2
             {
                 operacion = 1;
                 lbMensaje.Text = "Actualizar Mensaje";
+                txtMensaje.Text = mensaje;
+                txtMensaje.Select(txtMensaje.Text.Length, 0);
             }
         }
 
