@@ -2183,6 +2183,14 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                string newCadenaBusqueda = string.Empty;
+
+                for (int i = 0; i < auxWord.Count; i++)
+                {
+                    newCadenaBusqueda += auxWord[i].ToString() + " ";
+                }
+
+                txtBusqueda.Text = newCadenaBusqueda.Trim();
                 txtBusqueda.Focus();
             }
             else if (result == DialogResult.No)
