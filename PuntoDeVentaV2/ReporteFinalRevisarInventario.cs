@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         public static int FilterNumActiveRecord;
 
         public int GetFilterNumActiveRecord { get; set; }
+        public bool limpiarTabla { get; set; }
 
         bool IsEmpty;
         int CantidadAlmacen, CantidadFisico, Diferencias;
@@ -45,8 +46,22 @@ namespace PuntoDeVentaV2
             cargarTabla();
             checkEmpty(tabla);
             llenarDataGriView();
-            OcultarColumnasDGV();
-            hacerCalculosDGVRevisionStock();
+
+            if (IsEmpty)
+            {
+                OcultarColumnasDGV();
+                hacerCalculosDGVRevisionStock();
+            }
+            
+            if (limpiarTabla)
+            {
+                VaciarTabla();
+            }
+        }
+
+        private void VaciarTabla()
+        {
+            cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE NoRevision = {FilterNumActiveRecord} AND IDUsuario = {FormPrincipal.userID}");
         }
 
         private void hacerCalculosDGVRevisionStock()
@@ -126,6 +141,7 @@ namespace PuntoDeVentaV2
             else if (IsEmpty == false)
             {
                 MessageBox.Show("La base de datos de Checar Stock verificado no tiene registros", "No tiene registros", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
         }
 

@@ -1039,6 +1039,152 @@ namespace PuntoDeVentaV2
             return fecha;
         }
 
+        public string[] BuscarCodigoInventario(string codigo)
+        {
+            string[] datos = new string[] { };
+
+            int idProducto = 0;
+
+            DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{codigo}' OR ClaveInterna = '{codigo}') AND Status = 1");
+
+            SQLiteDataReader info = sql_cmd.ExecuteReader();
+
+            if (info.Read())
+            {
+                idProducto = Convert.ToInt32(info["ID"]);
+
+                info.Close();
+            }
+            else
+            {
+                var infoProducto = BuscarCodigoBarrasExtra(codigo);
+
+                if (infoProducto.Length > 0)
+                {
+                    idProducto = Convert.ToInt32(infoProducto[0]);
+                }
+            }
+
+
+            if (idProducto > 0)
+            {
+                DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+
+                SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    datos = new string[] {
+                        dr["Nombre"].ToString(),
+                        dr["Stock"].ToString(),
+                        dr["Precio"].ToString(),
+                        dr["ClaveInterna"].ToString(),
+                        dr["CodigoBarras"].ToString(),
+                        idProducto.ToString(),
+                        dr["Tipo"].ToString()
+                    };
+                }
+
+                dr.Close();
+            }
+
+            return datos;
+        }
+
+        public string[] DatosRevisionInventario()
+        {
+            string[] datos = new string[] { };
+
+            var fecha = string.Empty;
+            var revision = string.Empty;
+
+            DatosConexion($"SELECT * FROM CodigoBarrasGenerado WHERE IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                fecha = dr["FechaInventario"].ToString();
+                revision = dr["NoRevision"].ToString();
+
+                datos = new string[] { fecha, revision };
+            }
+
+            dr.Close();
+
+            return datos;
+        }
+
+        public string[] DatosProductoInventariado(int idProducto)
+        {
+            string[] datos = new string[] { };
+
+            DatosConexion($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                datos = new string[]
+                {
+                    dr["StockFisico"].ToString(),
+                    dr["StockAlmacen"].ToString(),
+                    dr["Fecha"].ToString()
+                };
+            }
+
+            dr.Close();
+
+            return datos;
+        }
+
+        public Dictionary<int, Tuple<string, string>> ProductosServicio(int idServPQ)
+        {
+            Dictionary<int, Tuple<string, string>> datos = new Dictionary<int, Tuple<string, string>>();
+
+            DatosConexion($"SELECT * FROM ProductosDeServicios WHERE IDServicio = '{idServPQ}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    var producto = dr["NombreProducto"].ToString();
+
+                    if (!string.IsNullOrEmpty(producto))
+                    {
+                        var id = Convert.ToInt32(dr["IDProducto"].ToString());
+                        var cantidad = dr["Cantidad"].ToString();
+
+                        datos.Add(id, new Tuple<string, string>(producto, cantidad));
+                    }
+                }
+            }
+
+            dr.Close();
+
+            return datos;
+        }
+        
+        public string MensajeInventario(int idProducto)
+        {
+            string mensaje = string.Empty;
+
+            DatosConexion($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {idProducto}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                mensaje = dr["Mensaje"].ToString();
+            }
+
+            dr.Close();
+
+            return mensaje;
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();
