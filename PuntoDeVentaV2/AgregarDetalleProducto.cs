@@ -1086,6 +1086,22 @@ namespace PuntoDeVentaV2
             }
         }
 
+
+        private void chkMensajeInventario_CheckedChanged(object sender, EventArgs e)
+        {
+            var activo = chkMensajeInventario.Checked;
+
+            if (activo)
+            {
+                using (var mensaje = new AgregarMensajeInventario())
+                {
+                    mensaje.idProducto = Convert.ToInt32(finalIdProducto);
+                    mensaje.ShowDialog();
+                }
+            }
+        }
+
+
         private void AgregarDetalleProducto_FormClosed(object sender, FormClosedEventArgs e)
         {
             AgregarEditarProducto addEditProducto = Application.OpenForms.OfType<AgregarEditarProducto>().FirstOrDefault();

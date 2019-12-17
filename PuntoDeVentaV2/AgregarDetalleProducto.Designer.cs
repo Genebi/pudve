@@ -46,6 +46,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
+            this.chkMensajeInventario = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -251,7 +252,7 @@
             // chkBoxProductMessage
             // 
             this.chkBoxProductMessage.AutoSize = true;
-            this.chkBoxProductMessage.Location = new System.Drawing.Point(9, 17);
+            this.chkBoxProductMessage.Location = new System.Drawing.Point(9, 4);
             this.chkBoxProductMessage.Name = "chkBoxProductMessage";
             this.chkBoxProductMessage.Size = new System.Drawing.Size(173, 17);
             this.chkBoxProductMessage.TabIndex = 32;
@@ -259,11 +260,23 @@
             this.chkBoxProductMessage.UseVisualStyleBackColor = true;
             this.chkBoxProductMessage.CheckedChanged += new System.EventHandler(this.chkBoxProductMessage_CheckedChanged);
             // 
+            // chkMensajeInventario
+            // 
+            this.chkMensajeInventario.AutoSize = true;
+            this.chkMensajeInventario.Location = new System.Drawing.Point(9, 27);
+            this.chkMensajeInventario.Name = "chkMensajeInventario";
+            this.chkMensajeInventario.Size = new System.Drawing.Size(199, 17);
+            this.chkMensajeInventario.TabIndex = 33;
+            this.chkMensajeInventario.Text = "Mostrar mensaje al realizar inventario";
+            this.chkMensajeInventario.UseVisualStyleBackColor = true;
+            this.chkMensajeInventario.CheckedChanged += new System.EventHandler(this.chkMensajeInventario_CheckedChanged);
+            // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 666);
+            this.Controls.Add(this.chkMensajeInventario);
             this.Controls.Add(this.chkBoxProductMessage);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -308,5 +321,6 @@
         private System.Windows.Forms.CheckBox chkBoxProductMessage;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtStockNecesario;
+        private System.Windows.Forms.CheckBox chkMensajeInventario;
     }
 }
