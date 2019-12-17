@@ -2158,7 +2158,7 @@ namespace PuntoDeVentaV2
         private void btnRight_Click(object sender, EventArgs e)
         {
             Button btnTag = (Button)sender;
-            string name = string.Empty;
+            string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
             DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons
                 .YesNo, MessageBoxIcon.Question);
