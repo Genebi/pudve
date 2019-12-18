@@ -813,11 +813,17 @@ namespace PuntoDeVentaV2
             usrNo = FormPrincipal.userID;
             if (usrNo > 0)
             {
-                if (isEmpty.Equals(false))
+                if (isEmpty)
                 {
-                    MessageBox.Show("El Diccionario esta vacio", "Archivo no tiene contenido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("El Diccionario esta vacio", "Archivo no tiene contenido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    path = saveDirectoryFile + usrNo + @"\";
+                    if (!File.Exists(path + fileName))
+                    {
+                        Directory.CreateDirectory(path);
+                        using (File.Create(path + fileName)) { }
+                    }
                 }
-                else if (isEmpty.Equals(true))
+                else if (!isEmpty)
                 {
                     diccionarioDetalleBasicos.Clear();
                     using (StreamReader file = new StreamReader(path + usrNo + @"\" + fileName))

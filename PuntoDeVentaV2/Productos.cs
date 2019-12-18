@@ -14,9 +14,17 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
-        string strTag = string.Empty;
-        int Ancho = 80, Alto = 19;
+        string strTag = string.Empty, 
+                path = string.Empty, 
+                saveDirectoryFile = string.Empty, 
+                line = string.Empty;
+
+        int Ancho = 80, Alto = 19, usrNo;
         Size size, strSize;
+
+        string[] words;
+
+        char[] delimiter = { '|' };
 
         private Paginar p;
         string DataMemberDGV = "Productos";
@@ -94,7 +102,9 @@ namespace PuntoDeVentaV2
         string filtroConSinFiltroAvanzado = string.Empty;
 
         string[] palabras;
-        List<string> auxWord, setUpVariable, setUpDinamicos;
+        List<string> auxWord, setUpVariable;
+
+        Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
 
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -991,9 +1001,16 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
+
+            path = saveDirectoryFile;
+
             auxWord = new List<string>();
+
             setUpVariable = new List<string>();
             cargarListaSetUpVaribale();
+
+            dictionaryLoad();
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
 
@@ -1011,6 +1028,62 @@ namespace PuntoDeVentaV2
             filtroOrdenarPor();
             
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
+        }
+
+        private void dictionaryLoad()
+        {
+            bool isEmpty = (setUpDinamicos.Count == 0);
+            usrNo = FormPrincipal.userID;
+            fileName = "DiccionarioDetalleBasicos.txt";
+
+            if (usrNo > 0)
+            {
+                if (!isEmpty)
+                {
+                    setUpDinamicos.Clear();
+                    using (StreamReader file = new StreamReader(path + @"\" + fileName))
+                    {
+                        while ((line = file.ReadLine()) != null)
+                        {
+                            words = line.Split(delimiter);
+                            setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+                        }
+                        file.Close();
+                    }
+                }
+                else if (isEmpty)
+                {
+                    path = saveDirectoryFile + usrNo + @"\";
+                    if (!System.IO.File.Exists(path + fileName))
+                    {
+                        Directory.CreateDirectory(path);
+                        using (System.IO.File.Create(path + fileName)) { }
+                    }
+                    if (new FileInfo(path + fileName).Length > 0)
+                    {
+                        //MessageBox.Show("Archivo sin contenido");
+                        setUpDinamicos.Clear();
+                        using (StreamReader file = new StreamReader(path + @"\" + fileName))
+                        {
+                            while ((line = file.ReadLine()) != null)
+                            {
+                                words = line.Split(delimiter);
+                                setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+                            }
+                            file.Close();
+                        }
+                    }
+                    else if (new FileInfo(path + fileName).Length < 0)
+                    {
+                        //MessageBox.Show("Archivo con contenido");
+                        setUpDinamicos.Clear();
+                    }
+                }
+            }
+            else if (usrNo.Equals(0))
+            {
+                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario","Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void cargarListaSetUpVaribale()
