@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         public static int ProductMessage;
         public static int CodigoBarrasGenerado;
         public static int Empleados;
+        public static int MensajesInventario;
     #endregion VariablesTablas
 
         public DBTables()
@@ -76,6 +77,7 @@ namespace PuntoDeVentaV2
             ProductMessage = 3;
             CodigoBarrasGenerado = 3;
             Empleados = 20;
+            MensajesInventario = 5;
         #endregion InicializarVariables
         }
 
@@ -1891,7 +1893,7 @@ namespace PuntoDeVentaV2
         }
         #endregion TablaCodigoBarrasGenerado
 
-        // Tabla de CodigoBarrasGenerado 31
+        // Tabla de Empleados 31
         #region TablaEmpleados
         public int GetEmpleados()
         {
@@ -1982,5 +1984,52 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaEmpleados
+
+        // Tabla de MensajesInventario 32
+        #region TablaMensajesInventario
+        public int GetMensajesInventario()
+        {
+            return MensajesInventario;
+        }
+
+        public string PragmaTablaMensajesInventario(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameMensajesInventario(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaMensajesInventario(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID         INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario  INTEGER NOT NULL,
+                                              IDProducto INTEGER NOT NULL,
+                                              Mensaje    TEXT,
+                                              Activo     INTEGER DEFAULT (0));";
+        }
+
+        public string QueryUpdateTablaMensajesInventario(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             IDProducto,
+                                             Mensaje,
+                                             Activo) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             IDProducto,
+                                             Mensaje,
+                                             Activo 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaMensajesInventario(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaMensajesInventario
     }
 }
