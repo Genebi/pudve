@@ -1018,11 +1018,17 @@ namespace PuntoDeVentaV2
             setUpVariable.Clear();
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
-                setUpVariable.Add(Properties.Settings.Default.strFiltroStock);
+                if (!Properties.Settings.Default.strFiltroStock.Equals(""))
+                {
+                    setUpVariable.Add(Properties.Settings.Default.strFiltroStock);
+                }
             }
             if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
             {
-                setUpVariable.Add(Properties.Settings.Default.strFiltroPrecio);
+                if (!Properties.Settings.Default.strFiltroPrecio.Equals(""))
+                {
+                    setUpVariable.Add(Properties.Settings.Default.strFiltroPrecio);
+                }
             }
             crearEtiquetaSetUpVariable();
         }
@@ -1118,7 +1124,7 @@ namespace PuntoDeVentaV2
                     btnRight.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelRight;
                     btnRight.Cursor = Cursors.Hand;
                     btnRight.Location = new Point(panelTagText.Location.X + panelTagText.Width - 3, 3);
-                    btnRight.Click += new EventHandler(btnRight_Click);
+                    btnRight.Click += new EventHandler(btnRightSetUpVariable_Click);
                     panelEtiqueta.Controls.Add(btnRight);
 
                     panelEtiqueta.Width = Ancho + 35;
@@ -1127,6 +1133,55 @@ namespace PuntoDeVentaV2
                 }
             }
             else if (isEmptySetUpVariable)
+            {
+                txtBusqueda.Focus();
+            }
+        }
+
+        private void btnRightSetUpVariable_Click(object sender, EventArgs e)
+        {
+            Button btnTag = (Button)sender;
+            string name = string.Empty, newtext = string.Empty;
+            name = btnTag.Name.Remove(0, 8);
+            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons
+                .YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                {
+                    if (item is Panel)
+                    {
+                        if (item.Name.Equals("pEtiqueta" + name))
+                        {
+                            fLPDynamicTags.Controls.Remove(item);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < auxWord.Count; i++)
+                {
+                    if (auxWord[i].Equals(name))
+                    {
+                        auxWord.RemoveAt(i);
+                    }
+                }
+
+                if (name.Equals("Precio"))
+                {
+                    reiniciarVariablesDeSistemaPrecio();
+                }
+                else if (name.Equals("Stock"))
+                {
+                    reiniciarVariablesDeSistemaStock();
+                }
+
+                CargarDatos();
+
+                actualizarBtnFiltro();
+
+                txtBusqueda.Focus();
+            }
+            else if (result == DialogResult.No)
             {
                 txtBusqueda.Focus();
             }
@@ -1185,12 +1240,22 @@ namespace PuntoDeVentaV2
 
         public void inicializarVariablesFiltro()
         {
-            Properties.Settings.Default.chkFiltroPrecio = false;
-            Properties.Settings.Default.strFiltroPrecio = "";
+            reiniciarVariablesDeSistemaPrecio();
+            reiniciarVariablesDeSistemaStock();
+        }
+
+        private void reiniciarVariablesDeSistemaStock()
+        {
             Properties.Settings.Default.chkFiltroStock = false;
             Properties.Settings.Default.strFiltroStock = "";
-            Properties.Settings.Default.chkFiltroProveedor = false;
-            Properties.Settings.Default.strFiltroProveedor = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
+        }
+
+        private void reiniciarVariablesDeSistemaPrecio()
+        {
+            Properties.Settings.Default.chkFiltroPrecio = false;
+            Properties.Settings.Default.strFiltroPrecio = "";
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
         }
