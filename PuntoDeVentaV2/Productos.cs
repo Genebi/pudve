@@ -94,7 +94,7 @@ namespace PuntoDeVentaV2
         string filtroConSinFiltroAvanzado = string.Empty;
 
         string[] palabras;
-        List<string> auxWord;
+        List<string> auxWord, setUpVariable, setUpDinamicos;
 
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -992,6 +992,8 @@ namespace PuntoDeVentaV2
         private void Productos_Load(object sender, EventArgs e)
         {
             auxWord = new List<string>();
+            setUpVariable = new List<string>();
+            cargarListaSetUpVaribale();
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
 
@@ -1009,6 +1011,121 @@ namespace PuntoDeVentaV2
             filtroOrdenarPor();
             
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
+        }
+
+        private void cargarListaSetUpVaribale()
+        {
+            if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+            {
+                setUpVariable.Add(Properties.Settings.Default.strFiltroStock);
+            }
+            if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+            {
+                setUpVariable.Add(Properties.Settings.Default.strFiltroPrecio);
+            }
+            //crearEtiquetaSetUpVariable();
+        }
+
+        private void crearEtiquetaSetUpVariable()
+        {
+            fLPDynamicTags.Controls.Clear();
+        
+            bool isEmptySetUpVariable = !setUpVariable.Any();
+            string nameItemLista = string.Empty;
+
+            if (!isEmptySetUpVariable)
+            {
+                foreach (var itemLista in setUpVariable)
+                {
+                    nameItemLista = itemLista;
+                    string[] words = nameItemLista.Split(' ');
+
+                    Panel panelEtiqueta = new Panel();
+                    panelEtiqueta.Name = "pEtiqueta" + words[0];
+                    panelEtiqueta.Width = 140;
+                    panelEtiqueta.Height = 32;
+                    panelEtiqueta.Location = new Point(0, 2);
+                    //panelEtiqueta.BackColor = Color.Red;
+
+                    Label lblLeft = new Label();
+                    lblLeft.Name = "LabelIzquierdo" + words[0];
+                    lblLeft.Width = 9;
+                    lblLeft.Height = 23;
+                    lblLeft.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelLeft;
+                    lblLeft.Location = new Point(2, 2);
+                    panelEtiqueta.Controls.Add(lblLeft);
+
+                    Panel panelTagText = new Panel();
+                    panelTagText.Name = "PanelTagText" + words[0];
+                    panelTagText.Size = size;
+                    panelTagText.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.backgroundMiddleLabel;
+                    panelTagText.BackgroundImageLayout = ImageLayout.Stretch;
+                    panelTagText.Location = new Point(lblLeft.Location.X + lblLeft.Width, 4);
+                    panelEtiqueta.Controls.Add(panelTagText);
+
+                    string textoPanel = string.Empty;
+
+                    textoPanel += words[0];
+
+                    if (words[1].Equals(">="))
+                    {
+                        textoPanel += " Mayor o Igual Que ";
+                    }
+                    else if (words[1].Equals("<="))
+                    {
+                        textoPanel += " Menor o Igual Que ";
+                    }
+                    else if (words[1].Equals("="))
+                    {
+                        textoPanel += " Igual Que ";
+                    }
+                    else if (words[1].Equals(">"))
+                    {
+                        textoPanel += " Mayor Que ";
+                    }
+                    else if (words[1].Equals("<"))
+                    {
+                        textoPanel += " Menor Que ";
+                    }
+
+                    textoPanel += words[2];
+
+                    Ancho = textoPanel.Length * 11;
+
+                    Label lblTextFiltro = new Label();
+                    lblTextFiltro.Height = 17;
+                    lblTextFiltro.Location = new Point(0, 0);
+                    lblTextFiltro.BackColor = Color.Transparent;
+                    lblTextFiltro.Text = textoPanel.ToString();
+                    lblTextFiltro.ForeColor = Color.Red;
+                    lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
+
+                    panelTagText.Controls.Add(lblTextFiltro);
+
+                    panelTagText.Size = new Size(Ancho + 4, Alto);
+
+                    Button btnRight = new Button();
+                    btnRight.Name = "btnRight" + words[0];
+                    btnRight.Width = 20;
+                    btnRight.Height = 20;
+                    btnRight.FlatStyle = FlatStyle.Flat;
+                    btnRight.FlatAppearance.BorderSize = 0;
+                    btnRight.ImageAlign = ContentAlignment.MiddleCenter;
+                    btnRight.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelRight;
+                    btnRight.Cursor = Cursors.Hand;
+                    btnRight.Location = new Point(panelTagText.Location.X + panelTagText.Width - 3, 3);
+                    btnRight.Click += new EventHandler(btnRight_Click);
+                    panelEtiqueta.Controls.Add(btnRight);
+
+                    panelEtiqueta.Width = Ancho + 35;
+
+                    fLPDynamicTags.Controls.Add(panelEtiqueta);
+                }
+            }
+            else if (isEmptySetUpVariable)
+            {
+                txtBusqueda.Focus();
+            }
         }
 
         private void filtroOrdenarPor()
