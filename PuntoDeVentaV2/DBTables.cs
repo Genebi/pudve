@@ -75,7 +75,7 @@ namespace PuntoDeVentaV2
             DetalleGeneral = 4;
             DetallesProductoGenerales = 6;
             ProductMessage = 3;
-            CodigoBarrasGenerado = 3;
+            CodigoBarrasGenerado = 5;
             Empleados = 20;
             MensajesInventario = 5;
         #endregion InicializarVariables
@@ -1870,9 +1870,11 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaCodigoBarrasGenerado(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID           INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              IDUsuario    INTEGER,
-                                              CodigoBarras TEXT
+            return $@"CREATE TABLE '{tabla}' (ID              INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario       INTEGER,
+                                              CodigoBarras    TEXT,
+                                              FechaInventario TEXT,
+                                              NoRevision      INTEGER DEFAULT (1)
                                              );";
         }
 

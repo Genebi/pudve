@@ -1023,7 +1023,7 @@ namespace PuntoDeVentaV2
             {
                 setUpVariable.Add(Properties.Settings.Default.strFiltroPrecio);
             }
-            //crearEtiquetaSetUpVariable();
+            crearEtiquetaSetUpVariable();
         }
 
         private void crearEtiquetaSetUpVariable()
@@ -1062,6 +1062,7 @@ namespace PuntoDeVentaV2
                     panelTagText.BackgroundImageLayout = ImageLayout.Stretch;
                     panelTagText.Location = new Point(lblLeft.Location.X + lblLeft.Width, 4);
                     panelEtiqueta.Controls.Add(panelTagText);
+                    //panelEtiqueta.BackColor = Color.Beige;
 
                     string textoPanel = string.Empty;
 
@@ -1090,19 +1091,21 @@ namespace PuntoDeVentaV2
 
                     textoPanel += words[2];
 
-                    Ancho = textoPanel.Length * 11;
+                    Ancho = textoPanel.Length * 7;
 
                     Label lblTextFiltro = new Label();
+                    lblTextFiltro.AutoSize = false;
                     lblTextFiltro.Height = 17;
+                    lblTextFiltro.Width = Ancho;
                     lblTextFiltro.Location = new Point(0, 0);
                     lblTextFiltro.BackColor = Color.Transparent;
                     lblTextFiltro.Text = textoPanel.ToString();
                     lblTextFiltro.ForeColor = Color.Red;
-                    lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
+                    lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 9, FontStyle.Regular);
 
                     panelTagText.Controls.Add(lblTextFiltro);
 
-                    panelTagText.Size = new Size(Ancho + 4, Alto);
+                    panelTagText.Size = new Size(Ancho, Alto);
 
                     Button btnRight = new Button();
                     btnRight.Name = "btnRight" + words[0];
