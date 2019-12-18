@@ -1050,6 +1050,7 @@ namespace PuntoDeVentaV2
                         }
                         file.Close();
                     }
+                    crearEtiquetaDinamicaSetUpDinamicos();
                 }
                 else if (isEmpty)
                 {
@@ -1072,6 +1073,7 @@ namespace PuntoDeVentaV2
                             }
                             file.Close();
                         }
+                        crearEtiquetaDinamicaSetUpDinamicos();
                     }
                     else if (new FileInfo(path + fileName).Length < 0)
                     {
@@ -1083,6 +1085,84 @@ namespace PuntoDeVentaV2
             else if (usrNo.Equals(0))
             {
                 MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario","Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void crearEtiquetaDinamicaSetUpDinamicos()
+        {
+            string nameTag = string.Empty;
+            bool isEmptySetUpDinamicos = !setUpDinamicos.Any();
+
+            if (!isEmptySetUpDinamicos)
+            {
+                foreach (var item in setUpDinamicos)
+                {
+                    nameTag = item.Value.Item1.Remove(0, 9);
+
+                    if (item.Value.Item2.Equals("True"))
+                    {
+                        Panel panelEtiqueta = new Panel();
+                        panelEtiqueta.Name = "pEtiqueta" + nameTag;
+                        panelEtiqueta.Width = 140;
+                        panelEtiqueta.Height = 32;
+                        panelEtiqueta.Location = new Point(0, 2);
+                        //panelEtiqueta.BackColor = Color.Red;
+
+                        Label lblLeft = new Label();
+                        lblLeft.Name = "LabelIzquierdo" + nameTag;
+                        lblLeft.Width = 9;
+                        lblLeft.Height = 23;
+                        lblLeft.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelLeft;
+                        lblLeft.Location = new Point(2, 2);
+                        panelEtiqueta.Controls.Add(lblLeft);
+
+                        Panel panelTagText = new Panel();
+                        panelTagText.Name = "PanelTagText" + nameTag;
+                        panelTagText.Size = size;
+                        panelTagText.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.backgroundMiddleLabel;
+                        panelTagText.BackgroundImageLayout = ImageLayout.Stretch;
+                        panelTagText.Location = new Point(lblLeft.Location.X + lblLeft.Width, 4);
+                        panelEtiqueta.Controls.Add(panelTagText);
+                        //panelEtiqueta.BackColor = Color.Beige;
+
+                        string textoPanel = string.Empty;
+
+                        textoPanel = nameTag + ": " + item.Value.Item3.ToLower();
+
+                        Ancho = textoPanel.Length * 7;
+
+                        Label lblTextFiltro = new Label();
+                        lblTextFiltro.AutoSize = false;
+                        lblTextFiltro.Height = 17;
+                        lblTextFiltro.Width = Ancho;
+                        lblTextFiltro.Location = new Point(0, 0);
+                        lblTextFiltro.BackColor = Color.Transparent;
+                        lblTextFiltro.Text = textoPanel.ToString();
+                        lblTextFiltro.ForeColor = Color.Red;
+                        lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 9, FontStyle.Regular);
+
+                        panelTagText.Controls.Add(lblTextFiltro);
+
+                        panelTagText.Size = new Size(Ancho, Alto);
+
+                        Button btnRight = new Button();
+                        btnRight.Name = "btnRight" + nameTag;
+                        btnRight.Width = 20;
+                        btnRight.Height = 20;
+                        btnRight.FlatStyle = FlatStyle.Flat;
+                        btnRight.FlatAppearance.BorderSize = 0;
+                        btnRight.ImageAlign = ContentAlignment.MiddleCenter;
+                        btnRight.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelRight;
+                        btnRight.Cursor = Cursors.Hand;
+                        btnRight.Location = new Point(panelTagText.Location.X + panelTagText.Width - 3, 3);
+                        btnRight.Click += new EventHandler(btnRightSetUpVariable_Click);
+                        panelEtiqueta.Controls.Add(btnRight);
+
+                        panelEtiqueta.Width = Ancho + 35;
+
+                        fLPDynamicTags.Controls.Add(panelEtiqueta);
+                    }
+                }
             }
         }
 
