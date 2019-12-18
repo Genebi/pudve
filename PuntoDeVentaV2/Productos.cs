@@ -1013,8 +1013,9 @@ namespace PuntoDeVentaV2
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 
-        private void cargarListaSetUpVaribale()
+        public void cargarListaSetUpVaribale()
         {
+            setUpVariable.Clear();
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
                 setUpVariable.Add(Properties.Settings.Default.strFiltroStock);
