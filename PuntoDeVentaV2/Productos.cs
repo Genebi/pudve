@@ -1010,7 +1010,7 @@ namespace PuntoDeVentaV2
             setUpVariable = new List<string>();
             cargarListaSetUpVaribale();
 
-            dictionaryLoad();
+            //dictionaryLoad();
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
 
@@ -1030,7 +1030,7 @@ namespace PuntoDeVentaV2
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 
-        private void dictionaryLoad()
+        public void dictionaryLoad()
         {
             bool isEmpty = (setUpDinamicos.Count == 0);
             usrNo = FormPrincipal.userID;
@@ -1129,7 +1129,7 @@ namespace PuntoDeVentaV2
 
                         textoPanel = nameTag + ": " + item.Value.Item3.ToLower();
 
-                        Ancho = textoPanel.Length * 7;
+                        Ancho = textoPanel.Length * 8;
 
                         Label lblTextFiltro = new Label();
                         lblTextFiltro.AutoSize = false;
@@ -1137,13 +1137,13 @@ namespace PuntoDeVentaV2
                         lblTextFiltro.Width = Ancho;
                         lblTextFiltro.Location = new Point(0, 0);
                         lblTextFiltro.BackColor = Color.Transparent;
-                        lblTextFiltro.Text = textoPanel.ToString();
+                        lblTextFiltro.Text = textoPanel.ToString().ToLower();
                         lblTextFiltro.ForeColor = Color.Red;
-                        lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 9, FontStyle.Regular);
+                        lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
 
                         panelTagText.Controls.Add(lblTextFiltro);
 
-                        panelTagText.Size = new Size(Ancho, Alto);
+                        panelTagText.Size = new Size(Ancho - 5, Alto);
 
                         Button btnRight = new Button();
                         btnRight.Name = "btnRight" + nameTag;
@@ -1155,7 +1155,7 @@ namespace PuntoDeVentaV2
                         btnRight.Image = global::PuntoDeVentaV2.Properties.Resources.imageLabelRight;
                         btnRight.Cursor = Cursors.Hand;
                         btnRight.Location = new Point(panelTagText.Location.X + panelTagText.Width - 3, 3);
-                        btnRight.Click += new EventHandler(btnRightSetUpVariable_Click);
+                        btnRight.Click += new EventHandler(btnRightSetUpDinamico_Click);
                         panelEtiqueta.Controls.Add(btnRight);
 
                         panelEtiqueta.Width = Ancho + 35;
@@ -1163,6 +1163,46 @@ namespace PuntoDeVentaV2
                         fLPDynamicTags.Controls.Add(panelEtiqueta);
                     }
                 }
+            }
+        }
+
+        private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
+        {
+            Button btnTag = (Button)sender;
+            string name = string.Empty, newtext = string.Empty;
+            name = btnTag.Name.Remove(0, 8);
+            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons
+                .YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                {
+                    if (item is Panel)
+                    {
+                        if (item.Name.Equals("pEtiqueta" + name))
+                        {
+                            fLPDynamicTags.Controls.Remove(item);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < auxWord.Count; i++)
+                {
+                    if (auxWord[i].Equals(name))
+                    {
+                        auxWord.RemoveAt(i);
+                    }
+                }
+
+                CargarDatos();
+
+                actualizarBtnFiltro();
+
+                txtBusqueda.Focus();
+            }
+            else if (result == DialogResult.No)
+            {
+                txtBusqueda.Focus();
             }
         }
 
