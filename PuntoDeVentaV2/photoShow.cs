@@ -29,12 +29,37 @@ namespace PuntoDeVentaV2
         public static string ClaveInternaFinal;
         public static string CodigoBarrasFinal;
 
+        
+        public photoShow()
+        {
+            InitializeComponent();
+        }
+
+        private void photoShow_Load(object sender, EventArgs e)
+        {
+            cargarDatos();
+        }
+
         public void cargarDatos()
         {
+            var servidor = Properties.Settings.Default.Hosting;
+            string pathString = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                pathString = $@"\\{servidor}\pudve\Productos\";
+            }
+            else
+            {
+                pathString = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+            }
+
             int index = 0;
-            string buscar, pathString = Properties.Settings.Default.rutaDirectorio+ @"\PUDVE\Productos\", imgPath;
+            string buscar;
+            string imgPath;
+
             DataTable dt;
-            
+
             NombreProdFinal = NombreProd;
             StockProdFinal = StockProd;
             PrecioProdFinal = PrecioProd;
@@ -46,20 +71,11 @@ namespace PuntoDeVentaV2
             dt = cn.CargarDatos(buscar);
             imgPath = dt.Rows[index]["ProdImage"].ToString();
             lblNombreProducto.Text = NombreProdFinal;
-            using (File = new FileStream(pathString+imgPath, FileMode.Open, FileAccess.Read))
+
+            using (File = new FileStream(pathString + imgPath, FileMode.Open, FileAccess.Read))
             {
                 pictureBoxProducto.Image = Image.FromStream(File);      // cargamos la imagen en el PictureBox
             }
-        }
-
-        public photoShow()
-        {
-            InitializeComponent();
-        }
-
-        private void photoShow_Load(object sender, EventArgs e)
-        {
-            cargarDatos();
         }
     }
 }
