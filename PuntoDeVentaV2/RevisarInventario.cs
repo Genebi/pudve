@@ -215,6 +215,7 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         LimpiarCampos();
+                        txtBoxBuscarCodigoBarras.Focus();
                     }
                     else
                     {
