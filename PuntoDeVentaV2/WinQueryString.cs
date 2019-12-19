@@ -1340,6 +1340,7 @@ namespace PuntoDeVentaV2
                 producto.actualizarBtnFiltro();
                 producto.CargarDatos();
                 producto.cargarListaSetUpVaribale();
+                producto.dictionaryLoad();
             }
         }
 
