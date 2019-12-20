@@ -19,6 +19,10 @@ namespace PuntoDeVentaV2
                 saveDirectoryFile = string.Empty, 
                 line = string.Empty;
 
+        bool isEmptyAuxWord,
+            isEmptySetUpVariable,
+            isEmptySetUpDinamicos;
+
         int Ancho = 80, Alto = 19, usrNo;
         Size size, strSize;
 
@@ -1101,9 +1105,10 @@ namespace PuntoDeVentaV2
 
         private void crearEtiquetaDinamicaSetUpDinamicos()
         {
-            string nameTag = string.Empty;
-            bool isEmptySetUpDinamicos = !setUpDinamicos.Any();
+            verificarListaDeVariablesEtiquetas();
 
+            string nameTag = string.Empty;
+            
             if (!isEmptySetUpDinamicos)
             {
                 foreach (var item in setUpDinamicos)
@@ -1138,7 +1143,7 @@ namespace PuntoDeVentaV2
 
                         string textoPanel = string.Empty;
 
-                        textoPanel = nameTag + ": " + item.Value.Item3.ToLower();
+                        textoPanel = nameTag + ": " + item.Value.Item3;
 
                         label2.Text = textoPanel;
                         var infoText = TextRenderer.MeasureText(label2.Text, new System.Drawing.Font(label2.Font.FontFamily, label2.Font.Size));
@@ -1148,15 +1153,15 @@ namespace PuntoDeVentaV2
                         lblTextFiltro.AutoSize = false;
                         lblTextFiltro.Height = 17;
                         lblTextFiltro.Width = Ancho;
-                        lblTextFiltro.Location = new Point(0, 0);
+                        lblTextFiltro.Location = new Point(0, 2);
                         lblTextFiltro.BackColor = Color.Transparent;
-                        lblTextFiltro.Text = textoPanel.ToString().ToLower();
+                        lblTextFiltro.Text = label2.Text;
                         lblTextFiltro.ForeColor = Color.Red;
-                        lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
+                        //lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
 
                         panelTagText.Controls.Add(lblTextFiltro);
 
-                        panelTagText.Size = new Size(Ancho - 5, Alto);
+                        panelTagText.Size = new Size(Ancho - 10, Alto);
 
                         Button btnRight = new Button();
                         btnRight.Name = "btnRight" + nameTag;
@@ -1241,9 +1246,8 @@ namespace PuntoDeVentaV2
 
         private void crearEtiquetaSetUpVariable()
         {
-            fLPDynamicTags.Controls.Clear();
-        
-            bool isEmptySetUpVariable = !setUpVariable.Any();
+            verificarListaDeVariablesEtiquetas();
+
             string nameItemLista = string.Empty;
 
             if (!isEmptySetUpVariable)
@@ -2472,15 +2476,32 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos(2, txtBusqueda.Text);
             }
+            borrarAuxWordTags();
             cargarListaDeEtiquetas();
-            crearEtiquetaDinamica();
+        }
+
+        private void borrarAuxWordTags()
+        {
+            foreach (var itemAuxWord in auxWord)
+            {
+                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                {
+                    if (item is Panel)
+                    {
+                        if (item.Name.Equals("pEtiqueta" + itemAuxWord))
+                        {
+                            fLPDynamicTags.Controls.Remove(item);
+                        }
+                    }
+                }
+            }
+            auxWord.Clear();
         }
 
         private void crearEtiquetaDinamica()
         {
-            fLPDynamicTags.Controls.Clear();
-
-            bool isEmptyAuxWord = !auxWord.Any();
+            verificarListaDeVariablesEtiquetas();
+            
             string nameItemLista = string.Empty;
 
             if (!isEmptyAuxWord)
@@ -2549,6 +2570,18 @@ namespace PuntoDeVentaV2
             else if (isEmptyAuxWord)
             {
                 txtBusqueda.Focus();
+            }
+        }
+
+        private void verificarListaDeVariablesEtiquetas()
+        {
+            isEmptyAuxWord = !auxWord.Any();
+            isEmptySetUpVariable = !setUpVariable.Any();
+            isEmptySetUpDinamicos = !setUpDinamicos.Any();
+
+            if (isEmptyAuxWord && isEmptySetUpVariable && isEmptySetUpDinamicos)
+            {
+                fLPDynamicTags.Controls.Clear();
             }
         }
 
@@ -2637,6 +2670,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                crearEtiquetaDinamica();
             }
         }
 
