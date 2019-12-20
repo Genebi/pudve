@@ -1311,16 +1311,16 @@ namespace PuntoDeVentaV2
                     Label lblTextFiltro = new Label();
                     lblTextFiltro.AutoSize = false;
                     lblTextFiltro.Height = 17;
-                    lblTextFiltro.Width = Ancho;
-                    lblTextFiltro.Location = new Point(0, 0);
+                    lblTextFiltro.Width = Ancho + 60;
+                    lblTextFiltro.Location = new Point(0, 2);
                     lblTextFiltro.BackColor = Color.Transparent;
                     lblTextFiltro.Text = textoPanel.ToString();
                     lblTextFiltro.ForeColor = Color.Red;
-                    lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 9, FontStyle.Regular);
+                    //lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 9, FontStyle.Regular);
 
                     panelTagText.Controls.Add(lblTextFiltro);
 
-                    panelTagText.Size = new Size(Ancho, Alto);
+                    panelTagText.Size = new Size(Ancho + 70, Alto);
 
                     Button btnRight = new Button();
                     btnRight.Name = "btnRight" + words[0];
@@ -1335,7 +1335,7 @@ namespace PuntoDeVentaV2
                     btnRight.Click += new EventHandler(btnRightSetUpVariable_Click);
                     panelEtiqueta.Controls.Add(btnRight);
 
-                    panelEtiqueta.Width = Ancho + 35;
+                    panelEtiqueta.Width = Ancho + 100;
 
                     fLPDynamicTags.Controls.Add(panelEtiqueta);
                 }
@@ -2518,11 +2518,11 @@ namespace PuntoDeVentaV2
 
                     Label lblTextFiltro = new Label();
                     lblTextFiltro.Height = 17;
-                    lblTextFiltro.Location = new Point(0, 0);
+                    lblTextFiltro.Location = new Point(0, 2);
                     lblTextFiltro.BackColor = Color.Transparent;
                     lblTextFiltro.Text = nameItemLista.ToString();
                     lblTextFiltro.ForeColor = Color.Red;
-                    lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
+                    //lblTextFiltro.Font = new System.Drawing.Font("Century Gothic", 10, FontStyle.Regular);
 
                     panelTagTex.Controls.Add(lblTextFiltro);
 
