@@ -71,7 +71,7 @@ namespace PuntoDeVentaV2
         FileInfo info;
 
         // direccion de la carpeta donde se va poner las imagenes
-        string saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+        string saveDirectoryImg = string.Empty;
         // nombre de archivo
         string fileName;
         // directorio origen de la imagen
@@ -1001,6 +1001,17 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
+            }
+            else
+            {
+                saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+            }
+
             saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
 
             path = saveDirectoryFile;
