@@ -309,7 +309,18 @@ namespace PuntoDeVentaV2
             }
 
             // Ruta donde se creara el archivo PDF
-            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\ticket_caja_" + Convert.ToDateTime(info[4]).ToString("yyyyMMddHHmmss") + ".pdf";
+            var rutaArchivo = string.Empty;
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Caja\ticket_caja_" + Convert.ToDateTime(info[4]).ToString("yyyyMMddHHmmss") + ".pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\ticket_caja_" + Convert.ToDateTime(info[4]).ToString("yyyyMMddHHmmss") + ".pdf";
+            }
+
 
             Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 5, 0);
             PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(rutaArchivo, FileMode.Create));
