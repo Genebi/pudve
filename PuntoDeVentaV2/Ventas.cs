@@ -453,7 +453,16 @@ namespace PuntoDeVentaV2
 
                 if (!string.IsNullOrEmpty(imagen))
                 {
-                    PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen);
+                    var servidor = Properties.Settings.Default.Hosting;
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        PBImagen.Image = System.Drawing.Image.FromFile($@"\\{servidor}\PUDVE\Productos\" + imagen);
+                    }
+                    else
+                    {
+                        PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen);
+                    }
                 }
                 else
                 {
@@ -1434,15 +1443,38 @@ namespace PuntoDeVentaV2
                 salto = string.Empty;
             }
 
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + productos[0][0] + ".pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + productos[0][0] + ".pdf";
+            }
+
+            
             Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 3, 0);
-            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_" + productos[0][0] + ".pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(rutaArchivo, FileMode.Create));
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteGrande);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteMensaje);
 
-            string logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            string logotipo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                logotipo = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            }
+            else
+            {
+                logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            }
+            
             string encabezado = $"{salto}{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
             ticket.Open();
@@ -1663,15 +1695,38 @@ namespace PuntoDeVentaV2
                 salto = string.Empty;
             }
 
+
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_" + folioTicket + ".pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_" + folioTicket + ".pdf";
+            }
+
             Document ticket = new Document(new iTextSharp.text.Rectangle(anchoPapel, altoPapel), 3, 3, 3, 0);
-            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(@"C:\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_" + folioTicket + ".pdf", FileMode.Create));
+            PdfWriter writer = PdfWriter.GetInstance(ticket, new FileStream(rutaArchivo, FileMode.Create));
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteNormal);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, medidaFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteGrande);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, medidaFuenteMensaje);
 
-            string logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            string logotipo = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                logotipo = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            }
+            else
+            {
+                logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + datos[11];
+            }
+            
             string encabezado = $"{salto}{datos[1]} {datos[2]} {datos[3]}, {datos[4]}, {datos[5]}\nCol. {datos[6]} C.P. {datos[7]}\nRFC: {datos[8]}\n{datos[9]}\nTel. {datos[10]}\n\n";
 
             ticket.Open();
@@ -1716,16 +1771,31 @@ namespace PuntoDeVentaV2
         {
             try
             {
+                var servidor = Properties.Settings.Default.Hosting;
                 var ruta = string.Empty;
 
                 if (tipo == 0)
                 {
-                    ruta = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        ruta = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
+                    }
+                    else
+                    {
+                        ruta = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta_{idVenta}.pdf";
+                    }
                 }
 
                 if (tipo == 1)
                 {
-                    ruta = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_{idVenta}.pdf";
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        ruta = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_{idVenta}.pdf";
+                    }
+                    else
+                    {
+                        ruta = $@"C:\Archivos PUDVE\Ventas\Tickets\ticket_caja_abierta_{idVenta}.pdf";
+                    }
                 }
 
                 ProcessStartInfo info = new ProcessStartInfo();

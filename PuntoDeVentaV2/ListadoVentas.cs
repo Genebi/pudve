@@ -313,8 +313,18 @@ namespace PuntoDeVentaV2
                 //Ver ticket
                 if (e.ColumnIndex == 12)
                 {
+                    var servidor = Properties.Settings.Default.Hosting;
+
                     ticketGenerado = $"ticket_venta_{idVenta}.pdf";
-                    rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        rutaTicketGenerado = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
+                    }
+                    else
+                    {
+                        rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
+                    }
 
                     if (File.Exists(rutaTicketGenerado))
                     {
