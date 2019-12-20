@@ -1010,7 +1010,7 @@ namespace PuntoDeVentaV2
             setUpVariable = new List<string>();
             cargarListaSetUpVaribale();
 
-            //dictionaryLoad();
+            dictionaryLoad();
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
 
@@ -1129,7 +1129,9 @@ namespace PuntoDeVentaV2
 
                         textoPanel = nameTag + ": " + item.Value.Item3.ToLower();
 
-                        Ancho = textoPanel.Length * 8;
+                        label2.Text = textoPanel;
+                        var infoText = TextRenderer.MeasureText(label2.Text, new System.Drawing.Font(label2.Font.FontFamily, label2.Font.Size));
+                        Ancho = infoText.Width;
 
                         Label lblTextFiltro = new Label();
                         lblTextFiltro.AutoSize = false;
@@ -1291,7 +1293,9 @@ namespace PuntoDeVentaV2
 
                     textoPanel += words[2];
 
-                    Ancho = textoPanel.Length * 7;
+                    label2.Text = nameItemLista;
+                    var infoText = TextRenderer.MeasureText(label2.Text, new System.Drawing.Font(label2.Font.FontFamily, label2.Font.Size));
+                    Ancho = infoText.Width;
 
                     Label lblTextFiltro = new Label();
                     lblTextFiltro.AutoSize = false;
@@ -2329,7 +2333,8 @@ namespace PuntoDeVentaV2
                     catch (Exception ex)    // si no se puede hacer el proceso
                     {
                         // si no se borra el archivo muestra este mensaje
-                        MessageBox.Show("Error al hacer el borrado No: " + ex.Message.ToString(), "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error al hacer el borrado No: " + ex.Message.ToString(), 
+                            "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -2496,7 +2501,9 @@ namespace PuntoDeVentaV2
                     panelTagTex.Location = new Point(lblLeft.Location.X + lblLeft.Width, 4);
                     panelEtiqueta.Controls.Add(panelTagTex);
 
-                    Ancho = nameItemLista.Length * 11;
+                    label2.Text = nameItemLista;
+                    var infoText = TextRenderer.MeasureText(label2.Text, new System.Drawing.Font(label2.Font.FontFamily, label2.Font.Size));
+                    Ancho = infoText.Width;
 
                     Label lblTextFiltro = new Label();
                     lblTextFiltro.Height = 17;
