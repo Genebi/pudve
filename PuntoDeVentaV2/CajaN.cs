@@ -183,7 +183,17 @@ namespace PuntoDeVentaV2
             SQLiteCommand consultaUno, consultaDos;
             SQLiteDataReader drUno, drDos;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                sql_con = new SQLiteConnection("Data source=//" + servidor + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+            else
+            {
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+
             sql_con.Open();
 
             var fechaDefault = Convert.ToDateTime("0001-01-01 00:00:00");
