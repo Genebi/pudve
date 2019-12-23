@@ -822,6 +822,27 @@ namespace PuntoDeVentaV2
                         Directory.CreateDirectory(path);
                         using (File.Create(path + fileName)) { }
                     }
+                    else if (File.Exists(path + fileName))
+                    {
+                        if (new FileInfo(path + fileName).Length > 0)
+                        {
+                            diccionarioDetalleBasicos.Clear();
+                            using (StreamReader file = new StreamReader(path + @"\" + fileName))
+                            {
+                                while ((line =  file.ReadLine()) != null)
+                                {
+                                    words = line.Split(delimiter);
+                                    diccionarioDetalleBasicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+                                }
+                                file.Close();
+                            }
+
+                        }
+                        else if (new FileInfo(path + fileName).Length < 0)
+                        {
+                            diccionarioDetalleBasicos.Clear();
+                        }
+                    }
                 }
                 else if (!isEmpty)
                 {
@@ -970,9 +991,9 @@ namespace PuntoDeVentaV2
             loadFormConfig();
             BuscarChkBoxListView(chkDatabase);
 
-            verificarChkBoxDinamicos();
-
             dictionaryLoad();
+
+            verificarChkBoxDinamicos();
 
             saveDictionary();
         }

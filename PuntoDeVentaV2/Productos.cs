@@ -1988,7 +1988,15 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                CargarDatos();
+                if (!txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                    txtBusqueda_TextChanged(sender, e);
+                }
+                else if (txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                }
 
                 AgregarEditarProducto.stockNecesario = "0";
             };
@@ -2073,7 +2081,15 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate 
             {
-                CargarDatos();
+                if (!txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                    txtBusqueda_TextChanged(sender, e);
+                }
+                else if (txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                }
             };
             if (!FormAgregar.Visible)
             {
@@ -2153,7 +2169,15 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                CargarDatos();
+                if (!txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                    txtBusqueda_TextChanged(sender, e);
+                }
+                else if (txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                }
             };
             if (!FormAgregar.Visible)
             {
