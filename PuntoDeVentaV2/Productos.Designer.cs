@@ -64,6 +64,7 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCleanFilter = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.fLPDynamicTags = new System.Windows.Forms.FlowLayoutPanel();
@@ -97,7 +98,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCleanFilter = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -479,6 +479,25 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(942, 195);
             this.panel1.TabIndex = 15;
+            // 
+            // btnCleanFilter
+            // 
+            this.btnCleanFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCleanFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnCleanFilter.FlatAppearance.BorderSize = 0;
+            this.btnCleanFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCleanFilter.Font = new System.Drawing.Font("Century", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCleanFilter.ForeColor = System.Drawing.Color.White;
+            this.btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tags;
+            this.btnCleanFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCleanFilter.Location = new System.Drawing.Point(861, 72);
+            this.btnCleanFilter.Name = "btnCleanFilter";
+            this.btnCleanFilter.Size = new System.Drawing.Size(68, 23);
+            this.btnCleanFilter.TabIndex = 21;
+            this.btnCleanFilter.Text = "Borrar";
+            this.btnCleanFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCleanFilter.UseVisualStyleBackColor = false;
+            this.btnCleanFilter.Click += new System.EventHandler(this.btnCleanFilter_Click);
             // 
             // label2
             // 
@@ -935,24 +954,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnCleanFilter
-            // 
-            this.btnCleanFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCleanFilter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.btnCleanFilter.FlatAppearance.BorderSize = 0;
-            this.btnCleanFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCleanFilter.Font = new System.Drawing.Font("Century", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCleanFilter.ForeColor = System.Drawing.Color.White;
-            this.btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tags;
-            this.btnCleanFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCleanFilter.Location = new System.Drawing.Point(861, 72);
-            this.btnCleanFilter.Name = "btnCleanFilter";
-            this.btnCleanFilter.Size = new System.Drawing.Size(68, 23);
-            this.btnCleanFilter.TabIndex = 21;
-            this.btnCleanFilter.Text = "Borrar";
-            this.btnCleanFilter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCleanFilter.UseVisualStyleBackColor = false;
             // 
             // Productos
             // 

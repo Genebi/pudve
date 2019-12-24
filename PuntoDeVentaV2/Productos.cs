@@ -974,6 +974,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnCleanFilter_Click(object sender, EventArgs e)
+        {
+            txtBusqueda.Text = string.Empty;
+        }
+
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
             //dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
