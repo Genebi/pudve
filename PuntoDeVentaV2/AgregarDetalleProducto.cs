@@ -120,7 +120,8 @@ namespace PuntoDeVentaV2
 
                 if (appSettings.Count == 0)
                 {
-                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia", "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia", 
+                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (appSettings.Count > 0)
                 {
@@ -154,7 +155,8 @@ namespace PuntoDeVentaV2
             }
             catch (ConfigurationException e)
             {
-                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), 
+                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -191,7 +193,8 @@ namespace PuntoDeVentaV2
             {
                 if (KeyExist(strKey))
                 {
-                    MessageBox.Show("Nombre clave: <" + strKey + "> ya existe en la configuración.", "Setting Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Nombre clave: <" + strKey + "> ya existe en la configuración.", 
+                                    "Setting Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -233,7 +236,8 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Tipo de error: " + ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tipo de error: " + ex.Message.ToString(), 
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1620,7 +1624,8 @@ namespace PuntoDeVentaV2
                     RefreshAppSettings();
                     loadFormConfig();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", 
+                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!deleteDetalle.Equals(""))
                 {
@@ -1628,7 +1633,7 @@ namespace PuntoDeVentaV2
                     {
                         var mensaje = deleteDetalle;
 
-                        MessageBox.Show("No se puede Renombrar ó Eliminar\n("+ mensaje +")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(),
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(),
                                         "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         RefreshAppSettings();
                         loadFormConfig();
@@ -1660,7 +1665,8 @@ namespace PuntoDeVentaV2
                 RefreshAppSettings();
                 loadFormConfig();
                 BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", 
+                                "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1683,7 +1689,8 @@ namespace PuntoDeVentaV2
                     RefreshAppSettings();
                     loadFormConfig();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", 
+                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!nvoDetalle.Equals(""))
                 {
@@ -1699,7 +1706,8 @@ namespace PuntoDeVentaV2
                     RefreshAppSettings();
                     loadFormConfig();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", 
+                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -1707,7 +1715,8 @@ namespace PuntoDeVentaV2
                 RefreshAppSettings();
                 loadFormConfig();
                 BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), 
+                                "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

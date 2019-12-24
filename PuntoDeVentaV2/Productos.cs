@@ -1010,13 +1010,13 @@ namespace PuntoDeVentaV2
             if (!string.IsNullOrWhiteSpace(servidor))
             {
                 saveDirectoryImg = $@"\\{servidor}\PUDVE\Productos\";
+                saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
             }
             else
             {
                 saveDirectoryImg = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+                saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             }
-
-            saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
 
             path = saveDirectoryFile;
 
@@ -1099,7 +1099,8 @@ namespace PuntoDeVentaV2
             }
             else if (usrNo.Equals(0))
             {
-                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario","Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario",
+                                "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
