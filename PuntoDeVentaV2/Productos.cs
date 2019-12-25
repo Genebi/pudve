@@ -382,7 +382,7 @@ namespace PuntoDeVentaV2
 
             FiltroAvanzado.FormClosed += delegate
             {
-
+                
             };
 
             if (!FiltroAvanzado.Visible)
@@ -2552,6 +2552,24 @@ namespace PuntoDeVentaV2
                 }
             }
             auxWord.Clear();
+        }
+
+        public void borrarVariablesStockPrecio()
+        {
+            string[] words;
+
+            foreach (var itemSetUpVariable in setUpVariable)
+            {
+                words = itemSetUpVariable.Split(' ');
+                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                {
+                    if (item.Name.Equals("pEtiqueta" + words[0]))
+                    {
+                        fLPDynamicTags.Controls.Remove(item);
+                    }
+                }
+            }
+            setUpVariable.Clear();
         }
 
         private void crearEtiquetaDinamica()

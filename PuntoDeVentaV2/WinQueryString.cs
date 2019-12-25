@@ -1359,6 +1359,7 @@ namespace PuntoDeVentaV2
             if (producto != null)
             {
                 producto.actualizarBtnFiltro();
+                producto.borrarVariablesStockPrecio();
                 producto.CargarDatos();
                 producto.cargarListaSetUpVaribale();
                 producto.dictionaryLoad();
