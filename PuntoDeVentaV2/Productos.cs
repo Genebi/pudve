@@ -1049,14 +1049,7 @@ namespace PuntoDeVentaV2
 
             path = saveDirectoryFile;
 
-            listVariables = new List<Control>();
-
-            auxWord = new List<string>();
-
-            setUpVariable = new List<string>();
-            cargarListaSetUpVaribale();
-
-            dictionaryLoad();
+            creacionEtiquetasDinamicas();
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
 
@@ -1074,6 +1067,18 @@ namespace PuntoDeVentaV2
             filtroOrdenarPor();
             
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
+        }
+
+        public void creacionEtiquetasDinamicas()
+        {
+            listVariables = new List<Control>();
+
+            auxWord = new List<string>();
+
+            setUpVariable = new List<string>();
+            cargarListaSetUpVaribale();
+
+            dictionaryLoad();
         }
 
         public void dictionaryLoad()
