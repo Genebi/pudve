@@ -107,6 +107,7 @@ namespace PuntoDeVentaV2
 
         string[] palabras;
         List<string> auxWord, setUpVariable;
+        List<Control> listVariables;
 
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
 
@@ -977,6 +978,29 @@ namespace PuntoDeVentaV2
         private void btnCleanFilter_Click(object sender, EventArgs e)
         {
             txtBusqueda.Text = string.Empty;
+            removeAllSystemTags();
+        }
+
+        private void removeAllSystemTags()
+        {
+            //listVariables
+            foreach (Control control in fLPDynamicTags.Controls)
+            {
+                listVariables.Add(control);
+            }
+
+            foreach (Control control in listVariables)
+            {
+                fLPDynamicTags.Controls.Remove(control);
+                control.Dispose();
+            }
+
+            reiniciarVariablesDeSistemaPrecio();
+            reiniciarVariablesDeSistemaStock();
+
+            actualizarBtnFiltro();
+
+            CargarDatos();
         }
 
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
@@ -1024,6 +1048,8 @@ namespace PuntoDeVentaV2
             }
 
             path = saveDirectoryFile;
+
+            listVariables = new List<Control>();
 
             auxWord = new List<string>();
 
