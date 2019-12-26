@@ -1363,6 +1363,7 @@ namespace PuntoDeVentaV2
                 producto.CargarDatos();
                 producto.cargarListaSetUpVaribale();
                 producto.dictionaryLoad();
+                producto.verificarBotonLimpiarTags();
             }
         }
 

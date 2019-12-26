@@ -995,12 +995,16 @@ namespace PuntoDeVentaV2
                 control.Dispose();
             }
 
+            setUpVariable.Clear();
+
             reiniciarVariablesDeSistemaPrecio();
             reiniciarVariablesDeSistemaStock();
 
             actualizarBtnFiltro();
 
             CargarDatos();
+
+            verificarBotonLimpiarTags();
         }
 
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
@@ -1079,6 +1083,20 @@ namespace PuntoDeVentaV2
             cargarListaSetUpVaribale();
 
             dictionaryLoad();
+
+            verificarBotonLimpiarTags();
+        }
+
+        public void verificarBotonLimpiarTags()
+        {
+            if (auxWord.Count == 0 && setUpVariable.Count ==0)
+            {
+                btnCleanFilter.Visible = false;
+            }
+            else
+            {
+                btnCleanFilter.Visible = true;
+            }
         }
 
         public void dictionaryLoad()
@@ -2539,6 +2557,7 @@ namespace PuntoDeVentaV2
             }
             borrarAuxWordTags();
             cargarListaDeEtiquetas();
+            verificarBotonLimpiarTags();
         }
 
         private void borrarAuxWordTags()
@@ -2661,6 +2680,7 @@ namespace PuntoDeVentaV2
             if (isEmptyAuxWord && isEmptySetUpVariable && isEmptySetUpDinamicos)
             {
                 fLPDynamicTags.Controls.Clear();
+                verificarBotonLimpiarTags();
             }
         }
 
@@ -2702,6 +2722,8 @@ namespace PuntoDeVentaV2
                 txtBusqueda.Text = newCadenaBusqueda.Trim();
                 txtBusqueda.Select(txtBusqueda.Text.Length, 0);
                 txtBusqueda.Focus();
+
+                verificarBotonLimpiarTags();
             }
             else if (result == DialogResult.No)
             {

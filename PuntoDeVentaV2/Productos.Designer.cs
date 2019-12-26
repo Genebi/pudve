@@ -490,7 +490,7 @@
             this.btnCleanFilter.ForeColor = System.Drawing.Color.White;
             this.btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tags;
             this.btnCleanFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCleanFilter.Location = new System.Drawing.Point(861, 72);
+            this.btnCleanFilter.Location = new System.Drawing.Point(859, 72);
             this.btnCleanFilter.Name = "btnCleanFilter";
             this.btnCleanFilter.Size = new System.Drawing.Size(68, 23);
             this.btnCleanFilter.TabIndex = 21;
