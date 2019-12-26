@@ -682,7 +682,7 @@ namespace PuntoDeVentaV2
         private void saveDictionary()
         {
             usrNo = FormPrincipal.userID;
-            path = saveDirectoryFile + usrNo + @"\";
+            //path += usrNo + @"\";
             pathTemp = saveDirectoryFile + usrNo + @"\";
             if (usrNo > 0)
             {
@@ -836,7 +836,8 @@ namespace PuntoDeVentaV2
                                 }
                                 file.Close();
                             }
-
+                            setUpChkBoxDetalleProducto();
+                            fillFieldsBasicsDetail();
                         }
                         else if (new FileInfo(path + fileName).Length < 0)
                         {
@@ -856,6 +857,7 @@ namespace PuntoDeVentaV2
                         }
                         file.Close();
                     }
+                    setUpChkBoxDetalleProducto();
                     fillFieldsBasicsDetail();
                 }
             }
@@ -863,6 +865,31 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario", 
                                 "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void setUpChkBoxDetalleProducto()
+        {
+            var nombre = string.Empty;
+            foreach (Control itemControl in fLPDetalleProducto.Controls)
+            {
+                nombre = itemControl.Name;
+                foreach (Control subItemControl in itemControl.Controls)
+                {
+                    nombre = subItemControl.Name;
+                    foreach (Control intoSubItemControl in subItemControl.Controls)
+                    {
+                        nombre = intoSubItemControl.Name;
+                        foreach (var item in diccionarioDetalleBasicos)
+                        {
+                            if (intoSubItemControl is CheckBox && intoSubItemControl.Name.Equals(item.Value.Item1))
+                            {
+                                CheckBox chk = (CheckBox)intoSubItemControl;
+                                chk.Checked = Convert.ToBoolean(item.Value.Item2);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -899,7 +926,17 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
-            saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
+            }
+            else
+            {
+                saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
+            }
+            //saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
 
             path = saveDirectoryFile;
 
@@ -995,7 +1032,7 @@ namespace PuntoDeVentaV2
 
             verificarChkBoxDinamicos();
 
-            saveDictionary();
+            //saveDictionary();
         }
 
         private void verificarChkBoxDinamicos()
