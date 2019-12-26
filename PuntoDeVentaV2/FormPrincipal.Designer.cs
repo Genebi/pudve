@@ -377,10 +377,6 @@
             this.temporizador_respaldo.Interval = 900000;
             this.temporizador_respaldo.Tick += new System.EventHandler(this.temporizador_respaldo_Tick);
             // 
-            // actualizarCaja
-            // 
-            this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick);
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -420,7 +416,7 @@
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnEmpresas;
         private System.Windows.Forms.Timer temporizador_respaldo;
-        public System.Windows.Forms.Timer actualizarCaja;
+        private System.Windows.Forms.Timer actualizarCaja;
     }
 }
 

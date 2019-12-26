@@ -187,5 +187,71 @@ namespace PuntoDeVentaV2
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            if (!txtTimerSetUp.Text.Equals(""))
+            {
+                if (rbSegundos.Checked.Equals(true))
+                {
+
+                    Properties.Settings.Default.tiempoTimerAndroid = 1000 * Convert.ToInt32(txtTimerSetUp.Text);
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+
+                   // MessageBox.Show("Tiempo asignado" + Properties.Settings.Default.tiempoTimerAndroid);
+
+                  
+
+                    FormCollection formulariosApp = Application.OpenForms;
+                    foreach (Form frm in formulariosApp)
+                    {
+                        if (frm.Name != "FormPrincipal" && frm.Name != "Login" && frm.Name != "SetUpPUDVE")
+                        {
+                            frm.Close();
+                        }
+                    }
+
+                    this.Close();
+                    
+
+                }
+
+                if (rbMinutos.Checked.Equals(true))
+                {
+
+                    Properties.Settings.Default.tiempoTimerAndroid = 60000 * Convert.ToInt32(txtTimerSetUp.Text);
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+
+                    // MessageBox.Show("Tiempo asignado" + Properties.Settings.Default.tiempoTimerAndroid);
+
+
+
+                    FormCollection formulariosApp = Application.OpenForms;
+                    foreach (Form frm in formulariosApp)
+                    {
+                        if (frm.Name != "FormPrincipal" && frm.Name != "Login" && frm.Name != "SetUpPUDVE")
+                        {
+                            frm.Close();
+                        }
+                    }
+
+                    this.Close();
+
+
+                }
+            }
+        }
+
+        private void SetUpPUDVE_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormPrincipal pantallaPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+            if (pantallaPrincipal != null)
+            {
+                pantallaPrincipal.ConvertirMinutos();
+            }
+        }
     }
 }

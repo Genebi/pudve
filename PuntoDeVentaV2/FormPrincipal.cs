@@ -90,6 +90,9 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+            //Envio de datos de Caja con el Timer
+            ConvertirMinutos();
+
             //Se crea el directorio principal para almacenar todos los archivos generados y carpetas
             Directory.CreateDirectory(@"C:\Archivos PUDVE");
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Reportes");
@@ -131,6 +134,23 @@ namespace PuntoDeVentaV2
 
 
             //ActualizarNombres();
+        }
+
+        public void ConvertirMinutos()
+        {
+            if (!Properties.Settings.Default.tiempoTimerAndroid.Equals(0))
+            {
+                actualizarCaja.Interval = Properties.Settings.Default.tiempoTimerAndroid;
+                actualizarCaja.Tick += new EventHandler(controlar_Tick);
+                actualizarCaja.Enabled = true;
+            }
+
+        }
+
+        private void controlar_Tick(object sender, EventArgs e)
+        {
+
+          //  MessageBox.Show("Mensaje de prueba");
         }
 
         /*private void ActualizarNombres()
@@ -416,9 +436,5 @@ namespace PuntoDeVentaV2
             ventas = Convert.ToInt32(datos_e[13]);
         }
 
-        public void actualizarCaja_Tick(object sender, EventArgs e)
-        {
-
-        }
     }
 }
