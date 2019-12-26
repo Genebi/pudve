@@ -1131,7 +1131,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (isEmpty)
                 {
-                    path = saveDirectoryFile + usrNo + @"\";
+                    path += usrNo + @"\";
                     if (!System.IO.File.Exists(path + fileName))
                     {
                         Directory.CreateDirectory(path);
