@@ -346,5 +346,17 @@ namespace PuntoDeVentaV2.Properties {
                 this["strFiltroProveedor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int tiempoTimerAndroid {
+            get {
+                return ((int)(this["tiempoTimerAndroid"]));
+            }
+            set {
+                this["tiempoTimerAndroid"] = value;
+            }
+        }
     }
 }
