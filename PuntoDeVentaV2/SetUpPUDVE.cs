@@ -182,5 +182,10 @@ namespace PuntoDeVentaV2
             }
             
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
