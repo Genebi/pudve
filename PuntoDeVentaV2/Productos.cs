@@ -1095,6 +1095,14 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (fLPDynamicTags.Controls.Count == 1)
+                {
+                    btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
+                }
+                else if (fLPDynamicTags.Controls.Count > 1)
+                {
+                    btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tags;
+                }
                 btnCleanFilter.Visible = true;
             }
         }
@@ -1447,6 +1455,8 @@ namespace PuntoDeVentaV2
                 actualizarBtnFiltro();
 
                 txtBusqueda.Focus();
+
+                verificarBotonLimpiarTags();
             }
             else if (result == DialogResult.No)
             {

@@ -488,7 +488,6 @@
             this.btnCleanFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCleanFilter.Font = new System.Drawing.Font("Century", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCleanFilter.ForeColor = System.Drawing.Color.White;
-            this.btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tags;
             this.btnCleanFilter.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCleanFilter.Location = new System.Drawing.Point(859, 72);
             this.btnCleanFilter.Name = "btnCleanFilter";
