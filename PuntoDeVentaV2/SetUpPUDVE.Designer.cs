@@ -39,6 +39,12 @@
             this.txtNumeroRevision = new System.Windows.Forms.TextBox();
             this.lbNumeroRevision = new System.Windows.Forms.Label();
             this.btnLimpiarTabla = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtTimerSetUp = new System.Windows.Forms.TextBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -180,11 +186,64 @@
             this.btnLimpiarTabla.UseVisualStyleBackColor = false;
             this.btnLimpiarTabla.Click += new System.EventHandler(this.btnLimpiarTabla_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Controls.Add(this.txtTimerSetUp);
+            this.groupBox1.Location = new System.Drawing.Point(55, 374);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(220, 106);
+            this.groupBox1.TabIndex = 110;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Tiempo de envio a Aplicacion mobil";
+            // 
+            // txtTimerSetUp
+            // 
+            this.txtTimerSetUp.Location = new System.Drawing.Point(7, 20);
+            this.txtTimerSetUp.Name = "txtTimerSetUp";
+            this.txtTimerSetUp.Size = new System.Drawing.Size(100, 20);
+            this.txtTimerSetUp.TabIndex = 0;
+            this.txtTimerSetUp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTimerSetUp_KeyPress);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(128, 20);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(73, 17);
+            this.radioButton1.TabIndex = 1;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Segundos";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(128, 44);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(62, 17);
+            this.radioButton2.TabIndex = 2;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Minutos";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(7, 69);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Aplicar";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnLimpiarTabla);
             this.Controls.Add(this.btnGuardarRevision);
             this.Controls.Add(this.txtNumeroRevision);
@@ -199,6 +258,8 @@
             this.Text = "PUDVE - Configuración";
             this.Load += new System.EventHandler(this.SetUpPUDVE_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SetUpPUDVE_Paint);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,5 +277,10 @@
         private System.Windows.Forms.TextBox txtNumeroRevision;
         private System.Windows.Forms.Label lbNumeroRevision;
         private System.Windows.Forms.Button btnLimpiarTabla;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.TextBox txtTimerSetUp;
     }
 }
