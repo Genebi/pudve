@@ -1061,19 +1061,6 @@ namespace PuntoDeVentaV2
                                         verificado = chk.Checked;
                                     }
                                 }
-                                if (intoSubControlHijo is ComboBox)
-                                {
-                                    ComboBox cb;
-                                    cb = (ComboBox)intoSubControlHijo;
-                                    if (verificado.Equals(true))
-                                    {
-                                        cb.Enabled = true;
-                                    }
-                                    else if (verificado.Equals(false))
-                                    {
-                                        cb.Enabled = false;
-                                    }
-                                }
                             }
                         }
                     }
