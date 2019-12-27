@@ -31,7 +31,8 @@ namespace PuntoDeVentaV2
                 strOpcionCBPrecio = string.Empty,
                 strOpcionCBProveedor = string.Empty,
                 strTxtStock = string.Empty,
-                strTxtPrecio = string.Empty;
+                strTxtPrecio = string.Empty,
+                servidor = string.Empty;
 
         string[] listaProveedores = new string[] { },
                     listaCategorias = new string[] { },
@@ -280,7 +281,7 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name;
 
                     Panel panelContenedor = new Panel();
-                    panelContenedor.Width = 480;
+                    panelContenedor.Width = 500;
                     panelContenedor.Height = 40;
                     panelContenedor.Name = nombrePanelContenedor;
                     //panelContenedor.BackColor = Color.Aqua;
@@ -294,7 +295,7 @@ namespace PuntoDeVentaV2
                         value = chkSettingVariableVal;
                         Panel panelContenido = new Panel();
                         panelContenido.Name = nombrePanelContenido;
-                        panelContenido.Width = 476;
+                        panelContenido.Width = 495;
                         panelContenido.Height = 38;
                         //panelContenido.BackColor = Color.Red;
 
@@ -305,7 +306,7 @@ namespace PuntoDeVentaV2
 
                         ComboBox cbProveedor = new ComboBox();
                         cbProveedor.Name = "cb" + name;
-                        cbProveedor.Width = 336;
+                        cbProveedor.Width = 370;
                         cbProveedor.Height = 21;
                         cbProveedor.Location = new Point(119, 10);
                         cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -354,7 +355,7 @@ namespace PuntoDeVentaV2
                     nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
 
                     Panel panelContenedor = new Panel();
-                    panelContenedor.Width = 480;
+                    panelContenedor.Width = 500;
                     panelContenedor.Height = 40;
                     panelContenedor.Name = nombrePanelContenedor;
 
@@ -368,7 +369,7 @@ namespace PuntoDeVentaV2
 
                         Panel panelContenido = new Panel();
                         panelContenido.Name = nombrePanelContenido;
-                        panelContenido.Width = 476;
+                        panelContenido.Width = 495;
                         panelContenido.Height = 38;
 
                         int XcbProv = 0;
@@ -378,7 +379,7 @@ namespace PuntoDeVentaV2
 
                         ComboBox cbDetalleGral = new ComboBox();
                         cbDetalleGral.Name = "cb" + name;
-                        cbDetalleGral.Width = 336;
+                        cbDetalleGral.Width = 370;
                         cbDetalleGral.Height = 21;
                         cbDetalleGral.Location = new Point(119, 10);
                         cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -393,7 +394,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (cbDetalleGral.Items.Count == 0)
                         {
-                            cbDetalleGral.Items.Add(name.ToString().Remove(0, 3) + "...");
+                            cbDetalleGral.Items.Add("Selecciona " + name.ToString().Remove(0, 3));
                             cbDetalleGral.SelectedIndex = 0;
                         }
                         panelContenido.Controls.Add(cbDetalleGral);
@@ -590,7 +591,7 @@ namespace PuntoDeVentaV2
 
             if (listaDetalleGral.Length > 0)
             {
-                detallesGral.Add("0", concepto + "...");
+                detallesGral.Add("0", "Selecciona " + concepto);
 
                 foreach (var DetailGral in listaDetalleGral)
                 {
@@ -601,7 +602,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                detallesGral.Add("0", concepto + "...");
+                detallesGral.Add("0", "Selecciona " + concepto);
             }
         }
 
@@ -836,8 +837,16 @@ namespace PuntoDeVentaV2
                                 }
                                 file.Close();
                             }
-                            setUpChkBoxDetalleProducto();
-                            fillFieldsBasicsDetail();
+                            if (!string.IsNullOrWhiteSpace(servidor))
+                            {
+                                addChkBoxDiccionarioDetalleBasico();
+                                setUpChkBoxDetalleProducto();
+                            }
+                            else if (string.IsNullOrWhiteSpace(servidor))
+                            {
+                                fillFieldsBasicsDetail();
+                                setUpChkBoxDetalleProducto();
+                            }
                         }
                         else if (new FileInfo(path + fileName).Length < 0)
                         {
@@ -857,14 +866,133 @@ namespace PuntoDeVentaV2
                         }
                         file.Close();
                     }
-                    setUpChkBoxDetalleProducto();
-                    fillFieldsBasicsDetail();
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        addChkBoxDiccionarioDetalleBasico();
+                        setUpChkBoxDetalleProducto();
+                    }
+                    else if (string.IsNullOrWhiteSpace(servidor))
+                    {
+                        fillFieldsBasicsDetail();
+                        setUpChkBoxDetalleProducto();
+                    }
                 }
             }
             else if (usrNo.Equals(0))
             {
                 MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario", 
                                 "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void addChkBoxDiccionarioDetalleBasico()
+        {
+            string name = string.Empty,
+                        value = string.Empty,
+                        nombrePanelContenedor = string.Empty,
+                        nombrePanelContenido = string.Empty;
+
+            fLPDetalleProducto.Controls.Clear();
+
+            foreach (var itemDiccionario in diccionarioDetalleBasicos)
+            {
+                name = itemDiccionario.Value.Item1.Remove(0, 6);
+                value = itemDiccionario.Value.Item2;
+
+                if (name.Equals("chkProveedor") && value.Equals("True"))
+                {
+                    nombrePanelContenedor = "panelContenedor" + name;
+                    nombrePanelContenido = "panelContenido" + name;
+
+                    Panel panelContenedor = new Panel();
+                    panelContenedor.Width = 500;
+                    panelContenedor.Height = 40;
+                    panelContenedor.Name = nombrePanelContenedor;
+                    //panelContenedor.BackColor = Color.Aqua;
+
+                    Panel panelContenido = new Panel();
+                    panelContenido.Name = nombrePanelContenido;
+                    panelContenido.Width = 495;
+                    panelContenido.Height = 38;
+                    //panelContenido.BackColor = Color.Red;
+
+                    int XcbProv = 0;
+                    XcbProv = panelContenido.Width / 2;
+
+                    ComboBox cbProveedor = new ComboBox();
+                    cbProveedor.Name = "cb" + name;
+                    cbProveedor.Width = 370;
+                    cbProveedor.Height = 21;
+                    cbProveedor.Location = new Point(119, 10);
+                    cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
+                    cbProveedor.Items.Add("Selecciona un Proveedor");
+                    cbProveedor.Items.Add(itemDiccionario.Value.Item3);
+                    cbProveedor.SelectedIndex = 1;
+                    cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
+
+                    panelContenido.Controls.Add(cbProveedor);
+                    panelContenedor.Controls.Add(panelContenido);
+                    fLPDetalleProducto.Controls.Add(panelContenedor);
+
+                    CheckBox check = new CheckBox();
+                    check.Name = "chkBox" + name;
+                    check.Text = name.Remove(0, 3);
+                    check.Width = 90;
+                    check.Height = 24;
+                    check.Location = new Point(10, 10);
+                    check.Checked = Convert.ToBoolean(itemDiccionario.Value.Item2);
+                    check.CheckedChanged += checkBoxProveedor_CheckedChanged;
+
+                    panelContenido.Controls.Add(check);
+                    panelContenedor.Controls.Add(panelContenido);
+                    fLPDetalleProducto.Controls.Add(panelContenedor);
+                }
+                else if (!name.Equals("chkProveedor") && value.Equals("true"))
+                {
+                    nombrePanelContenedor = "panelContenedor" + name.ToString().Remove(0, 3);
+                    nombrePanelContenido = "panelContenido" + name.ToString().Remove(0, 3);
+
+                    Panel panelContenedor = new Panel();
+                    panelContenedor.Width = 500;
+                    panelContenedor.Height = 40;
+                    panelContenedor.Name = nombrePanelContenedor;
+
+                    Panel panelContenido = new Panel();
+                    panelContenido.Name = nombrePanelContenido;
+                    panelContenido.Width = 495;
+                    panelContenido.Height = 38;
+
+                    int XcbProv = 0;
+                    XcbProv = panelContenido.Width / 2;
+
+                    ComboBox cbDetalleGral = new ComboBox();
+                    cbDetalleGral.Name = "cb" + name;
+                    cbDetalleGral.Width = 370;
+                    cbDetalleGral.Height = 21;
+                    cbDetalleGral.Location = new Point(119, 10);
+                    cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
+                    cbDetalleGral.Items.Add("Selecciona " + name.ToString().Remove(0, 3));
+                    cbDetalleGral.Items.Add(itemDiccionario.Value.Item3);
+                    cbDetalleGral.SelectedIndex = 1;
+                    cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
+
+                    panelContenido.Controls.Add(cbDetalleGral);
+                    panelContenedor.Controls.Add(panelContenido);
+                    fLPDetalleProducto.Controls.Add(panelContenedor);
+
+                    CheckBox checkDetalleGral = new CheckBox();
+                    checkDetalleGral.Name = "chkBox" + name;
+                    checkDetalleGral.Text = name.Remove(0, 3);
+                    checkDetalleGral.Width = 90;
+                    checkDetalleGral.Height = 24;
+                    checkDetalleGral.Location = new Point(10, 10);
+                    checkDetalleGral.Checked = Convert.ToBoolean(itemDiccionario.Value.Item2);
+                    checkDetalleGral.CheckedChanged += checkBoxDetalleGral_CheckedChanged;
+
+                    panelContenido.Controls.Add(checkDetalleGral);
+                    panelContenedor.Controls.Add(panelContenido);
+                    fLPDetalleProducto.Controls.Add(panelContenedor);
+                }
             }
         }
 
@@ -885,6 +1013,7 @@ namespace PuntoDeVentaV2
                             if (intoSubItemControl is CheckBox && intoSubItemControl.Name.Equals(item.Value.Item1))
                             {
                                 CheckBox chk = (CheckBox)intoSubItemControl;
+                                chk.Checked = true;
                                 chk.Checked = Convert.ToBoolean(item.Value.Item2);
                             }
                         }
@@ -926,7 +1055,7 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
-            var servidor = Properties.Settings.Default.Hosting;
+            servidor = Properties.Settings.Default.Hosting;
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -1025,12 +1154,21 @@ namespace PuntoDeVentaV2
                 validarChkBoxPrecio();
             }
 
-            loadFormConfig();
-            BuscarChkBoxListView(chkDatabase);
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                dictionaryLoad();
 
-            dictionaryLoad();
+                verificarChkBoxDinamicos();
+            }
+            else if (string.IsNullOrWhiteSpace(servidor))
+            {
+                loadFormConfig();
+                BuscarChkBoxListView(chkDatabase);
 
-            verificarChkBoxDinamicos();
+                dictionaryLoad();
+
+                //verificarChkBoxDinamicos();
+            }
 
             //saveDictionary();
         }

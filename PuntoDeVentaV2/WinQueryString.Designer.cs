@@ -30,7 +30,6 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
             this.txtCantStock = new System.Windows.Forms.TextBox();
@@ -47,7 +46,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.fLPDetalleProducto);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Controls.Add(this.chkBoxPrecio);
             this.groupBox1.Controls.Add(this.chkBoxStock);
@@ -56,28 +54,17 @@
             this.groupBox1.Size = new System.Drawing.Size(524, 268);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = " Seleccion de Filtrado: ";
+            this.groupBox1.Text = "Configuració de Filtrado: ";
             // 
             // fLPDetalleProducto
             // 
             this.fLPDetalleProducto.AutoScroll = true;
             this.fLPDetalleProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 122);
+            this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 98);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(512, 133);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(512, 162);
             this.fLPDetalleProducto.TabIndex = 11;
             this.fLPDetalleProducto.WrapContents = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(58, 102);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(385, 20);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "De Proveedor en delante esta en construccion";
             // 
             // panel1
             // 
@@ -196,7 +183,7 @@
             this.btnClean.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClean.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClean.ForeColor = System.Drawing.Color.White;
-            this.btnClean.Location = new System.Drawing.Point(111, 319);
+            this.btnClean.Location = new System.Drawing.Point(122, 319);
             this.btnClean.Name = "btnClean";
             this.btnClean.Size = new System.Drawing.Size(95, 43);
             this.btnClean.TabIndex = 7;
@@ -212,6 +199,7 @@
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WinQueryString";
@@ -240,7 +228,6 @@
         private System.Windows.Forms.TextBox txtCantPrecio;
         private System.Windows.Forms.ComboBox cbTipoFiltroPrecio;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.FlowLayoutPanel fLPDetalleProducto;
     }
 }
