@@ -1584,19 +1584,27 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            // Verificar si tiene mensaje para mostrar el checkbox habilitado
-            var mensajeInventario = mb.MensajeInventario(Convert.ToInt32(finalIdProducto), 1);
-
-            if (!string.IsNullOrEmpty(mensajeInventario))
+            if (!finalIdProducto.Equals(""))
             {
-                chkMensajeInventario.Checked = true;
-            }
-            else
-            {
-                chkMensajeInventario.Checked = false;
-            }
+                // Verificar si tiene mensaje para mostrar el checkbox habilitado
+                var mensajeInventario = mb.MensajeInventario(Convert.ToInt32(finalIdProducto), 1);
 
-            eventoMensajeInventario = true;
+                if (!string.IsNullOrEmpty(mensajeInventario))
+                {
+                    chkMensajeInventario.Checked = true;
+                }
+                else
+                {
+                    chkMensajeInventario.Checked = false;
+                }
+
+                eventoMensajeInventario = true;
+            }
+            else if (finalIdProducto.Equals(""))
+            {
+                txtStockNecesario.Text = "0";
+                txtStockMinimo.Text = "0";
+            }
         }
 
         private void verificarProductMessage()

@@ -741,7 +741,8 @@ namespace PuntoDeVentaV2
                         }
                         else if (codiBarProd == "")
                         {
-                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", 
+                                            "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -756,7 +757,8 @@ namespace PuntoDeVentaV2
                         }
                         else if (codiBarProd == "")
                         {
-                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", 
+                                            "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
