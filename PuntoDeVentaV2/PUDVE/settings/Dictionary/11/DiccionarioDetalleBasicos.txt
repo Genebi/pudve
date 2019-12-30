@@ -1,3 +1,3 @@
-11|chkBoxchkProveedor|True|LUMEN|cbchkProveedor
+11|chkBoxchkProveedor|False|LUMEN|cbchkProveedor
 12|chkBoxchkColor|False|Selecciona Color|cbchkColor
-13|chkBoxchkTalla|True|24|cbchkTalla
+13|chkBoxchkTalla|False|24|cbchkTalla

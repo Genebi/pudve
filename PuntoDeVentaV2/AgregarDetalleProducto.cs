@@ -1562,6 +1562,7 @@ namespace PuntoDeVentaV2
             BuscarTextoListView(settingDatabases);
 
             txtStockNecesario.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtStockMinimo.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
             if (!string.IsNullOrEmpty(AgregarEditarProducto.stockNecesario))
             {
@@ -1573,6 +1574,15 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            if (!string.IsNullOrEmpty(AgregarEditarProducto.stockMinimo))
+            {
+                int stockTmp = Convert.ToInt32(AgregarEditarProducto.stockMinimo);
+
+                if (stockTmp > 0)
+                {
+                    txtStockMinimo.Text = stockTmp.ToString();
+                }
+            }
 
             // Verificar si tiene mensaje para mostrar el checkbox habilitado
             var mensajeInventario = mb.MensajeInventario(Convert.ToInt32(finalIdProducto), 1);
@@ -1775,6 +1785,15 @@ namespace PuntoDeVentaV2
             }
 
             AgregarEditarProducto.stockNecesario = stockNecesario;
+
+            var stockMinimo = txtStockMinimo.Text;
+
+            if (string.IsNullOrWhiteSpace(stockMinimo))
+            {
+                stockMinimo = "0";
+            }
+
+            AgregarEditarProducto.stockMinimo = stockMinimo;
 
             saveProdDetail();
             saveGralProdDetail();

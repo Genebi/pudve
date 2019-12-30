@@ -36,6 +36,7 @@ namespace PuntoDeVentaV2
         static public string infoCategoria = string.Empty;
         static public string infoUbicacion = string.Empty;
         static public string stockNecesario = "0";
+        static public string stockMinimo = "0";
 
 
         static public DataTable SearchDesCliente, SearchDesMayoreo;
@@ -1756,7 +1757,7 @@ namespace PuntoDeVentaV2
                     //}
                     if (this.Text.Trim() == "Productos")
                     {
-                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario };
+                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
 
@@ -2391,7 +2392,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}'  WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
                     bool isEmpty = !detalleProductoBasico.Any();
@@ -2714,7 +2715,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    string[] guardar = new string[] { nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert, codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert, logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert), mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario };
+                    string[] guardar = new string[] { nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert, codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert, logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert), mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo };
                     //Se guardan los datos principales del producto
                     int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
                     if (respuesta > 0)
@@ -4070,6 +4071,7 @@ namespace PuntoDeVentaV2
                 if (detallesProductoTmp.Length > 0)
                 {
                     stockNecesario = detallesProductoTmp[8];
+                    stockMinimo = detallesProductoTmp[10];
                     logoTipo = detallesProductoTmp[9];      // Obtenemos el nuevo Path
                     if (pictureBoxProducto.Image != null)
                     {

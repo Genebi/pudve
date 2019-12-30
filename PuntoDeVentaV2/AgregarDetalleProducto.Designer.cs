@@ -47,6 +47,8 @@
             this.btnCerrar = new System.Windows.Forms.Button();
             this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
             this.chkMensajeInventario = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtStockMinimo = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -117,6 +119,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtStockMinimo);
+            this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.txtStockNecesario);
             this.panel2.Controls.Add(this.label3);
@@ -131,13 +135,13 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 42);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(86, 13);
+            this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Stock Necesario";
+            this.label4.Text = "Stock Máximo";
             // 
             // txtStockNecesario
             // 
-            this.txtStockNecesario.Location = new System.Drawing.Point(110, 39);
+            this.txtStockNecesario.Location = new System.Drawing.Point(91, 39);
             this.txtStockNecesario.Name = "txtStockNecesario";
             this.txtStockNecesario.Size = new System.Drawing.Size(120, 20);
             this.txtStockNecesario.TabIndex = 2;
@@ -271,6 +275,22 @@
             this.chkMensajeInventario.UseVisualStyleBackColor = true;
             this.chkMensajeInventario.CheckedChanged += new System.EventHandler(this.chkMensajeInventario_CheckedChanged);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(239, 42);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Stock Mínimo";
+            // 
+            // txtStockMinimo
+            // 
+            this.txtStockMinimo.Location = new System.Drawing.Point(318, 39);
+            this.txtStockMinimo.Name = "txtStockMinimo";
+            this.txtStockMinimo.Size = new System.Drawing.Size(120, 20);
+            this.txtStockMinimo.TabIndex = 5;
+            // 
             // AgregarDetalleProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -322,5 +342,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtStockNecesario;
         private System.Windows.Forms.CheckBox chkMensajeInventario;
+        private System.Windows.Forms.TextBox txtStockMinimo;
+        private System.Windows.Forms.Label label5;
     }
 }

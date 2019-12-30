@@ -277,6 +277,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["CodigoBarras"].ToString()); // Codigo de barras
                 lista.Add(dr["StockNecesario"].ToString());
                 lista.Add(dr["ProdImage"].ToString()); // Imagen
+                lista.Add(dr["StockMinimo"].ToString());
             }
 
             dr.Close();
