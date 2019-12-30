@@ -103,6 +103,8 @@ namespace PuntoDeVentaV2
         static public float DescuentoDatoExtraFinal;
         static public int CantidadDatoExtraFinal;
 
+        static public string typeProduct;
+
         string filtroConSinFiltroAvanzado = string.Empty;
 
         string[] palabras;
@@ -687,7 +689,7 @@ namespace PuntoDeVentaV2
                     }
 
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), Convert.ToInt32(id));
-                    string typeProduct = producto[5];
+                    typeProduct = producto[5];
 
                     if (typeProduct == "S")
                     {
@@ -707,7 +709,8 @@ namespace PuntoDeVentaV2
                     // Estado del producto
                     index = 0;
 
-                    var resultado = MessageBox.Show("¿Realmente desea cambiar el estado del producto?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    var resultado = MessageBox.Show("¿Realmente desea cambiar el estado del producto?", 
+                                                    "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                     if (resultado == DialogResult.Yes)
                     {

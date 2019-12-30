@@ -1584,6 +1584,17 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            if (AgregarEditarProducto.typeOfProduct.Equals("P"))
+            {
+                txtStockNecesario.Enabled = true;
+                txtStockMinimo.Enabled = true;
+            }
+            else if (!AgregarEditarProducto.typeOfProduct.Equals("P"))
+            {
+                txtStockNecesario.Enabled = false;
+                txtStockMinimo.Enabled = false;
+            }
+
             if (!finalIdProducto.Equals(""))
             {
                 // Verificar si tiene mensaje para mostrar el checkbox habilitado

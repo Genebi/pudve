@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
         static public string infoUbicacion = string.Empty;
         static public string stockNecesario = "0";
         static public string stockMinimo = "0";
+        static public string typeOfProduct = string.Empty;
 
 
         static public DataTable SearchDesCliente, SearchDesMayoreo;
@@ -4072,6 +4073,7 @@ namespace PuntoDeVentaV2
                 {
                     stockNecesario = detallesProductoTmp[8];
                     stockMinimo = detallesProductoTmp[10];
+                    typeOfProduct = detallesProductoTmp[5];
                     logoTipo = detallesProductoTmp[9];      // Obtenemos el nuevo Path
                     if (pictureBoxProducto.Image != null)
                     {
@@ -4133,6 +4135,7 @@ namespace PuntoDeVentaV2
                     button1.Text = "Paquete/Servicio";
                 }
                 this.Text = cadAux + "s";             // Ponemos el titulo del form en plural "Productos"
+                typeOfProduct = "P";
                 lblTipoProdPaq.Text = "Nombre del Producto";
                 txtCategoriaProducto.Text = cadAux + "s";
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
@@ -4173,6 +4176,7 @@ namespace PuntoDeVentaV2
                     button1.Text = "Productos";
                 }
                 this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Paquetes"
+                typeOfProduct = "PQ";
                 lblTipoProdPaq.Text = "Nombre del Paquete";
                 txtCategoriaProducto.Text = cadAux + "s";
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
@@ -4213,6 +4217,7 @@ namespace PuntoDeVentaV2
                     button1.Text = "Productos";
                 }
                 this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Servicios"
+                typeOfProduct = "S";
                 lblTipoProdPaq.Text = "Nombre del Servicio";
                 txtCategoriaProducto.Text = cadAux + "s";
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
