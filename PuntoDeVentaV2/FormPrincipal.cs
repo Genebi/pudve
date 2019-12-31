@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
+using System.Runtime.InteropServices;
 
 namespace PuntoDeVentaV2
 {
@@ -90,6 +92,8 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+
+            CargarSaldoInicial();
             //Envio de datos de Caja con el Timer
             ConvertirMinutos();
 
@@ -134,6 +138,13 @@ namespace PuntoDeVentaV2
 
 
             //ActualizarNombres();
+        }
+
+        private void CargarSaldoInicial()
+        {
+
+            saldoInicial = mb.SaldoInicialCaja(userID);
+
         }
 
         public void ConvertirMinutos()
@@ -436,5 +447,236 @@ namespace PuntoDeVentaV2
             ventas = Convert.ToInt32(datos_e[13]);
         }
 
+        /****************************
+        ****** CODIGO KEVIN *********
+        /****************************/
+
+        public static float saldoInicial = 0f;
+
+
+        // Variables ventas
+        float vEfectivo = 0f;
+        float vTarjeta = 0f;
+        float vVales = 0f;
+        float vCheque = 0f;
+        float vTrans = 0f;
+        float vCredito = 0f;
+        float vAnticipos = 0f;
+        float totalVentas = 0f;  
+
+        // Variables anticipos
+        float aEfectivo = 0f;
+        float aTarjeta = 0f;
+        float aVales = 0f;
+        float aCheque = 0f;
+        float aTrans = 0f;
+        float totalAnticipos = 0f;
+
+        // Variables depositos-Dinero Agregado
+        float dEfectivo = 0f;
+        float dTarjeta = 0f;
+        float dVales = 0f;
+        float dCheque = 0f;
+        float dTrans = 0f;
+        float totalDineroAgregado = 0f;
+
+        // Variables caja
+        float efectivo = 0f;
+        float tarjeta = 0f;
+        float vales = 0f;
+        float cheque = 0f;
+        float trans = 0f;
+        float credito = 0f;
+        float subtotal = 0f;
+        float anticipos1 = 0f;
+        float totalCaja = 0f;
+
+        // Variable retiro
+        float dineroRetirado = 0f;
+        float retiroEfectivo = 0f;
+        float retiroTarjeta = 0f;
+        float retiroVales = 0f;
+        float retiroCheque = 0f;
+        float retiroTrans = 0f;
+        float retiroCredito = 0f;
+
+        public static DateTime fechaGeneral;
+
+        public void InitializarTimerAndroid()
+        {
+            actualizarCaja.Interval = 60000;
+            actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
+            actualizarCaja.Enabled = true; 
+        }
+
+        //Se necesita para saber si la computadora tiene conexion a internet
+        [DllImport("wininet.dll")]
+        public extern static bool InternetGetConnectedState(out int Descripcion, int ValorReservado);
+
+        public static bool ConectadoInternet()
+        {
+            int Desc;
+            return InternetGetConnectedState(out Desc, 0);
+        }
+
+
+        private void actualizarCaja_Tick(object sender, EventArgs e)
+        {
+            if (ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                CargarSaldo();
+
+                try
+                {
+                    conexion.Open();
+                    MySqlCommand agregar = conexion.CreateCommand();
+
+                    //Consulta de MySQL
+                    agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
+                                                                  efectivoAnticipos, tarjetaAnticipos, valesAnticipos, chequeAnticipos, transferenciaAnticipos, totalAnticipos,   
+                                                                  efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
+                                                                  efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
+                                                                  fechaActualizacion) 
+                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{vAnticipos}', '{totalVentas}',
+                                                                    '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
+                                                                    '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}',  
+                                                                    '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'
+                                                                    )";
+                    int resultado = agregar.ExecuteNonQuery();
+                    if (resultado>0)
+                    {
+                        MessageBox.Show("Exito ");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(), 
+                                    "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+        }
+
+        private void CargarSaldo()
+        {
+            SQLiteConnection sql_con;
+            SQLiteCommand consultaUno, consultaDos;
+            SQLiteDataReader drUno, drDos;
+
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                sql_con = new SQLiteConnection("Data source=//" + servidor + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+            else
+            {
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+
+            sql_con.Open();
+
+            var fechaDefault = Convert.ToDateTime("0001-01-01 00:00:00");
+
+            var consultarFecha = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FeChaOperacion DESC LIMIT 1";
+            consultaUno = new SQLiteCommand(consultarFecha, sql_con);
+            drUno = consultaUno.ExecuteReader();
+
+            if (drUno.Read())
+            {
+                var fechaTmp = Convert.ToDateTime(drUno.GetValue(drUno.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                fechaDefault = Convert.ToDateTime(fechaTmp);
+            }
+
+            fechaGeneral = fechaDefault;
+
+            var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID}";
+            consultaDos = new SQLiteCommand(consulta, sql_con);
+            drDos = consultaDos.ExecuteReader();
+
+            int saltar = 0;
+
+            while (drDos.Read())
+            {
+                string operacion = drDos.GetValue(drDos.GetOrdinal("Operacion")).ToString();
+                var auxiliar = Convert.ToDateTime(drDos.GetValue(drDos.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                var fechaOperacion = Convert.ToDateTime(auxiliar);
+
+                if (operacion == "venta" && fechaOperacion > fechaDefault)
+                {
+                    if (saltar == 0)
+                    {
+                        saltar++;
+                        continue;
+                    }
+
+                    vEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+                    vTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+                    vVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+                    vCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+                    vTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+                    vCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+                    vAnticipos += float.Parse(drDos.GetValue(drDos.GetOrdinal("Anticipo")).ToString());
+                    totalVentas = (vEfectivo + vTarjeta + vVales + vCheque + vTrans + vCredito + vAnticipos);
+                }
+
+                if (operacion == "anticipo" && fechaOperacion > fechaDefault)
+                {
+                    aEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+                    aTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+                    aVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+                    aCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+                    aTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+                }
+
+                if (operacion == "deposito" && fechaOperacion > fechaDefault)
+                {
+                    dEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+                    dTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+                    dVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+                    dCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+                    dTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+                }
+
+                if (operacion == "retiro" && fechaOperacion > fechaDefault)
+                {
+                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+                    retiroEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
+
+                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+                    retiroTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
+
+                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+                    retiroVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
+
+                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+                    retiroCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
+
+                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+                    retiroTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+
+                    dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+                    retiroCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+                }
+            }
+
+            // Apartado TOTAL EN CAJA
+            efectivo = vEfectivo + aEfectivo + dEfectivo;
+            tarjeta = vTarjeta + aTarjeta + dTarjeta;
+            vales = vVales + aVales + dVales;
+            cheque = vCheque + aCheque + dCheque;
+            trans = vTrans + aTrans + dTrans;
+            credito = vCredito;
+            anticipos1 = vAnticipos;
+            subtotal = efectivo + tarjeta + vales + cheque + trans + credito + saldoInicial;
+
+            // Cerramos la conexion y el datareader
+            drUno.Close();
+            drDos.Close();
+            sql_con.Close();
+        }
     }
 }
