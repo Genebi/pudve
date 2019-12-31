@@ -504,7 +504,7 @@ namespace PuntoDeVentaV2
 
         public void InitializarTimerAndroid()
         {
-            actualizarCaja.Interval = 60000;
+            actualizarCaja.Interval = 30000;
             actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
             actualizarCaja.Enabled = true; 
         }
@@ -533,6 +533,12 @@ namespace PuntoDeVentaV2
                 {
                     conexion.Open();
                     MySqlCommand agregar = conexion.CreateCommand();
+                    MySqlCommand eliminar = conexion.CreateCommand();
+
+                    eliminar.CommandText = "TRUNCATE seccionCaja";
+
+                    int borrrado = eliminar.ExecuteNonQuery();                
+                        
 
                     //Consulta de MySQL
                     agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
@@ -548,7 +554,7 @@ namespace PuntoDeVentaV2
                     int resultado = agregar.ExecuteNonQuery();
                     if (resultado>0)
                     {
-                        MessageBox.Show("Exito ");
+                     //   MessageBox.Show("Exito ");
                     }
 
                 }
