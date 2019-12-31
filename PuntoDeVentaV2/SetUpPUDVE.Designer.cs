@@ -39,12 +39,6 @@
             this.txtNumeroRevision = new System.Windows.Forms.TextBox();
             this.lbNumeroRevision = new System.Windows.Forms.Label();
             this.btnLimpiarTabla = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.rbMinutos = new System.Windows.Forms.RadioButton();
-            this.rbSegundos = new System.Windows.Forms.RadioButton();
-            this.txtTimerSetUp = new System.Windows.Forms.TextBox();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -186,74 +180,11 @@
             this.btnLimpiarTabla.UseVisualStyleBackColor = false;
             this.btnLimpiarTabla.Click += new System.EventHandler(this.btnLimpiarTabla_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.rbMinutos);
-            this.groupBox1.Controls.Add(this.rbSegundos);
-            this.groupBox1.Controls.Add(this.txtTimerSetUp);
-            this.groupBox1.Location = new System.Drawing.Point(55, 374);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(220, 106);
-            this.groupBox1.TabIndex = 110;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Tiempo de envio a Aplicacion mobil";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(11, 65);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(183, 31);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Aplicar";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // rbMinutos
-            // 
-            this.rbMinutos.AutoSize = true;
-            this.rbMinutos.Location = new System.Drawing.Point(128, 44);
-            this.rbMinutos.Name = "rbMinutos";
-            this.rbMinutos.Size = new System.Drawing.Size(62, 17);
-            this.rbMinutos.TabIndex = 2;
-            this.rbMinutos.TabStop = true;
-            this.rbMinutos.Text = "Minutos";
-            this.rbMinutos.UseVisualStyleBackColor = true;
-            // 
-            // rbSegundos
-            // 
-            this.rbSegundos.AutoSize = true;
-            this.rbSegundos.Location = new System.Drawing.Point(128, 20);
-            this.rbSegundos.Name = "rbSegundos";
-            this.rbSegundos.Size = new System.Drawing.Size(73, 17);
-            this.rbSegundos.TabIndex = 1;
-            this.rbSegundos.TabStop = true;
-            this.rbSegundos.Text = "Segundos";
-            this.rbSegundos.UseVisualStyleBackColor = true;
-            // 
-            // txtTimerSetUp
-            // 
-            this.txtTimerSetUp.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTimerSetUp.Location = new System.Drawing.Point(7, 26);
-            this.txtTimerSetUp.Name = "txtTimerSetUp";
-            this.txtTimerSetUp.Size = new System.Drawing.Size(115, 27);
-            this.txtTimerSetUp.TabIndex = 0;
-            this.txtTimerSetUp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtTimerSetUp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTimerSetUp_KeyPress);
-            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnLimpiarTabla);
             this.Controls.Add(this.btnGuardarRevision);
             this.Controls.Add(this.txtNumeroRevision);
@@ -270,8 +201,6 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SetUpPUDVE_FormClosed);
             this.Load += new System.EventHandler(this.SetUpPUDVE_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SetUpPUDVE_Paint);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,10 +218,5 @@
         private System.Windows.Forms.TextBox txtNumeroRevision;
         private System.Windows.Forms.Label lbNumeroRevision;
         private System.Windows.Forms.Button btnLimpiarTabla;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RadioButton rbMinutos;
-        private System.Windows.Forms.RadioButton rbSegundos;
-        private System.Windows.Forms.TextBox txtTimerSetUp;
     }
 }

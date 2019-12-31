@@ -161,37 +161,26 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtTimerSetUp_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-            if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                if (Char.IsControl(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                else
-                {
-                    e.Handled = true;
-                    MessageBox.Show("Introduzca solo\nNumeros enteros", "Advertencia de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            
-        }
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-            if (!txtTimerSetUp.Text.Equals(""))
+        private void SetUpPUDVE_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            FormPrincipal pantallaPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
+            if (pantallaPrincipal != null)
+            {
+                pantallaPrincipal.ConvertirMinutos();
+            }
+        }
+    }
+}
+
+/*
+  if (!txtTimerSetUp.Text.Equals(""))
             {
                 if (rbSegundos.Checked.Equals(true))
                 {
@@ -243,15 +232,4 @@ namespace PuntoDeVentaV2
 
                 }
             }
-        }
-
-        private void SetUpPUDVE_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            FormPrincipal pantallaPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
-            if (pantallaPrincipal != null)
-            {
-                pantallaPrincipal.ConvertirMinutos();
-            }
-        }
-    }
-}
+ * */
