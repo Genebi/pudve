@@ -134,8 +134,8 @@ namespace PuntoDeVentaV2
                 
                 permisos_empleado(datos_per);
             }
-                
 
+            InitializarTimerAndroid();
 
             //ActualizarNombres();
         }
@@ -504,7 +504,7 @@ namespace PuntoDeVentaV2
 
         public void InitializarTimerAndroid()
         {
-            actualizarCaja.Interval = 30000;
+            actualizarCaja.Interval = 60000;
             actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
             actualizarCaja.Enabled = true; 
         }
@@ -549,14 +549,15 @@ namespace PuntoDeVentaV2
                                                          VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{vAnticipos}', '{totalVentas}',
                                                                     '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
                                                                     '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}',  
-                                                                    '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'
+                                                                    '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'
                                                                     )";
                     int resultado = agregar.ExecuteNonQuery();
                     if (resultado>0)
                     {
-                     //   MessageBox.Show("Exito ");
+                        //   MessageBox.Show("Exito ");
+                        iniciarVariablesWebService();
                     }
-
+                    iniciarVariablesWebService();
                 }
                 catch (Exception ex)
                 {
@@ -564,6 +565,41 @@ namespace PuntoDeVentaV2
                                     "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+
+        private void iniciarVariablesWebService()
+        {
+            vEfectivo = 0f;
+            vTarjeta = 0f;
+            vVales = 0f;
+            vCheque = 0f;
+            vTrans = 0f;
+            vCredito = 0f;
+            vAnticipos = 0f;
+            totalVentas = 0f;
+            aEfectivo = 0f;
+            aTarjeta = 0f;
+            aVales = 0f;
+            aCheque = 0f;
+            aTrans = 0f;
+            totalAnticipos = 0f;
+            dEfectivo = 0f;
+            dTarjeta = 0f;
+            dVales = 0f;
+            dCheque = 0f;
+            dTrans = 0f;
+            totalDineroAgregado = 0f;
+            efectivo = 0f;
+            tarjeta = 0f;
+            vales = 0f;
+            cheque = 0f;
+            trans = 0f;
+            credito = 0f;
+            anticipos1 = 0f;
+            saldoInicial = 0f;
+            subtotal = 0f;
+            dineroRetirado = 0f;
+            totalCaja = 0f;
         }
 
         private void CargarSaldo()
