@@ -534,11 +534,11 @@ namespace PuntoDeVentaV2
                     conexion.Open();
                     MySqlCommand agregar = conexion.CreateCommand();
                     MySqlCommand eliminar = conexion.CreateCommand();
-
-                    eliminar.CommandText = "TRUNCATE seccionCaja";
+                    
+                    eliminar.CommandText = "TRUNCATE TABLE seccionCaja";
 
                     int borrrado = eliminar.ExecuteNonQuery();                
-                        
+                      
 
                     //Consulta de MySQL
                     agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
@@ -555,9 +555,10 @@ namespace PuntoDeVentaV2
                     if (resultado>0)
                     {
                         //   MessageBox.Show("Exito ");
-                        iniciarVariablesWebService();
+                      //  iniciarVariablesWebService();
                     }
                     iniciarVariablesWebService();
+
                 }
                 catch (Exception ex)
                 {
@@ -672,6 +673,8 @@ namespace PuntoDeVentaV2
                     aVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
                     aCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
                     aTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+                    totalAnticipos = (aEfectivo + aTarjeta + aVales + aCheque + aTrans);
+
                 }
 
                 if (operacion == "deposito" && fechaOperacion > fechaDefault)
@@ -681,6 +684,7 @@ namespace PuntoDeVentaV2
                     dVales += float.Parse(drDos.GetValue(drDos.GetOrdinal("Vales")).ToString());
                     dCheque += float.Parse(drDos.GetValue(drDos.GetOrdinal("Cheque")).ToString());
                     dTrans += float.Parse(drDos.GetValue(drDos.GetOrdinal("Transferencia")).ToString());
+                    totalDineroAgregado = (dEfectivo + dTarjeta + dVales + dCheque + dTrans);
                 }
 
                 if (operacion == "retiro" && fechaOperacion > fechaDefault)
@@ -702,6 +706,8 @@ namespace PuntoDeVentaV2
 
                     dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
                     retiroCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
+                
+
                 }
             }
 
@@ -714,6 +720,7 @@ namespace PuntoDeVentaV2
             credito = vCredito;
             anticipos1 = vAnticipos;
             subtotal = efectivo + tarjeta + vales + cheque + trans + credito + saldoInicial;
+            totalCaja = (subtotal - dineroRetirado);
 
             // Cerramos la conexion y el datareader
             drUno.Close();
