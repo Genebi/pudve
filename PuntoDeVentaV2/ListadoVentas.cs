@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -355,6 +356,7 @@ namespace PuntoDeVentaV2
                 //Ver factura
                 if (e.ColumnIndex == 11)
                 {
+                    CrearMarcaDeAgua();
                     MessageBox.Show("Factura");
                 }
 
@@ -482,6 +484,41 @@ namespace PuntoDeVentaV2
                 }
 
                 DGVListadoVentas.ClearSelection();
+            }
+        }
+
+        private void CrearMarcaDeAgua()
+        {
+            var archivoPDF = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_venta.pdf";
+            var nuevoPDF = @"C:\Archivos PUDVE\Ventas\Tickets\ticket_marca.pdf";
+
+            PdfReader reader = new PdfReader(archivoPDF);
+            FileStream fs = new FileStream(nuevoPDF, FileMode.Create, FileAccess.Write, FileShare.None);
+
+            using (PdfStamper stamper = new PdfStamper(reader, fs))
+            {
+                int numeroPaginas = reader.NumberOfPages;
+
+                PdfLayer layer = new PdfLayer("WatermarkLayer", stamper.Writer);
+
+                for (int i = 1; i <= numeroPaginas; i++)
+                {
+                    iTextSharp.text.Rectangle rec = reader.GetPageSize(i);
+                    PdfContentByte cb = stamper.GetUnderContent(i);
+
+                    cb.BeginLayer(layer);
+                    cb.SetFontAndSize(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED), 40);
+
+                    PdfGState gstate = new PdfGState();
+                    gstate.FillOpacity = 0.25f;
+                    cb.SetGState(gstate);
+
+                    cb.SetColorFill(iTextSharp.text.BaseColor.RED);
+                    cb.BeginText();
+                    cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "CANCELADA", rec.Width / 2, rec.Height / 2, 45f);
+                    cb.EndText();
+                    cb.EndLayer();
+                }
             }
         }
 
