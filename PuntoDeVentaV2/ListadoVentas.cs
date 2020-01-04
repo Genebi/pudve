@@ -14,6 +14,13 @@ namespace PuntoDeVentaV2
 {
     public partial class ListadoVentas : Form
     {
+        //Status 1 = Venta terminada
+        //Status 2 = Venta guardada
+        //Status 3 = Venta cancelada
+        //Status 4 = Venta a credito
+        //Status 5 = Facturas
+        //Status 6 = Presupuestos
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -301,7 +308,48 @@ namespace PuntoDeVentaV2
                 //Cancelar
                 if (e.ColumnIndex == 10)
                 {
-                    MessageBox.Show("Cancelar");
+                    var mensaje = MessageBox.Show("¿Estás seguro de cancelar la venta?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (mensaje == DialogResult.Yes)
+                    {
+                        // Cancelar la venta
+                        int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+
+                        if (resultado > 0)
+                        {
+                            mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                            if (mensaje == DialogResult.Yes)
+                            {
+                                var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                                // Operacion para que la devolucion del dinero afecte al apartado Caja
+                                if (formasPago.Length > 0)
+                                {
+                                    var total = formasPago.Sum().ToString();
+                                    var efectivo = formasPago[0].ToString();
+                                    var tarjeta = formasPago[1].ToString();
+                                    var vales = formasPago[2].ToString();
+                                    var cheque = formasPago[3].ToString();
+                                    var transferencia = formasPago[4].ToString();
+                                    var credito = formasPago[5].ToString();
+                                    var anticipo = "0";
+
+                                    var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                    var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+
+                                    string[] datos = new string[] {
+                                        "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                                        efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
+                                    };
+
+                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                }
+                            }
+
+                            CargarDatos();
+                        }
+                    }
                 }
 
                 //Ver factura
