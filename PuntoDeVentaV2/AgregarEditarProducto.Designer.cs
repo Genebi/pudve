@@ -89,6 +89,7 @@
             this.fLPAccion = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetallesProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.PDetalleProdcuto.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.PStock.SuspendLayout();
@@ -513,7 +514,6 @@
             this.btnGenerarCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGenerarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
-            //this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnGenerarCB.Location = new System.Drawing.Point(149, 7);
             this.btnGenerarCB.Name = "btnGenerarCB";
@@ -651,6 +651,7 @@
             // 
             // PAccion
             // 
+            this.PAccion.Controls.Add(this.linkLabel1);
             this.PAccion.Controls.Add(this.btnProdUpdate);
             this.PAccion.Controls.Add(this.btnAgregarDescuento);
             this.PAccion.Controls.Add(this.btnDetalleProducto);
@@ -774,6 +775,17 @@
             this.flowLayoutPanel3.Size = new System.Drawing.Size(837, 64);
             this.flowLayoutPanel3.TabIndex = 40;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(41, 62);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(40, 13);
+            this.linkLabel1.TabIndex = 21;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Pedido";
+            this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_Click);
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -820,6 +832,7 @@
             this.PConteidoProducto.ResumeLayout(false);
             this.PDetalle.ResumeLayout(false);
             this.PAccion.ResumeLayout(false);
+            this.PAccion.PerformLayout();
             this.Ptitulo.ResumeLayout(false);
             this.PType.ResumeLayout(false);
             this.PType.PerformLayout();
@@ -895,5 +908,6 @@
         private System.Windows.Forms.PictureBox pictureBoxProducto;
         private System.Windows.Forms.Button btnImagenes;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

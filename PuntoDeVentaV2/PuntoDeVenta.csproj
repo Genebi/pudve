@@ -473,6 +473,12 @@
       <DependentUpon>NvoProduct.cs</DependentUpon>
     </Compile>
     <Compile Include="Paginar.cs" />
+    <Compile Include="PedidoPorProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PedidoPorProducto.Designer.cs">
+      <DependentUpon>PedidoPorProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="photoShow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -740,6 +746,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NvoProduct.resx">
       <DependentUpon>NvoProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PedidoPorProducto.resx">
+      <DependentUpon>PedidoPorProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="photoShow.resx">
       <DependentUpon>photoShow.cs</DependentUpon>

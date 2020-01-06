@@ -1797,21 +1797,33 @@ namespace PuntoDeVentaV2
         private void btnGuardarDetalles_Click(object sender, EventArgs e)
         {
             var stockNecesario = txtStockNecesario.Text;
+            var stockMinimo = txtStockMinimo.Text;
 
             if (string.IsNullOrWhiteSpace(stockNecesario))
             {
-                stockNecesario = "0";
+                if (!string.IsNullOrWhiteSpace(stockMinimo))
+                {
+                    stockNecesario = stockMinimo;
+                }
+                else
+                {
+                    stockNecesario = "0";
+                }
+            }
+            
+            if (string.IsNullOrWhiteSpace(stockMinimo))
+            {
+                if (!string.IsNullOrWhiteSpace(stockNecesario))
+                {
+                    stockMinimo = stockNecesario;
+                }
+                else
+                {
+                    stockMinimo = "0";
+                }
             }
 
             AgregarEditarProducto.stockNecesario = stockNecesario;
-
-            var stockMinimo = txtStockMinimo.Text;
-
-            if (string.IsNullOrWhiteSpace(stockMinimo))
-            {
-                stockMinimo = "0";
-            }
-
             AgregarEditarProducto.stockMinimo = stockMinimo;
 
             saveProdDetail();
