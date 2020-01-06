@@ -1078,6 +1078,136 @@ namespace PuntoDeVentaV2
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 
+        private void btnPedido_Click(object sender, EventArgs e)
+        {
+            string filtro = string.Empty;
+            DataTable dbListaProducto;
+
+            filtro = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'";
+
+            using (dbListaProducto = cn.CargarDatos(filtro))
+            {
+                string carpeta = @"C:\PDFs\";
+
+                // Creamos el documento con el tamaño de página tradicional
+                using (Document doc = new Document(PageSize.LETTER.Rotate(), 72, 72, 72, 72))
+                {
+                    try
+                    {
+                        if (!(Directory.Exists(carpeta)))
+                        {
+                            Directory.CreateDirectory(carpeta);
+                        }
+                        if (Directory.Exists(carpeta))
+                        {
+                            // Indicamos donde vamos a guardar el documento
+                            using (PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(@"C:\PDFs\prueba.pdf", FileMode.Create)))
+                            {
+                                //Nota: Esto no será visible en el documento
+                                doc.AddTitle("Prueba");
+                                doc.AddCreator("SIFO.com.mx");
+
+                                // Abrimos el archivo
+                                doc.Open();
+
+                                // Creamos el tipo de Font que vamos utilizar
+                                iTextSharp.text.Font _standardFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+
+                                // Escribimos el encabezamiento en el documento
+                                doc.Add(new Paragraph("Reporte de Pedido con fecha: " + DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy")));
+                                doc.Add(Chunk.NEWLINE);
+
+                                PdfPTable table = new PdfPTable(9);
+                                table.WidthPercentage = 100;
+                                PdfPCell header1 = new PdfPCell(new Phrase("Producto:"));
+                                header1.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header1).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                PdfPCell header2 = new PdfPCell(new Phrase("Stock Actual:"));
+                                header2.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header2).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                PdfPCell header3 = new PdfPCell(new Phrase("Cantidad a Pedir:"));
+                                header3.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header3).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                PdfPCell header4 = new PdfPCell(new Phrase("Proveedor:"));
+                                header4.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header4).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                PdfPCell header5 = new PdfPCell(new Phrase("Precio Compra:"));
+                                header5.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header5).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                PdfPCell header6 = new PdfPCell(new Phrase("Precio Venta:"));
+                                header6.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header6).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                PdfPCell header7 = new PdfPCell(new Phrase("Código de Barras:"));
+                                header7.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header7).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                PdfPCell header8 = new PdfPCell(new Phrase("Clave Interna:"));
+                                header8.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header8).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                PdfPCell header9 = new PdfPCell(new Phrase("Código de Barras Extra"));
+                                header9.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                table.AddCell(header9).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+
+                                for (int i = 0; i < dbListaProducto.Rows.Count; i++)
+                                {
+                                    if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                    {
+                                        table.AddCell(dbListaProducto.Rows[i]["Nombre"].ToString());       // Nombre del Producto
+                                        table.AddCell(dbListaProducto.Rows[i]["Stock"].ToString());        // Stock Actual
+                                        int pedido = 0;
+                                        if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) <= Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                        {
+                                            pedido = 0;
+                                        }
+                                        else if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                        {
+                                            pedido = Convert.ToInt32(dbListaProducto.Rows[i]["StockNecesario"].ToString()) - Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString());
+                                        }
+                                        table.AddCell(pedido.ToString());                       // Cantidad a Pedir
+                                        var DetallesProveedor = mb.DetallesProducto(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()), FormPrincipal.userID);
+                                        table.AddCell(DetallesProveedor[2].ToString());        // Proveedor
+                                        double precioCompra = Convert.ToDouble(dbListaProducto.Rows[i]["Precio"].ToString()) / 1.60;
+                                        table.AddCell("$ " + precioCompra.ToString("N2"));      // Precio Compra
+                                        table.AddCell("$ " + dbListaProducto.Rows[i]["Precio"].ToString());      // Precio Venta
+                                        table.AddCell(dbListaProducto.Rows[i]["CodigoBarras"].ToString());             // Codigo de Barras
+                                        table.AddCell(dbListaProducto.Rows[i]["ClaveInterna"].ToString());             // Calve Interna
+                                        var CodigoBarraExtra = mb.ObtenerCodigoBarrasExtras(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()));
+                                        string strCodBarExt = string.Empty;
+                                        for (int v = 0; v < CodigoBarraExtra.Length; v++)
+                                        {
+                                            strCodBarExt += CodigoBarraExtra[v].ToString() + " ";
+                                        }
+                                        table.AddCell(strCodBarExt.TrimEnd());        // Codigo de Barras Extra
+                                    }
+                                }
+                                doc.Add(table);
+
+                                doc.Close();
+                                writer.Close();
+                            }
+                        }
+
+                        string rutaArchivo = @"C:\PDFs\prueba.pdf";
+
+                        VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+                        vr.ShowDialog();
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show("Error al Intentar Generar el Reporte en PDF:\n" + ex.Message.ToString(),
+                                    "Error al Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
         public void creacionEtiquetasDinamicas()
         {
             listVariables = new List<Control>();
