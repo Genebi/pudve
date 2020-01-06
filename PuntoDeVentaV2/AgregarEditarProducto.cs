@@ -1310,6 +1310,25 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void linkLabel1_Click(object sender, EventArgs e)
+        {
+            PedidoPorProducto orderListByProduct = new PedidoPorProducto();
+            orderListByProduct.FormClosed += delegate
+            {
+
+            };
+            if (!orderListByProduct.Visible)
+            {
+                orderListByProduct.idProductoFinal = idProductoFinal;
+                orderListByProduct.ShowDialog();
+            }
+            else
+            {
+                orderListByProduct.idProductoFinal = idProductoFinal;
+                orderListByProduct.ShowDialog();
+            }
+        }
+
         public void LimpiarDatos()
         {
             DatosSourceFinal = 0;

@@ -540,6 +540,26 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] ObtenerCodigoBarrasExtras(int idProducto)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE IDProducto = {idProducto}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            while (dr.Read())
+            {
+                //lista.Add(dr["IDCodBarrExt"].ToString());
+                lista.Add(dr["CodigoBarraExtra"].ToString());
+                //lista.Add(dr["IDProducto"].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         public bool ComprobarCodigoClave(string codigoClave, int idUsuario, int idProductoTMP = 0)
         {
             string[] codigos = new string[] { };
