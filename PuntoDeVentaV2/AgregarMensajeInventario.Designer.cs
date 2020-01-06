@@ -38,11 +38,12 @@
             // 
             this.txtMensaje.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMensaje.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMensaje.Location = new System.Drawing.Point(45, 88);
+            this.txtMensaje.Location = new System.Drawing.Point(45, 75);
+            this.txtMensaje.Multiline = true;
             this.txtMensaje.Name = "txtMensaje";
-            this.txtMensaje.Size = new System.Drawing.Size(294, 22);
+            this.txtMensaje.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtMensaje.Size = new System.Drawing.Size(294, 52);
             this.txtMensaje.TabIndex = 60;
-            this.txtMensaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lbMensaje
             // 
