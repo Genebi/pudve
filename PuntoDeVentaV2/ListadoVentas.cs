@@ -318,6 +318,21 @@ namespace PuntoDeVentaV2
 
                         if (resultado > 0)
                         {
+                            // Regresar la cantidad de producto vendido al stock
+                            var productos = cn.ObtenerProductosVenta(idVenta);
+
+                            if (productos.Length > 0)
+                            {
+                                foreach (var producto in productos)
+                                {
+                                    var info = producto.Split('|');
+                                    var idProducto = info[0];
+                                    var cantidad = Convert.ToInt32(info[2]);
+
+                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                }
+                            }
+
                             // Agregamos marca de agua al PDF del ticket de la venta cancelada
                             CrearMarcaDeAgua(idVenta);
 

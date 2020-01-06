@@ -365,14 +365,15 @@ namespace PuntoDeVentaV2
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT * FROM ProductosVenta WHERE IDVenta = '{IDVenta}'";
+            sql_cmd.CommandText = $"SELECT * FROM ProductosVenta WHERE IDVenta = {IDVenta}";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
             while (dr.Read())
             {
-                lista.Add(dr[2] + "|" + dr[3] + "|" + dr[4]); //IDProducto, Nombre y Cantidad
+                //IDProducto, Nombre y Cantidad
+                lista.Add(dr["IDProducto"] + "|" + dr["Nombre"] + "|" + dr["Cantidad"]);
             }
 
             dr.Close();
