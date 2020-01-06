@@ -98,6 +98,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -458,6 +459,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnCleanFilter);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.btnImprimir);
@@ -954,6 +956,18 @@
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.print;
+            this.button1.Location = new System.Drawing.Point(452, 117);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 28);
+            this.button1.TabIndex = 22;
+            this.button1.Text = "Pedido";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1055,5 +1069,6 @@
         private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCleanFilter;
+        private System.Windows.Forms.Button button1;
     }
 }

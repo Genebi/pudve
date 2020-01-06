@@ -78,6 +78,7 @@
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
             this.PAccion = new System.Windows.Forms.Panel();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnProdUpdate = new System.Windows.Forms.Button();
             this.Ptitulo = new System.Windows.Forms.Panel();
             this.PType = new System.Windows.Forms.Panel();
@@ -89,7 +90,6 @@
             this.fLPAccion = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetallesProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.PDetalleProdcuto.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.PStock.SuspendLayout();
@@ -666,6 +666,18 @@
             this.PAccion.Size = new System.Drawing.Size(838, 88);
             this.PAccion.TabIndex = 32;
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(41, 62);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(40, 13);
+            this.linkLabel1.TabIndex = 21;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Pedido";
+            this.linkLabel1.Visible = false;
+            this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_Click);
+            // 
             // btnProdUpdate
             // 
             this.btnProdUpdate.BackColor = System.Drawing.Color.Teal;
@@ -774,17 +786,6 @@
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(837, 64);
             this.flowLayoutPanel3.TabIndex = 40;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(41, 62);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(40, 13);
-            this.linkLabel1.TabIndex = 21;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Pedido";
-            this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_Click);
             // 
             // AgregarEditarProducto
             // 
