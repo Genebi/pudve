@@ -114,13 +114,67 @@ namespace PuntoDeVentaV2
             panelStock.Controls.Add(btnStock);
             panelContenedor.Controls.Add(panelStock);
 
+            // PANEL STOCK MINIMO
+            FlowLayoutPanel panelStockMinimo = new FlowLayoutPanel();
+            panelStockMinimo.Name = "panelStockMinimo";
+            panelStockMinimo.Width = 350;
+            panelStockMinimo.Height = 30;
+            panelStockMinimo.FlowDirection = FlowDirection.LeftToRight;
+            panelStockMinimo.Location = new Point(3, 80);
+            panelStockMinimo.BorderStyle = BorderStyle.FixedSingle;
+
+            Label lbStockMinimo = new Label();
+            lbStockMinimo.Text = "Stock Minimo";
+            lbStockMinimo.Name = "lbStockMinimo";
+            lbStockMinimo.Width = 100;
+            lbStockMinimo.Height = 20;
+            lbStockMinimo.TextAlign = ContentAlignment.MiddleCenter;
+
+            Button btnStockMinimo = new Button();
+            btnStockMinimo.Name = "btnStockMinimo";
+            btnStockMinimo.Text = "Asignar";
+            btnStockMinimo.Cursor = Cursors.Hand;
+            btnStockMinimo.Tag = "StockMinimo";
+            btnStockMinimo.Click += new EventHandler(botonAsignar_Click);
+
+            panelStockMinimo.Controls.Add(lbStockMinimo);
+            panelStockMinimo.Controls.Add(btnStockMinimo);
+            panelContenedor.Controls.Add(panelStockMinimo);
+
+            // PANEL STOCK MAXIMO
+            FlowLayoutPanel panelStockMaximo = new FlowLayoutPanel();
+            panelStockMaximo.Name = "panelStockMaximo";
+            panelStockMaximo.Width = 350;
+            panelStockMaximo.Height = 30;
+            panelStockMaximo.FlowDirection = FlowDirection.LeftToRight;
+            panelStockMaximo.Location = new Point(3, 115);
+            panelStockMaximo.BorderStyle = BorderStyle.FixedSingle;
+
+            Label lbStockMaximo = new Label();
+            lbStockMaximo.Text = "Stock Maximo";
+            lbStockMaximo.Name = "lbStockMaximo";
+            lbStockMaximo.Width = 100;
+            lbStockMaximo.Height = 20;
+            lbStockMaximo.TextAlign = ContentAlignment.MiddleCenter;
+
+            Button btnStockMaximo = new Button();
+            btnStockMaximo.Name = "btnStockMaximo";
+            btnStockMaximo.Text = "Asignar";
+            btnStockMaximo.Cursor = Cursors.Hand;
+            btnStockMaximo.Tag = "StockMaximo";
+            btnStockMaximo.Click += new EventHandler(botonAsignar_Click);
+
+            panelStockMaximo.Controls.Add(lbStockMaximo);
+            panelStockMaximo.Controls.Add(btnStockMaximo);
+            panelContenedor.Controls.Add(panelStockMaximo);
+
             // PANEL PRECIO
             FlowLayoutPanel panelPrecio = new FlowLayoutPanel();
             panelPrecio.Name = "panelPrecio";
             panelPrecio.Width = 350;
             panelPrecio.Height = 30;
             panelPrecio.FlowDirection = FlowDirection.LeftToRight;
-            panelPrecio.Location = new Point(3, 80);
+            panelPrecio.Location = new Point(3, 150);
             panelPrecio.BorderStyle = BorderStyle.FixedSingle;
 
             Label lbPrecio = new Label();
@@ -141,7 +195,7 @@ namespace PuntoDeVentaV2
             panelPrecio.Controls.Add(btnPrecio);
             panelContenedor.Controls.Add(panelPrecio);
 
-            int alturaEjeY = 115;
+            int alturaEjeY = 185;
 
             //======================================================================
             foreach (XmlNode childNode in appSettingsNode)
