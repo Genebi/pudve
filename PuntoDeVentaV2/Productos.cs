@@ -1081,14 +1081,28 @@ namespace PuntoDeVentaV2
 
         private void btnPedido_Click(object sender, EventArgs e)
         {
+            // Ruta donde se creara el archivo PDF
+            var rutaArchivo = string.Empty;
+            var servidor = Properties.Settings.Default.Hosting;
+            // Filtro para traer de la base de datos solo Productos
             string filtro = string.Empty;
+            // Tabla donde se almacenan los resultados
             DataTable dbListaProducto;
 
             filtro = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'";
 
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Pedidos\";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\";
+            }
+
             using (dbListaProducto = cn.CargarDatos(filtro))
             {
-                string carpeta = @"C:\PDFs\";
+                string carpeta = rutaArchivo;
 
                 // Creamos el documento con el tamaño de página tradicional
                 using (Document doc = new Document(PageSize.LETTER.Rotate(), 72, 72, 72, 72))
@@ -1101,7 +1115,7 @@ namespace PuntoDeVentaV2
                         }
                         if (Directory.Exists(carpeta))
                         {
-                            fileReportOrder = carpeta + "prueba.pdf";
+                            fileReportOrder = carpeta + "reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
                             // Indicamos donde vamos a guardar el documento
                             using (PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(fileReportOrder, FileMode.Create)))
                             {
@@ -1198,15 +1212,15 @@ namespace PuntoDeVentaV2
                             AddPageNumber(sender, e);
                         }
 
-                        string rutaArchivo = fileReportOrder;
+                        string rutaArchivoPDF = fileReportOrder;
 
-                        VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+                        VisualizadorReportes vr = new VisualizadorReportes(rutaArchivoPDF);
                         vr.ShowDialog();
                     }
                     catch (IOException ex)
                     {
                         MessageBox.Show("Error al Intentar Generar el Reporte en PDF:\n" + ex.Message.ToString(),
-                                    "Error al Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        "Error al Generar PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
