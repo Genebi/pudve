@@ -17,7 +17,8 @@ namespace PuntoDeVentaV2
         string strTag = string.Empty, 
                 path = string.Empty, 
                 saveDirectoryFile = string.Empty, 
-                line = string.Empty;
+                line = string.Empty,
+                fileReportOrder = string.Empty;
 
         bool isEmptyAuxWord,
             isEmptySetUpVariable,
@@ -1100,8 +1101,9 @@ namespace PuntoDeVentaV2
                         }
                         if (Directory.Exists(carpeta))
                         {
+                            fileReportOrder = carpeta + "prueba.pdf";
                             // Indicamos donde vamos a guardar el documento
-                            using (PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(@"C:\PDFs\prueba.pdf", FileMode.Create)))
+                            using (PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(fileReportOrder, FileMode.Create)))
                             {
                                 //Nota: Esto no será visible en el documento
                                 doc.AddTitle("Prueba");
@@ -1189,6 +1191,9 @@ namespace PuntoDeVentaV2
                                 }
                                 doc.Add(table);
 
+                                // numero de la pagina
+                                //AddPageNumber(sender, e);
+
                                 doc.Close();
                                 writer.Close();
                             }
@@ -1206,6 +1211,16 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void AddPageNumber(object sender, EventArgs e)
+        {
+            byte[] bytes = System.IO.File.ReadAllBytes(fileReportOrder);
+            iTextSharp.text.Font blackFont = FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+            //using ()
+            //{
+
+            //}
         }
 
         public void creacionEtiquetasDinamicas()
