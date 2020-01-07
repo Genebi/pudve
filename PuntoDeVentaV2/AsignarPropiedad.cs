@@ -69,6 +69,36 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStock"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStock"));
             }
+            else if (propiedad == "StockMinimo")
+            {
+                TextBox tbStock = new TextBox();
+                tbStock.Name = "tb" + propiedad;
+                tbStock.Width = 200;
+                tbStock.Height = 20;
+                tbStock.TextAlign = HorizontalAlignment.Center;
+                tbStock.Font = fuente;
+                tbStock.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                tbStock.Location = new Point(65, 70);
+
+                panelContenedor.Controls.Add(tbStock);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStockMinimo"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStockMinimo"));
+            }
+            else if (propiedad == "StockMaximo")
+            {
+                TextBox tbStock = new TextBox();
+                tbStock.Name = "tb" + propiedad;
+                tbStock.Width = 200;
+                tbStock.Height = 20;
+                tbStock.TextAlign = HorizontalAlignment.Center;
+                tbStock.Font = fuente;
+                tbStock.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                tbStock.Location = new Point(65, 70);
+
+                panelContenedor.Controls.Add(tbStock);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarStockMaximo"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarStockMaximo"));
+            }
             else if (propiedad == "Precio")
             {
                 TextBox tbPrecio = new TextBox();
@@ -279,6 +309,54 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Ingrese una cantidad para stock", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }    
+            }
+            else if (propiedad == "StockMinimo")
+            {
+                TextBox txtStock = (TextBox)this.Controls.Find("tbStockMinimo", true)[0];
+
+                var stock = txtStock.Text;
+
+                if (!string.IsNullOrWhiteSpace(stock))
+                {
+                    foreach (var producto in productos)
+                    {
+                        if (producto.Value == "P")
+                        {
+                            var consulta = $"UPDATE Productos SET StockMinimo = {stock} WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}";
+
+                            cn.EjecutarConsulta(consulta);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese una cantidad para stock minimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else if (propiedad == "StockMaximo")
+            {
+                TextBox txtStock = (TextBox)this.Controls.Find("tbStockMaximo", true)[0];
+
+                var stock = txtStock.Text;
+
+                if (!string.IsNullOrWhiteSpace(stock))
+                {
+                    foreach (var producto in productos)
+                    {
+                        if (producto.Value == "P")
+                        {
+                            var consulta = $"UPDATE Productos SET StockNecesario = {stock} WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}";
+
+                            cn.EjecutarConsulta(consulta);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese una cantidad para stock maximo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             else if (propiedad == "Precio")
             {
