@@ -2136,6 +2136,27 @@ namespace PuntoDeVentaV2
         {
             listaProductos.Items.Clear();
 
+            // Verificar si se selecciono el check para cancelar venta
+            if (checkCancelar.Checked)
+            {
+                var folio = txtBuscadorProducto.Text.Trim();
+                var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio} AND Status = 1";
+                // Verificar y obtener ID de la venta utilizando el folio
+                var existe = (bool)cn.EjecutarSelect(consulta);
+
+                if (existe)
+                {
+                    var idVenta = Convert.ToInt32(cn.EjecutarSelect(consulta, 1));
+                    mostrarVenta = idVenta;
+                    CargarVentaGuardada();
+                    mostrarVenta = 0;
+                }
+
+                txtBuscadorProducto.Text = string.Empty;
+                return;
+            }
+
+
             txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
 
             if (txtBuscadorProducto.Text.Length == 0)

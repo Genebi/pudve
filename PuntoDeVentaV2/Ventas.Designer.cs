@@ -82,6 +82,7 @@
             this.btnTerminarVenta = new System.Windows.Forms.Button();
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
+            this.checkCancelar = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -587,9 +588,9 @@
             this.panel1.Controls.Add(this.btnUltimoTicket);
             this.panel1.Controls.Add(this.lbNumeroArticulos);
             this.panel1.Controls.Add(this.btnPresupuesto);
-            this.panel1.Location = new System.Drawing.Point(5, 66);
+            this.panel1.Location = new System.Drawing.Point(5, 93);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1221, 423);
+            this.panel1.Size = new System.Drawing.Size(1221, 354);
             this.panel1.TabIndex = 34;
             // 
             // PBImagen
@@ -676,11 +677,23 @@
             this.timerBusqueda.Interval = 1000;
             this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
+            // checkCancelar
+            // 
+            this.checkCancelar.AutoSize = true;
+            this.checkCancelar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkCancelar.Location = new System.Drawing.Point(5, 70);
+            this.checkCancelar.Name = "checkCancelar";
+            this.checkCancelar.Size = new System.Drawing.Size(123, 21);
+            this.checkCancelar.TabIndex = 35;
+            this.checkCancelar.Text = "Cancelar VENTA";
+            this.checkCancelar.UseVisualStyleBackColor = true;
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 596);
+            this.Controls.Add(this.checkCancelar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tituloSeccion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -756,5 +769,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ImagenProducto;
         private System.Windows.Forms.Timer timerBusqueda;
         private System.Windows.Forms.PictureBox PBImagen;
+        private System.Windows.Forms.CheckBox checkCancelar;
     }
 }
