@@ -1232,7 +1232,7 @@ namespace PuntoDeVentaV2
                                                 }
                                                 else if (DetallesProveedor.Count() <= 0)
                                                 {
-                                                    table.AddCell("No tiene asiganado Proveedor");        // Proveedor
+                                                    table.AddCell("No tiene asignado Proveedor");        // Proveedor
                                                 }
                                                 double precioCompra = Convert.ToDouble(dbListaProducto.Rows[i]["Precio"].ToString()) / 1.60;
                                                 table.AddCell("$ " + precioCompra.ToString("N2"));      // Precio Compra
