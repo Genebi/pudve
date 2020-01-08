@@ -160,6 +160,42 @@ namespace PuntoDeVentaV2
             // Enter
             if (e.KeyData == Keys.Enter)
             {
+                // Verificar si se selecciono el check para cancelar venta
+                /*if (checkCancelar.Checked)
+                {
+                    var folio = txtBuscadorProducto.Text.Trim();
+                    var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio} AND Status = 1";
+                    // Verificar y obtener ID de la venta utilizando el folio
+                    var existe = (bool)cn.EjecutarSelect(consulta);
+
+                    if (existe)
+                    {
+                        var respuesta = MessageBox.Show("¿Desea cancelar la venta?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (respuesta == DialogResult.Yes)
+                        {
+                            var idVenta = Convert.ToInt32(cn.EjecutarSelect(consulta, 1));
+                            mostrarVenta = idVenta;
+                            CargarVentaGuardada();
+                            mostrarVenta = 0;
+
+                            // Cancelar la venta
+                            var resultado = 1;// cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+
+                            if (resultado > 0)
+                            {
+                                // Regresar la cantidad de producto vendido al stock
+
+                                var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            }
+                        }
+                    }
+
+                    txtBuscadorProducto.Text = string.Empty;
+                    checkCancelar.Checked = false;
+                    return;
+                }*/
+
                 if (listaProductos.Visible)
                 {
                     // Si busca un producto por codigo de barras o clave le da prioridad a este metodo
@@ -204,7 +240,6 @@ namespace PuntoDeVentaV2
                     sumarProducto = false;
                     restarProducto = false;
                     buscarVG = false;
-                  
                 }  
             }
         }
@@ -2135,27 +2170,6 @@ namespace PuntoDeVentaV2
         private void OperacionBusqueda(int tipo = 0)
         {
             listaProductos.Items.Clear();
-
-            // Verificar si se selecciono el check para cancelar venta
-            if (checkCancelar.Checked)
-            {
-                var folio = txtBuscadorProducto.Text.Trim();
-                var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio} AND Status = 1";
-                // Verificar y obtener ID de la venta utilizando el folio
-                var existe = (bool)cn.EjecutarSelect(consulta);
-
-                if (existe)
-                {
-                    var idVenta = Convert.ToInt32(cn.EjecutarSelect(consulta, 1));
-                    mostrarVenta = idVenta;
-                    CargarVentaGuardada();
-                    mostrarVenta = 0;
-                }
-
-                txtBuscadorProducto.Text = string.Empty;
-                return;
-            }
-
 
             txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
 
