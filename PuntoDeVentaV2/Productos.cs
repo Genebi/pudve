@@ -1142,20 +1142,20 @@ namespace PuntoDeVentaV2
                                 // Abrimos el archivo
                                 doc.Open();
 
-                                using (dbListaUsuario = cn.CargarDatos(filtroUsr))
-                                {
-                                    //imgReporte = iTextSharp.text.Image.GetInstance();
-                                    for (int i = 0; i < dbListaUsuario.Rows.Count; i++)
-                                    {
-                                        imgReporte = iTextSharp.text.Image.GetInstance(rutaFoto + dbListaUsuario.Rows[i]["LogoTipo"].ToString());
-                                    }
-                                }
+                                //using (dbListaUsuario = cn.CargarDatos(filtroUsr))
+                                //{
+                                //    //imgReporte = iTextSharp.text.Image.GetInstance();
+                                //    for (int i = 0; i < dbListaUsuario.Rows.Count; i++)
+                                //    {
+                                //        imgReporte = iTextSharp.text.Image.GetInstance(rutaFoto + dbListaUsuario.Rows[i]["LogoTipo"].ToString());
+                                //    }
+                                //}
 
                                 // Creamos el tipo de Font que vamos utilizar
                                 iTextSharp.text.Font _standardFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
 
-                                imgReporte.SetAbsolutePosition(78, 750);
-                                doc.Add(imgReporte);
+                                //imgReporte.SetAbsolutePosition(78, 750);
+                                //doc.Add(imgReporte);
 
                                 // Escribimos el encabezamiento en el documento
                                 doc.Add(new Paragraph("Reporte de Pedido con fecha: " + DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy")));
@@ -1251,10 +1251,15 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            // numero de la pagina
-            AddPageNumber();
-            VisualizadorReportes vr = new VisualizadorReportes(fileReportOrder);
-            vr.ShowDialog();
+
+            if (System.IO.File.Exists(fileReportOrder))
+            {
+                // numero de la pagina
+                AddPageNumber();
+
+                VisualizadorReportes vr = new VisualizadorReportes(fileReportOrder);
+                vr.ShowDialog();
+            }
         }
 
         private void AddPageNumber()
