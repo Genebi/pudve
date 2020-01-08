@@ -1201,34 +1201,58 @@ namespace PuntoDeVentaV2
 
                                 for (int i = 0; i < dbListaProducto.Rows.Count; i++)
                                 {
-                                    if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                    string idConflicto = dbListaProducto.Rows[i]["ID"].ToString();
+                                    int StockMinimo = 0, StockActual = 0;
+                                    try
                                     {
-                                        table.AddCell(dbListaProducto.Rows[i]["Nombre"].ToString());       // Nombre del Producto
-                                        table.AddCell(dbListaProducto.Rows[i]["Stock"].ToString());        // Stock Actual
-                                        int pedido = 0;
-                                        if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) <= Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                        StockMinimo = Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString());
+                                        try
                                         {
-                                            pedido = 0;
+                                            if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                            {
+                                                table.AddCell(dbListaProducto.Rows[i]["Nombre"].ToString());       // Nombre del Producto
+                                                table.AddCell(dbListaProducto.Rows[i]["Stock"].ToString());        // Stock Actual
+                                                int pedido = 0;
+                                                if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) <= Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                                {
+                                                    pedido = 0;
+                                                }
+                                                else if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                                {
+                                                    pedido = Convert.ToInt32(dbListaProducto.Rows[i]["StockNecesario"].ToString()) - Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString());
+                                                }
+                                                table.AddCell(pedido.ToString());                       // Cantidad a Pedir
+                                                var DetallesProveedor = mb.DetallesProducto(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()), FormPrincipal.userID);
+                                                if (!DetallesProveedor[2].ToString().Equals(""))
+                                                {
+                                                    table.AddCell(DetallesProveedor[2].ToString());        // Proveedor
+                                                }
+                                                else if (DetallesProveedor[2].ToString().Equals(""))
+                                                {
+                                                    table.AddCell("No tiene asiganado Proveedor");        // Proveedor
+                                                }
+                                                double precioCompra = Convert.ToDouble(dbListaProducto.Rows[i]["Precio"].ToString()) / 1.60;
+                                                table.AddCell("$ " + precioCompra.ToString("N2"));      // Precio Compra
+                                                table.AddCell("$ " + dbListaProducto.Rows[i]["Precio"].ToString());      // Precio Venta
+                                                table.AddCell(dbListaProducto.Rows[i]["CodigoBarras"].ToString());             // Codigo de Barras
+                                                table.AddCell(dbListaProducto.Rows[i]["ClaveInterna"].ToString());             // Calve Interna
+                                                var CodigoBarraExtra = mb.ObtenerCodigoBarrasExtras(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()));
+                                                string strCodBarExt = string.Empty;
+                                                for (int v = 0; v < CodigoBarraExtra.Length; v++)
+                                                {
+                                                    strCodBarExt += CodigoBarraExtra[v].ToString() + " ";
+                                                }
+                                                table.AddCell(strCodBarExt.TrimEnd());        // Codigo de Barras Extra
+                                            }
                                         }
-                                        else if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                        catch (Exception ex)
                                         {
-                                            pedido = Convert.ToInt32(dbListaProducto.Rows[i]["StockNecesario"].ToString()) - Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString());
+                                            MessageBox.Show("Error en el Stock Actual, favor de verificar el Producto:\n" + dbListaProducto.Rows[i]["Nombre"].ToString() + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString(), "Verificar Valor de Stock Actual", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
-                                        table.AddCell(pedido.ToString());                       // Cantidad a Pedir
-                                        var DetallesProveedor = mb.DetallesProducto(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()), FormPrincipal.userID);
-                                        table.AddCell(DetallesProveedor[2].ToString());        // Proveedor
-                                        double precioCompra = Convert.ToDouble(dbListaProducto.Rows[i]["Precio"].ToString()) / 1.60;
-                                        table.AddCell("$ " + precioCompra.ToString("N2"));      // Precio Compra
-                                        table.AddCell("$ " + dbListaProducto.Rows[i]["Precio"].ToString());      // Precio Venta
-                                        table.AddCell(dbListaProducto.Rows[i]["CodigoBarras"].ToString());             // Codigo de Barras
-                                        table.AddCell(dbListaProducto.Rows[i]["ClaveInterna"].ToString());             // Calve Interna
-                                        var CodigoBarraExtra = mb.ObtenerCodigoBarrasExtras(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()));
-                                        string strCodBarExt = string.Empty;
-                                        for (int v = 0; v < CodigoBarraExtra.Length; v++)
-                                        {
-                                            strCodBarExt += CodigoBarraExtra[v].ToString() + " ";
-                                        }
-                                        table.AddCell(strCodBarExt.TrimEnd());        // Codigo de Barras Extra
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show("Error en el Stock Minimo, favor de verificar el Producto:\n" + dbListaProducto.Rows[i]["Nombre"].ToString() + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString(), "Verificar Valor de Stock Minimo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
                                 doc.Add(table);
