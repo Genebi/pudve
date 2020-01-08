@@ -180,13 +180,57 @@ namespace PuntoDeVentaV2
                             mostrarVenta = 0;
 
                             // Cancelar la venta
-                            var resultado = 1;// cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+                            var resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
 
                             if (resultado > 0)
                             {
                                 // Regresar la cantidad de producto vendido al stock
+                                var productos = cn.ObtenerProductosVenta(idVenta);
+
+                                if (productos.Length > 0)
+                                {
+                                    foreach (var producto in productos)
+                                    {
+                                        var info = producto.Split('|');
+                                        var idProducto = info[0];
+                                        var cantidad = Convert.ToInt32(info[2]);
+
+                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock =  Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                    }
+                                }
+
+                                // Agregamos marca de agua al PDF del ticket de la venta cancelada
+                                Utilidades.CrearMarcaDeAgua(idVenta);
 
                                 var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                if (mensaje == DialogResult.Yes)
+                                {
+                                    var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                                    // Operacion para que la devolucion del dinero afecte al apartado Caja
+                                    if (formasPago.Length > 0)
+                                    {
+                                        var total = formasPago.Sum().ToString();
+                                        var efectivo = formasPago[0].ToString();
+                                        var tarjeta = formasPago[1].ToString();
+                                        var vales = formasPago[2].ToString();
+                                        var cheque = formasPago[3].ToString();
+                                        var transferencia = formasPago[4].ToString();
+                                        var credito = formasPago[5].ToString();
+                                        var anticipo = "0";
+
+                                        var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                        var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+
+                                        string[] datos = new string[] {
+                                            "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                                            efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
+                                        };
+
+                                        cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                    }
+                                }
                             }
                         }
                     }

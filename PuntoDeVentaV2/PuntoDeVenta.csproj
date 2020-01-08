@@ -570,6 +570,7 @@
     <Compile Include="TestModificacion.Designer.cs">
       <DependentUpon>TestModificacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades.cs" />
     <Compile Include="VentanaDetalleFotoProducto.cs">
       <SubType>Form</SubType>
     </Compile>
