@@ -14,9 +14,9 @@ namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
     {
-        string strTag = string.Empty, 
-                path = string.Empty, 
-                saveDirectoryFile = string.Empty, 
+        string strTag = string.Empty,
+                path = string.Empty,
+                saveDirectoryFile = string.Empty,
                 line = string.Empty,
                 fileReportOrder = string.Empty;
 
@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos=0, editarEstado = 0, numerofila = 0;
+        int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos = 0, editarEstado = 0, numerofila = 0;
         string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar, impuestoProducto;
 
         DataTable dt, dtConsulta, fotos, registros;
@@ -129,7 +129,7 @@ namespace PuntoDeVentaV2
                 {
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                 }
-            }    
+            }
         }
 
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
@@ -315,7 +315,7 @@ namespace PuntoDeVentaV2
                     textoTTipButtonMsg = "";
                     coordenadaX = 110;
                     coordenadaY = -200;
-                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, 
+                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX,
                                         DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
                     textoTTipButtonMsg = string.Empty;
                 }
@@ -370,7 +370,7 @@ namespace PuntoDeVentaV2
                         coordenadaX = 90;
                         coordenadaY = -200;
                     }
-                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, 
+                    TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX,
                                         DGVProductos.Location.Y + cellRect.Y - coordenadaY, 1500);
                     textoTTipButtonMsg = string.Empty;
                 }
@@ -387,7 +387,7 @@ namespace PuntoDeVentaV2
 
             FiltroAvanzado.FormClosed += delegate
             {
-                
+
             };
 
             if (!FiltroAvanzado.Visible)
@@ -405,7 +405,7 @@ namespace PuntoDeVentaV2
             queryFotos = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio, prod.Status FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Status = 0";
             fotos = cn.CargarDatos(queryFotos);
         }
-        
+
         private void searchToProdGral()
         {
             CargarDatos();
@@ -417,7 +417,7 @@ namespace PuntoDeVentaV2
             foreach (DataRow row in fotos.Rows)
             {
                 Button btn = new Button();
-                btn.Text = row["Nombre"].ToString()+ "\n $"+Convert.ToDecimal(row["Precio"]).ToString("N2");
+                btn.Text = row["Nombre"].ToString() + "\n $" + Convert.ToDecimal(row["Precio"]).ToString("N2");
                 btn.Size = new System.Drawing.Size(150, 150);
                 btn.Font = new System.Drawing.Font("Tahoma", 14, FontStyle.Bold | FontStyle.Italic);
                 btn.TextAlign = ContentAlignment.TopCenter;
@@ -489,7 +489,7 @@ namespace PuntoDeVentaV2
                 {
                     fotos.DefaultView.Sort = "Precio DESC";
                     fotos = fotos.DefaultView.ToTable();
-                    photoShow(); 
+                    photoShow();
                 }
             }
             else if (Properties.Settings.Default.FiltroOrdenar == "Menor precio")
@@ -580,7 +580,7 @@ namespace PuntoDeVentaV2
                 searchToProdGral();
             }
         }
-        
+
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -666,7 +666,7 @@ namespace PuntoDeVentaV2
             {
                 return;
             }
-            
+
 
             var fila = DGVProductos.CurrentCell.RowIndex;
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
@@ -712,7 +712,7 @@ namespace PuntoDeVentaV2
                     // Estado del producto
                     index = 0;
 
-                    var resultado = MessageBox.Show("¿Realmente desea cambiar el estado del producto?", 
+                    var resultado = MessageBox.Show("¿Realmente desea cambiar el estado del producto?",
                                                     "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                     if (resultado == DialogResult.Yes)
@@ -747,7 +747,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (codiBarProd == "")
                         {
-                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", 
+                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado",
                                             "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
@@ -763,7 +763,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (codiBarProd == "")
                         {
-                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", 
+                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado",
                                             "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
@@ -844,7 +844,7 @@ namespace PuntoDeVentaV2
                         };
 
                         ap.ShowDialog();
-                    } 
+                    }
                 }
             }
         }
@@ -1069,7 +1069,7 @@ namespace PuntoDeVentaV2
             panelShowDGVProductosView.Visible = true;
 
             filtroLoadProductos();
-            
+
             linkLblUltimaPagina.Text = p.countPag().ToString();
 
             actualizarBtnFiltro();
@@ -1077,7 +1077,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
 
             filtroOrdenarPor();
-            
+
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 
@@ -1131,7 +1131,7 @@ namespace PuntoDeVentaV2
                             {
                                 rutaFoto = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
                             }
-                            
+
                             // Indicamos donde vamos a guardar el documento
                             using (PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(fileReportOrder, FileMode.Create)))
                             {
@@ -1201,33 +1201,36 @@ namespace PuntoDeVentaV2
 
                                 for (int i = 0; i < dbListaProducto.Rows.Count; i++)
                                 {
-                                    string idConflicto = dbListaProducto.Rows[i]["ID"].ToString();
-                                    int StockMinimo = 0, StockActual = 0;
                                     try
                                     {
-                                        StockMinimo = Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString());
+                                        string idConflicto = dbListaProducto.Rows[i]["ID"].ToString();
+                                        int StockMinimo = 0, StockActual = 0;
+
+                                        //StockMinimo = Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString());
+                                        StockMinimo = Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString());
                                         try
                                         {
-                                            if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                            StockActual = Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString());
+                                            if (StockMinimo > StockActual)
                                             {
                                                 table.AddCell(dbListaProducto.Rows[i]["Nombre"].ToString());       // Nombre del Producto
                                                 table.AddCell(dbListaProducto.Rows[i]["Stock"].ToString());        // Stock Actual
                                                 int pedido = 0;
-                                                if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) <= Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                                if (Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString()) <= Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString()))
                                                 {
                                                     pedido = 0;
                                                 }
-                                                else if (Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                                else if (Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString()))
                                                 {
-                                                    pedido = Convert.ToInt32(dbListaProducto.Rows[i]["StockNecesario"].ToString()) - Convert.ToInt32(dbListaProducto.Rows[i]["Stock"].ToString());
+                                                    pedido = Int32.Parse(dbListaProducto.Rows[i]["StockNecesario"].ToString()) - Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString());
                                                 }
                                                 table.AddCell(pedido.ToString());                       // Cantidad a Pedir
                                                 var DetallesProveedor = mb.DetallesProducto(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()), FormPrincipal.userID);
-                                                if (!DetallesProveedor[2].ToString().Equals(""))
+                                                if (DetallesProveedor.Count() > 0)
                                                 {
                                                     table.AddCell(DetallesProveedor[2].ToString());        // Proveedor
                                                 }
-                                                else if (DetallesProveedor[2].ToString().Equals(""))
+                                                else if (DetallesProveedor.Count() <= 0)
                                                 {
                                                     table.AddCell("No tiene asiganado Proveedor");        // Proveedor
                                                 }
@@ -1245,14 +1248,14 @@ namespace PuntoDeVentaV2
                                                 table.AddCell(strCodBarExt.TrimEnd());        // Codigo de Barras Extra
                                             }
                                         }
-                                        catch (Exception ex)
+                                        catch (FormatException ex)
                                         {
-                                            MessageBox.Show("Error en el Stock Actual, favor de verificar el Producto:\n" + dbListaProducto.Rows[i]["Nombre"].ToString() + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString(), "Verificar Valor de Stock Actual", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            MessageBox.Show("Error en el Stock Actual, favor de verificar el Producto:\n" + dbListaProducto.Rows[i]["Nombre"].ToString() + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString() + "\nError: " + ex.Message.ToString(), "Verificar Valor de Stock Actual", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
                                     }
-                                    catch (Exception ex)
+                                    catch (FormatException ex)
                                     {
-                                        MessageBox.Show("Error en el Stock Minimo, favor de verificar el Producto:\n" + dbListaProducto.Rows[i]["Nombre"].ToString() + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString(), "Verificar Valor de Stock Minimo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        MessageBox.Show("Error en el Stock Minimo, favor de verificar el Producto:\n" + dbListaProducto.Rows[i]["Nombre"].ToString() + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString() + "\nError: " + ex.Message.ToString(), "Verificar Valor de Stock Minimo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
                                 doc.Add(table);
@@ -1332,7 +1335,7 @@ namespace PuntoDeVentaV2
 
         public void verificarBotonLimpiarTags()
         {
-            if (auxWord.Count == 0 && setUpVariable.Count ==0)
+            if (auxWord.Count == 0 && setUpVariable.Count == 0)
             {
                 btnCleanFilter.Visible = false;
             }
@@ -1414,7 +1417,7 @@ namespace PuntoDeVentaV2
             verificarListaDeVariablesEtiquetas();
 
             string nameTag = string.Empty;
-            
+
             if (!isEmptySetUpDinamicos)
             {
                 foreach (var item in setUpDinamicos)
@@ -1870,7 +1873,7 @@ namespace PuntoDeVentaV2
                 {
                     // Verificar que el ID del producto pertenezca al usuasio
                     var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(infoProducto[0]), FormPrincipal.userID);
-                    
+
                     // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
                     // se busca directamente con base en su ID sobreescribiendo la variable "extra"
                     if (verificarUsuario.Length > 0)
@@ -2231,7 +2234,7 @@ namespace PuntoDeVentaV2
                     linkLblUltimaPagina.Visible = false;
                 }
             }
-            
+
             txtMaximoPorPagina.Text = p.limitRow().ToString();
         }
 
@@ -2387,7 +2390,7 @@ namespace PuntoDeVentaV2
                 FormAgregar.Titulo = "Copiar Paquete";
             }
 
-            FormAgregar.FormClosed += delegate 
+            FormAgregar.FormClosed += delegate
             {
                 if (!txtBusqueda.Text.Equals(""))
                 {
@@ -2571,7 +2574,7 @@ namespace PuntoDeVentaV2
         {
             ProductoRecord.FormClosed += delegate
             {
-                
+
             };
             if (!FormXML.Visible)
             {
@@ -2606,7 +2609,7 @@ namespace PuntoDeVentaV2
                 ProductoRecord.SeleccionarFila();
                 ProductoRecord.BringToFront();
             }
-            
+
         }
 
         public void agregarFoto()
@@ -2680,7 +2683,7 @@ namespace PuntoDeVentaV2
                     catch (Exception ex)    // si no se puede hacer el proceso
                     {
                         // si no se borra el archivo muestra este mensaje
-                        MessageBox.Show("Error al hacer el borrado No: " + ex.Message.ToString(), 
+                        MessageBox.Show("Error al hacer el borrado No: " + ex.Message.ToString(),
                             "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -2773,10 +2776,10 @@ namespace PuntoDeVentaV2
                 VentanaMostrarFoto.BringToFront();
             }
         }
-        
+
         private void btnAgregarXML_Click(object sender, EventArgs e)
         {
-            FormXML.FormClosed += delegate 
+            FormXML.FormClosed += delegate
             {
                 CargarDatos();
             };
@@ -2852,7 +2855,7 @@ namespace PuntoDeVentaV2
         private void crearEtiquetaDinamica()
         {
             verificarListaDeVariablesEtiquetas();
-            
+
             string nameItemLista = string.Empty;
 
             if (!isEmptyAuxWord)
