@@ -114,6 +114,8 @@ namespace PuntoDeVentaV2
 
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
 
+        public static iTextSharp.text.Image imgReporte;
+
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1083,22 +1085,26 @@ namespace PuntoDeVentaV2
         {
             // Ruta donde se creara el archivo PDF
             var rutaArchivo = string.Empty;
+            var rutaFoto = string.Empty;
             var servidor = Properties.Settings.Default.Hosting;
             // Filtro para traer de la base de datos solo Productos
-            string filtro = string.Empty;
+            string filtro = string.Empty, filtroUsr = string.Empty;
             // Tabla donde se almacenan los resultados
-            DataTable dbListaProducto;
+            DataTable dbListaProducto, dbListaUsuario;
 
             filtro = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'";
+            filtroUsr = $"SELECT * FROM Usuarios WHERE ID = {FormPrincipal.userID}";
 
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Pedidos\";
-            }
-            else
-            {
-                rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\";
-            }
+            //if (!string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Pedidos\";
+            //}
+            //else
+            //{
+            //    rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\";
+            //}
+
+            rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\";
 
             using (dbListaProducto = cn.CargarDatos(filtro))
             {
@@ -1116,6 +1122,16 @@ namespace PuntoDeVentaV2
                         if (Directory.Exists(carpeta))
                         {
                             fileReportOrder = carpeta + "reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
+
+                            if (!string.IsNullOrWhiteSpace(servidor))
+                            {
+                                rutaFoto = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
+                            }
+                            else
+                            {
+                                rutaFoto = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
+                            }
+                            
                             // Indicamos donde vamos a guardar el documento
                             using (PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(fileReportOrder, FileMode.Create)))
                             {
@@ -1126,8 +1142,20 @@ namespace PuntoDeVentaV2
                                 // Abrimos el archivo
                                 doc.Open();
 
+                                using (dbListaUsuario = cn.CargarDatos(filtroUsr))
+                                {
+                                    //imgReporte = iTextSharp.text.Image.GetInstance();
+                                    for (int i = 0; i < dbListaUsuario.Rows.Count; i++)
+                                    {
+                                        imgReporte = iTextSharp.text.Image.GetInstance(rutaFoto + dbListaUsuario.Rows[i]["LogoTipo"].ToString());
+                                    }
+                                }
+
                                 // Creamos el tipo de Font que vamos utilizar
                                 iTextSharp.text.Font _standardFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+
+                                imgReporte.SetAbsolutePosition(78, 750);
+                                doc.Add(imgReporte);
 
                                 // Escribimos el encabezamiento en el documento
                                 doc.Add(new Paragraph("Reporte de Pedido con fecha: " + DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy")));
@@ -1204,18 +1232,17 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 doc.Add(table);
-                                
+
                                 doc.Close();
                                 writer.Close();
+                                // numero de la pagina
+                                //AddPageNumber();
+                                //string rutaArchivoPDF = fileReportOrder;
+
+                                //VisualizadorReportes vr = new VisualizadorReportes(fileReportOrder);
+                                //vr.ShowDialog();
                             }
-                            // numero de la pagina
-                            AddPageNumber(sender, e);
                         }
-
-                        string rutaArchivoPDF = fileReportOrder;
-
-                        VisualizadorReportes vr = new VisualizadorReportes(rutaArchivoPDF);
-                        vr.ShowDialog();
                     }
                     catch (IOException ex)
                     {
@@ -1224,26 +1251,40 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            // numero de la pagina
+            AddPageNumber();
+            VisualizadorReportes vr = new VisualizadorReportes(fileReportOrder);
+            vr.ShowDialog();
         }
 
-        private void AddPageNumber(object sender, EventArgs e)
+        private void AddPageNumber()
         {
-            byte[] bytes = System.IO.File.ReadAllBytes(fileReportOrder);
-            iTextSharp.text.Font blackFont = FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
-            using (MemoryStream stream = new MemoryStream())
+            try
             {
-                PdfReader reader = new PdfReader(bytes);
-                using (PdfStamper stamper = new PdfStamper(reader, stream))
+                byte[] bytes = System.IO.File.ReadAllBytes(fileReportOrder);
+                iTextSharp.text.Font blackFont = FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+                using (MemoryStream stream = new MemoryStream())
                 {
-                    int pages = reader.NumberOfPages;
-                    for(int i = 1; i <= pages; i++)
+                    PdfReader reader = new PdfReader(bytes);
+                    using (PdfStamper stamper = new PdfStamper(reader, stream))
                     {
-                        ColumnText.ShowTextAligned(stamper.GetUnderContent(i), Element.ALIGN_RIGHT, new Phrase("Pagina: " + i.ToString(), blackFont), 568f, 15f, 0);
+                        int pages = reader.NumberOfPages;
+                        for (int i = 1; i <= pages; i++)
+                        {
+                            ColumnText.ShowTextAligned(stamper.GetUnderContent(i), Element.ALIGN_RIGHT, new Phrase("Pagina: " + i.ToString(), blackFont), 568f, 15f, 0);
+                        }
+                        stamper.Close();
                     }
+                    bytes = stream.ToArray();
+                    reader.Close();
                 }
-                bytes = stream.ToArray();
+                System.IO.File.WriteAllBytes(fileReportOrder, bytes);
             }
-            System.IO.File.WriteAllBytes(fileReportOrder, bytes);
+            catch (IOException ex)
+            {
+                MessageBox.Show("Error al Intentar Paginar el Reporte en PDF:\n" + ex.Message.ToString(),
+                                "Error al Paginar PDF", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void creacionEtiquetasDinamicas()
