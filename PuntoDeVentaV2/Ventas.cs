@@ -161,7 +161,7 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 // Verificar si se selecciono el check para cancelar venta
-                /*if (checkCancelar.Checked)
+                if (checkCancelar.Checked)
                 {
                     var folio = txtBuscadorProducto.Text.Trim();
                     var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio} AND Status = 1";
@@ -194,7 +194,7 @@ namespace PuntoDeVentaV2
                     txtBuscadorProducto.Text = string.Empty;
                     checkCancelar.Checked = false;
                     return;
-                }*/
+                }
 
                 if (listaProductos.Visible)
                 {
