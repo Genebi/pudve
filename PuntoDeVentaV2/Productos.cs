@@ -1091,19 +1091,11 @@ namespace PuntoDeVentaV2
             string filtro = string.Empty, filtroUsr = string.Empty;
             // Tabla donde se almacenan los resultados
             DataTable dbListaProducto, dbListaUsuario;
+            float[] anchoColumnas = new float[] { 180f, 50f, 50f, 150f, 80f, 70f, 120f, 80f, 80f };
 
             filtro = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'";
             filtroUsr = $"SELECT * FROM Usuarios WHERE ID = {FormPrincipal.userID}";
-
-            //if (!string.IsNullOrWhiteSpace(servidor))
-            //{
-            //    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Pedidos\";
-            //}
-            //else
-            //{
-            //    rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\";
-            //}
-
+            
             rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\";
 
             using (dbListaProducto = cn.CargarDatos(filtro))
@@ -1111,7 +1103,7 @@ namespace PuntoDeVentaV2
                 string carpeta = rutaArchivo;
 
                 // Creamos el documento con el tamaño de página tradicional
-                using (Document doc = new Document(PageSize.LETTER.Rotate(), 72, 72, 72, 72))
+                using (Document doc = new Document(PageSize.LEGAL.Rotate(), 80, 30, 10, 30))
                 {
                     try
                     {
@@ -1141,37 +1133,27 @@ namespace PuntoDeVentaV2
 
                                 // Abrimos el archivo
                                 doc.Open();
-
-                                //using (dbListaUsuario = cn.CargarDatos(filtroUsr))
-                                //{
-                                //    //imgReporte = iTextSharp.text.Image.GetInstance();
-                                //    for (int i = 0; i < dbListaUsuario.Rows.Count; i++)
-                                //    {
-                                //        imgReporte = iTextSharp.text.Image.GetInstance(rutaFoto + dbListaUsuario.Rows[i]["LogoTipo"].ToString());
-                                //    }
-                                //}
-
+                                
                                 // Creamos el tipo de Font que vamos utilizar
                                 iTextSharp.text.Font _standardFont = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
-
-                                //imgReporte.SetAbsolutePosition(78, 750);
-                                //doc.Add(imgReporte);
-
+                                
                                 // Escribimos el encabezamiento en el documento
                                 doc.Add(new Paragraph("Reporte de Pedido con fecha: " + DateTime.Now.ToString("HH:mm:ss dd/MM/yyyy")));
                                 doc.Add(Chunk.NEWLINE);
 
                                 PdfPTable table = new PdfPTable(9);
                                 table.WidthPercentage = 100;
+                                table.SetWidths(anchoColumnas);
                                 PdfPCell header1 = new PdfPCell(new Phrase("Producto:"));
                                 header1.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
+                                //header1.Width = 5f;
                                 table.AddCell(header1).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
                                 PdfPCell header2 = new PdfPCell(new Phrase("Stock Actual:"));
                                 header2.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
                                 table.AddCell(header2).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
-                                PdfPCell header3 = new PdfPCell(new Phrase("Cantidad a Pedir:"));
+                                PdfPCell header3 = new PdfPCell(new Phrase("Cant Pedir:"));
                                 header3.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
                                 table.AddCell(header3).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
@@ -1179,15 +1161,15 @@ namespace PuntoDeVentaV2
                                 header4.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
                                 table.AddCell(header4).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
-                                PdfPCell header5 = new PdfPCell(new Phrase("Precio Compra:"));
+                                PdfPCell header5 = new PdfPCell(new Phrase("Precio Comp:"));
                                 header5.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
                                 table.AddCell(header5).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
-                                PdfPCell header6 = new PdfPCell(new Phrase("Precio Venta:"));
+                                PdfPCell header6 = new PdfPCell(new Phrase("Precio Vent:"));
                                 header6.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
                                 table.AddCell(header6).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
-                                PdfPCell header7 = new PdfPCell(new Phrase("Código de Barras:"));
+                                PdfPCell header7 = new PdfPCell(new Phrase("Cód Barras:"));
                                 header7.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
                                 table.AddCell(header7).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
@@ -1195,7 +1177,7 @@ namespace PuntoDeVentaV2
                                 header8.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
                                 table.AddCell(header8).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
-                                PdfPCell header9 = new PdfPCell(new Phrase("Código de Barras Extra"));
+                                PdfPCell header9 = new PdfPCell(new Phrase("Cód Barras Ext"));
                                 header9.BackgroundColor = new iTextSharp.text.BaseColor(0, 153, 204);
                                 table.AddCell(header9).HorizontalAlignment = PdfPCell.ALIGN_CENTER;
 
@@ -1206,15 +1188,14 @@ namespace PuntoDeVentaV2
                                         string idConflicto = dbListaProducto.Rows[i]["ID"].ToString();
                                         int StockMinimo = 0, StockActual = 0;
 
-                                        //StockMinimo = Convert.ToInt32(dbListaProducto.Rows[i]["StockMinimo"].ToString());
                                         StockMinimo = Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString());
                                         try
                                         {
                                             StockActual = Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString());
                                             if (StockMinimo > StockActual)
                                             {
-                                                table.AddCell(dbListaProducto.Rows[i]["Nombre"].ToString());       // Nombre del Producto
-                                                table.AddCell(dbListaProducto.Rows[i]["Stock"].ToString());        // Stock Actual
+                                                table.AddCell(dbListaProducto.Rows[i]["Nombre"].ToString());    // Nombre del Producto
+                                                table.AddCell(dbListaProducto.Rows[i]["Stock"].ToString());     // Stock Actual
                                                 int pedido = 0;
                                                 if (Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString()) <= Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString()))
                                                 {
@@ -1228,17 +1209,17 @@ namespace PuntoDeVentaV2
                                                 var DetallesProveedor = mb.DetallesProducto(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()), FormPrincipal.userID);
                                                 if (DetallesProveedor.Count() > 0)
                                                 {
-                                                    table.AddCell(DetallesProveedor[2].ToString());        // Proveedor
+                                                    table.AddCell(DetallesProveedor[2].ToString());     // Proveedor
                                                 }
                                                 else if (DetallesProveedor.Count() <= 0)
                                                 {
-                                                    table.AddCell("No tiene asignado Proveedor");        // Proveedor
+                                                    table.AddCell("N/A");                               // Proveedor
                                                 }
                                                 double precioCompra = Convert.ToDouble(dbListaProducto.Rows[i]["Precio"].ToString()) / 1.60;
-                                                table.AddCell("$ " + precioCompra.ToString("N2"));      // Precio Compra
-                                                table.AddCell("$ " + dbListaProducto.Rows[i]["Precio"].ToString());      // Precio Venta
-                                                table.AddCell(dbListaProducto.Rows[i]["CodigoBarras"].ToString());             // Codigo de Barras
-                                                table.AddCell(dbListaProducto.Rows[i]["ClaveInterna"].ToString());             // Calve Interna
+                                                table.AddCell("$ " + precioCompra.ToString("N2"));                      // Precio Compra
+                                                table.AddCell("$ " + dbListaProducto.Rows[i]["Precio"].ToString());     // Precio Venta
+                                                table.AddCell(dbListaProducto.Rows[i]["CodigoBarras"].ToString());      // Codigo de Barras
+                                                table.AddCell(dbListaProducto.Rows[i]["ClaveInterna"].ToString());      // Calve Interna
                                                 var CodigoBarraExtra = mb.ObtenerCodigoBarrasExtras(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()));
                                                 string strCodBarExt = string.Empty;
                                                 for (int v = 0; v < CodigoBarraExtra.Length; v++)
@@ -1250,12 +1231,20 @@ namespace PuntoDeVentaV2
                                         }
                                         catch (FormatException ex)
                                         {
-                                            MessageBox.Show("Error en el Stock Actual, favor de verificar el Producto:\n" + dbListaProducto.Rows[i]["Nombre"].ToString() + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString() + "\nError: " + ex.Message.ToString(), "Verificar Valor de Stock Actual", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            MessageBox.Show("Error en el Stock Actual, favor de verificar el Producto:\n" 
+                                                            + dbListaProducto.Rows[i]["Nombre"].ToString() 
+                                                            + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString() 
+                                                            + "\nError: " + ex.Message.ToString(), "Verificar Valor de Stock Actual", 
+                                                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
                                     }
                                     catch (FormatException ex)
                                     {
-                                        MessageBox.Show("Error en el Stock Minimo, favor de verificar el Producto:\n" + dbListaProducto.Rows[i]["Nombre"].ToString() + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString() + "\nError: " + ex.Message.ToString(), "Verificar Valor de Stock Minimo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        MessageBox.Show("Error en el Stock Minimo, favor de verificar el Producto:\n" 
+                                                        + dbListaProducto.Rows[i]["Nombre"].ToString() 
+                                                        + "\nID: " + dbListaProducto.Rows[i]["ID"].ToString() 
+                                                        + "\nError: " + ex.Message.ToString(), "Verificar Valor de Stock Minimo", 
+                                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 }
                                 doc.Add(table);
