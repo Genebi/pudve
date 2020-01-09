@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.separadorInicial = new System.Windows.Forms.Label();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -35,6 +36,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.fLPLateralConcepto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtStockMinimo = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtStockNecesario = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,8 +50,7 @@
             this.btnCerrar = new System.Windows.Forms.Button();
             this.chkBoxProductMessage = new System.Windows.Forms.CheckBox();
             this.chkMensajeInventario = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtStockMinimo = new System.Windows.Forms.TextBox();
+            this.timerStockMaximo = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -130,21 +132,40 @@
             this.panel2.Size = new System.Drawing.Size(618, 474);
             this.panel2.TabIndex = 28;
             // 
+            // txtStockMinimo
+            // 
+            this.txtStockMinimo.Location = new System.Drawing.Point(149, 39);
+            this.txtStockMinimo.Name = "txtStockMinimo";
+            this.txtStockMinimo.Size = new System.Drawing.Size(120, 20);
+            this.txtStockMinimo.TabIndex = 5;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(58, 42);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(85, 13);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Stock Mínimo";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 42);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(336, 42);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.Size = new System.Drawing.Size(86, 13);
             this.label4.TabIndex = 3;
             this.label4.Text = "Stock Máximo";
             // 
             // txtStockNecesario
             // 
-            this.txtStockNecesario.Location = new System.Drawing.Point(91, 39);
+            this.txtStockNecesario.Location = new System.Drawing.Point(428, 39);
             this.txtStockNecesario.Name = "txtStockNecesario";
             this.txtStockNecesario.Size = new System.Drawing.Size(120, 20);
             this.txtStockNecesario.TabIndex = 2;
+            this.txtStockNecesario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtStockNecesario_KeyUp);
             // 
             // label3
             // 
@@ -275,21 +296,10 @@
             this.chkMensajeInventario.UseVisualStyleBackColor = true;
             this.chkMensajeInventario.CheckedChanged += new System.EventHandler(this.chkMensajeInventario_CheckedChanged);
             // 
-            // label5
+            // timerStockMaximo
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(239, 42);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(73, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Stock Mínimo";
-            // 
-            // txtStockMinimo
-            // 
-            this.txtStockMinimo.Location = new System.Drawing.Point(318, 39);
-            this.txtStockMinimo.Name = "txtStockMinimo";
-            this.txtStockMinimo.Size = new System.Drawing.Size(120, 20);
-            this.txtStockMinimo.TabIndex = 5;
+            this.timerStockMaximo.Interval = 1000;
+            this.timerStockMaximo.Tick += new System.EventHandler(this.timerStockMaximo_Tick);
             // 
             // AgregarDetalleProducto
             // 
@@ -344,5 +354,6 @@
         private System.Windows.Forms.CheckBox chkMensajeInventario;
         private System.Windows.Forms.TextBox txtStockMinimo;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Timer timerStockMaximo;
     }
 }
