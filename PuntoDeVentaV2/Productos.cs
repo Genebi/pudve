@@ -2097,7 +2097,23 @@ namespace PuntoDeVentaV2
 
                 if (TipoProd == "P")
                 {
-                    row.Cells["Column2"].Value = filaDatos["Stock"].ToString(); ;
+                    // Verificar si el stock es menor al minimo y cambiar el texto de color
+                    var minimo = Convert.ToInt32(filaDatos["StockMinimo"].ToString());
+                    var stock = Convert.ToInt32(filaDatos["Stock"].ToString());
+
+                    if (stock < minimo)
+                    {
+                        row.Cells["Column2"].Value = filaDatos["Stock"].ToString();
+
+                        row.Cells["Column2"].Style = new DataGridViewCellStyle {
+                            ForeColor = Color.White,
+                            BackColor = Color.Black
+                        };
+                    }
+                    else
+                    {
+                        row.Cells["Column2"].Value = filaDatos["Stock"].ToString();
+                    }
                 }
                 else if (TipoProd == "S")
                 {
