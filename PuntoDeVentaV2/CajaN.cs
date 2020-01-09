@@ -1393,5 +1393,10 @@ namespace PuntoDeVentaV2
             VisualizadorTickets vt = new VisualizadorTickets(rutaArchivo, rutaArchivo);
             vt.ShowDialog();
         }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            Utilidades.GenerarTicketCaja();
+        }
     }
 }

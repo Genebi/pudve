@@ -84,8 +84,10 @@
             this.lbTarjeta = new System.Windows.Forms.Label();
             this.lbEfectivo = new System.Windows.Forms.Label();
             this.panelTotales = new System.Windows.Forms.Panel();
+            this.lbTSaldoInicial = new System.Windows.Forms.Label();
             this.lbTDineroRetirado = new System.Windows.Forms.Label();
             this.lbTSubtotal = new System.Windows.Forms.Label();
+            this.lbSaldoInicial = new System.Windows.Forms.Label();
             this.lbDineroRetirado = new System.Windows.Forms.Label();
             this.lbSubtotal = new System.Windows.Forms.Label();
             this.lbTAnticiposC = new System.Windows.Forms.Label();
@@ -105,8 +107,7 @@
             this.lbValesC = new System.Windows.Forms.Label();
             this.lbTarjetaC = new System.Windows.Forms.Label();
             this.lbEfectivoC = new System.Windows.Forms.Label();
-            this.lbSaldoInicial = new System.Windows.Forms.Label();
-            this.lbTSaldoInicial = new System.Windows.Forms.Label();
+            this.btnImprimir = new System.Windows.Forms.Button();
             this.panelFondo.SuspendLayout();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
@@ -837,6 +838,17 @@
             this.panelTotales.Size = new System.Drawing.Size(220, 386);
             this.panelTotales.TabIndex = 111;
             // 
+            // lbTSaldoInicial
+            // 
+            this.lbTSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTSaldoInicial.AutoSize = true;
+            this.lbTSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTSaldoInicial.Location = new System.Drawing.Point(155, 275);
+            this.lbTSaldoInicial.Name = "lbTSaldoInicial";
+            this.lbTSaldoInicial.Size = new System.Drawing.Size(39, 17);
+            this.lbTSaldoInicial.TabIndex = 24;
+            this.lbTSaldoInicial.Text = "$0.00";
+            // 
             // lbTDineroRetirado
             // 
             this.lbTDineroRetirado.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -858,6 +870,17 @@
             this.lbTSubtotal.Size = new System.Drawing.Size(39, 17);
             this.lbTSubtotal.TabIndex = 21;
             this.lbTSubtotal.Text = "$0.00";
+            // 
+            // lbSaldoInicial
+            // 
+            this.lbSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbSaldoInicial.AutoSize = true;
+            this.lbSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSaldoInicial.Location = new System.Drawing.Point(24, 275);
+            this.lbSaldoInicial.Name = "lbSaldoInicial";
+            this.lbSaldoInicial.Size = new System.Drawing.Size(80, 17);
+            this.lbSaldoInicial.TabIndex = 23;
+            this.lbSaldoInicial.Text = "Saldo inicial";
             // 
             // lbDineroRetirado
             // 
@@ -1072,33 +1095,28 @@
             this.lbEfectivoC.TabIndex = 0;
             this.lbEfectivoC.Text = "Efectivo";
             // 
-            // lbSaldoInicial
+            // btnImprimir
             // 
-            this.lbSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbSaldoInicial.AutoSize = true;
-            this.lbSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSaldoInicial.Location = new System.Drawing.Point(24, 275);
-            this.lbSaldoInicial.Name = "lbSaldoInicial";
-            this.lbSaldoInicial.Size = new System.Drawing.Size(80, 17);
-            this.lbSaldoInicial.TabIndex = 23;
-            this.lbSaldoInicial.Text = "Saldo inicial";
-            // 
-            // lbTSaldoInicial
-            // 
-            this.lbTSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbTSaldoInicial.AutoSize = true;
-            this.lbTSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTSaldoInicial.Location = new System.Drawing.Point(155, 275);
-            this.lbTSaldoInicial.Name = "lbTSaldoInicial";
-            this.lbTSaldoInicial.Size = new System.Drawing.Size(39, 17);
-            this.lbTSaldoInicial.TabIndex = 24;
-            this.lbTSaldoInicial.Text = "$0.00";
+            this.btnImprimir.BackColor = System.Drawing.Color.Green;
+            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimir.FlatAppearance.BorderSize = 0;
+            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImprimir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.ForeColor = System.Drawing.Color.White;
+            this.btnImprimir.Location = new System.Drawing.Point(449, 125);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(120, 25);
+            this.btnImprimir.TabIndex = 112;
+            this.btnImprimir.Text = "Abrir Caja";
+            this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.tablaContenedor);
             this.Controls.Add(this.panelFondo);
             this.Controls.Add(this.btnReporteRetirar);
@@ -1207,5 +1225,6 @@
         private System.Windows.Forms.Label lbEfectivoC;
         private System.Windows.Forms.Label lbTSaldoInicial;
         private System.Windows.Forms.Label lbSaldoInicial;
+        private System.Windows.Forms.Button btnImprimir;
     }
 }
