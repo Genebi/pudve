@@ -1176,6 +1176,41 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtStockNecesario_KeyUp(object sender, KeyEventArgs e)
+        {
+            timerStockMaximo.Stop();
+            timerStockMaximo.Start();
+        }
+
+        private void timerStockMaximo_Tick(object sender, EventArgs e)
+        {
+            timerStockMaximo.Stop();
+            ValidarStockMaximo();
+        }
+
+        private void ValidarStockMaximo()
+        {
+            var minimoAux = txtStockMinimo.Text.Trim();
+            var maximoAux = txtStockNecesario.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(minimoAux))
+            {
+                if (!string.IsNullOrWhiteSpace(maximoAux))
+                {
+                    var minimo = Convert.ToInt32(minimoAux);
+                    var maximo = Convert.ToInt32(maximoAux);
+
+                    if (maximo <= minimo)
+                    {
+                        MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        txtStockNecesario.Text = string.Empty;
+                        txtStockNecesario.Focus();
+                    }
+                }
+            }
+        }
+
         private void cbUbicacion_SelectIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
