@@ -562,8 +562,8 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(), 
-                                    "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    /*MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(), 
+                                    "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);*/
                 }
             }
         }
