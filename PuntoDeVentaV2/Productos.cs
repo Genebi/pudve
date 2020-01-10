@@ -1093,7 +1093,7 @@ namespace PuntoDeVentaV2
             DataTable dbListaProducto, dbListaUsuario;
             float[] anchoColumnas = new float[] { 180f, 50f, 50f, 150f, 80f, 70f, 120f, 80f, 80f };
 
-            filtro = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'";
+            filtro = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' ORDER BY Nombre ASC";
             filtroUsr = $"SELECT * FROM Usuarios WHERE ID = {FormPrincipal.userID}";
             
             rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\";
@@ -1487,8 +1487,9 @@ namespace PuntoDeVentaV2
             Button btnTag = (Button)sender;
             string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
-            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons
-                .YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", 
+                                                  "Eliminar Filtro", MessageBoxButtons.YesNo, 
+                                                  MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
@@ -3012,7 +3013,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cargarListaDeEtiquetas()
+       private void cargarListaDeEtiquetas()
         {
             if (!txtBusqueda.Text.Equals(""))
             {
@@ -3023,7 +3024,7 @@ namespace PuntoDeVentaV2
                     if (auxWord.Count == 0)
                     {
                         auxWord.Add(palabras[i]);
-                    }
+                     }
                     else if (!auxWord.Contains(palabras[i]))
                     {
                         if (auxWord.Count != 0)
