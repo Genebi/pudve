@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
 
             //======================================================================
 
-            // PANEL MENSAJE
+            // PANEL MENSAJE VENTAS
             FlowLayoutPanel panelMensaje = new FlowLayoutPanel();
             panelMensaje.Name = "panelMensaje";
             panelMensaje.Width = 350;
@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
             panelMensaje.BorderStyle = BorderStyle.FixedSingle;
 
             Label lbMensaje = new Label();
-            lbMensaje.Text = "Agregar mensaje";
+            lbMensaje.Text = "Mensaje Ventas";
             lbMensaje.Name = "lbMensaje";
             lbMensaje.Width = 100;
             lbMensaje.Height = 20;
@@ -87,13 +87,40 @@ namespace PuntoDeVentaV2
             panelMensaje.Controls.Add(btnMensaje);
             panelContenedor.Controls.Add(panelMensaje);
 
+            // PANEL MENSAJE INVENTARIO
+            FlowLayoutPanel panelMensajeInventario = new FlowLayoutPanel();
+            panelMensajeInventario.Name = "panelMensajeInventario";
+            panelMensajeInventario.Width = 350;
+            panelMensajeInventario.Height = 30;
+            panelMensajeInventario.FlowDirection = FlowDirection.LeftToRight;
+            panelMensajeInventario.Location = new Point(3, 45);
+            panelMensajeInventario.BorderStyle = BorderStyle.FixedSingle;
+
+            Label lbMensajeInventario = new Label();
+            lbMensajeInventario.Text = "Mensaje Inventario";
+            lbMensajeInventario.Name = "lbMensajeInventario";
+            lbMensajeInventario.Width = 100;
+            lbMensajeInventario.Height = 20;
+            lbMensajeInventario.TextAlign = ContentAlignment.MiddleCenter;
+
+            Button btnMensajeInventario = new Button();
+            btnMensajeInventario.Name = "btnMensajeInventario";
+            btnMensajeInventario.Text = "Asignar";
+            btnMensajeInventario.Cursor = Cursors.Hand;
+            btnMensajeInventario.Tag = "MensajeInventario";
+            btnMensajeInventario.Click += new EventHandler(botonAsignar_Click);
+
+            panelMensajeInventario.Controls.Add(lbMensajeInventario);
+            panelMensajeInventario.Controls.Add(btnMensajeInventario);
+            panelContenedor.Controls.Add(panelMensajeInventario);
+
             // PANEL STOCK
             FlowLayoutPanel panelStock = new FlowLayoutPanel();
             panelStock.Name = "panelStock";
             panelStock.Width = 350;
             panelStock.Height = 30;
             panelStock.FlowDirection = FlowDirection.LeftToRight;
-            panelStock.Location = new Point(3, 45);
+            panelStock.Location = new Point(3, 80);
             panelStock.BorderStyle = BorderStyle.FixedSingle;
 
             Label lbStock = new Label();
@@ -120,7 +147,7 @@ namespace PuntoDeVentaV2
             panelStockMinimo.Width = 350;
             panelStockMinimo.Height = 30;
             panelStockMinimo.FlowDirection = FlowDirection.LeftToRight;
-            panelStockMinimo.Location = new Point(3, 80);
+            panelStockMinimo.Location = new Point(3, 115);
             panelStockMinimo.BorderStyle = BorderStyle.FixedSingle;
 
             Label lbStockMinimo = new Label();
@@ -147,7 +174,7 @@ namespace PuntoDeVentaV2
             panelStockMaximo.Width = 350;
             panelStockMaximo.Height = 30;
             panelStockMaximo.FlowDirection = FlowDirection.LeftToRight;
-            panelStockMaximo.Location = new Point(3, 115);
+            panelStockMaximo.Location = new Point(3, 150);
             panelStockMaximo.BorderStyle = BorderStyle.FixedSingle;
 
             Label lbStockMaximo = new Label();
@@ -174,7 +201,7 @@ namespace PuntoDeVentaV2
             panelPrecio.Width = 350;
             panelPrecio.Height = 30;
             panelPrecio.FlowDirection = FlowDirection.LeftToRight;
-            panelPrecio.Location = new Point(3, 150);
+            panelPrecio.Location = new Point(3, 185);
             panelPrecio.BorderStyle = BorderStyle.FixedSingle;
 
             Label lbPrecio = new Label();
@@ -195,7 +222,7 @@ namespace PuntoDeVentaV2
             panelPrecio.Controls.Add(btnPrecio);
             panelContenedor.Controls.Add(panelPrecio);
 
-            int alturaEjeY = 185;
+            int alturaEjeY = 220;
 
             //======================================================================
             foreach (XmlNode childNode in appSettingsNode)
