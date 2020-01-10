@@ -75,6 +75,7 @@ namespace PuntoDeVentaV2
         private bool sumarProducto = false;
         private bool restarProducto = false;
         private bool buscarVG = false; // Buscar venta guardada
+        private int indiceColumna = 0;
 
         DataTable dtProdMessg;
         DataRow drProdMessg;
@@ -398,7 +399,7 @@ namespace PuntoDeVentaV2
                 AgregarProductoLista(datosProducto);
             }
             else if (DGVentas.Rows.Count > 0)
-            {
+            {   
                 bool existe = false;
 
                 foreach (DataGridViewRow fila in DGVentas.Rows)
@@ -457,6 +458,10 @@ namespace PuntoDeVentaV2
                             PBImagen.Refresh();
                         }
 
+                        fila.Cells["NumeroColumna"].Value = indiceColumna;
+                        DGVentas.Sort(DGVentas.Columns["NumeroColumna"], System.ComponentModel.ListSortDirection.Descending);
+                        DGVentas.ClearSelection();
+                        indiceColumna++;
                         break;
                     }
                 }
@@ -487,7 +492,7 @@ namespace PuntoDeVentaV2
             if (buscarvVentaGuardada == "#")
             {
                 // Agregamos la información
-                row.Cells["NumeroColumna"].Value = rowId;
+                row.Cells["NumeroColumna"].Value = indiceColumna;
                 row.Cells["IDProducto"].Value = datosProducto[0]; // Este campo no es visible
                 row.Cells["PrecioOriginal"].Value = datosProducto[2]; // Este campo no es visible
                 row.Cells["DescuentoTipo"].Value = datosProducto[3]; // Este campo tampoco es visible
@@ -525,7 +530,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Agregamos la información
-                row.Cells["NumeroColumna"].Value = rowId;
+                row.Cells["NumeroColumna"].Value = indiceColumna;
                 row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
                 row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
                 row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
@@ -591,6 +596,7 @@ namespace PuntoDeVentaV2
 
             DGVentas.Sort(DGVentas.Columns["NumeroColumna"], System.ComponentModel.ListSortDirection.Descending);
             DGVentas.ClearSelection();
+            indiceColumna++;
         }
 
         private void DGVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
