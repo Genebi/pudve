@@ -547,19 +547,28 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrEmpty(imagen))
                 {
                     var servidor = Properties.Settings.Default.Hosting;
+                    var rutaImagen = string.Empty;
 
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        PBImagen.Image = System.Drawing.Image.FromFile($@"\\{servidor}\PUDVE\Productos\" + imagen);
+                        rutaImagen = $@"\\{servidor}\PUDVE\Productos\" + imagen;
                     }
                     else
                     {
-                        PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen);
+                        rutaImagen = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen;
+                    }
+
+                    if (File.Exists(rutaImagen))
+                    {
+                        PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
+                    }
+                    else
+                    {
+                        PBImagen.Image = null;
                     }
                 }
                 else
                 {
-                    //PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\no-image.png");
                     PBImagen.Image = null;
                     PBImagen.Refresh();
                 }

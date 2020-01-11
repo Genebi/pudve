@@ -72,9 +72,13 @@ namespace PuntoDeVentaV2
             imgPath = dt.Rows[index]["ProdImage"].ToString();
             lblNombreProducto.Text = NombreProdFinal;
 
-            using (File = new FileStream(pathString + imgPath, FileMode.Open, FileAccess.Read))
+            if (System.IO.File.Exists(pathString + imgPath))
             {
-                pictureBoxProducto.Image = Image.FromStream(File);      // cargamos la imagen en el PictureBox
+                using (File = new FileStream(pathString + imgPath, FileMode.Open, FileAccess.Read))
+                {
+                    // cargamos la imagen en el PictureBox
+                    pictureBoxProducto.Image = Image.FromStream(File);
+                }
             }
         }
     }
