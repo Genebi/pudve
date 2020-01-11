@@ -449,11 +449,30 @@ namespace PuntoDeVentaV2
 
                         if (!string.IsNullOrEmpty(imagen))
                         {
-                            PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen);
+                            var servidor = Properties.Settings.Default.Hosting;
+                            var rutaImagen = string.Empty;
+
+                            if (!string.IsNullOrWhiteSpace(servidor))
+                            {
+                                rutaImagen = $@"\\{servidor}\PUDVE\Productos\" + imagen;
+                            }
+                            else
+                            {
+                                rutaImagen = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\" + imagen;
+                            }
+
+                            if (File.Exists(rutaImagen))
+                            {
+                                PBImagen.Image = System.Drawing.Image.FromFile(rutaImagen);
+                            }
+                            else
+                            {
+                                PBImagen.Image = null;
+                                PBImagen.Refresh();
+                            }
                         }
                         else
                         {
-                            //PBImagen.Image = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\no-image.png");
                             PBImagen.Image = null;
                             PBImagen.Refresh();
                         }
@@ -565,6 +584,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         PBImagen.Image = null;
+                        PBImagen.Refresh();
                     }
                 }
                 else
