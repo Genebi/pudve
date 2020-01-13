@@ -4110,15 +4110,17 @@ namespace PuntoDeVentaV2
                     {
                         if (!logoTipo.Equals(""))
                         {
-                            // leemos el archivo de imagen y lo ponemos el pictureBox
-                            using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
+                            if (System.IO.File.Exists(saveDirectoryImg + logoTipo))
                             {
-                                pictureBoxProducto.Image = Image.FromStream(File);      // carrgamos la imagen en el PictureBox
+                                // leemos el archivo de imagen y lo ponemos el pictureBox
+                                using (File = new FileStream(saveDirectoryImg + logoTipo, FileMode.Open, FileAccess.Read))
+                                {
+                                    pictureBoxProducto.Image = Image.FromStream(File);      // carrgamos la imagen en el PictureBox
+                                }
                             }
                         }
                     }
                 }
-
             }
             else if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
             {

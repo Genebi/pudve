@@ -45,9 +45,27 @@ namespace PuntoDeVentaV2
                 TextBox tbMensaje = new TextBox();
                 tbMensaje.Name = "tb" + propiedad;
                 tbMensaje.Width = 200;
-                tbMensaje.Height = 20;
-                tbMensaje.TextAlign = HorizontalAlignment.Center;
+                tbMensaje.Height = 40;
+                tbMensaje.CharacterCasing = CharacterCasing.Upper;
                 tbMensaje.Font = fuente;
+                tbMensaje.Multiline = true;
+                tbMensaje.ScrollBars = ScrollBars.Vertical;
+                tbMensaje.Location = new Point(65, 70);
+
+                panelContenedor.Controls.Add(tbMensaje);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
+            }
+            else if (propiedad == "MensajeInventario")
+            {
+                TextBox tbMensaje = new TextBox();
+                tbMensaje.Name = "tb" + propiedad;
+                tbMensaje.Width = 200;
+                tbMensaje.Height = 40;
+                tbMensaje.CharacterCasing = CharacterCasing.Upper;
+                tbMensaje.Font = fuente;
+                tbMensaje.Multiline = true;
+                tbMensaje.ScrollBars = ScrollBars.Vertical;
                 tbMensaje.Location = new Point(65, 70);
 
                 panelContenedor.Controls.Add(tbMensaje);
@@ -283,6 +301,35 @@ namespace PuntoDeVentaV2
                     {
                         // INSERT
                         cn.EjecutarConsulta($"INSERT INTO ProductMessage (IDProducto, ProductOfMessage, ProductMessageActivated) VALUES ('{producto.Key}', '{mensaje}', '1')");
+                    }
+                }
+            }
+            else if (propiedad == "MensajeInventario")
+            {
+                TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
+
+                var mensaje = txtMensaje.Text;
+
+                if (string.IsNullOrWhiteSpace(mensaje))
+                {
+                    MessageBox.Show("Ingrese el mensaje para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                foreach (var producto in productos)
+                {
+                    // Comprobar si existe ya un mensaje para este producto en inventario
+                    var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM MensajesInventario WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}"));
+
+                    if (comprobar > 0)
+                    {
+                        // UPDATE
+                        cn.EjecutarConsulta($"UPDATE MensajesInventario SET Mensaje = '{mensaje}' WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
+                    }
+                    else
+                    {
+                        // INSERT
+                        cn.EjecutarConsulta($"INSERT INTO MensajesInventario (IDUsuario, IDProducto, Mensaje, Activo) VALUES ('{FormPrincipal.userID}', '{producto.Key}', '{mensaje}', '1')");
                     }
                 }
             }

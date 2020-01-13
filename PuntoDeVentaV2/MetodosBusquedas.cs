@@ -1011,7 +1011,8 @@ namespace PuntoDeVentaV2
                         while (dr.Read())
                         {
                             var id = Convert.ToInt32(dr["ID"].ToString());
-                            var nombre = dr["Nombre"].ToString();
+                            var precio = Convert.ToDouble(dr["Precio"].ToString());
+                            var nombre = dr["Nombre"].ToString() + " --- $" + precio.ToString("0.00");
 
                             if (coincidencias.ContainsKey(id))
                             {
