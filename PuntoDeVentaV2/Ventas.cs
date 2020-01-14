@@ -1990,7 +1990,7 @@ namespace PuntoDeVentaV2
 
             string primerPatron = @"^\d+\s\*\s";
             string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
-            string tercerPatron = @"^(\-\d+)|(\d+\-)$";
+            string tercerPatron = @"^(\-\d+)|(\d+\-)|(\-)|(\-\-)$";
             string cuartoPatron = @"^\d+\*\s";
             string quintoPatron = @"^\d+\s\*";
             string sextoPatron = @"^\d+\*";
@@ -2092,15 +2092,25 @@ namespace PuntoDeVentaV2
             {
                 if (restarProducto)
                 {
-                    var resultado = terceraCoincidencia.Value.Trim().Split('-');
+                    //var resultado = terceraCoincidencia.Value.Trim().Split('-');
+                    var resultado = terceraCoincidencia.Value.Trim();
 
-                    if (resultado[0] != string.Empty)
+                    if (resultado.Equals("-") || resultado.Equals("--"))
                     {
-                        cantidadExtra = Convert.ToInt32(resultado[0]) * -1;
+                        cantidadExtra = -1;
                     }
                     else
                     {
-                        cantidadExtra = Convert.ToInt32(resultado[1]) * -1;
+                        var infoTmp = resultado.Split('-');
+
+                        if (infoTmp[0] != string.Empty)
+                        {
+                            cantidadExtra = Convert.ToInt32(infoTmp[0]) * -1;
+                        }
+                        else
+                        {
+                            cantidadExtra = Convert.ToInt32(infoTmp[1]) * -1;
+                        }
                     }
 
                     cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
@@ -2328,13 +2338,28 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
         {
+            // Detecta si esta habilitado el checkbox para cancelar venta, si esta
+            // habilitado se detienen todas las operaciones normales del evento keyup
             if (checkCancelar.Checked)
             {
                 return;
             }
 
-            var busqueda = txtBuscadorProducto.Text;
+            var busqueda = txtBuscadorProducto.Text.Trim();
 
+            // Verificar si el primer caracter es + o - para evitar la busqueda
+            // y que tome en cuenta el atajo para aumentar o disminuir cantidad
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                var caracter = busqueda[0].ToString();
+
+                if (caracter.Equals("+") || caracter.Equals("-"))
+                {
+                    return;
+                }
+            }
+            
+            // Combinación para abrir caja
             if (busqueda.Equals(".4."))
             {
                 timerBusqueda.Interval = 1;
@@ -2343,6 +2368,8 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            // Si encuentra una coincidencia de los patrones cambia el tiempo de busqueda
+            // del timer para que haga la operación más rápido
             txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
 
             if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
