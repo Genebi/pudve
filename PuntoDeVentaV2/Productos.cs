@@ -1810,43 +1810,37 @@ namespace PuntoDeVentaV2
             }
         }
 
+        /// <summary>
+        /// Metodo CargarDatos
+        /// </summary>
+        /// <param name="status">buscar si estan Activo o No Activo el Producto</param>
+        /// <param name="busqueda">palabras a buscar introduccidas por el usuario</param>
         public void CargarDatos(int status = 1, string busqueda = "")
         {
             int idProducto = 0;
-
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
                 var coincidencias = mb.BusquedaCoincidencias(busqueda);
-
                 // Si hay concidencias de la busqueda de la palabra
                 if (coincidencias.Count > 0)
                 {
                     extra = string.Empty;
-
                     // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
                     // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
                     var extra2 = string.Empty;
                     int contadorTmp = 1;
-
                     var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
-
                     extra += " AND P.ID IN (";
-
                     foreach (var producto in listaCoincidencias)
                     {
                         extra += $"{producto.Key},";
-
                         extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
-
                         contadorTmp++;
                     }
-
                     // Eliminamos el último caracter que es una coma (,)
                     extra = extra.Remove(extra.Length - 1);
-
                     extra += ") ORDER BY CASE P.ID ";
                     extra2 += "END";
-
                     // Concatenamos las dos variables para formar por completo la sentencia sql
                     extra += extra2;
                 }
@@ -1855,15 +1849,12 @@ namespace PuntoDeVentaV2
                     // Original
                     extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR P.ClaveInterna LIKE '%{busqueda}%')";
                 }
-
                 // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
                 var infoProducto = mb.BuscarCodigoBarrasExtra(busqueda.Trim());
-
                 if (infoProducto.Length > 0)
                 {
                     // Verificar que el ID del producto pertenezca al usuasio
                     var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(infoProducto[0]), FormPrincipal.userID);
-
                     // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
                     // se busca directamente con base en su ID sobreescribiendo la variable "extra"
                     if (verificarUsuario.Length > 0)
@@ -1893,12 +1884,7 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-                        //if (Properties.Settings.Default.chkFiltroProveedor.Equals(true) && !Properties.Settings.Default.strFiltroProveedor.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND {Properties.Settings.Default.strFiltroProveedor}";
-                        //}
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                        //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID}", DataMemberDGV, maximo_x_pagina);
                     }
                     else if (busqueda != "")
                     {
@@ -1916,12 +1902,7 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-                        //if (Properties.Settings.Default.chkFiltroProveedor.Equals(true) && !Properties.Settings.Default.strFiltroProveedor.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND {Properties.Settings.Default.strFiltroProveedor}";
-                        //}
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                        //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
             }
@@ -1947,12 +1928,7 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-                        //if (Properties.Settings.Default.chkFiltroProveedor.Equals(true) && !Properties.Settings.Default.strFiltroProveedor.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND {Properties.Settings.Default.strFiltroProveedor}";
-                        //}
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                        //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                     else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
                     {
@@ -1970,12 +1946,7 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-                        //if (Properties.Settings.Default.chkFiltroProveedor.Equals(true) && !Properties.Settings.Default.strFiltroProveedor.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND {Properties.Settings.Default.strFiltroProveedor}";
-                        //}
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                        //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
                 else if (busqueda != "")
@@ -1996,12 +1967,7 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-                        //if (Properties.Settings.Default.chkFiltroProveedor.Equals(true) && !Properties.Settings.Default.strFiltroProveedor.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND {Properties.Settings.Default.strFiltroProveedor}";
-                        //}
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                        //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
             }
@@ -2026,12 +1992,7 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-                        //if (Properties.Settings.Default.chkFiltroProveedor.Equals(true) && !Properties.Settings.Default.strFiltroProveedor.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND {Properties.Settings.Default.strFiltroProveedor}";
-                        //}
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                        //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
                 else if (busqueda != "")
@@ -2052,12 +2013,7 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
                         }
-                        //if (Properties.Settings.Default.chkFiltroProveedor.Equals(true) && !Properties.Settings.Default.strFiltroProveedor.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND {Properties.Settings.Default.strFiltroProveedor}";
-                        //}
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                        //p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = {status} {extra}", DataMemberDGV, maximo_x_pagina);
                     }
                 }
             }
@@ -2067,7 +2023,6 @@ namespace PuntoDeVentaV2
             sinImagen.SetPixel(0, 0, Color.White);
 
             DataSet datos = p.cargar();
-
             DataTable dtDatos = datos.Tables[0];
 
             DGVProductos.Rows.Clear();
@@ -2191,6 +2146,9 @@ namespace PuntoDeVentaV2
 
             actualizar();
         }
+        /// <summary>
+        /// Fin CargarDatos
+        /// </summary>
 
         private void actualizar()
         {
