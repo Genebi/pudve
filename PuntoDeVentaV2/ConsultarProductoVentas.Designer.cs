@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,6 +37,7 @@
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,6 +69,7 @@
             this.txtBuscar.Size = new System.Drawing.Size(354, 22);
             this.txtBuscar.TabIndex = 1;
             this.txtBuscar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBuscar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyUp);
             // 
             // Nombre
             // 
@@ -108,6 +111,11 @@
             this.Tipo.ReadOnly = true;
             this.Tipo.Width = 80;
             // 
+            // timerBusqueda
+            // 
+            this.timerBusqueda.Interval = 1000;
+            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
+            // 
             // ConsultarProductoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -120,7 +128,7 @@
             this.MinimizeBox = false;
             this.Name = "ConsultarProductoVentas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Consultar Productos";
+            this.Text = "PUDVE - Consultar productos";
             this.Load += new System.EventHandler(this.ConsultarProductoVentas_Load);
             this.Shown += new System.EventHandler(this.ConsultarProductoVentas_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).EndInit();
@@ -139,5 +147,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Clave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
+        private System.Windows.Forms.Timer timerBusqueda;
     }
 }

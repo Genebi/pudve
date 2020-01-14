@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     public partial class ConsultarProductoVentas : Form
     {
         Conexion cn = new Conexion();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         public ConsultarProductoVentas()
         {
@@ -22,61 +23,58 @@ namespace PuntoDeVentaV2
 
         private void ConsultarProductoVentas_Load(object sender, EventArgs e)
         {
-            CargarDatos();
-        }
-
-        private void CargarDatos()
-        {
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-            else
-            {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1", sql_con);
-            dr = sql_cmd.ExecuteReader();
-
-            DGVProductos.Rows.Clear();
-
-            while (dr.Read())
-            {
-                int rowId = DGVProductos.Rows.Add();
-
-                DataGridViewRow row = DGVProductos.Rows[rowId];
-
-                var precio = float.Parse(dr.GetValue(dr.GetOrdinal("Precio")).ToString());
-                var tipo_aux = dr.GetValue(dr.GetOrdinal("Tipo")).ToString();
-                var tipo = string.Empty;
-
-                if (tipo_aux == "P") { tipo = "Producto"; }
-                if (tipo_aux == "S") { tipo = "Servicio"; }
-                if (tipo_aux == "PQ") { tipo = "Paquete"; }
-
-                row.Cells["Nombre"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-                row.Cells["Stock"].Value = dr.GetValue(dr.GetOrdinal("Stock"));
-                row.Cells["Precio"].Value = precio.ToString("0.00");
-                row.Cells["Clave"].Value = dr.GetValue(dr.GetOrdinal("ClaveInterna"));
-                row.Cells["Codigo"].Value = dr.GetValue(dr.GetOrdinal("CodigoBarras"));
-                row.Cells["Tipo"].Value = tipo;
-            }
-
-            DGVProductos.ClearSelection();
-
-            dr.Close();
-            sql_con.Close();
+            
         }
 
         private void ConsultarProductoVentas_Shown(object sender, EventArgs e)
         {
             txtBuscar.Focus();
+        }
+
+        private void timerBusqueda_Tick(object sender, EventArgs e)
+        {
+            timerBusqueda.Stop();
+            BuscarProductos();
+        }
+
+        private void BuscarProductos()
+        {
+            var busqueda = txtBuscar.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                var coincidencias = mb.BusquedaCoincidencias(busqueda);
+
+                if (coincidencias.Count > 0)
+                {
+                    foreach (var producto in coincidencias)
+                    {
+                        var datos = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+
+                        AgregarProducto(datos);
+                    }
+                }
+            }
+        }
+
+        private void AgregarProducto(string[] datos)
+        {
+            int rowId = DGVProductos.Rows.Add();
+
+            DataGridViewRow row = DGVProductos.Rows[rowId];
+
+            row.Cells["Nombre"].Value = datos[1];
+            row.Cells["Stock"].Value = datos[4];
+            row.Cells["Precio"].Value = datos[2];
+            row.Cells["Clave"].Value = datos[6];
+            row.Cells["Codigo"].Value = datos[7];
+            row.Cells["Tipo"].Value = datos[5];
+        }
+
+        private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
+        {
+            timerBusqueda.Stop();
+            timerBusqueda.Start();
         }
     }
 }
