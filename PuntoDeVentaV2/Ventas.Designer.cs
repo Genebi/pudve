@@ -83,6 +83,7 @@
             this.txtDescuentoGeneral = new System.Windows.Forms.TextBox();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.checkCancelar = new System.Windows.Forms.CheckBox();
+            this.btnConsultar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -688,11 +689,24 @@
             this.checkCancelar.Text = "Cancelar VENTA";
             this.checkCancelar.UseVisualStyleBackColor = true;
             // 
+            // btnConsultar
+            // 
+            this.btnConsultar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConsultar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultar.Location = new System.Drawing.Point(134, 68);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(75, 23);
+            this.btnConsultar.TabIndex = 43;
+            this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 596);
+            this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.checkCancelar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tituloSeccion);
@@ -770,5 +784,6 @@
         private System.Windows.Forms.Timer timerBusqueda;
         private System.Windows.Forms.PictureBox PBImagen;
         private System.Windows.Forms.CheckBox checkCancelar;
+        private System.Windows.Forms.Button btnConsultar;
     }
 }

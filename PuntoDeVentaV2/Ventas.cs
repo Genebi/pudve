@@ -2028,7 +2028,6 @@ namespace PuntoDeVentaV2
             {
                 if (sumarProducto)
                 {
-                    //var resultado = segundaCoincidencia.Value.Trim().Split('+');
                     var resultado = segundaCoincidencia.Value.Trim();
 
                     if (resultado.Equals("+") || resultado.Equals("++"))
@@ -2414,6 +2413,14 @@ namespace PuntoDeVentaV2
             timerBusqueda.Interval = 1000;
             timerBusqueda.Stop();
             OperacionBusqueda();
+        }
+
+        private void btnConsultar_Click(object sender, EventArgs e)
+        {
+            using (var consultar = new ConsultarProductoVentas())
+            {
+                consultar.ShowDialog();
+            }
         }
 
         private void ProductoSeleccionado()
