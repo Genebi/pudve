@@ -115,32 +115,14 @@ namespace PuntoDeVentaV2
         {
             if (datos.Count > 0)
             {
-                foreach (var valor in datos)
+                int rowId = DGVProductos.Rows.Add();
+                DataGridViewRow row = DGVProductos.Rows[rowId];
+
+                foreach (var propiedad in datos)
                 {
-                    MessageBox.Show(valor.Value);
+                    row.Cells[propiedad.Key].Value = propiedad.Value;
                 }
             }
-            /*int rowId = DGVProductos.Rows.Add();
-
-            DataGridViewRow row = DGVProductos.Rows[rowId];
-
-            row.Cells["Nombre"].Value = datos[1];
-            row.Cells["Stock"].Value = datos[4];
-            row.Cells["Precio"].Value = float.Parse(datos[2]).ToString("0.00");
-            row.Cells["Clave"].Value = datos[6];
-            row.Cells["Codigo"].Value = datos[7];
-            row.Cells["Tipo"].Value = datos[5];
-
-            if (propiedades.Count > 0)
-            {
-                foreach (var prop in propiedades)
-                {
-                    if (DGVProductos.Columns.Contains(prop))
-                    {
-                        row.Cells[prop].Value = prop;
-                    }
-                }
-            }*/
         }
 
         private void txtBuscar_KeyUp(object sender, KeyEventArgs e)
