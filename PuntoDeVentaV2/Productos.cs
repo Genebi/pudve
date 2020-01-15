@@ -1310,11 +1310,10 @@ namespace PuntoDeVentaV2
 
         public void creacionEtiquetasDinamicas()
         {
-            // creamos la Lista para
             listVariables = new List<Control>();
 
             auxWord = new List<string>();
-            // creamos la Lista para precio o stock
+            
             setUpVariable = new List<string>();
 
             cargarListaSetUpVaribale();
@@ -1354,7 +1353,10 @@ namespace PuntoDeVentaV2
             {
                 if (!isEmpty)
                 {
+                    borrarEtiquetasDinamicasSetUpDinamicos();
+
                     setUpDinamicos.Clear();
+
                     using (StreamReader file = new StreamReader(path + @"\" + fileName))
                     {
                         while ((line = file.ReadLine()) != null)
@@ -1376,7 +1378,6 @@ namespace PuntoDeVentaV2
                     }
                     if (new FileInfo(path + fileName).Length > 0)
                     {
-                        //MessageBox.Show("Archivo sin contenido");
                         setUpDinamicos.Clear();
                         using (StreamReader file = new StreamReader(path + @"\" + fileName))
                         {
@@ -1401,6 +1402,34 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario",
                                 "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void borrarEtiquetasDinamicasSetUpDinamicos()
+        {
+            string nameTag = string.Empty;
+
+            foreach (var itemSetUpDinamicos in setUpDinamicos)
+            {
+                    nameTag = itemSetUpDinamicos.Value.Item1.Remove(0, 9);
+                    foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                    {
+                        if (item is Panel)
+                        {
+                            if (item.Name.Equals("pEtiqueta" + nameTag))
+                            {
+                                try
+                                {
+                                    fLPDynamicTags.Controls.Remove(item);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error: " + ex.Message.ToString());
+                                }
+                            }
+                        }
+                    }
+            }
+            setUpDinamicos.Clear();
         }
 
         private void crearEtiquetaDinamicaSetUpDinamicos()
@@ -1737,20 +1766,7 @@ namespace PuntoDeVentaV2
             {
                 filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
             }
-            //if (Properties.Settings.Default.chkFiltroProveedor.Equals(true) && !Properties.Settings.Default.strFiltroProveedor.Equals(""))
-            //{
-            //    filtroConSinFiltroAvanzado += $" AND {Properties.Settings.Default.strFiltroProveedor}";
-            //}
             p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-
-            //if (Properties.Settings.Default.chkFiltroStock.Equals(true))
-            //{
-            //    p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.{Properties.Settings.Default.strFiltroStock.ToString()} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
-            //}
-            //else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
-            //{
-            //    p = new Paginar($"SELECT * FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = {FormPrincipal.userID} AND P.Status = 1 {extra}", DataMemberDGV, maximo_x_pagina);
-            //}
         }
 
         public void inicializarVariablesFiltro()
@@ -1785,7 +1801,6 @@ namespace PuntoDeVentaV2
             {
                 btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
             }
-            //MessageBox.Show("Filtro: " + Properties.Settings.Default.strFiltroStock);
         }
 
         private void MostrarCheckBox()
