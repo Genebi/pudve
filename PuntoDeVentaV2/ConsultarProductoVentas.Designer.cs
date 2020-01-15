@@ -30,14 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.DGVProductos = new System.Windows.Forms.DataGridView();
-            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
+            this.Proveedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,24 +53,14 @@
             this.Precio,
             this.Clave,
             this.Codigo,
-            this.Tipo});
+            this.Tipo,
+            this.Proveedor});
             this.DGVProductos.Location = new System.Drawing.Point(12, 69);
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
-            this.DGVProductos.Size = new System.Drawing.Size(860, 380);
+            this.DGVProductos.Size = new System.Drawing.Size(1208, 430);
             this.DGVProductos.TabIndex = 0;
-            // 
-            // txtBuscar
-            // 
-            this.txtBuscar.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBuscar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscar.Location = new System.Drawing.Point(263, 28);
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(354, 22);
-            this.txtBuscar.TabIndex = 1;
-            this.txtBuscar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtBuscar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyUp);
             // 
             // Nombre
             // 
@@ -111,16 +102,33 @@
             this.Tipo.ReadOnly = true;
             this.Tipo.Width = 80;
             // 
+            // txtBuscar
+            // 
+            this.txtBuscar.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBuscar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscar.Location = new System.Drawing.Point(289, 28);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(609, 22);
+            this.txtBuscar.TabIndex = 1;
+            this.txtBuscar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBuscar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyUp);
+            // 
             // timerBusqueda
             // 
             this.timerBusqueda.Interval = 1000;
             this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
+            // Proveedor
+            // 
+            this.Proveedor.HeaderText = "Proveedor";
+            this.Proveedor.Name = "Proveedor";
+            this.Proveedor.ReadOnly = true;
+            // 
             // ConsultarProductoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 461);
+            this.ClientSize = new System.Drawing.Size(1232, 511);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.DGVProductos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -148,5 +156,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
         private System.Windows.Forms.Timer timerBusqueda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor;
     }
 }

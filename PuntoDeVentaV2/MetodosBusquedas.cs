@@ -878,26 +878,6 @@ namespace PuntoDeVentaV2
             return codigo;
         }
 
-        public Dictionary<int, string> BuscarProducto(string busqueda)
-        {
-            Dictionary<int, string> lista = new Dictionary<int, string>();
-
-            DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{busqueda}%' OR NombreAlterno1 LIKE '%{busqueda}%' Or NombreAlterno2 LIKE '%{busqueda}%')");
-
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
-
-            if (dr.HasRows)
-            {
-                while (dr.Read())
-                {
-                    lista.Add(Convert.ToInt32(dr["ID"].ToString()), dr["Nombre"].ToString());
-                }
-            }
-
-            dr.Close();
-
-            return lista;
-        }
 
         public float SaldoInicialCaja(int idUsuario)
         {
@@ -1215,6 +1195,78 @@ namespace PuntoDeVentaV2
             dr.Close();
 
             return mensaje;
+        }
+
+        public Dictionary<string, string> ProductoConsultadoVentas(int idProducto, List<string> propiedades)
+        {
+            Dictionary<string, string> datos = new Dictionary<string, string>();
+
+            DatosConexion($"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                datos.Add("Nombre", dr["Nombre"].ToString());
+                datos.Add("Stock", dr["Stock"].ToString());
+                datos.Add("Precio", dr["Precio"].ToString());
+                datos.Add("Clave", dr["ClaveInterna"].ToString());
+                datos.Add("Codigo", dr["CodigoBarras"].ToString());
+                datos.Add("Tipo", dr["Tipo"].ToString());
+
+                // Obtener proveedor
+                DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+
+                SQLiteDataReader dr2 = sql_cmd.ExecuteReader();
+
+                if (dr2.Read())
+                {
+                    datos.Add("Proveedor", dr2["Proveedor"].ToString());
+
+                    dr2.Close();
+                }
+
+                // Obtener datos de las propiedades
+                if (propiedades.Count > 0)
+                {
+                    foreach (var propiedad in propiedades)
+                    {
+                        // Obtener ID del detalle general del producto
+                        DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+
+                        SQLiteDataReader dr3 = sql_cmd.ExecuteReader();
+
+                        if (dr3.HasRows)
+                        {
+                            while (dr3.Read())
+                            {
+                                // ID del detalle
+                                var idDetalle = Convert.ToInt32(dr3["IDDetalleGral"].ToString());
+
+                                // Obtener la descripcion
+                                DatosConexion($"SELECT * FROM DetalleGeneral WHERE ID = {idDetalle} AND IDUsuario = {FormPrincipal.userID} AND ChckName = '{propiedad}'");
+
+                                SQLiteDataReader dr4 = sql_cmd.ExecuteReader();
+
+                                if (dr4.Read())
+                                {
+                                    var descripcion = dr4["Descripcion"].ToString();
+
+                                    datos.Add(propiedad, descripcion);
+                                }
+
+                                dr4.Close();
+                            }
+                        }
+
+                        dr3.Close();
+                    }
+                }
+
+                dr.Close();
+            }
+
+            return datos;
         }
 
         private void DatosConexion(string consulta)
