@@ -68,11 +68,13 @@ namespace PuntoDeVentaV2
         }
 
         #region Método para cargar los datos en el DataGridView
-        public void CargarDatos(int estado = 1)
+        public void CargarDatos(int estado = 1, bool busqueda = false)
         {
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
+
+            var consulta = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
@@ -83,8 +85,35 @@ namespace PuntoDeVentaV2
                 sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             }
 
+            // Si busqueda es true obtenemos las fechas para realizar el filtrado de las ventas
+            if (busqueda)
+            {
+                var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+                var opcion = cbTipoVentas.SelectedValue.ToString();
+
+                //Ventas pagadas
+                if (opcion == "VP") { estado = 1; }
+                //Ventas guardadas
+                if (opcion == "VG") { estado = 2; }
+                //Ventas canceladas
+                if (opcion == "VC") { estado = 3; }
+                //Ventas a credito
+                if (opcion == "VCC") { estado = 4; }
+                //Facturas
+                if (opcion == "FAC") { estado = 5; }
+                //Presupuestos
+                if (opcion == "PRE") { estado = 6; }
+
+                consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
+            }
+            else
+            {
+                consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+            }
+
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'", sql_con);
+            sql_cmd = new SQLiteCommand(consulta, sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVListadoVentas.Rows.Clear();
@@ -186,6 +215,8 @@ namespace PuntoDeVentaV2
                 }
 
                 AgregarTotales(iva, subtotal, total);
+
+                DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
             }
 
             dr.Close();
@@ -209,10 +240,7 @@ namespace PuntoDeVentaV2
 
         private void btnBuscarVentas_Click(object sender, EventArgs e)
         {
-            string fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
-            string fechaFinal   = dpFechaFinal.Value.ToString("yyyy-MM-dd");
-
-            MessageBox.Show(fechaInicial + " " + fechaFinal);
+            CargarDatos(busqueda: true);
         }
 
         private void btnNuevaVenta_Click(object sender, EventArgs e)
