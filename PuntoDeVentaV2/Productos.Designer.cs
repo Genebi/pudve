@@ -64,6 +64,7 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnPedido = new System.Windows.Forms.Button();
             this.btnCleanFilter = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnImprimir = new System.Windows.Forms.Button();
@@ -98,7 +99,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnPedido = new System.Windows.Forms.Button();
+            this.lbCapital = new System.Windows.Forms.Label();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -482,6 +483,19 @@
             this.panel1.Size = new System.Drawing.Size(942, 195);
             this.panel1.TabIndex = 15;
             // 
+            // btnPedido
+            // 
+            this.btnPedido.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnPedido.Image = global::PuntoDeVentaV2.Properties.Resources.print;
+            this.btnPedido.Location = new System.Drawing.Point(452, 117);
+            this.btnPedido.Name = "btnPedido";
+            this.btnPedido.Size = new System.Drawing.Size(85, 28);
+            this.btnPedido.TabIndex = 22;
+            this.btnPedido.Text = "Pedido";
+            this.btnPedido.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPedido.UseVisualStyleBackColor = true;
+            this.btnPedido.Click += new System.EventHandler(this.btnPedido_Click);
+            // 
             // btnCleanFilter
             // 
             this.btnCleanFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -729,6 +743,7 @@
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.lbCapital);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.linkLblPaginaSiguiente);
@@ -956,18 +971,14 @@
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnPedido
+            // lbCapital
             // 
-            this.btnPedido.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnPedido.Image = global::PuntoDeVentaV2.Properties.Resources.print;
-            this.btnPedido.Location = new System.Drawing.Point(452, 117);
-            this.btnPedido.Name = "btnPedido";
-            this.btnPedido.Size = new System.Drawing.Size(85, 28);
-            this.btnPedido.TabIndex = 22;
-            this.btnPedido.Text = "Pedido";
-            this.btnPedido.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnPedido.UseVisualStyleBackColor = true;
-            this.btnPedido.Click += new System.EventHandler(this.btnPedido_Click);
+            this.lbCapital.AutoSize = true;
+            this.lbCapital.Location = new System.Drawing.Point(8, 18);
+            this.lbCapital.Name = "lbCapital";
+            this.lbCapital.Size = new System.Drawing.Size(51, 13);
+            this.lbCapital.TabIndex = 22;
+            this.lbCapital.Text = "Capital: 0";
             // 
             // Productos
             // 
@@ -1071,5 +1082,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnCleanFilter;
         private System.Windows.Forms.Button btnPedido;
+        private System.Windows.Forms.Label lbCapital;
     }
 }

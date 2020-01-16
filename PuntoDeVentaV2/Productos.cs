@@ -1079,6 +1079,9 @@ namespace PuntoDeVentaV2
             filtroOrdenarPor();
 
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
+
+            // Calcular capital temporalmente (informativo)
+            lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("0.00");
         }
 
         private void btnPedido_Click(object sender, EventArgs e)

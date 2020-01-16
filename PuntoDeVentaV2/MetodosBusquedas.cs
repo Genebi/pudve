@@ -1277,6 +1277,32 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
+        public float CalcularCapital()
+        {
+            float total = 0f;
+
+            DatosConexion($"SELECT Stock, Precio FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    var stock = float.Parse(dr["Stock"].ToString());
+                    var precio = float.Parse(dr["Precio"].ToString());
+
+                    var resultado = stock * precio;
+
+                    total += resultado;
+                }
+            }
+
+            dr.Close();
+
+            return total;
+        }
+
         private void DatosConexion(string consulta)
         {
             Conexion();
