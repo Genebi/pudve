@@ -120,7 +120,16 @@ namespace PuntoDeVentaV2
 
                 foreach (var propiedad in datos)
                 {
-                    row.Cells[propiedad.Key].Value = propiedad.Value;
+                    var valor = propiedad.Value;
+
+                    if (propiedad.Key == "Tipo")
+                    {
+                        if (valor == "P") { valor = "PRODUCTO"; }
+                        if (valor == "S") { valor = "SERVICIO"; }
+                        if (valor == "PQ") { valor = "PAQUETE"; }
+                    }
+
+                    row.Cells[propiedad.Key].Value = valor;
                 }
             }
         }

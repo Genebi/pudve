@@ -1225,6 +1225,10 @@ namespace PuntoDeVentaV2
 
                     dr2.Close();
                 }
+                else
+                {
+                    datos.Add("Proveedor", "N/A");
+                }
 
                 // Obtener datos de las propiedades
                 if (propiedades.Count > 0)
@@ -1257,6 +1261,10 @@ namespace PuntoDeVentaV2
 
                                 dr4.Close();
                             }
+                        }
+                        else
+                        {
+                            datos.Add(propiedad, "N/A");
                         }
 
                         dr3.Close();
