@@ -165,19 +165,6 @@ namespace PuntoDeVentaV2
             return db;
         }
 
-        public void CargarInformacion(string consulta, DataGridView dgv)
-        {
-            Conectarse();
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            DB = new SQLiteDataAdapter(consulta, sql_con);
-            DS.Reset();
-            DB.Fill(DS);
-            DT = DS.Tables[0];
-            dgv.DataSource = DT;
-            sql_con.Close();
-        }
-
         public DataTable ConsultaRegimenFiscal()
         {
             string consulta = "SELECT CodigoRegimen, Descripcion FROM RegimenFiscal";
