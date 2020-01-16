@@ -100,81 +100,112 @@ namespace PuntoDeVentaV2
             Bitmap sinImagen = new Bitmap(1, 1);
             sinImagen.SetPixel(0, 0, Color.White);
 
-            while (dr.Read())
+            if (dr.HasRows)
             {
+                float iva = 0f;
+                float subtotal = 0f;
+                float total = 0f;
 
-                int idVenta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
-                int status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
-
-                string cliente = "Público General";
-                string rfc = "XAXX010101000";
-
-                //Obtener detalle de venta y datos del cliente
-                var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
-
-                if (detalles.Length > 0)
+                while (dr.Read())
                 {
-                    if (Convert.ToInt32(detalles[0]) > 0)
+
+                    int idVenta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
+                    int status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
+
+                    string cliente = "Público General";
+                    string rfc = "XAXX010101000";
+
+                    //Obtener detalle de venta y datos del cliente
+                    var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+
+                    if (detalles.Length > 0)
                     {
-                        var infoCliente = mb.ObtenerDatosCliente(Convert.ToInt32(detalles[0]), FormPrincipal.userID);
-                        cliente = infoCliente[0];
-                        rfc = infoCliente[1];
+                        if (Convert.ToInt32(detalles[0]) > 0)
+                        {
+                            var infoCliente = mb.ObtenerDatosCliente(Convert.ToInt32(detalles[0]), FormPrincipal.userID);
+                            cliente = infoCliente[0];
+                            rfc = infoCliente[1];
+                        }
+                    }
+
+
+                    //Obtener el cliente de la venta guardada
+                    if (estado == 2)
+                    {
+                        var idCliente = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDCliente")));
+
+                        if (idCliente > 0)
+                        {
+                            var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
+                            cliente = infoCliente[0];
+                            rfc = infoCliente[1];
+                        }
+                    }
+
+                    int rowId = DGVListadoVentas.Rows.Add();
+
+                    DataGridViewRow row = DGVListadoVentas.Rows[rowId];
+
+                    var ivaTmp = float.Parse(dr.GetValue(dr.GetOrdinal("IVA16")).ToString());
+                    var subtotalTmp = float.Parse(dr.GetValue(dr.GetOrdinal("Subtotal")).ToString());
+                    var totalTmp = float.Parse(dr.GetValue(dr.GetOrdinal("Total")).ToString());
+
+                    iva += ivaTmp;
+                    subtotal += subtotalTmp;
+                    total += totalTmp;
+
+                    row.Cells["ID"].Value = idVenta;
+                    row.Cells["Cliente"].Value = cliente;
+                    row.Cells["RFC"].Value = rfc;
+                    row.Cells["Subtotal"].Value = subtotalTmp.ToString("0.00");
+                    row.Cells["IVA"].Value = ivaTmp.ToString("0.00");
+                    row.Cells["Total"].Value = totalTmp.ToString("0.00");
+                    row.Cells["Folio"].Value = dr.GetValue(dr.GetOrdinal("Folio"));
+                    row.Cells["Serie"].Value = dr.GetValue(dr.GetOrdinal("Serie"));
+                    //row.Cells["Pago"].Value = dr.GetValue(dr.GetOrdinal("MetodoPago"));
+                    //row.Cells["Empleado"].Value = dr.GetValue(dr.GetOrdinal("IDEmpleado"));
+                    row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+
+                    row.Cells["Cancelar"].Value = cancelar;
+                    row.Cells["Factura"].Value = factura;
+                    row.Cells["Ticket"].Value = ticket;
+                    row.Cells["Abono"].Value = credito;
+                    row.Cells["Timbrar"].Value = timbrar;
+
+                    //Ventas canceladas
+                    if (status == 3)
+                    {
+                        row.Cells["Cancelar"].Value = sinImagen;
+                    }
+
+                    //Ventas a credito
+                    if (status != 4)
+                    {
+                        row.Cells["Abono"].Value = info;
                     }
                 }
 
-
-                //Obtener el cliente de la venta guardada
-                if (estado == 2)
-                {
-                    var idCliente = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDCliente")));
-
-                    if (idCliente > 0)
-                    {
-                        var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
-                        cliente = infoCliente[0];
-                        rfc = infoCliente[1];
-                    }
-                }
-
-                int rowId = DGVListadoVentas.Rows.Add();
-
-                DataGridViewRow row = DGVListadoVentas.Rows[rowId];
-
-                row.Cells["ID"].Value = idVenta;
-                row.Cells["Cliente"].Value = cliente;
-                row.Cells["RFC"].Value = rfc;
-                row.Cells["Subtotal"].Value = dr.GetValue(dr.GetOrdinal("Subtotal"));
-                row.Cells["IVA"].Value = dr.GetValue(dr.GetOrdinal("IVA16"));
-                row.Cells["Total"].Value = dr.GetValue(dr.GetOrdinal("Total"));
-                row.Cells["Folio"].Value = dr.GetValue(dr.GetOrdinal("Folio"));
-                row.Cells["Serie"].Value = dr.GetValue(dr.GetOrdinal("Serie"));
-                //row.Cells["Pago"].Value = dr.GetValue(dr.GetOrdinal("MetodoPago"));
-                //row.Cells["Empleado"].Value = dr.GetValue(dr.GetOrdinal("IDEmpleado"));
-                row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
-
-                row.Cells["Cancelar"].Value = cancelar;
-                row.Cells["Factura"].Value = factura;
-                row.Cells["Ticket"].Value = ticket;
-                row.Cells["Abono"].Value = credito;
-                row.Cells["Timbrar"].Value = timbrar;
-
-                //Ventas canceladas
-                if (status == 3)
-                {
-                    row.Cells["Cancelar"].Value = sinImagen;
-                }
-
-                //Ventas a credito
-                if (status != 4)
-                {
-                    row.Cells["Abono"].Value = info;
-                }
+                AgregarTotales(iva, subtotal, total);
             }
 
             dr.Close();
             sql_con.Close();
         }
         #endregion
+
+        private void AgregarTotales(float iva, float subtotal, float total)
+        {
+            int idFila = DGVListadoVentas.Rows.Add();
+            DataGridViewRow fila = DGVListadoVentas.Rows[idFila];
+            fila.DefaultCellStyle.NullValue = null;
+            fila.DefaultCellStyle.BackColor = Color.FromArgb(255, 207, 53, 20);
+            fila.DefaultCellStyle.ForeColor = Color.White;
+            fila.DefaultCellStyle.Font = new Font("Arial", 10f);
+            fila.Cells["Cliente"].Value = "TOTAL";
+            fila.Cells["Subtotal"].Value = subtotal.ToString("0.00");
+            fila.Cells["IVA"].Value = iva.ToString("0.00");
+            fila.Cells["Total"].Value = total.ToString("0.00");
+        }
 
         private void btnBuscarVentas_Click(object sender, EventArgs e)
         {
@@ -228,7 +259,9 @@ namespace PuntoDeVentaV2
         #region Manejo del evento MouseEnter para el DataGridView
         private void DGVListadoVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            var ultimaFila = DGVListadoVentas.Rows.Count - 1;
+
+            if (e.RowIndex >= 0 && e.RowIndex != ultimaFila)
             {
                 var opcion = cbTipoVentas.SelectedValue.ToString();
                 var permitir = true;
@@ -276,9 +309,13 @@ namespace PuntoDeVentaV2
                         coordenadaX = 56;
                     }
 
-                    VerToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y, permitir);
+                    // Si es diferente a la fila donde se muestran los totales
+                    if (e.RowIndex != DGVListadoVentas.Rows.Count - 1)
+                    {
+                        VerToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y, permitir);
 
-                    textoTT = string.Empty;
+                        textoTT = string.Empty;
+                    } 
                 }
                 else
                 {
@@ -298,7 +335,9 @@ namespace PuntoDeVentaV2
 
         private void DGVListadoVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            var ultimaFila = DGVListadoVentas.Rows.Count - 1;
+
+            if (e.RowIndex >= 0 && e.RowIndex != ultimaFila)
             {
                 var opcion = cbTipoVentas.SelectedValue.ToString();
 
