@@ -748,6 +748,7 @@ namespace PuntoDeVentaV2
                                 {
                                     file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
                                 }
+                                file.Close();
                             }
                         }
                         else if (text.Length.Equals(0))
@@ -797,6 +798,7 @@ namespace PuntoDeVentaV2
                                 {
                                     file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
                                 }
+                                file.Close();
                             }
                         }
                     }
@@ -925,7 +927,7 @@ namespace PuntoDeVentaV2
                     cbProveedor.Height = 21;
                     cbProveedor.Location = new Point(119, 10);
                     cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
-                    cbProveedor.Items.Add("Selecciona un Proveedor");
+                    cbProveedor.Items.Add("Selecciona Proveedor");
                     cbProveedor.Items.Add(itemDiccionario.Value.Item3);
                     cbProveedor.SelectedIndex = 1;
                     cbProveedor.SelectedIndexChanged += new System.EventHandler(comboBoxProveedor_SelectValueChanged);
@@ -1065,8 +1067,7 @@ namespace PuntoDeVentaV2
             {
                 saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             }
-            //saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
-
+            
             path = saveDirectoryFile;
 
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))

@@ -1328,7 +1328,7 @@ namespace PuntoDeVentaV2
 
         public void verificarBotonLimpiarTags()
         {
-            if (auxWord.Count == 0 && setUpVariable.Count == 0)
+            if (auxWord.Count == 0 && setUpVariable.Count == 0 && setUpDinamicos.Count == 0)
             {
                 btnCleanFilter.Visible = false;
             }
@@ -1399,6 +1399,7 @@ namespace PuntoDeVentaV2
                         setUpDinamicos.Clear();
                     }
                 }
+                verificarBotonLimpiarTags();
             }
             else if (usrNo.Equals(0))
             {
@@ -1409,28 +1410,51 @@ namespace PuntoDeVentaV2
 
         private void borrarEtiquetasDinamicasSetUpDinamicos()
         {
-            string nameTag = string.Empty;
+            string nameTag = string.Empty,
+                    rutaCompletaFile = string.Empty,
+                    fileNameDictionary = "DiccionarioDetalleBasicos.txt";
+            string[] words;
+            List<string> listDictionary = new List<string>();
+
+            listDictionary.Clear();
 
             foreach (var itemSetUpDinamicos in setUpDinamicos)
             {
-                    nameTag = itemSetUpDinamicos.Value.Item1.Remove(0, 9);
-                    foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                nameTag = itemSetUpDinamicos.Value.Item1.Remove(0, 9);
+                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                {
+                    if (item is Panel)
                     {
-                        if (item is Panel)
+                        if (item.Name.Equals("pEtiqueta" + nameTag))
                         {
-                            if (item.Name.Equals("pEtiqueta" + nameTag))
+                            try
                             {
-                                try
-                                {
-                                    fLPDynamicTags.Controls.Remove(item);
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show("Error: " + ex.Message.ToString());
-                                }
+                                fLPDynamicTags.Controls.Remove(item);
+                                var myKey = setUpDinamicos.FirstOrDefault(x => x.Value.Item1 == "chkBoxchk" + nameTag).Key;
+                                //listDictionary.Add(myKey + "|" + itemSetUpDinamicos.Value.Item1 + "|False|Selecciona " + nameTag + "|" + itemSetUpDinamicos.Value.Item4);
+                                //listDictionary.Add(myKey + "|" + itemSetUpDinamicos.Value.Item1 + "|" + itemSetUpDinamicos.Value.Item2 + "|" + itemSetUpDinamicos.Value.Item3 + "|" + itemSetUpDinamicos.Value.Item4);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error: " + ex.Message.ToString());
                             }
                         }
                     }
+                }
+            }
+            foreach (var item in listDictionary)
+            {
+                words = item.Split('|');
+                setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
+            }
+            listDictionary.Clear();
+            rutaCompletaFile = path + fileNameDictionary;
+            using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+            {
+                foreach (var entry in setUpDinamicos)
+                {
+                    file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                }
             }
             setUpDinamicos.Clear();
         }
