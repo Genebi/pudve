@@ -85,6 +85,28 @@ namespace PuntoDeVentaV2
                 fechaActual = DateTime.Now.ToString("dd/MM/yyyy");
                 Diferencias = CantidadFisico - CantidadAlmacen;
                 row.Cells["Diferencia"].Value = Diferencias;
+
+                var precioProducto = float.Parse(row.Cells["PrecioProducto"].Value.ToString());
+                var cantidadPerdida = 0f;
+                var cantidadRecuperada = 0f;
+
+                // Si es negativa
+                if (Diferencias < 0)
+                {
+                    var diferenciaTmp = Math.Abs(Diferencias);
+                    cantidadPerdida = diferenciaTmp * precioProducto;
+                    row.Cells["Perdida"].Value = cantidadPerdida.ToString("0.00");
+                    row.Cells["Recuperada"].Value = "---";
+                }
+
+                // Si es positiva
+                if (Diferencias > 0)
+                {
+                    cantidadRecuperada = Diferencias * precioProducto;
+                    row.Cells["Recuperada"].Value = cantidadRecuperada.ToString("0.00");
+                    row.Cells["Perdida"].Value = "---";
+                }
+
                 if (soloFechaRevision == fechaActual)
                 {
                     queryUpdateCalculos = $"UPDATE '{tabla}' SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}'";
@@ -102,6 +124,7 @@ namespace PuntoDeVentaV2
             DGVRevisionStock.Columns["Tipo"].Visible = false;
             DGVRevisionStock.Columns["StatusRevision"].Visible = false;
             DGVRevisionStock.Columns["StatusInventariado"].Visible = false;
+            DGVRevisionStock.Columns["Vendido"].Visible = false;
 
             // Cambiamos el texto de la columbas para mejor visualizacion
             DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID";
@@ -120,6 +143,16 @@ namespace PuntoDeVentaV2
 
                 if (DGVRevisionStock.Rows.Count > 0)
                 {
+                    DataGridViewColumn colPerdida = new DataGridViewTextBoxColumn();
+                    colPerdida.HeaderText = "Cantidad perdida";
+                    colPerdida.Name = "Perdida";
+                    DGVRevisionStock.Columns.Add(colPerdida);
+
+                    DataGridViewColumn colRecuperada = new DataGridViewTextBoxColumn();
+                    colRecuperada.HeaderText = "Cantidad recuperada";
+                    colRecuperada.Name = "Recuperada";
+                    DGVRevisionStock.Columns.Add(colRecuperada); 
+
                     foreach (DataGridViewRow row in DGVRevisionStock.Rows)
                     {
                         var idProducto = Convert.ToInt32(row.Cells["IDAlmacen"].Value);
