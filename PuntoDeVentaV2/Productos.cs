@@ -1113,8 +1113,6 @@ namespace PuntoDeVentaV2
                 saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             }
 
-            path = saveDirectoryFile;
-
             creacionEtiquetasDinamicas();
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
@@ -1406,6 +1404,15 @@ namespace PuntoDeVentaV2
             usrNo = FormPrincipal.userID;
             fileName = "DiccionarioDetalleBasicos.txt";
 
+            if (!path.Equals(""))
+            {
+                path = saveDirectoryFile + usrNo + @"\";
+            }
+            else if (path.Equals(""))
+            {
+                path = saveDirectoryFile + usrNo + @"\";
+            }
+
             if (usrNo > 0)
             {
                 if (!isEmpty)
@@ -1427,7 +1434,6 @@ namespace PuntoDeVentaV2
                 }
                 else if (isEmpty)
                 {
-                    path += usrNo + @"\";
                     if (!System.IO.File.Exists(path + fileName))
                     {
                         Directory.CreateDirectory(path);
