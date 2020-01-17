@@ -34,6 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.btnGenerarPDF = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVRevisionStock)).BeginInit();
             this.SuspendLayout();
@@ -99,7 +100,7 @@
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(488, 502);
+            this.button2.Location = new System.Drawing.Point(157, 497);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(114, 30);
             this.button2.TabIndex = 3;
@@ -113,29 +114,48 @@
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(964, 497);
+            this.button3.Location = new System.Drawing.Point(303, 497);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(114, 30);
             this.button3.TabIndex = 4;
             this.button3.Text = "Mostrar Todos";
             this.button3.UseVisualStyleBackColor = false;
             // 
+            // btnGenerarPDF
+            // 
+            this.btnGenerarPDF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnGenerarPDF.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGenerarPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerarPDF.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGenerarPDF.ForeColor = System.Drawing.Color.White;
+            this.btnGenerarPDF.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGenerarPDF.Location = new System.Drawing.Point(964, 497);
+            this.btnGenerarPDF.Name = "btnGenerarPDF";
+            this.btnGenerarPDF.Size = new System.Drawing.Size(114, 30);
+            this.btnGenerarPDF.TabIndex = 5;
+            this.btnGenerarPDF.Text = "Generar PDF";
+            this.btnGenerarPDF.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnGenerarPDF.UseVisualStyleBackColor = false;
+            this.btnGenerarPDF.Click += new System.EventHandler(this.btnGenerarPDF_Click);
+            // 
             // ReporteFinalRevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 562);
+            this.Controls.Add(this.btnGenerarPDF);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ReporteFinalRevisarInventario";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Reporte Final de Revisar Inventario Fisico";
+            this.Text = "PUDVE - Reporte final de Inventario";
             this.Load += new System.EventHandler(this.ReporteFinalRevisarInventario_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVRevisionStock)).EndInit();
@@ -152,5 +172,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnGenerarPDF;
     }
 }
