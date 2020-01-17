@@ -1382,14 +1382,10 @@ namespace PuntoDeVentaV2
                             Properties.Settings.Default.strFiltroStock = strFiltroStock;
                             Properties.Settings.Default.Save();
                             Properties.Settings.Default.Reload();
-                            //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                            //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
                             Properties.Settings.Default.strFiltroStock = string.Empty;
-                            //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                            //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else if (strTxtStock.Equals(""))
@@ -1417,14 +1413,10 @@ namespace PuntoDeVentaV2
                             Properties.Settings.Default.strFiltroPrecio = strFiltroPrecio;
                             Properties.Settings.Default.Save();
                             Properties.Settings.Default.Reload();
-                            //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                            //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
                             Properties.Settings.Default.strFiltroPrecio = string.Empty;
-                            //MessageBox.Show("Query Construido es: " + Properties.Settings.Default.strFiltroStock,
-                            //            "Filtro Construido", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else if (strTxtPrecio.Equals(""))
@@ -1525,6 +1517,7 @@ namespace PuntoDeVentaV2
                 producto.borrarVariablesStockPrecio();
                 producto.CargarDatos();
                 producto.cargarListaSetUpVaribale();
+                producto.borrarEtiquetasDinamicasSetUpDinamicos();
                 producto.dictionaryLoad();
                 producto.verificarBotonLimpiarTags();
             }

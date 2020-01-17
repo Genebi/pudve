@@ -987,6 +987,60 @@ namespace PuntoDeVentaV2
         {
             txtBusqueda.Text = string.Empty;
             removeAllSystemTags();
+            modificarDiccionarioEtiquetas();
+        }
+
+        private void modificarDiccionarioEtiquetas()
+        {
+            string nameTag = string.Empty,
+            rutaCompletaFile = string.Empty,
+            fileNameDictionary = "DiccionarioDetalleBasicos.txt";
+
+            string[] words;
+
+            List<string> listDictionary = new List<string>();
+
+            listDictionary.Clear();
+
+            foreach (var itemSetUpDinamicos in setUpDinamicos)
+            {
+                nameTag = itemSetUpDinamicos.Value.Item1.Remove(0, 9);
+                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                {
+                    if (item is Panel)
+                    {
+                        if (item.Name.Equals("pEtiqueta" + nameTag))
+                        {
+                            try
+                            {
+                                fLPDynamicTags.Controls.Remove(item);
+                                var myKey = setUpDinamicos.FirstOrDefault(x => x.Value.Item1 == "chkBoxchk" + nameTag).Key;
+                                listDictionary.Add(myKey + "|" + itemSetUpDinamicos.Value.Item1 + "|False|Selecciona " + nameTag + "|" + itemSetUpDinamicos.Value.Item4);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error: " + ex.Message.ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (var item in listDictionary)
+            {
+                words = item.Split('|');
+                setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
+            }
+            listDictionary.Clear();
+            rutaCompletaFile = path + fileNameDictionary;
+            using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+            {
+                foreach (var entry in setUpDinamicos)
+                {
+                    file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                }
+                file.Close();
+            }
+            setUpDinamicos.Clear();
         }
 
         private void removeAllSystemTags()
@@ -1356,7 +1410,7 @@ namespace PuntoDeVentaV2
             {
                 if (!isEmpty)
                 {
-                    borrarEtiquetasDinamicasSetUpDinamicos();
+                    //borrarEtiquetasDinamicasSetUpDinamicos();
 
                     setUpDinamicos.Clear();
 
@@ -1395,7 +1449,6 @@ namespace PuntoDeVentaV2
                     }
                     else if (new FileInfo(path + fileName).Length < 0)
                     {
-                        //MessageBox.Show("Archivo con contenido");
                         setUpDinamicos.Clear();
                     }
                 }
@@ -1408,12 +1461,11 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void borrarEtiquetasDinamicasSetUpDinamicos()
+        public void borrarEtiquetasDinamicasSetUpDinamicos()
         {
-            string nameTag = string.Empty,
-                    rutaCompletaFile = string.Empty,
-                    fileNameDictionary = "DiccionarioDetalleBasicos.txt";
-            string[] words;
+            string  nameTag = string.Empty,
+                    rutaCompletaFile = string.Empty;
+
             List<string> listDictionary = new List<string>();
 
             listDictionary.Clear();
@@ -1430,30 +1482,13 @@ namespace PuntoDeVentaV2
                             try
                             {
                                 fLPDynamicTags.Controls.Remove(item);
-                                var myKey = setUpDinamicos.FirstOrDefault(x => x.Value.Item1 == "chkBoxchk" + nameTag).Key;
-                                //listDictionary.Add(myKey + "|" + itemSetUpDinamicos.Value.Item1 + "|False|Selecciona " + nameTag + "|" + itemSetUpDinamicos.Value.Item4);
-                                //listDictionary.Add(myKey + "|" + itemSetUpDinamicos.Value.Item1 + "|" + itemSetUpDinamicos.Value.Item2 + "|" + itemSetUpDinamicos.Value.Item3 + "|" + itemSetUpDinamicos.Value.Item4);
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Error: " + ex.Message.ToString());
+                                MessageBox.Show("No se logro hacer el limpiado de Panel\nde Etiquetas Error: " + ex.Message.ToString());
                             }
                         }
                     }
-                }
-            }
-            foreach (var item in listDictionary)
-            {
-                words = item.Split('|');
-                setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
-            }
-            listDictionary.Clear();
-            rutaCompletaFile = path + fileNameDictionary;
-            using (StreamWriter file = new StreamWriter(rutaCompletaFile))
-            {
-                foreach (var entry in setUpDinamicos)
-                {
-                    file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
                 }
             }
             setUpDinamicos.Clear();
