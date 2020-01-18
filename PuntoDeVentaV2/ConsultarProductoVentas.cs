@@ -129,6 +129,12 @@ namespace PuntoDeVentaV2
                         if (valor == "PQ") { valor = "PAQUETE"; }
                     }
 
+                    if (propiedad.Key == "Precio")
+                    {
+                        var precio = float.Parse(valor);
+                        valor = precio.ToString("0.00");
+                    }
+
                     row.Cells[propiedad.Key].Value = valor;
                 }
             }
