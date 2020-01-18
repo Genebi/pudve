@@ -168,6 +168,18 @@ namespace PuntoDeVentaV2
 
                 //Datos para la tabla historial de compras
                 //string[] datos = new string[] { producto, cantidadCompra, precioProducto.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
+                if (string.IsNullOrWhiteSpace(precioCompra))
+                {
+                    precioCompra = "0";
+                }
+
+                if (string.IsNullOrWhiteSpace(cantidadCompra))
+                {
+                    MessageBox.Show("Es necesario ingresar una cantidad de compra", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCantidadCompra.Focus();
+                    return;
+                }
+
                 float preCompra = (float)Convert.ToDouble(precioCompra);
                 float preProduct = preCompra * (float)1.60;
 
@@ -235,6 +247,12 @@ namespace PuntoDeVentaV2
                     }
 
                     auxiliar *= -1;
+                }
+
+                if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
+                {
+                    MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
 
                 //Datos para la tabla historial de compras
