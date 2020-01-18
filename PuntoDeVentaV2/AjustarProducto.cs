@@ -64,7 +64,7 @@ namespace PuntoDeVentaV2
                 // Comprueba si el producto tiene un proveedor asignado
                 if (proveedorActual.Length > 0)
                 {
-                    cbProveedores.SelectedValue = proveedorActual[0];
+                    cbProveedores.SelectedValue = proveedorActual[1];
                 }
                 else
                 {

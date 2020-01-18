@@ -1258,6 +1258,10 @@ namespace PuntoDeVentaV2
 
                                     datos.Add(propiedad, descripcion);
                                 }
+                                else
+                                {
+                                    datos.Add(propiedad, "N/A");
+                                }
 
                                 dr4.Close();
                             }
