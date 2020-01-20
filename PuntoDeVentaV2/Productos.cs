@@ -1949,7 +1949,18 @@ namespace PuntoDeVentaV2
                 queryHead = "SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
             }
 
-            queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 1 ";
+            if (status.Equals(0))
+            {
+                queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = {status} ";
+            }
+            else if (status.Equals(1))
+            {
+                queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = {status} ";
+            }
+            else if (status.Equals(2))
+            {
+                queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' ";
+            }
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
