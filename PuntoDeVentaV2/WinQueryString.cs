@@ -321,12 +321,12 @@ namespace PuntoDeVentaV2
                         }
                         else if (listaProveedores.Length < 0)
                         {
-                            cbProveedor.Items.Add("Selecciona un Proveedor");
+                            cbProveedor.Items.Add("Selecciona Proveedor");
                             cbProveedor.SelectedIndex = 0;
                         }
                         else if (cbProveedor.Items.Count == 0)
                         {
-                            cbProveedor.Items.Add("Selecciona un Proveedor");
+                            cbProveedor.Items.Add("Selecciona Proveedor");
                             cbProveedor.SelectedIndex = 0;
                         }
                         panelContenido.Controls.Add(cbProveedor);
@@ -513,7 +513,17 @@ namespace PuntoDeVentaV2
                                 {
                                     if ((intoSubControlHijo.Name.Equals("cbchkProveedor")) && (intoSubControlHijo is ComboBox))
                                     {
-                                        intoSubControlHijo.Enabled = false;
+                                        ComboBox comBox = (ComboBox)intoSubControlHijo;
+                                        //intoSubControlHijo.Enabled = false;
+                                        comBox.SelectedIndex = 0;
+                                        comBox.Enabled = false;
+                                        //foreach (Control intoComboBoxSubControlHijo in subControlHijo.Controls)
+                                        //{
+                                        //    if ((intoComboBoxSubControlHijo.Name.Equals("")) && (intoComboBoxSubControlHijo is ))
+                                        //    {
+
+                                        //    }
+                                        //}
                                     }
                                 }
                             }
@@ -533,7 +543,7 @@ namespace PuntoDeVentaV2
             // Comprobar que ya exista al menos un Proveedor
             if (listaProveedores.Length > 0)
             {
-                proveedores.Add("0", "Selecciona un Proveedor");
+                proveedores.Add("0", "Selecciona Proveedor");
 
                 foreach (var proveedor in listaProveedores)
                 {
@@ -543,7 +553,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                proveedores.Add("0", "Selecciona un Proveedor");
+                proveedores.Add("0", "Selecciona Proveedor");
             }
         }
 
