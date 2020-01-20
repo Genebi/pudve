@@ -464,7 +464,9 @@ namespace PuntoDeVentaV2
                                 {
                                     if (intoSubControlHijo is ComboBox)
                                     {
-                                        intoSubControlHijo.Enabled = false;
+                                        ComboBox comBox = (ComboBox)intoSubControlHijo;
+                                        comBox.SelectedIndex = 0;
+                                        comBox.Enabled = false;
                                     }
                                 }
                             }
@@ -514,16 +516,8 @@ namespace PuntoDeVentaV2
                                     if ((intoSubControlHijo.Name.Equals("cbchkProveedor")) && (intoSubControlHijo is ComboBox))
                                     {
                                         ComboBox comBox = (ComboBox)intoSubControlHijo;
-                                        //intoSubControlHijo.Enabled = false;
                                         comBox.SelectedIndex = 0;
                                         comBox.Enabled = false;
-                                        //foreach (Control intoComboBoxSubControlHijo in subControlHijo.Controls)
-                                        //{
-                                        //    if ((intoComboBoxSubControlHijo.Name.Equals("")) && (intoComboBoxSubControlHijo is ))
-                                        //    {
-
-                                        //    }
-                                        //}
                                     }
                                 }
                             }
