@@ -1232,6 +1232,7 @@ namespace PuntoDeVentaV2
                 Properties.Settings.Default.Reload();
 
                 txtCantStock.Enabled = false;
+                cbTipoFiltroStock.SelectedIndex = 0;
                 cbTipoFiltroStock.Enabled = false;
                 txtCantStock.Text = "0.0";
             }
