@@ -2948,6 +2948,8 @@ namespace PuntoDeVentaV2
 
             string nameItemLista = string.Empty;
 
+            borrarEtiquetasDinamicasSetUpDinamicos();
+
             if (!isEmptyAuxWord)
             {
                 foreach (var itemLista in auxWord)
