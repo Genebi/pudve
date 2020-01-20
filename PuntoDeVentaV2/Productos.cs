@@ -1502,6 +1502,8 @@ namespace PuntoDeVentaV2
 
         private void crearEtiquetaDinamicaSetUpDinamicos()
         {
+            //borrarEtiquetasDinamicasSetUpDinamicos();
+
             verificarListaDeVariablesEtiquetas();
 
             string nameTag = string.Empty;
@@ -2948,7 +2950,7 @@ namespace PuntoDeVentaV2
 
             string nameItemLista = string.Empty;
 
-            borrarEtiquetasDinamicasSetUpDinamicos();
+            //borrarEtiquetasDinamicasSetUpDinamicos();
 
             if (!isEmptyAuxWord)
             {
