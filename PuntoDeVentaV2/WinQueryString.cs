@@ -1263,6 +1263,7 @@ namespace PuntoDeVentaV2
                 Properties.Settings.Default.Reload();
 
                 txtCantPrecio.Enabled = false;
+                cbTipoFiltroPrecio.SelectedIndex = 0;
                 cbTipoFiltroPrecio.Enabled = false;
                 txtCantPrecio.Text = "0.0";
             }
