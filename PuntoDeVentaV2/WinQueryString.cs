@@ -1389,9 +1389,12 @@ namespace PuntoDeVentaV2
                             Properties.Settings.Default.Save();
                             Properties.Settings.Default.Reload();
                         }
-                        else
+                        else if (strOpcionCBStock.Equals("No Aplica"))
                         {
-                            Properties.Settings.Default.strFiltroStock = string.Empty;
+                            //Properties.Settings.Default.strFiltroStock = string.Empty;
+                            MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Stock",
+                                            "Selección Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txtCantStock.Focus();
                         }
                     }
                     else if (strTxtStock.Equals(""))
@@ -1420,9 +1423,12 @@ namespace PuntoDeVentaV2
                             Properties.Settings.Default.Save();
                             Properties.Settings.Default.Reload();
                         }
-                        else
+                        else if (strOpcionCBPrecio.Equals("No Aplica"))
                         {
-                            Properties.Settings.Default.strFiltroPrecio = string.Empty;
+                            //Properties.Settings.Default.strFiltroPrecio = string.Empty;
+                            MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Precio",
+                                            "Selección Precio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txtCantPrecio.Focus();
                         }
                     }
                     else if (strTxtPrecio.Equals(""))
@@ -1437,25 +1443,12 @@ namespace PuntoDeVentaV2
                 {
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Precio.");
                 }
-                else if (filtroProveedor.Equals(true))
-                {
-                    if (!strOpcionCBProveedor.Equals(""))
-                    {
-                        Properties.Settings.Default.strFiltroProveedor = strFiltroProveedor;
-                        Properties.Settings.Default.Save();
-                        Properties.Settings.Default.Reload();
-                    }
-                    else
-                    {
-                        Properties.Settings.Default.strFiltroProveedor = string.Empty;
-                    }
-                }
-                else if (filtroPrecio.Equals(false))
-                {
-                    //MessageBox.Show("Que Paso...\nFalta Seleccionar Proveedor.");
-                }
+                
                 saveDictionary();
-                this.Close();
+                if((!strOpcionCBStock.Equals("No Aplica")) && (!strOpcionCBPrecio.Equals("No Aplica")))
+                {
+                    this.Close();
+                }
             }
             else if (result == DialogResult.No)
             {
