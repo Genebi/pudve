@@ -14,7 +14,7 @@ namespace PuntoDeVentaV2
     public partial class OpcionesReporteProducto : Form
     {
         private Dictionary<string, string> opcionesDefault;
-        private Dictionary<string, string> seleccionados;
+        private List<string> seleccionados;
         private List<string> ultimos;
         private string ultimoSeleccionado = string.Empty;
         private int contador = 1;
@@ -27,13 +27,12 @@ namespace PuntoDeVentaV2
         private void OpcionesReporteProducto_Load(object sender, EventArgs e)
         {
             ultimos = new List<string>();
-            seleccionados = new Dictionary<string, string>();
+            seleccionados = new List<string>();
             opcionesDefault = new Dictionary<string, string>();
 
             opcionesDefault.Add("Nombre", "Nombre producto");
-            opcionesDefault.Add("Precio", "Precio producto");
+            opcionesDefault.Add("Precio", "Precio de venta");
             opcionesDefault.Add("PrecioCompra", "Precio de compra");
-            opcionesDefault.Add("PrecioVenta", "Precio de venta");
             opcionesDefault.Add("Stock", "Stock");
             opcionesDefault.Add("StockMinimo", "Stock mínimo");
             opcionesDefault.Add("StockMaximo", "Stock máximo");
@@ -102,7 +101,8 @@ namespace PuntoDeVentaV2
                 foreach (var opcion in opcionesDefault)
                 {
                     FlowLayoutPanel panelCustom = new FlowLayoutPanel();
-                    panelCustom.Name = "panel" + opcion.Key;
+                    panelCustom.Name = opcion.Key;
+                    panelCustom.Tag = "panel" + opcion.Key;
                     panelCustom.Width = 350;
                     panelCustom.Height = 30;
                     panelCustom.FlowDirection = FlowDirection.LeftToRight;
@@ -110,15 +110,16 @@ namespace PuntoDeVentaV2
                     //panelCustom.BorderStyle = BorderStyle.FixedSingle;
 
                     CheckBox cbCustom = new CheckBox();
-                    cbCustom.Name = "cb" + opcion.Key;
-                    cbCustom.Tag = opcion.Key;
+                    cbCustom.Name = opcion.Key;
+                    cbCustom.Tag = "cb" + opcion.Key;
                     cbCustom.AutoSize = true;
                     cbCustom.CheckAlign = ContentAlignment.MiddleLeft;
                     cbCustom.CheckedChanged += cbCustom_CheckedChanged;
 
                     Label lbCustom = new Label();
                     lbCustom.Text = opcion.Value;
-                    lbCustom.Name = "lb" + opcion.Key;
+                    lbCustom.Name = opcion.Key;
+                    lbCustom.Tag = "lb" + opcion.Key;
                     lbCustom.Width = 200;
                     lbCustom.Height = 20;
                     lbCustom.TextAlign = ContentAlignment.MiddleLeft;
@@ -143,7 +144,7 @@ namespace PuntoDeVentaV2
             {
                 foreach (var opcion in seleccionados)
                 {
-                    //MessageBox.Show(opcion);
+                    MessageBox.Show(opcion);
                 }
             }
         }
@@ -155,7 +156,22 @@ namespace PuntoDeVentaV2
             if (checkbox.Checked)
             {
                 // Agregamos el nombre de la opcion marcada en el checkbox
-                //seleccionados.Add(checkbox.Name, checkbox.Name);
+                if (!seleccionados.Contains(checkbox.Name))
+                {
+                    seleccionados.Add(checkbox.Name);
+                }
+
+                if (seleccionados.Count > 1)
+                {
+                    //MessageBox.Show("Entro aqui 1");
+
+                    if (!ultimos.Contains(checkbox.Name))
+                    {
+                        var penultimoAgregado = seleccionados[seleccionados.Count - 2];
+                        //MessageBox.Show("Entro aqui 2");
+                        ultimos.Add(penultimoAgregado);
+                    }
+                }
 
                 foreach (Control panelHijo in panelContenedor.Controls)
                 {
@@ -171,25 +187,35 @@ namespace PuntoDeVentaV2
                             if (checkbox.Name != cbTmp.Name && cbTmp.Checked == true)
                             {
                                 cbTmp.Enabled = false;
-                                ultimoSeleccionado = cbTmp.Name;
+                                //ultimoSeleccionado = checkbox.Name;
                             }
                         }
                     } 
                 }
 
                 // Agregamos el ultimo seleccionado
-                if (!string.IsNullOrEmpty(ultimoSeleccionado))
+                /*if (!string.IsNullOrEmpty(ultimoSeleccionado))
                 {
                     ultimos.Add(ultimoSeleccionado);
-                }
+                    MessageBox.Show(ultimoSeleccionado);
+                    ultimoSeleccionado = string.Empty;
+                }*/
             }
             else
             {
+                seleccionados.Remove(checkbox.Name);
+
+                // Se comprueba que la lista no este vacia
                 if (ultimos.Count > 0)
                 {
+                    // Obtenemos el nombre del penultimo checkbox marcado
                     var ultimoAgregado = ultimos[ultimos.Count - 1];
+                    // Obtenemos el indice de ese checkbox con su nombre
                     var ultimoIndice = ultimos.LastIndexOf(ultimoAgregado);
+                    // Finalmente lo removemos de la lista para que no se duplique
                     ultimos.RemoveAt(ultimoIndice);
+
+                    //MessageBox.Show(ultimoAgregado);
 
                     foreach (Control panelHijo in panelContenedor.Controls)
                     {
@@ -199,13 +225,14 @@ namespace PuntoDeVentaV2
                             {
                                 var cbTmp = (CheckBox)cb;
 
+                                // Buscamos el penultimo checkbox por su nombre aqui y lo habilitamos
                                 if (cbTmp.Name.Equals(ultimoAgregado))
                                 {
                                     cbTmp.Enabled = true;
                                 }
                             }
                         }
-                    }
+                    } 
                 }
             }
         }
