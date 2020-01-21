@@ -167,7 +167,7 @@
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(338, 319);
+            this.btnAplicar.Location = new System.Drawing.Point(335, 319);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
             this.btnAplicar.TabIndex = 6;

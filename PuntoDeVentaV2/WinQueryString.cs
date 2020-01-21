@@ -686,6 +686,8 @@ namespace PuntoDeVentaV2
 
         private void saveDictionary()
         {
+            string caption = string.Empty, name = string.Empty;
+
             usrNo = FormPrincipal.userID;
             //path += usrNo + @"\";
             pathTemp = saveDirectoryFile + usrNo + @"\";
@@ -733,17 +735,31 @@ namespace PuntoDeVentaV2
                                             if (cb.Name.Equals("cbchkProveedor"))
                                             {
                                                 itemCB = cb.Text;
+                                                caption = itemCB;
+
                                                 cbName = cb.Name;
+                                                name = cbName.Remove(0, 5);
                                             }
                                             else if (!cb.Name.Equals("cbchkProveedor"))
                                             {
                                                 itemCB = cb.Text;
+                                                caption = itemCB;
+
                                                 cbName = cb.Name;
+                                                name = cbName.Remove(0, 5);
                                             }
                                         }
                                     }
-                                    diccionarioDetalleBasicos.Add(usrNo.ToString(), new Tuple<string, string, string, string>(chkName, chkValue, itemCB, cbName));
+                                    if (!caption.Equals("Selecciona " + name))
+                                    {
+                                        diccionarioDetalleBasicos.Add(usrNo.ToString(), new Tuple<string, string, string, string>(chkName, chkValue, itemCB, cbName));
+                                    }
                                     usrNo++;
+                                }
+                                if (caption.Equals("Selecciona " + name) && chkValue.Equals("True"))
+                                {
+                                    MessageBox.Show("Debe de Elegir una Opción\nde la Lista de " + name,
+                                                    "Opción " + name, MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                             }
                             using (StreamWriter file = new StreamWriter(rutaCompletaFile))
@@ -1445,6 +1461,7 @@ namespace PuntoDeVentaV2
                 }
                 
                 saveDictionary();
+
                 if((!strOpcionCBStock.Equals("No Aplica")) && (!strOpcionCBPrecio.Equals("No Aplica")))
                 {
                     this.Close();
