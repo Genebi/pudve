@@ -1,2 +1,2 @@
-11|chkBoxchkProveedor|True|CORIBA & CORNEJO S. DE R.L. DE C.V.|cbchkProveedor
-13|chkBoxchkTalla|True|CHICA|cbchkTalla
+11|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
+12|chkBoxchkColor|False|Selecciona Color|cbchkColor

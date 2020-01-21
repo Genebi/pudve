@@ -986,11 +986,11 @@ namespace PuntoDeVentaV2
         private void btnCleanFilter_Click(object sender, EventArgs e)
         {
             txtBusqueda.Text = string.Empty;
-            removeAllSystemTags();
-            modificarDiccionarioEtiquetas();
+            removeAllSystemTags(setUpVariable);
+            modificarDiccionarioEtiquetas(fLPDynamicTags);
         }
 
-        private void modificarDiccionarioEtiquetas()
+        private void modificarDiccionarioEtiquetas(Control contenedor)
         {
             string nameTag = string.Empty,
             rutaCompletaFile = string.Empty,
@@ -1002,18 +1002,17 @@ namespace PuntoDeVentaV2
 
             listDictionary.Clear();
 
-            foreach (var itemSetUpDinamicos in setUpDinamicos)
+            foreach (Control item in contenedor.Controls)
             {
-                nameTag = itemSetUpDinamicos.Value.Item1.Remove(0, 9);
-                foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
+                foreach (var itemSetUpDinamicos in setUpDinamicos)
                 {
+                    nameTag = itemSetUpDinamicos.Value.Item1.Remove(0, 9);
                     if (item is Panel)
                     {
-                        if (item.Name.Equals("pEtiqueta" + nameTag))
+                        if (item.Name.Equals("pEtiqueta" + nameTag) && itemSetUpDinamicos.Value.Item2.Equals("True"))
                         {
                             try
                             {
-                                fLPDynamicTags.Controls.Remove(item);
                                 var myKey = setUpDinamicos.FirstOrDefault(x => x.Value.Item1 == "chkBoxchk" + nameTag).Key;
                                 listDictionary.Add(myKey + "|" + itemSetUpDinamicos.Value.Item1 + "|False|Selecciona " + nameTag + "|" + itemSetUpDinamicos.Value.Item4);
                             }
@@ -1025,36 +1024,51 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            foreach (var item in listDictionary)
+
+            foreach (Control control in contenedor.Controls)
             {
-                words = item.Split('|');
-                setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
+                control.Dispose();
             }
-            listDictionary.Clear();
-            rutaCompletaFile = path + fileNameDictionary;
-            using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+            contenedor.Controls.Clear();
+
+            if (listDictionary.Count > 0)
             {
-                foreach (var entry in setUpDinamicos)
+                foreach (var itemDicc in listDictionary)
                 {
-                    file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                    words = itemDicc.Split('|');
+                    setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
                 }
-                file.Close();
+
+                listDictionary.Clear();
+                rutaCompletaFile = path + fileNameDictionary;
+
+                using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+                {
+                    foreach (var entry in setUpDinamicos)
+                    {
+                        file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                    }
+                    file.Close();
+                }
+                setUpDinamicos.Clear();
             }
-            setUpDinamicos.Clear();
         }
 
-        private void removeAllSystemTags()
+        private void removeAllSystemTags(List<string> VariablesSistema)
         {
-            //listVariables
-            foreach (Control control in fLPDynamicTags.Controls)
+            string[] words;
+            
+            foreach (var control in VariablesSistema)
             {
-                listVariables.Add(control);
-            }
-
-            foreach (Control control in listVariables)
-            {
-                fLPDynamicTags.Controls.Remove(control);
-                control.Dispose();
+                words = control.Split(' ');
+                foreach (Control panel in fLPDynamicTags.Controls)
+                {
+                    if (panel.Name.Equals("pEtiqueta" + words[0]))
+                    {
+                        fLPDynamicTags.Controls.Remove(panel);
+                        panel.Dispose();
+                    }
+                }
             }
 
             setUpVariable.Clear();
