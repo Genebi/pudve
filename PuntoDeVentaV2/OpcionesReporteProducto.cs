@@ -142,10 +142,11 @@ namespace PuntoDeVentaV2
         {
             if (seleccionados.Count > 0)
             {
-                foreach (var opcion in seleccionados)
-                {
-                    MessageBox.Show(opcion);
-                }
+                GenerarReporte();
+            }
+            else
+            {
+                MessageBox.Show("Es necesario seleccionar al menos una opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -155,20 +156,24 @@ namespace PuntoDeVentaV2
 
             if (checkbox.Checked)
             {
-                // Agregamos el nombre de la opcion marcada en el checkbox
+                // Agregamos el nombre de la opcion marcada en el checkbox en caso de que no exista
+                // previamente en la lista
                 if (!seleccionados.Contains(checkbox.Name))
                 {
                     seleccionados.Add(checkbox.Name);
                 }
 
+                // Si la lista de seleccionados tiene mas de un elemento
                 if (seleccionados.Count > 1)
                 {
-                    //MessageBox.Show("Entro aqui 1");
-
+                    // Comprueba que no este en la lista de los ultimos que han sido agregados
                     if (!ultimos.Contains(checkbox.Name))
                     {
+                        // Se obtiene el penultimo agregado en la lista de seleccionados para saber
+                        // cual sera el que se va a remover de la lista de ultimos al momento de desmarcar
+                        // un checkbox y saber cual sera el proximo que será habilitado
                         var penultimoAgregado = seleccionados[seleccionados.Count - 2];
-                        //MessageBox.Show("Entro aqui 2");
+
                         ultimos.Add(penultimoAgregado);
                     }
                 }
@@ -187,19 +192,10 @@ namespace PuntoDeVentaV2
                             if (checkbox.Name != cbTmp.Name && cbTmp.Checked == true)
                             {
                                 cbTmp.Enabled = false;
-                                //ultimoSeleccionado = checkbox.Name;
                             }
                         }
                     } 
                 }
-
-                // Agregamos el ultimo seleccionado
-                /*if (!string.IsNullOrEmpty(ultimoSeleccionado))
-                {
-                    ultimos.Add(ultimoSeleccionado);
-                    MessageBox.Show(ultimoSeleccionado);
-                    ultimoSeleccionado = string.Empty;
-                }*/
             }
             else
             {
@@ -214,8 +210,6 @@ namespace PuntoDeVentaV2
                     var ultimoIndice = ultimos.LastIndexOf(ultimoAgregado);
                     // Finalmente lo removemos de la lista para que no se duplique
                     ultimos.RemoveAt(ultimoIndice);
-
-                    //MessageBox.Show(ultimoAgregado);
 
                     foreach (Control panelHijo in panelContenedor.Controls)
                     {
@@ -235,6 +229,11 @@ namespace PuntoDeVentaV2
                     } 
                 }
             }
+        }
+
+        private void GenerarReporte()
+        {
+            MessageBox.Show("Prueba");
         }
     }
 }
