@@ -1382,19 +1382,27 @@ namespace PuntoDeVentaV2
         {
             if (auxWord.Count == 0 && setUpVariable.Count == 0 && setUpDinamicos.Count == 0)
             {
-                btnCleanFilter.Visible = false;
+                btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
+                btnCleanFilter.Enabled = false;
             }
             else
             {
+                btnCleanFilter.Visible = true;
                 if (fLPDynamicTags.Controls.Count == 1)
                 {
                     btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
+                    btnCleanFilter.Enabled = true;
                 }
                 else if (fLPDynamicTags.Controls.Count > 1)
                 {
                     btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tags;
+                    btnCleanFilter.Enabled = true;
                 }
-                btnCleanFilter.Visible = true;
+                else if (fLPDynamicTags.Controls.Count <= 0)
+                {
+                    btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
+                    btnCleanFilter.Enabled = false;
+                }
             }
         }
 
