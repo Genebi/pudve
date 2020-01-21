@@ -178,15 +178,33 @@ namespace PuntoDeVentaV2
                 }
 
                 // Agregamos el ultimo seleccionado
-                ultimos.Add(ultimoSeleccionado);
+                if (!string.IsNullOrEmpty(ultimoSeleccionado))
+                {
+                    ultimos.Add(ultimoSeleccionado);
+                }
             }
             else
             {
                 if (ultimos.Count > 0)
                 {
-                    foreach (var ultimo in ultimos)
+                    var ultimoAgregado = ultimos[ultimos.Count - 1];
+                    var ultimoIndice = ultimos.LastIndexOf(ultimoAgregado);
+                    ultimos.RemoveAt(ultimoIndice);
+
+                    foreach (Control panelHijo in panelContenedor.Controls)
                     {
-                        MessageBox.Show(ultimo);
+                        foreach (Control cb in panelHijo.Controls)
+                        {
+                            if (cb is CheckBox)
+                            {
+                                var cbTmp = (CheckBox)cb;
+
+                                if (cbTmp.Name.Equals(ultimoAgregado))
+                                {
+                                    cbTmp.Enabled = true;
+                                }
+                            }
+                        }
                     }
                 }
             }
