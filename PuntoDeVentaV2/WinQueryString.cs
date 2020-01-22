@@ -750,10 +750,6 @@ namespace PuntoDeVentaV2
                                             }
                                         }
                                     }
-                                    //if (!caption.Equals("Selecciona " + name))
-                                    //{
-                                    //    diccionarioDetalleBasicos.Add(usrNo.ToString(), new Tuple<string, string, string, string>(chkName, chkValue, itemCB, cbName));
-                                    //}
                                     diccionarioDetalleBasicos.Add(usrNo.ToString(), new Tuple<string, string, string, string>(chkName, chkValue, itemCB, cbName));
                                     usrNo++;
                                 }

@@ -1956,15 +1956,17 @@ namespace PuntoDeVentaV2
                         if (countSetUpDinamicos.Equals(0))
                         {
                             queryHeadAdvancedOtherTags = "INNER JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = P.ID INNER JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral ";
-                            queryAndAdvancedOtherTags += $"GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
+                            queryAndAdvancedOtherTags += $"AND GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
                             countSetUpDinamicos++;
                         }
                         else if (!countSetUpDinamicos.Equals(0))
                         {
-                            queryAndAdvancedOtherTags += $"OR GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
+                            //queryAndAdvancedOtherTags += $"OR GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
+                            queryAndAdvancedOtherTags += $"AND GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
                             countSetUpDinamicos++;
                         }
-                        queryResultOtherTags = queryAndAdvancedOtherTagsBegin + queryAndAdvancedOtherTags + queryAndAdvancedOtherTagsEnd;
+                        //queryResultOtherTags = queryAndAdvancedOtherTagsBegin + queryAndAdvancedOtherTags + queryAndAdvancedOtherTagsEnd;
+                        queryResultOtherTags = queryAndAdvancedOtherTags;
                     }
                 }
             }
