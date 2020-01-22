@@ -51,54 +51,6 @@ namespace PuntoDeVentaV2
         {
             panelContenedor.Visible = false;
 
-            /*FormCollection fOpen = Application.OpenForms;
-            List<string> tempFormOpen = new List<string>();
-
-            checkInventory.FormClosing += delegate
-            {
-                //GetNumRevActive = Convert.ToInt32(checkInventory.NoActualCheckStock);
-                CargarNumRevActivo();
-
-                FinalReportReviewInventory.FormClosed += delegate
-                {
-                    foreach (Form formToClose in fOpen)
-                    {
-                        if (formToClose.Name != "FormPrincipal" && formToClose.Name != "Login")
-                        {
-                            tempFormOpen.Add(formToClose.Name);
-                        }
-                    }
-
-                    foreach (var toClose in tempFormOpen)
-                    {
-                        Form ventanaAbierta = Application.OpenForms[toClose];
-                        ventanaAbierta.Close();
-                    }
-                };
-
-                if (!FinalReportReviewInventory.Visible)
-                {
-                    try
-                    {
-                        FinalReportReviewInventory.GetFilterNumActiveRecord = NumRevActivo;
-                        FinalReportReviewInventory.ShowDialog();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message.ToString(), "Error al abrir", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            };
-
-            if (!checkInventory.Visible)
-            {
-                checkInventory.ShowDialog();
-            }
-            else
-            {
-                checkInventory.ShowDialog();
-            }*/
-
             RevisarInventario revisar = new RevisarInventario();
 
             revisar.FormClosed += delegate
@@ -345,11 +297,21 @@ namespace PuntoDeVentaV2
             int anchoLogo = 110;
             int altoLogo = 60;
 
-            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Historial\reporte_"+ idReporte +".pdf";
+            var servidor = Properties.Settings.Default.Hosting;
+            var rutaArchivo = string.Empty;
 
-            //float[] anchoColumnas = new float[] { 10f, 24f, 9f, 9f };
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\Historial\reporte_actualizar_inventario_" + idReporte + ".pdf";
+            }
 
-            Document reporte = new Document(PageSize.A3);
+            float[] anchoColumnas = new float[] { 245f, 200f, 80f, 70f, 70f, 55f, 80f, 80f };
+
+            Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
 
             string logotipo = datos[11];
@@ -362,7 +324,7 @@ namespace PuntoDeVentaV2
             {
                 logotipo = @"C:\Archivos PUDVE\MisDatos\Usuarios\" + logotipo;
 
-                if (System.IO.File.Exists(logotipo))
+                if (File.Exists(logotipo))
                 {
                     iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logotipo);
                     logo.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
@@ -371,19 +333,25 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            Paragraph titulo = new Paragraph(datos[0] + "\n\n", fuenteGrande);
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+            Paragraph subTitulo = new Paragraph("REPORTE ACTUALIZAR INVENTARIO\nFecha: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
             //Paragraph domicilio = new Paragraph(encabezado, fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
             //domicilio.Alignment = Element.ALIGN_CENTER;
             //domicilio.SetLeading(10, 0);
 
             /***************************************
              ** Tabla con los productos ajustados **
              ***************************************/
-            PdfPTable tabla = new PdfPTable(7);
+            PdfPTable tabla = new PdfPTable(8);
             tabla.WidthPercentage = 100;
-            //tabla.SetWidths(anchoColumnas);
+            tabla.SetWidths(anchoColumnas);
+
+            PdfPCell colProducto = new PdfPCell(new Phrase("Producto", fuenteNegrita));
+            colProducto.BorderWidth = 1;
+            colProducto.HorizontalAlignment = Element.ALIGN_CENTER;
 
             PdfPCell colProveedor = new PdfPCell(new Phrase("Proveedor", fuenteNegrita));
             colProveedor.BorderWidth = 1;
@@ -413,6 +381,7 @@ namespace PuntoDeVentaV2
             colFechaOperacion.BorderWidth = 1;
             colFechaOperacion.HorizontalAlignment = Element.ALIGN_CENTER;
 
+            tabla.AddCell(colProducto);
             tabla.AddCell(colProveedor);
             tabla.AddCell(colUnidades);
             tabla.AddCell(colPrecioCompra);
@@ -427,7 +396,16 @@ namespace PuntoDeVentaV2
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;
 
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                sql_con = new SQLiteConnection("Data source=//" + servidor + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+            }
+            else
+            {
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+
+            }
+
             sql_con.Open();
             sql_cmd = new SQLiteCommand($"SELECT * FROM HistorialCompras WHERE IDUsuario = {FormPrincipal.userID} AND IDReporte = {idReporte}", sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -435,6 +413,7 @@ namespace PuntoDeVentaV2
             while (dr.Read())
             {
                 var idProducto = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDProducto")));
+                var producto = dr.GetValue(dr.GetOrdinal("Concepto")).ToString();
                 var proveedor = dr.GetValue(dr.GetOrdinal("NomEmisor")).ToString();
                 var unidades = dr.GetValue(dr.GetOrdinal("Cantidad")).ToString();
                 var compra = Convert.ToDouble(dr.GetValue(dr.GetOrdinal("ValorUnitario"))).ToString("0.00");
@@ -448,6 +427,10 @@ namespace PuntoDeVentaV2
 
                 DateTime fechaOp = (DateTime)dr.GetValue(dr.GetOrdinal("FechaOperacion"));
                 var fechaOperacion = fechaOp.ToString("yyyy-MM-dd HH:mm tt");
+
+                PdfPCell colProductoTmp = new PdfPCell(new Phrase(producto, fuenteNormal));
+                colProductoTmp.BorderWidth = 1;
+                colProductoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colProveedorTmp = new PdfPCell(new Phrase(proveedor, fuenteNormal));
                 colProveedorTmp.BorderWidth = 1;
@@ -477,6 +460,7 @@ namespace PuntoDeVentaV2
                 colFechaOperacionTmp.BorderWidth = 1;
                 colFechaOperacionTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                tabla.AddCell(colProductoTmp);
                 tabla.AddCell(colProveedorTmp);
                 tabla.AddCell(colUnidadesTmp);
                 tabla.AddCell(colPrecioCompraTmp);
@@ -491,6 +475,7 @@ namespace PuntoDeVentaV2
              ******************************************/
 
             reporte.Add(titulo);
+            reporte.Add(subTitulo);
             //reporte.Add(domicilio);
             reporte.Add(tabla);
 
