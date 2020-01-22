@@ -207,6 +207,7 @@
             this.txtBusqueda.Size = new System.Drawing.Size(595, 23);
             this.txtBusqueda.TabIndex = 11;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBusqueda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyDown);
             this.txtBusqueda.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyUp);
             // 
             // DGVInventario

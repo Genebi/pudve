@@ -145,6 +145,16 @@ namespace PuntoDeVentaV2
             timerBusqueda.Start();
         }
 
+        private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                timerBusqueda.Enabled = false;
+                RealizarBusqueda();
+                txtBusqueda.Text = string.Empty;
+            }
+        }
+
         private void RealizarBusqueda()
         {
             if (!string.IsNullOrWhiteSpace(txtBusqueda.Text))
@@ -157,6 +167,8 @@ namespace PuntoDeVentaV2
                     var idProducto = Convert.ToInt32(datos[0]);
 
                     AjustarProducto ap = new AjustarProducto(idProducto, 2);
+
+                    txtBusqueda.Text = string.Empty;
 
                     ap.FormClosed += delegate
                     {
