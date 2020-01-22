@@ -1973,17 +1973,17 @@ namespace PuntoDeVentaV2
             else if (setUpDinamicos.Count <= 0)
             {
                 queryHead = "SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
-            }
+            } 
 
-            if (status.Equals(0))
+            if (status.Equals(0))   // Productos Desactivados
             {
                 queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = {status} ";
             }
-            else if (status.Equals(1))
+            else if (status.Equals(1))  // Productos Activos
             {
                 queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = {status} ";
             }
-            else if (status.Equals(2))
+            else if (status.Equals(2))  // Productos Activos y Desactivados
             {
                 queryWhereAnd = $"WHERE U.ID = '{FormPrincipal.userID}' ";
             }
@@ -2033,7 +2033,8 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
+            // Status 2 es poner el listado en todos los 
+            // productos y servecios sin importar es activo o desactivado
             if (status == 2)
             {
                 if (DGVProductos.RowCount <= 0 || DGVProductos.RowCount >= 0)
@@ -2066,7 +2067,8 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
+            // Status 1 es poner el listado en todos los
+            // productos activos
             if (status == 1)
             {
                 if (busqueda == "")
@@ -2133,7 +2135,8 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
+            // Status 0 es poner el listado en todos los
+            // productos Desactivados
             if (status == 0)
             {
                 if (busqueda == "")
