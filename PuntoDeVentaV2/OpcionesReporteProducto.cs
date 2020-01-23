@@ -326,7 +326,22 @@ namespace PuntoDeVentaV2
             {
                 foreach (var opcion in opciones)
                 {
-                    if (opcion.Key == "PrecioCompra" || opcion.Key == "CantidadPedir")
+                    if (listaProductos.Columns.Contains(opcion.Key))
+                    {
+                        PdfPCell rowCustom = new PdfPCell(new Phrase("Existe", fuenteNormal));
+                        rowCustom.BorderWidth = 0;
+                        rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                        tablaProductos.AddCell(rowCustom);
+                    }
+                    else
+                    {
+                        PdfPCell rowCustom = new PdfPCell(new Phrase("No existe", fuenteNormal));
+                        rowCustom.BorderWidth = 0;
+                        rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                        tablaProductos.AddCell(rowCustom);
+                    }
+
+                    /*if (opcion.Key == "PrecioCompra" || opcion.Key == "CantidadPedir")
                     {
                         continue;
                     }
@@ -337,7 +352,7 @@ namespace PuntoDeVentaV2
                     PdfPCell rowCustom = new PdfPCell(new Phrase(listaProductos.Rows[i][opcion.Key].ToString(), fuenteNormal));
                     rowCustom.BorderWidth = 0;
                     rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
-                    tablaProductos.AddCell(rowCustom);
+                    tablaProductos.AddCell(rowCustom);*/
                 }
 
                 /*var nombre = listaProductos.Rows[i]["Nombre"].ToString();
