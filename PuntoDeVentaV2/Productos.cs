@@ -1956,17 +1956,21 @@ namespace PuntoDeVentaV2
                         if (countSetUpDinamicos.Equals(0))
                         {
                             queryHeadAdvancedOtherTags = "INNER JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = P.ID INNER JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral ";
-                            queryAndAdvancedOtherTags += $"AND GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
+                            queryAndAdvancedOtherTags += $"GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
                             countSetUpDinamicos++;
                         }
                         else if (!countSetUpDinamicos.Equals(0))
                         {
-                            //queryAndAdvancedOtherTags += $"OR GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
-                            queryAndAdvancedOtherTags += $"AND GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
+                            if (queryHeadAdvancedOtherTags.Equals(string.Empty) || queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                queryHeadAdvancedOtherTags = "INNER JOIN DetallesProductoGenerales AS GralProdDetail ON GralProdDetail.IDProducto = P.ID INNER JOIN DetalleGeneral AS GralDetail ON GralDetail.ID = GralProdDetail.IDDetalleGral ";
+                            }
+                            queryAndAdvancedOtherTags += $"OR GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
+                            //queryAndAdvancedOtherTags += $"AND GralDetail.Descripcion = '{item.Value.Item3.ToString()}' ";
                             countSetUpDinamicos++;
                         }
-                        //queryResultOtherTags = queryAndAdvancedOtherTagsBegin + queryAndAdvancedOtherTags + queryAndAdvancedOtherTagsEnd;
-                        queryResultOtherTags = queryAndAdvancedOtherTags;
+                        queryResultOtherTags = queryAndAdvancedOtherTagsBegin + queryAndAdvancedOtherTags + queryAndAdvancedOtherTagsEnd;
+                        //queryResultOtherTags = queryAndAdvancedOtherTags;
                     }
                 }
             }
@@ -2047,7 +2051,14 @@ namespace PuntoDeVentaV2
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            if (!queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                            }
+                            else if (queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            }
                         }
 
                         if (!queryResultOtherTags.Equals(""))
@@ -2077,7 +2088,14 @@ namespace PuntoDeVentaV2
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            if (!queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                            }
+                            else if (queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            }
                         }
 
                         if (!queryResultOtherTags.Equals(""))
@@ -2116,7 +2134,14 @@ namespace PuntoDeVentaV2
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            if (!queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                            }
+                            else if (queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            }
                         }
 
                         if (!queryResultOtherTags.Equals(""))
@@ -2146,7 +2171,14 @@ namespace PuntoDeVentaV2
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            if (!queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                            }
+                            else if (queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            }
                         }
 
                         if (!queryResultOtherTags.Equals(""))
@@ -2179,7 +2211,14 @@ namespace PuntoDeVentaV2
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            if (!queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                            }
+                            else if (queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            }
                         }
 
                         if (!queryResultOtherTags.Equals(""))
@@ -2217,7 +2256,14 @@ namespace PuntoDeVentaV2
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            if (!queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                            }
+                            else if (queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            }
                         }
 
                         if (!queryResultOtherTags.Equals(""))
@@ -2250,7 +2296,14 @@ namespace PuntoDeVentaV2
                         }
                         else if (queryHeadAdvancedProveedor.Equals(""))
                         {
-                            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            if (!queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
+                            }
+                            else if (queryHeadAdvancedOtherTags.Equals(""))
+                            {
+                                filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
+                            }
                         }
 
                         if (!queryResultOtherTags.Equals(""))
