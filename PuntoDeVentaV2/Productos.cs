@@ -1439,8 +1439,6 @@ namespace PuntoDeVentaV2
             {
                 if (!isEmpty)
                 {
-                    //borrarEtiquetasDinamicasSetUpDinamicos();
-
                     setUpDinamicos.Clear();
 
                     using (StreamReader file = new StreamReader(path + @"\" + fileName))
@@ -1608,8 +1606,19 @@ namespace PuntoDeVentaV2
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
         {
             Button btnTag = (Button)sender;
-            string name = string.Empty, newtext = string.Empty;
+            string name = string.Empty, 
+                    newtext = string.Empty, 
+                    fileNameDictionary = "DiccionarioDetalleBasicos.txt", 
+                    rutaCompletaFile = string.Empty;
+
+            string[] words;
+
+            List<string> listDictionary = new List<string>();
+
+            listDictionary.Clear();
+
             name = btnTag.Name.Remove(0, 8);
+
             DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", 
                                                   "Eliminar Filtro", MessageBoxButtons.YesNo, 
                                                   MessageBoxIcon.Question);
@@ -1621,9 +1630,38 @@ namespace PuntoDeVentaV2
                     {
                         if (item.Name.Equals("pEtiqueta" + name))
                         {
-                            fLPDynamicTags.Controls.Remove(item);
+                            try
+                            {
+                                fLPDynamicTags.Controls.Remove(item);
+                                var myKey = setUpDinamicos.FirstOrDefault(x => x.Value.Item1 == "chkBoxchk" + name).Key;
+                                listDictionary.Add(myKey + "|chkBoxchk" + name + "|False|Selecciona " + name + "|cbchk" + name);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error: " + ex.Message.ToString());
+                            }
                         }
                     }
+                }
+
+                if (listDictionary.Count > 0)
+                {
+                    foreach (var itemDicc in listDictionary)
+                    {
+                        words = itemDicc.Split('|');
+                        setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
+                    }
+                    listDictionary.Clear();
+                    rutaCompletaFile = path + fileNameDictionary;
+                    using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+                    {
+                        foreach (var entry in setUpDinamicos)
+                        {
+                            file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                        }
+                        file.Close();
+                    }
+                    setUpDinamicos.Clear();
                 }
 
                 for (int i = 0; i < auxWord.Count; i++)
@@ -1927,6 +1965,7 @@ namespace PuntoDeVentaV2
         public void CargarDatos(int status = 1, string busqueda = "")
         {
             int idProducto = 0, countSetUpDinamicos = 0;
+
             string queryHead = string.Empty,
                    queryWhereAnd = string.Empty,
                    nameTag = string.Empty,
@@ -1943,6 +1982,7 @@ namespace PuntoDeVentaV2
                 queryHead = "SELECT DISTINCT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
                 queryAndAdvancedOtherTagsBegin = "AND (";
                 queryAndAdvancedOtherTagsEnd = ") ";
+
                 foreach (var item in setUpDinamicos)
                 {
                     nameTag = item.Value.Item1.Remove(0, 9);
