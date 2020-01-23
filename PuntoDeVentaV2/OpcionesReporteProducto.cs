@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
     public partial class OpcionesReporteProducto : Form
     {
         Conexion cn = new Conexion();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         private Dictionary<string, string> opcionesDefault;
         private List<string> seleccionados;
@@ -328,52 +329,80 @@ namespace PuntoDeVentaV2
                 {
                     if (listaProductos.Columns.Contains(opcion.Key))
                     {
-                        PdfPCell rowCustom = new PdfPCell(new Phrase("Existe", fuenteNormal));
+                        PdfPCell rowCustom = new PdfPCell(new Phrase(listaProductos.Rows[i][opcion.Key].ToString(), fuenteNormal));
                         rowCustom.BorderWidth = 0;
                         rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                         tablaProductos.AddCell(rowCustom);
                     }
                     else
                     {
-                        PdfPCell rowCustom = new PdfPCell(new Phrase("No existe", fuenteNormal));
+                        var resultado = string.Empty;
+
+                        if (opcion.Key == "PrecioCompra")
+                        {
+                            var precioCompra = float.Parse(listaProductos.Rows[i]["Precio"].ToString()) / 1.60;
+
+                            resultado = precioCompra.ToString("N2");
+                        }
+                        else if (opcion.Key == "CantidadPedir")
+                        {
+
+                        }
+                        else if (opcion.Key == "Proveedor")
+                        {
+                            var datosProveedor = mb.DetallesProducto(Convert.ToInt32(listaProductos.Rows[i]["ID"]), FormPrincipal.userID);
+
+                            if (datosProveedor.Length > 0)
+                            {
+                                if (!string.IsNullOrWhiteSpace(datosProveedor[2]))
+                                {
+                                    resultado = datosProveedor[2];
+                                }
+                                else
+                                {
+                                    resultado = "N/A";
+                                }
+                            }
+                            else
+                            {
+                                resultado = "N/A";
+                            }
+                        }
+                        else if (opcion.Key == "CodigoBarraExtra")
+                        {
+                            var datosCodigos = mb.ObtenerCodigoBarrasExtras(Convert.ToInt32(listaProductos.Rows[i]["ID"]));
+
+                            if (datosCodigos.Length > 0)
+                            {
+                                foreach (var codigo in datosCodigos)
+                                {
+                                    if (!string.IsNullOrWhiteSpace(codigo))
+                                    {
+                                        resultado += codigo + "\n";
+                                    }
+                                }
+
+                                if (string.IsNullOrWhiteSpace(resultado))
+                                {
+                                    resultado = "N/A";
+                                }
+                            }
+                            else
+                            {
+                                resultado = "N/A";
+                            }
+                        }
+                        else
+                        {
+                            // Cuando son los valores del app.config
+                        }
+
+                        PdfPCell rowCustom = new PdfPCell(new Phrase(resultado, fuenteNormal));
                         rowCustom.BorderWidth = 0;
                         rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                         tablaProductos.AddCell(rowCustom);
                     }
-
-                    /*if (opcion.Key == "PrecioCompra" || opcion.Key == "CantidadPedir")
-                    {
-                        continue;
-                    }
-                    else
-                    {
-
-                    }
-                    PdfPCell rowCustom = new PdfPCell(new Phrase(listaProductos.Rows[i][opcion.Key].ToString(), fuenteNormal));
-                    rowCustom.BorderWidth = 0;
-                    rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
-                    tablaProductos.AddCell(rowCustom);*/
                 }
-
-                /*var nombre = listaProductos.Rows[i]["Nombre"].ToString();
-                var stock = listaProductos.Rows[i]["Stock"].ToString();
-                var precio = listaProductos.Rows[i]["Precio"].ToString();
-
-                PdfPCell colNombre = new PdfPCell(new Phrase(nombre, fuenteNormal));
-                colNombre.BorderWidth = 0;
-                colNombre.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colStock = new PdfPCell(new Phrase(stock, fuenteNormal));
-                colStock.BorderWidth = 0;
-                colStock.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                PdfPCell colPrecio = new PdfPCell(new Phrase(precio, fuenteNormal));
-                colPrecio.BorderWidth = 0;
-                colPrecio.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                tablaProductos.AddCell(colNombre);
-                tablaProductos.AddCell(colStock);
-                tablaProductos.AddCell(colPrecio);*/
             }
 
             reporte.Add(titulo);
