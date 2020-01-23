@@ -1147,7 +1147,7 @@ namespace PuntoDeVentaV2
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
 
             // Calcular capital temporalmente (informativo)
-            lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("0.00");
+            lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
         }
 
         private void btnPedido_Click(object sender, EventArgs e)
@@ -2455,6 +2455,8 @@ namespace PuntoDeVentaV2
             }
 
             actualizar();
+            // Calcular capital temporalmente (informativo)
+            lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
         }
         /// <summary>
         /// Fin CargarDatos
@@ -3318,6 +3320,9 @@ namespace PuntoDeVentaV2
                 cbOrden_SelectedIndexChanged(sender, EventArgs.Empty);
 
                 txtBusqueda.Text = string.Empty;
+
+                // Calcular capital temporalmente (informativo)
+                lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
             }
         }
 
