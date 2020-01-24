@@ -192,7 +192,9 @@
             this.txtPrecioProducto.Size = new System.Drawing.Size(94, 20);
             this.txtPrecioProducto.TabIndex = 5;
             this.txtPrecioProducto.Enter += new System.EventHandler(this.txtPrecioProducto_Enter);
+            this.txtPrecioProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioProducto_KeyPress);
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
+            this.txtPrecioProducto.Leave += new System.EventHandler(this.txtPrecioProducto_Leave);
             // 
             // txtStockProducto
             // 
@@ -202,6 +204,8 @@
             this.txtStockProducto.Size = new System.Drawing.Size(131, 20);
             this.txtStockProducto.TabIndex = 3;
             this.txtStockProducto.Enter += new System.EventHandler(this.txtStockProducto_Enter);
+            this.txtStockProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockProducto_KeyPress);
+            this.txtStockProducto.Leave += new System.EventHandler(this.txtStockProducto_Leave);
             // 
             // txtClaveProducto
             // 
@@ -462,6 +466,7 @@
             this.txtPrecioCompra.Size = new System.Drawing.Size(104, 20);
             this.txtPrecioCompra.TabIndex = 4;
             this.txtPrecioCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioCompra_KeyDown);
+            this.txtPrecioCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCompra_KeyPress);
             this.txtPrecioCompra.Leave += new System.EventHandler(this.txtPrecioCompra_Leave);
             // 
             // PPrecio

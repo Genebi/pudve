@@ -1329,6 +1329,67 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtStockProducto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            //Si deseas, puedes permitir numeros decimales (o float)
+            //If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStockProducto_Leave(object sender, EventArgs e)
+        {
+            if (txtStockProducto.Text.Equals(""))
+            {
+                txtStockProducto.Text = "0";
+            }
+        }
+
+        private void txtPrecioCompra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            //Si deseas, puedes permitir numeros decimales (o float)
+            //If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecioProducto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            //Si deseas, puedes permitir numeros decimales (o float)
+            //If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPrecioProducto_Leave(object sender, EventArgs e)
+        {
+            if (txtPrecioProducto.Text.Equals(""))
+            {
+                txtPrecioProducto.Text = "0";
+            }
+        }
+
         public void LimpiarDatos()
         {
             DatosSourceFinal = 0;
@@ -1684,7 +1745,7 @@ namespace PuntoDeVentaV2
             var fechaCompra = DateTime.Now.ToString("yyyy-MM-dd");
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             /*	Fin del codigo de Alejandro	*/
-
+            
             /************************************
             *   iniciamos las variables a 0     *
 			*	codigo de Emmanuel				*
@@ -3705,6 +3766,10 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_Leave(object sender, EventArgs e)
         {
+            if (txtPrecioCompra.Text.Equals(""))
+            {
+                txtPrecioCompra.Text = "0";
+            }
             precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
             PrecioRecomendado = precioOriginalConIVA * (float)1.60;
             txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
