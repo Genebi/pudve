@@ -58,7 +58,7 @@ namespace PuntoDeVentaV2
             HisotorialCompras = 17;
             HistorialModificacionRecordProduct = 4;
             ProductoRelacionadoXML = 5;
-            Productos = 22;
+            Productos = 23;
             ProductosDeServicios = 6;
             ProductosVenta = 6;
             Proveedores = 15;
@@ -793,7 +793,7 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaProductos(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID             INTEGER NOT NULL   PRIMARY KEY AUTOINCREMENT UNIQUE,
+            return $@"CREATE TABLE '{tabla}' (ID             INTEGER NOT NULL   PRIMARY KEY AUTOINCREMENT   UNIQUE,
                                               Nombre         TEXT    NOT NULL,
                                               Stock          REAL    NOT NULL   DEFAULT (0),
                                               Precio         REAL    NOT NULL,
@@ -815,6 +815,7 @@ namespace PuntoDeVentaV2
                                               NumeroRevision INTEGER DEFAULT (0),
                                               StockNecesario INTEGER DEFAULT (0),
                                               StockMinimo    INTEGER DEFAULT (0),
+                                              PrecioCompra   REAL    DEFAULT (0),
                                               FOREIGN KEY (IDUsuario)
                                               REFERENCES USuarios (ID));";
         }
@@ -841,7 +842,8 @@ namespace PuntoDeVentaV2
                                              NombreAlterno1,
                                              NombreAlterno2,
                                              NumeroRevision,
-                                             StockNecesario) 
+                                             StockNecesario,
+                                             StockMinimo) 
                                       SELECT ID,
                                              Nombre,
                                              Stock,
@@ -862,7 +864,8 @@ namespace PuntoDeVentaV2
                                              NombreAlterno1,
                                              NombreAlterno2,
                                              NumeroRevision,
-                                             StockNecesario 
+                                             StockNecesario,
+                                             StockMinimo 
                                        FROM '{tabla}_temp';";
         }
 

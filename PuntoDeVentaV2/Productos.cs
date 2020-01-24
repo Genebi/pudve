@@ -1964,7 +1964,8 @@ namespace PuntoDeVentaV2
         /// <param name="busqueda">Cadena de texto que introduce el Usuario para coincidencias</param>
         public void CargarDatos(int status = 1, string busqueda = "")
         {
-            int idProducto = 0, countSetUpDinamicos = 0;
+            int idProducto = 0, 
+                countSetUpDinamicos = 0;
 
             string queryHead = string.Empty,
                    queryWhereAnd = string.Empty,
