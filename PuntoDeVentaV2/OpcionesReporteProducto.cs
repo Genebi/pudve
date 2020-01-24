@@ -346,7 +346,20 @@ namespace PuntoDeVentaV2
                         }
                         else if (opcion.Key == "CantidadPedir")
                         {
+                            var stockActual = Convert.ToInt32(listaProductos.Rows[i]["Stock"]);
+                            var stockMinimo = Convert.ToInt32(listaProductos.Rows[i]["StockMinimo"]);
+                            var stockMaximo = Convert.ToInt32(listaProductos.Rows[i]["StockNecesario"]);
 
+                            if (stockMinimo > stockActual)
+                            {
+                                var cantidadPedir = stockMaximo - stockActual;
+
+                                resultado = cantidadPedir.ToString();
+                            }
+                            else
+                            {
+                                resultado = "0";
+                            }
                         }
                         else if (opcion.Key == "Proveedor")
                         {
@@ -394,7 +407,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            // Cuando son los valores del app.config
+                            // Cuando son los valores del App.config
                         }
 
                         PdfPCell rowCustom = new PdfPCell(new Phrase(resultado, fuenteNormal));
