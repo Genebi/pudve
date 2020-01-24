@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
         private int stockProducto = 0;
         private int stockExistencia = 0;
         private int apartado = 0;
+        private float precioAdquision = 0f; // Precio de compra
 
         private string[] listaProveedores = new string[] { };
 
@@ -84,6 +85,7 @@ namespace PuntoDeVentaV2
             precioProducto = float.Parse(datos[2]);
             stockProducto = Convert.ToInt32(datos[4]);
             stockExistencia = stockProducto;
+            precioAdquision = float.Parse(datos[11]);
             ActiveControl = txtCantidadCompra;
 
             txt_en_stock.Text = stockProducto.ToString();
@@ -94,7 +96,6 @@ namespace PuntoDeVentaV2
             txtCantidadCompra.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtAumentar.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtDisminuir.KeyPress += new KeyPressEventHandler(SoloNumeros);
-            
         }
 
         private void rbProducto_CheckedChanged(object sender, EventArgs e)
@@ -167,12 +168,6 @@ namespace PuntoDeVentaV2
                 }
 
                 //Datos para la tabla historial de compras
-                //string[] datos = new string[] { producto, cantidadCompra, precioProducto.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
-                if (string.IsNullOrWhiteSpace(precioCompra))
-                {
-                    precioCompra = "0";
-                }
-
                 if (string.IsNullOrWhiteSpace(cantidadCompra))
                 {
                     MessageBox.Show("Es necesario ingresar una cantidad de compra", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -180,10 +175,16 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                float preCompra = (float)Convert.ToDouble(precioCompra);
-                float preProduct = preCompra * (float)1.60;
 
-                string[] datos = new string[] { producto, cantidadCompra, preProduct.ToString(), precioCompra, fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
+                if (string.IsNullOrWhiteSpace(precioCompra))
+                {
+                    precioCompra = precioAdquision.ToString();
+                }
+
+                //float preCompra = (float)Convert.ToDouble(precioCompra);
+                //float preProduct = preCompra * (float)1.60;
+
+                string[] datos = new string[] { producto, cantidadCompra, precioCompra, precioProducto.ToString(), fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
                 stockProducto += Convert.ToInt32(cantidadCompra);
 
@@ -208,7 +209,7 @@ namespace PuntoDeVentaV2
                         Inventario.botonAceptar = true;
                     }
 
-                    int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float)Convert.ToDouble(precioCompra), FormPrincipal.userID));
+                    int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float)Convert.ToDouble(precioCompra), FormPrincipal.userID, 1));
 
                     if (resul > 0)
                     {
