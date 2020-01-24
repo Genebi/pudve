@@ -4199,6 +4199,7 @@ namespace PuntoDeVentaV2
                     stockNecesario = detallesProductoTmp[8];
                     stockMinimo = detallesProductoTmp[10];
                     typeOfProduct = detallesProductoTmp[5];
+                    txtPrecioCompra.Text = detallesProductoTmp[11];
                     logoTipo = detallesProductoTmp[9];      // Obtenemos el nuevo Path
                     if (pictureBoxProducto.Image != null)
                     {
