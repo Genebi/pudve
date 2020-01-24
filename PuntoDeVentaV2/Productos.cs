@@ -1977,6 +1977,8 @@ namespace PuntoDeVentaV2
                    queryAndAdvancedOtherTags = string.Empty,
                    queryAndAdvancedOtherTagsEnd = string.Empty;
 
+            dictionaryLoad();
+
             if (setUpDinamicos.Count > 0)
             {
                 queryHead = "SELECT DISTINCT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID ";
