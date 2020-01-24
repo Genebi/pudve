@@ -1346,9 +1346,22 @@ namespace PuntoDeVentaV2
 
         private void txtStockProducto_Leave(object sender, EventArgs e)
         {
+            string[] words;
             if (txtStockProducto.Text.Equals(""))
             {
                 txtStockProducto.Text = "0";
+            }
+            else if (!txtStockProducto.Text.Equals(""))
+            {
+                words = txtStockProducto.Text.Split('.');
+                if (words[0].Equals(""))
+                {
+                    words[0] = "0";
+                }
+                if (words.Length > 1)
+                {
+                    txtStockProducto.Text = words[0] + "." + words[1];
+                }
             }
         }
 
@@ -1384,9 +1397,23 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioProducto_Leave(object sender, EventArgs e)
         {
+            string[] words;
+
             if (txtPrecioProducto.Text.Equals(""))
             {
                 txtPrecioProducto.Text = "0";
+            }
+            else if (!txtPrecioProducto.Text.Equals(""))
+            {
+                words = txtPrecioProducto.Text.Split('.');
+                if (words[0].Equals(""))
+                {
+                    words[0] = "0";
+                }
+                if (words.Length > 1)
+                {
+                    txtPrecioProducto.Text = words[0] + "." + words[1];
+                }
             }
         }
 
@@ -1838,7 +1865,7 @@ namespace PuntoDeVentaV2
                     //}
                     if (this.Text.Trim() == "Productos")
                     {
-                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo };
+                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo, txtPrecioCompra.Text };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
 
@@ -2076,7 +2103,7 @@ namespace PuntoDeVentaV2
                             ProdServPaq = "PQ";
                         }
                         stock = "0";
-                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, "0" };
+                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, "0", txtPrecioCompra.Text };
                         //Se guardan los datos principales del producto
                         respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
                         //Se obtiene la ID del último producto agregado
@@ -2796,7 +2823,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    string[] guardar = new string[] { nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert, codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert, logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert), mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo };
+                    string[] guardar = new string[] { nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert, codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert, logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert), mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text };
                     //Se guardan los datos principales del producto
                     int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
                     if (respuesta > 0)
@@ -3766,9 +3793,23 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_Leave(object sender, EventArgs e)
         {
+            string[] words;
+
             if (txtPrecioCompra.Text.Equals(""))
             {
                 txtPrecioCompra.Text = "0";
+            }
+            else if (!txtPrecioCompra.Text.Equals(""))
+            {
+                words = txtPrecioCompra.Text.Split('.');
+                if (words[0].Equals(""))
+                {
+                    words[0] = "0";
+                }
+                if (words.Length > 1)
+                {
+                    txtPrecioCompra.Text = words[0] + "." + words[1];
+                }
             }
             precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
             PrecioRecomendado = precioOriginalConIVA * (float)1.60;

@@ -1255,24 +1255,26 @@ namespace PuntoDeVentaV2
                                     try
                                     {
                                         string idConflicto = dbListaProducto.Rows[i]["ID"].ToString();
-                                        int StockMinimo = 0, StockActual = 0;
+                                        int StockMinimo = 0;
+                                        double StockActual = 0;
 
                                         StockMinimo = Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString());
+                                        //StockMinimo = Convert.ToDouble(dbListaProducto.Rows[i]["StockMinimo"].ToString());
                                         try
                                         {
-                                            StockActual = Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString());
+                                            StockActual = Convert.ToDouble(dbListaProducto.Rows[i]["Stock"].ToString());
                                             if (StockMinimo > StockActual)
                                             {
                                                 table.AddCell(dbListaProducto.Rows[i]["Nombre"].ToString());    // Nombre del Producto
                                                 table.AddCell(dbListaProducto.Rows[i]["Stock"].ToString());     // Stock Actual
-                                                int pedido = 0;
-                                                if (Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString()) <= Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                                double pedido = 0;
+                                                if (Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString()) <= Convert.ToDouble(dbListaProducto.Rows[i]["Stock"].ToString()))
                                                 {
                                                     pedido = 0;
                                                 }
-                                                else if (Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString()))
+                                                else if (Int32.Parse(dbListaProducto.Rows[i]["StockMinimo"].ToString()) > Convert.ToDouble(dbListaProducto.Rows[i]["Stock"].ToString()))
                                                 {
-                                                    pedido = Int32.Parse(dbListaProducto.Rows[i]["StockNecesario"].ToString()) - Int32.Parse(dbListaProducto.Rows[i]["Stock"].ToString());
+                                                    pedido = Int32.Parse(dbListaProducto.Rows[i]["StockNecesario"].ToString()) - Convert.ToDouble(dbListaProducto.Rows[i]["Stock"].ToString());
                                                 }
                                                 table.AddCell(pedido.ToString());                       // Cantidad a Pedir
                                                 var DetallesProveedor = mb.DetallesProducto(Convert.ToInt32(dbListaProducto.Rows[i]["ID"].ToString()), FormPrincipal.userID);
@@ -2395,9 +2397,11 @@ namespace PuntoDeVentaV2
 
                 if (TipoProd == "P")
                 {
+                    //var minimoTest = filaDatos["StockMinimo"].ToString();
+                    //var stockTest = filaDatos["Stock"].ToString();
                     // Verificar si el stock es menor al minimo y cambiar el texto de color
                     var minimo = Convert.ToInt32(filaDatos["StockMinimo"].ToString());
-                    var stock = Convert.ToInt32(filaDatos["Stock"].ToString());
+                    var stock = Convert.ToDecimal(filaDatos["Stock"].ToString());
 
                     if (stock < minimo)
                     {
