@@ -26,9 +26,21 @@ namespace PuntoDeVentaV2
             return $"SELECT P.Nombre, P.Stock, P.Precio, P.Categoria, P.ClaveInterna AS 'Clave Interna', P.CodigoBarras AS 'Código de Barras', P.Status AS 'Activo', P.ProdImage AS 'Path', P.Tipo FROM Productos P INNER JOIN Usuarios U ON P.IDUsuario = U.ID WHERE U.ID = '{idUser}' AND P.Status = '{status}'";
         }
 
-        public string SetUpPrecioProductos(int id, float precio, int idUsuario)
+        public string SetUpPrecioProductos(int id, float precio, int idUsuario, int tipo = 0)
         {
-            return $"UPDATE Productos SET Precio = '{precio}' WHERE ID = '{id}' AND IDUsuario = {idUsuario}";
+            var consulta = string.Empty;
+
+            if (tipo == 0)
+            {
+                consulta = $"UPDATE Productos SET Precio = '{precio}' WHERE ID = '{id}' AND IDUsuario = {idUsuario}";
+            }
+
+            if (tipo == 1)
+            {
+                consulta = $"UPDATE Productos SET PrecioCompra = '{precio}' WHERE ID = '{id}' AND IDUsuario = {idUsuario}";
+            }
+
+            return consulta;
         }
 
         public string ActualizarStatusProducto(int status, int idProducto, int idUsuario)
