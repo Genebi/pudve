@@ -298,9 +298,9 @@ namespace PuntoDeVentaV2
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
 
-            //============================
-            //=== TABLA DE INVENTARIO  ===
-            //============================
+            //===========================
+            //=== TABLA DE PRODUCTOS  ===
+            //===========================
 
             PdfPTable tablaProductos = new PdfPTable(opciones.Count);
             tablaProductos.WidthPercentage = 100;
@@ -327,9 +327,13 @@ namespace PuntoDeVentaV2
             {
                 foreach (var opcion in opciones)
                 {
+                    int idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
+
                     if (listaProductos.Columns.Contains(opcion.Key))
                     {
-                        PdfPCell rowCustom = new PdfPCell(new Phrase(listaProductos.Rows[i][opcion.Key].ToString(), fuenteNormal));
+                        var valor = listaProductos.Rows[i][opcion.Key].ToString();
+
+                        PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
                         rowCustom.BorderWidth = 0;
                         rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                         tablaProductos.AddCell(rowCustom);
@@ -363,7 +367,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (opcion.Key == "Proveedor")
                         {
-                            var datosProveedor = mb.DetallesProducto(Convert.ToInt32(listaProductos.Rows[i]["ID"]), FormPrincipal.userID);
+                            var datosProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
 
                             if (datosProveedor.Length > 0)
                             {
@@ -383,7 +387,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (opcion.Key == "CodigoBarraExtra")
                         {
-                            var datosCodigos = mb.ObtenerCodigoBarrasExtras(Convert.ToInt32(listaProductos.Rows[i]["ID"]));
+                            var datosCodigos = mb.ObtenerCodigoBarrasExtras(idProducto);
 
                             if (datosCodigos.Length > 0)
                             {
@@ -408,6 +412,7 @@ namespace PuntoDeVentaV2
                         else
                         {
                             // Cuando son los valores del App.config
+                            resultado = mb.DatosDetallesProducto(idProducto, opcion.Key);
                         }
 
                         PdfPCell rowCustom = new PdfPCell(new Phrase(resultado, fuenteNormal));
@@ -422,9 +427,9 @@ namespace PuntoDeVentaV2
             reporte.Add(subTitulo);
             reporte.Add(tablaProductos);
 
-            //================================
-            //=== FIN TABLA DE INVENTARIO  ===
-            //================================
+            //===============================
+            //=== FIN TABLA DE PRODUCTOS  ===
+            //===============================
 
             reporte.AddTitle("Reporte Productos");
             reporte.AddAuthor("PUDVE");
