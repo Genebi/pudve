@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnRevisar = new System.Windows.Forms.Button();
             this.btnActualizarXML = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.bntTerminar = new System.Windows.Forms.Button();
             this.listaProductos = new System.Windows.Forms.ListBox();
             this.tituloBusqueda = new System.Windows.Forms.Label();
@@ -47,7 +47,6 @@
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panelBotones.SuspendLayout();
             this.panelContenedor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
@@ -139,6 +138,7 @@
             this.panelContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelContenedor.Controls.Add(this.btnBuscar);
             this.panelContenedor.Controls.Add(this.bntTerminar);
             this.panelContenedor.Controls.Add(this.listaProductos);
             this.panelContenedor.Controls.Add(this.tituloBusqueda);
@@ -149,6 +149,23 @@
             this.panelContenedor.Size = new System.Drawing.Size(845, 388);
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
+            // 
+            // btnBuscar
+            // 
+            this.btnBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBuscar.BackColor = System.Drawing.Color.Green;
+            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscar.FlatAppearance.BorderSize = 0;
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.ForeColor = System.Drawing.Color.White;
+            this.btnBuscar.Location = new System.Drawing.Point(726, 46);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(105, 23);
+            this.btnBuscar.TabIndex = 105;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // bntTerminar
             // 
@@ -281,11 +298,6 @@
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 135;
             // 
-            // timerBusqueda
-            // 
-            this.timerBusqueda.Interval = 1000;
-            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
-            // 
             // Inventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -329,7 +341,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.ListBox listaProductos;
-        private System.Windows.Forms.Timer timerBusqueda;
         private System.Windows.Forms.Button bntTerminar;
+        private System.Windows.Forms.Button btnBuscar;
     }
 }

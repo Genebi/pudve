@@ -81,6 +81,7 @@ namespace PuntoDeVentaV2
 
             //Se carga la informacion por defecto del producto registrado
             lbProducto.Text = datos[1];
+            lbPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
             producto = datos[1];
             precioProducto = float.Parse(datos[2]);
             stockProducto = Convert.ToInt32(datos[4]);

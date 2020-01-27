@@ -1022,6 +1022,57 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
+        public Dictionary<int, string> BusquedaCoincidenciasInventario(string frase)
+        {
+            Dictionary<int, string> lista = new Dictionary<int, string>();
+
+            Dictionary<int, Tuple<int, string>> coincidencias = new Dictionary<int, Tuple<int, string>>();
+
+            string[] palabras = frase.Split(' ');
+
+            if (palabras.Length > 0)
+            {
+                foreach (var palabra in palabras)
+                {
+                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%')");
+
+                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            var id = Convert.ToInt32(dr["ID"].ToString());
+                            var nombre = dr["Nombre"].ToString();
+
+                            if (coincidencias.ContainsKey(id))
+                            {
+                                coincidencias[id] = Tuple.Create(coincidencias[id].Item1 + 1, nombre);
+                            }
+                            else
+                            {
+                                coincidencias.Add(id, new Tuple<int, string>(1, nombre));
+                            }
+                        }
+                    }
+
+                    dr.Close();
+                }
+            }
+
+            if (coincidencias.Count > 0)
+            {
+                var listaCoincidencias = from entry in coincidencias orderby entry.Value.Item1 descending select entry;
+
+                foreach (var producto in listaCoincidencias)
+                {
+                    lista.Add(producto.Key, producto.Value.Item2);
+                }
+            }
+
+            return lista;
+        }
+
         public string UltimaFechaCorte()
         {
             string fecha = DateTime.MinValue.ToString();
