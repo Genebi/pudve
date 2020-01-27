@@ -79,7 +79,8 @@ namespace PuntoDeVentaV2
                 {
                     File.Copy(archivoBD, copiaDB);
 
-                    MessageBox.Show("Información respaldada exitosamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Información respaldada exitosamente", 
+                                    "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
