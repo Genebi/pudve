@@ -1441,6 +1441,7 @@ namespace PuntoDeVentaV2
             {
                 if (!isEmpty)
                 {
+                    borrarEtiquetasDinamicasSetUpDinamicos();
                     setUpDinamicos.Clear();
 
                     using (StreamReader file = new StreamReader(path + @"\" + fileName))
@@ -1463,6 +1464,7 @@ namespace PuntoDeVentaV2
                     }
                     if (new FileInfo(path + fileName).Length > 0)
                     {
+                        borrarEtiquetasDinamicasSetUpDinamicos();
                         setUpDinamicos.Clear();
                         using (StreamReader file = new StreamReader(path + @"\" + fileName))
                         {
