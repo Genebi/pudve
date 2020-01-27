@@ -502,7 +502,6 @@ namespace PuntoDeVentaV2
             return cons;
         }
 
-<<<<<<< HEAD
         public string GuardarRevisarInventario(string[] datos, int tipo = 0)
         {
             string consulta = string.Empty;
@@ -519,7 +518,8 @@ namespace PuntoDeVentaV2
             }
 
             return consulta;
-=======
+        }
+
         public string cargar_info_certificado(string id_usuario)
         {
             string cons = $"SELECT num_certificado, password_cer FROM Usuarios WHERE ID='{id_usuario}'";
@@ -600,7 +600,6 @@ namespace PuntoDeVentaV2
             }
 
             return modif;
->>>>>>> ApartadoFacturacionPrt2
         }
     }
 }
