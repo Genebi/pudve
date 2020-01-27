@@ -27,6 +27,10 @@ namespace PuntoDeVentaV2
         public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
 
+        public static int tipo_venta = 0;
+        public static string[][] faltantes_productos;
+
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -165,6 +169,8 @@ namespace PuntoDeVentaV2
 
             dr.Close();
             sql_con.Close();
+
+            tipo_venta = estado;
         }
         #endregion
 
@@ -374,6 +380,9 @@ namespace PuntoDeVentaV2
                 //Timbrar
                 if (e.ColumnIndex == 14)
                 {
+                    // Verifica que la venta tenga todos los datos para facturar
+                    //comprobar_venta_f(idVenta);
+
                     //Comprobamos que la venta tenga cliente
                     var clienteRFC = DGVListadoVentas.Rows[fila].Cells["RFC"].Value.ToString();
 
@@ -458,6 +467,84 @@ namespace PuntoDeVentaV2
         {
             recargarDatos = false;
             abrirNuevaVenta = false;
+        }
+
+
+        private void comprobar_venta_f(int id_venta)
+        {
+            DataTable d_id_productos;
+            DataTable d_claves;
+
+            //int sin_cliente = 0;
+            //int n_filas = 0;
+            int i = 1;
+            
+
+            // Consulta IDCliente
+            int id_cliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM DetallesVenta WHERE IDVenta='{id_venta}'", 6));
+            
+            /*if(id_cliente == 0)
+            {
+                sin_cliente = 1;
+            }*/
+
+            // Consulta claves de producto y unidad del producto
+            d_id_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
+
+            // Declara arreglo y tamaño
+            int n_filas = d_id_productos.Rows.Count + 1; 
+            faltantes_productos = new string[n_filas][];
+
+
+            if (d_id_productos.Rows.Count > 0)
+            {
+                foreach (DataRow r_id_productos in d_id_productos.Rows)
+                {
+                    int id_p = 0;
+
+                    id_p = Convert.ToInt32(r_id_productos["IDProducto"]);
+
+
+                    // Busca claves
+                    d_claves = cn.CargarDatos(cs.cargar_datos_venta_xml(5, id_p, 0));
+
+                    if (d_claves.Rows.Count > 0)
+                    {
+                        foreach(DataRow r_claves in d_claves.Rows)
+                        { 
+                            string clave_u = r_claves["UnidadMedida"].ToString();
+                            string clave_p = r_claves["ClaveProducto"].ToString();
+
+                            faltantes_productos[i] = new string[6];
+
+                            if (clave_p == "" | clave_u == "")
+                            {
+                                faltantes_productos[i][0] = "1";
+                            }
+                            else
+                            {
+                                faltantes_productos[i][0] = "0";
+                            }
+
+                            faltantes_productos[i][1] = id_p.ToString();
+                            faltantes_productos[i][2] = clave_p;
+                            faltantes_productos[i][3] = clave_u;
+                            faltantes_productos[i][4] = r_id_productos["Nombre"].ToString();
+
+                            Console.WriteLine("faltantes_productos[i, 0]=" + faltantes_productos[i][0]+ "faltantes_productos[i, 1]=" + faltantes_productos[i][1]);
+                        }
+
+                        i++;
+                    }
+                }
+            }
+
+
+            // Abrir ventana para agregar los datos faltantes para la factura
+
+            Crear_factura crear_factura = new Crear_factura(id_cliente, n_filas, id_venta);
+
+            crear_factura.ShowDialog();
         }
     }
 }

@@ -9,17 +9,17 @@ namespace PuntoDeVentaV2.CFDI
 {
     public class StringWriterConEncoding: StringWriter
     {
-        private readonly Encoding encoding;
+        
         public StringWriterConEncoding(Encoding encoding): base()
         {
-            this.encoding = encoding;
+            this.m_encoding = encoding;
         }
-
+        private readonly Encoding m_encoding;
         public override Encoding Encoding
         {
             get
             {
-                return this.encoding;
+                return this.m_encoding;
             }
         }
     }

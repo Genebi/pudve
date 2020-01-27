@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
 
                 txt_certificado.Text = nombres[0];
                 txt_llave.Text = nombres[1];
-                Console.WriteLine(nombres[0] + "<====>" + nombres[1]);
+
                 if(nombres[0] == "" & nombres[1] == "")
                 {
                     btn_subir_archivos.Enabled = false;

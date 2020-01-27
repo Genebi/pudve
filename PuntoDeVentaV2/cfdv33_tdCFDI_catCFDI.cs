@@ -49,7 +49,7 @@ public partial class Comprobante {
     
     private string selloField;
     
-    private c_FormaPago formaPagoField;
+    private string formaPagoField;
     
     private bool formaPagoFieldSpecified;
     
@@ -65,7 +65,7 @@ public partial class Comprobante {
     
     private bool descuentoFieldSpecified;
     
-    private c_Moneda monedaField;
+    private string monedaField;
     
     private decimal tipoCambioField;
     
@@ -73,9 +73,9 @@ public partial class Comprobante {
     
     private decimal totalField;
     
-    private c_TipoDeComprobante tipoDeComprobanteField;
+    private string tipoDeComprobanteField;
     
-    private c_MetodoPago metodoPagoField;
+    private string metodoPagoField;
     
     private bool metodoPagoFieldSpecified;
     
@@ -220,11 +220,12 @@ public partial class Comprobante {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_FormaPago FormaPago {
+    public string FormaPago {
         get {
             return this.formaPagoField;
         }
         set {
+            formaPagoFieldSpecified = true;
             this.formaPagoField = value;
         }
     }
@@ -290,7 +291,9 @@ public partial class Comprobante {
         get {
             return this.descuentoField;
         }
-        set {
+        set
+        {
+            descuentoFieldSpecified = true;
             this.descuentoField = value;
         }
     }
@@ -308,7 +311,7 @@ public partial class Comprobante {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_Moneda Moneda {
+    public string Moneda {
         get {
             return this.monedaField;
         }
@@ -324,6 +327,7 @@ public partial class Comprobante {
             return this.tipoCambioField;
         }
         set {
+            tipoCambioFieldSpecified = true;
             this.tipoCambioField = value;
         }
     }
@@ -352,7 +356,7 @@ public partial class Comprobante {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_TipoDeComprobante TipoDeComprobante {
+    public string TipoDeComprobante {
         get {
             return this.tipoDeComprobanteField;
         }
@@ -363,11 +367,12 @@ public partial class Comprobante {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_MetodoPago MetodoPago {
+    public string MetodoPago {
         get {
             return this.metodoPagoField;
         }
         set {
+            metodoPagoFieldSpecified = true;
             this.metodoPagoField = value;
         }
     }
@@ -416,7 +421,7 @@ public partial class ComprobanteCfdiRelacionados {
     
     private ComprobanteCfdiRelacionadosCfdiRelacionado[] cfdiRelacionadoField;
     
-    private c_TipoRelacion tipoRelacionField;
+    private string tipoRelacionField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("CfdiRelacionado")]
@@ -431,7 +436,7 @@ public partial class ComprobanteCfdiRelacionados {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_TipoRelacion TipoRelacion {
+    public string TipoRelacion {
         get {
             return this.tipoRelacionField;
         }
@@ -463,48 +468,6 @@ public partial class ComprobanteCfdiRelacionadosCfdiRelacionado {
     }
 }
 
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_TipoRelacion {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01")]
-    Item01,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("02")]
-    Item02,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("03")]
-    Item03,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04")]
-    Item04,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05")]
-    Item05,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("06")]
-    Item06,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("07")]
-    Item07,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("08")]
-    Item08,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("09")]
-    Item09,
-}
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
@@ -518,7 +481,7 @@ public partial class ComprobanteEmisor {
     
     private string nombreField;
     
-    private c_RegimenFiscal regimenFiscalField;
+    private string regimenFiscalField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -544,7 +507,7 @@ public partial class ComprobanteEmisor {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_RegimenFiscal RegimenFiscal {
+    public string RegimenFiscal {
         get {
             return this.regimenFiscalField;
         }
@@ -552,97 +515,6 @@ public partial class ComprobanteEmisor {
             this.regimenFiscalField = value;
         }
     }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_RegimenFiscal {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("601")]
-    Item601,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("603")]
-    Item603,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("605")]
-    Item605,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("606")]
-    Item606,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("608")]
-    Item608,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("609")]
-    Item609,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("610")]
-    Item610,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("611")]
-    Item611,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("612")]
-    Item612,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("614")]
-    Item614,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("616")]
-    Item616,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("620")]
-    Item620,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("621")]
-    Item621,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("622")]
-    Item622,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("623")]
-    Item623,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("624")]
-    Item624,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("628")]
-    Item628,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("607")]
-    Item607,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("629")]
-    Item629,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("630")]
-    Item630,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("615")]
-    Item615,
 }
 
 /// <remarks/>
@@ -657,13 +529,13 @@ public partial class ComprobanteReceptor {
     
     private string nombreField;
     
-    private c_Pais residenciaFiscalField;
+    private string residenciaFiscalField;
     
     private bool residenciaFiscalFieldSpecified;
     
     private string numRegIdTribField;
     
-    private c_UsoCFDI usoCFDIField;
+    private string usoCFDIField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -689,7 +561,7 @@ public partial class ComprobanteReceptor {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_Pais ResidenciaFiscal {
+    public string ResidenciaFiscal {
         get {
             return this.residenciaFiscalField;
         }
@@ -722,7 +594,7 @@ public partial class ComprobanteReceptor {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_UsoCFDI UsoCFDI {
+    public string UsoCFDI {
         get {
             return this.usoCFDIField;
         }
@@ -732,835 +604,6 @@ public partial class ComprobanteReceptor {
     }
 }
 
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_Pais {
-    
-    /// <remarks/>
-    AFG,
-    
-    /// <remarks/>
-    ALA,
-    
-    /// <remarks/>
-    ALB,
-    
-    /// <remarks/>
-    DEU,
-    
-    /// <remarks/>
-    AND,
-    
-    /// <remarks/>
-    AGO,
-    
-    /// <remarks/>
-    AIA,
-    
-    /// <remarks/>
-    ATA,
-    
-    /// <remarks/>
-    ATG,
-    
-    /// <remarks/>
-    SAU,
-    
-    /// <remarks/>
-    DZA,
-    
-    /// <remarks/>
-    ARG,
-    
-    /// <remarks/>
-    ARM,
-    
-    /// <remarks/>
-    ABW,
-    
-    /// <remarks/>
-    AUS,
-    
-    /// <remarks/>
-    AUT,
-    
-    /// <remarks/>
-    AZE,
-    
-    /// <remarks/>
-    BHS,
-    
-    /// <remarks/>
-    BGD,
-    
-    /// <remarks/>
-    BRB,
-    
-    /// <remarks/>
-    BHR,
-    
-    /// <remarks/>
-    BEL,
-    
-    /// <remarks/>
-    BLZ,
-    
-    /// <remarks/>
-    BEN,
-    
-    /// <remarks/>
-    BMU,
-    
-    /// <remarks/>
-    BLR,
-    
-    /// <remarks/>
-    MMR,
-    
-    /// <remarks/>
-    BOL,
-    
-    /// <remarks/>
-    BIH,
-    
-    /// <remarks/>
-    BWA,
-    
-    /// <remarks/>
-    BRA,
-    
-    /// <remarks/>
-    BRN,
-    
-    /// <remarks/>
-    BGR,
-    
-    /// <remarks/>
-    BFA,
-    
-    /// <remarks/>
-    BDI,
-    
-    /// <remarks/>
-    BTN,
-    
-    /// <remarks/>
-    CPV,
-    
-    /// <remarks/>
-    KHM,
-    
-    /// <remarks/>
-    CMR,
-    
-    /// <remarks/>
-    CAN,
-    
-    /// <remarks/>
-    QAT,
-    
-    /// <remarks/>
-    BES,
-    
-    /// <remarks/>
-    TCD,
-    
-    /// <remarks/>
-    CHL,
-    
-    /// <remarks/>
-    CHN,
-    
-    /// <remarks/>
-    CYP,
-    
-    /// <remarks/>
-    COL,
-    
-    /// <remarks/>
-    COM,
-    
-    /// <remarks/>
-    PRK,
-    
-    /// <remarks/>
-    KOR,
-    
-    /// <remarks/>
-    CIV,
-    
-    /// <remarks/>
-    CRI,
-    
-    /// <remarks/>
-    HRV,
-    
-    /// <remarks/>
-    CUB,
-    
-    /// <remarks/>
-    CUW,
-    
-    /// <remarks/>
-    DNK,
-    
-    /// <remarks/>
-    DMA,
-    
-    /// <remarks/>
-    ECU,
-    
-    /// <remarks/>
-    EGY,
-    
-    /// <remarks/>
-    SLV,
-    
-    /// <remarks/>
-    ARE,
-    
-    /// <remarks/>
-    ERI,
-    
-    /// <remarks/>
-    SVK,
-    
-    /// <remarks/>
-    SVN,
-    
-    /// <remarks/>
-    ESP,
-    
-    /// <remarks/>
-    USA,
-    
-    /// <remarks/>
-    EST,
-    
-    /// <remarks/>
-    ETH,
-    
-    /// <remarks/>
-    PHL,
-    
-    /// <remarks/>
-    FIN,
-    
-    /// <remarks/>
-    FJI,
-    
-    /// <remarks/>
-    FRA,
-    
-    /// <remarks/>
-    GAB,
-    
-    /// <remarks/>
-    GMB,
-    
-    /// <remarks/>
-    GEO,
-    
-    /// <remarks/>
-    GHA,
-    
-    /// <remarks/>
-    GIB,
-    
-    /// <remarks/>
-    GRD,
-    
-    /// <remarks/>
-    GRC,
-    
-    /// <remarks/>
-    GRL,
-    
-    /// <remarks/>
-    GLP,
-    
-    /// <remarks/>
-    GUM,
-    
-    /// <remarks/>
-    GTM,
-    
-    /// <remarks/>
-    GUF,
-    
-    /// <remarks/>
-    GGY,
-    
-    /// <remarks/>
-    GIN,
-    
-    /// <remarks/>
-    GNB,
-    
-    /// <remarks/>
-    GNQ,
-    
-    /// <remarks/>
-    GUY,
-    
-    /// <remarks/>
-    HTI,
-    
-    /// <remarks/>
-    HND,
-    
-    /// <remarks/>
-    HKG,
-    
-    /// <remarks/>
-    HUN,
-    
-    /// <remarks/>
-    IND,
-    
-    /// <remarks/>
-    IDN,
-    
-    /// <remarks/>
-    IRQ,
-    
-    /// <remarks/>
-    IRN,
-    
-    /// <remarks/>
-    IRL,
-    
-    /// <remarks/>
-    BVT,
-    
-    /// <remarks/>
-    IMN,
-    
-    /// <remarks/>
-    CXR,
-    
-    /// <remarks/>
-    NFK,
-    
-    /// <remarks/>
-    ISL,
-    
-    /// <remarks/>
-    CYM,
-    
-    /// <remarks/>
-    CCK,
-    
-    /// <remarks/>
-    COK,
-    
-    /// <remarks/>
-    FRO,
-    
-    /// <remarks/>
-    SGS,
-    
-    /// <remarks/>
-    HMD,
-    
-    /// <remarks/>
-    FLK,
-    
-    /// <remarks/>
-    MNP,
-    
-    /// <remarks/>
-    MHL,
-    
-    /// <remarks/>
-    PCN,
-    
-    /// <remarks/>
-    SLB,
-    
-    /// <remarks/>
-    TCA,
-    
-    /// <remarks/>
-    UMI,
-    
-    /// <remarks/>
-    VGB,
-    
-    /// <remarks/>
-    VIR,
-    
-    /// <remarks/>
-    ISR,
-    
-    /// <remarks/>
-    ITA,
-    
-    /// <remarks/>
-    JAM,
-    
-    /// <remarks/>
-    JPN,
-    
-    /// <remarks/>
-    JEY,
-    
-    /// <remarks/>
-    JOR,
-    
-    /// <remarks/>
-    KAZ,
-    
-    /// <remarks/>
-    KEN,
-    
-    /// <remarks/>
-    KGZ,
-    
-    /// <remarks/>
-    KIR,
-    
-    /// <remarks/>
-    KWT,
-    
-    /// <remarks/>
-    LAO,
-    
-    /// <remarks/>
-    LSO,
-    
-    /// <remarks/>
-    LVA,
-    
-    /// <remarks/>
-    LBN,
-    
-    /// <remarks/>
-    LBR,
-    
-    /// <remarks/>
-    LBY,
-    
-    /// <remarks/>
-    LIE,
-    
-    /// <remarks/>
-    LTU,
-    
-    /// <remarks/>
-    LUX,
-    
-    /// <remarks/>
-    MAC,
-    
-    /// <remarks/>
-    MDG,
-    
-    /// <remarks/>
-    MYS,
-    
-    /// <remarks/>
-    MWI,
-    
-    /// <remarks/>
-    MDV,
-    
-    /// <remarks/>
-    MLI,
-    
-    /// <remarks/>
-    MLT,
-    
-    /// <remarks/>
-    MAR,
-    
-    /// <remarks/>
-    MTQ,
-    
-    /// <remarks/>
-    MUS,
-    
-    /// <remarks/>
-    MRT,
-    
-    /// <remarks/>
-    MYT,
-    
-    /// <remarks/>
-    MEX,
-    
-    /// <remarks/>
-    FSM,
-    
-    /// <remarks/>
-    MDA,
-    
-    /// <remarks/>
-    MCO,
-    
-    /// <remarks/>
-    MNG,
-    
-    /// <remarks/>
-    MNE,
-    
-    /// <remarks/>
-    MSR,
-    
-    /// <remarks/>
-    MOZ,
-    
-    /// <remarks/>
-    NAM,
-    
-    /// <remarks/>
-    NRU,
-    
-    /// <remarks/>
-    NPL,
-    
-    /// <remarks/>
-    NIC,
-    
-    /// <remarks/>
-    NER,
-    
-    /// <remarks/>
-    NGA,
-    
-    /// <remarks/>
-    NIU,
-    
-    /// <remarks/>
-    NOR,
-    
-    /// <remarks/>
-    NCL,
-    
-    /// <remarks/>
-    NZL,
-    
-    /// <remarks/>
-    OMN,
-    
-    /// <remarks/>
-    NLD,
-    
-    /// <remarks/>
-    PAK,
-    
-    /// <remarks/>
-    PLW,
-    
-    /// <remarks/>
-    PSE,
-    
-    /// <remarks/>
-    PAN,
-    
-    /// <remarks/>
-    PNG,
-    
-    /// <remarks/>
-    PRY,
-    
-    /// <remarks/>
-    PER,
-    
-    /// <remarks/>
-    PYF,
-    
-    /// <remarks/>
-    POL,
-    
-    /// <remarks/>
-    PRT,
-    
-    /// <remarks/>
-    PRI,
-    
-    /// <remarks/>
-    GBR,
-    
-    /// <remarks/>
-    CAF,
-    
-    /// <remarks/>
-    CZE,
-    
-    /// <remarks/>
-    MKD,
-    
-    /// <remarks/>
-    COG,
-    
-    /// <remarks/>
-    COD,
-    
-    /// <remarks/>
-    DOM,
-    
-    /// <remarks/>
-    REU,
-    
-    /// <remarks/>
-    RWA,
-    
-    /// <remarks/>
-    ROU,
-    
-    /// <remarks/>
-    RUS,
-    
-    /// <remarks/>
-    ESH,
-    
-    /// <remarks/>
-    WSM,
-    
-    /// <remarks/>
-    ASM,
-    
-    /// <remarks/>
-    BLM,
-    
-    /// <remarks/>
-    KNA,
-    
-    /// <remarks/>
-    SMR,
-    
-    /// <remarks/>
-    MAF,
-    
-    /// <remarks/>
-    SPM,
-    
-    /// <remarks/>
-    VCT,
-    
-    /// <remarks/>
-    SHN,
-    
-    /// <remarks/>
-    LCA,
-    
-    /// <remarks/>
-    STP,
-    
-    /// <remarks/>
-    SEN,
-    
-    /// <remarks/>
-    SRB,
-    
-    /// <remarks/>
-    SYC,
-    
-    /// <remarks/>
-    SLE,
-    
-    /// <remarks/>
-    SGP,
-    
-    /// <remarks/>
-    SXM,
-    
-    /// <remarks/>
-    SYR,
-    
-    /// <remarks/>
-    SOM,
-    
-    /// <remarks/>
-    LKA,
-    
-    /// <remarks/>
-    SWZ,
-    
-    /// <remarks/>
-    ZAF,
-    
-    /// <remarks/>
-    SDN,
-    
-    /// <remarks/>
-    SSD,
-    
-    /// <remarks/>
-    SWE,
-    
-    /// <remarks/>
-    CHE,
-    
-    /// <remarks/>
-    SUR,
-    
-    /// <remarks/>
-    SJM,
-    
-    /// <remarks/>
-    THA,
-    
-    /// <remarks/>
-    TWN,
-    
-    /// <remarks/>
-    TZA,
-    
-    /// <remarks/>
-    TJK,
-    
-    /// <remarks/>
-    IOT,
-    
-    /// <remarks/>
-    ATF,
-    
-    /// <remarks/>
-    TLS,
-    
-    /// <remarks/>
-    TGO,
-    
-    /// <remarks/>
-    TKL,
-    
-    /// <remarks/>
-    TON,
-    
-    /// <remarks/>
-    TTO,
-    
-    /// <remarks/>
-    TUN,
-    
-    /// <remarks/>
-    TKM,
-    
-    /// <remarks/>
-    TUR,
-    
-    /// <remarks/>
-    TUV,
-    
-    /// <remarks/>
-    UKR,
-    
-    /// <remarks/>
-    UGA,
-    
-    /// <remarks/>
-    URY,
-    
-    /// <remarks/>
-    UZB,
-    
-    /// <remarks/>
-    VUT,
-    
-    /// <remarks/>
-    VAT,
-    
-    /// <remarks/>
-    VEN,
-    
-    /// <remarks/>
-    VNM,
-    
-    /// <remarks/>
-    WLF,
-    
-    /// <remarks/>
-    YEM,
-    
-    /// <remarks/>
-    DJI,
-    
-    /// <remarks/>
-    ZMB,
-    
-    /// <remarks/>
-    ZWE,
-    
-    /// <remarks/>
-    ZZZ,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_UsoCFDI {
-    
-    /// <remarks/>
-    G01,
-    
-    /// <remarks/>
-    G02,
-    
-    /// <remarks/>
-    G03,
-    
-    /// <remarks/>
-    I01,
-    
-    /// <remarks/>
-    I02,
-    
-    /// <remarks/>
-    I03,
-    
-    /// <remarks/>
-    I04,
-    
-    /// <remarks/>
-    I05,
-    
-    /// <remarks/>
-    I06,
-    
-    /// <remarks/>
-    I07,
-    
-    /// <remarks/>
-    I08,
-    
-    /// <remarks/>
-    D01,
-    
-    /// <remarks/>
-    D02,
-    
-    /// <remarks/>
-    D03,
-    
-    /// <remarks/>
-    D04,
-    
-    /// <remarks/>
-    D05,
-    
-    /// <remarks/>
-    D06,
-    
-    /// <remarks/>
-    D07,
-    
-    /// <remarks/>
-    D08,
-    
-    /// <remarks/>
-    D09,
-    
-    /// <remarks/>
-    D10,
-    
-    /// <remarks/>
-    P01,
-}
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
@@ -1747,6 +790,7 @@ public partial class ComprobanteConcepto {
             return this.descuentoField;
         }
         set {
+            descuentoFieldSpecified = true;
             this.descuentoField = value;
         }
     }
@@ -1808,9 +852,9 @@ public partial class ComprobanteConceptoImpuestosTraslado {
     
     private decimal baseField;
     
-    private c_Impuesto impuestoField;
+    private string impuestoField;
     
-    private c_TipoFactor tipoFactorField;
+    private string tipoFactorField;
     
     private decimal tasaOCuotaField;
     
@@ -1833,7 +877,7 @@ public partial class ComprobanteConceptoImpuestosTraslado {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_Impuesto Impuesto {
+    public string Impuesto {
         get {
             return this.impuestoField;
         }
@@ -1844,7 +888,7 @@ public partial class ComprobanteConceptoImpuestosTraslado {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_TipoFactor TipoFactor {
+    public string TipoFactor {
         get {
             return this.tipoFactorField;
         }
@@ -1860,6 +904,7 @@ public partial class ComprobanteConceptoImpuestosTraslado {
             return this.tasaOCuotaField;
         }
         set {
+            tasaOCuotaFieldSpecified = true;
             this.tasaOCuotaField = value;
         }
     }
@@ -1882,6 +927,7 @@ public partial class ComprobanteConceptoImpuestosTraslado {
             return this.importeField;
         }
         set {
+            importeFieldSpecified = true;
             this.importeField = value;
         }
     }
@@ -1898,40 +944,6 @@ public partial class ComprobanteConceptoImpuestosTraslado {
     }
 }
 
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_Impuesto {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("001")]
-    Item001,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("002")]
-    Item002,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("003")]
-    Item003,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_TipoFactor {
-    
-    /// <remarks/>
-    Tasa,
-    
-    /// <remarks/>
-    Cuota,
-    
-    /// <remarks/>
-    Exento,
-}
 
 /// <remarks/>
 [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
@@ -1943,9 +955,9 @@ public partial class ComprobanteConceptoImpuestosRetencion {
     
     private decimal baseField;
     
-    private c_Impuesto impuestoField;
+    private string impuestoField;
     
-    private c_TipoFactor tipoFactorField;
+    private string tipoFactorField;
     
     private decimal tasaOCuotaField;
     
@@ -1964,7 +976,7 @@ public partial class ComprobanteConceptoImpuestosRetencion {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_Impuesto Impuesto {
+    public string Impuesto {
         get {
             return this.impuestoField;
         }
@@ -1975,7 +987,7 @@ public partial class ComprobanteConceptoImpuestosRetencion {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_TipoFactor TipoFactor {
+    public string TipoFactor {
         get {
             return this.tipoFactorField;
         }
@@ -2283,6 +1295,7 @@ public partial class ComprobanteImpuestos {
             return this.totalImpuestosRetenidosField;
         }
         set {
+            //totalImpuestosRetenidosFieldSpecified = true;
             this.totalImpuestosRetenidosField = value;
         }
     }
@@ -2305,6 +1318,7 @@ public partial class ComprobanteImpuestos {
             return this.totalImpuestosTrasladadosField;
         }
         set {
+            //totalImpuestosRetenidosFieldSpecified = true;
             this.totalImpuestosTrasladadosField = value;
         }
     }
@@ -2329,13 +1343,13 @@ public partial class ComprobanteImpuestos {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
 public partial class ComprobanteImpuestosRetencion {
     
-    private c_Impuesto impuestoField;
+    private string impuestoField;
     
     private decimal importeField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_Impuesto Impuesto {
+    public string Impuesto {
         get {
             return this.impuestoField;
         }
@@ -2364,9 +1378,9 @@ public partial class ComprobanteImpuestosRetencion {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://www.sat.gob.mx/cfd/3")]
 public partial class ComprobanteImpuestosTraslado {
     
-    private c_Impuesto impuestoField;
+    private string impuestoField;
     
-    private c_TipoFactor tipoFactorField;
+    private string tipoFactorField;
     
     private decimal tasaOCuotaField;
     
@@ -2374,7 +1388,7 @@ public partial class ComprobanteImpuestosTraslado {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_Impuesto Impuesto {
+    public string Impuesto {
         get {
             return this.impuestoField;
         }
@@ -2385,7 +1399,7 @@ public partial class ComprobanteImpuestosTraslado {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public c_TipoFactor TipoFactor {
+    public string TipoFactor {
         get {
             return this.tipoFactorField;
         }
@@ -2459,675 +1473,4 @@ public partial class ComprobanteAddenda {
             this.anyField = value;
         }
     }
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_FormaPago {
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("01")]
-    Item01,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("02")]
-    Item02,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("03")]
-    Item03,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("04")]
-    Item04,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("05")]
-    Item05,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("06")]
-    Item06,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("08")]
-    Item08,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("12")]
-    Item12,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("13")]
-    Item13,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("14")]
-    Item14,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("15")]
-    Item15,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("17")]
-    Item17,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("23")]
-    Item23,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("24")]
-    Item24,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("25")]
-    Item25,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("26")]
-    Item26,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("27")]
-    Item27,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("28")]
-    Item28,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("29")]
-    Item29,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("30")]
-    Item30,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("31")]
-    Item31,
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlEnumAttribute("99")]
-    Item99,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_Moneda {
-    
-    /// <remarks/>
-    AED,
-    
-    /// <remarks/>
-    AFN,
-    
-    /// <remarks/>
-    ALL,
-    
-    /// <remarks/>
-    AMD,
-    
-    /// <remarks/>
-    ANG,
-    
-    /// <remarks/>
-    AOA,
-    
-    /// <remarks/>
-    ARS,
-    
-    /// <remarks/>
-    AUD,
-    
-    /// <remarks/>
-    AWG,
-    
-    /// <remarks/>
-    AZN,
-    
-    /// <remarks/>
-    BAM,
-    
-    /// <remarks/>
-    BBD,
-    
-    /// <remarks/>
-    BDT,
-    
-    /// <remarks/>
-    BGN,
-    
-    /// <remarks/>
-    BHD,
-    
-    /// <remarks/>
-    BIF,
-    
-    /// <remarks/>
-    BMD,
-    
-    /// <remarks/>
-    BND,
-    
-    /// <remarks/>
-    BOB,
-    
-    /// <remarks/>
-    BOV,
-    
-    /// <remarks/>
-    BRL,
-    
-    /// <remarks/>
-    BSD,
-    
-    /// <remarks/>
-    BTN,
-    
-    /// <remarks/>
-    BWP,
-    
-    /// <remarks/>
-    BYR,
-    
-    /// <remarks/>
-    BZD,
-    
-    /// <remarks/>
-    CAD,
-    
-    /// <remarks/>
-    CDF,
-    
-    /// <remarks/>
-    CHE,
-    
-    /// <remarks/>
-    CHF,
-    
-    /// <remarks/>
-    CHW,
-    
-    /// <remarks/>
-    CLF,
-    
-    /// <remarks/>
-    CLP,
-    
-    /// <remarks/>
-    CNY,
-    
-    /// <remarks/>
-    COP,
-    
-    /// <remarks/>
-    COU,
-    
-    /// <remarks/>
-    CRC,
-    
-    /// <remarks/>
-    CUC,
-    
-    /// <remarks/>
-    CUP,
-    
-    /// <remarks/>
-    CVE,
-    
-    /// <remarks/>
-    CZK,
-    
-    /// <remarks/>
-    DJF,
-    
-    /// <remarks/>
-    DKK,
-    
-    /// <remarks/>
-    DOP,
-    
-    /// <remarks/>
-    DZD,
-    
-    /// <remarks/>
-    EGP,
-    
-    /// <remarks/>
-    ERN,
-    
-    /// <remarks/>
-    ETB,
-    
-    /// <remarks/>
-    EUR,
-    
-    /// <remarks/>
-    FJD,
-    
-    /// <remarks/>
-    FKP,
-    
-    /// <remarks/>
-    GBP,
-    
-    /// <remarks/>
-    GEL,
-    
-    /// <remarks/>
-    GHS,
-    
-    /// <remarks/>
-    GIP,
-    
-    /// <remarks/>
-    GMD,
-    
-    /// <remarks/>
-    GNF,
-    
-    /// <remarks/>
-    GTQ,
-    
-    /// <remarks/>
-    GYD,
-    
-    /// <remarks/>
-    HKD,
-    
-    /// <remarks/>
-    HNL,
-    
-    /// <remarks/>
-    HRK,
-    
-    /// <remarks/>
-    HTG,
-    
-    /// <remarks/>
-    HUF,
-    
-    /// <remarks/>
-    IDR,
-    
-    /// <remarks/>
-    ILS,
-    
-    /// <remarks/>
-    INR,
-    
-    /// <remarks/>
-    IQD,
-    
-    /// <remarks/>
-    IRR,
-    
-    /// <remarks/>
-    ISK,
-    
-    /// <remarks/>
-    JMD,
-    
-    /// <remarks/>
-    JOD,
-    
-    /// <remarks/>
-    JPY,
-    
-    /// <remarks/>
-    KES,
-    
-    /// <remarks/>
-    KGS,
-    
-    /// <remarks/>
-    KHR,
-    
-    /// <remarks/>
-    KMF,
-    
-    /// <remarks/>
-    KPW,
-    
-    /// <remarks/>
-    KRW,
-    
-    /// <remarks/>
-    KWD,
-    
-    /// <remarks/>
-    KYD,
-    
-    /// <remarks/>
-    KZT,
-    
-    /// <remarks/>
-    LAK,
-    
-    /// <remarks/>
-    LBP,
-    
-    /// <remarks/>
-    LKR,
-    
-    /// <remarks/>
-    LRD,
-    
-    /// <remarks/>
-    LSL,
-    
-    /// <remarks/>
-    LYD,
-    
-    /// <remarks/>
-    MAD,
-    
-    /// <remarks/>
-    MDL,
-    
-    /// <remarks/>
-    MGA,
-    
-    /// <remarks/>
-    MKD,
-    
-    /// <remarks/>
-    MMK,
-    
-    /// <remarks/>
-    MNT,
-    
-    /// <remarks/>
-    MOP,
-    
-    /// <remarks/>
-    MRO,
-    
-    /// <remarks/>
-    MUR,
-    
-    /// <remarks/>
-    MVR,
-    
-    /// <remarks/>
-    MWK,
-    
-    /// <remarks/>
-    MXN,
-    
-    /// <remarks/>
-    MXV,
-    
-    /// <remarks/>
-    MYR,
-    
-    /// <remarks/>
-    MZN,
-    
-    /// <remarks/>
-    NAD,
-    
-    /// <remarks/>
-    NGN,
-    
-    /// <remarks/>
-    NIO,
-    
-    /// <remarks/>
-    NOK,
-    
-    /// <remarks/>
-    NPR,
-    
-    /// <remarks/>
-    NZD,
-    
-    /// <remarks/>
-    OMR,
-    
-    /// <remarks/>
-    PAB,
-    
-    /// <remarks/>
-    PEN,
-    
-    /// <remarks/>
-    PGK,
-    
-    /// <remarks/>
-    PHP,
-    
-    /// <remarks/>
-    PKR,
-    
-    /// <remarks/>
-    PLN,
-    
-    /// <remarks/>
-    PYG,
-    
-    /// <remarks/>
-    QAR,
-    
-    /// <remarks/>
-    RON,
-    
-    /// <remarks/>
-    RSD,
-    
-    /// <remarks/>
-    RUB,
-    
-    /// <remarks/>
-    RWF,
-    
-    /// <remarks/>
-    SAR,
-    
-    /// <remarks/>
-    SBD,
-    
-    /// <remarks/>
-    SCR,
-    
-    /// <remarks/>
-    SDG,
-    
-    /// <remarks/>
-    SEK,
-    
-    /// <remarks/>
-    SGD,
-    
-    /// <remarks/>
-    SHP,
-    
-    /// <remarks/>
-    SLL,
-    
-    /// <remarks/>
-    SOS,
-    
-    /// <remarks/>
-    SRD,
-    
-    /// <remarks/>
-    SSP,
-    
-    /// <remarks/>
-    STD,
-    
-    /// <remarks/>
-    SVC,
-    
-    /// <remarks/>
-    SYP,
-    
-    /// <remarks/>
-    SZL,
-    
-    /// <remarks/>
-    THB,
-    
-    /// <remarks/>
-    TJS,
-    
-    /// <remarks/>
-    TMT,
-    
-    /// <remarks/>
-    TND,
-    
-    /// <remarks/>
-    TOP,
-    
-    /// <remarks/>
-    TRY,
-    
-    /// <remarks/>
-    TTD,
-    
-    /// <remarks/>
-    TWD,
-    
-    /// <remarks/>
-    TZS,
-    
-    /// <remarks/>
-    UAH,
-    
-    /// <remarks/>
-    UGX,
-    
-    /// <remarks/>
-    USD,
-    
-    /// <remarks/>
-    USN,
-    
-    /// <remarks/>
-    UYI,
-    
-    /// <remarks/>
-    UYU,
-    
-    /// <remarks/>
-    UZS,
-    
-    /// <remarks/>
-    VEF,
-    
-    /// <remarks/>
-    VND,
-    
-    /// <remarks/>
-    VUV,
-    
-    /// <remarks/>
-    WST,
-    
-    /// <remarks/>
-    XAF,
-    
-    /// <remarks/>
-    XAG,
-    
-    /// <remarks/>
-    XAU,
-    
-    /// <remarks/>
-    XBA,
-    
-    /// <remarks/>
-    XBB,
-    
-    /// <remarks/>
-    XBC,
-    
-    /// <remarks/>
-    XBD,
-    
-    /// <remarks/>
-    XCD,
-    
-    /// <remarks/>
-    XDR,
-    
-    /// <remarks/>
-    XOF,
-    
-    /// <remarks/>
-    XPD,
-    
-    /// <remarks/>
-    XPF,
-    
-    /// <remarks/>
-    XPT,
-    
-    /// <remarks/>
-    XSU,
-    
-    /// <remarks/>
-    XTS,
-    
-    /// <remarks/>
-    XUA,
-    
-    /// <remarks/>
-    XXX,
-    
-    /// <remarks/>
-    YER,
-    
-    /// <remarks/>
-    ZAR,
-    
-    /// <remarks/>
-    ZMW,
-    
-    /// <remarks/>
-    ZWL,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_TipoDeComprobante {
-    
-    /// <remarks/>
-    I,
-    
-    /// <remarks/>
-    E,
-    
-    /// <remarks/>
-    T,
-    
-    /// <remarks/>
-    N,
-    
-    /// <remarks/>
-    P,
-}
-
-/// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
-[System.SerializableAttribute()]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.sat.gob.mx/sitio_internet/cfd/catalogos")]
-public enum c_MetodoPago {
-    
-    /// <remarks/>
-    PUE,
-    
-    /// <remarks/>
-    PPD,
 }
