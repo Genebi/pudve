@@ -502,6 +502,7 @@ namespace PuntoDeVentaV2
             return cons;
         }
 
+<<<<<<< HEAD
         public string GuardarRevisarInventario(string[] datos, int tipo = 0)
         {
             string consulta = string.Empty;
@@ -518,6 +519,88 @@ namespace PuntoDeVentaV2
             }
 
             return consulta;
+=======
+        public string cargar_info_certificado(string id_usuario)
+        {
+            string cons = $"SELECT num_certificado, password_cer FROM Usuarios WHERE ID='{id_usuario}'";
+
+            return cons;
+        }
+
+        public string cargar_datos_venta_xml(int opc, int id, int id_usuario)
+        {
+            string cons = "";
+            // Ventas
+            if(opc == 1)
+            {
+                cons = $"SELECT * FROM Ventas WHERE ID='{id}' AND IDUsuario='{id_usuario}'";
+            }
+            // Emisor
+            if(opc == 2)
+            {
+                cons = $"SELECT RFC, RazonSocial, Regimen FROM Usuarios WHERE ID='{id_usuario}'";
+            }
+            // Receptor
+            if(opc == 3)
+            {
+                cons = $"SELECT RazonSocial, RFC, UsoCFDI FROM Clientes WHERE ID='{id}'";
+            }
+            // Productos
+            if(opc == 4)
+            {
+                cons = $"SELECT * FROM ProductosVenta WHERE IDVenta='{id}'";
+            }
+            // Tabla productos
+            if(opc == 5)
+            {
+                cons = $"SELECT * FROM Productos WHERE ID='{id}'";
+            }
+            // Catalogo monedas
+            if(opc == 6)
+            {
+                cons = $"SELECT * FROM catalogo_monedas";
+            }
+            // Consulta clientes
+            if(opc == 7)
+            {
+                cons = $"SELECT * FROM Clientes WHERE IDUsuario='{id_usuario}'";
+            }
+            // Consulta todos los impuestos diferente de 16, 8 y 0 porcientos
+            if(opc == 8)
+            {
+                cons = $"SELECT * FROM DetallesFacturacionProductos WHERE IDProducto='{id}'";
+            }
+
+            return cons;
+        }
+
+        public string guarda_datos_faltantes_xml(int opc, string[] datos)
+        {
+            string modif = "";
+
+            // GUarda id del cliente
+            if(opc == 1)
+            {
+                modif = $"UPDATE DetallesVenta SET IDCliente='{datos[1]}', Cliente='{datos[2]}' WHERE IDVenta='{datos[0]}'";
+            }
+            // Guarda método y forma de pago, moneda y tipo de cambio
+            if (opc == 2)
+            { //, num_cuenta='{datos[3]}', moneda='{datos[4]}', tipo_cambio='{datos[5]}'
+                modif = $"UPDATE Ventas SET MetodoPago='{datos[1]}', FormaPago='{datos[2]}' WHERE ID='{datos[0]}'";
+            }
+            // Guarda claves de unidad y producto
+            if(opc == 3)
+            {
+                modif = $"UPDATE Productos SET ClaveProducto='{datos[1]}', UnidadMedida='{datos[0]}' WHERE ID='{datos[2]}'";                
+            }
+            // Cambia a timbrada la nota
+            if (opc == 4)
+            {
+                modif = $"UPDATE Ventas SET Timbrada='1' WHERE ID='{datos[0]}'";
+            }
+
+            return modif;
+>>>>>>> ApartadoFacturacionPrt2
         }
     }
 }

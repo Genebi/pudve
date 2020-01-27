@@ -133,6 +133,14 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["ID"]; // ID del empleado
                 }
+                if(tipo == 6)
+                {
+                    respuesta = dr["IDCliente"]; // IDCliente de tabla DetallesVenta
+                }
+                if (tipo == 7)
+                {
+                    respuesta = dr["ClaveProducto"] + "-" + dr["UnidadMedida"]; // Claves de unidad y producto de tabla Productos
+                }
             }
 
             if (tipo == 0)

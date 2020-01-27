@@ -266,7 +266,7 @@ namespace PuntoDeVentaV2
                         //Al aceptar se actualizara la informacion y generara el XML
                         if (tipo == 3)
                         {
-                            DatosXML();
+                            //DatosXML();
                         }
 
                         this.Close();
@@ -317,7 +317,7 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(datos, 1));
         }
 
-        private void DatosXML()
+        /*private void DatosXML()
         {
             //Obtener numero de certificado
             string rutaCer = @"C:\Archivos PUDVE\MisDatos\CFDI\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer";
@@ -402,9 +402,9 @@ namespace PuntoDeVentaV2
         private void GenerarXML(Comprobante comprobante, string rutaXML)
         {
             XmlSerializerNamespaces xmlNameSpaces = new XmlSerializerNamespaces();
-            xmlNameSpaces.Add("cfdi", "http://www.sat.gob.mx/cfd/3");
-            xmlNameSpaces.Add("tfd", "http://www.sat.gob.mx/TimbreFiscalDigital");
-            xmlNameSpaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            xmlNameSpaces.Add("cfdi", ".http://www.sat.gob.mx/cfd/3");
+            xmlNameSpaces.Add("tfd", ".http://www.sat.gob.mx/TimbreFiscalDigital");
+            xmlNameSpaces.Add("xsi", ".http://www.w3.org/2001/XMLSchema-instance");
 
             //Generacion del XML
             XmlSerializer xmlSerializador = new XmlSerializer(typeof(Comprobante));
@@ -422,7 +422,7 @@ namespace PuntoDeVentaV2
 
             //Guardamos la string en el archivo XML
             File.WriteAllText(rutaXML, xml);
-        }
+        }*/
 
         private void valida_longitud(object sender, EventArgs e)
         {

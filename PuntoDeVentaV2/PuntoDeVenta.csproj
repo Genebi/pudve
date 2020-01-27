@@ -145,7 +145,9 @@
     </Reference>
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
@@ -347,6 +349,12 @@
       <DependentUpon>ConsultarProductoVentas.cs</DependentUpon>
     </Compile>
     <Compile Include="Consultas.cs" />
+    <Compile Include="Crear_factura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crear_factura.Designer.cs">
+      <DependentUpon>Crear_factura.cs</DependentUpon>
+    </Compile>
     <Compile Include="datosExtraNvoProductos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -396,6 +404,7 @@
     <Compile Include="GenerarEtiqueta.Designer.cs">
       <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generar_XML.cs" />
     <Compile Include="Genera_respaldos.cs" />
     <Compile Include="ImprimirEtiqueta.cs">
       <SubType>Form</SubType>
@@ -552,6 +561,11 @@
     <Compile Include="RevisarInventario.Designer.cs">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service References\ServiceReferenceTPrueba\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="SetUpPUDVE.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -691,8 +705,13 @@
     <EmbeddedResource Include="CodeBarMake.resx">
       <DependentUpon>CodeBarMake.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="ConsultarProductoVentas.resx">
       <DependentUpon>ConsultarProductoVentas.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Crear_factura.resx">
+      <DependentUpon>Crear_factura.cs</DependentUpon>
+>>>>>>> ApartadoFacturacionPrt2
     </EmbeddedResource>
     <EmbeddedResource Include="datosExtraNvoProductos.resx">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
@@ -822,6 +841,7 @@
     <EmbeddedResource Include="WinQueryString.resx">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -833,6 +853,34 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.buscar_acuse_recepcion_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.buscar_cfdis_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.consulta_rfc_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.obtener_consumo_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.recuperar_comprobante_referencia.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.recuperar_comprobante_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.timbrar_cfdi_referencia_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.timbrar_cfdi_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.timbrar_zip_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReferenceTPrueba\timbrado_cfdi33.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -3358,10 +3406,23 @@
     <Content Include="PUDVE\Sounds\sonido_alarma.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Service References\ServiceReferenceTPrueba\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceTPrueba\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceTPrueba\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="setup.ico" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="PUDVE\Plantillas\Tmp\" />
+=======
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReferenceTPrueba\" />
+>>>>>>> ApartadoFacturacionPrt2
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" />
