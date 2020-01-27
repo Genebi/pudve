@@ -534,13 +534,17 @@ namespace PuntoDeVentaV2
                     conexion.Open();
                     MySqlCommand agregar = conexion.CreateCommand();
                     MySqlCommand eliminar = conexion.CreateCommand();
-                    
-                    eliminar.CommandText = "TRUNCATE TABLE seccionCaja";
 
-                    int borrrado = eliminar.ExecuteNonQuery();                
-                      
+                    //eliminar.CommandText = "TRUNCATE TABLE seccionCaja";
 
-                    //Consulta de MySQL
+                    //int borrrado = eliminar.ExecuteNonQuery();          
+
+                    //Consulta Borrar de MySQL por ID de Usuario
+                    eliminar.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
+
+                    int borrrado = eliminar.ExecuteNonQuery();
+
+                    //Consulta Insertar de MySQL por ID de Usuario
                     agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
                                                                   efectivoAnticipos, tarjetaAnticipos, valesAnticipos, chequeAnticipos, transferenciaAnticipos, totalAnticipos,   
                                                                   efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
