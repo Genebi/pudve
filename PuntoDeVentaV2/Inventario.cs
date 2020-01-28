@@ -109,26 +109,61 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrWhiteSpace(txtBusqueda.Text))
             {
-                var resultados = mb.BusquedaCoincidenciasInventario(txtBusqueda.Text.Trim());
-                int coincidencias = resultados.Count;
+                listaProductos.Items.Clear();
 
-                if (coincidencias > 0)
+                int idProducto = 0;
+
+                // Verificar si es codigo de barra o clave
+                idProducto = mb.BuscarProductoInventario(txtBusqueda.Text.Trim());
+
+                // Verificamos si existe en la tabla de codigos de barra extra
+                var datosTmp = mb.BuscarCodigoBarrasExtra(txtBusqueda.Text.Trim());
+
+                if (datosTmp.Length > 0)
                 {
-                    var alturaLista = (coincidencias * 17) + 20;
-                    listaProductos.Height = alturaLista;
+                    // Verificar que pertenece al usuario
+                    var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
 
-                    if (coincidencias >= 15)
+                    if (verificarUsuario)
                     {
-                        listaProductos.Height = 275;
+                        idProducto = Convert.ToInt32(datosTmp[0]);
                     }
+                }
 
-                    productos = resultados;
+                // Si es mayor a cero es un producto y lo mostramos directamente en la venta de ajustar
+                if (idProducto > 0)
+                {
+                    AjustarProducto ap = new AjustarProducto(idProducto, 2);
 
-                    foreach (var item in resultados)
+                    ap.FormClosed += delegate
                     {
-                        listaProductos.Items.Add(item.Value);
+                        if (botonAceptar)
+                        {
+                            var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                            AgregarProductoDGV(producto);
+                            botonAceptar = false;
+                        }
+                    };
+
+                    ap.ShowDialog();
+                }
+                else
+                {
+                    var resultados = mb.BusquedaCoincidenciasInventario(txtBusqueda.Text.Trim());
+                    int coincidencias = resultados.Count;
+
+                    if (coincidencias > 0)
+                    {
+                        productos = resultados;
+
                         listaProductos.Visible = true;
-                        listaProductos.SelectedIndex = 0;
+                        listaProductos.Focus();
+
+                        foreach (var item in resultados)
+                        {
+                            listaProductos.Items.Add(item.Value);
+                            listaProductos.SelectedIndex = 0;
+                        }
                     }
                 }
             }
@@ -138,6 +173,12 @@ namespace PuntoDeVentaV2
         {
             RealizarBusqueda();
             txtBusqueda.Text = string.Empty;
+
+            if (listaProductos.Items.Count > 0)
+            {
+                listaProductos.Focus();
+                listaProductos.SelectedIndex = 0;
+            }
         }
 
         private void ocultarResultados()
@@ -162,7 +203,6 @@ namespace PuntoDeVentaV2
                     {
                         listaProductos.SelectedIndex--;
                         e.Handled = true;
-                        //txtBusqueda.Focus();
                     }
                 }
                 //Presiono hacia abajo
@@ -174,17 +214,25 @@ namespace PuntoDeVentaV2
                     {
                         listaProductos.SelectedIndex++;
                         e.Handled = true;
-                        //txtBusqueda.Focus();
                     }
-                }
-                else if (listaProductos.SelectedIndex == 0)
-                {
-                    listaProductos_KeyDown(sender, e);
                 }
             }
         }
 
         private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            CargarDatosProducto();
+        }
+
+        private void listaProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                CargarDatosProducto();
+            }
+        }
+
+        private void CargarDatosProducto()
         {
             ocultarResultados();
             txtBusqueda.Text = "";
@@ -200,41 +248,12 @@ namespace PuntoDeVentaV2
                 if (botonAceptar)
                 {
                     var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-
                     AgregarProductoDGV(producto);
-
                     botonAceptar = false;
                 }
             };
 
             ap.ShowDialog();
-        }
-
-        private void listaProductos_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyData == Keys.Enter)
-            {
-                ocultarResultados();
-                txtBusqueda.Text = "";
-                txtBusqueda.Focus();
-
-                var productoSeleccionado = listaProductos.Items[listaProductos.SelectedIndex].ToString();
-                var idProducto = productos.FirstOrDefault(x => x.Value == productoSeleccionado).Key;
-
-                AjustarProducto ap = new AjustarProducto(idProducto, 2);
-
-                ap.FormClosed += delegate
-                {
-                    if (botonAceptar)
-                    {
-                        var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
-                        AgregarProductoDGV(producto);
-                        botonAceptar = false;
-                    }
-                };
-
-                ap.ShowDialog();
-            }
         }
 
         private void AgregarProductoDGV(string[] producto)

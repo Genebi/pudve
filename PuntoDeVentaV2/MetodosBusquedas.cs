@@ -457,64 +457,27 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
         
-        public string[] BuscarProductoInventario(string producto, int idUsuario, int tipo = 1)
+        public int BuscarProductoInventario(string producto)
         {
-            List<string> lista = new List<string>();
+            int idProducto = 0;
 
             string consulta = string.Empty;
 
             //Busqueda por codigo de barra y/o clave
-            if (tipo == 1)
+            consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND (CodigoBarras = '{producto}' OR ClaveInterna = '{producto}')";
+
+            DatosConexion(consulta);
+
+            SQLiteDataReader datos = sql_cmd.ExecuteReader();
+
+            if (datos.Read())
             {
-                consulta = $"SELECT ID FROM Productos WHERE IDUsuario = {idUsuario} AND (CodigoBarras = '{producto}' OR ClaveInterna = '{producto}') AND Status = '1'";
-                consulta += $" UNION SELECT IDProducto AS ID FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{producto}'";
-
-                DatosConexion(consulta);
-
-                SQLiteDataReader datos = sql_cmd.ExecuteReader();
-
-                if (datos.Read())
-                {
-                    var idProducto = Convert.ToInt32(datos["ID"].ToString());
-
-                    consulta = $"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {idUsuario} AND Status = '1'";
-
-                    DatosConexion(consulta);
-
-                    SQLiteDataReader info = sql_cmd.ExecuteReader();
-
-                    if (info.Read())
-                    {
-                        lista.Add(idProducto.ToString()); //ID
-                        lista.Add(info[1].ToString()); //Nombre
-                        lista.Add(info[2].ToString()); //Stock
-                        lista.Add(info[3].ToString()); //Precio
-                        lista.Add(info[4].ToString()); //Categoria
-                        lista.Add(info[5].ToString()); //Clave interna
-                        lista.Add(info[6].ToString()); //Codigo barras
-                    }
-
-                    datos.Close();
-                    info.Close();
-                }
+                idProducto = Convert.ToInt32(datos["ID"].ToString());
             }
 
-            //Busqueda por nombre
-            if (tipo == 2)
-            {
-                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {idUsuario} AND Nombre LIKE '%{producto}%' AND Status = '1'";
+            datos.Close();
 
-                DatosConexion(consulta);
-
-                SQLiteDataReader datos = sql_cmd.ExecuteReader();
-
-                while (datos.Read())
-                {
-                    lista.Add(datos[0] + " - " + datos[1]);
-                }
-            }
-
-            return lista.ToArray();
+            return idProducto;
         }
 
         public string[] ObtenerAnticipo(int idAnticipo, int idUsuario)

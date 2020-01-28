@@ -195,7 +195,7 @@
             this.listaProductos.ItemHeight = 17;
             this.listaProductos.Location = new System.Drawing.Point(125, 69);
             this.listaProductos.Name = "listaProductos";
-            this.listaProductos.Size = new System.Drawing.Size(595, 89);
+            this.listaProductos.Size = new System.Drawing.Size(595, 140);
             this.listaProductos.TabIndex = 12;
             this.listaProductos.Visible = false;
             this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
