@@ -41,6 +41,7 @@ namespace PuntoDeVentaV2
         public static int CodigoBarrasGenerado;
         public static int Empleados;
         public static int MensajesInventario;
+        public static int Catalogo_claves_producto;
     #endregion VariablesTablas
 
         public DBTables()
@@ -78,6 +79,7 @@ namespace PuntoDeVentaV2
             CodigoBarrasGenerado = 5;
             Empleados = 20;
             MensajesInventario = 5;
+            Catalogo_claves_producto = 3;
         #endregion InicializarVariables
         }
 
@@ -2045,5 +2047,46 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaMensajesInventario
+
+        // Tabla de Catalogo_claves_producto 33
+        #region TablaCatalogo_claves_producto
+        public int GetCatalogo_claves_producto()
+        {
+            return Catalogo_claves_producto;
+        }
+
+        public string PragmaTablaCatalogo_claves_producto(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameCatalogo_claves_producto(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaCatalogo_claves_producto(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID          INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              clave       TEXT,
+                                              descripcion TEXT);";
+        }
+
+        public string QueryUpdateTablaCatalogo_claves_producto(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             clave,
+                                             descripcion) 
+                                      SELECT ID,
+                                             clave,
+                                             descripcion 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaCatalogo_claves_producto(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaCatalogo_claves_producto
     }
 }

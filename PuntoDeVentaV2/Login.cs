@@ -2901,6 +2901,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion TablaMensajesInventario
+            // 33 Catalogo_claves_producto
+            #region TablaCatalogo_claves_producto
+            tabla = "Catalogo_claves_producto";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaCatalogo_claves_producto(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaCatalogo_claves_producto(tabla));
+                    if (dbTables.GetCatalogo_claves_producto() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaCatalogo_claves_producto(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetCatalogo_claves_producto())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameCatalogo_claves_producto(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaCatalogo_claves_producto(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaCatalogo_claves_producto(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaCatalogo_claves_producto(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaCatalogo_claves_producto(tabla));
+                    if (dbTables.GetMensajesInventario() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaCatalogo_claves_producto(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetCatalogo_claves_producto())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameCatalogo_claves_producto(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaCatalogo_claves_producto(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaCatalogo_claves_producto(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaCatalogo_claves_producto(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion TablaCatalogo_claves_producto
         }
 
         private bool checkEmpty(object tabla)
