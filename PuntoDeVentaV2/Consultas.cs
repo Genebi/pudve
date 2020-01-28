@@ -585,8 +585,8 @@ namespace PuntoDeVentaV2
             }
             // Guarda método y forma de pago, moneda y tipo de cambio
             if (opc == 2)
-            { //, num_cuenta='{datos[3]}', moneda='{datos[4]}', tipo_cambio='{datos[5]}'
-                modif = $"UPDATE Ventas SET MetodoPago='{datos[1]}', FormaPago='{datos[2]}' WHERE ID='{datos[0]}'";
+            { //
+                modif = $"UPDATE Ventas SET MetodoPago='{datos[1]}', FormaPago='{datos[2]}', num_cuenta='{datos[3]}', moneda='{datos[4]}', tipo_cambio='{datos[5]}' WHERE ID='{datos[0]}'";
             }
             // Guarda claves de unidad y producto
             if(opc == 3)
