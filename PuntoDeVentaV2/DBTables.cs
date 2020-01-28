@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
             Usuarios = 20;
-            Ventas = 21;
+            Ventas = 24;
             Clientes = 21;
             RevisarInventario = 16;
             DetallesVenta = 14;
@@ -1259,27 +1259,30 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaVentas(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE,
-                                              IDUsuario INTEGER NOT NULL,
-                                              IDCliente INTEGER NOT NULL DEFAULT (0),
-                                              IDEmpleado INTEGER DEFAULT (0),
-                                              IDSucursal INTEGER DEFAULT (0),
-                                              Subtotal DECIMAL DEFAULT (0),
-                                              IVA16 DECIMAL DEFAULT (0),
-                                              IVA8 DECIMAL DEFAULT (0),
-                                              Total DECIMAL DEFAULT (0),
-                                              Descuento DECIMAL DEFAULT (0),
-                                              DescuentoGeneral DECIMAL DEFAULT (0),
-                                              Anticipo DECIMAL DEFAULT (0),
-                                              Folio INTEGER DEFAULT (0),
-                                              Serie CHAR DEFAULT A,
-                                              Status INTEGER DEFAULT (0),
-                                              MetodoPago STRING,
-                                              Comentario STRING,
-                                              Timbrada INTEGER DEFAULT (0),
-                                              Cancelada INTEGER DEFAULT (0),
-                                              FechaOperacion DATETIME,
-                                              FormaPago TEXT);";
+            return $@"CREATE TABLE '{tabla}' (ID               INTEGER  PRIMARY KEY AUTOINCREMENT  NOT NULL  UNIQUE,
+                                              IDUsuario        INTEGER  NOT NULL,
+                                              IDCliente        INTEGER  NOT NULL  DEFAULT (0),
+                                              IDEmpleado       INTEGER  DEFAULT (0),
+                                              IDSucursal       INTEGER  DEFAULT (0),
+                                              Subtotal         DECIMAL  DEFAULT (0),
+                                              IVA16            DECIMAL  DEFAULT (0),
+                                              IVA8             DECIMAL  DEFAULT (0),
+                                              Total            DECIMAL  DEFAULT (0),
+                                              Descuento        DECIMAL  DEFAULT (0),
+                                              DescuentoGeneral DECIMAL  DEFAULT (0),
+                                              Anticipo         DECIMAL  DEFAULT (0),
+                                              Folio            INTEGER  DEFAULT (0),
+                                              Serie            CHAR     DEFAULT A,
+                                              Status           INTEGER  DEFAULT (0),
+                                              MetodoPago       STRING,
+                                              Comentario       STRING,
+                                              Timbrada         INTEGER  DEFAULT (0),
+                                              Cancelada        INTEGER  DEFAULT (0),
+                                              FechaOperacion   DATETIME,
+                                              FormaPago        TEXT,
+                                              num_cuenta       TEXT,
+                                              moneda           TEXT,
+                                              tipo_cambio      DOUBLE);";
         }
 
         public string QueryUpdateTablaVentas(string tabla)
@@ -1303,7 +1306,8 @@ namespace PuntoDeVentaV2
                                              Comentario,
                                              Timbrada,
                                              Cancelada,
-                                             FechaOperacion) 
+                                             FechaOperacion,
+                                             FormaPago) 
                                       SELECT ID,
                                              IDUsuario,
                                              IDCliente,
@@ -1323,7 +1327,8 @@ namespace PuntoDeVentaV2
                                              Comentario,
                                              Timbrada,
                                              Cancelada,
-                                             FechaOperacion 
+                                             FechaOperacion,
+                                             FormaPago 
                                         FROM '{tabla}_temp';";
         }
 
