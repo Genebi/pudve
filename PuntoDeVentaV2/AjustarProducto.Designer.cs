@@ -57,6 +57,7 @@
             this.lbSeparador2 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
+            this.lbPrecio = new System.Windows.Forms.Label();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +66,7 @@
             // 
             this.lbProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbProducto.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbProducto.Location = new System.Drawing.Point(13, 30);
+            this.lbProducto.Location = new System.Drawing.Point(13, 19);
             this.lbProducto.Name = "lbProducto";
             this.lbProducto.Size = new System.Drawing.Size(609, 20);
             this.lbProducto.TabIndex = 0;
@@ -391,11 +392,21 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // lbPrecio
+            // 
+            this.lbPrecio.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPrecio.Location = new System.Drawing.Point(12, 48);
+            this.lbPrecio.Name = "lbPrecio";
+            this.lbPrecio.Size = new System.Drawing.Size(611, 20);
+            this.lbPrecio.TabIndex = 30;
+            this.lbPrecio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // AjustarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 411);
+            this.Controls.Add(this.lbPrecio);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.lbSeparador2);
@@ -453,5 +464,6 @@
         private System.Windows.Forms.Label lb_en_stock;
         private System.Windows.Forms.TextBox txt_en_stock;
         private System.Windows.Forms.Label lb_aumentar_stock_total;
+        private System.Windows.Forms.Label lbPrecio;
     }
 }
