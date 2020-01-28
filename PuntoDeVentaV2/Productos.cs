@@ -1623,9 +1623,8 @@ namespace PuntoDeVentaV2
 
             name = btnTag.Name.Remove(0, 8);
 
-            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", 
-                                                  "Eliminar Filtro", MessageBoxButtons.YesNo, 
-                                                  MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (result == DialogResult.Yes)
             {
                 foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
@@ -1677,9 +1676,7 @@ namespace PuntoDeVentaV2
                 }
 
                 CargarDatos();
-
                 actualizarBtnFiltro();
-
                 txtBusqueda.Focus();
             }
             else if (result == DialogResult.No)

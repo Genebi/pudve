@@ -535,13 +535,8 @@ namespace PuntoDeVentaV2
                     MySqlCommand agregar = conexion.CreateCommand();
                     MySqlCommand eliminar = conexion.CreateCommand();
 
-                    //eliminar.CommandText = "TRUNCATE TABLE seccionCaja";
-
-                    //int borrrado = eliminar.ExecuteNonQuery();          
-
                     //Consulta Borrar de MySQL por ID de Usuario
                     eliminar.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
-
                     int borrrado = eliminar.ExecuteNonQuery();
 
                     //Consulta Insertar de MySQL por ID de Usuario
