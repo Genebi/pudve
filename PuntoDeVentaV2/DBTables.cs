@@ -42,6 +42,7 @@ namespace PuntoDeVentaV2
         public static int Empleados;
         public static int MensajesInventario;
         public static int Catalogo_claves_producto;
+        public static int Catalogo_monedas;
     #endregion VariablesTablas
 
         public DBTables()
@@ -80,6 +81,7 @@ namespace PuntoDeVentaV2
             Empleados = 20;
             MensajesInventario = 5;
             Catalogo_claves_producto = 3;
+            Catalogo_monedas = 3;
         #endregion InicializarVariables
         }
 
@@ -2088,5 +2090,46 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaCatalogo_claves_producto
+
+        // Tabla de Catalogo_monedas 34
+        #region TablaCatalogo_monedas
+        public int GetCatalogo_monedas()
+        {
+            return Catalogo_monedas;
+        }
+
+        public string PragmaTablaCatalogo_monedas(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameCatalogo_monedas(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaCatalogo_monedas(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (clave_monedas  TEXT    PRIMARY KEY   NOT NULL,
+                                              descripcion    TEXT,
+                                              cant_decimales INTEGER);";
+        }
+
+        public string QueryUpdateTablaCatalogo_monedas(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (clave_monedas,
+                                             descripcion,
+                                             cant_decimales) 
+                                      SELECT clave_monedas,
+                                             descripcion,
+                                             cant_decimales 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaCatalogo_monedas(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaCatalogo_monedas
     }
 }

@@ -2950,7 +2950,7 @@ namespace PuntoDeVentaV2
                 try
                 {
                     count = cn.CountColumnasTabla(dbTables.PragmaTablaCatalogo_claves_producto(tabla));
-                    if (dbTables.GetMensajesInventario() > count)
+                    if (dbTables.GetCatalogo_claves_producto() > count)
                     {
                         if (count == 0)
                         {
@@ -2978,6 +2978,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion TablaCatalogo_claves_producto
+            // 34 Catalogo_monedas
+            #region TablaCatalogo_monedas
+            tabla = "Catalogo_monedas";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaCatalogo_monedas(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaCatalogo_monedas(tabla));
+                    if (dbTables.GetCatalogo_monedas() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaCatalogo_monedas(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetCatalogo_monedas())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameCatalogo_monedas(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaCatalogo_monedas(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaCatalogo_monedas(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaCatalogo_monedas(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaCatalogo_monedas(tabla));
+                    if (dbTables.GetCatalogo_monedas() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaCatalogo_monedas(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetCatalogo_monedas())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameCatalogo_monedas(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaCatalogo_monedas(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaCatalogo_monedas(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaCatalogo_monedas(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion TablaCatalogo_monedas
         }
 
         private bool checkEmpty(object tabla)
