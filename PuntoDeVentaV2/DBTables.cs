@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
             Proveedores = 15;
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
-            Usuarios = 20;
+            Usuarios = 23;
             Ventas = 24;
             Clientes = 21;
             RevisarInventario = 16;
@@ -1173,26 +1173,29 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaUsuarios(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID             INTEGER NOT NULL   PRIMARY KEY AUTOINCREMENT   UNIQUE,
-                                              Usuario        TEXT    NOT NULL,
-                                              Password       TEXT    NOT NULL,
-                                              RazonSocial    TEXT    NOT NULL,
-                                              RFC            TEXT,
-                                              Telefono       TEXT,
-                                              Email          TEXT    NOT NULL,
-                                              NombreCompleto TEXT,
-                                              Calle          TEXT,
-                                              NoExterior     TEXT,
-                                              NoInterior     TEXT,
-                                              Colonia        TEXT,
-                                              Municipio      TEXT,
-                                              Estado         TEXT,
-                                              CodigoPostal   TEXT,
-                                              Regimen        TEXT,
-                                              TipoPersona    TEXT,
-                                              LogoTipo       TEXT,
-                                              Referencia_ID  TEXT,
-                                              VerificacionNS INTEGER DEFAULT (0));";
+            return $@"CREATE TABLE '{tabla}' (ID                  INTEGER NOT NULL   PRIMARY KEY AUTOINCREMENT   UNIQUE,
+                                              Usuario             TEXT    NOT NULL,
+                                              Password            TEXT    NOT NULL,
+                                              RazonSocial         TEXT    NOT NULL,
+                                              RFC                 TEXT,
+                                              Telefono            TEXT,
+                                              Email               TEXT    NOT NULL,
+                                              NombreCompleto      TEXT,
+                                              Calle               TEXT,
+                                              NoExterior          TEXT,
+                                              NoInterior          TEXT,
+                                              Colonia             TEXT,
+                                              Municipio           TEXT,
+                                              Estado              TEXT,
+                                              CodigoPostal        TEXT,
+                                              Regimen             TEXT,
+                                              TipoPersona         TEXT,
+                                              LogoTipo            TEXT,
+                                              Referencia_ID       TEXT,
+                                              VerificacionNS      INTEGER DEFAULT (0),
+                                              num_certificado     TEXT,
+                                              fecha_caducidad_cer DATETIME,
+                                              password_cer        TEXT);";
         }
 
         public string QueryUpdateTablaUsuarios(string tabla)
@@ -1215,7 +1218,8 @@ namespace PuntoDeVentaV2
                                              Regimen,
                                              TipoPersona,
                                              LogoTipo,
-                                             Referencia_ID) 
+                                             Referencia_ID,
+                                             VerificacionNS) 
                                       SELECT ID,
                                              Usuario,
                                              Password,
@@ -1234,7 +1238,8 @@ namespace PuntoDeVentaV2
                                              Regimen,
                                              TipoPersona,
                                              LogoTipo,
-                                             Referencia_ID 
+                                             Referencia_ID,
+                                             VerificacionNS 
                                         FROM '{tabla}_temp';";
         }
 
