@@ -597,6 +597,12 @@
     <Compile Include="VentanaDetalleFotoProducto.Designer.cs">
       <DependentUpon>VentanaDetalleFotoProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="VentanaReportesPorFechas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentanaReportesPorFechas.Designer.cs">
+      <DependentUpon>VentanaReportesPorFechas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ventas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -826,6 +832,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaDetalleFotoProducto.resx">
       <DependentUpon>VentanaDetalleFotoProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentanaReportesPorFechas.resx">
+      <DependentUpon>VentanaReportesPorFechas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
@@ -3413,11 +3422,13 @@
     <Content Include="setup.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="PUDVE\Plantillas\Tmp\" />
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ServiceReferenceTPrueba\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PUDVE\Plantillas\Tmp\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" />

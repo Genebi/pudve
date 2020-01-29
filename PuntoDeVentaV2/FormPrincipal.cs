@@ -86,9 +86,6 @@ namespace PuntoDeVentaV2
             this.WindowState = FormWindowState.Maximized;
 
         }
-      
-
-
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
@@ -115,10 +112,8 @@ namespace PuntoDeVentaV2
 
             ObtenerDatosUsuario(userID);
             
-
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
-
-
+            
             // Obtiene ID del empleado, y los permisos que tenga asignados.
 
             string formato_usuario = "^[A-Z&Ñ]+@[A-Z&Ñ0-9]+$";
@@ -729,6 +724,18 @@ namespace PuntoDeVentaV2
             drUno.Close();
             drDos.Close();
             sql_con.Close();
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            if (reportes == 1)
+            {
+                AbrirFormulario<VentanaReportesPorFechas>();
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
     }
 }
