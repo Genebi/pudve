@@ -132,6 +132,21 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarPrecio"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarPrecio"));
             }
+            else if (propiedad == "NumeroRevision")
+            {
+                TextBox tbRevision = new TextBox();
+                tbRevision.Name = "tb" + propiedad;
+                tbRevision.Width = 200;
+                tbRevision.Height = 20;
+                tbRevision.TextAlign = HorizontalAlignment.Center;
+                tbRevision.Font = fuente;
+                tbRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                tbRevision.Location = new Point(65, 70);
+
+                panelContenedor.Controls.Add(tbRevision);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarRevision"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarRevision"));
+            }
             else if (propiedad == "Proveedor")
             {
                 var listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
@@ -426,6 +441,27 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+            }
+            else if (propiedad == "NumeroRevision")
+            {
+                TextBox txtRevision = (TextBox)this.Controls.Find("tbNumeroRevision", true)[0];
+
+                var numeroRevision = txtRevision.Text;
+
+                if (!string.IsNullOrWhiteSpace(numeroRevision))
+                {
+                    foreach (var producto in productos)
+                    {
+                        var consulta = $"UPDATE Productos SET NumeroRevision = {numeroRevision} WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}";
+
+                        cn.EjecutarConsulta(consulta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese el número de revisión para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             else if (propiedad == "Proveedor")
             {
