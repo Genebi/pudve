@@ -1383,6 +1383,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyChar == (int) Keys.Enter)
             {
+                quitarEspacioEnBlanco();
                 if (cbMostrar.Text == "Habilitados")
                 {
                     CargarDatos(1, txtBusqueda.Text);
@@ -3357,8 +3358,6 @@ namespace PuntoDeVentaV2
         {
             if (!txtBusqueda.Text.Equals(""))
             {
-                txtBusqueda.Text = txtBusqueda.Text.TrimEnd();
-                txtBusqueda.Select(txtBusqueda.Text.Length, 0);
                 palabras = txtBusqueda.Text.Split(' ');
                 auxWord.Clear();
                 for (int i = 0; i < palabras.Length; i++)
@@ -3377,6 +3376,12 @@ namespace PuntoDeVentaV2
                 }
                 crearEtiquetaDinamica();
             }
+        }
+
+        private void quitarEspacioEnBlanco()
+        {
+            txtBusqueda.Text = txtBusqueda.Text.TrimEnd();
+            txtBusqueda.Select(txtBusqueda.Text.Length, 0);
         }
 
         private void Productos_Paint(object sender, PaintEventArgs e)

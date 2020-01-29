@@ -531,8 +531,13 @@ namespace PuntoDeVentaV2
                 try
                 {
                     conexion.Open();
+                    MySqlCommand upDateUsr = conexion.CreateCommand();
                     MySqlCommand agregar = conexion.CreateCommand();
                     MySqlCommand eliminar = conexion.CreateCommand();
+
+                    //Actualizar IdUsuario en tabla Usuarios en MySQL
+                    upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
+                    int actualizarUsr = upDateUsr.ExecuteNonQuery();
 
                     //Consulta Borrar de MySQL por ID de Usuario
                     eliminar.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
