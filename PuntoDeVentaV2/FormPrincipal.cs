@@ -92,7 +92,6 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-
             CargarSaldoInicial();
             //Envio de datos de Caja con el Timer
             ConvertirMinutos();

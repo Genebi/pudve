@@ -3331,7 +3331,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-       private void cargarListaDeEtiquetas()
+        private void cargarListaDeEtiquetas()
         {
             if (!txtBusqueda.Text.Equals(""))
             {

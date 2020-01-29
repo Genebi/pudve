@@ -1785,9 +1785,7 @@ namespace PuntoDeVentaV2
                 //Validar que el precio no sea menor al precio original del producto/servicio
                 if (Convert.ToDouble(precio) < Convert.ToDouble(txtPrecioCompra.Text))
                 {
-                    MessageBox.Show("El precio no puede ser mayor al precio original", 
-                                    "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -1795,16 +1793,14 @@ namespace PuntoDeVentaV2
                 //searchClavIntProd();
                 if (mb.ComprobarCodigoClave(claveIn, FormPrincipal.userID))
                 {
-                    MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", 
-                                     "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 //Hacemos la busqueda que no se repita en CodigoBarra
                 //searchCodBar();
                 if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID))
                 {
-                    MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", 
-                                     "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -2250,13 +2246,10 @@ namespace PuntoDeVentaV2
                                                     cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
                                                 }
                                             }
-
                                             ProductosDeServicios.Clear();
                                         }
                                     }
-                                    
                                 }
-
                                 flowLayoutPanel2.Controls.Clear();
                             }
 
