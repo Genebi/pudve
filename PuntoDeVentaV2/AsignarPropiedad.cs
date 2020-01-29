@@ -132,6 +132,10 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarPrecio"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarPrecio"));
             }
+            else if (propiedad == "Revision")
+            {
+                MessageBox.Show("Revision");
+            }
             else if (propiedad == "Proveedor")
             {
                 var listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);

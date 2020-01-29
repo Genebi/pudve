@@ -222,7 +222,35 @@ namespace PuntoDeVentaV2
             panelPrecio.Controls.Add(btnPrecio);
             panelContenedor.Controls.Add(panelPrecio);
 
-            int alturaEjeY = 220;
+            // PANEL NUMERO DE REVISION
+            FlowLayoutPanel panelRevision = new FlowLayoutPanel();
+            panelRevision.Name = "panelRevision";
+            panelRevision.Width = 350;
+            panelRevision.Height = 30;
+            panelRevision.FlowDirection = FlowDirection.LeftToRight;
+            panelRevision.Location = new Point(3, 220);
+            panelRevision.BorderStyle = BorderStyle.FixedSingle;
+
+            Label lbRevision = new Label();
+            lbRevision.Text = "Número Revisión";
+            lbRevision.Name = "lbRevision";
+            lbRevision.Width = 100;
+            lbRevision.Height = 20;
+            lbRevision.TextAlign = ContentAlignment.MiddleCenter;
+
+            Button btnRevision = new Button();
+            btnRevision.Name = "btnRevision";
+            btnRevision.Text = "Asignar";
+            btnRevision.Cursor = Cursors.Hand;
+            btnRevision.Tag = "Revision";
+            btnRevision.Click += new EventHandler(botonAsignar_Click);
+
+            panelRevision.Controls.Add(lbRevision);
+            panelRevision.Controls.Add(btnRevision);
+            panelContenedor.Controls.Add(panelRevision);
+
+
+            int alturaEjeY = 255;
 
             //======================================================================
             foreach (XmlNode childNode in appSettingsNode)
