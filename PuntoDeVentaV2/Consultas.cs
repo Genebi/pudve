@@ -601,5 +601,13 @@ namespace PuntoDeVentaV2
 
             return modif;
         }
+
+        public string GuardarHistorialPrecios(string[] datos)
+        {
+            var consulta = "INSERT INTO HistorialPrecios (IDUsuario, IDEmpleado, IDProducto, PrecioAnterior, PrecioNuevo, Origen, FechaOperacion)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
+
+            return consulta;
+        }
     }
 }
