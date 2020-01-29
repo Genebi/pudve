@@ -1086,21 +1086,21 @@ namespace PuntoDeVentaV2
         private void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
             //dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
-            string buscarStock;
+            //string buscarStock;
 
-            if (panelShowDGVProductosView.Visible == true)
-            {
-                //CargarDatos(1, txtBusqueda.Text);
-                timerBusqueda.Stop();
-                clickBoton = 0;
-                timerBusqueda.Start();
-            }
-            else if (panelShowPhotoView.Visible == true)
-            {
-                buscarStock = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Nombre LIKE '%" + txtBusqueda.Text + "%'";
-                fotos = cn.CargarDatos(buscarStock);
-                photoShow();
-            }
+            //if (panelShowDGVProductosView.Visible == true)
+            //{
+            //    //CargarDatos(1, txtBusqueda.Text);
+            //    timerBusqueda.Stop();
+            //    clickBoton = 0;
+            //    timerBusqueda.Start();
+            //}
+            //else if (panelShowPhotoView.Visible == true)
+            //{
+            //    buscarStock = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Nombre LIKE '%" + txtBusqueda.Text + "%'";
+            //    fotos = cn.CargarDatos(buscarStock);
+            //    photoShow();
+            //}
         }
 
         public Productos()
