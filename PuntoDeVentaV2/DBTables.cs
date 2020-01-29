@@ -43,6 +43,7 @@ namespace PuntoDeVentaV2
         public static int MensajesInventario;
         public static int Catalogo_claves_producto;
         public static int Catalogo_monedas;
+        public static int HistorialPrecios;
     #endregion VariablesTablas
 
         public DBTables()
@@ -82,6 +83,7 @@ namespace PuntoDeVentaV2
             MensajesInventario = 5;
             Catalogo_claves_producto = 3;
             Catalogo_monedas = 3;
+            HistorialPrecios = 7;
         #endregion InicializarVariables
         }
 
@@ -2136,5 +2138,61 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion TablaCatalogo_monedas
+
+        // Tabla de HistorialPrecios 35
+        #region TablaHistorialPrecios
+        public int GetHistorialPrecios()
+        {
+            return HistorialPrecios;
+        }
+
+        public string PragmaTablaHistorialPrecios(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameHistorialPrecios(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaHistorialPrecios(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID             INTEGER  PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario      INTEGER  NOT NULL,
+                                              IDEmpleado     INTEGER  DEFAULT (0),
+                                              IDProducto     INTEGER  NOT NULL,
+                                              PrecioAnterior REAL     DEFAULT (0),
+                                              PrecioNuevo    REAL     DEFAULT (0),
+                                              Origen		   TEXT,
+                                              FechaOperacion DATETIME);";
+        }
+
+        public string QueryUpdateTablaHistorialPrecios(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             IDEmpleado,
+                                             IDProducto,
+                                             PrecioAnterior,
+                                             PrecioNuevo,
+                                             Origen,
+                                             FechaOperacion) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             IDEmpleado,
+                                             IDProducto,
+                                             PrecioAnterior,
+                                             PrecioNuevo,
+                                             Origen,
+                                             FechaOperacion 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaHistorialPrecios(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion TablaHistorialPrecios
     }
 }
