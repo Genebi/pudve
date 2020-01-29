@@ -58,6 +58,8 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lbPrecio = new System.Windows.Forms.Label();
+            this.lbStockActual = new System.Windows.Forms.Label();
+            this.cantidadStockActual = new System.Windows.Forms.Label();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
             this.SuspendLayout();
@@ -100,6 +102,8 @@
             // 
             // panelComprado
             // 
+            this.panelComprado.Controls.Add(this.cantidadStockActual);
+            this.panelComprado.Controls.Add(this.lbStockActual);
             this.panelComprado.Controls.Add(this.lbCantidadCompra);
             this.panelComprado.Controls.Add(this.lbPrecioCompra);
             this.panelComprado.Controls.Add(this.lbFechaCompra);
@@ -127,7 +131,7 @@
             // 
             this.lbPrecioCompra.AutoSize = true;
             this.lbPrecioCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPrecioCompra.Location = new System.Drawing.Point(248, 64);
+            this.lbPrecioCompra.Location = new System.Drawing.Point(321, 64);
             this.lbPrecioCompra.Name = "lbPrecioCompra";
             this.lbPrecioCompra.Size = new System.Drawing.Size(115, 17);
             this.lbPrecioCompra.TabIndex = 8;
@@ -137,7 +141,7 @@
             // 
             this.lbFechaCompra.AutoSize = true;
             this.lbFechaCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbFechaCompra.Location = new System.Drawing.Point(4, 64);
+            this.lbFechaCompra.Location = new System.Drawing.Point(166, 64);
             this.lbFechaCompra.Name = "lbFechaCompra";
             this.lbFechaCompra.Size = new System.Drawing.Size(114, 17);
             this.lbFechaCompra.TabIndex = 7;
@@ -171,9 +175,9 @@
             this.dpFechaCompra.CustomFormat = "yyyy-MM-dd";
             this.dpFechaCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaCompra.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaCompra.Location = new System.Drawing.Point(7, 87);
+            this.dpFechaCompra.Location = new System.Drawing.Point(169, 87);
             this.dpFechaCompra.Name = "dpFechaCompra";
-            this.dpFechaCompra.Size = new System.Drawing.Size(125, 22);
+            this.dpFechaCompra.Size = new System.Drawing.Size(110, 22);
             this.dpFechaCompra.TabIndex = 4;
             // 
             // txtCantidadCompra
@@ -181,7 +185,7 @@
             this.txtCantidadCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCantidadCompra.Location = new System.Drawing.Point(477, 87);
             this.txtCantidadCompra.Name = "txtCantidadCompra";
-            this.txtCantidadCompra.Size = new System.Drawing.Size(125, 22);
+            this.txtCantidadCompra.Size = new System.Drawing.Size(110, 22);
             this.txtCantidadCompra.TabIndex = 3;
             this.txtCantidadCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidadCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadCompra_KeyDown);
@@ -189,9 +193,9 @@
             // txtPrecioCompra
             // 
             this.txtPrecioCompra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrecioCompra.Location = new System.Drawing.Point(251, 87);
+            this.txtPrecioCompra.Location = new System.Drawing.Point(324, 87);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
-            this.txtPrecioCompra.Size = new System.Drawing.Size(125, 22);
+            this.txtPrecioCompra.Size = new System.Drawing.Size(110, 22);
             this.txtPrecioCompra.TabIndex = 2;
             this.txtPrecioCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -401,6 +405,28 @@
             this.lbPrecio.TabIndex = 30;
             this.lbPrecio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lbStockActual
+            // 
+            this.lbStockActual.AutoSize = true;
+            this.lbStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStockActual.Location = new System.Drawing.Point(21, 64);
+            this.lbStockActual.Name = "lbStockActual";
+            this.lbStockActual.Size = new System.Drawing.Size(84, 17);
+            this.lbStockActual.TabIndex = 10;
+            this.lbStockActual.Text = "Stock actual";
+            // 
+            // cantidadStockActual
+            // 
+            this.cantidadStockActual.BackColor = System.Drawing.Color.White;
+            this.cantidadStockActual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cantidadStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cantidadStockActual.ForeColor = System.Drawing.Color.Red;
+            this.cantidadStockActual.Location = new System.Drawing.Point(21, 87);
+            this.cantidadStockActual.Name = "cantidadStockActual";
+            this.cantidadStockActual.Size = new System.Drawing.Size(84, 22);
+            this.cantidadStockActual.TabIndex = 11;
+            this.cantidadStockActual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // AjustarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -465,5 +491,7 @@
         private System.Windows.Forms.TextBox txt_en_stock;
         private System.Windows.Forms.Label lb_aumentar_stock_total;
         private System.Windows.Forms.Label lbPrecio;
+        private System.Windows.Forms.Label lbStockActual;
+        private System.Windows.Forms.Label cantidadStockActual;
     }
 }

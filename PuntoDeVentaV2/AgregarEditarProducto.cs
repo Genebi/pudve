@@ -2493,6 +2493,23 @@ namespace PuntoDeVentaV2
                         }
                     }
 
+
+                    // Comprobar precio del producto para saber si se edito
+                    var precioTmp = cn.BuscarProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+                    var precioNuevo = float.Parse(precio);
+                    var precioAnterior = float.Parse(precioTmp[2]);
+
+                    if (precioNuevo != precioAnterior)
+                    {
+                        var datos = new string[] {
+                            FormPrincipal.userID.ToString(), "0", idProductoBuscado,
+                            precioAnterior.ToString("N2"), precioNuevo.ToString("N2"),
+                            "EDITAR PRODUCTO", fechaOperacion
+                        };
+
+                        cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));
+                    }
+
                     queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
 

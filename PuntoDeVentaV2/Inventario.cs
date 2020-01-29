@@ -197,12 +197,14 @@ namespace PuntoDeVentaV2
                 //Presiono hacia arriba
                 else if (e.KeyCode == Keys.Up)
                 {
-                    listaProductos.Focus();
-
                     if (listaProductos.SelectedIndex > 0)
                     {
                         listaProductos.SelectedIndex--;
                         e.Handled = true;
+                    }
+                    else if (listaProductos.SelectedIndex == 0)
+                    {
+                        txtBusqueda.Focus();
                     }
                 }
                 //Presiono hacia abajo
