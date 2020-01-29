@@ -90,6 +90,7 @@ namespace PuntoDeVentaV2
             ActiveControl = txtCantidadCompra;
 
             txt_en_stock.Text = stockProducto.ToString();
+            cantidadStockActual.Text = stockProducto.ToString();
             
 
             //Eventos para los campos que solo requieren cantidades
