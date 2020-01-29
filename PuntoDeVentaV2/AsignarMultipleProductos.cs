@@ -242,7 +242,7 @@ namespace PuntoDeVentaV2
             btnRevision.Name = "btnRevision";
             btnRevision.Text = "Asignar";
             btnRevision.Cursor = Cursors.Hand;
-            btnRevision.Tag = "Revision";
+            btnRevision.Tag = "NumeroRevision";
             btnRevision.Click += new EventHandler(botonAsignar_Click);
 
             panelRevision.Controls.Add(lbRevision);
