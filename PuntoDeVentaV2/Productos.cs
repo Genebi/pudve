@@ -3357,6 +3357,7 @@ namespace PuntoDeVentaV2
         {
             if (!txtBusqueda.Text.Equals(""))
             {
+                txtBusqueda.Text = txtBusqueda.Text.TrimEnd();
                 palabras = txtBusqueda.Text.Split(' ');
                 auxWord.Clear();
                 for (int i = 0; i < palabras.Length; i++)
