@@ -2510,7 +2510,8 @@ namespace PuntoDeVentaV2
                     {
                         var datos = new string[] {
                             FormPrincipal.userID.ToString(), "0", idProductoBuscado,
-                            precioAnterior.ToString("N2"), precioNuevo.ToString("N2"), fechaOperacion
+                            precioAnterior.ToString("N2"), precioNuevo.ToString("N2"),
+                            "EDITAR PRODUCTO", fechaOperacion
                         };
 
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));

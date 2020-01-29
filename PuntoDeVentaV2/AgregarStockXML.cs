@@ -144,6 +144,7 @@ namespace PuntoDeVentaV2
         OpenFileDialog f;   // objeto para poder abrir el openDialog
 
         Conexion cn = new Conexion();   // iniciamos un objeto de tipo conexion
+        Consultas cs = new Consultas();
 
         public string userName;         // declaramos la variable que almacenara el valor de userName
         public string passwordUser;     // declaramos la variable que almacenara el valor de passwordUser
@@ -1159,6 +1160,26 @@ namespace PuntoDeVentaV2
             lblStockProd.Text = totalProd.ToString();   // mostramos el nvo stock del producto
         }
 
+        private void CompararPrecios(string idProducto, float precio)
+        {
+            // Comprobar precio del producto para saber si se edito
+            var precioTmp = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
+            var precioNuevo = precio;
+            var precioAnterior = float.Parse(precioTmp[2]);
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            if (precioNuevo != precioAnterior)
+            {
+                var datos = new string[] {
+                    FormPrincipal.userID.ToString(), "0", idProducto.ToString(),
+                    precioAnterior.ToString("N2"), precioNuevo.ToString("N2"),
+                    "EDITAR CARGAR XML", fechaOperacion
+                };
+
+                cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));
+            }
+        }
+
         // funcion para actualizar el Stock
         public void ActualizarStock()
         {
@@ -1170,6 +1191,7 @@ namespace PuntoDeVentaV2
             // Es un PRODUCTO
             if (dtProductos.Rows[0]["Tipo"].ToString() == "P")
             {
+                CompararPrecios(idProducto, PrecioProd);
                 // Hacemos el query para la actualizacion del Stock
                 query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
                 // Aqui vemos el resultado de la consulta
@@ -1982,7 +2004,6 @@ namespace PuntoDeVentaV2
                     // si no hubo un cambio
                     else
                     {
-                        
                         if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                         {
                             //MessageBox.Show("El Número de Identificación; ya se esta utilizando en\ncomo clave interna ó codigo de barras de algun producto", "Error de Actualizar el Stock", MessageBoxButtons.OK, MessageBoxIcon.Stop);
