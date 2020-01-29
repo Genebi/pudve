@@ -83,6 +83,7 @@
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lbCapital = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkLblUltimaPagina = new System.Windows.Forms.LinkLabel();
             this.btnSiguiente = new System.Windows.Forms.Button();
@@ -99,7 +100,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.lbCapital = new System.Windows.Forms.Label();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -167,6 +167,7 @@
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
+            this.txtBusqueda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBusqueda_KeyPress);
             // 
             // cbOrden
             // 
@@ -759,6 +760,15 @@
             this.panel2.Size = new System.Drawing.Size(941, 51);
             this.panel2.TabIndex = 17;
             // 
+            // lbCapital
+            // 
+            this.lbCapital.AutoSize = true;
+            this.lbCapital.Location = new System.Drawing.Point(8, 18);
+            this.lbCapital.Name = "lbCapital";
+            this.lbCapital.Size = new System.Drawing.Size(51, 13);
+            this.lbCapital.TabIndex = 22;
+            this.lbCapital.Text = "Capital: 0";
+            // 
             // panel4
             // 
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -970,15 +980,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbCapital
-            // 
-            this.lbCapital.AutoSize = true;
-            this.lbCapital.Location = new System.Drawing.Point(8, 18);
-            this.lbCapital.Name = "lbCapital";
-            this.lbCapital.Size = new System.Drawing.Size(51, 13);
-            this.lbCapital.TabIndex = 22;
-            this.lbCapital.Text = "Capital: 0";
             // 
             // Productos
             // 

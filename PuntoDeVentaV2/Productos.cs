@@ -1379,6 +1379,28 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (int) Keys.Enter)
+            {
+                if (cbMostrar.Text == "Habilitados")
+                {
+                    CargarDatos(1, txtBusqueda.Text);
+                }
+                else if (cbMostrar.Text == "Deshabilitados")
+                {
+                    CargarDatos(0, txtBusqueda.Text);
+                }
+                else if (cbMostrar.Text == "Todos")
+                {
+                    CargarDatos(2, txtBusqueda.Text);
+                }
+                borrarAuxWordTags();
+                cargarListaDeEtiquetas();
+                verificarBotonLimpiarTags();
+            }
+        }
+
         public void creacionEtiquetasDinamicas()
         {
             listVariables = new List<Control>();
@@ -3119,23 +3141,23 @@ namespace PuntoDeVentaV2
 
         private void timerBusqueda_Tick(object sender, EventArgs e)
         {
-            timerBusqueda.Stop();
+            //timerBusqueda.Stop();
 
-            if (cbMostrar.Text == "Habilitados")
-            {
-                CargarDatos(1, txtBusqueda.Text);
-            }
-            else if (cbMostrar.Text == "Deshabilitados")
-            {
-                CargarDatos(0, txtBusqueda.Text);
-            }
-            else if (cbMostrar.Text == "Todos")
-            {
-                CargarDatos(2, txtBusqueda.Text);
-            }
-            borrarAuxWordTags();
-            cargarListaDeEtiquetas();
-            verificarBotonLimpiarTags();
+            //if (cbMostrar.Text == "Habilitados")
+            //{
+            //    CargarDatos(1, txtBusqueda.Text);
+            //}
+            //else if (cbMostrar.Text == "Deshabilitados")
+            //{
+            //    CargarDatos(0, txtBusqueda.Text);
+            //}
+            //else if (cbMostrar.Text == "Todos")
+            //{
+            //    CargarDatos(2, txtBusqueda.Text);
+            //}
+            //borrarAuxWordTags();
+            //cargarListaDeEtiquetas();
+            //verificarBotonLimpiarTags();
         }
 
         private void borrarAuxWordTags()
