@@ -32,6 +32,7 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
+            this.btnFiltroReporte = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panelContenedor
@@ -69,7 +70,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(143, 322);
+            this.btnCancelar.Location = new System.Drawing.Point(161, 322);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 27);
             this.btnCancelar.TabIndex = 18;
@@ -88,11 +89,31 @@
             this.primerSeparador.TabIndex = 22;
             this.primerSeparador.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // btnFiltroReporte
+            // 
+            this.btnFiltroReporte.BackColor = System.Drawing.Color.YellowGreen;
+            this.btnFiltroReporte.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFiltroReporte.FlatAppearance.BorderSize = 0;
+            this.btnFiltroReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFiltroReporte.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnFiltroReporte.ForeColor = System.Drawing.Color.White;
+            this.btnFiltroReporte.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
+            this.btnFiltroReporte.Location = new System.Drawing.Point(7, 322);
+            this.btnFiltroReporte.Name = "btnFiltroReporte";
+            this.btnFiltroReporte.Size = new System.Drawing.Size(70, 27);
+            this.btnFiltroReporte.TabIndex = 23;
+            this.btnFiltroReporte.Text = "Filtro";
+            this.btnFiltroReporte.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnFiltroReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnFiltroReporte.UseVisualStyleBackColor = false;
+            this.btnFiltroReporte.Click += new System.EventHandler(this.btnFiltroReporte_Click);
+            // 
             // OpcionesReporteProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 361);
+            this.Controls.Add(this.btnFiltroReporte);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
@@ -114,5 +135,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label primerSeparador;
+        private System.Windows.Forms.Button btnFiltroReporte;
     }
 }

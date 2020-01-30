@@ -439,5 +439,13 @@ namespace PuntoDeVentaV2
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.ShowDialog();
         }
+
+        private void btnFiltroReporte_Click(object sender, EventArgs e)
+        {
+            using (var filtro = new FiltroReporteProductos())
+            {
+                filtro.ShowDialog();
+            }
+        }
     }
 }
