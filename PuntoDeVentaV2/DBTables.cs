@@ -8,7 +8,7 @@ namespace PuntoDeVentaV2
 {
     class DBTables
     {
-    #region VariablesTablas
+    #region Variables Tablas
         public static int Anticipos;
         public static int Caja;
         public static int CatalogoUnidadesMedida;
@@ -44,11 +44,11 @@ namespace PuntoDeVentaV2
         public static int Catalogo_claves_producto;
         public static int Catalogo_monedas;
         public static int HistorialPrecios;
-    #endregion VariablesTablas
+    #endregion Variables Tablas
 
         public DBTables()
         {
-        #region InicializarVariables
+        #region Inicializar Variables
             Anticipos = 11;
             Caja = 14;
             CatalogoUnidadesMedida = 3;
@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
             Usuarios = 23;
             Ventas = 24;
             Clientes = 21;
-            RevisarInventario = 16;
+            RevisarInventario = 17;
             DetallesVenta = 14;
             Abonos = 11;
             Categorias = 3;
@@ -84,11 +84,11 @@ namespace PuntoDeVentaV2
             Catalogo_claves_producto = 3;
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
-        #endregion InicializarVariables
+        #endregion Inicializar Variables
         }
 
         // Tabla de Anticipos 01
-        #region TablaAnticipos
+        #region Tabla Anticipos
         public int GetAnticipos()
         {
             return Anticipos;
@@ -148,10 +148,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaAnticipos
+        #endregion Tabla Anticipos
 
         // Tabla de Caja 02
-        #region TablaCaja
+        #region Tabla Caja
         public int GetCaja()
         {
             return Caja;
@@ -220,10 +220,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaCaja
+        #endregion Tabla Caja
 
         // Tabla de CatalogoUnidadesMedida 03
-        #region TablaCatalogoUnidadesMedida
+        #region Tabla CatalogoUnidadesMedida
         public int GetCatalogoUnidadesMedida()
         {
             return CatalogoUnidadesMedida;
@@ -255,10 +255,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaCatalogoUnidadesMedida
+        #endregion Tabla CatalogoUnidadesMedida
 
         // Tabla de CodigoBarrasExtras 04
-        #region TablaCodigoBarrasExtras
+        #region Tabla CodigoBarrasExtras
         public int GetCodigoBarrasExtras()
         {
             return CodigoBarrasExtras;
@@ -292,10 +292,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaCodigoBarrasExtras
+        #endregion Tabla CodigoBarrasExtras
 
         // Tabla de DescuentoCliente 05
-        #region TablaDescuentoCliente
+        #region Tabla DescuentoCliente
         public int GetDescuentoCliente()
         {
             return DescuentoCliente;
@@ -343,10 +343,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaDescuentoCliente
+        #endregion Tabla DescuentoCliente
 
         // Tabla de DescuentoMayoreo 06
-        #region TablaDescuentoMayoreo
+        #region Tabla DescuentoMayoreo
         public int GetDescuentoMayoreo()
         {
             return DescuentoMayoreo;
@@ -394,10 +394,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaDescuentoMayoreo
+        #endregion Tabla DescuentoMayoreo
 
         // Tabla de DetallesFacturacionProductos 07
-        #region TablaDetallesFacturacionProductos
+        #region Tabla DetallesFacturacionProductos
         public int GetDetallesFacturacionProductos()
         {
             return DetallesFacturacionProductos;
@@ -452,10 +452,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaDetallesFacturacionProductos
+        #endregion Tabla DetallesFacturacionProductos
 
         // Tabla de DetallesProducto 08
-        #region TablaDetallesProducto
+        #region Tabla DetallesProducto
         public int GetDetallesProducto()
         {
             return DetallesProducto;
@@ -503,10 +503,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaDetallesProducto
+        #endregion Tabla DetallesProducto
 
         // Tabla de Empresas 09
-        #region TablaEmpresas
+        #region Tabla Empresas
         public int GetEmpresas()
         {
             return Empresas;
@@ -594,10 +594,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaEmpresas
+        #endregion Tabla Empresas
 
         // Tabla de HisotorialCompras 10
-        #region TablaHistorialCompras
+        #region Tabla HistorialCompras
         public int GetHistorialCompras()
         {
             return HisotorialCompras;
@@ -680,10 +680,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaHistorialCompras
+        #endregion Tabla HistorialCompras
 
         // Tabla de HistorialModificacionRecordProduct 11
-        #region TablaHistorialModificacionRecordProduct
+        #region Tabla HistorialModificacionRecordProduct
         public int GetHistorialModificacionRecordProduct()
         {
             return HistorialModificacionRecordProduct;
@@ -727,10 +727,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaHistorialModificacionRecordProduct
+        #endregion Tabla HistorialModificacionRecordProduct
 
         // Tabla de ProductoRelacionadoXML 12
-        #region TablaProductoRelacionadoXML
+        #region Tabla ProductoRelacionadoXML
         public int GetProductoRelacionadoXML()
         {
             return ProductoRelacionadoXML;
@@ -778,10 +778,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaProductoRelacionadoXML
+        #endregion Tabla ProductoRelacionadoXML
 
         // Tabla de Productos 13
-        #region TablaProductos
+        #region Tabla Productos
         public int GetProductos()
         {
             return Productos;
@@ -879,10 +879,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaProductos
+        #endregion Tabla Productos
 
         // Tabla de ProductosDeServicios 14
-        #region TablaProductosDeServicios
+        #region Tabla ProductosDeServicios
         public int GetProductosDeServicios()
         {
             return ProductosDeServicios;
@@ -934,10 +934,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaProductos
+        #endregion Tabla Productos
 
         // Tabla de ProductosVenta 15
-        #region TablaProductosVenta
+        #region Tabla ProductosVenta
         public int GetProductosVenta()
         {
             return ProductosVenta;
@@ -985,10 +985,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaProductosVenta
+        #endregion Tabla ProductosVenta
 
         // Tabla de Proveedores 16
-        #region TablaProveedores
+        #region Tabla Proveedores
         public int GetProveedores()
         {
             return Proveedores;
@@ -1060,10 +1060,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaProveedores
+        #endregion Tabla Proveedores
 
         // Tabla de RegimenDeUsuarios 17
-        #region TablaRegimenDeUsuarios
+        #region Tabla RegimenDeUsuarios
         public int GetRegimenDeUsuarios()
         {
             return RegimenDeUsuarios;
@@ -1101,10 +1101,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaRegimenDeUsuarios
+        #endregion Tabla RegimenDeUsuarios
 
         // Tabla de RegimenFiscal 18
-        #region TablaRegimenFiscal
+        #region Tabla RegimenFiscal
         public int GetRegimenFiscal()
         {
             return RegimenFiscal;
@@ -1154,10 +1154,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaRegimenFiscal
+        #endregion Tabla RegimenFiscal
 
         // Tabla de Usuarios 19
-        #region TablaUsuarios
+        #region Tabla Usuarios
         public int GetUsuarios()
         {
             return Usuarios;
@@ -1249,10 +1249,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaUsuarios
+        #endregion Tabla Usuarios
 
         // Tabla de Ventas 20
-        #region TablaVentas
+        #region Tabla Ventas
         public int GetVentas()
         {
             return Ventas;
@@ -1347,10 +1347,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaVentas
+        #endregion Tabla Ventas
 
         // Tabla de Clientes 21
-        #region TablaClientes
+        #region Tabla Clientes
         public int GetClientes()
         {
             return Clientes;
@@ -1440,10 +1440,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaClientes
+        #endregion Tabla Clientes
 
         // Tabla de RevisarInventario 22
-        #region TablaRevisarInventario
+        #region Tabla RevisarInventario
         public int GetRevisarInventario()
         {
             return RevisarInventario;
@@ -1461,43 +1461,61 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaRevisarInventario(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-                                              IDAlmacen TEXT NOT NULL,
-                                              Nombre TEXT NOT NULL,
-                                              ClaveInterna TEXT,
-                                              CodigoBarras TEXT,
-                                              StockAlmacen INTEGER NOT NULL DEFAULT (0),
-                                              StockFisico INTEGER NOT NULL DEFAULT (0),
-                                              NoRevision INT DEFAULT (0),
-                                              Fecha DATETIME,
-                                              Vendido INT DEFAULT (0),
-                                              Diferencia INT DEFAULT (0),
-                                              IDUsuario INTEGER,
-                                              Tipo TEXT,
-                                              StatusRevision INT DEFAULT (0),
-                                              StatusInventariado INT DEFAULT (0),
+            return $@"CREATE TABLE '{tabla}' (ID                 INTEGER  NOT NULL    PRIMARY KEY AUTOINCREMENT    UNIQUE,
+                                              IDAlmacen          TEXT     NOT NULL,
+                                              Nombre             TEXT     NOT NULL,
+                                              ClaveInterna       TEXT,
+                                              CodigoBarras       TEXT,
+                                              StockAlmacen       INTEGER  NOT NULL    DEFAULT (0),
+                                              StockFisico        INTEGER  NOT NULL    DEFAULT (0),
+                                              NoRevision         INT      DEFAULT (0),
+                                              Fecha              DATETIME,
+                                              Vendido            INT      DEFAULT (0),
+                                              Diferencia         INT      DEFAULT (0),
+                                              IDUsuario          INTEGER,
+                                              Tipo               TEXT,
+                                              StatusRevision     INT      DEFAULT (0),
+                                              StatusInventariado INT      DEFAULT (0),
                                               PrecioProducto     REAL,
-                                              FOREIGN KEY (IDUsuario) REFERENCES USuarios (ID));";
+                                              IDComputadora      TEXT,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES USuarios (ID));";
         }
 
         public string QueryUpdateTablaRevisarInventario(string tabla)
         {
-            return $@"INSERT INTO '{tabla}' (IDAlmacen,
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDAlmacen,
                                              Nombre,
                                              ClaveInterna,
                                              CodigoBarras,
+                                             StockAlmacen,
                                              StockFisico,
+                                             NoRevision,
                                              Fecha,
+                                             Vendido,
+                                             Diferencia,
                                              IDUsuario,
-                                             Tipo) 
+                                             Tipo,
+                                             StatusRevision,
+                                             StatusInventariado,
+                                             PrecioProducto) 
                                       SELECT ID,
+                                             IDAlmacen,
                                              Nombre,
                                              ClaveInterna,
                                              CodigoBarras,
+                                             StockAlmacen,
                                              StockFisico,
+                                             NoRevision,
                                              Fecha,
+                                             Vendido,
+                                             Diferencia,
                                              IDUsuario,
-                                             'P' 
+                                             Tipo,
+                                             StatusRevision,
+                                             StatusInventariado,
+                                             PrecioProducto 
                                         FROM '{tabla}_temp';";
         }
 
@@ -1505,10 +1523,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaRevisarInventario
+        #endregion Tabla RevisarInventario
 
         // Tabla de DetallesVenta 23
-        #region TablaDetallesVenta
+        #region Tabla DetallesVenta
         public int GetDetallesVenta()
         {
             return DetallesVenta;
@@ -1577,10 +1595,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaDetallesVenta
+        #endregion Tabla DetallesVenta
 
         // Tabla de Abonos 24
-        #region TablaAbonos
+        #region Tabla Abonos
         public int GetAbonos()
         {
             return Abonos;
@@ -1642,10 +1660,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaAbonos
+        #endregion Tabla Abonos
 
         // Tabla de Categorias 25
-        #region TablaCategorias
+        #region Tabla Categorias
         public int GetCategorias()
         {
             return Categorias;
@@ -1683,10 +1701,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaCategorias
+        #endregion Tabla Categorias
 
         // Tabla de Ubicaciones 26
-        #region TablaCategorias
+        #region Tabla Ubicaciones
         public int GetUbicaciones()
         {
             return Ubicaciones;
@@ -1724,10 +1742,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaUbicaciones
+        #endregion Tabla Ubicaciones
 
         // Tabla de DetalleGeneral 27
-        #region TablaDetalleGeneral
+        #region Tabla DetalleGeneral
         public int GetDetalleGeneral()
         {
             return DetalleGeneral;
@@ -1770,10 +1788,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaDetalleGeneral
+        #endregion Tabla DetalleGeneral
 
         // Tabla de DetallesProductoGenerales 28
-        #region TablaDetallesProductoGenerales
+        #region Tabla DetallesProductoGenerales
         public int GetDetallesProductoGenerales()
         {
             return DetallesProductoGenerales;
@@ -1826,10 +1844,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaDetallesProductoGenerales
+        #endregion Tabla DetallesProductoGenerales
 
         // Tabla de ProductMessage 29
-        #region TablaProductMessage
+        #region Tabla ProductMessage
         public int GetProductMessage()
         {
             return ProductMessage;
@@ -1872,10 +1890,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaProductMessage
+        #endregion Tabla ProductMessage
 
         // Tabla de CodigoBarrasGenerado 30
-        #region TablaCodigoBarrasGenerado
+        #region Tabla CodigoBarrasGenerado
         public int GetCodigoBarrasGenerado()
         {
             return CodigoBarrasGenerado;
@@ -1916,10 +1934,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaCodigoBarrasGenerado
+        #endregion Tabla CodigoBarrasGenerado
 
         // Tabla de Empleados 31
-        #region TablaEmpleados
+        #region Tabla Empleados
         public int GetEmpleados()
         {
             return Empleados;
@@ -2008,10 +2026,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaEmpleados
+        #endregion Tabla Empleados
 
         // Tabla de MensajesInventario 32
-        #region TablaMensajesInventario
+        #region Tabla MensajesInventario
         public int GetMensajesInventario()
         {
             return MensajesInventario;
@@ -2055,10 +2073,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaMensajesInventario
+        #endregion Tabla MensajesInventario
 
         // Tabla de Catalogo_claves_producto 33
-        #region TablaCatalogo_claves_producto
+        #region Tabla Catalogo_claves_producto
         public int GetCatalogo_claves_producto()
         {
             return Catalogo_claves_producto;
@@ -2096,10 +2114,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaCatalogo_claves_producto
+        #endregion Tabla Catalogo_claves_producto
 
         // Tabla de Catalogo_monedas 34
-        #region TablaCatalogo_monedas
+        #region Tabla Catalogo_monedas
         public int GetCatalogo_monedas()
         {
             return Catalogo_monedas;
@@ -2137,10 +2155,10 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaCatalogo_monedas
+        #endregion Tabla Catalogo_monedas
 
         // Tabla de HistorialPrecios 35
-        #region TablaHistorialPrecios
+        #region Tabla HistorialPrecios
         public int GetHistorialPrecios()
         {
             return HistorialPrecios;
@@ -2193,6 +2211,6 @@ namespace PuntoDeVentaV2
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
-        #endregion TablaHistorialPrecios
+        #endregion Tabla HistorialPrecios
     }
 }
