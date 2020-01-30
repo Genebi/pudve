@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         // Variables iniciales
         string fechaInventario = string.Empty;
         string numeroRevision = string.Empty;
+        string nombrePC = string.Empty;
 
         int idProducto = 0;
 
@@ -56,6 +57,8 @@ namespace PuntoDeVentaV2
 
             // Asignamos el numero de revision para que cargue los productos en el reporte al cerrar el form
             Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
+
+            nombrePC = Environment.MachineName;
         }
 
         private void buscarCodigoBarras()
@@ -97,7 +100,7 @@ namespace PuntoDeVentaV2
                         }
 
                         // Verificar si este producto ya fue inventariado
-                        var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
+                        var inventariado = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
 
                         if (inventariado)
                         {
@@ -196,7 +199,7 @@ namespace PuntoDeVentaV2
                     }
 
                     // Comprobamos si el producto ya fue revisado
-                    var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
+                    var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
 
                     // Si ya fue inventariado el producto actualizamos informacion
                     if (existe)
@@ -209,7 +212,7 @@ namespace PuntoDeVentaV2
                         var diferencia = Convert.ToInt32(datosProducto[1]) - Convert.ToInt32(stockFisico);
 
                         // Actualizar datos en RevisarInventario
-                        cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID}");
+                        cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
 
                         // Actualizar stock del producto
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
@@ -228,7 +231,8 @@ namespace PuntoDeVentaV2
                         var datos = new string[]
                         {
                             idProducto.ToString(), info[1], info[6], info[7], info[4], stockFisico, numeroRevision,
-                            fecha, "0", diferencia.ToString(), FormPrincipal.userID.ToString(), info[5], "0", "1", info[2]
+                            fecha, "0", diferencia.ToString(), FormPrincipal.userID.ToString(), info[5], "0", "1", info[2],
+                            nombrePC
                         };
 
                         // Guardamos la informacion en la tabla de RevisarInventario
