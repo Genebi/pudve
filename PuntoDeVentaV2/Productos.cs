@@ -387,7 +387,8 @@ namespace PuntoDeVentaV2
 
             FiltroAvanzado.FormClosed += delegate
             {
-
+                quitarEspacioEnBlanco();
+                busquedaDelUsuario();
             };
 
             if (!FiltroAvanzado.Visible)
