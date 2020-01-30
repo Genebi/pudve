@@ -221,19 +221,19 @@ namespace PuntoDeVentaV2
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteBlanca);
 
             // Ruta donde se creara el archivo PDF
-            var rutaArchivo = string.Empty;
-            var servidor = Properties.Settings.Default.Hosting;
-            var fechaHoy = DateTime.Now;
-
-            if (!string.IsNullOrWhiteSpace(servidor))
+            //var servidor = Properties.Settings.Default.Hosting;
+            //var rutaArchivo = string.Empty;
+            /*if (!string.IsNullOrWhiteSpace(servidor))
             {
                 rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\reporte_inventario.pdf";
             }
             else
             {
                 rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_inventario.pdf";
-            }
+            }*/
 
+            var fechaHoy = DateTime.Now;
+            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\reporte_inventario.pdf";
 
             Document reporte = new Document(PageSize.A3.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
