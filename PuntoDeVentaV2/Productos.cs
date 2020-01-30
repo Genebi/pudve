@@ -387,8 +387,15 @@ namespace PuntoDeVentaV2
 
             FiltroAvanzado.FormClosed += delegate
             {
-                quitarEspacioEnBlanco();
-                busquedaDelUsuario();
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                }
+                else if (!txtBusqueda.Text.Equals(""))
+                {
+                    quitarEspacioEnBlanco();
+                    busquedaDelUsuario();
+                }
             };
 
             if (!FiltroAvanzado.Visible)
@@ -836,7 +843,15 @@ namespace PuntoDeVentaV2
                         {
                             if (botonAceptar)
                             {
-                                CargarDatos();
+                                if (txtBusqueda.Text.Equals(""))
+                                {
+                                    CargarDatos();
+                                }
+                                else if (!txtBusqueda.Text.Equals(""))
+                                {
+                                    quitarEspacioEnBlanco();
+                                    busquedaDelUsuario();
+                                }
 
                                 idReporte++;
 
@@ -987,8 +1002,15 @@ namespace PuntoDeVentaV2
         private void btnCleanFilter_Click(object sender, EventArgs e)
         {
             txtBusqueda.Text = string.Empty;
-            quitarEspacioEnBlanco();
-            busquedaDelUsuario();
+            if (txtBusqueda.Text.Equals(""))
+            {
+                CargarDatos();
+            }
+            else if (!txtBusqueda.Text.Equals(""))
+            {
+                quitarEspacioEnBlanco();
+                busquedaDelUsuario();
+            }
             removeAllSystemTags(setUpVariable);
             modificarDiccionarioEtiquetas(fLPDynamicTags);
         }
@@ -1366,8 +1388,15 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyChar == (int) Keys.Enter)
             {
-                quitarEspacioEnBlanco();
-                busquedaDelUsuario();
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                }
+                else if (!txtBusqueda.Text.Equals(""))
+                {
+                    quitarEspacioEnBlanco();
+                    busquedaDelUsuario();
+                }
             }
         }
 
@@ -1686,7 +1715,16 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                CargarDatos();
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                }
+                else if (!txtBusqueda.Text.Equals(""))
+                {
+                    quitarEspacioEnBlanco();
+                    busquedaDelUsuario();
+                }
+
                 actualizarBtnFiltro();
                 txtBusqueda.Focus();
             }
@@ -1858,14 +1896,22 @@ namespace PuntoDeVentaV2
                 {
                     reiniciarVariablesDeSistemaStock();
                 }
-
-                CargarDatos();
+                
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                }
+                else if (!txtBusqueda.Text.Equals(""))
+                {
+                    quitarEspacioEnBlanco();
+                    busquedaDelUsuario();
+                }
 
                 actualizarBtnFiltro();
 
-                txtBusqueda.Focus();
-
                 verificarBotonLimpiarTags();
+
+                txtBusqueda.Focus();
             }
             else if (result == DialogResult.No)
             {
@@ -2632,16 +2678,14 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                if (!txtBusqueda.Text.Equals(""))
+                if (txtBusqueda.Text.Equals(""))
                 {
                     CargarDatos();
-                    //txtBusqueda_TextChanged(sender, e);
+                }
+                else if (!txtBusqueda.Text.Equals(""))
+                {
                     quitarEspacioEnBlanco();
                     busquedaDelUsuario();
-                }
-                else if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
                 }
 
                 AgregarEditarProducto.stockNecesario = "0";
@@ -2727,16 +2771,14 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                if (!txtBusqueda.Text.Equals(""))
+                if (txtBusqueda.Text.Equals(""))
                 {
                     CargarDatos();
-                    //txtBusqueda_TextChanged(sender, e);
+                }
+                else if (!txtBusqueda.Text.Equals(""))
+                {
                     quitarEspacioEnBlanco();
                     busquedaDelUsuario();
-                }
-                else if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
                 }
             };
             if (!FormAgregar.Visible)
@@ -2817,16 +2859,14 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                if (!txtBusqueda.Text.Equals(""))
+                if (txtBusqueda.Text.Equals(""))
                 {
                     CargarDatos();
-                    //txtBusqueda_TextChanged(sender, e);
+                }
+                else if (!txtBusqueda.Text.Equals(""))
+                {
                     quitarEspacioEnBlanco();
                     busquedaDelUsuario();
-                }
-                else if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
                 }
             };
             if (!FormAgregar.Visible)
@@ -3286,8 +3326,7 @@ namespace PuntoDeVentaV2
             Button btnTag = (Button)sender;
             string name = string.Empty, newtext = string.Empty;
             name = btnTag.Name.Remove(0, 8);
-            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons
-                .YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Seguro desea borrar\nel Tag(Filtro): " + name + "?", "Eliminar Filtro", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 foreach (Control item in fLPDynamicTags.Controls.OfType<Control>())
@@ -3318,6 +3357,17 @@ namespace PuntoDeVentaV2
 
                 txtBusqueda.Text = newCadenaBusqueda.Trim();
                 txtBusqueda.Select(txtBusqueda.Text.Length, 0);
+
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    CargarDatos();
+                }
+                else if (!txtBusqueda.Text.Equals(""))
+                {
+                    quitarEspacioEnBlanco();
+                    busquedaDelUsuario();
+                }
+
                 txtBusqueda.Focus();
 
                 verificarBotonLimpiarTags();
