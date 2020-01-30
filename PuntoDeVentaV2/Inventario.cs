@@ -103,6 +103,17 @@ namespace PuntoDeVentaV2
                 RealizarBusqueda();
                 txtBusqueda.Text = string.Empty;
             }
+
+            if (e.KeyData == Keys.Back || e.KeyData == Keys.Delete || e.KeyData == Keys.Escape)
+            {
+                var busqueda = txtBusqueda.Text.Trim();
+
+                if (busqueda.Length == 0)
+                {
+                    ocultarResultados();
+                    listaProductos.Items.Clear();
+                }
+            }
         }
 
         private void RealizarBusqueda()
@@ -164,6 +175,10 @@ namespace PuntoDeVentaV2
                             listaProductos.Items.Add(item.Value);
                             listaProductos.SelectedIndex = 0;
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{txtBusqueda.Text}'", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
