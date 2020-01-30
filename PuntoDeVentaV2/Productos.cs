@@ -986,6 +986,8 @@ namespace PuntoDeVentaV2
         private void btnCleanFilter_Click(object sender, EventArgs e)
         {
             txtBusqueda.Text = string.Empty;
+            quitarEspacioEnBlanco();
+            busquedaDelUsuario();
             removeAllSystemTags(setUpVariable);
             modificarDiccionarioEtiquetas(fLPDynamicTags);
         }
@@ -1081,26 +1083,6 @@ namespace PuntoDeVentaV2
             CargarDatos();
 
             verificarBotonLimpiarTags();
-        }
-
-        private void txtBusqueda_TextChanged(object sender, EventArgs e)
-        {
-            //dtConsulta.DefaultView.RowFilter = $"Nombre LIKE '{txtBusqueda.Text}%'";
-            //string buscarStock;
-
-            //if (panelShowDGVProductosView.Visible == true)
-            //{
-            //    //CargarDatos(1, txtBusqueda.Text);
-            //    timerBusqueda.Stop();
-            //    clickBoton = 0;
-            //    timerBusqueda.Start();
-            //}
-            //else if (panelShowPhotoView.Visible == true)
-            //{
-            //    buscarStock = $"SELECT prod.ID, prod.Nombre, prod.ProdImage, prod.Precio FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND prod.Nombre LIKE '%" + txtBusqueda.Text + "%'";
-            //    fotos = cn.CargarDatos(buscarStock);
-            //    photoShow();
-            //}
         }
 
         public Productos()
@@ -1384,22 +1366,27 @@ namespace PuntoDeVentaV2
             if (e.KeyChar == (int) Keys.Enter)
             {
                 quitarEspacioEnBlanco();
-                if (cbMostrar.Text == "Habilitados")
-                {
-                    CargarDatos(1, txtBusqueda.Text);
-                }
-                else if (cbMostrar.Text == "Deshabilitados")
-                {
-                    CargarDatos(0, txtBusqueda.Text);
-                }
-                else if (cbMostrar.Text == "Todos")
-                {
-                    CargarDatos(2, txtBusqueda.Text);
-                }
-                borrarAuxWordTags();
-                cargarListaDeEtiquetas();
-                verificarBotonLimpiarTags();
+                busquedaDelUsuario();
             }
+        }
+
+        private void busquedaDelUsuario()
+        {
+            if (cbMostrar.Text == "Habilitados")
+            {
+                CargarDatos(1, txtBusqueda.Text);
+            }
+            else if (cbMostrar.Text == "Deshabilitados")
+            {
+                CargarDatos(0, txtBusqueda.Text);
+            }
+            else if (cbMostrar.Text == "Todos")
+            {
+                CargarDatos(2, txtBusqueda.Text);
+            }
+            borrarAuxWordTags();
+            cargarListaDeEtiquetas();
+            verificarBotonLimpiarTags();
         }
 
         public void creacionEtiquetasDinamicas()
@@ -2647,7 +2634,9 @@ namespace PuntoDeVentaV2
                 if (!txtBusqueda.Text.Equals(""))
                 {
                     CargarDatos();
-                    txtBusqueda_TextChanged(sender, e);
+                    //txtBusqueda_TextChanged(sender, e);
+                    quitarEspacioEnBlanco();
+                    busquedaDelUsuario();
                 }
                 else if (txtBusqueda.Text.Equals(""))
                 {
@@ -2740,7 +2729,9 @@ namespace PuntoDeVentaV2
                 if (!txtBusqueda.Text.Equals(""))
                 {
                     CargarDatos();
-                    txtBusqueda_TextChanged(sender, e);
+                    //txtBusqueda_TextChanged(sender, e);
+                    quitarEspacioEnBlanco();
+                    busquedaDelUsuario();
                 }
                 else if (txtBusqueda.Text.Equals(""))
                 {
@@ -2828,7 +2819,9 @@ namespace PuntoDeVentaV2
                 if (!txtBusqueda.Text.Equals(""))
                 {
                     CargarDatos();
-                    txtBusqueda_TextChanged(sender, e);
+                    //txtBusqueda_TextChanged(sender, e);
+                    quitarEspacioEnBlanco();
+                    busquedaDelUsuario();
                 }
                 else if (txtBusqueda.Text.Equals(""))
                 {

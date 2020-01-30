@@ -523,6 +523,13 @@ namespace PuntoDeVentaV2
 
                 CargarSaldo();
 
+                //var servidor = Properties.Settings.Default.Hosting;
+
+                //if (string.IsNullOrWhiteSpace(servidor))
+                //{
+                    
+                //}
+
                 try
                 {
                     conexion.Open();
@@ -552,8 +559,8 @@ namespace PuntoDeVentaV2
                     int resultado = agregar.ExecuteNonQuery();
                     if (resultado>0)
                     {
-                        //   MessageBox.Show("Exito ");
-                      //  iniciarVariablesWebService();
+                        //MessageBox.Show("Exito ");
+                        //iniciarVariablesWebService();
                     }
                     iniciarVariablesWebService();
 
