@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, FechaInventario, NoRevision) VALUES ('{FormPrincipal.userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '1')");
+                cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, FechaInventario, NoRevision) VALUES ('{FormPrincipal.userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '1')", true);
 
                 datosInventario = mb.DatosRevisionInventario();
                 numeroRevision = Convert.ToInt32(datosInventario[1]);
@@ -115,7 +115,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            var respuesta = cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevision} WHERE IDUsuario = {FormPrincipal.userID}");
+            var respuesta = cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevision} WHERE IDUsuario = {FormPrincipal.userID}", true);
 
             if (respuesta > 0)
             {

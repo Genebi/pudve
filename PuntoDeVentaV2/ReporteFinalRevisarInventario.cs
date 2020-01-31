@@ -141,6 +141,7 @@ namespace PuntoDeVentaV2
             DGVRevisionStock.Columns["StatusRevision"].Visible = false;
             DGVRevisionStock.Columns["StatusInventariado"].Visible = false;
             DGVRevisionStock.Columns["Vendido"].Visible = false;
+            DGVRevisionStock.Columns["IDComputadora"].Visible = false;
 
             // Cambiamos el texto de la columbas para mejor visualizacion
             DGVRevisionStock.Columns["IDAlmacen"].HeaderText = "ID";
