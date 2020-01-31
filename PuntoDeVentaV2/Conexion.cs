@@ -62,25 +62,29 @@ namespace PuntoDeVentaV2
         }
 
 
-        public void Conectarse()
+        public void Conectarse(bool ignorar = false)
         {
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-            else
+            if (ignorar == true)
             {
                 sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             }
-
-            //sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            //sql_con = new SQLiteConnection("Data source=" + rutaLocal + @"\pudveDB.db; Version=3; New=False;Compress=True;");
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+                {
+                    sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                }
+                else
+                {
+                    sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                }
+            }
         }
 
         //Sirve para los INSERT, UPDATE, DELETE
-        public int EjecutarConsulta(string consulta)
+        public int EjecutarConsulta(string consulta, bool ignorar = false)
         {
-            Conectarse();
+            Conectarse(ignorar);
             sql_con.Open();
 
             sql_cmd = sql_con.CreateCommand();

@@ -16,17 +16,24 @@ namespace PuntoDeVentaV2
         private SQLiteConnection sql_con;
         private SQLiteCommand sql_cmd;
 
-        public void Conexion()
+        public void Conexion(bool ignorar = false)
         {
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            if (ignorar == true)
             {
-                //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             }
             else
             {
-                //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+                {
+                    //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                }
+                else
+                {
+                    //MessageBox.Show("Hosting: " + Properties.Settings.Default.Hosting.ToString(), "Error de busqueda.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                }
             }
         }
 
@@ -1113,7 +1120,7 @@ namespace PuntoDeVentaV2
             var fecha = string.Empty;
             var revision = string.Empty;
 
-            DatosConexion($"SELECT * FROM CodigoBarrasGenerado WHERE IDUsuario = {FormPrincipal.userID}");
+            DatosConexion($"SELECT * FROM CodigoBarrasGenerado WHERE IDUsuario = {FormPrincipal.userID}", true);
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -1321,9 +1328,9 @@ namespace PuntoDeVentaV2
             return total;
         }
 
-        private void DatosConexion(string consulta)
+        private void DatosConexion(string consulta, bool ignorar = false)
         {
-            Conexion();
+            Conexion(ignorar);
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
             sql_cmd.CommandText = consulta;

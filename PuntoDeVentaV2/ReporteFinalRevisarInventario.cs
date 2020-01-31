@@ -31,6 +31,7 @@ namespace PuntoDeVentaV2
         string queryFiltroReporteStock, tabla, queryUpdateCalculos, FechaRevision, soloFechaRevision, fechaActual;
 
         string consultaStockPaqServ = string.Empty;
+        string nombrePC = string.Empty;
 
         private void FiltroNumRevisionActiva()
         {
@@ -44,6 +45,8 @@ namespace PuntoDeVentaV2
 
         private void ReporteFinalRevisarInventario_Load(object sender, EventArgs e)
         {
+            nombrePC = Environment.MachineName;
+
             IsEmpty = false;
             tabla = "RevisarInventario";
             FiltroNumRevisionActiva();
@@ -74,7 +77,7 @@ namespace PuntoDeVentaV2
 
         private void VaciarTabla()
         {
-            cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE NoRevision = {FilterNumActiveRecord} AND IDUsuario = {FormPrincipal.userID}");
+            cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE NoRevision = {FilterNumActiveRecord} AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
         }
 
         private void hacerCalculosDGVRevisionStock()
@@ -122,7 +125,7 @@ namespace PuntoDeVentaV2
 
                 if (soloFechaRevision == fechaActual)
                 {
-                    queryUpdateCalculos = $"UPDATE '{tabla}' SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}'";
+                    queryUpdateCalculos = $"UPDATE '{tabla}' SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}' AND IDComputadora = '{nombrePC}'";
                     cn.EjecutarConsulta(queryUpdateCalculos);
                 }
             }
@@ -193,7 +196,7 @@ namespace PuntoDeVentaV2
 
         private void cargarTabla()
         {
-            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{FilterNumActiveRecord}' ORDER BY Fecha DESC, Nombre ASC";
+            queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND NoRevision = '{FilterNumActiveRecord}' AND IDComputadora = '{nombrePC}' ORDER BY Fecha DESC, Nombre ASC";
             //queryFiltroReporteStock = $"SELECT * FROM '{tabla}' WHERE IDUsuario = '{FormPrincipal.userID}' AND StatusInventariado = '1' ORDER BY Fecha DESC, Nombre ASC";
             dtFinalReportCheckStockToDay = cn.CargarDatos(queryFiltroReporteStock);
         }
