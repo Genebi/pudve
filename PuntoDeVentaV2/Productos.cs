@@ -526,7 +526,6 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
-            actualizarDatosDespuesDeAgregarProducto();
         }
 
         // Metodo creado para manejo de mostrar ventana
@@ -1001,7 +1000,6 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
-            actualizarDatosDespuesDeAgregarProducto();
         }
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
@@ -2741,7 +2739,14 @@ namespace PuntoDeVentaV2
             }
             else if (origenDeLosDatos == 0)
             {
-                btnUltimaPagina.PerformClick();
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    btnUltimaPagina.PerformClick();
+                }
+                else
+                {
+                    actualizarDatosDespuesDeAgregarProducto();
+                }
             }
 
             origenDeLosDatos = 0;
@@ -2835,7 +2840,14 @@ namespace PuntoDeVentaV2
             }
             else if (origenDeLosDatos == 0)
             {
-                btnUltimaPagina.PerformClick();
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    btnUltimaPagina.PerformClick();
+                }
+                else
+                {
+                    actualizarDatosDespuesDeAgregarProducto();
+                }
             }
             origenDeLosDatos = 0;
         }
@@ -2915,7 +2927,14 @@ namespace PuntoDeVentaV2
             }
             else if (origenDeLosDatos == 0)
             {
-                btnUltimaPagina.PerformClick();
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    btnUltimaPagina.PerformClick();
+                }
+                else
+                {
+                    actualizarDatosDespuesDeAgregarProducto();
+                }
             }
             origenDeLosDatos = 0;
         }
@@ -3428,7 +3447,13 @@ namespace PuntoDeVentaV2
         {
             if (recargarDatos)
             {
-                CargarDatos();
+                txtBusqueda.Text = string.Empty;
+
+                if (txtBusqueda.Text.Equals(""))
+                {
+                    btnCleanFilter.PerformClick();
+                    CargarDatos();
+                }
 
                 recargarDatos = false;
 
