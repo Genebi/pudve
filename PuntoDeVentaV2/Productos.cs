@@ -526,6 +526,7 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
+            actualizarDatosDespuesDeAgregarProducto();
         }
 
         // Metodo creado para manejo de mostrar ventana
@@ -587,6 +588,7 @@ namespace PuntoDeVentaV2
                 panel2.Visible = true;
                 searchToProdGral();
             }
+            actualizarDatosDespuesDeAgregarProducto();
         }
 
         private void DGVProductos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
@@ -794,7 +796,8 @@ namespace PuntoDeVentaV2
                     {
                         agregarFoto();
                     }
-                    CargarDatos();
+                    //CargarDatos();
+                    actualizarDatosDespuesDeAgregarProducto();
                 }
                 else if (e.ColumnIndex == 12)
                 {
@@ -920,6 +923,7 @@ namespace PuntoDeVentaV2
 
             CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
             master.Checked = false;
+            actualizarDatosDespuesDeAgregarProducto();
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -997,6 +1001,7 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
+            actualizarDatosDespuesDeAgregarProducto();
         }
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
@@ -2678,15 +2683,7 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
-                }
-                else if (!txtBusqueda.Text.Equals(""))
-                {
-                    quitarEspacioEnBlanco();
-                    busquedaDelUsuario();
-                }
+                actualizarDatosDespuesDeAgregarProducto();
 
                 AgregarEditarProducto.stockNecesario = "0";
             };
@@ -2750,6 +2747,19 @@ namespace PuntoDeVentaV2
             origenDeLosDatos = 0;
         }
 
+        public void actualizarDatosDespuesDeAgregarProducto()
+        {
+            if (txtBusqueda.Text.Equals(""))
+            {
+                CargarDatos();
+            }
+            else if (!txtBusqueda.Text.Equals(""))
+            {
+                quitarEspacioEnBlanco();
+                busquedaDelUsuario();
+            }
+        }
+
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
             AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
@@ -2771,15 +2781,7 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
-                }
-                else if (!txtBusqueda.Text.Equals(""))
-                {
-                    quitarEspacioEnBlanco();
-                    busquedaDelUsuario();
-                }
+                actualizarDatosDespuesDeAgregarProducto();
             };
             if (!FormAgregar.Visible)
             {
@@ -2859,15 +2861,7 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
-                }
-                else if (!txtBusqueda.Text.Equals(""))
-                {
-                    quitarEspacioEnBlanco();
-                    busquedaDelUsuario();
-                }
+                actualizarDatosDespuesDeAgregarProducto();
             };
             if (!FormAgregar.Visible)
             {
@@ -3134,7 +3128,8 @@ namespace PuntoDeVentaV2
         {
             VentanaMostrarFoto.FormClosed += delegate
             {
-                CargarDatos();
+                //CargarDatos();
+                actualizarDatosDespuesDeAgregarProducto();
             };
             if (!VentanaMostrarFoto.Visible)
             {
@@ -3160,7 +3155,8 @@ namespace PuntoDeVentaV2
         {
             FormXML.FormClosed += delegate
             {
-                CargarDatos();
+                //CargarDatos();
+                actualizarDatosDespuesDeAgregarProducto();
             };
 
             if (!FormXML.Visible)
@@ -3470,7 +3466,8 @@ namespace PuntoDeVentaV2
 
                 am.FormClosed += delegate
                 {
-                    CargarDatos();
+                    //CargarDatos();
+                    actualizarDatosDespuesDeAgregarProducto();
                 };
 
                 am.ShowDialog();
