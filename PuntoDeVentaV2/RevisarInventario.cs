@@ -38,7 +38,7 @@ namespace PuntoDeVentaV2
             // que exista la configuracion necesaria
             if (datosInventario.Length > 0)
             {
-                cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET FechaInventario = '{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE IDUsuario = {FormPrincipal.userID}");
+                cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET FechaInventario = '{DateTime.Now.ToString("yyyy-MM-dd")}' WHERE IDUsuario = {FormPrincipal.userID}", true);
 
                 datosInventario = mb.DatosRevisionInventario();
                 fechaInventario = datosInventario[0];
@@ -46,7 +46,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, FechaInventario, NoRevision) VALUES ('{FormPrincipal.userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '1')");
+                cn.EjecutarConsulta($"INSERT INTO CodigoBarrasGenerado (IDUsuario, FechaInventario, NoRevision) VALUES ('{FormPrincipal.userID}', '{DateTime.Now.ToString("yyyy-MM-dd")}', '1')", true);
 
                 datosInventario = mb.DatosRevisionInventario();
                 fechaInventario = datosInventario[0];
@@ -341,7 +341,7 @@ namespace PuntoDeVentaV2
             // Actualizar el numero de revision despues de haber terminado el inventario
             var numeroRevisionTmp = Convert.ToInt32(numeroRevision) + 1;
 
-            cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}");
+            cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}", true);
 
             // Cambiamos el valor de la variable para eliminar los registros de la tabla RevisarInventario con el numero de revision
             Inventario.limpiarTabla = true;
