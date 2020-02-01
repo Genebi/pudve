@@ -113,6 +113,7 @@
             this.cbProveedor.Name = "cbProveedor";
             this.cbProveedor.Size = new System.Drawing.Size(350, 24);
             this.cbProveedor.TabIndex = 33;
+            this.cbProveedor.SelectionChangeCommitted += new System.EventHandler(this.cbProveedor_SelectionChangeCommitted);
             // 
             // checkProveedor
             // 
@@ -154,6 +155,7 @@
             this.cbPrecio.Name = "cbPrecio";
             this.cbPrecio.Size = new System.Drawing.Size(246, 24);
             this.cbPrecio.TabIndex = 29;
+            this.cbPrecio.SelectionChangeCommitted += new System.EventHandler(this.cbPrecio_SelectionChangeCommitted);
             // 
             // cbStock
             // 
@@ -164,6 +166,7 @@
             this.cbStock.Name = "cbStock";
             this.cbStock.Size = new System.Drawing.Size(246, 24);
             this.cbStock.TabIndex = 28;
+            this.cbStock.SelectionChangeCommitted += new System.EventHandler(this.cbStock_SelectionChangeCommitted);
             // 
             // checkPrecio
             // 

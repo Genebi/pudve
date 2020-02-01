@@ -27,19 +27,19 @@ namespace PuntoDeVentaV2
             opcionesDefault = new Dictionary<string, string>();
 
             // Datos para cargar el combobox de Stock y Precio
-            Dictionary<string, string> condiciones = new Dictionary<string, string>();
-            condiciones.Add("NA", "No aplica");
-            condiciones.Add(">=", "Mayor o igual que");
-            condiciones.Add("<=", "Menor o igual que");
-            condiciones.Add("==", "Igual que");
-            condiciones.Add(">", "Mayor que");
-            condiciones.Add("<", "Menor que");
+            var sourceOpciones = new Dictionary<string, string>();
+            sourceOpciones.Add("NA", "No aplica");
+            sourceOpciones.Add(">=", "Mayor o igual que");
+            sourceOpciones.Add("<=", "Menor o igual que");
+            sourceOpciones.Add("==", "Igual que");
+            sourceOpciones.Add(">", "Mayor que");
+            sourceOpciones.Add("<", "Menor que");
 
-            cbStock.DataSource = condiciones.ToArray();
+            cbStock.DataSource = sourceOpciones.ToArray();
             cbStock.ValueMember = "Key";
             cbStock.DisplayMember = "Value";
 
-            cbPrecio.DataSource = condiciones.ToArray();
+            cbPrecio.DataSource = sourceOpciones.ToArray();
             cbPrecio.ValueMember = "Key";
             cbPrecio.DisplayMember = "Value";
 
@@ -59,7 +59,6 @@ namespace PuntoDeVentaV2
             ObtenerDetalles();
             VisualizarDetalles();
         }
-
 
         private void ObtenerDetalles()
         {
@@ -150,6 +149,25 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Aceptar");
+        }
+
+        private void cbStock_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var opcion = cbStock.SelectedValue;
+
+            MessageBox.Show(opcion.ToString());
+        }
+
+        private void cbPrecio_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var opcion = cbPrecio.SelectedValue;
+
+            MessageBox.Show(opcion.ToString());
+        }
+
+        private void cbProveedor_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+
         }
     }
 }
