@@ -1465,6 +1465,17 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBusqueda.Text.Equals(""))
+            {
+                if (btnCleanFilter.Enabled.Equals(true))
+                {
+                    btnCleanFilter.PerformClick();
+                }
+            }
+        }
+
         public void dictionaryLoad()
         {
             bool isEmpty = (setUpDinamicos.Count == 0);
