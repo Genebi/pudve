@@ -819,9 +819,12 @@ namespace PuntoDeVentaV2
 
                 SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
-                if (dr.Read())
+                if (dr.HasRows)
                 {
-                    lista.Add(dr["IDProducto"].ToString());
+                    while (dr.Read())
+                    {
+                        lista.Add(dr["IDProducto"].ToString());
+                    }
                 }
 
                 dr.Close();
@@ -1083,7 +1086,19 @@ namespace PuntoDeVentaV2
 
                 if (infoProducto.Length > 0)
                 {
-                    idProducto = Convert.ToInt32(infoProducto[0]);
+                    foreach (var id in infoProducto)
+                    {
+                        DatosConexion($"SELECT * FROM Productos WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+
+                        SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                        if (dr.Read())
+                        {
+                            idProducto = Convert.ToInt32(id);
+                        }
+
+                        dr.Close();
+                    }
                 }
             }
 
