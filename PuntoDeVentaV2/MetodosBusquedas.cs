@@ -823,7 +823,10 @@ namespace PuntoDeVentaV2
                 {
                     while (dr.Read())
                     {
-                        lista.Add(dr["IDProducto"].ToString());
+                        if (!string.IsNullOrWhiteSpace(dr["IDProducto"].ToString()))
+                        {
+                            lista.Add(dr["IDProducto"].ToString());
+                        }
                     }
                 }
 

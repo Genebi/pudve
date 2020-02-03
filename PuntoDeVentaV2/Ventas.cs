@@ -317,12 +317,15 @@ namespace PuntoDeVentaV2
 
                     if (datosTmp.Length > 0)
                     {
-                        // Verificar que pertenece al usuario
-                        var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {datosTmp[0]} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
-
-                        if (verificarUsuario)
+                        foreach (var id in datosTmp)
                         {
-                            idProducto = Convert.ToInt32(datosTmp[0]);
+                            // Verificar que pertenece al usuario
+                            var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+
+                            if (verificarUsuario)
+                            {
+                                idProducto = Convert.ToInt32(id);
+                            }
                         }
                     }
 

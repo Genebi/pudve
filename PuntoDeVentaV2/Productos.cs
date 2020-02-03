@@ -2140,15 +2140,19 @@ namespace PuntoDeVentaV2
                 }
                 // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
                 var infoProducto = mb.BuscarCodigoBarrasExtra(busqueda.Trim());
+
                 if (infoProducto.Length > 0)
                 {
-                    // Verificar que el ID del producto pertenezca al usuasio
-                    var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(infoProducto[0]), FormPrincipal.userID);
-                    // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
-                    // se busca directamente con base en su ID sobreescribiendo la variable "extra"
-                    if (verificarUsuario.Length > 0)
+                    foreach (var id in infoProducto)
                     {
-                        extra = $" AND P.ID = {infoProducto[0]}";
+                        // Verificar que el ID del producto pertenezca al usuasio
+                        var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(id), FormPrincipal.userID);
+                        // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
+                        // se busca directamente con base en su ID sobreescribiendo la variable "extra"
+                        if (verificarUsuario.Length > 0)
+                        {
+                            extra = $" AND P.ID = {id}";
+                        }
                     }
                 }
             }
