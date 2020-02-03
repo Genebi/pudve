@@ -40,6 +40,12 @@
             this.cbStock = new System.Windows.Forms.ComboBox();
             this.checkPrecio = new System.Windows.Forms.CheckBox();
             this.checkStock = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.panelContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,6 +97,12 @@
             // 
             // panelContenedor
             // 
+            this.panelContenedor.Controls.Add(this.textBox2);
+            this.panelContenedor.Controls.Add(this.comboBox2);
+            this.panelContenedor.Controls.Add(this.checkBox2);
+            this.panelContenedor.Controls.Add(this.textBox1);
+            this.panelContenedor.Controls.Add(this.comboBox1);
+            this.panelContenedor.Controls.Add(this.checkBox1);
             this.panelContenedor.Controls.Add(this.cbProveedor);
             this.panelContenedor.Controls.Add(this.checkProveedor);
             this.panelContenedor.Controls.Add(this.txtPrecio);
@@ -107,29 +119,31 @@
             // cbProveedor
             // 
             this.cbProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProveedor.Enabled = false;
             this.cbProveedor.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbProveedor.FormattingEnabled = true;
-            this.cbProveedor.Location = new System.Drawing.Point(108, 100);
+            this.cbProveedor.Location = new System.Drawing.Point(122, 180);
             this.cbProveedor.Name = "cbProveedor";
-            this.cbProveedor.Size = new System.Drawing.Size(350, 24);
+            this.cbProveedor.Size = new System.Drawing.Size(345, 24);
             this.cbProveedor.TabIndex = 33;
-            this.cbProveedor.SelectionChangeCommitted += new System.EventHandler(this.cbProveedor_SelectionChangeCommitted);
             // 
             // checkProveedor
             // 
             this.checkProveedor.AutoSize = true;
             this.checkProveedor.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkProveedor.Location = new System.Drawing.Point(20, 101);
+            this.checkProveedor.Location = new System.Drawing.Point(10, 180);
             this.checkProveedor.Name = "checkProveedor";
             this.checkProveedor.Size = new System.Drawing.Size(90, 21);
             this.checkProveedor.TabIndex = 32;
             this.checkProveedor.Text = "Proveedor";
             this.checkProveedor.UseVisualStyleBackColor = true;
+            this.checkProveedor.CheckedChanged += new System.EventHandler(this.checkProveedor_CheckedChanged);
             // 
             // txtPrecio
             // 
+            this.txtPrecio.Enabled = false;
             this.txtPrecio.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrecio.Location = new System.Drawing.Point(378, 60);
+            this.txtPrecio.Location = new System.Drawing.Point(387, 140);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(80, 21);
             this.txtPrecio.TabIndex = 31;
@@ -138,8 +152,9 @@
             // 
             // txtStock
             // 
+            this.txtStock.Enabled = false;
             this.txtStock.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStock.Location = new System.Drawing.Point(378, 20);
+            this.txtStock.Location = new System.Drawing.Point(387, 20);
             this.txtStock.Name = "txtStock";
             this.txtStock.Size = new System.Drawing.Size(80, 21);
             this.txtStock.TabIndex = 30;
@@ -149,46 +164,114 @@
             // cbPrecio
             // 
             this.cbPrecio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPrecio.Enabled = false;
             this.cbPrecio.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbPrecio.FormattingEnabled = true;
-            this.cbPrecio.Location = new System.Drawing.Point(108, 60);
+            this.cbPrecio.Location = new System.Drawing.Point(122, 140);
             this.cbPrecio.Name = "cbPrecio";
             this.cbPrecio.Size = new System.Drawing.Size(246, 24);
             this.cbPrecio.TabIndex = 29;
-            this.cbPrecio.SelectionChangeCommitted += new System.EventHandler(this.cbPrecio_SelectionChangeCommitted);
             // 
             // cbStock
             // 
             this.cbStock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStock.Enabled = false;
             this.cbStock.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbStock.FormattingEnabled = true;
-            this.cbStock.Location = new System.Drawing.Point(108, 20);
+            this.cbStock.Location = new System.Drawing.Point(122, 20);
             this.cbStock.Name = "cbStock";
             this.cbStock.Size = new System.Drawing.Size(246, 24);
             this.cbStock.TabIndex = 28;
-            this.cbStock.SelectionChangeCommitted += new System.EventHandler(this.cbStock_SelectionChangeCommitted);
             // 
             // checkPrecio
             // 
             this.checkPrecio.AutoSize = true;
             this.checkPrecio.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkPrecio.Location = new System.Drawing.Point(20, 61);
+            this.checkPrecio.Location = new System.Drawing.Point(10, 140);
             this.checkPrecio.Name = "checkPrecio";
             this.checkPrecio.Size = new System.Drawing.Size(65, 21);
             this.checkPrecio.TabIndex = 27;
             this.checkPrecio.Text = "Precio";
             this.checkPrecio.UseVisualStyleBackColor = true;
+            this.checkPrecio.CheckedChanged += new System.EventHandler(this.checkPrecio_CheckedChanged);
             // 
             // checkStock
             // 
             this.checkStock.AutoSize = true;
             this.checkStock.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkStock.Location = new System.Drawing.Point(20, 21);
+            this.checkStock.Location = new System.Drawing.Point(10, 20);
             this.checkStock.Name = "checkStock";
             this.checkStock.Size = new System.Drawing.Size(61, 21);
             this.checkStock.TabIndex = 26;
             this.checkStock.Text = "Stock";
             this.checkStock.UseVisualStyleBackColor = true;
+            this.checkStock.CheckedChanged += new System.EventHandler(this.checkStock_CheckedChanged);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(387, 60);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(80, 21);
+            this.textBox1.TabIndex = 36;
+            this.textBox1.Text = "0";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Enabled = false;
+            this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(122, 60);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(246, 24);
+            this.comboBox1.TabIndex = 35;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(10, 60);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(107, 21);
+            this.checkBox1.TabIndex = 34;
+            this.checkBox1.Text = "Stock Mínimo";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(387, 100);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(80, 21);
+            this.textBox2.TabIndex = 39;
+            this.textBox2.Text = "0";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.Enabled = false;
+            this.comboBox2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(122, 100);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(246, 24);
+            this.comboBox2.TabIndex = 38;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(10, 100);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(111, 21);
+            this.checkBox2.TabIndex = 37;
+            this.checkBox2.Text = "Stock Máximo";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // FiltroReporteProductos
             // 
@@ -225,5 +308,11 @@
         private System.Windows.Forms.ComboBox cbStock;
         private System.Windows.Forms.CheckBox checkPrecio;
         private System.Windows.Forms.CheckBox checkStock;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

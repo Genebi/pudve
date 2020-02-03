@@ -333,10 +333,20 @@ namespace PuntoDeVentaV2
                     {
                         var valor = listaProductos.Rows[i][opcion.Key].ToString();
 
-                        PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
-                        rowCustom.BorderWidth = 0;
-                        rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
-                        tablaProductos.AddCell(rowCustom);
+                        if (opcion.Key == "Nombre")
+                        {
+                            PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
+                            rowCustom.BorderWidth = 0;
+                            //rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowCustom);
+                        }
+                        else
+                        {
+                            PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
+                            rowCustom.BorderWidth = 0;
+                            rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowCustom);
+                        }   
                     }
                     else
                     {
