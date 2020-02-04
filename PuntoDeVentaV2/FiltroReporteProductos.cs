@@ -46,9 +46,9 @@ namespace PuntoDeVentaV2
             cbStockMinimo.ValueMember = "Key";
             cbStockMinimo.DisplayMember = "Value";
 
-            cbStockMaximo.DataSource = sourceOpciones.ToArray();
-            cbStockMaximo.ValueMember = "Key";
-            cbStockMaximo.DisplayMember = "Value";
+            cbStockNecesario.DataSource = sourceOpciones.ToArray();
+            cbStockNecesario.ValueMember = "Key";
+            cbStockNecesario.DisplayMember = "Value";
 
             cbPrecio.DataSource = sourceOpciones.ToArray();
             cbPrecio.ValueMember = "Key";
@@ -216,7 +216,7 @@ namespace PuntoDeVentaV2
 
                         if (opcion != "NA")
                         {
-                            if (nombreCB == "Stock" || nombreCB == "StockMinimo" || nombreCB == "StockMaximo" || nombreCB == "Precio")
+                            if (nombreCB == "Stock" || nombreCB == "StockMinimo" || nombreCB == "StockNecesario" || nombreCB == "Precio")
                             {
                                 var txtCustom = (TextBox)Controls.Find("txt" + nombreCB, true).FirstOrDefault();
                                 var cantidad = float.Parse(txtCustom.Text);
@@ -289,17 +289,17 @@ namespace PuntoDeVentaV2
 
         private void checkStockMaximo_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkStockMaximo.Checked)
+            if (checkStockNecesario.Checked)
             {
-                cbStockMaximo.Enabled = true;
-                txtStockMaximo.Enabled = true;
+                cbStockNecesario.Enabled = true;
+                txtStockNecesario.Enabled = true;
             }
             else
             {
-                cbStockMaximo.SelectedValue = "NA";
-                cbStockMaximo.Enabled = false;
-                txtStockMaximo.Enabled = false;
-                txtStockMaximo.Text = "0";
+                cbStockNecesario.SelectedValue = "NA";
+                cbStockNecesario.Enabled = false;
+                txtStockNecesario.Enabled = false;
+                txtStockNecesario.Text = "0";
             }
         }
 

@@ -271,15 +271,6 @@ namespace PuntoDeVentaV2
             var servidor = Properties.Settings.Default.Hosting;
             var fechaHoy = DateTime.Now;
 
-            /*if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Pedidos\reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
-            }
-            else
-            {
-                rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
-            }*/
-
             // Obtenemos todos los productos del usuario ordenado alfabéticamente
             var consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' ORDER BY Nombre ASC";
             var listaProductos = cn.CargarDatos(consulta);
@@ -328,6 +319,75 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < longitud; i++)
             {
+                var respuesta = false;
+
+                // Comprobar los filtros seleccionados
+                if (filtros.Count > 0)
+                {
+                    foreach (var filtro in filtros)
+                    {
+                        // Busca el valor de cualquiera de estas columnas y aplica las condiciones
+                        // elegidas por el usuario para comparar las cantidades
+                        if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario" || filtro.Key == "Precio")
+                        {
+                            var cantidad = float.Parse(listaProductos.Rows[i][filtro.Key].ToString());
+
+                            if (filtro.Value.Item1 == ">=")
+                            {
+                                respuesta = cantidad >= filtro.Value.Item2;
+                            }
+                            else if (filtro.Value.Item1 == "<=")
+                            {
+                                respuesta = cantidad <= filtro.Value.Item2;
+                            }
+                            else if (filtro.Value.Item1 == "==")
+                            {
+                                respuesta = cantidad == filtro.Value.Item2;
+                            }
+                            else if (filtro.Value.Item1 == ">")
+                            {
+                                respuesta = cantidad > filtro.Value.Item2;
+                            }
+                            else if (filtro.Value.Item1 == "<")
+                            {
+                                respuesta = cantidad < filtro.Value.Item2;
+                            }
+                        }
+                        else if (filtro.Key == "Proveedor")
+                        {
+                            var idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
+                            var datosProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+                            
+                            if (datosProveedor.Length > 0)
+                            {
+                                // Compara el ID del proveedor (los dos valores son string)
+                                respuesta = filtro.Value.Item1.Equals(datosProveedor[1]);
+                            }
+                        }
+                        else
+                        {
+                            // Busca si el valor del detalle de producto esta asignado a este producto
+                            var idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
+                            var detalle = mb.DatosDetallesProducto(idProducto, filtro.Key);
+
+                            respuesta = filtro.Value.Item1.Equals(detalle);
+                        }
+
+                        if (respuesta == false)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                // Si cualquiera de los filtros devuelve "false" se salta la iteracion actual
+                // para buscar en el siguiente producto
+                if (respuesta == false)
+                {
+                    continue;
+                }
+
+                // Verificamos que solo muestre las columnas para el reporte que selecciono el cliente
                 foreach (var opcion in opciones)
                 {
                     int idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
