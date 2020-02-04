@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         Dictionary<string, string> opcionesDefault;
+        public Dictionary<string, Tuple<string, float>> filtros;
 
         public FiltroReporteProductos()
         {
@@ -26,6 +27,7 @@ namespace PuntoDeVentaV2
         private void FiltroReporteProductos_Load(object sender, EventArgs e)
         {
             opcionesDefault = new Dictionary<string, string>();
+            filtros = new Dictionary<string, Tuple<string, float>>();
 
             // Datos para cargar el combobox de Stock y Precio
             var sourceOpciones = new Dictionary<string, string>();
@@ -39,6 +41,14 @@ namespace PuntoDeVentaV2
             cbStock.DataSource = sourceOpciones.ToArray();
             cbStock.ValueMember = "Key";
             cbStock.DisplayMember = "Value";
+
+            cbStockMinimo.DataSource = sourceOpciones.ToArray();
+            cbStockMinimo.ValueMember = "Key";
+            cbStockMinimo.DisplayMember = "Value";
+
+            cbStockMaximo.DataSource = sourceOpciones.ToArray();
+            cbStockMaximo.ValueMember = "Key";
+            cbStockMaximo.DisplayMember = "Value";
 
             cbPrecio.DataSource = sourceOpciones.ToArray();
             cbPrecio.ValueMember = "Key";
@@ -131,7 +141,7 @@ namespace PuntoDeVentaV2
             {
                 Font fuente = new Font("Century Gothic", 9.0f);
 
-                int alturaEjeY = 140;
+                int alturaEjeY = 220;
 
                 foreach (var opcion in opcionesDefault)
                 {
@@ -141,7 +151,7 @@ namespace PuntoDeVentaV2
                     checkCustom.Tag = "check" + opcion.Key;
                     checkCustom.AutoSize = true;
                     checkCustom.Font = fuente;
-                    checkCustom.Location = new Point(20, alturaEjeY);
+                    checkCustom.Location = new Point(10, alturaEjeY);
                     checkCustom.CheckAlign = ContentAlignment.MiddleLeft;
                     checkCustom.CheckedChanged += checkCustom_CheckedChanged;
 
@@ -155,7 +165,7 @@ namespace PuntoDeVentaV2
 
                         foreach (var valor in datosPropiedad)
                         {
-                            sourceCBCustom.Add(opcion.Key, valor.Value);
+                            sourceCBCustom.Add(valor.Value, valor.Value);
                         }
                     }
                     else
@@ -166,7 +176,7 @@ namespace PuntoDeVentaV2
                     ComboBox cbCustom = new ComboBox();
                     cbCustom.Name = "cb" + opcion.Key;
                     cbCustom.Font = fuente;
-                    cbCustom.Location = new Point(108, alturaEjeY);
+                    cbCustom.Location = new Point(122, alturaEjeY);
                     cbCustom.DropDownStyle = ComboBoxStyle.DropDownList;
                     cbCustom.Enabled = false;
                     cbCustom.Width = 350;
@@ -190,7 +200,51 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Aceptar");
+            foreach (var item in panelContenedor.Controls)
+            {
+                if (item is CheckBox)
+                {
+                    var checkCustom = (CheckBox)item;
+
+                    if (checkCustom.Checked)
+                    {
+                        var nombreCB = checkCustom.Name.Replace("check", "");
+
+                        var comboCustom = (ComboBox)Controls.Find("cb" + nombreCB, true).FirstOrDefault();
+
+                        var opcion = comboCustom.SelectedValue.ToString();
+
+                        if (opcion != "NA")
+                        {
+                            if (nombreCB == "Stock" || nombreCB == "StockMinimo" || nombreCB == "StockMaximo" || nombreCB == "Precio")
+                            {
+                                var txtCustom = (TextBox)Controls.Find("txt" + nombreCB, true).FirstOrDefault();
+                                var cantidad = float.Parse(txtCustom.Text);
+
+                                filtros.Add(nombreCB, new Tuple<string, float>(opcion, cantidad));
+                            }
+                            else if (nombreCB == "Proveedor")
+                            {
+                                filtros.Add(nombreCB, new Tuple<string, float>(opcion, 0));
+                            }
+                            else
+                            {
+                                filtros.Add(nombreCB, new Tuple<string, float>(opcion, 0));
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (filtros.Count > 0)
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Es necesario seleccionar al menos un filtro", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /*private void cbCustom_SelectionChangeCommitted(object sender, EventArgs e)
@@ -214,6 +268,38 @@ namespace PuntoDeVentaV2
                 cbStock.Enabled = false;
                 txtStock.Enabled = false;
                 txtStock.Text = "0";
+            }
+        }
+
+        private void checkStockMinimo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkStockMinimo.Checked)
+            {
+                cbStockMinimo.Enabled = true;
+                txtStockMinimo.Enabled = true;
+            }
+            else
+            {
+                cbStockMinimo.SelectedValue = "NA";
+                cbStockMinimo.Enabled = false;
+                txtStockMinimo.Enabled = false;
+                txtStockMinimo.Text = "0";
+            }
+        }
+
+        private void checkStockMaximo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkStockMaximo.Checked)
+            {
+                cbStockMaximo.Enabled = true;
+                txtStockMaximo.Enabled = true;
+            }
+            else
+            {
+                cbStockMaximo.SelectedValue = "NA";
+                cbStockMaximo.Enabled = false;
+                txtStockMaximo.Enabled = false;
+                txtStockMaximo.Text = "0";
             }
         }
 

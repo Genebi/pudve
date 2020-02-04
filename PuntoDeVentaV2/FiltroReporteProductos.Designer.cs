@@ -40,12 +40,12 @@
             this.cbStock = new System.Windows.Forms.ComboBox();
             this.checkPrecio = new System.Windows.Forms.CheckBox();
             this.checkStock = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.txtStockMinimo = new System.Windows.Forms.TextBox();
+            this.cbStockMinimo = new System.Windows.Forms.ComboBox();
+            this.checkStockMinimo = new System.Windows.Forms.CheckBox();
+            this.txtStockMaximo = new System.Windows.Forms.TextBox();
+            this.cbStockMaximo = new System.Windows.Forms.ComboBox();
+            this.checkStockMaximo = new System.Windows.Forms.CheckBox();
             this.panelContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,12 +97,12 @@
             // 
             // panelContenedor
             // 
-            this.panelContenedor.Controls.Add(this.textBox2);
-            this.panelContenedor.Controls.Add(this.comboBox2);
-            this.panelContenedor.Controls.Add(this.checkBox2);
-            this.panelContenedor.Controls.Add(this.textBox1);
-            this.panelContenedor.Controls.Add(this.comboBox1);
-            this.panelContenedor.Controls.Add(this.checkBox1);
+            this.panelContenedor.Controls.Add(this.txtStockMaximo);
+            this.panelContenedor.Controls.Add(this.cbStockMaximo);
+            this.panelContenedor.Controls.Add(this.checkStockMaximo);
+            this.panelContenedor.Controls.Add(this.txtStockMinimo);
+            this.panelContenedor.Controls.Add(this.cbStockMinimo);
+            this.panelContenedor.Controls.Add(this.checkStockMinimo);
             this.panelContenedor.Controls.Add(this.cbProveedor);
             this.panelContenedor.Controls.Add(this.checkProveedor);
             this.panelContenedor.Controls.Add(this.txtPrecio);
@@ -207,71 +207,73 @@
             this.checkStock.UseVisualStyleBackColor = true;
             this.checkStock.CheckedChanged += new System.EventHandler(this.checkStock_CheckedChanged);
             // 
-            // textBox1
+            // txtStockMinimo
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(387, 60);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(80, 21);
-            this.textBox1.TabIndex = 36;
-            this.textBox1.Text = "0";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtStockMinimo.Enabled = false;
+            this.txtStockMinimo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStockMinimo.Location = new System.Drawing.Point(387, 60);
+            this.txtStockMinimo.Name = "txtStockMinimo";
+            this.txtStockMinimo.Size = new System.Drawing.Size(80, 21);
+            this.txtStockMinimo.TabIndex = 36;
+            this.txtStockMinimo.Text = "0";
+            this.txtStockMinimo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // comboBox1
+            // cbStockMinimo
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Enabled = false;
-            this.comboBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(122, 60);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(246, 24);
-            this.comboBox1.TabIndex = 35;
+            this.cbStockMinimo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStockMinimo.Enabled = false;
+            this.cbStockMinimo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbStockMinimo.FormattingEnabled = true;
+            this.cbStockMinimo.Location = new System.Drawing.Point(122, 60);
+            this.cbStockMinimo.Name = "cbStockMinimo";
+            this.cbStockMinimo.Size = new System.Drawing.Size(246, 24);
+            this.cbStockMinimo.TabIndex = 35;
             // 
-            // checkBox1
+            // checkStockMinimo
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(10, 60);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(107, 21);
-            this.checkBox1.TabIndex = 34;
-            this.checkBox1.Text = "Stock Mínimo";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkStockMinimo.AutoSize = true;
+            this.checkStockMinimo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStockMinimo.Location = new System.Drawing.Point(10, 60);
+            this.checkStockMinimo.Name = "checkStockMinimo";
+            this.checkStockMinimo.Size = new System.Drawing.Size(107, 21);
+            this.checkStockMinimo.TabIndex = 34;
+            this.checkStockMinimo.Text = "Stock Mínimo";
+            this.checkStockMinimo.UseVisualStyleBackColor = true;
+            this.checkStockMinimo.CheckedChanged += new System.EventHandler(this.checkStockMinimo_CheckedChanged);
             // 
-            // textBox2
+            // txtStockMaximo
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(387, 100);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(80, 21);
-            this.textBox2.TabIndex = 39;
-            this.textBox2.Text = "0";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtStockMaximo.Enabled = false;
+            this.txtStockMaximo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStockMaximo.Location = new System.Drawing.Point(387, 100);
+            this.txtStockMaximo.Name = "txtStockMaximo";
+            this.txtStockMaximo.Size = new System.Drawing.Size(80, 21);
+            this.txtStockMaximo.TabIndex = 39;
+            this.txtStockMaximo.Text = "0";
+            this.txtStockMaximo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // comboBox2
+            // cbStockMaximo
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.Enabled = false;
-            this.comboBox2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(122, 100);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(246, 24);
-            this.comboBox2.TabIndex = 38;
+            this.cbStockMaximo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbStockMaximo.Enabled = false;
+            this.cbStockMaximo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbStockMaximo.FormattingEnabled = true;
+            this.cbStockMaximo.Location = new System.Drawing.Point(122, 100);
+            this.cbStockMaximo.Name = "cbStockMaximo";
+            this.cbStockMaximo.Size = new System.Drawing.Size(246, 24);
+            this.cbStockMaximo.TabIndex = 38;
             // 
-            // checkBox2
+            // checkStockMaximo
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(10, 100);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(111, 21);
-            this.checkBox2.TabIndex = 37;
-            this.checkBox2.Text = "Stock Máximo";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkStockMaximo.AutoSize = true;
+            this.checkStockMaximo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStockMaximo.Location = new System.Drawing.Point(10, 100);
+            this.checkStockMaximo.Name = "checkStockMaximo";
+            this.checkStockMaximo.Size = new System.Drawing.Size(111, 21);
+            this.checkStockMaximo.TabIndex = 37;
+            this.checkStockMaximo.Text = "Stock Máximo";
+            this.checkStockMaximo.UseVisualStyleBackColor = true;
+            this.checkStockMaximo.CheckedChanged += new System.EventHandler(this.checkStockMaximo_CheckedChanged);
             // 
             // FiltroReporteProductos
             // 
@@ -308,11 +310,11 @@
         private System.Windows.Forms.ComboBox cbStock;
         private System.Windows.Forms.CheckBox checkPrecio;
         private System.Windows.Forms.CheckBox checkStock;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox txtStockMaximo;
+        private System.Windows.Forms.ComboBox cbStockMaximo;
+        private System.Windows.Forms.CheckBox checkStockMaximo;
+        private System.Windows.Forms.TextBox txtStockMinimo;
+        private System.Windows.Forms.ComboBox cbStockMinimo;
+        private System.Windows.Forms.CheckBox checkStockMinimo;
     }
 }

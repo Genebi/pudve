@@ -26,6 +26,8 @@ namespace PuntoDeVentaV2
         private string ultimoSeleccionado = string.Empty;
         private int contador = 1;
 
+        public Dictionary<string, Tuple<string, float>> filtros;
+
         public OpcionesReporteProducto()
         {
             InitializeComponent();
@@ -33,6 +35,7 @@ namespace PuntoDeVentaV2
 
         private void OpcionesReporteProducto_Load(object sender, EventArgs e)
         {
+            filtros = new Dictionary<string, Tuple<string, float>>();
             ultimos = new List<string>();
             seleccionados = new List<string>();
             opcionesDefault = new Dictionary<string, string>();
@@ -264,18 +267,18 @@ namespace PuntoDeVentaV2
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 8, 1, colorFuenteBlanca);
 
             // Ruta donde se creara el archivo PDF
-            var rutaArchivo = string.Empty;
+            var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
             var servidor = Properties.Settings.Default.Hosting;
             var fechaHoy = DateTime.Now;
 
-            if (!string.IsNullOrWhiteSpace(servidor))
+            /*if (!string.IsNullOrWhiteSpace(servidor))
             {
                 rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Pedidos\reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
             }
             else
             {
                 rutaArchivo = @"C:\Archivos PUDVE\Reportes\Pedidos\reporte_pedido_usuario_" + FormPrincipal.userID + "_fecha_" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".pdf";
-            }
+            }*/
 
             // Obtenemos todos los productos del usuario ordenado alfabéticamente
             var consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' ORDER BY Nombre ASC";
@@ -452,9 +455,14 @@ namespace PuntoDeVentaV2
 
         private void btnFiltroReporte_Click(object sender, EventArgs e)
         {
-            using (var filtro = new FiltroReporteProductos())
+            using (var filtroReporte = new FiltroReporteProductos())
             {
-                filtro.ShowDialog();
+                var resultado = filtroReporte.ShowDialog();
+
+                if (resultado == DialogResult.OK)
+                {
+                    this.filtros = filtroReporte.filtros;
+                }
             }
         }
     }
