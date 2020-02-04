@@ -521,6 +521,8 @@ namespace PuntoDeVentaV2
                 MySqlConnection conexion = new MySqlConnection();
                 conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
 
+                CargarSaldoInicial();
+
                 CargarSaldo();
 
                 //var servidor = Properties.Settings.Default.Hosting;
