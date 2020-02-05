@@ -438,7 +438,7 @@ namespace PuntoDeVentaV2
         private void RevisarTablas()
         {
             // 01 Anticipos
-            #region TablaAnticipos
+            #region Tabla Anticipos
             tabla = "Anticipos";
             try
             {
@@ -513,9 +513,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaAnticipos
+            #endregion Tabla Anticipos
             // 02 Caja
-            #region TablaCaja
+            #region Tabla Caja
             tabla = "Caja";
             try
             {
@@ -590,9 +590,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaCaja
+            #endregion Tabla Caja
             // 03 CatalogoUnidadesMedida
-            #region TablaCatalogoUnidadesMedida
+            #region Tabla CatalogoUnidadesMedida
             tabla = "CatalogoUnidadesMedida";
             try
             {
@@ -667,9 +667,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaCatalogoUnidadesMedida
+            #endregion Tabla CatalogoUnidadesMedida
             // 04 CodigoBarrasExtras
-            #region TablaCodigoBarrasExtras
+            #region Tabla CodigoBarrasExtras
             tabla = "CodigoBarrasExtras";
             try
             {
@@ -744,9 +744,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaCodigoBarrasExtras
+            #endregion Tabla CodigoBarrasExtras
             // 05 DescuentoCLiente
-            #region TablaDescuentoCliente
+            #region Tabla DescuentoCliente
             tabla = "DescuentoCliente";
             try
             {
@@ -821,9 +821,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaDescuentoCliente
+            #endregion Tabla DescuentoCliente
             // 06 DescuentoMayoreo
-            #region TablaDescuentoMayoreo
+            #region Tabla DescuentoMayoreo
             tabla = "DescuentoMayoreo";
             try
             {
@@ -898,9 +898,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaDescuentoMayoreo
+            #endregion Tabla DescuentoMayoreo
             // 07 DetallesFacturacionProductos
-            #region TablaDetallesFacturacionProductos
+            #region Tabla DetallesFacturacionProductos
             tabla = "DetallesFacturacionProductos";
             try
             {
@@ -975,9 +975,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaDetallesFacturacionProductos
+            #endregion Tabla DetallesFacturacionProductos
             // 08 DetallesProductos
-            #region TablaDetallesProducto
+            #region Tabla DetallesProducto
             tabla = "DetallesProducto";
             try
             {
@@ -1052,9 +1052,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaDetallesProducto
+            #endregion Tabla DetallesProducto
             // 09 Empresas
-            #region TablaEmpresas
+            #region Tabla Empresas
             tabla = "Empresas";
             try
             {
@@ -1129,9 +1129,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaEmpresas
+            #endregion Tabla Empresas
             // 10 HistorialCompras
-            #region TablaHistorialCompras
+            #region Tabla HistorialCompras
             tabla = "HistorialCompras";
             try
             {
@@ -1206,9 +1206,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaHistorialCompras
+            #endregion Tabla HistorialCompras
             // 11 HistorialModificacionRecordProduct
-            #region TablaHistorialModificacionRecordProduct
+            #region Tabla HistorialModificacionRecordProduct
             tabla = "HistorialModificacionRecordProduct";
             try
             {
@@ -1283,9 +1283,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaHistorialModificacionRecordProduct
+            #endregion Tabla HistorialModificacionRecordProduct
             // 12 ProductoRelacionadoXML
-            #region TablaProductoRelacionadoXML
+            #region Tabla ProductoRelacionadoXML
             tabla = "ProductoRelacionadoXML";
             try
             {
@@ -1360,9 +1360,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaProductoRelacionadoXML
+            #endregion Tabla ProductoRelacionadoXML
             // 13 Productos
-            #region TablaProductos
+            #region Tabla Productos
             tabla = "Productos";
             try
             {
@@ -1437,9 +1437,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaProductos
+            #endregion Tabla Productos
             // 14 ProductosDeServicios
-            #region TablaProductosDeServicios
+            #region Tabla ProductosDeServicios
             tabla = "ProductosDeServicios";
             try
             {
@@ -1514,9 +1514,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaProductosDeServicios
+            #endregion Tabla ProductosDeServicios
             // 15 ProductosVenta
-            #region TablaProductosVenta
+            #region Tabla ProductosVenta
             tabla = "ProductosVenta";
             try
             {
@@ -1591,9 +1591,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaProductosVenta
+            #endregion Tabla ProductosVenta
             // 16 Proveedores
-            #region TablaProveedores
+            #region Tabla Proveedores
             tabla = "Proveedores";
             try
             {
@@ -1668,9 +1668,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaProductosVenta
+            #endregion Tabla ProductosVenta
             // 17 RegimenDeUsuarios
-            #region TablaRegimenDeUsuarios
+            #region Tabla RegimenDeUsuarios
             tabla = "RegimenDeUsuarios";
             try
             {
@@ -1745,9 +1745,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaRegimenDeUsuarios
+            #endregion Tabla RegimenDeUsuarios
             // 18 RegimenFiscal
-            #region TablaRegimenFiscal
+            #region Tabla RegimenFiscal
             tabla = "RegimenFiscal";
             try
             {
@@ -1822,9 +1822,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaRegimenFiscal
+            #endregion Tabla RegimenFiscal
             // 19 Usuarios
-            #region TablaUsuarios
+            #region Tabla Usuarios
             tabla = "Usuarios";
             try
             {
@@ -1899,9 +1899,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaUsuarios
+            #endregion Tabla Usuarios
             // 20 Ventas
-            #region TablaVentas
+            #region Tabla Ventas
             tabla = "Ventas";
             try
             {
@@ -1976,9 +1976,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaVentas
+            #endregion Tabla Ventas
             // 21 Clientes
-            #region TablaClientes
+            #region Tabla Clientes
             tabla = "Clientes";
             try
             {
@@ -2053,9 +2053,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaClientes
+            #endregion Tabla Clientes
             // 22 RevisarInventario
-            #region TablaRevisarInventario
+            #region Tabla RevisarInventario
             tabla = "RevisarInventario";
             try
             {
@@ -2130,9 +2130,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaRevisarInventario
+            #endregion Tabla RevisarInventario
             // 23 DetallesVenta
-            #region TablaDetallesVenta
+            #region Tabla DetallesVenta
             tabla = "DetallesVenta";
             try
             {
@@ -2207,9 +2207,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaDetallesVenta
+            #endregion Tabla DetallesVenta
             // 24 Abonos
-            #region TablaAbonos
+            #region Tabla Abonos
             tabla = "Abonos";
             try
             {
@@ -2284,9 +2284,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaAbonos
+            #endregion Tabla Abonos
             // 25 Categorias
-            #region TablaCategorias
+            #region Tabla Categorias
             tabla = "Categorias";
             try
             {
@@ -2361,9 +2361,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaCategorias
+            #endregion Tabla Categorias
             // 26 Ubicaciones
-            #region TablaUbicaciones
+            #region Tabla Ubicaciones
             tabla = "Ubicaciones";
             try
             {
@@ -2438,9 +2438,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaUbicaciones
+            #endregion Tabla Ubicaciones
             // 27 DetalleGeneral
-            #region TablaDetalleGeneral
+            #region Tabla DetalleGeneral
             tabla = "DetalleGeneral";
             try
             {
@@ -2515,9 +2515,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaDetalleGeneral
+            #endregion Tabla DetalleGeneral
             // 28 DetallesProductoGenerales
-            #region TablaDetallesProductoGenerales
+            #region Tabla DetallesProductoGenerales
             tabla = "DetallesProductoGenerales";
             try
             {
@@ -2592,9 +2592,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaDetallesProductoGenerales
+            #endregion Tabla DetallesProductoGenerales
             // 29 ProductMessage
-            #region TablaProductMessage
+            #region Tabla ProductMessage
             tabla = "ProductMessage";
             try
             {
@@ -2669,9 +2669,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaProductMessage
+            #endregion Tabla ProductMessage
             // 30 CodigoBarrasGenerado
-            #region TablaCodigoBarrasGenerado
+            #region Tabla CodigoBarrasGenerado
             tabla = "CodigoBarrasGenerado";
             try
             {
@@ -2746,9 +2746,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaCodigoBarrasGenerado
+            #endregion Tabla CodigoBarrasGenerado
             // 31 Empleados
-            #region TablaEmpleados
+            #region Tabla Empleados
             tabla = "Empleados";
             try
             {
@@ -2823,9 +2823,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaEmpleados
+            #endregion Tabla Empleados
             // 32 MensajesInventario
-            #region TablaMensajesInventario
+            #region Tabla MensajesInventario
             tabla = "MensajesInventario";
             try
             {
@@ -2900,9 +2900,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaMensajesInventario
+            #endregion Tabla MensajesInventario
             // 33 Catalogo_claves_producto
-            #region TablaCatalogo_claves_producto
+            #region Tabla Catalogo_claves_producto
             tabla = "Catalogo_claves_producto";
             try
             {
@@ -2977,9 +2977,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaCatalogo_claves_producto
+            #endregion Tabla Catalogo_claves_producto
             // 34 Catalogo_monedas
-            #region TablaCatalogo_monedas
+            #region Tabla Catalogo_monedas
             tabla = "Catalogo_monedas";
             try
             {
@@ -3054,9 +3054,9 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaCatalogo_monedas
+            #endregion Tabla Catalogo_monedas
             // 35 HistorialPrecios
-            #region TablaHistorialPrecios
+            #region Tabla HistorialPrecios
             tabla = "HistorialPrecios";
             try
             {
@@ -3131,7 +3131,84 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            #endregion TablaHistorialPrecios
+            #endregion Tabla HistorialPrecios
+            // 36 appSettings
+            #region Tabl aappSettings
+            tabla = "appSettings";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaappSettings(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaappSettings(tabla));
+                    if (dbTables.GetappSettings() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaappSettings(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetappSettings())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameappSettings(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaappSettings(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaappSettings(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaappSettings(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaappSettings(tabla));
+                    if (dbTables.GetappSettings() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaappSettings(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetappSettings())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameappSettings(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaappSettings(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaappSettings(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaappSettings(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla appSettings
         }
 
         private bool checkEmpty(object tabla)
