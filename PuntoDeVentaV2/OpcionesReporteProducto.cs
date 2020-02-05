@@ -20,11 +20,11 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        private Dictionary<string, string> opcionesDefault;
+        private Dictionary<string, Tuple<string, float>> opcionesDefault;
         private List<string> seleccionados;
         private List<string> ultimos;
         private string ultimoSeleccionado = string.Empty;
-        private int contador = 1;
+        //private int contador = 1;
 
         public Dictionary<string, Tuple<string, float>> filtros;
 
@@ -38,19 +38,19 @@ namespace PuntoDeVentaV2
             filtros = new Dictionary<string, Tuple<string, float>>();
             ultimos = new List<string>();
             seleccionados = new List<string>();
-            opcionesDefault = new Dictionary<string, string>();
+            opcionesDefault = new Dictionary<string, Tuple<string, float>>();
 
-            opcionesDefault.Add("Nombre", "Nombre producto");
-            opcionesDefault.Add("Precio", "Precio de venta");
-            opcionesDefault.Add("PrecioCompra", "Precio de compra");
-            opcionesDefault.Add("Stock", "Stock");
-            opcionesDefault.Add("StockMinimo", "Stock mínimo");
-            opcionesDefault.Add("StockNecesario", "Stock máximo");
-            opcionesDefault.Add("ClaveInterna", "Clave de producto");
-            opcionesDefault.Add("CodigoBarras", "Código de barras");
-            opcionesDefault.Add("CodigoBarraExtra", "Código de barras extra");
-            opcionesDefault.Add("Proveedor", "Proveedor");
-            opcionesDefault.Add("CantidadPedir", "Cantidad a pedir");
+            opcionesDefault.Add("Nombre", new Tuple<string, float>("Nombre producto", 250));
+            opcionesDefault.Add("Precio", new Tuple<string, float>("Precio de venta", 70));
+            opcionesDefault.Add("PrecioCompra", new Tuple<string, float>("Precio de compra", 70));
+            opcionesDefault.Add("Stock", new Tuple<string, float>("Stock", 50));
+            opcionesDefault.Add("StockMinimo", new Tuple<string, float>("Stock mínimo", 50));
+            opcionesDefault.Add("StockNecesario", new Tuple<string, float>("Stock máximo", 50));
+            opcionesDefault.Add("ClaveInterna", new Tuple<string, float>("Clave de producto", 70));
+            opcionesDefault.Add("CodigoBarras", new Tuple<string, float>("Código de barras", 70));
+            opcionesDefault.Add("CodigoBarraExtra", new Tuple<string, float>("Código de barras extra", 80));
+            opcionesDefault.Add("Proveedor", new Tuple<string, float>("Proveedor", 180));
+            opcionesDefault.Add("CantidadPedir", new Tuple<string, float>("Cantidad a pedir", 50));
 
             ObtenerDetalles();
             VisualizarDetalles();
@@ -96,7 +96,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        opcionesDefault.Add(key, key);
+                        opcionesDefault.Add(key, new Tuple<string, float>(key, 80));
                     }
                 }
             }
@@ -127,7 +127,7 @@ namespace PuntoDeVentaV2
                     cbCustom.CheckedChanged += cbCustom_CheckedChanged;
 
                     Label lbCustom = new Label();
-                    lbCustom.Text = opcion.Value;
+                    lbCustom.Text = opcion.Value.Item1;
                     lbCustom.Name = opcion.Key;
                     lbCustom.Tag = "lb" + opcion.Key;
                     lbCustom.Width = 200;
@@ -152,13 +152,13 @@ namespace PuntoDeVentaV2
         {
             if (seleccionados.Count > 0)
             {
-                Dictionary<string, string> opcionesFinales = new Dictionary<string, string>();
+                Dictionary<string, Tuple<string, float>> opcionesFinales = new Dictionary<string, Tuple<string, float>>();
 
                 foreach (var opcion in seleccionados)
                 {
                     if (opcionesDefault.ContainsKey(opcion))
                     {
-                        opcionesFinales.Add(opcion, opcionesDefault[opcion]);
+                        opcionesFinales.Add(opcion, new Tuple<string, float>(opcionesDefault[opcion].Item1, opcionesDefault[opcion].Item2));
                     }
                 }
 
@@ -251,7 +251,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void GenerarReporte(Dictionary<string, string> opciones)
+        private void GenerarReporte(Dictionary<string, Tuple<string, float>> opciones)
         {
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
@@ -287,7 +287,16 @@ namespace PuntoDeVentaV2
             titulo.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
-            float[] anchoColumnas = new float[] { 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f, 80f, 100f };
+            float[] anchoColumnas = new float[opciones.Count];
+
+            var contador = 0;
+
+            foreach (var ancho in opciones)
+            {
+                anchoColumnas[contador] = ancho.Value.Item2;
+
+                contador++;
+            }
 
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -297,13 +306,13 @@ namespace PuntoDeVentaV2
             //===========================
 
             PdfPTable tablaProductos = new PdfPTable(opciones.Count);
-            tablaProductos.WidthPercentage = 100;
-            //tablaProductos.SetWidths(anchoColumnas);
+            //tablaProductos.WidthPercentage = 100;
+            tablaProductos.SetWidths(anchoColumnas);
 
             // Se generan las columnas dinamicamente
             foreach (var opcion in opciones)
             {
-                PdfPCell colCustom = new PdfPCell(new Phrase(opcion.Value, fuenteTotales));
+                PdfPCell colCustom = new PdfPCell(new Phrase(opcion.Value.Item1, fuenteTotales));
                 colCustom.BorderWidth = 0;
                 colCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                 colCustom.Padding = 3;
