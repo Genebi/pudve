@@ -2510,7 +2510,14 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));
                     }
 
-                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                    
+                    if (descuentos.Any())
+                    {
+                        FormAgregar.Close();
+                        tipoDescuento = descuentos[0];
+                    }
+
+                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                     respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
                     bool isEmpty = !detalleProductoBasico.Any();
@@ -2647,19 +2654,22 @@ namespace PuntoDeVentaV2
                     //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                     if (descuentos.Any())
                     {
+                        // Se borra de las dos tablas en caso de que haya tenido un tipo de descuento diferente al que se actualizo
+                        string deleteDescuentoCLiente = $"DELETE FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
+                        cn.EjecutarConsulta(deleteDescuentoCLiente);
+
+                        string deleteDescuentoMayoreo = $"DELETE FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
+                        cn.EjecutarConsulta(deleteDescuentoMayoreo);
+
                         //Descuento por Cliente
                         if (descuentos[0] == "1")
                         {
-                            string deleteDescuentoCLiente = $"DELETE FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
-                            cn.EjecutarConsulta(deleteDescuentoCLiente);
                             string[] guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
                             cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, Convert.ToInt32(idProductoBuscado)));
                         }
                         //Descuento por Mayoreo
                         if (descuentos[0] == "2")
                         {
-                            string deleteDescuentoMayoreo = $"DELETE FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
-                            cn.EjecutarConsulta(deleteDescuentoMayoreo);
                             foreach (var descuento in descuentos)
                             {
                                 if (descuento == "2") { continue; }
