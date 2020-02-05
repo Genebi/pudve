@@ -319,7 +319,7 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < longitud; i++)
             {
-                var respuesta = false;
+                var respuesta = true;
 
                 // Comprobar los filtros seleccionados
                 if (filtros.Count > 0)
@@ -357,11 +357,15 @@ namespace PuntoDeVentaV2
                         {
                             var idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
                             var datosProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-                            
+
                             if (datosProveedor.Length > 0)
                             {
                                 // Compara el ID del proveedor (los dos valores son string)
                                 respuesta = filtro.Value.Item1.Equals(datosProveedor[1]);
+                            }
+                            else
+                            {
+                                respuesta = false;
                             }
                         }
                         else
@@ -399,14 +403,29 @@ namespace PuntoDeVentaV2
                         if (opcion.Key == "Nombre")
                         {
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
-                            rowCustom.BorderWidth = 0;
+                            //rowCustom.BorderWidth = 0;
                             //rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowCustom);
+                        }
+                        else if (opcion.Key == "PrecioCompra")
+                        {
+                            var precioCompraTmp = float.Parse(valor);
+
+                            if (precioCompraTmp == 0)
+                            {
+                                var precioCompra = float.Parse(listaProductos.Rows[i]["Precio"].ToString()) / 1.60;
+                                valor = precioCompra.ToString("N2");
+                            }
+
+                            PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
+                            //rowCustom.BorderWidth = 0;
+                            rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                             tablaProductos.AddCell(rowCustom);
                         }
                         else
                         {
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
-                            rowCustom.BorderWidth = 0;
+                            //rowCustom.BorderWidth = 0;
                             rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                             tablaProductos.AddCell(rowCustom);
                         }   
@@ -415,13 +434,7 @@ namespace PuntoDeVentaV2
                     {
                         var resultado = string.Empty;
 
-                        if (opcion.Key == "PrecioCompra")
-                        {
-                            var precioCompra = float.Parse(listaProductos.Rows[i]["Precio"].ToString()) / 1.60;
-
-                            resultado = precioCompra.ToString("N2");
-                        }
-                        else if (opcion.Key == "CantidadPedir")
+                        if (opcion.Key == "CantidadPedir")
                         {
                             var stockActual = Convert.ToInt32(listaProductos.Rows[i]["Stock"]);
                             var stockMinimo = Convert.ToInt32(listaProductos.Rows[i]["StockMinimo"]);
@@ -489,7 +502,7 @@ namespace PuntoDeVentaV2
                         }
 
                         PdfPCell rowCustom = new PdfPCell(new Phrase(resultado, fuenteNormal));
-                        rowCustom.BorderWidth = 0;
+                        //rowCustom.BorderWidth = 0;
                         rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                         tablaProductos.AddCell(rowCustom);
                     }
