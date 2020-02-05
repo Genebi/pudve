@@ -44,6 +44,7 @@ namespace PuntoDeVentaV2
         public static int Catalogo_claves_producto;
         public static int Catalogo_monedas;
         public static int HistorialPrecios;
+        public static int appSettings;
     #endregion Variables Tablas
 
         public DBTables()
@@ -84,6 +85,7 @@ namespace PuntoDeVentaV2
             Catalogo_claves_producto = 3;
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
+            appSettings = 6;
         #endregion Inicializar Variables
         }
 
@@ -2212,5 +2214,57 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla HistorialPrecios
+
+        // Tabla de appSettings 36
+        #region Tabla appSettings
+        public int GetappSettings()
+        {
+            return appSettings;
+        }
+
+        public string PragmaTablaappSettings(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameappSettings(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaappSettings(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID                       INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              concepto                 TEXT,
+                                              checkBoxConcepto         INTEGER NOT NULL DEFAULT (0),
+                                              textComboBoxConcepto     TEXT,
+                                              checkBoxComboBoxConcepto INTEGER NOT NULL DEFAULT (0),
+                                              IDUsuario                INTEGER NOT NULL,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE);";
+        }
+
+        public string QueryUpdateTablaappSettings(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             concepto,
+                                             checkBoxConcepto,
+                                             textComboBoxConcepto,
+                                             checkBoxComboBoxConcepto,
+                                             IDUsuario) 
+                                      SELECT ID,
+                                             concepto,
+                                             checkBoxConcepto,
+                                             textComboBoxConcepto,
+                                             checkBoxComboBoxConcepto,
+                                             IDUsuario 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaappSettings(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla appSettings
     }
 }
