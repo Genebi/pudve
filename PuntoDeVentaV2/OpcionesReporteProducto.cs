@@ -41,14 +41,14 @@ namespace PuntoDeVentaV2
             opcionesDefault = new Dictionary<string, Tuple<string, float>>();
 
             opcionesDefault.Add("Nombre", new Tuple<string, float>("Nombre producto", 250));
-            opcionesDefault.Add("Precio", new Tuple<string, float>("Precio de venta", 70));
-            opcionesDefault.Add("PrecioCompra", new Tuple<string, float>("Precio de compra", 70));
+            opcionesDefault.Add("Precio", new Tuple<string, float>("Precio de venta", 60));
+            opcionesDefault.Add("PrecioCompra", new Tuple<string, float>("Precio de compra", 60));
             opcionesDefault.Add("Stock", new Tuple<string, float>("Stock", 50));
             opcionesDefault.Add("StockMinimo", new Tuple<string, float>("Stock mínimo", 50));
             opcionesDefault.Add("StockNecesario", new Tuple<string, float>("Stock máximo", 50));
             opcionesDefault.Add("ClaveInterna", new Tuple<string, float>("Clave de producto", 70));
             opcionesDefault.Add("CodigoBarras", new Tuple<string, float>("Código de barras", 70));
-            opcionesDefault.Add("CodigoBarraExtra", new Tuple<string, float>("Código de barras extra", 80));
+            opcionesDefault.Add("CodigoBarraExtra", new Tuple<string, float>("Código de barras extra", 70));
             opcionesDefault.Add("Proveedor", new Tuple<string, float>("Proveedor", 180));
             opcionesDefault.Add("CantidadPedir", new Tuple<string, float>("Cantidad a pedir", 50));
 
@@ -416,6 +416,17 @@ namespace PuntoDeVentaV2
                             //rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
                             tablaProductos.AddCell(rowCustom);
                         }
+                        else if (opcion.Key == "Precio")
+                        {
+                            var precio = float.Parse(listaProductos.Rows[i]["Precio"].ToString());
+
+                            valor = "$ " + precio.ToString("N2");
+
+                            PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
+                            //rowCustom.BorderWidth = 0;
+                            rowCustom.HorizontalAlignment = Element.ALIGN_CENTER;
+                            tablaProductos.AddCell(rowCustom);
+                        }
                         else if (opcion.Key == "PrecioCompra")
                         {
                             var precioCompraTmp = float.Parse(valor);
@@ -425,6 +436,8 @@ namespace PuntoDeVentaV2
                                 var precioCompra = float.Parse(listaProductos.Rows[i]["Precio"].ToString()) / 1.60;
                                 valor = precioCompra.ToString("N2");
                             }
+
+                            valor = "$ " + valor;
 
                             PdfPCell rowCustom = new PdfPCell(new Phrase(valor, fuenteNormal));
                             //rowCustom.BorderWidth = 0;
