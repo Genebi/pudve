@@ -1402,8 +1402,15 @@ namespace PuntoDeVentaV2
                 {
                     quitarEspacioEnBlanco();
                     busquedaDelUsuario();
+                    agregarEspacioAlFinal();
                 }
             }
+        }
+
+        private void agregarEspacioAlFinal()
+        {
+            txtBusqueda.Text += " ";
+            txtBusqueda.Select(txtBusqueda.Text.Length, 0);
         }
 
         private void busquedaDelUsuario()
