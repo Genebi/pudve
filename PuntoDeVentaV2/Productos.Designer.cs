@@ -492,7 +492,7 @@
             this.btnPedido.Name = "btnPedido";
             this.btnPedido.Size = new System.Drawing.Size(85, 28);
             this.btnPedido.TabIndex = 22;
-            this.btnPedido.Text = "Pedido";
+            this.btnPedido.Text = "Reporte";
             this.btnPedido.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPedido.UseVisualStyleBackColor = true;
             this.btnPedido.Click += new System.EventHandler(this.btnPedido_Click);
