@@ -118,6 +118,7 @@ namespace PuntoDeVentaV2
             if (System.IO.File.Exists(FileName))
             {
                 System.Diagnostics.Process.Start(FileName);
+                this.Close();
             }
         }
 
