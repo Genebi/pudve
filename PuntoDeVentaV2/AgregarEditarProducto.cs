@@ -1417,6 +1417,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtPrecioCompra_Enter(object sender, EventArgs e)
+        {
+            txtPrecioCompra.SelectAll();
+        }
+
         public void LimpiarDatos()
         {
             DatosSourceFinal = 0;
@@ -4137,11 +4142,13 @@ namespace PuntoDeVentaV2
 
         private void txtStockProducto_Enter(object sender, EventArgs e)
         {
+            txtStockProducto.SelectAll();
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
         private void txtPrecioProducto_Enter(object sender, EventArgs e)
         {
+            txtPrecioProducto.SelectAll();
             _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
         }
 
