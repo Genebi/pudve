@@ -84,7 +84,7 @@ namespace PuntoDeVentaV2
         DataTable dtProdMessg;
         DataRow drProdMessg;
 
-        string[] datosProveedor, datosCategoria, datosUbicacion, datosDetalleGral, separadas, guardar;
+        string[] datosProveedor, datosCategoria, datosUbicacion, datosDetalleGral, separadas, guardar, datosAppSettingToDB;
 
         string[] listaProveedores = new string[] { }, listaCategorias = new string[] { }, listaUbicaciones = new string[] { }, listaDetalleGral = new string[] { };
 
@@ -134,6 +134,7 @@ namespace PuntoDeVentaV2
             try
             {
                 appSettings = ConfigurationManager.AppSettings;
+                datosAppSettings = new List<string>();
 
                 if (appSettings.Count == 0)
                 {
@@ -149,22 +150,15 @@ namespace PuntoDeVentaV2
                         found = keyName.IndexOf("chk", 0, 3);
                         if (found >= 0)
                         {
+                            datosAppSetting += connStr + "|" + keyName + "¬";
+                        }
+                        if (found <= -1)
+                        {
                             datosAppSetting += connStr + "|" + keyName + "|";
                         }
                     }
-
-                    for (int i = 0; i < appSettings.Count; i++)
-                    {
-                        string foundSetting = string.Empty;
-                        connStr = appSettings[i];
-                        keyName = appSettings.GetKey(i);
-                        found = keyName.IndexOf("chk", 0, 3);
-                        if (found <= -1)
-                        {
-                            datosAppSetting += connStr + "|" + keyName;
-                        }
-                        datosAppSettings.Add(datosAppSetting);
-                    }
+                    datosAppSettings.Add(datosAppSetting);
+                    datosAppSettingToDB = datosAppSetting.Split('¬');
                 }
             }
             catch (ConfigurationException e)
@@ -194,7 +188,7 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            //loadFormConfig();
+            loadFormConfig();
 
             CargarSaldoInicial();
             //Envio de datos de Caja con el Timer
