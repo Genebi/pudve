@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosGenerales mg = new MetodosGenerales();
         MetodosBusquedas mb = new MetodosBusquedas();
+        Consultas cs = new Consultas();
 
         public static string[] datosUsuario = new string[] { };
 
@@ -150,15 +151,35 @@ namespace PuntoDeVentaV2
                         found = keyName.IndexOf("chk", 0, 3);
                         if (found >= 0)
                         {
-                            datosAppSetting += connStr + "|" + keyName + "¬";
+                            datosAppSetting += connStr + "|" + keyName + "|" + userID.ToString() + "¬";
                         }
                         if (found <= -1)
                         {
                             datosAppSetting += connStr + "|" + keyName + "|";
                         }
                     }
-                    datosAppSettings.Add(datosAppSetting);
-                    datosAppSettingToDB = datosAppSetting.Split('¬');
+                    string auxAppSetting = string.Empty;
+                    string[] str, strAux;
+                    int insertar = 0;
+                    auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
+                    str = auxAppSetting.Split('¬');
+                    datosAppSettings.AddRange(str);
+                    foreach (var item in datosAppSettings)
+                    {
+                        datosAppSettingToDB = item.Split('|');
+                        for (int i = 0; i < datosAppSettingToDB.Length; i++)
+                        {
+                            if (datosAppSettingToDB[i].Equals("true"))
+                            {
+                                datosAppSettingToDB[i] = "1";
+                            }
+                            else if (datosAppSettingToDB[i].Equals("false"))
+                            {
+                                datosAppSettingToDB[i] = "0";
+                            }
+                        }
+                        insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
+                    }
                 }
             }
             catch (ConfigurationException e)
@@ -188,8 +209,6 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            loadFormConfig();
-
             CargarSaldoInicial();
             //Envio de datos de Caja con el Timer
             ConvertirMinutos();
@@ -212,7 +231,9 @@ namespace PuntoDeVentaV2
             TempUserPass = TempPassUsr;
 
             ObtenerDatosUsuario(userID);
-            
+
+            loadFormConfig();
+
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
             
             // Obtiene ID del empleado, y los permisos que tenga asignados.

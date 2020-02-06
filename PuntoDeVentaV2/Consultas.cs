@@ -250,6 +250,14 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string GuardarAppSettings(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $@"INSERT INTO appSettings(concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario) 
+                                           VALUES('{datos[1]}','{datos[0]}','{datos[3]}','{datos[2]}','{datos[4]}')";
+            return consulta;
+        }
+
         public string GuardarProveedorDetallesDelProducto(string[] datos)
         {
             string consulta = string.Empty;
