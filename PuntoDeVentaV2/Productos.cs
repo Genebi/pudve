@@ -3522,7 +3522,7 @@ namespace PuntoDeVentaV2
                     if (auxWord.Count == 0)
                     {
                         auxWord.Add(palabras[i]);
-                     }
+                    }
                     else if (!auxWord.Contains(palabras[i]))
                     {
                         if (auxWord.Count != 0)
