@@ -1346,6 +1346,51 @@ namespace PuntoDeVentaV2
             return total;
         }
 
+        public string DatosDetallesProducto(int idProducto, string propiedad)
+        {
+            var resultado = string.Empty;
+            // Obtener ID del detalle general del producto
+            DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    // ID del detalle
+                    var idDetalle = Convert.ToInt32(dr["IDDetalleGral"].ToString());
+
+                    // Obtener la descripcion
+                    DatosConexion($"SELECT * FROM DetalleGeneral WHERE ID = {idDetalle} AND IDUsuario = {FormPrincipal.userID} AND ChckName = '{propiedad}'");
+
+                    SQLiteDataReader dr2 = sql_cmd.ExecuteReader();
+
+                    if (dr2.Read())
+                    {
+                        var descripcion = dr2["Descripcion"].ToString();
+
+                        resultado = descripcion;
+                    }
+                    else
+                    {
+                        resultado = "N/A";
+                    }
+
+                    dr2.Close();
+                }
+            }
+            else
+            {
+                resultado = "N/A";
+            }
+
+            dr.Close();
+
+            return resultado;
+        }
+
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);

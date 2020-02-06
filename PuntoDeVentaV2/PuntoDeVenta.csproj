@@ -392,6 +392,12 @@
     <Compile Include="Empresas.Designer.cs">
       <DependentUpon>Empresas.cs</DependentUpon>
     </Compile>
+    <Compile Include="FiltroReporteProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FiltroReporteProductos.Designer.cs">
+      <DependentUpon>FiltroReporteProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -486,6 +492,12 @@
     </Compile>
     <Compile Include="NvoProduct.Designer.cs">
       <DependentUpon>NvoProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OpcionesReporteProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpcionesReporteProducto.Designer.cs">
+      <DependentUpon>OpcionesReporteProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="Paginar.cs" />
     <Compile Include="PedidoPorProducto.cs">
@@ -735,6 +747,9 @@
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FiltroReporteProductos.resx">
+      <DependentUpon>FiltroReporteProductos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
@@ -779,6 +794,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NvoProduct.resx">
       <DependentUpon>NvoProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpcionesReporteProducto.resx">
+      <DependentUpon>OpcionesReporteProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PedidoPorProducto.resx">
       <DependentUpon>PedidoPorProducto.cs</DependentUpon>
