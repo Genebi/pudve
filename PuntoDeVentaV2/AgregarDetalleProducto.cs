@@ -120,8 +120,7 @@ namespace PuntoDeVentaV2
 
                 if (appSettings.Count == 0)
                 {
-                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia", 
-                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia", "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (appSettings.Count > 0)
                 {
@@ -155,8 +154,7 @@ namespace PuntoDeVentaV2
             }
             catch (ConfigurationException e)
             {
-                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), 
-                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

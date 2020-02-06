@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 using System.Runtime.InteropServices;
+using System.Xml;
+using System.Collections.Specialized;
+using System.Configuration;
 
 namespace PuntoDeVentaV2
 {
@@ -70,6 +73,108 @@ namespace PuntoDeVentaV2
 
         string FechaFinal;
 
+        #region Variables Globales
+
+        List<string> infoDetalle, infoDetailProdGral;
+
+        Dictionary<string, string> proveedoresDictionary, categorias, ubicaciones, detallesGral;
+
+        Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(), diccionarioDetalleBasicos = new Dictionary<int, Tuple<string, string, string, string>>();
+
+        DataTable dtProdMessg;
+        DataRow drProdMessg;
+
+        string[] datosProveedor, datosCategoria, datosUbicacion, datosDetalleGral, separadas, guardar;
+
+        string[] listaProveedores = new string[] { }, listaCategorias = new string[] { }, listaUbicaciones = new string[] { }, listaDetalleGral = new string[] { };
+
+        int XPos = 0, YPos = 0, contadorIndex = 0, idProveedor = 0, idCategoria = 0, idUbicacion = 0, idProductoDetalleGral;
+
+        string nvoDetalle = string.Empty, nvoValor = string.Empty, editValor = string.Empty, deleteDetalle = string.Empty, nombreProveedor = string.Empty, nombreCategoria = string.Empty, nombreUbicacion = string.Empty, mensajeDetalleProducto = string.Empty;
+
+        public string getIdProducto { get; set; }
+
+        public static string finalIdProducto = string.Empty;
+
+        string editDetelle = string.Empty, editDetalleNvo = string.Empty;
+
+        List<string> datosAppSettings;
+
+        #endregion Variables Globales
+
+        #region Modifying Configuration Settings at Runtime
+        XmlDocument xmlDoc = new XmlDocument();
+        XmlNode appSettingsNode, newChild;
+        ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle
+        ListView settingDatabases = new ListView(); // ListView para los CheckBox de Sistema
+        ListViewItem lvi;
+        string connStr, keyName;
+        int found = 0;
+        NameValueCollection appSettings;
+
+        // this code will add a listviewtem
+        // to a listview for each database entry
+        // in the appSettings section of an App.config file.
+        private void loadFormConfig()
+        {
+            string datosAppSetting = string.Empty;
+
+            if (Properties.Settings.Default.TipoEjecucion == 1)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            if (Properties.Settings.Default.TipoEjecucion == 2)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+            
+            try
+            {
+                appSettings = ConfigurationManager.AppSettings;
+
+                if (appSettings.Count == 0)
+                {
+                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia", 
+                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (appSettings.Count > 0)
+                {
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found >= 0)
+                        {
+                            datosAppSetting += connStr + "|" + keyName + "|";
+                        }
+                    }
+
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        string foundSetting = string.Empty;
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found <= -1)
+                        {
+                            datosAppSetting += connStr + "|" + keyName;
+                        }
+                        datosAppSettings.Add(datosAppSetting);
+                    }
+                }
+            }
+            catch (ConfigurationException e)
+            {
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
+                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion Modifying Configuration Settings at Runtime
+
         // funcion para que podamos recargar variables desde otro formulario
         public void recargarDatos()
         {
@@ -89,6 +194,8 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+            //loadFormConfig();
+
             CargarSaldoInicial();
             //Envio de datos de Caja con el Timer
             ConvertirMinutos();
@@ -154,51 +261,8 @@ namespace PuntoDeVentaV2
 
         private void controlar_Tick(object sender, EventArgs e)
         {
-
-          //  MessageBox.Show("Mensaje de prueba");
+            
         }
-
-        /*private void ActualizarNombres()
-        {
-            IDictionary<int, string> datos = new Dictionary<int, string>();
-
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-            else
-            {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID}", sql_con);
-            dr = sql_cmd.ExecuteReader();
-
-            while (dr.Read())
-            {
-                var idProducto = Convert.ToInt32(dr["ID"].ToString());
-                var nombreProducto = dr["Nombre"].ToString();
-
-                datos.Add(new KeyValuePair<int, string>(idProducto, nombreProducto));
-            }
-
-            dr.Close();
-            sql_con.Close();
-
-            foreach (KeyValuePair<int, string> ele  in datos)
-            {
-                var idProducto = ele.Key;
-                var nombreAlterno1 = mg.RemoverCaracteres(ele.Value);
-                var nombreAlterno2 = mg.RemoverPreposiciones(ele.Value);
-
-                cn.EjecutarConsulta($"UPDATE Productos SET NombreAlterno1 = '{nombreAlterno1}', NombreAlterno2 = '{nombreAlterno2}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-            }
-        }*/
 
         private void obtenerDatosCheckStock()
         {
