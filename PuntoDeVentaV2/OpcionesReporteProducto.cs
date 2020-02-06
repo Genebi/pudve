@@ -24,9 +24,12 @@ namespace PuntoDeVentaV2
         private List<string> seleccionados;
         private List<string> ultimos;
         private string ultimoSeleccionado = string.Empty;
-        //private int contador = 1;
 
-        public Dictionary<string, Tuple<string, float>> filtros;
+        // Instancia del filtro para el reporte de productos
+        FiltroReporteProductos filtroReporte;
+
+        public static Dictionary<string, Tuple<string, float>> filtros;
+        public static bool filtroAbierto = false;
 
         public OpcionesReporteProducto()
         {
@@ -35,6 +38,8 @@ namespace PuntoDeVentaV2
 
         private void OpcionesReporteProducto_Load(object sender, EventArgs e)
         {
+            filtroReporte = new FiltroReporteProductos();
+
             filtros = new Dictionary<string, Tuple<string, float>>();
             ultimos = new List<string>();
             seleccionados = new List<string>();
@@ -341,26 +346,27 @@ namespace PuntoDeVentaV2
                         {
                             var cantidad = float.Parse(listaProductos.Rows[i][filtro.Key].ToString());
 
-                            if (filtro.Value.Item1 == ">=")
+                            respuesta = OperadoresComparacion(filtro, cantidad);
+                        }
+                        else if (filtro.Key == "CantidadPedir")
+                        {
+                            var cantidad = 0;
+                            var stockActual = Convert.ToInt32(listaProductos.Rows[i]["Stock"]);
+                            var stockMinimo = Convert.ToInt32(listaProductos.Rows[i]["StockMinimo"]);
+                            var stockMaximo = Convert.ToInt32(listaProductos.Rows[i]["StockNecesario"]);
+
+                            if (stockMinimo > stockActual)
                             {
-                                respuesta = cantidad >= filtro.Value.Item2;
+                                var cantidadPedir = stockMaximo - stockActual;
+
+                                cantidad = cantidadPedir;
                             }
-                            else if (filtro.Value.Item1 == "<=")
+                            else
                             {
-                                respuesta = cantidad <= filtro.Value.Item2;
+                                cantidad = 0;
                             }
-                            else if (filtro.Value.Item1 == "==")
-                            {
-                                respuesta = cantidad == filtro.Value.Item2;
-                            }
-                            else if (filtro.Value.Item1 == ">")
-                            {
-                                respuesta = cantidad > filtro.Value.Item2;
-                            }
-                            else if (filtro.Value.Item1 == "<")
-                            {
-                                respuesta = cantidad < filtro.Value.Item2;
-                            }
+
+                            respuesta = OperadoresComparacion(filtro, cantidad);
                         }
                         else if (filtro.Key == "Proveedor")
                         {
@@ -548,17 +554,44 @@ namespace PuntoDeVentaV2
             vr.ShowDialog();
         }
 
+
+        private bool OperadoresComparacion(KeyValuePair<string, Tuple<string, float>> filtro, float cantidad)
+        {
+            var respuesta = true;
+
+            if (filtro.Value.Item1 == ">=")
+            {
+                respuesta = cantidad >= filtro.Value.Item2;
+            }
+            else if (filtro.Value.Item1 == "<=")
+            {
+                respuesta = cantidad <= filtro.Value.Item2;
+            }
+            else if (filtro.Value.Item1 == "==")
+            {
+                respuesta = cantidad == filtro.Value.Item2;
+            }
+            else if (filtro.Value.Item1 == ">")
+            {
+                respuesta = cantidad > filtro.Value.Item2;
+            }
+            else if (filtro.Value.Item1 == "<")
+            {
+                respuesta = cantidad < filtro.Value.Item2;
+            }
+
+            return respuesta;
+        }
+
+
         private void btnFiltroReporte_Click(object sender, EventArgs e)
         {
-            using (var filtroReporte = new FiltroReporteProductos())
-            {
-                var resultado = filtroReporte.ShowDialog();
+            filtroReporte.ShowDialog();
+        }
 
-                if (resultado == DialogResult.OK)
-                {
-                    this.filtros = filtroReporte.filtros;
-                }
-            }
+        private void OpcionesReporteProducto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            filtroAbierto = false;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         Dictionary<string, string> opcionesDefault;
-        public Dictionary<string, Tuple<string, float>> filtros;
+        private Dictionary<string, Tuple<string, float>> filtros;
 
         public FiltroReporteProductos()
         {
@@ -26,67 +26,83 @@ namespace PuntoDeVentaV2
 
         private void FiltroReporteProductos_Load(object sender, EventArgs e)
         {
-            opcionesDefault = new Dictionary<string, string>();
-            filtros = new Dictionary<string, Tuple<string, float>>();
-
-            // Datos para cargar el combobox de Stock y Precio
-            var sourceOpciones = new Dictionary<string, string>();
-            sourceOpciones.Add("NA", "No aplica");
-            sourceOpciones.Add(">=", "Mayor o igual que");
-            sourceOpciones.Add("<=", "Menor o igual que");
-            sourceOpciones.Add("==", "Igual que");
-            sourceOpciones.Add(">", "Mayor que");
-            sourceOpciones.Add("<", "Menor que");
-
-            cbStock.DataSource = sourceOpciones.ToArray();
-            cbStock.ValueMember = "Key";
-            cbStock.DisplayMember = "Value";
-
-            cbStockMinimo.DataSource = sourceOpciones.ToArray();
-            cbStockMinimo.ValueMember = "Key";
-            cbStockMinimo.DisplayMember = "Value";
-
-            cbStockNecesario.DataSource = sourceOpciones.ToArray();
-            cbStockNecesario.ValueMember = "Key";
-            cbStockNecesario.DisplayMember = "Value";
-
-            cbPrecio.DataSource = sourceOpciones.ToArray();
-            cbPrecio.ValueMember = "Key";
-            cbPrecio.DisplayMember = "Value";
-
-            // Cargar los proveedores para el combobox
-            var proveedores = cn.ObtenerProveedores(FormPrincipal.userID);
-
-            if (proveedores.Length > 0)
+            if (!OpcionesReporteProducto.filtroAbierto)
             {
-                Dictionary<int, string> dicProveedores = new Dictionary<int, string>();
+                opcionesDefault = new Dictionary<string, string>();
+                filtros = new Dictionary<string, Tuple<string, float>>();
 
-                dicProveedores.Add(0, "Seleccionar proveedor...");
+                // Datos para cargar el combobox de Stock y Precio
+                var sourceOpciones = new Dictionary<string, string>();
+                sourceOpciones.Add("NA", "No aplica");
+                sourceOpciones.Add(">=", "Mayor o igual que");
+                sourceOpciones.Add("<=", "Menor o igual que");
+                sourceOpciones.Add("==", "Igual que");
+                sourceOpciones.Add(">", "Mayor que");
+                sourceOpciones.Add("<", "Menor que");
 
-                foreach (string proveedor in proveedores)
+                cbStock.DataSource = sourceOpciones.ToArray();
+                cbStock.ValueMember = "Key";
+                cbStock.DisplayMember = "Value";
+
+                cbStockMinimo.DataSource = sourceOpciones.ToArray();
+                cbStockMinimo.ValueMember = "Key";
+                cbStockMinimo.DisplayMember = "Value";
+
+                cbStockNecesario.DataSource = sourceOpciones.ToArray();
+                cbStockNecesario.ValueMember = "Key";
+                cbStockNecesario.DisplayMember = "Value";
+
+                cbPrecio.DataSource = sourceOpciones.ToArray();
+                cbPrecio.ValueMember = "Key";
+                cbPrecio.DisplayMember = "Value";
+
+                cbCantidadPedir.DataSource = sourceOpciones.ToArray();
+                cbCantidadPedir.ValueMember = "Key";
+                cbCantidadPedir.DisplayMember = "Value";
+
+                // Cargar los proveedores para el combobox
+                var proveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+
+                if (proveedores.Length > 0)
                 {
-                    var info = proveedor.Split('-');
+                    Dictionary<int, string> dicProveedores = new Dictionary<int, string>();
 
-                    dicProveedores.Add(Convert.ToInt32(info[0].Trim()), info[1].Trim());
+                    dicProveedores.Add(0, "Seleccionar proveedor...");
+
+                    foreach (string proveedor in proveedores)
+                    {
+                        var info = proveedor.Split('-');
+
+                        dicProveedores.Add(Convert.ToInt32(info[0].Trim()), info[1].Trim());
+                    }
+
+                    cbProveedor.DataSource = dicProveedores.ToArray();
+                    cbProveedor.ValueMember = "Key";
+                    cbProveedor.DisplayMember = "Value";
+                }
+                else
+                {
+                    Dictionary<int, string> dicProveedores = new Dictionary<int, string>();
+
+                    dicProveedores.Add(0, "No hay proveedores registrados");
+                    cbProveedor.DataSource = dicProveedores.ToArray();
+                    cbProveedor.ValueMember = "Key";
+                    cbProveedor.DisplayMember = "Value";
                 }
 
-                cbProveedor.DataSource = dicProveedores.ToArray();
-                cbProveedor.ValueMember = "Key";
-                cbProveedor.DisplayMember = "Value";
-            }
-            else
-            {
-                Dictionary<int, string> dicProveedores = new Dictionary<int, string>();
+                // Obtiene los detalles guardados en App.config y los muestra en el form
+                ObtenerDetalles();
+                VisualizarDetalles();
 
-                dicProveedores.Add(0, "No hay proveedores registrados");
-                cbProveedor.DataSource = dicProveedores.ToArray();
-                cbProveedor.ValueMember = "Key";
-                cbProveedor.DisplayMember = "Value";
+                // Inicializamos el metodo "SoloDecimales"
+                txtStock.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                txtStockMinimo.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                txtStockNecesario.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                txtPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                txtCantidadPedir.KeyPress += new KeyPressEventHandler(SoloDecimales);
             }
-
-            // Obtiene los detalles guardados en App.config y los muestra en el form
-            ObtenerDetalles();
-            VisualizarDetalles();
+            
+            OpcionesReporteProducto.filtroAbierto = true;
         }
 
         private void ObtenerDetalles()
@@ -141,7 +157,7 @@ namespace PuntoDeVentaV2
             {
                 Font fuente = new Font("Century Gothic", 9.0f);
 
-                int alturaEjeY = 220;
+                int alturaEjeY = 260;
 
                 foreach (var opcion in opcionesDefault)
                 {
@@ -176,10 +192,10 @@ namespace PuntoDeVentaV2
                     ComboBox cbCustom = new ComboBox();
                     cbCustom.Name = "cb" + opcion.Key;
                     cbCustom.Font = fuente;
-                    cbCustom.Location = new Point(122, alturaEjeY);
+                    cbCustom.Location = new Point(138, alturaEjeY);
                     cbCustom.DropDownStyle = ComboBoxStyle.DropDownList;
                     cbCustom.Enabled = false;
-                    cbCustom.Width = 350;
+                    cbCustom.Width = 336;
                     cbCustom.DataSource = sourceCBCustom.ToArray();
                     cbCustom.DisplayMember = "Value";
                     cbCustom.ValueMember = "Key";
@@ -200,6 +216,11 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (filtros.Count > 0)
+            {
+                filtros = new Dictionary<string, Tuple<string, float>>();
+            }
+
             foreach (var item in panelContenedor.Controls)
             {
                 if (item is CheckBox)
@@ -216,9 +237,30 @@ namespace PuntoDeVentaV2
 
                         if (opcion != "NA")
                         {
-                            if (nombreCB == "Stock" || nombreCB == "StockMinimo" || nombreCB == "StockNecesario" || nombreCB == "Precio")
+                            if (nombreCB == "Stock" || nombreCB == "StockMinimo" || nombreCB == "StockNecesario")
                             {
                                 var txtCustom = (TextBox)Controls.Find("txt" + nombreCB, true).FirstOrDefault();
+
+                                if (string.IsNullOrWhiteSpace(txtCustom.Text))
+                                {
+                                    MessageBox.Show($"Es necesario agregar cantidad para el campo {checkCustom.Text}", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
+                                var cantidad = float.Parse(txtCustom.Text);
+
+                                filtros.Add(nombreCB, new Tuple<string, float>(opcion, cantidad));
+                            }
+                            else if (nombreCB == "Precio" || nombreCB == "CantidadPedir")
+                            {
+                                var txtCustom = (TextBox)Controls.Find("txt" + nombreCB, true).FirstOrDefault();
+
+                                if (string.IsNullOrWhiteSpace(txtCustom.Text))
+                                {
+                                    MessageBox.Show($"Es necesario agregar cantidad para el campo {checkCustom.Text}", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
                                 var cantidad = float.Parse(txtCustom.Text);
 
                                 filtros.Add(nombreCB, new Tuple<string, float>(opcion, cantidad));
@@ -238,8 +280,9 @@ namespace PuntoDeVentaV2
 
             if (filtros.Count > 0)
             {
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                OpcionesReporteProducto.filtros = filtros;
+
+                this.Hide();
             }
             else
             {
@@ -319,6 +362,22 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void checkCantidadPedir_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkCantidadPedir.Checked)
+            {
+                cbCantidadPedir.Enabled = true;
+                txtCantidadPedir.Enabled = true;
+            }
+            else
+            {
+                cbCantidadPedir.SelectedValue = "NA";
+                cbCantidadPedir.Enabled = false;
+                txtCantidadPedir.Enabled = false;
+                txtCantidadPedir.Text = "0";
+            }
+        }
+
         private void checkProveedor_CheckedChanged(object sender, EventArgs e)
         {
             if (checkProveedor.Checked)
@@ -349,6 +408,25 @@ namespace PuntoDeVentaV2
             {
                 comboBoxCustom.SelectedValue = "NA";
                 comboBoxCustom.Enabled = false;
+            }
+        }
+
+        private void SoloDecimales(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                {
+                    e.Handled = true;
+                }
             }
         }
     }

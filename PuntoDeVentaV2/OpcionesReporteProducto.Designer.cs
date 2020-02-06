@@ -124,6 +124,7 @@
             this.Name = "OpcionesReporteProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Opciones Reporte";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OpcionesReporteProducto_FormClosing);
             this.Load += new System.EventHandler(this.OpcionesReporteProducto_Load);
             this.ResumeLayout(false);
 
