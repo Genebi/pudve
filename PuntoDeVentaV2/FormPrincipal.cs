@@ -494,6 +494,16 @@ namespace PuntoDeVentaV2
         float retiroTrans = 0f;
         float retiroCredito = 0f;
 
+        // Variable de la seccionProductos
+        string nombreP = "";
+        float stockP = 0f;
+        float precioP = 0f;
+        float revisionP = 0f;
+        float claveP = 0f;
+        float codigoP = 0f;
+        float historialP = 0f;
+        float tipoP = 0f;
+
         public static DateTime fechaGeneral;
 
         public void InitializarTimerAndroid()
@@ -524,13 +534,6 @@ namespace PuntoDeVentaV2
                 CargarSaldoInicial();
 
                 CargarSaldo();
-
-                //var servidor = Properties.Settings.Default.Hosting;
-
-                //if (string.IsNullOrWhiteSpace(servidor))
-                //{
-                    
-                //}
 
                 try
                 {
@@ -565,6 +568,20 @@ namespace PuntoDeVentaV2
                         //iniciarVariablesWebService();
                     }
                     iniciarVariablesWebService();
+
+                    DataTable tablaProductos = new DataTable();
+                    string queryCargarDatosProductos = string.Empty;
+
+                    //Consulta Borrar de MySQL por ID de Usuario
+                    eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
+                    borrrado = eliminar.ExecuteNonQuery();
+
+                    queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
+                                                    FROM productos AS P 
+                                                    WHERE status = 1
+                                                    AND IDUsuario = {FormPrincipal.userID.ToString()}";
+
+                    tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
 
                 }
                 catch (Exception ex)
