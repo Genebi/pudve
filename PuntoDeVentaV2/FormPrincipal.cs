@@ -72,7 +72,7 @@ namespace PuntoDeVentaV2
         const string ficheroDateCheck = @"\PUDVE\settings\noCheckStock\checkDateStock.txt";  // directorio donde esta el archivo de fecha
         string Contenido;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
 
-        string FechaFinal;
+        string FechaFinal, saveDirectoryFile = string.Empty;
 
         #region Variables Globales
 
@@ -159,7 +159,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                     string auxAppSetting = string.Empty;
-                    string[] str, strAux;
+                    string[] str;
                     int insertar = 0;
                     auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
                     str = auxAppSetting.Split('¬');
@@ -232,7 +232,13 @@ namespace PuntoDeVentaV2
 
             ObtenerDatosUsuario(userID);
 
-            loadFormConfig();
+            var servidor = Properties.Settings.Default.Hosting;
+
+            //if (!string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
+            //    loadFormConfig();
+            //}
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
             
