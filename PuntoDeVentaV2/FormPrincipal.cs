@@ -158,6 +158,10 @@ namespace PuntoDeVentaV2
                             datosAppSetting += connStr + "|" + keyName + "|";
                         }
                     }
+                    int borrar = 0;
+                    string deleteData = string.Empty;
+                    deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
+                    borrar = cn.EjecutarConsulta(deleteData);
                     string auxAppSetting = string.Empty;
                     string[] str;
                     int insertar = 0;
@@ -234,10 +238,10 @@ namespace PuntoDeVentaV2
 
             var servidor = Properties.Settings.Default.Hosting;
 
-            //if (!string.IsNullOrWhiteSpace(servidor))
-            //{
-            //    loadFormConfig();
-            //}
+            if (string.IsNullOrWhiteSpace(servidor))
+            {
+                loadFormConfig();
+            }
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
             

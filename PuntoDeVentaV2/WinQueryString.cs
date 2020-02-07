@@ -1084,7 +1084,7 @@ namespace PuntoDeVentaV2
             {
                 saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             }
-            
+
             path = saveDirectoryFile;
 
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
