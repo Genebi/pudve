@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using MySql.Data.MySqlClient;
 using System.Runtime.InteropServices;
+using System.Xml;
+using System.Collections.Specialized;
+using System.Configuration;
 
 namespace PuntoDeVentaV2
 {
@@ -20,6 +23,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosGenerales mg = new MetodosGenerales();
         MetodosBusquedas mb = new MetodosBusquedas();
+        Consultas cs = new Consultas();
 
         public static string[] datosUsuario = new string[] { };
 
@@ -68,7 +72,123 @@ namespace PuntoDeVentaV2
         const string ficheroDateCheck = @"\PUDVE\settings\noCheckStock\checkDateStock.txt";  // directorio donde esta el archivo de fecha
         string Contenido;                                                       // para obtener el numero que tiene el codigo de barras en el arhivo
 
-        string FechaFinal;
+        string FechaFinal, saveDirectoryFile = string.Empty;
+
+        #region Variables Globales	
+
+        List<string> infoDetalle, infoDetailProdGral;
+
+        Dictionary<string, string> proveedoresDictionary, categorias, ubicaciones, detallesGral;
+
+        Dictionary<int, Tuple<string, string, string, string>> diccionarioDetallesGeneral = new Dictionary<int, Tuple<string, string, string, string>>(), diccionarioDetalleBasicos = new Dictionary<int, Tuple<string, string, string, string>>();
+
+        DataTable dtProdMessg;
+        DataRow drProdMessg;
+
+        string[] datosProveedor, datosCategoria, datosUbicacion, datosDetalleGral, separadas, guardar, datosAppSettingToDB;
+
+        string[] listaProveedores = new string[] { }, listaCategorias = new string[] { }, listaUbicaciones = new string[] { }, listaDetalleGral = new string[] { };
+
+        int XPos = 0, YPos = 0, contadorIndex = 0, idProveedor = 0, idCategoria = 0, idUbicacion = 0, idProductoDetalleGral;
+
+        string nvoDetalle = string.Empty, nvoValor = string.Empty, editValor = string.Empty, deleteDetalle = string.Empty, nombreProveedor = string.Empty, nombreCategoria = string.Empty, nombreUbicacion = string.Empty, mensajeDetalleProducto = string.Empty;
+
+        public string getIdProducto { get; set; }
+
+        public static string finalIdProducto = string.Empty;
+
+        string editDetelle = string.Empty, editDetalleNvo = string.Empty;
+
+        List<string> datosAppSettings;
+
+        #endregion Variables Globales	
+
+        #region Modifying Configuration Settings at Runtime	
+        XmlDocument xmlDoc = new XmlDocument();
+        XmlNode appSettingsNode, newChild;
+        ListView chkDatabase = new ListView();  // ListView para los CheckBox de solo detalle	
+        ListView settingDatabases = new ListView(); // ListView para los CheckBox de Sistema	
+        ListViewItem lvi;
+        string connStr, keyName;
+        int found = 0;
+        NameValueCollection appSettings;
+
+        // this code will add a listviewtem	
+        // to a listview for each database entry	
+        // in the appSettings section of an App.config file.	
+        private void loadFormConfig()
+        {
+            string datosAppSetting = string.Empty;
+
+            if (Properties.Settings.Default.TipoEjecucion == 1)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            if (Properties.Settings.Default.TipoEjecucion == 2)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+
+            try
+            {
+                appSettings = ConfigurationManager.AppSettings;
+                datosAppSettings = new List<string>();
+
+                if (appSettings.Count == 0)
+                {
+                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia",
+                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (appSettings.Count > 0)
+                {
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found >= 0)
+                        {
+                            datosAppSetting += connStr + "|" + keyName + "|" + userID.ToString() + "¬";
+                        }
+                        if (found <= -1)
+                        {
+                            datosAppSetting += connStr + "|" + keyName + "|";
+                        }
+                    }
+                    string auxAppSetting = string.Empty;
+                    string[] str;
+                    int insertar = 0;
+                    auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
+                    str = auxAppSetting.Split('¬');
+                    datosAppSettings.AddRange(str);
+                    foreach (var item in datosAppSettings)
+                    {
+                        datosAppSettingToDB = item.Split('|');
+                        for (int i = 0; i < datosAppSettingToDB.Length; i++)
+                        {
+                            if (datosAppSettingToDB[i].Equals("true"))
+                            {
+                                datosAppSettingToDB[i] = "1";
+                            }
+                            else if (datosAppSettingToDB[i].Equals("false"))
+                            {
+                                datosAppSettingToDB[i] = "0";
+                            }
+                        }
+                        insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
+                    }
+                }
+            }
+            catch (ConfigurationException e)
+            {
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
+                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion Modifying Configuration Settings at Runtime
 
         // funcion para que podamos recargar variables desde otro formulario
         public void recargarDatos()
@@ -111,7 +231,14 @@ namespace PuntoDeVentaV2
             TempUserPass = TempPassUsr;
 
             ObtenerDatosUsuario(userID);
-            
+
+            var servidor = Properties.Settings.Default.Hosting;
+
+            //if (!string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    loadFormConfig();
+            //}
+
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
             
             // Obtiene ID del empleado, y los permisos que tenga asignados.
