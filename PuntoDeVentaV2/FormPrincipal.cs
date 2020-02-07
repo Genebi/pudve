@@ -720,6 +720,7 @@ namespace PuntoDeVentaV2
                 }
 
                 DataTable dtTable = new DataTable();
+                //StringBuilder sComand = new StringBuilder("INSERT INTO seccionProductos()");
                 //foreach (DataRow dtRow in dtTable.Rows)
                 //{
 
