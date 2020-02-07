@@ -611,7 +611,7 @@ namespace PuntoDeVentaV2
 
         private void actualizarCaja_Tick(object sender, EventArgs e)
         {
-            /*if (ConectadoInternet())
+            if (ConectadoInternet())
             {
                 MySqlConnection conexion = new MySqlConnection();
                 conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
@@ -647,7 +647,7 @@ namespace PuntoDeVentaV2
                                                                  '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}',
                                                                  '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID.ToString()}')";
                     int resultado = agregar.ExecuteNonQuery();
-                    if (resultado>0)
+                    if (resultado > 0)
                     {
                         //MessageBox.Show("Exito ");
                         //iniciarVariablesWebService();
@@ -671,9 +671,10 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(), 
-                                    "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }*/
+                    //MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(),
+                    //                "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
         }
 
         private void iniciarVariablesWebService()
