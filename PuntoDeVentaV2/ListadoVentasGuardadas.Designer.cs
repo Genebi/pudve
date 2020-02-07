@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.DGVListaVentasGuardadas = new System.Windows.Forms.DataGridView();
-            this.tituloSeccion = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,6 +36,7 @@
             this.Mostrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.IDCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tituloSeccion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaVentasGuardadas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,18 +61,6 @@
             this.DGVListaVentasGuardadas.TabIndex = 0;
             this.DGVListaVentasGuardadas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaVentasGuardadas_CellClick);
             this.DGVListaVentasGuardadas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaVentasGuardadas_CellMouseEnter);
-            // 
-            // tituloSeccion
-            // 
-            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.AutoSize = true;
-            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(151, 24);
-            this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(229, 25);
-            this.tituloSeccion.TabIndex = 5;
-            this.tituloSeccion.Text = "VENTAS GUARDADAS";
-            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ID
             // 
@@ -124,6 +112,18 @@
             this.IDCliente.ReadOnly = true;
             this.IDCliente.Visible = false;
             // 
+            // tituloSeccion
+            // 
+            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tituloSeccion.AutoSize = true;
+            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSeccion.Location = new System.Drawing.Point(151, 24);
+            this.tituloSeccion.Name = "tituloSeccion";
+            this.tituloSeccion.Size = new System.Drawing.Size(229, 25);
+            this.tituloSeccion.TabIndex = 5;
+            this.tituloSeccion.Text = "VENTAS GUARDADAS";
+            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // ListadoVentasGuardadas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -136,6 +136,7 @@
             this.Name = "ListadoVentasGuardadas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Ventas Guardadas";
+            this.Load += new System.EventHandler(this.ListadoVentasGuardadas_Load);
             this.Shown += new System.EventHandler(this.ListadoVentasGuardadas_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaVentasGuardadas)).EndInit();
             this.ResumeLayout(false);
