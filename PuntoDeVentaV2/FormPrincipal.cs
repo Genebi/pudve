@@ -54,7 +54,7 @@ namespace PuntoDeVentaV2
         private int reportes = 1;
         private int servicios = 1;
         private int ventas = 1;
-        
+
         // variables para poder tomar los datos que se pasaron del login a esta forma
         public int IdUsuario { get; set; }
         public string nickUsuario { get; set; }
@@ -197,7 +197,7 @@ namespace PuntoDeVentaV2
         // funcion para que podamos recargar variables desde otro formulario
         public void recargarDatos()
         {
-            userID = IdUsuario; Console.WriteLine("userID"+userID);
+            userID = IdUsuario; Console.WriteLine("userID" + userID);
             userNickName = nickUsuario; Console.WriteLine("userNickName" + userNickName);
             userPass = passwordUsuario;
             FechaCheckStock = DateCheckStock;
@@ -244,7 +244,7 @@ namespace PuntoDeVentaV2
             }
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
-            
+
             // Obtiene ID del empleado, y los permisos que tenga asignados.
 
             string formato_usuario = "^[A-Z&Ñ]+@[A-Z&Ñ0-9]+$";
@@ -256,7 +256,7 @@ namespace PuntoDeVentaV2
                 int id_empleado = obtener_id_empleado(userID);
 
                 var datos_per = mb.obtener_permisos_empleado(id_empleado, userID);
-                
+
                 permisos_empleado(datos_per);
             }
 
@@ -286,7 +286,7 @@ namespace PuntoDeVentaV2
         private void controlar_Tick(object sender, EventArgs e)
         {
 
-          //  MessageBox.Show("Mensaje de prueba");
+            //  MessageBox.Show("Mensaje de prueba");
         }
 
         /*private void ActualizarNombres()
@@ -363,7 +363,7 @@ namespace PuntoDeVentaV2
 
         private void btnProductos_Click(object sender, EventArgs e)
         {
-            if(productos == 1)
+            if (productos == 1)
             {
                 AbrirFormulario<Productos>();
 
@@ -377,7 +377,7 @@ namespace PuntoDeVentaV2
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-            if(ventas == 1)
+            if (ventas == 1)
             {
                 AbrirFormulario<ListadoVentas>();
 
@@ -392,7 +392,7 @@ namespace PuntoDeVentaV2
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
-            if(clientes == 1)
+            if (clientes == 1)
             {
                 AbrirFormulario<Clientes>();
             }
@@ -404,7 +404,7 @@ namespace PuntoDeVentaV2
 
         private void btnProveedores_Click(object sender, EventArgs e)
         {
-            if(proveedores == 1)
+            if (proveedores == 1)
             {
                 AbrirFormulario<Proveedores>();
             }
@@ -450,7 +450,7 @@ namespace PuntoDeVentaV2
 
         private void btnMisDatos_Click(object sender, EventArgs e)
         {
-            if(misdatos == 1)
+            if (misdatos == 1)
             {
                 AbrirFormulario<MisDatos>();
             }
@@ -462,7 +462,7 @@ namespace PuntoDeVentaV2
 
         private void btnEmpresas_Click(object sender, EventArgs e)
         {
-            if(empresas == 1)
+            if (empresas == 1)
             {
                 AbrirFormulario<Empresas>();
             }
@@ -474,7 +474,7 @@ namespace PuntoDeVentaV2
 
         private void btnAnticipos_Click(object sender, EventArgs e)
         {
-            if(anticipos == 1)
+            if (anticipos == 1)
             {
                 AbrirFormulario<Anticipos>();
 
@@ -483,12 +483,12 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }            
+            }
         }
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            if(config == 1)
+            if (config == 1)
             {
                 AbrirFormulario<SetUpPUDVE>();
 
@@ -502,7 +502,7 @@ namespace PuntoDeVentaV2
 
         private void btnCaja_Click(object sender, EventArgs e)
         {
-            if(caja == 1)
+            if (caja == 1)
             {
                 AbrirFormulario<CajaN>();
 
@@ -516,7 +516,7 @@ namespace PuntoDeVentaV2
 
         private void btnInventario_Click(object sender, EventArgs e)
         {
-            if(inventarios == 1)
+            if (inventarios == 1)
             {
                 AbrirFormulario<Inventario>();
             }
@@ -528,7 +528,7 @@ namespace PuntoDeVentaV2
 
         private void btnEmpleados_Click(object sender, EventArgs e)
         {
-            if(empleados == 1)
+            if (empleados == 1)
             {
                 AbrirFormulario<Empleados>();
             }
@@ -544,7 +544,7 @@ namespace PuntoDeVentaV2
             //Genera_respaldos.respaldar();
         }
 
-        
+
         private int obtener_id_empleado(int id)
         {
             int id_e = 0;
@@ -563,7 +563,7 @@ namespace PuntoDeVentaV2
             empleados = Convert.ToInt32(datos_e[4]);
             empresas = Convert.ToInt32(datos_e[5]);
             facturas = Convert.ToInt32(datos_e[6]);
-            inventarios =Convert.ToInt32(datos_e[7]);
+            inventarios = Convert.ToInt32(datos_e[7]);
             misdatos = Convert.ToInt32(datos_e[8]);
             productos = Convert.ToInt32(datos_e[9]);
             proveedores = Convert.ToInt32(datos_e[10]);
@@ -587,7 +587,7 @@ namespace PuntoDeVentaV2
         float vTrans = 0f;
         float vCredito = 0f;
         float vAnticipos = 0f;
-        float totalVentas = 0f;  
+        float totalVentas = 0f;
 
         // Variables anticipos
         float aEfectivo = 0f;
@@ -625,15 +625,15 @@ namespace PuntoDeVentaV2
         float retiroTrans = 0f;
         float retiroCredito = 0f;
 
-        // Variable de la seccionProductos
+        // Variables de la seccionProductos
         string nombreP = "";
         float stockP = 0f;
         float precioP = 0f;
         float revisionP = 0f;
-        float claveP = 0f;
-        float codigoP = 0f;
-        float historialP = 0f;
-        float tipoP = 0f;
+        string claveP = "";
+        string codigoP = "";
+        string historialP = "";
+        string tipoP = "";
 
         public static DateTime fechaGeneral;
 
@@ -641,7 +641,7 @@ namespace PuntoDeVentaV2
         {
             actualizarCaja.Interval = 60000;
             actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
-            actualizarCaja.Enabled = true; 
+            actualizarCaja.Enabled = true;
         }
 
         //Se necesita para saber si la computadora tiene conexion a internet
@@ -714,21 +714,55 @@ namespace PuntoDeVentaV2
 
                     tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
 
+                    StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nombreProductos, stockProductos, 
+                                                                                              precioProductos, revisionProductos, claveProductos, 
+                                                                                              codigoProductos, historialProductos, tipoProductos, fechaUpdate)
+                                                          VALUES ('{FormPrincipal.userID.ToString()}', '{nombreP}', '{stockP}', '{precioP}', '{revisionP}', '{claveP}', '{codigoP}', '{historialP}', '{tipoP}',
+                                                           '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'),");
+                    List<String> Rows = new List<string>();
+                    for (int i = 0; i < tablaProductos.Rows.Count; i++)
+                    {
+                        nombreP = tablaProductos.Rows[i]["Nombre"].ToString();
+                        stockP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Stock"].ToString());
+                        precioP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Precio"].ToString());
+                        revisionP = (float)Convert.ToDouble(tablaProductos.Rows[i]["NumeroRevision"].ToString());
+                        claveP = tablaProductos.Rows[i]["ClaveInterna"].ToString();
+                        codigoP = tablaProductos.Rows[i]["CodigoBarras"].ToString();
+                        tipoP = tablaProductos.Rows[i]["Tipo"].ToString();
+
+
+                        Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
+                            MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nombreP}"), MySqlHelper.EscapeString($"{stockP}"),
+                            MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
+                            MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"), MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
+                    }
+                    sComand.Append(String.Join(",", Rows));
+                  //  sComand.Append(":");
+                    // conexion.Open();
+                    string contenidoquery = sComand.ToString();
+                    try
+                    {
+                        using (MySqlCommand myCmd = new MySqlCommand(sComand.ToString(), conexion))
+                        {
+                            myCmd.CommandType = CommandType.Text;
+                            myCmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("" + ex.Message.ToString());
+                    }
+
                 }
                 catch (Exception ex)
                 {
 
                     //MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(),
                     //                "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                
+
                 }
 
-                DataTable dtTable = new DataTable();
-                //StringBuilder sComand = new StringBuilder("INSERT INTO seccionProductos()");
-                //foreach (DataRow dtRow in dtTable.Rows)
-                //{
 
-                //}
 
 
             }
@@ -872,7 +906,7 @@ namespace PuntoDeVentaV2
 
                     dineroRetirado += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
                     retiroCredito += float.Parse(drDos.GetValue(drDos.GetOrdinal("Credito")).ToString());
-                
+
 
                 }
             }
