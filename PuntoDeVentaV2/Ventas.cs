@@ -1166,8 +1166,8 @@ namespace PuntoDeVentaV2
 
                         contador++;
 
-                        // Si es un producto lo guarda en la tabla de productos de venta
-                        if (Tipo == "P")
+                        // Si es un producto, paquete o servicio lo guarda en la tabla de productos de venta
+                        if (Tipo == "P" || Tipo == "S" || Tipo == "PQ")
                         {
                             cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                         }
