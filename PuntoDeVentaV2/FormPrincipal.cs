@@ -715,51 +715,49 @@ namespace PuntoDeVentaV2
                                         "Error al Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
-                                                    FROM productos AS P 
-                                                    WHERE status = 1
-                                                    AND IDUsuario = {FormPrincipal.userID.ToString()}";
+                  //  queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
+                  //                                  FROM productos AS P 
+                  //                                  WHERE status = 1
+                  //                                  AND IDUsuario = {FormPrincipal.userID.ToString()}";
 
-                    tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
+                  //  tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
 
-                    StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nombreProductos, stockProductos, 
-                                                                                              precioProductos, revisionProductos, claveProductos, 
-                                                                                              codigoProductos, historialProductos, tipoProductos, fechaUpdate)
-                                                          VALUES ('{FormPrincipal.userID.ToString()}', '{nombreP}', '{stockP}', '{precioP}', '{revisionP}', '{claveP}', '{codigoP}', '{historialP}', '{tipoP}',
-                                                           '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'),");
-                    List<String> Rows = new List<string>();
-                    for (int i = 0; i < tablaProductos.Rows.Count; i++)
-                    {
-                        nombreP = tablaProductos.Rows[i]["Nombre"].ToString();
-                        stockP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Stock"].ToString());
-                        precioP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Precio"].ToString());
-                        revisionP = (float)Convert.ToDouble(tablaProductos.Rows[i]["NumeroRevision"].ToString());
-                        claveP = tablaProductos.Rows[i]["ClaveInterna"].ToString();
-                        codigoP = tablaProductos.Rows[i]["CodigoBarras"].ToString();
-                        tipoP = tablaProductos.Rows[i]["Tipo"].ToString();
+                  //  StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nombreProductos, stockProductos, 
+                  //                                                                            precioProductos, revisionProductos, claveProductos, 
+                  //                                                                            codigoProductos, historialProductos, tipoProductos, fechaUpdate)
+                  //                                        VALUES ('{FormPrincipal.userID.ToString()}', '{nombreP}', '{stockP}', '{precioP}', '{revisionP}', '{claveP}', '{codigoP}', '{historialP}', '{tipoP}',
+                  //                                         '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'),");
+                  //  List<String> Rows = new List<string>();
+                  //  for (int i = 0; i < tablaProductos.Rows.Count; i++)
+                  //  {
+                  //      nombreP = tablaProductos.Rows[i]["Nombre"].ToString();
+                  //      stockP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Stock"].ToString());
+                  //      precioP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Precio"].ToString());
+                  //      revisionP = (float)Convert.ToDouble(tablaProductos.Rows[i]["NumeroRevision"].ToString());
+                  //      claveP = tablaProductos.Rows[i]["ClaveInterna"].ToString();
+                  //      codigoP = tablaProductos.Rows[i]["CodigoBarras"].ToString();
+                  //      tipoP = tablaProductos.Rows[i]["Tipo"].ToString();
 
 
-                        Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
-                            MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nombreP}"), MySqlHelper.EscapeString($"{stockP}"),
-                            MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
-                            MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"), MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
-                    }
-                    sComand.Append(String.Join(",", Rows));
-                  //  sComand.Append(":");
-                    // conexion.Open();
-                    string contenidoquery = sComand.ToString();
-                    try
-                    {
-                        using (MySqlCommand myCmd = new MySqlCommand(sComand.ToString(), conexion))
-                        {
-                            myCmd.CommandType = CommandType.Text;
-                            myCmd.ExecuteNonQuery();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("" + ex.Message.ToString());
-                    }
+                  //      Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
+                  //          MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nombreP}"), MySqlHelper.EscapeString($"{stockP}"),
+                  //          MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
+                  //          MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"), MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
+                  //  }
+                  //  sComand.Append(String.Join(",", Rows));
+                  //  string contenidoquery = sComand.ToString();
+                  //  try
+                  //  {
+                  //      using (MySqlCommand myCmd = new MySqlCommand(sComand.ToString(), conexion))
+                  //      {
+                  //          myCmd.CommandType = CommandType.Text;
+                  //          myCmd.ExecuteNonQuery();
+                  //      }
+                  //  }
+                  //  catch (Exception ex)
+                  //  {
+                  //      MessageBox.Show("" + ex.Message.ToString());
+                  //  }
 
                 }
                 catch (Exception ex)

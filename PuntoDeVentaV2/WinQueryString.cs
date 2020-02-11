@@ -236,7 +236,7 @@ namespace PuntoDeVentaV2
                                     valorChk = "false";
                                 }
                                 lvi.SubItems.Add(valorChk);
-                                chkDatabase.Items.Add(lvi);
+                                settingDatabases.Items.Add(lvi);
                             }
                         }
                     }
