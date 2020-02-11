@@ -45,16 +45,17 @@ namespace PuntoDeVentaV2
             }
             
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE Status = 2 AND IDUsuario = '{FormPrincipal.userID}'", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 2 ORDER BY FechaOperacion DESC", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVListaVentasGuardadas.Rows.Clear();
 
             while (dr.Read())
             {
+                int idVenta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
                 string cliente = "Público General";
 
-                if (Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID"))) == Ventas.mostrarVenta)
+                if (Ventas.ventasGuardadas.ToArray().Contains(idVenta))
                 {
                     continue;
                 }
@@ -72,7 +73,7 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVListaVentasGuardadas.Rows[rowId];
 
-                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+                row.Cells["ID"].Value = idVenta;
                 row.Cells["Cliente"].Value = cliente;
                 row.Cells["IDCliente"].Value = idCliente;
                 row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Total"));
