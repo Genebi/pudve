@@ -703,18 +703,13 @@ namespace PuntoDeVentaV2
                     DataTable tablaProductos = new DataTable();
                     string queryCargarDatosProductos = string.Empty;
 
-                    try
-                    {
-                        //Consulta Borrar de MySQL por ID de Usuario
-                        eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
-                        borrrado = eliminar.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error al Ejecutar el Delete Error: " + ex.Message.ToString(), 
-                                        "Error al Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    //Actualizar IdUsuario en tabla Usuarios en MySQL
+                    upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
+                    int actualizarUsr1 = upDateUsr.ExecuteNonQuery();
 
+                   
+
+                    //Consulta Insertar de MySQL por ID de Usuario
                     queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
                                                     FROM productos AS P 
                                                     WHERE status = 1
@@ -722,6 +717,11 @@ namespace PuntoDeVentaV2
 
                     tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
 
+                     //Consulta Borrar de MySQL por ID de Usuario
+                    eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}' LIMIT {tablaProductos.Rows.Count}  ";
+                    int borrrado1 = eliminar.ExecuteNonQuery();
+
+                    //Consulta Agregar de MySQL 
                     StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nombreProductos, stockProductos, 
                                                                                               precioProductos, revisionProductos, claveProductos, 
                                                                                               codigoProductos, historialProductos, tipoProductos, fechaUpdate)
@@ -745,6 +745,8 @@ namespace PuntoDeVentaV2
                             MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"), MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
                     }
                     sComand.Append(String.Join(",", Rows));
+                  //  sComand.Append(":");
+                    // conexion.Open();
                     string contenidoquery = sComand.ToString();
                     try
                     {
