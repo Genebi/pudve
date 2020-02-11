@@ -188,70 +188,190 @@ namespace PuntoDeVentaV2
         // in the appSettings section of an App.config file.
         private void loadFormConfig()
         {
-            if (Properties.Settings.Default.TipoEjecucion == 1)
+            if (!string.IsNullOrWhiteSpace(servidor))
             {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
+                string queryLoadProduct = string.Empty;
+                queryLoadProduct = $"SELECT * FROM appSettings WHERE IDUsuario = {FormPrincipal.userID.ToString()}";
 
-            if (Properties.Settings.Default.TipoEjecucion == 2)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
+                chkDatabase.Items.Clear();
+                settingDatabases.Items.Clear();
 
-            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+                lvi = new ListViewItem();
 
-            chkDatabase.Items.Clear();
-            settingDatabases.Items.Clear();
-
-            lvi = new ListViewItem();
-
-            try
-            {
-                chkDatabase.Clear();
-                settingDatabases.Clear();
-
-                appSettings = ConfigurationManager.AppSettings;
-
-                if (appSettings.Count == 0)
+                try
                 {
-                    MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia",
-                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                if (appSettings.Count > 0)
-                {
-                    for (int i = 0; i < appSettings.Count; i++)
+                    using (DataTable tlbAppSettings = cn.CargarDatos(queryLoadProduct))
                     {
-                        connStr = appSettings[i];
-                        keyName = appSettings.GetKey(i);
-                        found = keyName.IndexOf("chk", 0, 3);
-                        if (found >= 0)
+                        if (tlbAppSettings.Rows.Count > 0)
                         {
-                            lvi = new ListViewItem(keyName);
-                            lvi.SubItems.Add(connStr);
-                            chkDatabase.Items.Add(lvi);
-                        }
-                    }
-
-                    for (int i = 0; i < appSettings.Count; i++)
-                    {
-                        string foundSetting = string.Empty;
-                        connStr = appSettings[i];
-                        keyName = appSettings.GetKey(i);
-                        found = keyName.IndexOf("chk", 0, 3);
-                        if (found <= -1)
-                        {
-                            lvi = new ListViewItem(keyName);
-                            lvi.SubItems.Add(connStr);
-                            settingDatabases.Items.Add(lvi);
+                            foreach (DataRow row in tlbAppSettings.Rows)
+                            {
+                                connStr = "chk" + row["concepto"].ToString();
+                                keyName = row["checkBoxConcepto"].ToString();
+                                string valorChk = string.Empty;
+                                lvi = new ListViewItem(keyName);
+                                if (keyName.Equals("1"))
+                                {
+                                    valorChk = "true";
+                                }
+                                else if (keyName.Equals("0"))
+                                {
+                                    valorChk = "false";
+                                }
+                                lvi.SubItems.Add(valorChk);
+                                chkDatabase.Items.Add(lvi);
+                            }
+                            foreach (DataRow row in tlbAppSettings.Rows)
+                            {
+                                connStr = row["textComboBoxConcepto"].ToString();
+                                keyName = row["checkBoxComboBoxConcepto"].ToString();
+                                string valorChk = string.Empty;
+                                lvi = new ListViewItem(keyName.Remove(0, 3));
+                                if (keyName.Equals("1"))
+                                {
+                                    valorChk = "true";
+                                }
+                                else if (keyName.Equals("0"))
+                                {
+                                    valorChk = "false";
+                                }
+                                lvi.SubItems.Add(valorChk);
+                                chkDatabase.Items.Add(lvi);
+                            }
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lectura App.Config/AppSettings: {0}" + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (ConfigurationException e)
+            else if (string.IsNullOrWhiteSpace(servidor))
             {
-                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
-                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (Properties.Settings.Default.TipoEjecucion == 1)
+                {
+                    xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+                }
+                if (Properties.Settings.Default.TipoEjecucion == 2)
+                {
+                    xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+                }
+
+                appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+
+                chkDatabase.Items.Clear();
+                settingDatabases.Items.Clear();
+
+                lvi = new ListViewItem();
+
+                try
+                {
+                    chkDatabase.Clear();
+                    settingDatabases.Clear();
+
+                    appSettings = ConfigurationManager.AppSettings;
+
+                    if (appSettings.Count == 0)
+                    {
+                        MessageBox.Show("Lectura App.Config/appSettings: La Sección de appSettings está vacia", "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    if (appSettings.Count > 0)
+                    {
+                        for (int i = 0; i < appSettings.Count; i++)
+                        {
+                            connStr = appSettings[i];
+                            keyName = appSettings.GetKey(i);
+                            found = keyName.IndexOf("chk", 0, 3);
+                            if (found >= 0)
+                            {
+                                lvi = new ListViewItem(keyName);
+                                lvi.SubItems.Add(connStr);
+                                chkDatabase.Items.Add(lvi);
+                            }
+                        }
+                        for (int i = 0; i < appSettings.Count; i++)
+                        {
+                            string foundSetting = string.Empty;
+                            connStr = appSettings[i];
+                            keyName = appSettings.GetKey(i);
+                            found = keyName.IndexOf("chk", 0, 3);
+                            if (found <= -1)
+                            {
+                                lvi = new ListViewItem(keyName);
+                                lvi.SubItems.Add(connStr);
+                                settingDatabases.Items.Add(lvi);
+                            }
+                        }
+                    }
+                }
+                catch (ConfigurationException e)
+                {
+                    MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            //if (Properties.Settings.Default.TipoEjecucion == 1)
+            //{
+            //    xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            //}
+
+            //if (Properties.Settings.Default.TipoEjecucion == 2)
+            //{
+            //    xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            //}
+
+            //appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+
+            //chkDatabase.Items.Clear();
+            //settingDatabases.Items.Clear();
+
+            //lvi = new ListViewItem();
+
+            //try
+            //{
+            //    chkDatabase.Clear();
+            //    settingDatabases.Clear();
+
+            //    appSettings = ConfigurationManager.AppSettings;
+
+            //    if (appSettings.Count == 0)
+            //    {
+            //        MessageBox.Show("Lectura App.Config/AppSettings: La Sección de AppSettings está vacia",
+            //                        "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //    if (appSettings.Count > 0)
+            //    {
+            //        for (int i = 0; i < appSettings.Count; i++)
+            //        {
+            //            connStr = appSettings[i];
+            //            keyName = appSettings.GetKey(i);
+            //            found = keyName.IndexOf("chk", 0, 3);
+            //            if (found >= 0)
+            //            {
+            //                lvi = new ListViewItem(keyName);
+            //                lvi.SubItems.Add(connStr);
+            //                chkDatabase.Items.Add(lvi);
+            //            }
+            //        }
+
+            //        for (int i = 0; i < appSettings.Count; i++)
+            //        {
+            //            string foundSetting = string.Empty;
+            //            connStr = appSettings[i];
+            //            keyName = appSettings.GetKey(i);
+            //            found = keyName.IndexOf("chk", 0, 3);
+            //            if (found <= -1)
+            //            {
+            //                lvi = new ListViewItem(keyName);
+            //                lvi.SubItems.Add(connStr);
+            //                settingDatabases.Items.Add(lvi);
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (ConfigurationException e)
+            //{
+            //    MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void BuscarChkBoxListView(ListView lstListView)
@@ -1074,18 +1194,26 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
+            //servidor = Properties.Settings.Default.Hosting;
+
+            //if (!string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
+            //}
+            //else
+            //{
+            //    saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
+            //}
+
+            //path = saveDirectoryFile;
+
             servidor = Properties.Settings.Default.Hosting;
-
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
-            }
-            else
-            {
-                saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
-            }
-
+            saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             path = saveDirectoryFile;
+
+            loadFormConfig();
+            BuscarChkBoxListView(chkDatabase);
+            dictionaryLoad();
 
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
@@ -1172,23 +1300,19 @@ namespace PuntoDeVentaV2
                 validarChkBoxPrecio();
             }
 
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                dictionaryLoad();
+            //if (!string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    dictionaryLoad();
 
-                verificarChkBoxDinamicos();
-            }
-            else if (string.IsNullOrWhiteSpace(servidor))
-            {
-                loadFormConfig();
-                BuscarChkBoxListView(chkDatabase);
+            //    verificarChkBoxDinamicos();
+            //}
+            //else if (string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    loadFormConfig();
+            //    BuscarChkBoxListView(chkDatabase);
 
-                dictionaryLoad();
-
-                //verificarChkBoxDinamicos();
-            }
-
-            //saveDictionary();
+            //    dictionaryLoad();
+            //}
         }
 
         private void verificarChkBoxDinamicos()

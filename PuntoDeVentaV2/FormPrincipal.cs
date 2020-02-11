@@ -703,9 +703,17 @@ namespace PuntoDeVentaV2
                     DataTable tablaProductos = new DataTable();
                     string queryCargarDatosProductos = string.Empty;
 
-                    //Consulta Borrar de MySQL por ID de Usuario
-                    eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
-                    borrrado = eliminar.ExecuteNonQuery();
+                    try
+                    {
+                        //Consulta Borrar de MySQL por ID de Usuario
+                        eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
+                        borrrado = eliminar.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al Ejecutar el Delete Error: " + ex.Message.ToString(), 
+                                        "Error al Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
                     queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
                                                     FROM productos AS P 
