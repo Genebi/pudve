@@ -17,12 +17,12 @@ namespace PuntoDeVentaV2
 {
     public partial class Ventas : Form
     {
-        //Status 1 = Venta terminada
-        //Status 2 = Venta guardada
-        //Status 3 = Venta cancelada
-        //Status 4 = Venta a credito
-        //Status 5 = Facturas
-        //Status 6 = Presupuestos
+        // Status 1 = Venta terminada
+        // Status 2 = Venta guardada
+        // Status 3 = Venta cancelada
+        // Status 4 = Venta a credito
+        // Status 5 = Facturas
+        // Status 6 = Presupuestos
 
         float porcentajeGeneral = 0;
         bool ventaGuardada = false; //Para saber si la venta se guardo o no
@@ -31,17 +31,17 @@ namespace PuntoDeVentaV2
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
 
-        //Para las ventas guardadas
+        // Para las ventas guardadas
         public static int mostrarVenta = 0;
 
-        //Estado de la venta
+        // Estado de la venta
         public static string statusVenta = string.Empty;
 
-        //Para los anticipos por aplicar
+        // Para los anticipos por aplicar
         public static string listaAnticipos = string.Empty;
         public static float importeAnticipo = 0f;
 
-        //Variables para almacenar los valores agregados en el form DetalleVenta.cs
+        // Variables para almacenar los valores agregados en el form DetalleVenta.cs
         public static string efectivoReal = string.Empty;
         public static string efectivo = string.Empty;
         public static string tarjeta = string.Empty;
@@ -52,8 +52,11 @@ namespace PuntoDeVentaV2
         public static string cliente = string.Empty;
         public static string idCliente = string.Empty;
         public static string credito = string.Empty;
-        //Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
+        // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = true;
+
+        // Lista para almacenar los IDs de las ventas guardadas que se han cargado
+        public static List<int> ventasGuardadas = new List<int>();
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -1429,6 +1432,10 @@ namespace PuntoDeVentaV2
                 if (mostrarVenta > 0)
                 {
                     CargarVentaGuardada();
+
+                    ventasGuardadas.Add(mostrarVenta);
+
+                    mostrarVenta = 0;
                 }
             };
 
@@ -1456,7 +1463,7 @@ namespace PuntoDeVentaV2
 
             if (tieneProductos)
             {
-                DGVentas.Rows.Clear();
+                //DGVentas.Rows.Clear();
 
                 string[] productos = cn.ObtenerProductosVenta(mostrarVenta);
 
@@ -1477,6 +1484,7 @@ namespace PuntoDeVentaV2
         {
             mostrarVenta = 0;
             listaAnticipos = string.Empty;
+            ventasGuardadas.Clear();
         }
 
         private void GenerarTicket(string[][] productos)
