@@ -1662,6 +1662,9 @@ namespace PuntoDeVentaV2
 
         private void btnClean_Click(object sender, EventArgs e)
         {
+            LimpiarCheckBoxDinamicos();
+            saveDictionary();
+
             Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
 
             if (producto != null)
@@ -1670,6 +1673,51 @@ namespace PuntoDeVentaV2
             }
 
             this.Close();
+        }
+
+        private void LimpiarCheckBoxDinamicos()
+        {
+            foreach (Control controlHijo in fLPDetalleProducto.Controls)
+            {
+                if ((controlHijo.Name.Equals("panelContenedorchkProveedor")) && (controlHijo is Panel))
+                {
+                    foreach (Control subControlHijo in controlHijo.Controls)
+                    {
+                        if ((subControlHijo.Name.Equals("panelContenidochkProveedor")) && (subControlHijo is Panel))
+                        {
+                            foreach (Control intoSubControlHijo in subControlHijo.Controls)
+                            {
+                                if ((intoSubControlHijo.Name.Equals("chkBoxchkProveedor")) && (intoSubControlHijo is CheckBox))
+                                {
+                                    CheckBox chkBox = (CheckBox)intoSubControlHijo;
+                                    chkBox.Checked = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            foreach (Control controlHijo in fLPDetalleProducto.Controls)
+            {
+                if ((!controlHijo.Name.Equals("panelContenedorchkProveedor")) && (controlHijo is Panel))
+                {
+                    foreach (Control subControlHijo in controlHijo.Controls)
+                    {
+                        if ((!subControlHijo.Name.Equals("panelContenidochkProveedor")) && (subControlHijo is Panel))
+                        {
+                            foreach (Control intoSubControlHijo in subControlHijo.Controls)
+                            {
+                                if ((!intoSubControlHijo.Name.Equals("chkBoxchkProveedor")) && (intoSubControlHijo is CheckBox))
+                                {
+                                    CheckBox chkBox = (CheckBox)intoSubControlHijo;
+                                    chkBox.Checked = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
