@@ -1133,12 +1133,12 @@ namespace PuntoDeVentaV2
                     // Obtener ID de la venta
                     string idVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
 
-                    // Si mostrarVenta contine un valor mayor a cero quiere decir que es una venta guardada con la que se esta trabajando
-                    if (mostrarVenta > 0)
+                    // Si la lista ventasGuardadas contiene elementos quiere decir que son ventas que deberian 
+                    // eliminarse junto con sus productos de la tabla ProductosVenta
+                    foreach (var venta in ventasGuardadas)
                     {
-                        idVenta = mostrarVenta.ToString();
-
-                        cn.EjecutarConsulta(cs.EliminarProductosVenta(Convert.ToInt32(idVenta)));
+                        cn.EjecutarConsulta($"DELETE FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID} AND Status = 2");
+                        cn.EjecutarConsulta(cs.EliminarProductosVenta(venta));
                     }
 
                     // Array para almacenar la informacion de los productos vendidos
@@ -1248,6 +1248,7 @@ namespace PuntoDeVentaV2
                 ventaGuardada = false;
                 mostrarVenta = 0;
                 listaAnticipos = string.Empty;
+                ventasGuardadas.Clear();
 
                 this.Dispose();
             }
@@ -1255,31 +1256,21 @@ namespace PuntoDeVentaV2
 
         private void aumentoFolio()
         {
-            /*if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                Contenido = mb.ObtenerMaximoFolio(FormPrincipal.userID);
-            }
-            else
-            {
-                // leemos el archivo de codigo de barras que lleva el consecutivo
-                using (StreamReader readfile = new StreamReader(Properties.Settings.Default.rutaDirectorio + fichero))
-                {
-                    Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
-                }
-            }*/
-
             Contenido = mb.ObtenerMaximoFolio(FormPrincipal.userID);
-            
 
-            if (Contenido == "")        // si el contenido es vacio 
+            // si el contenido es vacio 
+            if (Contenido == "")
             {
-                PrimerFolioVenta();      // iniciamos el conteo del folio de venta
-                AumentarFolioVenta();    // Aumentamos el folio de venta para la siguiente vez que se utilice
+                // iniciamos el conteo del folio de venta
+                PrimerFolioVenta();
+                // Aumentamos el folio de venta para la siguiente vez que se utilice
+                AumentarFolioVenta();
             }
-            else if (Contenido != "")   // si el contenido no es vacio
+            // si el contenido no es vacio
+            else if (Contenido != "")
             {
-                //MessageBox.Show("Trabajando en el Proceso");
-                AumentarFolioVenta();    // Aumentamos el codigo de barras para la siguiente vez que se utilice
+                // Aumentamos el codigo de barras para la siguiente vez que se utilice
+                AumentarFolioVenta();
             }
         }
 
@@ -1288,21 +1279,6 @@ namespace PuntoDeVentaV2
             folioVenta = long.Parse(Contenido);
             folioVenta++;
             Contenido = folioVenta.ToString();
-
-            /*if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.Hosting + fichero))
-                {
-                    outfile.WriteLine(Contenido);
-                }
-            }
-            else
-            {
-                using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.rutaDirectorio + fichero))
-                {
-                    outfile.WriteLine(Contenido);
-                }
-            }*/
         }
 
         private void PrimerFolioVenta()
