@@ -1006,6 +1006,13 @@ namespace PuntoDeVentaV2
             UpdateKey(name, value);
             RefreshAppSettings();
             loadFormConfig();
+
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (string.IsNullOrWhiteSpace(servidor))
+            {
+                saveConfigIntoDB();
+            }
         }
 
         private void cbDetalleGral_SelectIndexChanged(object sender, EventArgs e)
