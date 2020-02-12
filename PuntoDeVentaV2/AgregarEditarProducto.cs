@@ -1422,6 +1422,11 @@ namespace PuntoDeVentaV2
             txtPrecioCompra.SelectAll();
         }
 
+        private void PType_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         public void LimpiarDatos()
         {
             DatosSourceFinal = 0;
@@ -1554,6 +1559,8 @@ namespace PuntoDeVentaV2
             {
                 Contenido = readfile.ReadToEnd();   // se lee todo el archivo y se almacena en la variable Contenido
             }*/
+
+            txtCodigoBarras.Focus();
 
             Contenido = mb.ObtenerCBGenerado(FormPrincipal.userID);
 

@@ -181,7 +181,7 @@
             this.txtNombreProducto.Location = new System.Drawing.Point(39, 19);
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(722, 20);
-            this.txtNombreProducto.TabIndex = 2;
+            this.txtNombreProducto.TabIndex = 1;
             this.txtNombreProducto.Enter += new System.EventHandler(this.txtNombreProducto_Enter);
             // 
             // txtPrecioProducto
@@ -190,7 +190,7 @@
             this.txtPrecioProducto.Location = new System.Drawing.Point(3, 15);
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(94, 20);
-            this.txtPrecioProducto.TabIndex = 5;
+            this.txtPrecioProducto.TabIndex = 4;
             this.txtPrecioProducto.Enter += new System.EventHandler(this.txtPrecioProducto_Enter);
             this.txtPrecioProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioProducto_KeyPress);
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
@@ -202,7 +202,7 @@
             this.txtStockProducto.Location = new System.Drawing.Point(4, 16);
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(131, 20);
-            this.txtStockProducto.TabIndex = 3;
+            this.txtStockProducto.TabIndex = 2;
             this.txtStockProducto.Enter += new System.EventHandler(this.txtStockProducto_Enter);
             this.txtStockProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockProducto_KeyPress);
             this.txtStockProducto.Leave += new System.EventHandler(this.txtStockProducto_Leave);
@@ -213,7 +213,7 @@
             this.txtClaveProducto.Location = new System.Drawing.Point(3, 14);
             this.txtClaveProducto.Name = "txtClaveProducto";
             this.txtClaveProducto.Size = new System.Drawing.Size(126, 20);
-            this.txtClaveProducto.TabIndex = 7;
+            this.txtClaveProducto.TabIndex = 6;
             this.txtClaveProducto.Enter += new System.EventHandler(this.txtClaveProducto_Enter);
             // 
             // txtCategoriaProducto
@@ -222,7 +222,7 @@
             this.txtCategoriaProducto.Location = new System.Drawing.Point(3, 14);
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
             this.txtCategoriaProducto.Size = new System.Drawing.Size(99, 20);
-            this.txtCategoriaProducto.TabIndex = 6;
+            this.txtCategoriaProducto.TabIndex = 5;
             this.txtCategoriaProducto.TextChanged += new System.EventHandler(this.txtCategoriaProducto_TextChanged);
             this.txtCategoriaProducto.Enter += new System.EventHandler(this.txtCategoriaProducto_Enter);
             // 
@@ -232,7 +232,7 @@
             this.txtCodigoBarras.Location = new System.Drawing.Point(3, 18);
             this.txtCodigoBarras.Name = "txtCodigoBarras";
             this.txtCodigoBarras.Size = new System.Drawing.Size(137, 20);
-            this.txtCodigoBarras.TabIndex = 8;
+            this.txtCodigoBarras.TabIndex = 7;
             this.txtCodigoBarras.Enter += new System.EventHandler(this.txtCodigoBarras_Enter);
             this.txtCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoBarras_KeyDown);
             // 
@@ -375,7 +375,7 @@
             this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
             this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 43);
-            this.PDetalleProdcuto.TabIndex = 27;
+            this.PDetalleProdcuto.TabIndex = 0;
             // 
             // btnAdd
             // 
@@ -464,7 +464,7 @@
             this.txtPrecioCompra.Location = new System.Drawing.Point(7, 16);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
             this.txtPrecioCompra.Size = new System.Drawing.Size(104, 20);
-            this.txtPrecioCompra.TabIndex = 4;
+            this.txtPrecioCompra.TabIndex = 3;
             this.txtPrecioCompra.Enter += new System.EventHandler(this.txtPrecioCompra_Enter);
             this.txtPrecioCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioCompra_KeyDown);
             this.txtPrecioCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCompra_KeyPress);
@@ -525,7 +525,7 @@
             this.btnGenerarCB.Location = new System.Drawing.Point(149, 7);
             this.btnGenerarCB.Name = "btnGenerarCB";
             this.btnGenerarCB.Size = new System.Drawing.Size(112, 29);
-            this.btnGenerarCB.TabIndex = 9;
+            this.btnGenerarCB.TabIndex = 8;
             this.btnGenerarCB.Text = "Generar";
             this.btnGenerarCB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGenerarCB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -654,7 +654,7 @@
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
             this.PDetalle.Size = new System.Drawing.Size(838, 287);
-            this.PDetalle.TabIndex = 31;
+            this.PDetalle.TabIndex = 2;
             // 
             // PAccion
             // 
@@ -716,6 +716,7 @@
             this.PType.Name = "PType";
             this.PType.Size = new System.Drawing.Size(838, 23);
             this.PType.TabIndex = 34;
+            this.PType.Paint += new System.Windows.Forms.PaintEventHandler(this.PType_Paint);
             // 
             // fLPTitulo
             // 
@@ -792,7 +793,7 @@
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(837, 64);
-            this.flowLayoutPanel3.TabIndex = 40;
+            this.flowLayoutPanel3.TabIndex = 1;
             // 
             // AgregarEditarProducto
             // 
