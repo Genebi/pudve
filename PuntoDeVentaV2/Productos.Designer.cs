@@ -663,7 +663,7 @@
             this.btnAgregarPaquete.Name = "btnAgregarPaquete";
             this.btnAgregarPaquete.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarPaquete.TabIndex = 2;
-            this.btnAgregarPaquete.Text = "Paquete";
+            this.btnAgregarPaquete.Text = "Combo";
             this.btnAgregarPaquete.UseVisualStyleBackColor = false;
             this.btnAgregarPaquete.Click += new System.EventHandler(this.btnAgregarPaquete_Click);
             // 

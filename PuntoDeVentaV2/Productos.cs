@@ -2685,17 +2685,17 @@ namespace PuntoDeVentaV2
             if (origenDeLosDatos == 0)
             {
                 FormAgregar.DatosSource = 1;
-                FormAgregar.Titulo = "Agregar Paquete";
+                FormAgregar.Titulo = "Agregar Combo";
             }
             else if (origenDeLosDatos == 2)
             {
                 FormAgregar.DatosSource = 2;
-                FormAgregar.Titulo = "Editar Paquete";
+                FormAgregar.Titulo = "Editar Combo";
             }
             else if (origenDeLosDatos == 4)
             {
                 FormAgregar.DatosSource = 4;
-                FormAgregar.Titulo = "Copiar Paquete";
+                FormAgregar.Titulo = "Copiar Combo";
             }
 
             FormAgregar.FormClosed += delegate
