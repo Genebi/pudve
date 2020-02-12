@@ -136,11 +136,11 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(289, 1);
+            this.tituloSeccion.Location = new System.Drawing.Point(296, 1);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(382, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(374, 25);
             this.tituloSeccion.TabIndex = 3;
-            this.tituloSeccion.Text = "PRODUCTOS, PAQUETES Y SERVICIOS";
+            this.tituloSeccion.Text = "PRODUCTOS, COMBOS Y SERVICIOS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // tituloBusqueda
