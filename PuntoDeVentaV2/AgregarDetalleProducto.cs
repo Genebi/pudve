@@ -1143,6 +1143,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleProducto_FormClosed(object sender, FormClosedEventArgs e)
         {
+            limpiarStockMinimoMaximo();
+
             AgregarEditarProducto addEditProducto = Application.OpenForms.OfType<AgregarEditarProducto>().FirstOrDefault();
 
             if (addEditProducto != null)
@@ -1691,6 +1693,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
+            limpiarStockMinimoMaximo();
+
             finalIdProducto = getIdProducto;
 
             loadFormConfig();
@@ -1751,6 +1755,12 @@ namespace PuntoDeVentaV2
                 txtStockNecesario.Text = "0";
                 txtStockMinimo.Text = "0";
             }
+        }
+
+        private void limpiarStockMinimoMaximo()
+        {
+            txtStockMinimo.Text = string.Empty;
+            txtStockNecesario.Text = string.Empty;
         }
 
         private void verificarProductMessage()
