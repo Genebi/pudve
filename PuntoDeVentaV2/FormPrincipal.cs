@@ -725,11 +725,11 @@ namespace PuntoDeVentaV2
                     StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nombreProductos, stockProductos, 
                                                                                               precioProductos, revisionProductos, claveProductos, 
                                                                                               codigoProductos, historialProductos, tipoProductos, fechaUpdate)
-                                                          VALUES ('{FormPrincipal.userID.ToString()}', '{nombreP}', '{stockP}', '{precioP}', '{revisionP}', '{claveP}', '{codigoP}', '{historialP}', '{tipoP}',
-                                                           '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}'),");
+                                                          VALUES ");
                     List<String> Rows = new List<string>();
                     for (int i = 0; i < tablaProductos.Rows.Count; i++)
                     {
+
                         nombreP = tablaProductos.Rows[i]["Nombre"].ToString();
                         stockP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Stock"].ToString());
                         precioP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Precio"].ToString());
@@ -742,7 +742,8 @@ namespace PuntoDeVentaV2
                         Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
                             MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nombreP}"), MySqlHelper.EscapeString($"{stockP}"),
                             MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
-                            MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"), MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
+                            MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"),
+                            MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
                     }
                     sComand.Append(String.Join(",", Rows));
                   //  sComand.Append(":");
@@ -778,6 +779,7 @@ namespace PuntoDeVentaV2
 
         private void iniciarVariablesWebService()
         {
+            //  Apartado de Caja  //
             vEfectivo = 0f;
             vTarjeta = 0f;
             vVales = 0f;
@@ -809,6 +811,17 @@ namespace PuntoDeVentaV2
             subtotal = 0f;
             dineroRetirado = 0f;
             totalCaja = 0f;
+
+            //  Apartado de Productos  //
+            nombreP = "";
+            stockP = 0f;
+            precioP = 0f;
+            revisionP = 0f;
+            claveP = "";
+            codigoP = "";
+            historialP = "";
+            tipoP = "";
+
         }
 
         private void CargarSaldo()
