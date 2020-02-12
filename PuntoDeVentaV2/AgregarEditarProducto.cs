@@ -4313,7 +4313,7 @@ namespace PuntoDeVentaV2
                     tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
                 }
             }
-            else if (cadAux == "Paquete")       // si es un Paquete
+            else if (cadAux == "Combo")       // si es un Paquete
             {
                 if (!ProdNombre.Equals(""))
                 {
@@ -4322,7 +4322,7 @@ namespace PuntoDeVentaV2
                     cargarCBProductos(idEditarProducto);
                     PStock.Visible = false;
                     txtCantPaqServ.Visible = true;
-                    lblCantPaqServ.Text = "Cantidad por paquete";
+                    lblCantPaqServ.Text = "Cantidad por combo";
                     button1.Text = "Productos";
                 }
                 else if (ProdNombre.Equals(""))
@@ -4334,12 +4334,12 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     PStock.Visible = false;
                     txtCantPaqServ.Visible = true;
-                    lblCantPaqServ.Text = "Cantidad por paquete";
+                    lblCantPaqServ.Text = "Cantidad por combo";
                     button1.Text = "Productos";
                 }
                 this.Text = cadAux + "s";            // Ponemos el titulo del form en plural "Paquetes"
                 typeOfProduct = "PQ";
-                lblTipoProdPaq.Text = "Nombre del Paquete";
+                lblTipoProdPaq.Text = "Nombre del Combo";
                 txtCategoriaProducto.Text = cadAux + "s";
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
                 {
