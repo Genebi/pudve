@@ -1,9 +1,13 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -79,6 +83,183 @@ namespace PuntoDeVentaV2
                 {
                     Dispose();
                 }
+            }
+        }
+
+        private void btnImprimirReporte_Click(object sender, EventArgs e)
+        {
+            if (DGVDepositos.RowCount > 0)
+            {
+                //MessageBox.Show("Fecha: " + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"));
+                
+                // Datos del usuario
+                var datos = FormPrincipal.datosUsuario;
+
+                // Fuentes y Colores
+                var colorFuenteNegrita = new BaseColor(Color.Black);
+                var colorFuenteBlanca = new BaseColor(Color.White);
+
+                var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+                var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+                var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+                var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+                var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
+
+                // Ruta donde se creara el archivo PDF
+                var rutaArchivo = string.Empty;
+                var servidor = Properties.Settings.Default.Hosting;
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Caja\reporte_Dinero_Agregado_" + DateTime.Now.ToString("ddddddMMMMyyyyHHmmss") + ".pdf";
+                }
+                else
+                {
+                    rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_Dinero_Agregado_" + DateTime.Now.ToString("ddddddMMMMyyyyHHmmss") + ".pdf";
+                }
+
+                Document reporte = new Document(PageSize.A3);
+                PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+
+                reporte.Open();
+
+                Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+                Paragraph subTitulo = new Paragraph("DINERO AGREGADO\nFecha: " + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+                titulo.Alignment = Element.ALIGN_CENTER;
+                subTitulo.Alignment = Element.ALIGN_CENTER;
+
+                //=====================================
+                //===    TABLA DE DINERO AGREGADO   ===
+                //=====================================
+                #region Tabla de Dinero Agregado
+                float[] anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f };
+
+                Paragraph tituloDineroAgregado = new Paragraph("HISTORIAL DE DINERO AGREGADO\n\n", fuenteGrande);
+                tituloDineroAgregado.Alignment = Element.ALIGN_CENTER;
+
+                reporte.Add(tituloDineroAgregado);
+
+                // Linea serapadora
+                Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+                foreach (DataGridViewRow row in DGVDepositos.Rows)
+                {
+                    string  Empleado = string.Empty,
+                            Efectivo = string.Empty,
+                            Tarjeta = string.Empty,
+                            Vales = string.Empty,
+                            Cheque = string.Empty,
+                            Transferencia = string.Empty,
+                            Fecha = string.Empty;
+
+                    reporte.Add(linea);
+
+                    PdfPTable tablaDineroAgregado = new PdfPTable(7);
+                    tablaDineroAgregado.WidthPercentage = 100;
+                    tablaDineroAgregado.SetWidths(anchoColumnas);
+
+                    PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
+                    colEmpleado.BorderWidth = 0;
+                    colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colEmpleado.Padding = 3;
+
+                    PdfPCell colDepositoEfectivo = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
+                    colDepositoEfectivo.BorderWidth = 0;
+                    colDepositoEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colDepositoEfectivo.Padding = 3;
+
+                    PdfPCell colDepositoTarjeta = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
+                    colDepositoTarjeta.BorderWidth = 0;
+                    colDepositoTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colDepositoTarjeta.Padding = 3;
+
+                    PdfPCell colDepositoVales = new PdfPCell(new Phrase("VALES", fuenteNegrita));
+                    colDepositoVales.BorderWidth = 0;
+                    colDepositoVales.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colDepositoVales.Padding = 3;
+
+                    PdfPCell colDepositoCheque = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
+                    colDepositoCheque.BorderWidth = 0;
+                    colDepositoCheque.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colDepositoCheque.Padding = 3;
+
+                    PdfPCell colDepositoTrans = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
+                    colDepositoTrans.BorderWidth = 0;
+                    colDepositoTrans.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colDepositoTrans.Padding = 3;
+
+                    PdfPCell colDepositoFecha = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
+                    colDepositoFecha.BorderWidth = 0;
+                    colDepositoFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colDepositoFecha.Padding = 3;
+
+                    tablaDineroAgregado.AddCell(colEmpleado);
+                    tablaDineroAgregado.AddCell(colDepositoEfectivo);
+                    tablaDineroAgregado.AddCell(colDepositoTarjeta);
+                    tablaDineroAgregado.AddCell(colDepositoVales);
+                    tablaDineroAgregado.AddCell(colDepositoCheque);
+                    tablaDineroAgregado.AddCell(colDepositoTrans);
+                    tablaDineroAgregado.AddCell(colDepositoFecha);
+                    
+                    Empleado = row.Cells["Empleado"].Value.ToString();
+                    Efectivo = row.Cells["Efectivo"].Value.ToString();
+                    Tarjeta = row.Cells["Tarjeta"].Value.ToString();
+                    Vales = row.Cells["Vales"].Value.ToString();
+                    Cheque = row.Cells["Cheque"].Value.ToString();
+                    Transferencia = row.Cells["Trans"].Value.ToString();
+                    Fecha = row.Cells["Fecha"].Value.ToString();
+
+                    PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(Empleado, fuenteNormal));
+                    colEmpleadoTmp.BorderWidth = 0;
+                    colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + Efectivo, fuenteNormal));
+                    colDepositoEfectivoTmp.BorderWidth = 0;
+                    colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + Tarjeta, fuenteNormal));
+                    colDepositoTarjetaTmp.BorderWidth = 0;
+                    colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + Vales, fuenteNormal));
+                    colDepositoValesTmp.BorderWidth = 0;
+                    colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + Cheque, fuenteNormal));
+                    colDepositoChequeTmp.BorderWidth = 0;
+                    colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + Transferencia, fuenteNormal));
+                    colDepositoTransTmp.BorderWidth = 0;
+                    colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(Fecha, fuenteNormal));
+                    colDepositoFechaTmp.BorderWidth = 0;
+                    colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                    tablaDineroAgregado.AddCell(colEmpleadoTmp);
+                    tablaDineroAgregado.AddCell(colDepositoEfectivoTmp);
+                    tablaDineroAgregado.AddCell(colDepositoTarjetaTmp);
+                    tablaDineroAgregado.AddCell(colDepositoValesTmp);
+                    tablaDineroAgregado.AddCell(colDepositoChequeTmp);
+                    tablaDineroAgregado.AddCell(colDepositoTransTmp);
+                    tablaDineroAgregado.AddCell(colDepositoFechaTmp);
+
+                    reporte.Add(tablaDineroAgregado);
+                    reporte.Add(linea);
+                }
+                #endregion Tabla de Dinero Agregado
+                //=====================================
+                //=== FIN TABLA DE DINERO AGREGADO  ===
+                //=====================================
+                reporte.AddTitle("Reporte Dinero Agregado");
+                reporte.AddAuthor("PUDVE");
+                reporte.Close();
+                writer.Close();
+
+                VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+                vr.ShowDialog();
             }
         }
     }
