@@ -129,6 +129,9 @@ namespace PuntoDeVentaV2
                 titulo.Alignment = Element.ALIGN_CENTER;
                 subTitulo.Alignment = Element.ALIGN_CENTER;
 
+                reporte.Add(titulo);
+                reporte.Add(subTitulo);
+
                 //=====================================
                 //===    TABLA DE DINERO AGREGADO   ===
                 //=====================================
@@ -143,6 +146,55 @@ namespace PuntoDeVentaV2
                 // Linea serapadora
                 Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
 
+                reporte.Add(linea);
+
+                PdfPTable tablaDineroAgregado = new PdfPTable(7);
+                tablaDineroAgregado.WidthPercentage = 100;
+                tablaDineroAgregado.SetWidths(anchoColumnas);
+
+                PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
+                colEmpleado.BorderWidth = 0;
+                colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
+                colEmpleado.Padding = 3;
+
+                PdfPCell colDepositoEfectivo = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
+                colDepositoEfectivo.BorderWidth = 0;
+                colDepositoEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoEfectivo.Padding = 3;
+
+                PdfPCell colDepositoTarjeta = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
+                colDepositoTarjeta.BorderWidth = 0;
+                colDepositoTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoTarjeta.Padding = 3;
+
+                PdfPCell colDepositoVales = new PdfPCell(new Phrase("VALES", fuenteNegrita));
+                colDepositoVales.BorderWidth = 0;
+                colDepositoVales.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoVales.Padding = 3;
+
+                PdfPCell colDepositoCheque = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
+                colDepositoCheque.BorderWidth = 0;
+                colDepositoCheque.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoCheque.Padding = 3;
+
+                PdfPCell colDepositoTrans = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
+                colDepositoTrans.BorderWidth = 0;
+                colDepositoTrans.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoTrans.Padding = 3;
+
+                PdfPCell colDepositoFecha = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
+                colDepositoFecha.BorderWidth = 0;
+                colDepositoFecha.HorizontalAlignment = Element.ALIGN_CENTER;
+                colDepositoFecha.Padding = 3;
+
+                tablaDineroAgregado.AddCell(colEmpleado);
+                tablaDineroAgregado.AddCell(colDepositoEfectivo);
+                tablaDineroAgregado.AddCell(colDepositoTarjeta);
+                tablaDineroAgregado.AddCell(colDepositoVales);
+                tablaDineroAgregado.AddCell(colDepositoCheque);
+                tablaDineroAgregado.AddCell(colDepositoTrans);
+                tablaDineroAgregado.AddCell(colDepositoFecha);
+
                 foreach (DataGridViewRow row in DGVDepositos.Rows)
                 {
                     string  Empleado = string.Empty,
@@ -152,55 +204,6 @@ namespace PuntoDeVentaV2
                             Cheque = string.Empty,
                             Transferencia = string.Empty,
                             Fecha = string.Empty;
-
-                    reporte.Add(linea);
-
-                    PdfPTable tablaDineroAgregado = new PdfPTable(7);
-                    tablaDineroAgregado.WidthPercentage = 100;
-                    tablaDineroAgregado.SetWidths(anchoColumnas);
-
-                    PdfPCell colEmpleado = new PdfPCell(new Phrase("EMPLEADO", fuenteNegrita));
-                    colEmpleado.BorderWidth = 0;
-                    colEmpleado.HorizontalAlignment = Element.ALIGN_CENTER;
-                    colEmpleado.Padding = 3;
-
-                    PdfPCell colDepositoEfectivo = new PdfPCell(new Phrase("EFECTIVO", fuenteNegrita));
-                    colDepositoEfectivo.BorderWidth = 0;
-                    colDepositoEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
-                    colDepositoEfectivo.Padding = 3;
-
-                    PdfPCell colDepositoTarjeta = new PdfPCell(new Phrase("TARJETA", fuenteNegrita));
-                    colDepositoTarjeta.BorderWidth = 0;
-                    colDepositoTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
-                    colDepositoTarjeta.Padding = 3;
-
-                    PdfPCell colDepositoVales = new PdfPCell(new Phrase("VALES", fuenteNegrita));
-                    colDepositoVales.BorderWidth = 0;
-                    colDepositoVales.HorizontalAlignment = Element.ALIGN_CENTER;
-                    colDepositoVales.Padding = 3;
-
-                    PdfPCell colDepositoCheque = new PdfPCell(new Phrase("CHEQUE", fuenteNegrita));
-                    colDepositoCheque.BorderWidth = 0;
-                    colDepositoCheque.HorizontalAlignment = Element.ALIGN_CENTER;
-                    colDepositoCheque.Padding = 3;
-
-                    PdfPCell colDepositoTrans = new PdfPCell(new Phrase("TRANSFERENCIA", fuenteNegrita));
-                    colDepositoTrans.BorderWidth = 0;
-                    colDepositoTrans.HorizontalAlignment = Element.ALIGN_CENTER;
-                    colDepositoTrans.Padding = 3;
-
-                    PdfPCell colDepositoFecha = new PdfPCell(new Phrase("FECHA", fuenteNegrita));
-                    colDepositoFecha.BorderWidth = 0;
-                    colDepositoFecha.HorizontalAlignment = Element.ALIGN_CENTER;
-                    colDepositoFecha.Padding = 3;
-
-                    tablaDineroAgregado.AddCell(colEmpleado);
-                    tablaDineroAgregado.AddCell(colDepositoEfectivo);
-                    tablaDineroAgregado.AddCell(colDepositoTarjeta);
-                    tablaDineroAgregado.AddCell(colDepositoVales);
-                    tablaDineroAgregado.AddCell(colDepositoCheque);
-                    tablaDineroAgregado.AddCell(colDepositoTrans);
-                    tablaDineroAgregado.AddCell(colDepositoFecha);
                     
                     Empleado = row.Cells["Empleado"].Value.ToString();
                     Efectivo = row.Cells["Efectivo"].Value.ToString();
@@ -245,10 +248,9 @@ namespace PuntoDeVentaV2
                     tablaDineroAgregado.AddCell(colDepositoChequeTmp);
                     tablaDineroAgregado.AddCell(colDepositoTransTmp);
                     tablaDineroAgregado.AddCell(colDepositoFechaTmp);
-
-                    reporte.Add(tablaDineroAgregado);
-                    reporte.Add(linea);
                 }
+                reporte.Add(tablaDineroAgregado);
+                reporte.Add(linea);
                 #endregion Tabla de Dinero Agregado
                 //=====================================
                 //=== FIN TABLA DE DINERO AGREGADO  ===
