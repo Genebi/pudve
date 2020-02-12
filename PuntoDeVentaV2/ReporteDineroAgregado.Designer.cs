@@ -151,6 +151,7 @@
             this.btnImprimirReporte.Text = "Imprimir";
             this.btnImprimirReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnImprimirReporte.UseVisualStyleBackColor = false;
+            this.btnImprimirReporte.Click += new System.EventHandler(this.btnImprimirReporte_Click);
             // 
             // ReporteDineroAgregado
             // 
