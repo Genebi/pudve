@@ -2138,43 +2138,6 @@ namespace PuntoDeVentaV2
                         }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
-                    //else if (DGVProductos.RowCount >= 1 && clickBoton == 1)
-                    //{
-                    //    if (!queryHeadAdvancedProveedor.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
-                    //    }
-                    //    else if (queryHeadAdvancedProveedor.Equals(""))
-                    //    {
-                    //        if (!queryHeadAdvancedOtherTags.Equals(""))
-                    //        {
-                    //            filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
-                    //        }
-                    //        else if (queryHeadAdvancedOtherTags.Equals(""))
-                    //        {
-                    //            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
-                    //        }
-                    //    }
-
-                    //    if (!queryResultOtherTags.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado += queryResultOtherTags;
-                    //    }
-                    //    else if (queryResultOtherTags.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado += queryResultOtherTags;
-                    //    }
-
-                    //    if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                    //    }
-                    //    if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                    //    }
-                    //    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                    //}
                 }
                 else if (busqueda != "")
                 {
@@ -2215,43 +2178,6 @@ namespace PuntoDeVentaV2
                         }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
-                    //else if (DGVProductos.RowCount >= 0 && clickBoton == 1)
-                    //{
-                    //    if (!queryHeadAdvancedProveedor.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedProveedor + queryHeadAdvancedOtherTags + queryWhereAnd + extra + queryAndAdvancedProveedor;
-                    //    }
-                    //    else if (queryHeadAdvancedProveedor.Equals(""))
-                    //    {
-                    //        if (!queryHeadAdvancedOtherTags.Equals(""))
-                    //        {
-                    //            filtroConSinFiltroAvanzado = queryHead + queryHeadAdvancedOtherTags + queryWhereAnd + extra;
-                    //        }
-                    //        else if (queryHeadAdvancedOtherTags.Equals(""))
-                    //        {
-                    //            filtroConSinFiltroAvanzado = queryHead + queryWhereAnd + extra;
-                    //        }
-                    //    }
-
-                    //    if (!queryResultOtherTags.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado += queryResultOtherTags;
-                    //    }
-                    //    else if (queryResultOtherTags.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado += queryResultOtherTags;
-                    //    }
-
-                    //    if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                    //    }
-                    //    if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                    //    {
-                    //        filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                    //    }
-                    //    p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-                    //}
                 }
             }
             // Status 0 es poner el listado en todos los
