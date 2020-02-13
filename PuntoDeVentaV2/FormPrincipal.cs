@@ -713,7 +713,8 @@ namespace PuntoDeVentaV2
                     queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
                                                     FROM productos AS P 
                                                     WHERE status = 1
-                                                    AND IDUsuario = {FormPrincipal.userID.ToString()}";
+                                                    AND IDUsuario = {FormPrincipal.userID.ToString()}
+                                                    ORDER BY P.Nombre ASC";
 
                     tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
 
