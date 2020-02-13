@@ -2100,13 +2100,13 @@ namespace PuntoDeVentaV2
                         //Cierra la ventana donde se agregan los datos del producto
                         this.Close();
                     }
-                    else if (this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios")
+                    else if (this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios")
                     {
                         if (this.Text.Trim() == "Servicios")
                         {
                             ProdServPaq = "S";
                         }
-                        else if (this.Text.Trim() == "Paquetes")
+                        else if (this.Text.Trim() == "Combos")
                         {
                             ProdServPaq = "PQ";
                         }
@@ -2575,7 +2575,7 @@ namespace PuntoDeVentaV2
                             CBNombProd = string.Empty;
                         }
                     }
-                    else if (this.Text.Trim().Equals("Paquetes") || this.Text.Trim().Equals("Servicios"))
+                    else if (this.Text.Trim().Equals("Combos") || this.Text.Trim().Equals("Servicios"))
                     {
                         // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
                         if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
@@ -3908,9 +3908,9 @@ namespace PuntoDeVentaV2
             ListStock.nombreProducto += new ListaProductos.pasarProducto(ejecutar);
             if (this.Text.Trim() == "Productos")
             {
-                ListStock.TypeStock = "Paquetes";
+                ListStock.TypeStock = "Combos";
             }
-            else if (this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios")
+            else if (this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios")
             {
                 ListStock.TypeStock = "Productos";
             }
@@ -3924,7 +3924,7 @@ namespace PuntoDeVentaV2
             int numero = 0;
             if (!int.TryParse(CBNombProd, out numero))
             {
-                if ((this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios") && DatosSourceFinal == 1)
+                if ((this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios") && DatosSourceFinal == 1)
                 {
                     btnAdd.Visible = true;
                     CargarDatos();
@@ -3935,7 +3935,7 @@ namespace PuntoDeVentaV2
                     }
                     GenerarPanelProductosServPlus();
                 }
-                else if ((this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios") && DatosSourceFinal == 2)
+                else if ((this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios") && DatosSourceFinal == 2)
                 {
                     string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idEditarProducto}", $"{CBIdProd}", $"{CBNombProd}", $"{txtCantPaqServ.Text}" };
                     cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
@@ -3966,7 +3966,7 @@ namespace PuntoDeVentaV2
         {
             if (ejecutarMetodos)
             {
-                if (this.Text.Trim() == "Paquetes" || this.Text.Trim() == "Servicios")
+                if (this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios")
                 {
                     if (Hided)  // Si su valor es True
                     {
@@ -4282,7 +4282,7 @@ namespace PuntoDeVentaV2
                     PStock.Visible = true;
                     txtCantPaqServ.Visible = false;
                     lblCantPaqServ.Text = "Relacionar con \nPaquete/Servicio";
-                    button1.Text = "Paquete/Servicio";
+                    button1.Text = "Combo/Servicio";
                 }
                 else if (ProdNombre.Equals(""))
                 {
@@ -4293,8 +4293,8 @@ namespace PuntoDeVentaV2
                     ocultarPanel();
                     PStock.Visible = true;
                     txtCantPaqServ.Visible = false;
-                    lblCantPaqServ.Text = "Relacionar con \nPaquete/Servicio";
-                    button1.Text = "Paquete/Servicio";
+                    lblCantPaqServ.Text = "Relacionar con \nCombo/Servicio";
+                    button1.Text = "Combo/Servicio";
                 }
                 this.Text = cadAux + "s";             // Ponemos el titulo del form en plural "Productos"
                 typeOfProduct = "P";

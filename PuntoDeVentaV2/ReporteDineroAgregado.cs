@@ -148,6 +148,12 @@ namespace PuntoDeVentaV2
 
                 reporte.Add(linea);
 
+                //PdfPCell colSeparador = new PdfPCell(new Phrase(Chunk.NEWLINE));
+                //colSeparador.Colspan = 10;
+                //colSeparador.BorderWidth = 0;
+
+                //reporte.Add(colSeparador);
+
                 PdfPTable tablaDineroAgregado = new PdfPTable(7);
                 tablaDineroAgregado.WidthPercentage = 100;
                 tablaDineroAgregado.SetWidths(anchoColumnas);
@@ -251,6 +257,64 @@ namespace PuntoDeVentaV2
                 }
                 reporte.Add(tablaDineroAgregado);
                 reporte.Add(linea);
+
+                PdfPTable tablaTotalesDineroAgregado = new PdfPTable(7);
+                tablaTotalesDineroAgregado.WidthPercentage = 100;
+                tablaTotalesDineroAgregado.SetWidths(anchoColumnas);
+
+                // Linea de TOTALES
+                PdfPCell colEmpleadoTotal = new PdfPCell(new Phrase($"Total Dinero Agregado", fuenteTotales));
+                colEmpleadoTotal.BorderWidth = 0;
+                colEmpleadoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+                colEmpleadoTotal.Padding = 3;
+                colEmpleadoTotal.BackgroundColor = new BaseColor(Color.Red);
+
+                PdfPCell colEfectivoTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                colEfectivoTotal.BorderWidth = 0;
+                colEfectivoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+                colEfectivoTotal.Padding = 3;
+                colEfectivoTotal.BackgroundColor = new BaseColor(Color.Red);
+
+                PdfPCell colTarjetaTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                colTarjetaTotal.BorderWidth = 0;
+                colTarjetaTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+                colTarjetaTotal.Padding = 3;
+                colTarjetaTotal.BackgroundColor = new BaseColor(Color.Red);
+
+                PdfPCell colValesTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                colValesTotal.BorderWidth = 0;
+                colValesTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+                colValesTotal.Padding = 3;
+                colValesTotal.BackgroundColor = new BaseColor(Color.Red);
+
+                PdfPCell colChequeTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                colChequeTotal.BorderWidth = 0;
+                colChequeTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+                colChequeTotal.Padding = 3;
+                colChequeTotal.BackgroundColor = new BaseColor(Color.Red);
+
+                PdfPCell colTransaccionTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                colTransaccionTotal.BorderWidth = 0;
+                colTransaccionTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+                colTransaccionTotal.Padding = 3;
+                colTransaccionTotal.BackgroundColor = new BaseColor(Color.Red);
+
+                PdfPCell colFechaTotal = new PdfPCell(new Phrase($"", fuenteTotales));
+                colFechaTotal.BorderWidth = 0;
+                colFechaTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+                colFechaTotal.Padding = 3;
+                colFechaTotal.BackgroundColor = new BaseColor(Color.Red);
+
+                tablaTotalesDineroAgregado.AddCell(colEmpleadoTotal);
+                tablaTotalesDineroAgregado.AddCell(colEfectivoTotal);
+                tablaTotalesDineroAgregado.AddCell(colTarjetaTotal);
+                tablaTotalesDineroAgregado.AddCell(colValesTotal);
+                tablaTotalesDineroAgregado.AddCell(colChequeTotal);
+                tablaTotalesDineroAgregado.AddCell(colTransaccionTotal);
+                tablaTotalesDineroAgregado.AddCell(colFechaTotal);
+
+                reporte.Add(tablaTotalesDineroAgregado);
+
                 #endregion Tabla de Dinero Agregado
                 //=====================================
                 //=== FIN TABLA DE DINERO AGREGADO  ===
