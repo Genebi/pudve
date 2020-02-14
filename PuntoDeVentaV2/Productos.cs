@@ -752,7 +752,7 @@ namespace PuntoDeVentaV2
                         codiBarProd = CodigoBarras;
                         if (codiBarProd != "")
                         {
-                            MakeBarCode.CodigoBarProd = codiBarProd;
+                            MakeBarCode.CodigoBarProd = codiBarProd.Replace("\r\n", string.Empty);
                             MakeBarCode.ShowDialog();
                         }
                         else if (codiBarProd == "")
@@ -768,7 +768,7 @@ namespace PuntoDeVentaV2
                         codiBarProd = CodigoBarras;
                         if (codiBarProd != "")
                         {
-                            MakeBarCode.CodigoBarProd = codiBarProd;
+                            MakeBarCode.CodigoBarProd = codiBarProd.Replace("\r\n", string.Empty);
                             MakeBarCode.BringToFront();
                         }
                         else if (codiBarProd == "")
