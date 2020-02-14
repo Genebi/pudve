@@ -354,7 +354,7 @@
             this.cbTipo.FormattingEnabled = true;
             this.cbTipo.Items.AddRange(new object[] {
             "Producto",
-            "Paquete",
+            "Combo",
             "Servicio"});
             this.cbTipo.Location = new System.Drawing.Point(75, 0);
             this.cbTipo.Margin = new System.Windows.Forms.Padding(2);

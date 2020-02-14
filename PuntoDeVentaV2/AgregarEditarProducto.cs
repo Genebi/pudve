@@ -3037,9 +3037,9 @@ namespace PuntoDeVentaV2
                     txtCategoriaProducto.Text = "Productos";
                 }
             }
-            else if (filtro == "Paquete")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
+            else if (filtro == "Combo")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
-                Titulo = "Agregar Paquete";
+                Titulo = "Agregar Combo";
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Paquete)
                 tituloSeccion.Text = TituloForm;
@@ -3054,14 +3054,14 @@ namespace PuntoDeVentaV2
                 }
                 if (PStock.Visible == false && PPrecioOriginal.Visible == false)
                 {
-                    lblTipoProdPaq.Text = "Paquete";
+                    lblTipoProdPaq.Text = "Combo";
                     btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
                     Hided = false;
                     btnAdd.Visible = true;
                     btnAdd.PerformClick();
                     chkBoxConProductos.Checked = false;
                     chkBoxConProductos.Visible = true;
-                    txtCategoriaProducto.Text = "Paquetes";
+                    txtCategoriaProducto.Text = "Combos";
                 }
             }
             else if (filtro == "Servicio")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
