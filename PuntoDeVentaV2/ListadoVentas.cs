@@ -38,6 +38,12 @@ namespace PuntoDeVentaV2
         public static int tipo_venta = 0;
         public static string[][] faltantes_productos;
 
+        #region Variables Globales Para Paginar
+        private Paginar p;
+        string DataMemberDGV = "Ventas";
+        int maximo_x_pagina = 10;
+        string FiltroAvanzado = string.Empty;
+        #endregion Variables Globales Para Paginar
 
         public ListadoVentas()
         {
@@ -74,6 +80,137 @@ namespace PuntoDeVentaV2
         #region Método para cargar los datos en el DataGridView
         public void CargarDatos(int estado = 1, bool busqueda = false)
         {
+            //var consulta = string.Empty;
+            //if (busqueda)
+            //{
+            //    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+            //    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+            //    var opcion = cbTipoVentas.SelectedValue.ToString();
+
+            //    // Ventas pagadas
+            //    if (opcion == "VP") { estado = 1; }
+            //    // Ventas guardadas
+            //    if (opcion == "VG") { estado = 2; }
+            //    // Ventas canceladas
+            //    if (opcion == "VC") { estado = 3; }
+            //    // Ventas a credito
+            //    if (opcion == "VCC") { estado = 4; }
+            //    // Facturas
+            //    if (opcion == "FAC") { estado = 5; }
+            //    // Presupuestos
+            //    if (opcion == "PRE") { estado = 6; }
+
+            //    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+            //}
+            //else
+            //{
+            //    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+            //}
+
+            //FiltroAvanzado = consulta;
+
+            //DGVListadoVentas.Rows.Clear();
+
+            //p = new Paginar(FiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+
+            //DataSet datos = p.cargar();
+            //DataTable dtDatos = datos.Tables[0];
+
+            //// Inicializacion de iconos
+            //Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
+            //Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
+            //Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
+            //Image credito = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
+            //Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
+            //Image timbrar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell.png");
+
+            //Bitmap sinImagen = new Bitmap(1, 1);
+            //sinImagen.SetPixel(0, 0, Color.White);
+
+            //if (dtDatos.Rows.Count > 0)
+            //{
+            //    float iva = 0f;
+            //    float subtotal = 0f;
+            //    float total = 0f;
+            //    foreach (DataRow filaDatos in dtDatos.Rows)
+            //    {
+            //        int idVenta = Convert.ToInt32(filaDatos["ID"].ToString());
+            //        int status = Convert.ToInt32(filaDatos["Status"].ToString());
+
+            //        string cliente = "Público General";
+            //        string rfc = "XAXX010101000";
+
+            //        // Obtener detalle de venta y datos del cliente
+            //        var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+
+            //        if (detalles.Length > 0)
+            //        {
+            //            if (Convert.ToInt32(detalles[0]) > 0)
+            //            {
+            //                var infoCliente = mb.ObtenerDatosCliente(Convert.ToInt32(detalles[0]), FormPrincipal.userID);
+            //                cliente = infoCliente[0];
+            //                rfc = infoCliente[1];
+            //            }
+            //        }
+
+            //        // Obtener el cliente de la venta guardada
+            //        if (estado == 2)
+            //        {
+            //            var idCliente = Convert.ToInt32(filaDatos["IDCliente"]);
+            //            if (idCliente > 0)
+            //            {
+            //                var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
+            //                cliente = infoCliente[0];
+            //                rfc = infoCliente[1];
+            //            }
+            //        }
+
+            //        int rowId = DGVListadoVentas.Rows.Add();
+
+            //        DataGridViewRow row = DGVListadoVentas.Rows[rowId];
+
+            //        var ivaTmp = float.Parse(filaDatos["IVA16"].ToString());
+            //        var subtotalTmp = float.Parse(filaDatos["Subtotal"].ToString());
+            //        var totalTmp = float.Parse(filaDatos["Total"].ToString());
+
+            //        iva += ivaTmp;
+            //        subtotal += subtotalTmp;
+            //        total += totalTmp;
+
+            //        row.Cells["ID"].Value = idVenta;
+            //        row.Cells["Cliente"].Value = cliente;
+            //        row.Cells["RFC"].Value = rfc;
+            //        row.Cells["Subtotal"].Value = subtotalTmp.ToString("0.00");
+            //        row.Cells["IVA"].Value = ivaTmp.ToString("0.00");
+            //        row.Cells["Total"].Value = totalTmp.ToString("0.00");
+            //        row.Cells["Folio"].Value = filaDatos["Folio"].ToString();
+            //        row.Cells["Serie"].Value = filaDatos["Serie"].ToString();
+            //        row.Cells["Fecha"].Value = Convert.ToDateTime(filaDatos["FechaOperacion"].ToString());
+
+            //        row.Cells["Cancelar"].Value = cancelar;
+            //        row.Cells["Factura"].Value = factura;
+            //        row.Cells["Ticket"].Value = ticket;
+            //        row.Cells["Abono"].Value = credito;
+            //        row.Cells["Timbrar"].Value = timbrar;
+
+            //        // Ventas canceladas
+            //        if (status == 3)
+            //        {
+            //            row.Cells["Cancelar"].Value = sinImagen;
+            //        }
+
+            //        // Ventas a credito
+            //        if (status != 4)
+            //        {
+            //            row.Cells["Abono"].Value = info;
+            //        }
+            //    }
+
+            //    AgregarTotales(iva, subtotal, total);
+
+            //    DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
+            //}
+            //tipo_venta = estado;
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
             SQLiteDataReader dr;

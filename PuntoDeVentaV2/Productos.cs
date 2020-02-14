@@ -1296,6 +1296,21 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void linkLblPaginaActual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkLblPaginaSiguiente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
         public void dictionaryLoad()
         {
             bool isEmpty = (setUpDinamicos.Count == 0);
@@ -1977,7 +1992,11 @@ namespace PuntoDeVentaV2
                             {
                                 if (!isEmpty)
                                 {
-                                    listaCoincidenciasAux.Add(Convert.ToInt32(id), 1);
+                                    bool contieneIDProducto = listaCoincidenciasAux.Contains(new KeyValuePair<int, int>(Convert.ToInt32(id), 1));
+                                    if (!contieneIDProducto)
+                                    {
+                                        listaCoincidenciasAux.Add(Convert.ToInt32(id), 1);
+                                    }
                                 }
                             }
                         }
