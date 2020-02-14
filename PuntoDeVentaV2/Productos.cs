@@ -113,6 +113,7 @@ namespace PuntoDeVentaV2
         List<Control> listVariables;
 
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
+        Dictionary<int, int> listaCoincidenciasAux = new Dictionary<int, int>();
 
         public static iTextSharp.text.Image imgReporte;
 
@@ -1938,6 +1939,7 @@ namespace PuntoDeVentaV2
                     var extra2 = string.Empty;
                     int contadorTmp = 1;
                     var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
+                    listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
                     extra += "AND P.ID IN (";
                     foreach (var producto in listaCoincidencias)
                     {
@@ -1962,18 +1964,79 @@ namespace PuntoDeVentaV2
 
                 if (infoProducto.Length > 0)
                 {
-                    foreach (var id in infoProducto)
+                    bool isEmpty = (listaCoincidenciasAux.Count == 0);
+                    if (!isEmpty)
                     {
-                        // Verificar que el ID del producto pertenezca al usuasio
-                        var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(id), FormPrincipal.userID);
-                        // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
-                        // se busca directamente con base en su ID sobreescribiendo la variable "extra"
-                        if (verificarUsuario.Length > 0)
+                        foreach (var id in infoProducto)
+                        {
+                            // Verificar que el ID del producto pertenezca al usuasio
+                            var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(id), FormPrincipal.userID);
+                            // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
+                            // se busca directamente con base en su ID sobreescribiendo la variable "extra"
+                            if (verificarUsuario.Length > 0)
+                            {
+                                if (!isEmpty)
+                                {
+                                    listaCoincidenciasAux.Add(Convert.ToInt32(id), 1);
+                                }
+                            }
+                        }
+                        extra = string.Empty;
+                        // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
+                        // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
+                        var extra2 = string.Empty;
+                        int contadorTmp = 1;
+                        var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
+                        extra += "AND P.ID IN (";
+                        foreach (var producto in listaCoincidencias)
+                        {
+                            extra += $"{producto.Key},";
+                            extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+                            contadorTmp++;
+                        }
+                        // Eliminamos el último caracter que es una coma (,)
+                        extra = extra.Remove(extra.Length - 1);
+                        extra += ") ORDER BY CASE P.ID ";
+                        extra2 += "END ";
+                        // Concatenamos las dos variables para formar por completo la sentencia sql
+                        extra += extra2;
+                        listaCoincidenciasAux.Clear();
+                    }
+                    else if (isEmpty)
+                    {
+                        listaCoincidenciasAux.Clear();
+                        foreach (var id in infoProducto)
                         {
                             extra = $" AND P.ID = {id}";
                         }
                     }
                 }
+
+                //if (infoProducto.Length > 0)
+                //{
+                //    bool isEmpty = (listaCoincidenciasAux.Count == 0);
+                //    if (!isEmpty)
+                //    {
+                //        foreach (var id in infoProducto)
+                //        {
+                //            // Verificar que el ID del producto pertenezca al usuasio
+                //            var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(id), FormPrincipal.userID);
+                //            // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
+                //            // se busca directamente con base en su ID sobreescribiendo la variable "extra"
+                //            if (verificarUsuario.Length > 0)
+                //            {
+                //                if (!extra.Equals("") || !extra.Equals(null))
+                //                {
+                //                    extra += $" AND P.ID = {id}";
+                //                }
+                //                else if (extra.Equals("") || extra.Equals(null))
+                //                {
+                //                    extra = $" AND P.ID = {id}";
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
             }
             // Status 2 es poner el listado en todos los 
             // productos y servecios sin importar es activo o desactivado

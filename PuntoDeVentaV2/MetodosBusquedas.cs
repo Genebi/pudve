@@ -812,25 +812,32 @@ namespace PuntoDeVentaV2
         public string[] BuscarCodigoBarrasExtra(string codigo)
         {
             List<string> lista = new List<string>();
+            string[] codigosABuscar;
 
             if (!string.IsNullOrWhiteSpace(codigo))
             {
-                DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigo}'");
+                codigosABuscar = codigo.Split(' ');
 
-                SQLiteDataReader dr = sql_cmd.ExecuteReader();
-
-                if (dr.HasRows)
+                foreach (var searchCodBar in codigosABuscar)
                 {
-                    while (dr.Read())
+                    //DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigo}'");
+                    DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{searchCodBar}'");
+
+                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
                     {
-                        if (!string.IsNullOrWhiteSpace(dr["IDProducto"].ToString()))
+                        while (dr.Read())
                         {
-                            lista.Add(dr["IDProducto"].ToString());
+                            if (!string.IsNullOrWhiteSpace(dr["IDProducto"].ToString()))
+                            {
+                                lista.Add(dr["IDProducto"].ToString());
+                            }
                         }
                     }
-                }
 
-                dr.Close();
+                    dr.Close();
+                }
             }
 
             return lista.ToArray();
