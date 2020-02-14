@@ -65,6 +65,8 @@ namespace PuntoDeVentaV2
             txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
+
+            txtEfectivo.Text = total.ToString("0.00");
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
