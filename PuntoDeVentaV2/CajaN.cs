@@ -266,7 +266,7 @@ namespace PuntoDeVentaV2
 
                 if (operacion == "venta" && fechaOperacion > fechaDefault)
                 {
-                    if (saltar == 0)
+                    if (saltar == 0 && !fechaDefault.ToString("yyyy-MM-dd HH:mm:ss").Equals("0001-01-01 00:00:00"))
                     {
                         saltar++;
                         continue;
