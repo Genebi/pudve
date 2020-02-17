@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkBoxTipo = new System.Windows.Forms.CheckBox();
             this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbTipoFiltroCombProdServ = new System.Windows.Forms.ComboBox();
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
             this.txtCantStock = new System.Windows.Forms.TextBox();
             this.txtCantPrecio = new System.Windows.Forms.TextBox();
@@ -39,8 +41,7 @@
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
-            this.chkBoxTipo = new System.Windows.Forms.CheckBox();
-            this.cbTipoFiltroCombProdServ = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -54,16 +55,27 @@
             this.groupBox1.Controls.Add(this.chkBoxStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(524, 288);
+            this.groupBox1.Size = new System.Drawing.Size(524, 305);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuració de Filtrado: ";
+            // 
+            // chkBoxTipo
+            // 
+            this.chkBoxTipo.AutoSize = true;
+            this.chkBoxTipo.Location = new System.Drawing.Point(19, 121);
+            this.chkBoxTipo.Name = "chkBoxTipo";
+            this.chkBoxTipo.Size = new System.Drawing.Size(47, 17);
+            this.chkBoxTipo.TabIndex = 12;
+            this.chkBoxTipo.Text = "Tipo";
+            this.chkBoxTipo.UseVisualStyleBackColor = true;
+            this.chkBoxTipo.CheckedChanged += new System.EventHandler(this.chkBoxTipo_CheckedChanged);
             // 
             // fLPDetalleProducto
             // 
             this.fLPDetalleProducto.AutoScroll = true;
             this.fLPDetalleProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 130);
+            this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 148);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
             this.fLPDetalleProducto.Size = new System.Drawing.Size(512, 150);
             this.fLPDetalleProducto.TabIndex = 11;
@@ -71,6 +83,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbTipoFiltroCombProdServ);
             this.panel1.Controls.Add(this.cbTipoFiltroStock);
             this.panel1.Controls.Add(this.txtCantStock);
@@ -78,8 +91,24 @@
             this.panel1.Controls.Add(this.cbTipoFiltroPrecio);
             this.panel1.Location = new System.Drawing.Point(81, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(437, 111);
+            this.panel1.Size = new System.Drawing.Size(437, 129);
             this.panel1.TabIndex = 8;
+            // 
+            // cbTipoFiltroCombProdServ
+            // 
+            this.cbTipoFiltroCombProdServ.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoFiltroCombProdServ.FormattingEnabled = true;
+            this.cbTipoFiltroCombProdServ.Items.AddRange(new object[] {
+            "No Aplica",
+            "Combo",
+            "Producto",
+            "Servicio"});
+            this.cbTipoFiltroCombProdServ.Location = new System.Drawing.Point(49, 100);
+            this.cbTipoFiltroCombProdServ.Name = "cbTipoFiltroCombProdServ";
+            this.cbTipoFiltroCombProdServ.Size = new System.Drawing.Size(370, 21);
+            this.cbTipoFiltroCombProdServ.TabIndex = 6;
+            this.cbTipoFiltroCombProdServ.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroCombProdServ_SelectedIndexChanged);
+            this.cbTipoFiltroCombProdServ.Click += new System.EventHandler(this.cbTipoFiltroCombProdServ_Click);
             // 
             // cbTipoFiltroStock
             // 
@@ -171,7 +200,7 @@
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(335, 327);
+            this.btnAplicar.Location = new System.Drawing.Point(335, 340);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
             this.btnAplicar.TabIndex = 6;
@@ -187,7 +216,7 @@
             this.btnClean.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClean.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClean.ForeColor = System.Drawing.Color.White;
-            this.btnClean.Location = new System.Drawing.Point(122, 327);
+            this.btnClean.Location = new System.Drawing.Point(122, 340);
             this.btnClean.Name = "btnClean";
             this.btnClean.Size = new System.Drawing.Size(95, 43);
             this.btnClean.TabIndex = 7;
@@ -195,36 +224,22 @@
             this.btnClean.UseVisualStyleBackColor = false;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
-            // chkBoxTipo
+            // label1
             // 
-            this.chkBoxTipo.AutoSize = true;
-            this.chkBoxTipo.Location = new System.Drawing.Point(19, 103);
-            this.chkBoxTipo.Name = "chkBoxTipo";
-            this.chkBoxTipo.Size = new System.Drawing.Size(47, 17);
-            this.chkBoxTipo.TabIndex = 12;
-            this.chkBoxTipo.Text = "Tipo";
-            this.chkBoxTipo.UseVisualStyleBackColor = true;
-            this.chkBoxTipo.CheckedChanged += new System.EventHandler(this.chkBoxTipo_CheckedChanged);
-            // 
-            // cbTipoFiltroCombProdServ
-            // 
-            this.cbTipoFiltroCombProdServ.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipoFiltroCombProdServ.FormattingEnabled = true;
-            this.cbTipoFiltroCombProdServ.Items.AddRange(new object[] {
-            "No Aplica",
-            "Combo",
-            "Producto",
-            "Servicio"});
-            this.cbTipoFiltroCombProdServ.Location = new System.Drawing.Point(49, 82);
-            this.cbTipoFiltroCombProdServ.Name = "cbTipoFiltroCombProdServ";
-            this.cbTipoFiltroCombProdServ.Size = new System.Drawing.Size(370, 21);
-            this.cbTipoFiltroCombProdServ.TabIndex = 6;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(87, 78);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(294, 20);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "En Construcción Concepto de Tipo";
             // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 382);
+            this.ClientSize = new System.Drawing.Size(576, 402);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.groupBox1);
@@ -260,5 +275,6 @@
         private System.Windows.Forms.FlowLayoutPanel fLPDetalleProducto;
         private System.Windows.Forms.CheckBox chkBoxTipo;
         private System.Windows.Forms.ComboBox cbTipoFiltroCombProdServ;
+        private System.Windows.Forms.Label label1;
     }
 }

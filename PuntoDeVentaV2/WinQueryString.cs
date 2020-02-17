@@ -22,14 +22,17 @@ namespace PuntoDeVentaV2
 
         bool filtroStock,
                 filtroPrecio,
-                filtroProveedor;
+                filtroProveedor,
+                filtroTipo;
 
-        string strFiltroStock = string.Empty,
+        string  strFiltroStock = string.Empty,
                 strFiltroPrecio = string.Empty,
                 strFiltroProveedor = string.Empty,
+                strFiltroCombProdServ = string.Empty,
                 strOpcionCBStock = string.Empty,
                 strOpcionCBPrecio = string.Empty,
                 strOpcionCBProveedor = string.Empty,
+                strOpcionCBCombProdServ = string.Empty,
                 strTxtStock = string.Empty,
                 strTxtPrecio = string.Empty,
                 servidor = string.Empty;
@@ -185,12 +188,72 @@ namespace PuntoDeVentaV2
 
         private void chkBoxTipo_CheckedChanged(object sender, EventArgs e)
         {
+            validarChkBoxTipo();
+        }
+
+        private void cbTipoFiltroCombProdServ_Click(object sender, EventArgs e)
+        {
+            cbTipoFiltroCombProdServ.DroppedDown = true;
+        }
+
+        private void cbTipoFiltroCombProdServ_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+
+            if (filtroTipo.Equals(true))
+            {
+                strOpcionCBCombProdServ = Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem);
+
+                strFiltroCombProdServ = "Tipo ";
+
+                if (!strFiltroCombProdServ.Equals(""))
+                {
+                    if (strFiltroCombProdServ.Equals("No Aplica"))
+                    {
+                        strFiltroCombProdServ = "";
+                    }
+                    else if (strFiltroCombProdServ.Equals("Combo"))
+                    {
+                        strFiltroCombProdServ += "= PQ";
+                    }
+                    else if (strFiltroCombProdServ.Equals("Producto"))
+                    {
+                        strFiltroCombProdServ += "= P";
+                    }
+                    else if (strFiltroCombProdServ.Equals("Servicio"))
+                    {
+                        strFiltroCombProdServ += "= S";
+                    }
+                }
+                else if (strFiltroCombProdServ.Equals(""))
+                {
+                    strFiltroCombProdServ = "";
+                }
+            }
+        }
+
+        private void validarChkBoxTipo()
+        {
+            cbTipoFiltroCombProdServ.SelectedIndex = 0;
             if (chkBoxTipo.Checked.Equals(true))
             {
+                filtroTipo = Convert.ToBoolean(chkBoxTipo.Checked);
+
+                Properties.Settings.Default.chkFiltroCombProdServ = filtroTipo;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
                 cbTipoFiltroCombProdServ.Enabled = true;
+                cbTipoFiltroCombProdServ.Focus();
             }
             else if (chkBoxTipo.Checked.Equals(false))
             {
+                filtroTipo = Convert.ToBoolean(chkBoxTipo.Checked);
+
+                Properties.Settings.Default.chkFiltroCombProdServ = filtroTipo;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
                 cbTipoFiltroCombProdServ.SelectedIndex = 0;
                 cbTipoFiltroCombProdServ.Enabled = false;
             }
