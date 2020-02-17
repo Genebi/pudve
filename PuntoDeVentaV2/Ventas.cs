@@ -63,7 +63,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
-        Dictionary<int, string> productosD; 
+        Dictionary<int, string> productosD;
 
         const string fichero = @"\PUDVE\settings\folioventa\setupFolioVenta.txt";       // directorio donde esta el archivo de numero de codigo de barras consecutivo
         string Contenido;                                                               // para obtener el numero que tiene el codigo de barras en el arhivo
@@ -780,125 +780,120 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipo == 2)
             {
-                string[] tmp;
-                int index = 0;
-                int checkbox = 0;
-                int sobrantes = 0;
-                float totalImporte = 0;
+                var restantes = 0;
+                var totalImporte = 0f;
+                // Esta variable almace el ultimo checkbox al que se le marco casilla en el descuento
+                var ultimoCheckbox = string.Empty;
 
-                //Comprobar si hay al menos un checkbox seleccionado en este descuento
-                foreach (string descuento in datosDescuento)
+                List<string> listaDescuentos = new List<string>();
+
+                foreach (var descuento in datosDescuento)
                 {
-                    string[] cb = descuento.Split('-');
+                    var info = descuento.Split('-');
                     
-                    if (Convert.ToInt32(cb[3]) == 1)
+                    if (Convert.ToInt32(info[3]) == 1)
                     {
-                        checkbox = 1;
+                        ultimoCheckbox = descuento;
                         break;
                     }
                 }
 
+                // Invertimos los valores del array de los descuentos
+                listaDescuentos = datosDescuento.ToList();
+                listaDescuentos.Reverse();
+                datosDescuento = listaDescuentos.ToArray();
 
-                int longitud = datosDescuento.Length;
 
-                for (int i = 0; i < longitud; i++)
+                if (!string.IsNullOrWhiteSpace(ultimoCheckbox))
                 {
-                    string[] desc = datosDescuento[i].Split('-');
+                    var info = ultimoCheckbox.Split('-');
+                    var rangoInicialCheck = Convert.ToInt32(info[0]);
+                    var rangoFinalCheck = info[1];
+                    var precioFinalCheck = float.Parse(info[2]);
 
-                    var rangoInicial = Convert.ToInt32(desc[0]);
-                    var rangoFinal = desc[1];
-                    var precio = float.Parse(desc[2]);
-  
-                    //Entra cuando se establecen precios en base en los checkbox
-                    if (checkbox == 1)
+                    if (rangoFinalCheck != "N")
                     {
-                        //Este es para saber si es el ultimo descuento que se agrego (registro en la BD)
-                        if (rangoFinal == "N")
+                        // Aqui se puso directamente el 1 en lugar de la variable rangoInicialCheck
+                        // para el caso cuando el checkbox marcado no es el primero sino el segundo por ejemplo
+                        // y asi logre entrar a la condicion
+                        if (cantidad >= 1 && cantidad <= Convert.ToInt32(rangoFinalCheck))
                         {
-                            if (cantidad > rangoInicial)
-                            {
-                                index = i + 1;
-
-                                if (index >= 0 && index < longitud)
-                                {
-                                    //Obtener el rango final del descuento previo al actual
-                                    tmp = datosDescuento[index].Split('-');
-                                    var rangoFinalTmp = tmp[1];
-
-                                    sobrantes = cantidad - Convert.ToInt32(rangoFinalTmp);
-
-                                    totalImporte += sobrantes * precio;
-
-                                    cantidad -= sobrantes;
-                                }
-                            }
-                            else
-                            {
-                                if (cantidad == rangoInicial)
-                                {
-                                    sobrantes = rangoInicial - 1;
-                                    sobrantes = rangoInicial - sobrantes;
-
-                                    cantidad -= sobrantes;
-
-                                    totalImporte += sobrantes * precio;
-                                }
-                            }
+                            totalImporte += cantidad * precioFinalCheck;
                         }
                         else
                         {
-                            if (cantidad >= rangoInicial && cantidad <= Convert.ToInt32(rangoFinal))
+                            if (cantidad > Convert.ToInt32(rangoFinalCheck))
                             {
-                                index = i + 1;
+                                restantes = Math.Abs(cantidad - Convert.ToInt32(rangoFinalCheck));
 
-                                //Para saber si existe el indice en el Array principal
-                                if (index >= 0 && index < longitud)
-                                {
-                                    //Obtener el rango final del descuento previo al actual
-                                    tmp = datosDescuento[index].Split('-');
-                                    var rangoFinalTmp = tmp[1];
-
-                                    sobrantes = cantidad - Convert.ToInt32(rangoFinalTmp);
-
-                                    cantidad -= sobrantes;
-
-                                    totalImporte += sobrantes * precio;
-                                }
-                                else
-                                {
-                                    totalImporte += cantidad * precio;
-                                }
+                                totalImporte += Convert.ToInt32(rangoFinalCheck) * precioFinalCheck;
                             }
-                            else
-                            {
-                                if (cantidad > Convert.ToInt32(rangoFinal))
-                                {
-                                    sobrantes = cantidad - Convert.ToInt32(rangoFinal);
+                        }
 
-                                    totalImporte += sobrantes * precio;
-                                }
+                        // Creamos una lista auxiliar con los valores del array para eliminar el descuento
+                        // que se tomo en cuenta con el checkbox y los que esten anteriores a el
+                        var auxiliar = datosDescuento.ToList();
+
+                        foreach (var descuento in datosDescuento)
+                        {
+                            if (descuento.Equals(ultimoCheckbox))
+                            {
+                                auxiliar.Remove(descuento);
+                                break;
+                            }
+
+                            auxiliar.Remove(descuento);
+                        }
+
+                        datosDescuento = auxiliar.ToArray();
+                    }
+                    else
+                    {
+                        // Aqui no se hace porque no fue necesario
+                    }
+                }
+                else
+                {
+                    restantes = cantidad;
+                }
+
+                var longitud = datosDescuento.Length;
+
+                for (int i = 0; i < longitud; i++)
+                {
+                    var info = datosDescuento[i].Split('-');
+                    var rangoInicial = Convert.ToInt32(info[0]);
+                    var rangoFinal = info[1];
+                    var precioFinal = float.Parse(info[2]);
+                    var checkFinal = Convert.ToInt32(info[3]);
+
+                    if (rangoFinal != "N")
+                    {
+                        if (cantidad >= rangoInicial && cantidad <= Convert.ToInt32(rangoFinal))
+                        {
+                            cantidad = restantes;
+
+                            totalImporte += cantidad * precioFinal;
+                        }
+                        else
+                        {
+                            if (cantidad > Convert.ToInt32(rangoFinal))
+                            {
+                                // Aqui no se hace porque no fue necesario
                             }
                         }
                     }
                     else
                     {
-                        if (rangoFinal == "N")
+                        if (cantidad >= rangoInicial)
                         {
-                            if (cantidad >= rangoInicial)
-                            {
-                                totalImporte = cantidad * precio;
-                            }
-                        }
-                        else
-                        {
-                            if (cantidad >= rangoInicial && cantidad <= Convert.ToInt32(rangoFinal))
-                            {
-                                totalImporte = cantidad * precio;
-                            }
+                            cantidad = restantes;
+
+                            totalImporte += cantidad * precioFinal;
                         }
                     }
                 }
-                
+
                 float importe = float.Parse(DGVentas.Rows[fila].Cells["Importe"].Value.ToString());
                 float descuentoFinal = importe - totalImporte;
 
