@@ -43,6 +43,7 @@ namespace PuntoDeVentaV2
         string DataMemberDGV = "Ventas";
         int maximo_x_pagina = 10;
         string FiltroAvanzado = string.Empty;
+        int clickBoton = 0;
         #endregion Variables Globales Para Paginar
 
         public ListadoVentas()
@@ -74,192 +75,102 @@ namespace PuntoDeVentaV2
 
             fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
 
+            clickBoton = 0;
+
             CargarDatos();
+
+            actualizar();
+        }
+
+        private void actualizar()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPaginaAnterior.Visible = false;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
         }
 
         #region Método para cargar los datos en el DataGridView
         public void CargarDatos(int estado = 1, bool busqueda = false)
         {
-            //var consulta = string.Empty;
-            //if (busqueda)
-            //{
-            //    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
-            //    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
-            //    var opcion = cbTipoVentas.SelectedValue.ToString();
-
-            //    // Ventas pagadas
-            //    if (opcion == "VP") { estado = 1; }
-            //    // Ventas guardadas
-            //    if (opcion == "VG") { estado = 2; }
-            //    // Ventas canceladas
-            //    if (opcion == "VC") { estado = 3; }
-            //    // Ventas a credito
-            //    if (opcion == "VCC") { estado = 4; }
-            //    // Facturas
-            //    if (opcion == "FAC") { estado = 5; }
-            //    // Presupuestos
-            //    if (opcion == "PRE") { estado = 6; }
-
-            //    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
-            //}
-            //else
-            //{
-            //    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
-            //}
-
-            //FiltroAvanzado = consulta;
-
-            //DGVListadoVentas.Rows.Clear();
-
-            //p = new Paginar(FiltroAvanzado, DataMemberDGV, maximo_x_pagina);
-
-            //DataSet datos = p.cargar();
-            //DataTable dtDatos = datos.Tables[0];
-
-            //// Inicializacion de iconos
-            //Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
-            //Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
-            //Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
-            //Image credito = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\dollar.png");
-            //Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
-            //Image timbrar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell.png");
-
-            //Bitmap sinImagen = new Bitmap(1, 1);
-            //sinImagen.SetPixel(0, 0, Color.White);
-
-            //if (dtDatos.Rows.Count > 0)
-            //{
-            //    float iva = 0f;
-            //    float subtotal = 0f;
-            //    float total = 0f;
-            //    foreach (DataRow filaDatos in dtDatos.Rows)
-            //    {
-            //        int idVenta = Convert.ToInt32(filaDatos["ID"].ToString());
-            //        int status = Convert.ToInt32(filaDatos["Status"].ToString());
-
-            //        string cliente = "Público General";
-            //        string rfc = "XAXX010101000";
-
-            //        // Obtener detalle de venta y datos del cliente
-            //        var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
-
-            //        if (detalles.Length > 0)
-            //        {
-            //            if (Convert.ToInt32(detalles[0]) > 0)
-            //            {
-            //                var infoCliente = mb.ObtenerDatosCliente(Convert.ToInt32(detalles[0]), FormPrincipal.userID);
-            //                cliente = infoCliente[0];
-            //                rfc = infoCliente[1];
-            //            }
-            //        }
-
-            //        // Obtener el cliente de la venta guardada
-            //        if (estado == 2)
-            //        {
-            //            var idCliente = Convert.ToInt32(filaDatos["IDCliente"]);
-            //            if (idCliente > 0)
-            //            {
-            //                var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
-            //                cliente = infoCliente[0];
-            //                rfc = infoCliente[1];
-            //            }
-            //        }
-
-            //        int rowId = DGVListadoVentas.Rows.Add();
-
-            //        DataGridViewRow row = DGVListadoVentas.Rows[rowId];
-
-            //        var ivaTmp = float.Parse(filaDatos["IVA16"].ToString());
-            //        var subtotalTmp = float.Parse(filaDatos["Subtotal"].ToString());
-            //        var totalTmp = float.Parse(filaDatos["Total"].ToString());
-
-            //        iva += ivaTmp;
-            //        subtotal += subtotalTmp;
-            //        total += totalTmp;
-
-            //        row.Cells["ID"].Value = idVenta;
-            //        row.Cells["Cliente"].Value = cliente;
-            //        row.Cells["RFC"].Value = rfc;
-            //        row.Cells["Subtotal"].Value = subtotalTmp.ToString("0.00");
-            //        row.Cells["IVA"].Value = ivaTmp.ToString("0.00");
-            //        row.Cells["Total"].Value = totalTmp.ToString("0.00");
-            //        row.Cells["Folio"].Value = filaDatos["Folio"].ToString();
-            //        row.Cells["Serie"].Value = filaDatos["Serie"].ToString();
-            //        row.Cells["Fecha"].Value = Convert.ToDateTime(filaDatos["FechaOperacion"].ToString());
-
-            //        row.Cells["Cancelar"].Value = cancelar;
-            //        row.Cells["Factura"].Value = factura;
-            //        row.Cells["Ticket"].Value = ticket;
-            //        row.Cells["Abono"].Value = credito;
-            //        row.Cells["Timbrar"].Value = timbrar;
-
-            //        // Ventas canceladas
-            //        if (status == 3)
-            //        {
-            //            row.Cells["Cancelar"].Value = sinImagen;
-            //        }
-
-            //        // Ventas a credito
-            //        if (status != 4)
-            //        {
-            //            row.Cells["Abono"].Value = info;
-            //        }
-            //    }
-
-            //    AgregarTotales(iva, subtotal, total);
-
-            //    DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
-            //}
-            //tipo_venta = estado;
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-
-            var consulta = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            if (clickBoton == 0)
             {
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-            else
-            {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
+                var consulta = string.Empty;
+                if (busqueda)
+                {
+                    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+                    var opcion = cbTipoVentas.SelectedValue.ToString();
 
-            // Si busqueda es true obtenemos las fechas para realizar el filtrado de las ventas
-            if (busqueda)
-            {
-                var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
-                var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
-                var opcion = cbTipoVentas.SelectedValue.ToString();
+                    // Ventas pagadas
+                    if (opcion == "VP") { estado = 1; }
+                    // Ventas guardadas
+                    if (opcion == "VG") { estado = 2; }
+                    // Ventas canceladas
+                    if (opcion == "VC") { estado = 3; }
+                    // Ventas a credito
+                    if (opcion == "VCC") { estado = 4; }
+                    // Facturas
+                    if (opcion == "FAC") { estado = 5; }
+                    // Presupuestos
+                    if (opcion == "PRE") { estado = 6; }
 
-                //Ventas pagadas
-                if (opcion == "VP") { estado = 1; }
-                //Ventas guardadas
-                if (opcion == "VG") { estado = 2; }
-                //Ventas canceladas
-                if (opcion == "VC") { estado = 3; }
-                //Ventas a credito
-                if (opcion == "VCC") { estado = 4; }
-                //Facturas
-                if (opcion == "FAC") { estado = 5; }
-                //Presupuestos
-                if (opcion == "PRE") { estado = 6; }
+                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+                }
+                else
+                {
+                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+                }
 
-                consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
+                FiltroAvanzado = consulta;
+                
+                p = new Paginar(FiltroAvanzado, DataMemberDGV, maximo_x_pagina);
             }
-            else
-            {
-                consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
-            }
-
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand(consulta, sql_con);
-            dr = sql_cmd.ExecuteReader();
 
             DGVListadoVentas.Rows.Clear();
 
-            //Inicializacion de iconos
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
+
+            // Inicializacion de iconos
             Image cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
             Image factura = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
             Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
@@ -270,22 +181,20 @@ namespace PuntoDeVentaV2
             Bitmap sinImagen = new Bitmap(1, 1);
             sinImagen.SetPixel(0, 0, Color.White);
 
-            if (dr.HasRows)
+            if (dtDatos.Rows.Count > 0)
             {
                 float iva = 0f;
                 float subtotal = 0f;
                 float total = 0f;
-
-                while (dr.Read())
+                foreach (DataRow filaDatos in dtDatos.Rows)
                 {
-
-                    int idVenta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
-                    int status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
+                    int idVenta = Convert.ToInt32(filaDatos["ID"].ToString());
+                    int status = Convert.ToInt32(filaDatos["Status"].ToString());
 
                     string cliente = "Público General";
                     string rfc = "XAXX010101000";
 
-                    //Obtener detalle de venta y datos del cliente
+                    // Obtener detalle de venta y datos del cliente
                     var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
 
                     if (detalles.Length > 0)
@@ -298,12 +207,10 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-
-                    //Obtener el cliente de la venta guardada
+                    // Obtener el cliente de la venta guardada
                     if (estado == 2)
                     {
-                        var idCliente = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDCliente")));
-
+                        var idCliente = Convert.ToInt32(filaDatos["IDCliente"]);
                         if (idCliente > 0)
                         {
                             var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
@@ -316,9 +223,9 @@ namespace PuntoDeVentaV2
 
                     DataGridViewRow row = DGVListadoVentas.Rows[rowId];
 
-                    var ivaTmp = float.Parse(dr.GetValue(dr.GetOrdinal("IVA16")).ToString());
-                    var subtotalTmp = float.Parse(dr.GetValue(dr.GetOrdinal("Subtotal")).ToString());
-                    var totalTmp = float.Parse(dr.GetValue(dr.GetOrdinal("Total")).ToString());
+                    var ivaTmp = float.Parse(filaDatos["IVA16"].ToString());
+                    var subtotalTmp = float.Parse(filaDatos["Subtotal"].ToString());
+                    var totalTmp = float.Parse(filaDatos["Total"].ToString());
 
                     iva += ivaTmp;
                     subtotal += subtotalTmp;
@@ -330,11 +237,9 @@ namespace PuntoDeVentaV2
                     row.Cells["Subtotal"].Value = subtotalTmp.ToString("0.00");
                     row.Cells["IVA"].Value = ivaTmp.ToString("0.00");
                     row.Cells["Total"].Value = totalTmp.ToString("0.00");
-                    row.Cells["Folio"].Value = dr.GetValue(dr.GetOrdinal("Folio"));
-                    row.Cells["Serie"].Value = dr.GetValue(dr.GetOrdinal("Serie"));
-                    //row.Cells["Pago"].Value = dr.GetValue(dr.GetOrdinal("MetodoPago"));
-                    //row.Cells["Empleado"].Value = dr.GetValue(dr.GetOrdinal("IDEmpleado"));
-                    row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                    row.Cells["Folio"].Value = filaDatos["Folio"].ToString();
+                    row.Cells["Serie"].Value = filaDatos["Serie"].ToString();
+                    row.Cells["Fecha"].Value = Convert.ToDateTime(filaDatos["FechaOperacion"].ToString());
 
                     row.Cells["Cancelar"].Value = cancelar;
                     row.Cells["Factura"].Value = factura;
@@ -342,13 +247,13 @@ namespace PuntoDeVentaV2
                     row.Cells["Abono"].Value = credito;
                     row.Cells["Timbrar"].Value = timbrar;
 
-                    //Ventas canceladas
+                    // Ventas canceladas
                     if (status == 3)
                     {
                         row.Cells["Cancelar"].Value = sinImagen;
                     }
 
-                    //Ventas a credito
+                    // Ventas a credito
                     if (status != 4)
                     {
                         row.Cells["Abono"].Value = info;
@@ -359,10 +264,6 @@ namespace PuntoDeVentaV2
 
                 DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
             }
-
-            dr.Close();
-            sql_con.Close();
-
             tipo_venta = estado;
         }
         #endregion
@@ -412,6 +313,7 @@ namespace PuntoDeVentaV2
         private void cbTipoVentas_SelectedIndexChanged(object sender, EventArgs e)
         {
             var opcion = cbTipoVentas.SelectedValue.ToString();
+            clickBoton = 0;
 
             //Ventas pagadas
             if (opcion == "VP") { CargarDatos(1); }
@@ -826,6 +728,65 @@ namespace PuntoDeVentaV2
             Crear_factura crear_factura = new Crear_factura(id_cliente, n_filas, id_venta);
 
             crear_factura.ShowDialog();
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linkLblPaginaSiguiente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
+            clickBoton = 0;
         }
     }
 }

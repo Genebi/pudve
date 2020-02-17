@@ -167,11 +167,6 @@ namespace PuntoDeVentaV2
             //actualizar();
         }
 
-        private void linkLblPaginaActual_Click(object sender, EventArgs e)
-        {
-            actualizar();
-        }
-
         private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             p.atras();
@@ -1301,14 +1296,14 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void linkLblPaginaActual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLblPaginaSiguiente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
 
         }
 
-        private void linkLblPaginaSiguiente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linkLblPaginaActual_Click_1(object sender, EventArgs e)
         {
-
+            actualizar();
         }
 
         public void dictionaryLoad()

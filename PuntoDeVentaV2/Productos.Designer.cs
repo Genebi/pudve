@@ -907,8 +907,7 @@
             this.linkLblPaginaActual.TabIndex = 15;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "3";
-            this.linkLblPaginaActual.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaActual_LinkClicked);
-            this.linkLblPaginaActual.Click += new System.EventHandler(this.linkLblPaginaActual_Click);
+            this.linkLblPaginaActual.Click += new System.EventHandler(this.linkLblPaginaActual_Click_1);
             // 
             // linkLblPaginaAnterior
             // 
