@@ -155,7 +155,7 @@ namespace PuntoDeVentaV2
                     // Presupuestos
                     if (opcion == "PRE") { estado = 6; }
 
-                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
                 }
                 else
                 {
