@@ -1296,11 +1296,6 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void linkLblPaginaSiguiente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
         private void linkLblPaginaActual_Click_1(object sender, EventArgs e)
         {
             actualizar();

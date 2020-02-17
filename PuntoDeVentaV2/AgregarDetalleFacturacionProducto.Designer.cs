@@ -210,6 +210,7 @@
             // 
             this.btnClaveGenerica.BackColor = System.Drawing.SystemColors.HotTrack;
             this.btnClaveGenerica.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClaveGenerica.FlatAppearance.BorderSize = 0;
             this.btnClaveGenerica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClaveGenerica.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClaveGenerica.ForeColor = System.Drawing.Color.White;
@@ -350,7 +351,7 @@
             this.txtBoxBase.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxBase.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtBoxBase.Location = new System.Drawing.Point(82, 40);
-            this.txtBoxBase.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtBoxBase.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxBase.Name = "txtBoxBase";
             this.txtBoxBase.Size = new System.Drawing.Size(120, 27);
             this.txtBoxBase.TabIndex = 51;
@@ -364,9 +365,9 @@
             this.groupBox1.Controls.Add(this.rb0porCiento);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(24, 84);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(579, 66);
             this.groupBox1.TabIndex = 52;
             this.groupBox1.TabStop = false;
@@ -376,7 +377,7 @@
             // 
             this.rbExcento.AutoSize = true;
             this.rbExcento.Location = new System.Drawing.Point(473, 28);
-            this.rbExcento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rbExcento.Margin = new System.Windows.Forms.Padding(2);
             this.rbExcento.Name = "rbExcento";
             this.rbExcento.Size = new System.Drawing.Size(93, 21);
             this.rbExcento.TabIndex = 3;
@@ -389,7 +390,7 @@
             this.rb16porCiento.AutoSize = true;
             this.rb16porCiento.Checked = true;
             this.rb16porCiento.Location = new System.Drawing.Point(316, 28);
-            this.rb16porCiento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rb16porCiento.Margin = new System.Windows.Forms.Padding(2);
             this.rb16porCiento.Name = "rb16porCiento";
             this.rb16porCiento.Size = new System.Drawing.Size(73, 21);
             this.rb16porCiento.TabIndex = 2;
@@ -402,7 +403,7 @@
             // 
             this.rb8porCiento.AutoSize = true;
             this.rb8porCiento.Location = new System.Drawing.Point(153, 28);
-            this.rb8porCiento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rb8porCiento.Margin = new System.Windows.Forms.Padding(2);
             this.rb8porCiento.Name = "rb8porCiento";
             this.rb8porCiento.Size = new System.Drawing.Size(66, 21);
             this.rb8porCiento.TabIndex = 1;
@@ -414,7 +415,7 @@
             // 
             this.rb0porCiento.AutoSize = true;
             this.rb0porCiento.Location = new System.Drawing.Point(16, 28);
-            this.rb0porCiento.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.rb0porCiento.Margin = new System.Windows.Forms.Padding(2);
             this.rb0porCiento.Name = "rb0porCiento";
             this.rb0porCiento.Size = new System.Drawing.Size(66, 21);
             this.rb0porCiento.TabIndex = 0;
@@ -426,7 +427,7 @@
             // 
             this.txtIVA.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIVA.Location = new System.Drawing.Point(624, 112);
-            this.txtIVA.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtIVA.Margin = new System.Windows.Forms.Padding(2);
             this.txtIVA.Name = "txtIVA";
             this.txtIVA.Size = new System.Drawing.Size(100, 21);
             this.txtIVA.TabIndex = 53;
@@ -457,7 +458,7 @@
             // 
             this.txtTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotal.Location = new System.Drawing.Point(624, 362);
-            this.txtTotal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtTotal.Margin = new System.Windows.Forms.Padding(2);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.Size = new System.Drawing.Size(100, 22);
             this.txtTotal.TabIndex = 56;
@@ -466,9 +467,11 @@
             // btnKeyWordSearch
             // 
             this.btnKeyWordSearch.BackColor = System.Drawing.Color.Aqua;
+            this.btnKeyWordSearch.FlatAppearance.BorderSize = 0;
+            this.btnKeyWordSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKeyWordSearch.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKeyWordSearch.Location = new System.Drawing.Point(584, 423);
-            this.btnKeyWordSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnKeyWordSearch.Margin = new System.Windows.Forms.Padding(2);
             this.btnKeyWordSearch.Name = "btnKeyWordSearch";
             this.btnKeyWordSearch.Size = new System.Drawing.Size(170, 25);
             this.btnKeyWordSearch.TabIndex = 57;

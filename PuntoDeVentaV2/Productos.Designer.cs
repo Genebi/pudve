@@ -834,7 +834,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 20;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // btnPrimeraPagina
             // 
@@ -892,7 +891,6 @@
             this.linkLblPaginaSiguiente.TabIndex = 16;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "4";
-            this.linkLblPaginaSiguiente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaSiguiente_LinkClicked);
             this.linkLblPaginaSiguiente.Click += new System.EventHandler(this.linkLblPaginaSiguiente_Click);
             // 
             // linkLblPaginaActual
