@@ -80,6 +80,8 @@ namespace PuntoDeVentaV2
             CargarDatos();
 
             actualizar();
+
+            btnUltimaPagina.PerformClick();
         }
 
         private void actualizar()
@@ -635,6 +637,8 @@ namespace PuntoDeVentaV2
                 CargarDatos();
 
                 recargarDatos = false;
+
+                btnUltimaPagina.PerformClick();
             }
 
             if (abrirNuevaVenta)

@@ -183,6 +183,19 @@ namespace PuntoDeVentaV2
         int found = 0;
         NameValueCollection appSettings;
 
+        private void chkBoxTipo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBoxTipo.Checked.Equals(true))
+            {
+                cbTipoFiltroCombProdServ.Enabled = true;
+            }
+            else if (chkBoxTipo.Checked.Equals(false))
+            {
+                cbTipoFiltroCombProdServ.SelectedIndex = 0;
+                cbTipoFiltroCombProdServ.Enabled = false;
+            }
+        }
+
         // this code will add a listviewtem
         // to a listview for each database entry
         // in the appSettings section of an App.config file.
@@ -1194,19 +1207,6 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
-            //servidor = Properties.Settings.Default.Hosting;
-
-            //if (!string.IsNullOrWhiteSpace(servidor))
-            //{
-            //    saveDirectoryFile = $@"\\{servidor}\PUDVE\settings\Dictionary\";
-            //}
-            //else
-            //{
-            //    saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
-            //}
-
-            //path = saveDirectoryFile;
-
             servidor = Properties.Settings.Default.Hosting;
             saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             path = saveDirectoryFile;
@@ -1215,6 +1215,8 @@ namespace PuntoDeVentaV2
             BuscarChkBoxListView(chkDatabase);
             dictionaryLoad();
 
+            // Condiciones para valorar los procesos del CheckBox de Stock
+            // Si esta activado
             if (Properties.Settings.Default.chkFiltroStock.Equals(true))
             {
                 string strOperadorAndCant;
@@ -1248,6 +1250,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            // si esta desactivado
             else if (Properties.Settings.Default.chkFiltroStock.Equals(false))
             {
                 chkBoxStock.Checked = false;
@@ -1255,6 +1258,9 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroStock_SelectedIndexChanged(sender, e);
                 validarChkBoxStock();
             }
+
+            // Condiciones para valorar los procesos del CheckBox de Precio
+            // Si esta activado
             if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
             {
                 string strOperadorAndCant;
@@ -1292,6 +1298,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            // si esta desactivado
             else if (Properties.Settings.Default.chkFiltroPrecio.Equals(false))
             {
                 chkBoxPrecio.Checked = false;
@@ -1300,19 +1307,19 @@ namespace PuntoDeVentaV2
                 validarChkBoxPrecio();
             }
 
-            //if (!string.IsNullOrWhiteSpace(servidor))
-            //{
-            //    dictionaryLoad();
-
-            //    verificarChkBoxDinamicos();
-            //}
-            //else if (string.IsNullOrWhiteSpace(servidor))
-            //{
-            //    loadFormConfig();
-            //    BuscarChkBoxListView(chkDatabase);
-
-            //    dictionaryLoad();
-            //}
+            // Condiciones para valorar los procesos del CheckBox de Stock
+            // Si esta Desactivado
+            if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true))
+            {
+                cbTipoFiltroCombProdServ.Enabled = true;
+            }
+            else if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(false))
+            {
+                cbTipoFiltroCombProdServ.SelectedIndex = 0;
+                cbTipoFiltroCombProdServ.Enabled = false;
+                //chkFiltroCombProdServ = bool
+                //strFiltroCombProdServ = string
+            }
         }
 
         private void verificarChkBoxDinamicos()

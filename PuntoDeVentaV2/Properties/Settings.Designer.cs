@@ -358,5 +358,29 @@ namespace PuntoDeVentaV2.Properties {
                 this["tiempoTimerAndroid"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool chkFiltroCombProdServ {
+            get {
+                return ((bool)(this["chkFiltroCombProdServ"]));
+            }
+            set {
+                this["chkFiltroCombProdServ"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\"\"")]
+        public string strFiltroCombProdServ {
+            get {
+                return ((string)(this["strFiltroCombProdServ"]));
+            }
+            set {
+                this["strFiltroCombProdServ"] = value;
+            }
+        }
     }
 }
