@@ -41,7 +41,6 @@
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +62,7 @@
             // chkBoxTipo
             // 
             this.chkBoxTipo.AutoSize = true;
-            this.chkBoxTipo.Location = new System.Drawing.Point(19, 121);
+            this.chkBoxTipo.Location = new System.Drawing.Point(19, 97);
             this.chkBoxTipo.Name = "chkBoxTipo";
             this.chkBoxTipo.Size = new System.Drawing.Size(47, 17);
             this.chkBoxTipo.TabIndex = 12;
@@ -83,7 +82,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.cbTipoFiltroCombProdServ);
             this.panel1.Controls.Add(this.cbTipoFiltroStock);
             this.panel1.Controls.Add(this.txtCantStock);
@@ -103,7 +101,7 @@
             "Combo",
             "Producto",
             "Servicio"});
-            this.cbTipoFiltroCombProdServ.Location = new System.Drawing.Point(49, 100);
+            this.cbTipoFiltroCombProdServ.Location = new System.Drawing.Point(49, 77);
             this.cbTipoFiltroCombProdServ.Name = "cbTipoFiltroCombProdServ";
             this.cbTipoFiltroCombProdServ.Size = new System.Drawing.Size(370, 21);
             this.cbTipoFiltroCombProdServ.TabIndex = 6;
@@ -224,17 +222,6 @@
             this.btnClean.UseVisualStyleBackColor = false;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(87, 78);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(294, 20);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "En Construcción Concepto de Tipo";
-            // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -275,6 +262,5 @@
         private System.Windows.Forms.FlowLayoutPanel fLPDetalleProducto;
         private System.Windows.Forms.CheckBox chkBoxTipo;
         private System.Windows.Forms.ComboBox cbTipoFiltroCombProdServ;
-        private System.Windows.Forms.Label label1;
     }
 }

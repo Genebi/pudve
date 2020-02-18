@@ -202,39 +202,43 @@ namespace PuntoDeVentaV2
 
             if (filtroTipo.Equals(true))
             {
-                strOpcionCBCombProdServ = Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem);
+                //strOpcionCBCombProdServ = Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem);
 
-                strFiltroCombProdServ = "Tipo ";
-
-                if (!strFiltroCombProdServ.Equals(""))
+                if (!Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals(""))
                 {
-                    if (strFiltroCombProdServ.Equals("No Aplica"))
+                    strFiltroCombProdServ = "Tipo ";
+
+                    if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("No Aplica"))
                     {
                         strFiltroCombProdServ = "";
                     }
-                    else if (strFiltroCombProdServ.Equals("Combo"))
+                    else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Combo"))
                     {
                         strFiltroCombProdServ += "= PQ";
                     }
-                    else if (strFiltroCombProdServ.Equals("Producto"))
+                    else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Producto"))
                     {
                         strFiltroCombProdServ += "= P";
                     }
-                    else if (strFiltroCombProdServ.Equals("Servicio"))
+                    else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Servicio"))
                     {
                         strFiltroCombProdServ += "= S";
                     }
                 }
-                else if (strFiltroCombProdServ.Equals(""))
+                else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals(""))
                 {
-                    strFiltroCombProdServ = "";
+                    strFiltroCombProdServ = "No Aplica";
                 }
+            }
+            else if (filtroTipo.Equals(false))
+            {
+                strFiltroCombProdServ = "No Aplica";
             }
         }
 
         private void validarChkBoxTipo()
         {
-            cbTipoFiltroCombProdServ.SelectedIndex = 0;
+            //cbTipoFiltroCombProdServ.SelectedIndex = 0;
             if (chkBoxTipo.Checked.Equals(true))
             {
                 filtroTipo = Convert.ToBoolean(chkBoxTipo.Checked);
@@ -953,6 +957,7 @@ namespace PuntoDeVentaV2
                                 {
                                     MessageBox.Show("Debe de Elegir una Opción\nde la Lista de " + name,
                                                     "Opción " + name, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
                                 }
                             }
                             using (StreamWriter file = new StreamWriter(rutaCompletaFile))
@@ -1374,12 +1379,43 @@ namespace PuntoDeVentaV2
             // Si esta Desactivado
             if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true))
             {
+                string textoCombo = string.Empty;
+                bool chkBoxProdCombServ;
+
+                chkBoxProdCombServ = Properties.Settings.Default.chkFiltroCombProdServ;
+                chkBoxTipo.Checked = chkBoxProdCombServ;
+
+                textoCombo = Properties.Settings.Default.strFiltroCombProdServ.Remove(0, 7);
+
                 cbTipoFiltroCombProdServ.Enabled = true;
+
+                if (textoCombo.Equals("No Aplica") || textoCombo.Equals(""))
+                {
+                    cbTipoFiltroCombProdServ.SelectedIndex = 0;
+                }
+                else if (textoCombo.Equals("PQ"))
+                {
+                    cbTipoFiltroCombProdServ.SelectedIndex = 1;
+                }
+                else if (textoCombo.Equals("P"))
+                {
+                    cbTipoFiltroCombProdServ.SelectedIndex = 2;
+                }
+                else if (textoCombo.Equals("S"))
+                {
+                    cbTipoFiltroCombProdServ.SelectedIndex = 3;
+                }
             }
             else if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(false))
             {
+                bool chkBoxProdCombServ;
+
                 cbTipoFiltroCombProdServ.SelectedIndex = 0;
                 cbTipoFiltroCombProdServ.Enabled = false;
+                
+                chkBoxProdCombServ = Properties.Settings.Default.chkFiltroCombProdServ;
+
+                chkBoxTipo.Checked = chkBoxProdCombServ;
                 //chkFiltroCombProdServ = bool
                 //strFiltroCombProdServ = string
             }
@@ -1524,10 +1560,10 @@ namespace PuntoDeVentaV2
                         strFiltroPrecio += "< ";
                     }
                 }
-                else if (strTxtPrecio.Equals(""))
-                {
-                    strFiltroPrecio = "";
-                }
+            }
+            else if (filtroPrecio.Equals(false))
+            {
+                strFiltroPrecio = "No Aplica";
             }
         }
 
@@ -1575,8 +1611,13 @@ namespace PuntoDeVentaV2
         {
             cbTipoFiltroStock_SelectedIndexChanged(sender, e);
             filtroStock = Properties.Settings.Default.chkFiltroStock;
+
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
             filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
+
+            cbTipoFiltroCombProdServ_SelectedIndexChanged(sender, e);
+            filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+            //strFiltroCombProdServ = Properties.Settings.Default.strFiltroCombProdServ;
 
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección",
                                                   "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -1602,6 +1643,7 @@ namespace PuntoDeVentaV2
                             MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Stock",
                                             "Selección Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             txtCantStock.Focus();
+                            return;
                         }
                     }
                     else if (strTxtStock.Equals(""))
@@ -1610,6 +1652,7 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Stock",
                                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCantStock.Focus();
+                        return;
                     }
                 }
                 else if (filtroStock.Equals(false))
@@ -1636,6 +1679,7 @@ namespace PuntoDeVentaV2
                             MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Precio",
                                             "Selección Precio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             txtCantPrecio.Focus();
+                            return;
                         }
                     }
                     else if (strTxtPrecio.Equals(""))
@@ -1644,19 +1688,46 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Precio",
                                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCantPrecio.Focus();
+                        return;
                     }
                 }
                 else if (filtroPrecio.Equals(false))
                 {
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Precio.");
                 }
-                
+                if (filtroTipo.Equals(true))
+                {
+                    if (strFiltroCombProdServ.Equals("No Aplica") || strFiltroCombProdServ.Equals(""))
+                    {
+                        MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Tipo", "Selección Tipo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Properties.Settings.Default.strFiltroCombProdServ = strFiltroCombProdServ;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+                        cbTipoFiltroCombProdServ.Focus();
+                        return;
+                    }
+                    else if (!strFiltroCombProdServ.Equals("No Aplica") || !strFiltroCombProdServ.Equals("Tipo "))
+                    {
+                        Properties.Settings.Default.strFiltroCombProdServ = strFiltroCombProdServ;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+
+                        //MessageBox.Show("Filtro de Tipo: " + Properties.Settings.Default.strFiltroCombProdServ.ToString());
+                    }
+                }
+                else if (filtroTipo.Equals(false))
+                {
+                    //MessageBox.Show("Que Paso...\nFalta Seleccionar Tipo.");
+                }
+
                 saveDictionary();
 
-                if((!strOpcionCBStock.Equals("No Aplica")) && (!strOpcionCBPrecio.Equals("No Aplica")))
-                {
-                    this.Close();
-                }
+                //if((!strOpcionCBStock.Equals("No Aplica")) && (!strOpcionCBPrecio.Equals("No Aplica")) && (!strFiltroCombProdServ.Equals("No Aplica")))
+                //{
+                //    this.Close();
+                //}
+
+                this.Close();
             }
             else if (result == DialogResult.No)
             {
@@ -1707,10 +1778,10 @@ namespace PuntoDeVentaV2
                         strFiltroStock += "< ";
                     }
                 }
-                else if (strTxtStock.Equals(""))
-                {
-                    strFiltroStock = "";
-                }
+            }
+            else if (filtroStock.Equals(false))
+            {
+                strFiltroStock = "No Aplica";
             }
         }
 

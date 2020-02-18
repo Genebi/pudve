@@ -1800,6 +1800,15 @@ namespace PuntoDeVentaV2
         {
             reiniciarVariablesDeSistemaPrecio();
             reiniciarVariablesDeSistemaStock();
+            reiniciarVariablesDeSistemaTipo();
+        }
+
+        private void reiniciarVariablesDeSistemaTipo()
+        {
+            Properties.Settings.Default.chkFiltroCombProdServ = false;
+            Properties.Settings.Default.strFiltroCombProdServ = "";
+            Properties.Settings.Default.Save();
+            Properties.Settings.Default.Reload();
         }
 
         private void reiniciarVariablesDeSistemaStock()
