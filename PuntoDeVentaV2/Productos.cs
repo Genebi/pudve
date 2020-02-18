@@ -649,8 +649,8 @@ namespace PuntoDeVentaV2
                     }
                     if (e.ColumnIndex == 16)
                     {
-                        textoTTipButtonMsg = "Producto/Servicio";
-                        coordenadaX = 90;
+                        textoTTipButtonMsg = "Producto, Combo ó Servicio";
+                        coordenadaX = 150;
                         coordenadaY = -200;
                     }
                     TTipButtonText.Show(textoTTipButtonMsg, this, DGVProductos.Location.X + cellRect.X - coordenadaX, DGVProductos.Location.Y + cellRect.Y - coordenadaY, 980);
