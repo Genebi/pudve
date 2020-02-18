@@ -2097,6 +2097,10 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
                         }
+                        if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+                        {
+                            filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroCombProdServ} ";
+                        }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
                     else if (busqueda != "")
@@ -2133,6 +2137,10 @@ namespace PuntoDeVentaV2
                         if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
+                        }
+                        if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+                        {
+                            filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroCombProdServ} ";
                         }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
@@ -2180,6 +2188,10 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
                         }
+                        if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+                        {
+                            filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroCombProdServ} ";
+                        }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
                     else if (DGVProductos.RowCount >= 1 && clickBoton == 0)
@@ -2216,6 +2228,10 @@ namespace PuntoDeVentaV2
                         if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
+                        }
+                        if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+                        {
+                            filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroCombProdServ} ";
                         }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
@@ -2256,6 +2272,10 @@ namespace PuntoDeVentaV2
                         if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
+                        }
+                        if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+                        {
+                            filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroCombProdServ} ";
                         }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
@@ -2302,6 +2322,10 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
                         }
+                        if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+                        {
+                            filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroCombProdServ} ";
+                        }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }
                 }
@@ -2341,6 +2365,10 @@ namespace PuntoDeVentaV2
                         if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
                         {
                             filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
+                        }
+                        if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+                        {
+                            filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroCombProdServ} ";
                         }
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
                     }

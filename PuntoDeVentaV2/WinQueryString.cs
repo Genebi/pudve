@@ -214,15 +214,15 @@ namespace PuntoDeVentaV2
                     }
                     else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Combo"))
                     {
-                        strFiltroCombProdServ += "= PQ";
+                        strFiltroCombProdServ += "= 'PQ'";
                     }
                     else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Producto"))
                     {
-                        strFiltroCombProdServ += "= P";
+                        strFiltroCombProdServ += "= 'P'";
                     }
                     else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Servicio"))
                     {
-                        strFiltroCombProdServ += "= S";
+                        strFiltroCombProdServ += "= 'S'";
                     }
                 }
                 else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals(""))
@@ -1393,15 +1393,15 @@ namespace PuntoDeVentaV2
                 {
                     cbTipoFiltroCombProdServ.SelectedIndex = 0;
                 }
-                else if (textoCombo.Equals("PQ"))
+                else if (textoCombo.Equals("'PQ'"))
                 {
                     cbTipoFiltroCombProdServ.SelectedIndex = 1;
                 }
-                else if (textoCombo.Equals("P"))
+                else if (textoCombo.Equals("'P'"))
                 {
                     cbTipoFiltroCombProdServ.SelectedIndex = 2;
                 }
-                else if (textoCombo.Equals("S"))
+                else if (textoCombo.Equals("'S'"))
                 {
                     cbTipoFiltroCombProdServ.SelectedIndex = 3;
                 }
