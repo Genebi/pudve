@@ -31,12 +31,15 @@ namespace PuntoDeVentaV2
                 strFiltroPrecio = string.Empty,
                 strFiltroProveedor = string.Empty,
                 strFiltroCombProdServ = string.Empty,
+                strFiltroNoRevision = string.Empty,
                 strOpcionCBStock = string.Empty,
                 strOpcionCBPrecio = string.Empty,
                 strOpcionCBProveedor = string.Empty,
                 strOpcionCBCombProdServ = string.Empty,
+                strOpcionCBNoRevision = string.Empty,
                 strTxtStock = string.Empty,
                 strTxtPrecio = string.Empty,
+                strTxtNoRevision = string.Empty,
                 servidor = string.Empty;
 
         string[] listaProveedores = new string[] { },
@@ -191,6 +194,50 @@ namespace PuntoDeVentaV2
         private void chkBoxTipo_CheckedChanged(object sender, EventArgs e)
         {
             validarChkBoxTipo();
+        }
+
+        private void cbTipoFiltroRevision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+
+            if (filtroRevision.Equals(true))
+            {
+                strOpcionCBNoRevision = Convert.ToString(cbTipoFiltroRevision.SelectedItem);
+                strTxtNoRevision = txtNoRevision.Text;
+                strFiltroNoRevision = "NumeroRevision ";
+                if (!strTxtNoRevision.Equals(""))
+                {
+                    if (strOpcionCBNoRevision.Equals("No Aplica"))
+                    {
+                        strFiltroNoRevision = "";
+                    }
+                    else if (strOpcionCBNoRevision.Equals("Mayor o Igual Que"))
+                    {
+                        strFiltroNoRevision += ">= ";
+                    }
+                    else if (strOpcionCBNoRevision.Equals("Menor o Igual Que"))
+                    {
+                        strFiltroNoRevision += "<= ";
+                    }
+                    else if (strOpcionCBNoRevision.Equals("Igual Que"))
+                    {
+                        strFiltroNoRevision += "= ";
+                    }
+                    else if (strOpcionCBNoRevision.Equals("Mayor Que"))
+                    {
+                        strFiltroNoRevision += "> ";
+                    }
+                    else if (strOpcionCBNoRevision.Equals("Menor Que"))
+                    {
+                        strFiltroNoRevision += "< ";
+                    }
+                }
+            }
+            else if (filtroRevision.Equals(false))
+            {
+                strFiltroNoRevision = "No Aplica";
+            }
+            //MessageBox.Show("String Almacenado:\n" + strFiltroNoRevision.ToString());
         }
 
         private void chkBoxRevision_CheckedChanged(object sender, EventArgs e)
@@ -1411,7 +1458,7 @@ namespace PuntoDeVentaV2
             }
 
             // Condiciones para valorar los procesos del CheckBox de Stock
-            // Si esta Desactivado
+            // Si esta Activado
             if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true))
             {
                 string textoCombo = string.Empty;
@@ -1447,12 +1494,28 @@ namespace PuntoDeVentaV2
 
                 cbTipoFiltroCombProdServ.SelectedIndex = 0;
                 cbTipoFiltroCombProdServ.Enabled = false;
-                
+
                 chkBoxProdCombServ = Properties.Settings.Default.chkFiltroCombProdServ;
 
                 chkBoxTipo.Checked = chkBoxProdCombServ;
                 //chkFiltroCombProdServ = bool
                 //strFiltroCombProdServ = string
+            }
+
+            // Condiciones para valorar los procesos del CheckBox de Stock
+            // Si esta Activado
+            if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true))
+            {
+                filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+
+                chkBoxRevision.Checked = filtroRevision;
+            }
+            // Si esta Desactivado
+            else if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(false))
+            {
+                filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+
+                chkBoxRevision.Checked = filtroRevision;
             }
         }
 

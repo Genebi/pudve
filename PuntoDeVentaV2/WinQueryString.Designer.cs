@@ -162,6 +162,7 @@
             this.cbTipoFiltroRevision.Name = "cbTipoFiltroRevision";
             this.cbTipoFiltroRevision.Size = new System.Drawing.Size(284, 21);
             this.cbTipoFiltroRevision.TabIndex = 6;
+            this.cbTipoFiltroRevision.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroRevision_SelectedIndexChanged);
             // 
             // cbTipoFiltroCombProdServ
             // 
