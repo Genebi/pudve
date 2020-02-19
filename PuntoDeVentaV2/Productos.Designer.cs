@@ -486,6 +486,7 @@
             // 
             // btnPedido
             // 
+            this.btnPedido.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPedido.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnPedido.Image = global::PuntoDeVentaV2.Properties.Resources.print;
             this.btnPedido.Location = new System.Drawing.Point(452, 117);
@@ -669,6 +670,7 @@
             // 
             // btnListView
             // 
+            this.btnListView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnListView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnListView.Image = global::PuntoDeVentaV2.Properties.Resources.list;
             this.btnListView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -684,6 +686,7 @@
             // 
             // btnPhotoView
             // 
+            this.btnPhotoView.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPhotoView.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPhotoView.Image = global::PuntoDeVentaV2.Properties.Resources.th_large;
             this.btnPhotoView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -699,6 +702,7 @@
             // 
             // btnModificarEstado
             // 
+            this.btnModificarEstado.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnModificarEstado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificarEstado.Image = global::PuntoDeVentaV2.Properties.Resources.list_alt;
             this.btnModificarEstado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;

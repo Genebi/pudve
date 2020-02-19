@@ -32,6 +32,12 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.panelContenedor = new System.Windows.Forms.Panel();
+            this.txtNumeroRevision = new System.Windows.Forms.TextBox();
+            this.cbNumeroRevision = new System.Windows.Forms.ComboBox();
+            this.checkNumeroRevision = new System.Windows.Forms.CheckBox();
+            this.txtCantidadPedir = new System.Windows.Forms.TextBox();
+            this.cbCantidadPedir = new System.Windows.Forms.ComboBox();
+            this.checkCantidadPedir = new System.Windows.Forms.CheckBox();
             this.txtStockNecesario = new System.Windows.Forms.TextBox();
             this.cbStockNecesario = new System.Windows.Forms.ComboBox();
             this.checkStockNecesario = new System.Windows.Forms.CheckBox();
@@ -46,9 +52,10 @@
             this.cbStock = new System.Windows.Forms.ComboBox();
             this.checkPrecio = new System.Windows.Forms.CheckBox();
             this.checkStock = new System.Windows.Forms.CheckBox();
-            this.txtCantidadPedir = new System.Windows.Forms.TextBox();
-            this.cbCantidadPedir = new System.Windows.Forms.ComboBox();
-            this.checkCantidadPedir = new System.Windows.Forms.CheckBox();
+            this.cbTipo = new System.Windows.Forms.ComboBox();
+            this.checkTipo = new System.Windows.Forms.CheckBox();
+            this.cbImagen = new System.Windows.Forms.ComboBox();
+            this.checkImagen = new System.Windows.Forms.CheckBox();
             this.panelContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +70,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(140, 322);
+            this.btnCancelar.Location = new System.Drawing.Point(140, 413);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 27);
             this.btnCancelar.TabIndex = 20;
@@ -79,7 +86,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(281, 321);
+            this.btnAceptar.Location = new System.Drawing.Point(281, 412);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(105, 28);
             this.btnAceptar.TabIndex = 19;
@@ -92,7 +99,7 @@
             this.primerSeparador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.primerSeparador.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.primerSeparador.Location = new System.Drawing.Point(18, 312);
+            this.primerSeparador.Location = new System.Drawing.Point(18, 403);
             this.primerSeparador.Name = "primerSeparador";
             this.primerSeparador.Size = new System.Drawing.Size(480, 2);
             this.primerSeparador.TabIndex = 23;
@@ -101,6 +108,13 @@
             // panelContenedor
             // 
             this.panelContenedor.AutoScroll = true;
+            this.panelContenedor.Controls.Add(this.cbImagen);
+            this.panelContenedor.Controls.Add(this.checkImagen);
+            this.panelContenedor.Controls.Add(this.cbTipo);
+            this.panelContenedor.Controls.Add(this.checkTipo);
+            this.panelContenedor.Controls.Add(this.txtNumeroRevision);
+            this.panelContenedor.Controls.Add(this.cbNumeroRevision);
+            this.panelContenedor.Controls.Add(this.checkNumeroRevision);
             this.panelContenedor.Controls.Add(this.txtCantidadPedir);
             this.panelContenedor.Controls.Add(this.cbCantidadPedir);
             this.panelContenedor.Controls.Add(this.checkCantidadPedir);
@@ -120,8 +134,74 @@
             this.panelContenedor.Controls.Add(this.checkStock);
             this.panelContenedor.Location = new System.Drawing.Point(2, 1);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(510, 298);
+            this.panelContenedor.Size = new System.Drawing.Size(510, 390);
             this.panelContenedor.TabIndex = 24;
+            // 
+            // txtNumeroRevision
+            // 
+            this.txtNumeroRevision.Enabled = false;
+            this.txtNumeroRevision.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNumeroRevision.Location = new System.Drawing.Point(394, 220);
+            this.txtNumeroRevision.Name = "txtNumeroRevision";
+            this.txtNumeroRevision.Size = new System.Drawing.Size(80, 21);
+            this.txtNumeroRevision.TabIndex = 45;
+            this.txtNumeroRevision.Text = "0";
+            this.txtNumeroRevision.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // cbNumeroRevision
+            // 
+            this.cbNumeroRevision.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbNumeroRevision.Enabled = false;
+            this.cbNumeroRevision.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNumeroRevision.FormattingEnabled = true;
+            this.cbNumeroRevision.Location = new System.Drawing.Point(138, 220);
+            this.cbNumeroRevision.Name = "cbNumeroRevision";
+            this.cbNumeroRevision.Size = new System.Drawing.Size(246, 24);
+            this.cbNumeroRevision.TabIndex = 44;
+            // 
+            // checkNumeroRevision
+            // 
+            this.checkNumeroRevision.AutoSize = true;
+            this.checkNumeroRevision.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkNumeroRevision.Location = new System.Drawing.Point(10, 220);
+            this.checkNumeroRevision.Name = "checkNumeroRevision";
+            this.checkNumeroRevision.Size = new System.Drawing.Size(123, 21);
+            this.checkNumeroRevision.TabIndex = 43;
+            this.checkNumeroRevision.Text = "Número revisión";
+            this.checkNumeroRevision.UseVisualStyleBackColor = true;
+            // 
+            // txtCantidadPedir
+            // 
+            this.txtCantidadPedir.Enabled = false;
+            this.txtCantidadPedir.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCantidadPedir.Location = new System.Drawing.Point(394, 180);
+            this.txtCantidadPedir.Name = "txtCantidadPedir";
+            this.txtCantidadPedir.Size = new System.Drawing.Size(80, 21);
+            this.txtCantidadPedir.TabIndex = 42;
+            this.txtCantidadPedir.Text = "0";
+            this.txtCantidadPedir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // cbCantidadPedir
+            // 
+            this.cbCantidadPedir.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCantidadPedir.Enabled = false;
+            this.cbCantidadPedir.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCantidadPedir.FormattingEnabled = true;
+            this.cbCantidadPedir.Location = new System.Drawing.Point(138, 180);
+            this.cbCantidadPedir.Name = "cbCantidadPedir";
+            this.cbCantidadPedir.Size = new System.Drawing.Size(246, 24);
+            this.cbCantidadPedir.TabIndex = 41;
+            // 
+            // checkCantidadPedir
+            // 
+            this.checkCantidadPedir.AutoSize = true;
+            this.checkCantidadPedir.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkCantidadPedir.Location = new System.Drawing.Point(10, 180);
+            this.checkCantidadPedir.Name = "checkCantidadPedir";
+            this.checkCantidadPedir.Size = new System.Drawing.Size(128, 21);
+            this.checkCantidadPedir.TabIndex = 40;
+            this.checkCantidadPedir.Text = "Cantidad a pedir";
+            this.checkCantidadPedir.UseVisualStyleBackColor = true;
             // 
             // txtStockNecesario
             // 
@@ -155,7 +235,6 @@
             this.checkStockNecesario.TabIndex = 37;
             this.checkStockNecesario.Text = "Stock Máximo";
             this.checkStockNecesario.UseVisualStyleBackColor = true;
-            this.checkStockNecesario.CheckedChanged += new System.EventHandler(this.checkStockMaximo_CheckedChanged);
             // 
             // txtStockMinimo
             // 
@@ -189,7 +268,6 @@
             this.checkStockMinimo.TabIndex = 34;
             this.checkStockMinimo.Text = "Stock Mínimo";
             this.checkStockMinimo.UseVisualStyleBackColor = true;
-            this.checkStockMinimo.CheckedChanged += new System.EventHandler(this.checkStockMinimo_CheckedChanged);
             // 
             // cbProveedor
             // 
@@ -197,7 +275,7 @@
             this.cbProveedor.Enabled = false;
             this.cbProveedor.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbProveedor.FormattingEnabled = true;
-            this.cbProveedor.Location = new System.Drawing.Point(138, 220);
+            this.cbProveedor.Location = new System.Drawing.Point(138, 260);
             this.cbProveedor.Name = "cbProveedor";
             this.cbProveedor.Size = new System.Drawing.Size(336, 24);
             this.cbProveedor.TabIndex = 33;
@@ -206,7 +284,7 @@
             // 
             this.checkProveedor.AutoSize = true;
             this.checkProveedor.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkProveedor.Location = new System.Drawing.Point(10, 220);
+            this.checkProveedor.Location = new System.Drawing.Point(10, 260);
             this.checkProveedor.Name = "checkProveedor";
             this.checkProveedor.Size = new System.Drawing.Size(90, 21);
             this.checkProveedor.TabIndex = 32;
@@ -268,7 +346,6 @@
             this.checkPrecio.TabIndex = 27;
             this.checkPrecio.Text = "Precio";
             this.checkPrecio.UseVisualStyleBackColor = true;
-            this.checkPrecio.CheckedChanged += new System.EventHandler(this.checkPrecio_CheckedChanged);
             // 
             // checkStock
             // 
@@ -280,47 +357,58 @@
             this.checkStock.TabIndex = 26;
             this.checkStock.Text = "Stock";
             this.checkStock.UseVisualStyleBackColor = true;
-            this.checkStock.CheckedChanged += new System.EventHandler(this.checkStock_CheckedChanged);
             // 
-            // txtCantidadPedir
+            // cbTipo
             // 
-            this.txtCantidadPedir.Enabled = false;
-            this.txtCantidadPedir.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidadPedir.Location = new System.Drawing.Point(394, 180);
-            this.txtCantidadPedir.Name = "txtCantidadPedir";
-            this.txtCantidadPedir.Size = new System.Drawing.Size(80, 21);
-            this.txtCantidadPedir.TabIndex = 42;
-            this.txtCantidadPedir.Text = "0";
-            this.txtCantidadPedir.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.cbTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipo.Enabled = false;
+            this.cbTipo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipo.FormattingEnabled = true;
+            this.cbTipo.Location = new System.Drawing.Point(138, 300);
+            this.cbTipo.Name = "cbTipo";
+            this.cbTipo.Size = new System.Drawing.Size(336, 24);
+            this.cbTipo.TabIndex = 47;
             // 
-            // cbCantidadPedir
+            // checkTipo
             // 
-            this.cbCantidadPedir.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCantidadPedir.Enabled = false;
-            this.cbCantidadPedir.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCantidadPedir.FormattingEnabled = true;
-            this.cbCantidadPedir.Location = new System.Drawing.Point(138, 180);
-            this.cbCantidadPedir.Name = "cbCantidadPedir";
-            this.cbCantidadPedir.Size = new System.Drawing.Size(246, 24);
-            this.cbCantidadPedir.TabIndex = 41;
+            this.checkTipo.AutoSize = true;
+            this.checkTipo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkTipo.Location = new System.Drawing.Point(10, 300);
+            this.checkTipo.Name = "checkTipo";
+            this.checkTipo.Size = new System.Drawing.Size(51, 21);
+            this.checkTipo.TabIndex = 46;
+            this.checkTipo.Text = "Tipo";
+            this.checkTipo.UseVisualStyleBackColor = true;
+            this.checkTipo.CheckedChanged += new System.EventHandler(this.checkTipo_CheckedChanged);
             // 
-            // checkCantidadPedir
+            // cbImagen
             // 
-            this.checkCantidadPedir.AutoSize = true;
-            this.checkCantidadPedir.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCantidadPedir.Location = new System.Drawing.Point(10, 180);
-            this.checkCantidadPedir.Name = "checkCantidadPedir";
-            this.checkCantidadPedir.Size = new System.Drawing.Size(128, 21);
-            this.checkCantidadPedir.TabIndex = 40;
-            this.checkCantidadPedir.Text = "Cantidad a pedir";
-            this.checkCantidadPedir.UseVisualStyleBackColor = true;
-            this.checkCantidadPedir.CheckedChanged += new System.EventHandler(this.checkCantidadPedir_CheckedChanged);
+            this.cbImagen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbImagen.Enabled = false;
+            this.cbImagen.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbImagen.FormattingEnabled = true;
+            this.cbImagen.Location = new System.Drawing.Point(138, 340);
+            this.cbImagen.Name = "cbImagen";
+            this.cbImagen.Size = new System.Drawing.Size(336, 24);
+            this.cbImagen.TabIndex = 49;
+            // 
+            // checkImagen
+            // 
+            this.checkImagen.AutoSize = true;
+            this.checkImagen.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkImagen.Location = new System.Drawing.Point(10, 340);
+            this.checkImagen.Name = "checkImagen";
+            this.checkImagen.Size = new System.Drawing.Size(72, 21);
+            this.checkImagen.TabIndex = 48;
+            this.checkImagen.Text = "Imagen";
+            this.checkImagen.UseVisualStyleBackColor = true;
+            this.checkImagen.CheckedChanged += new System.EventHandler(this.checkImagen_CheckedChanged);
             // 
             // FiltroReporteProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 361);
+            this.ClientSize = new System.Drawing.Size(514, 461);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnCancelar);
@@ -360,5 +448,12 @@
         private System.Windows.Forms.TextBox txtCantidadPedir;
         private System.Windows.Forms.ComboBox cbCantidadPedir;
         private System.Windows.Forms.CheckBox checkCantidadPedir;
+        private System.Windows.Forms.TextBox txtNumeroRevision;
+        private System.Windows.Forms.ComboBox cbNumeroRevision;
+        private System.Windows.Forms.CheckBox checkNumeroRevision;
+        private System.Windows.Forms.ComboBox cbTipo;
+        private System.Windows.Forms.CheckBox checkTipo;
+        private System.Windows.Forms.ComboBox cbImagen;
+        private System.Windows.Forms.CheckBox checkImagen;
     }
 }
