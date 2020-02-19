@@ -131,12 +131,12 @@
             this.cbTipoFiltroImagen.Items.AddRange(new object[] {
             "No Aplica",
             "Con Imagen",
-            "Sin Imagen",
-            "Todas"});
+            "Sin Imagen"});
             this.cbTipoFiltroImagen.Location = new System.Drawing.Point(38, 144);
             this.cbTipoFiltroImagen.Name = "cbTipoFiltroImagen";
             this.cbTipoFiltroImagen.Size = new System.Drawing.Size(369, 21);
             this.cbTipoFiltroImagen.TabIndex = 9;
+            this.cbTipoFiltroImagen.SelectedIndexChanged += new System.EventHandler(this.cbTipoFiltroImagen_SelectedIndexChanged);
             // 
             // txtNoRevision
             // 

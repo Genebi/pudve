@@ -32,11 +32,13 @@ namespace PuntoDeVentaV2
                 strFiltroProveedor = string.Empty,
                 strFiltroCombProdServ = string.Empty,
                 strFiltroNoRevision = string.Empty,
+                strFiltroImagen = string.Empty,
                 strOpcionCBStock = string.Empty,
                 strOpcionCBPrecio = string.Empty,
                 strOpcionCBProveedor = string.Empty,
                 strOpcionCBCombProdServ = string.Empty,
                 strOpcionCBNoRevision = string.Empty,
+                strOpcionCBImagen = string.Empty,
                 strTxtStock = string.Empty,
                 strTxtPrecio = string.Empty,
                 strTxtNoRevision = string.Empty,
@@ -219,6 +221,40 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroImagen.SelectedIndex = 0;
                 cbTipoFiltroImagen.Enabled = false;
             }
+        }
+
+        private void cbTipoFiltroImagen_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+
+            if (filtroImagen.Equals(true))
+            {
+                if (!Convert.ToString(cbTipoFiltroImagen.SelectedItem).Equals(""))
+                {
+                    strFiltroImagen = "ProdImage ";
+                    if (Convert.ToString(cbTipoFiltroImagen.SelectedItem).ToString().Equals("No Aplica"))
+                    {
+                        strFiltroImagen = "";
+                    }
+                    else if (Convert.ToString(cbTipoFiltroImagen.SelectedItem).ToString().Equals("Con Imagen"))
+                    {
+                        strFiltroImagen += "<> ''";
+                    }
+                    else if (Convert.ToString(cbTipoFiltroImagen.SelectedItem).ToString().Equals("Sin Imagen"))
+                    {
+                        strFiltroImagen += "= ''";
+                    }
+                }
+                else if (Convert.ToString(cbTipoFiltroImagen.SelectedItem).Equals(""))
+                {
+                    strFiltroImagen = "No Aplica";
+                }
+            }
+            else if (filtroImagen.Equals(false))
+            {
+                strFiltroImagen = "No Aplica";
+            }
+            //MessageBox.Show("String Almacenado:\n" + strFiltroImagen);
         }
 
         NameValueCollection appSettings;
