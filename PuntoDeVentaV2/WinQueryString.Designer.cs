@@ -29,9 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.chkBoxRevision = new System.Windows.Forms.CheckBox();
             this.chkBoxTipo = new System.Windows.Forms.CheckBox();
             this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.txtNoRevision = new System.Windows.Forms.TextBox();
+            this.cbTipoFiltroRevision = new System.Windows.Forms.ComboBox();
             this.cbTipoFiltroCombProdServ = new System.Windows.Forms.ComboBox();
             this.cbTipoFiltroStock = new System.Windows.Forms.ComboBox();
             this.txtCantStock = new System.Windows.Forms.TextBox();
@@ -41,11 +46,6 @@
             this.chkBoxStock = new System.Windows.Forms.CheckBox();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnClean = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +53,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkBox2);
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.chkBoxRevision);
             this.groupBox1.Controls.Add(this.chkBoxTipo);
             this.groupBox1.Controls.Add(this.fLPDetalleProducto);
             this.groupBox1.Controls.Add(this.panel1);
@@ -65,6 +65,27 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuració de Filtrado: ";
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(19, 165);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(61, 17);
+            this.checkBox2.TabIndex = 14;
+            this.checkBox2.Text = "Imagen";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // chkBoxRevision
+            // 
+            this.chkBoxRevision.AutoSize = true;
+            this.chkBoxRevision.Location = new System.Drawing.Point(19, 99);
+            this.chkBoxRevision.Name = "chkBoxRevision";
+            this.chkBoxRevision.Size = new System.Drawing.Size(65, 17);
+            this.chkBoxRevision.TabIndex = 13;
+            this.chkBoxRevision.Text = "Revisón";
+            this.chkBoxRevision.UseVisualStyleBackColor = true;
+            this.chkBoxRevision.CheckedChanged += new System.EventHandler(this.chkBoxRevision_CheckedChanged);
             // 
             // chkBoxTipo
             // 
@@ -90,8 +111,8 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.comboBox2);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.txtNoRevision);
+            this.panel1.Controls.Add(this.cbTipoFiltroRevision);
             this.panel1.Controls.Add(this.cbTipoFiltroCombProdServ);
             this.panel1.Controls.Add(this.cbTipoFiltroStock);
             this.panel1.Controls.Add(this.txtCantStock);
@@ -101,6 +122,46 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(428, 172);
             this.panel1.TabIndex = 8;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "No Aplica",
+            "Con Imagen",
+            "Sin Imagen",
+            "Todas"});
+            this.comboBox2.Location = new System.Drawing.Point(38, 144);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(369, 21);
+            this.comboBox2.TabIndex = 9;
+            // 
+            // txtNoRevision
+            // 
+            this.txtNoRevision.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold);
+            this.txtNoRevision.Location = new System.Drawing.Point(342, 77);
+            this.txtNoRevision.Name = "txtNoRevision";
+            this.txtNoRevision.Size = new System.Drawing.Size(65, 23);
+            this.txtNoRevision.TabIndex = 7;
+            this.txtNoRevision.Text = "0";
+            this.txtNoRevision.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // cbTipoFiltroRevision
+            // 
+            this.cbTipoFiltroRevision.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoFiltroRevision.FormattingEnabled = true;
+            this.cbTipoFiltroRevision.Items.AddRange(new object[] {
+            "No Aplica",
+            "Mayor o Igual Que",
+            "Menor o Igual Que",
+            "Igual Que",
+            "Mayor Que",
+            "Menor Que"});
+            this.cbTipoFiltroRevision.Location = new System.Drawing.Point(38, 77);
+            this.cbTipoFiltroRevision.Name = "cbTipoFiltroRevision";
+            this.cbTipoFiltroRevision.Size = new System.Drawing.Size(284, 21);
+            this.cbTipoFiltroRevision.TabIndex = 6;
             // 
             // cbTipoFiltroCombProdServ
             // 
@@ -232,66 +293,6 @@
             this.btnClean.UseVisualStyleBackColor = false;
             this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(19, 99);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(65, 17);
-            this.checkBox1.TabIndex = 13;
-            this.checkBox1.Text = "Revisón";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "No Aplica",
-            "Mayor o Igual Que",
-            "Menor o Igual Que",
-            "Igual Que",
-            "Mayor Que",
-            "Menor Que"});
-            this.comboBox1.Location = new System.Drawing.Point(38, 77);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(284, 21);
-            this.comboBox1.TabIndex = 6;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold);
-            this.textBox1.Location = new System.Drawing.Point(342, 77);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(65, 23);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "0";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "No Aplica",
-            "Con Imagen",
-            "Sin Imagen",
-            "Todas"});
-            this.comboBox2.Location = new System.Drawing.Point(38, 144);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(369, 21);
-            this.comboBox2.TabIndex = 9;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(19, 165);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(61, 17);
-            this.checkBox2.TabIndex = 14;
-            this.checkBox2.Text = "Imagen";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
             // WinQueryString
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -332,9 +333,9 @@
         private System.Windows.Forms.FlowLayoutPanel fLPDetalleProducto;
         private System.Windows.Forms.CheckBox chkBoxTipo;
         private System.Windows.Forms.ComboBox cbTipoFiltroCombProdServ;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox chkBoxRevision;
+        private System.Windows.Forms.ComboBox cbTipoFiltroRevision;
+        private System.Windows.Forms.TextBox txtNoRevision;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.CheckBox checkBox2;
     }

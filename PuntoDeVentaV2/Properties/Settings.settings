@@ -92,5 +92,11 @@
     <Setting Name="strFiltroCombProdServ" Type="System.String" Scope="User">
       <Value Profile="(Default)">""</Value>
     </Setting>
+    <Setting Name="chkFiltroRevisionInventario" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="strFiltroRevisionInventario" Type="System.String" Scope="User">
+      <Value Profile="(Default)">""</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

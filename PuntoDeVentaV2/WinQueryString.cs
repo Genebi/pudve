@@ -23,7 +23,9 @@ namespace PuntoDeVentaV2
         bool filtroStock,
                 filtroPrecio,
                 filtroProveedor,
-                filtroTipo;
+                filtroTipo,
+                filtroRevision,
+                filtroImagen;
 
         string  strFiltroStock = string.Empty,
                 strFiltroPrecio = string.Empty,
@@ -189,6 +191,39 @@ namespace PuntoDeVentaV2
         private void chkBoxTipo_CheckedChanged(object sender, EventArgs e)
         {
             validarChkBoxTipo();
+        }
+
+        private void chkBoxRevision_CheckedChanged(object sender, EventArgs e)
+        {
+            validarChkBoxRevision();
+        }
+
+        private void validarChkBoxRevision()
+        {
+            if (chkBoxRevision.Checked.Equals(true))
+            {
+                filtroRevision = Convert.ToBoolean(chkBoxRevision.Checked);
+
+                Properties.Settings.Default.chkFiltroRevisionInventario = filtroRevision;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
+                cbTipoFiltroRevision.Enabled = true;
+                txtNoRevision.Enabled = true;
+                cbTipoFiltroRevision.Focus();
+            }
+            else if (chkBoxRevision.Checked.Equals(false))
+            {
+                filtroRevision = Convert.ToBoolean(chkBoxRevision.Checked);
+
+                Properties.Settings.Default.chkFiltroRevisionInventario = filtroRevision;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
+                cbTipoFiltroRevision.SelectedIndex = 0;
+                cbTipoFiltroRevision.Enabled = false;
+                txtNoRevision.Enabled = false;
+            }
         }
 
         private void cbTipoFiltroCombProdServ_Click(object sender, EventArgs e)
