@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.chkBoxImagen = new System.Windows.Forms.CheckBox();
             this.chkBoxRevision = new System.Windows.Forms.CheckBox();
             this.chkBoxTipo = new System.Windows.Forms.CheckBox();
             this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cbTipoFiltroImagen = new System.Windows.Forms.ComboBox();
             this.txtNoRevision = new System.Windows.Forms.TextBox();
             this.cbTipoFiltroRevision = new System.Windows.Forms.ComboBox();
             this.cbTipoFiltroCombProdServ = new System.Windows.Forms.ComboBox();
@@ -52,7 +52,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.chkBoxImagen);
             this.groupBox1.Controls.Add(this.chkBoxRevision);
             this.groupBox1.Controls.Add(this.chkBoxTipo);
             this.groupBox1.Controls.Add(this.fLPDetalleProducto);
@@ -66,15 +66,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuració de Filtrado: ";
             // 
-            // checkBox2
+            // chkBoxImagen
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(19, 165);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(61, 17);
-            this.checkBox2.TabIndex = 14;
-            this.checkBox2.Text = "Imagen";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.chkBoxImagen.AutoSize = true;
+            this.chkBoxImagen.Location = new System.Drawing.Point(19, 165);
+            this.chkBoxImagen.Name = "chkBoxImagen";
+            this.chkBoxImagen.Size = new System.Drawing.Size(61, 17);
+            this.chkBoxImagen.TabIndex = 14;
+            this.chkBoxImagen.Text = "Imagen";
+            this.chkBoxImagen.UseVisualStyleBackColor = true;
+            this.chkBoxImagen.CheckedChanged += new System.EventHandler(this.chkBoxImagen_CheckedChanged);
             // 
             // chkBoxRevision
             // 
@@ -110,7 +111,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.comboBox2);
+            this.panel1.Controls.Add(this.cbTipoFiltroImagen);
             this.panel1.Controls.Add(this.txtNoRevision);
             this.panel1.Controls.Add(this.cbTipoFiltroRevision);
             this.panel1.Controls.Add(this.cbTipoFiltroCombProdServ);
@@ -123,19 +124,19 @@
             this.panel1.Size = new System.Drawing.Size(428, 172);
             this.panel1.TabIndex = 8;
             // 
-            // comboBox2
+            // cbTipoFiltroImagen
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.cbTipoFiltroImagen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoFiltroImagen.FormattingEnabled = true;
+            this.cbTipoFiltroImagen.Items.AddRange(new object[] {
             "No Aplica",
             "Con Imagen",
             "Sin Imagen",
             "Todas"});
-            this.comboBox2.Location = new System.Drawing.Point(38, 144);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(369, 21);
-            this.comboBox2.TabIndex = 9;
+            this.cbTipoFiltroImagen.Location = new System.Drawing.Point(38, 144);
+            this.cbTipoFiltroImagen.Name = "cbTipoFiltroImagen";
+            this.cbTipoFiltroImagen.Size = new System.Drawing.Size(369, 21);
+            this.cbTipoFiltroImagen.TabIndex = 9;
             // 
             // txtNoRevision
             // 
@@ -337,7 +338,7 @@
         private System.Windows.Forms.CheckBox chkBoxRevision;
         private System.Windows.Forms.ComboBox cbTipoFiltroRevision;
         private System.Windows.Forms.TextBox txtNoRevision;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ComboBox cbTipoFiltroImagen;
+        private System.Windows.Forms.CheckBox chkBoxImagen;
     }
 }

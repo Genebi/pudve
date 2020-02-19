@@ -189,6 +189,38 @@ namespace PuntoDeVentaV2
         ListViewItem lvi;
         string connStr, keyName;
         int found = 0;
+
+        private void chkBoxImagen_CheckedChanged(object sender, EventArgs e)
+        {
+            validarChkBoxImagen();
+        }
+
+        private void validarChkBoxImagen()
+        {
+            if (chkBoxImagen.Checked.Equals(true))
+            {
+                filtroImagen = Convert.ToBoolean(chkBoxImagen.Checked);
+
+                Properties.Settings.Default.chkFiltroImagen = filtroImagen;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
+                cbTipoFiltroImagen.Enabled = true;
+                cbTipoFiltroImagen.Focus();
+            }
+            else if (chkBoxImagen.Checked.Equals(false))
+            {
+                filtroImagen = Convert.ToBoolean(chkBoxImagen.Checked);
+
+                Properties.Settings.Default.chkFiltroImagen = filtroImagen;
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+
+                cbTipoFiltroImagen.SelectedIndex = 0;
+                cbTipoFiltroImagen.Enabled = false;
+            }
+        }
+
         NameValueCollection appSettings;
 
         private void chkBoxTipo_CheckedChanged(object sender, EventArgs e)
