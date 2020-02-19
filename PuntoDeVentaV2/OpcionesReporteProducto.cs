@@ -277,7 +277,7 @@ namespace PuntoDeVentaV2
             var fechaHoy = DateTime.Now;
 
             // Obtenemos todos los productos del usuario ordenado alfabéticamente
-            var consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' ORDER BY Nombre ASC";
+            var consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY Nombre ASC";
             var listaProductos = cn.CargarDatos(consulta);
 
 
@@ -342,7 +342,13 @@ namespace PuntoDeVentaV2
                     {
                         // Busca el valor de cualquiera de estas columnas y aplica las condiciones
                         // elegidas por el usuario para comparar las cantidades
-                        if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario" || filtro.Key == "Precio")
+                        if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario")
+                        {
+                            var cantidad = float.Parse(listaProductos.Rows[i][filtro.Key].ToString());
+
+                            respuesta = OperadoresComparacion(filtro, cantidad);
+                        }
+                        else if (filtro.Key == "Precio" || filtro.Key == "NumeroRevision")
                         {
                             var cantidad = float.Parse(listaProductos.Rows[i][filtro.Key].ToString());
 
@@ -381,6 +387,37 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 respuesta = false;
+                            }
+                        }
+                        else if (filtro.Key == "Tipo")
+                        {
+                            var tipo = listaProductos.Rows[i][filtro.Key].ToString();
+
+                            if (!tipo.Equals(filtro.Value.Item1))
+                            {
+                                respuesta = false;
+                            }
+                        }
+                        else if (filtro.Key == "Imagen")
+                        {
+                            var imagen = listaProductos.Rows[i]["ProdImage"].ToString();
+
+                            // Con imagen
+                            if (filtro.Value.Item1 == "1")
+                            {
+                                if (string.IsNullOrWhiteSpace(imagen))
+                                {
+                                    respuesta = false;
+                                }
+                            }
+
+                            // Sin imagen
+                            if (filtro.Value.Item1 == "0")
+                            {
+                                if (!string.IsNullOrWhiteSpace(imagen))
+                                {
+                                    respuesta = false;
+                                }
                             }
                         }
                         else

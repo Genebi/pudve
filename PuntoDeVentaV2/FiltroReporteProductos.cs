@@ -60,6 +60,29 @@ namespace PuntoDeVentaV2
                 cbCantidadPedir.ValueMember = "Key";
                 cbCantidadPedir.DisplayMember = "Value";
 
+                cbNumeroRevision.DataSource = sourceOpciones.ToArray();
+                cbNumeroRevision.ValueMember = "Key";
+                cbNumeroRevision.DisplayMember = "Value";
+
+                sourceOpciones = new Dictionary<string, string>();
+                sourceOpciones.Add("NA", "No aplica");
+                sourceOpciones.Add("P", "Productos");
+                sourceOpciones.Add("S", "Servicios");
+                sourceOpciones.Add("PQ", "Combos");
+
+                cbTipo.DataSource = sourceOpciones.ToArray();
+                cbTipo.ValueMember = "Key";
+                cbTipo.DisplayMember = "Value";
+
+                sourceOpciones = new Dictionary<string, string>();
+                sourceOpciones.Add("NA", "No aplica");
+                sourceOpciones.Add("1", "Con imagen");
+                sourceOpciones.Add("0", "Sin imagen");
+
+                cbImagen.DataSource = sourceOpciones.ToArray();
+                cbImagen.ValueMember = "Key";
+                cbImagen.DisplayMember = "Value";
+
                 // Cargar los proveedores para el combobox
                 var proveedores = cn.ObtenerProveedores(FormPrincipal.userID);
 
@@ -100,6 +123,14 @@ namespace PuntoDeVentaV2
                 txtStockNecesario.KeyPress += new KeyPressEventHandler(SoloDecimales);
                 txtPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
                 txtCantidadPedir.KeyPress += new KeyPressEventHandler(SoloDecimales);
+
+                // Inicializamos los checkbox estaticos por defecto
+                checkStock.CheckedChanged += checkEstaticos_CheckedChanged;
+                checkStockMinimo.CheckedChanged += checkEstaticos_CheckedChanged;
+                checkStockNecesario.CheckedChanged += checkEstaticos_CheckedChanged;
+                checkPrecio.CheckedChanged += checkEstaticos_CheckedChanged;
+                checkCantidadPedir.CheckedChanged += checkEstaticos_CheckedChanged;
+                checkNumeroRevision.CheckedChanged += checkEstaticos_CheckedChanged;
             }
             
             OpcionesReporteProducto.filtroAbierto = true;
@@ -157,7 +188,7 @@ namespace PuntoDeVentaV2
             {
                 Font fuente = new Font("Century Gothic", 9.0f);
 
-                int alturaEjeY = 260;
+                int alturaEjeY = 380;
 
                 foreach (var opcion in opcionesDefault)
                 {
@@ -251,7 +282,7 @@ namespace PuntoDeVentaV2
 
                                 filtros.Add(nombreCB, new Tuple<string, float>(opcion, cantidad));
                             }
-                            else if (nombreCB == "Precio" || nombreCB == "CantidadPedir")
+                            else if (nombreCB == "Precio" || nombreCB == "CantidadPedir" || nombreCB == "NumeroRevision")
                             {
                                 var txtCustom = (TextBox)Controls.Find("txt" + nombreCB, true).FirstOrDefault();
 
@@ -265,7 +296,7 @@ namespace PuntoDeVentaV2
 
                                 filtros.Add(nombreCB, new Tuple<string, float>(opcion, cantidad));
                             }
-                            else if (nombreCB == "Proveedor")
+                            else if (nombreCB == "Proveedor" || nombreCB == "Tipo" || nombreCB == "Imagen")
                             {
                                 filtros.Add(nombreCB, new Tuple<string, float>(opcion, 0));
                             }
@@ -290,91 +321,28 @@ namespace PuntoDeVentaV2
             }
         }
 
-        /*private void cbCustom_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            var comboBoxCutom = (ComboBox)sender;
-            var opcion = comboBoxCutom.SelectedValue;
+        
 
-            MessageBox.Show(opcion.ToString());
-        }*/
-
-        private void checkStock_CheckedChanged(object sender, EventArgs e)
+        private void checkEstaticos_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkStock.Checked)
+            CheckBox checkCustom = (CheckBox)sender;
+
+            var auxiliar = checkCustom.Name.Substring(5);
+
+            ComboBox cbCustom = (ComboBox)Controls.Find("cb" + auxiliar, true).FirstOrDefault();
+            TextBox tbCustom = (TextBox)Controls.Find("txt" + auxiliar, true).FirstOrDefault();
+
+            if (checkCustom.Checked)
             {
-                cbStock.Enabled = true;
-                txtStock.Enabled = true;
+                cbCustom.Enabled = true;
+                tbCustom.Enabled = true;
             }
             else
             {
-                cbStock.SelectedValue = "NA";
-                cbStock.Enabled = false;
-                txtStock.Enabled = false;
-                txtStock.Text = "0";
-            }
-        }
-
-        private void checkStockMinimo_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkStockMinimo.Checked)
-            {
-                cbStockMinimo.Enabled = true;
-                txtStockMinimo.Enabled = true;
-            }
-            else
-            {
-                cbStockMinimo.SelectedValue = "NA";
-                cbStockMinimo.Enabled = false;
-                txtStockMinimo.Enabled = false;
-                txtStockMinimo.Text = "0";
-            }
-        }
-
-        private void checkStockMaximo_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkStockNecesario.Checked)
-            {
-                cbStockNecesario.Enabled = true;
-                txtStockNecesario.Enabled = true;
-            }
-            else
-            {
-                cbStockNecesario.SelectedValue = "NA";
-                cbStockNecesario.Enabled = false;
-                txtStockNecesario.Enabled = false;
-                txtStockNecesario.Text = "0";
-            }
-        }
-
-        private void checkPrecio_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkPrecio.Checked)
-            {
-                cbPrecio.Enabled = true;
-                txtPrecio.Enabled = true;
-            }
-            else
-            {
-                cbPrecio.SelectedValue = "NA";
-                cbPrecio.Enabled = false;
-                txtPrecio.Enabled = false;
-                txtPrecio.Text = "0";
-            }
-        }
-
-        private void checkCantidadPedir_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkCantidadPedir.Checked)
-            {
-                cbCantidadPedir.Enabled = true;
-                txtCantidadPedir.Enabled = true;
-            }
-            else
-            {
-                cbCantidadPedir.SelectedValue = "NA";
-                cbCantidadPedir.Enabled = false;
-                txtCantidadPedir.Enabled = false;
-                txtCantidadPedir.Text = "0";
+                cbCustom.SelectedValue = "NA";
+                cbCustom.Enabled = false;
+                tbCustom.Enabled = false;
+                tbCustom.Text = "0";
             }
         }
 
@@ -388,6 +356,32 @@ namespace PuntoDeVentaV2
             {
                 cbProveedor.SelectedValue = 0;
                 cbProveedor.Enabled = false;
+            }
+        }
+
+        private void checkTipo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkTipo.Checked)
+            {
+                cbTipo.Enabled = true;
+            }
+            else
+            {
+                cbTipo.SelectedValue = "NA";
+                cbTipo.Enabled = false;
+            }
+        }
+
+        private void checkImagen_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkImagen.Checked)
+            {
+                cbImagen.Enabled = true;
+            }
+            else
+            {
+                cbImagen.SelectedValue = "NA";
+                cbImagen.Enabled = false;
             }
         }
 
@@ -429,5 +423,13 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        /*private void cbCustom_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var comboBoxCutom = (ComboBox)sender;
+            var opcion = comboBoxCutom.SelectedValue;
+
+            MessageBox.Show(opcion.ToString());
+        }*/
     }
 }
