@@ -231,6 +231,7 @@ namespace PuntoDeVentaV2
                     {
                         strFiltroNoRevision += "< ";
                     }
+                    strFiltroNoRevision += $" '{strTxtNoRevision}'";
                 }
             }
             else if (filtroRevision.Equals(false))
@@ -1717,6 +1718,9 @@ namespace PuntoDeVentaV2
             filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
             //strFiltroCombProdServ = Properties.Settings.Default.strFiltroCombProdServ;
 
+            cbTipoFiltroRevision_SelectedIndexChanged(sender, e);
+            filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección",
                                                   "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
@@ -1816,6 +1820,30 @@ namespace PuntoDeVentaV2
                 else if (filtroTipo.Equals(false))
                 {
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Tipo.");
+                }
+                if (filtroRevision.Equals(true))
+                {
+                    if (strFiltroNoRevision.Equals("No Aplica") || strFiltroNoRevision.Equals(""))
+                    {
+                        MessageBox.Show("Debe de Elegit una Opción\ndel Campo de Revisión", "Selección Revisión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Properties.Settings.Default.strFiltroRevisionInventario = strFiltroNoRevision;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+                        cbTipoFiltroRevision.Focus();
+                        return;
+                    }
+                    else if (!strFiltroNoRevision.Equals("No Aplica") || !strFiltroNoRevision.Equals(""))
+                    {
+                        Properties.Settings.Default.strFiltroRevisionInventario = strFiltroNoRevision;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+
+                        //MessageBox.Show("Filtro de Revisón: " + Properties.Settings.Default.strFiltroRevisionInventario.ToString());
+                    }
+                }
+                else if (filtroRevision.Equals(false))
+                {
+                    //MessageBox.Show("Que Paso...\nFalta Seleccionar Revisón.");
                 }
 
                 saveDictionary();
