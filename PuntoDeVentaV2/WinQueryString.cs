@@ -203,8 +203,11 @@ namespace PuntoDeVentaV2
             if (filtroRevision.Equals(true))
             {
                 strOpcionCBNoRevision = Convert.ToString(cbTipoFiltroRevision.SelectedItem);
+
                 strTxtNoRevision = txtNoRevision.Text;
+
                 strFiltroNoRevision = "NumeroRevision ";
+
                 if (!strTxtNoRevision.Equals(""))
                 {
                     if (strOpcionCBNoRevision.Equals("No Aplica"))
@@ -231,7 +234,6 @@ namespace PuntoDeVentaV2
                     {
                         strFiltroNoRevision += "< ";
                     }
-                    strFiltroNoRevision += $" '{strTxtNoRevision}'";
                 }
             }
             else if (filtroRevision.Equals(false))
@@ -270,6 +272,7 @@ namespace PuntoDeVentaV2
 
                 cbTipoFiltroRevision.SelectedIndex = 0;
                 cbTipoFiltroRevision.Enabled = false;
+                txtNoRevision.Text = "0";
                 txtNoRevision.Enabled = false;
             }
         }
@@ -1507,9 +1510,43 @@ namespace PuntoDeVentaV2
             // Si esta Activado
             if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true))
             {
-                filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+                string strOperadorAndCant;
+                string[] strList;
+                char[] separador = { ' ' };
 
+                filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
                 chkBoxRevision.Checked = filtroRevision;
+
+                strOperadorAndCant = Properties.Settings.Default.strFiltroRevisionInventario;
+
+                if (!strOperadorAndCant.Equals(""))
+                {
+                    strList = strOperadorAndCant.Split(separador);
+                    if (strList.Length > 1)
+                    {
+                        txtNoRevision.Text = strList[2].ToString();
+                        if (strList[1].ToString().Equals(">="))
+                        {
+                            cbTipoFiltroRevision.SelectedIndex = 1;
+                        }
+                        else if (strList[1].ToString().Equals("<="))
+                        {
+                            cbTipoFiltroRevision.SelectedIndex = 2;
+                        }
+                        else if (strList[1].ToString().Equals("="))
+                        {
+                            cbTipoFiltroRevision.SelectedIndex = 3;
+                        }
+                        else if (strList[1].ToString().Equals(">"))
+                        {
+                            cbTipoFiltroRevision.SelectedIndex = 4;
+                        }
+                        else if (strList[1].ToString().Equals("<"))
+                        {
+                            cbTipoFiltroRevision.SelectedIndex = 5;
+                        }
+                    }
+                }
             }
             // Si esta Desactivado
             else if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(false))
@@ -1517,6 +1554,8 @@ namespace PuntoDeVentaV2
                 filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
 
                 chkBoxRevision.Checked = filtroRevision;
+
+                validarChkBoxRevision();
             }
         }
 
@@ -1834,6 +1873,10 @@ namespace PuntoDeVentaV2
                     }
                     else if (!strFiltroNoRevision.Equals("No Aplica") || !strFiltroNoRevision.Equals(""))
                     {
+                        strTxtNoRevision = txtNoRevision.Text;
+                        //strFiltroNoRevision
+                        strFiltroNoRevision += $"{strTxtNoRevision}";
+
                         Properties.Settings.Default.strFiltroRevisionInventario = strFiltroNoRevision;
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
