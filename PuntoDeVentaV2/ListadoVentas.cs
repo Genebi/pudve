@@ -264,11 +264,39 @@ namespace PuntoDeVentaV2
 
                 AgregarTotales(iva, subtotal, total);
 
+                //DataTable dbTotalesGenerales;
+
+                using (DataTable dbTotalesGenerales = cn.CargarDatos(FiltroAvanzado))
+                {
+                    float ivaTmpGral = 0, subtotalTmpGral = 0, totalTmpGral = 0;
+                    foreach (DataRow row in dbTotalesGenerales.Rows)
+                    {
+                        ivaTmpGral += float.Parse(row["IVA16"].ToString());
+                        subtotalTmpGral += float.Parse(row["Subtotal"].ToString());
+                        totalTmpGral += float.Parse(row["Total"].ToString());
+                    }
+                    AgregarTotalesGenerales(ivaTmpGral, subtotalTmpGral, totalTmpGral);
+                }
+
                 DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
             }
             tipo_venta = estado;
         }
         #endregion
+
+        private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral)
+        {
+            int idFila = DGVListadoVentas.Rows.Add();
+            DataGridViewRow fila = DGVListadoVentas.Rows[idFila];
+            fila.DefaultCellStyle.NullValue = null;
+            fila.DefaultCellStyle.BackColor = Color.FromArgb(255, 207, 53, 20);
+            fila.DefaultCellStyle.ForeColor = Color.White;
+            fila.DefaultCellStyle.Font = new Font("Arial", 10f);
+            fila.Cells["Cliente"].Value = "TOTAL GENERAL";
+            fila.Cells["Subtotal"].Value = subtotalGral.ToString("0.00");
+            fila.Cells["IVA"].Value = ivaGral.ToString("0.00");
+            fila.Cells["Total"].Value = totalGral.ToString("0.00");
+        }
 
         private void AgregarTotales(float iva, float subtotal, float total)
         {
