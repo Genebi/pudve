@@ -25,7 +25,9 @@ namespace PuntoDeVentaV2
         public AgregarDescuentoProducto()
         {
             InitializeComponent();
+
             this.ControlBox = false;
+
             if (tipoDescuento == 1)
             {
                 txtTituloDescuento.Text = "Descuento por Cliente";
@@ -36,11 +38,26 @@ namespace PuntoDeVentaV2
         private void AgregarDescuentoProducto_Load(object sender, EventArgs e)
         {
             this.ControlBox = false;
+
             if (tipoDescuento == 1)
             {
                 txtTituloDescuento.Text = "Descuento por Cliente";
                 rbCliente.Checked = true;
             }
+
+            if (AgregarEditarProducto.DatosSourceFinal == 2)
+            {
+                if (AgregarEditarProducto.SearchDesCliente.Rows.Count > 0)
+                {
+                    rbCliente.Checked = true;
+                }
+
+                if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    rbMayoreo.Checked = true;
+                }
+            }
+
             CargarFormularios(tipoDescuento);
         }
 
