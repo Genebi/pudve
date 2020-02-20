@@ -2679,7 +2679,7 @@ namespace PuntoDeVentaV2
             FormAgregar.FormClosed += delegate
             {
                 //actualizarDatosDespuesDeAgregarProducto();
-
+                linkLblPaginaActual_Click_1(sender, e);
                 AgregarEditarProducto.stockNecesario = "0";
             };
 
@@ -2784,7 +2784,8 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                actualizarDatosDespuesDeAgregarProducto();
+                //actualizarDatosDespuesDeAgregarProducto();
+                linkLblPaginaActual_Click_1(sender, e);
             };
             if (!FormAgregar.Visible)
             {
@@ -2871,7 +2872,8 @@ namespace PuntoDeVentaV2
 
             FormAgregar.FormClosed += delegate
             {
-                actualizarDatosDespuesDeAgregarProducto();
+                //actualizarDatosDespuesDeAgregarProducto();
+                linkLblPaginaActual_Click_1(sender, e);
             };
             if (!FormAgregar.Visible)
             {
