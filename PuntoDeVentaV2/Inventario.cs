@@ -187,13 +187,14 @@ namespace PuntoDeVentaV2
                                 foreach (var item in datosCombo)
                                 {
                                     str = item.Split('|');
-                                    nombresProductos.Add(str[2].ToString());
+                                    nombresProductos.Add(str[2].ToString() + "\n");
                                 }
 
                                 var message = string.Join(Environment.NewLine, nombresProductos);
 
                                 MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message, 
                                                 "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                return;
                             }
                         }
                     }
@@ -208,6 +209,7 @@ namespace PuntoDeVentaV2
                     {
                         if (botonAceptar)
                         {
+                            txtBusqueda.Text = string.Empty;
                             var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                             AgregarProductoDGV(producto);
                             botonAceptar = false;
@@ -216,10 +218,11 @@ namespace PuntoDeVentaV2
 
                     ap.ShowDialog();
                 }
-                else if (idProducto.Equals(0))
+                else
                 {
                     var resultados = mb.BusquedaCoincidenciasInventario(txtBusqueda.Text.Trim());
                     int coincidencias = resultados.Count;
+                    //MessageBox.Show(coincidencias.ToString());
 
                     if (coincidencias > 0)
                     {

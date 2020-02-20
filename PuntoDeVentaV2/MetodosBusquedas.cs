@@ -532,13 +532,6 @@ namespace PuntoDeVentaV2
                         lista.Add(datos["IDServicio"].ToString() + "|" + datos["IDProducto"].ToString() + "|" + datos["NombreProducto"].ToString() + "|" + datos["Cantidad"].ToString());
                     }
                 }
-                //if (datos.Read())
-                //{
-                //    lista.Add(datos["IDServicio"].ToString());
-                //    lista.Add(datos["IDProducto"].ToString());
-                //    lista.Add(datos["NombreProducto"].ToString());
-                //    lista.Add(datos["Cantidad"].ToString());
-                //}
             }
 
             return lista.ToArray();
