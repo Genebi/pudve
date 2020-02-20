@@ -144,6 +144,61 @@ namespace PuntoDeVentaV2
                     } 
                 }
 
+                if (idProducto.Equals(0))
+                {
+                    idProducto = mb.BuscarComboInventario(txtBusqueda.Text.Trim());
+
+                    if (idProducto > 0)
+                    {
+                        var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
+                        if (!datosCombo.Equals(null) || datosCombo.Count() > 0)
+                        {
+                            if (datosCombo.Count().Equals(1))
+                            {
+                                List<string> nombresProductos = new List<string>();
+                                List<string> idProductoDelCombo = new List<string>();
+                                string[] str;
+
+                                foreach (var item in datosCombo)
+                                {
+                                    str = item.Split('|');
+                                    nombresProductos.Add(str[2].ToString());
+                                    idProductoDelCombo.Add(str[1].ToString());
+                                }
+
+                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Combo\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock",
+                                                                      "Desea Actualizar el Stock", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (result == DialogResult.Yes)
+                                {
+                                    idProducto = Convert.ToInt32(idProductoDelCombo[0].ToString());
+                                }
+                                else if (result == DialogResult.No)
+                                {
+                                    idProducto = 0;
+                                }
+                            }
+                            else if (datosCombo.Count() > 1)
+                            {
+                                List<string> nombresProductos = new List<string>();
+                                string[] str;
+
+                                idProducto = 0;
+
+                                foreach (var item in datosCombo)
+                                {
+                                    str = item.Split('|');
+                                    nombresProductos.Add(str[2].ToString());
+                                }
+
+                                var message = string.Join(Environment.NewLine, nombresProductos);
+
+                                MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message, 
+                                                "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
+
                 // Si es mayor a cero es un producto y lo mostramos directamente en la venta de ajustar
                 if (idProducto > 0)
                 {
@@ -161,7 +216,7 @@ namespace PuntoDeVentaV2
 
                     ap.ShowDialog();
                 }
-                else
+                else if (idProducto.Equals(0))
                 {
                     var resultados = mb.BusquedaCoincidenciasInventario(txtBusqueda.Text.Trim());
                     int coincidencias = resultados.Count;
@@ -181,7 +236,8 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{txtBusqueda.Text}'", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{txtBusqueda.Text}'", 
+                                         "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
