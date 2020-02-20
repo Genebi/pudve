@@ -1625,6 +1625,45 @@ namespace PuntoDeVentaV2
 
                 validarChkBoxRevision();
             }
+
+            // Condiciones para valorar los procesos del CheckBox de Stock
+            // Si esta Activado
+            if (Properties.Settings.Default.chkFiltroImagen.Equals(true))
+            {
+                string textoCombo = string.Empty;
+                string[] strList;
+                char[] separador = { ' ' };
+                bool chkBoxEstadoImagen;
+
+                chkBoxEstadoImagen = Properties.Settings.Default.chkFiltroImagen;
+                chkBoxImagen.Checked = chkBoxEstadoImagen;
+
+                textoCombo = Properties.Settings.Default.strFiltroImagen;
+
+                if (!textoCombo.Equals(""))
+                {
+                    strList = textoCombo.Split(separador);
+
+                    if (strList[1].ToString().Equals("<>"))
+                    {
+                        cbTipoFiltroImagen.SelectedIndex = 1;
+                    }
+                    else if (strList[1].ToString().Equals("="))
+                    {
+                        cbTipoFiltroImagen.SelectedIndex = 2;
+                    }
+                }
+
+            }
+            else if (Properties.Settings.Default.chkFiltroImagen.Equals(false))
+            {
+                bool chkBoxEstadoImagen;
+
+                chkBoxEstadoImagen = Properties.Settings.Default.chkFiltroImagen;
+                chkBoxImagen.Checked = chkBoxEstadoImagen;
+
+                validarChkBoxImagen();
+            }
         }
 
         private void verificarChkBoxDinamicos()
@@ -1828,6 +1867,9 @@ namespace PuntoDeVentaV2
             cbTipoFiltroRevision_SelectedIndexChanged(sender, e);
             filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
 
+            cbTipoFiltroImagen_SelectedIndexChanged(sender, e);
+            filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección",
                                                   "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
@@ -1955,6 +1997,30 @@ namespace PuntoDeVentaV2
                 else if (filtroRevision.Equals(false))
                 {
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Revisón.");
+                }
+                if (filtroImagen.Equals(true))
+                {
+                    if (strFiltroImagen.Equals("No Aplica") || strFiltroImagen.Equals(""))
+                    {
+                        MessageBox.Show("Debe de Elegit una Opción\ndel Campo de Imagen", "Selección Imagen", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        Properties.Settings.Default.strFiltroImagen = strFiltroImagen;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+                        cbTipoFiltroImagen.Focus();
+                        return;
+                    }
+                    else if (!strFiltroImagen.Equals("No Aplica") || !strFiltroImagen.Equals(""))
+                    {
+                        Properties.Settings.Default.strFiltroImagen = strFiltroImagen;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
+
+                        //MessageBox.Show("Filtro de Revisón: " + Properties.Settings.Default.strFiltroRevisionInventario.ToString());
+                    }
+                }
+                else if (filtroImagen.Equals(false))
+                {
+                    //MessageBox.Show("Que Paso...\nFalta Seleccionar Imagen.");
                 }
 
                 saveDictionary();
