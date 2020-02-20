@@ -487,6 +487,63 @@ namespace PuntoDeVentaV2
             return idProducto;
         }
 
+        public int BuscarComboInventario(string Combo)
+        {
+            int idCombo = 0;
+
+            string consulta = string.Empty;
+            
+            //Busqueda por codigo de barra y/o clave
+            consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'PQ' AND (CodigoBarras = '{Combo}' OR ClaveInterna = '{Combo}')";
+
+            DatosConexion(consulta);
+
+            SQLiteDataReader datos = sql_cmd.ExecuteReader();
+
+            if (datos.Read())
+            {
+                idCombo = Convert.ToInt32(datos["ID"].ToString());
+            }
+
+            datos.Close();
+
+            return idCombo;
+        }
+
+        public string[] BuscarProductosDeServicios(string idCombo)
+        {
+            List<string> lista = new List<string>();
+
+            string consulta = string.Empty;
+
+            //Buscar por Codigo de Combo en la tabla ProductosDeServicios
+            consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio ={idCombo}";
+
+            DatosConexion(consulta);
+
+            SQLiteDataReader datos = sql_cmd.ExecuteReader();
+
+            if (datos.HasRows)
+            {
+                while (datos.Read())
+                {
+                    if (!string.IsNullOrWhiteSpace(datos["IDServicio"].ToString()))
+                    {
+                        lista.Add(datos["IDServicio"].ToString() + "|" + datos["IDProducto"].ToString() + "|" + datos["NombreProducto"].ToString() + "|" + datos["Cantidad"].ToString());
+                    }
+                }
+                //if (datos.Read())
+                //{
+                //    lista.Add(datos["IDServicio"].ToString());
+                //    lista.Add(datos["IDProducto"].ToString());
+                //    lista.Add(datos["NombreProducto"].ToString());
+                //    lista.Add(datos["Cantidad"].ToString());
+                //}
+            }
+
+            return lista.ToArray();
+        }
+
         public string[] ObtenerAnticipo(int idAnticipo, int idUsuario)
         {
             List<string> lista = new List<string>();
