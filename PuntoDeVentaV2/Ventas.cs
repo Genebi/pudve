@@ -2129,6 +2129,11 @@ namespace PuntoDeVentaV2
                                     CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
                                 };
 
+                                if (cantidad <= 0)
+                                {
+                                    DGVentas.Rows.RemoveAt(0);
+                                }
+
                                 CantidadesFinalesVenta();
 
                                 cantidadExtra = 0;
