@@ -3490,7 +3490,8 @@ namespace PuntoDeVentaV2
                 am.FormClosed += delegate
                 {
                     //CargarDatos();
-                    actualizarDatosDespuesDeAgregarProducto();
+                    //actualizarDatosDespuesDeAgregarProducto();
+                    linkLblPaginaActual_Click_1(sender, e);
                 };
 
                 am.ShowDialog();

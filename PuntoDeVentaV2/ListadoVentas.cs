@@ -263,9 +263,7 @@ namespace PuntoDeVentaV2
                 }
 
                 AgregarTotales(iva, subtotal, total);
-
-                //DataTable dbTotalesGenerales;
-
+                
                 using (DataTable dbTotalesGenerales = cn.CargarDatos(FiltroAvanzado))
                 {
                     float ivaTmpGral = 0, subtotalTmpGral = 0, totalTmpGral = 0;
