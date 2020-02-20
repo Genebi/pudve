@@ -210,7 +210,7 @@ namespace PuntoDeVentaV2
 
             fechaGeneral = fechaDefault;
 
-            var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID}";
+            var consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
             consultaDos = new SQLiteCommand(consulta, sql_con);
             drDos = consultaDos.ExecuteReader();
 
