@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class VentanaReportesPorFechas : Form
+    public partial class Reportes : Form
     {
-        public VentanaReportesPorFechas()
+        public Reportes()
         {
             InitializeComponent();
+        }
+
+        private void btnHistorialPrecios_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Historial");
         }
     }
 }

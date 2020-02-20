@@ -538,6 +538,18 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            if (reportes == 1)
+            {
+                AbrirFormulario<Reportes>();
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
         private void temporizador_respaldo_Tick(object sender, EventArgs e)
         {
             //Por el momento en comentarios, no eliminarlo
@@ -952,16 +964,5 @@ namespace PuntoDeVentaV2
             sql_con.Close();
         }
 
-        private void btnReportes_Click(object sender, EventArgs e)
-        {
-            if (reportes == 1)
-            {
-                AbrirFormulario<VentanaReportesPorFechas>();
-            }
-            else
-            {
-                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-        }
     }
 }

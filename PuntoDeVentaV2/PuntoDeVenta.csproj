@@ -567,6 +567,12 @@
     <Compile Include="ReporteFinalRevisarInventario.Designer.cs">
       <DependentUpon>ReporteFinalRevisarInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes.Designer.cs">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </Compile>
     <Compile Include="RevisarInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -608,12 +614,6 @@
     </Compile>
     <Compile Include="VentanaDetalleFotoProducto.Designer.cs">
       <DependentUpon>VentanaDetalleFotoProducto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="VentanaReportesPorFechas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VentanaReportesPorFechas.Designer.cs">
-      <DependentUpon>VentanaReportesPorFechas.cs</DependentUpon>
     </Compile>
     <Compile Include="Ventas.cs">
       <SubType>Form</SubType>
@@ -833,6 +833,9 @@
     <EmbeddedResource Include="ReporteFinalRevisarInventario.resx">
       <DependentUpon>ReporteFinalRevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes.resx">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -850,9 +853,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VentanaDetalleFotoProducto.resx">
       <DependentUpon>VentanaDetalleFotoProducto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VentanaReportesPorFechas.resx">
-      <DependentUpon>VentanaReportesPorFechas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
