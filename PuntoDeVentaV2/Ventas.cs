@@ -712,10 +712,10 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 12)
                 {
                     int cantidad = Convert.ToInt32(DGVentas.Rows[celda].Cells["Cantidad"].Value);
+                    cantidad -= 1;
 
                     if (cantidad > 0)
                     {
-                        cantidad -= 1;
                         float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
 
                         DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
@@ -729,6 +729,10 @@ namespace PuntoDeVentaV2
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                             CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celda);
                         }
+                    }
+                    else
+                    {
+                        DGVentas.Rows.RemoveAt(celda);
                     }
                 }
 
@@ -2109,8 +2113,6 @@ namespace PuntoDeVentaV2
 
                                 cantidad += cantidadExtra;
 
-                                if (cantidad < 0) { cantidad = 1; }
-
                                 // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                 float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
 
@@ -2126,6 +2128,11 @@ namespace PuntoDeVentaV2
                                     string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                     CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
                                 };
+
+                                if (cantidad <= 0)
+                                {
+                                    DGVentas.Rows.RemoveAt(0);
+                                }
 
                                 CantidadesFinalesVenta();
 
