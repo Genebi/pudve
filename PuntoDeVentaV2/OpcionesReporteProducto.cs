@@ -356,10 +356,11 @@ namespace PuntoDeVentaV2
                         }
                         else if (filtro.Key == "CantidadPedir")
                         {
-                            var cantidad = 0;
-                            var stockActual = Convert.ToInt32(listaProductos.Rows[i]["Stock"]);
-                            var stockMinimo = Convert.ToInt32(listaProductos.Rows[i]["StockMinimo"]);
-                            var stockMaximo = Convert.ToInt32(listaProductos.Rows[i]["StockNecesario"]);
+                            long cantidad = 0;
+
+                            var stockActual = Convert.ToInt64(listaProductos.Rows[i]["Stock"]);
+                            var stockMinimo = Convert.ToInt64(listaProductos.Rows[i]["StockMinimo"]);
+                            var stockMaximo = Convert.ToInt64(listaProductos.Rows[i]["StockNecesario"]);
 
                             if (stockMinimo > stockActual)
                             {

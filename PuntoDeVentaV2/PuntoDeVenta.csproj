@@ -392,6 +392,12 @@
     <Compile Include="Empresas.Designer.cs">
       <DependentUpon>Empresas.cs</DependentUpon>
     </Compile>
+    <Compile Include="FechasReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FechasReportes.Designer.cs">
+      <DependentUpon>FechasReportes.cs</DependentUpon>
+    </Compile>
     <Compile Include="FiltroReporteProductos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -746,6 +752,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FechasReportes.resx">
+      <DependentUpon>FechasReportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FiltroReporteProductos.resx">
       <DependentUpon>FiltroReporteProductos.cs</DependentUpon>
