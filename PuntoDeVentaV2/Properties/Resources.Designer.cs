@@ -1570,7 +1570,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2019-11-26
+        ///   Looks up a localized string similar to 2019-12-11
         ///.
         /// </summary>
         internal static string checkDateStock {
@@ -1580,7 +1580,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 37
+        ///   Looks up a localized string similar to 45
         ///.
         /// </summary>
         internal static string checkStock {
@@ -1915,6 +1915,16 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap columns {
             get {
                 object obj = ResourceManager.GetObject("columns", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Combo01 {
+            get {
+                object obj = ResourceManager.GetObject("Combo01", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -5518,6 +5528,16 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Producto01 {
+            get {
+                object obj = ResourceManager.GetObject("Producto01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] pudveDB {
@@ -6048,7 +6068,17 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 7777000135
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Servicio01 {
+            get {
+                object obj = ResourceManager.GetObject("Servicio01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 7777000191
         ///.
         /// </summary>
         internal static string setupCodBar {

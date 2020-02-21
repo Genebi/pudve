@@ -2587,4 +2587,13 @@
   <data name="sonido_alarma" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\Sounds\sonido_alarma.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Combo01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black16\Combo01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Producto01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black16\Producto01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Servicio01" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black16\Servicio01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
