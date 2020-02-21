@@ -24,11 +24,14 @@ namespace PuntoDeVentaV2
         private SQLiteDataAdapter _adapter;
         private DataSet _datos;
 
+        private String _query;
+
         // s_query              =   El query de conexion
         // s_datamember         =   Se asigna al datagridview despues del datasource
         // i_cantidadxpagina    =   Cantidad de registros por pagina
         public Paginar(String s_query, String s_datamember, int i_cantidadxpagina)
         {
+            this._query = s_query;
             this._inicio = 0;
             this._tope = i_cantidadxpagina;
             this._datamember = s_datamember;
@@ -45,7 +48,7 @@ namespace PuntoDeVentaV2
             }
 
             SQLiteConnection connection = new SQLiteConnection(ps_cadena);
-            this._adapter = new SQLiteDataAdapter(s_query, connection);
+            this._adapter = new SQLiteDataAdapter(_query, connection);
             this._datos = new DataSet();
             auxiliar = new DataTable();
 
@@ -129,6 +132,40 @@ namespace PuntoDeVentaV2
             this._inicio = 0;
             asignarTope();
             _datos.Clear();
+            this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
+            return _datos;
+        }
+
+        public DataSet actualizarPagina(int pagina_actual)
+        {
+            this._numeroPagina = pagina_actual;
+            DataTable auxiliar;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                ps_cadena = "Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;";
+            }
+            else
+            {
+                ps_cadena = "Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;";
+            }
+
+            SQLiteConnection connection = new SQLiteConnection(ps_cadena);
+            this._adapter = new SQLiteDataAdapter(_query, connection);
+            this._datos = new DataSet();
+            auxiliar = new DataTable();
+
+            connection.Open();
+            this._adapter.Fill(_datos, _inicio, _tope, _datamember);
+            _adapter.Fill(auxiliar);
+            connection.Close();
+
+            if (this._ultimaPagina == this._numeroPagina)
+            {
+                return _datos;
+            }
+            this._inicio = _inicio + _tope;
+            this._datos.Clear();
             this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
             return _datos;
         }
