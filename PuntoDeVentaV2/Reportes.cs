@@ -19,7 +19,10 @@ namespace PuntoDeVentaV2
 
         private void btnHistorialPrecios_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Historial");
+            using (var fechas = new FechasReportes())
+            {
+                fechas.ShowDialog();
+            }
         }
     }
 }
