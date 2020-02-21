@@ -55,6 +55,7 @@
             this.cbVentas = new System.Windows.Forms.ComboBox();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtBoxClienteFolio = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnSiguiente = new System.Windows.Forms.Button();
             this.btnUltimaPagina = new System.Windows.Forms.Button();
@@ -320,6 +321,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.txtBoxClienteFolio);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.linkLblPaginaSiguiente);
@@ -328,17 +330,25 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel1.ForeColor = System.Drawing.Color.Red;
-            this.panel1.Location = new System.Drawing.Point(0, 500);
+            this.panel1.Location = new System.Drawing.Point(0, 469);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(869, 61);
+            this.panel1.Size = new System.Drawing.Size(869, 92);
             this.panel1.TabIndex = 7;
+            // 
+            // txtBoxClienteFolio
+            // 
+            this.txtBoxClienteFolio.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBoxClienteFolio.Location = new System.Drawing.Point(327, 10);
+            this.txtBoxClienteFolio.Name = "txtBoxClienteFolio";
+            this.txtBoxClienteFolio.Size = new System.Drawing.Size(214, 26);
+            this.txtBoxClienteFolio.TabIndex = 27;
             // 
             // panel4
             // 
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel4.Controls.Add(this.btnSiguiente);
             this.panel4.Controls.Add(this.btnUltimaPagina);
-            this.panel4.Location = new System.Drawing.Point(485, 16);
+            this.panel4.Location = new System.Drawing.Point(482, 46);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(59, 32);
             this.panel4.TabIndex = 26;
@@ -380,7 +390,7 @@
             this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel3.Controls.Add(this.btnPrimeraPagina);
             this.panel3.Controls.Add(this.btnAnterior);
-            this.panel3.Location = new System.Drawing.Point(328, 16);
+            this.panel3.Location = new System.Drawing.Point(327, 46);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 25;
@@ -423,7 +433,7 @@
             this.linkLblPaginaSiguiente.AutoSize = true;
             this.linkLblPaginaSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(454, 24);
+            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(454, 54);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
             this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
@@ -437,7 +447,7 @@
             this.linkLblPaginaActual.AutoSize = true;
             this.linkLblPaginaActual.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaActual.Location = new System.Drawing.Point(427, 24);
+            this.linkLblPaginaActual.Location = new System.Drawing.Point(427, 54);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
             this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 23;
@@ -451,7 +461,7 @@
             this.linkLblPaginaAnterior.AutoSize = true;
             this.linkLblPaginaAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(402, 24);
+            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(397, 54);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
             this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
@@ -521,5 +531,6 @@
         private System.Windows.Forms.LinkLabel linkLblPaginaSiguiente;
         private System.Windows.Forms.LinkLabel linkLblPaginaActual;
         private System.Windows.Forms.LinkLabel linkLblPaginaAnterior;
+        private System.Windows.Forms.TextBox txtBoxClienteFolio;
     }
 }

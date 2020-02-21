@@ -49,11 +49,18 @@ namespace PuntoDeVentaV2
         public ListadoVentas()
         {
             InitializeComponent();
+            // Almacenamos en el Tag el texto por defecto
+            txtBoxClienteFolio.Tag = "Busca Cliente ó Folio";
+            txtBoxClienteFolio.Text = txtBoxClienteFolio.Tag.ToString();
+            // Ponemos el foreColor en gris
+            txtBoxClienteFolio.ForeColor = Color.Gray;
+            // Suscribimos el textBox a los eventos (Se puede hacer en el Diseñador)
+            txtBoxClienteFolio.GotFocus += new EventHandler(OnGetFocus);
+            txtBoxClienteFolio.LostFocus += new EventHandler(OnLostFocus);
         }
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
-
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");
 
@@ -83,6 +90,27 @@ namespace PuntoDeVentaV2
             actualizar();
 
             btnUltimaPagina.PerformClick();
+        }
+
+        public void OnGetFocus(object sender, EventArgs e)
+        {
+            // Comprobamos si el texto es el default, y si lo es borramos
+            if (txtBoxClienteFolio.Text.Contains(txtBoxClienteFolio.Tag.ToString()))
+            {
+                txtBoxClienteFolio.Text = "";
+            }
+            // Ponemos el color en negro
+            txtBoxClienteFolio.ForeColor = Color.Black;
+        }
+
+        public void OnLostFocus(object sender, EventArgs e)
+        {
+            // En caso de que no haya texto, añadimos el texto por defecto y ponemos el color en gris
+            if (String.IsNullOrWhiteSpace(txtBoxClienteFolio.Text))
+            {
+                txtBoxClienteFolio.Text = txtBoxClienteFolio.Tag.ToString();
+                txtBoxClienteFolio.ForeColor = Color.Gray;
+            }
         }
 
         private void actualizar()

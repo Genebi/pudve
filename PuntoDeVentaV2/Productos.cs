@@ -169,10 +169,10 @@ namespace PuntoDeVentaV2
 
         private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            p.atras();
-            clickBoton = 1;
-            CargarDatos();
-            actualizar();
+            //p.atras();
+            //clickBoton = 1;
+            //CargarDatos();
+            //actualizar();
         }
 
         private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
@@ -1484,6 +1484,14 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
         }
 
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
