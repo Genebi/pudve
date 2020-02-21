@@ -32,6 +32,8 @@ namespace PuntoDeVentaV2
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;
 
+        List<string> idProductoDelCombo;
+
         public int GetNumRevActive { get; set; }
 
         private void CargarNumRevActivo()
@@ -122,6 +124,8 @@ namespace PuntoDeVentaV2
             {
                 listaProductos.Items.Clear();
 
+                idProductoDelCombo = new List<string>();
+
                 int idProducto = 0;
 
                 // Verificar si es codigo de barra o clave
@@ -156,7 +160,6 @@ namespace PuntoDeVentaV2
                             if (datosCombo.Count().Equals(1))
                             {
                                 List<string> nombresProductos = new List<string>();
-                                List<string> idProductoDelCombo = new List<string>();
                                 string[] str;
 
                                 foreach (var item in datosCombo)
@@ -164,6 +167,7 @@ namespace PuntoDeVentaV2
                                     str = item.Split('|');
                                     nombresProductos.Add(str[2].ToString());
                                     idProductoDelCombo.Add(str[1].ToString());
+                                    idProductoDelCombo.Add(str[3].ToString());
                                 }
 
                                 DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Combo\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock",
@@ -192,6 +196,8 @@ namespace PuntoDeVentaV2
 
                                 var message = string.Join(Environment.NewLine, nombresProductos);
 
+                                nombresProductos.Clear();
+
                                 MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message, 
                                                 "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 return;
@@ -213,9 +219,14 @@ namespace PuntoDeVentaV2
                             var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
                             AgregarProductoDGV(producto);
                             botonAceptar = false;
+                            idProductoDelCombo.Clear();
                         }
                     };
 
+                    if (idProductoDelCombo.Count > 0)
+                    {
+                        ap.cantidadPasadaProductoCombo = Convert.ToInt32(idProductoDelCombo[1].ToString());
+                    }
                     ap.ShowDialog();
                 }
                 else

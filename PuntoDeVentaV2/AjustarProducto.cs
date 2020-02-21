@@ -26,6 +26,9 @@ namespace PuntoDeVentaV2
 
         private string[] listaProveedores = new string[] { };
 
+        public int cantidadPasadaProductoCombo { set; get; }
+        public static int cantidadProductoCombo = 0;
+
         //apartado 1 = Productos
         //apartado 2 = Inventario
         public AjustarProducto(int IDProducto, int apartado = 1)
@@ -70,6 +73,12 @@ namespace PuntoDeVentaV2
                 else
                 {
                     cbProveedores.SelectedValue = "0";
+                }
+
+                if (apartado.Equals(2))
+                {
+                    cantidadProductoCombo = cantidadPasadaProductoCombo;
+                    txtCantidadCompra.Text = cantidadProductoCombo.ToString();
                 }
             }
             else
