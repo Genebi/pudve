@@ -2627,7 +2627,7 @@ namespace PuntoDeVentaV2
             maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
             p.actualizarTope(maximo_x_pagina);
             CargarDatos();
-            actualizarDatosDespuesDeAgregarProducto();
+            //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
         }
 
@@ -2636,7 +2636,7 @@ namespace PuntoDeVentaV2
             p.primerPagina();
             clickBoton = 1;
             CargarDatos();
-            actualizarDatosDespuesDeAgregarProducto();
+            //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
         }
 
@@ -2645,7 +2645,7 @@ namespace PuntoDeVentaV2
             p.atras();
             clickBoton = 1;
             CargarDatos();
-            actualizarDatosDespuesDeAgregarProducto();
+            //actualizarDatosDespuesDeAgregarProducto();
             actualizar();
         }
 
