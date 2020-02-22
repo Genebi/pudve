@@ -61,10 +61,9 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
-            //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
+            // Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");
 
-            
             Dictionary<string, string> ventas = new Dictionary<string, string>();
             ventas.Add("VP", "Ventas pagadas");
             ventas.Add("VG", "Ventas guardadas");
@@ -80,15 +79,12 @@ namespace PuntoDeVentaV2
             cbVentas.SelectedIndex = 0;
             cbTipoVentas.SelectedIndex = 0;
 
-
             fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
 
             clickBoton = 0;
 
             CargarDatos();
-
             actualizar();
-
             btnUltimaPagina.PerformClick();
         }
 
@@ -698,9 +694,8 @@ namespace PuntoDeVentaV2
 
             if (abrirNuevaVenta)
             {
-                btnNuevaVenta.PerformClick();
-
                 abrirNuevaVenta = false;
+                btnNuevaVenta.PerformClick();
             }
         }
 
