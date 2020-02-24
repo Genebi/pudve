@@ -230,8 +230,7 @@ namespace PuntoDeVentaV2
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            //sql_cmd.CommandText = $"SELECT usr.LogoTipo, usr.Usuario, usr.Calle, usr.NoExterior, usr.NoInterior, usr.Municipio, usr.Colonia, usr.CodigoPostal, usr.RFC, usr.Email, usr.Telefono, prod.ID AS 'NoProd', prod.Nombre AS 'NomProd', prod.Precio AS 'CostoProd', prod.TipoDescuento, prod.Stock, prod.Tipo, saleProd.Cantidad, saleProd.Nombre AS 'NomVenta', saleProd.Precio AS 'CostoVenta', sale.FechaOperacion, sale.ID FROM Usuarios AS usr LEFT JOIN Ventas AS sale ON sale.IDUsuario = usr.ID LEFT JOIN ProductosVenta AS saleProd ON saleProd.IDVenta = sale.ID LEFT JOIN Productos AS prod ON prod.ID = saleProd.IDProducto WHERE usr.ID = '{IDUsuario}' AND sale.Status = '2' AND sale.ID = '{IDFolio}'";
-            sql_cmd.CommandText = $"SELECT D.IDProducto, D.Nombre, D.Precio, P.TipoDescuento, P.Stock, P.Tipo, D.Cantidad  FROM Ventas V INNER JOIN ProductosVenta D INNER JOIN Productos P ON V.ID = D.IDVenta AND D.IDProducto = P.ID WHERE V.IDUsuario = {IDUsuario} AND V.Status = '2' AND V.Folio = {IDFolio}";
+            sql_cmd.CommandText = $"SELECT D.IDProducto, D.Nombre, D.Precio, P.TipoDescuento, P.Stock, P.Tipo, D.Cantidad, D.IDVenta FROM Ventas V INNER JOIN ProductosVenta D INNER JOIN Productos P ON V.ID = D.IDVenta AND D.IDProducto = P.ID WHERE V.IDUsuario = {IDUsuario} AND V.Status = '2' AND V.Folio = {IDFolio}";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
@@ -245,6 +244,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[4].ToString());  //Stock
                 lista.Add(dr[5].ToString());  //Tipo (producto o servicio)
                 lista.Add(dr[6].ToString());  //Cantidad de la venta
+                lista.Add(dr[7].ToString());  //ID Venta
             }
 
             dr.Close();
