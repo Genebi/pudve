@@ -646,6 +646,7 @@ namespace PuntoDeVentaV2
         string codigoP = "";
         string historialP = "";
         string tipoP = "";
+        string nickUsuarioP = "";
 
         public static DateTime fechaGeneral;
 
@@ -671,30 +672,34 @@ namespace PuntoDeVentaV2
         {
             if (ConectadoInternet())
             {
-                MySqlConnection conexion = new MySqlConnection();
-                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
-
-                CargarSaldoInicial();
-
-                CargarSaldo();
-
-                try
+                var servidor = Properties.Settings.Default.Hosting;
+                if (string.IsNullOrWhiteSpace(servidor))
                 {
-                    conexion.Open();
-                    MySqlCommand upDateUsr = conexion.CreateCommand();
-                    MySqlCommand agregar = conexion.CreateCommand();
-                    MySqlCommand eliminar = conexion.CreateCommand();
 
-                    //Actualizar IdUsuario en tabla Usuarios en MySQL
-                    upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
-                    int actualizarUsr = upDateUsr.ExecuteNonQuery();
+                    MySqlConnection conexion = new MySqlConnection();
+                    conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
 
-                    //Consulta Borrar de MySQL por ID de Usuario
-                    eliminar.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
-                    int borrrado = eliminar.ExecuteNonQuery();
+                    CargarSaldoInicial();
 
-                    //Consulta Insertar de MySQL por ID de Usuario
-                    agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
+                    CargarSaldo();
+
+                    try
+                    {
+                        conexion.Open();
+                        MySqlCommand upDateUsr = conexion.CreateCommand();
+                        MySqlCommand agregar = conexion.CreateCommand();
+                        MySqlCommand eliminar = conexion.CreateCommand();
+
+                        //Actualizar IdUsuario en tabla Usuarios en MySQL
+                        upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
+                        int actualizarUsr = upDateUsr.ExecuteNonQuery();
+
+                        //Consulta Borrar de MySQL por ID de Usuario
+                        eliminar.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
+                        int borrrado = eliminar.ExecuteNonQuery();
+
+                        //Consulta Insertar de MySQL por ID de Usuario
+                        agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
                                                                   efectivoAnticipos, tarjetaAnticipos, valesAnticipos, chequeAnticipos, transferenciaAnticipos, totalAnticipos,   
                                                                   efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
                                                                   efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
@@ -704,92 +709,93 @@ namespace PuntoDeVentaV2
                                                                  '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}',  
                                                                  '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}',
                                                                  '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID.ToString()}')";
-                    int resultado = agregar.ExecuteNonQuery();
-                    if (resultado > 0)
-                    {
-                        //MessageBox.Show("Exito ");
-                        //iniciarVariablesWebService();
-                    }
-                    iniciarVariablesWebService();
+                        int resultado = agregar.ExecuteNonQuery();
+                        if (resultado > 0)
+                        {
+                            //MessageBox.Show("Exito ");
+                            //iniciarVariablesWebService();
+                        }
+                        iniciarVariablesWebService();
 
-                    DataTable tablaProductos = new DataTable();
-                    string queryCargarDatosProductos = string.Empty;
+                        DataTable tablaProductos = new DataTable();
+                        string queryCargarDatosProductos = string.Empty;
 
-                    //Actualizar IdUsuario en tabla Usuarios en MySQL
-                    upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
-                    int actualizarUsr1 = upDateUsr.ExecuteNonQuery();
+                        //Actualizar IdUsuario en tabla Usuarios en MySQL
+                        upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
+                        int actualizarUsr1 = upDateUsr.ExecuteNonQuery();
 
-                   
 
-                    //Consulta Insertar de MySQL por ID de Usuario
-                    queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
+
+                        //Consulta Insertar de MySQL por ID de Usuario
+                        queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
                                                     FROM productos AS P 
                                                     WHERE status = 1
                                                     AND IDUsuario = {FormPrincipal.userID.ToString()}
                                                     ORDER BY P.Nombre ASC";
 
-                    tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
+                        tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
 
-                     //Consulta Borrar de MySQL por ID de Usuario
-                    eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}' LIMIT {tablaProductos.Rows.Count}  ";
-                    int borrrado1 = eliminar.ExecuteNonQuery();
+                        //Consulta Borrar de MySQL por ID de Usuario
+                        eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}' LIMIT {tablaProductos.Rows.Count}  ";
+                        int borrrado1 = eliminar.ExecuteNonQuery();
 
-                    //Consulta Agregar de MySQL 
-                    StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nombreProductos, stockProductos, 
+                        //Consulta Agregar de MySQL 
+                        StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nombreProductos, stockProductos, 
                                                                                               precioProductos, revisionProductos, claveProductos, 
-                                                                                              codigoProductos, historialProductos, tipoProductos, fechaUpdate)
+                                                                                              codigoProductos, historialProductos, tipoProductos, fechaUpdate, nickUsuario)
                                                           VALUES ");
-                    List<String> Rows = new List<string>();
-                    if (tablaProductos.Rows.Count > 0) {
-                        for (int i = 0; i < tablaProductos.Rows.Count; i++)
+                        List<String> Rows = new List<string>();
+                        if (tablaProductos.Rows.Count > 0)
                         {
-
-                            nombreP = tablaProductos.Rows[i]["Nombre"].ToString();
-                            stockP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Stock"].ToString());
-                            precioP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Precio"].ToString());
-                            revisionP = (float)Convert.ToDouble(tablaProductos.Rows[i]["NumeroRevision"].ToString());
-                            claveP = tablaProductos.Rows[i]["ClaveInterna"].ToString();
-                            codigoP = tablaProductos.Rows[i]["CodigoBarras"].ToString();
-                            tipoP = tablaProductos.Rows[i]["Tipo"].ToString();
-
-
-                            Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}')",
-                                MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nombreP}"), MySqlHelper.EscapeString($"{stockP}"),
-                                MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
-                                MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"),
-                                MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
-                        }
-                        sComand.Append(String.Join(",", Rows));
-                        //  sComand.Append(":");
-                        // conexion.Open();
-                        string contenidoquery = sComand.ToString();
-                        try
-                        {
-                            using (MySqlCommand myCmd = new MySqlCommand(sComand.ToString(), conexion))
+                            for (int i = 0; i < tablaProductos.Rows.Count; i++)
                             {
-                                myCmd.CommandType = CommandType.Text;
-                                myCmd.ExecuteNonQuery();
+
+                                nombreP = tablaProductos.Rows[i]["Nombre"].ToString();
+                                stockP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Stock"].ToString());
+                                precioP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Precio"].ToString());
+                                revisionP = (float)Convert.ToDouble(tablaProductos.Rows[i]["NumeroRevision"].ToString());
+                                claveP = tablaProductos.Rows[i]["ClaveInterna"].ToString();
+                                codigoP = tablaProductos.Rows[i]["CodigoBarras"].ToString();
+                                tipoP = tablaProductos.Rows[i]["Tipo"].ToString();
+                                nickUsuarioP = userNickName;
+
+
+
+                                Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}')",
+                                    MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nombreP}"), MySqlHelper.EscapeString($"{stockP}"),
+                                    MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
+                                    MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"),
+                                    MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}"), MySqlHelper.EscapeString($"{nickUsuarioP}")));
+                            }
+                            sComand.Append(String.Join(",", Rows));
+                            //  sComand.Append(":");
+                            // conexion.Open();
+                            string contenidoquery = sComand.ToString();
+                            try
+                            {
+                                using (MySqlCommand myCmd = new MySqlCommand(sComand.ToString(), conexion))
+                                {
+                                    myCmd.CommandType = CommandType.Text;
+                                    myCmd.ExecuteNonQuery();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("" + ex.Message.ToString());
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("" + ex.Message.ToString());
-                        }
+
                     }
-                    
+                    catch (Exception ex)
+                    {
+
+                        //MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(),
+                        //                "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    }
                 }
-                catch (Exception ex)
-                {
-
-                    //MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(),
-                    //                "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                }
-
-
-
-
             }
+
         }
 
         private void iniciarVariablesWebService()
