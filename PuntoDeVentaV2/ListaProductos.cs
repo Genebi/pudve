@@ -13,33 +13,55 @@ namespace PuntoDeVentaV2
 {
     public partial class ListaProductos : Form
     {
-        int IdProd, numfila;        // variables para poder manejar las filas y poder hacer procesos
+        // variables para poder manejar las filas y poder hacer procesos
+        int IdProd, numfila;
 
-        Conexion cn = new Conexion();       // declaramos objeto para poder manejar los metodos de la clase conexion
-        Consultas cs = new Consultas();     // declaramos objeto para poder manejar los metodos de la clase Consultas
+        Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
-        string buscarStock;         // cadena de texto para poder hacer el query en la base de datos
+        // cadena de texto para poder hacer el query en la base de datos
+        string buscarStock;
 
         // variables las cuales se pasaran a la siguiente ventana
-        public int consultadoDesdeListProdFin { get; set; }         // varaible para ver si el usuario selecciono algun producto de la lista
-        public string IdProdStrFin { get; set; }                    // Alamacenamos el dato en la variable del dato de ID
-        public string NombreProdStrFin { get; set; }                // Alamacenamos el dato en la variable del dato de Nombre(Descripcion)
-        public string StockProdStrFin { get; set; }                 // Alamacenamos el dato en la variable del dato de Stock
-        public string PrecioDelProdStrFin { get; set; }             // Alamacenamos el dato en la variable del dato de Precio
-        public string CategoriaProdStrFin { get; set; }             // Alamacenamos el dato en la variable del dato de Categoria
-        public string ClaveInternaProdStrFin { get; set; }          // Alamacenamos el dato en la variable del dato de Clave Interna
-        public string CodigoBarrasProdStrFin { get; set; }          // Alamacenamos el dato en la variable del dato de Codigo de Barras
-        public int opcionGuardarFin { get; set; }                   // Alamacenamos el dato en la variable cual seria el campo donde se guardaria
 
-        public static int consultadoDesdeListProd;                  // Variable interna para poder hacer el manejo de los datos si selecciono algun producto
-        public static string IdProdStr;                             // Variable interna para poder saber que Id es del producto
-        public static string NombreProdStr;                         // Variable interna para poder saber que Nombre(Descripcion)
-        public static string StockProdStr;                          // Variable interna para poder saber que Stock
-        public static string PrecioDelProdStr;                      // Variable interna para poder saber que Precio
-        public static string CategoriaProdStr;                      // Variable interna para poder saber que Categoria
-        public static string ClaveInternaProdStr;                   // Variable interna para poder saber que Clave Interna
-        public static string CodigoBarrasProdStr;                   //  Variable interna para poder saber que Codigo de Barras
-        public static int opcionGuardar;                            // Variable interna para poder saber que donde se va guardar el dato
+        // variable para ver si el usuario selecciono algun producto de la lista
+        public int consultadoDesdeListProdFin { get; set; }
+        // Alamacenamos el dato en la variable del dato de ID
+        public string IdProdStrFin { get; set; }
+        // Alamacenamos el dato en la variable del dato de Nombre(Descripcion)
+        public string NombreProdStrFin { get; set; }
+        // Alamacenamos el dato en la variable del dato de Stock
+        public string StockProdStrFin { get; set; }
+        // Alamacenamos el dato en la variable del dato de Precio
+        public string PrecioDelProdStrFin { get; set; }
+        // Alamacenamos el dato en la variable del dato de Categoria
+        public string CategoriaProdStrFin { get; set; }
+        // Alamacenamos el dato en la variable del dato de Clave Interna
+        public string ClaveInternaProdStrFin { get; set; }
+        // Alamacenamos el dato en la variable del dato de Codigo de Barras
+        public string CodigoBarrasProdStrFin { get; set; }
+        // Alamacenamos el dato en la variable cual seria el campo donde se guardaria
+        public int opcionGuardarFin { get; set; }
+
+        // Variable interna para poder hacer el manejo de los datos si selecciono algun producto
+        public static int consultadoDesdeListProd;
+        // Variable interna para poder saber que Id es del producto             
+        public static string IdProdStr;
+        // Variable interna para poder saber que Nombre(Descripcion)
+        public static string NombreProdStr;
+        // Variable interna para poder saber que Stock
+        public static string StockProdStr;
+        // Variable interna para poder saber que Precio
+        public static string PrecioDelProdStr;
+        // Variable interna para poder saber que Categoria
+        public static string CategoriaProdStr;
+        // Variable interna para poder saber que Clave Interna
+        public static string ClaveInternaProdStr;
+        //  Variable interna para poder saber que Codigo de Barras
+        public static string CodigoBarrasProdStr;
+        // Variable interna para poder saber que donde se va guardar el dato
+        public static int opcionGuardar;
 
         public string TypeStock { get; set; }
         public static string typeStockFinal;
@@ -51,9 +73,11 @@ namespace PuntoDeVentaV2
         public delegate void pasarProducto(string nombProd_Paq_Serv, string id_Prod_Paq_Serv = "");
         public event pasarProducto nombreProducto;
 
-        public void CargarDataGridView()    // metodo para poder cargar los datos al inicio
+        // metodo para poder cargar los datos al inicio
+        public void CargarDataGridView()
         {
             typeStockFinal = TypeStock;
+
             if (typeStockFinal == "Productos")
             {
                 this.Text = "Listado de Productos en Stock Existente";
@@ -62,7 +86,7 @@ namespace PuntoDeVentaV2
                 // el query que se usara en la base de datos
                 buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P' AND Status = '1'";
             }
-            else if (typeStockFinal == "Paquetes" || typeStockFinal == "Servicios")
+            else if (typeStockFinal == "Combos" || typeStockFinal == "Servicios")
             {
                 this.Text = "Listado de Paquetes/Servicios Existentes";
                 label2.Text = "Paquetes o Servicios Existentes";
@@ -70,18 +94,22 @@ namespace PuntoDeVentaV2
                 // el query que se usara en la base de datos
                 buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND (Tipo = 'S' OR Tipo = 'PQ') AND Status = '1'";
             }
-            DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
-            DGVStockProductos.Columns["ID"].Visible = false;
+
+            //DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
+            //DGVStockProductos.Columns["ID"].Visible = false;
         }
 
-        public void LimpiarDGV()        // metodo para poder limpiar el DGVStockProductos
+        // metodo para poder limpiar el DGVStockProductos
+        public void LimpiarDGV()        
         {
             // limpiamos el DataGridView y 
             // lo dejamos sin registros
             if (DGVStockProductos.DataSource is DataTable)
             {
-                ((DataTable)DGVStockProductos.DataSource).Rows.Clear();     // dejamos sin registros
-                DGVStockProductos.Refresh();                                // refrescamos el DataGridView
+                // dejamos sin registros
+                ((DataTable)DGVStockProductos.DataSource).Rows.Clear();
+                // refrescamos el DataGridView
+                DGVStockProductos.Refresh();
             }
         }
 
@@ -92,49 +120,128 @@ namespace PuntoDeVentaV2
 
         private void ListaProductos_Load(object sender, EventArgs e)
         {
-            LimpiarDGV();       // Llamamos el metodo de limpiarDGV
-            CargarDataGridView();       // Llamamos el metodo CargarDataGridView
-            consultadoDesdeListProd = 0;        // Llamamos el metodo consultadoDesdeListProd
+            // Llamamos el metodo de limpiarDGV
+            LimpiarDGV();
+            // Llamamos el metodo CargarDataGridView
+            CargarDataGridView();
+            // Llamamos el metodo consultadoDesdeListProd
+            consultadoDesdeListProd = 0;
         }
 
-        private void txtBoxSearchProd_TextChanged(object sender, EventArgs e)
+        private void txtBoxSearchProd_KeyUp(object sender, KeyEventArgs e)
         {
-            LimpiarDGV();       // Llamamos el metodo de limpiarDGV
+            timerBusqueda.Stop();
+            timerBusqueda.Start();
+        }
+
+        private void BuscarProductos()
+        {
+            var busqueda = txtBoxSearchProd.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                var coincidencias = mb.BusquedaCoincidenciasVentas(busqueda);
+
+                if (coincidencias.Count > 0)
+                {
+                    DGVStockProductos.Rows.Clear();
+
+                    foreach (var producto in coincidencias)
+                    {
+                        var datos = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+
+                        AgregarProducto(datos);
+                    }
+                }
+            }
+        }
+
+        private void AgregarProducto(string[] datos)
+        {
+            if (datos.Length > 0)
+            {
+                int rowId = DGVStockProductos.Rows.Add();
+                DataGridViewRow row = DGVStockProductos.Rows[rowId];
+
+                var tipo = string.Empty;
+
+                if (datos[5] == "P") { tipo = "PRODUCTO"; }
+                if (datos[5] == "S") { tipo = "SERVICIO"; }
+                if (datos[5] == "PQ") { tipo = "COMBO"; }
+
+                row.Cells["ID"].Value = datos[0];
+                row.Cells["Nombre"].Value = datos[1];
+                row.Cells["Stock"].Value = datos[4];
+                row.Cells["Precio"].Value = tipo;
+                row.Cells["Categoria"].Value = datos[5];
+                row.Cells["ClaveInterna"].Value = datos[6];
+                row.Cells["Codigo"].Value = datos[7];
+            }
+        }
+
+        private void timerBusqueda_Tick(object sender, EventArgs e)
+        {
+            timerBusqueda.Stop();
+            BuscarProductos();
+        }
+
+        /*private void txtBoxSearchProd_TextChanged(object sender, EventArgs e)
+        {
+            // Llamamos el metodo de limpiarDGV
+            LimpiarDGV();
             // el query que se usara en la base de datos
             buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND (prod.Nombre LIKE '%" + txtBoxSearchProd.Text + "%' AND prod.Tipo = 'P')";
-            DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
+            // se rellena el DGVStockProductos con el resultado de la consulta
+            DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);
             DGVStockProductos.Columns["ID"].Visible = false;
-        }
-        
+        }*/
+
         private void DGVStockProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            numfila = DGVStockProductos.CurrentRow.Index;                           // variable para poder saber que fila fue la seleccionada
-            IdProdStr = DGVStockProductos[0, numfila].Value.ToString();             // almacenamos en la variable IdProdStr del resultado de la consulta en DB
-            NombreProdStr = DGVStockProductos[1, numfila].Value.ToString();         // almacenamos en la variable NombreProdStr del resultado de la consulta en DB
-            StockProdStr = DGVStockProductos[2, numfila].Value.ToString();          // almacenamos en la variable StockProdStr del resultado de la consulta en DB
-            PrecioDelProdStr = DGVStockProductos[3, numfila].Value.ToString();      // almacenamos en la variable PrecioDelProdStr del resultado de la consulta en DB
-            CategoriaProdStr = DGVStockProductos[4, numfila].Value.ToString();      // almacenamos en la variable CategoriaProdStr del resultado de la consulta en DB
-            ClaveInternaProdStr = DGVStockProductos[5, numfila].Value.ToString();   // almacenamos en la variable ClaveInternaProdStr del resultado de la consulta en DB
-            CodigoBarrasProdStr = DGVStockProductos[6, numfila].Value.ToString();   // almacenamos en la variable CodigoBarrasProdStr del resultado de la consulta en DB
+            // variable para poder saber que fila fue la seleccionada
+            numfila = DGVStockProductos.CurrentRow.Index;
+            // almacenamos en la variable IdProdStr del resultado de la consulta en DB
+            IdProdStr = DGVStockProductos[0, numfila].Value.ToString();
+            // almacenamos en la variable NombreProdStr del resultado de la consulta en DB
+            NombreProdStr = DGVStockProductos[1, numfila].Value.ToString();
+            // almacenamos en la variable StockProdStr del resultado de la consulta en DB
+            StockProdStr = DGVStockProductos[2, numfila].Value.ToString();
+            // almacenamos en la variable PrecioDelProdStr del resultado de la consulta en DB
+            PrecioDelProdStr = DGVStockProductos[3, numfila].Value.ToString();
+            // almacenamos en la variable CategoriaProdStr del resultado de la consulta en DB
+            CategoriaProdStr = DGVStockProductos[4, numfila].Value.ToString();
+            // almacenamos en la variable ClaveInternaProdStr del resultado de la consulta en DB
+            ClaveInternaProdStr = DGVStockProductos[5, numfila].Value.ToString();
+            // almacenamos en la variable CodigoBarrasProdStr del resultado de la consulta en DB
+            CodigoBarrasProdStr = DGVStockProductos[6, numfila].Value.ToString();
 
             /************************************************************************
             *       verificamos en que campo va ir guardado la clave interna        *
             ************************************************************************/
-            if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr == ""))         // en el caso los dos campos esten en blanco por default va ir en el de clave Interna
+
+            // en el caso los dos campos esten en blanco por default va ir en el de clave Interna
+            if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr == ""))
             {
-                opcionGuardar = 1;      // indicamos que el valor de la variable a donde va guardarse sera 1
+                // indicamos que el valor de la variable a donde va guardarse sera 1
+                opcionGuardar = 1;
             }
-            else if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr != ""))    // en el caso que tenga en blanco el campo de ClaveInterna en blanco va ir en el de clave Interna
+            // en el caso que tenga en blanco el campo de ClaveInterna en blanco va ir en el de clave Interna
+            else if ((ClaveInternaProdStr == "") && (CodigoBarrasProdStr != ""))
             {
-                opcionGuardar = 2;      // indicamos que el valor de la variable a donde va guardarse sera 2
+                // indicamos que el valor de la variable a donde va guardarse sera 2
+                opcionGuardar = 2;
             }
-            else if ((ClaveInternaProdStr != "") && (CodigoBarrasProdStr == ""))    // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
+            // en el caso que tenga en blanco el campo de CodigoBarras en blanco va ir en el de codigo de barras
+            else if ((ClaveInternaProdStr != "") && (CodigoBarrasProdStr == ""))
             {
-                opcionGuardar = 3;      // indicamos que el valor de la variable a donde va guardarse sera 3
+                // indicamos que el valor de la variable a donde va guardarse sera 3
+                opcionGuardar = 3;
             }
-            else                                                                    // en el caso que los dos campos tengan contenido se asigna el siguiente valor
+            // en el caso que los dos campos tengan contenido se asigna el siguiente valor
+            else
             {
-                opcionGuardar = 4;      // indicamos que el valor de la variable a donde va guardarse sera 4
+                // indicamos que el valor de la variable a donde va guardarse sera 4
+                opcionGuardar = 4;
             }
 
             /****************************************************************
@@ -161,7 +268,7 @@ namespace PuntoDeVentaV2
                 nombreProducto(NombreProdStrFin, IdProdStrFin);
             }
             
-            this.Close();                                           // cerramos la ventana 
+            this.Close();
         }
     }
 }
