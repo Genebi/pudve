@@ -1805,14 +1805,91 @@ namespace PuntoDeVentaV2
                 //searchClavIntProd();
                 if (mb.ComprobarCodigoClave(claveIn, FormPrincipal.userID))
                 {
-                    MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string query = string.Empty;
+                    List<string> datosProductos = new List<string>();
+
+                    query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.ClaveInterna = {claveIn}";
+
+                    using (DataTable dtProductoRegistrado = cn.CargarDatos(query))
+                    {
+                        if (dtProductoRegistrado.Rows.Count > 0)
+                        {
+                            foreach (DataRow row in dtProductoRegistrado.Rows)
+                            {
+                                datosProductos.Add("Nombre: " + row["Nombre"].ToString());
+                                datosProductos.Add("Clave Interna: " + row["ClaveInterna"].ToString());
+                                if (row["Tipo"].ToString().Equals("P"))
+                                {
+                                    datosProductos.Add("El artículo es: Producto");
+                                }
+                                else if (row["Tipo"].ToString().Equals("PQ"))
+                                {
+                                    datosProductos.Add("El artículo es: Combo");
+                                }
+                                else if (row["Tipo"].ToString().Equals("S"))
+                                {
+                                    datosProductos.Add("El artículo es: Servicio");
+                                }
+
+                                if (row["Status"].ToString().Equals("1"))
+                                {
+                                    datosProductos.Add("El Status es: Activo");
+                                }
+                            }
+                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductos[0].ToString()}\n{datosProductos[1].ToString()}\n{datosProductos[2].ToString()}\n{datosProductos[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else if (dtProductoRegistrado.Rows.Count.Equals(0))
+                        {
+                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        datosProductos.Clear();
+                    }
                     return;
                 }
                 //Hacemos la busqueda que no se repita en CodigoBarra
                 //searchCodBar();
                 if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID))
                 {
-                    MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string query = string.Empty;
+                    List<string> datosProductos = new List<string>();
+
+                    query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.CodigoBarras = {codigoB}";
+
+                    using (DataTable dtProductoRegistrado = cn.CargarDatos(query))
+                    {
+                        if (dtProductoRegistrado.Rows.Count > 0)
+                        {
+                            foreach (DataRow row in dtProductoRegistrado.Rows)
+                            {
+                                datosProductos.Add("Nombre: " + row["Nombre"].ToString());
+                                datosProductos.Add("Código de Barras: " + row["CodigoBarras"].ToString());
+                                if (row["Tipo"].ToString().Equals("P"))
+                                {
+                                    datosProductos.Add("El artículo es: Producto");
+                                }
+                                else if (row["Tipo"].ToString().Equals("PQ"))
+                                {
+                                    datosProductos.Add("El artículo es: Combo");
+                                }
+                                else if (row["Tipo"].ToString().Equals("S"))
+                                {
+                                    datosProductos.Add("El artículo es: Servicio");
+                                }
+
+                                if (row["Status"].ToString().Equals("1"))
+                                {
+                                    datosProductos.Add("El Status es: Activo");
+                                }
+                            }
+                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductos[0].ToString()}\n{datosProductos[1].ToString()}\n{datosProductos[2].ToString()}\n{datosProductos[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else if (dtProductoRegistrado.Rows.Count.Equals(0))
+                        {
+                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        datosProductos.Clear();
+                    }
+                    //MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
