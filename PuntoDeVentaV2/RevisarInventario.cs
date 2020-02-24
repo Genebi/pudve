@@ -86,6 +86,9 @@ namespace PuntoDeVentaV2
 
                     lblPrecioProducto.Text = infoProducto[2];
 
+                    lblStockMinimo.Text = infoProducto[8];
+                    lblStockMaximo.Text = infoProducto[7];
+
                     idProducto = Convert.ToInt32(infoProducto[5]);
 
                     // Verificar si es un producto
@@ -357,6 +360,8 @@ namespace PuntoDeVentaV2
             lblNombreProducto.Text = string.Empty;
             lblCodigoDeBarras.Text = string.Empty;
             lblPrecioProducto.Text = string.Empty;
+            lblStockMinimo.Text = string.Empty;
+            lblStockMaximo.Text = string.Empty;
         }
     }
 }

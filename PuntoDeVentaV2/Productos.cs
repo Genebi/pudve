@@ -908,26 +908,26 @@ namespace PuntoDeVentaV2
 
             if (estado == 0)
             {
-                //CargarDatos(1);
-                p.actualizarPagina(Convert.ToInt32(linkLblPaginaActual.Text));
-                clickBoton = 1;
-                CargarDatos();
-                actualizar();
+                CargarDatos(1);
+                //p.actualizarPagina(Convert.ToInt32(linkLblPaginaActual.Text));
+                //clickBoton = 1;
+                //CargarDatos();
+                //actualizar();
             }
 
             if (estado == 1)
             {
-                //CargarDatos(0);
-                p.actualizarPagina(Convert.ToInt32(linkLblPaginaActual.Text));
-                clickBoton = 1;
-                CargarDatos();
-                actualizar();
+                CargarDatos(0);
+                //p.actualizarPagina(Convert.ToInt32(linkLblPaginaActual.Text));
+                //clickBoton = 1;
+                //CargarDatos();
+                //actualizar();
             }
 
             CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
             master.Checked = false;
             //linkLblPaginaActual_Click_1(sender, e);
-            //actualizarDatosDespuesDeAgregarProducto();
+            actualizarDatosDespuesDeAgregarProducto();
         }
 
         private void label2_Click(object sender, EventArgs e)
