@@ -50,6 +50,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblStockMinimo = new System.Windows.Forms.Label();
+            this.lblStockMaximo = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -58,9 +62,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.txtBoxBuscarCodigoBarras);
-            this.groupBox1.Location = new System.Drawing.Point(12, 60);
+            this.groupBox1.Location = new System.Drawing.Point(12, 48);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(420, 93);
+            this.groupBox1.Size = new System.Drawing.Size(420, 74);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Código de Barras:";
@@ -70,7 +74,7 @@
             this.txtBoxBuscarCodigoBarras.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtBoxBuscarCodigoBarras.Font = new System.Drawing.Font("Century", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxBuscarCodigoBarras.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.txtBoxBuscarCodigoBarras.Location = new System.Drawing.Point(40, 27);
+            this.txtBoxBuscarCodigoBarras.Location = new System.Drawing.Point(40, 22);
             this.txtBoxBuscarCodigoBarras.Name = "txtBoxBuscarCodigoBarras";
             this.txtBoxBuscarCodigoBarras.Size = new System.Drawing.Size(344, 33);
             this.txtBoxBuscarCodigoBarras.TabIndex = 0;
@@ -79,6 +83,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lblStockMaximo);
+            this.groupBox2.Controls.Add(this.lblStockMinimo);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.lblPrecioProducto);
             this.groupBox2.Controls.Add(this.label3);
@@ -91,9 +99,9 @@
             this.groupBox2.Controls.Add(this.lblCodigoDeBarras);
             this.groupBox2.Controls.Add(this.lblNombreProducto);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 158);
+            this.groupBox2.Location = new System.Drawing.Point(12, 128);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(420, 305);
+            this.groupBox2.Size = new System.Drawing.Size(420, 364);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Datos del Producto: ";
@@ -102,7 +110,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(225, 145);
+            this.label4.Location = new System.Drawing.Point(225, 136);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(19, 20);
             this.label4.TabIndex = 12;
@@ -113,7 +121,7 @@
             this.lblPrecioProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.lblPrecioProducto.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
             this.lblPrecioProducto.ForeColor = System.Drawing.Color.DarkRed;
-            this.lblPrecioProducto.Location = new System.Drawing.Point(262, 139);
+            this.lblPrecioProducto.Location = new System.Drawing.Point(262, 130);
             this.lblPrecioProducto.Name = "lblPrecioProducto";
             this.lblPrecioProducto.Size = new System.Drawing.Size(134, 32);
             this.lblPrecioProducto.TabIndex = 11;
@@ -122,7 +130,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(225, 120);
+            this.label3.Location = new System.Drawing.Point(225, 111);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 10;
@@ -141,7 +149,7 @@
             // 
             this.txtCantidadStock.Font = new System.Drawing.Font("Century", 48F, System.Drawing.FontStyle.Bold);
             this.txtCantidadStock.ForeColor = System.Drawing.Color.Blue;
-            this.txtCantidadStock.Location = new System.Drawing.Point(99, 207);
+            this.txtCantidadStock.Location = new System.Drawing.Point(99, 268);
             this.txtCantidadStock.Name = "txtCantidadStock";
             this.txtCantidadStock.Size = new System.Drawing.Size(225, 84);
             this.txtCantidadStock.TabIndex = 8;
@@ -153,7 +161,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 185);
+            this.label6.Location = new System.Drawing.Point(15, 246);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(90, 13);
             this.label6.TabIndex = 7;
@@ -162,7 +170,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 120);
+            this.label5.Location = new System.Drawing.Point(15, 111);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 13);
             this.label5.TabIndex = 6;
@@ -171,7 +179,7 @@
             // btnAumentarStock
             // 
             this.btnAumentarStock.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square1;
-            this.btnAumentarStock.Location = new System.Drawing.Point(330, 206);
+            this.btnAumentarStock.Location = new System.Drawing.Point(330, 267);
             this.btnAumentarStock.Name = "btnAumentarStock";
             this.btnAumentarStock.Size = new System.Drawing.Size(75, 85);
             this.btnAumentarStock.TabIndex = 5;
@@ -181,7 +189,7 @@
             // btnReducirStock
             // 
             this.btnReducirStock.Image = global::PuntoDeVentaV2.Properties.Resources.minus_square1;
-            this.btnReducirStock.Location = new System.Drawing.Point(18, 206);
+            this.btnReducirStock.Location = new System.Drawing.Point(18, 267);
             this.btnReducirStock.Name = "btnReducirStock";
             this.btnReducirStock.Size = new System.Drawing.Size(75, 85);
             this.btnReducirStock.TabIndex = 4;
@@ -196,7 +204,7 @@
             this.lblCodigoDeBarras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.lblCodigoDeBarras.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCodigoDeBarras.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            this.lblCodigoDeBarras.Location = new System.Drawing.Point(18, 139);
+            this.lblCodigoDeBarras.Location = new System.Drawing.Point(18, 130);
             this.lblCodigoDeBarras.Name = "lblCodigoDeBarras";
             this.lblCodigoDeBarras.Size = new System.Drawing.Size(176, 32);
             this.lblCodigoDeBarras.TabIndex = 2;
@@ -209,7 +217,7 @@
             this.lblNombreProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(167)))), ((int)(((byte)(167)))), ((int)(((byte)(169)))));
             this.lblNombreProducto.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreProducto.ForeColor = System.Drawing.Color.White;
-            this.lblNombreProducto.Location = new System.Drawing.Point(18, 41);
+            this.lblNombreProducto.Location = new System.Drawing.Point(18, 35);
             this.lblNombreProducto.Name = "lblNombreProducto";
             this.lblNombreProducto.Size = new System.Drawing.Size(387, 67);
             this.lblNombreProducto.TabIndex = 1;
@@ -218,7 +226,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 22);
+            this.label1.Location = new System.Drawing.Point(15, 18);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 0;
@@ -228,16 +236,16 @@
             // 
             this.groupBox3.Controls.Add(this.btnTerminar);
             this.groupBox3.Controls.Add(this.btnSiguiente);
-            this.groupBox3.Location = new System.Drawing.Point(12, 470);
+            this.groupBox3.Location = new System.Drawing.Point(12, 495);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(420, 100);
+            this.groupBox3.Size = new System.Drawing.Size(420, 84);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
             // btnTerminar
             // 
             this.btnTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Italic);
-            this.btnTerminar.Location = new System.Drawing.Point(225, 25);
+            this.btnTerminar.Location = new System.Drawing.Point(225, 17);
             this.btnTerminar.Name = "btnTerminar";
             this.btnTerminar.Size = new System.Drawing.Size(171, 55);
             this.btnTerminar.TabIndex = 1;
@@ -249,7 +257,7 @@
             // 
             this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSiguiente.ForeColor = System.Drawing.Color.Red;
-            this.btnSiguiente.Location = new System.Drawing.Point(23, 25);
+            this.btnSiguiente.Location = new System.Drawing.Point(23, 17);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(171, 55);
             this.btnSiguiente.TabIndex = 0;
@@ -277,6 +285,44 @@
             this.lblNoRevision.TabIndex = 4;
             this.lblNoRevision.Text = "0";
             this.lblNoRevision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 180);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(74, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Stock Minimo:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(225, 180);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(77, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Stock Maximo:";
+            // 
+            // lblStockMinimo
+            // 
+            this.lblStockMinimo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblStockMinimo.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblStockMinimo.Location = new System.Drawing.Point(18, 201);
+            this.lblStockMinimo.Name = "lblStockMinimo";
+            this.lblStockMinimo.Size = new System.Drawing.Size(176, 32);
+            this.lblStockMinimo.TabIndex = 15;
+            this.lblStockMinimo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblStockMaximo
+            // 
+            this.lblStockMaximo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblStockMaximo.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblStockMaximo.Location = new System.Drawing.Point(262, 201);
+            this.lblStockMaximo.Name = "lblStockMaximo";
+            this.lblStockMaximo.Size = new System.Drawing.Size(134, 32);
+            this.lblStockMaximo.TabIndex = 16;
+            this.lblStockMaximo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RevisarInventario
             // 
@@ -329,5 +375,9 @@
         private System.Windows.Forms.Label lblPrecioProducto;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblStockMaximo;
+        private System.Windows.Forms.Label lblStockMinimo;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
     }
 }

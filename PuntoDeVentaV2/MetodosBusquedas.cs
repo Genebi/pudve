@@ -1178,7 +1178,9 @@ namespace PuntoDeVentaV2
                         dr["ClaveInterna"].ToString(),
                         dr["CodigoBarras"].ToString(),
                         idProducto.ToString(),
-                        dr["Tipo"].ToString()
+                        dr["Tipo"].ToString(),
+                        dr["StockNecesario"].ToString(),
+                        dr["StockMinimo"].ToString()
                     };
                 }
 
