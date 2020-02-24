@@ -1895,7 +1895,7 @@ namespace PuntoDeVentaV2
                 if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID))
                 {
                     string query = string.Empty;
-                    List<string> datosProductos = new List<string>();
+                    List<string> datosProductos = new List<string>(), datosProductoRelacionado = new List<string>();
 
                     query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.CodigoBarras = {codigoB}";
 
@@ -1926,9 +1926,57 @@ namespace PuntoDeVentaV2
                                 }
                             }
                             MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductos[0].ToString()}\n{datosProductos[1].ToString()}\n{datosProductos[2].ToString()}\n{datosProductos[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            datosProductos.Clear();
+                            return;
                         }
-                        datosProductos.Clear();
-                        return;
+                        else if (dtProductoRegistrado.Rows.Count.Equals(0))
+                        {
+                            query = string.Empty;
+
+                            query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = 11 AND CB.CodigoBarraExtra = {claveIn}";
+
+                            using (DataTable dtCodigosBarraExtraProductos = cn.CargarDatos(query))
+                            {
+                                if (dtCodigosBarraExtraProductos.Rows.Count > 0)
+                                {
+                                    foreach (DataRow row in dtCodigosBarraExtraProductos.Rows)
+                                    {
+                                        datosProductos.Add(row["IDProducto"].ToString());
+                                    }
+                                    using (DataTable dtProductoRelacionado = cn.CargarDatos($"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.ID = {datosProductos[0].ToString()}"))
+                                    {
+                                        if (dtProductoRelacionado.Rows.Count > 0)
+                                        {
+                                            foreach (DataRow row in dtProductoRelacionado.Rows)
+                                            {
+                                                datosProductoRelacionado.Add("Nombre: " + row["Nombre"].ToString());
+                                                datosProductoRelacionado.Add("Código buscado: " + row["ClaveInterna"].ToString());
+                                                if (row["Tipo"].ToString().Equals("P"))
+                                                {
+                                                    datosProductoRelacionado.Add("El artículo es: Producto");
+                                                }
+                                                else if (row["Tipo"].ToString().Equals("PQ"))
+                                                {
+                                                    datosProductoRelacionado.Add("El artículo es: Combo");
+                                                }
+                                                else if (row["Tipo"].ToString().Equals("S"))
+                                                {
+                                                    datosProductoRelacionado.Add("El artículo es: Servicio");
+                                                }
+
+                                                if (row["Status"].ToString().Equals("1"))
+                                                {
+                                                    datosProductoRelacionado.Add("El Status es: Activo");
+                                                }
+                                            }
+                                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductoRelacionado[0].ToString()}\n{datosProductoRelacionado[1].ToString()}\n{datosProductoRelacionado[2].ToString()}\n{datosProductoRelacionado[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            datosProductos.Clear();
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
 
