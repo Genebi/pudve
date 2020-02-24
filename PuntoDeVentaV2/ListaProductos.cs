@@ -84,15 +84,15 @@ namespace PuntoDeVentaV2
                 label2.Text = "Stock Existente";
                 label1.Text = "Buscar Producto:";
                 // el query que se usara en la base de datos
-                buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P' AND Status = '1'";
+                //buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND Tipo = 'P' AND Status = '1'";
             }
             else if (typeStockFinal == "Combos" || typeStockFinal == "Servicios")
             {
-                this.Text = "Listado de Paquetes/Servicios Existentes";
-                label2.Text = "Paquetes o Servicios Existentes";
-                label1.Text = "Buscar Paquetes/Servicios:";
+                this.Text = "Listado de Combos/Servicios Existentes";
+                label2.Text = "Combos o Servicios Existentes";
+                label1.Text = "Buscar Combos/Servicios:";
                 // el query que se usara en la base de datos
-                buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND (Tipo = 'S' OR Tipo = 'PQ') AND Status = '1'";
+                //buscarStock = $"SELECT prod.ID AS 'ID', prod.Nombre AS 'Nombre', prod.Stock AS 'Stock', prod.Precio AS 'Precio', prod.Categoria AS 'Categoria', prod.ClaveInterna AS 'Clave Interna', prod.CodigoBarras AS 'Codigo de Barras' FROM Productos prod WHERE prod.IDUsuario = '{FormPrincipal.userID}' AND (Tipo = 'S' OR Tipo = 'PQ') AND Status = '1'";
             }
 
             //DGVStockProductos.DataSource = cn.GetStockProd(buscarStock);        // se rellena el DGVStockProductos con el resultado de la consulta
@@ -100,7 +100,7 @@ namespace PuntoDeVentaV2
         }
 
         // metodo para poder limpiar el DGVStockProductos
-        public void LimpiarDGV()        
+        /*public void LimpiarDGV()        
         {
             // limpiamos el DataGridView y 
             // lo dejamos sin registros
@@ -111,7 +111,7 @@ namespace PuntoDeVentaV2
                 // refrescamos el DataGridView
                 DGVStockProductos.Refresh();
             }
-        }
+        }*/
 
         public ListaProductos()
         {
@@ -121,17 +121,19 @@ namespace PuntoDeVentaV2
         private void ListaProductos_Load(object sender, EventArgs e)
         {
             // Llamamos el metodo de limpiarDGV
-            LimpiarDGV();
+            //LimpiarDGV();
             // Llamamos el metodo CargarDataGridView
             CargarDataGridView();
             // Llamamos el metodo consultadoDesdeListProd
             consultadoDesdeListProd = 0;
         }
 
-        private void txtBoxSearchProd_KeyUp(object sender, KeyEventArgs e)
+        private void txtBoxSearchProd_KeyDown(object sender, KeyEventArgs e)
         {
-            timerBusqueda.Stop();
-            timerBusqueda.Start();
+            if (e.KeyData == Keys.Enter)
+            {
+                BuscarProductos();
+            }
         }
 
         private void BuscarProductos()
@@ -150,7 +152,27 @@ namespace PuntoDeVentaV2
                     {
                         var datos = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
 
-                        AgregarProducto(datos);
+                        var tipo = string.Empty;
+
+                        if (datos[5] == "P") { tipo = "Productos"; }
+                        if (datos[5] == "S") { tipo = "Servicios"; }
+                        if (datos[5] == "PQ") { tipo = "Combos"; }
+
+                        if (typeStockFinal == "Productos")
+                        {
+                            if (datos[5] == "P")
+                            {
+                                AgregarProducto(datos);
+                            }
+                        }
+
+                        if (typeStockFinal == "Combos")
+                        {
+                            if (datos[5] == "S" || datos[5] == "PQ")
+                            {
+                                AgregarProducto(datos);
+                            }
+                        }
                     }
                 }
             }
@@ -172,17 +194,11 @@ namespace PuntoDeVentaV2
                 row.Cells["ID"].Value = datos[0];
                 row.Cells["Nombre"].Value = datos[1];
                 row.Cells["Stock"].Value = datos[4];
-                row.Cells["Precio"].Value = tipo;
-                row.Cells["Categoria"].Value = datos[5];
+                row.Cells["Precio"].Value = float.Parse(datos[2]).ToString("N2");
+                row.Cells["Categoria"].Value = tipo;
                 row.Cells["ClaveInterna"].Value = datos[6];
                 row.Cells["Codigo"].Value = datos[7];
             }
-        }
-
-        private void timerBusqueda_Tick(object sender, EventArgs e)
-        {
-            timerBusqueda.Stop();
-            BuscarProductos();
         }
 
         /*private void txtBoxSearchProd_TextChanged(object sender, EventArgs e)
@@ -263,7 +279,7 @@ namespace PuntoDeVentaV2
             {
                 nombreProducto(NombreProdStrFin, IdProdStrFin);
             }
-            else if (typeStockFinal == "Paquetes" || typeStockFinal == "Servicios")
+            else if (typeStockFinal == "Combos" || typeStockFinal == "Servicios")
             {
                 nombreProducto(NombreProdStrFin, IdProdStrFin);
             }

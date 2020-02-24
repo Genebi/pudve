@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtBoxSearchProd = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.DGVStockProductos = new System.Windows.Forms.DataGridView();
-            this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,7 +64,7 @@
             this.txtBoxSearchProd.Name = "txtBoxSearchProd";
             this.txtBoxSearchProd.Size = new System.Drawing.Size(296, 20);
             this.txtBoxSearchProd.TabIndex = 1;
-            this.txtBoxSearchProd.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBoxSearchProd_KeyUp);
+            this.txtBoxSearchProd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxSearchProd_KeyDown);
             // 
             // label1
             // 
@@ -123,11 +121,6 @@
             this.DGVStockProductos.Size = new System.Drawing.Size(934, 504);
             this.DGVStockProductos.TabIndex = 0;
             this.DGVStockProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVStockProductos_CellDoubleClick);
-            // 
-            // timerBusqueda
-            // 
-            this.timerBusqueda.Interval = 1000;
-            this.timerBusqueda.Tick += new System.EventHandler(this.timerBusqueda_Tick);
             // 
             // ID
             // 
@@ -214,7 +207,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView DGVStockProductos;
-        private System.Windows.Forms.Timer timerBusqueda;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
