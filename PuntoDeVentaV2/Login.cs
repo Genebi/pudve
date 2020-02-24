@@ -405,6 +405,12 @@ namespace PuntoDeVentaV2
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;
             txtPassword.Text = Properties.Settings.Default.Password;
+
+            if (txtUsuario.Text != "" && txtPassword.Text != "")
+            {
+                btnEntrar.Focus();
+                checkBoxRecordarDatos.Checked = true;
+            }
         }
 
         private void modoDebug()
