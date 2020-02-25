@@ -55,8 +55,12 @@ namespace PuntoDeVentaV2
             // Ponemos el foreColor en gris
             txtBoxClienteFolio.ForeColor = Color.Gray;
             // Suscribimos el textBox a los eventos (Se puede hacer en el Diseñador)
-            txtBoxClienteFolio.GotFocus += new EventHandler(OnGetFocus);
-            txtBoxClienteFolio.LostFocus += new EventHandler(OnLostFocus);
+            //txtBoxClienteFolio_Enter(sender, e)
+            //txtBoxClienteFolio.GotFocus += new EventHandler(OnGetFocus);
+            txtBoxClienteFolio.Enter += new EventHandler(txtBoxClienteFolio_Enter);
+            //txtBoxClienteFolio_Leave
+            //txtBoxClienteFolio.LostFocus += new EventHandler(OnLostFocus);
+            txtBoxClienteFolio.Leave += new EventHandler(txtBoxClienteFolio_Leave);
         }
 
         private void ListadoVentas_Load(object sender, EventArgs e)
@@ -156,11 +160,23 @@ namespace PuntoDeVentaV2
         }
 
         #region Método para cargar los datos en el DataGridView
-        public void CargarDatos(int estado = 1, bool busqueda = false)
+        public void CargarDatos(int estado = 1, bool busqueda = false, string clienteFolio = "")
         {
             if (clickBoton == 0)
             {
                 var consulta = string.Empty;
+                var buscarClienteFolio = string.Empty;
+                buscarClienteFolio = txtBoxClienteFolio.Text;
+
+                if (buscarClienteFolio.Equals(txtBoxClienteFolio.Tag.ToString().ToUpper()))
+                {
+                    //MessageBox.Show("Test1");
+                }
+                else if (!buscarClienteFolio.Equals(txtBoxClienteFolio.Tag.ToString().ToUpper()))
+                {
+                    //MessageBox.Show("Test2");
+                }
+
                 if (busqueda)
                 {
                     var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
@@ -841,6 +857,67 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             clickBoton = 0;
+        }
+
+        private void txtBoxClienteFolio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (int) Keys.Enter)
+            {
+                if (!txtBoxClienteFolio.Text.Equals(""))
+                {
+                    clickBoton = 0;
+                    busquedaDelUsuario(txtBoxClienteFolio.Text);
+                }
+            }
+        }
+
+        private void busquedaDelUsuario(string clienteFolio)
+        {
+            if (cbTipoVentas.Text.Equals("Ventas pagadas"))
+            {
+                CargarDatos(estado: 1, clienteFolio: clienteFolio);
+            }
+            else if (cbTipoVentas.Text.Equals("Ventas guardadas"))
+            {
+                CargarDatos(estado: 2, clienteFolio: clienteFolio);
+            }
+            else if (cbTipoVentas.Text.Equals("Ventas canceladas"))
+            {
+                CargarDatos(estado: 3, clienteFolio: clienteFolio);
+            }
+            else if (cbTipoVentas.Text.Equals("Ventas a crédito"))
+            {
+                CargarDatos(estado: 4, clienteFolio: clienteFolio);
+            }
+            else if (cbTipoVentas.Text.Equals("Facturas"))
+            {
+                CargarDatos(estado: 5, clienteFolio: clienteFolio);
+            }
+            else if (cbTipoVentas.Text.Equals("Presupuestos"))
+            {
+                CargarDatos(estado: 6, clienteFolio: clienteFolio);
+            }
+        }
+
+        private void txtBoxClienteFolio_Enter(object sender, EventArgs e)
+        {
+            // Comprobamos si el texto es el default, y si lo es borramos
+            if (txtBoxClienteFolio.Text.Contains(txtBoxClienteFolio.Tag.ToString().ToUpper()))
+            {
+                txtBoxClienteFolio.Text = "";
+            }
+            // Ponemos el color en negro
+            txtBoxClienteFolio.ForeColor = Color.Black;
+        }
+
+        private void txtBoxClienteFolio_Leave(object sender, EventArgs e)
+        {
+            // En caso de que no haya texto, añadimos el texto por defecto y ponemos el color en gris
+            if (String.IsNullOrWhiteSpace(txtBoxClienteFolio.Text))
+            {
+                txtBoxClienteFolio.Text = txtBoxClienteFolio.Tag.ToString();
+                txtBoxClienteFolio.ForeColor = Color.Gray;
+            }
         }
     }
 }
