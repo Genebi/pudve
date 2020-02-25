@@ -88,6 +88,8 @@ namespace PuntoDeVentaV2
         public Login()
         {
             InitializeComponent();
+
+            Select();
         }
 
         private void btnCerrarLogin_Click(object sender, EventArgs e)

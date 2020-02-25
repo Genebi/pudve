@@ -17,6 +17,9 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private int numeroRevision = 0;
+        private int checkTicketVenta = 0;
+        private int checkStockNegativo = 0;
+
         public static bool recargarDatos = false;
 
         public SetUpPUDVE()
@@ -37,9 +40,15 @@ namespace PuntoDeVentaV2
             }
 
             VerificarDatosInventario();
+            VerificarConfiguracion();
 
             txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.Text = numeroRevision.ToString();
+
+            if (checkTicketVenta == 1)
+            {
+                checkCBVenta.Checked = true;
+            }
         }
 
         private void VerificarDatosInventario()
@@ -60,6 +69,22 @@ namespace PuntoDeVentaV2
 
                 datosInventario = mb.DatosRevisionInventario();
                 numeroRevision = Convert.ToInt32(datosInventario[1]);
+            }
+        }
+
+        private void VerificarConfiguracion()
+        {
+            var existe = (bool)cn.EjecutarSelect($"SELECT * FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (existe)
+            {
+                var datosConfig = mb.DatosConfiguracion();
+
+                checkTicketVenta = Convert.ToInt16(datosConfig[0]);
+            }
+            else
+            {
+                cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{FormPrincipal.userID}')");
             }
         }
 
@@ -163,74 +188,16 @@ namespace PuntoDeVentaV2
         }
 
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void checkCBVenta_CheckedChanged(object sender, EventArgs e)
         {
+            var ticketVenta = 0;
 
-        }
-
-
-        private void SetUpPUDVE_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            FormPrincipal pantallaPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
-            if (pantallaPrincipal != null)
+            if (checkCBVenta.Checked)
             {
-                pantallaPrincipal.ConvertirMinutos();
+                ticketVenta = 1;
             }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }
-
-/*
-  if (!txtTimerSetUp.Text.Equals(""))
-            {
-                if (rbSegundos.Checked.Equals(true))
-                {
-
-                    Properties.Settings.Default.tiempoTimerAndroid = 1000 * Convert.ToInt32(txtTimerSetUp.Text);
-                    Properties.Settings.Default.Save();
-                    Properties.Settings.Default.Reload();
-
-                   // MessageBox.Show("Tiempo asignado" + Properties.Settings.Default.tiempoTimerAndroid);
-
-                  
-
-                    FormCollection formulariosApp = Application.OpenForms;
-                    foreach (Form frm in formulariosApp)
-                    {
-                        if (frm.Name != "FormPrincipal" && frm.Name != "Login" && frm.Name != "SetUpPUDVE")
-                        {
-                            frm.Close();
-                        }
-                    }
-
-                    this.Close();
-                    
-
-                }
-
-                if (rbMinutos.Checked.Equals(true))
-                {
-
-                    Properties.Settings.Default.tiempoTimerAndroid = 60000 * Convert.ToInt32(txtTimerSetUp.Text);
-                    Properties.Settings.Default.Save();
-                    Properties.Settings.Default.Reload();
-
-                    // MessageBox.Show("Tiempo asignado" + Properties.Settings.Default.tiempoTimerAndroid);
-
-
-
-                    FormCollection formulariosApp = Application.OpenForms;
-                    foreach (Form frm in formulariosApp)
-                    {
-                        if (frm.Name != "FormPrincipal" && frm.Name != "Login" && frm.Name != "SetUpPUDVE")
-                        {
-                            frm.Close();
-                        }
-                    }
-
-                    this.Close();
-
-
-                }
-            }
- * */

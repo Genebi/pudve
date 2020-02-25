@@ -39,13 +39,14 @@
             this.txtNumeroRevision = new System.Windows.Forms.TextBox();
             this.lbNumeroRevision = new System.Windows.Forms.Label();
             this.btnLimpiarTabla = new System.Windows.Forms.Button();
+            this.checkCBVenta = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbStockNegativo
             // 
             this.cbStockNegativo.AutoSize = true;
             this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStockNegativo.Location = new System.Drawing.Point(608, 120);
+            this.cbStockNegativo.Location = new System.Drawing.Point(338, 123);
             this.cbStockNegativo.Name = "cbStockNegativo";
             this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
             this.cbStockNegativo.TabIndex = 1;
@@ -63,9 +64,9 @@
             this.btnRespaldo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRespaldo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRespaldo.ForeColor = System.Drawing.Color.White;
-            this.btnRespaldo.Location = new System.Drawing.Point(350, 114);
+            this.btnRespaldo.Location = new System.Drawing.Point(338, 260);
             this.btnRespaldo.Name = "btnRespaldo";
-            this.btnRespaldo.Size = new System.Drawing.Size(190, 30);
+            this.btnRespaldo.Size = new System.Drawing.Size(190, 25);
             this.btnRespaldo.TabIndex = 101;
             this.btnRespaldo.Text = "Respaldar información";
             this.btnRespaldo.UseVisualStyleBackColor = false;
@@ -172,19 +173,32 @@
             this.btnLimpiarTabla.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiarTabla.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiarTabla.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiarTabla.Location = new System.Drawing.Point(350, 294);
+            this.btnLimpiarTabla.Location = new System.Drawing.Point(338, 299);
             this.btnLimpiarTabla.Name = "btnLimpiarTabla";
-            this.btnLimpiarTabla.Size = new System.Drawing.Size(190, 30);
+            this.btnLimpiarTabla.Size = new System.Drawing.Size(190, 25);
             this.btnLimpiarTabla.TabIndex = 109;
             this.btnLimpiarTabla.Text = "Limpiar tabla inventario";
             this.btnLimpiarTabla.UseVisualStyleBackColor = false;
             this.btnLimpiarTabla.Click += new System.EventHandler(this.btnLimpiarTabla_Click);
+            // 
+            // checkCBVenta
+            // 
+            this.checkCBVenta.AutoSize = true;
+            this.checkCBVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkCBVenta.Location = new System.Drawing.Point(338, 162);
+            this.checkCBVenta.Name = "checkCBVenta";
+            this.checkCBVenta.Size = new System.Drawing.Size(245, 21);
+            this.checkCBVenta.TabIndex = 110;
+            this.checkCBVenta.Text = "Código de barras ticket de venta";
+            this.checkCBVenta.UseVisualStyleBackColor = true;
+            this.checkCBVenta.CheckedChanged += new System.EventHandler(this.checkCBVenta_CheckedChanged);
             // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.checkCBVenta);
             this.Controls.Add(this.btnLimpiarTabla);
             this.Controls.Add(this.btnGuardarRevision);
             this.Controls.Add(this.txtNumeroRevision);
@@ -198,7 +212,6 @@
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "SetUpPUDVE";
             this.Text = "PUDVE - Configuración";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SetUpPUDVE_FormClosed);
             this.Load += new System.EventHandler(this.SetUpPUDVE_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.SetUpPUDVE_Paint);
             this.ResumeLayout(false);
@@ -218,5 +231,6 @@
         private System.Windows.Forms.TextBox txtNumeroRevision;
         private System.Windows.Forms.Label lbNumeroRevision;
         private System.Windows.Forms.Button btnLimpiarTabla;
+        private System.Windows.Forms.CheckBox checkCBVenta;
     }
 }
