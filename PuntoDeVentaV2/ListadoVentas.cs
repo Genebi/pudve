@@ -168,39 +168,38 @@ namespace PuntoDeVentaV2
                 var buscarClienteFolio = string.Empty;
                 buscarClienteFolio = txtBoxClienteFolio.Text;
 
+                var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+                var opcion = cbTipoVentas.SelectedValue.ToString();
+
                 if (buscarClienteFolio.Equals(txtBoxClienteFolio.Tag.ToString().ToUpper()))
                 {
                     //MessageBox.Show("Test1");
+                    if (busqueda)
+                    {
+                        // Ventas pagadas
+                        if (opcion == "VP") { estado = 1; }
+                        // Ventas guardadas
+                        if (opcion == "VG") { estado = 2; }
+                        // Ventas canceladas
+                        if (opcion == "VC") { estado = 3; }
+                        // Ventas a credito
+                        if (opcion == "VCC") { estado = 4; }
+                        // Facturas
+                        if (opcion == "FAC") { estado = 5; }
+                        // Presupuestos
+                        if (opcion == "PRE") { estado = 6; }
+
+                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
+                    }
+                    else
+                    {
+                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    }
                 }
                 else if (!buscarClienteFolio.Equals(txtBoxClienteFolio.Tag.ToString().ToUpper()))
                 {
                     //MessageBox.Show("Test2");
-                }
-
-                if (busqueda)
-                {
-                    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
-                    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
-                    var opcion = cbTipoVentas.SelectedValue.ToString();
-
-                    // Ventas pagadas
-                    if (opcion == "VP") { estado = 1; }
-                    // Ventas guardadas
-                    if (opcion == "VG") { estado = 2; }
-                    // Ventas canceladas
-                    if (opcion == "VC") { estado = 3; }
-                    // Ventas a credito
-                    if (opcion == "VCC") { estado = 4; }
-                    // Facturas
-                    if (opcion == "FAC") { estado = 5; }
-                    // Presupuestos
-                    if (opcion == "PRE") { estado = 6; }
-
-                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
-                }
-                else
-                {
-                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
                 }
 
                 FiltroAvanzado = consulta;
