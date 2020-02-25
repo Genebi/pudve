@@ -79,6 +79,7 @@ namespace PuntoDeVentaV2
         private bool restarProducto = false;
         private bool buscarVG = false; // Buscar venta guardada
         private int indiceColumna = 0;
+        private bool imprimirCodigo = false;
 
         DataTable dtProdMessg;
         DataRow drProdMessg;
@@ -110,6 +111,13 @@ namespace PuntoDeVentaV2
             /*string tmp = @"\\" + Properties.Settings.Default.Hosting + "\\Users\\Acer\\AppData\\Roaming" + fichero;
             string fileContents = File.ReadAllText(tmp);
             MessageBox.Show(fileContents);*/
+
+            var datosConfig = mb.DatosConfiguracion();
+
+            if (Convert.ToInt16(datosConfig[0]) == 1)
+            {
+                imprimirCodigo = true;
+            }
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)
@@ -1717,7 +1725,7 @@ namespace PuntoDeVentaV2
              ** Fin tabla con los productos vendidos **
              ******************************************/
 
-            Paragraph mensaje = new Paragraph("\nCambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.", fuenteNormal);
+            Paragraph mensaje = new Paragraph("\nCambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.\n\n", fuenteNormal);
             mensaje.Alignment = Element.ALIGN_CENTER;
 
             var culture = new System.Globalization.CultureInfo("es-MX");
@@ -1726,15 +1734,27 @@ namespace PuntoDeVentaV2
 
             dia = cn.Capitalizar(dia);
 
-            Paragraph diaVenta = new Paragraph($"\n{dia} - {fecha} - Folio: {productos[0][10]}", fuenteNormal);
+            Paragraph diaVenta = new Paragraph($"{dia} - {fecha} - Folio: {productos[0][10]}", fuenteNormal);
             diaVenta.Alignment = Element.ALIGN_CENTER;
 
             ticket.Add(titulo);
             ticket.Add(domicilio);
             ticket.Add(tabla);
             ticket.Add(mensaje);
-            ticket.Add(diaVenta);
 
+            // Imprimir codigo de barras en el ticket
+            if (imprimirCodigo)
+            {
+                // Generar el codigo de barras
+                var codigoBarra = GenerarCodigoBarras(productos[0][10], anchoPapel);
+
+                iTextSharp.text.Image imagenCodigo = iTextSharp.text.Image.GetInstance(codigoBarra, System.Drawing.Imaging.ImageFormat.Jpeg);
+                imagenCodigo.Alignment = Element.ALIGN_CENTER;
+
+                ticket.Add(imagenCodigo);
+            }
+
+            ticket.Add(diaVenta);
             ticket.AddTitle("Ticket Venta");
             ticket.AddAuthor("PUDVE");
             ticket.Close();
@@ -1931,6 +1951,32 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Error No: "+ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private System.Drawing.Image GenerarCodigoBarras(string txtCodigo, int ancho)
+        {
+            System.Drawing.Image imagen;
+
+            BarcodeLib.Barcode codigo = new BarcodeLib.Barcode();
+
+            try
+            {
+                var anchoTmp = ancho / 2;
+                var auxiliar = anchoTmp;
+
+                anchoTmp = auxiliar / 2;
+                ancho = ancho - anchoTmp;
+
+                imagen = codigo.Encode(BarcodeLib.TYPE.CODE128, txtCodigo, Color.Black, Color.White, ancho, 40);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar código de barras para el ticket", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                imagen = null;
+            }
+
+            return imagen;
         }
 
         private void btnAnticipos_Click(object sender, EventArgs e)

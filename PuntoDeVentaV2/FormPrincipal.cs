@@ -262,7 +262,13 @@ namespace PuntoDeVentaV2
 
             InitializarTimerAndroid();
 
-            //ActualizarNombres();
+            // Verificar si existe registro de la tabla configuracion
+            var existe = (bool)cn.EjecutarSelect($"SELECT * FROM Configuracion WHERE IDUsuario = {userID}");
+
+            if (!existe)
+            {
+                cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{userID}')");
+            }
         }
 
         private void CargarSaldoInicial()
