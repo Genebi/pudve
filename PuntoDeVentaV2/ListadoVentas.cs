@@ -50,7 +50,8 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
             // Almacenamos en el Tag el texto por defecto
-            txtBoxClienteFolio.Tag = "Busca Cliente ó Folio";
+            //txtBoxClienteFolio.Tag = "Busca Cliente ó Folio";
+            txtBoxClienteFolio.Tag = "En Construcción";
             txtBoxClienteFolio.Text = txtBoxClienteFolio.Tag.ToString();
             // Ponemos el foreColor en gris
             txtBoxClienteFolio.ForeColor = Color.Gray;
@@ -164,42 +165,72 @@ namespace PuntoDeVentaV2
         {
             if (clickBoton == 0)
             {
+                //var consulta = string.Empty;
+                //var buscarClienteFolio = string.Empty;
+                //buscarClienteFolio = txtBoxClienteFolio.Text;
+
+                //var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                //var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+                //var opcion = cbTipoVentas.SelectedValue.ToString();
+
+                //if (buscarClienteFolio.Equals(txtBoxClienteFolio.Tag.ToString().ToUpper()))
+                //{
+                //    //MessageBox.Show("Test1");
+                //    if (busqueda)
+                //    {
+                //        // Ventas pagadas
+                //        if (opcion == "VP") { estado = 1; }
+                //        // Ventas guardadas
+                //        if (opcion == "VG") { estado = 2; }
+                //        // Ventas canceladas
+                //        if (opcion == "VC") { estado = 3; }
+                //        // Ventas a credito
+                //        if (opcion == "VCC") { estado = 4; }
+                //        // Facturas
+                //        if (opcion == "FAC") { estado = 5; }
+                //        // Presupuestos
+                //        if (opcion == "PRE") { estado = 6; }
+
+                //        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
+                //    }
+                //    else
+                //    {
+                //        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
+                //    }
+                //}
+                //else if (!buscarClienteFolio.Equals(txtBoxClienteFolio.Tag.ToString().ToUpper()))
+                //{
+                //    //MessageBox.Show("Test2");
+                //}
+
                 var consulta = string.Empty;
                 var buscarClienteFolio = string.Empty;
                 buscarClienteFolio = txtBoxClienteFolio.Text;
 
-                var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
-                var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
-                var opcion = cbTipoVentas.SelectedValue.ToString();
-
-                if (buscarClienteFolio.Equals(txtBoxClienteFolio.Tag.ToString().ToUpper()))
+                if (busqueda)
                 {
-                    //MessageBox.Show("Test1");
-                    if (busqueda)
-                    {
-                        // Ventas pagadas
-                        if (opcion == "VP") { estado = 1; }
-                        // Ventas guardadas
-                        if (opcion == "VG") { estado = 2; }
-                        // Ventas canceladas
-                        if (opcion == "VC") { estado = 3; }
-                        // Ventas a credito
-                        if (opcion == "VCC") { estado = 4; }
-                        // Facturas
-                        if (opcion == "FAC") { estado = 5; }
-                        // Presupuestos
-                        if (opcion == "PRE") { estado = 6; }
+                    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+                    var opcion = cbTipoVentas.SelectedValue.ToString();
 
-                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
-                    }
-                    else
-                    {
-                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
-                    }
+                    // Ventas pagadas
+                    if (opcion == "VP") { estado = 1; }
+                    // Ventas guardadas
+                    if (opcion == "VG") { estado = 2; }
+                    // Ventas canceladas
+                    if (opcion == "VC") { estado = 3; }
+                    // Ventas a credito
+                    if (opcion == "VCC") { estado = 4; }
+                    // Facturas
+                    if (opcion == "FAC") { estado = 5; }
+                    // Presupuestos
+                    if (opcion == "PRE") { estado = 6; }
+
+                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
                 }
-                else if (!buscarClienteFolio.Equals(txtBoxClienteFolio.Tag.ToString().ToUpper()))
+                else
                 {
-                    //MessageBox.Show("Test2");
+                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}'";
                 }
 
                 FiltroAvanzado = consulta;
@@ -862,11 +893,11 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyChar == (int) Keys.Enter)
             {
-                if (!txtBoxClienteFolio.Text.Equals(""))
-                {
-                    clickBoton = 0;
-                    busquedaDelUsuario(txtBoxClienteFolio.Text);
-                }
+                //if (!txtBoxClienteFolio.Text.Equals(""))
+                //{
+                //    clickBoton = 0;
+                //    busquedaDelUsuario(txtBoxClienteFolio.Text);
+                //}
             }
         }
 

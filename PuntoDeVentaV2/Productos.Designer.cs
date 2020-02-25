@@ -128,6 +128,7 @@
             this.btnAgregarProducto.Size = new System.Drawing.Size(105, 61);
             this.btnAgregarProducto.TabIndex = 1;
             this.btnAgregarProducto.Text = "Producto";
+            this.btnAgregarProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAgregarProducto.UseVisualStyleBackColor = false;
             this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
@@ -549,7 +550,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fLPDynamicTags.AutoScroll = true;
             this.fLPDynamicTags.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDynamicTags.Location = new System.Drawing.Point(90, 70);
+            this.fLPDynamicTags.Location = new System.Drawing.Point(90, 66);
             this.fLPDynamicTags.Name = "fLPDynamicTags";
             this.fLPDynamicTags.Size = new System.Drawing.Size(756, 38);
             this.fLPDynamicTags.TabIndex = 18;
@@ -629,6 +630,7 @@
             this.groupBox1.Size = new System.Drawing.Size(231, 82);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Text = " AGREGAR ";
             // 
             // btnAgregarServicio
             // 
@@ -646,6 +648,7 @@
             this.btnAgregarServicio.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarServicio.TabIndex = 3;
             this.btnAgregarServicio.Text = "Servicio";
+            this.btnAgregarServicio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAgregarServicio.UseVisualStyleBackColor = false;
             this.btnAgregarServicio.Click += new System.EventHandler(this.btnAgregarServicio_Click);
             // 
@@ -665,6 +668,7 @@
             this.btnAgregarPaquete.Size = new System.Drawing.Size(105, 27);
             this.btnAgregarPaquete.TabIndex = 2;
             this.btnAgregarPaquete.Text = "Combo";
+            this.btnAgregarPaquete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAgregarPaquete.UseVisualStyleBackColor = false;
             this.btnAgregarPaquete.Click += new System.EventHandler(this.btnAgregarPaquete_Click);
             // 
