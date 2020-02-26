@@ -593,6 +593,8 @@ namespace PuntoDeVentaV2
 
         // Variables de la seccionProductos
         string nombreP = "";
+        string nombreAlterno1P = "";
+        string nombreAlterno2P = "";
         float stockP = 0f;
         float precioP = 0f;
         float revisionP = 0f;
@@ -600,7 +602,9 @@ namespace PuntoDeVentaV2
         string codigoP = "";
         string historialP = "";
         string tipoP = "";
+
         string nickUsuarioP = "";
+        string nickUsuarioC = "";
 
         public static DateTime fechaGeneral;
 
@@ -657,12 +661,12 @@ namespace PuntoDeVentaV2
                                                                   efectivoAnticipos, tarjetaAnticipos, valesAnticipos, chequeAnticipos, transferenciaAnticipos, totalAnticipos,   
                                                                   efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
                                                                   efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
-                                                                  fechaActualizacion, idUsuario) 
+                                                                  fechaActualizacion, nickUsuario, idUsuario) 
                                                          VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{vAnticipos}', '{totalVentas}',
                                                                  '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
                                                                  '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}',  
                                                                  '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}',
-                                                                 '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID.ToString()}')";
+                                                                 '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{userNickName}', '{FormPrincipal.userID.ToString()}')";
                         int resultado = agregar.ExecuteNonQuery();
                         if (resultado > 0)
                         {
@@ -681,7 +685,7 @@ namespace PuntoDeVentaV2
 
 
                         //Consulta Insertar de MySQL por ID de Usuario
-                        queryCargarDatosProductos = $@"SELECT P.Nombre, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
+                        queryCargarDatosProductos = $@"SELECT P.Nombre, P.NombreAlterno1, P.NombreAlterno2, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
                                                     FROM productos AS P 
                                                     WHERE status = 1
                                                     AND IDUsuario = {FormPrincipal.userID.ToString()}
@@ -694,9 +698,9 @@ namespace PuntoDeVentaV2
                         int borrrado1 = eliminar.ExecuteNonQuery();
 
                         //Consulta Agregar de MySQL 
-                        StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nombreProductos, stockProductos, 
-                                                                                              precioProductos, revisionProductos, claveProductos, 
-                                                                                              codigoProductos, historialProductos, tipoProductos, fechaUpdate, nickUsuario)
+                        StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nickUsuario, nombreProductos, nombreAlterno1, nombreAlterno2, 
+                                                                                              stockProductos, precioProductos, revisionProductos, claveProductos, 
+                                                                                              codigoProductos, historialProductos, tipoProductos, fechaUpdate)
                                                           VALUES ");
                         List<String> Rows = new List<string>();
                         if (tablaProductos.Rows.Count > 0)
@@ -704,22 +708,27 @@ namespace PuntoDeVentaV2
                             for (int i = 0; i < tablaProductos.Rows.Count; i++)
                             {
 
+
+                                nickUsuario = userNickName;
                                 nombreP = tablaProductos.Rows[i]["Nombre"].ToString();
+                                nombreAlterno1P = tablaProductos.Rows[i]["NombreAlterno1"].ToString();
+                                nombreAlterno2P = tablaProductos.Rows[i]["NombreAlterno2"].ToString();
                                 stockP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Stock"].ToString());
                                 precioP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Precio"].ToString());
                                 revisionP = (float)Convert.ToDouble(tablaProductos.Rows[i]["NumeroRevision"].ToString());
                                 claveP = tablaProductos.Rows[i]["ClaveInterna"].ToString();
                                 codigoP = tablaProductos.Rows[i]["CodigoBarras"].ToString();
                                 tipoP = tablaProductos.Rows[i]["Tipo"].ToString();
-                                nickUsuarioP = userNickName;
+                                
 
 
 
-                                Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}')",
-                                    MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nombreP}"), MySqlHelper.EscapeString($"{stockP}"),
+                                Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}')",
+                                    MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nickUsuario}") , MySqlHelper.EscapeString($"{nombreP}"),
+                                    MySqlHelper.EscapeString($"{nombreAlterno1P}"), MySqlHelper.EscapeString($"{nombreAlterno2P}"), MySqlHelper.EscapeString($"{stockP}"), 
                                     MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
                                     MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"),
-                                    MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}"), MySqlHelper.EscapeString($"{nickUsuarioP}")));
+                                    MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
                             }
                             sComand.Append(String.Join(",", Rows));
                             //  sComand.Append(":");
@@ -789,6 +798,8 @@ namespace PuntoDeVentaV2
 
             //  Apartado de Productos  //
             nombreP = "";
+            nombreAlterno1P = "";
+            nombreAlterno2P = "";
             stockP = 0f;
             precioP = 0f;
             revisionP = 0f;
