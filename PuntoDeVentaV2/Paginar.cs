@@ -136,19 +136,9 @@ namespace PuntoDeVentaV2
             return _datos;
         }
 
-        public DataSet actualizarPagina(int pagina_actual)
+        public DataSet actualizarPagina()
         {
-            this._numeroPagina = pagina_actual;
             DataTable auxiliar;
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                ps_cadena = "Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;";
-            }
-            else
-            {
-                ps_cadena = "Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;";
-            }
 
             SQLiteConnection connection = new SQLiteConnection(ps_cadena);
             this._adapter = new SQLiteDataAdapter(_query, connection);
@@ -164,7 +154,6 @@ namespace PuntoDeVentaV2
             {
                 return _datos;
             }
-            this._inicio = _inicio + _tope;
             this._datos.Clear();
             this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
             return _datos;

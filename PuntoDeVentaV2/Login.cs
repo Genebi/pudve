@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Data.SQLite;
+using System.Net.NetworkInformation;
 
 namespace PuntoDeVentaV2
 {
@@ -88,6 +90,8 @@ namespace PuntoDeVentaV2
         public Login()
         {
             InitializeComponent();
+
+            Select();
         }
 
         private void btnCerrarLogin_Click(object sender, EventArgs e)
@@ -95,27 +99,64 @@ namespace PuntoDeVentaV2
             Application.Exit();
         }
 
+        private bool VerificarServidor()
+        {
+            var respuesta = false;
+
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                var ping = new Ping();
+
+                try
+                {
+                    if (ping.Send(servidor).Status == IPStatus.Success)
+                    {
+                        respuesta = true;
+                    }
+                }
+                catch (PingException)
+                {
+                    respuesta = false;
+                }
+            }
+            else
+            {
+                respuesta = true;
+            }
+
+            return respuesta;
+        }
+
         private void btnEntrar_Click(object sender, EventArgs e)
         {
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (!VerificarServidor())
+            {
+                MessageBox.Show($"La computadora {servidor} no se encuentra en la Red, le \nrecomendamos verificar o desvincular esta computadora\npara poder continuar", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Condicion para ejecutar el metodo que comprueba los cambios en las tablas
             // existentes, de esta manera ejecutamos el metodo una sola vez y no lo hacemos
             // en el metodo Load ya que daba error para cuando se queria importar un archivo
             // de base de datos en el boton que se agregue en el form de Login
+
             if (contadorMetodoTablas == 0)
             {
                 RevisarTablas();
-
                 contadorMetodoTablas = 1;
             }
 
+            //========================================================
             usuario = txtUsuario.Text;
             password = txtPassword.Text;
 
             if (usuario != "" && password != "")
             {
-
                 // Verifica si es el usuaro principal, o un empleado 
-
                 bool resultado = false;
                 int tipo_us = 0;
                 string usuario_empleado = "";
@@ -151,7 +192,6 @@ namespace PuntoDeVentaV2
                 {
                     resultado = (bool)cn.EjecutarSelect($"SELECT Usuario FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'");
                 }
-
 
                 if (resultado == true)
                 {
@@ -405,6 +445,12 @@ namespace PuntoDeVentaV2
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;
             txtPassword.Text = Properties.Settings.Default.Password;
+
+            if (txtUsuario.Text != "" && txtPassword.Text != "")
+            {
+                btnEntrar.Focus();
+                checkBoxRecordarDatos.Checked = true;
+            }
         }
 
         private void modoDebug()
@@ -3209,6 +3255,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla appSettings
+            // 37 appSettings
+            #region Tabl Configuracion
+            tabla = "Configuracion";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaConfiguracion(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaConfiguracion(tabla));
+                    if (dbTables.GetConfiguracion() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaConfiguracion(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetConfiguracion())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameConfiguracion(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaConfiguracion(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaConfiguracion(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaConfiguracion(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaConfiguracion(tabla));
+                    if (dbTables.GetConfiguracion() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaConfiguracion(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetConfiguracion())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameConfiguracion(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaConfiguracion(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaConfiguracion(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaConfiguracion(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla Configuracion
         }
 
         private bool checkEmpty(object tabla)

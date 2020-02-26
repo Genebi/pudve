@@ -338,10 +338,12 @@
             // txtBoxClienteFolio
             // 
             this.txtBoxClienteFolio.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtBoxClienteFolio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBoxClienteFolio.Location = new System.Drawing.Point(327, 10);
             this.txtBoxClienteFolio.Name = "txtBoxClienteFolio";
             this.txtBoxClienteFolio.Size = new System.Drawing.Size(214, 26);
             this.txtBoxClienteFolio.TabIndex = 27;
+            this.txtBoxClienteFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxClienteFolio_KeyPress);
             // 
             // panel4
             // 

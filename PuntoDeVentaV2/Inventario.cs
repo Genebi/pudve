@@ -122,6 +122,19 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrWhiteSpace(txtBusqueda.Text))
             {
+                int found = 0;
+                char separador = '*';
+                string[] datosSeparados;
+                string textoABuscar = string.Empty;
+
+                textoABuscar = txtBusqueda.Text;
+
+                found = textoABuscar.IndexOf(separador);
+
+                //MessageBox.Show("El Asterisco fue encontrado en la posición: " + found + "\nCódigo buscado: " + textoABuscar);
+
+                datosSeparados = textoABuscar.Split(separador);
+
                 listaProductos.Items.Clear();
 
                 idProductoDelCombo = new List<string>();
@@ -129,10 +142,10 @@ namespace PuntoDeVentaV2
                 int idProducto = 0;
 
                 // Verificar si es codigo de barra o clave
-                idProducto = mb.BuscarProductoInventario(txtBusqueda.Text.Trim());
+                idProducto = mb.BuscarProductoInventario(datosSeparados[1].Trim());
 
                 // Verificamos si existe en la tabla de codigos de barra extra
-                var datosTmp = mb.BuscarCodigoBarrasExtra(txtBusqueda.Text.Trim());
+                var datosTmp = mb.BuscarCodigoBarrasExtra(datosSeparados[1].Trim());
 
                 if (datosTmp.Length > 0)
                 {
@@ -145,12 +158,12 @@ namespace PuntoDeVentaV2
                         {
                             idProducto = Convert.ToInt32(id);
                         }
-                    } 
+                    }
                 }
 
                 if (idProducto.Equals(0))
                 {
-                    idProducto = mb.BuscarComboInventario(txtBusqueda.Text.Trim());
+                    idProducto = mb.BuscarComboInventario(datosSeparados[1].Trim());
 
                     if (idProducto > 0)
                     {
@@ -198,7 +211,7 @@ namespace PuntoDeVentaV2
 
                                 nombresProductos.Clear();
 
-                                MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message, 
+                                MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message,
                                                 "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 return;
                             }
@@ -225,13 +238,13 @@ namespace PuntoDeVentaV2
 
                     if (idProductoDelCombo.Count > 0)
                     {
-                        ap.cantidadPasadaProductoCombo = Convert.ToInt32(idProductoDelCombo[1].ToString());
+                        ap.cantidadPasadaProductoCombo = Convert.ToInt32(datosSeparados[0].ToString().Trim()) * Convert.ToInt32(idProductoDelCombo[1].ToString());
                     }
                     ap.ShowDialog();
                 }
                 else
                 {
-                    var resultados = mb.BusquedaCoincidenciasInventario(txtBusqueda.Text.Trim());
+                    var resultados = mb.BusquedaCoincidenciasInventario(datosSeparados[1].Trim());
                     int coincidencias = resultados.Count;
                     //MessageBox.Show(coincidencias.ToString());
 
@@ -250,7 +263,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{txtBusqueda.Text}'", 
+                        MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{datosSeparados[1].Trim()}'",
                                          "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }

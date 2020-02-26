@@ -1449,6 +1449,26 @@ namespace PuntoDeVentaV2
             return resultado;
         }
 
+        public string[] DatosConfiguracion()
+        {
+            string[] datos = new string[] { };
+
+            DatosConexion($"SELECT * FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var ticketVenta = dr["TicketVenta"].ToString();
+                var stockNegativo = dr["StockNegativo"].ToString();
+
+                datos = new string[] { ticketVenta, stockNegativo };
+            }
+
+            dr.Close();
+
+            return datos;
+        }
 
         private void DatosConexion(string consulta, bool ignorar = false)
         {

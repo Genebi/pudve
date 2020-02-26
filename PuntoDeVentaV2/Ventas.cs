@@ -79,6 +79,7 @@ namespace PuntoDeVentaV2
         private bool restarProducto = false;
         private bool buscarVG = false; // Buscar venta guardada
         private int indiceColumna = 0;
+        private bool imprimirCodigo = false;
 
         DataTable dtProdMessg;
         DataRow drProdMessg;
@@ -110,6 +111,13 @@ namespace PuntoDeVentaV2
             /*string tmp = @"\\" + Properties.Settings.Default.Hosting + "\\Users\\Acer\\AppData\\Roaming" + fichero;
             string fileContents = File.ReadAllText(tmp);
             MessageBox.Show(fileContents);*/
+
+            var datosConfig = mb.DatosConfiguracion();
+
+            if (Convert.ToInt16(datosConfig[0]) == 1)
+            {
+                imprimirCodigo = true;
+            }
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)
@@ -400,7 +408,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarProducto(string[] datosProducto)
         {
-            if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == "#")
+            if (DGVentas.Rows.Count == 0 && buscarvVentaGuardada == ".#")
             {
                 AgregarProductoLista(datosProducto);
             }
@@ -452,6 +460,7 @@ namespace PuntoDeVentaV2
 
                         // Imagen del producto
                         var imagen = fila.Cells["ImagenProducto"].Value.ToString();
+                        Console.WriteLine(imagen);
 
                         if (!string.IsNullOrEmpty(imagen))
                         {
@@ -514,7 +523,7 @@ namespace PuntoDeVentaV2
             // Obtener la nueva fila
             DataGridViewRow row = DGVentas.Rows[rowId];
 
-            if (buscarvVentaGuardada == "#")
+            if (buscarvVentaGuardada == ".#")
             {
                 // Agregamos la información
                 row.Cells["NumeroColumna"].Value = indiceColumna;
@@ -917,7 +926,7 @@ namespace PuntoDeVentaV2
 
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
-                if (buscarvVentaGuardada == "#")
+                if (buscarvVentaGuardada == ".#")
                 {
                     var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
                     var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);
@@ -1160,7 +1169,8 @@ namespace PuntoDeVentaV2
                         // A partir de la variable DescuentoGeneral esos valores y datos se toman solo para el ticket de venta
                         guardar = new string[] {
                             idVenta, IDProducto, Nombre, Cantidad, Precio,
-                            DescuentoGeneral, DescuentoIndividual, ImporteIndividual, Descuento, Total
+                            DescuentoGeneral, DescuentoIndividual, ImporteIndividual,
+                            Descuento, Total, Folio
                         };
 
                         // Guardar info de los productos
@@ -1715,7 +1725,7 @@ namespace PuntoDeVentaV2
              ** Fin tabla con los productos vendidos **
              ******************************************/
 
-            Paragraph mensaje = new Paragraph("\nCambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.", fuenteNormal);
+            Paragraph mensaje = new Paragraph("\nCambios y Garantía máximo 7 días después de su compra, presentando el Ticket. Gracias por su preferencia.\n\n", fuenteNormal);
             mensaje.Alignment = Element.ALIGN_CENTER;
 
             var culture = new System.Globalization.CultureInfo("es-MX");
@@ -1724,15 +1734,27 @@ namespace PuntoDeVentaV2
 
             dia = cn.Capitalizar(dia);
 
-            Paragraph diaVenta = new Paragraph($"\n{dia} - {fecha} - ID Venta: {productos[0][0]}", fuenteNormal);
+            Paragraph diaVenta = new Paragraph($"{dia} - {fecha} - Folio: {productos[0][10]}", fuenteNormal);
             diaVenta.Alignment = Element.ALIGN_CENTER;
 
             ticket.Add(titulo);
             ticket.Add(domicilio);
             ticket.Add(tabla);
             ticket.Add(mensaje);
-            ticket.Add(diaVenta);
 
+            // Imprimir codigo de barras en el ticket
+            if (imprimirCodigo)
+            {
+                // Generar el codigo de barras
+                var codigoBarra = GenerarCodigoBarras(productos[0][10], anchoPapel);
+
+                iTextSharp.text.Image imagenCodigo = iTextSharp.text.Image.GetInstance(codigoBarra, System.Drawing.Imaging.ImageFormat.Jpeg);
+                imagenCodigo.Alignment = Element.ALIGN_CENTER;
+
+                ticket.Add(imagenCodigo);
+            }
+
+            ticket.Add(diaVenta);
             ticket.AddTitle("Ticket Venta");
             ticket.AddAuthor("PUDVE");
             ticket.Close();
@@ -1931,6 +1953,32 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private System.Drawing.Image GenerarCodigoBarras(string txtCodigo, int ancho)
+        {
+            System.Drawing.Image imagen;
+
+            BarcodeLib.Barcode codigo = new BarcodeLib.Barcode();
+
+            try
+            {
+                var anchoTmp = ancho / 2;
+                var auxiliar = anchoTmp;
+
+                anchoTmp = auxiliar / 2;
+                ancho = ancho - anchoTmp;
+
+                imagen = codigo.Encode(BarcodeLib.TYPE.CODE128, txtCodigo, Color.Black, Color.White, ancho, 40);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al generar código de barras para el ticket", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                imagen = null;
+            }
+
+            return imagen;
+        }
+
         private void btnAnticipos_Click(object sender, EventArgs e)
         {
             ListadoAnticipos anticipo = new ListadoAnticipos();
@@ -1980,7 +2028,8 @@ namespace PuntoDeVentaV2
             string cuartoPatron = @"^\d+\*\s";
             string quintoPatron = @"^\d+\s\*";
             string sextoPatron = @"^\d+\*";
-            string septimoPatron = @"^#\s\d+";
+            string septimoPatron = @"^.#\d+\.";
+            //string septimoPatron = @"^#\s\d+";
 
             Match primeraCoincidencia = Regex.Match(cadena, primerPatron, RegexOptions.IgnoreCase);
             Match segundaCoincidencia = Regex.Match(cadena, segundoPatron, RegexOptions.IgnoreCase);
@@ -2195,14 +2244,15 @@ namespace PuntoDeVentaV2
             }
             else if (septimaCoincidencia.Success)
             {
-                // #$% FolioDeVenta
+                // .#FolioDeVenta.
 
                 if (buscarVG)
                 {
-                    var resultado = septimaCoincidencia.Value.Trim().Split(' ');
-                    buscarvVentaGuardada = resultado[0];
-                    //cadena = Regex.Replace(cadena, septimoPatron, string.Empty);
-                    folio = resultado[1];
+                    var resultado = septimaCoincidencia.Value.Trim().Split('#');
+                    resultado = resultado[1].Split('.');
+
+                    buscarvVentaGuardada = ".#";
+                    folio = resultado[0];
                 }
             }
 
@@ -2295,7 +2345,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                if (tipo == 1)
+                if (tipo == 1 && string.IsNullOrEmpty(buscarvVentaGuardada))
                 {
                     // Se reproducto cuando el codigo o clave buscado no esta registrado
                     ReproducirSonido();
@@ -2309,12 +2359,24 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
-            if (buscarvVentaGuardada == "#")
+            
+            if (buscarvVentaGuardada == ".#")
             {
                 txtBuscadorProducto.Text = "";
                 string[] datosVentaGuardada = cn.ObtenerVentaGuardada(FormPrincipal.userID, Convert.ToInt32(folio));
-                AgregarProducto(datosVentaGuardada);
+
+                var idVentaTmp = Convert.ToInt32(datosVentaGuardada[7]);
+
+                if (!ventasGuardadas.Contains(idVentaTmp))
+                {
+                    ventasGuardadas.Add(idVentaTmp);
+                    AgregarProducto(datosVentaGuardada);
+                }
+                else
+                {
+                    MessageBox.Show($"La venta guardada con folio: {folio} ya\nfue seleccionada previamente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
                 buscarvVentaGuardada = "";
             }
 
