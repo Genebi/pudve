@@ -45,6 +45,7 @@ namespace PuntoDeVentaV2
         public static int Catalogo_monedas;
         public static int HistorialPrecios;
         public static int appSettings;
+        public static int Configuracion;
     #endregion Variables Tablas
 
         public DBTables()
@@ -86,6 +87,7 @@ namespace PuntoDeVentaV2
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
             appSettings = 6;
+            Configuracion = 4;
         #endregion Inicializar Variables
         }
 
@@ -2266,5 +2268,49 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla appSettings
+
+        // Tabla de Configuracion 37
+        #region Tabla Configuracion
+        public int GetConfiguracion()
+        {
+            return Configuracion;
+        }
+
+        public string PragmaTablaConfiguracion(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameConfiguracion(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaConfiguracion(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID            INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario     INTEGER NOT NULL,
+                                              TicketVenta   INTEGER DEFAULT (0),
+                                              StockNegativo INTEGER DEFAULT (0));";
+        }
+
+        public string QueryUpdateTablaConfiguracion(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             TicketVenta,
+                                             StockNegativo) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             TicketVenta,
+                                             StockNegativo 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaConfiguracion(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla Configuracion
     }
 }
