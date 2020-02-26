@@ -180,6 +180,8 @@ namespace PuntoDeVentaV2
     }
 }
 
+//25/02/20
+
 /*
   if (!txtTimerSetUp.Text.Equals(""))
             {
