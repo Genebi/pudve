@@ -32,7 +32,7 @@
             this.primerSeparador = new System.Windows.Forms.Label();
             this.btnHistorialPrecios = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnHistorialDineroAgregado = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,7 +79,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnHistorialDineroAgregado);
             this.groupBox1.Location = new System.Drawing.Point(285, 67);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(256, 129);
@@ -87,19 +87,20 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " CAJA ";
             // 
-            // button1
+            // btnHistorialDineroAgregado
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(32, 24);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(190, 30);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Historial Dinero Agreado";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnHistorialDineroAgregado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnHistorialDineroAgregado.FlatAppearance.BorderSize = 0;
+            this.btnHistorialDineroAgregado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHistorialDineroAgregado.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnHistorialDineroAgregado.ForeColor = System.Drawing.Color.White;
+            this.btnHistorialDineroAgregado.Location = new System.Drawing.Point(34, 24);
+            this.btnHistorialDineroAgregado.Name = "btnHistorialDineroAgregado";
+            this.btnHistorialDineroAgregado.Size = new System.Drawing.Size(190, 30);
+            this.btnHistorialDineroAgregado.TabIndex = 1;
+            this.btnHistorialDineroAgregado.Text = "Historial Dinero Agreado";
+            this.btnHistorialDineroAgregado.UseVisualStyleBackColor = false;
+            this.btnHistorialDineroAgregado.Click += new System.EventHandler(this.btnHistorialDineroAgregado_Click);
             // 
             // Reportes
             // 
@@ -123,6 +124,6 @@
         private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.Button btnHistorialPrecios;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnHistorialDineroAgregado;
     }
 }
