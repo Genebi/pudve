@@ -31,6 +31,9 @@
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.btnHistorialPrecios = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -74,16 +77,42 @@
             this.btnHistorialPrecios.UseVisualStyleBackColor = false;
             this.btnHistorialPrecios.Click += new System.EventHandler(this.btnHistorialPrecios_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Location = new System.Drawing.Point(285, 67);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(256, 129);
+            this.groupBox1.TabIndex = 103;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = " CAJA ";
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(32, 24);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 30);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Historial Dinero Agreado";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnHistorialPrecios);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.primerSeparador);
             this.Name = "Reportes";
             this.Text = "Reportes";
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -93,5 +122,7 @@
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.Button btnHistorialPrecios;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button1;
     }
 }

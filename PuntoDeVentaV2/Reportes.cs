@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
 
         private string fechaInicial = string.Empty;
         private string fechaFinal = string.Empty;
+
         public Reportes()
         {
             InitializeComponent();
