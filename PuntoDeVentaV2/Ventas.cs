@@ -1046,6 +1046,8 @@ namespace PuntoDeVentaV2
             {
                 var totalVenta = float.Parse(cTotal.Text);
 
+                MessageBox.Show(idCliente);
+
                 DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
 
                 detalle.FormClosed += delegate
@@ -1053,6 +1055,10 @@ namespace PuntoDeVentaV2
                     if (botonAceptar)
                     {
                         DatosVenta();
+                    }
+                    else
+                    {
+                        idCliente = string.Empty;
                     }
                 };
 
