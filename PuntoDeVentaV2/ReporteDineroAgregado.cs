@@ -91,6 +91,13 @@ namespace PuntoDeVentaV2
             if (DGVDepositos.RowCount > 0)
             {
                 //MessageBox.Show("Fecha: " + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"));
+
+                // Varaibles para los Totales
+                float totalEfectivo = 0, 
+                        totalTarjeta = 0, 
+                        totalVales = 0, 
+                        totalCheque = 0, 
+                        totalTransferencia = 0;
                 
                 // Datos del usuario
                 var datos = FormPrincipal.datosUsuario;
@@ -212,34 +219,60 @@ namespace PuntoDeVentaV2
                             Fecha = string.Empty;
                     
                     Empleado = row.Cells["Empleado"].Value.ToString();
+
                     Efectivo = row.Cells["Efectivo"].Value.ToString();
+                    if (!Efectivo.Equals(""))
+                    {
+                        totalEfectivo += (float)Convert.ToDouble(Efectivo);
+                    }
+
                     Tarjeta = row.Cells["Tarjeta"].Value.ToString();
+                    if (!Tarjeta.Equals(""))
+                    {
+                        totalTarjeta += (float)Convert.ToDouble(Tarjeta);
+                    }
+
                     Vales = row.Cells["Vales"].Value.ToString();
+                    if (!Vales.Equals(""))
+                    {
+                        totalVales += (float)Convert.ToDouble(Vales);
+                    }
+
                     Cheque = row.Cells["Cheque"].Value.ToString();
+                    if (!Cheque.Equals(""))
+                    {
+                        totalCheque += (float)Convert.ToDouble(Cheque);
+                    }
+
                     Transferencia = row.Cells["Trans"].Value.ToString();
+                    if (!Transferencia.Equals(""))
+                    {
+                        totalTransferencia += (float)Convert.ToDouble(Transferencia);
+                    }
+
                     Fecha = row.Cells["Fecha"].Value.ToString();
 
                     PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(Empleado, fuenteNormal));
                     colEmpleadoTmp.BorderWidth = 0;
                     colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + Efectivo, fuenteNormal));
+                    PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$ " + Efectivo, fuenteNormal));
                     colDepositoEfectivoTmp.BorderWidth = 0;
                     colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + Tarjeta, fuenteNormal));
+                    PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$ " + Tarjeta, fuenteNormal));
                     colDepositoTarjetaTmp.BorderWidth = 0;
                     colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + Vales, fuenteNormal));
+                    PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$ " + Vales, fuenteNormal));
                     colDepositoValesTmp.BorderWidth = 0;
                     colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + Cheque, fuenteNormal));
+                    PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$ " + Cheque, fuenteNormal));
                     colDepositoChequeTmp.BorderWidth = 0;
                     colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                    PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + Transferencia, fuenteNormal));
+                    PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$ " + Transferencia, fuenteNormal));
                     colDepositoTransTmp.BorderWidth = 0;
                     colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
@@ -269,37 +302,37 @@ namespace PuntoDeVentaV2
                 colEmpleadoTotal.Padding = 3;
                 colEmpleadoTotal.BackgroundColor = new BaseColor(Color.Red);
 
-                PdfPCell colEfectivoTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                PdfPCell colEfectivoTotal = new PdfPCell(new Phrase("$ " + totalEfectivo.ToString("N2"), fuenteTotales));
                 colEfectivoTotal.BorderWidth = 0;
                 colEfectivoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
                 colEfectivoTotal.Padding = 3;
                 colEfectivoTotal.BackgroundColor = new BaseColor(Color.Red);
 
-                PdfPCell colTarjetaTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                PdfPCell colTarjetaTotal = new PdfPCell(new Phrase("$ " + totalTarjeta.ToString("N2"), fuenteTotales));
                 colTarjetaTotal.BorderWidth = 0;
                 colTarjetaTotal.HorizontalAlignment = Element.ALIGN_CENTER;
                 colTarjetaTotal.Padding = 3;
                 colTarjetaTotal.BackgroundColor = new BaseColor(Color.Red);
 
-                PdfPCell colValesTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                PdfPCell colValesTotal = new PdfPCell(new Phrase("$ " + totalVales.ToString("N2"), fuenteTotales));
                 colValesTotal.BorderWidth = 0;
                 colValesTotal.HorizontalAlignment = Element.ALIGN_CENTER;
                 colValesTotal.Padding = 3;
                 colValesTotal.BackgroundColor = new BaseColor(Color.Red);
 
-                PdfPCell colChequeTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                PdfPCell colChequeTotal = new PdfPCell(new Phrase("$ " + totalCheque.ToString("N2"), fuenteTotales));
                 colChequeTotal.BorderWidth = 0;
                 colChequeTotal.HorizontalAlignment = Element.ALIGN_CENTER;
                 colChequeTotal.Padding = 3;
                 colChequeTotal.BackgroundColor = new BaseColor(Color.Red);
 
-                PdfPCell colTransaccionTotal = new PdfPCell(new Phrase($"0.00", fuenteTotales));
+                PdfPCell colTransaccionTotal = new PdfPCell(new Phrase("$ " + totalTransferencia.ToString("N2"), fuenteTotales));
                 colTransaccionTotal.BorderWidth = 0;
                 colTransaccionTotal.HorizontalAlignment = Element.ALIGN_CENTER;
                 colTransaccionTotal.Padding = 3;
                 colTransaccionTotal.BackgroundColor = new BaseColor(Color.Red);
 
-                PdfPCell colFechaTotal = new PdfPCell(new Phrase($"", fuenteTotales));
+                PdfPCell colFechaTotal = new PdfPCell(new Phrase("", fuenteTotales));
                 colFechaTotal.BorderWidth = 0;
                 colFechaTotal.HorizontalAlignment = Element.ALIGN_CENTER;
                 colFechaTotal.Padding = 3;

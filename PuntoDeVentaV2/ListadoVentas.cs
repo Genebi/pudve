@@ -52,13 +52,17 @@ namespace PuntoDeVentaV2
             // Almacenamos en el Tag el texto por defecto
             //txtBoxClienteFolio.Tag = "Busca Cliente ó Folio";
             txtBoxClienteFolio.Tag = "En Construcción";
+
             txtBoxClienteFolio.Text = txtBoxClienteFolio.Tag.ToString();
+            
             // Ponemos el foreColor en gris
             txtBoxClienteFolio.ForeColor = Color.Gray;
+            
             // Suscribimos el textBox a los eventos (Se puede hacer en el Diseñador)
             //txtBoxClienteFolio_Enter(sender, e)
             //txtBoxClienteFolio.GotFocus += new EventHandler(OnGetFocus);
             txtBoxClienteFolio.Enter += new EventHandler(txtBoxClienteFolio_Enter);
+            
             //txtBoxClienteFolio_Leave
             //txtBoxClienteFolio.LostFocus += new EventHandler(OnLostFocus);
             txtBoxClienteFolio.Leave += new EventHandler(txtBoxClienteFolio_Leave);
