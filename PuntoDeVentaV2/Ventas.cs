@@ -1046,8 +1046,6 @@ namespace PuntoDeVentaV2
             {
                 var totalVenta = float.Parse(cTotal.Text);
 
-                MessageBox.Show(idCliente);
-
                 DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
 
                 detalle.FormClosed += delegate
