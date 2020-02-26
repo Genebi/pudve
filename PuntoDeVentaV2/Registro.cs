@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Management;
 using System.Net.NetworkInformation;
+using System.Net.Mail;
 
 namespace PuntoDeVentaV2
 {
@@ -117,18 +118,20 @@ namespace PuntoDeVentaV2
 
                         if (respuesta > 0 && resultado > 0)
                         {
+                            // Datos para el envio del correo de registro
+                            EnviarEmail(new string[] { usuario, password, email });
+
+                            // Datos para el inicio de sesion
                             int Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
 
                             FormPrincipal fp = new FormPrincipal();
 
-                            this.Hide();
-
+                            Hide();
                             fp.IdUsuario = Id;
                             fp.nickUsuario = usuario;
                             fp.passwordUsuario = password;
                             fp.ShowDialog();
-
-                            this.Close();
+                            Close();
                         }
                         else
                         {
@@ -153,8 +156,8 @@ namespace PuntoDeVentaV2
 
         private bool VerificarUsuario(string usuario)
         {
-            string consulta = "SELECT Usuario FROM Usuarios WHERE Usuario = '"+ usuario +"'";
-            bool respuesta = (bool)cn.EjecutarSelect(consulta);
+            bool respuesta = (bool)cn.EjecutarSelect($"SELECT Usuario FROM Usuarios WHERE Usuario = '{usuario}'");
+
             return respuesta;
         }
 
@@ -181,13 +184,13 @@ namespace PuntoDeVentaV2
             }
             
             //Verificar si el usuario esta vacio
-            if (String.IsNullOrWhiteSpace(datos[0]))
+            if (string.IsNullOrWhiteSpace(datos[0]))
             {
                 return "Ingrese un nombre de usuario";
             }
 
             //Verificar si el password esta vacio
-            if (String.IsNullOrWhiteSpace(datos[1]))
+            if (string.IsNullOrWhiteSpace(datos[1]))
             {
                 return "La contraseña es obligatoria";
             }
@@ -199,13 +202,13 @@ namespace PuntoDeVentaV2
             }
 
             //Verificar la razon social
-            if (String.IsNullOrWhiteSpace(datos[3]))
+            if (string.IsNullOrWhiteSpace(datos[3]))
             {
                 return "Ingrese la razón social";
             }
 
             //Verificar que el email no este vacio
-            if (String.IsNullOrWhiteSpace(datos[4]))
+            if (string.IsNullOrWhiteSpace(datos[4]))
             {
                 return "El email es obligatorio";
             }
@@ -217,7 +220,7 @@ namespace PuntoDeVentaV2
             }
 
             //Validar el numero de telefono
-            if (String.IsNullOrWhiteSpace(datos[5]))
+            if (string.IsNullOrWhiteSpace(datos[5]))
             {
                 return "Ingrese un número de teléfono";
             }
@@ -227,17 +230,54 @@ namespace PuntoDeVentaV2
 
         private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Char chr = e.KeyChar;
+            char chr = e.KeyChar;
 
-            if (!Char.IsDigit(chr) && chr != 8)
+            if (!char.IsDigit(chr) && chr != 8)
             {
                 e.Handled = true;
             }
         }
 
-        private void txtUsuario_KeyUp(object sender, KeyEventArgs e)
+        private void EnviarEmail(string[] datos)
         {
-            txtUsuario.CharacterCasing = CharacterCasing.Upper;
+            var usuario = datos[0].Trim();
+            var password = datos[1].Trim();
+            var email = datos[2].Trim();
+
+            var mensajeHTML = string.Empty;
+
+            try
+            {
+                mensajeHTML += "<div style='text-align: center;'>";
+                mensajeHTML += "    <h2>INFORMACIÓN DE REGISTRO</h2>";
+                mensajeHTML += "    <hr>";
+                mensajeHTML += "    <h3>USUARIO: <span style='color: red;'>"+ usuario +"</span></h3>";
+                mensajeHTML += "    <h3>PASSWORD: <span style='color: red;'>"+ password +"</span>";
+                mensajeHTML += "</div>";
+
+                MailMessage mensaje = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+
+                mensaje.From = new MailAddress("sifo.contacto@gmail.com", "PUDVE");
+                mensaje.To.Add(new MailAddress(email));
+                mensaje.Subject = "Información de registro PUDVE";
+                mensaje.IsBodyHtml = true; // para hacer el cuerpo del mensaje como html 
+                mensaje.Body = mensajeHTML;
+
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com"; // para host gmail
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("sifo.contacto@gmail.com", "Steroids12");
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(mensaje);
+            }
+            catch (Exception ex)
+            {
+                // Se comento el mensaje de exception ya que el usuario no sabe que se le enviara correo
+                // y que no aparezca el messagebox
+                //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
