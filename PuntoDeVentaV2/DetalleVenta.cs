@@ -297,6 +297,11 @@ namespace PuntoDeVentaV2
             {
                 btnAceptar.PerformClick();
             }
+
+            if (e.KeyData == Keys.Escape)
+            {
+                Close();
+            }
         }
     }
 }
