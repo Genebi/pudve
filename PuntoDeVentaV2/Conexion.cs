@@ -108,7 +108,6 @@ namespace PuntoDeVentaV2
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
-
             object respuesta = null;
 
             int contador = 0;
@@ -157,8 +156,6 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = false;
                 }
-
-                
             }
 
             dr.Close();

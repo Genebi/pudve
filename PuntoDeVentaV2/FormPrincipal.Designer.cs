@@ -50,6 +50,7 @@
             this.temporizadorConsulta = new System.Windows.Forms.Timer(this.components);
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
+            this.btnSalir = new System.Windows.Forms.Button();
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +76,7 @@
             // menuVertical
             // 
             this.menuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.menuVertical.Controls.Add(this.btnSalir);
             this.menuVertical.Controls.Add(this.btnEmpresas);
             this.menuVertical.Controls.Add(this.btnMisDatos);
             this.menuVertical.Controls.Add(this.btnInventario);
@@ -106,7 +108,7 @@
             this.btnEmpresas.ForeColor = System.Drawing.Color.White;
             this.btnEmpresas.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpresas.Image")));
             this.btnEmpresas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEmpresas.Location = new System.Drawing.Point(115, 496);
+            this.btnEmpresas.Location = new System.Drawing.Point(115, 463);
             this.btnEmpresas.Name = "btnEmpresas";
             this.btnEmpresas.Size = new System.Drawing.Size(115, 71);
             this.btnEmpresas.TabIndex = 13;
@@ -126,7 +128,7 @@
             this.btnMisDatos.ForeColor = System.Drawing.Color.White;
             this.btnMisDatos.Image = ((System.Drawing.Image)(resources.GetObject("btnMisDatos.Image")));
             this.btnMisDatos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMisDatos.Location = new System.Drawing.Point(115, 420);
+            this.btnMisDatos.Location = new System.Drawing.Point(115, 387);
             this.btnMisDatos.Name = "btnMisDatos";
             this.btnMisDatos.Size = new System.Drawing.Size(115, 71);
             this.btnMisDatos.TabIndex = 12;
@@ -146,7 +148,7 @@
             this.btnInventario.ForeColor = System.Drawing.Color.White;
             this.btnInventario.Image = ((System.Drawing.Image)(resources.GetObject("btnInventario.Image")));
             this.btnInventario.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnInventario.Location = new System.Drawing.Point(0, 497);
+            this.btnInventario.Location = new System.Drawing.Point(0, 464);
             this.btnInventario.Name = "btnInventario";
             this.btnInventario.Size = new System.Drawing.Size(115, 69);
             this.btnInventario.TabIndex = 11;
@@ -166,7 +168,7 @@
             this.btnCaja.ForeColor = System.Drawing.Color.White;
             this.btnCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnCaja.Image")));
             this.btnCaja.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCaja.Location = new System.Drawing.Point(115, 346);
+            this.btnCaja.Location = new System.Drawing.Point(115, 313);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Size = new System.Drawing.Size(115, 68);
             this.btnCaja.TabIndex = 10;
@@ -186,7 +188,7 @@
             this.btnAnticipos.ForeColor = System.Drawing.Color.White;
             this.btnAnticipos.Image = ((System.Drawing.Image)(resources.GetObject("btnAnticipos.Image")));
             this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAnticipos.Location = new System.Drawing.Point(0, 420);
+            this.btnAnticipos.Location = new System.Drawing.Point(0, 387);
             this.btnAnticipos.Name = "btnAnticipos";
             this.btnAnticipos.Size = new System.Drawing.Size(115, 71);
             this.btnAnticipos.TabIndex = 9;
@@ -206,7 +208,7 @@
             this.btnConfig.ForeColor = System.Drawing.Color.White;
             this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
             this.btnConfig.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnConfig.Location = new System.Drawing.Point(115, 271);
+            this.btnConfig.Location = new System.Drawing.Point(115, 238);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(115, 69);
             this.btnConfig.TabIndex = 8;
@@ -226,7 +228,7 @@
             this.btnFacturas.ForeColor = System.Drawing.Color.White;
             this.btnFacturas.Image = ((System.Drawing.Image)(resources.GetObject("btnFacturas.Image")));
             this.btnFacturas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnFacturas.Location = new System.Drawing.Point(0, 346);
+            this.btnFacturas.Location = new System.Drawing.Point(0, 313);
             this.btnFacturas.Name = "btnFacturas";
             this.btnFacturas.Size = new System.Drawing.Size(115, 68);
             this.btnFacturas.TabIndex = 7;
@@ -245,7 +247,7 @@
             this.btnProveedores.ForeColor = System.Drawing.Color.White;
             this.btnProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnProveedores.Image")));
             this.btnProveedores.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnProveedores.Location = new System.Drawing.Point(0, 197);
+            this.btnProveedores.Location = new System.Drawing.Point(0, 164);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Size = new System.Drawing.Size(115, 68);
             this.btnProveedores.TabIndex = 6;
@@ -265,7 +267,7 @@
             this.btnClientes.ForeColor = System.Drawing.Color.White;
             this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnClientes.Location = new System.Drawing.Point(115, 197);
+            this.btnClientes.Location = new System.Drawing.Point(115, 164);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(115, 68);
             this.btnClientes.TabIndex = 5;
@@ -285,7 +287,7 @@
             this.btnReportes.ForeColor = System.Drawing.Color.White;
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
             this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnReportes.Location = new System.Drawing.Point(0, 271);
+            this.btnReportes.Location = new System.Drawing.Point(0, 238);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(115, 69);
             this.btnReportes.TabIndex = 4;
@@ -305,7 +307,7 @@
             this.btnEmpleados.ForeColor = System.Drawing.Color.White;
             this.btnEmpleados.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpleados.Image")));
             this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEmpleados.Location = new System.Drawing.Point(115, 119);
+            this.btnEmpleados.Location = new System.Drawing.Point(115, 86);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Size = new System.Drawing.Size(115, 72);
             this.btnEmpleados.TabIndex = 3;
@@ -325,7 +327,7 @@
             this.btnServicios.ForeColor = System.Drawing.Color.White;
             this.btnServicios.Image = ((System.Drawing.Image)(resources.GetObject("btnServicios.Image")));
             this.btnServicios.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnServicios.Location = new System.Drawing.Point(0, 122);
+            this.btnServicios.Location = new System.Drawing.Point(0, 89);
             this.btnServicios.Name = "btnServicios";
             this.btnServicios.Size = new System.Drawing.Size(115, 69);
             this.btnServicios.TabIndex = 2;
@@ -344,7 +346,7 @@
             this.btnVentas.ForeColor = System.Drawing.Color.White;
             this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
             this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnVentas.Location = new System.Drawing.Point(0, 50);
+            this.btnVentas.Location = new System.Drawing.Point(0, 17);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Size = new System.Drawing.Size(115, 66);
             this.btnVentas.TabIndex = 1;
@@ -364,7 +366,7 @@
             this.btnProductos.ForeColor = System.Drawing.Color.White;
             this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnProductos.Location = new System.Drawing.Point(115, 50);
+            this.btnProductos.Location = new System.Drawing.Point(115, 17);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(115, 63);
             this.btnProductos.TabIndex = 0;
@@ -381,6 +383,25 @@
             // actualizarCaja
             // 
             this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick);
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.ForeColor = System.Drawing.Color.White;
+            this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSalir.Location = new System.Drawing.Point(20, 562);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(190, 25);
+            this.btnSalir.TabIndex = 109;
+            this.btnSalir.Text = "SALIR";
+            this.btnSalir.UseVisualStyleBackColor = false;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // FormPrincipal
             // 
@@ -422,6 +443,7 @@
         private System.Windows.Forms.Button btnEmpresas;
         private System.Windows.Forms.Timer temporizador_respaldo;
         private System.Windows.Forms.Timer actualizarCaja;
+        private System.Windows.Forms.Button btnSalir;
     }
 }
 
