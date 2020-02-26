@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
 
         public static string[] datosUsuario = new string[] { };
+        private bool cerrarAplicacion = false;
 
         // declaramos la variable que se pasara entre los dos formularios
         // FormPrincipal y MisDatos
@@ -273,9 +274,7 @@ namespace PuntoDeVentaV2
 
         private void CargarSaldoInicial()
         {
-
             saldoInicial = mb.SaldoInicialCaja(userID);
-
         }
 
         public void ConvertirMinutos()
@@ -291,51 +290,8 @@ namespace PuntoDeVentaV2
 
         private void controlar_Tick(object sender, EventArgs e)
         {
-
             //  MessageBox.Show("Mensaje de prueba");
         }
-
-        /*private void ActualizarNombres()
-        {
-            IDictionary<int, string> datos = new Dictionary<int, string>();
-
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-            else
-            {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID}", sql_con);
-            dr = sql_cmd.ExecuteReader();
-
-            while (dr.Read())
-            {
-                var idProducto = Convert.ToInt32(dr["ID"].ToString());
-                var nombreProducto = dr["Nombre"].ToString();
-
-                datos.Add(new KeyValuePair<int, string>(idProducto, nombreProducto));
-            }
-
-            dr.Close();
-            sql_con.Close();
-
-            foreach (KeyValuePair<int, string> ele  in datos)
-            {
-                var idProducto = ele.Key;
-                var nombreAlterno1 = mg.RemoverCaracteres(ele.Value);
-                var nombreAlterno2 = mg.RemoverPreposiciones(ele.Value);
-
-                cn.EjecutarConsulta($"UPDATE Productos SET NombreAlterno1 = '{nombreAlterno1}', NombreAlterno2 = '{nombreAlterno2}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-            }
-        }*/
 
         private void obtenerDatosCheckStock()
         {
@@ -445,14 +401,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-
-        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-        }
 
         private void btnMisDatos_Click(object sender, EventArgs e)
         {
@@ -976,5 +924,26 @@ namespace PuntoDeVentaV2
             sql_con.Close();
         }
 
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            cerrarAplicacion = true;
+            Application.Exit();
+        }
+
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cerrarAplicacion = true;
+
+            if (cerrarAplicacion)
+            {
+                if (MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            cerrarAplicacion = false;
+        }
     }
 }
