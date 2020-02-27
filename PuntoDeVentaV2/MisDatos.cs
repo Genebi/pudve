@@ -347,6 +347,13 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
+            ActualizarDatos();
+
+            MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ActualizarDatos()
+        {
             // mandamos llamar la funcion actualizarVariables()
             actualizarVariables();
 
@@ -364,26 +371,24 @@ namespace PuntoDeVentaV2
 
             // Llamamos a la Funcion consulta
             consulta();
-
-            MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void ValidarDatos()
+        private bool ValidarDatos()
         {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
-                MessageBox.Show("Ingrese el nombre completo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ingrese el nombre completo", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 txtNombre.Focus();
 
-                return;
+                return false;
             }
 
             if (!VerificarRFC(txtRFC.Text))
             {
                 if (!string.IsNullOrWhiteSpace(txtRFC.Text))
                 {
-                    MessageBox.Show("El RFC no contiene un formato correcto, favor de verificarlo.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El RFC contiene un formato incorrecto, favor de verificarlo.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -392,50 +397,53 @@ namespace PuntoDeVentaV2
 
                 txtRFC.Focus();
 
-                return;
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtCodPost.Text))
             {
-                MessageBox.Show("Se requiere el código postal", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Se requiere el código postal", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 txtCodPost.Focus();
 
-                return;
+                return false;
             }
+
             if (txtCodPost.TextLength < 5)
             {
-                MessageBox.Show("La longitud del código postal es incorrecta.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("La longitud del código postal es incorrecta.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodPost.Focus();
 
-                return;
+                return false;
             }
 
             if (!ValidarEmail(txtEmail.Text))
             {
                 if (!string.IsNullOrWhiteSpace(txtEmail.Text))
                 {
-                    MessageBox.Show("El formato del correo electrónico es incorrecto\n\nEjemplo: micorreo@ejemplo.com", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El formato del correo electrónico es incorrecto\n\nEjemplo: micorreo@ejemplo.com", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show("El correo electrónico es requerido", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El correo electrónico es requerido", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 txtEmail.Focus();
 
-                return;
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(LblRegimenActual.Text))
             {
                 if (cbRegimen.SelectedIndex == 0)
                 {
-                    MessageBox.Show("Seleccione un régimen fiscal", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Seleccione un régimen fiscal", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    return;
+                    return false;
                 }
             }
+
+            return true;
         }
 
         private bool VerificarRFC(string rfc)
@@ -484,14 +492,21 @@ namespace PuntoDeVentaV2
 
         private void btn_vnt_subir_archivos_Click(object sender, EventArgs e)
         {
-            Subir_archivos_digitales subir_arch = new Subir_archivos_digitales();
+            // Actualizamos los datos del usuario antes en caso de que haya agregado
+            // nueva informacion en los campos requeridos
+            ActualizarDatos();
 
-            subir_arch.FormClosed += delegate
+            if (ValidarDatos())
             {
-                cargar_archivos();
-            };
+                Subir_archivos_digitales subir_arch = new Subir_archivos_digitales();
 
-            subir_arch.ShowDialog();
+                subir_arch.FormClosed += delegate
+                {
+                    cargar_archivos();
+                };
+
+                subir_arch.ShowDialog();
+            }
         }
 
         private void rbPersonaFisica_CheckedChanged(object sender, EventArgs e)
