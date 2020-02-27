@@ -352,14 +352,20 @@ namespace PuntoDeVentaV2
             MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void ActualizarDatos()
+        private void ActualizarDatos(int tipo = 0)
         {
             // mandamos llamar la funcion actualizarVariables()
             actualizarVariables();
 
-            if (cbRegimen.SelectedIndex == 0)
+            if (tipo == 0)
             {
-                regimen = string.Empty;
+                if (cbRegimen.SelectedIndex == 0)
+                {
+                    if (string.IsNullOrWhiteSpace(LblRegimenActual.Text))
+                    {
+                        regimen = string.Empty;
+                    }
+                }
             }
 
             // el string para hacer el UPDATE
@@ -494,7 +500,7 @@ namespace PuntoDeVentaV2
         {
             // Actualizamos los datos del usuario antes en caso de que haya agregado
             // nueva informacion en los campos requeridos
-            ActualizarDatos();
+            ActualizarDatos(1);
 
             if (ValidarDatos())
             {
