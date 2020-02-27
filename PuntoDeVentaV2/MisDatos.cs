@@ -347,6 +347,29 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
+            // mandamos llamar la funcion actualizarVariables()
+            actualizarVariables();
+
+            if (cbRegimen.SelectedIndex == 0)
+            {
+                regimen = string.Empty;
+            }
+
+            // el string para hacer el UPDATE
+            actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}' WHERE ID = '{id}'";
+
+            // realizamos la consulta desde el metodo
+            // que esta en la clase Conexion
+            cn.EjecutarConsulta(actualizar);
+
+            // Llamamos a la Funcion consulta
+            consulta();
+
+            MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void ValidarDatos()
+        {
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
                 MessageBox.Show("Ingrese el nombre completo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -380,7 +403,7 @@ namespace PuntoDeVentaV2
 
                 return;
             }
-            if(txtCodPost.TextLength < 5)
+            if (txtCodPost.TextLength < 5)
             {
                 MessageBox.Show("La longitud del código postal es incorrecta.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtCodPost.Focus();
@@ -413,21 +436,6 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-
-            // mandamos llamar la funcion actualizarVariables()
-            actualizarVariables();
-
-            // el string para hacer el UPDATE
-            actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}' WHERE ID = '{id}'";
-
-            // realizamos la consulta desde el metodo
-            // que esta en la clase Conexion
-            cn.EjecutarConsulta(actualizar);
-
-            // Llamamos a la Funcion consulta
-            consulta();
-
-            MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private bool VerificarRFC(string rfc)
