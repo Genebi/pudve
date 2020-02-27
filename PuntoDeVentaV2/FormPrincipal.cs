@@ -687,7 +687,7 @@ namespace PuntoDeVentaV2
                         //Consulta Insertar de MySQL por ID de Usuario
                         queryCargarDatosProductos = $@"SELECT P.Nombre, P.NombreAlterno1, P.NombreAlterno2, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
                                                     FROM productos AS P 
-                                                    WHERE status = 1
+                                                    WHERE Status = 1
                                                     AND IDUsuario = {FormPrincipal.userID.ToString()}
                                                     ORDER BY P.Nombre ASC";
 
