@@ -728,10 +728,21 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 9)
                 {
-                    // Historial de compras del Producto
-                    numerofila = e.RowIndex;
-                    obtenerDatosDGVProductos(numerofila);
-                    ViewRecordProducto();
+                    using (var historial = new TipoHistorial(idProducto))
+                    {
+                        var respuesta = historial.ShowDialog();
+
+                        if (respuesta == DialogResult.OK)
+                        {
+                            if (historial.tipoRespuesta == 1)
+                            {
+                                // Historial de compras del Producto
+                                numerofila = e.RowIndex;
+                                obtenerDatosDGVProductos(numerofila);
+                                ViewRecordProducto();
+                            }
+                        }
+                    }
                 }
                 else if (e.ColumnIndex == 10)
                 {
@@ -2975,6 +2986,7 @@ namespace PuntoDeVentaV2
             {
 
             };
+
             if (!FormXML.Visible)
             {
                 ProductoRecord.nombreProd = Nombre;
