@@ -741,11 +741,6 @@ namespace PuntoDeVentaV2
                                 obtenerDatosDGVProductos(numerofila);
                                 ViewRecordProducto();
                             }
-
-                            if (historial.tipoRespuesta == 2)
-                            {
-                                MessageBox.Show("Generar reporte");
-                            }
                         }
                     }
                 }
@@ -2991,6 +2986,7 @@ namespace PuntoDeVentaV2
             {
 
             };
+
             if (!FormXML.Visible)
             {
                 ProductoRecord.nombreProd = Nombre;
