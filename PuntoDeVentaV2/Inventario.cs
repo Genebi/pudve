@@ -131,8 +131,8 @@ namespace PuntoDeVentaV2
 
                 found = textoABuscar.IndexOf(separador);
 
-                //MessageBox.Show("El Asterisco fue encontrado en la posición: " + found + "\nCódigo buscado: " + textoABuscar);
-
+                // Dividimos lo que puso el usuario en el TextBox
+                // todo en base al caracter del *
                 datosSeparados = textoABuscar.Split(separador);
 
                 listaProductos.Items.Clear();
@@ -141,85 +141,93 @@ namespace PuntoDeVentaV2
 
                 int idProducto = 0;
 
-                // Verificar si es codigo de barra o clave
-                idProducto = mb.BuscarProductoInventario(datosSeparados[1].Trim());
-
-                // Verificamos si existe en la tabla de codigos de barra extra
-                var datosTmp = mb.BuscarCodigoBarrasExtra(datosSeparados[1].Trim());
-
-                if (datosTmp.Length > 0)
+                // Vemos si el usuario puso el caracter especial de 
+                // * antes que el codigo de barras para separarlos
+                // y verificamos sí hay mas de un elemento en Array
+                if (datosSeparados.Length > 1)
                 {
-                    foreach (var id in datosTmp)
-                    {
-                        // Verificar que pertenece al usuario
-                        var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+                    // Verificamos si es codigo de barra o clave
+                    idProducto = mb.BuscarProductoInventario(datosSeparados[1].Trim());
 
-                        if (verificarUsuario)
+                    // Verificamos si existe en la tabla de codigos de barra extra
+                    var datosTmp = mb.BuscarCodigoBarrasExtra(datosSeparados[1].Trim());
+
+                    if (datosTmp.Length > 0)
+                    {
+                        foreach (var id in datosTmp)
                         {
-                            idProducto = Convert.ToInt32(id);
+                            // Verificar que pertenece al usuario
+                            var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+
+                            if (verificarUsuario)
+                            {
+                                idProducto = Convert.ToInt32(id);
+                            }
                         }
                     }
-                }
 
-                if (idProducto.Equals(0))
-                {
-                    idProducto = mb.BuscarComboInventario(datosSeparados[1].Trim());
-
-                    if (idProducto > 0)
+                    // Verificamos si es que no encontro el codigo de barra o clave en productos
+                    // o en código de barra extra podemos hacer la busqueda en Combos
+                    if (idProducto.Equals(0))
                     {
-                        var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
-                        if (!datosCombo.Equals(null) || datosCombo.Count() > 0)
+                        idProducto = mb.BuscarComboInventario(datosSeparados[1].Trim());
+
+                        // si es que encontro algún Combo relacionado
+                        if (idProducto > 0)
                         {
-                            if (datosCombo.Count().Equals(1))
+                            // Almacenamos los datos del Combo
+                            var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
+                            if (!datosCombo.Equals(null) || datosCombo.Count() > 0)
                             {
-                                List<string> nombresProductos = new List<string>();
-                                string[] str;
+                                if (datosCombo.Count().Equals(1))
+                                {
+                                    List<string> nombresProductos = new List<string>();
+                                    string[] str;
 
-                                foreach (var item in datosCombo)
-                                {
-                                    str = item.Split('|');
-                                    nombresProductos.Add(str[2].ToString());
-                                    idProductoDelCombo.Add(str[1].ToString());
-                                    idProductoDelCombo.Add(str[3].ToString());
-                                }
+                                    foreach (var item in datosCombo)
+                                    {
+                                        str = item.Split('|');
+                                        nombresProductos.Add(str[2].ToString());
+                                        idProductoDelCombo.Add(str[1].ToString());
+                                        idProductoDelCombo.Add(str[3].ToString());
+                                    }
+                                    DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un combo\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Combo\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock",
-                                                                      "Desea Actualizar el Stock", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                if (result == DialogResult.Yes)
-                                {
-                                    idProducto = Convert.ToInt32(idProductoDelCombo[0].ToString());
+                                    if (result == DialogResult.Yes)
+                                    {
+                                        idProducto = Convert.ToInt32(idProductoDelCombo[0].ToString());
+                                    }
+                                    else if (result == DialogResult.No)
+                                    {
+                                        idProducto = 0;
+                                    }
                                 }
-                                else if (result == DialogResult.No)
+                                else if (datosCombo.Count() > 1)
                                 {
+                                    List<string> nombresProductos = new List<string>();
+                                    string[] str;
+
                                     idProducto = 0;
+
+                                    foreach (var item in datosCombo)
+                                    {
+                                        str = item.Split('|');
+                                        nombresProductos.Add(str[2].ToString() + "\n");
+                                    }
+
+                                    var message = string.Join(Environment.NewLine, nombresProductos);
+
+                                    nombresProductos.Clear();
+
+                                    MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message,
+                                                    "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
                                 }
-                            }
-                            else if (datosCombo.Count() > 1)
-                            {
-                                List<string> nombresProductos = new List<string>();
-                                string[] str;
-
-                                idProducto = 0;
-
-                                foreach (var item in datosCombo)
-                                {
-                                    str = item.Split('|');
-                                    nombresProductos.Add(str[2].ToString() + "\n");
-                                }
-
-                                var message = string.Join(Environment.NewLine, nombresProductos);
-
-                                nombresProductos.Clear();
-
-                                MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message,
-                                                "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                return;
                             }
                         }
                     }
                 }
-
-                // Si es mayor a cero es un producto y lo mostramos directamente en la venta de ajustar
+                // Si es mayor a cero es un producto y lo mostramos directamente en la ventana de ajustar
                 if (idProducto > 0)
                 {
                     AjustarProducto ap = new AjustarProducto(idProducto, 2);
@@ -236,35 +244,62 @@ namespace PuntoDeVentaV2
                         }
                     };
 
-                    if (idProductoDelCombo.Count > 0)
+                    if (idProductoDelCombo.Count > 1)
                     {
-                        ap.cantidadPasadaProductoCombo = Convert.ToInt32(datosSeparados[0].ToString().Trim()) * Convert.ToInt32(idProductoDelCombo[1].ToString());
+                        if (datosSeparados.Length > 1)
+                        {
+                            ap.cantidadPasadaProductoCombo = Convert.ToInt32(datosSeparados[0].ToString().Trim()) * Convert.ToInt32(idProductoDelCombo[1].ToString());
+                        }
                     }
                     ap.ShowDialog();
                 }
                 else
                 {
-                    var resultados = mb.BusquedaCoincidenciasInventario(datosSeparados[1].Trim());
-                    int coincidencias = resultados.Count;
-                    //MessageBox.Show(coincidencias.ToString());
-
-                    if (coincidencias > 0)
+                    if (datosSeparados.Length > 1)
                     {
-                        productos = resultados;
+                        var resultados = mb.BusquedaCoincidenciasInventario(datosSeparados[1].Trim());
+                        int coincidencias = resultados.Count;
 
-                        listaProductos.Visible = true;
-                        listaProductos.Focus();
-
-                        foreach (var item in resultados)
+                        if (coincidencias > 0)
                         {
-                            listaProductos.Items.Add(item.Value);
-                            listaProductos.SelectedIndex = 0;
+                            productos = resultados;
+
+                            listaProductos.Visible = true;
+                            listaProductos.Focus();
+
+                            foreach (var item in resultados)
+                            {
+                                listaProductos.Items.Add(item.Value);
+                                listaProductos.SelectedIndex = 0;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{datosSeparados[1].Trim()}'", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    else
+                    else if (datosSeparados.Length == 1)
                     {
-                        MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{datosSeparados[1].Trim()}'",
-                                         "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        var resultados = mb.BusquedaCoincidenciasInventario(datosSeparados[0].Trim());
+                        int coincidencias = resultados.Count;
+
+                        if (coincidencias > 0)
+                        {
+                            productos = resultados;
+
+                            listaProductos.Visible = true;
+                            listaProductos.Focus();
+
+                            foreach (var item in resultados)
+                            {
+                                listaProductos.Items.Add(item.Value);
+                                listaProductos.SelectedIndex = 0;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No se encontraron resultados para \nla búsqueda '{datosSeparados[0].Trim()}'", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
             }
