@@ -728,10 +728,26 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 9)
                 {
-                    // Historial de compras del Producto
-                    numerofila = e.RowIndex;
-                    obtenerDatosDGVProductos(numerofila);
-                    ViewRecordProducto();
+                    using (var historial = new TipoHistorial(idProducto))
+                    {
+                        var respuesta = historial.ShowDialog();
+
+                        if (respuesta == DialogResult.OK)
+                        {
+                            if (historial.tipoRespuesta == 1)
+                            {
+                                // Historial de compras del Producto
+                                numerofila = e.RowIndex;
+                                obtenerDatosDGVProductos(numerofila);
+                                ViewRecordProducto();
+                            }
+
+                            if (historial.tipoRespuesta == 2)
+                            {
+                                MessageBox.Show("Generar reporte");
+                            }
+                        }
+                    }
                 }
                 else if (e.ColumnIndex == 10)
                 {
