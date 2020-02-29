@@ -948,7 +948,9 @@ namespace PuntoDeVentaV2
 
             if (cerrarAplicacion)
             {
-                if (MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
                 {
                     e.Cancel = true;
                 }

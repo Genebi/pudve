@@ -1471,9 +1471,27 @@ namespace PuntoDeVentaV2
 
         private void Ventas_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mostrarVenta = 0;
-            listaAnticipos = string.Empty;
-            ventasGuardadas.Clear();
+            if (DGVentas.RowCount > 0)
+            {
+                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la ventana?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    mostrarVenta = 0;
+                    listaAnticipos = string.Empty;
+                    ventasGuardadas.Clear();
+                }
+            }
+            else
+            {
+                mostrarVenta = 0;
+                listaAnticipos = string.Empty;
+                ventasGuardadas.Clear();
+            }
         }
 
         private void GenerarTicket(string[][] productos)
@@ -2275,7 +2293,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                //Presiono hacia arriba
+                // Presiono hacia arriba
                 if (e.KeyCode == Keys.Up)
                 {
                     listaProductos.Focus();
@@ -2287,7 +2305,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                //Presiono hacia abajo
+                // Presiono hacia abajo
                 if (e.KeyCode == Keys.Down)
                 {
                     listaProductos.Focus();
@@ -2300,10 +2318,16 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            //Cuando presiona la tecla fin hace click en el boton terminar venta
+            // Cuando presiona la tecla fin hace click en el boton terminar venta
             if (e.KeyData == Keys.End)
             {
                 btnTerminarVenta.PerformClick();
+            }
+
+            // Cuando presione la tecla escape debera cerrar la ventana
+            if (e.KeyData == Keys.Escape)
+            {
+                Close();
             }
         }
 
