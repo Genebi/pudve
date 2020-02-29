@@ -22,7 +22,7 @@ namespace PuntoDeVentaV2
 
         private void FechasReportes_Load(object sender, EventArgs e)
         {
-
+            primerDatePicker.Value = DateTime.Today.AddDays(-30);
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
