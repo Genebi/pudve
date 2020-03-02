@@ -147,6 +147,7 @@
             this.txtNoRevision.TabIndex = 7;
             this.txtNoRevision.Text = "0";
             this.txtNoRevision.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtNoRevision.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNoRevision_KeyPress);
             // 
             // cbTipoFiltroRevision
             // 

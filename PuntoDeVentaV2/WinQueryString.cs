@@ -197,6 +197,16 @@ namespace PuntoDeVentaV2
             validarChkBoxImagen();
         }
 
+        private void txtNoRevision_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                MessageBox.Show("Solo se permiten numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                e.Handled = true;
+                return;
+            }
+        }
+
         private void validarChkBoxImagen()
         {
             if (chkBoxImagen.Checked.Equals(true))
