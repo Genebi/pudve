@@ -191,8 +191,7 @@ namespace PuntoDeVentaV2
                                         idProductoDelCombo.Add(str[1].ToString());
                                         idProductoDelCombo.Add(str[3].ToString());
                                     }
-                                    DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un combo\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock", 
-                                                                          "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un combo\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                                     if (result == DialogResult.Yes)
                                     {
@@ -220,8 +219,7 @@ namespace PuntoDeVentaV2
 
                                     nombresProductos.Clear();
 
-                                    MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message,
-                                                    "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message, "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     return;
                                 }
                             }
@@ -392,6 +390,17 @@ namespace PuntoDeVentaV2
                         else if (datosSeparados.Length == 1)
                         {
                             ap.cantidadPasadaProductoCombo = Convert.ToInt32(idProductoDelCombo[1].ToString()) * 1;
+                        }
+                    }
+                    if (idProductoDelCombo.Count == 0)
+                    {
+                        if (datosSeparados.Length > 1)
+                        {
+                            ap.cantidadPasadaProductoCombo = Convert.ToInt32(datosSeparados[0].ToString().Trim()) * 1;
+                        }
+                        else if (datosSeparados.Length == 1)
+                        {
+                            ap.cantidadPasadaProductoCombo = 0;
                         }
                     }
                     ap.ShowDialog();
