@@ -79,7 +79,7 @@ namespace PuntoDeVentaV2
             tipoClientes.Add(0, "Seleccionar...");
             tipoClientes.Add(1, "Mayorista");
             tipoClientes.Add(2, "Distribuidor");
-            tipoClientes.Add(3, "Socio mayoritario");
+            tipoClientes.Add(3, "Socio Mayoritario");
 
             cbTipoCliente.DataSource = tipoClientes.ToArray();
             cbTipoCliente.DisplayMember = "Value";
@@ -132,7 +132,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            /*var razon = txtRazonSocial.Text;
+            var razon = txtRazonSocial.Text;
             var comercial = txtNombreComercial.Text;
             var rfc = txtRFC.Text;
             var usoCFDI = cbUsoCFDI.SelectedValue;
@@ -148,6 +148,8 @@ namespace PuntoDeVentaV2
             var regimen = string.Empty; //Esta vacio porque no se utiliza actualmente el campo de regimen
             var email = txtEmail.Text;
             var telefono = txtTelefono.Text;
+            var tipoCliente = cbTipoCliente.SelectedIndex.ToString();
+            var numeroCliente = GenerarNumeroCliente();
             var formaPago = "01"; //cbFormaPago.SelectedValue;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -160,7 +162,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(rfc))
+            /*if (string.IsNullOrWhiteSpace(rfc))
             {
                 MessageBox.Show("El RFC es un campo obligatorio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -188,13 +190,14 @@ namespace PuntoDeVentaV2
 
                     return;
                 }
-            }
+            }*/
             
 
             string[] datos = new string[]
             {
                 FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
-                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString()
+                cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString(),
+                tipoCliente, numeroCliente
             };
 
             //Si el checkbox de agregar cliente repetido esta marcado
@@ -288,11 +291,7 @@ namespace PuntoDeVentaV2
                         this.Close();
                     }
                 }
-            }*/
-
-            var tipoCliente = cbTipoCliente.SelectedIndex;
-
-            MessageBox.Show(tipoCliente.ToString());
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -455,6 +454,24 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("La longitud del RFC es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string GenerarNumeroCliente()
+        {
+            var auxiliar = mb.ObtenerNumeroCliente();
+
+            if (string.IsNullOrWhiteSpace(auxiliar))
+            {
+                auxiliar = "0";
+            }
+            else
+            {
+                auxiliar = auxiliar.TrimStart('0');
+            }
+
+            var numero = Convert.ToInt16(auxiliar) + 1;
+
+            return numero.ToString("D6");
         }
     }
 }

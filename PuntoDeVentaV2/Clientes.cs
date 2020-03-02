@@ -42,11 +42,7 @@ namespace PuntoDeVentaV2
             }
             
             sql_con.Open();
-
-            var consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
-
-            sql_cmd = new SQLiteCommand(consulta, sql_con);
-
+            sql_cmd = new SQLiteCommand($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVClientes.Rows.Clear();
@@ -57,10 +53,20 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVClientes.Rows[rowId];
 
+                var tipoClienteAux = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("TipoCliente")).ToString());
+                var tipoCliente = string.Empty;
+
+                if (tipoClienteAux == 0) { tipoCliente = "N/A"; }
+                if (tipoClienteAux == 1) { tipoCliente = "MAYORISTA"; }
+                if (tipoClienteAux == 2) { tipoCliente = "DISTRIBUIDOR"; }
+                if (tipoClienteAux == 3) { tipoCliente = "SOCIO MAYORITARIO"; }
+
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
                 row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
                 row.Cells["NombreComercial"].Value = dr.GetValue(dr.GetOrdinal("NombreComercial"));
+                row.Cells["Tipo"].Value = tipoCliente;
+                row.Cells["NoCliente"].Value = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
 
                 Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
@@ -95,7 +101,7 @@ namespace PuntoDeVentaV2
                 int idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);
 
                 //Editar cliente
-                if (e.ColumnIndex == 5)
+                if (e.ColumnIndex == 7)
                 {
                     AgregarCliente editar = new AgregarCliente(2, idCliente);
 
@@ -108,9 +114,9 @@ namespace PuntoDeVentaV2
                 }
 
                 //Eliminar cliente
-                if (e.ColumnIndex == 6)
+                if (e.ColumnIndex == 8)
                 {
-                    var respuesta = MessageBox.Show("¿Estás seguro de deshabilitar este cliente?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    var respuesta = MessageBox.Show("¿Estás seguro de deshabilitar este cliente?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (respuesta == DialogResult.Yes)
                     {
@@ -133,7 +139,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex >= 5)
+                if (e.ColumnIndex >= 7)
                 {
                     DGVClientes.Cursor = Cursors.Hand;
                 }
@@ -144,7 +150,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex >= 5)
+                if (e.ColumnIndex >= 7)
                 {
                     DGVClientes.Cursor = Cursors.Default;
                 }

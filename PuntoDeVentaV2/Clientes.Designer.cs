@@ -36,6 +36,8 @@
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NombreComercial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
@@ -56,6 +58,8 @@
             this.RFC,
             this.Cliente,
             this.NombreComercial,
+            this.Tipo,
+            this.NoCliente,
             this.Fecha,
             this.Editar,
             this.Eliminar});
@@ -125,7 +129,7 @@
             this.RFC.MinimumWidth = 100;
             this.RFC.Name = "RFC";
             this.RFC.ReadOnly = true;
-            this.RFC.Width = 150;
+            this.RFC.Width = 120;
             // 
             // Cliente
             // 
@@ -141,6 +145,20 @@
             this.NombreComercial.Name = "NombreComercial";
             this.NombreComercial.ReadOnly = true;
             // 
+            // Tipo
+            // 
+            this.Tipo.HeaderText = "Tipo Cliente";
+            this.Tipo.Name = "Tipo";
+            this.Tipo.ReadOnly = true;
+            this.Tipo.Width = 120;
+            // 
+            // NoCliente
+            // 
+            this.NoCliente.HeaderText = "No. Cliente";
+            this.NoCliente.Name = "NoCliente";
+            this.NoCliente.ReadOnly = true;
+            this.NoCliente.Width = 83;
+            // 
             // Fecha
             // 
             this.Fecha.HeaderText = "Fecha";
@@ -153,14 +171,14 @@
             this.Editar.HeaderText = "Editar";
             this.Editar.Name = "Editar";
             this.Editar.ReadOnly = true;
-            this.Editar.Width = 60;
+            this.Editar.Width = 50;
             // 
             // Eliminar
             // 
             this.Eliminar.HeaderText = "Eliminar";
             this.Eliminar.Name = "Eliminar";
             this.Eliminar.ReadOnly = true;
-            this.Eliminar.Width = 60;
+            this.Eliminar.Width = 50;
             // 
             // Clientes
             // 
@@ -190,6 +208,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn NombreComercial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NoCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Editar;
         private System.Windows.Forms.DataGridViewImageColumn Eliminar;

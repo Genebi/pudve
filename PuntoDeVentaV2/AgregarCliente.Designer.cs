@@ -32,10 +32,8 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.cbUsoCFDI = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -80,10 +78,8 @@
             this.gbContenedor.Controls.Add(this.label23);
             this.gbContenedor.Controls.Add(this.label21);
             this.gbContenedor.Controls.Add(this.label14);
-            this.gbContenedor.Controls.Add(this.label20);
             this.gbContenedor.Controls.Add(this.label4);
             this.gbContenedor.Controls.Add(this.cbUsoCFDI);
-            this.gbContenedor.Controls.Add(this.label19);
             this.gbContenedor.Controls.Add(this.label18);
             this.gbContenedor.Controls.Add(this.btnAceptar);
             this.gbContenedor.Controls.Add(this.btnCancelar);
@@ -148,17 +144,6 @@
             this.label14.TabIndex = 80;
             this.label14.Text = "DATOS EXTRA FACTURACIÓN";
             // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.ForeColor = System.Drawing.Color.Red;
-            this.label20.Location = new System.Drawing.Point(110, 464);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(14, 17);
-            this.label20.TabIndex = 79;
-            this.label20.Text = "*";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -179,17 +164,6 @@
             this.cbUsoCFDI.Name = "cbUsoCFDI";
             this.cbUsoCFDI.Size = new System.Drawing.Size(446, 24);
             this.cbUsoCFDI.TabIndex = 16;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.Red;
-            this.label19.Location = new System.Drawing.Point(110, 111);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(14, 17);
-            this.label19.TabIndex = 73;
-            this.label19.Text = "*";
             // 
             // label18
             // 
@@ -617,12 +591,10 @@
         private System.Windows.Forms.TextBox txtRFC;
         private System.Windows.Forms.TextBox txtNombreComercial;
         private System.Windows.Forms.TextBox txtRazonSocial;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbUsoCFDI;
         private System.Windows.Forms.ComboBox cbTipoCliente;
