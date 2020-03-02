@@ -1608,6 +1608,13 @@ namespace PuntoDeVentaV2
                     setUpVariable.Add(Properties.Settings.Default.strFiltroPrecio);
                 }
             }
+            if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true))
+            {
+                if (!Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
+                {
+                    setUpVariable.Add(Properties.Settings.Default.strFiltroRevisionInventario);
+                }
+            }
             crearEtiquetaSetUpVariable();
         }
 

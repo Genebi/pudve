@@ -71,7 +71,7 @@ namespace PuntoDeVentaV2
             RegimenFiscal = 7;
             Usuarios = 23;
             Ventas = 24;
-            Clientes = 21;
+            Clientes = 23;
             RevisarInventario = 17;
             DetallesVenta = 14;
             Abonos = 11;
@@ -1392,7 +1392,9 @@ namespace PuntoDeVentaV2
                                               Telefono TEXT,
                                               FormaPago TEXT,
                                               FechaOperacion DATETIME,
-                                              Status INTEGER DEFAULT (1));";
+                                              Status INTEGER DEFAULT (1),
+                                              TipoCliente INTEGER  DEFAULT (0),
+                                              NumeroCliente TEXT);";
         }
 
         public string QueryUpdateTablaClientes(string tabla)
@@ -1416,7 +1418,8 @@ namespace PuntoDeVentaV2
                                              Email,
                                              Telefono,
                                              FormaPago,
-                                             FechaOperacion) 
+                                             FechaOperacion,
+                                             Status) 
                                       SELECT ID,
                                              IDUsuario,
                                              RazonSocial,
@@ -1436,7 +1439,8 @@ namespace PuntoDeVentaV2
                                              Email,
                                              Telefono,
                                              FormaPago,
-                                             FechaOperacion 
+                                             FechaOperacion,
+                                             Status 
                                         FROM '{tabla}_temp';";
         }
 
