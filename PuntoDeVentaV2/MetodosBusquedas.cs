@@ -1470,6 +1470,22 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
+        public string ObtenerNumeroCliente()
+        {
+            string numeroCliente = string.Empty;
+
+            DatosConexion($"SELECT NumeroCliente FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                numeroCliente = dr["NumeroCliente"].ToString();
+            }
+
+            return numeroCliente;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
