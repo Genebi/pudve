@@ -84,6 +84,7 @@
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.checkCancelar = new System.Windows.Forms.CheckBox();
             this.btnConsultar = new System.Windows.Forms.Button();
+            this.btnAplicarDescuento = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -262,7 +263,7 @@
             this.Descuento.HeaderText = "Descuento";
             this.Descuento.Name = "Descuento";
             this.Descuento.ReadOnly = true;
-            this.Descuento.Width = 65;
+            this.Descuento.Width = 75;
             // 
             // Importe
             // 
@@ -556,6 +557,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnAplicarDescuento);
             this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.PBImagen);
             this.panel1.Controls.Add(this.lbPS);
@@ -664,13 +666,13 @@
             // 
             // txtDescuentoGeneral
             // 
-            this.txtDescuentoGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescuentoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuentoGeneral.Location = new System.Drawing.Point(676, 295);
+            this.txtDescuentoGeneral.Location = new System.Drawing.Point(468, 322);
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
             this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 22);
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
+            this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
             // 
             // timerBusqueda
@@ -700,6 +702,17 @@
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.UseVisualStyleBackColor = true;
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // 
+            // btnAplicarDescuento
+            // 
+            this.btnAplicarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAplicarDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicarDescuento.Location = new System.Drawing.Point(574, 322);
+            this.btnAplicarDescuento.Name = "btnAplicarDescuento";
+            this.btnAplicarDescuento.Size = new System.Drawing.Size(75, 23);
+            this.btnAplicarDescuento.TabIndex = 43;
+            this.btnAplicarDescuento.Text = "APLICAR";
+            this.btnAplicarDescuento.UseVisualStyleBackColor = true;
             // 
             // Ventas
             // 
@@ -785,5 +798,6 @@
         private System.Windows.Forms.PictureBox PBImagen;
         private System.Windows.Forms.CheckBox checkCancelar;
         private System.Windows.Forms.Button btnConsultar;
+        private System.Windows.Forms.Button btnAplicarDescuento;
     }
 }
