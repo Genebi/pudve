@@ -1760,6 +1760,10 @@ namespace PuntoDeVentaV2
                 {
                     reiniciarVariablesDeSistemaStock();
                 }
+                else if (name.Equals("NumeroRevision"))
+                {
+                    reiniciarVariablesDeSistemaNoRevision();
+                }
                 
                 if (txtBusqueda.Text.Equals(""))
                 {
