@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarCliente_Load(object sender, EventArgs e)
         {
-            //El titulo que se mostrara al abrir el form
+            // El titulo que se mostrara al abrir el form
             if (tipo == 1)
             {
                 this.Text = "PUDVE - Nuevo Cliente";
@@ -55,7 +55,7 @@ namespace PuntoDeVentaV2
                 this.Text = "PUDVE - Confirmar Cliente";
             }
 
-            //ComboBox usos de CFDI
+            // ComboBox usos de CFDI
             Dictionary<string, string> usosCFDI = new Dictionary<string, string>();
             usosCFDI.Add("G01", "Adquisición de mercancias");
             usosCFDI.Add("G02", "Devoluciones, descuentos o bonificaciones");
@@ -73,6 +73,17 @@ namespace PuntoDeVentaV2
             cbUsoCFDI.DataSource = usosCFDI.ToArray();
             cbUsoCFDI.DisplayMember = "Value";
             cbUsoCFDI.ValueMember = "Key";
+
+            // Combobox tipo de cliente
+            Dictionary<int, string> tipoClientes = new Dictionary<int, string>();
+            tipoClientes.Add(0, "Seleccionar...");
+            tipoClientes.Add(1, "Mayorista");
+            tipoClientes.Add(2, "Distribuidor");
+            tipoClientes.Add(3, "Socio mayoritario");
+
+            cbTipoCliente.DataSource = tipoClientes.ToArray();
+            cbTipoCliente.DisplayMember = "Value";
+            cbTipoCliente.ValueMember = "Key";
 
             //ComboBox Formas de pago
             /*Dictionary<string, string> pagos = new Dictionary<string, string>();
@@ -102,7 +113,12 @@ namespace PuntoDeVentaV2
             cbFormaPago.DisplayMember = "Value";
             cbFormaPago.ValueMember = "Key";*/
 
-            //Si viene de la opcion editar o confirmar, buscamos los datos actuales del cliente
+            if (tipo == 1)
+            {
+                cbTipoCliente.SelectedIndex = 0;
+            }
+
+            // Si viene de la opcion editar o confirmar, buscamos los datos actuales del cliente
             if (tipo == 2 || tipo == 3)
             {
                 var cliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
@@ -116,7 +132,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var razon = txtRazonSocial.Text;
+            /*var razon = txtRazonSocial.Text;
             var comercial = txtNombreComercial.Text;
             var rfc = txtRFC.Text;
             var usoCFDI = cbUsoCFDI.SelectedValue;
@@ -272,7 +288,11 @@ namespace PuntoDeVentaV2
                         this.Close();
                     }
                 }
-            }
+            }*/
+
+            var tipoCliente = cbTipoCliente.SelectedIndex;
+
+            MessageBox.Show(tipoCliente.ToString());
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
