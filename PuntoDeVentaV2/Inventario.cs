@@ -232,6 +232,81 @@ namespace PuntoDeVentaV2
                 {
                     if (idProducto.Equals(0))
                     {
+                        idProducto = mb.BuscarProductoInventario(datosSeparados[0].Trim());
+
+                        // Verificamos si existe en la tabla de codigos de barra extra
+                        var datosTmp = mb.BuscarCodigoBarrasExtra(datosSeparados[0].Trim());
+
+                        if (datosTmp.Length > 0)
+                        {
+                            foreach (var id in datosTmp)
+                            {
+                                // Verificar que pertenece al usuario
+                                var verificarUsuario = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+
+                                if (verificarUsuario)
+                                {
+                                    idProducto = Convert.ToInt32(id);
+                                }
+                            }
+                        }
+
+                        // si es que encontro algún Combo relacionado
+                        if (idProducto > 0)
+                        {
+                            // Almacenamos los datos del Combo
+                            var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
+                            if (!datosCombo.Equals(null) || datosCombo.Count() > 0)
+                            {
+                                if (datosCombo.Count().Equals(1))
+                                {
+                                    List<string> nombresProductos = new List<string>();
+                                    string[] str;
+
+                                    foreach (var item in datosCombo)
+                                    {
+                                        str = item.Split('|');
+                                        nombresProductos.Add(str[2].ToString());
+                                        idProductoDelCombo.Add(str[1].ToString());
+                                        idProductoDelCombo.Add(str[3].ToString());
+                                    }
+                                    DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un combo\nEl producto relacionado es:\n\n" + nombresProductos[0].ToString() + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                    if (result == DialogResult.Yes)
+                                    {
+                                        idProducto = Convert.ToInt32(idProductoDelCombo[0].ToString());
+                                    }
+                                    else if (result == DialogResult.No)
+                                    {
+                                        idProducto = 0;
+                                    }
+                                }
+                                else if (datosCombo.Count() > 1)
+                                {
+                                    List<string> nombresProductos = new List<string>();
+                                    string[] str;
+
+                                    idProducto = 0;
+
+                                    foreach (var item in datosCombo)
+                                    {
+                                        str = item.Split('|');
+                                        nombresProductos.Add(str[2].ToString() + "\n");
+                                    }
+
+                                    var message = string.Join(Environment.NewLine, nombresProductos);
+
+                                    nombresProductos.Clear();
+
+                                    MessageBox.Show("Resultado del Código o Clave buscada pertenece a un combo;\nel cual contiene más de un Producto por favor debe de realizar\nla actualización de cada uno de ellos:\n\n" + message, "Aviso de Actualziación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
+                    if (idProducto.Equals(0))
+                    {
                         idProducto = mb.BuscarComboInventario(datosSeparados[0].Trim());
 
                         // si es que encontro algún Combo relacionado
