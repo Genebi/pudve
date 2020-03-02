@@ -79,7 +79,7 @@ namespace PuntoDeVentaV2
             tipoClientes.Add(0, "Seleccionar...");
             tipoClientes.Add(1, "Mayorista");
             tipoClientes.Add(2, "Distribuidor");
-            tipoClientes.Add(3, "Socio mayoritario");
+            tipoClientes.Add(3, "Socio Mayoritario");
 
             cbTipoCliente.DataSource = tipoClientes.ToArray();
             cbTipoCliente.DisplayMember = "Value";
@@ -162,7 +162,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(rfc))
+            /*if (string.IsNullOrWhiteSpace(rfc))
             {
                 MessageBox.Show("El RFC es un campo obligatorio", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -190,7 +190,7 @@ namespace PuntoDeVentaV2
 
                     return;
                 }
-            }
+            }*/
             
 
             string[] datos = new string[]

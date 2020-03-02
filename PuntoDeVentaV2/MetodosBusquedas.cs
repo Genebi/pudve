@@ -1483,6 +1483,8 @@ namespace PuntoDeVentaV2
                 numeroCliente = dr["NumeroCliente"].ToString();
             }
 
+            dr.Close();
+
             return numeroCliente;
         }
 
