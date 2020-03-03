@@ -20,8 +20,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        RevisarInventario checkInventory = new RevisarInventario();
-        ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
+        //RevisarInventario checkInventory = new RevisarInventario();
+        //ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
         
         public static int NumRevActivo = 0;
         public static bool limpiarTabla = false;
@@ -60,9 +60,11 @@ namespace PuntoDeVentaV2
 
                 if (respuesta == DialogResult.OK)
                 {
+                    var datos = new string[] { filtro.tipoFiltro, filtro.operadorFiltro, filtro.cantidadFiltro.ToString() };
+
                     panelContenedor.Visible = false;
 
-                    RevisarInventario revisar = new RevisarInventario();
+                    RevisarInventario revisar = new RevisarInventario(datos);
 
                     revisar.FormClosed += delegate
                     {

@@ -23,11 +23,19 @@ namespace PuntoDeVentaV2
         string nombrePC = string.Empty;
 
         int idProducto = 0;
+        int idProductoAux = 0;
 
+        string tipoFiltro = string.Empty;
+        string operadorFiltro = string.Empty;
+        int cantidadFiltro = 0;
 
-        public RevisarInventario()
+        public RevisarInventario(string[] datos)
         {
             InitializeComponent();
+
+            tipoFiltro = datos[0];
+            operadorFiltro = datos[1];
+            cantidadFiltro = Convert.ToInt32(datos[2]);
         }
 
         private void RevisarInventario_Load(object sender, EventArgs e)
@@ -58,18 +66,52 @@ namespace PuntoDeVentaV2
             // Asignamos el numero de revision para que cargue los productos en el reporte al cerrar el form
             Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
 
+            // Obtener el nombre de la computadora
             nombrePC = Environment.MachineName;
+
+            // Ejecutar busqueda de productos cuando hay filtro
+            if (tipoFiltro != "Normal")
+            {
+                buscarCodigoBarras();
+            }
+        }
+
+        private string AplicarFiltro(int idProducto)
+        {
+            var consulta = string.Empty;
+
+            if (tipoFiltro != "Normal")
+            {
+                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} ORDER BY ID ASC LIMIT 1";
+            }
+
+            return consulta;
         }
 
         private void buscarCodigoBarras()
         {
-            if (txtBoxBuscarCodigoBarras.Text != string.Empty)
+            var busqueda = txtBoxBuscarCodigoBarras.Text;
+
+            if (tipoFiltro != "Normal")
             {
+                busqueda = "auxiliar";
+            }
+
+            if (busqueda != string.Empty)
+            {
+                var aplicar = false;
+
                 var codigo = txtBoxBuscarCodigoBarras.Text;
 
+                if (tipoFiltro != "Normal")
+                {
+                    codigo = AplicarFiltro(idProductoAux);
+
+                    aplicar = true;
+                }
                 // Verifica si el codigo existe en algun producto y si pertenece al usuario
                 // Si existe se trae la informacion del producto
-                var infoProducto = mb.BuscarCodigoInventario(codigo);
+                var infoProducto = mb.BuscarCodigoInventario(codigo, aplicar);
 
                 if (infoProducto.Length > 0)
                 {
@@ -90,6 +132,11 @@ namespace PuntoDeVentaV2
                     lblStockMaximo.Text = infoProducto[7];
 
                     idProducto = Convert.ToInt32(infoProducto[5]);
+
+                    if (tipoFiltro != "Normal")
+                    {
+                        idProductoAux = idProducto;
+                    }
 
                     // Verificar si es un producto
                     if (infoProducto[6] == "P")
@@ -169,7 +216,16 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("Producto no encontrado / Deshabilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (tipoFiltro != "Normal")
+                    {
+                        MessageBox.Show("No se encontraron productos con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        btnTerminar.PerformClick();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Producto no encontrado / Deshabilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -184,7 +240,14 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtBoxBuscarCodigoBarras.Text))
+            var busqueda = txtBoxBuscarCodigoBarras.Text;
+
+            if (tipoFiltro != "Normal")
+            {
+                busqueda = "auxiliar";
+            }
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
             {
                 if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
                 {
@@ -221,7 +284,17 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         LimpiarCampos();
-                        txtBoxBuscarCodigoBarras.Focus();
+                        //txtBoxBuscarCodigoBarras.Focus();
+
+                        if (tipoFiltro == "Normal")
+                        {
+                            txtBoxBuscarCodigoBarras.Focus();
+                        }
+                        else
+                        {
+                            buscarCodigoBarras();
+                            txtCantidadStock.Focus();
+                        }
                     }
                     else
                     {
@@ -245,7 +318,16 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         LimpiarCampos();
-                        txtBoxBuscarCodigoBarras.Focus();
+
+                        if (tipoFiltro == "Normal")
+                        {
+                            txtBoxBuscarCodigoBarras.Focus();
+                        }
+                        else
+                        {
+                            buscarCodigoBarras();
+                            txtCantidadStock.Focus();
+                        }
                     }
                 }
             }
@@ -275,7 +357,14 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                if (!string.IsNullOrWhiteSpace(txtBoxBuscarCodigoBarras.Text))
+                var busqueda = txtBoxBuscarCodigoBarras.Text;
+
+                if (tipoFiltro != "Normal")
+                {
+                    busqueda = "auxiliar";
+                }
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
                 {
                     if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
                     {
