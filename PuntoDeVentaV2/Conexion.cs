@@ -577,7 +577,7 @@ namespace PuntoDeVentaV2
             Conectarse();
             sql_con.Open();
             sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = $"SELECT MAX(IDReporte) AS ID FROM HistorialCompras WHERE IDUsuario = {IDUsuario}";
+            sql_cmd.CommandText = $"SELECT MAX(IDReporte) AS ID FROM HistorialCompras WHERE IDUsuario = {IDUsuario} AND IDReporte <> ''";
             sql_cmd.ExecuteNonQuery();
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();

@@ -557,6 +557,7 @@ namespace PuntoDeVentaV2
             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             DGVInventario.Rows.Add(id, nombre, stock, precio, clave, codigo, fecha);
+            DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             DGVInventario.ClearSelection(); 
         }
 
