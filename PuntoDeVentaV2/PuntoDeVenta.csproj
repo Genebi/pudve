@@ -398,6 +398,12 @@
     <Compile Include="FiltroReporteProductos.Designer.cs">
       <DependentUpon>FiltroReporteProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="FiltroRevisarInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FiltroRevisarInventario.Designer.cs">
+      <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -755,6 +761,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FiltroReporteProductos.resx">
       <DependentUpon>FiltroReporteProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FiltroRevisarInventario.resx">
+      <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>

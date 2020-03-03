@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
         public static string proveedorElegido = string.Empty;
         public static int idReporte = 0;
         public static bool botonAceptar = false;
+
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;
 
@@ -53,20 +54,28 @@ namespace PuntoDeVentaV2
 
         private void btnRevisar_Click(object sender, EventArgs e)
         {
-            panelContenedor.Visible = false;
-
-            RevisarInventario revisar = new RevisarInventario();
-
-            revisar.FormClosed += delegate
+            using (var filtro = new FiltroRevisarInventario())
             {
-                ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
-                reporte.GetFilterNumActiveRecord = NumRevActivo;
-                reporte.limpiarTabla = limpiarTabla;
-                limpiarTabla = false;
-                reporte.ShowDialog();
-            };
+                var respuesta = filtro.ShowDialog();
 
-            revisar.ShowDialog();
+                if (respuesta == DialogResult.OK)
+                {
+                    panelContenedor.Visible = false;
+
+                    RevisarInventario revisar = new RevisarInventario();
+
+                    revisar.FormClosed += delegate
+                    {
+                        ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                        reporte.GetFilterNumActiveRecord = NumRevActivo;
+                        reporte.limpiarTabla = limpiarTabla;
+                        limpiarTabla = false;
+                        reporte.ShowDialog();
+                    };
+
+                    revisar.ShowDialog();
+                }
+            }
         }
 
         private void btnActualizar_Click(object sender, EventArgs e)
