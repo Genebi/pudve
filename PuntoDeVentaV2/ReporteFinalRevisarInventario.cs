@@ -123,6 +123,13 @@ namespace PuntoDeVentaV2
                     row.Cells["Perdida"].Value = "---";
                 }
 
+                // Cuando no se le modifica nada un producto y da cero
+                if (Diferencias == 0)
+                {
+                    row.Cells["Recuperada"].Value = "---";
+                    row.Cells["Perdida"].Value = "---";
+                }
+
                 if (soloFechaRevision == fechaActual)
                 {
                     queryUpdateCalculos = $"UPDATE '{tabla}' SET Diferencia = '{row.Cells["Diferencia"].Value.ToString()}' WHERE ID = '{row.Cells["ID"].Value.ToString()}' AND IDComputadora = '{nombrePC}'";
