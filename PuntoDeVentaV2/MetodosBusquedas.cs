@@ -1153,22 +1153,26 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                var infoProducto = BuscarCodigoBarrasExtra(codigo);
-
-                if (infoProducto.Length > 0)
+                // Si el filtro es false por default hace esto
+                if (!filtro)
                 {
-                    foreach (var id in infoProducto)
+                    var infoProducto = BuscarCodigoBarrasExtra(codigo);
+
+                    if (infoProducto.Length > 0)
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
-
-                        SQLiteDataReader dr = sql_cmd.ExecuteReader();
-
-                        if (dr.Read())
+                        foreach (var id in infoProducto)
                         {
-                            idProducto = Convert.ToInt32(id);
-                        }
+                            DatosConexion($"SELECT * FROM Productos WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
 
-                        dr.Close();
+                            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                            if (dr.Read())
+                            {
+                                idProducto = Convert.ToInt32(id);
+                            }
+
+                            dr.Close();
+                        }
                     }
                 }
             }
