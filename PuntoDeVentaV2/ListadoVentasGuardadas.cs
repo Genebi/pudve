@@ -74,6 +74,7 @@ namespace PuntoDeVentaV2
                 DataGridViewRow row = DGVListaVentasGuardadas.Rows[rowId];
 
                 row.Cells["ID"].Value = idVenta;
+                row.Cells["Folio"].Value = dr.GetValue(dr.GetOrdinal("Folio"));
                 row.Cells["Cliente"].Value = cliente;
                 row.Cells["IDCliente"].Value = idCliente;
                 row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Total"));
@@ -97,7 +98,7 @@ namespace PuntoDeVentaV2
             var IDCliente = DGVListaVentasGuardadas.Rows[fila].Cells["IDCliente"].Value.ToString();
 
             //Mostrar venta guardada
-            if (e.ColumnIndex == 4)
+            if (e.ColumnIndex == 5)
             {
                 Ventas.mostrarVenta = IDVenta;
                 Ventas.idCliente = IDCliente;
@@ -105,7 +106,7 @@ namespace PuntoDeVentaV2
             }
 
             //Eliminar venta guardada
-            if (e.ColumnIndex == 5)
+            if (e.ColumnIndex == 6)
             {
                 DGVListaVentasGuardadas.ClearSelection();
 
@@ -146,11 +147,6 @@ namespace PuntoDeVentaV2
                     this.Close();
                 }
             }
-        }
-
-        private void ListadoVentasGuardadas_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
