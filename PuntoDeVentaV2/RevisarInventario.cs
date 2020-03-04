@@ -23,11 +23,22 @@ namespace PuntoDeVentaV2
         string nombrePC = string.Empty;
 
         int idProducto = 0;
+        int idProductoAux = 0;
 
+        // Variables para cuando el filtro es diferente a la revision normal
+        string tipoFiltro = string.Empty;
+        string operadorFiltro = string.Empty;
+        int cantidadFiltro = 0;
+        int cantidadRegistros = 0;
+        int cantidadRegistrosAux = 0;
 
-        public RevisarInventario()
+        public RevisarInventario(string[] datos)
         {
             InitializeComponent();
+
+            tipoFiltro = datos[0];
+            operadorFiltro = datos[1];
+            cantidadFiltro = Convert.ToInt32(datos[2]);
         }
 
         private void RevisarInventario_Load(object sender, EventArgs e)
@@ -58,26 +69,73 @@ namespace PuntoDeVentaV2
             // Asignamos el numero de revision para que cargue los productos en el reporte al cerrar el form
             Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
 
+            // Obtener el nombre de la computadora
             nombrePC = Environment.MachineName;
+
+            // Ejecutar busqueda de productos cuando hay filtro
+            if (tipoFiltro != "Normal")
+            {
+                var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
+                cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+
+                buscarCodigoBarras();
+            }
+        }
+
+        private string AplicarFiltro(int idProducto)
+        {
+            var consulta = string.Empty;
+
+            if (tipoFiltro != "Normal")
+            {
+                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} ORDER BY ID ASC LIMIT 1";
+            }
+
+            return consulta;
         }
 
         private void buscarCodigoBarras()
         {
-            if (txtBoxBuscarCodigoBarras.Text != string.Empty)
+            var busqueda = txtBoxBuscarCodigoBarras.Text;
+
+            if (tipoFiltro != "Normal")
             {
+                busqueda = "auxiliar";
+            }
+
+            if (busqueda != string.Empty)
+            {
+                var aplicar = false;
+
                 var codigo = txtBoxBuscarCodigoBarras.Text;
+
+                if (tipoFiltro != "Normal")
+                {
+                    codigo = AplicarFiltro(idProductoAux);
+
+                    aplicar = true;
+                }
 
                 // Verifica si el codigo existe en algun producto y si pertenece al usuario
                 // Si existe se trae la informacion del producto
-                var infoProducto = mb.BuscarCodigoInventario(codigo);
+                var infoProducto = mb.BuscarCodigoInventario(codigo, aplicar);
 
                 if (infoProducto.Length > 0)
                 {
+                    // Para mostrar el numero de registro en el que va el proceso de revision
+                    if (tipoFiltro != "Normal")
+                    {
+                        cantidadRegistrosAux += 1;
+
+                        lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+                    }
+
                     lblNombreProducto.Text = infoProducto[0];
 
                     if (string.IsNullOrEmpty(infoProducto[3]))
                     {
-                        lblCodigoDeBarras.Text = codigo;
+                        lblCodigoDeBarras.Text = infoProducto[4]; //codigo;
                     }
                     else
                     {
@@ -90,6 +148,11 @@ namespace PuntoDeVentaV2
                     lblStockMaximo.Text = infoProducto[7];
 
                     idProducto = Convert.ToInt32(infoProducto[5]);
+
+                    if (tipoFiltro != "Normal")
+                    {
+                        idProductoAux = idProducto;
+                    }
 
                     // Verificar si es un producto
                     if (infoProducto[6] == "P")
@@ -123,7 +186,6 @@ namespace PuntoDeVentaV2
                                 {
                                     LimpiarCampos();
                                     txtBoxBuscarCodigoBarras.Focus();
-                                    return;
                                 }
                             }
                         }
@@ -132,6 +194,7 @@ namespace PuntoDeVentaV2
                             // Se asigna el stock registrado en la tabla Productos
                             txtCantidadStock.Text = infoProducto[1];
                         }
+
 
                         txtCantidadStock.Focus();
                         txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
@@ -152,7 +215,7 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        // Verificar si es un servicio o paquete y mostrar los productos relacionados
+                        // Verificar si es un servicio o combo y mostrar los productos relacionados
                         if (infoProducto[6] == "S")
                         {
                             MessageBox.Show($"El código de barras pertenece a un SERVICIO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -160,7 +223,7 @@ namespace PuntoDeVentaV2
 
                         if (infoProducto[6] == "PQ")
                         {
-                            MessageBox.Show($"El código de barras pertenece a un PAQUETE\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"El código de barras pertenece a un COMBO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
 
                         LimpiarCampos();
@@ -169,7 +232,16 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("Producto no encontrado / Deshabilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (tipoFiltro != "Normal")
+                    {
+                        MessageBox.Show("No se encontraron productos con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        btnTerminar.PerformClick();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Producto no encontrado / Deshabilitado", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -184,7 +256,14 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtBoxBuscarCodigoBarras.Text))
+            var busqueda = txtBoxBuscarCodigoBarras.Text;
+
+            if (tipoFiltro != "Normal")
+            {
+                busqueda = "auxiliar";
+            }
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
             {
                 if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
                 {
@@ -221,7 +300,17 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         LimpiarCampos();
-                        txtBoxBuscarCodigoBarras.Focus();
+                        //txtBoxBuscarCodigoBarras.Focus();
+
+                        if (tipoFiltro == "Normal")
+                        {
+                            txtBoxBuscarCodigoBarras.Focus();
+                        }
+                        else
+                        {
+                            buscarCodigoBarras();
+                            txtCantidadStock.Focus();
+                        }
                     }
                     else
                     {
@@ -245,7 +334,16 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
                         LimpiarCampos();
-                        txtBoxBuscarCodigoBarras.Focus();
+
+                        if (tipoFiltro == "Normal")
+                        {
+                            txtBoxBuscarCodigoBarras.Focus();
+                        }
+                        else
+                        {
+                            buscarCodigoBarras();
+                            txtCantidadStock.Focus();
+                        }
                     }
                 }
             }
@@ -275,7 +373,14 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                if (!string.IsNullOrWhiteSpace(txtBoxBuscarCodigoBarras.Text))
+                var busqueda = txtBoxBuscarCodigoBarras.Text;
+
+                if (tipoFiltro != "Normal")
+                {
+                    busqueda = "auxiliar";
+                }
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
                 {
                     if (!string.IsNullOrWhiteSpace(txtCantidadStock.Text))
                     {
@@ -362,6 +467,19 @@ namespace PuntoDeVentaV2
             lblPrecioProducto.Text = string.Empty;
             lblStockMinimo.Text = string.Empty;
             lblStockMaximo.Text = string.Empty;
+        }
+
+        private void RevisarInventario_Shown(object sender, EventArgs e)
+        {
+            if (tipoFiltro == "Normal")
+            {
+                txtBoxBuscarCodigoBarras.Focus();
+            }
+            else
+            {
+                txtCantidadStock.Focus();
+                txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            }
         }
     }
 }

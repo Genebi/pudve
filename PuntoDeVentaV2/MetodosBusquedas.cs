@@ -1124,13 +1124,24 @@ namespace PuntoDeVentaV2
             return fecha;
         }
 
-        public string[] BuscarCodigoInventario(string codigo)
+        public string[] BuscarCodigoInventario(string codigo, bool filtro = false)
         {
             string[] datos = new string[] { };
 
             int idProducto = 0;
 
-            DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{codigo}' OR ClaveInterna = '{codigo}') AND Status = 1");
+            var consulta = string.Empty;
+
+            if (!filtro)
+            {
+                consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras = '{codigo}' OR ClaveInterna = '{codigo}') AND Status = 1";
+            }
+            else
+            {
+                consulta = codigo;
+            }
+
+            DatosConexion(consulta);
 
             SQLiteDataReader info = sql_cmd.ExecuteReader();
 
@@ -1486,6 +1497,24 @@ namespace PuntoDeVentaV2
             dr.Close();
 
             return numeroCliente;
+        }
+
+        public int CantidadFiltroInventario(string consulta)
+        {
+            int cantidad = 0;
+
+            DatosConexion(consulta);
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                cantidad = Convert.ToInt32(dr["Total"].ToString());
+            }
+
+            dr.Close();
+
+            return cantidad;
         }
 
         private void DatosConexion(string consulta, bool ignorar = false)
