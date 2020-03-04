@@ -54,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
+            this.lbCantidadFiltro = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -324,11 +325,22 @@
             this.lblNoRevision.Text = "0";
             this.lblNoRevision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lbCantidadFiltro
+            // 
+            this.lbCantidadFiltro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCantidadFiltro.ForeColor = System.Drawing.Color.Red;
+            this.lbCantidadFiltro.Location = new System.Drawing.Point(305, 13);
+            this.lbCantidadFiltro.Name = "lbCantidadFiltro";
+            this.lbCantidadFiltro.Size = new System.Drawing.Size(127, 32);
+            this.lbCantidadFiltro.TabIndex = 5;
+            this.lbCantidadFiltro.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 584);
+            this.Controls.Add(this.lbCantidadFiltro);
             this.Controls.Add(this.lblNoRevision);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox3);
@@ -380,5 +392,6 @@
         private System.Windows.Forms.Label lblStockMinimo;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lbCantidadFiltro;
     }
 }

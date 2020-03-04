@@ -1499,6 +1499,24 @@ namespace PuntoDeVentaV2
             return numeroCliente;
         }
 
+        public int CantidadFiltroInventario(string consulta)
+        {
+            int cantidad = 0;
+
+            DatosConexion(consulta);
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                cantidad = Convert.ToInt32(dr["Total"].ToString());
+            }
+
+            dr.Close();
+
+            return cantidad;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);

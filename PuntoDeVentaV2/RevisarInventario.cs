@@ -25,9 +25,12 @@ namespace PuntoDeVentaV2
         int idProducto = 0;
         int idProductoAux = 0;
 
+        // Variables para cuando el filtro es diferente a la revision normal
         string tipoFiltro = string.Empty;
         string operadorFiltro = string.Empty;
         int cantidadFiltro = 0;
+        int cantidadRegistros = 0;
+        int cantidadRegistrosAux = 0;
 
         public RevisarInventario(string[] datos)
         {
@@ -72,6 +75,10 @@ namespace PuntoDeVentaV2
             // Ejecutar busqueda de productos cuando hay filtro
             if (tipoFiltro != "Normal")
             {
+                var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
+                cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+
                 buscarCodigoBarras();
             }
         }
@@ -109,12 +116,21 @@ namespace PuntoDeVentaV2
 
                     aplicar = true;
                 }
+
                 // Verifica si el codigo existe en algun producto y si pertenece al usuario
                 // Si existe se trae la informacion del producto
                 var infoProducto = mb.BuscarCodigoInventario(codigo, aplicar);
 
                 if (infoProducto.Length > 0)
                 {
+                    // Para mostrar el numero de registro en el que va el proceso de revision
+                    if (tipoFiltro != "Normal")
+                    {
+                        cantidadRegistrosAux += 1;
+
+                        lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
+                    }
+
                     lblNombreProducto.Text = infoProducto[0];
 
                     if (string.IsNullOrEmpty(infoProducto[3]))
