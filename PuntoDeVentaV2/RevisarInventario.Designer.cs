@@ -32,6 +32,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lblStockMaximo = new System.Windows.Forms.Label();
+            this.lblStockMinimo = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblPrecioProducto = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,10 +54,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lblStockMinimo = new System.Windows.Forms.Label();
-            this.lblStockMaximo = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -106,6 +106,44 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Datos del Producto: ";
             // 
+            // lblStockMaximo
+            // 
+            this.lblStockMaximo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblStockMaximo.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblStockMaximo.Location = new System.Drawing.Point(262, 201);
+            this.lblStockMaximo.Name = "lblStockMaximo";
+            this.lblStockMaximo.Size = new System.Drawing.Size(134, 32);
+            this.lblStockMaximo.TabIndex = 16;
+            this.lblStockMaximo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblStockMinimo
+            // 
+            this.lblStockMinimo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lblStockMinimo.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblStockMinimo.Location = new System.Drawing.Point(18, 201);
+            this.lblStockMinimo.Name = "lblStockMinimo";
+            this.lblStockMinimo.Size = new System.Drawing.Size(176, 32);
+            this.lblStockMinimo.TabIndex = 15;
+            this.lblStockMinimo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(225, 180);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(77, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Stock Maximo:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 180);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(74, 13);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Stock Minimo:";
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -152,7 +190,7 @@
             this.txtCantidadStock.Location = new System.Drawing.Point(99, 268);
             this.txtCantidadStock.Name = "txtCantidadStock";
             this.txtCantidadStock.Size = new System.Drawing.Size(225, 84);
-            this.txtCantidadStock.TabIndex = 8;
+            this.txtCantidadStock.TabIndex = 1;
             this.txtCantidadStock.Text = "0";
             this.txtCantidadStock.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidadStock.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadStock_KeyDown);
@@ -182,7 +220,7 @@
             this.btnAumentarStock.Location = new System.Drawing.Point(330, 267);
             this.btnAumentarStock.Name = "btnAumentarStock";
             this.btnAumentarStock.Size = new System.Drawing.Size(75, 85);
-            this.btnAumentarStock.TabIndex = 5;
+            this.btnAumentarStock.TabIndex = 3;
             this.btnAumentarStock.UseVisualStyleBackColor = true;
             this.btnAumentarStock.Click += new System.EventHandler(this.btnAumentarStock_Click);
             // 
@@ -192,7 +230,7 @@
             this.btnReducirStock.Location = new System.Drawing.Point(18, 267);
             this.btnReducirStock.Name = "btnReducirStock";
             this.btnReducirStock.Size = new System.Drawing.Size(75, 85);
-            this.btnReducirStock.TabIndex = 4;
+            this.btnReducirStock.TabIndex = 2;
             this.btnReducirStock.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnReducirStock.UseVisualStyleBackColor = true;
             this.btnReducirStock.Click += new System.EventHandler(this.btnReducirStock_Click);
@@ -248,7 +286,7 @@
             this.btnTerminar.Location = new System.Drawing.Point(225, 17);
             this.btnTerminar.Name = "btnTerminar";
             this.btnTerminar.Size = new System.Drawing.Size(171, 55);
-            this.btnTerminar.TabIndex = 1;
+            this.btnTerminar.TabIndex = 5;
             this.btnTerminar.Text = "Terminar";
             this.btnTerminar.UseVisualStyleBackColor = true;
             this.btnTerminar.Click += new System.EventHandler(this.btnTerminar_Click);
@@ -260,7 +298,7 @@
             this.btnSiguiente.Location = new System.Drawing.Point(23, 17);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(171, 55);
-            this.btnSiguiente.TabIndex = 0;
+            this.btnSiguiente.TabIndex = 4;
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
@@ -286,44 +324,6 @@
             this.lblNoRevision.Text = "0";
             this.lblNoRevision.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 180);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(74, 13);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "Stock Minimo:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(225, 180);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(77, 13);
-            this.label8.TabIndex = 14;
-            this.label8.Text = "Stock Maximo:";
-            // 
-            // lblStockMinimo
-            // 
-            this.lblStockMinimo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblStockMinimo.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.lblStockMinimo.Location = new System.Drawing.Point(18, 201);
-            this.lblStockMinimo.Name = "lblStockMinimo";
-            this.lblStockMinimo.Size = new System.Drawing.Size(176, 32);
-            this.lblStockMinimo.TabIndex = 15;
-            this.lblStockMinimo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lblStockMaximo
-            // 
-            this.lblStockMaximo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblStockMaximo.Font = new System.Drawing.Font("Century", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
-            this.lblStockMaximo.Location = new System.Drawing.Point(262, 201);
-            this.lblStockMaximo.Name = "lblStockMaximo";
-            this.lblStockMaximo.Size = new System.Drawing.Size(134, 32);
-            this.lblStockMaximo.TabIndex = 16;
-            this.lblStockMaximo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,6 +342,7 @@
             this.Text = "Revisar Stock Fisico";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RevisarInventario_FormClosing);
             this.Load += new System.EventHandler(this.RevisarInventario_Load);
+            this.Shown += new System.EventHandler(this.RevisarInventario_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

@@ -111,6 +111,7 @@
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(150, 22);
             this.txtCantidad.TabIndex = 124;
+            this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidad.Visible = false;
             // 
             // FiltroRevisarInventario

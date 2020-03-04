@@ -119,7 +119,7 @@ namespace PuntoDeVentaV2
 
                     if (string.IsNullOrEmpty(infoProducto[3]))
                     {
-                        lblCodigoDeBarras.Text = codigo;
+                        lblCodigoDeBarras.Text = infoProducto[4]; //codigo;
                     }
                     else
                     {
@@ -170,7 +170,6 @@ namespace PuntoDeVentaV2
                                 {
                                     LimpiarCampos();
                                     txtBoxBuscarCodigoBarras.Focus();
-                                    return;
                                 }
                             }
                         }
@@ -179,6 +178,7 @@ namespace PuntoDeVentaV2
                             // Se asigna el stock registrado en la tabla Productos
                             txtCantidadStock.Text = infoProducto[1];
                         }
+
 
                         txtCantidadStock.Focus();
                         txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
@@ -199,7 +199,7 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        // Verificar si es un servicio o paquete y mostrar los productos relacionados
+                        // Verificar si es un servicio o combo y mostrar los productos relacionados
                         if (infoProducto[6] == "S")
                         {
                             MessageBox.Show($"El código de barras pertenece a un SERVICIO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -207,7 +207,7 @@ namespace PuntoDeVentaV2
 
                         if (infoProducto[6] == "PQ")
                         {
-                            MessageBox.Show($"El código de barras pertenece a un PAQUETE\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"El código de barras pertenece a un COMBO\n\n{nombreProductos}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
 
                         LimpiarCampos();
@@ -451,6 +451,19 @@ namespace PuntoDeVentaV2
             lblPrecioProducto.Text = string.Empty;
             lblStockMinimo.Text = string.Empty;
             lblStockMaximo.Text = string.Empty;
+        }
+
+        private void RevisarInventario_Shown(object sender, EventArgs e)
+        {
+            if (tipoFiltro == "Normal")
+            {
+                txtBoxBuscarCodigoBarras.Focus();
+            }
+            else
+            {
+                txtCantidadStock.Focus();
+                txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            }
         }
     }
 }

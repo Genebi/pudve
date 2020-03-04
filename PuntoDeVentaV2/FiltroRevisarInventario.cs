@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
         private void FiltroRevisarInventario_Load(object sender, EventArgs e)
         {
             var operadores = new Dictionary<string, string>();
-            operadores.Add("NA", "No aplica");
+            operadores.Add("NA", "Seleccionar opción...");
             operadores.Add(">=", "Mayor o igual que");
             operadores.Add("<=", "Menor o igual que");
             operadores.Add("==", "Igual que");
@@ -51,6 +51,8 @@ namespace PuntoDeVentaV2
             cbOperadores.DataSource = operadores.ToArray();
             cbOperadores.DisplayMember = "Value";
             cbOperadores.ValueMember = "Key";
+
+            txtCantidad.KeyPress += new KeyPressEventHandler(SoloDecimales);
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -69,9 +71,19 @@ namespace PuntoDeVentaV2
                 var operador = cbOperadores.SelectedValue.ToString();
                 var cantidad = txtCantidad.Text.Trim();
 
+
+                if (operador == "NA")
+                {
+                    MessageBox.Show("Seleccione una opción de las condiciones para el filtro", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cbOperadores.Focus();
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(cantidad))
                 {
-                    cantidad = "0";
+                    MessageBox.Show("Es necesario ingresar una cantidad", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtCantidad.Focus();
+                    return;
                 }
 
                 operadorFiltro = operador;
@@ -94,6 +106,25 @@ namespace PuntoDeVentaV2
             {
                 cbOperadores.Visible = true;
                 txtCantidad.Visible = true;
+            }
+        }
+
+        private void SoloDecimales(object sender, KeyPressEventArgs e)
+        {
+            //permite 0-9, eliminar y decimal
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            //verifica que solo un decimal este permitido
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                {
+                    e.Handled = true;
+                }
             }
         }
     }
