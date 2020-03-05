@@ -1623,6 +1623,13 @@ namespace PuntoDeVentaV2
                     setUpVariable.Add(Properties.Settings.Default.strFiltroCombProdServ);
                 }
             }
+            if (Properties.Settings.Default.chkFiltroImagen.Equals(true))
+            {
+                if (!Properties.Settings.Default.strFiltroImagen.Equals(""))
+                {
+                    setUpVariable.Add(Properties.Settings.Default.strFiltroImagen);
+                }
+            }
             crearEtiquetaSetUpVariable();
         }
 
@@ -1665,44 +1672,59 @@ namespace PuntoDeVentaV2
 
                     string textoPanel = string.Empty;
 
-                    textoPanel += words[0];
+                    if (words[0].Equals("ProdImage"))
+                    {
+                        textoPanel += "Producto ";
+                        if (words[1].Equals("<>"))
+                        {
+                            textoPanel += "Con Imagen";
+                        }
+                        else if (words[1].Equals("="))
+                        {
+                            textoPanel += "Sin Imagen";
+                        }
+                    }
+                    else if (!words[0].Equals("ProdImage"))
+                    {
+                        textoPanel += words[0];
 
-                    if (words[1].Equals(">="))
-                    {
-                        textoPanel += " Mayor o Igual Que ";
-                    }
-                    else if (words[1].Equals("<="))
-                    {
-                        textoPanel += " Menor o Igual Que ";
-                    }
-                    else if (words[1].Equals("="))
-                    {
-                        textoPanel += " Igual Que ";
-                    }
-                    else if (words[1].Equals(">"))
-                    {
-                        textoPanel += " Mayor Que ";
-                    }
-                    else if (words[1].Equals("<"))
-                    {
-                        textoPanel += " Menor Que ";
-                    }
+                        if (words[1].Equals(">="))
+                        {
+                            textoPanel += " Mayor o Igual Que ";
+                        }
+                        else if (words[1].Equals("<="))
+                        {
+                            textoPanel += " Menor o Igual Que ";
+                        }
+                        else if (words[1].Equals("="))
+                        {
+                            textoPanel += " Igual Que ";
+                        }
+                        else if (words[1].Equals(">"))
+                        {
+                            textoPanel += " Mayor Que ";
+                        }
+                        else if (words[1].Equals("<"))
+                        {
+                            textoPanel += " Menor Que ";
+                        }
 
-                    if (words[2].Equals("'P'"))
-                    {
-                        textoPanel += "Producto";
-                    }
-                    else if (words[2].Equals("'PQ'"))
-                    {
-                        textoPanel += "Combo";
-                    }
-                    else if (words[2].Equals("'S'"))
-                    {
-                        textoPanel += "Servicio";
-                    }
-                    else
-                    {
-                        textoPanel += words[2];
+                        if (words[2].Equals("'P'"))
+                        {
+                            textoPanel += "Producto";
+                        }
+                        else if (words[2].Equals("'PQ'"))
+                        {
+                            textoPanel += "Combo";
+                        }
+                        else if (words[2].Equals("'S'"))
+                        {
+                            textoPanel += "Servicio";
+                        }
+                        else
+                        {
+                            textoPanel += words[2];
+                        }
                     }
 
                     label2.Text = textoPanel;
