@@ -1616,6 +1616,13 @@ namespace PuntoDeVentaV2
                     setUpVariable.Add(Properties.Settings.Default.strFiltroRevisionInventario);
                 }
             }
+            if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true))
+            {
+                if (!Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+                {
+                    setUpVariable.Add(Properties.Settings.Default.strFiltroCombProdServ);
+                }
+            }
             crearEtiquetaSetUpVariable();
         }
 
