@@ -76,7 +76,6 @@ namespace PuntoDeVentaV2
             if (tipoFiltro != "Normal")
             {
                 var consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro}";
-                Console.WriteLine(consulta);
                 cantidadRegistros = mb.CantidadFiltroInventario(consulta);
                 //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
 
@@ -91,7 +90,6 @@ namespace PuntoDeVentaV2
             if (tipoFiltro != "Normal")
             {
                 consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} ORDER BY ID ASC LIMIT 1";
-                Console.WriteLine(consulta);
             }
 
             return consulta;
