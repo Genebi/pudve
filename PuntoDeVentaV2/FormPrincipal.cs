@@ -261,7 +261,7 @@ namespace PuntoDeVentaV2
                 permisos_empleado(datos_per);
             }
 
-            InitializarTimerAndroid();
+            //InitializarTimerAndroid();
 
             // Verificar si existe registro de la tabla configuracion
             var existe = (bool)cn.EjecutarSelect($"SELECT * FROM Configuracion WHERE IDUsuario = {userID}");
