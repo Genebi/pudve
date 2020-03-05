@@ -1688,16 +1688,31 @@ namespace PuntoDeVentaV2
                         textoPanel += " Menor Que ";
                     }
 
-                    textoPanel += words[2];
+                    if (words[2].Equals("'P'"))
+                    {
+                        textoPanel += "Producto";
+                    }
+                    else if (words[2].Equals("'PQ'"))
+                    {
+                        textoPanel += "Combo";
+                    }
+                    else if (words[2].Equals("'S'"))
+                    {
+                        textoPanel += "Servicio";
+                    }
+                    else
+                    {
+                        textoPanel += words[2];
+                    }
 
-                    label2.Text = nameItemLista;
+                    label2.Text = textoPanel;
                     var infoText = TextRenderer.MeasureText(label2.Text, new System.Drawing.Font(label2.Font.FontFamily, label2.Font.Size));
                     Ancho = infoText.Width;
 
                     Label lblTextFiltro = new Label();
                     lblTextFiltro.AutoSize = false;
                     lblTextFiltro.Height = 17;
-                    lblTextFiltro.Width = Ancho + 60;
+                    lblTextFiltro.Width = Ancho;
                     lblTextFiltro.Location = new Point(0, 2);
                     lblTextFiltro.BackColor = Color.Transparent;
                     lblTextFiltro.Text = textoPanel.ToString();
@@ -1706,7 +1721,7 @@ namespace PuntoDeVentaV2
 
                     panelTagText.Controls.Add(lblTextFiltro);
 
-                    panelTagText.Size = new Size(Ancho + 70, Alto);
+                    panelTagText.Size = new Size(Ancho, Alto);
 
                     Button btnRight = new Button();
                     btnRight.Name = "btnRight" + words[0];
@@ -1721,7 +1736,7 @@ namespace PuntoDeVentaV2
                     btnRight.Click += new EventHandler(btnRightSetUpVariable_Click);
                     panelEtiqueta.Controls.Add(btnRight);
 
-                    panelEtiqueta.Width = Ancho + 100;
+                    panelEtiqueta.Width = Ancho + 30;
 
                     fLPDynamicTags.Controls.Add(panelEtiqueta);
                 }
@@ -1771,6 +1786,10 @@ namespace PuntoDeVentaV2
                 else if (name.Equals("NumeroRevision"))
                 {
                     reiniciarVariablesDeSistemaNoRevision();
+                }
+                else if (name.Equals("Tipo"))
+                {
+                    reiniciarVariablesDeSistemaTipo();
                 }
                 
                 if (txtBusqueda.Text.Equals(""))
