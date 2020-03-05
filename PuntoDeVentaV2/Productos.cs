@@ -1096,7 +1096,7 @@ namespace PuntoDeVentaV2
         private void removeAllSystemTags(List<string> VariablesSistema)
         {
             string[] words;
-            
+
             foreach (var control in VariablesSistema)
             {
                 words = control.Split(' ');
@@ -1111,9 +1111,14 @@ namespace PuntoDeVentaV2
             }
 
             setUpVariable.Clear();
+            auxWord.Clear();
+            setUpDinamicos.Clear();
 
             reiniciarVariablesDeSistemaPrecio();
             reiniciarVariablesDeSistemaStock();
+            reiniciarVariablesDeSistemaNoRevision();
+            reiniciarVariablesDeSistemaTipo();
+            reiniciarVariablesImagen();
 
             actualizarBtnFiltro();
 
@@ -1298,17 +1303,6 @@ namespace PuntoDeVentaV2
                 {
                     btnCleanFilter.Image = global::PuntoDeVentaV2.Properties.Resources.tag1;
                     btnCleanFilter.Enabled = false;
-                }
-            }
-        }
-
-        private void txtBusqueda_TextChanged(object sender, EventArgs e)
-        {
-            if (txtBusqueda.Text.Equals(""))
-            {
-                if (btnCleanFilter.Enabled.Equals(true))
-                {
-                    btnCleanFilter.PerformClick();
                 }
             }
         }
@@ -3539,7 +3533,7 @@ namespace PuntoDeVentaV2
 
                 if (txtBusqueda.Text.Equals(""))
                 {
-                    btnCleanFilter.PerformClick();
+                    //btnCleanFilter.PerformClick();
                     CargarDatos();
                 }
 

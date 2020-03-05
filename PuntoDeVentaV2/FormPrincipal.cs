@@ -578,6 +578,7 @@ namespace PuntoDeVentaV2
         float cheque = 0f;
         float trans = 0f;
         float credito = 0f;
+
         float subtotal = 0f;
         float anticipos1 = 0f;
         float totalCaja = 0f;
