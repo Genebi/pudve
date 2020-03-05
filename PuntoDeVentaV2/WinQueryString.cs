@@ -1872,7 +1872,6 @@ namespace PuntoDeVentaV2
 
             cbTipoFiltroCombProdServ_SelectedIndexChanged(sender, e);
             filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
-            //strFiltroCombProdServ = Properties.Settings.Default.strFiltroCombProdServ;
 
             cbTipoFiltroRevision_SelectedIndexChanged(sender, e);
             filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
