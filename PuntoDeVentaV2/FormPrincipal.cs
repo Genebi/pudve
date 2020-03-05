@@ -578,6 +578,12 @@ namespace PuntoDeVentaV2
         float cheque = 0f;
         float trans = 0f;
         float credito = 0f;
+
+        private void temporizadorConsulta_Tick(object sender, EventArgs e)
+        {
+
+        }
+
         float subtotal = 0f;
         float anticipos1 = 0f;
         float totalCaja = 0f;
@@ -610,7 +616,7 @@ namespace PuntoDeVentaV2
 
         public void InitializarTimerAndroid()
         {
-            actualizarCaja.Interval = 60000;
+            actualizarCaja.Interval = 600000;
             actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
             actualizarCaja.Enabled = true;
         }
@@ -724,7 +730,7 @@ namespace PuntoDeVentaV2
 
 
                                 Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}')",
-                                    MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nickUsuario}") , MySqlHelper.EscapeString($"{nombreP}"),
+                                    MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nickUsuario}"), MySqlHelper.EscapeString($"{nombreP}"),
                                     MySqlHelper.EscapeString($"{nombreAlterno1P}"), MySqlHelper.EscapeString($"{nombreAlterno2P}"), MySqlHelper.EscapeString($"{stockP}"), 
                                     MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
                                     MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"),
