@@ -1813,6 +1813,10 @@ namespace PuntoDeVentaV2
                 {
                     reiniciarVariablesDeSistemaTipo();
                 }
+                else if (name.Equals("ProdImage"))
+                {
+                    reiniciarVariablesImagen();
+                }
                 
                 if (txtBusqueda.Text.Equals(""))
                 {
