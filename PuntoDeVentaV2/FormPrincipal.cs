@@ -632,6 +632,10 @@ namespace PuntoDeVentaV2
         }
 
 
+
+
+
+
         private void actualizarCaja_Tick(object sender, EventArgs e)
         {
             if (ConectadoInternet())
