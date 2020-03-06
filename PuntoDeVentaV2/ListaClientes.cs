@@ -17,13 +17,19 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        private int idVenta = 0;
+        public string[] datosCliente;
 
-        public ListaClientes(int idVenta = 0)
+        private int idVenta = 0;
+        private int tipo = 0;
+
+        // Tipo: 0 = Por defecto
+        // Tipo: 1 = Por parte de la ventana Venta
+        public ListaClientes(int idVenta = 0, int tipo = 0)
         {
             InitializeComponent();
 
             this.idVenta = idVenta;
+            this.tipo = tipo;
         }
 
 
@@ -101,19 +107,32 @@ namespace PuntoDeVentaV2
                     var idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);
                     var cliente = DGVClientes.Rows[e.RowIndex].Cells["RazonSocial"].Value.ToString();
 
-                    if (idVenta > 0)
+                    if (tipo == 0)
                     {
-                        AsignarCliente(idVenta, idCliente, cliente);
+                        if (idVenta > 0)
+                        {
+                            AsignarCliente(idVenta, idCliente, cliente);
+                        }
+                        else
+                        {
+                            DetalleVenta.idCliente = idCliente;
+                            DetalleVenta.cliente = cliente;
+
+                            AsignarCreditoVenta.idCliente = idCliente;
+                            AsignarCreditoVenta.cliente = cliente;
+
+                            Ventas.idCliente = idCliente.ToString();
+                        }
                     }
-                    else
+                    
+                    if (tipo == 1)
                     {
-                        DetalleVenta.idCliente = idCliente;
-                        DetalleVenta.cliente = cliente;
+                        datosCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
 
-                        AsignarCreditoVenta.idCliente = idCliente;
-                        AsignarCreditoVenta.cliente = cliente;
-
-                        Ventas.idCliente = idCliente.ToString();
+                        if (datosCliente.Length > 0)
+                        {
+                            DialogResult = DialogResult.OK;
+                        }
                     }
 
                     this.Dispose();
@@ -179,6 +198,11 @@ namespace PuntoDeVentaV2
                 txtBuscador.Text = string.Empty;
                 txtBuscador.Focus();
             }
+        }
+
+        private void ListaClientes_Shown(object sender, EventArgs e)
+        {
+            txtBuscador.Focus();
         }
     }
 }
