@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
         }
 
-        private void CargarDatos()
+        private void CargarDatos(string busqueda = "")
         {
             SQLiteConnection sql_con;
             SQLiteCommand sql_cmd;
@@ -46,13 +46,20 @@ namespace PuntoDeVentaV2
             {
                 sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
             }
-            
+
+            var consulta = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(busqueda))
+            {
+                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+            }
+            else
+            {
+                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
+            }
+
             sql_con.Open();
-
-            var consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
-
             sql_cmd = new SQLiteCommand(consulta, sql_con);
-
             dr = sql_cmd.ExecuteReader();
 
             DGVClientes.Rows.Clear();
@@ -65,9 +72,17 @@ namespace PuntoDeVentaV2
 
                 Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
 
+                var numeroCliente = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
+
+                if (string.IsNullOrWhiteSpace(numeroCliente))
+                {
+                    numeroCliente = "N/A";
+                }
+
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
                 row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
+                row.Cells["NumeroCliente"].Value = numeroCliente;
                 row.Cells["Agregar"].Value = agregar;
             }
 
@@ -81,7 +96,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 3)
+                if (e.ColumnIndex == 4)
                 {
                     var idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);
                     var cliente = DGVClientes.Rows[e.RowIndex].Cells["RazonSocial"].Value.ToString();
@@ -110,7 +125,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 3)
+                if (e.ColumnIndex == 4)
                 {
                     DGVClientes.Cursor = Cursors.Hand;
                 }
@@ -121,7 +136,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 3)
+                if (e.ColumnIndex == 4)
                 {
                     DGVClientes.Cursor = Cursors.Default;
                 }
@@ -151,6 +166,19 @@ namespace PuntoDeVentaV2
             };
 
             nuevo.ShowDialog();
+        }
+
+        private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                var busqueda = txtBuscador.Text.Trim();
+
+                CargarDatos(busqueda);
+
+                txtBuscador.Text = string.Empty;
+                txtBuscador.Focus();
+            }
         }
     }
 }

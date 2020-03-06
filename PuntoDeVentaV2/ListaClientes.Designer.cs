@@ -28,18 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGVClientes = new System.Windows.Forms.DataGridView();
-            this.lbAgregarCliente = new System.Windows.Forms.LinkLabel();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RazonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NumeroCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Agregar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.lbAgregarCliente = new System.Windows.Forms.LinkLabel();
+            this.txtBuscador = new System.Windows.Forms.TextBox();
+            this.lbBuscar = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,56 +52,45 @@
             this.DGVClientes.AllowUserToDeleteRows = false;
             this.DGVClientes.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DGVClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.DGVClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
             this.RFC,
             this.RazonSocial,
+            this.NumeroCliente,
             this.Agregar});
-            this.DGVClientes.Location = new System.Drawing.Point(2, 12);
+            this.DGVClientes.Location = new System.Drawing.Point(2, 72);
             this.DGVClientes.Name = "DGVClientes";
             this.DGVClientes.ReadOnly = true;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.DGVClientes.RowHeadersVisible = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DGVClientes.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.DGVClientes.Size = new System.Drawing.Size(480, 204);
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DGVClientes.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            this.DGVClientes.Size = new System.Drawing.Size(579, 180);
             this.DGVClientes.TabIndex = 0;
             this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
             this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
             this.DGVClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseLeave);
             // 
-            // lbAgregarCliente
-            // 
-            this.lbAgregarCliente.AutoSize = true;
-            this.lbAgregarCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAgregarCliente.Location = new System.Drawing.Point(165, 230);
-            this.lbAgregarCliente.Name = "lbAgregarCliente";
-            this.lbAgregarCliente.Size = new System.Drawing.Size(152, 17);
-            this.lbAgregarCliente.TabIndex = 1;
-            this.lbAgregarCliente.TabStop = true;
-            this.lbAgregarCliente.Text = "Agregar nuevo cliente";
-            this.lbAgregarCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbAgregarCliente_LinkClicked);
-            // 
             // ID
             // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ID.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ID.DefaultCellStyle = dataGridViewCellStyle8;
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
@@ -106,8 +98,8 @@
             // 
             // RFC
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RFC.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RFC.DefaultCellStyle = dataGridViewCellStyle9;
             this.RFC.HeaderText = "RFC";
             this.RFC.Name = "RFC";
             this.RFC.ReadOnly = true;
@@ -116,11 +108,17 @@
             // RazonSocial
             // 
             this.RazonSocial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RazonSocial.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RazonSocial.DefaultCellStyle = dataGridViewCellStyle10;
             this.RazonSocial.HeaderText = "Razón Social";
             this.RazonSocial.Name = "RazonSocial";
             this.RazonSocial.ReadOnly = true;
+            // 
+            // NumeroCliente
+            // 
+            this.NumeroCliente.HeaderText = "No. Cliente";
+            this.NumeroCliente.Name = "NumeroCliente";
+            this.NumeroCliente.ReadOnly = true;
             // 
             // Agregar
             // 
@@ -130,11 +128,46 @@
             this.Agregar.ReadOnly = true;
             this.Agregar.Width = 50;
             // 
+            // lbAgregarCliente
+            // 
+            this.lbAgregarCliente.AutoSize = true;
+            this.lbAgregarCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAgregarCliente.Location = new System.Drawing.Point(217, 274);
+            this.lbAgregarCliente.Name = "lbAgregarCliente";
+            this.lbAgregarCliente.Size = new System.Drawing.Size(152, 17);
+            this.lbAgregarCliente.TabIndex = 1;
+            this.lbAgregarCliente.TabStop = true;
+            this.lbAgregarCliente.Text = "Agregar nuevo cliente";
+            this.lbAgregarCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbAgregarCliente_LinkClicked);
+            // 
+            // txtBuscador
+            // 
+            this.txtBuscador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBuscador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscador.Location = new System.Drawing.Point(176, 30);
+            this.txtBuscador.Name = "txtBuscador";
+            this.txtBuscador.Size = new System.Drawing.Size(287, 23);
+            this.txtBuscador.TabIndex = 2;
+            this.txtBuscador.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
+            // 
+            // lbBuscar
+            // 
+            this.lbBuscar.AutoSize = true;
+            this.lbBuscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbBuscar.Location = new System.Drawing.Point(74, 33);
+            this.lbBuscar.Name = "lbBuscar";
+            this.lbBuscar.Size = new System.Drawing.Size(96, 17);
+            this.lbBuscar.TabIndex = 3;
+            this.lbBuscar.Text = "Buscar cliente";
+            // 
             // ListaClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 261);
+            this.ClientSize = new System.Drawing.Size(584, 311);
+            this.Controls.Add(this.lbBuscar);
+            this.Controls.Add(this.txtBuscador);
             this.Controls.Add(this.lbAgregarCliente);
             this.Controls.Add(this.DGVClientes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -156,6 +189,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewTextBoxColumn RazonSocial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroCliente;
         private System.Windows.Forms.DataGridViewImageColumn Agregar;
+        private System.Windows.Forms.TextBox txtBuscador;
+        private System.Windows.Forms.Label lbBuscar;
     }
 }
