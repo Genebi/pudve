@@ -127,6 +127,8 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[16].ToString()); //Email
                 lista.Add(dr[17].ToString()); //Telefono
                 lista.Add(dr[18].ToString()); //Forma de pago
+                lista.Add(dr[21].ToString()); //TipoCliente
+                lista.Add(dr[22].ToString()); //NumeroCliente
             }
 
             dr.Close();

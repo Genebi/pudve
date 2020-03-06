@@ -316,6 +316,7 @@ namespace PuntoDeVentaV2
             txtEmail.Text = datos[13];
             txtTelefono.Text = datos[14];
             cbUsoCFDI.SelectedValue = datos[3];
+            cbTipoCliente.SelectedIndex = Convert.ToInt16(datos[16]);
             //cbFormaPago.SelectedValue = datos[15];
         }
 
