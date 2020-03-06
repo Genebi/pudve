@@ -2502,6 +2502,26 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            using (var clientes = new ListaClientes(tipo: 1))
+            {
+                var respuesta = clientes.ShowDialog();
+
+                if (respuesta == DialogResult.OK)
+                {
+                    var datos = clientes.datosCliente;
+                    var cliente = string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(datos[0])) { cliente += "Cliente: " + datos[0]; }
+                    if (!string.IsNullOrWhiteSpace(datos[1])) { cliente += " --- RFC: " + datos[1]; }
+                    if (!string.IsNullOrWhiteSpace(datos[17])) { cliente += " --- No. " + datos[17]; }
+
+                    lbDatosCliente.Text = cliente;
+                }
+            }
+        }
+
         private void ProductoSeleccionado()
         {
             //Se obtiene el texto del item seleccionado del ListBox

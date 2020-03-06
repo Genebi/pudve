@@ -75,6 +75,7 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAplicarDescuento = new System.Windows.Forms.Button();
             this.PBImagen = new System.Windows.Forms.PictureBox();
             this.lbPS = new System.Windows.Forms.Label();
             this.nudCantidadPS = new System.Windows.Forms.NumericUpDown();
@@ -84,7 +85,8 @@
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.checkCancelar = new System.Windows.Forms.CheckBox();
             this.btnConsultar = new System.Windows.Forms.Button();
-            this.btnAplicarDescuento = new System.Windows.Forms.Button();
+            this.btnClientes = new System.Windows.Forms.Button();
+            this.lbDatosCliente = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -596,6 +598,17 @@
             this.panel1.Size = new System.Drawing.Size(1221, 354);
             this.panel1.TabIndex = 34;
             // 
+            // btnAplicarDescuento
+            // 
+            this.btnAplicarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAplicarDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicarDescuento.Location = new System.Drawing.Point(574, 322);
+            this.btnAplicarDescuento.Name = "btnAplicarDescuento";
+            this.btnAplicarDescuento.Size = new System.Drawing.Size(75, 23);
+            this.btnAplicarDescuento.TabIndex = 43;
+            this.btnAplicarDescuento.Text = "APLICAR";
+            this.btnAplicarDescuento.UseVisualStyleBackColor = true;
+            // 
             // PBImagen
             // 
             this.PBImagen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -703,22 +716,35 @@
             this.btnConsultar.UseVisualStyleBackColor = true;
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
-            // btnAplicarDescuento
+            // btnClientes
             // 
-            this.btnAplicarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAplicarDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicarDescuento.Location = new System.Drawing.Point(574, 322);
-            this.btnAplicarDescuento.Name = "btnAplicarDescuento";
-            this.btnAplicarDescuento.Size = new System.Drawing.Size(75, 23);
-            this.btnAplicarDescuento.TabIndex = 43;
-            this.btnAplicarDescuento.Text = "APLICAR";
-            this.btnAplicarDescuento.UseVisualStyleBackColor = true;
+            this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClientes.Location = new System.Drawing.Point(224, 68);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(100, 23);
+            this.btnClientes.TabIndex = 44;
+            this.btnClientes.Text = "Elegir cliente";
+            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
+            // 
+            // lbDatosCliente
+            // 
+            this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDatosCliente.ForeColor = System.Drawing.Color.Red;
+            this.lbDatosCliente.Location = new System.Drawing.Point(340, 68);
+            this.lbDatosCliente.Name = "lbDatosCliente";
+            this.lbDatosCliente.Size = new System.Drawing.Size(638, 23);
+            this.lbDatosCliente.TabIndex = 45;
+            this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 596);
+            this.Controls.Add(this.lbDatosCliente);
+            this.Controls.Add(this.btnClientes);
             this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.checkCancelar);
             this.Controls.Add(this.panel1);
@@ -799,5 +825,7 @@
         private System.Windows.Forms.CheckBox checkCancelar;
         private System.Windows.Forms.Button btnConsultar;
         private System.Windows.Forms.Button btnAplicarDescuento;
+        private System.Windows.Forms.Button btnClientes;
+        private System.Windows.Forms.Label lbDatosCliente;
     }
 }
