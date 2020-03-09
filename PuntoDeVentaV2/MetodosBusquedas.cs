@@ -1523,6 +1523,32 @@ namespace PuntoDeVentaV2
             return cantidad;
         }
 
+        public Dictionary<int, string> ObtenerTipoClientes(int tipo = 1)
+        {
+            Dictionary<int, string> lista = new Dictionary<int, string>();
+
+            DatosConexion($"SELECT * FROM TipoClientes WHERE IDUsuario = {FormPrincipal.userID} AND Habilitar = {tipo}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                if (tipo == 1)
+                {
+                    lista.Add(0, "Seleccionar...");
+                }
+
+                while (dr.Read())
+                {
+                    lista.Add(Convert.ToInt32(dr["ID"]), dr["Nombre"].ToString());
+                }
+            }
+
+            dr.Close();
+
+            return lista;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
