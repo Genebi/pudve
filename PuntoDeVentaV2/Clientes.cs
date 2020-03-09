@@ -156,5 +156,13 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void btnTipoCliente_Click(object sender, EventArgs e)
+        {
+            using (var tipoCliente = new AgregarTipoCliente())
+            {
+                tipoCliente.ShowDialog();
+            }
+        }
     }
 }

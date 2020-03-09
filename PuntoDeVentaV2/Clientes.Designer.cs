@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             this.DGVClientes = new System.Windows.Forms.DataGridView();
-            this.panelBotones = new System.Windows.Forms.Panel();
-            this.btnNuevoCliente = new System.Windows.Forms.Button();
-            this.tituloSeccion = new System.Windows.Forms.Label();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +38,10 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnNuevoCliente = new System.Windows.Forms.Button();
+            this.tituloSeccion = new System.Windows.Forms.Label();
+            this.btnTipoCliente = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -72,47 +73,6 @@
             this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
             this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
             this.DGVClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseLeave);
-            // 
-            // panelBotones
-            // 
-            this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBotones.Controls.Add(this.btnNuevoCliente);
-            this.panelBotones.Location = new System.Drawing.Point(12, 77);
-            this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 50);
-            this.panelBotones.TabIndex = 10;
-            // 
-            // btnNuevoCliente
-            // 
-            this.btnNuevoCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNuevoCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnNuevoCliente.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNuevoCliente.FlatAppearance.BorderSize = 0;
-            this.btnNuevoCliente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnNuevoCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevoCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNuevoCliente.ForeColor = System.Drawing.Color.White;
-            this.btnNuevoCliente.Location = new System.Drawing.Point(716, 18);
-            this.btnNuevoCliente.Name = "btnNuevoCliente";
-            this.btnNuevoCliente.Size = new System.Drawing.Size(125, 24);
-            this.btnNuevoCliente.TabIndex = 5;
-            this.btnNuevoCliente.Text = "Nuevo Cliente";
-            this.btnNuevoCliente.UseVisualStyleBackColor = false;
-            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
-            // 
-            // tituloSeccion
-            // 
-            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.AutoSize = true;
-            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(388, 27);
-            this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(101, 25);
-            this.tituloSeccion.TabIndex = 9;
-            this.tituloSeccion.Text = "CLIENTES";
-            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ID
             // 
@@ -180,6 +140,64 @@
             this.Eliminar.ReadOnly = true;
             this.Eliminar.Width = 50;
             // 
+            // panelBotones
+            // 
+            this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.btnTipoCliente);
+            this.panelBotones.Controls.Add(this.btnNuevoCliente);
+            this.panelBotones.Location = new System.Drawing.Point(12, 77);
+            this.panelBotones.Name = "panelBotones";
+            this.panelBotones.Size = new System.Drawing.Size(845, 50);
+            this.panelBotones.TabIndex = 10;
+            // 
+            // btnNuevoCliente
+            // 
+            this.btnNuevoCliente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNuevoCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnNuevoCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNuevoCliente.FlatAppearance.BorderSize = 0;
+            this.btnNuevoCliente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnNuevoCliente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnNuevoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNuevoCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevoCliente.ForeColor = System.Drawing.Color.White;
+            this.btnNuevoCliente.Location = new System.Drawing.Point(716, 18);
+            this.btnNuevoCliente.Name = "btnNuevoCliente";
+            this.btnNuevoCliente.Size = new System.Drawing.Size(125, 24);
+            this.btnNuevoCliente.TabIndex = 5;
+            this.btnNuevoCliente.Text = "Nuevo Cliente";
+            this.btnNuevoCliente.UseVisualStyleBackColor = false;
+            this.btnNuevoCliente.Click += new System.EventHandler(this.btnNuevoCliente_Click);
+            // 
+            // tituloSeccion
+            // 
+            this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tituloSeccion.AutoSize = true;
+            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSeccion.Location = new System.Drawing.Point(388, 27);
+            this.tituloSeccion.Name = "tituloSeccion";
+            this.tituloSeccion.Size = new System.Drawing.Size(101, 25);
+            this.tituloSeccion.TabIndex = 9;
+            this.tituloSeccion.Text = "CLIENTES";
+            this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // btnTipoCliente
+            // 
+            this.btnTipoCliente.BackColor = System.Drawing.Color.Green;
+            this.btnTipoCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTipoCliente.FlatAppearance.BorderSize = 0;
+            this.btnTipoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTipoCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTipoCliente.ForeColor = System.Drawing.Color.White;
+            this.btnTipoCliente.Location = new System.Drawing.Point(3, 18);
+            this.btnTipoCliente.Name = "btnTipoCliente";
+            this.btnTipoCliente.Size = new System.Drawing.Size(140, 24);
+            this.btnTipoCliente.TabIndex = 20;
+            this.btnTipoCliente.Text = "Nuevo tipo cliente";
+            this.btnTipoCliente.UseVisualStyleBackColor = false;
+            this.btnTipoCliente.Click += new System.EventHandler(this.btnTipoCliente_Click);
+            // 
             // Clientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,5 +231,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Editar;
         private System.Windows.Forms.DataGridViewImageColumn Eliminar;
+        private System.Windows.Forms.Button btnTipoCliente;
     }
 }
