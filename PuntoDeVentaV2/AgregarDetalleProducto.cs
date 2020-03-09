@@ -1868,13 +1868,17 @@ namespace PuntoDeVentaV2
                 }
                 else if (!nvoDetalle.Equals(""))
                 {
-                    AddKey(nvoDetalle, nvoValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    BuscarTextoListView(settingDatabases);
+                    //AddKey(nvoDetalle, nvoValor);
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    //BuscarTextoListView(settingDatabases);
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
-                    saveConfigIntoDB();
+                    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
+                    {
+
+                        saveConfigIntoDB();
+                    }
                 }
                 else if (nvoDetalle.Equals(""))
                 {

@@ -619,5 +619,14 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        #region Procesos de Datos Dinamicos
+        public string VerificarDatoDinamico(string claveAgregar, int idUsuario)
+        {
+            var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
+        #endregion
     }
 }
