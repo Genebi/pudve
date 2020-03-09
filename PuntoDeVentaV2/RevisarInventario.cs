@@ -131,7 +131,7 @@ namespace PuntoDeVentaV2
                         lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
                     }
 
-                    lblNombreProducto.Text = infoProducto[0];
+                    txtNombreProducto.Text = infoProducto[0];
 
                     if (string.IsNullOrEmpty(infoProducto[3]))
                     {
@@ -461,7 +461,7 @@ namespace PuntoDeVentaV2
         {
             txtBoxBuscarCodigoBarras.Text = string.Empty;
             txtCantidadStock.Text = string.Empty;
-            lblNombreProducto.Text = string.Empty;
+            txtNombreProducto.Text = string.Empty;
             lblCodigoDeBarras.Text = string.Empty;
             lblPrecioProducto.Text = string.Empty;
             lblStockMinimo.Text = string.Empty;
@@ -479,6 +479,11 @@ namespace PuntoDeVentaV2
                 txtCantidadStock.Focus();
                 txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
