@@ -109,11 +109,18 @@
             // 
             // txtNombreProducto
             // 
+            this.txtNombreProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(167)))), ((int)(((byte)(167)))), ((int)(((byte)(169)))));
+            this.txtNombreProducto.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtNombreProducto.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombreProducto.ForeColor = System.Drawing.Color.White;
             this.txtNombreProducto.Location = new System.Drawing.Point(18, 44);
+            this.txtNombreProducto.Multiline = true;
             this.txtNombreProducto.Name = "txtNombreProducto";
-            this.txtNombreProducto.Size = new System.Drawing.Size(387, 33);
+            this.txtNombreProducto.ReadOnly = true;
+            this.txtNombreProducto.Size = new System.Drawing.Size(387, 64);
             this.txtNombreProducto.TabIndex = 17;
+            this.txtNombreProducto.TabStop = false;
+            this.txtNombreProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblStockMaximo
             // 
