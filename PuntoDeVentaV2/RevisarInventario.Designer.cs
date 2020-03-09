@@ -46,7 +46,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnAumentarStock = new System.Windows.Forms.Button();
             this.btnReducirStock = new System.Windows.Forms.Button();
-            this.lblCodigoDeBarras = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnTerminar = new System.Windows.Forms.Button();
@@ -55,6 +54,8 @@
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
+            this.txtCodigoBarras = new System.Windows.Forms.TextBox();
+            this.lbBackground = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -85,6 +86,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.AutoSize = true;
+            this.groupBox2.Controls.Add(this.txtCodigoBarras);
             this.groupBox2.Controls.Add(this.txtNombreProducto);
             this.groupBox2.Controls.Add(this.lblStockMaximo);
             this.groupBox2.Controls.Add(this.lblStockMinimo);
@@ -99,11 +102,11 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.btnAumentarStock);
             this.groupBox2.Controls.Add(this.btnReducirStock);
-            this.groupBox2.Controls.Add(this.lblCodigoDeBarras);
             this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.lbBackground);
             this.groupBox2.Location = new System.Drawing.Point(12, 131);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(420, 364);
+            this.groupBox2.Size = new System.Drawing.Size(420, 371);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
@@ -256,19 +259,6 @@
             this.btnReducirStock.UseVisualStyleBackColor = true;
             this.btnReducirStock.Click += new System.EventHandler(this.btnReducirStock_Click);
             // 
-            // lblCodigoDeBarras
-            // 
-            this.lblCodigoDeBarras.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCodigoDeBarras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lblCodigoDeBarras.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodigoDeBarras.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            this.lblCodigoDeBarras.Location = new System.Drawing.Point(18, 130);
-            this.lblCodigoDeBarras.Name = "lblCodigoDeBarras";
-            this.lblCodigoDeBarras.Size = new System.Drawing.Size(176, 32);
-            this.lblCodigoDeBarras.TabIndex = 2;
-            this.lblCodigoDeBarras.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -321,7 +311,6 @@
             this.label2.Size = new System.Drawing.Size(115, 16);
             this.label2.TabIndex = 3;
             this.label2.Text = "Número de Revisión";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // lblNoRevision
             // 
@@ -345,6 +334,28 @@
             this.lbCantidadFiltro.Size = new System.Drawing.Size(127, 32);
             this.lbCantidadFiltro.TabIndex = 5;
             this.lbCantidadFiltro.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtCodigoBarras
+            // 
+            this.txtCodigoBarras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtCodigoBarras.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCodigoBarras.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.txtCodigoBarras.Location = new System.Drawing.Point(18, 137);
+            this.txtCodigoBarras.Name = "txtCodigoBarras";
+            this.txtCodigoBarras.ReadOnly = true;
+            this.txtCodigoBarras.Size = new System.Drawing.Size(176, 20);
+            this.txtCodigoBarras.TabIndex = 18;
+            this.txtCodigoBarras.TabStop = false;
+            this.txtCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lbBackground
+            // 
+            this.lbBackground.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lbBackground.Location = new System.Drawing.Point(18, 130);
+            this.lbBackground.Name = "lbBackground";
+            this.lbBackground.Size = new System.Drawing.Size(176, 32);
+            this.lbBackground.TabIndex = 19;
             // 
             // RevisarInventario
             // 
@@ -384,7 +395,6 @@
         private System.Windows.Forms.TextBox txtBoxBuscarCodigoBarras;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lblCodigoDeBarras;
         private System.Windows.Forms.Button btnReducirStock;
         private System.Windows.Forms.Button btnAumentarStock;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -406,5 +416,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbCantidadFiltro;
         private System.Windows.Forms.TextBox txtNombreProducto;
+        private System.Windows.Forms.TextBox txtCodigoBarras;
+        private System.Windows.Forms.Label lbBackground;
     }
 }
