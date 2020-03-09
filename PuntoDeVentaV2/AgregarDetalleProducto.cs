@@ -1874,6 +1874,7 @@ namespace PuntoDeVentaV2
                     BuscarTextoListView(settingDatabases);
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
+                    saveConfigIntoDB();
                 }
                 else if (nvoDetalle.Equals(""))
                 {
