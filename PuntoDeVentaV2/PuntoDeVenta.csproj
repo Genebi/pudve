@@ -161,6 +161,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgregarTipoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarTipoCliente.Designer.cs">
+      <DependentUpon>AgregarTipoCliente.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarAnticipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -651,6 +657,9 @@
     <Compile Include="WinQueryString.Designer.cs">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AgregarTipoCliente.resx">
+      <DependentUpon>AgregarTipoCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarAnticipo.resx">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </EmbeddedResource>
