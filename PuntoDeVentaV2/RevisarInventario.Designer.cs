@@ -56,6 +56,7 @@
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
             this.txtCodigoBarras = new System.Windows.Forms.TextBox();
             this.lbBackground = new System.Windows.Forms.Label();
+            this.btnVerCBExtra = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -87,6 +88,7 @@
             // groupBox2
             // 
             this.groupBox2.AutoSize = true;
+            this.groupBox2.Controls.Add(this.btnVerCBExtra);
             this.groupBox2.Controls.Add(this.txtCodigoBarras);
             this.groupBox2.Controls.Add(this.txtNombreProducto);
             this.groupBox2.Controls.Add(this.lblStockMaximo);
@@ -357,6 +359,18 @@
             this.lbBackground.Size = new System.Drawing.Size(176, 32);
             this.lbBackground.TabIndex = 19;
             // 
+            // btnVerCBExtra
+            // 
+            this.btnVerCBExtra.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.info_circle;
+            this.btnVerCBExtra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnVerCBExtra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVerCBExtra.Location = new System.Drawing.Point(196, 130);
+            this.btnVerCBExtra.Name = "btnVerCBExtra";
+            this.btnVerCBExtra.Size = new System.Drawing.Size(24, 32);
+            this.btnVerCBExtra.TabIndex = 20;
+            this.btnVerCBExtra.UseVisualStyleBackColor = true;
+            this.btnVerCBExtra.Click += new System.EventHandler(this.btnVerCBExtra_Click);
+            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -418,5 +432,6 @@
         private System.Windows.Forms.TextBox txtNombreProducto;
         private System.Windows.Forms.TextBox txtCodigoBarras;
         private System.Windows.Forms.Label lbBackground;
+        private System.Windows.Forms.Button btnVerCBExtra;
     }
 }

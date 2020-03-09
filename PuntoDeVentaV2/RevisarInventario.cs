@@ -480,5 +480,21 @@ namespace PuntoDeVentaV2
                 txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
             }
         }
+
+        private void btnVerCBExtra_Click(object sender, EventArgs e)
+        {
+            if (idProducto > 0)
+            {
+                var codigos = mb.ObtenerCodigoBarrasExtras(idProducto);
+
+                if (codigos.Length > 0)
+                {
+                    using (var codigosExtra = new CodigoBarrasExtraRI(codigos))
+                    {
+                        codigosExtra.ShowDialog();
+                    }
+                }
+            }
+        }
     }
 }
