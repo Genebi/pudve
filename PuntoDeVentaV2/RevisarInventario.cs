@@ -131,15 +131,15 @@ namespace PuntoDeVentaV2
                         lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
                     }
 
-                    lblNombreProducto.Text = infoProducto[0];
+                    txtNombreProducto.Text = infoProducto[0];
 
                     if (string.IsNullOrEmpty(infoProducto[3]))
                     {
-                        lblCodigoDeBarras.Text = infoProducto[4]; //codigo;
+                        txtCodigoBarras.Text = infoProducto[4]; //codigo;
                     }
                     else
                     {
-                        lblCodigoDeBarras.Text = infoProducto[3];
+                        txtCodigoBarras.Text = infoProducto[3];
                     }
 
                     lblPrecioProducto.Text = infoProducto[2];
@@ -461,8 +461,8 @@ namespace PuntoDeVentaV2
         {
             txtBoxBuscarCodigoBarras.Text = string.Empty;
             txtCantidadStock.Text = string.Empty;
-            lblNombreProducto.Text = string.Empty;
-            lblCodigoDeBarras.Text = string.Empty;
+            txtNombreProducto.Text = string.Empty;
+            txtCodigoBarras.Text = string.Empty;
             lblPrecioProducto.Text = string.Empty;
             lblStockMinimo.Text = string.Empty;
             lblStockMaximo.Text = string.Empty;
@@ -478,6 +478,26 @@ namespace PuntoDeVentaV2
             {
                 txtCantidadStock.Focus();
                 txtCantidadStock.Select(txtCantidadStock.Text.Length, 0);
+            }
+        }
+
+        private void btnVerCBExtra_Click(object sender, EventArgs e)
+        {
+            if (idProducto > 0)
+            {
+                var codigos = mb.ObtenerCodigoBarrasExtras(idProducto);
+
+                if (codigos.Length > 0)
+                {
+                    using (var codigosExtra = new CodigoBarrasExtraRI(codigos))
+                    {
+                        codigosExtra.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No hay información extra disponible", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
     }

@@ -32,6 +32,8 @@
             this.rbProducto = new System.Windows.Forms.RadioButton();
             this.rbAjustar = new System.Windows.Forms.RadioButton();
             this.panelComprado = new System.Windows.Forms.Panel();
+            this.cantidadStockActual = new System.Windows.Forms.Label();
+            this.lbStockActual = new System.Windows.Forms.Label();
             this.lbCantidadCompra = new System.Windows.Forms.Label();
             this.lbPrecioCompra = new System.Windows.Forms.Label();
             this.lbFechaCompra = new System.Windows.Forms.Label();
@@ -57,9 +59,8 @@
             this.lbSeparador2 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.lbPrecio = new System.Windows.Forms.Label();
-            this.lbStockActual = new System.Windows.Forms.Label();
-            this.cantidadStockActual = new System.Windows.Forms.Label();
+            this.lbEditarPrecio = new System.Windows.Forms.Label();
+            this.txtPrecio = new System.Windows.Forms.TextBox();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
             this.SuspendLayout();
@@ -116,6 +117,28 @@
             this.panelComprado.Name = "panelComprado";
             this.panelComprado.Size = new System.Drawing.Size(610, 120);
             this.panelComprado.TabIndex = 3;
+            // 
+            // cantidadStockActual
+            // 
+            this.cantidadStockActual.BackColor = System.Drawing.Color.White;
+            this.cantidadStockActual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cantidadStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cantidadStockActual.ForeColor = System.Drawing.Color.Red;
+            this.cantidadStockActual.Location = new System.Drawing.Point(21, 87);
+            this.cantidadStockActual.Name = "cantidadStockActual";
+            this.cantidadStockActual.Size = new System.Drawing.Size(84, 22);
+            this.cantidadStockActual.TabIndex = 11;
+            this.cantidadStockActual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbStockActual
+            // 
+            this.lbStockActual.AutoSize = true;
+            this.lbStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStockActual.Location = new System.Drawing.Point(21, 64);
+            this.lbStockActual.Name = "lbStockActual";
+            this.lbStockActual.Size = new System.Drawing.Size(84, 17);
+            this.lbStockActual.TabIndex = 10;
+            this.lbStockActual.Text = "Stock actual";
             // 
             // lbCantidadCompra
             // 
@@ -396,43 +419,37 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // lbPrecio
+            // lbEditarPrecio
             // 
-            this.lbPrecio.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPrecio.Location = new System.Drawing.Point(12, 48);
-            this.lbPrecio.Name = "lbPrecio";
-            this.lbPrecio.Size = new System.Drawing.Size(611, 20);
-            this.lbPrecio.TabIndex = 30;
-            this.lbPrecio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbEditarPrecio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbEditarPrecio.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbEditarPrecio.Image = global::PuntoDeVentaV2.Properties.Resources.pencil1;
+            this.lbEditarPrecio.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbEditarPrecio.Location = new System.Drawing.Point(363, 47);
+            this.lbEditarPrecio.Name = "lbEditarPrecio";
+            this.lbEditarPrecio.Size = new System.Drawing.Size(24, 23);
+            this.lbEditarPrecio.TabIndex = 31;
+            this.lbEditarPrecio.Click += new System.EventHandler(this.lbEditarPrecio_Click);
             // 
-            // lbStockActual
+            // txtPrecio
             // 
-            this.lbStockActual.AutoSize = true;
-            this.lbStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbStockActual.Location = new System.Drawing.Point(21, 64);
-            this.lbStockActual.Name = "lbStockActual";
-            this.lbStockActual.Size = new System.Drawing.Size(84, 17);
-            this.lbStockActual.TabIndex = 10;
-            this.lbStockActual.Text = "Stock actual";
-            // 
-            // cantidadStockActual
-            // 
-            this.cantidadStockActual.BackColor = System.Drawing.Color.White;
-            this.cantidadStockActual.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cantidadStockActual.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cantidadStockActual.ForeColor = System.Drawing.Color.Red;
-            this.cantidadStockActual.Location = new System.Drawing.Point(21, 87);
-            this.cantidadStockActual.Name = "cantidadStockActual";
-            this.cantidadStockActual.Size = new System.Drawing.Size(84, 22);
-            this.cantidadStockActual.TabIndex = 11;
-            this.cantidadStockActual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtPrecio.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPrecio.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrecio.Location = new System.Drawing.Point(257, 47);
+            this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.ReadOnly = true;
+            this.txtPrecio.Size = new System.Drawing.Size(100, 20);
+            this.txtPrecio.TabIndex = 32;
+            this.txtPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.txtPrecio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecio_KeyDown);
             // 
             // AjustarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 411);
-            this.Controls.Add(this.lbPrecio);
+            this.Controls.Add(this.txtPrecio);
+            this.Controls.Add(this.lbEditarPrecio);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.lbSeparador2);
@@ -490,8 +507,9 @@
         private System.Windows.Forms.Label lb_en_stock;
         private System.Windows.Forms.TextBox txt_en_stock;
         private System.Windows.Forms.Label lb_aumentar_stock_total;
-        private System.Windows.Forms.Label lbPrecio;
         private System.Windows.Forms.Label lbStockActual;
         private System.Windows.Forms.Label cantidadStockActual;
+        private System.Windows.Forms.Label lbEditarPrecio;
+        private System.Windows.Forms.TextBox txtPrecio;
     }
 }

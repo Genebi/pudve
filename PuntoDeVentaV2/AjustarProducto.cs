@@ -90,7 +90,8 @@ namespace PuntoDeVentaV2
 
             //Se carga la informacion por defecto del producto registrado
             lbProducto.Text = datos[1];
-            lbPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
+            //lbPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
+            txtPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
             producto = datos[1];
             precioProducto = float.Parse(datos[2]);
             stockProducto = Convert.ToInt32(datos[4]);
@@ -107,6 +108,7 @@ namespace PuntoDeVentaV2
             txtCantidadCompra.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtAumentar.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtDisminuir.KeyPress += new KeyPressEventHandler(SoloNumeros);
+            txtPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
         }
 
         private void rbProducto_CheckedChanged(object sender, EventArgs e)
@@ -149,6 +151,29 @@ namespace PuntoDeVentaV2
 
             var comentario = txtComentarios.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            // Se toma el precio que aparece visualmente al cargar el producto y se elimina el signo de $
+            // en caso de que el usuario haya editado el precio del producto y se actualiza en la tabla Productos
+            var precioTmp = txtPrecio.Text.Replace("$", "");
+            var precioAux = float.Parse(precioTmp);
+
+            if (precioAux != precioProducto)
+            {
+                var info = new string[] {
+                    FormPrincipal.userID.ToString(), "0", IDProducto.ToString(),
+                    precioProducto.ToString("N2"), precioAux.ToString("N2"),
+                    "AJUSTAR PRODUCTO", fechaOperacion
+                };
+
+                // Guardamos los datos en la tabla historial de precios
+                cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
+
+
+                // Actualizamos el precio de la tabla Productos
+                precioProducto = precioAux;
+
+                cn.EjecutarConsulta($"UPDATE Productos SET Precio = '{precioProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
+            }
 
             //Producto comprado
             if (rbProducto.Checked)
@@ -418,6 +443,47 @@ namespace PuntoDeVentaV2
 
                 resta = Convert.ToInt32(txt_en_stock.Text) - disminuir; 
                 lb_disminuir_stock_total.Text = resta.ToString();
+            }
+        }
+
+        private void lbEditarPrecio_Click(object sender, EventArgs e)
+        {
+            var precio = txtPrecio.Text.Replace("$", "");
+            txtPrecio.Text = precio;
+
+            txtPrecio.ReadOnly = false;
+            txtPrecio.Focus();
+            txtPrecio.Select(txtPrecio.Text.Length, 0);
+        }
+
+        private void txtPrecio_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                var precio = txtPrecio.Text.Trim();
+
+                if (!string.IsNullOrWhiteSpace(precio))
+                {
+                    var precioTmp = float.Parse(precio);
+                    txtPrecio.Text = "$" + precioTmp.ToString("N2");
+                    txtPrecio.ReadOnly = true;
+
+                    if (rbProducto.Checked)
+                    {
+                        txtCantidadCompra.Select(txtCantidadCompra.Text.Length, 0);
+                        txtCantidadCompra.Focus();
+                    }
+                    
+                    if (rbAjustar.Checked)
+                    {
+                        txtAumentar.Select(txtAumentar.Text.Length, 0);
+                        txtAumentar.Focus();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese el precio del producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

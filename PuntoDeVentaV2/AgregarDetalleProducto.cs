@@ -1768,7 +1768,7 @@ namespace PuntoDeVentaV2
                     }
                     else if (ChecarSiHayDatosDinamicos.Equals(0))
                     {
-
+                        MessageBox.Show("Test");
                     }
                 }
                 catch (Exception ex)
