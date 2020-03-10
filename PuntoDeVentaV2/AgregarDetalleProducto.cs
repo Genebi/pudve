@@ -195,8 +195,7 @@ namespace PuntoDeVentaV2
             {
                 if (KeyExist(strKey))
                 {
-                    MessageBox.Show("Nombre clave: <" + strKey + "> ya existe en la configuración.", 
-                                    "Setting Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Nombre clave: <" + strKey + "> ya existe en la configuración.", "Setting Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -238,8 +237,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Tipo de error: " + ex.Message.ToString(), 
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tipo de error: " + ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -249,8 +247,7 @@ namespace PuntoDeVentaV2
             // Verificamos si existe esa configuracion
             if (!KeyExist(strKey))
             {
-                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.",
-                                "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else // si es que si existe
             {
@@ -309,8 +306,7 @@ namespace PuntoDeVentaV2
             // Verificamos si existe esa configuracion
             if (!KeyExist(strKey))
             {
-                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.",
-                                "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else // si es que si existe
             {
@@ -405,8 +401,7 @@ namespace PuntoDeVentaV2
 
             if (!KeyExist(strKey))
             {
-                MessageBox.Show("Nombre clave < " + strKey + " > no existe en la configuración.Imposible Borrar.",
-                                    "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nombre clave < " + strKey + " > no existe en la configuración.Imposible Borrar.", "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -444,12 +439,10 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(),
-                                    "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(), "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 loadFormConfig();
-                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).",
-                                "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).", "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -1007,12 +1000,12 @@ namespace PuntoDeVentaV2
             RefreshAppSettings();
             loadFormConfig();
 
-            var servidor = Properties.Settings.Default.Hosting;
+            //var servidor = Properties.Settings.Default.Hosting;
 
-            if (string.IsNullOrWhiteSpace(servidor))
-            {
-                saveConfigIntoDB();
-            }
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    saveConfigIntoDB();
+            //}
         }
 
         private void cbDetalleGral_SelectIndexChanged(object sender, EventArgs e)
@@ -1058,9 +1051,7 @@ namespace PuntoDeVentaV2
                 {
                     XPos = this.Width / 2;
                     YPos = this.Height / 2;
-                    mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR MENSAJE AL PRODUCTO ACTUAL\nDE SUGERENCIA PARA QUE AL COMPRADOR\nSE LE LEA AL VENDERSELO",
-                                                                                        "Mensaje de Sugerencia del Producto",
-                                                                                        "", XPos, YPos);
+                    mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR MENSAJE AL PRODUCTO ACTUAL\nDE SUGERENCIA PARA QUE AL COMPRADOR\nSE LE LEA AL VENDERSELO", "Mensaje de Sugerencia del Producto", "", XPos, YPos);
                     if (mensajeDetalleProducto.Equals(""))
                     {
                         //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1078,9 +1069,7 @@ namespace PuntoDeVentaV2
                     {
                         XPos = this.Width / 2;
                         YPos = this.Height / 2;
-                        mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("ACTUALIZA EL MENSAJE DEL PRODUCTO\nPARA DAR SUGERENCIA AL COMPRADOR\n QUE SE LE VA VENDER",
-                                                                                            "Actualizar Sugerencia del Producto",
-                                                                                            $"{drProdMessg["ProductOfMessage"]}", XPos, YPos);
+                        mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("ACTUALIZA EL MENSAJE DEL PRODUCTO\nPARA DAR SUGERENCIA AL COMPRADOR\n QUE SE LE VA VENDER", "Actualizar Sugerencia del Producto", $"{drProdMessg["ProductOfMessage"]}", XPos, YPos);
                         if (mensajeDetalleProducto.Equals(""))
                         {
                             //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1487,12 +1476,12 @@ namespace PuntoDeVentaV2
             RefreshAppSettings();
             loadFormConfig();
 
-            var servidor = Properties.Settings.Default.Hosting;
+            //var servidor = Properties.Settings.Default.Hosting;
 
-            if (string.IsNullOrWhiteSpace(servidor))
-            {
-                saveConfigIntoDB();
-            }
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    saveConfigIntoDB();
+            //}
         }
 
         #region Guardar Configuracion Dentro de la Base de Datos
@@ -1524,8 +1513,7 @@ namespace PuntoDeVentaV2
 
                 if (appSettings.Count == 0)
                 {
-                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia",
-                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia", "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (appSettings.Count > 0)
                 {
@@ -1573,8 +1561,7 @@ namespace PuntoDeVentaV2
             }
             catch (ConfigurationException e)
             {
-                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
-                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion Guardar Configuracion Dentro de la Base de Datos
@@ -1798,8 +1785,7 @@ namespace PuntoDeVentaV2
                     RefreshAppSettings();
                     loadFormConfig();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", 
-                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!deleteDetalle.Equals(""))
                 {
@@ -1807,8 +1793,7 @@ namespace PuntoDeVentaV2
                     {
                         var mensaje = deleteDetalle;
 
-                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(),
-                                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         RefreshAppSettings();
                         loadFormConfig();
                         BuscarTextoListView(settingDatabases);
@@ -1828,8 +1813,7 @@ namespace PuntoDeVentaV2
                             RefreshAppSettings();
                             loadFormConfig();
                             BuscarTextoListView(settingDatabases);
-                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros",
-                                            "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
@@ -1839,8 +1823,7 @@ namespace PuntoDeVentaV2
                 RefreshAppSettings();
                 loadFormConfig();
                 BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", 
-                                "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1857,27 +1840,51 @@ namespace PuntoDeVentaV2
             nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
             try
             {
+                int found = -1;
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
                 {
                     RefreshAppSettings();
                     loadFormConfig();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", 
-                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!nvoDetalle.Equals(""))
                 {
-                    //AddKey(nvoDetalle, nvoValor);
-                    //RefreshAppSettings();
-                    //loadFormConfig();
-                    //BuscarTextoListView(settingDatabases);
+                    AddKey(nvoDetalle, nvoValor);
+                    RefreshAppSettings();
+                    loadFormConfig();
+                    BuscarTextoListView(settingDatabases);
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
                     using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
                     {
-
-                        saveConfigIntoDB();
+                        if (!dtItemDinamicos.Rows.Count.Equals(0))
+                        {
+                            found = 1;
+                        }
+                        else if (dtItemDinamicos.Rows.Count.Equals(0))
+                        {
+                            found = 0;
+                        }
+                    }
+                    if (found.Equals(1))
+                    {
+                        MessageBox.Show("El Registro que Intenra ya esta registrado\nfavor de verificar o intentar con otro Detalle", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (found.Equals(0))
+                    {
+                        int nvoValorNumerico = 0;
+                        int RegistroAgregado = -1;
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+                        if (RegistroAgregado.Equals(1))
+                        {
+                            //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (RegistroAgregado.Equals(0))
+                        {
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else if (nvoDetalle.Equals(""))
@@ -1885,8 +1892,7 @@ namespace PuntoDeVentaV2
                     RefreshAppSettings();
                     loadFormConfig();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", 
-                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -1894,8 +1900,7 @@ namespace PuntoDeVentaV2
                 RefreshAppSettings();
                 loadFormConfig();
                 BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), 
-                                "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

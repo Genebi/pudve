@@ -627,6 +627,14 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string InsertaDatoDinamico(string claveAgregar, int claveValor, int idUsuario)
+        {
+            var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";
+                consulta += $"VALUES ('{claveAgregar}', '{claveValor}', 'chk{claveAgregar}', '{claveValor}', '{idUsuario}')";
+
+            return consulta;
+        }
         #endregion
     }
 }
