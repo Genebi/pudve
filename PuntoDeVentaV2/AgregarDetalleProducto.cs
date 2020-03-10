@@ -1685,6 +1685,7 @@ namespace PuntoDeVentaV2
             finalIdProducto = getIdProducto;
 
             loadFormConfig();
+            loadFromConfigDB();
             BuscarTextoListView(settingDatabases);
 
             txtStockNecesario.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -1741,6 +1742,39 @@ namespace PuntoDeVentaV2
             {
                 txtStockNecesario.Text = "0";
                 txtStockMinimo.Text = "0";
+            }
+        }
+
+        private void loadFromConfigDB()
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (string.IsNullOrWhiteSpace(servidor))
+            {
+                chkDatabase.Items.Clear();
+                settingDatabases.Items.Clear();
+
+                lvi = new ListViewItem();
+
+                try
+                {
+                    chkDatabase.Clear();
+                    settingDatabases.Clear();
+
+                    var ChecarSiHayDatosDinamicos = cn.EjecutarConsulta(cs.VerificarContenidoDinamico(FormPrincipal.userID));
+                    if (ChecarSiHayDatosDinamicos.Equals(1))
+                    {
+
+                    }
+                    else if (ChecarSiHayDatosDinamicos.Equals(0))
+                    {
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error de lectura de los Datos Dinamicos: {0}" + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
