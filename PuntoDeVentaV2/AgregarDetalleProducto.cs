@@ -1757,6 +1757,39 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void loadFromConfigDB()
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (string.IsNullOrWhiteSpace(servidor))
+            {
+                chkDatabase.Items.Clear();
+                settingDatabases.Items.Clear();
+
+                lvi = new ListViewItem();
+
+                try
+                {
+                    chkDatabase.Clear();
+                    settingDatabases.Clear();
+
+                    var ChecarSiHayDatosDinamicos = cn.EjecutarConsulta(cs.VerificarContenidoDinamico(FormPrincipal.userID));
+                    if (ChecarSiHayDatosDinamicos.Equals(1))
+                    {
+                        MessageBox.Show("Test");
+                    }
+                    else if (ChecarSiHayDatosDinamicos.Equals(0))
+                    {
+                        MessageBox.Show("Test");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error de lectura de los Datos Dinamicos: {0}" + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void limpiarStockMinimoMaximo()
         {
             txtStockMinimo.Text = string.Empty;
