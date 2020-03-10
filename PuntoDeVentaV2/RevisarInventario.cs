@@ -494,6 +494,10 @@ namespace PuntoDeVentaV2
                         codigosExtra.ShowDialog();
                     }
                 }
+                else
+                {
+                    MessageBox.Show("No hay información extra disponible", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
     }

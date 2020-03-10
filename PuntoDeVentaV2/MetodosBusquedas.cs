@@ -570,13 +570,19 @@ namespace PuntoDeVentaV2
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
-            while (dr.Read())
+            if (dr.HasRows)
             {
-                //lista.Add(dr["IDCodBarrExt"].ToString());
-                lista.Add(dr["CodigoBarraExtra"].ToString());
-                //lista.Add(dr["IDProducto"].ToString());
-            }
+                while (dr.Read())
+                {
+                    var codigo = dr["CodigoBarraExtra"].ToString().Trim();
 
+                    if (!string.IsNullOrWhiteSpace(codigo))
+                    {
+                        lista.Add(codigo);
+                    }
+                }
+            }
+            
             dr.Close();
 
             return lista.ToArray();
