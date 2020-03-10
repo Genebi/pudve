@@ -197,6 +197,29 @@ namespace PuntoDeVentaV2
                 //float preCompra = (float)Convert.ToDouble(precioCompra);
                 //float preProduct = preCompra * (float)1.60;
 
+                // Se toma el precio que aparece visualmente al cargar el producto y se elimina el signo de $
+                // en caso de que el usuario haya editado el precio del producto y se actualiza en la tabla Productos
+                var precioTmp = txtPrecio.Text.Replace("$", "");
+                var precioAux = float.Parse(precioTmp);
+
+                if (precioAux != precioProducto)
+                {
+                    var info = new string[] {
+                        FormPrincipal.userID.ToString(), "0", IDProducto.ToString(),
+                        precioProducto.ToString("N2"), precioAux.ToString("N2"),
+                        "AJUSTAR PRODUCTO", fechaOperacion
+                    };
+
+                    // Guardamos los datos en la tabla historial de precios
+                    cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
+
+
+                    // Actualizamos el precio de la tabla Productos
+                    precioProducto = precioAux;
+
+                    cn.EjecutarConsulta($"UPDATE Productos SET Precio = '{precioProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");   
+                }
+
                 string[] datos = new string[] { producto, cantidadCompra, precioCompra, precioProducto.ToString(), fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
                 stockProducto += Convert.ToInt32(cantidadCompra);
