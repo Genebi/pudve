@@ -46,6 +46,7 @@ namespace PuntoDeVentaV2
         public static int HistorialPrecios;
         public static int appSettings;
         public static int Configuracion;
+        public static int TipoClientes;
     #endregion Variables Tablas
 
         public DBTables()
@@ -88,6 +89,7 @@ namespace PuntoDeVentaV2
             HistorialPrecios = 7;
             appSettings = 6;
             Configuracion = 4;
+            TipoClientes = 5;
         #endregion Inicializar Variables
         }
 
@@ -2316,5 +2318,52 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla Configuracion
+
+        // Tabla de TipoClientes 38
+        #region Tabla TipoClientes
+        public int GetTipoClientes()
+        {
+            return TipoClientes;
+        }
+
+        public string PragmaTablaTipoClientes(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameTipoClientes(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaTipoClientes(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario           INTEGER NOT NULL DEFAULT (0),
+                                              Nombre              TEXT    NOT NULL,
+                                              DescuentoPorcentaje REAL    DEFAULT (0),
+                                              Habilitar           INTEGER DEFAULT (1));";
+        }
+
+        public string QueryUpdateTablaTipoClientes(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             Nombre,
+                                             DescuentoPorcentaje,
+                                             Habilitar) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             Nombre,
+                                             DescuentoPorcentaje,
+                                             Habilitar 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaTipoClientes(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla TipoClientes
     }
 }

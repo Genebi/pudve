@@ -3255,7 +3255,7 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla appSettings
-            // 37 appSettings
+            // 37 Configuracion
             #region Tabl Configuracion
             tabla = "Configuracion";
             try
@@ -3332,6 +3332,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla Configuracion
+            // 38 TipoClientes
+            #region Tabl TipoClientes
+            tabla = "TipoClientes";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaTipoClientes(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaTipoClientes(tabla));
+                    if (dbTables.GetTipoClientes() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaTipoClientes(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetTipoClientes())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameTipoClientes(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaTipoClientes(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaTipoClientes(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaTipoClientes(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaTipoClientes(tabla));
+                    if (dbTables.GetTipoClientes() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaTipoClientes(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetTipoClientes())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameTipoClientes(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaTipoClientes(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaTipoClientes(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaTipoClientes(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla TipoClientes
         }
 
         private bool checkEmpty(object tabla)
