@@ -1806,6 +1806,15 @@ namespace PuntoDeVentaV2
                             RefreshAppSettings();
                             loadFormConfig();
                             BuscarTextoListView(settingDatabases);
+                            var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                            if (DeleteDatoDinamico.Equals(1))
+                            {
+                                MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else if (DeleteDatoDinamico.Equals(0))
+                            {
+                                MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                             deleteDetalle = string.Empty;
                         }
                         else

@@ -621,27 +621,34 @@ namespace PuntoDeVentaV2
         }
 
         #region Procesos de Datos Dinamicos
-        public string VerificarDatoDinamico(string claveAgregar, int idUsuario)
-        {
-            var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
+            public string VerificarDatoDinamico(string claveAgregar, int idUsuario)
+            {
+                var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string InsertaDatoDinamico(string claveAgregar, int claveValor, int idUsuario)
-        {
-            var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";
-                consulta += $"VALUES ('{claveAgregar}', '{claveValor}', 'chk{claveAgregar}', '{claveValor}', '{idUsuario}')";
+            public string InsertaDatoDinamico(string claveAgregar, int claveValor, int idUsuario)
+            {
+                var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";
+                    consulta += $"VALUES ('{claveAgregar}', '{claveValor}', 'chk{claveAgregar}', '{claveValor}', '{idUsuario}')";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string ActualizarDatoDinamico(string claveAntigua, string claveNueva, int idUsuario)
-        {
-            var consulta = $"UPDATE appSettings SET concepto = '{claveNueva}', textComboBoxConcepto = 'chk{claveNueva}' WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
+            public string ActualizarDatoDinamico(string claveAntigua, string claveNueva, int idUsuario)
+            {
+                var consulta = $"UPDATE appSettings SET concepto = '{claveNueva}', textComboBoxConcepto = 'chk{claveNueva}' WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
+
+            public string BorrarDatoDinamico(string claveBorrar, int idUsuario)
+            {
+                var consulta = $"DELETE FROM appSettings WHERE concepto = '{claveBorrar}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
         #endregion
     }
 }
