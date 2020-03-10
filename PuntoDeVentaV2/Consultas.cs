@@ -635,6 +635,13 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string ActualizarDatoDinamico(string claveAntigua, string claveNueva, int idUsuario)
+        {
+            var consulta = $"UPDATE appSettings SET concepto = '{claveNueva}', textComboBoxConcepto = 'chk{claveNueva}' WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
         #endregion
     }
 }

@@ -1930,6 +1930,15 @@ namespace PuntoDeVentaV2
                     RefreshAppSettings();
                     loadFormConfig();
                     BuscarTextoListView(settingDatabases);
+                    var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                    if (UpdateDatoDinamico.Equals(1))
+                    {
+                        //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else if (UpdateDatoDinamico.Equals(0))
+                    {
+                        MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
