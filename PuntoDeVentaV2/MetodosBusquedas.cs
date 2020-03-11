@@ -1529,7 +1529,7 @@ namespace PuntoDeVentaV2
             return cantidad;
         }
 
-        public Dictionary<int, string> ObtenerTipoClientes(int tipo = 1)
+        public Dictionary<int, string> ObtenerTipoClientes(int tipo = 1, bool extra = false)
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
@@ -1546,7 +1546,20 @@ namespace PuntoDeVentaV2
 
                 while (dr.Read())
                 {
-                    lista.Add(Convert.ToInt32(dr["ID"]), dr["Nombre"].ToString());
+                    var opcion = string.Empty;
+                    var nombre = dr["Nombre"].ToString();
+                    var porcentaje = dr["DescuentoPorcentaje"].ToString();
+
+                    if (extra)
+                    {
+                        opcion = $"{nombre} -- {porcentaje}%";
+                    }
+                    else
+                    {
+                        opcion = nombre;
+                    }
+
+                    lista.Add(Convert.ToInt32(dr["ID"]), opcion);
                 }
             }
 

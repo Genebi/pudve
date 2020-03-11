@@ -75,7 +75,7 @@ namespace PuntoDeVentaV2
             cbUsoCFDI.ValueMember = "Key";
 
             // Combobox tipo de cliente
-            var tipoClientes = mb.ObtenerTipoClientes();
+            var tipoClientes = mb.ObtenerTipoClientes(extra: true);
 
             cbTipoCliente.DataSource = tipoClientes.ToArray();
             cbTipoCliente.DisplayMember = "Value";
