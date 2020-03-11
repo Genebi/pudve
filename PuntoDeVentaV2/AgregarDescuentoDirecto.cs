@@ -113,8 +113,7 @@ namespace PuntoDeVentaV2
 
                 if (cantidad == 0)
                 {
-                    lbTotalDescuento.Text = "0.00";
-                    lbTotalFinal.Text = "0.00";
+                    btnEliminar.PerformClick();
                     return;
                 }
 
@@ -154,8 +153,7 @@ namespace PuntoDeVentaV2
 
                 if (porcentaje == 0)
                 {
-                    lbTotalDescuento.Text = "0.00";
-                    lbTotalFinal.Text = "0.00";
+                    btnEliminar.PerformClick();
                     return;
                 }
 
