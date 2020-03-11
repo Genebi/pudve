@@ -42,6 +42,7 @@
             this.lbTotalFinal = new System.Windows.Forms.Label();
             this.segundoSeparador = new System.Windows.Forms.Label();
             this.lbCantidadProducto = new System.Windows.Forms.Label();
+            this.btnEliminar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbProducto
@@ -202,11 +203,29 @@
             this.lbCantidadProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbCantidadProducto.Visible = false;
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEliminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.ForeColor = System.Drawing.Color.White;
+            this.btnEliminar.Location = new System.Drawing.Point(17, 251);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(144, 28);
+            this.btnEliminar.TabIndex = 36;
+            this.btnEliminar.Text = "Eliminar descuento";
+            this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // AgregarDescuentoDirecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 291);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.lbCantidadProducto);
             this.Controls.Add(this.segundoSeparador);
             this.Controls.Add(this.lbTotalFinal);
@@ -250,5 +269,6 @@
         private System.Windows.Forms.Label lbTotalFinal;
         private System.Windows.Forms.Label segundoSeparador;
         private System.Windows.Forms.Label lbCantidadProducto;
+        private System.Windows.Forms.Button btnEliminar;
     }
 }

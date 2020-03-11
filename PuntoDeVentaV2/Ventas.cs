@@ -677,11 +677,31 @@ namespace PuntoDeVentaV2
 
                     using (var formDescuento = new AgregarDescuentoDirecto(datos))
                     {
+                        // Aqui comprueba si el producto tiene un descuento directo
+                        var quitarDescuento = false;
+
+                        if (descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
+                        {
+                            quitarDescuento = true;
+                        }
+
                         var resultado = formDescuento.ShowDialog();
 
                         if (resultado == DialogResult.OK)
                         {
                             DGVentas.Rows[celda].Cells["Descuento"].Value = formDescuento.TotalDescuento;
+                        }
+                        else
+                        {
+                            // Si el producto tenia un descuento directo previamente y detecta al cerrar el form
+                            // que el descuento fue eliminado pone por defecto cero en la columna correspondiente
+                            if (quitarDescuento)
+                            {
+                                if (!descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
+                                {
+                                    DGVentas.Rows[celda].Cells["Descuento"].Value = "0.00";
+                                }
+                            }
                         }
                     }
                 }
@@ -752,7 +772,14 @@ namespace PuntoDeVentaV2
                 // Eliminar individual
                 if (e.ColumnIndex == 13)
                 {
+                    var idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+
                     DGVentas.Rows.RemoveAt(celda);
+
+                    if (descuentosDirectos.ContainsKey(idProducto))
+                    {
+                        descuentosDirectos.Remove(idProducto);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1035,6 +1062,7 @@ namespace PuntoDeVentaV2
         {
             DGVentas.Rows.Clear();
             CantidadesFinalesVenta();
+            descuentosDirectos.Clear();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)

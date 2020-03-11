@@ -66,46 +66,38 @@ namespace PuntoDeVentaV2
         {
             var descuento = Convert.ToDouble(lbTotalDescuento.Text);
 
-            if (descuento > 0)
+            // Esto es para guardar cual campo es el que aplico el descuento y la cantidad
+            // ya sea del porcentaje aplicado o un total en especifico
+            var tipo = 0;
+            var cantidad = txtCantidad.Text;
+            var porcentaje = txtPorcentaje.Text;
+            var cantidadElegida = 0f;
+
+            if (!string.IsNullOrWhiteSpace(cantidad))
             {
-                // Esto es para guardar cual campo es el que aplico el descuento y la cantidad
-                // ya sea del porcentaje aplicado o un total en especifico
-                var tipo = 0;
-                var cantidad = txtCantidad.Text;
-                var porcentaje = txtPorcentaje.Text;
-                var cantidadElegida = 0f;
+                tipo = 1;
+                cantidadElegida = float.Parse(cantidad);
+            }
 
-                if (!string.IsNullOrWhiteSpace(cantidad))
-                {
-                    tipo = 1;
-                    cantidadElegida = float.Parse(cantidad);
-                }
+            if (!string.IsNullOrWhiteSpace(porcentaje))
+            {
+                tipo = 2;
+                cantidadElegida = float.Parse(porcentaje);
+            }
 
-                if (!string.IsNullOrWhiteSpace(porcentaje))
-                {
-                    tipo = 2;
-                    cantidadElegida = float.Parse(porcentaje);
-                }
-
-                // Guardamos los datos en el diccionario de Ventas para el momento en que se quiera editar
-                // el descuento de uno de los productos de la lista
-                if (Ventas.descuentosDirectos.ContainsKey(idProducto))
-                {
-                    Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida);
-                }
-                else
-                {
-                    Ventas.descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipo, cantidadElegida));
-                }  
-
-                this.TotalDescuento = lbTotalDescuento.Text;
-                this.DialogResult = DialogResult.OK;
+            // Guardamos los datos en el diccionario de Ventas para el momento en que se quiera editar
+            // el descuento de uno de los productos de la lista
+            if (Ventas.descuentosDirectos.ContainsKey(idProducto))
+            {
+                Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida);
             }
             else
             {
-                this.DialogResult = DialogResult.Cancel;
-            }
+                Ventas.descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipo, cantidadElegida));
+            }  
 
+            this.TotalDescuento = lbTotalDescuento.Text;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
@@ -118,6 +110,13 @@ namespace PuntoDeVentaV2
                 txtPorcentaje.Text = string.Empty;
 
                 var cantidad = Convert.ToDouble(txtCantidad.Text);
+
+                if (cantidad == 0)
+                {
+                    lbTotalDescuento.Text = "0.00";
+                    lbTotalFinal.Text = "0.00";
+                    return;
+                }
 
                 if (cantidad < precioProducto)
                 {
@@ -152,6 +151,13 @@ namespace PuntoDeVentaV2
                 txtCantidad.Text = string.Empty;
 
                 var porcentaje = Convert.ToDouble(txtPorcentaje.Text);
+
+                if (porcentaje == 0)
+                {
+                    lbTotalDescuento.Text = "0.00";
+                    lbTotalFinal.Text = "0.00";
+                    return;
+                }
 
                 if (porcentaje < 100)
                 {
@@ -212,6 +218,22 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 btnAceptar.PerformClick();
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (Ventas.descuentosDirectos.ContainsKey(idProducto))
+            {
+                Ventas.descuentosDirectos.Remove(idProducto);
+
+                txtCantidad.Text = string.Empty;
+                txtCantidad.Enabled = true;
+                txtPorcentaje.Text = string.Empty;
+                txtPorcentaje.Enabled = true;
+                lbCantidadProducto.Visible = false;
+                lbTotalDescuento.Text = "0.00";
+                lbTotalFinal.Text = "0.00";
             }
         }
     }
