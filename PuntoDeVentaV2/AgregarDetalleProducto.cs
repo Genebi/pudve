@@ -706,172 +706,6 @@ namespace PuntoDeVentaV2
                     panelContenedor.Controls.Add(panelContenido);
                     fLPCentralDetalle.Controls.Add(panelContenedor);
                 }
-                else if (panelContenedor.Name == "panelContenedorCategoria")
-                {
-                    nombrePanelContenido = "panelContenido" + name;
-
-                    panelContenedor.Width = 196;
-                    panelContenedor.Height = 63;
-                    panelContenedor.BackColor = Color.LightGray;
-
-                    panelContenido.Name = nombrePanelContenido;
-                    panelContenido.Width = 190;
-                    panelContenido.Height = 55;
-
-                    int XcbProv = 0;
-                    XcbProv = panelContenido.Width / 2;
-
-                    Label lblNombreCategoria = new Label();
-                    lblNombreCategoria.Name = "lblNombre" + name;
-                    lblNombreCategoria.Width = 170;
-                    lblNombreCategoria.Height = 20;
-                    lblNombreCategoria.Location = new Point(XcbProv - (lblNombreCategoria.Width / 2), 32);
-                    lblNombreCategoria.TextAlign = ContentAlignment.MiddleCenter;
-                    lblNombreCategoria.BackColor = Color.White;
-
-                    CargarCategorias();
-
-                    ComboBox cbCategoria = new ComboBox();
-                    cbCategoria.Name = "cb" + name;
-                    cbCategoria.Width = 170;
-                    cbCategoria.Height = 30;
-                    cbCategoria.Location = new Point(XcbProv - (cbCategoria.Width / 2), 5);
-                    cbCategoria.SelectedIndexChanged += new System.EventHandler(cbCategoria_SelectIndexChanged);
-
-                    if (listaCategorias.Length > 0)
-                    {
-                        cbCategoria.DataSource = categorias.ToArray();
-                        cbCategoria.DisplayMember = "Value";
-                        cbCategoria.ValueMember = "Key";
-                        cbCategoria.SelectedValue = "0";
-
-                        // Cuando se da click en la opcion editar producto
-                        if (AgregarEditarProducto.DatosSourceFinal == 2)
-                        {
-                            var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
-                            var idCategoria = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                            int cantidad = idCategoria.Length;
-
-                            if (cantidad > 0)
-                            {
-                                if (!idCategoria[3].Equals(""))
-                                {
-                                    if (Convert.ToInt32(idCategoria[3].ToString()) > 0)
-                                    {
-                                        cargarDatosCategoria(Convert.ToInt32(idCategoria[3].ToString()));
-                                        if (!datosCategoria.Equals(null))
-                                        {
-                                            lblNombreCategoria.Text = datosCategoria[1].ToString();
-                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idCategoria[0].ToString(), nombrePanelContenido, idCategoria[5].ToString(), datosCategoria[1].ToString()));
-                                            contadorIndex++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (listaCategorias.Length < 0)
-                    {
-                        cbCategoria.Items.Add("Categoria...");
-                        cbCategoria.SelectedIndex = 0;
-                    }
-                    else if (cbCategoria.Items.Count == 0)
-                    {
-                        cbCategoria.Items.Add("Categoria...");
-                        cbCategoria.SelectedIndex = 0;
-                    }
-                    cbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
-
-                    panelContenido.Controls.Add(cbCategoria);
-                    panelContenido.Controls.Add(lblNombreCategoria);
-
-                    panelContenedor.Controls.Add(panelContenido);
-                    fLPCentralDetalle.Controls.Add(panelContenedor);
-                }
-                else if (panelContenedor.Name == "panelContenedorUbicacion")
-                {
-                    nombrePanelContenido = "panelContenido" + name;
-
-                    panelContenedor.Width = 196;
-                    panelContenedor.Height = 63;
-                    panelContenedor.BackColor = Color.LightGray;
-
-                    panelContenido.Name = nombrePanelContenido;
-                    panelContenido.Width = 190;
-                    panelContenido.Height = 55;
-
-                    int XcbProv = 0;
-                    XcbProv = panelContenido.Width / 2;
-
-                    Label lblNombreUbicacion = new Label();
-                    lblNombreUbicacion.Name = "lblNombre" + name;
-                    lblNombreUbicacion.Width = 170;
-                    lblNombreUbicacion.Height = 20;
-                    lblNombreUbicacion.Location = new Point(XcbProv - (lblNombreUbicacion.Width / 2), 32);
-                    lblNombreUbicacion.TextAlign = ContentAlignment.MiddleCenter;
-                    lblNombreUbicacion.BackColor = Color.White;
-
-                    CargarUbicaciones();
-
-                    ComboBox cbUbicacion = new ComboBox();
-                    cbUbicacion.Name = "cb" + name;
-                    cbUbicacion.Width = 170;
-                    cbUbicacion.Height = 30;
-                    cbUbicacion.Location = new Point(XcbProv - (cbUbicacion.Width / 2), 5);
-                    cbUbicacion.SelectedIndexChanged += new System.EventHandler(cbUbicacion_SelectIndexChanged);
-
-                    if (listaUbicaciones.Length > 0)
-                    {
-                        cbUbicacion.DataSource = ubicaciones.ToArray();
-                        cbUbicacion.DisplayMember = "Value";
-                        cbUbicacion.ValueMember = "Key";
-                        cbUbicacion.SelectedValue = "0";
-
-                        // Cuando se da click en la opcion editar producto
-                        if (AgregarEditarProducto.DatosSourceFinal == 2)
-                        {
-                            var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
-                            var idUbicacion = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                            int cantidad = idUbicacion.Length;
-
-                            if (cantidad > 0)
-                            {
-                                if (!idUbicacion[5].Equals(""))
-                                {
-                                    if (Convert.ToInt32(idUbicacion[5].ToString()) > 0)
-                                    {
-                                        cargarDatosUbicacion(Convert.ToInt32(idUbicacion[5].ToString()));
-                                        if (!datosUbicacion.Equals(null))
-                                        {
-                                            lblNombreUbicacion.Text = datosUbicacion[1].ToString();
-                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idUbicacion[0].ToString(), nombrePanelContenido, idUbicacion[3].ToString(), datosUbicacion[1].ToString()));
-                                            contadorIndex++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (listaUbicaciones.Length < 0)
-                    {
-                        cbUbicacion.Items.Add("Ubicaciones...");
-                        cbUbicacion.SelectedIndex = 0;
-                    }
-                    else if (cbUbicacion.Items.Count == 0)
-                    {
-                        cbUbicacion.Items.Add("Ubicaciones...");
-                        cbUbicacion.SelectedIndex = 0;
-                    }
-                    cbUbicacion.DropDownStyle = ComboBoxStyle.DropDownList;
-
-                    panelContenido.Controls.Add(cbUbicacion);
-                    panelContenido.Controls.Add(lblNombreUbicacion);
-
-                    panelContenedor.Controls.Add(panelContenido);
-                    fLPCentralDetalle.Controls.Add(panelContenedor);
-                }
                 else
                 {
                     nombrePanelContenido = "panelContenido" + name;
@@ -1002,6 +836,22 @@ namespace PuntoDeVentaV2
 
                 encontrarPanel("panelContenedor" + name);
             }
+
+            int valorDatoDinamico = -1;
+
+            if (value.Equals("True"))
+            {
+                valorDatoDinamico = 1;
+            }
+            else if (value.Equals("False"))
+            {
+                valorDatoDinamico = 0;
+            }
+
+            var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+
+            loadFromConfigDB();
+
             //UpdateKey(name, value);
             //RefreshAppSettings();
             //loadFormConfig();
@@ -1478,6 +1328,22 @@ namespace PuntoDeVentaV2
                 name = checkBoxClickSetting.Name.ToString();
                 value = checkBoxClickSetting.Checked.ToString();
             }
+
+            int valorDatoDinamico = -1;
+
+            if (value.Equals("True"))
+            {
+                valorDatoDinamico = 1;
+            }
+            else if (value.Equals("False"))
+            {
+                valorDatoDinamico = 0;
+            }
+
+            var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamicoShow(name, valorDatoDinamico, FormPrincipal.userID));
+
+            loadFromConfigDB();
+
             //UpdateKey(name, value);
             //RefreshAppSettings();
             //loadFormConfig();

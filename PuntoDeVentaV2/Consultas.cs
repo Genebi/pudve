@@ -656,6 +656,20 @@ namespace PuntoDeVentaV2
 
                 return consulta;
             }
+
+            public string ActualizarDatoValueDinamico(string claveBuscar, int valueDato, int idUsuario)
+            {
+                var consulta = $"UPDATE appSettings SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
+
+            public string ActualizarDatoValueDinamicoShow(string claveBuscar, int valueDato, int idUsuario)
+            {
+                var consulta = $"UPDATE appSettings SET checkBoxComboBoxConcepto = '{valueDato}' WHERE textComboBoxConcepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
         #endregion
     }
 }
