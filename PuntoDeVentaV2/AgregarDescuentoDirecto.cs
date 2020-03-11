@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     {
         public string TotalDescuento { get; set; }
 
+        private int idProducto;
         private string nombreProducto;
         private double precioProducto;
         private double cantidadProducto;
@@ -22,9 +23,10 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
 
-            this.nombreProducto = datos[0];
-            this.precioProducto = Convert.ToDouble(datos[1]);
-            this.cantidadProducto = Convert.ToDouble(datos[2]);
+            this.idProducto = Convert.ToInt32(datos[0]);
+            this.nombreProducto = datos[1];
+            this.precioProducto = Convert.ToDouble(datos[2]);
+            this.cantidadProducto = Convert.ToDouble(datos[3]);
         }
 
         private void AgregarDescuentoDirecto_Load(object sender, EventArgs e)
@@ -37,6 +39,27 @@ namespace PuntoDeVentaV2
             txtPorcentaje.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
             txtCantidad.Focus();
+
+            //==============================================================
+            if (Ventas.descuentosDirectos.ContainsKey(idProducto))
+            {
+                var tipo = Ventas.descuentosDirectos[idProducto].Item1;
+                var cantidad = Ventas.descuentosDirectos[idProducto].Item2;
+
+                if (tipo == 1)
+                {
+                    txtCantidad.Text = cantidad.ToString("N2");
+                    txtCantidad.Select(txtCantidad.Text.Length, 0);
+                    txtCantidad_KeyUp(sender, new KeyEventArgs(Keys.Up));
+                }
+
+                if (tipo == 2)
+                {
+                    txtPorcentaje.Text = cantidad.ToString("N2");
+                    txtPorcentaje.Select(txtPorcentaje.Text.Length, 0);
+                    txtPorcentaje_KeyUp(sender, new KeyEventArgs(Keys.Up));
+                }
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -45,6 +68,36 @@ namespace PuntoDeVentaV2
 
             if (descuento > 0)
             {
+                // Esto es para guardar cual campo es el que aplico el descuento y la cantidad
+                // ya sea del porcentaje aplicado o un total en especifico
+                var tipo = 0;
+                var cantidad = txtCantidad.Text;
+                var porcentaje = txtPorcentaje.Text;
+                var cantidadElegida = 0f;
+
+                if (!string.IsNullOrWhiteSpace(cantidad))
+                {
+                    tipo = 1;
+                    cantidadElegida = float.Parse(cantidad);
+                }
+
+                if (!string.IsNullOrWhiteSpace(porcentaje))
+                {
+                    tipo = 2;
+                    cantidadElegida = float.Parse(porcentaje);
+                }
+
+                // Guardamos los datos en el diccionario de Ventas para el momento en que se quiera editar
+                // el descuento de uno de los productos de la lista
+                if (Ventas.descuentosDirectos.ContainsKey(idProducto))
+                {
+                    Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida);
+                }
+                else
+                {
+                    Ventas.descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipo, cantidadElegida));
+                }  
+
                 this.TotalDescuento = lbTotalDescuento.Text;
                 this.DialogResult = DialogResult.OK;
             }

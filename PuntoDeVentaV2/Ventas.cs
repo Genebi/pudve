@@ -58,6 +58,9 @@ namespace PuntoDeVentaV2
         // Lista para almacenar los IDs de las ventas guardadas que se han cargado
         public static List<int> ventasGuardadas = new List<int>();
 
+        // Diccionario para guardar los descuentos directos que se asigne a un producto, servicio, combo
+        public static Dictionary<int, Tuple<int, float>> descuentosDirectos = new Dictionary<int, Tuple<int, float>>();
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -665,11 +668,12 @@ namespace PuntoDeVentaV2
                 // Descuento
                 if (e.ColumnIndex == 8)
                 {
+                    var idProducto = DGVentas.Rows[celda].Cells["IDProducto"].Value.ToString();
                     var nombreProducto = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
                     var precioProducto = DGVentas.Rows[celda].Cells["Precio"].Value.ToString();
                     var cantidadProducto = DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString();
 
-                    var datos = new string[] { nombreProducto, precioProducto, cantidadProducto };
+                    var datos = new string[] { idProducto, nombreProducto, precioProducto, cantidadProducto };
 
                     using (var formDescuento = new AgregarDescuentoDirecto(datos))
                     {
