@@ -458,9 +458,12 @@ namespace PuntoDeVentaV2
 
             fLPLateralConcepto.Controls.Clear();
 
-            for (int i = 0; i < settingDatabases.Items.Count; i++)
+            for (int i = 0; i < lstListView.Items.Count; i++)
             {
-                chkDetalleProductoTxt = settingDatabases.Items[i].Text.ToString();
+                //chkDetalleProductoTxt = lstListView.Items[i].Text.ToString();
+                //chkDetalleProductoVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                chkDetalleProductoVal = lstListView.Items[i].Text.ToString();
+                chkDetalleProductoTxt = lstListView.Items[i].SubItems[1].Text.ToString();
 
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
@@ -481,7 +484,6 @@ namespace PuntoDeVentaV2
                 check.Location = new Point(0, 0);
                 check.CheckedChanged += checkBox_CheckedChanged;
 
-                chkDetalleProductoVal = settingDatabases.Items[i].SubItems[1].Text.ToString();
                 if (chkDetalleProductoVal.Equals("true") || chkDetalleProductoVal.Equals("false"))
                 {
                     check.Checked = Convert.ToBoolean(chkDetalleProductoVal);
@@ -506,7 +508,11 @@ namespace PuntoDeVentaV2
 
                     if (row < chkDatabase.Items.Count)
                     {
-                        chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
+                        //chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
+                        //chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        chkSettingVariableVal = chkDatabase.Items[row].Text.ToString();
+                        chkSettingVariableTxt = chkDatabase.Items[row].SubItems[1].Text.ToString();
+
                         CheckBox checkSetting = new CheckBox();
                         checkSetting.Name = chkSettingVariableTxt;
                         checkSetting.Width = 20;
@@ -514,7 +520,7 @@ namespace PuntoDeVentaV2
                         checkSetting.Location = new Point(155, 0);
                         checkSetting.CheckedChanged += checkBoxSetting_CheckedChanged;
 
-                        chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
                         {
                             checkSetting.Checked = Convert.ToBoolean(chkSettingVariableVal);
@@ -996,9 +1002,9 @@ namespace PuntoDeVentaV2
 
                 encontrarPanel("panelContenedor" + name);
             }
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
 
             //var servidor = Properties.Settings.Default.Hosting;
 
@@ -1472,9 +1478,9 @@ namespace PuntoDeVentaV2
                 name = checkBoxClickSetting.Name.ToString();
                 value = checkBoxClickSetting.Checked.ToString();
             }
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
 
             //var servidor = Properties.Settings.Default.Hosting;
 
@@ -1684,7 +1690,7 @@ namespace PuntoDeVentaV2
 
             finalIdProducto = getIdProducto;
 
-            loadFormConfig();
+            //loadFormConfig();
             loadFromConfigDB();
             BuscarTextoListView(settingDatabases);
 
@@ -1760,15 +1766,46 @@ namespace PuntoDeVentaV2
                 {
                     chkDatabase.Clear();
                     settingDatabases.Clear();
-
-                    var ChecarSiHayDatosDinamicos = cn.EjecutarConsulta(cs.VerificarContenidoDinamico(FormPrincipal.userID));
-                    if (ChecarSiHayDatosDinamicos.Equals(1))
+                    
+                    using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                     {
-
-                    }
-                    else if (ChecarSiHayDatosDinamicos.Equals(0))
-                    {
-                        MessageBox.Show("Test");
+                        if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
+                        {
+                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            {
+                                connStr = row["textComboBoxConcepto"].ToString();
+                                if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
+                                {
+                                    keyName = "true";
+                                }
+                                else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
+                                {
+                                    keyName = "false";
+                                }
+                                lvi = new ListViewItem(keyName);
+                                lvi.SubItems.Add(connStr);
+                                chkDatabase.Items.Add(lvi);
+                            }
+                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            {
+                                connStr = row["concepto"].ToString();
+                                if (row["checkBoxConcepto"].ToString().Equals("1"))
+                                {
+                                    keyName = "true";
+                                }
+                                else if (row["checkBoxConcepto"].ToString().Equals("0"))
+                                {
+                                    keyName = "false";
+                                }
+                                lvi = new ListViewItem(keyName);
+                                lvi.SubItems.Add(connStr);
+                                settingDatabases.Items.Add(lvi);
+                            }
+                        }
+                        else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                        {
+                            MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                 }
                 catch (Exception ex)
