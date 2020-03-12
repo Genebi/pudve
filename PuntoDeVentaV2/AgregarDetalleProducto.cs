@@ -546,32 +546,11 @@ namespace PuntoDeVentaV2
                 ap.FormClosed += delegate
                 {
                     fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                 };
                 ap.ShowDialog();
-            }
-            else if (textoBuscado.Equals("Categoria"))
-            {
-                AgregarCategoria nuevaCategoria = new AgregarCategoria();
-                nuevaCategoria.FormClosed += delegate
-                {
-                    fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
-                    BuscarTextoListView(settingDatabases);
-                };
-                nuevaCategoria.ShowDialog();
-            }
-            else if (textoBuscado.Equals("Ubicacion"))
-            {
-                AgregarUbicacion nuevaUbicacion = new AgregarUbicacion();
-                nuevaUbicacion.FormClosed += delegate
-                {
-                    fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
-                    BuscarTextoListView(settingDatabases);
-                };
-                nuevaUbicacion.ShowDialog();
             }
             else
             {
@@ -579,7 +558,8 @@ namespace PuntoDeVentaV2
                 addDetailGral.FormClosed += delegate
                 {
                     fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                 };
                 addDetailGral.getChkName = textoBuscado;
@@ -1897,8 +1877,7 @@ namespace PuntoDeVentaV2
                     {
                         var mensaje = editDetelle;
 
-                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
-                                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         fLPCentralDetalle.Controls.Clear();
                         //RefreshAppSettings();
                         //loadFormConfig();
@@ -2075,6 +2054,7 @@ namespace PuntoDeVentaV2
                         // sí es True
                         if (alreadyStoredPanelConteido)
                         {
+                            infoDetailProdGral.Clear();
                             // Recorremos los controles en el PanelContenido
                             foreach (Control contSubItemHijo in contSubHijo.Controls)
                             {
@@ -2134,6 +2114,7 @@ namespace PuntoDeVentaV2
                         // sí es False
                         else if (!alreadyStoredPanelConteido)
                         {
+                            infoDetailProdGral.Clear();
                             // Se ha detectado un nuevo Registro
                             // Recorremos los controles en el PanelContenido
                             foreach (Control contSubItemHijo in contSubHijo.Controls)
@@ -2153,7 +2134,7 @@ namespace PuntoDeVentaV2
                                         {
                                             infoDetailProdGral.Add(idFound[0].ToString());
                                             infoDetailProdGral.Add("1");
-                                            infoDetailProdGral.Add(contSubHijo.Name);
+                                            infoDetailProdGral.Add(panel);
                                             // Ejecutamos el proceso de guardado
                                             try
                                             {

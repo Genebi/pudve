@@ -159,32 +159,32 @@ namespace PuntoDeVentaV2
                             datosAppSetting += connStr + "|" + keyName + "|";
                         }
                     }
-                    int borrar = 0;
-                    string deleteData = string.Empty;
-                    deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
-                    borrar = cn.EjecutarConsulta(deleteData);
-                    string auxAppSetting = string.Empty;
-                    string[] str;
-                    int insertar = 0;
-                    auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
-                    str = auxAppSetting.Split('¬');
-                    datosAppSettings.AddRange(str);
-                    foreach (var item in datosAppSettings)
-                    {
-                        datosAppSettingToDB = item.Split('|');
-                        for (int i = 0; i < datosAppSettingToDB.Length; i++)
-                        {
-                            if (datosAppSettingToDB[i].Equals("true"))
-                            {
-                                datosAppSettingToDB[i] = "1";
-                            }
-                            else if (datosAppSettingToDB[i].Equals("false"))
-                            {
-                                datosAppSettingToDB[i] = "0";
-                            }
-                        }
-                        insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
-                    }
+                    //int borrar = 0;
+                    //string deleteData = string.Empty;
+                    //deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
+                    //borrar = cn.EjecutarConsulta(deleteData);
+                    //string auxAppSetting = string.Empty;
+                    //string[] str;
+                    //int insertar = 0;
+                    //auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
+                    //str = auxAppSetting.Split('¬');
+                    //datosAppSettings.AddRange(str);
+                    //foreach (var item in datosAppSettings)
+                    //{
+                    //    datosAppSettingToDB = item.Split('|');
+                    //    for (int i = 0; i < datosAppSettingToDB.Length; i++)
+                    //    {
+                    //        if (datosAppSettingToDB[i].Equals("true"))
+                    //        {
+                    //            datosAppSettingToDB[i] = "1";
+                    //        }
+                    //        else if (datosAppSettingToDB[i].Equals("false"))
+                    //        {
+                    //            datosAppSettingToDB[i] = "0";
+                    //        }
+                    //    }
+                    //    insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
+                    //}
                 }
             }
             catch (ConfigurationException e)
@@ -237,12 +237,12 @@ namespace PuntoDeVentaV2
 
             ObtenerDatosUsuario(userID);
 
-            var servidor = Properties.Settings.Default.Hosting;
+            //var servidor = Properties.Settings.Default.Hosting;
 
-            if (string.IsNullOrWhiteSpace(servidor))
-            {
-                loadFormConfig();
-            }
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    loadFormConfig();
+            //}
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
 
