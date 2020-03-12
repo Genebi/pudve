@@ -13,6 +13,7 @@ namespace PuntoDeVentaV2
 {
     public partial class ListadoTipoClientes : Form
     {
+        Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         public ListadoTipoClientes()
@@ -93,7 +94,17 @@ namespace PuntoDeVentaV2
                 // Eliminar
                 if (e.ColumnIndex == 5)
                 {
-                    MessageBox.Show(id.ToString());
+                    var respuesta = MessageBox.Show("¿Estás seguro de eliminar este tipo de cliente?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        var resultado = cn.EjecutarConsulta($"UPDATE TipoClientes SET Habilitar = 2 WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}");
+
+                        if (resultado > 0)
+                        {
+                            CargarDatos();
+                        }
+                    }
                 }
 
                 DGVClientes.ClearSelection();
