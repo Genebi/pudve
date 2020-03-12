@@ -13,14 +13,37 @@ namespace PuntoDeVentaV2
     public partial class AgregarTipoCliente : Form
     {
         Conexion cn = new Conexion();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
-        public AgregarTipoCliente()
+        private int id = 0;
+        private int tipo = 0;
+
+        // Tipo 1 = Agregar
+        // Tipo 2 = Editar
+
+        public AgregarTipoCliente(int id = 0, int tipo = 1)
         {
             InitializeComponent();
+
+            this.id = id;
+            this.tipo = tipo;
         }
 
         private void AgregarTipoCliente_Load(object sender, EventArgs e)
         {
+            if (tipo == 2)
+            {
+                this.Text = "PUDVE - Editar tipo Cliente";
+
+                var datos = mb.ObtenerTipoCliente(id);
+
+                if (datos.Length > 0)
+                {
+                    txtNombre.Text = datos[0];
+                    txtDescuento.Text = datos[1];
+                }
+            }
+
             txtDescuento.KeyPress += new KeyPressEventHandler(SoloDecimales);
         }
 
@@ -33,6 +56,7 @@ namespace PuntoDeVentaV2
         {
             var nombre = txtNombre.Text.Trim();
             var descuento = txtDescuento.Text.Trim();
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             if (string.IsNullOrWhiteSpace(nombre))
             {
@@ -48,7 +72,18 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            var consulta = $"INSERT INTO TipoClientes (IDUsuario, Nombre, DescuentoPorcentaje) VALUES ('{FormPrincipal.userID}', '{nombre}', '{descuento}')";
+            var consulta = string.Empty;
+
+            if (tipo == 1)
+            {
+                consulta = $"INSERT INTO TipoClientes (IDUsuario, Nombre, DescuentoPorcentaje, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{nombre}', '{descuento}', '{fechaOperacion}')";
+            }
+
+            if (tipo == 2)
+            {
+                consulta = $"UPDATE TipoClientes SET Nombre = '{nombre}', DescuentoPorcentaje = '{descuento}', FechaOperacion = '{fechaOperacion}' WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}";
+            }
+
 
             var resultado = cn.EjecutarConsulta(consulta);
 
@@ -58,7 +93,14 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Ha ocurrido un error al registrar el tipo de cliente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var operacion = "registrar";
+
+                if (tipo == 2)
+                {
+                    operacion = "actualizar";
+                }
+
+                MessageBox.Show($"Ha ocurrido un error al {operacion} el tipo de cliente", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -78,6 +120,16 @@ namespace PuntoDeVentaV2
                 {
                     e.Handled = true;
                 }
+            }
+        }
+
+        private void AgregarTipoCliente_Shown(object sender, EventArgs e)
+        {
+            // Editar
+            if (tipo == 2)
+            {
+                txtNombre.Select(txtNombre.Text.Length, 0);
+                txtNombre.Focus();
             }
         }
     }

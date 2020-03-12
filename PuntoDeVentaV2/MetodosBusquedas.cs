@@ -1568,6 +1568,27 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
+        public string[] ObtenerTipoCliente(int idTipoCliente)
+        {
+            var datos = new string[] { };
+
+            DatosConexion($"SELECT * FROM TipoClientes WHERE ID = {idTipoCliente} AND IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var nombre = dr.GetValue(dr.GetOrdinal("Nombre")).ToString();
+                var descuento = dr.GetValue(dr.GetOrdinal("DescuentoPorcentaje")).ToString();
+
+                datos = new string[] { nombre, descuento };
+            }
+
+            dr.Close();
+
+            return datos;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
