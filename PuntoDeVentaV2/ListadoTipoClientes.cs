@@ -94,13 +94,18 @@ namespace PuntoDeVentaV2
                 // Eliminar
                 if (e.ColumnIndex == 5)
                 {
-                    var respuesta = MessageBox.Show("¿Estás seguro de eliminar este tipo de cliente?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    var mensaje = "¿Estás seguro de eliminar este tipo de cliente?\n\n" +
+                                  "NOTA: Este descuento se removerá de los clientes\n" +
+                                  "a los que se le haya aplicado";
+
+                    var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (respuesta == DialogResult.Yes)
                     {
-                        var resultado = cn.EjecutarConsulta($"UPDATE TipoClientes SET Habilitar = 2 WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}");
+                        var primerResultado = cn.EjecutarConsulta($"UPDATE TipoClientes SET Habilitar = 2 WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}");
+                        var segundoResultado = cn.EjecutarConsulta($"UPDATE Clientes SET TipoCliente = 0 WHERE IDUsuario = {FormPrincipal.userID} AND TipoCliente = {id}");
 
-                        if (resultado > 0)
+                        if (primerResultado > 0 && segundoResultado > 0)
                         {
                             CargarDatos();
                         }
