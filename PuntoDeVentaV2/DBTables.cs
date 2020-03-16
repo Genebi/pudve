@@ -47,6 +47,7 @@ namespace PuntoDeVentaV2
         public static int appSettings;
         public static int Configuracion;
         public static int TipoClientes;
+        public static int FiltroProducto;
     #endregion Variables Tablas
 
         public DBTables()
@@ -90,6 +91,7 @@ namespace PuntoDeVentaV2
             appSettings = 6;
             Configuracion = 4;
             TipoClientes = 5;
+            FiltroProducto = 6;
         #endregion Inicializar Variables
         }
 
@@ -2365,5 +2367,57 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla TipoClientes
+
+        // Tabla de FiltroProducto 39
+        #region Tabla FiltroProducto
+        public int GetFiltroProducto()
+        {
+            return FiltroProducto;
+        }
+
+        public string PragmaTablaFiltroProducto(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroProducto(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroProducto(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID                       INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              concepto                 TEXT,
+                                              checkBoxConcepto         INTEGER NOT NULL DEFAULT (0),
+                                              textComboBoxConcepto     TEXT,
+                                              checkBoxComboBoxConcepto INTEGER NOT NULL DEFAULT (0),
+                                              IDUsuario                INTEGER NOT NULL,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE);";
+        }
+
+        public string QueryUpdateTablaFiltroProducto(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             concepto,
+                                             checkBoxConcepto,
+                                             textComboBoxConcepto,
+                                             checkBoxComboBoxConcepto,
+                                             IDUsuario) 
+                                      SELECT ID,
+                                             concepto,
+                                             checkBoxConcepto,
+                                             textComboBoxConcepto,
+                                             checkBoxComboBoxConcepto,
+                                             IDUsuario 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroProducto(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla FiltroProducto
     }
 }

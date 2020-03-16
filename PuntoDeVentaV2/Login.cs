@@ -3179,7 +3179,7 @@ namespace PuntoDeVentaV2
             }
             #endregion Tabla HistorialPrecios
             // 36 appSettings
-            #region Tabl aappSettings
+            #region Tabla aappSettings
             tabla = "appSettings";
             try
             {
@@ -3256,7 +3256,7 @@ namespace PuntoDeVentaV2
             }
             #endregion Tabla appSettings
             // 37 Configuracion
-            #region Tabl Configuracion
+            #region Tabla Configuracion
             tabla = "Configuracion";
             try
             {
@@ -3333,7 +3333,7 @@ namespace PuntoDeVentaV2
             }
             #endregion Tabla Configuracion
             // 38 TipoClientes
-            #region Tabl TipoClientes
+            #region Tabla TipoClientes
             tabla = "TipoClientes";
             try
             {
@@ -3409,6 +3409,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla TipoClientes
+            // 39 FiltroProducto
+            #region Tabla FiltroProducto
+            tabla = "FiltroProducto";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaFiltroProducto(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroProducto(tabla));
+                    if (dbTables.GetFiltroProducto() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroProducto(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroProducto())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroProducto(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroProducto(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroProducto(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroProducto(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroProducto(tabla));
+                    if (dbTables.GetFiltroProducto() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroProducto(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroProducto())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroProducto(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroProducto(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroProducto(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroProducto(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla appSettings
         }
 
         private bool checkEmpty(object tabla)
