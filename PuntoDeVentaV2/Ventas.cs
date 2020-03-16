@@ -1344,22 +1344,6 @@ namespace PuntoDeVentaV2
             cliente.ShowDialog();
         }
 
-        private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)
-        {
-            string valor = (sender as TextBox).Text;
-
-            if (valor != "")
-            {
-                porcentajeGeneral = cn.CalcularPorcentaje(valor);
-            }
-            else
-            {
-                porcentajeGeneral = 0;
-            }
-
-            CantidadesFinalesVenta();
-        }
-
         private bool VerificarStockProducto()
         {
             bool respuesta = true;
@@ -2545,11 +2529,48 @@ namespace PuntoDeVentaV2
                     var datos = clientes.datosCliente;
                     var cliente = string.Empty;
 
-                    if (!string.IsNullOrWhiteSpace(datos[0])) { cliente += "Cliente: " + datos[0]; }
-                    if (!string.IsNullOrWhiteSpace(datos[1])) { cliente += " --- RFC: " + datos[1]; }
-                    if (!string.IsNullOrWhiteSpace(datos[17])) { cliente += " --- No. " + datos[17]; }
+                    var auxPrimero = string.IsNullOrWhiteSpace(datos[0]);
+                    var auxSegundo = string.IsNullOrWhiteSpace(datos[1]);
+                    var auxTercero = string.IsNullOrWhiteSpace(datos[17]);
+
+                    if (!auxPrimero) { cliente += $"Cliente: {datos[0]}"; }
+                    if (!auxSegundo) { cliente += $" --- RFC: {datos[1]}"; }
+                    if (!auxTercero) { cliente += $" --- No. {datos[17]}"; }
 
                     lbDatosCliente.Text = cliente;
+                }
+            }
+        }
+
+        private void btnAplicarDescuento_Click(object sender, EventArgs e)
+        {
+            var mensaje = "¿Desea aplicar este descuento a los siguientes\nproductos que se agreguen a esta venta?";
+
+            var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                MessageBox.Show("Aceptar");
+            }
+            else
+            {
+                MessageBox.Show("Cancelar");
+            }
+
+            // Antigua funcionalidad del evento keyup del textBox descuentoGeneral
+            if (!txtDescuentoGeneral.Text.Equals("% descuento"))
+            {
+                if (string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
+                {
+                    return;
+                }
+
+                var descuentoG = float.Parse(txtDescuentoGeneral.Text);
+
+                if (descuentoG > 0)
+                {
+                    porcentajeGeneral = descuentoG / 100;
+                    CantidadesFinalesVenta();
                 }
             }
         }
@@ -2569,12 +2590,10 @@ namespace PuntoDeVentaV2
                 if (dtProdMessg.Rows.Count > 0)
                 {
                     drProdMessg = dtProdMessg.Rows[0];
-                    MessageBox.Show("" + drProdMessg["ProductOfMessage"].ToString().ToUpper(),
-                                    "Mensaje para el cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (dtProdMessg.Rows.Count <= 0)
-                {
-                    //MessageBox.Show("Producto sin mensaje", "Mensaje para el Cliente", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    var mensaje = drProdMessg["ProductOfMessage"].ToString().ToUpper();
+
+                    MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
 

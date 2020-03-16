@@ -380,49 +380,6 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public float CalcularPorcentaje(string sCantidad)
-        {
-            int longitud = sCantidad.Length;
-
-            float resultado = 0;
-
-            //Si la cantidad por defecto es una cifra de dos digitos o mas
-            if (longitud > 1)
-            {
-                //Si contiene punto la convertimos en array
-                if (sCantidad.Contains('.'))
-                {
-                    string[] valorTmp = sCantidad.Split('.');
-
-                    //Si es la cantidad de 1.600000 entrara aqui
-                    if (valorTmp[0] == "1")
-                    {
-                        resultado = float.Parse(sCantidad);
-
-                    }
-                    else
-                    {
-                        sCantidad = sCantidad.Replace(".", "");
-                        sCantidad = "0." + sCantidad;
-
-                        resultado = float.Parse(sCantidad);
-                    }
-                }
-                else
-                {
-                    sCantidad = "0." + sCantidad;
-                    resultado = float.Parse(sCantidad);
-                }
-            }
-            else
-            {
-                sCantidad = "0.0" + sCantidad;
-                resultado = float.Parse(sCantidad);
-            }
-
-            return resultado;
-        }
-
         public string[] DatosUsuario(int IDUsuario = 0, int tipo = 0, string usuario = "", string password = "")
         {
             string consulta = string.Empty;
