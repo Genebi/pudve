@@ -2134,7 +2134,7 @@ namespace PuntoDeVentaV2
                                         {
                                             infoDetailProdGral.Add(idFound[0].ToString());
                                             infoDetailProdGral.Add("1");
-                                            infoDetailProdGral.Add(panel);
+                                            infoDetailProdGral.Add("panelContenido" + idFound[2].ToString());
                                             // Ejecutamos el proceso de guardado
                                             try
                                             {

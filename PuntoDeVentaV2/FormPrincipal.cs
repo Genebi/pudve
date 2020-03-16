@@ -140,8 +140,7 @@ namespace PuntoDeVentaV2
 
                 if (appSettings.Count == 0)
                 {
-                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia",
-                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia", "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (appSettings.Count > 0)
                 {
@@ -159,38 +158,37 @@ namespace PuntoDeVentaV2
                             datosAppSetting += connStr + "|" + keyName + "|";
                         }
                     }
-                    //int borrar = 0;
-                    //string deleteData = string.Empty;
-                    //deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
-                    //borrar = cn.EjecutarConsulta(deleteData);
-                    //string auxAppSetting = string.Empty;
-                    //string[] str;
-                    //int insertar = 0;
-                    //auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
-                    //str = auxAppSetting.Split('¬');
-                    //datosAppSettings.AddRange(str);
-                    //foreach (var item in datosAppSettings)
-                    //{
-                    //    datosAppSettingToDB = item.Split('|');
-                    //    for (int i = 0; i < datosAppSettingToDB.Length; i++)
-                    //    {
-                    //        if (datosAppSettingToDB[i].Equals("true"))
-                    //        {
-                    //            datosAppSettingToDB[i] = "1";
-                    //        }
-                    //        else if (datosAppSettingToDB[i].Equals("false"))
-                    //        {
-                    //            datosAppSettingToDB[i] = "0";
-                    //        }
-                    //    }
-                    //    insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
-                    //}
+                    int borrar = 0;
+                    string deleteData = string.Empty;
+                    deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
+                    borrar = cn.EjecutarConsulta(deleteData);
+                    string auxAppSetting = string.Empty;
+                    string[] str;
+                    int insertar = 0;
+                    auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
+                    str = auxAppSetting.Split('¬');
+                    datosAppSettings.AddRange(str);
+                    foreach (var item in datosAppSettings)
+                    {
+                        datosAppSettingToDB = item.Split('|');
+                        for (int i = 0; i < datosAppSettingToDB.Length; i++)
+                        {
+                            if (datosAppSettingToDB[i].Equals("true"))
+                            {
+                                datosAppSettingToDB[i] = "1";
+                            }
+                            else if (datosAppSettingToDB[i].Equals("false"))
+                            {
+                                datosAppSettingToDB[i] = "0";
+                            }
+                        }
+                        insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
+                    }
                 }
             }
             catch (ConfigurationException e)
             {
-                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
-                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion Modifying Configuration Settings at Runtime
