@@ -195,8 +195,7 @@ namespace PuntoDeVentaV2
             {
                 if (KeyExist(strKey))
                 {
-                    MessageBox.Show("Nombre clave: <" + strKey + "> ya existe en la configuración.", 
-                                    "Setting Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Nombre clave: <" + strKey + "> ya existe en la configuración.", "Setting Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -238,8 +237,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Tipo de error: " + ex.Message.ToString(), 
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tipo de error: " + ex.Message.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -249,8 +247,7 @@ namespace PuntoDeVentaV2
             // Verificamos si existe esa configuracion
             if (!KeyExist(strKey))
             {
-                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.",
-                                "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else // si es que si existe
             {
@@ -309,8 +306,7 @@ namespace PuntoDeVentaV2
             // Verificamos si existe esa configuracion
             if (!KeyExist(strKey))
             {
-                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.",
-                                "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Nombre clave <" + strKey + "> no existe en la configuración. Actualización fallida.", "Error Update", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else // si es que si existe
             {
@@ -405,8 +401,7 @@ namespace PuntoDeVentaV2
 
             if (!KeyExist(strKey))
             {
-                MessageBox.Show("Nombre clave < " + strKey + " > no existe en la configuración.Imposible Borrar.",
-                                    "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nombre clave < " + strKey + " > no existe en la configuración.Imposible Borrar.", "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -444,12 +439,10 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(),
-                                    "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Error al Intentar Borrar el Registro de configuración: " + e.Message.ToString(), "Error de archivo al Borrar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 loadFormConfig();
-                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).",
-                                "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Nombre clave <" + strKey + "> borrada en la configuración(Setting).", "Borrado exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -465,9 +458,12 @@ namespace PuntoDeVentaV2
 
             fLPLateralConcepto.Controls.Clear();
 
-            for (int i = 0; i < settingDatabases.Items.Count; i++)
+            for (int i = 0; i < lstListView.Items.Count; i++)
             {
-                chkDetalleProductoTxt = settingDatabases.Items[i].Text.ToString();
+                //chkDetalleProductoTxt = lstListView.Items[i].Text.ToString();
+                //chkDetalleProductoVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                chkDetalleProductoVal = lstListView.Items[i].Text.ToString();
+                chkDetalleProductoTxt = lstListView.Items[i].SubItems[1].Text.ToString();
 
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
@@ -488,7 +484,6 @@ namespace PuntoDeVentaV2
                 check.Location = new Point(0, 0);
                 check.CheckedChanged += checkBox_CheckedChanged;
 
-                chkDetalleProductoVal = settingDatabases.Items[i].SubItems[1].Text.ToString();
                 if (chkDetalleProductoVal.Equals("true") || chkDetalleProductoVal.Equals("false"))
                 {
                     check.Checked = Convert.ToBoolean(chkDetalleProductoVal);
@@ -513,7 +508,11 @@ namespace PuntoDeVentaV2
 
                     if (row < chkDatabase.Items.Count)
                     {
-                        chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
+                        //chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
+                        //chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        chkSettingVariableVal = chkDatabase.Items[row].Text.ToString();
+                        chkSettingVariableTxt = chkDatabase.Items[row].SubItems[1].Text.ToString();
+
                         CheckBox checkSetting = new CheckBox();
                         checkSetting.Name = chkSettingVariableTxt;
                         checkSetting.Width = 20;
@@ -521,7 +520,7 @@ namespace PuntoDeVentaV2
                         checkSetting.Location = new Point(155, 0);
                         checkSetting.CheckedChanged += checkBoxSetting_CheckedChanged;
 
-                        chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
                         {
                             checkSetting.Checked = Convert.ToBoolean(chkSettingVariableVal);
@@ -547,32 +546,11 @@ namespace PuntoDeVentaV2
                 ap.FormClosed += delegate
                 {
                     fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                 };
                 ap.ShowDialog();
-            }
-            else if (textoBuscado.Equals("Categoria"))
-            {
-                AgregarCategoria nuevaCategoria = new AgregarCategoria();
-                nuevaCategoria.FormClosed += delegate
-                {
-                    fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
-                    BuscarTextoListView(settingDatabases);
-                };
-                nuevaCategoria.ShowDialog();
-            }
-            else if (textoBuscado.Equals("Ubicacion"))
-            {
-                AgregarUbicacion nuevaUbicacion = new AgregarUbicacion();
-                nuevaUbicacion.FormClosed += delegate
-                {
-                    fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
-                    BuscarTextoListView(settingDatabases);
-                };
-                nuevaUbicacion.ShowDialog();
             }
             else
             {
@@ -580,7 +558,8 @@ namespace PuntoDeVentaV2
                 addDetailGral.FormClosed += delegate
                 {
                     fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                 };
                 addDetailGral.getChkName = textoBuscado;
@@ -703,172 +682,6 @@ namespace PuntoDeVentaV2
                     panelContenido.Controls.Add(lblNombreProveedor);
                     panelContenido.Controls.Add(lblRFCProveedor);
                     panelContenido.Controls.Add(lblTelProveedor);
-
-                    panelContenedor.Controls.Add(panelContenido);
-                    fLPCentralDetalle.Controls.Add(panelContenedor);
-                }
-                else if (panelContenedor.Name == "panelContenedorCategoria")
-                {
-                    nombrePanelContenido = "panelContenido" + name;
-
-                    panelContenedor.Width = 196;
-                    panelContenedor.Height = 63;
-                    panelContenedor.BackColor = Color.LightGray;
-
-                    panelContenido.Name = nombrePanelContenido;
-                    panelContenido.Width = 190;
-                    panelContenido.Height = 55;
-
-                    int XcbProv = 0;
-                    XcbProv = panelContenido.Width / 2;
-
-                    Label lblNombreCategoria = new Label();
-                    lblNombreCategoria.Name = "lblNombre" + name;
-                    lblNombreCategoria.Width = 170;
-                    lblNombreCategoria.Height = 20;
-                    lblNombreCategoria.Location = new Point(XcbProv - (lblNombreCategoria.Width / 2), 32);
-                    lblNombreCategoria.TextAlign = ContentAlignment.MiddleCenter;
-                    lblNombreCategoria.BackColor = Color.White;
-
-                    CargarCategorias();
-
-                    ComboBox cbCategoria = new ComboBox();
-                    cbCategoria.Name = "cb" + name;
-                    cbCategoria.Width = 170;
-                    cbCategoria.Height = 30;
-                    cbCategoria.Location = new Point(XcbProv - (cbCategoria.Width / 2), 5);
-                    cbCategoria.SelectedIndexChanged += new System.EventHandler(cbCategoria_SelectIndexChanged);
-
-                    if (listaCategorias.Length > 0)
-                    {
-                        cbCategoria.DataSource = categorias.ToArray();
-                        cbCategoria.DisplayMember = "Value";
-                        cbCategoria.ValueMember = "Key";
-                        cbCategoria.SelectedValue = "0";
-
-                        // Cuando se da click en la opcion editar producto
-                        if (AgregarEditarProducto.DatosSourceFinal == 2)
-                        {
-                            var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
-                            var idCategoria = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                            int cantidad = idCategoria.Length;
-
-                            if (cantidad > 0)
-                            {
-                                if (!idCategoria[3].Equals(""))
-                                {
-                                    if (Convert.ToInt32(idCategoria[3].ToString()) > 0)
-                                    {
-                                        cargarDatosCategoria(Convert.ToInt32(idCategoria[3].ToString()));
-                                        if (!datosCategoria.Equals(null))
-                                        {
-                                            lblNombreCategoria.Text = datosCategoria[1].ToString();
-                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idCategoria[0].ToString(), nombrePanelContenido, idCategoria[5].ToString(), datosCategoria[1].ToString()));
-                                            contadorIndex++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (listaCategorias.Length < 0)
-                    {
-                        cbCategoria.Items.Add("Categoria...");
-                        cbCategoria.SelectedIndex = 0;
-                    }
-                    else if (cbCategoria.Items.Count == 0)
-                    {
-                        cbCategoria.Items.Add("Categoria...");
-                        cbCategoria.SelectedIndex = 0;
-                    }
-                    cbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
-
-                    panelContenido.Controls.Add(cbCategoria);
-                    panelContenido.Controls.Add(lblNombreCategoria);
-
-                    panelContenedor.Controls.Add(panelContenido);
-                    fLPCentralDetalle.Controls.Add(panelContenedor);
-                }
-                else if (panelContenedor.Name == "panelContenedorUbicacion")
-                {
-                    nombrePanelContenido = "panelContenido" + name;
-
-                    panelContenedor.Width = 196;
-                    panelContenedor.Height = 63;
-                    panelContenedor.BackColor = Color.LightGray;
-
-                    panelContenido.Name = nombrePanelContenido;
-                    panelContenido.Width = 190;
-                    panelContenido.Height = 55;
-
-                    int XcbProv = 0;
-                    XcbProv = panelContenido.Width / 2;
-
-                    Label lblNombreUbicacion = new Label();
-                    lblNombreUbicacion.Name = "lblNombre" + name;
-                    lblNombreUbicacion.Width = 170;
-                    lblNombreUbicacion.Height = 20;
-                    lblNombreUbicacion.Location = new Point(XcbProv - (lblNombreUbicacion.Width / 2), 32);
-                    lblNombreUbicacion.TextAlign = ContentAlignment.MiddleCenter;
-                    lblNombreUbicacion.BackColor = Color.White;
-
-                    CargarUbicaciones();
-
-                    ComboBox cbUbicacion = new ComboBox();
-                    cbUbicacion.Name = "cb" + name;
-                    cbUbicacion.Width = 170;
-                    cbUbicacion.Height = 30;
-                    cbUbicacion.Location = new Point(XcbProv - (cbUbicacion.Width / 2), 5);
-                    cbUbicacion.SelectedIndexChanged += new System.EventHandler(cbUbicacion_SelectIndexChanged);
-
-                    if (listaUbicaciones.Length > 0)
-                    {
-                        cbUbicacion.DataSource = ubicaciones.ToArray();
-                        cbUbicacion.DisplayMember = "Value";
-                        cbUbicacion.ValueMember = "Key";
-                        cbUbicacion.SelectedValue = "0";
-
-                        // Cuando se da click en la opcion editar producto
-                        if (AgregarEditarProducto.DatosSourceFinal == 2)
-                        {
-                            var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
-                            var idUbicacion = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
-                            int cantidad = idUbicacion.Length;
-
-                            if (cantidad > 0)
-                            {
-                                if (!idUbicacion[5].Equals(""))
-                                {
-                                    if (Convert.ToInt32(idUbicacion[5].ToString()) > 0)
-                                    {
-                                        cargarDatosUbicacion(Convert.ToInt32(idUbicacion[5].ToString()));
-                                        if (!datosUbicacion.Equals(null))
-                                        {
-                                            lblNombreUbicacion.Text = datosUbicacion[1].ToString();
-                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idUbicacion[0].ToString(), nombrePanelContenido, idUbicacion[3].ToString(), datosUbicacion[1].ToString()));
-                                            contadorIndex++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else if (listaUbicaciones.Length < 0)
-                    {
-                        cbUbicacion.Items.Add("Ubicaciones...");
-                        cbUbicacion.SelectedIndex = 0;
-                    }
-                    else if (cbUbicacion.Items.Count == 0)
-                    {
-                        cbUbicacion.Items.Add("Ubicaciones...");
-                        cbUbicacion.SelectedIndex = 0;
-                    }
-                    cbUbicacion.DropDownStyle = ComboBoxStyle.DropDownList;
-
-                    panelContenido.Controls.Add(cbUbicacion);
-                    panelContenido.Controls.Add(lblNombreUbicacion);
 
                     panelContenedor.Controls.Add(panelContenido);
                     fLPCentralDetalle.Controls.Add(panelContenedor);
@@ -1003,16 +816,32 @@ namespace PuntoDeVentaV2
 
                 encontrarPanel("panelContenedor" + name);
             }
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
 
-            var servidor = Properties.Settings.Default.Hosting;
+            int valorDatoDinamico = -1;
 
-            if (string.IsNullOrWhiteSpace(servidor))
+            if (value.Equals("True"))
             {
-                saveConfigIntoDB();
+                valorDatoDinamico = 1;
             }
+            else if (value.Equals("False"))
+            {
+                valorDatoDinamico = 0;
+            }
+
+            var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+
+            loadFromConfigDB();
+
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
+
+            //var servidor = Properties.Settings.Default.Hosting;
+
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    saveConfigIntoDB();
+            //}
         }
 
         private void cbDetalleGral_SelectIndexChanged(object sender, EventArgs e)
@@ -1058,9 +887,7 @@ namespace PuntoDeVentaV2
                 {
                     XPos = this.Width / 2;
                     YPos = this.Height / 2;
-                    mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR MENSAJE AL PRODUCTO ACTUAL\nDE SUGERENCIA PARA QUE AL COMPRADOR\nSE LE LEA AL VENDERSELO",
-                                                                                        "Mensaje de Sugerencia del Producto",
-                                                                                        "", XPos, YPos);
+                    mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("AGREGAR MENSAJE AL PRODUCTO ACTUAL\nDE SUGERENCIA PARA QUE AL COMPRADOR\nSE LE LEA AL VENDERSELO", "Mensaje de Sugerencia del Producto", "", XPos, YPos);
                     if (mensajeDetalleProducto.Equals(""))
                     {
                         //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1078,9 +905,7 @@ namespace PuntoDeVentaV2
                     {
                         XPos = this.Width / 2;
                         YPos = this.Height / 2;
-                        mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("ACTUALIZA EL MENSAJE DEL PRODUCTO\nPARA DAR SUGERENCIA AL COMPRADOR\n QUE SE LE VA VENDER",
-                                                                                            "Actualizar Sugerencia del Producto",
-                                                                                            $"{drProdMessg["ProductOfMessage"]}", XPos, YPos);
+                        mensajeDetalleProducto = Microsoft.VisualBasic.Interaction.InputBox("ACTUALIZA EL MENSAJE DEL PRODUCTO\nPARA DAR SUGERENCIA AL COMPRADOR\n QUE SE LE VA VENDER", "Actualizar Sugerencia del Producto", $"{drProdMessg["ProductOfMessage"]}", XPos, YPos);
                         if (mensajeDetalleProducto.Equals(""))
                         {
                             //MessageBox.Show("El mensaje no tiene que estar vacio\nfavor de proporcionar un mensaje...", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1483,16 +1308,32 @@ namespace PuntoDeVentaV2
                 name = checkBoxClickSetting.Name.ToString();
                 value = checkBoxClickSetting.Checked.ToString();
             }
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
 
-            var servidor = Properties.Settings.Default.Hosting;
+            int valorDatoDinamico = -1;
 
-            if (string.IsNullOrWhiteSpace(servidor))
+            if (value.Equals("True"))
             {
-                saveConfigIntoDB();
+                valorDatoDinamico = 1;
             }
+            else if (value.Equals("False"))
+            {
+                valorDatoDinamico = 0;
+            }
+
+            var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamicoShow(name, valorDatoDinamico, FormPrincipal.userID));
+
+            loadFromConfigDB();
+
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
+
+            //var servidor = Properties.Settings.Default.Hosting;
+
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    saveConfigIntoDB();
+            //}
         }
 
         #region Guardar Configuracion Dentro de la Base de Datos
@@ -1524,8 +1365,7 @@ namespace PuntoDeVentaV2
 
                 if (appSettings.Count == 0)
                 {
-                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia",
-                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia", "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (appSettings.Count > 0)
                 {
@@ -1573,8 +1413,7 @@ namespace PuntoDeVentaV2
             }
             catch (ConfigurationException e)
             {
-                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
-                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion Guardar Configuracion Dentro de la Base de Datos
@@ -1697,7 +1536,8 @@ namespace PuntoDeVentaV2
 
             finalIdProducto = getIdProducto;
 
-            loadFormConfig();
+            //loadFormConfig();
+            loadFromConfigDB();
             BuscarTextoListView(settingDatabases);
 
             txtStockNecesario.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -1772,15 +1612,46 @@ namespace PuntoDeVentaV2
                 {
                     chkDatabase.Clear();
                     settingDatabases.Clear();
-
-                    var ChecarSiHayDatosDinamicos = cn.EjecutarConsulta(cs.VerificarContenidoDinamico(FormPrincipal.userID));
-                    if (ChecarSiHayDatosDinamicos.Equals(1))
+                    
+                    using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                     {
-                        MessageBox.Show("Test");
-                    }
-                    else if (ChecarSiHayDatosDinamicos.Equals(0))
-                    {
-                        MessageBox.Show("Test");
+                        if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
+                        {
+                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            {
+                                connStr = row["textComboBoxConcepto"].ToString();
+                                if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
+                                {
+                                    keyName = "true";
+                                }
+                                else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
+                                {
+                                    keyName = "false";
+                                }
+                                lvi = new ListViewItem(keyName);
+                                lvi.SubItems.Add(connStr);
+                                chkDatabase.Items.Add(lvi);
+                            }
+                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            {
+                                connStr = row["concepto"].ToString();
+                                if (row["checkBoxConcepto"].ToString().Equals("1"))
+                                {
+                                    keyName = "true";
+                                }
+                                else if (row["checkBoxConcepto"].ToString().Equals("0"))
+                                {
+                                    keyName = "false";
+                                }
+                                lvi = new ListViewItem(keyName);
+                                lvi.SubItems.Add(connStr);
+                                settingDatabases.Items.Add(lvi);
+                            }
+                        }
+                        else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                        {
+                            MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -1828,11 +1699,11 @@ namespace PuntoDeVentaV2
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Detalle a Eliminar"))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", 
-                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!deleteDetalle.Equals(""))
                 {
@@ -1840,40 +1711,63 @@ namespace PuntoDeVentaV2
                     {
                         var mensaje = deleteDetalle;
 
-                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(),
-                                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        RefreshAppSettings();
-                        loadFormConfig();
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        loadFromConfigDB();
                         BuscarTextoListView(settingDatabases);
                     }
                     else
                     {
-                        if (KeyExist(deleteDetalle))
+                        //if (KeyExist(deleteDetalle))
+                        //{
+                            //DeleteKey(deleteDetalle);
+                            //RefreshAppSettings();
+                            //loadFormConfig();
+                            //var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                            //if (DeleteDatoDinamico.Equals(1))
+                            //{
+                                //MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //}
+                            //else if (DeleteDatoDinamico.Equals(0))
+                            //{
+                                //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //}
+                            //loadFromConfigDB();
+                            //BuscarTextoListView(settingDatabases);
+                            //deleteDetalle = string.Empty;
+                        //}
+                        //else
+                        //{
+                        //    //RefreshAppSettings();
+                        //    //loadFormConfig();
+                        //    loadFromConfigDB();
+                        //    BuscarTextoListView(settingDatabases);
+                        //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //}
+                        var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                        if (DeleteDatoDinamico.Equals(1))
                         {
-                            DeleteKey(deleteDetalle);
-                            RefreshAppSettings();
-                            loadFormConfig();
-                            BuscarTextoListView(settingDatabases);
-                            deleteDetalle = string.Empty;
+                            //MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        else
+                        else if (DeleteDatoDinamico.Equals(0))
                         {
-                            RefreshAppSettings();
-                            loadFormConfig();
-                            BuscarTextoListView(settingDatabases);
-                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros",
-                                            "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                        deleteDetalle = string.Empty;
                     }
                 }
             }
             catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
+                //RefreshAppSettings();
+                //loadFormConfig();
+                loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", 
-                                "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1890,40 +1784,71 @@ namespace PuntoDeVentaV2
             nvoDetalle = Microsoft.VisualBasic.Interaction.InputBox("Ingrese Nuevo Detalle para Agregar:", "Agregar Nuevo Detalle a Mostrar", "Escriba aquí su Nuevo Detalle", XPos, YPos);
             try
             {
+                int found = -1;
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", 
-                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!nvoDetalle.Equals(""))
                 {
-                    AddKey(nvoDetalle, nvoValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
+                    //AddKey(nvoDetalle, nvoValor);
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
+                    {
+                        if (!dtItemDinamicos.Rows.Count.Equals(0))
+                        {
+                            found = 1;
+                        }
+                        else if (dtItemDinamicos.Rows.Count.Equals(0))
+                        {
+                            found = 0;
+                        }
+                    }
+                    if (found.Equals(1))
+                    {
+                        MessageBox.Show("El Registro que Intenra ya esta registrado\nfavor de verificar o intentar con otro Detalle", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (found.Equals(0))
+                    {
+                        int nvoValorNumerico = 0;
+                        int RegistroAgregado = -1;
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+                        if (RegistroAgregado.Equals(1))
+                        {
+                            //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (RegistroAgregado.Equals(0))
+                        {
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
                 }
                 else if (nvoDetalle.Equals(""))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
-                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", 
-                                    "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
+                //RefreshAppSettings();
+                //loadFormConfig();
+                loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), 
-                                "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1932,38 +1857,110 @@ namespace PuntoDeVentaV2
             RenombrarDetalle renameDetail = new RenombrarDetalle();
             renameDetail.nombreDetalle += new RenombrarDetalle.pasarOldNameNewName(ejecutar);
             renameDetail.ShowDialog();
-            if (!KeyExist(editDetalleNvo))
+            try
             {
-                if (editDetelle.Equals("Proveedor"))
+                int found = -1;
+                using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo, FormPrincipal.userID)))
                 {
-                    var mensaje = editDetelle;
-
-                    MessageBox.Show("No se puede Renombrar ó Eliminar\n("+ mensaje +")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
-                                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    fLPCentralDetalle.Controls.Clear();
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    BuscarTextoListView(settingDatabases);
+                    if (dtItemDinamicos.Rows.Count.Equals(0))
+                    {
+                        found = 1;
+                    }
+                    else if (dtItemDinamicos.Rows.Count.Equals(0))
+                    {
+                        found = 0;
+                    }
                 }
-                else
+                if (found.Equals(1))
                 {
-                    fLPCentralDetalle.Controls.Clear();
-                    ReadKey(editDetelle);
-                    RenameKey(editDetelle, editValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
+                    if (editDetelle.Equals("Proveedor"))
+                    {
+                        var mensaje = editDetelle;
+
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        fLPCentralDetalle.Controls.Clear();
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                    }
+                    else
+                    {
+                        fLPCentralDetalle.Controls.Clear();
+                        //ReadKey(editDetelle);
+                        //RenameKey(editDetelle, editValor);
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        if (UpdateDatoDinamico.Equals(1))
+                        {
+                            //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (UpdateDatoDinamico.Equals(0))
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                    }
+                }
+                else if (found.Equals(0))
+                {
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
+                    MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             editDetelle = string.Empty;
             editDetalleNvo = string.Empty;
+            //if (!KeyExist(editDetalleNvo))
+            //{
+            //    if (editDetelle.Equals("Proveedor"))
+            //    {
+            //        var mensaje = editDetelle;
+
+            //        MessageBox.Show("No se puede Renombrar ó Eliminar\n("+ mensaje +")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
+            //                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        fLPCentralDetalle.Controls.Clear();
+            //        //RefreshAppSettings();
+            //        //loadFormConfig();
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //    }
+            //    else
+            //    {
+            //        fLPCentralDetalle.Controls.Clear();
+            //        //ReadKey(editDetelle);
+            //        //RenameKey(editDetelle, editValor);
+            //        //RefreshAppSettings();
+            //        //loadFormConfig();
+            //        loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+            //        if (UpdateDatoDinamico.Equals(1))
+            //        {
+            //            //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        }
+            //        else if (UpdateDatoDinamico.Equals(0))
+            //        {
+            //            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    //RefreshAppSettings();
+            //    //loadFormConfig();
+            //    loadFromConfigDB();
+            //    BuscarTextoListView(settingDatabases);
+            //    MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void ejecutar(string oldName, string newName)
@@ -2057,6 +2054,7 @@ namespace PuntoDeVentaV2
                         // sí es True
                         if (alreadyStoredPanelConteido)
                         {
+                            infoDetailProdGral.Clear();
                             // Recorremos los controles en el PanelContenido
                             foreach (Control contSubItemHijo in contSubHijo.Controls)
                             {
@@ -2116,6 +2114,7 @@ namespace PuntoDeVentaV2
                         // sí es False
                         else if (!alreadyStoredPanelConteido)
                         {
+                            infoDetailProdGral.Clear();
                             // Se ha detectado un nuevo Registro
                             // Recorremos los controles en el PanelContenido
                             foreach (Control contSubItemHijo in contSubHijo.Controls)
@@ -2135,7 +2134,7 @@ namespace PuntoDeVentaV2
                                         {
                                             infoDetailProdGral.Add(idFound[0].ToString());
                                             infoDetailProdGral.Add("1");
-                                            infoDetailProdGral.Add(contSubHijo.Name);
+                                            infoDetailProdGral.Add("panelContenido" + idFound[2].ToString());
                                             // Ejecutamos el proceso de guardado
                                             try
                                             {

@@ -619,5 +619,57 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        #region Procesos de Datos Dinamicos
+            public string VerificarContenidoDinamico(int idUsuario)
+            {
+                var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }    
+
+            public string VerificarDatoDinamico(string claveAgregar, int idUsuario)
+            {
+                var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
+
+            public string InsertaDatoDinamico(string claveAgregar, int claveValor, int idUsuario)
+            {
+                var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";
+                    consulta += $"VALUES ('{claveAgregar}', '{claveValor}', 'chk{claveAgregar}', '{claveValor}', '{idUsuario}')";
+
+                return consulta;
+            }
+
+            public string ActualizarDatoDinamico(string claveAntigua, string claveNueva, int idUsuario)
+            {
+                var consulta = $"UPDATE appSettings SET concepto = '{claveNueva}', textComboBoxConcepto = 'chk{claveNueva}' WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
+
+            public string BorrarDatoDinamico(string claveBorrar, int idUsuario)
+            {
+                var consulta = $"DELETE FROM appSettings WHERE concepto = '{claveBorrar}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
+
+            public string ActualizarDatoValueDinamico(string claveBuscar, int valueDato, int idUsuario)
+            {
+                var consulta = $"UPDATE appSettings SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
+
+            public string ActualizarDatoValueDinamicoShow(string claveBuscar, int valueDato, int idUsuario)
+            {
+                var consulta = $"UPDATE appSettings SET checkBoxComboBoxConcepto = '{valueDato}' WHERE textComboBoxConcepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
+        #endregion
     }
 }

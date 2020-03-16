@@ -73,9 +73,9 @@
             this.btnGuardarDetalles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarDetalles.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarDetalles.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarDetalles.Location = new System.Drawing.Point(57, 15);
+            this.btnGuardarDetalles.Location = new System.Drawing.Point(44, 15);
             this.btnGuardarDetalles.Name = "btnGuardarDetalles";
-            this.btnGuardarDetalles.Size = new System.Drawing.Size(180, 41);
+            this.btnGuardarDetalles.Size = new System.Drawing.Size(201, 41);
             this.btnGuardarDetalles.TabIndex = 26;
             this.btnGuardarDetalles.Text = "Guardar";
             this.btnGuardarDetalles.UseVisualStyleBackColor = false;
@@ -266,9 +266,9 @@
             this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCerrar.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold);
             this.btnCerrar.ForeColor = System.Drawing.Color.White;
-            this.btnCerrar.Location = new System.Drawing.Point(57, 65);
+            this.btnCerrar.Location = new System.Drawing.Point(44, 65);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(180, 41);
+            this.btnCerrar.Size = new System.Drawing.Size(201, 41);
             this.btnCerrar.TabIndex = 27;
             this.btnCerrar.Text = "Cancelar";
             this.btnCerrar.UseVisualStyleBackColor = false;

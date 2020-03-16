@@ -140,8 +140,7 @@ namespace PuntoDeVentaV2
 
                 if (appSettings.Count == 0)
                 {
-                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia",
-                                    "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia", "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 if (appSettings.Count > 0)
                 {
@@ -189,8 +188,7 @@ namespace PuntoDeVentaV2
             }
             catch (ConfigurationException e)
             {
-                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(),
-                                "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         #endregion Modifying Configuration Settings at Runtime
@@ -237,12 +235,12 @@ namespace PuntoDeVentaV2
 
             ObtenerDatosUsuario(userID);
 
-            var servidor = Properties.Settings.Default.Hosting;
+            //var servidor = Properties.Settings.Default.Hosting;
 
-            if (string.IsNullOrWhiteSpace(servidor))
-            {
-                loadFormConfig();
-            }
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    loadFormConfig();
+            //}
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
 
