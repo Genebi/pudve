@@ -394,8 +394,10 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < lstListView.Items.Count; i++)
             {
-                name = lstListView.Items[i].Text.ToString();
-                value = lstListView.Items[i].SubItems[1].Text.ToString();
+                //name = lstListView.Items[i].Text.ToString();
+                //value = lstListView.Items[i].SubItems[1].Text.ToString();
+                name = lstListView.Items[i].SubItems[1].Text.ToString();
+                value = lstListView.Items[i].Text.ToString();
 
                 if (name.Equals("chkProveedor") && value.Equals("true"))
                 {
@@ -408,9 +410,11 @@ namespace PuntoDeVentaV2
                     panelContenedor.Name = nombrePanelContenedor;
                     //panelContenedor.BackColor = Color.Aqua;
 
-                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
-                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
-                    
+                    //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                    chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].Text.ToString();
+
                     if (chkSettingVariableVal.Equals("true"))
                     {
                         name = chkSettingVariableTxt;
@@ -501,8 +505,11 @@ namespace PuntoDeVentaV2
                     panelContenedor.Height = 58;
                     panelContenedor.Name = nombrePanelContenedor;
 
-                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
-                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                    //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+
+                    chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].Text.ToString();
 
                     if (chkSettingVariableVal.Equals("true"))
                     {
@@ -4563,7 +4570,8 @@ namespace PuntoDeVentaV2
 
         public void actualizarDetallesProducto()
         {
-            loadFormConfig();
+            //loadFormConfig();
+            loadFromConfigDB();
             BuscarChkBoxListView(chkDatabase);
             bool isEmpty = !detalleProductoBasico.Any();
             if (!isEmpty)
@@ -4628,6 +4636,70 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                }
+            }
+        }
+
+        private void loadFromConfigDB()
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+
+            if (string.IsNullOrWhiteSpace(servidor))
+            {
+                chkDatabase.Items.Clear();
+                settingDatabases.Items.Clear();
+
+                lvi = new ListViewItem();
+
+                try
+                {
+                    chkDatabase.Clear();
+                    settingDatabases.Clear();
+
+                    using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+                    {
+                        if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
+                        {
+                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            {
+                                connStr = row["textComboBoxConcepto"].ToString();
+                                if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
+                                {
+                                    keyName = "true";
+                                }
+                                else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
+                                {
+                                    keyName = "false";
+                                }
+                                lvi = new ListViewItem(keyName);
+                                lvi.SubItems.Add(connStr);
+                                chkDatabase.Items.Add(lvi);
+                            }
+                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            {
+                                connStr = row["concepto"].ToString();
+                                if (row["checkBoxConcepto"].ToString().Equals("1"))
+                                {
+                                    keyName = "true";
+                                }
+                                else if (row["checkBoxConcepto"].ToString().Equals("0"))
+                                {
+                                    keyName = "false";
+                                }
+                                lvi = new ListViewItem(keyName);
+                                lvi.SubItems.Add(connStr);
+                                settingDatabases.Items.Add(lvi);
+                            }
+                        }
+                        else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                        {
+                            MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error de lectura de los Datos Dinamicos: {0}" + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
