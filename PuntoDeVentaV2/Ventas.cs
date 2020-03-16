@@ -58,6 +58,9 @@ namespace PuntoDeVentaV2
         // Lista para almacenar los IDs de las ventas guardadas que se han cargado
         public static List<int> ventasGuardadas = new List<int>();
 
+        // Diccionario para guardar los descuentos directos que se asigne a un producto, servicio, combo
+        public static Dictionary<int, Tuple<int, float>> descuentosDirectos = new Dictionary<int, Tuple<int, float>>();
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -665,19 +668,40 @@ namespace PuntoDeVentaV2
                 // Descuento
                 if (e.ColumnIndex == 8)
                 {
+                    var idProducto = DGVentas.Rows[celda].Cells["IDProducto"].Value.ToString();
                     var nombreProducto = DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString();
                     var precioProducto = DGVentas.Rows[celda].Cells["Precio"].Value.ToString();
                     var cantidadProducto = DGVentas.Rows[celda].Cells["Cantidad"].Value.ToString();
 
-                    var datos = new string[] { nombreProducto, precioProducto, cantidadProducto };
+                    var datos = new string[] { idProducto, nombreProducto, precioProducto, cantidadProducto };
 
                     using (var formDescuento = new AgregarDescuentoDirecto(datos))
                     {
+                        // Aqui comprueba si el producto tiene un descuento directo
+                        var quitarDescuento = false;
+
+                        if (descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
+                        {
+                            quitarDescuento = true;
+                        }
+
                         var resultado = formDescuento.ShowDialog();
 
                         if (resultado == DialogResult.OK)
                         {
                             DGVentas.Rows[celda].Cells["Descuento"].Value = formDescuento.TotalDescuento;
+                        }
+                        else
+                        {
+                            // Si el producto tenia un descuento directo previamente y detecta al cerrar el form
+                            // que el descuento fue eliminado pone por defecto cero en la columna correspondiente
+                            if (quitarDescuento)
+                            {
+                                if (!descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
+                                {
+                                    DGVentas.Rows[celda].Cells["Descuento"].Value = "0.00";
+                                }
+                            }
                         }
                     }
                 }
@@ -748,7 +772,14 @@ namespace PuntoDeVentaV2
                 // Eliminar individual
                 if (e.ColumnIndex == 13)
                 {
+                    var idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+
                     DGVentas.Rows.RemoveAt(celda);
+
+                    if (descuentosDirectos.ContainsKey(idProducto))
+                    {
+                        descuentosDirectos.Remove(idProducto);
+                    }
                 }
             }
             catch (Exception ex)
@@ -1031,6 +1062,7 @@ namespace PuntoDeVentaV2
         {
             DGVentas.Rows.Clear();
             CantidadesFinalesVenta();
+            descuentosDirectos.Clear();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)

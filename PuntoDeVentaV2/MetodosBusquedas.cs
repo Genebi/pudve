@@ -1529,7 +1529,7 @@ namespace PuntoDeVentaV2
             return cantidad;
         }
 
-        public Dictionary<int, string> ObtenerTipoClientes(int tipo = 1)
+        public Dictionary<int, string> ObtenerTipoClientes(int tipo = 1, bool extra = false)
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
@@ -1546,13 +1546,47 @@ namespace PuntoDeVentaV2
 
                 while (dr.Read())
                 {
-                    lista.Add(Convert.ToInt32(dr["ID"]), dr["Nombre"].ToString());
+                    var opcion = string.Empty;
+                    var nombre = dr["Nombre"].ToString();
+                    var porcentaje = dr["DescuentoPorcentaje"].ToString();
+
+                    if (extra)
+                    {
+                        opcion = $"{nombre} -- {porcentaje}%";
+                    }
+                    else
+                    {
+                        opcion = nombre;
+                    }
+
+                    lista.Add(Convert.ToInt32(dr["ID"]), opcion);
                 }
             }
 
             dr.Close();
 
             return lista;
+        }
+
+        public string[] ObtenerTipoCliente(int idTipoCliente)
+        {
+            var datos = new string[] { };
+
+            DatosConexion($"SELECT * FROM TipoClientes WHERE ID = {idTipoCliente} AND IDUsuario = {FormPrincipal.userID}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var nombre = dr.GetValue(dr.GetOrdinal("Nombre")).ToString();
+                var descuento = dr.GetValue(dr.GetOrdinal("DescuentoPorcentaje")).ToString();
+
+                datos = new string[] { nombre, descuento };
+            }
+
+            dr.Close();
+
+            return datos;
         }
 
         private void DatosConexion(string consulta, bool ignorar = false)

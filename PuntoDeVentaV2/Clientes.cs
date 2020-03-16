@@ -164,5 +164,13 @@ namespace PuntoDeVentaV2
                 tipoCliente.ShowDialog();
             }
         }
+
+        private void btnListaDescuentos_Click(object sender, EventArgs e)
+        {
+            using (var listado = new ListadoTipoClientes())
+            {
+                var respuesta = listado.ShowDialog();
+            }
+        }
     }
 }

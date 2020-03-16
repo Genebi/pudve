@@ -39,9 +39,10 @@
             this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnTipoCliente = new System.Windows.Forms.Button();
             this.btnNuevoCliente = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
-            this.btnTipoCliente = new System.Windows.Forms.Button();
+            this.btnListaDescuentos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.SuspendLayout();
@@ -144,12 +145,29 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.btnListaDescuentos);
             this.panelBotones.Controls.Add(this.btnTipoCliente);
             this.panelBotones.Controls.Add(this.btnNuevoCliente);
             this.panelBotones.Location = new System.Drawing.Point(12, 77);
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(845, 50);
             this.panelBotones.TabIndex = 10;
+            // 
+            // btnTipoCliente
+            // 
+            this.btnTipoCliente.BackColor = System.Drawing.Color.Green;
+            this.btnTipoCliente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTipoCliente.FlatAppearance.BorderSize = 0;
+            this.btnTipoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTipoCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTipoCliente.ForeColor = System.Drawing.Color.White;
+            this.btnTipoCliente.Location = new System.Drawing.Point(3, 18);
+            this.btnTipoCliente.Name = "btnTipoCliente";
+            this.btnTipoCliente.Size = new System.Drawing.Size(140, 24);
+            this.btnTipoCliente.TabIndex = 20;
+            this.btnTipoCliente.Text = "Nuevo tipo cliente";
+            this.btnTipoCliente.UseVisualStyleBackColor = false;
+            this.btnTipoCliente.Click += new System.EventHandler(this.btnTipoCliente_Click);
             // 
             // btnNuevoCliente
             // 
@@ -182,21 +200,21 @@
             this.tituloSeccion.Text = "CLIENTES";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // btnTipoCliente
+            // btnListaDescuentos
             // 
-            this.btnTipoCliente.BackColor = System.Drawing.Color.Green;
-            this.btnTipoCliente.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTipoCliente.FlatAppearance.BorderSize = 0;
-            this.btnTipoCliente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTipoCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTipoCliente.ForeColor = System.Drawing.Color.White;
-            this.btnTipoCliente.Location = new System.Drawing.Point(3, 18);
-            this.btnTipoCliente.Name = "btnTipoCliente";
-            this.btnTipoCliente.Size = new System.Drawing.Size(140, 24);
-            this.btnTipoCliente.TabIndex = 20;
-            this.btnTipoCliente.Text = "Nuevo tipo cliente";
-            this.btnTipoCliente.UseVisualStyleBackColor = false;
-            this.btnTipoCliente.Click += new System.EventHandler(this.btnTipoCliente_Click);
+            this.btnListaDescuentos.BackColor = System.Drawing.Color.Green;
+            this.btnListaDescuentos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnListaDescuentos.FlatAppearance.BorderSize = 0;
+            this.btnListaDescuentos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnListaDescuentos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListaDescuentos.ForeColor = System.Drawing.Color.White;
+            this.btnListaDescuentos.Location = new System.Drawing.Point(158, 18);
+            this.btnListaDescuentos.Name = "btnListaDescuentos";
+            this.btnListaDescuentos.Size = new System.Drawing.Size(140, 24);
+            this.btnListaDescuentos.TabIndex = 21;
+            this.btnListaDescuentos.Text = "Listado tipo cliente";
+            this.btnListaDescuentos.UseVisualStyleBackColor = false;
+            this.btnListaDescuentos.Click += new System.EventHandler(this.btnListaDescuentos_Click);
             // 
             // Clientes
             // 
@@ -232,5 +250,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Editar;
         private System.Windows.Forms.DataGridViewImageColumn Eliminar;
         private System.Windows.Forms.Button btnTipoCliente;
+        private System.Windows.Forms.Button btnListaDescuentos;
     }
 }

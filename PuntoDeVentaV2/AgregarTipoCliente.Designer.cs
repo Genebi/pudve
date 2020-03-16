@@ -136,6 +136,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Registrar tipo Cliente";
             this.Load += new System.EventHandler(this.AgregarTipoCliente_Load);
+            this.Shown += new System.EventHandler(this.AgregarTipoCliente_Shown);
             this.groupBox.ResumeLayout(false);
             this.groupBox.PerformLayout();
             this.ResumeLayout(false);
