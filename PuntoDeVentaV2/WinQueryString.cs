@@ -87,6 +87,12 @@ namespace PuntoDeVentaV2
 
         DataTable dtProveedor;
 
+        string nameChkBox = string.Empty;
+
+        int chkValor = -1,
+            foundChkBox = -1;
+
+
         public WinQueryString()
         {
             InitializeComponent();
@@ -1783,10 +1789,6 @@ namespace PuntoDeVentaV2
 
         private void validarChkBoxStock()
         {
-            string nameChkBox = string.Empty;
-            int chkValor = -1,
-                found = -1;
-
             nameChkBox = chkBoxStock.Name;
 
             cbTipoFiltroStock.SelectedIndex = 0;
@@ -1831,15 +1833,15 @@ namespace PuntoDeVentaV2
             {
                 if (!dtItemChckStok.Rows.Count.Equals(0))
                 {
-                    found = 1;
+                    foundChkBox = 1;
                 }
                 else if (dtItemChckStok.Rows.Count.Equals(0))
                 {
-                    found = 0;
+                    foundChkBox = 0;
                 }
             }
 
-            if (found.Equals(1))
+            if (foundChkBox.Equals(1))
             {
                 try
                 {
@@ -1850,7 +1852,7 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de Stock\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else if (found.Equals(0))
+            else if (foundChkBox.Equals(0))
             {
                 try
                 {
@@ -1988,7 +1990,8 @@ namespace PuntoDeVentaV2
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             cbTipoFiltroStock_SelectedIndexChanged(sender, e);
-            filtroStock = Properties.Settings.Default.chkFiltroStock;
+            //filtroStock = Properties.Settings.Default.chkFiltroStock;
+            filtroStock = chkBoxStock.Checked;
 
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
             filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
@@ -2013,6 +2016,17 @@ namespace PuntoDeVentaV2
                     {
                         if (!strOpcionCBStock.Equals("No Aplica"))
                         {
+                            var datosFiltroStock = mb.ObtenerDatosFiltroStock(nameChkBox, FormPrincipal.userID);
+
+                            if (!datosFiltroStock.Count().Equals(0))
+                            {
+                                cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltroStock[0].ToString()), strFiltroStock, strTxtStock));
+                            }
+                            else if (datosFiltroStock.Count().Equals(0))
+                            {
+                                cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroStock, strTxtStock));
+                            }
+
                             strFiltroStock += strTxtStock;
 
                             Properties.Settings.Default.strFiltroStock = strFiltroStock;
@@ -2064,8 +2078,7 @@ namespace PuntoDeVentaV2
                     else if (strTxtPrecio.Equals(""))
                     {
                         strFiltroPrecio = "";
-                        MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Precio",
-                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Precio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCantPrecio.Focus();
                         return;
                     }
@@ -2172,7 +2185,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroStock_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroStock = Properties.Settings.Default.chkFiltroStock;
+            //filtroStock = Properties.Settings.Default.chkFiltroStock;
+            filtroStock = chkBoxStock.Checked;
 
             if (filtroStock.Equals(true))
             {
