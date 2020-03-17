@@ -269,5 +269,12 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error No: " + ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public static string cargar_imagen()
+        {
+            var logo = @"C:\Archivos PUDVE\MisDatos\Usuarios\MIRIIGUGM910427XX1.jpg";
+
+            return logo;
+        }
     }
 }

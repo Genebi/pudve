@@ -530,22 +530,25 @@ namespace PuntoDeVentaV2
         public string cargar_datos_venta_xml(int opc, int id, int id_usuario)
         {
             string cons = "";
-            // Ventas
+            // Facturas
             if(opc == 1)
             {
-                cons = $"SELECT * FROM Ventas WHERE ID='{id}' AND IDUsuario='{id_usuario}'";
+                cons = $"SELECT * FROM Facturas WHERE ID='{id}' AND id_usuario='{id_usuario}'";
             }
+
             // Emisor
             if(opc == 2)
             {
-                cons = $"SELECT RFC, RazonSocial, Regimen FROM Usuarios WHERE ID='{id_usuario}'";
+                cons = $"SELECT * FROM Usuarios WHERE ID='{id_usuario}'";
             }
+
             // Receptor
             if(opc == 3)
             {
-                cons = $"SELECT RazonSocial, RFC, UsoCFDI FROM Clientes WHERE ID='{id}'";
+                cons = $"SELECT * FROM Clientes WHERE ID='{id}'";
             }
-            // Productos
+
+            // Consulta los productos de la venta en tabla ProductosVenta
             if(opc == 4)
             {
                 cons = $"SELECT * FROM ProductosVenta WHERE IDVenta='{id}'";
@@ -556,7 +559,7 @@ namespace PuntoDeVentaV2
                 cons = $"SELECT * FROM Productos WHERE ID='{id}'";
             }
             // Catalogo monedas
-            if(opc == 6)
+            if (opc == 6)
             {
                 cons = $"SELECT * FROM catalogo_monedas";
             }
@@ -565,10 +568,28 @@ namespace PuntoDeVentaV2
             {
                 cons = $"SELECT * FROM Clientes WHERE IDUsuario='{id_usuario}'";
             }
-            // Consulta todos los impuestos diferente de 16, 8 y 0 porcientos
-            if(opc == 8)
+            // Consulta impuestos de la venta en tabla DetallesFacturacionProductos
+            if (opc == 8)
             {
                 cons = $"SELECT * FROM DetallesFacturacionProductos WHERE IDProducto='{id}'";
+            }
+
+            // Consulta folio y serie de tabla ventas 
+            if (opc == 9)
+            {
+                cons = $"SELECT Folio, Serie FROM Ventas WHERE ID='{id}'";
+            }
+
+            // Facturas_productos 
+            if (opc == 10)
+            {
+                cons = $"SELECT * FROM Facturas_productos WHERE id_factura='{id}'";
+            }
+
+            // Consulta todos los impuestos diferente de 16, 8 y 0 porcientos 10
+            if (opc == 11)
+            {
+                cons = $"SELECT * FROM Facturas_impuestos WHERE id_factura_producto='{id}'";
             }
 
             return cons;
@@ -579,9 +600,14 @@ namespace PuntoDeVentaV2
             string modif = "";
 
             // GUarda id del cliente
-            if(opc == 1)
+            /*if(opc == 1)
             {
                 modif = $"UPDATE DetallesVenta SET IDCliente='{datos[1]}', Cliente='{datos[2]}' WHERE IDVenta='{datos[0]}'";
+            }*/
+            // Actualiza datos del cliente 
+            if(opc == 1)
+            {
+                modif = $"UPDATE Clientes SET RazonSocial='{datos[1]}', RFC='{datos[2]}', Telefono='{datos[3]}', Email='{datos[4]}', NombreComercial='{datos[5]}', Pais='{datos[6]}', Estado='{datos[7]}', Municipio='{datos[8]}', Localidad='{datos[9]}', CodigoPostal='{datos[10]}', Colonia='{datos[11]}', Calle='{datos[12]}', NoExterior='{datos[13]}', NoInterior='{datos[14]}', UsoCFDI='{datos[15]}' WHERE ID='{datos[0]}'";
             }
             // Guarda método y forma de pago, moneda y tipo de cambio
             if (opc == 2)
@@ -593,10 +619,45 @@ namespace PuntoDeVentaV2
             {
                 modif = $"UPDATE Productos SET ClaveProducto='{datos[1]}', UnidadMedida='{datos[0]}' WHERE ID='{datos[2]}'";                
             }
+
             // Cambia a timbrada la nota
             if (opc == 4)
             {
                 modif = $"UPDATE Ventas SET Timbrada='1' WHERE ID='{datos[0]}'";
+            }
+
+            // Guarda datos de pago, emisor y receptor
+            if(opc == 5)
+            {
+                modif = "INSERT INTO Facturas (id_usuario, id_venta, id_empleado, metodo_pago, forma_pago, num_cuenta, moneda, tipo_cambio, uso_cfdi,";
+                modif += "e_rfc, e_razon_social, e_regimen,  e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int,";
+                modif += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int,";
+                modif += "folio, serie, tipo_comprobante)";
+                modif += $" VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}', '{datos[32]}', '{datos[33]}', '{datos[34]}', '{datos[35]}', '{datos[36]}', 'I')";
+            }
+
+            // Guarda los productos 
+            if(opc == 6)
+            {
+                modif = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u, base, tasa_cuota, importe_iva) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
+            }
+
+            // Guarda los impuestos diferentes de IVA 16, 0, 8 y exento
+            if(opc == 7)
+            {
+                modif = $"INSERT INTO Facturas_impuestos (id_factura_producto, tipo, impuesto, tipo_factor, tasa_cuota, definir, importe) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
+            }
+
+            // Cambia a timbrada la factura
+            if (opc == 8)
+            {
+                modif = $"UPDATE Facturas SET timbrada='1' WHERE ID='{datos[0]}'";
+            }
+
+            // Agrega datos que se obtienen del XML ya timbrado
+            if(opc == 9)
+            {
+                modif = $"UPDATE Facturas SET fecha_certificacion='{datos[1]}', UUID='{datos[2]}', rfc_pac='{datos[3]}', sello_sat='{datos[4]}', sello_cfd='{datos[5]}', total='{datos[6]}' WHERE ID='{datos[0]}'";
             }
 
             return modif;
@@ -608,6 +669,84 @@ namespace PuntoDeVentaV2
                 consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
 
             return consulta;
+        }
+
+        public string obtener_datos_para_gcpago(int opc, int dato)
+        {
+            string cons = "";
+
+            if (opc == 1)
+            {
+                cons = $"SELECT * FROM Facturas WHERE ID='{dato}'";
+            }
+            // Carga todos los complementos de pago a timbrar
+            if(opc == 2)
+            {
+                cons = $"SELECT * FROM Facturas_complemento_pago WHERE id_factura='{dato}' AND timbrada=0";
+            }
+            
+            return cons;
+        }
+
+        public string crear_complemento_pago(int opc, string[] datos)
+        {
+            string crea = "";
+
+            // Crea registro en tabla facturas
+            if (opc == 1)
+            {
+                crea = "INSERT INTO Facturas (id_usuario, id_empleado, forma_pago, moneda, tipo_cambio, folio, serie, tipo_comprobante, uso_cfdi, fecha_hora_cpago,";
+                crea += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int,";
+                crea += "e_rfc, e_razon_social, e_regimen, e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int)";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', 'MXN', '1.000000', '{datos[3]}','{datos[4]}', 'P', 'P01', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}')";
+            }
+
+            // Crea registro en Facturas_productos
+            if (opc == 2)
+            {
+                crea = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u) VALUES ('{datos[0]}', 'ACT', '84111506', 'Pago', '1', '0')";
+            }
+
+            // Crea registro en tabla complemento de pago
+            if (opc == 3)
+            {
+                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_factura_principal, uuid, moneda, metodo_pago, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto) VALUES ('{datos[0]}', '{datos[1]}', '{datos[6]}', 'MXN', 'PPD', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}')";
+            }
+
+            // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
+            if (opc == 4)
+            {
+                crea = $"UPDATE Facturas SET con_complementos='1', resta_cpago='{datos[1]}' WHERE ID='{datos[0]}'";
+            }
+            if(opc == 5)
+            {
+                crea = $"UPDATE Facturas_complemento_pago SET timbrada=1 WHERE id_factura={datos[0]}";
+            }
+
+            // Agrega el monto pagado del complemento
+            if(opc == 6)
+            {
+                crea = $"UPDATE Facturas SET monto_cpago='{datos[1]}' WHERE ID='{datos[0]}'";
+            }
+
+
+            return crea;
+        }
+
+        public string obtiene_cpagos_dfactura_princ(int idf, int opc)
+        {
+            string cons = "";
+
+            if (opc == 1)
+            {
+                cons = $"SELECT f.total, fp.id_factura, fp.importe_pagado FROM Facturas AS f INNER JOIN Facturas_complemento_pago AS fp ON f.ID=fp.id_factura_principal WHERE fp.id_factura_principal='{idf}' AND fp.timbrada=1 AND f.cancelada=0";
+            }
+            if (opc == 2)
+            {
+                cons = $"SELECT ID, folio, serie, r_rfc, r_razon_social, total FROM Facturas WHERE ID='{idf}'";
+            }
+
+            return cons;
         }
     }
 }

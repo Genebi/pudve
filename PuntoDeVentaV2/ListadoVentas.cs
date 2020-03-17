@@ -524,8 +524,25 @@ namespace PuntoDeVentaV2
                 //Timbrar
                 if (e.ColumnIndex == 14)
                 {
-                    // Verifica que la venta tenga todos los datos para facturar
-                    //comprobar_venta_f(idVenta);
+                    // Se valida que la nota no tenga ya una factura creada
+                    /*int r = Convert.ToInt32(cn.EjecutarSelect($"SELECT Timbrada FROM Ventas WHERE ID={idVenta}", 8));
+                    
+                    if(r == 1)
+                    {
+                        var resp = MessageBox.Show("La nota de venta ya tiene una factura creada. La generación de más de una factura para la misma nota queda a responsabilidad de usted. \n\n ¿Desea continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if(resp == DialogResult.Yes)
+                        {
+                            // Verifica que la venta tenga todos los datos para facturar
+                            comprobar_venta_f(idVenta);
+                        }
+                    }
+                    else
+                    {
+                        // Verifica que la venta tenga todos los datos para facturar
+                        comprobar_venta_f(idVenta);
+                    }*/
+                    
 
                     //Comprobamos que la venta tenga cliente
                     var clienteRFC = DGVListadoVentas.Rows[fila].Cells["RFC"].Value.ToString();
