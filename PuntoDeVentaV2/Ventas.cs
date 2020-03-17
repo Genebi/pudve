@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
         private bool aplicarDescuentoG { get; set; }
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
+        float descuentoCliente = 0;
 
         bool ventaGuardada = false; //Para saber si la venta se guardo o no
         int cantidadExtra = 0;
@@ -963,6 +964,11 @@ namespace PuntoDeVentaV2
             double totalIVA16     = 0;
             double totalAnticipos = 0;
 
+            if (descuentoCliente > 0)
+            {
+                porcentajeGeneral = 0;
+            }
+
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
                 if (buscarvVentaGuardada == ".#")
@@ -989,9 +995,12 @@ namespace PuntoDeVentaV2
                     // Si el valor obtenido es true hace esto
                     if (aplicar)
                     {
-                        var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);  //Precio original del producto
-                        var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);       //Cantidad de producto
-                        var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);    //Cantidad descuento del producto
+                        // Precio original del producto
+                        var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
+                        // Cantidad de producto
+                        var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
+                        // Cantidad descuento del producto
+                        var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
 
                         var descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
                         descuento *= porcentajeGeneral;
@@ -1021,6 +1030,28 @@ namespace PuntoDeVentaV2
                         totalDescuento += cantidadDescuento;
                     }
                     
+                }
+                else if (descuentoCliente > 0)
+                {
+                    // Precio original del producto
+                    var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
+                    // Cantidad de producto
+                    var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
+                    // Cantidad descuento del producto
+                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
+
+                    var descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
+                    descuento *= descuentoCliente;
+
+                    var importeProducto = precioOriginal * Convert.ToDouble(cantidadProducto);
+                    importeProducto -= descuento;
+                    importeProducto -= cantidadDescuento;
+
+                    fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
+
+                    totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
+                    totalArticulos += cantidadProducto;
+                    totalDescuento += descuento + cantidadDescuento;
                 }
                 else
                 {
@@ -2585,6 +2616,23 @@ namespace PuntoDeVentaV2
                     if (!auxSegundo) { cliente += $" --- RFC: {datos[1]}"; }
                     if (!auxTercero) { cliente += $" --- No. {datos[17]}"; }
 
+                    var idTipoCliente = Convert.ToInt32(datos[16]);
+
+                    if (idTipoCliente > 0)
+                    {
+                        var datosDescuento = mb.ObtenerTipoCliente(idTipoCliente);
+
+                        if (datosDescuento.Length > 0)
+                        {
+                            descuentoCliente = float.Parse(datosDescuento[1]) / 100;
+                            // Se reinicia a los valores por defecto el descuento general
+                            porcentajeGeneral = 0;
+                            txtDescuentoGeneral.Text = "% descuento";
+
+                            CantidadesFinalesVenta();
+                        }
+                    }
+
                     lbDatosCliente.Text = cliente;
                 }
             }
@@ -2604,6 +2652,9 @@ namespace PuntoDeVentaV2
 
                 if (descuentoG > 0)
                 {
+                    // Reiniciamos a su valor por defecto la variable del descuento por cliente
+                    descuentoCliente = 0;
+
                     porcentajeGeneral = descuentoG / 100;
 
                     productosDescuentoG.Clear();
@@ -2641,6 +2692,15 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnEliminarDescuentos_Click(object sender, EventArgs e)
+        {
+            porcentajeGeneral = 0;
+            descuentoCliente = 0;
+            txtDescuentoGeneral.Text = "% descuento";
+
+            CantidadesFinalesVenta();
+        }
+
         private void ProductoSeleccionado()
         {
             //Se obtiene el texto del item seleccionado del ListBox
@@ -2668,12 +2728,12 @@ namespace PuntoDeVentaV2
             txtBuscadorProducto.Focus();
             ocultarResultados();
 
-            AgregarProducto(datosProducto);
-
             if (!productosDescuentoG.ContainsKey(idProducto))
             {
                 productosDescuentoG.Add(idProducto, aplicarDescuentoG);
             }
+
+            AgregarProducto(datosProducto);
         }
     }
 }
