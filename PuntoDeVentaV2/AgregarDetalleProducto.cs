@@ -1599,10 +1599,10 @@ namespace PuntoDeVentaV2
 
         private void loadFromConfigDB()
         {
-            var servidor = Properties.Settings.Default.Hosting;
+            //var servidor = Properties.Settings.Default.Hosting;
 
-            if (string.IsNullOrWhiteSpace(servidor))
-            {
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
                 chkDatabase.Items.Clear();
                 settingDatabases.Items.Clear();
 
@@ -1658,7 +1658,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Error de lectura de los Datos Dinamicos: {0}" + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            //}
         }
 
         private void limpiarStockMinimoMaximo()

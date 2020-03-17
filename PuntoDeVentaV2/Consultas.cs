@@ -671,5 +671,29 @@ namespace PuntoDeVentaV2
                 return consulta;
             }
         #endregion
+
+        #region Procesos de Filtro de Stock, Precio, Revision, Tipo, Imagen
+        public string VerificarChkSrock(string chkBoxConcepto, int idUsuario)
+        {
+            var consulta = $"SELECT ID, concepto, checkBoxConcepto, IDUsuario FROM FiltroProducto WHERE concepto = '{chkBoxConcepto}' AND IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
+
+        public string InsertarChkStock(string chkBoxConcepto, int chkBoxValor)
+        {
+            var consulta = "INSERT INTO FiltroProducto(concepto, checkBoxConcepto, IDUsuario) ";
+            consulta += $"VALUES('{chkBoxConcepto}', '{chkBoxValor}', '{FormPrincipal.userID}')";
+
+            return consulta;
+        }
+
+        public string ActualizarChkStock(string chkBoxConcepto, int chkBoxValor)
+        {
+            var consulta = $"UPDATE FiltroProducto SET concepto = '{chkBoxConcepto}', checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+        #endregion
     }
 }

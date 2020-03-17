@@ -1783,11 +1783,22 @@ namespace PuntoDeVentaV2
 
         private void validarChkBoxStock()
         {
+            string nameChkBox = string.Empty;
+            int chkValor = -1,
+                found = -1;
+
+            nameChkBox = chkBoxStock.Name;
+
             cbTipoFiltroStock.SelectedIndex = 0;
             if (chkBoxStock.Checked.Equals(true))
             {
                 filtroStock = Convert.ToBoolean(chkBoxStock.Checked);
 
+                if (filtroStock.Equals(true))
+                {
+                    chkValor = 1;
+                }
+                
                 Properties.Settings.Default.chkFiltroStock = filtroStock;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
@@ -1801,6 +1812,11 @@ namespace PuntoDeVentaV2
             {
                 filtroStock = Convert.ToBoolean(chkBoxStock.Checked);
 
+                if (filtroStock.Equals(false))
+                {
+                    chkValor = 0;
+                }
+
                 Properties.Settings.Default.chkFiltroStock = filtroStock;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
@@ -1809,6 +1825,41 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroStock.SelectedIndex = 0;
                 cbTipoFiltroStock.Enabled = false;
                 txtCantStock.Text = "0.0";
+            }
+
+            using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChkSrock(nameChkBox, FormPrincipal.userID)))
+            {
+                if (!dtItemChckStok.Rows.Count.Equals(0))
+                {
+                    found = 1;
+                }
+                else if (dtItemChckStok.Rows.Count.Equals(0))
+                {
+                    found = 0;
+                }
+            }
+
+            if (found.Equals(1))
+            {
+                try
+                {
+                    var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChkStock(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de Stock\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (found.Equals(0))
+            {
+                try
+                {
+                    var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChkStock(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar guardar la configuración\nde la casilla de Verificación de Stock\n" + ex.Message.ToString(), "Error de guardado de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -1951,8 +2002,7 @@ namespace PuntoDeVentaV2
             cbTipoFiltroImagen_SelectedIndexChanged(sender, e);
             filtroImagen = Properties.Settings.Default.chkFiltroImagen;
 
-            DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección",
-                                                  "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
                 if (filtroStock.Equals(true))
@@ -1972,8 +2022,7 @@ namespace PuntoDeVentaV2
                         else if (strOpcionCBStock.Equals("No Aplica"))
                         {
                             //Properties.Settings.Default.strFiltroStock = string.Empty;
-                            MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Stock",
-                                            "Selección Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Stock", "Selección Stock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             txtCantStock.Focus();
                             return;
                         }
@@ -1981,8 +2030,7 @@ namespace PuntoDeVentaV2
                     else if (strTxtStock.Equals(""))
                     {
                         strFiltroStock = "";
-                        MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Stock",
-                                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Favor de Introducir una\nCantidad en el Campo de Stock", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         txtCantStock.Focus();
                         return;
                     }
@@ -2008,8 +2056,7 @@ namespace PuntoDeVentaV2
                         else if (strOpcionCBPrecio.Equals("No Aplica"))
                         {
                             //Properties.Settings.Default.strFiltroPrecio = string.Empty;
-                            MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Precio",
-                                            "Selección Precio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Precio", "Selección Precio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             txtCantPrecio.Focus();
                             return;
                         }
