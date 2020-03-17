@@ -779,6 +779,11 @@ namespace PuntoDeVentaV2
 
                     DGVentas.Rows.RemoveAt(celda);
 
+                    if (productosDescuentoG.ContainsKey(idProducto))
+                    {
+                        productosDescuentoG.Remove(idProducto);
+                    }
+
                     if (descuentosDirectos.ContainsKey(idProducto))
                     {
                         descuentosDirectos.Remove(idProducto);
@@ -1080,7 +1085,20 @@ namespace PuntoDeVentaV2
         {
             if (DGVentas.Rows.Count > 0)
             {
-                DGVentas.Rows.RemoveAt(DGVentas.Rows.Count - 1);
+                var id = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+
+                DGVentas.Rows.RemoveAt(0);
+
+                if (productosDescuentoG.ContainsKey(id))
+                {
+                    productosDescuentoG.Remove(id);
+                }
+
+                if (descuentosDirectos.ContainsKey(id))
+                {
+                    descuentosDirectos.Remove(id);
+                }
+                
                 CantidadesFinalesVenta();
             }
         }
@@ -1088,8 +1106,11 @@ namespace PuntoDeVentaV2
         private void btnEliminarTodos_Click(object sender, EventArgs e)
         {
             DGVentas.Rows.Clear();
-            CantidadesFinalesVenta();
+            // Almacena los ID de los productos a los que se aplica descuento general
+            productosDescuentoG.Clear();
+            // Guarda los datos de los descuentos directos que se han aplicado
             descuentosDirectos.Clear();
+            CantidadesFinalesVenta();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
