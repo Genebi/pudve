@@ -694,6 +694,21 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string InsertarTextCBConceptoCantidad(string txtCBConcepto, string txtCantidad)
+        {
+            var consulta = "INSERT INTO FiltroProducto(textComboBoxConcepto, textCantidad, IDUsuario) ";
+            consulta += $"VALUES('{txtCBConcepto}', '{txtCantidad}', '{FormPrincipal.userID}')";
+
+            return consulta;
+        }
+
+        public string ActualizarTextCBConceptoCantidad(int idFiltro, string txtCBConcepto, string txtCantidad)
+        {
+            var consulta = $"UPDATE FiltroProducto SET textComboBoxConcepto = '{txtCBConcepto}', textCantidad = '{txtCantidad}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idFiltro}'";
+
+            return consulta;
+        }
         #endregion
     }
 }
