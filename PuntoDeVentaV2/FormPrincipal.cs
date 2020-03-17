@@ -38,6 +38,7 @@ namespace PuntoDeVentaV2
         public static string TempUserPass;
         public static string FechaCheckStock;
         public static long NoRegCheckStock;
+        public static int id_empleado;
 
         // Variables donde guarda los permisos del empleado.
 
@@ -62,6 +63,7 @@ namespace PuntoDeVentaV2
         public string passwordUsuario { get; set; }
         public string DateCheckStock { get; set; }
         public long NumberRegCheckStock { get; set; }
+        public int t_id_empleado { get; set; }
 
         // variables usasadas para que sea estatico los valores y asi en empresas
         // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
@@ -201,6 +203,7 @@ namespace PuntoDeVentaV2
             userPass = passwordUsuario;
             FechaCheckStock = DateCheckStock;
             NoRegCheckStock = NumberRegCheckStock;
+            id_empleado = t_id_empleado;
         }
 
         public FormPrincipal()
@@ -490,11 +493,19 @@ namespace PuntoDeVentaV2
             }
         }
 
+<<<<<<< HEAD
         private void btnReportes_Click(object sender, EventArgs e)
         {
             if (reportes == 1)
             {
                 AbrirFormulario<Reportes>();
+=======
+        private void btnFacturas_Click(object sender, EventArgs e)
+        {
+            if(facturas == 1)
+            {
+                AbrirFormulario<Facturas>();
+>>>>>>> ApartadoFacturacionPrt9
             }
             else
             {
@@ -943,6 +954,7 @@ namespace PuntoDeVentaV2
             sql_con.Close();
         }
 
+<<<<<<< HEAD
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -966,5 +978,8 @@ namespace PuntoDeVentaV2
 
             cerrarAplicacion = false;
         }
+=======
+        
+>>>>>>> ApartadoFacturacionPrt9
     }
 }

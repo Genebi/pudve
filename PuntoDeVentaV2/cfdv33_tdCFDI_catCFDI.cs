@@ -83,14 +83,68 @@ public partial class Comprobante {
     
     private string confirmacionField;
 
+    // Código original. Se pone en comentarios para poder agregar más de una url en la variable.
+    // En este caso se ocupa para cuando hay complemento de pago 
+    //[XmlAttribute("schemaLocation", Namespace = XmlSchema.InstanceNamespace)]
+    //public string xsiSchemaLocation = ".http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd
+
+    // Código nuevo que reemplaza al anterior.
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public string xsiSchemaLocationField;
+
+    // Codigo nuevo
+    public TimbreFiscalDigital timbre_fiscal_digital;
+    public Pagos cpagos;
+    public PagosPago cpagospago;
+
+    public string QR
+    {
+        get
+        {
+            byte[] qr = null;
+            string sqr = "";
+            string b64qr = "";
+
+            qr = PuntoDeVentaV2.Genera_QR.createBarCode("https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=" + timbre_fiscal_digital.UUID + "&re=" + Emisor.Rfc + "&rr=" + Receptor.Rfc + "&tt=" + Total + "&fe="+Sello.Substring(Sello.Length - 9, 8));
+            b64qr = System.Convert.ToBase64String(qr);
+
+            sqr = System.String.Format("data:image/gif;base64,{0}", b64qr);
+
+            return sqr;
+        }
+    }
+
+    public string monedacon_letra
+    {
+        get
+        {
+            PuntoDeVentaV2.Moneda_conletra moneda_letra = new PuntoDeVentaV2.Moneda_conletra();
+
+            return moneda_letra.Convertir(Total.ToString("#.00"), true);
+        }
+    }
+
+    public string imagen
+    {
+        get
+        {
+            PuntoDeVentaV2.Carga_logo cargar_imag = new PuntoDeVentaV2.Carga_logo();
+
+            return cargar_imag.cargar_imagen();
+        }
+    }
+
+
+    /// <remarks/>
+    // Código nuevo, para asignar más de una url.
     [XmlAttribute("schemaLocation", Namespace = XmlSchema.InstanceNamespace)]
-    public string xsiSchemaLocation = "http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
+    public string xsiSchemaLocation{  get;  set;  }
 
 
     public Comprobante() {
         this.versionField = "3.3";
     }
-    
+
     /// <remarks/>
     public ComprobanteCfdiRelacionados CfdiRelacionados {
         get {
@@ -173,7 +227,7 @@ public partial class Comprobante {
             this.versionField = value;
         }
     }
-    
+
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
     public string Serie {

@@ -199,6 +199,7 @@ namespace PuntoDeVentaV2
                     if (ComprobarLicencia())
                     {
                         int Id = 0;
+                        int id_emp = 0;
 
                         if (tipo_us == 0) // Usuario principal
                         {
@@ -210,6 +211,8 @@ namespace PuntoDeVentaV2
                             password = password_empleado;
 
                             Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDUsuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 3));
+                            // ID del empleado
+                            id_emp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 1));
                         }
 
                         FormPrincipal fp = new FormPrincipal();
@@ -228,6 +231,7 @@ namespace PuntoDeVentaV2
                         fp.TempIdUsuario = Id;
                         fp.TempNickUsr = usuario;
                         fp.TempPassUsr = password;
+                        fp.t_id_empleado = id_emp;
                         fp.ShowDialog();
 
                         this.Close();

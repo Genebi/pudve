@@ -144,6 +144,22 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["ClaveProducto"] + "-" + dr["UnidadMedida"]; // Claves de unidad y producto de tabla Productos
                 }
+                if(tipo == 8)
+                {
+                    respuesta = dr["Timbrada"];
+                }
+                if (tipo == 9)
+                {
+                    respuesta = dr["saldo_insoluto"];
+                }
+                if(tipo == 10)
+                {
+                    respuesta = dr["uuid"];
+                }
+                if (tipo == 11)
+                {
+                    respuesta = dr["LogoTipo"];
+                }
             }
 
             if (tipo == 0)

@@ -50,6 +50,7 @@
             this.label1.Size = new System.Drawing.Size(134, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "EMPLEADOS";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btn_agregar_empleado
             // 
