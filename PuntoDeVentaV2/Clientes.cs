@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         public Clientes()
         {
@@ -56,10 +57,16 @@ namespace PuntoDeVentaV2
                 var tipoClienteAux = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("TipoCliente")).ToString());
                 var tipoCliente = string.Empty;
 
-                if (tipoClienteAux == 0) { tipoCliente = "N/A"; }
-                if (tipoClienteAux == 1) { tipoCliente = "MAYORISTA"; }
-                if (tipoClienteAux == 2) { tipoCliente = "DISTRIBUIDOR"; }
-                if (tipoClienteAux == 3) { tipoCliente = "SOCIO MAYORITARIO"; }
+                var datosTipoCliente = mb.ObtenerTipoCliente(tipoClienteAux);
+
+                if (datosTipoCliente.Length > 0)
+                {
+                    tipoCliente = datosTipoCliente[0];
+                }
+                else
+                {
+                    tipoCliente = "N/A";
+                }
 
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
