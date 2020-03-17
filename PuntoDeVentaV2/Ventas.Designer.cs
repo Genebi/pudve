@@ -559,7 +559,6 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.btnAplicarDescuento);
             this.panel1.Controls.Add(this.PBImagen);
             this.panel1.Controls.Add(this.lbPS);
@@ -593,6 +592,7 @@
             this.panel1.Controls.Add(this.btnUltimoTicket);
             this.panel1.Controls.Add(this.lbNumeroArticulos);
             this.panel1.Controls.Add(this.btnPresupuesto);
+            this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Location = new System.Drawing.Point(5, 93);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1221, 354);
