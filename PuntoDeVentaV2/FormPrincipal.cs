@@ -497,11 +497,7 @@ namespace PuntoDeVentaV2
         {
             if (reportes == 1)
             {
-<<<<<<< HEAD
                 AbrirFormulario<Reportes>();
-=======
-                //AbrirFormulario<Reportes>();
->>>>>>> ApartadoFacturacionPrt10
             }
         }
 

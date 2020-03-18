@@ -414,15 +414,12 @@
     <Compile Include="Empresas.Designer.cs">
       <DependentUpon>Empresas.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-=======
     <Compile Include="Facturas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facturas.Designer.cs">
       <DependentUpon>Facturas.cs</DependentUpon>
     </Compile>
->>>>>>> ApartadoFacturacionPrt10
     <Compile Include="FechasReportes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -440,15 +437,6 @@
     </Compile>
     <Compile Include="FiltroRevisarInventario.Designer.cs">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
-<<<<<<< HEAD
-    </Compile>
-    <Compile Include="Facturas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Facturas.Designer.cs">
-      <DependentUpon>Facturas.cs</DependentUpon>
-=======
->>>>>>> ApartadoFacturacionPrt10
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -634,6 +622,12 @@
     <Compile Include="ReporteFinalRevisarInventario.Designer.cs">
       <DependentUpon>ReporteFinalRevisarInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes.Designer.cs">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </Compile>
     <Compile Include="RevisarInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -669,20 +663,13 @@
     <Compile Include="TestModificacion.Designer.cs">
       <DependentUpon>TestModificacion.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-=======
     <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
->>>>>>> ApartadoFacturacionPrt10
     <Compile Include="TipoHistorial.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TipoHistorial.Designer.cs">
       <DependentUpon>TipoHistorial.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-    <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
-=======
->>>>>>> ApartadoFacturacionPrt10
     <Compile Include="Utilidades.cs" />
     <Compile Include="VentanaDetalleFotoProducto.cs">
       <SubType>Form</SubType>
@@ -834,12 +821,9 @@
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
-=======
     <EmbeddedResource Include="Facturas.resx">
       <DependentUpon>Facturas.cs</DependentUpon>
     </EmbeddedResource>
->>>>>>> ApartadoFacturacionPrt10
     <EmbeddedResource Include="FechasReportes.resx">
       <DependentUpon>FechasReportes.cs</DependentUpon>
     </EmbeddedResource>
@@ -848,12 +832,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FiltroRevisarInventario.resx">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
-<<<<<<< HEAD
-    </EmbeddedResource>
-    <EmbeddedResource Include="Facturas.resx">
-      <DependentUpon>Facturas.cs</DependentUpon>
-=======
->>>>>>> ApartadoFacturacionPrt10
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
@@ -943,6 +921,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteFinalRevisarInventario.resx">
       <DependentUpon>ReporteFinalRevisarInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes.resx">
+      <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
@@ -3564,6 +3545,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wkhtmltopdf\bin\wkhtmltox.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
