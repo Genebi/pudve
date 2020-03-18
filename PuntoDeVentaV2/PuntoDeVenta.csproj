@@ -3547,12 +3547,6 @@
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltopdf\bin\wkhtmltox.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
     <Content Include="wkhtmltopdf\include\wkhtmltox\image.h" />
