@@ -673,42 +673,42 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region Procesos de Filtro de Stock, Precio, Revision, Tipo, Imagen
-        public string VerificarChkSrock(string chkBoxConcepto, int idUsuario)
-        {
-            var consulta = $"SELECT ID, concepto, checkBoxConcepto, IDUsuario FROM FiltroProducto WHERE concepto = '{chkBoxConcepto}' AND IDUsuario = '{idUsuario}'";
+            public string VerificarChkSrock(string chkBoxConcepto, int idUsuario)
+            {
+                var consulta = $"SELECT ID, concepto, checkBoxConcepto, IDUsuario FROM FiltroProducto WHERE concepto = '{chkBoxConcepto}' AND IDUsuario = '{idUsuario}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string InsertarChkStock(string chkBoxConcepto, int chkBoxValor)
-        {
-            var consulta = "INSERT INTO FiltroProducto(concepto, checkBoxConcepto, IDUsuario) ";
-            consulta += $"VALUES('{chkBoxConcepto}', '{chkBoxValor}', '{FormPrincipal.userID}')";
+            public string InsertarChkStock(string chkBoxConcepto, int chkBoxValor)
+            {
+                var consulta = "INSERT INTO FiltroProducto(concepto, checkBoxConcepto, IDUsuario) ";
+                consulta += $"VALUES('{chkBoxConcepto}', '{chkBoxValor}', '{FormPrincipal.userID}')";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string ActualizarChkStock(string chkBoxConcepto, int chkBoxValor)
-        {
-            var consulta = $"UPDATE FiltroProducto SET concepto = '{chkBoxConcepto}', checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}'";
+            public string ActualizarChkStock(string chkBoxConcepto, int chkBoxValor)
+            {
+                var consulta = $"UPDATE FiltroProducto SET concepto = '{chkBoxConcepto}', checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string InsertarTextCBConceptoCantidad(string txtCBConcepto, string txtCantidad)
-        {
-            var consulta = "INSERT INTO FiltroProducto(textComboBoxConcepto, textCantidad, IDUsuario) ";
-            consulta += $"VALUES('{txtCBConcepto}', '{txtCantidad}', '{FormPrincipal.userID}')";
+            public string InsertarTextCBConceptoCantidad(string txtCBConcepto, string txtCantidad)
+            {
+                var consulta = "INSERT INTO FiltroProducto(textComboBoxConcepto, textCantidad, IDUsuario) ";
+                consulta += $"VALUES('{txtCBConcepto}', '{txtCantidad}', '{FormPrincipal.userID}')";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string ActualizarTextCBConceptoCantidad(int idFiltro, string txtCBConcepto, string txtCantidad)
-        {
-            var consulta = $"UPDATE FiltroProducto SET textComboBoxConcepto = '{txtCBConcepto}', textCantidad = '{txtCantidad}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idFiltro}'";
+            public string ActualizarTextCBConceptoCantidad(int idFiltro, string txtCBConcepto, string txtCantidad)
+            {
+                var consulta = $"UPDATE FiltroProducto SET textComboBoxConcepto = '{txtCBConcepto}', textCantidad = '{txtCantidad}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idFiltro}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
         #endregion
     }
 }
