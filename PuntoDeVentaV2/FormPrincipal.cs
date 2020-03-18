@@ -493,19 +493,19 @@ namespace PuntoDeVentaV2
             }
         }
 
-<<<<<<< HEAD
         private void btnReportes_Click(object sender, EventArgs e)
         {
             if (reportes == 1)
             {
                 AbrirFormulario<Reportes>();
-=======
+            }
+        }
+
         private void btnFacturas_Click(object sender, EventArgs e)
         {
             if(facturas == 1)
             {
                 AbrirFormulario<Facturas>();
->>>>>>> ApartadoFacturacionPrt9
             }
             else
             {
@@ -773,7 +773,6 @@ namespace PuntoDeVentaV2
 
                         //MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(),
                         //                "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
                     }
                 }
             }
@@ -954,8 +953,6 @@ namespace PuntoDeVentaV2
             sql_con.Close();
         }
 
-<<<<<<< HEAD
-
         private void btnSalir_Click(object sender, EventArgs e)
         {
             cerrarAplicacion = true;
@@ -978,8 +975,5 @@ namespace PuntoDeVentaV2
 
             cerrarAplicacion = false;
         }
-=======
-        
->>>>>>> ApartadoFacturacionPrt9
     }
 }

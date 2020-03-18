@@ -414,7 +414,6 @@
     <Compile Include="Empresas.Designer.cs">
       <DependentUpon>Empresas.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="FechasReportes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -432,13 +431,12 @@
     </Compile>
     <Compile Include="FiltroRevisarInventario.Designer.cs">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
-=======
+    </Compile>
     <Compile Include="Facturas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facturas.Designer.cs">
       <DependentUpon>Facturas.cs</DependentUpon>
->>>>>>> ApartadoFacturacionPrt9
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -665,16 +663,13 @@
     <Compile Include="TestModificacion.Designer.cs">
       <DependentUpon>TestModificacion.cs</DependentUpon>
     </Compile>
-<<<<<<< HEAD
     <Compile Include="TipoHistorial.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TipoHistorial.Designer.cs">
       <DependentUpon>TipoHistorial.cs</DependentUpon>
     </Compile>
-=======
     <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
->>>>>>> ApartadoFacturacionPrt9
     <Compile Include="Utilidades.cs" />
     <Compile Include="VentanaDetalleFotoProducto.cs">
       <SubType>Form</SubType>
@@ -796,13 +791,11 @@
     <EmbeddedResource Include="CodeBarMake.resx">
       <DependentUpon>CodeBarMake.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="CodigoBarrasExtraRI.resx">
       <DependentUpon>CodigoBarrasExtraRI.cs</DependentUpon>
-=======
+    </EmbeddedResource>
     <EmbeddedResource Include="Complemento_pago.resx">
       <DependentUpon>Complemento_pago.cs</DependentUpon>
->>>>>>> ApartadoFacturacionPrt9
     </EmbeddedResource>
     <EmbeddedResource Include="ConsultarProductoVentas.resx">
       <DependentUpon>ConsultarProductoVentas.cs</DependentUpon>
@@ -828,7 +821,6 @@
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="FechasReportes.resx">
       <DependentUpon>FechasReportes.cs</DependentUpon>
     </EmbeddedResource>
@@ -837,10 +829,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FiltroRevisarInventario.resx">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
-=======
+    </EmbeddedResource>
     <EmbeddedResource Include="Facturas.resx">
       <DependentUpon>Facturas.cs</DependentUpon>
->>>>>>> ApartadoFacturacionPrt9
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
@@ -3563,12 +3554,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltopdf\bin\wkhtmltox.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
