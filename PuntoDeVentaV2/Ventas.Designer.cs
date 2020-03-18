@@ -75,6 +75,7 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnEliminarDescuentos = new System.Windows.Forms.Button();
             this.btnAplicarDescuento = new System.Windows.Forms.Button();
             this.PBImagen = new System.Windows.Forms.PictureBox();
             this.lbPS = new System.Windows.Forms.Label();
@@ -87,7 +88,6 @@
             this.btnConsultar = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
             this.lbDatosCliente = new System.Windows.Forms.Label();
-            this.btnEliminarDescuentos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -560,6 +560,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.btnEliminarDescuentos);
             this.panel1.Controls.Add(this.btnAplicarDescuento);
             this.panel1.Controls.Add(this.PBImagen);
@@ -594,11 +595,22 @@
             this.panel1.Controls.Add(this.btnUltimoTicket);
             this.panel1.Controls.Add(this.lbNumeroArticulos);
             this.panel1.Controls.Add(this.btnPresupuesto);
-            this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Location = new System.Drawing.Point(5, 93);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1221, 354);
             this.panel1.TabIndex = 34;
+            // 
+            // btnEliminarDescuentos
+            // 
+            this.btnEliminarDescuentos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminarDescuentos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarDescuentos.Location = new System.Drawing.Point(383, 321);
+            this.btnEliminarDescuentos.Name = "btnEliminarDescuentos";
+            this.btnEliminarDescuentos.Size = new System.Drawing.Size(79, 23);
+            this.btnEliminarDescuentos.TabIndex = 44;
+            this.btnEliminarDescuentos.Text = "Eliminar";
+            this.btnEliminarDescuentos.UseVisualStyleBackColor = true;
+            this.btnEliminarDescuentos.Click += new System.EventHandler(this.btnEliminarDescuentos_Click);
             // 
             // btnAplicarDescuento
             // 
@@ -739,18 +751,6 @@
             this.lbDatosCliente.Size = new System.Drawing.Size(638, 23);
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // btnEliminarDescuentos
-            // 
-            this.btnEliminarDescuentos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEliminarDescuentos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminarDescuentos.Location = new System.Drawing.Point(383, 321);
-            this.btnEliminarDescuentos.Name = "btnEliminarDescuentos";
-            this.btnEliminarDescuentos.Size = new System.Drawing.Size(79, 23);
-            this.btnEliminarDescuentos.TabIndex = 44;
-            this.btnEliminarDescuentos.Text = "Eliminar";
-            this.btnEliminarDescuentos.UseVisualStyleBackColor = true;
-            this.btnEliminarDescuentos.Click += new System.EventHandler(this.btnEliminarDescuentos_Click);
             // 
             // Ventas
             // 
