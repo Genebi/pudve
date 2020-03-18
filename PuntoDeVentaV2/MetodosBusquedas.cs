@@ -1537,13 +1537,13 @@ namespace PuntoDeVentaV2
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
+            if (tipo == 1)
+            {
+                lista.Add(0, "Seleccionar...");
+            }
+
             if (dr.HasRows)
             {
-                if (tipo == 1)
-                {
-                    lista.Add(0, "Seleccionar...");
-                }
-
                 while (dr.Read())
                 {
                     var opcion = string.Empty;
