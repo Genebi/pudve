@@ -254,6 +254,7 @@
             this.btnFacturas.Text = "Facturas";
             this.btnFacturas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnFacturas.UseVisualStyleBackColor = true;
+            this.btnFacturas.Click += new System.EventHandler(this.btnFacturas_Click);
             // 
             // btnProveedores
             // 

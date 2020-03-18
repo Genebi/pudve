@@ -1,0 +1,657 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <script>
+        /*function subst() {
+
+            var vars = {};
+            var query_strings_from_url = document.location.search.substring(1).split('&');
+            for (var query_string in query_strings_from_url) {
+                if (query_strings_from_url.hasOwnProperty(query_string)) {
+                    var temp_var = query_strings_from_url[query_string].split('=', 2);
+                    vars[temp_var[0]] = decodeURI(temp_var[1]);
+                }
+            }
+            var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
+            for (var css_class in css_selector_classes) {
+                if (css_selector_classes.hasOwnProperty(css_class)) {
+                    var element = document.getElementsByClassName(css_selector_classes[css_class]);
+                    for (var j = 0; j < element.length; ++j) {
+                        element[j].textContent = vars[css_selector_classes[css_class]];
+
+                        document.getElementById('page').innerHTML = vars.page;
+                        document.getElementById('topage').innerHTML = vars.topage;
+                    }
+                }
+            }
+        }*/
+    </script>
+
+    <script> 
+        /*function substitutePdfVariables() { function getParameterByName(name) { var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search); return match && decodeURIComponent(match[1].replace(/\+/g, ' ')); } function substitute(name) { var value = getParameterByName(name); var elements = document.getElementsByClassName(name); for (var i = 0; elements && i < elements.length; i++) { elements[i].textContent = value; } } ['frompage', 'topage', 'page', 'webpage', 'section', 'subsection', 'subsubsection'].forEach(function (param) { substitute(param); }); } */
+        //substitutePdfVariables()
+    </script>
+</head>
+
+<body style="border:0; margin: 0;" onload="">
+
+    <!-- FOLIO, SERIE Y PÁGINA -->
+
+    <table class="txt-tipo-letra" style="width: 100%">
+        <tr>
+            <td style="width: 50%; font-size: 1em; color: red; font-weight: bold;">Folio: @Model.Folio &nbsp;  Serie: @Model.Serie</td>
+            <td class="section"></td>
+            <td style="text-align:right">
+                <span class="page"></span>  <span class="topage"></span>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+
+
+    <div style="width: 100%">
+
+        <!-- IMAGEN -->
+
+        <div class="alineacion" style="width: 31%;">
+            <img src="@Model.imagen" width="270" height="200" />
+        </div>
+
+        <!-- EMISOR -->
+
+        <div class="txt alineacion txt-tipo-letra" style="width: 42%; margin-left: 1em;">
+            <b>@Model.Emisor.Nombre SAGRARIO GUTIERREZ GUZMÁN</b> <br />
+            <b>RFC:</b> @Model.Emisor.Rfc <br />
+            <b>Régimen:</b> @Model.Emisor.RegimenFiscal - @regimenn(@Model.Emisor.RegimenFiscal) <br />
+        </div>
+
+        <!-- FECHAS -->
+
+        <div class="alineacion txt-tipo-letra" style="width: 22%; margin-left: 1em;">
+            <table class="tab_fechas">
+                <tr>
+                    <td class="txt_factura" style="font-size: 1.1em; text-align: center;"><b>FACTURA ELECTRÓNICA</b></td>
+                </tr>
+                <tr>
+                    <td class="cfondo_fechas">Fecha emisión</td>
+                </tr>
+                <tr>
+                    <td>@fecha(@Model.timbre_fiscal_digital.FechaTimbrado, 2)</td>
+                </tr>
+                <tr>
+                    <td class="cfondo_fechas">Fecha certificación</td>
+                </tr>
+                <tr>
+                    <td>@fecha(@Model.timbre_fiscal_digital.FechaTimbrado, 1)</td>
+                </tr>
+                <tr>
+                    <td class="cfondo_fechas">Tipo comprobante</td>
+                </tr>
+                <tr>
+                    <td>@t_comprobante(@Model.TipoDeComprobante)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <div style="clear: both;"></div>
+
+
+
+    <div style="width: 100%; margin-top: 1em; line-height: 1.4;">
+
+        <!-- RECEPTOR -->
+
+        <div class="alineacion txt-tipo-letra" style="width: 49%; font-size: .94em;">
+            @Model.Receptor.Nombre<br />
+            <b>RFC:</b> @Model.Receptor.Rfc<br />
+            <b>Uso CFDI:</b> @Model.Receptor.UsoCFDI - @uso_cfdi(@Model.Receptor.UsoCFDI)
+        </div>
+
+        <!-- OTROS DATOS -->
+
+        <div class="alineacion txt-tipo-letra" style="width: 51%; font-size: .9em;">
+            <div><b>Folio fiscal:</b> @Model.timbre_fiscal_digital.UUID</div>
+            <div>
+                <div class="alineacion" style="width: 50%">No. comprobante: @Model.Folio</div>
+                <div class="alineacion" style="width: 50%">Lugar expedición: @Model.LugarExpedicion</div>
+            </div>
+            <div>
+                Método pago:
+
+                @if(Model.TipoDeComprobante == "I"){
+                    @Model.MetodoPago <span> - </span> @metodo_pago(@Model.MetodoPago)
+                }
+                else{
+                    <span>PPD - </span> 
+                }                
+            </div>
+            <div>
+                Forma pago: 
+
+                @if(Model.TipoDeComprobante == "I"){
+                    @Model.FormaPago <span> - </span> @forma_pago(@Model.FormaPago)
+                }
+                else{
+                    <span> - </span>
+                }
+                 
+            </div>
+            <div>
+                @if(Model.TipoDeComprobante == "I"){
+                    <div class="alineacion" style="width: 50%">Moneda: @Model.Moneda</div>
+                    <div class="alineacion" style="width: 50%">Tipo cambio: @Model.TipoCambio</div>
+                }
+                else{
+                    <div class="alineacion" style="width: 35%">Moneda: @Model.Moneda</div>
+                    <div class="alineacion" style="width: 65%"><b>Fecha pago:</b> </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+    <br />
+    <br />
+
+
+
+    <!-- CONCEPTOS -->
+
+    <div>
+        <table width="850" class="tab_conceptos txt-tipo-letra" align="center">
+            <tr>
+                <th width="55">Cantidad</th>
+                <th width="53">Clave prod/serv</th>
+                <th width="35">Clave unidad</th>
+                <th width="300">Descripción</th>
+                <th width="75">P/U</th>
+                <th width="82">Importe</th>
+            </tr>
+
+            @foreach(var concepto in Model.Conceptos){
+
+                <tr>
+                    <td>@concepto.Cantidad</td>
+                    <td>@concepto.ClaveProdServ</td>
+                    <td>@concepto.ClaveUnidad</td>
+                    <td>@concepto.Descripcion</td>
+                    <td>@dos_decimales(@concepto.ValorUnitario)</td>
+                    <td>@dos_decimales(@concepto.Importe)</td>
+                </tr>
+
+                <!-- Obtención de solo impuestos retenidos -->
+                if(concepto.Impuestos != null){
+                    if(concepto.Impuestos.Retenciones != null){
+                        foreach(var i_retenido in concepto.Impuestos.Retenciones){
+
+                            guarda_retenciones(@i_retenido.Impuesto, @i_retenido.TipoFactor, @i_retenido.TasaOCuota, @i_retenido.Importe);
+                        }
+                    }
+                }
+            }
+
+            <tr><td colspan="6" class="blanco">&nbsp;<br />&nbsp;</td></tr>
+
+            <tr>
+                <td colspan="4"></td>
+                <td class="negritas">Subtotal</td>
+                <td>@Model.SubTotal</td>
+            </tr>
+
+            @if(Model.Impuestos != null){
+                foreach(var impuesto_t in Model.Impuestos.Traslados){
+
+                <tr>
+                    <td colspan="4" align="right">Traslado @t_impuesto(@impuesto_t.Impuesto)</td>
+                    <td class="negritas">
+                        @impuesto_t.TipoFactor  @tasacuota(@impuesto_t.TasaOCuota) %
+                    </td>
+                    <td>@impuesto_t.Importe</td>
+                </tr>
+                }
+            }
+
+            @if(cant_list > 0){
+                while(l < cant_list){
+            
+                <tr>
+                    <td colspan="4" align="right">Retención @im_retenciones(l, 1)</td>
+                    <td>@im_retenciones(l, 2)</td>
+                    <td>@im_retenciones(l + 1, 3)</td>
+                </tr>
+
+                    l += 2;
+                }
+            }
+            
+            <tr>
+                <td colspan="4">@Model.monedacon_letra</td>
+                <td class="negritas">TOTAL</td>
+                <td>@Model.Total</td>
+            </tr>
+        </table>
+    </div>
+
+    <br />
+    <br />
+
+
+
+    <!-- COMPLEMENTO DE PAGOS -->
+
+    
+    <!--<div class="txt-tipo-letra txt-cpagos">COMPLEMENTO DE PAGOS</div>
+    <div style="clear: both;"></div>
+
+    <table class="tab_conceptos txt-tipo-letra" style="width: 99%;" align="center">
+        <tr>
+            <th width="50">No. parcialidad</th>
+            <th width="245">UUDI</th>
+            <th width="45">Moneda</th>
+            <th width="40">Tipo cambio</th>
+            <th width="80">Saldo ant.</th>
+            <th width="75">Importe pagado</th>
+            <th width="80">Saldo insoluto</th>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr><td colspan="7" class="blanco">&nbsp;<br />&nbsp;</td></tr>
+
+        <tr>
+            <td colspan="4"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    
+    <br />
+    <br />-->
+
+
+
+    <!-- CADENA Y SELLOS DIGITALES -->
+
+    <div class="txt-tipo-letra" style="width: 100%">
+        <div class="alineacion" style="width: 18%; padding-top: .8em;">
+            <img src="@Model.QR" width="150" height="150" />
+        </div>
+        <div class="alineacion" style="width: 81%; margin-left: .3em;">
+            <div class="tam-letra-sellos" style="padding-bottom: 1.34em;">"Este Documento es una Representación Impresa de un CFDI"</div>
+            <div class="tam-letra-sellos">
+                <div class="alineacion" style="width: 35%;"><b>Certificado emisor:</b></div>
+                <div class="alineacion" style="width: 35%;"><b>Certificado SAT:</b></div>
+                <div class="alineacion" style="width: 30%;"><b>RFC del PAC:</b></div>
+            </div>
+            <div class="tam-letra-sellos">
+                <div class="alineacion" style="width: 35%;">
+                    <span style="font-size: .95em;">@Model.NoCertificado</span>
+                </div>
+                <div class="alineacion" style="width: 35%;">
+                    <span style="font-size: .95em;">@Model.timbre_fiscal_digital.NoCertificadoSAT</span>
+                </div>
+                <div class="alineacion" style="width: 30%;">
+                    <span style="font-size: .95em;">@Model.timbre_fiscal_digital.RfcProvCertif</span>
+                </div>
+            </div>
+            <div class="tam-letra-sellos"><strong>Cadena digital del complemento de certificado digital del SAT:</strong></div>
+            <div class="saltos tam-letra-sellos-m">
+                ||1.1|@Model.timbre_fiscal_digital.UUID|@Model.timbre_fiscal_digital.FechaTimbrado|@Model.timbre_fiscal_digital.SelloCFD|@Model.timbre_fiscal_digital.NoCertificadoSAT|
+            </div>
+        </div>
+
+        <br />
+
+        <div style="width: 100%">
+            <div class="tam-letra-sellos"><b>Sello digital del emisor:</b></div>
+            <div class="saltos tam-letra-sellos-m">
+                @Model.timbre_fiscal_digital.SelloCFD
+            </div>
+            <div class="tam-letra-sellos"><b>Sello digital del SAT:</b></div>
+            <div class="saltos tam-letra-sellos-m">
+                @Model.timbre_fiscal_digital.SelloSAT
+            </div>
+
+        </div>
+    </div>
+
+    <footer style="color : #000000" --footer-center "[page]/[toPage]" > mundo... </footer>
+
+</body>
+
+    @functions {
+
+        int i = 0;
+        List<string>list_porprod_impuestos_retenidos = new List<string>();
+        int cant_list = 0;
+        int l = 0;
+                                                            
+
+        string regimenn(string r){
+
+            string reg = "";
+
+            if(r == "601"){    reg = "General de Ley Personas Morales";    }
+            if(r == "603"){    reg = "Personas Morales con Fines no Lucrativos";    }
+            if(r == "605"){    reg = "Sueldos y Salarios e Ingresos Asimilados a Salarios";    }
+            if(r == "606"){    reg = "Arrendamiento";    }
+            if(r == "607"){    reg = "Régimen de Enajenación o Adquisición de Bienes";    }
+            if(r == "608"){    reg = "Demás ingresos";    }
+            if(r == "609"){    reg = "Consolidación";    }
+            if(r == "610"){    reg = "Residentes en el Extranjero sin Establecimiento Permanente en México";    }
+            if(r == "611"){    reg = "Ingresos por Dividendos (socios y accionistas)";    }
+            if(r == "612"){    reg = "Personas Físicas con Actividades Empresariales y Profesionales";    }
+            if(r == "614"){    reg = "Ingresos por intereses";    }
+            if(r == "616"){    reg = "Sin obligaciones fiscales";    }
+            if(r == "620"){    reg = "Sociedades Cooperativas de Producción que optan por diferir sus ingresos";    }
+            if(r == "621"){    reg = "Incorporación Fiscal";    }
+            if(r == "622"){    reg = "Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras";    }
+            if(r == "623"){    reg = "Opcional para Grupos de Sociedades";    }
+            if(r == "624"){    reg = "Coordinados";    }
+            if(r == "629"){    reg = "De los Regímenes Fiscales Preferentes y de las Empresas Multinacionales";    }
+            if(r == "630"){    reg = "Enajenación de acciones en bolsa de valores";    }
+            if(r == "615"){    reg = "Régimen de los ingresos por obtención de premios";    }
+
+            return reg;
+        }
+
+        public string fecha(DateTime f, int opc){
+
+            string r = "";
+            string fc= f.ToString();
+
+            if(opc == 1){
+                r= fc.Substring(0, 19);
+
+                return Convert.ToDateTime(r).ToString("yyyy-MM-dd HH:mm:ss");
+            }
+            if(opc == 2){
+                r= fc.Substring(0, 10);
+
+                return Convert.ToDateTime(r).ToString("yyyy-MM-dd");
+            }
+
+            return "";
+        }
+
+        public string t_comprobante(string t){
+
+            string tc = "";
+
+            if(t == "I"){  tc= "Ingresos";  }
+            if(t == "P"){  tc= "Pago";  }
+
+            return tc;
+        }
+
+        public string uso_cfdi(string clave){
+
+            string desc_usocfdi = "";
+
+            if(clave == "G01"){   desc_usocfdi = "Adquisición de mercancias";  }
+            if(clave == "G02"){   desc_usocfdi = "Devoluciones, descuentos o bonificaciones";  }
+            if(clave == "G03"){   desc_usocfdi = "Gastos en general";  }
+            if(clave == "I01"){   desc_usocfdi = "Construcciones";  }
+            if(clave == "I02"){   desc_usocfdi = "Mobilario y equipo de oficina por inversiones";  }
+            if(clave == "I03"){   desc_usocfdi = "Equipo de transporte";  }
+            if(clave == "I04"){   desc_usocfdi = "Equipo de computo y accesorios";  }
+            if(clave == "I05"){   desc_usocfdi = "Dados, troqueles, moldes, matrices y herramental";  }
+            if(clave == "I06"){   desc_usocfdi = "Comunicaciones telefónicas";  }
+            if(clave == "I07"){   desc_usocfdi = "Comunicaciones satelitales";  }
+            if(clave == "I08"){   desc_usocfdi = "Otra maquinaria y equipo";  }
+            if(clave == "D01"){   desc_usocfdi = "Honorarios médicos, dentales y gastos hospitalarios.";  }
+            if(clave == "D02"){   desc_usocfdi = "Gastos médicos por incapacidad o discapacidad";  }
+            if(clave == "D03"){   desc_usocfdi = "Gastos funerales.";  }
+            if(clave == "D04"){   desc_usocfdi = "Donativos.";  }
+            if(clave == "D05"){   desc_usocfdi = "Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación)";  }
+            if(clave == "D06"){   desc_usocfdi = "Aportaciones voluntarias al SAR";  }
+            if(clave == "D07"){   desc_usocfdi = "Primas por seguros de gastos médicos";  }
+            if(clave == "D08"){   desc_usocfdi = "Gastos de transportación escolar obligatoria";  }
+            if(clave == "D09"){   desc_usocfdi = "Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones";  }
+            if(clave == "D10"){   desc_usocfdi = "Pagos por servicios educativos (colegiaturas)";  }
+            if(clave == "P01"){   desc_usocfdi = "Por definir";  }
+
+            return desc_usocfdi;
+        }
+
+        string metodo_pago(string mpago){
+            
+            string m_pago = "";
+
+            if(mpago == "PUE"){ 
+                m_pago = "Pago en una sola exhibición";
+            }
+            if(mpago == "PPD"){
+                m_pago = "Pago en parcialidades o diferido";
+            }
+            
+            return m_pago;
+        }
+          
+        public string forma_pago(string fpago){
+
+            string desc = "";
+
+            if(fpago=="01"){   desc = "Efectivo";  }
+            if(fpago=="02"){   desc = "Cheque nominativo";  }
+            if(fpago=="03"){   desc = "Transferencia electrónica de fondos";  }
+            if(fpago=="04"){   desc = "Tarjeta de crédito";  }
+            if(fpago=="05"){   desc = "Monedero electrónico";  }
+            if(fpago=="06"){   desc = "Dinero electrónico";  }
+            if(fpago=="08"){   desc = "Vales de despensa";  }
+            if(fpago=="12"){   desc = "Dación en pago";  }
+            if(fpago=="13"){   desc = "Pago por subrogación";  }
+            if(fpago=="14"){   desc = "Pago por consignación";  }
+            if(fpago=="15"){   desc = "Condonación";  }
+            if(fpago=="17"){   desc = "Compensación";  }
+            if(fpago=="23"){   desc = "Novación";  }
+            if(fpago=="24"){   desc = "Confusión";  }
+            if(fpago=="25"){   desc = "Remisión de deuda";  }
+            if(fpago=="26"){   desc = "Prescripción o caducidad";  }
+            if(fpago=="27"){   desc = "A satisfacción del acreedor";  }
+            if(fpago=="28"){   desc = "Tarjeta de débito";  }
+            if(fpago=="29"){   desc = "Tarjeta de servicios";  }
+            if(fpago=="30"){   desc = "Aplicación de anticipos";  }
+            if(fpago=="31"){   desc = "Intermediario pagos";  }
+            if(fpago=="99"){   desc = "Por definir";  }
+
+            return desc;
+        }
+
+        public string t_impuesto(string imp){
+
+            string desc = "";
+
+            if(imp == "001"){    desc = "ISR";    }
+            if(imp == "002"){    desc = "IVA";    }
+            if(imp == "003"){    desc = "IEPS";    }
+
+            return desc;
+        }
+
+        public decimal tasacuota(decimal tc){
+
+            return Convert.ToInt32(tc * 100);
+        }
+
+        public string guarda_retenciones(string timp, string tfactor, decimal tasac, Decimal monto){
+
+            string cadena = timp + "-" + tfactor + "-" + Convert.ToString(tasac);
+
+            var indice = list_porprod_impuestos_retenidos.IndexOf(cadena);
+
+            if (indice >= 0){
+
+                indice = indice + 1;
+                decimal monto_actual = Convert.ToDecimal(list_porprod_impuestos_retenidos[indice]);
+                decimal monto_nuevo = monto_actual + monto;
+
+                list_porprod_impuestos_retenidos.RemoveAt(indice);
+                list_porprod_impuestos_retenidos.Insert(indice, Convert.ToString(monto_nuevo));
+            }
+            else{
+            
+                list_porprod_impuestos_retenidos.Add(cadena);
+                list_porprod_impuestos_retenidos.Add(monto.ToString());
+            }
+            
+            cant_list = list_porprod_impuestos_retenidos.Count;
+            return "";
+        }
+
+        public string im_retenciones(int li, int opc){
+            
+            string[] dato_it = list_porprod_impuestos_retenidos[li].Split('-');
+
+            if(opc == 1){
+            
+                string t_imp= t_impuesto(dato_it[0]);
+
+                return t_imp;
+            }
+            if(opc == 2){
+
+                decimal tasac = Convert.ToDecimal(dato_it[2]);
+                decimal porc = tasac * 100;
+                decimal porc_c =0;
+                
+                if(porc % 2 == 0){
+                    porc_c = cero_decimales(porc);
+                }
+                else{
+                    porc_c = dos_decimales(porc);
+                }
+                
+                return dato_it[1] + " " + Convert.ToString(porc_c) + " %";
+            }
+            if(opc == 3){
+
+                decimal monto = dos_decimales(Convert.ToDecimal(list_porprod_impuestos_retenidos[li]));
+
+                return monto.ToString();
+            }
+            
+            return "";
+        }
+                                                                             
+        public decimal dos_decimales(decimal c){
+            decimal cantidad = Decimal.Round(c, 2);
+            return cantidad;
+        }
+    
+        public decimal cero_decimales(decimal c){
+            decimal cantidad = Decimal.Round(c, 0);
+            return cantidad;
+        }
+    }
+</html>
+
+
+<style>
+    .txt{
+        font-size: 1em;
+        line-height: 1.5;
+        letter-spacing: 1px;
+    }
+    .txt-tipo-letra{
+        font-family: 'Lucida Sans';
+        letter-spacing: 1px;
+    }
+    .alineacion{
+        float: left;
+    }
+
+    /* Tabla fechas */
+
+    .tab_fechas{  
+        border-collapse: collapse;  
+        margin-left: 5px;  
+        font-size: 15px;
+    }
+	.tab_fechas td{  
+        padding: 2px 5px;  
+	}
+	.txt_factura{  
+        font-size: 14px;  
+        color: #fff;  
+        background: #D9534F;  
+        padding: 4px;  
+	}
+	.cfondo_fechas{  
+        background: #1A2754;  
+        color: #FFF;  
+        font-weight: bold; 
+	}
+
+    /* Tabla conceptos */
+
+    .tab_conceptos{  
+        margin-top: 8px;  
+        border-collapse: collapse;  
+        font-size: 14px;  
+        color: #191A1A;  
+    }
+	.tab_conceptos th{  
+        padding: 5px 2px;  
+        font-family:'Century Gothic';
+        font-weight: bold;  
+        font-size: 14px;
+        border: 1px solid #8699B4; 
+	}
+    .tab_conceptos td{  
+        padding: 6px 4px;  
+        border: 1px solid #8699B4;
+        font-size: 11px;
+    }
+    .blanco{  
+        padding: 2em 3em;  
+    }
+    .negritas{
+        font-weight: bold;
+    }
+
+    /* Sellos */
+
+    .tam-letra-sellos{
+        font-size: .96em;
+        margin: 4px 0;
+    }
+    .tam-letra-sellos-m{
+        font-size: .65em;
+    }
+    .saltos{
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+
+    /* COMPLEMENTO DE PAGOS */
+
+    .txt-cpagos{
+        font-size: 1.85em;
+        color: #0f246c;
+        text-align: center;
+        margin-bottom: .8em;
+    }
+</style>
+

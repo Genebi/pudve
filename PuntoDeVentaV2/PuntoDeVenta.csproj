@@ -125,6 +125,10 @@
       <HintPath>..\packages\NAudio.1.9.0\lib\net35\NAudio.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -150,6 +154,10 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -317,6 +325,8 @@
     <Compile Include="CantidadProdServicio.Designer.cs">
       <DependentUpon>CantidadProdServicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Carga_logo.cs" />
+    <Compile Include="catCFDI_tdCFDI_catPagos_Pagos10.cs" />
     <Compile Include="CFDI\OpenSSLKey.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -346,6 +356,12 @@
       <DependentUpon>CodigoBarrasExtraRI.cs</DependentUpon>
     </Compile>
     <Compile Include="ComboboxItem.cs" />
+    <Compile Include="Complemento_pago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Complemento_pago.Designer.cs">
+      <DependentUpon>Complemento_pago.cs</DependentUpon>
+    </Compile>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionNet.cs" />
     <Compile Include="ConsultarProductoVentas.cs">
@@ -398,6 +414,7 @@
     <Compile Include="Empresas.Designer.cs">
       <DependentUpon>Empresas.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="FechasReportes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -415,6 +432,13 @@
     </Compile>
     <Compile Include="FiltroRevisarInventario.Designer.cs">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
+=======
+    <Compile Include="Facturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturas.Designer.cs">
+      <DependentUpon>Facturas.cs</DependentUpon>
+>>>>>>> ApartadoFacturacionPrt9
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -428,7 +452,9 @@
     <Compile Include="GenerarEtiqueta.Designer.cs">
       <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generar_PDF_factura.cs" />
     <Compile Include="Generar_XML.cs" />
+    <Compile Include="Genera_QR.cs" />
     <Compile Include="Genera_respaldos.cs" />
     <Compile Include="ImprimirEtiqueta.cs">
       <SubType>Form</SubType>
@@ -491,6 +517,12 @@
     <Compile Include="ListaProductos.Designer.cs">
       <DependentUpon>ListaProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Loading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Loading.Designer.cs">
+      <DependentUpon>Loading.cs</DependentUpon>
+    </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -505,6 +537,7 @@
     <Compile Include="MisDatos.Designer.cs">
       <DependentUpon>MisDatos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Moneda_conletra.cs" />
     <Compile Include="NvaEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -632,12 +665,16 @@
     <Compile Include="TestModificacion.Designer.cs">
       <DependentUpon>TestModificacion.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="TipoHistorial.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TipoHistorial.Designer.cs">
       <DependentUpon>TipoHistorial.cs</DependentUpon>
     </Compile>
+=======
+    <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
+>>>>>>> ApartadoFacturacionPrt9
     <Compile Include="Utilidades.cs" />
     <Compile Include="VentanaDetalleFotoProducto.cs">
       <SubType>Form</SubType>
@@ -662,6 +699,12 @@
     </Compile>
     <Compile Include="VisualizadorTickets.Designer.cs">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Visualizar_factura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Visualizar_factura.Designer.cs">
+      <DependentUpon>Visualizar_factura.cs</DependentUpon>
     </Compile>
     <Compile Include="WinQueryString.cs">
       <SubType>Form</SubType>
@@ -753,8 +796,13 @@
     <EmbeddedResource Include="CodeBarMake.resx">
       <DependentUpon>CodeBarMake.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="CodigoBarrasExtraRI.resx">
       <DependentUpon>CodigoBarrasExtraRI.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Complemento_pago.resx">
+      <DependentUpon>Complemento_pago.cs</DependentUpon>
+>>>>>>> ApartadoFacturacionPrt9
     </EmbeddedResource>
     <EmbeddedResource Include="ConsultarProductoVentas.resx">
       <DependentUpon>ConsultarProductoVentas.cs</DependentUpon>
@@ -780,6 +828,7 @@
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="FechasReportes.resx">
       <DependentUpon>FechasReportes.cs</DependentUpon>
     </EmbeddedResource>
@@ -788,6 +837,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FiltroRevisarInventario.resx">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Facturas.resx">
+      <DependentUpon>Facturas.cs</DependentUpon>
+>>>>>>> ApartadoFacturacionPrt9
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
@@ -824,6 +877,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListaProductos.resx">
       <DependentUpon>ListaProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Loading.resx">
+      <DependentUpon>Loading.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -908,6 +964,9 @@
     <EmbeddedResource Include="VisualizadorTickets.resx">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Visualizar_factura.resx">
+      <DependentUpon>Visualizar_factura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinQueryString.resx">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </EmbeddedResource>
@@ -951,9 +1010,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReferenceTPrueba\timbrado_cfdi33.wsdl" />
+    <None Include="wkhtmltopdf\lib\wkhtmltox.lib" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AcroPDFLib">
@@ -992,6 +1054,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="loading.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="loading2.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plantilla_factura.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\assets\iconfinder_Import.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3440,6 +3511,9 @@
     <Content Include="PUDVE\icon\black\save.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\gifs\loading.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\Tags\backgroundMiddleLabel.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3464,6 +3538,9 @@
     <Content Include="PUDVE\Plantillas\FDFSDF.txt" />
     <Content Include="PUDVE\Plantillas\PRIMERA.bmp" />
     <Content Include="PUDVE\Plantillas\PRIMERA.txt" />
+    <Content Include="PUDVE\Productos\loading.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\Productos\no-image.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3485,6 +3562,20 @@
     <Content Include="PUDVE\Sounds\sonido_alarma.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wkhtmltopdf\bin\wkhtmltox.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
+    <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
+    <Content Include="wkhtmltopdf\include\wkhtmltox\image.h" />
+    <Content Include="wkhtmltopdf\include\wkhtmltox\pdf.h" />
+    <Content Include="wkhtmltopdf\uninstall.exe" />
     <None Include="Service References\ServiceReferenceTPrueba\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferenceTPrueba\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceTPrueba\Reference.svcmap">

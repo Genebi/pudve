@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         int con_id_cliente = 0;
         int n_filas = 0;
         int id_venta = 0;
+        int p_incompletos = 0;
 
 
         public Crear_factura(int sin_cliente, int n_f, int id_v)
@@ -31,6 +32,7 @@ namespace PuntoDeVentaV2
 
         private void Crear_factura_Load(object sender, EventArgs e)
         {
+            
             // Obtiene los clientes
 
             DataTable d_clientes;
@@ -42,15 +44,16 @@ namespace PuntoDeVentaV2
 
             if(d_clientes.Rows.Count > 0)
             {
-                btn_crear_cliente.Enabled = false;
-                btn_crear_cliente.Cursor = Cursors.No;
+                //btn_crear_cliente.Enabled = false;
+                //btn_crear_cliente.Cursor = Cursors.No;
 
                 clientes.Add("0", "Seleccionar cliente");
                 foreach(DataRow r_clientes in d_clientes.Rows)
                 {
-                    clientes.Add(r_clientes["ID"].ToString() + "|" + r_clientes["RazonSocial"].ToString(), r_clientes["RFC"].ToString() + " - " + r_clientes["RazonSocial"].ToString());
+                    //clientes.Add(r_clientes["ID"].ToString() + "|" + r_clientes["RazonSocial"].ToString(), r_clientes["RFC"].ToString() + " - " + r_clientes["RazonSocial"].ToString());
+                    clientes.Add(r_clientes["ID"].ToString(), r_clientes["RFC"].ToString() + " - " + r_clientes["RazonSocial"].ToString());
 
-                    if(Convert.ToInt32(r_clientes["ID"]) == con_id_cliente)
+                    if (Convert.ToInt32(r_clientes["ID"]) == con_id_cliente)
                     {
                         indice = c;
                     }
@@ -60,22 +63,31 @@ namespace PuntoDeVentaV2
             else
             {
                 clientes.Add("0", "No hay clientes para mostrar. Ir a registrar cliente.");
-                btn_crear_cliente.Enabled = true;
-                btn_crear_cliente.Cursor = Cursors.Hand;
+                //btn_crear_cliente.Enabled = true;
+                //btn_crear_cliente.Cursor = Cursors.Hand;
             }
 
             cmb_bx_clientes.DataSource = clientes.ToArray();
             cmb_bx_clientes.DisplayMember = "Value";
             cmb_bx_clientes.ValueMember = "Key";
 
-            if(con_id_cliente > 0)
-            {
-                cmb_bx_clientes.SelectedIndex = indice;
-            }
+            // Método de pago
+
+            Dictionary<string, string> metodo_pago = new Dictionary<string, string>();
+            metodo_pago.Add("PUE", "Pago en una sola exhibición");
+            metodo_pago.Add("PPD", "Pago en parcialidades o diferido");
+
+            cmb_bx_metodo_pago.DataSource = metodo_pago.ToArray();
+            cmb_bx_metodo_pago.DisplayMember = "Value";
+            cmb_bx_metodo_pago.ValueMember = "Key";
+            //if(con_id_cliente > 0)
+            //{
+            cmb_bx_clientes.SelectedIndex = 0;
+            /*}
             else
             {
                 cmb_bx_clientes.SelectedIndex = 0;
-            }
+            }*/
             
             
             // Forma de pago
@@ -115,9 +127,16 @@ namespace PuntoDeVentaV2
 
             d_moneda = cn.CargarDatos(cs.cargar_datos_venta_xml(6, 0, 0));
 
-            foreach(DataRow r_moneda in d_moneda.Rows)
+            moneda.Add("EUR", "EUR - Euro");
+            moneda.Add("MXN", "MXN - Peso Mexicano");
+            moneda.Add("USD", "USD - Dolar americano");
+
+            foreach (DataRow r_moneda in d_moneda.Rows)
             {
-                moneda.Add(r_moneda["clave_moneda"].ToString(), r_moneda["clave_moneda"].ToString() + " - " + r_moneda["descripcion"].ToString());
+                if(r_moneda["clave_moneda"].ToString() != "EUR" & r_moneda["clave_moneda"].ToString() != "MXN" & r_moneda["clave_moneda"].ToString() != "USD")
+                {
+                    moneda.Add(r_moneda["clave_moneda"].ToString(), r_moneda["clave_moneda"].ToString() + " - " + r_moneda["descripcion"].ToString());
+                }
             }
 
             cmb_bx_moneda.DataSource = moneda.ToArray();
@@ -127,95 +146,104 @@ namespace PuntoDeVentaV2
 
             // Tipo de venta
 
-            if(ListadoVentas.tipo_venta == 1)
+            /*if(ListadoVentas.tipo_venta == 1)
             {
                 cmb_bx_metodo_pago.SelectedIndex = 0;
             }
             if (ListadoVentas.tipo_venta == 4)
             {
                 cmb_bx_metodo_pago.SelectedIndex = 1;
-            }
+            }*/
 
             // Productos
            
             int location_y = 5;
-
+            
             if (ListadoVentas.faltantes_productos.Length > 0)
             {
                 for (int i = 1; i < n_filas; i++)
                 {
-                    int id_producto = Convert.ToInt32(ListadoVentas.faltantes_productos[i][1]);
-                    string des_habilitar = ListadoVentas.faltantes_productos[i][0];
-                    string c_producto = ListadoVentas.faltantes_productos[i][2];
-                    string c_unidad = ListadoVentas.faltantes_productos[i][3];
-                    string descripcion= ListadoVentas.faltantes_productos[i][4];
-
-
-                    TextBox txt_clave_unidad = new TextBox();
-                    txt_clave_unidad.Name = "txt_clave_u" + i;
-                    txt_clave_unidad.Location = new Point(3, location_y);
-                    txt_clave_unidad.Size = new Size(49, 22);
-                    txt_clave_unidad.MaxLength = 3;
-                    txt_clave_unidad.TextAlign = HorizontalAlignment.Center;
-                    txt_clave_unidad.CharacterCasing = CharacterCasing.Upper;
-                    txt_clave_unidad.Leave += new EventHandler(valida_clave_unidad);
-                    txt_clave_unidad.KeyPress += new KeyPressEventHandler(tdatos_cunidad);
-
-                    TextBox txt_clave_producto = new TextBox();
-                    txt_clave_producto.Name = "txt_clave_p" + i;
-                    txt_clave_producto.Location = new Point(64, location_y);
-                    txt_clave_producto.Size = new Size(87, 22);
-                    txt_clave_producto.MaxLength = 8;
-                    txt_clave_producto.TextAlign = HorizontalAlignment.Center;
-                    txt_clave_producto.Leave += new EventHandler(valida_clave_producto);
-                    txt_clave_producto.KeyPress += new KeyPressEventHandler(solo_numeros_cproducto);
-
-                    TextBox txt_descripcion = new TextBox();
-                    txt_descripcion.Name = "txt_descripcion" + i;
-                    txt_descripcion.Location = new Point(163, location_y);
-                    txt_descripcion.Size = new Size(344, 22);
-                    txt_descripcion.MaxLength = 1000;
-                    txt_descripcion.TextAlign = HorizontalAlignment.Center;
-                    txt_descripcion.ReadOnly = true;
-
-                    TextBox txt_idproducto = new TextBox();
-                    txt_idproducto.Name = "txt_idprod" + i;
-                    txt_idproducto.Location = new Point(513, location_y);
-                    txt_idproducto.Size = new Size(40, 22);
-                    txt_idproducto.MaxLength = 30;
-                    txt_idproducto.TextAlign = HorizontalAlignment.Center;
-                    txt_idproducto.Visible = false;
-
-                    pnl_productos.Controls.Add(txt_clave_unidad);
-                    pnl_productos.Controls.Add(txt_clave_producto);
-                    pnl_productos.Controls.Add(txt_descripcion);
-                    pnl_productos.Controls.Add(txt_idproducto);
-
-                    location_y = location_y + 28;
-
-
-                    txt_clave_producto.Text = c_producto;
-                    txt_clave_unidad.Text = c_unidad;
-                    txt_descripcion.Text = descripcion;
-                    txt_idproducto.Text = Convert.ToString(id_producto);
-                    
-
-                    /*if(des_habilitar == "0") // Datos completos
+                    if(Convert.ToInt32(ListadoVentas.faltantes_productos[i][0]) == 1)
                     {
-                        txt_clave_producto.ReadOnly = true;
-                        txt_clave_unidad.ReadOnly = true;
-                    }
-                    if (des_habilitar == "1") // Falta algún dato
-                    {
-                        if(c_producto != "")
+                        int id_producto = Convert.ToInt32(ListadoVentas.faltantes_productos[i][1]);
+                        string des_habilitar = ListadoVentas.faltantes_productos[i][0];
+                        string c_producto = ListadoVentas.faltantes_productos[i][2];
+                        string c_unidad = ListadoVentas.faltantes_productos[i][3];
+                        string descripcion = ListadoVentas.faltantes_productos[i][4];
+
+
+                        TextBox txt_clave_unidad = new TextBox();
+                        txt_clave_unidad.Name = "txt_clave_u" + i;
+                        txt_clave_unidad.Location = new Point(8, location_y);
+                        txt_clave_unidad.Size = new Size(49, 22);
+                        txt_clave_unidad.MaxLength = 3;
+                        txt_clave_unidad.TextAlign = HorizontalAlignment.Center;
+                        txt_clave_unidad.CharacterCasing = CharacterCasing.Upper;
+                        txt_clave_unidad.Leave += new EventHandler(valida_clave_unidad);
+                        txt_clave_unidad.KeyPress += new KeyPressEventHandler(tdatos_cunidad);
+
+                        TextBox txt_clave_producto = new TextBox();
+                        txt_clave_producto.Name = "txt_clave_p" + i;
+                        txt_clave_producto.Location = new Point(78, location_y);
+                        txt_clave_producto.Size = new Size(87, 22);
+                        txt_clave_producto.MaxLength = 8;
+                        txt_clave_producto.TextAlign = HorizontalAlignment.Center;
+                        txt_clave_producto.Leave += new EventHandler(valida_clave_producto);
+                        txt_clave_producto.KeyPress += new KeyPressEventHandler(solo_numeros_cproducto);
+
+                        TextBox txt_descripcion = new TextBox();
+                        txt_descripcion.Name = "txt_descripcion" + i;
+                        txt_descripcion.Location = new Point(186, location_y);
+                        txt_descripcion.Size = new Size(390, 22);
+                        txt_descripcion.MaxLength = 1000;
+                        txt_descripcion.TextAlign = HorizontalAlignment.Center;
+                        txt_descripcion.ReadOnly = true;
+
+                        TextBox txt_idproducto = new TextBox();
+                        txt_idproducto.Name = "txt_idprod" + i;
+                        txt_idproducto.Location = new Point(591, location_y);
+                        txt_idproducto.Size = new Size(40, 22);
+                        txt_idproducto.MaxLength = 30;
+                        txt_idproducto.TextAlign = HorizontalAlignment.Center;
+                        txt_idproducto.Visible = false;
+
+                        pnl_productos.Controls.Add(txt_clave_unidad);
+                        pnl_productos.Controls.Add(txt_clave_producto);
+                        pnl_productos.Controls.Add(txt_descripcion);
+                        pnl_productos.Controls.Add(txt_idproducto);
+
+                        location_y = location_y + 28;
+
+
+                        txt_clave_producto.Text = c_producto;
+                        txt_clave_unidad.Text = c_unidad;
+                        txt_descripcion.Text = descripcion;
+                        txt_idproducto.Text = Convert.ToString(id_producto);
+
+                        p_incompletos++;
+
+                        /*if(des_habilitar == "0") // Datos completos
                         {
                             txt_clave_producto.ReadOnly = true;
-                        }
-                        if (c_producto != "")
-                        {
                             txt_clave_unidad.ReadOnly = true;
                         }
-                    }*/
+                        if (des_habilitar == "1") // Falta algún dato
+                        {
+                            if(c_producto != "")
+                            {
+                                txt_clave_producto.ReadOnly = true;
+                            }
+                            if (c_producto != "")
+                            {
+                                txt_clave_unidad.ReadOnly = true;
+                            }
+                        }*/
+                    }
+                }
+
+                if(p_incompletos == 0)
+                {
+                    groupb_productos.Visible = false;
                 }
             }
             else
@@ -233,22 +261,98 @@ namespace PuntoDeVentaV2
                  limpiar_campos();
             };
 
+            this.Dispose();
             ir_clientes.ShowDialog();
         }
-        
+
+        private void sel_clientes(object sender, EventArgs e)
+        {
+            string clave = cmb_bx_clientes.SelectedValue.ToString();
+
+            if (clave != "0")
+            {
+                limpiar_campos_dcliente();
+                pnl_datos_cliente.Visible = true;
+
+                DataTable d_datos_clientes = cn.CargarDatos(cs.cargar_datos_venta_xml(3, Convert.ToInt32(clave), 0));
+                DataRow r_datos_clientes = d_datos_clientes.Rows[0];
+
+                txt_razon_social.Text = r_datos_clientes["RazonSocial"].ToString();
+                txt_rfc.Text = r_datos_clientes["RFC"].ToString();
+                txt_telefono.Text = r_datos_clientes["Telefono"].ToString();
+                txt_correo.Text = r_datos_clientes["Email"].ToString();
+                txt_nombre_comercial.Text = r_datos_clientes["NombreComercial"].ToString();
+                txt_pais.Text = r_datos_clientes["Pais"].ToString();
+                txt_estado.Text = r_datos_clientes["Estado"].ToString();
+                txt_municipio.Text = r_datos_clientes["Municipio"].ToString();
+                txt_localidad.Text = r_datos_clientes["Localidad"].ToString();
+                txt_cp.Text = r_datos_clientes["CodigoPostal"].ToString();
+                txt_colonia.Text = r_datos_clientes["Colonia"].ToString();
+                txt_calle.Text = r_datos_clientes["Calle"].ToString();
+                txt_num_ext.Text = r_datos_clientes["NoExterior"].ToString();
+                txt_num_int.Text = r_datos_clientes["NoInterior"].ToString();
+
+
+                Dictionary<string, string> usoCFDI = new Dictionary<string, string>();
+                usoCFDI.Add("G01", "Adquisición de mercancias");
+                usoCFDI.Add("G02", "Devoluciones, descuentos o bonificaciones");
+                usoCFDI.Add("G03", "Gastos en general");
+                usoCFDI.Add("I01", "Construcciones");
+                usoCFDI.Add("I02", "Mobilario y equipo de oficina por inversiones");
+                usoCFDI.Add("I03", "Equipo de transporte");
+                usoCFDI.Add("I04", "Equipo de computo y accesorios");
+                usoCFDI.Add("I05", "Dados, troqueles, moldes, matrices y herramental");
+                usoCFDI.Add("I06", "Comunicaciones telefónica");
+                usoCFDI.Add("I07", "Comunicaciones satelitale");
+                usoCFDI.Add("I08", "Otra maquinaria y equipo");
+                usoCFDI.Add("P01", "Por definir");
+
+                cmb_bx_uso_cfdi.DataSource = usoCFDI.ToArray();
+                cmb_bx_uso_cfdi.DisplayMember = "Value";
+                cmb_bx_uso_cfdi.ValueMember = "Key";
+                cmb_bx_uso_cfdi.SelectedValue = r_datos_clientes["UsoCFDI"];
+            }
+            else
+            {
+                pnl_datos_cliente.Visible = false;
+                limpiar_campos_dcliente();
+            }
+        }
+
+        private void limpiar_campos_dcliente()
+        {
+            txt_razon_social.Text = string.Empty;
+            txt_rfc.Text = string.Empty;
+            txt_telefono.Text = string.Empty;
+            txt_correo.Text = string.Empty;
+            txt_nombre_comercial.Text = string.Empty;
+            txt_pais.Text = string.Empty;
+            txt_estado.Text = string.Empty;
+            txt_municipio.Text = string.Empty;
+            txt_localidad.Text = string.Empty;
+            txt_cp.Text = string.Empty;
+            txt_colonia.Text = string.Empty;
+            txt_calle.Text = string.Empty;
+            txt_num_ext.Text = string.Empty;
+            txt_num_int.Text = string.Empty;
+        }
+
         private void limpiar_campos()
         {
             cmb_bx_clientes.SelectedIndex = 0;
+            pnl_datos_cliente.Visible = false;
             cmb_bx_forma_pago.SelectedIndex = 0;
-            cmb_bx_moneda.SelectedValue = "MXN";
+            cmb_bx_moneda.SelectedIndex = 1;
 
-            btn_crear_cliente.Enabled = true;
-            btn_crear_cliente.Cursor = Cursors.No;
+            //btn_crear_cliente.Enabled = true;
+            //btn_crear_cliente.Cursor = Cursors.No;
 
             txt_cuenta.ReadOnly = true;
             txt_cuenta.Text = string.Empty;
             txt_tipo_cambio.ReadOnly = true;
             txt_tipo_cambio.Text = "1.000000";
+
+            limpiar_campos_dcliente();
         }
 
         private void sel_forma_pago(object sender, EventArgs e)
@@ -456,11 +560,12 @@ namespace PuntoDeVentaV2
 
         private void btn_facturar_Click(object sender, EventArgs e)
         {
+
             // .....................  
             // .   Validar datos   .
             // .....................
 
-            
+
             // Cliente
 
             int cant_clientes = cmb_bx_clientes.Items.Count;
@@ -470,15 +575,32 @@ namespace PuntoDeVentaV2
                 if (cmb_bx_clientes.SelectedValue.ToString() == "0")
                 {
                     MessageBox.Show("Se debe elegir un cliente para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    botones_visibles(2);
                     return;
+                }
+                else
+                {
+                    if(txt_razon_social.Text == "")
+                    {
+                        MessageBox.Show("La razón social no debe estar vacía.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        botones_visibles(2);
+                        return;
+                    }
+                    if (txt_rfc.Text == "")
+                    {
+                        MessageBox.Show("El RCF no debe estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        botones_visibles(2);
+                        return;
+                    }
                 }
             }
             else
             {
-                MessageBox.Show("No tiene ningún cliente registrado para facturarle. Primero vaya al aartado de clientes a registrar uno, posterior regresar a timbrar la factura y elegir el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No tiene ningún cliente registrado para facturarle. Primero vaya al apartado de clientes a registrar uno, posterior regresar a timbrar la factura y elegir el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                botones_visibles(2);
                 return;
             }
-
+            
             // Tipo cambio
 
             string clave = cmb_bx_moneda.SelectedValue.ToString();
@@ -488,6 +610,7 @@ namespace PuntoDeVentaV2
                 if (txt_tipo_cambio.Text == "")
                 {
                     MessageBox.Show("El tipo de cambio es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    botones_visibles(2);
                     return;
                 }
             }
@@ -498,54 +621,171 @@ namespace PuntoDeVentaV2
             int clave_vacia = 0;
             int clave_inc = 0;
 
-            if (n_filas > 0)
+            if(p_incompletos > 0)
             {
-                foreach (Control panel in pnl_productos.Controls)
+                if (n_filas > 0)
                 {
-                    if (panel.Name.Contains("txt_clave_u"))
+                    foreach (Control panel in pnl_productos.Controls)
                     {
-                        info_productos += "#" + panel.Text;
+                        if (panel.Name.Contains("txt_clave_u"))
+                        {
+                            info_productos += "#" + panel.Text;
 
-                        int r = valida_claves_producto_unidad(1, panel.Text);
+                            int r = valida_claves_producto_unidad(1, panel.Text);
 
-                        if (r == 1) { clave_vacia++; }
-                        if (r == 2) { clave_inc++; }
-                    }
-                    if (panel.Name.Contains("txt_clave_p"))
-                    {
-                        info_productos += "-" + panel.Text;
+                            if (r == 1) { clave_vacia++; }
+                            if (r == 2) { clave_inc++; }
+                        }
+                        if (panel.Name.Contains("txt_clave_p"))
+                        {
+                            info_productos += "-" + panel.Text;
 
-                        int r = valida_claves_producto_unidad(2, panel.Text);
+                            int r = valida_claves_producto_unidad(2, panel.Text);
 
-                        if (r == 1) { clave_vacia++; }
-                        if (r == 2) { clave_inc++; }
-                    }
-                    if (panel.Name.Contains("txt_idprod"))
-                    {
-                        info_productos += "-" + panel.Text;
+                            if (r == 1) { clave_vacia++; }
+                            if (r == 2) { clave_inc++; }
+                        }
+                        if (panel.Name.Contains("txt_idprod"))
+                        {
+                            info_productos += "-" + panel.Text;
+                        }
                     }
                 }
+                if (clave_vacia > 0)
+                {
+                    MessageBox.Show("Las claves de unidad y producto no deben estar vacías.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    botones_visibles(2);
+                    return;
+                }
+                if (clave_inc > 0)
+                {
+                    MessageBox.Show("Alguna clave de unidad o producto es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    botones_visibles(2);
+                    return;
+                }
             }
-            if (clave_vacia > 0)
-            {
-                MessageBox.Show("Las claves de unidad y producto no deben estar vacías.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (clave_inc > 0)
-            {
-                MessageBox.Show("Alguna clave de unidad o producto es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            
 
 
             // .....................  
             // .   Crear factura   .
             // .....................
 
+            string id_usuario = FormPrincipal.userID.ToString();
+            string id_empleado = FormPrincipal.id_empleado.ToString();
+
+            botones_visibles(1);
+
+
+            // Actualiza datos del cliente en tabla clientes
+
+            string id_cliente = cmb_bx_clientes.SelectedValue.ToString();
+            string uso_cfdi = cmb_bx_uso_cfdi.SelectedValue.ToString();
+        
+            string[] datos_c = new string[]
+            {
+                id_cliente, txt_razon_social.Text, txt_rfc.Text, txt_telefono.Text, txt_correo.Text, txt_nombre_comercial.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text, uso_cfdi
+            };
+
+            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(1, datos_c));
+            
+
+            // Guarda datos cliente, sección forma de pago en nueva tabla (Facturas)
+            
+            // Consulta datos del emisor
+            DataTable d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, Convert.ToInt32(id_usuario)));
+            DataRow r_emisor = d_emisor.Rows[0];
+            // Consulta serie y folio
+            DataTable d_venta = cn.CargarDatos(cs.cargar_datos_venta_xml(9, id_venta, Convert.ToInt32(id_usuario)));
+            DataRow r_venta = d_venta.Rows[0];
+
+            Console.WriteLine("metodo="+cmb_bx_metodo_pago.SelectedValue.ToString());
+            string[] datos_f = new string[] 
+            {
+                id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text,
+                cmb_bx_moneda.SelectedValue.ToString(), txt_tipo_cambio.Text, uso_cfdi,
+                r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
+                r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
+                txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
+                r_venta["Folio"].ToString(), r_venta["Serie"].ToString()
+            };
+
+            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
+
+
+            //  Guarda clave de unidad y producto, en tabla Productos
+
+            if (p_incompletos > 0)
+            {
+                string[] filas = info_productos.Split('#');
+                string[] datos_p;
+
+                for (int f = 1; f < filas.Length; f++)
+                {
+                    string[] celda = filas[f].Split('-');
+
+                    datos_p = new string[]
+                    {
+                        celda[0], celda[1], celda[2]
+                    };
+
+                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(3, datos_p));
+                }
+            }
+
+
+            // Guarda produtos en nueva tabla "Facturas productos"
+
+            // Consulta el ultimo id de tabla facturas
+            int id_factura = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_venta='{id_venta}' ORDER BY ID DESC LIMIT 1", 1));
+            
+            // Busca los productos de la venta
+            DataTable d_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
+
+            if(d_productos.Rows.Count > 0)
+            {
+                foreach(DataRow r_productos in d_productos.Rows)
+                {
+                    int id_p = Convert.ToInt32(r_productos["IDProducto"]);
+
+                    // Busca los datos restantes en tabla principal de productos
+                    DataTable d_tb_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(5, id_p, 0));
+                    DataRow r_tb_producto = d_tb_productos.Rows[0];
+                    
+
+                    string[] datos_fp = new string[]
+                    {
+                        id_factura.ToString(), r_tb_producto["UnidadMedida"].ToString(), r_tb_producto["ClaveProducto"].ToString(), r_productos["Nombre"].ToString(), r_productos["Cantidad"].ToString(), r_productos["Precio"].ToString(), r_tb_producto["Base"].ToString(), r_tb_producto["Impuesto"].ToString(), r_tb_producto["IVA"].ToString()
+                    };
+
+                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
+
+                    // Consulta si tiene más de un impuesto
+                    // Si existen, los guarda en nueva tabla Facturas_impuestos
+                    DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, id_p, Convert.ToInt32(id_usuario)));
+
+                    if(d_impuestos.Rows.Count > 0)
+                    {
+                        // Consulta el ID del producto en curso
+                        int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
+
+                        foreach (DataRow r_impuestos in d_impuestos.Rows)
+                        {
+                            string[] datos_i = new string[]
+                            {
+                                id_fp.ToString(), r_impuestos["Tipo"].ToString(), r_impuestos["Impuesto"].ToString(), r_impuestos["TipoFactor"].ToString(), r_impuestos["TasaCuota"].ToString(), r_impuestos["Definir"].ToString(), r_impuestos["Importe"].ToString()
+                            };
+
+                            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                        }
+                    }
+                }
+            }
+
 
             // Guarda id del cliente
-            
-            string id_select = cmb_bx_clientes.SelectedValue.ToString();
+
+            /*string id_select = cmb_bx_clientes.SelectedValue.ToString();
             string[] datos_s = id_select.Split('|');
 
             string id_cliente = datos_s[0];
@@ -556,18 +796,20 @@ namespace PuntoDeVentaV2
                 id_venta.ToString(), id_cliente, nombre_cliente
             };
 
-            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(1, datos_c));
+            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(1, datos_c));*/
 
 
             // Guarda forma y método de pago, moneda y tipo de cambio
 
-            string metodo_pago = "";
+            /*string metodo_pago = "";
 
             string forma_pago = cmb_bx_forma_pago.SelectedValue.ToString(); 
             string num_cuenta = txt_cuenta.Text;
 
-            if (ListadoVentas.tipo_venta == 1) { metodo_pago = "PUE"; }
-            if (ListadoVentas.tipo_venta == 4) { metodo_pago = "PPD"; }
+            if (cmb_bx_metodo_pago.SelectedIndex == 0) { metodo_pago = "PUE";  }
+            if (cmb_bx_metodo_pago.SelectedIndex == 1) { metodo_pago = "PPD"; }
+            //if (ListadoVentas.tipo_venta == 1) { metodo_pago = "PUE"; }
+            //if (ListadoVentas.tipo_venta == 4) { metodo_pago = "PPD"; }
 
             string moneda = cmb_bx_moneda.SelectedValue.ToString();
             string tipo_cambio = txt_tipo_cambio.Text;
@@ -578,43 +820,60 @@ namespace PuntoDeVentaV2
                 id_venta.ToString(), metodo_pago, forma_pago, num_cuenta, moneda, tipo_cambio
             };
 
-            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(2, datos_f));
+            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(2, datos_f));*/
 
 
-            //  Guarda clave de unidad y producto
-                        
-            string[] filas = info_productos.Split('#');
-            string[] datos_p;
 
-            for (int f=1; f<filas.Length; f++)
-            {
-                string[] celda = filas[f].Split('-');
-                Console.WriteLine("c0= " + celda[0] + "c1= " + celda[1] + "c2= " + celda[2]);
-                datos_p = new string[] 
-                {
-                    celda[0], celda[1], celda[2]
-                };
 
-                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(3, datos_p));
-            }
 
 
             // ........................................ 
             // .   Llamar al timbrado de la factura   .
             // ........................................        
 
+            //Loading load = new Loading();
+            //load.Show();
+            decimal[][] vacio = new decimal[][]{ };
 
-           /* Generar_XML xml = new Generar_XML();
-            string respuesta_xml = xml.obtener_datos_XML(id_venta);
+            Generar_XML xml = new Generar_XML();
+            string respuesta_xml = xml.obtener_datos_XML(id_factura, id_venta, 0, vacio);
 
             if(respuesta_xml == "")
             {
-                MessageBox.Show("Su factura ha sido creada y timbrada con éxito.", "Éxito", MessageBoxButtons.OK);
+                lb_facturando.Visible = false;
+
+                var r = MessageBox.Show("Su factura ha sido creada y timbrada con éxito.", "Éxito", MessageBoxButtons.OK);
+
+                if(r == DialogResult.OK)
+                {
+                    this.Dispose();
+                }
             }
             else
             {
+                botones_visibles(2);
                 MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
-            }*/
+            }
         }
+
+        public void botones_visibles(int opc)
+        {
+            if(opc == 1) // Oculta botones Cancelar y Facturar
+            {
+                btn_cancelar.Visible = false;
+                btn_facturar.Visible = false;
+                lb_facturando.Visible = true;
+                //btn_facturando.Visible = true;
+            }
+            if(opc == 2) // Oculta botón Facturando
+            {
+                lb_facturando.Visible = false;
+                //btn_facturando.Visible = false;
+                btn_cancelar.Visible = true;
+                btn_facturar.Visible = true;
+            }
+        }
+        
+        
     }
 }
