@@ -169,12 +169,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgregarTipoCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AgregarTipoCliente.Designer.cs">
-      <DependentUpon>AgregarTipoCliente.cs</DependentUpon>
-    </Compile>
     <Compile Include="AgregarAnticipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -258,6 +252,12 @@
     </Compile>
     <Compile Include="AgregarMultiplesProductos.Designer.cs">
       <DependentUpon>AgregarMultiplesProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgregarTipoCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgregarTipoCliente.Designer.cs">
+      <DependentUpon>AgregarTipoCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="AgregarUbicacion.cs">
       <SubType>Form</SubType>
@@ -414,6 +414,15 @@
     <Compile Include="Empresas.Designer.cs">
       <DependentUpon>Empresas.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="Facturas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Facturas.Designer.cs">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </Compile>
+>>>>>>> ApartadoFacturacionPrt10
     <Compile Include="FechasReportes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -431,12 +440,15 @@
     </Compile>
     <Compile Include="FiltroRevisarInventario.Designer.cs">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
+<<<<<<< HEAD
     </Compile>
     <Compile Include="Facturas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facturas.Designer.cs">
       <DependentUpon>Facturas.cs</DependentUpon>
+=======
+>>>>>>> ApartadoFacturacionPrt10
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -622,12 +634,6 @@
     <Compile Include="ReporteFinalRevisarInventario.Designer.cs">
       <DependentUpon>ReporteFinalRevisarInventario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reportes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reportes.Designer.cs">
-      <DependentUpon>Reportes.cs</DependentUpon>
-    </Compile>
     <Compile Include="RevisarInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -663,13 +669,20 @@
     <Compile Include="TestModificacion.Designer.cs">
       <DependentUpon>TestModificacion.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
+>>>>>>> ApartadoFacturacionPrt10
     <Compile Include="TipoHistorial.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TipoHistorial.Designer.cs">
       <DependentUpon>TipoHistorial.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="TimbreFiscalDigitalv11_tdCFDI.cs" />
+=======
+>>>>>>> ApartadoFacturacionPrt10
     <Compile Include="Utilidades.cs" />
     <Compile Include="VentanaDetalleFotoProducto.cs">
       <SubType>Form</SubType>
@@ -707,9 +720,6 @@
     <Compile Include="WinQueryString.Designer.cs">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AgregarTipoCliente.resx">
-      <DependentUpon>AgregarTipoCliente.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AgregarAnticipo.resx">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </EmbeddedResource>
@@ -751,6 +761,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarMultiplesProductos.resx">
       <DependentUpon>AgregarMultiplesProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgregarTipoCliente.resx">
+      <DependentUpon>AgregarTipoCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AgregarUbicacion.resx">
       <DependentUpon>AgregarUbicacion.cs</DependentUpon>
@@ -821,6 +834,12 @@
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
+=======
+    <EmbeddedResource Include="Facturas.resx">
+      <DependentUpon>Facturas.cs</DependentUpon>
+    </EmbeddedResource>
+>>>>>>> ApartadoFacturacionPrt10
     <EmbeddedResource Include="FechasReportes.resx">
       <DependentUpon>FechasReportes.cs</DependentUpon>
     </EmbeddedResource>
@@ -829,9 +848,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FiltroRevisarInventario.resx">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
+<<<<<<< HEAD
     </EmbeddedResource>
     <EmbeddedResource Include="Facturas.resx">
       <DependentUpon>Facturas.cs</DependentUpon>
+=======
+>>>>>>> ApartadoFacturacionPrt10
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
@@ -921,9 +943,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteFinalRevisarInventario.resx">
       <DependentUpon>ReporteFinalRevisarInventario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reportes.resx">
-      <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
@@ -1607,9 +1626,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black16\columns.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\icon\black16\Combo01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black16\comment.png">
@@ -2671,9 +2687,6 @@
     <Content Include="PUDVE\icon\black16\Producto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PUDVE\icon\black16\Producto01.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="PUDVE\icon\black16\puzzle-piece.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -2825,9 +2838,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black16\Servicio.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="PUDVE\icon\black16\Servicio01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black16\share.ico">
