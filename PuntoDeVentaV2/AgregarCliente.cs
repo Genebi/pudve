@@ -144,7 +144,7 @@ namespace PuntoDeVentaV2
             var regimen = string.Empty; //Esta vacio porque no se utiliza actualmente el campo de regimen
             var email = txtEmail.Text;
             var telefono = txtTelefono.Text;
-            var tipoCliente = cbTipoCliente.SelectedIndex.ToString();
+            var tipoCliente = cbTipoCliente.SelectedValue.ToString();
             var numeroCliente = GenerarNumeroCliente();
             var formaPago = "01"; //cbFormaPago.SelectedValue;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -312,7 +312,7 @@ namespace PuntoDeVentaV2
             txtEmail.Text = datos[13];
             txtTelefono.Text = datos[14];
             cbUsoCFDI.SelectedValue = datos[3];
-            cbTipoCliente.SelectedIndex = Convert.ToInt16(datos[16]);
+            cbTipoCliente.SelectedValue = Convert.ToInt32(datos[16]);
             //cbFormaPago.SelectedValue = datos[15];
         }
 
