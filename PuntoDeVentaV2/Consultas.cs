@@ -681,7 +681,6 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-<<<<<<< HEAD
         #region Procesos de Datos Dinamicos
             public string VerificarContenidoDinamico(int idUsuario)
             {
@@ -772,7 +771,7 @@ namespace PuntoDeVentaV2
                 return consulta;
             }
         #endregion
-=======
+
         public string obtener_datos_para_gcpago(int opc, int dato)
         {
             string cons = "";
@@ -850,6 +849,5 @@ namespace PuntoDeVentaV2
 
             return cons;
         }
->>>>>>> ApartadoFacturacionPrt9
     }
 }
