@@ -2597,5 +2597,76 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla Facturas_productos
+
+        // Tabla de Facturas_complemento_pago 43
+        #region Tabla Facturas_complemento_pago
+        public int GetFiltroFacturas_complemento_pago()
+        {
+            return Facturas_complemento_pago;
+        }
+
+        public string PragmaTablaFiltroFacturas_complemento_pago(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroFacturas_complemento_pago(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroFacturas_complemento_pago(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID                   INTEGER      PRIMARY KEY AUTOINCREMENT  NOT NULL,
+                                              id_factura           INTEGER      REFERENCES Facturas (ID)  NOT NULL,
+                                              id_factura_principal INTEGER      NOT NULL,
+                                              uuid                 VARCHAR (38),
+                                              moneda               VARCHAR,
+                                              tipo_cambio          VARCHAR,
+                                              metodo_pago          VARCHAR,
+                                              num_parcialidad      INTEGER (2),
+                                              saldo_anterior       DOUBLE,
+                                              importe_pagado       DOUBLE,
+                                              saldo_insoluto       DOUBLE,
+                                              timbrada             INTEGER (1)  DEFAULT (0),
+                                              cancelada            INTEGER (1)  DEFAULT (0));";
+        }
+
+        public string QueryUpdateTablaFiltroFacturas_complemento_pago(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             id_factura,
+                                             id_factura_principal,
+                                             uuid,
+                                             moneda,
+                                             tipo_cambio,
+                                             metodo_pago,
+                                             num_parcialidad,
+                                             saldo_anterior,
+                                             importe_pagado,
+                                             saldo_insoluto,
+                                             timbrada,
+                                             cancelada) 
+                                      SELECT ID,
+                                             id_factura,
+                                             id_factura_principal,
+                                             uuid,
+                                             moneda,
+                                             tipo_cambio,
+                                             metodo_pago,
+                                             num_parcialidad,
+                                             saldo_anterior,
+                                             importe_pagado,
+                                             saldo_insoluto,
+                                             timbrada,
+                                             cancelada 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroFacturas_complemento_pago(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla Facturas_complemento_pago
     }
 }
