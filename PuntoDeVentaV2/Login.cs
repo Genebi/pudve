@@ -3644,6 +3644,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla Facturas_impuestos
+            // 42 Facturas_impuestos
+            #region Tabla Facturas_productos
+            tabla = "Facturas_productos";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaFiltroFacturas_productos(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroFacturas_productos(tabla));
+                    if (dbTables.GetFiltroFacturas_productos() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas_productos(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroFacturas_productos())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroFacturas_productos(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas_productos(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroFacturas_productos(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroFacturas_productos(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroFacturas_productos(tabla));
+                    if (dbTables.GetFiltroFacturas_productos() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas_productos(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroFacturas_productos())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroFacturas_productos(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas_productos(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroFacturas_productos(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroFacturas_productos(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla Facturas_productos
         }
 
         private bool checkEmpty(object tabla)
