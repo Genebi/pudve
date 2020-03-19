@@ -2475,5 +2475,61 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla Facturas
+
+        // Tabla de Facturas_impuestos 41
+        #region Tabla Facturas_impuestos
+        public int GetFiltroFacturas_impuestos()
+        {
+            return Facturas_impuestos;
+        }
+
+        public string PragmaTablaFiltroFacturas_impuestos(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroFacturas_impuestos(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroFacturas_impuestos(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID                  INTEGER      PRIMARY KEY AUTOINCREMENT NOT NULL,
+                                              id_factura_producto INTEGER      REFERENCES Facturas_productos (id_factura) NOT NULL,
+                                              tipo                VARCHAR (10),
+                                              impuesto            VARCHAR (4),
+                                              tipo_factor         VARCHAR (6),
+                                              tasa_cuota          VARCHAR,
+                                              definir             VARCHAR,
+                                              importe             DOUBLE);";
+        }
+
+        public string QueryUpdateTablaFiltroFacturas_impuestos(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             id_factura_producto,
+                                             tipo,
+                                             impuesto,
+                                             tipo_factor,
+                                             tasa_cuota,
+                                             definir,
+                                             importe) 
+                                      SELECT ID,
+                                             id_factura_producto,
+                                             tipo,
+                                             impuesto,
+                                             tipo_factor,
+                                             tasa_cuota,
+                                             definir,
+                                             importe 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroFacturas_impuestos(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla Facturas_impuestos
     }
 }
