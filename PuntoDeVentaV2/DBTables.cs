@@ -48,6 +48,7 @@ namespace PuntoDeVentaV2
         public static int Configuracion;
         public static int TipoClientes;
         public static int FiltroProducto;
+        public static int Facturas;
     #endregion Variables Tablas
 
         public DBTables()
@@ -92,6 +93,7 @@ namespace PuntoDeVentaV2
             Configuracion = 4;
             TipoClientes = 5;
             FiltroProducto = 6;
+            Facturas = 51;
         #endregion Inicializar Variables
         }
 
