@@ -3490,6 +3490,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla appSettings
+            // 40 Facturas
+            #region Tabla Facturas
+            tabla = "Facturas";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaFiltroFacturas(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroFacturas(tabla));
+                    if (dbTables.GetFiltroFacturas() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroFacturas())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroFacturas(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroFacturas(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroFacturas(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroFacturas(tabla));
+                    if (dbTables.GetFiltroFacturas() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroFacturas())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroFacturas(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroFacturas(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroFacturas(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla Facturas
         }
 
         private bool checkEmpty(object tabla)
