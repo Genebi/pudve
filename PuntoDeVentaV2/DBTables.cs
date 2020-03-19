@@ -2533,5 +2533,67 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla Facturas_impuestos
+
+        // Tabla de Facturas_productos 42
+        #region Tabla Facturas_productos
+        public int GetFiltroFacturas_productos()
+        {
+            return Facturas_productos;
+        }
+
+        public string PragmaTablaFiltroFacturas_productos(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroFacturas_productos(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroFacturas_productos(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID             INTEGER     PRIMARY KEY AUTOINCREMENT	NOT NULL,
+                                              id_factura     INTEGER     REFERENCES Facturas (ID),
+                                              clave_unidad   VARCHAR (3),
+                                              clave_producto VARCHAR (8),
+                                              descripcion    VARCHAR,
+                                              cantidad       VARCHAR,
+                                              precio_u       DOUBLE,
+                                              base           DOUBLE,
+                                              tasa_cuota     VARCHAR,
+                                              importe_iva    DOUBLE);";
+        }
+
+        public string QueryUpdateTablaFiltroFacturas_productos(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             id_factura,
+                                             clave_unidad,
+                                             clave_producto,
+                                             descripcion,
+                                             cantidad,
+                                             precio_u,
+                                             base,
+                                             tasa_cuota,
+                                             importe_iva) 
+                                      SELECT ID,
+                                             id_factura,
+                                             clave_unidad,
+                                             clave_producto,
+                                             descripcion,
+                                             cantidad,
+                                             precio_u,
+                                             base,
+                                             tasa_cuota,
+                                             importe_iva 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroFacturas_productos(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla Facturas_productos
     }
 }
