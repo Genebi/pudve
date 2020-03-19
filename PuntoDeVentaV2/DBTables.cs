@@ -2421,5 +2421,57 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla FiltroProducto
+
+        // Tabla de Facturas 40
+        #region Tabla Facturas
+        public int GetFiltroFacturas()
+        {
+            return Facturas;
+        }
+
+        public string PragmaTablaFiltroFacturas(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroFacturas(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroFacturas(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID                       INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              concepto                 TEXT,
+                                              checkBoxConcepto         INTEGER NOT NULL DEFAULT (0),
+                                              textComboBoxConcepto     TEXT,
+                                              checkBoxComboBoxConcepto INTEGER NOT NULL DEFAULT (0),
+                                              IDUsuario                INTEGER NOT NULL,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE);";
+        }
+
+        public string QueryUpdateTablaFiltroFacturas(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             concepto,
+                                             checkBoxConcepto,
+                                             textComboBoxConcepto,
+                                             checkBoxComboBoxConcepto,
+                                             IDUsuario) 
+                                      SELECT ID,
+                                             concepto,
+                                             checkBoxConcepto,
+                                             textComboBoxConcepto,
+                                             checkBoxComboBoxConcepto,
+                                             IDUsuario 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroFacturas(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla Facturas
     }
 }
