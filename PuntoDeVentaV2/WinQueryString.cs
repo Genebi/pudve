@@ -1867,10 +1867,17 @@ namespace PuntoDeVentaV2
 
         private void validarChkBoxPrecio()
         {
+            nameChkBox = chkBoxPrecio.Name;
+
             cbTipoFiltroPrecio.SelectedIndex = 0;
             if (chkBoxPrecio.Checked.Equals(true))
             {
                 filtroPrecio = Convert.ToBoolean(chkBoxPrecio.Checked);
+
+                if (filtroPrecio.Equals(true))
+                {
+                    chkValor = 1;
+                }
 
                 Properties.Settings.Default.chkFiltroPrecio = filtroPrecio;
                 Properties.Settings.Default.Save();
@@ -1885,6 +1892,11 @@ namespace PuntoDeVentaV2
             {
                 filtroPrecio = Convert.ToBoolean(chkBoxPrecio.Checked);
 
+                if (filtroPrecio.Equals(false))
+                {
+                    chkValor = 0;
+                }
+
                 Properties.Settings.Default.chkFiltroPrecio = filtroPrecio;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
@@ -1893,6 +1905,41 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroPrecio.SelectedIndex = 0;
                 cbTipoFiltroPrecio.Enabled = false;
                 txtCantPrecio.Text = "0.0";
+            }
+
+            using (DataTable dtItemChckPrecio = cn.CargarDatos(cs.VerificarChkPrecio(nameChkBox, FormPrincipal.userID)))
+            {
+                if (!dtItemChckPrecio.Rows.Count.Equals(0))
+                {
+                    foundChkBox = 1;
+                }
+                else if (dtItemChckPrecio.Rows.Count.Equals(0))
+                {
+                    foundChkBox = 0;
+                }
+            }
+
+            if (foundChkBox.Equals(1))
+            {
+                try
+                {
+                    var updateChkBoxPrecio = cn.EjecutarConsulta(cs.ActualizarChkPrecio(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de Precio\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (foundChkBox.Equals(0))
+            {
+                try
+                {
+                    var insertChkBoxPrecio = cn.EjecutarConsulta(cs.InsertarChkPrecio(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar guardar la configuración\nde la casilla de Verificación de Precio\n" + ex.Message.ToString(), "Error de guardado de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

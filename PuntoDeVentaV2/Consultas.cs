@@ -751,7 +751,7 @@ namespace PuntoDeVentaV2
 
             public string ActualizarChkStock(string chkBoxConcepto, int chkBoxValor)
             {
-                var consulta = $"UPDATE FiltroProducto SET concepto = '{chkBoxConcepto}', checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}'";
+                var consulta = $"UPDATE FiltroProducto SET concepto = '{chkBoxConcepto}', checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}' AND concepto = '{chkBoxConcepto}'";
 
                 return consulta;
             }
@@ -767,6 +767,28 @@ namespace PuntoDeVentaV2
             public string ActualizarTextCBConceptoCantidad(int idFiltro, string txtCBConcepto, string txtCantidad)
             {
                 var consulta = $"UPDATE FiltroProducto SET textComboBoxConcepto = '{txtCBConcepto}', textCantidad = '{txtCantidad}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idFiltro}'";
+
+                return consulta;
+            }
+
+            public string VerificarChkPrecio(string nameChkBox, int userID)
+            {
+                var consulta = $"SELECT ID, concepto, checkBoxConcepto, IDUsuario FROM FiltroProducto WHERE concepto = '{nameChkBox}' AND IDUsuario = '{userID}'";
+
+                return consulta;
+            }
+
+            public string ActualizarChkPrecio(string nameChkBox, int chkValor)
+            {
+                var consulta = $"UPDATE FiltroProducto SET concepto = '{nameChkBox}', checkBoxConcepto = '{chkValor}' WHERE IDUsuario = '{FormPrincipal.userID}' AND concepto = '{nameChkBox}'";
+
+                return consulta;
+            }
+
+            public string InsertarChkPrecio(string nameChkBox, int chkValor)
+            {
+                var consulta = "INSERT INTO FiltroProducto(concepto, checkBoxConcepto, IDUsuario) ";
+                consulta += $"VALUES('{nameChkBox}', '{chkValor}', '{FormPrincipal.userID}')";
 
                 return consulta;
             }
