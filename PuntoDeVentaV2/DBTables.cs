@@ -51,6 +51,7 @@ namespace PuntoDeVentaV2
         public static int Facturas;
         public static int Facturas_impuestos;
         public static int Facturas_productos;
+        public static int Facturas_complemento_pago;
     #endregion Variables Tablas
 
         public DBTables()
@@ -98,6 +99,7 @@ namespace PuntoDeVentaV2
             Facturas = 51;
             Facturas_impuestos = 8;
             Facturas_productos = 10;
+            Facturas_complemento_pago = 13;
         #endregion Inicializar Variables
         }
 

@@ -3644,7 +3644,7 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla Facturas_impuestos
-            // 42 Facturas_impuestos
+            // 42 Facturas_productos
             #region Tabla Facturas_productos
             tabla = "Facturas_productos";
             try
