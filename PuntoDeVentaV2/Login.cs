@@ -3721,6 +3721,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla Facturas_productos
+            // 43 Facturas_complemento_pago
+            #region Tabla Facturas_complemento_pago
+            tabla = "Facturas_complemento_pago";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaFiltroFacturas_complemento_pago(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroFacturas_complemento_pago(tabla));
+                    if (dbTables.GetFiltroFacturas_complemento_pago() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas_complemento_pago(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroFacturas_complemento_pago())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroFacturas_complemento_pago(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas_complemento_pago(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroFacturas_complemento_pago(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroFacturas_complemento_pago(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroFacturas_complemento_pago(tabla));
+                    if (dbTables.GetFiltroFacturas_complemento_pago() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas_complemento_pago(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroFacturas_complemento_pago())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroFacturas_complemento_pago(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroFacturas_complemento_pago(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroFacturas_complemento_pago(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroFacturas_complemento_pago(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla Facturas_complemento_pago
         }
 
         private bool checkEmpty(object tabla)
