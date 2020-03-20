@@ -94,7 +94,7 @@ namespace PuntoDeVentaV2
             HistorialPrecios = 7;
             appSettings = 6;
             Configuracion = 4;
-            TipoClientes = 5;
+            TipoClientes = 6;
             FiltroProducto = 6;
             Facturas = 51;
             Facturas_impuestos = 8;
