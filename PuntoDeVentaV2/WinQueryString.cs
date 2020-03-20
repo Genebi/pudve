@@ -283,7 +283,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroRevision_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+            //filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+            filtroRevision = chkBoxRevision.Checked;
 
             if (filtroRevision.Equals(true))
             {
@@ -335,9 +336,16 @@ namespace PuntoDeVentaV2
 
         private void validarChkBoxRevision()
         {
+            nameChkBox = chkBoxRevision.Name;
+
             if (chkBoxRevision.Checked.Equals(true))
             {
                 filtroRevision = Convert.ToBoolean(chkBoxRevision.Checked);
+
+                if (filtroRevision.Equals(true))
+                {
+                    chkValor = 1;
+                }
 
                 Properties.Settings.Default.chkFiltroRevisionInventario = filtroRevision;
                 Properties.Settings.Default.Save();
@@ -351,6 +359,11 @@ namespace PuntoDeVentaV2
             {
                 filtroRevision = Convert.ToBoolean(chkBoxRevision.Checked);
 
+                if (filtroRevision.Equals(false))
+                {
+                    chkValor = 0;
+                }
+
                 Properties.Settings.Default.chkFiltroRevisionInventario = filtroRevision;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
@@ -359,6 +372,41 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroRevision.Enabled = false;
                 txtNoRevision.Text = "0";
                 txtNoRevision.Enabled = false;
+            }
+
+            using (DataTable dtItemChckRevision = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+            {
+                if (!dtItemChckRevision.Rows.Count.Equals(0))
+                {
+                    foundChkBox = 1;
+                }
+                else if (dtItemChckRevision.Rows.Count.Equals(0))
+                {
+                    foundChkBox = 0;
+                }
+            }
+
+            if (foundChkBox.Equals(1))
+            {
+                try
+                {
+                    var updateChkBoxPrecio = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de No de Revisión\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (foundChkBox.Equals(0))
+            {
+                try
+                {
+                    var insertChkBoxPrecio = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar guardar la configuración\nde la casilla de Verificación de No de Revisión\n" + ex.Message.ToString(), "Error de guardado de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -369,7 +417,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroCombProdServ_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+            //filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+            filtroTipo = chkBoxTipo.Checked;
 
             if (filtroTipo.Equals(true))
             {
@@ -409,10 +458,17 @@ namespace PuntoDeVentaV2
 
         private void validarChkBoxTipo()
         {
+            nameChkBox = chkBoxTipo.Name;
+
             //cbTipoFiltroCombProdServ.SelectedIndex = 0;
             if (chkBoxTipo.Checked.Equals(true))
             {
                 filtroTipo = Convert.ToBoolean(chkBoxTipo.Checked);
+
+                if (filtroTipo.Equals(true))
+                {
+                    chkValor = 1;
+                }
 
                 Properties.Settings.Default.chkFiltroCombProdServ = filtroTipo;
                 Properties.Settings.Default.Save();
@@ -425,12 +481,52 @@ namespace PuntoDeVentaV2
             {
                 filtroTipo = Convert.ToBoolean(chkBoxTipo.Checked);
 
+                if (filtroTipo.Equals(false))
+                {
+                    chkValor = 0;
+                }
+
                 Properties.Settings.Default.chkFiltroCombProdServ = filtroTipo;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
                 cbTipoFiltroCombProdServ.SelectedIndex = 0;
                 cbTipoFiltroCombProdServ.Enabled = false;
+            }
+
+            using (DataTable dtItemChckTipo = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+            {
+                if (!dtItemChckTipo.Rows.Count.Equals(0))
+                {
+                    foundChkBox = 1;
+                }
+                else if (dtItemChckTipo.Rows.Count.Equals(0))
+                {
+                    foundChkBox = 0;
+                }
+            }
+
+            if (foundChkBox.Equals(1))
+            {
+                try
+                {
+                    var updateChkBoxPrecio = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de Tipo\n\nCombo\nProducto\nServicio\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (foundChkBox.Equals(0))
+            {
+                try
+                {
+                    var insertChkBoxPrecio = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar guardar la configuración\nde la casilla de Verificación de Tipo\n\nCombo\nProducto\nServicio\n" + ex.Message.ToString(), "Error de guardado de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -1829,7 +1925,7 @@ namespace PuntoDeVentaV2
                 txtCantStock.Text = "0.0";
             }
 
-            using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChkSrock(nameChkBox, FormPrincipal.userID)))
+            using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
             {
                 if (!dtItemChckStok.Rows.Count.Equals(0))
                 {
@@ -1845,7 +1941,7 @@ namespace PuntoDeVentaV2
             {
                 try
                 {
-                    var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChkStock(nameChkBox, chkValor));
+                    var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, chkValor));
                 }
                 catch (Exception ex)
                 {
@@ -1856,7 +1952,7 @@ namespace PuntoDeVentaV2
             {
                 try
                 {
-                    var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChkStock(nameChkBox, chkValor));
+                    var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, chkValor));
                 }
                 catch (Exception ex)
                 {
@@ -1907,7 +2003,7 @@ namespace PuntoDeVentaV2
                 txtCantPrecio.Text = "0.0";
             }
 
-            using (DataTable dtItemChckPrecio = cn.CargarDatos(cs.VerificarChkPrecio(nameChkBox, FormPrincipal.userID)))
+            using (DataTable dtItemChckPrecio = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
             {
                 if (!dtItemChckPrecio.Rows.Count.Equals(0))
                 {
@@ -1923,7 +2019,7 @@ namespace PuntoDeVentaV2
             {
                 try
                 {
-                    var updateChkBoxPrecio = cn.EjecutarConsulta(cs.ActualizarChkPrecio(nameChkBox, chkValor));
+                    var updateChkBoxPrecio = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, chkValor));
                 }
                 catch (Exception ex)
                 {
@@ -1934,7 +2030,7 @@ namespace PuntoDeVentaV2
             {
                 try
                 {
-                    var insertChkBoxPrecio = cn.EjecutarConsulta(cs.InsertarChkPrecio(nameChkBox, chkValor));
+                    var insertChkBoxPrecio = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, chkValor));
                 }
                 catch (Exception ex)
                 {
@@ -2046,10 +2142,12 @@ namespace PuntoDeVentaV2
             filtroPrecio = chkBoxPrecio.Checked;
 
             cbTipoFiltroCombProdServ_SelectedIndexChanged(sender, e);
-            filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+            //filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+            filtroTipo = chkBoxTipo.Checked;
 
             cbTipoFiltroRevision_SelectedIndexChanged(sender, e);
-            filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+            //filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+            filtroRevision = chkBoxRevision.Checked;
 
             cbTipoFiltroImagen_SelectedIndexChanged(sender, e);
             filtroImagen = Properties.Settings.Default.chkFiltroImagen;
@@ -2170,11 +2268,19 @@ namespace PuntoDeVentaV2
 
                         if (!datosFiltrosTipo.Count().Equals(0))
                         {
-                            cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosTipo[0].ToString()), strFiltroPrecio, strTxtPrecio));
+                            string[] words = strFiltroCombProdServ.Split(' ');
+                            string filtro = string.Empty;
+
+                            filtro += words[0].ToString() + " " + words[1].ToString() + " " + words[2].ToString().Replace("'", string.Empty);
+                            cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosTipo[0].ToString()), filtro, string.Empty));
                         }
                         else if (datosFiltrosTipo.Count().Equals(0))
                         {
-                            cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroPrecio, strTxtPrecio));
+                            string[] words = strFiltroCombProdServ.Split(' ');
+                            string filtro = string.Empty;
+
+                            filtro += words[0].ToString() + " " + words[1].ToString() + " " + words[2].ToString().Replace("'", string.Empty);
+                            cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(nameChkBox, filtro));
                         }
 
                         Properties.Settings.Default.strFiltroCombProdServ = strFiltroCombProdServ;
@@ -2202,6 +2308,20 @@ namespace PuntoDeVentaV2
                     else if (!strFiltroNoRevision.Equals("No Aplica") || !strFiltroNoRevision.Equals(""))
                     {
                         strTxtNoRevision = txtNoRevision.Text;
+
+                        nameChkBox = chkBoxRevision.Name;
+
+                        var datosFiltrosRevision = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+
+                        if (!datosFiltrosRevision.Count().Equals(0))
+                        {
+                            cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosRevision[0].ToString()), strFiltroNoRevision, strTxtNoRevision));
+                        }
+                        else if (datosFiltrosRevision.Count().Equals(0))
+                        {
+                            cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroNoRevision, strTxtNoRevision));
+                        }
+
                         //strFiltroNoRevision
                         strFiltroNoRevision += $"{strTxtNoRevision}";
 
