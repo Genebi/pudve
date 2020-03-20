@@ -2065,7 +2065,9 @@ namespace PuntoDeVentaV2
                     {
                         if (!strOpcionCBStock.Equals("No Aplica"))
                         {
-                            var datosFiltroStock = mb.ObtenerDatosFiltroStock(nameChkBox, FormPrincipal.userID);
+                            nameChkBox = chkBoxStock.Name;
+
+                            var datosFiltroStock = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
 
                             if (!datosFiltroStock.Count().Equals(0))
                             {
@@ -2110,7 +2112,9 @@ namespace PuntoDeVentaV2
                     {
                         if (!strOpcionCBPrecio.Equals("No Aplica"))
                         {
-                            var datosFiltrosPrecio = mb.ObtenerDatosFiltroPrecio(nameChkBox, FormPrincipal.userID);
+                            nameChkBox = chkBoxPrecio.Name;
+
+                            var datosFiltrosPrecio = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
 
                             if (!datosFiltrosPrecio.Count().Equals(0))
                             {
@@ -2160,6 +2164,19 @@ namespace PuntoDeVentaV2
                     }
                     else if (!strFiltroCombProdServ.Equals("No Aplica") || !strFiltroCombProdServ.Equals("Tipo "))
                     {
+                        nameChkBox = chkBoxTipo.Name;
+
+                        var datosFiltrosTipo = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+
+                        if (!datosFiltrosTipo.Count().Equals(0))
+                        {
+                            cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosTipo[0].ToString()), strFiltroPrecio, strTxtPrecio));
+                        }
+                        else if (datosFiltrosTipo.Count().Equals(0))
+                        {
+                            cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroPrecio, strTxtPrecio));
+                        }
+
                         Properties.Settings.Default.strFiltroCombProdServ = strFiltroCombProdServ;
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();

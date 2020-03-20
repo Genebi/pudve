@@ -1629,34 +1629,11 @@ namespace PuntoDeVentaV2
         }
 
         #region Operaciones Datos Dinamicos
-        public string[] ObtenerDatosFiltroStock(string chkConcepto, int idUsuario)
+        public string[] ObtenerDatosFiltro(string chkConcepto, int idUsuario)
         {
             List<string> lista = new List<string>();
 
             DatosConexion($"SELECT * FROM FiltroProducto WHERE concepto = '{chkConcepto}' AND IDUsuario = '{idUsuario}'");
-
-            SQLiteDataReader dr = sql_cmd.ExecuteReader();
-
-            if (dr.Read())
-            {
-                lista.Add(dr[0].ToString());
-                lista.Add(dr[1].ToString());
-                lista.Add(dr[2].ToString());
-                lista.Add(dr[3].ToString());
-                lista.Add(dr[4].ToString());
-                lista.Add(dr[5].ToString());
-            }
-
-            dr.Close();
-
-            return lista.ToArray();
-        }
-
-        public string[] ObtenerDatosFiltroPrecio(string nameChkBox, int userID)
-        {
-            List<string> lista = new List<string>();
-
-            DatosConexion($"SELECT * FROM FiltroProducto WHERE concepto = '{nameChkBox}' AND IDUsuario = '{userID}'");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
