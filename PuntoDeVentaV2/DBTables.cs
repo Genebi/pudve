@@ -2352,7 +2352,8 @@ namespace PuntoDeVentaV2
                                               IDUsuario           INTEGER NOT NULL DEFAULT (0),
                                               Nombre              TEXT    NOT NULL,
                                               DescuentoPorcentaje REAL    DEFAULT (0),
-                                              Habilitar           INTEGER DEFAULT (1));";
+                                              Habilitar           INTEGER DEFAULT (1)
+                                              FechaOperacion      DATETIME);";
         }
 
         public string QueryUpdateTablaTipoClientes(string tabla)
@@ -2361,12 +2362,14 @@ namespace PuntoDeVentaV2
                                              IDUsuario,
                                              Nombre,
                                              DescuentoPorcentaje,
-                                             Habilitar) 
+                                             Habilitar,
+                                             FechaOperacion) 
                                       SELECT ID,
                                              IDUsuario,
                                              Nombre,
                                              DescuentoPorcentaje,
-                                             Habilitar 
+                                             Habilitar,
+                                             FechaOperacion 
                                         FROM '{tabla}_temp';";
         }
 

@@ -1651,6 +1651,29 @@ namespace PuntoDeVentaV2
 
             return lista.ToArray();
         }
+
+        public string[] ObtenerDatosFiltroPrecio(string nameChkBox, int userID)
+        {
+            List<string> lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM FiltroProducto WHERE concepto = '{nameChkBox}' AND IDUsuario = '{userID}'");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(dr[0].ToString());
+                lista.Add(dr[1].ToString());
+                lista.Add(dr[2].ToString());
+                lista.Add(dr[3].ToString());
+                lista.Add(dr[4].ToString());
+                lista.Add(dr[5].ToString());
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
         #endregion
     }
 }

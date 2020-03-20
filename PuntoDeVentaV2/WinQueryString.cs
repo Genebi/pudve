@@ -1950,7 +1950,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroPrecio_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
+            //filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
+            filtroPrecio = chkBoxPrecio.Checked;
 
             if (filtroPrecio.Equals(true))
             {
@@ -2041,7 +2042,8 @@ namespace PuntoDeVentaV2
             filtroStock = chkBoxStock.Checked;
 
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
-            filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
+            //filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
+            filtroPrecio = chkBoxPrecio.Checked;
 
             cbTipoFiltroCombProdServ_SelectedIndexChanged(sender, e);
             filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
@@ -2108,6 +2110,17 @@ namespace PuntoDeVentaV2
                     {
                         if (!strOpcionCBPrecio.Equals("No Aplica"))
                         {
+                            var datosFiltrosPrecio = mb.ObtenerDatosFiltroPrecio(nameChkBox, FormPrincipal.userID);
+
+                            if (!datosFiltrosPrecio.Count().Equals(0))
+                            {
+                                cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosPrecio[0].ToString()), strFiltroPrecio, strTxtPrecio));
+                            }
+                            else if (datosFiltrosPrecio.Count().Equals(0))
+                            {
+                                cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroPrecio, strTxtPrecio));
+                            }
+
                             strFiltroPrecio += strTxtPrecio;
 
                             Properties.Settings.Default.strFiltroPrecio = strFiltroPrecio;

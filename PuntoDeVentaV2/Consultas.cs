@@ -751,7 +751,7 @@ namespace PuntoDeVentaV2
 
             public string ActualizarChkStock(string chkBoxConcepto, int chkBoxValor)
             {
-                var consulta = $"UPDATE FiltroProducto SET concepto = '{chkBoxConcepto}', checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}' AND concepto = '{chkBoxConcepto}'";
+                var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}' AND concepto = '{chkBoxConcepto}'";
 
                 return consulta;
             }
@@ -780,7 +780,7 @@ namespace PuntoDeVentaV2
 
             public string ActualizarChkPrecio(string nameChkBox, int chkValor)
             {
-                var consulta = $"UPDATE FiltroProducto SET concepto = '{nameChkBox}', checkBoxConcepto = '{chkValor}' WHERE IDUsuario = '{FormPrincipal.userID}' AND concepto = '{nameChkBox}'";
+                var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{chkValor}' WHERE IDUsuario = '{FormPrincipal.userID}' AND concepto = '{nameChkBox}'";
 
                 return consulta;
             }
