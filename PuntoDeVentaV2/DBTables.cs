@@ -2352,7 +2352,7 @@ namespace PuntoDeVentaV2
                                               IDUsuario           INTEGER NOT NULL DEFAULT (0),
                                               Nombre              TEXT    NOT NULL,
                                               DescuentoPorcentaje REAL    DEFAULT (0),
-                                              Habilitar           INTEGER DEFAULT (1)
+                                              Habilitar           INTEGER DEFAULT (1),
                                               FechaOperacion      DATETIME);";
         }
 
