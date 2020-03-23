@@ -216,9 +216,16 @@ namespace PuntoDeVentaV2
 
         private void validarChkBoxImagen()
         {
+            nameChkBox = chkBoxImagen.Name;
+
             if (chkBoxImagen.Checked.Equals(true))
             {
                 filtroImagen = Convert.ToBoolean(chkBoxImagen.Checked);
+
+                if (filtroImagen.Equals(true))
+                {
+                    chkValor = 1;
+                }
 
                 Properties.Settings.Default.chkFiltroImagen = filtroImagen;
                 Properties.Settings.Default.Save();
@@ -231,6 +238,11 @@ namespace PuntoDeVentaV2
             {
                 filtroImagen = Convert.ToBoolean(chkBoxImagen.Checked);
 
+                if (filtroImagen.Equals(false))
+                {
+                    chkValor = 0;
+                }
+
                 Properties.Settings.Default.chkFiltroImagen = filtroImagen;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
@@ -238,11 +250,47 @@ namespace PuntoDeVentaV2
                 cbTipoFiltroImagen.SelectedIndex = 0;
                 cbTipoFiltroImagen.Enabled = false;
             }
+
+            using (DataTable dtItemChckImagen = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+            {
+                if (!dtItemChckImagen.Rows.Count.Equals(0))
+                {
+                    foundChkBox = 1;
+                }
+                else if (dtItemChckImagen.Rows.Count.Equals(0))
+                {
+                    foundChkBox = 0;
+                }
+            }
+
+            if (foundChkBox.Equals(1))
+            {
+                try
+                {
+                    var updateChkBoxImagen = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de Imagen\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (foundChkBox.Equals(0))
+            {
+                try
+                {
+                    var insertChkBoxImagen = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, chkValor));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de Imagen\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void cbTipoFiltroImagen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+            //filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+            filtroImagen = chkBoxImagen.Checked;
 
             if (filtroImagen.Equals(true))
             {
@@ -1659,7 +1707,7 @@ namespace PuntoDeVentaV2
                 chkBoxProdCombServ = Properties.Settings.Default.chkFiltroCombProdServ;
                 chkBoxTipo.Checked = chkBoxProdCombServ;
 
-                textoCombo = Properties.Settings.Default.strFiltroCombProdServ.Remove(0, 7);
+                //textoCombo = Properties.Settings.Default.strFiltroCombProdServ.Remove(0, 7);
 
                 cbTipoFiltroCombProdServ.Enabled = true;
 
@@ -2150,7 +2198,8 @@ namespace PuntoDeVentaV2
             filtroRevision = chkBoxRevision.Checked;
 
             cbTipoFiltroImagen_SelectedIndexChanged(sender, e);
-            filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+            //filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+            filtroImagen = chkBoxImagen.Checked;
 
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
@@ -2349,6 +2398,29 @@ namespace PuntoDeVentaV2
                     }
                     else if (!strFiltroImagen.Equals("No Aplica") || !strFiltroImagen.Equals(""))
                     {
+                        nameChkBox = chkBoxImagen.Name;
+
+                        var datosFiltroImagen = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+
+                        if (!datosFiltroImagen.Count().Equals(0))
+                        {
+                            string[] words = strFiltroImagen.Split(' ');
+                            string filtro = string.Empty;
+
+                            filtro += words[0].ToString() + " " + words[1].ToString() + " ''''";
+                            MessageBox.Show("Filtro: " + filtro.ToString());
+                            cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltroImagen[0].ToString()), filtro, string.Empty));
+                        }
+                        else if (datosFiltroImagen.Count().Equals(0))
+                        {
+                            string[] words = strFiltroImagen.Split(' ');
+                            string filtro = string.Empty;
+
+                            filtro += words[0].ToString() + " " + words[1].ToString() + " ''''";
+                            MessageBox.Show("Filtro: " + filtro.ToString());
+                            cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(nameChkBox, filtro));
+                        }
+
                         Properties.Settings.Default.strFiltroImagen = strFiltroImagen;
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
