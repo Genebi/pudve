@@ -174,9 +174,18 @@ namespace PuntoDeVentaV2
 
         private void btnListaDescuentos_Click(object sender, EventArgs e)
         {
-            using (var listado = new ListadoTipoClientes())
+            var existen = mb.ObtenerTipoClientes(tipo: 0);
+
+            if (existen.Count > 0)
             {
-                var respuesta = listado.ShowDialog();
+                using (var listado = new ListadoTipoClientes())
+                {
+                    var respuesta = listado.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("No hay información disponible actualmente\n\nNOTA: No hay registros para tipo de clientes", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
