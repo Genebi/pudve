@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
 using System.ServiceModel;
-
+using System.Diagnostics;
 
 namespace PuntoDeVentaV2
 {
@@ -24,7 +24,6 @@ namespace PuntoDeVentaV2
 
         public string obtener_datos_XML(int id_f, int id_v, int con_cpg, decimal[][] arr_idf_principal_pago)
         {
-            //Console.WriteLine("DATO ARR"+arr_idf_principal_pago[0][0]);
             // ID
             int id_factura = id_f;
             int id_venta = id_v;
@@ -119,7 +118,7 @@ namespace PuntoDeVentaV2
 
                 rfc_e = r_facturas["e_rfc"].ToString();
                 nombre_e = r_facturas["e_razon_social"].ToString();
-                regimen = r_facturas["e_regimen"].ToString();
+                regimen = Convert.ToString(cn.EjecutarSelect($"SELECT CodigoRegimen FROM RegimenFiscal WHERE Descripcion='{r_facturas["e_regimen"]}'", 12));
 
                 rfc_r = r_facturas["r_rfc"].ToString();
                 nombre_r = r_facturas["r_razon_social"].ToString();
@@ -890,7 +889,7 @@ namespace PuntoDeVentaV2
             // Tipo cambio
             if(con_complemento_pg == 0)
             {
-                comprobante.TipoCambio = Convert.ToDecimal(tipo_cambio);
+                comprobante.TipoCambio = 1.000000m;// Convert.ToDecimal(tipo_cambio);
             }
             // Total
             if(con_complemento_pg == 0)
@@ -1024,7 +1023,8 @@ namespace PuntoDeVentaV2
                 nombre_xml = "PAGO_";
             }
 
-            // Verifica si la careta donde serán guardados los XML existen. Si no existe la agrega
+
+            // Verifica si la carpeta donde serán guardados los XML existen. Si no existe la agrega
 
             string ruta_carpeta = @"C:\Archivos PUDVE\Facturas\";
 
@@ -1164,7 +1164,7 @@ namespace PuntoDeVentaV2
             {
                 mensaje = e_xml.Message;
             }
-
+            
 
             return mensaje;
         }

@@ -92,10 +92,14 @@ public partial class Comprobante {
     [System.Xml.Serialization.XmlAttributeAttribute()]
     public string xsiSchemaLocationField;
 
-    // Codigo nuevo
+
+    #region Código nuevo. Auxiliar para la generación del PDF
+    // No pertenece al archivo orginal.
+    // No será usado para el timbrado, pero si para la generación del PDF
+
     public TimbreFiscalDigital timbre_fiscal_digital;
     public Pagos cpagos;
-    public PagosPago cpagospago;
+
 
     public string QR
     {
@@ -133,12 +137,15 @@ public partial class Comprobante {
             return cargar_imag.cargar_imagen();
         }
     }
+    #endregion 
 
 
     /// <remarks/>
     // Código nuevo, para asignar más de una url.
     [XmlAttribute("schemaLocation", Namespace = XmlSchema.InstanceNamespace)]
     public string xsiSchemaLocation{  get;  set;  }
+
+
 
 
     public Comprobante() {

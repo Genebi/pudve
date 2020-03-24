@@ -160,6 +160,10 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["LogoTipo"];
                 }
+                if (tipo == 12)
+                {
+                    respuesta = dr["CodigoRegimen"];
+                }
             }
 
             if (tipo == 0)

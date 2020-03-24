@@ -54,23 +54,20 @@ namespace PuntoDeVentaV2
                                 comprobante.cpagos = (Pagos)serializer_complemento_pagos.Deserialize(sr_cp);
 
 
-                                /*foreach(var cpagos_pg in comprobante.cpagos.Pago)
-                                {*/
-                                   /* XmlSerializer serializer_complemento_pagos_pago = new XmlSerializer(typeof(PagosPago));
-
-                                    using (var sr_cp_p = new StringReader(comprobante.cpagos.Pago))
+                                foreach(var cpagos_pg in comprobante.cpagos.Pago)
+                                {
+                                    comprobante.cpagos.cpagos_pago = cpagos_pg;
+                                    
+                                    foreach(var cpagos_pg_docrel in comprobante.cpagos.cpagos_pago.DoctoRelacionado)
                                     {
-                                        comprobante.cpagos.cpagos_pago = (PagosPago)serializer_complemento_pagos_pago.Deserialize(sr_cp_p);
-                                    }*/
-
-                                //}
+                                        comprobante.cpagos.cpagos_pago_docrelacionado = cpagos_pg_docrel;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-
-            // Console.WriteLine("MONTO" + comprobante.cpagos.cpagos_pago.Monto);
 
 
 
@@ -80,7 +77,7 @@ namespace PuntoDeVentaV2
             // .    Inicia con la generación de la plantilla y conversión a PDF    .
             // .....................................................................
 
-            string nombre_pdf = nombre_xml + ".pdf";
+            string origen_pdf_temp = nombre_xml + ".pdf";
             string destino_pdf = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
 
             string ruta = AppDomain.CurrentDomain.BaseDirectory + "/";
@@ -104,7 +101,7 @@ namespace PuntoDeVentaV2
             ProcessStartInfo proc_start_info = new ProcessStartInfo();
             proc_start_info.UseShellExecute = false;
             proc_start_info.FileName = ruta_wkhtml_topdf;
-            proc_start_info.Arguments = "facturahtml.html "+ nombre_pdf;
+            proc_start_info.Arguments = "facturahtml.html "+ origen_pdf_temp;
 
             using(Process process= Process.Start(proc_start_info))
             {
@@ -113,15 +110,15 @@ namespace PuntoDeVentaV2
 
             // Copiar el PDF a otra carpeta
 
-            if (File.Exists(nombre_pdf))
+            if (File.Exists(origen_pdf_temp))
             {
-                File.Copy(nombre_pdf, destino_pdf);
+                File.Copy(origen_pdf_temp, destino_pdf);
             }
             
             // Eliminar archivo temporal
             File.Delete(ruta_html_temp);
             // Elimina el PDF creado
-            File.Delete(nombre_pdf);
+            File.Delete(origen_pdf_temp);
         }
 
         private static string GetStringOfFile(string ruta_arch)

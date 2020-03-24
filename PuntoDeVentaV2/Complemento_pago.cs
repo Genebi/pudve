@@ -66,14 +66,13 @@ namespace PuntoDeVentaV2
             datetime_fecha_pago.Text = fecha_actual;
 
             // Facturas a pagar/abonar
-            Console.WriteLine("tamano==>" + tam_arr);
+
             if (tam_arr > 0)
             {
                 int location_y = 6;
 
                 for (int i=0; i<tam_arr; i++)
                 {
-                    Console.WriteLine("VACIADO==>" + Facturas.arr_id_facturas[i]);
                     int id_f = Facturas.arr_id_facturas[i];
 
 
@@ -187,7 +186,6 @@ namespace PuntoDeVentaV2
                         error_monto_mayor++;
                     }
 
-                    Console.WriteLine("POS"+t+" DATOS ARR= " + arr_totales[t][0] + " - " + arr_totales[t][1] + " - " + arr_totales[t][2]);
                     t++;
                 }
             }
@@ -230,7 +228,7 @@ namespace PuntoDeVentaV2
             DataRow r_emisor = d_emisor.Rows[0];
 
             // Se obtiene la cantidad de complementos generados para continuar con el consecutivo
-            int cant_complementos = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) FROM Facturas_complemento_pago WHERE id_factura_principal='{id_f_receptor}'", 11));
+            int cant_complementos = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{id_f_receptor}'", 1));
             cant_complementos = cant_complementos + 1;
             serie = serie + "-" + cant_complementos;
 
@@ -264,12 +262,11 @@ namespace PuntoDeVentaV2
 
             for (int r = 0; r < arr_totales.Length; r++)
             {
-                Console.WriteLine(" ID FACTURA PRINCIPAL==" + arr_totales[r][0]);
                 // Obtiene el folio fiscal de la factura que se esta abonando/pagando
                 string uuid = Convert.ToString(cn.EjecutarSelect($"SELECT uuid FROM Facturas WHERE ID='{arr_totales[r][0]}'", 10));
-                Console.WriteLine("FOLIO FISCAL==" + uuid);
+
                 // Obtiene el número de la parcialidad anterior
-                int n_parcialidad = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) FROM Facturas_complemento_pago WHERE id_factura_principal='{arr_totales[r][0]}'", 11));
+                int n_parcialidad = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{arr_totales[r][0]}'", 1));
                 n_parcialidad = n_parcialidad + 1;
 
                 decimal saldo_insoluto = 0;

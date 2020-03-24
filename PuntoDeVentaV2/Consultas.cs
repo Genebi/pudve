@@ -849,5 +849,22 @@ namespace PuntoDeVentaV2
 
             return cons;
         }
+
+        public string consulta_dventa(int opc, int id)
+        {
+            string cons = "";
+
+            if(opc == 1)
+            {
+                cons = $"SELECT * FROM Ventas WHERE ID='{id}'";
+            }
+            if(opc == 2)
+            {
+                cons = $"SELECT * FROM DetallesVenta WHERE IDVenta='{id}'";
+            }
+            
+
+            return cons;
+        }
     }
 }
