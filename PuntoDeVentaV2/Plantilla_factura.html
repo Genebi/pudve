@@ -65,7 +65,7 @@
         <!-- EMISOR -->
 
         <div class="txt alineacion txt-tipo-letra" style="width: 42%; margin-left: 1em;">
-            <b>@Model.Emisor.Nombre SAGRARIO GUTIERREZ GUZMÁN</b> <br />
+            <b>@Model.Emisor.Nombre </b> <br />
             <b>RFC:</b> @Model.Emisor.Rfc <br />
             <b>Régimen:</b> @Model.Emisor.RegimenFiscal - @regimenn(@Model.Emisor.RegimenFiscal) <br />
         </div>
@@ -130,7 +130,7 @@
                     @Model.MetodoPago <span> - </span> @metodo_pago(@Model.MetodoPago)
                 }
                 else{
-                    <span>PPD - </span> 
+                    <span>PPD - </span> @metodo_pago("PPD")
                 }                
             </div>
             <div>
@@ -140,7 +140,7 @@
                     @Model.FormaPago <span> - </span> @forma_pago(@Model.FormaPago)
                 }
                 else{
-                    <span> - </span>
+                    @Model.cpagos.cpagos_pago.FormaDePagoP <span> - </span> @forma_pago(@Model.cpagos.cpagos_pago.FormaDePagoP)
                 }
                  
             </div>
@@ -151,7 +151,7 @@
                 }
                 else{
                     <div class="alineacion" style="width: 35%">Moneda: @Model.Moneda</div>
-                    <div class="alineacion" style="width: 65%"><b>Fecha pago:</b> </div>
+                    <div class="alineacion" style="width: 65%"><b>Fecha pago:</b>  @fecha_pago(@Model.cpagos.cpagos_pago.FechaPago )</div>
                 }
             </div>
         </div>
@@ -247,43 +247,57 @@
 
     <!-- COMPLEMENTO DE PAGOS -->
 
+    @if(Model.TipoDeComprobante == "P"){
+
+        <div class="txt-tipo-letra txt-cpagos">COMPLEMENTO DE PAGOS</div>
+        <div style="clear: both;"></div>
+
+        <table class="tab_conceptos txt-tipo-letra" style="width: 99%;" align="center">
+            <tr>
+                <th width="50">No. parcialidad</th>
+                <th width="245">UUDI</th>
+                <th width="45">Moneda</th>
+                <th width="40">Tipo cambio</th>
+                <th width="80">Saldo ant.</th>
+                <th width="75">Importe pagado</th>
+                <th width="80">Saldo insoluto</th>
+            </tr>
+
+            @foreach(var doc_relacionado in Model.cpagos.cpagos_pago.DoctoRelacionado){
+            
+                <tr>
+                    <td>@doc_relacionado.NumParcialidad</td>
+                    <td>@doc_relacionado.IdDocumento</td>
+                    <td>@doc_relacionado.MonedaDR</td>
+
+                    @if(doc_relacionado.MonedaDR == "MXN"){
+                        <td></td>
+                    }
+                    else{
+                        <td>@doc_relacionado.TipoCambioDR</td>
+                    }
+                    
+                    <td>@doc_relacionado.ImpSaldoAnt</td>
+                    <td>@doc_relacionado.ImpPagado</td>
+                    <td>@doc_relacionado.ImpSaldoInsoluto</td>
+                </tr>
+                
+                suma_importes_pago(@doc_relacionado.ImpSaldoAnt, @doc_relacionado.ImpPagado, @doc_relacionado.ImpSaldoInsoluto, 4);
+            }
+
+            <tr><td colspan="7" class="blanco">&nbsp;<br />&nbsp;</td></tr>
+
+            <tr>
+                <td colspan="4"></td>
+                <td>@suma_importes_pago(0, 0, 0, 1)</td>
+                <td>@suma_importes_pago(0, 0, 0, 2)</td>
+                <td>@suma_importes_pago(0, 0, 0, 3)</td>
+            </tr>
+        </table>
     
-    <!--<div class="txt-tipo-letra txt-cpagos">COMPLEMENTO DE PAGOS</div>
-    <div style="clear: both;"></div>
-
-    <table class="tab_conceptos txt-tipo-letra" style="width: 99%;" align="center">
-        <tr>
-            <th width="50">No. parcialidad</th>
-            <th width="245">UUDI</th>
-            <th width="45">Moneda</th>
-            <th width="40">Tipo cambio</th>
-            <th width="80">Saldo ant.</th>
-            <th width="75">Importe pagado</th>
-            <th width="80">Saldo insoluto</th>
-        </tr>
-
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-
-        <tr><td colspan="7" class="blanco">&nbsp;<br />&nbsp;</td></tr>
-
-        <tr>
-            <td colspan="4"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </table>
-    
-    <br />
-    <br />-->
+        <br />
+        <br />
+    }
 
 
 
@@ -332,8 +346,6 @@
         </div>
     </div>
 
-    <footer style="color : #000000" --footer-center "[page]/[toPage]" > mundo... </footer>
-
 </body>
 
     @functions {
@@ -342,6 +354,10 @@
         List<string>list_porprod_impuestos_retenidos = new List<string>();
         int cant_list = 0;
         int l = 0;
+
+        decimal imp_anterior = 0;
+        decimal imp_pagado = 0;
+        decimal imp_restante = 0;
                                                             
 
         string regimenn(string r){
@@ -372,7 +388,7 @@
             return reg;
         }
 
-        public string fecha(DateTime f, int opc){
+        string fecha(DateTime f, int opc){
 
             string r = "";
             string fc= f.ToString();
@@ -390,8 +406,15 @@
 
             return "";
         }
+        
+        string fecha_pago(string fc){
+        
+            string r= fc.Substring(0, 19);
+            
+            return Convert.ToDateTime(r).ToString("yyyy-MM-dd HH:mm:ss");
+        }
 
-        public string t_comprobante(string t){
+        string t_comprobante(string t){
 
             string tc = "";
 
@@ -401,7 +424,7 @@
             return tc;
         }
 
-        public string uso_cfdi(string clave){
+        string uso_cfdi(string clave){
 
             string desc_usocfdi = "";
 
@@ -445,7 +468,7 @@
             return m_pago;
         }
           
-        public string forma_pago(string fpago){
+        string forma_pago(string fpago){
 
             string desc = "";
 
@@ -475,7 +498,7 @@
             return desc;
         }
 
-        public string t_impuesto(string imp){
+        string t_impuesto(string imp){
 
             string desc = "";
 
@@ -486,12 +509,12 @@
             return desc;
         }
 
-        public decimal tasacuota(decimal tc){
+        private decimal tasacuota(decimal tc){
 
             return Convert.ToInt32(tc * 100);
         }
 
-        public string guarda_retenciones(string timp, string tfactor, decimal tasac, Decimal monto){
+        private string guarda_retenciones(string timp, string tfactor, decimal tasac, Decimal monto){
 
             string cadena = timp + "-" + tfactor + "-" + Convert.ToString(tasac);
 
@@ -516,7 +539,7 @@
             return "";
         }
 
-        public string im_retenciones(int li, int opc){
+        private string im_retenciones(int li, int opc){
             
             string[] dato_it = list_porprod_impuestos_retenidos[li].Split('-');
 
@@ -551,14 +574,27 @@
             return "";
         }
                                                                              
-        public decimal dos_decimales(decimal c){
+        private decimal dos_decimales(decimal c){
             decimal cantidad = Decimal.Round(c, 2);
             return cantidad;
         }
     
-        public decimal cero_decimales(decimal c){
+        private decimal cero_decimales(decimal c){
             decimal cantidad = Decimal.Round(c, 0);
             return cantidad;
+        }
+
+        string suma_importes_pago(decimal i_anterior, decimal i_pagado, decimal i_restante, int opc){
+        
+            imp_anterior = imp_anterior + i_anterior;
+            imp_pagado = imp_pagado + i_pagado;
+            imp_restante = imp_restante + i_restante;
+
+            if(opc == 1){    return imp_anterior.ToString();    }
+            if(opc == 2){    return imp_pagado.ToString();    }
+            if(opc == 3){    return imp_restante.ToString();    }                                                       
+
+            return "";
         }
     }
 </html>

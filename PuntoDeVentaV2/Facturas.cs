@@ -295,6 +295,8 @@ namespace PuntoDeVentaV2
         private void btn_cpago_Click(object sender, EventArgs e)
         {
             int cont = 0;
+            int cont_pg = 0;
+            string mnsj_error = "";
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
 
             if (opc_tipo_factura == 2 | opc_tipo_factura == 3)
@@ -306,15 +308,26 @@ namespace PuntoDeVentaV2
                 foreach (DataGridViewRow row in datagv_facturas.Rows)
                 {
                     bool estado= (bool)row.Cells["col_checkbox"].Value;
+                    string tipo_comprobante = row.Cells["col_t_comprobante"].Value.ToString();
 
                     if(estado == true)
                     {
                         cont++;
+
+                        if (tipo_comprobante == "P")
+                        {
+                            cont_pg++;
+                            mnsj_error = "No debe haber facturas de 'Pago' seleccionadas. Los complementos de pago solo se generan a facturas de 'Ingresos'.";
+                        }
+                    }
+                    else
+                    {
+                        mnsj_error = "No ha seleccionado alguna factura para complemento de pago.";
                     }
                 }
 
 
-                if(cont > 0)
+                if(cont > 0 & cont_pg == 0)
                 {
                     arr_id_facturas = new int[cont];
                     int p = 0;
@@ -332,7 +345,7 @@ namespace PuntoDeVentaV2
                     }
 
                     Complemento_pago c_pago = new Complemento_pago();
-
+  
                     c_pago.FormClosed += delegate
                     {
                         int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
@@ -343,7 +356,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("No ha seleccionado alguna factura para complemento de pago.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

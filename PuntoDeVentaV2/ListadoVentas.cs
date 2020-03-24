@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -589,7 +590,9 @@ namespace PuntoDeVentaV2
                 //Ver factura
                 if (e.ColumnIndex == 11)
                 {
-                    MessageBox.Show("Factura");
+                    MessageBox.Show("Factura"+ idVenta);
+
+                    //ver_factura(idVenta);
                 }
 
                 //Ver ticket
@@ -667,7 +670,7 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 14)
                 {
                     // Se valida que la nota no tenga ya una factura creada
-                    /*int r = Convert.ToInt32(cn.EjecutarSelect($"SELECT Timbrada FROM Ventas WHERE ID={idVenta}", 8));
+                    int r = Convert.ToInt32(cn.EjecutarSelect($"SELECT Timbrada FROM Ventas WHERE ID={idVenta}", 8));
                     
                     if(r == 1)
                     {
@@ -683,11 +686,11 @@ namespace PuntoDeVentaV2
                     {
                         // Verifica que la venta tenga todos los datos para facturar
                         comprobar_venta_f(idVenta);
-                    }*/
+                    }
                     
 
                     //Comprobamos que la venta tenga cliente
-                    var clienteRFC = DGVListadoVentas.Rows[fila].Cells["RFC"].Value.ToString();
+                    /*var clienteRFC = DGVListadoVentas.Rows[fila].Cells["RFC"].Value.ToString();
 
                     if (!string.IsNullOrWhiteSpace(clienteRFC) && !clienteRFC.Equals("XAXX010101000"))
                     {
@@ -732,7 +735,7 @@ namespace PuntoDeVentaV2
                                 nuevo.ShowDialog();
                             }
                         }
-                    }
+                    }*/
                 }
 
                 DGVListadoVentas.ClearSelection();
@@ -834,8 +837,6 @@ namespace PuntoDeVentaV2
                             faltantes_productos[i][2] = clave_p;
                             faltantes_productos[i][3] = clave_u;
                             faltantes_productos[i][4] = r_id_productos["Nombre"].ToString();
-
-                            Console.WriteLine("faltantes_productos[i, 0]=" + faltantes_productos[i][0]+ "faltantes_productos[i, 1]=" + faltantes_productos[i][1]);
                         }
 
                         i++;
@@ -969,6 +970,254 @@ namespace PuntoDeVentaV2
                 txtBoxClienteFolio.Text = txtBoxClienteFolio.Tag.ToString();
                 txtBoxClienteFolio.ForeColor = Color.Gray;
             }
+        }
+
+
+        private void ver_factura(int id_venta)
+        {
+            string r_nombre = "";
+            string r_rfc = "";
+
+            decimal suma_importe_concep = 0;
+            decimal suma_importe_impuest = 0;
+            List<string> list_porprod_impuestos_trasladados = new List<string>();
+
+
+            // Consulta tabla venta
+
+            DataTable d_venta = cn.CargarDatos(cs.consulta_dventa(1, id_venta));
+            DataRow r_venta = d_venta.Rows[0];
+            
+            int id_usuario = Convert.ToInt32(r_venta["IDUsuario"]);
+            string folio = r_venta["Folio"].ToString();
+            string serie = r_venta["Serie"].ToString();
+            DateTime fecha = Convert.ToDateTime(r_venta["FechaOperacion"]);
+
+            string tipo_iva = "";
+
+            if (Convert.ToDecimal(r_venta["IVA16"]) > 0) {  tipo_iva = "IVA16";  }
+            if (Convert.ToDecimal(r_venta["IVA8"]) > 0) {  tipo_iva = "IVA8";  }
+
+            // Consulta tabla DetallesVenta
+
+            DataTable d_detallesventa = cn.CargarDatos(cs.consulta_dventa(2, id_venta));
+            DataRow r_detallesventa = d_detallesventa.Rows[0];
+
+            int id_cliente = Convert.ToInt32(r_detallesventa["IDCliente"]);
+            string forma_pago = "";
+
+            if (Convert.ToDecimal(r_detallesventa["Efectivo"]) > 0) { forma_pago = "Efectivo";  }
+            if (Convert.ToDecimal(r_detallesventa["Tarjeta"]) > 0) { forma_pago = "Tarjeta"; }
+            if (Convert.ToDecimal(r_detallesventa["Vales"]) > 0) { forma_pago = "Vales"; }
+            if (Convert.ToDecimal(r_detallesventa["Cheque"]) > 0) { forma_pago = "Cheque"; }
+            if (Convert.ToDecimal(r_detallesventa["Transferencia"]) > 0) { forma_pago = "Transferencia"; }
+            if (Convert.ToDecimal(r_detallesventa["Credito"]) > 0) { forma_pago = "Crédito"; }
+
+
+
+            ComprobanteVenta comprobanteventa = new ComprobanteVenta();
+
+
+            // Consulta datos del usuario
+
+            DataTable d_usuario = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, id_usuario));
+            DataRow r_usuario = d_usuario.Rows[0];
+
+            string lugar_expedicion = r_usuario["Estado"].ToString();
+
+            ComprobanteEmisorVenta emisor_v = new ComprobanteEmisorVenta();
+            emisor_v.Nombre = r_usuario["RazonSocial"].ToString();
+            emisor_v.Rfc= r_usuario["RFC"].ToString();
+            emisor_v.RegimenFiscal= r_usuario["Regimen"].ToString();
+
+
+            // Consulta datos del cliente
+
+            DataTable d_cliente = cn.CargarDatos(cs.cargar_datos_venta_xml(3, id_cliente, 0));
+
+            if(d_cliente.Rows.Count > 0)
+            {
+                DataRow r_cliente = d_cliente.Rows[0];
+
+                r_nombre = r_cliente["RazonSocial"].ToString();
+                r_rfc = r_cliente["RFC"].ToString();
+            }            
+
+            ComprobanteReceptorVenta receptor_v = new ComprobanteReceptorVenta();
+            receptor_v.Nombre = r_nombre;
+            receptor_v.Rfc = r_rfc;
+
+
+            comprobanteventa.Emisor = emisor_v;
+            comprobanteventa.Receptor = receptor_v;
+
+
+            // Consulta datos del producto
+
+            List<ComprobanteConceptoVenta> listaconcepto_v = new List<ComprobanteConceptoVenta>();
+
+            DataTable d_prodventa = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
+
+            if(d_prodventa.Rows.Count > 0)
+            {
+                foreach (DataRow r_prodventa in d_prodventa.Rows)
+                {
+                    ComprobanteConceptoVenta concepto_v = new ComprobanteConceptoVenta();
+
+                    concepto_v.Cantidad = Convert.ToDecimal(r_prodventa["Cantidad"]);
+                    concepto_v.Descripcion = r_prodventa["Nombre"].ToString();
+                    concepto_v.ValorUnitario = Convert.ToDecimal(r_prodventa["Precio"]);
+
+                    decimal importe_v = Convert.ToDecimal(r_prodventa["Cantidad"]) * Convert.ToDecimal(r_prodventa["Precio"]);
+                    decimal tasa_cuota = 0.000000m;
+
+                    if (tipo_iva == "IVA16")
+                    {
+                        importe_v = importe_v / 1.16m;
+                        tasa_cuota = 0.160000m;
+                    }
+                    if (tipo_iva == "IVA8")
+                    {
+                        importe_v = importe_v / 1.08m;
+                        tasa_cuota = 0.080000m;
+                    }
+
+                    concepto_v.Importe = importe_v;
+
+                    suma_importe_concep += importe_v;
+
+
+                    // Agrega impuestos
+
+                    List<ComprobanteConceptoImpuestosTrasladoVenta> list_concepto_impuestos_traslados_v = new List<ComprobanteConceptoImpuestosTrasladoVenta>();
+                    ComprobanteConceptoImpuestosTrasladoVenta concepto_traslado_v = new ComprobanteConceptoImpuestosTrasladoVenta();
+
+                    concepto_traslado_v.Base = importe_v;
+                    concepto_traslado_v.Impuesto = "002";
+                    concepto_traslado_v.TipoFactor = "Tasa";
+                    concepto_traslado_v.TasaOCuota = tasa_cuota;
+
+                    decimal importe_imp = importe_v * tasa_cuota;
+                    concepto_traslado_v.Importe = importe_imp;
+
+                    suma_importe_impuest += importe_imp;
+
+                    list_concepto_impuestos_traslados_v.Add(concepto_traslado_v);
+
+
+                    // Guarda en la lista el tipo de impuesto
+
+                    string cadena = "002-Tasa" + "-" + tasa_cuota;
+
+                    // Busca si la cadena existe en la lista
+                    var indice = list_porprod_impuestos_trasladados.IndexOf(cadena);
+
+                    // Si la cadena existe aumenta el importe del impuesto, de lo contrario la agrega como nueva
+                    if (indice >= 0)
+                    {
+                        indice = indice + 1;
+                        decimal monto_actual = Convert.ToDecimal(list_porprod_impuestos_trasladados[indice]);
+                        decimal monto_nuevo = monto_actual + importe_imp;
+
+                        list_porprod_impuestos_trasladados.RemoveAt(indice);
+                        list_porprod_impuestos_trasladados.Insert(indice, Convert.ToString(monto_nuevo));
+                    }
+                    else
+                    {
+                        list_porprod_impuestos_trasladados.Add(cadena);
+                        list_porprod_impuestos_trasladados.Add(importe_imp.ToString());
+                    }
+
+
+                    concepto_v.Impuestos = new ComprobanteConceptoImpuestosVenta();
+                    concepto_v.Impuestos.Traslados = list_concepto_impuestos_traslados_v.ToArray();
+
+
+                    listaconcepto_v.Add(concepto_v);
+                }
+
+                comprobanteventa.Conceptos = listaconcepto_v.ToArray();
+            }
+
+
+            // Datos generales de la venta 
+
+            decimal total_general = suma_importe_concep + suma_importe_impuest;
+
+            comprobanteventa.Serie = serie;
+            comprobanteventa.Folio = folio;
+            comprobanteventa.Fecha = fecha.ToString("yyyy-MM-dd HH:mm:ss");
+            comprobanteventa.FormaPago = forma_pago;
+            comprobanteventa.SubTotal = suma_importe_concep;
+            comprobanteventa.Total = total_general;
+            comprobanteventa.LugarExpedicion = lugar_expedicion;
+
+
+
+            string nombre_venta = "VENTA_" + id_venta;
+
+            // Verifica si tiene creado el directorio
+
+            string carpeta_venta = @"C:\Archivos PUDVE\Ventas\PDF\";
+
+            if (!Directory.Exists(carpeta_venta))
+            {
+                Directory.CreateDirectory(carpeta_venta);
+            }
+            Console.WriteLine("SE CREA XML CON ÉXITO");
+            // .....................................................................
+            // .    Inicia con la generación de la plantilla y conversión a PDF    .
+            // .....................................................................
+
+            string origen_pdf_temp = nombre_venta + ".pdf";
+            string destino_pdf = @"C:\Archivos PUDVE\Ventas\PDF\" + nombre_venta + ".pdf";
+
+            string ruta = AppDomain.CurrentDomain.BaseDirectory + "/";
+            // Creación de un arhivo html temporal
+            string ruta_html_temp = ruta + "ventahtml.html";
+            // Plantilla que contiene el acomodo del PDF
+            string ruta_plantilla_html = ruta + "Plantilla_notaventa.html";
+            string s_html = GetStringOfFile(ruta_plantilla_html);
+            string result_html = "";
+
+            result_html = RazorEngine.Razor.Parse(s_html, comprobanteventa);
+
+            Console.WriteLine(result_html);
+
+            // Se crea archivo temporal
+            File.WriteAllText(ruta_html_temp, result_html);
+
+            // Ruta de archivo conversor
+            string ruta_wkhtml_topdf = Properties.Settings.Default.rutaDirectorio + @"\wkhtmltopdf\bin\wkhtmltopdf.exe";
+
+            ProcessStartInfo proc_start_info = new ProcessStartInfo();
+            proc_start_info.UseShellExecute = false;
+            proc_start_info.FileName = ruta_wkhtml_topdf;
+            proc_start_info.Arguments = "ventahtml.html " + origen_pdf_temp;
+
+            using (Process process = Process.Start(proc_start_info))
+            {
+                process.WaitForExit();
+            }
+
+            // Copiar el PDF a otra carpeta
+
+            if (File.Exists(origen_pdf_temp))
+            {
+                File.Copy(origen_pdf_temp, destino_pdf);
+            }
+
+            // Eliminar archivo temporal
+            File.Delete(ruta_html_temp);
+            // Elimina el PDF creado
+            File.Delete(origen_pdf_temp);
+        }
+
+        private static string GetStringOfFile(string ruta_arch)
+        {
+            string cont = File.ReadAllText(ruta_arch);
+
+            return cont;
         }
     }
 }

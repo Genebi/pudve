@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body style="border:0; margin: 0;" onload="">
+
+    <!-- FOLIO, SERIE Y PÁGINA -->
+
+    <table class="txt-tipo-letra" style="width: 100%">
+        <tr>
+            <td style="width: 50%; font-size: 1em; color: red; font-weight: bold;">Folio: @Model.Folio &nbsp;  Serie: @Model.Serie</td>
+            <td class="section"></td>
+            <td style="text-align:right">
+                <span class="page"></span>  <span class="topage"></span>
+            </td>
+        </tr>
+    </table>
+    <br />
+
+
+
+    <div style="width: 100%">
+
+        <!-- IMAGEN -->
+
+        <div class="alineacion" style="width: 31%;">
+            <img src="@Model.imagen" width="270" height="200" />
+        </div>
+
+        <!-- EMISOR -->
+
+        <div class="txt alineacion txt-tipo-letra" style="width: 42%; margin-left: 1em;">
+            <b>@Model.Emisor.Nombre </b> <br />
+            <b>RFC:</b> @Model.Emisor.Rfc <br />
+            <b>Régimen:</b> @Model.Emisor.RegimenFiscal <br />
+        </div>
+
+        <!-- FECHAS -->
+
+        <div class="alineacion txt-tipo-letra" style="width: 22%; margin-left: 1em;">
+            <table class="tab_fechas">
+                <tr>
+                    <td class="txt_factura" style="font-size: 1.1em; text-align: center;"><b>NOTA DE VENTA</b></td>
+                </tr>
+                <tr>
+                    <td class="cfondo_fechas">Fecha</td>
+                </tr>
+                <tr>
+                    <td style="font-size: .85em;">@Model.Fecha</td>
+                </tr>
+                <tr>
+                    <td class="cfondo_fechas">Lugar expedición</td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <div style="clear: both;"></div>
+
+
+    <!-- RECEPTOR -->
+
+    <div class="txt-tipo-letra" style="width: 100%; margin-top: 1em; line-height: 1.4; font-size: .94em;">
+        @Model.Receptor.Nombre<br />
+        <b>RFC:</b> @Model.Receptor.Rfc<br />
+        <b>Forma pago:</b> @Model.FormaPago
+    </div>
+
+    <div style="clear: both;"></div>
+    <br />
+    <br />
+
+
+
+    <!-- CONCEPTOS -->
+
+    <div>
+        <table width="850" class="tab_conceptos txt-tipo-letra" align="center">
+            <tr>
+                <th width="55">Cantidad</th>
+                <th width="375">Descripción</th>
+                <th width="80">P/U</th>
+                <th width="90">Importe</th>
+            </tr>
+
+            @foreach(var concepto in Model.Conceptos){
+
+                <tr>
+                    <td>@concepto.Cantidad</td>
+                    <td>@concepto.Descripcion</td>
+                    <td>@dos_decimales(@concepto.ValorUnitario)</td>
+                    <td>@dos_decimales(@concepto.Importe)</td>
+                </tr>
+                
+                <!-- Obtención los impuestos -->
+
+                if(concepto.Impuestos != null){
+                    if(concepto.Impuestos.Traslados != null){
+                        foreach(var i_traslado in concepto.Impuestos.Traslados){
+
+                            guarda_traslados(@i_traslado.Impuesto, @i_traslado.TipoFactor, @i_traslado.TasaOCuota, @i_traslado.Importe);
+                        }
+                    }
+                }
+            }
+
+            <tr><td colspan="4" class="blanco">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</td></tr>
+
+            <tr>
+                <td colspan="2">
+                    Debo y pagaré a la orden @Model.Emisor.Nombre en esta ciudad _____________ ______________ antes del
+                    dia Jueves, 27 de septiembre del 2018, la cantidad de $@dos_decimales(@Model.Total) (@Model.monedacon_letra) valor de
+                    la mercancía recibida a mi entera satisfacción. Este pagaré es mercantil y está regido por la Ley
+                    General de Títulos y operaciones de Crédito en su artículo 173 y correlativo por no ser pagaré
+                    domiciliado. Si este documento no es pagado en su vencimiento causará intereses moratorios del
+                    ____% mensual. <br />
+                    Acepto(mos): __________________________________________________________________
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td class="negritas">Subtotal</td>
+                <td>@dos_decimales(@Model.SubTotal)</td>
+            </tr>
+            
+            @if(cant_list > 0){
+                while(l < cant_list){
+
+                    <tr>
+                        <td colspan="2" align="right">@im_traslados(l, 1)</td>
+                        <td>@im_traslados(l, 2)</td>
+                        <td>@im_traslados(l + 1, 3)</td>
+                    </tr>
+
+                    l += 2;
+                }
+            }
+
+            <tr>
+                <td colspan="2">@Model.monedacon_letra</td>
+                <td class="negritas">TOTAL</td>
+                <td>@dos_decimales(@Model.Total)</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <br />
+    <br />
+
+
+</body>
+
+    @functions {
+
+        int i = 0;
+        List<string> list_porprod_impuestos_traslados = new List<string>();
+        int cant_list = 0;
+        int l = 0;
+
+
+        string regimenn(string r){
+
+            string reg = "";
+
+            if(r == "601"){    reg = "General de Ley Personas Morales";    }
+            if(r == "603"){    reg = "Personas Morales con Fines no Lucrativos";    }
+            if(r == "605"){    reg = "Sueldos y Salarios e Ingresos Asimilados a Salarios";    }
+            if(r == "606"){    reg = "Arrendamiento";    }
+            if(r == "607"){    reg = "Régimen de Enajenación o Adquisición de Bienes";    }
+            if(r == "608"){    reg = "Demás ingresos";    }
+            if(r == "609"){    reg = "Consolidación";    }
+            if(r == "610"){    reg = "Residentes en el Extranjero sin Establecimiento Permanente en México";    }
+            if(r == "611"){    reg = "Ingresos por Dividendos (socios y accionistas)";    }
+            if(r == "612"){    reg = "Personas Físicas con Actividades Empresariales y Profesionales";    }
+            if(r == "614"){    reg = "Ingresos por intereses";    }
+            if(r == "616"){    reg = "Sin obligaciones fiscales";    }
+            if(r == "620"){    reg = "Sociedades Cooperativas de Producción que optan por diferir sus ingresos";    }
+            if(r == "621"){    reg = "Incorporación Fiscal";    }
+            if(r == "622"){    reg = "Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras";    }
+            if(r == "623"){    reg = "Opcional para Grupos de Sociedades";    }
+            if(r == "624"){    reg = "Coordinados";    }
+            if(r == "629"){    reg = "De los Regímenes Fiscales Preferentes y de las Empresas Multinacionales";    }
+            if(r == "630"){    reg = "Enajenación de acciones en bolsa de valores";    }
+            if(r == "615"){    reg = "Régimen de los ingresos por obtención de premios";    }
+
+            return reg;
+        }
+
+        string fecha_pago(string fc){
+
+            string r= fc.Substring(0, 19);
+
+            return Convert.ToDateTime(r).ToString("yyyy-MM-dd HH:mm:ss");
+        }
+        
+        private string guarda_traslados(string timp, string tfactor, decimal tasac, Decimal monto){
+            
+            string cadena = timp + "-" + tfactor + "-" + Convert.ToString(tasac);
+
+            var indice = list_porprod_impuestos_traslados.IndexOf(cadena);
+    
+            if (indice >= 0){
+                indice = indice + 1;
+                decimal monto_actual = Convert.ToDecimal(list_porprod_impuestos_traslados[indice]);
+                decimal monto_nuevo = monto_actual + monto;
+
+                list_porprod_impuestos_traslados.RemoveAt(indice);
+                list_porprod_impuestos_traslados.Insert(indice, Convert.ToString(monto_nuevo));
+            }
+            else{
+                list_porprod_impuestos_traslados.Add(cadena);
+                list_porprod_impuestos_traslados.Add(monto.ToString());
+            }
+            
+            cant_list = list_porprod_impuestos_traslados.Count;
+            return "";
+        }
+        
+        private string im_traslados(int li, int opc){
+
+            string[] dato_it = list_porprod_impuestos_traslados[li].Split('-');
+
+            
+            if(opc == 2){
+
+                string t_imp= t_impuesto(dato_it[0]);
+
+                decimal tasac = Convert.ToDecimal(dato_it[2]);
+                decimal porc = tasac * 100;
+                decimal porc_c =0;
+
+                if(porc % 2 == 0){
+                    porc_c = cero_decimales(porc);
+                }
+                else{
+                    porc_c = dos_decimales(porc);
+                }
+    
+                return t_imp + " " + Convert.ToString(porc_c) + " %";
+            }
+            
+            if(opc == 3){
+    
+                decimal monto = dos_decimales(Convert.ToDecimal(list_porprod_impuestos_traslados[li]));
+
+                return monto.ToString();
+            }
+
+            return "";
+        }
+
+        string t_impuesto(string imp){
+
+            string desc = "";
+
+            if(imp == "001"){    desc = "ISR";    }
+            if(imp == "002"){    desc = "IVA";    }
+            if(imp == "003"){    desc = "IEPS";    }
+
+            return desc;
+        }
+
+        private decimal dos_decimales(decimal c){
+            decimal cantidad = Decimal.Round(c, 2);
+            return cantidad;
+        }
+
+        private decimal cero_decimales(decimal c){
+            decimal cantidad = Decimal.Round(c, 0);
+            return cantidad;
+        }
+    }
+</html>
+
+
+<style>
+    .txt {
+        font-size: 1em;
+        line-height: 1.5;
+        letter-spacing: 1px;
+    }
+
+    .txt-tipo-letra {
+        font-family: 'Lucida Sans';
+        letter-spacing: 1px;
+    }
+
+    .alineacion {
+        float: left;
+    }
+
+    /* Tabla fechas */
+
+    .tab_fechas {
+        border-collapse: collapse;
+        margin-left: 5px;
+        font-size: 15px;
+    }
+
+     .tab_fechas td {
+         padding: 2px 5px;
+     }
+
+    .txt_factura {
+        font-size: 14px;
+        color: #fff;
+        background: #D9534F;
+        padding: 4px;
+    }
+
+    .cfondo_fechas {
+        background: #1A2754;
+        color: #FFF;
+        font-weight: bold;
+    }
+
+    /* Tabla conceptos */
+
+    .tab_conceptos {
+        margin-top: 8px;
+        border-collapse: collapse;
+        font-size: 14px;
+        color: #191A1A;
+    }
+
+    .tab_conceptos th {
+        padding: 5px 2px;
+        font-family: 'Century Gothic';
+        font-weight: bold;
+        font-size: 14px;
+        border: 1px solid #8699B4;
+    }
+    
+    .tab_conceptos td {
+        padding: 6px 4px;
+        border: 1px solid #8699B4;
+        font-size: 11px;
+    }
+
+    .blanco {
+        padding: 20em 3em;
+    }
+
+    .negritas {
+        font-weight: bold;
+    }
+
+    /* Sellos */
+
+    .tam-letra-sellos {
+        font-size: .96em;
+        margin: 4px 0;
+    }
+
+    .tam-letra-sellos-m {
+        font-size: .65em;
+    }
+
+    .saltos {
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+
+
+</style>

@@ -313,6 +313,7 @@
     <Compile Include="AsignarPropiedad.Designer.cs">
       <DependentUpon>AsignarPropiedad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Aux_venta_pdf.cs" />
     <Compile Include="CajaN.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -635,6 +636,11 @@
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceReferenceTPrueba\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReference_produccion\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1001,6 +1007,34 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReferenceTPrueba\timbrado_cfdi33.wsdl" />
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.buscar_acuse_recepcion_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.buscar_cfdis_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.consulta_rfc_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.obtener_consumo_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.recuperar_comprobante_referencia.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.recuperar_comprobante_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.timbrar_cfdi_referencia_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.timbrar_cfdi_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\PuntoDeVentaV2.ServiceReference_produccion.timbrar_zip_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_produccion\timbrado_cfdi33.wsdl" />
     <None Include="wkhtmltopdf\lib\wkhtmltox.lib" />
   </ItemGroup>
   <ItemGroup>
@@ -1052,6 +1086,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Plantilla_factura.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plantilla_notaventa.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\assets\iconfinder_Import.ico">
@@ -3544,6 +3581,12 @@
     <Content Include="PUDVE\Sounds\sonido_alarma.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Service References\ServiceReference_produccion\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReference_produccion\configuration.svcinfo" />
+    <None Include="Service References\ServiceReference_produccion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3565,6 +3608,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ServiceReferenceTPrueba\" />
+    <WCFMetadataStorage Include="Service References\ServiceReference_produccion\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PUDVE\Plantillas\Tmp\" />

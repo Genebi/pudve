@@ -28,8 +28,9 @@ public partial class Pagos {
     
     private string versionField;
 
-    public PagosPago cpagos_pago; // Nueva linea de código
-    
+    public PagosPago cpagos_pago; // Nueva linea de código, auxiliar en la generación del PDF
+    public PagosPagoDoctoRelacionado cpagos_pago_docrelacionado; // Nueva linea de código, auxiliar en la generación del PDF
+
     public Pagos() {
         this.versionField = "1.0";
     }
