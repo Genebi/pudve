@@ -704,9 +704,24 @@ namespace PuntoDeVentaV2
                 return consulta;
             }
 
+            public string InsertaDatoDinamicoFiltroProducto(string claveAgregar, int claveValor, int idUsuario)
+            {
+                var consulta = "INSERT INTO FiltroProducto (concepto, checkBoxConcepto, IDUsuario)";
+                consulta += $"VALUES ('{claveAgregar}', '{claveValor}', '{idUsuario}')";
+
+                return consulta;
+            }
+
             public string ActualizarDatoDinamico(string claveAntigua, string claveNueva, int idUsuario)
             {
                 var consulta = $"UPDATE appSettings SET concepto = '{claveNueva}', textComboBoxConcepto = 'chk{claveNueva}' WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
+
+            public string ActualizarDatoDinamicoFiltroProducto(string claveBuscar, int valorClave, string textClaveBuscar, int idUsuario)
+            {
+            var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{valorClave}', textComboBoxConcepto = '{claveBuscar} = ''{textClaveBuscar}''' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
 
                 return consulta;
             }

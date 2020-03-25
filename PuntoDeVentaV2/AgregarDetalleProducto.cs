@@ -1827,6 +1827,15 @@ namespace PuntoDeVentaV2
                         {
                             MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamicoFiltroProducto(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+                        if (RegistroAgregado.Equals(1))
+                        {
+                            //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (RegistroAgregado.Equals(0))
+                        {
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);

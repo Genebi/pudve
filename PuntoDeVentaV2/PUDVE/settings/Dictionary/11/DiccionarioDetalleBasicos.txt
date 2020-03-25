@@ -1,3 +1,5 @@
 11|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
 12|chkBoxchkColor|False|Selecciona Color|cbchkColor
 13|chkBoxchkTalla|False|Selecciona Talla|cbchkTalla
+14|chkBoxchkCapacidad|False|Selecciona Capacidad|cbchkCapacidad
+15|chkBoxchkMafufo|False|Selecciona Mafufo|cbchkMafufo
