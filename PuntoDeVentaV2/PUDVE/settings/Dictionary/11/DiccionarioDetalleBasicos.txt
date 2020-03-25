@@ -1,4 +1,7 @@
 11|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
 12|chkBoxchkColor|False|Selecciona Color|cbchkColor
 13|chkBoxchkTalla|False|Selecciona Talla|cbchkTalla
+<<<<<<< HEAD
 14|chkBoxchkMafufo|False|Selecciona Mafufo|cbchkMafufo
+=======
+>>>>>>> CambiarADBStockPrecioRevisionTipoImagenAUnaTablaDoceavaFaseAgregarADBTables716
