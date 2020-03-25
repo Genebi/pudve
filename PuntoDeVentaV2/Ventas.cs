@@ -1006,8 +1006,6 @@ namespace PuntoDeVentaV2
                     totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
                     totalDescuento += cantidadDescuento;
-
-                    Console.WriteLine("Entro aqui 1");
                 }
                 else if (porcentajeGeneral > 0)
                 {
@@ -1074,8 +1072,6 @@ namespace PuntoDeVentaV2
                         totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                         totalArticulos += cantidadProducto;
                         totalDescuento += descuento + cantidadDescuento;
-
-                        Console.WriteLine("Entro aqui 2");
                     }
                     else
                     {
@@ -1090,10 +1086,7 @@ namespace PuntoDeVentaV2
                         totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                         totalArticulos += cantidadProducto;
                         totalDescuento += cantidadDescuento;
-
-                        Console.WriteLine("Entro aqui 3");
-                    }
-                    
+                    } 
                 }
                 else if (descuentoCliente > 0)
                 {
@@ -1145,8 +1138,6 @@ namespace PuntoDeVentaV2
                     totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
                     totalDescuento += descuento + cantidadDescuento;
-
-                    Console.WriteLine("Entro aqui 4");
                 }
                 else
                 {
@@ -1168,8 +1159,6 @@ namespace PuntoDeVentaV2
                     totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
                     totalDescuento += cantidadDescuento;
-
-                    Console.WriteLine("Entro aqui 5");
                 }
 
                 // Reestablecemos el valor de los descuentos diferentes al directo para que siga funcionando
@@ -1901,12 +1890,26 @@ namespace PuntoDeVentaV2
                 PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + float.Parse(productos[i][4]).ToString("0.00"), fuenteNormal));
                 colPrecioTmp.BorderWidth = 0;
 
-                float descuento = float.Parse(productos[i][6]);
+                // Convertimos el descuento en array para poder mostrar el porcentaje y sumar
+                // el descuento a la variable del total descuentoProductos
+                var descuentoAux = productos[i][6].Split('-');
+
+                float descuento = float.Parse(descuentoAux[0].Trim());
+
+                var cadenaDescuento = string.Empty;
+
+                cadenaDescuento += descuento.ToString("0.00");
+
+                if (1 < descuentoAux.Length)
+                {
+                    cadenaDescuento += $" - {descuentoAux[1].Trim()}";
+                }
+
                 float importe = float.Parse(productos[i][7]);
 
                 descuentoProductos += descuento;
 
-                PdfPCell colDescTmp = new PdfPCell(new Phrase("$" + descuento.ToString("0.00"), fuenteNormal));
+                PdfPCell colDescTmp = new PdfPCell(new Phrase("$" + cadenaDescuento, fuenteNormal));
                 colDescTmp.BorderWidth = 0;
 
                 PdfPCell colImporteTmp = new PdfPCell(new Phrase("$" + importe.ToString("0.00"), fuenteNormal));
