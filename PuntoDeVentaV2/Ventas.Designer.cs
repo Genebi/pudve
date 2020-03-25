@@ -88,6 +88,7 @@
             this.btnConsultar = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
             this.lbDatosCliente = new System.Windows.Forms.Label();
+            this.AplicarDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -195,7 +196,8 @@
             this.RestarIndividual,
             this.EliminarIndividual,
             this.NumeroColumna,
-            this.ImagenProducto});
+            this.ImagenProducto,
+            this.AplicarDescuento});
             this.DGVentas.Location = new System.Drawing.Point(3, 114);
             this.DGVentas.Name = "DGVentas";
             this.DGVentas.ReadOnly = true;
@@ -752,6 +754,13 @@
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // AplicarDescuento
+            // 
+            this.AplicarDescuento.HeaderText = "AplicarDescuento";
+            this.AplicarDescuento.Name = "AplicarDescuento";
+            this.AplicarDescuento.ReadOnly = true;
+            this.AplicarDescuento.Visible = false;
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -842,5 +851,6 @@
         private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.Label lbDatosCliente;
         private System.Windows.Forms.Button btnEliminarDescuentos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AplicarDescuento;
     }
 }
