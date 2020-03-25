@@ -946,11 +946,13 @@ namespace PuntoDeVentaV2
         {
             CheckBox chkGralDetail = sender as CheckBox;
             string nameChkBox = string.Empty;
+            int valorChkBox = -1;
 
             nameChkBox = chkGralDetail.Name.ToString().Remove(0, 9);
 
             if (chkGralDetail.Checked.Equals(true))
             {
+                valorChkBox = 1;
                 foreach (Control controlHijo in fLPDetalleProducto.Controls)
                 {
                     if (controlHijo.Name.Equals("panelContenedor" + nameChkBox))
@@ -964,6 +966,41 @@ namespace PuntoDeVentaV2
                                     if (intoSubControlHijo is ComboBox)
                                     {
                                         intoSubControlHijo.Enabled = true;
+
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+                                        {
+                                            if (!dtItemChckStok.Rows.Count.Equals(0))
+                                            {
+                                                foundChkBox = 1;
+                                            }
+                                            else if (dtItemChckStok.Rows.Count.Equals(0))
+                                            {
+                                                foundChkBox = 0;
+                                            }
+                                        }
+
+                                        if (foundChkBox.Equals(1))
+                                        {
+                                            try
+                                            {
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de " + nameChkBox + "\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                        else if (foundChkBox.Equals(0))
+                                        {
+                                            try
+                                            {
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al intentar guardar la configuración\nde la casilla de Verificación de " + nameChkBox + "\n" + ex.Message.ToString(), "Error de guardado de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -973,6 +1010,7 @@ namespace PuntoDeVentaV2
             }
             if (chkGralDetail.Checked.Equals(false))
             {
+                valorChkBox = 0;
                 foreach (Control controlHijo in fLPDetalleProducto.Controls)
                 {
                     if (controlHijo.Name.Equals("panelContenedor" + nameChkBox))
@@ -988,6 +1026,41 @@ namespace PuntoDeVentaV2
                                         ComboBox comBox = (ComboBox)intoSubControlHijo;
                                         comBox.SelectedIndex = 0;
                                         comBox.Enabled = false;
+
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+                                        {
+                                            if (!dtItemChckStok.Rows.Count.Equals(0))
+                                            {
+                                                foundChkBox = 1;
+                                            }
+                                            else if (dtItemChckStok.Rows.Count.Equals(0))
+                                            {
+                                                foundChkBox = 0;
+                                            }
+                                        }
+
+                                        if (foundChkBox.Equals(1))
+                                        {
+                                            try
+                                            {
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de " + nameChkBox + "\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                        else if (foundChkBox.Equals(0))
+                                        {
+                                            try
+                                            {
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al intentar guardar la configuración\nde la casilla de Verificación de " + nameChkBox + "\n" + ex.Message.ToString(), "Error de guardado de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -1000,8 +1073,14 @@ namespace PuntoDeVentaV2
         private void checkBoxProveedor_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cbProvider = sender as CheckBox;
+            string nameChkBox = string.Empty;
+            int valorChkBox = -1;
+
+            nameChkBox = cbProvider.Name.ToString().Remove(0, 9);
+
             if (cbProvider.Checked.Equals(true))
             {
+                valorChkBox = 1;
                 foreach (Control controlHijo in fLPDetalleProducto.Controls)
                 {
                     if ((controlHijo.Name.Equals("panelContenedorchkProveedor")) && (controlHijo is Panel))
@@ -1015,6 +1094,41 @@ namespace PuntoDeVentaV2
                                     if ((intoSubControlHijo.Name.Equals("cbchkProveedor")) && (intoSubControlHijo is ComboBox))
                                     {
                                         intoSubControlHijo.Enabled = true;
+
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+                                        {
+                                            if (!dtItemChckStok.Rows.Count.Equals(0))
+                                            {
+                                                foundChkBox = 1;
+                                            }
+                                            else if (dtItemChckStok.Rows.Count.Equals(0))
+                                            {
+                                                foundChkBox = 0;
+                                            }
+                                        }
+
+                                        if (foundChkBox.Equals(1))
+                                        {
+                                            try
+                                            {
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de " + nameChkBox + "\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                        else if (foundChkBox.Equals(0))
+                                        {
+                                            try
+                                            {
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al intentar guardar la configuración\nde la casilla de Verificación de " + nameChkBox + "\n" + ex.Message.ToString(), "Error de guardado de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -1024,6 +1138,7 @@ namespace PuntoDeVentaV2
             }
             if (cbProvider.Checked.Equals(false))
             {
+                valorChkBox = 0;
                 foreach (Control controlHijo in fLPDetalleProducto.Controls)
                 {
                     if ((controlHijo.Name.Equals("panelContenedorchkProveedor")) && (controlHijo is Panel))
@@ -1039,6 +1154,41 @@ namespace PuntoDeVentaV2
                                         ComboBox comBox = (ComboBox)intoSubControlHijo;
                                         comBox.SelectedIndex = 0;
                                         comBox.Enabled = false;
+
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+                                        {
+                                            if (!dtItemChckStok.Rows.Count.Equals(0))
+                                            {
+                                                foundChkBox = 1;
+                                            }
+                                            else if (dtItemChckStok.Rows.Count.Equals(0))
+                                            {
+                                                foundChkBox = 0;
+                                            }
+                                        }
+
+                                        if (foundChkBox.Equals(1))
+                                        {
+                                            try
+                                            {
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al intentar actualizar la configuración\nde la casilla de Verificación de " + nameChkBox + "\n" + ex.Message.ToString(), "Error de actualización de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                        else if (foundChkBox.Equals(0))
+                                        {
+                                            try
+                                            {
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al intentar guardar la configuración\nde la casilla de Verificación de " + nameChkBox + "\n" + ex.Message.ToString(), "Error de guardado de Configuración", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -2433,7 +2583,16 @@ namespace PuntoDeVentaV2
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Imagen.");
                 }
 
-                saveDictionary();
+                var servidor = Properties.Settings.Default.Hosting;
+
+                if (string.IsNullOrWhiteSpace(servidor))
+                {
+                    saveConfigGarlDB();
+                }
+                else if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    saveDictionary();
+                }
 
                 //if((!strOpcionCBStock.Equals("No Aplica")) && (!strOpcionCBPrecio.Equals("No Aplica")) && (!strFiltroCombProdServ.Equals("No Aplica")))
                 //{
@@ -2449,6 +2608,81 @@ namespace PuntoDeVentaV2
             else if (result == DialogResult.Cancel)
             {
                 txtCantStock.Focus();
+            }
+        }
+
+        private void saveConfigGarlDB()
+        {
+            List<string> tuplaConfigDB = new List<string>();
+
+            string concepto = string.Empty, 
+                    checkBoxConcepto = string.Empty, 
+                    textComboBoxConcepto = string.Empty, 
+                    textCantidad = string.Empty;
+
+            foreach (Control controlHijo in fLPDetalleProducto.Controls)
+            {
+                if ((controlHijo.Name.Equals("panelContenedorchkProveedor")) && (controlHijo is Panel))
+                {
+                    foreach (Control subControlHijo in controlHijo.Controls)
+                    {
+                        if ((subControlHijo.Name.Equals("panelContenidochkProveedor")) && (subControlHijo is Panel))
+                        {
+                            foreach (Control intoSubControlHijo in subControlHijo.Controls)
+                            {
+                                if ((intoSubControlHijo.Name.Equals("chkBoxchkProveedor")) && (intoSubControlHijo is CheckBox))
+                                {
+                                    CheckBox chkBox = (CheckBox)intoSubControlHijo;
+                                    concepto = chkBox.Name;
+                                    if (chkBox.Checked.Equals(true))
+                                    {
+                                        checkBoxConcepto = "1";
+                                    }
+                                    else if (chkBox.Checked.Equals(false))
+                                    {
+                                        checkBoxConcepto = "0";
+                                    }
+                                }
+                                if ((intoSubControlHijo.Name.Equals("cbchkProveedor")) && (intoSubControlHijo is ComboBox))
+                                {
+                                    ComboBox comBox = (ComboBox)intoSubControlHijo;
+                                    textComboBoxConcepto = comBox.Text;
+                                    textCantidad = " ";
+                                }
+                            }
+                            tuplaConfigDB.Add(concepto.Remove(0, 9) + "|" + checkBoxConcepto + "|" + textComboBoxConcepto + "|" + textCantidad);
+                        }
+                    }
+                }
+            }
+            foreach(var itemRow in tuplaConfigDB)
+            {
+                int foudDatoDinamico = -1;
+                string[] words;
+
+                words = itemRow.Split('|');
+
+                using (DataTable dtProveedor = cn.CargarDatos(cs.VerificarDatoDinamico(words[0].ToString(), FormPrincipal.userID)))
+                {
+                    if (!dtProveedor.Rows.Count.Equals(0))
+                    {
+                        foudDatoDinamico = 1;
+                    }
+                    else if (dtProveedor.Rows.Count.Equals(0))
+                    {
+                        foudDatoDinamico = 0;
+                    }
+                }
+
+                if (foudDatoDinamico.Equals(1))
+                {
+                    var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamicoFiltroProducto(words[0].ToString(), Convert.ToInt32(words[1].ToString()), words[2].ToString(), FormPrincipal.userID));
+
+                }
+                else if (foudDatoDinamico.Equals(0))
+                {
+
+                }
             }
         }
 

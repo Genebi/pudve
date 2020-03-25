@@ -61,7 +61,7 @@
             this.groupBox1.Controls.Add(this.chkBoxStock);
             this.groupBox1.Location = new System.Drawing.Point(27, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(524, 347);
+            this.groupBox1.Size = new System.Drawing.Size(550, 347);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuració de Filtrado: ";
@@ -105,7 +105,7 @@
             this.fLPDetalleProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(6, 191);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(512, 150);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(526, 150);
             this.fLPDetalleProducto.TabIndex = 11;
             this.fLPDetalleProducto.WrapContents = false;
             // 
@@ -121,7 +121,7 @@
             this.panel1.Controls.Add(this.cbTipoFiltroPrecio);
             this.panel1.Location = new System.Drawing.Point(90, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(428, 172);
+            this.panel1.Size = new System.Drawing.Size(442, 172);
             this.panel1.TabIndex = 8;
             // 
             // cbTipoFiltroImagen
@@ -272,7 +272,7 @@
             this.btnAplicar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicar.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.ForeColor = System.Drawing.Color.White;
-            this.btnAplicar.Location = new System.Drawing.Point(335, 385);
+            this.btnAplicar.Location = new System.Drawing.Point(348, 385);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(95, 43);
             this.btnAplicar.TabIndex = 6;
@@ -300,7 +300,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 442);
+            this.ClientSize = new System.Drawing.Size(609, 442);
             this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.groupBox1);

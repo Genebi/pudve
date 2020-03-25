@@ -52,6 +52,7 @@ namespace PuntoDeVentaV2
         public static int Facturas_impuestos;
         public static int Facturas_productos;
         public static int Facturas_complemento_pago;
+        public static int FiltroDinamico;
     #endregion Variables Tablas
 
         public DBTables()
@@ -100,6 +101,7 @@ namespace PuntoDeVentaV2
             Facturas_impuestos = 8;
             Facturas_productos = 10;
             Facturas_complemento_pago = 13;
+            FiltroDinamico = 5;
         #endregion Inicializar Variables
         }
 
@@ -2671,5 +2673,54 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla Facturas_complemento_pago
+
+        // Tabla de FiltroDinamico 44
+        #region Tabla FiltroDinamico
+        public int GetFiltroFiltroDinamico()
+        {
+            return FiltroDinamico;
+        }
+
+        public string PragmaTablaFiltroFiltroDinamico(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroFiltroDinamico(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroFiltroDinamico(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID               INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              concepto         TEXT,
+                                              checkBoxConcepto INTEGER NOT NULL DEFAULT (0),
+                                              textCantidad     TEXT,
+                                              IDUsuario        INTEGER NOT NULL,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE);";
+        }
+
+        public string QueryUpdateTablaFiltroFiltroDinamico(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             concepto,
+                                             checkBoxConcepto,
+                                             textCantidad,
+                                             IDUsuario) 
+                                      SELECT ID,
+                                             concepto,
+                                             checkBoxConcepto,
+                                             textCantidad,
+                                             IDUsuario 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroFiltroDinamico(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla FiltroDinamico
     }
 }
