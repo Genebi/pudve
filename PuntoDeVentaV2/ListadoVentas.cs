@@ -590,9 +590,29 @@ namespace PuntoDeVentaV2
                 //Ver factura
                 if (e.ColumnIndex == 11)
                 {
-                    MessageBox.Show("Factura"+ idVenta);
+                    // Verifica si el PDF ya esta creado
 
-                    //ver_factura(idVenta);
+                    string ruta_archivo = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
+
+                    if (!File.Exists(ruta_archivo))
+                    {
+                        MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
+                        // Genera PDF
+                        ver_factura(idVenta);
+                    }
+
+                    // Visualiza PDF
+
+                    string nombre = "VENTA_" + idVenta;
+
+                    Visualizar_notaventa ver_nota = new Visualizar_notaventa(nombre);
+
+                    ver_nota.FormClosed += delegate
+                    {
+                        ver_nota.Dispose();
+                    };
+
+                    ver_nota.ShowDialog();
                 }
 
                 //Ver ticket
@@ -975,13 +995,14 @@ namespace PuntoDeVentaV2
 
         private void ver_factura(int id_venta)
         {
-            string r_nombre = "";
-            string r_rfc = "";
-
             decimal suma_importe_concep = 0;
             decimal suma_importe_impuest = 0;
             List<string> list_porprod_impuestos_trasladados = new List<string>();
 
+
+            // ..................................
+            // .    Obtiene datos de la venta   .
+            // ..................................
 
             // Consulta tabla venta
 
@@ -1006,19 +1027,42 @@ namespace PuntoDeVentaV2
             int id_cliente = Convert.ToInt32(r_detallesventa["IDCliente"]);
             string forma_pago = "";
 
-            if (Convert.ToDecimal(r_detallesventa["Efectivo"]) > 0) { forma_pago = "Efectivo";  }
-            if (Convert.ToDecimal(r_detallesventa["Tarjeta"]) > 0) { forma_pago = "Tarjeta"; }
-            if (Convert.ToDecimal(r_detallesventa["Vales"]) > 0) { forma_pago = "Vales"; }
-            if (Convert.ToDecimal(r_detallesventa["Cheque"]) > 0) { forma_pago = "Cheque"; }
-            if (Convert.ToDecimal(r_detallesventa["Transferencia"]) > 0) { forma_pago = "Transferencia"; }
-            if (Convert.ToDecimal(r_detallesventa["Credito"]) > 0) { forma_pago = "Crédito"; }
+            if (Convert.ToDecimal(r_detallesventa["Efectivo"]) > 0)
+            {
+                forma_pago += "Efectivo";
+            }
+            if (Convert.ToDecimal(r_detallesventa["Tarjeta"]) > 0)
+            {
+                if (forma_pago != "") { forma_pago += "/"; }
+                forma_pago += "Tarjeta";
+            }
+            if (Convert.ToDecimal(r_detallesventa["Vales"]) > 0)
+            {
+                if (forma_pago != "") { forma_pago += "/"; }
+                forma_pago += "Vales";
+            }
+            if (Convert.ToDecimal(r_detallesventa["Cheque"]) > 0)
+            {
+                if (forma_pago != "") { forma_pago += "/"; }
+                forma_pago += "Cheque";
+            }
+            if (Convert.ToDecimal(r_detallesventa["Transferencia"]) > 0)
+            {
+                if (forma_pago != "") { forma_pago += "/"; }
+                forma_pago += "Transferencia";
+            }
+            if (Convert.ToDecimal(r_detallesventa["Credito"]) > 0)
+            {
+                if (forma_pago != "") { forma_pago += "/"; }
+                forma_pago += "Crédito";
+            }
 
 
 
             ComprobanteVenta comprobanteventa = new ComprobanteVenta();
 
 
-            // Consulta datos del usuario
+            // Datos del usuario
 
             DataTable d_usuario = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, id_usuario));
             DataRow r_usuario = d_usuario.Rows[0];
@@ -1026,33 +1070,53 @@ namespace PuntoDeVentaV2
             string lugar_expedicion = r_usuario["Estado"].ToString();
 
             ComprobanteEmisorVenta emisor_v = new ComprobanteEmisorVenta();
+
             emisor_v.Nombre = r_usuario["RazonSocial"].ToString();
             emisor_v.Rfc= r_usuario["RFC"].ToString();
             emisor_v.RegimenFiscal= r_usuario["Regimen"].ToString();
+            emisor_v.Estado = r_usuario["Estado"].ToString();
+            emisor_v.Municipio = r_usuario["Municipio"].ToString();
+            emisor_v.CP = r_usuario["CodigoPostal"].ToString();
+            emisor_v.Colonia = r_usuario["Colonia"].ToString();
+            emisor_v.Calle = r_usuario["Calle"].ToString();
+            emisor_v.Numext = r_usuario["NoExterior"].ToString();
+            emisor_v.Numint = r_usuario["NoInterior"].ToString();
+            emisor_v.Correo = r_usuario["Email"].ToString();
+            emisor_v.Telefono = r_usuario["Telefono"].ToString();
+
+            comprobanteventa.Emisor = emisor_v;
 
 
-            // Consulta datos del cliente
+            // Datos del cliente
 
             DataTable d_cliente = cn.CargarDatos(cs.cargar_datos_venta_xml(3, id_cliente, 0));
 
-            if(d_cliente.Rows.Count > 0)
+            if (d_cliente.Rows.Count > 0)
             {
                 DataRow r_cliente = d_cliente.Rows[0];
+                
+                ComprobanteReceptorVenta receptor_v = new ComprobanteReceptorVenta();
 
-                r_nombre = r_cliente["RazonSocial"].ToString();
-                r_rfc = r_cliente["RFC"].ToString();
-            }            
+                receptor_v.Nombre = r_cliente["RazonSocial"].ToString();
+                receptor_v.Rfc = r_cliente["RFC"].ToString();
+                receptor_v.Pais = r_cliente["Pais"].ToString();
+                receptor_v.Estado = r_cliente["Estado"].ToString();
+                receptor_v.Municipio = r_cliente["Municipio"].ToString();
+                receptor_v.Localidad = r_cliente["Localidad"].ToString();
+                receptor_v.CP = r_cliente["CodigoPostal"].ToString();
+                receptor_v.Colonia = r_cliente["Colonia"].ToString();
+                receptor_v.Calle = r_cliente["Calle"].ToString();
+                receptor_v.Numext = r_cliente["NoExterior"].ToString();
+                receptor_v.Numint = r_cliente["NoInterior"].ToString();
+                receptor_v.Correo = r_cliente["Email"].ToString();
+                receptor_v.Telefono = r_cliente["Telefono"].ToString();
 
-            ComprobanteReceptorVenta receptor_v = new ComprobanteReceptorVenta();
-            receptor_v.Nombre = r_nombre;
-            receptor_v.Rfc = r_rfc;
+                comprobanteventa.Receptor = receptor_v;
+            }
+            
 
 
-            comprobanteventa.Emisor = emisor_v;
-            comprobanteventa.Receptor = receptor_v;
-
-
-            // Consulta datos del producto
+            // Datos del producto
 
             List<ComprobanteConceptoVenta> listaconcepto_v = new List<ComprobanteConceptoVenta>();
 
@@ -1106,7 +1170,7 @@ namespace PuntoDeVentaV2
 
 
                     // Guarda en la lista el tipo de impuesto
-
+                    /*
                     string cadena = "002-Tasa" + "-" + tasa_cuota;
 
                     // Busca si la cadena existe en la lista
@@ -1126,7 +1190,7 @@ namespace PuntoDeVentaV2
                     {
                         list_porprod_impuestos_trasladados.Add(cadena);
                         list_porprod_impuestos_trasladados.Add(importe_imp.ToString());
-                    }
+                    }*/
 
 
                     concepto_v.Impuestos = new ComprobanteConceptoImpuestosVenta();
@@ -1154,20 +1218,21 @@ namespace PuntoDeVentaV2
 
 
 
+            // .....................................................................
+            // .    Inicia con la generación de la plantilla y conversión a PDF    .
+            // .....................................................................
+
+
+            // Nombre que tendrá el pdf de la venta
             string nombre_venta = "VENTA_" + id_venta;
-
             // Verifica si tiene creado el directorio
-
             string carpeta_venta = @"C:\Archivos PUDVE\Ventas\PDF\";
 
             if (!Directory.Exists(carpeta_venta))
             {
                 Directory.CreateDirectory(carpeta_venta);
             }
-            Console.WriteLine("SE CREA XML CON ÉXITO");
-            // .....................................................................
-            // .    Inicia con la generación de la plantilla y conversión a PDF    .
-            // .....................................................................
+            
 
             string origen_pdf_temp = nombre_venta + ".pdf";
             string destino_pdf = @"C:\Archivos PUDVE\Ventas\PDF\" + nombre_venta + ".pdf";
@@ -1182,7 +1247,7 @@ namespace PuntoDeVentaV2
 
             result_html = RazorEngine.Razor.Parse(s_html, comprobanteventa);
 
-            Console.WriteLine(result_html);
+
 
             // Se crea archivo temporal
             File.WriteAllText(ruta_html_temp, result_html);
