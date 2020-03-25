@@ -707,6 +707,12 @@
     <Compile Include="Visualizar_factura.Designer.cs">
       <DependentUpon>Visualizar_factura.cs</DependentUpon>
     </Compile>
+    <Compile Include="Visualizar_notaventa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Visualizar_notaventa.Designer.cs">
+      <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinQueryString.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -963,6 +969,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Visualizar_factura.resx">
       <DependentUpon>Visualizar_factura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visualizar_notaventa.resx">
+      <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinQueryString.resx">
       <DependentUpon>WinQueryString.cs</DependentUpon>
