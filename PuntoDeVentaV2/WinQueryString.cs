@@ -289,8 +289,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroImagen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //filtroImagen = Properties.Settings.Default.chkFiltroImagen;
-            filtroImagen = chkBoxImagen.Checked;
+            filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+            //filtroImagen = chkBoxImagen.Checked;
 
             if (filtroImagen.Equals(true))
             {
@@ -331,8 +331,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroRevision_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
-            filtroRevision = chkBoxRevision.Checked;
+            filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+            //filtroRevision = chkBoxRevision.Checked;
 
             if (filtroRevision.Equals(true))
             {
@@ -465,8 +465,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroCombProdServ_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
-            filtroTipo = chkBoxTipo.Checked;
+            filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+            //filtroTipo = chkBoxTipo.Checked;
 
             if (filtroTipo.Equals(true))
             {
@@ -787,10 +787,10 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < lstListView.Items.Count; i++)
             {
-                //name = lstListView.Items[i].Text.ToString();
-                //value = lstListView.Items[i].SubItems[1].Text.ToString();
-                name = lstListView.Items[i].SubItems[1].Text.ToString();
-                value = lstListView.Items[i].Text.ToString();
+                name = lstListView.Items[i].Text.ToString();
+                value = lstListView.Items[i].SubItems[1].Text.ToString();
+                //name = lstListView.Items[i].SubItems[1].Text.ToString();
+                //value = lstListView.Items[i].Text.ToString();
 
                 if (name.Equals("chkProveedor") && value.Equals("true"))
                 {
@@ -803,10 +803,10 @@ namespace PuntoDeVentaV2
                     panelContenedor.Name = nombrePanelContenedor;
                     //panelContenedor.BackColor = Color.Aqua;
 
-                    //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
-                    //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
-                    chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
-                    chkSettingVariableVal = lstListView.Items[i].Text.ToString();
+                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                    //chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                    //chkSettingVariableVal = lstListView.Items[i].Text.ToString();
 
                     if (chkSettingVariableVal.Equals("true"))
                     {
@@ -878,10 +878,10 @@ namespace PuntoDeVentaV2
                     panelContenedor.Height = 40;
                     panelContenedor.Name = nombrePanelContenedor;
 
-                    //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
-                    //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
-                    chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
-                    chkSettingVariableVal = lstListView.Items[i].Text.ToString();
+                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                    //chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                    //chkSettingVariableVal = lstListView.Items[i].Text.ToString();
 
                     if (chkSettingVariableVal.Equals("true"))
                     {
@@ -1750,8 +1750,8 @@ namespace PuntoDeVentaV2
             saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             path = saveDirectoryFile;
 
-            //loadFormConfig();
-            loadFromConfigDB();
+            loadFormConfig();
+            //loadFromConfigDB();
             BuscarChkBoxListView(chkDatabase);
             dictionaryLoad();
 
@@ -2332,24 +2332,24 @@ namespace PuntoDeVentaV2
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             cbTipoFiltroStock_SelectedIndexChanged(sender, e);
-            //filtroStock = Properties.Settings.Default.chkFiltroStock;
-            filtroStock = chkBoxStock.Checked;
+            filtroStock = Properties.Settings.Default.chkFiltroStock;
+            //filtroStock = chkBoxStock.Checked;
 
             cbTipoFiltroPrecio_SelectedIndexChanged(sender, e);
-            //filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
-            filtroPrecio = chkBoxPrecio.Checked;
+            filtroPrecio = Properties.Settings.Default.chkFiltroPrecio;
+            //filtroPrecio = chkBoxPrecio.Checked;
 
             cbTipoFiltroCombProdServ_SelectedIndexChanged(sender, e);
-            //filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
-            filtroTipo = chkBoxTipo.Checked;
+            filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+            //filtroTipo = chkBoxTipo.Checked;
 
             cbTipoFiltroRevision_SelectedIndexChanged(sender, e);
-            //filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
-            filtroRevision = chkBoxRevision.Checked;
+            filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+            //filtroRevision = chkBoxRevision.Checked;
 
             cbTipoFiltroImagen_SelectedIndexChanged(sender, e);
-            //filtroImagen = Properties.Settings.Default.chkFiltroImagen;
-            filtroImagen = chkBoxImagen.Checked;
+            filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+            //filtroImagen = chkBoxImagen.Checked;
 
             DialogResult result = MessageBox.Show("Desea Guardar el Filtro\no editar su elección", "Guardado del Filtro", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
@@ -2364,16 +2364,16 @@ namespace PuntoDeVentaV2
                         {
                             nameChkBox = chkBoxStock.Name;
 
-                            var datosFiltroStock = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                            //var datosFiltroStock = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
 
-                            if (!datosFiltroStock.Count().Equals(0))
-                            {
-                                cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltroStock[0].ToString()), strFiltroStock, strTxtStock));
-                            }
-                            else if (datosFiltroStock.Count().Equals(0))
-                            {
-                                cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroStock, strTxtStock));
-                            }
+                            //if (!datosFiltroStock.Count().Equals(0))
+                            //{
+                            //    cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltroStock[0].ToString()), strFiltroStock, strTxtStock));
+                            //}
+                            //else if (datosFiltroStock.Count().Equals(0))
+                            //{
+                            //    cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroStock, strTxtStock));
+                            //}
 
                             strFiltroStock += strTxtStock;
 
@@ -2411,16 +2411,16 @@ namespace PuntoDeVentaV2
                         {
                             nameChkBox = chkBoxPrecio.Name;
 
-                            var datosFiltrosPrecio = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                            //var datosFiltrosPrecio = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
 
-                            if (!datosFiltrosPrecio.Count().Equals(0))
-                            {
-                                cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosPrecio[0].ToString()), strFiltroPrecio, strTxtPrecio));
-                            }
-                            else if (datosFiltrosPrecio.Count().Equals(0))
-                            {
-                                cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroPrecio, strTxtPrecio));
-                            }
+                            //if (!datosFiltrosPrecio.Count().Equals(0))
+                            //{
+                            //    cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosPrecio[0].ToString()), strFiltroPrecio, strTxtPrecio));
+                            //}
+                            //else if (datosFiltrosPrecio.Count().Equals(0))
+                            //{
+                            //    cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroPrecio, strTxtPrecio));
+                            //}
 
                             strFiltroPrecio += strTxtPrecio;
 
@@ -2461,26 +2461,26 @@ namespace PuntoDeVentaV2
                     }
                     else if (!strFiltroCombProdServ.Equals("No Aplica") || !strFiltroCombProdServ.Equals("Tipo "))
                     {
-                        nameChkBox = chkBoxTipo.Name;
+                        //nameChkBox = chkBoxTipo.Name;
 
-                        var datosFiltrosTipo = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                        //var datosFiltrosTipo = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
 
-                        if (!datosFiltrosTipo.Count().Equals(0))
-                        {
-                            string[] words = strFiltroCombProdServ.Split(' ');
-                            string filtro = string.Empty;
+                        //if (!datosFiltrosTipo.Count().Equals(0))
+                        //{
+                        //    string[] words = strFiltroCombProdServ.Split(' ');
+                        //    string filtro = string.Empty;
 
-                            filtro += words[0].ToString() + " " + words[1].ToString() + " " + words[2].ToString().Replace("'", string.Empty);
-                            cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosTipo[0].ToString()), filtro, string.Empty));
-                        }
-                        else if (datosFiltrosTipo.Count().Equals(0))
-                        {
-                            string[] words = strFiltroCombProdServ.Split(' ');
-                            string filtro = string.Empty;
+                        //    filtro += words[0].ToString() + " " + words[1].ToString() + " " + words[2].ToString().Replace("'", string.Empty);
+                        //    cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosTipo[0].ToString()), filtro, string.Empty));
+                        //}
+                        //else if (datosFiltrosTipo.Count().Equals(0))
+                        //{
+                        //    string[] words = strFiltroCombProdServ.Split(' ');
+                        //    string filtro = string.Empty;
 
-                            filtro += words[0].ToString() + " " + words[1].ToString() + " " + words[2].ToString().Replace("'", string.Empty);
-                            cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(nameChkBox, filtro));
-                        }
+                        //    filtro += words[0].ToString() + " " + words[1].ToString() + " " + words[2].ToString().Replace("'", string.Empty);
+                        //    cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(nameChkBox, filtro));
+                        //}
 
                         Properties.Settings.Default.strFiltroCombProdServ = strFiltroCombProdServ;
                         Properties.Settings.Default.Save();
@@ -2497,7 +2497,7 @@ namespace PuntoDeVentaV2
                 {
                     if (strFiltroNoRevision.Equals("No Aplica") || strFiltroNoRevision.Equals(""))
                     {
-                        MessageBox.Show("Debe de Elegit una Opción\ndel Campo de Revisión", "Selección Revisión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Debe de Elegir una Opción\ndel Campo de Revisión", "Selección Revisión", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         Properties.Settings.Default.strFiltroRevisionInventario = strFiltroNoRevision;
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
@@ -2508,18 +2508,18 @@ namespace PuntoDeVentaV2
                     {
                         strTxtNoRevision = txtNoRevision.Text;
 
-                        nameChkBox = chkBoxRevision.Name;
+                        //nameChkBox = chkBoxRevision.Name;
 
-                        var datosFiltrosRevision = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                        //var datosFiltrosRevision = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
 
-                        if (!datosFiltrosRevision.Count().Equals(0))
-                        {
-                            cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosRevision[0].ToString()), strFiltroNoRevision, strTxtNoRevision));
-                        }
-                        else if (datosFiltrosRevision.Count().Equals(0))
-                        {
-                            cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroNoRevision, strTxtNoRevision));
-                        }
+                        //if (!datosFiltrosRevision.Count().Equals(0))
+                        //{
+                        //    cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltrosRevision[0].ToString()), strFiltroNoRevision, strTxtNoRevision));
+                        //}
+                        //else if (datosFiltrosRevision.Count().Equals(0))
+                        //{
+                        //    cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(strFiltroNoRevision, strTxtNoRevision));
+                        //}
 
                         //strFiltroNoRevision
                         strFiltroNoRevision += $"{strTxtNoRevision}";
@@ -2548,28 +2548,28 @@ namespace PuntoDeVentaV2
                     }
                     else if (!strFiltroImagen.Equals("No Aplica") || !strFiltroImagen.Equals(""))
                     {
-                        nameChkBox = chkBoxImagen.Name;
+                        //nameChkBox = chkBoxImagen.Name;
 
-                        var datosFiltroImagen = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                        //var datosFiltroImagen = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
 
-                        if (!datosFiltroImagen.Count().Equals(0))
-                        {
-                            string[] words = strFiltroImagen.Split(' ');
-                            string filtro = string.Empty;
+                        //if (!datosFiltroImagen.Count().Equals(0))
+                        //{
+                        //    string[] words = strFiltroImagen.Split(' ');
+                        //    string filtro = string.Empty;
 
-                            filtro += words[0].ToString() + " " + words[1].ToString() + " ''''";
-                            MessageBox.Show("Filtro: " + filtro.ToString());
-                            cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltroImagen[0].ToString()), filtro, string.Empty));
-                        }
-                        else if (datosFiltroImagen.Count().Equals(0))
-                        {
-                            string[] words = strFiltroImagen.Split(' ');
-                            string filtro = string.Empty;
+                        //    filtro += words[0].ToString() + " " + words[1].ToString() + " ''''";
+                        //    MessageBox.Show("Filtro: " + filtro.ToString());
+                        //    cn.EjecutarConsulta(cs.ActualizarTextCBConceptoCantidad(Convert.ToInt32(datosFiltroImagen[0].ToString()), filtro, string.Empty));
+                        //}
+                        //else if (datosFiltroImagen.Count().Equals(0))
+                        //{
+                        //    string[] words = strFiltroImagen.Split(' ');
+                        //    string filtro = string.Empty;
 
-                            filtro += words[0].ToString() + " " + words[1].ToString() + " ''''";
-                            MessageBox.Show("Filtro: " + filtro.ToString());
-                            cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(nameChkBox, filtro));
-                        }
+                        //    filtro += words[0].ToString() + " " + words[1].ToString() + " ''''";
+                        //    MessageBox.Show("Filtro: " + filtro.ToString());
+                        //    cn.EjecutarConsulta(cs.InsertarTextCBConceptoCantidad(nameChkBox, filtro));
+                        //}
 
                         Properties.Settings.Default.strFiltroImagen = strFiltroImagen;
                         Properties.Settings.Default.Save();
@@ -2583,16 +2583,18 @@ namespace PuntoDeVentaV2
                     //MessageBox.Show("Que Paso...\nFalta Seleccionar Imagen.");
                 }
 
-                var servidor = Properties.Settings.Default.Hosting;
+                //var servidor = Properties.Settings.Default.Hosting;
 
-                if (string.IsNullOrWhiteSpace(servidor))
-                {
-                    saveConfigGarlDB();
-                }
-                else if (!string.IsNullOrWhiteSpace(servidor))
-                {
-                    saveDictionary();
-                }
+                //if (string.IsNullOrWhiteSpace(servidor))
+                //{
+                //    saveConfigGarlDB();
+                //}
+                //else if (!string.IsNullOrWhiteSpace(servidor))
+                //{
+                //    saveDictionary();
+                //}
+
+                saveDictionary();
 
                 //if((!strOpcionCBStock.Equals("No Aplica")) && (!strOpcionCBPrecio.Equals("No Aplica")) && (!strFiltroCombProdServ.Equals("No Aplica")))
                 //{
@@ -2688,8 +2690,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroStock_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //filtroStock = Properties.Settings.Default.chkFiltroStock;
-            filtroStock = chkBoxStock.Checked;
+            filtroStock = Properties.Settings.Default.chkFiltroStock;
+            //filtroStock = chkBoxStock.Checked;
 
             if (filtroStock.Equals(true))
             {

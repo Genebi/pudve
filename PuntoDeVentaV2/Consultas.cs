@@ -704,9 +704,9 @@ namespace PuntoDeVentaV2
                 return consulta;
             }
 
-            public string InsertaDatoDinamicoFiltroProducto(string claveAgregar, int claveValor, int idUsuario)
+            public string InsertaDatoDinamicoFiltroDinamico(string claveAgregar, int claveValor, int idUsuario)
             {
-                var consulta = "INSERT INTO FiltroProducto (concepto, checkBoxConcepto, IDUsuario)";
+                var consulta = "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, IDUsuario)";
                 consulta += $"VALUES ('{claveAgregar}', '{claveValor}', '{idUsuario}')";
 
                 return consulta;

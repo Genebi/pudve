@@ -4693,7 +4693,7 @@ namespace PuntoDeVentaV2
                         }
                         else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
                         {
-                            MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                 }
