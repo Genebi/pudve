@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         // Status 6 = Presupuestos
 
         private bool aplicarDescuentoG { get; set; }
+        // Almacena los ID de los productos a los que se aplica descuento general
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
         float descuentoCliente = 0;
@@ -1475,6 +1476,14 @@ namespace PuntoDeVentaV2
                 mostrarVenta = 0;
                 listaAnticipos = string.Empty;
                 ventasGuardadas.Clear();
+
+                // Limpiamos las variables y diccionarios relacionados a los descuentos
+                // de los productos en general
+                porcentajeGeneral = 0;
+                descuentoCliente = 0;
+                txtDescuentoGeneral.Text = "% descuento";
+                productosDescuentoG.Clear();
+                descuentosDirectos.Clear();
 
                 this.Dispose();
             }
