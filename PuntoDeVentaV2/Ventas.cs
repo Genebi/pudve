@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         // Status 6 = Presupuestos
 
         private bool aplicarDescuentoG { get; set; }
+        // Almacena los ID de los productos a los que se aplica descuento general
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
         float descuentoCliente = 0;
@@ -116,9 +117,6 @@ namespace PuntoDeVentaV2
             btnUltimoTicket.BackgroundImageLayout   = ImageLayout.Center;
             btnPresupuesto.BackgroundImageLayout    = ImageLayout.Center;
 
-            /*string tmp = @"\\" + Properties.Settings.Default.Hosting + "\\Users\\Acer\\AppData\\Roaming" + fichero;
-            string fileContents = File.ReadAllText(tmp);
-            MessageBox.Show(fileContents);*/
 
             var datosConfig = mb.DatosConfiguracion();
 
@@ -377,6 +375,12 @@ namespace PuntoDeVentaV2
                         txtBuscadorProducto.Text = "";
                         txtBuscadorProducto.Focus();
                         ocultarResultados();
+
+                        if (!productosDescuentoG.ContainsKey(idProducto))
+                        {
+                            productosDescuentoG.Add(idProducto, aplicarDescuentoG);
+                        }
+
                         AgregarProducto(datosProducto);
 
                         existe = true;
@@ -580,7 +584,7 @@ namespace PuntoDeVentaV2
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
-                row.Cells["Descuento"].Value = 0;
+                row.Cells["Descuento"].Value = "0.00";
                 row.Cells["ImagenProducto"].Value = datosProducto[9];
 
                 var imagen = row.Cells["ImagenProducto"].Value.ToString();
@@ -625,7 +629,7 @@ namespace PuntoDeVentaV2
 
                 int idProducto = Convert.ToInt32(datosProducto[0]);
                 int tipoDescuento = Convert.ToInt32(datosProducto[3]);
-
+                
                 if (tipoDescuento > 0)
                 {
                     string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
@@ -791,9 +795,9 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //MessageBox.Show(ex.ToString());
+                
             }
             
 
@@ -872,6 +876,8 @@ namespace PuntoDeVentaV2
                         if (cantidad >= 1 && cantidad <= Convert.ToInt32(rangoFinalCheck))
                         {
                             totalImporte += cantidad * precioFinalCheck;
+
+                            DGVentas.Rows[fila].Cells["AplicarDescuento"].Value = 0;
                         }
                         else
                         {
@@ -880,6 +886,8 @@ namespace PuntoDeVentaV2
                                 restantes = Math.Abs(cantidad - Convert.ToInt32(rangoFinalCheck));
 
                                 totalImporte += Convert.ToInt32(rangoFinalCheck) * precioFinalCheck;
+
+                                DGVentas.Rows[fila].Cells["AplicarDescuento"].Value = 1;
                             }
                         }
 
@@ -964,18 +972,33 @@ namespace PuntoDeVentaV2
             double totalIVA16     = 0;
             double totalAnticipos = 0;
 
-            if (descuentoCliente > 0)
-            {
-                porcentajeGeneral = 0;
-            }
-
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
+                var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+                var porcentajeGeneralAux = 0f;
+                var descuentoClienteAux = 0f;
+                var esDescuentoDirecto = false;
+
+                // Obtenemos el descuento individual y lo convertimos en array para dividir la cantidad
+                // y el texto del porcentaje aplicado a ese producto en caso de que tenga descuento
+                var descuentoIndividual = fila.Cells["Descuento"].Value.ToString().Split('-');
+
+                // Si el producto tiene un descuento directo aplicado respaldamos el valor de los descuentos en variables auxiliares
+                // de esa manera no tomara en cuenta ese producto con los otros descuentos y aplicara solamente el directo
+                if (descuentosDirectos.ContainsKey(idProducto))
+                {
+                    porcentajeGeneralAux = porcentajeGeneral;
+                    descuentoClienteAux = descuentoCliente;
+                    porcentajeGeneral = 0;
+                    descuentoCliente = 0;
+                    esDescuentoDirecto = true;
+                }
+
                 if (buscarvVentaGuardada == ".#")
                 {
                     var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
                     var cantidadProducto = Convert.ToInt32(fila.Cells["Cantidad"].Value);
-                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
+                    var cantidadDescuento = Convert.ToDouble(descuentoIndividual[0].Trim());
 
                     var importeProducto = (precioOriginal * cantidadProducto) - cantidadDescuento;
 
@@ -987,8 +1010,6 @@ namespace PuntoDeVentaV2
                 }
                 else if (porcentajeGeneral > 0)
                 {
-                    var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
-
                     // Obtenemos el valor de ese key
                     var aplicar = productosDescuentoG.FirstOrDefault(x => x.Key == idProducto).Value;
 
@@ -1000,15 +1021,53 @@ namespace PuntoDeVentaV2
                         // Cantidad de producto
                         var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                         // Cantidad descuento del producto
-                        var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
+                        var cantidadDescuento = Convert.ToDouble(0);
+                        // Para saber que tipo de descuento tiene el producto desde que se registro
+                        var descuentoTipo = Convert.ToInt16(fila.Cells["DescuentoTipo"].Value);
 
-                        var descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
-                        descuento *= porcentajeGeneral;
+                        var mensajeDescuento = string.Empty;
+
+                        double descuento = 0;
+
+                        if (descuentoTipo > 0)
+                        {
+                            var descuentoAux = float.Parse(descuentoIndividual[0]);
+                            
+                            if (descuentoAux > 0)
+                            {
+                                var aplicarDescuento = Convert.ToInt16(fila.Cells["AplicarDescuento"].Value);
+
+                                if (aplicarDescuento == 1)
+                                {
+                                    descuento = descuentoAux;
+                                    mensajeDescuento = $"{descuento.ToString("0.00")}";
+                                }
+                                else
+                                {
+                                    descuento = descuentoAux;
+                                    mensajeDescuento = $"{descuento.ToString("0.00")} - {(porcentajeGeneral * 100)}%";
+                                } 
+                            }
+                            else
+                            {
+                                descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
+                                descuento *= porcentajeGeneral;
+                                mensajeDescuento = $"{descuento.ToString("0.00")} - {(porcentajeGeneral * 100)}%";
+                            }
+                        }
+                        else
+                        {
+                            descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
+                            descuento *= porcentajeGeneral;
+                            mensajeDescuento = $"{descuento.ToString("0.00")} - {(porcentajeGeneral * 100)}%";
+                        }
 
                         var importeProducto = precioOriginal * Convert.ToDouble(cantidadProducto);
+
                         importeProducto -= descuento;
                         importeProducto -= cantidadDescuento;
-
+                        
+                        fila.Cells["Descuento"].Value = mensajeDescuento;
                         fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
                         totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
@@ -1019,7 +1078,7 @@ namespace PuntoDeVentaV2
                     {
                         var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
                         var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
-                        var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
+                        var cantidadDescuento = Convert.ToDouble(descuentoIndividual[0].Trim());
 
                         var importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
 
@@ -1028,8 +1087,7 @@ namespace PuntoDeVentaV2
                         totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                         totalArticulos += cantidadProducto;
                         totalDescuento += cantidadDescuento;
-                    }
-                    
+                    } 
                 }
                 else if (descuentoCliente > 0)
                 {
@@ -1038,15 +1096,44 @@ namespace PuntoDeVentaV2
                     // Cantidad de producto
                     var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                     // Cantidad descuento del producto
-                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
+                    var cantidadDescuento = Convert.ToDouble(0);
+                    // Para saber que tipo de descuento tiene el producto desde que se registro
+                    var descuentoTipo = Convert.ToInt16(fila.Cells["DescuentoTipo"].Value);
 
-                    var descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
-                    descuento *= descuentoCliente;
+                    var mensajeDescuento = string.Empty;
+
+                    double descuento = 0;
+
+                    if (descuentoTipo > 0)
+                    {
+                        var descuentoAux = float.Parse(descuentoIndividual[0]);
+
+                        var aplicarDescuento = Convert.ToInt16(fila.Cells["AplicarDescuento"].Value);
+
+                        if (aplicarDescuento == 1)
+                        {
+                            descuento = descuentoAux;
+                            mensajeDescuento = $"{descuento.ToString("0.00")}";
+                        }
+                        else
+                        {
+                            descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
+                            descuento *= descuentoCliente;
+                            mensajeDescuento = $"{descuento.ToString("0.00")} - {(descuentoCliente * 100)}%";
+                        }
+                    }
+                    else
+                    {
+                        descuento = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
+                        descuento *= descuentoCliente;
+                        mensajeDescuento = $"{descuento.ToString("0.00")} - {(descuentoCliente * 100)}%";
+                    }
 
                     var importeProducto = precioOriginal * Convert.ToDouble(cantidadProducto);
                     importeProducto -= descuento;
                     importeProducto -= cantidadDescuento;
 
+                    fila.Cells["Descuento"].Value = mensajeDescuento;
                     fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
                     totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
@@ -1057,7 +1144,14 @@ namespace PuntoDeVentaV2
                 {
                     var precioOriginal = Convert.ToDouble(fila.Cells["PrecioOriginal"].Value);
                     var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
-                    var cantidadDescuento = Convert.ToDouble(fila.Cells["Descuento"].Value);
+                    var descuentoTipo = Convert.ToInt16(fila.Cells["DescuentoTipo"].Value);
+
+                    double cantidadDescuento = 0;
+
+                    if (esDescuentoDirecto || descuentoTipo > 0)
+                    {
+                        cantidadDescuento = Convert.ToDouble(descuentoIndividual[0]);
+                    }
 
                     var importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
 
@@ -1066,6 +1160,14 @@ namespace PuntoDeVentaV2
                     totalImporte += Convert.ToDouble(fila.Cells["Importe"].Value);
                     totalArticulos += cantidadProducto;
                     totalDescuento += cantidadDescuento;
+                }
+
+                // Reestablecemos el valor de los descuentos diferentes al directo para que siga funcionando
+                // normalmente el metodo de calcular los totales
+                if (descuentosDirectos.ContainsKey(idProducto))
+                {
+                    porcentajeGeneral = porcentajeGeneralAux;
+                    descuentoCliente = descuentoClienteAux;
                 }
             }
 
@@ -1141,6 +1243,7 @@ namespace PuntoDeVentaV2
             productosDescuentoG.Clear();
             // Guarda los datos de los descuentos directos que se han aplicado
             descuentosDirectos.Clear();
+
             CantidadesFinalesVenta();
         }
 
@@ -1373,6 +1476,14 @@ namespace PuntoDeVentaV2
                 mostrarVenta = 0;
                 listaAnticipos = string.Empty;
                 ventasGuardadas.Clear();
+
+                // Limpiamos las variables y diccionarios relacionados a los descuentos
+                // de los productos en general
+                porcentajeGeneral = 0;
+                descuentoCliente = 0;
+                txtDescuentoGeneral.Text = "% descuento";
+                productosDescuentoG.Clear();
+                descuentosDirectos.Clear();
 
                 this.Dispose();
             }
@@ -1788,12 +1899,26 @@ namespace PuntoDeVentaV2
                 PdfPCell colPrecioTmp = new PdfPCell(new Phrase("$" + float.Parse(productos[i][4]).ToString("0.00"), fuenteNormal));
                 colPrecioTmp.BorderWidth = 0;
 
-                float descuento = float.Parse(productos[i][6]);
+                // Convertimos el descuento en array para poder mostrar el porcentaje y sumar
+                // el descuento a la variable del total descuentoProductos
+                var descuentoAux = productos[i][6].Split('-');
+
+                float descuento = float.Parse(descuentoAux[0].Trim());
+
+                var cadenaDescuento = string.Empty;
+
+                cadenaDescuento += descuento.ToString("0.00");
+
+                if (1 < descuentoAux.Length)
+                {
+                    cadenaDescuento += $" - {descuentoAux[1].Trim()}";
+                }
+
                 float importe = float.Parse(productos[i][7]);
 
                 descuentoProductos += descuento;
 
-                PdfPCell colDescTmp = new PdfPCell(new Phrase("$" + descuento.ToString("0.00"), fuenteNormal));
+                PdfPCell colDescTmp = new PdfPCell(new Phrase("$" + cadenaDescuento, fuenteNormal));
                 colDescTmp.BorderWidth = 0;
 
                 PdfPCell colImporteTmp = new PdfPCell(new Phrase("$" + importe.ToString("0.00"), fuenteNormal));
@@ -2697,6 +2822,18 @@ namespace PuntoDeVentaV2
             porcentajeGeneral = 0;
             descuentoCliente = 0;
             txtDescuentoGeneral.Text = "% descuento";
+
+            foreach (DataGridViewRow fila in DGVentas.Rows)
+            {
+                //var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+
+                fila.Cells["Descuento"].Value = "0.00";
+            }
+
+            // Almacena los ID de los productos a los que se aplica descuento general
+            productosDescuentoG.Clear();
+            // Guarda los datos de los descuentos directos que se han aplicado
+            descuentosDirectos.Clear();
 
             CantidadesFinalesVenta();
         }
