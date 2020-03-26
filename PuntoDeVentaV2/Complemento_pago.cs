@@ -238,7 +238,8 @@ namespace PuntoDeVentaV2
                 r_recetor["r_rfc"].ToString(), r_recetor["r_razon_social"].ToString(), r_recetor["r_nombre_comercial"].ToString(), r_recetor["r_correo"].ToString(), r_recetor["r_telefono"].ToString(), r_recetor["r_pais"].ToString(), r_recetor["r_estado"].ToString(),
                 r_recetor["r_municipio"].ToString(), r_recetor["r_localidad"].ToString(), r_recetor["r_cp"].ToString(), r_recetor["r_colonia"].ToString(), r_recetor["r_calle"].ToString(), r_recetor["r_num_ext"].ToString(), r_recetor["r_num_int"].ToString(),
                 r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
-                r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString()
+                r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
+                txt_cuenta.Text
             };
 
             cn.EjecutarConsulta(cs.crear_complemento_pago(1, datos_f));
@@ -336,6 +337,44 @@ namespace PuntoDeVentaV2
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void sel_forma_pago(object sender, EventArgs e)
+        {
+            int clave = Convert.ToInt32(cmb_bx_forma_pago.SelectedValue);
+
+            if(clave == 01 | clave == 08 | (clave >= 12 & clave <= 27) | clave == 30)
+            {
+                txt_cuenta.Text = string.Empty;
+                txt_cuenta.Enabled = false;
+                txt_cuenta.Cursor = Cursors.No;
+            }
+            else
+            {
+                txt_cuenta.Enabled = true;
+                txt_cuenta.Cursor = Cursors.IBeam;
+
+                if (clave == 02 | clave == 03) // Dígitos. Cheque y transferencia
+                {
+                    txt_cuenta.MaxLength = 18;
+                }
+                if (clave == 04 | clave == 28 | clave == 29) // Dígitos. Tarjeta de crédito, debito y servicios
+                {
+                    txt_cuenta.MaxLength = 16;
+                }
+                if (clave == 05) // Alfanumérica. Monedero electrónico
+                {
+                    txt_cuenta.MaxLength = 50;
+                }
+                if (clave == 06) // Dígitos. Dinero electrónico
+                {
+                    txt_cuenta.MaxLength = 10;
+                }
+                if (clave == 99) // Alfanumérica. Por definir
+                {
+                    txt_cuenta.MaxLength = 30;
+                }
+            }
         }
     }
 }

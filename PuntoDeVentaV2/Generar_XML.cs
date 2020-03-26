@@ -1074,12 +1074,14 @@ namespace PuntoDeVentaV2
 
             var bXML = File.ReadAllBytes(rutaXML);
             string usuario = "NUSN900420SS5";
-            //string clave_u = "c.ofis09NSUNotcatno5SS0240";
-            string clave_u = "pGoyQq-RHsaij_yNJfHp";
+            string clave_u = "c.ofis09NSUNotcatno5SS0240";
+            //string clave_u = "pGoyQq-RHsaij_yNJfHp";
             // Crear el objeto cliente
-            ServiceReference_produccion.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReference_produccion.timbrado_cfdi33_portClient();
+            ServiceReferenceTPrueba.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReferenceTPrueba.timbrado_cfdi33_portClient();
+            //ServiceReference_produccion.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReference_produccion.timbrado_cfdi33_portClient();
             // Crear el objeto de la respuesta
-            ServiceReference_produccion.timbrar_cfdi_result respuesta = new ServiceReference_produccion.timbrar_cfdi_result();
+            ServiceReferenceTPrueba.timbrar_cfdi_result respuesta = new ServiceReferenceTPrueba.timbrar_cfdi_result();
+            //ServiceReference_produccion.timbrar_cfdi_result respuesta = new ServiceReference_produccion.timbrar_cfdi_result();
             // Llamar al metodo de timbrado
             try
             {

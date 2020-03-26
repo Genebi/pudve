@@ -113,53 +113,54 @@
 
     <!-- RECEPTOR -->
 
-    <div class="txt-tipo-letra" style="width: 100%; margin-top: 1em; line-height: 1.4; font-size: .94em;">
-        @Model.Receptor.Nombre<br />
-
-        @if(Model.Receptor.Rfc != ""){
-            <b>RFC:</b> @Model.Receptor.Rfc<br />
-        }
-
-        @if(Model.Receptor.Calle != "" | Model.Receptor.Numext != "" | Model.Receptor.Numint != "" | Model.Receptor.Colonia != "" | Model.Receptor.CP != ""){
-            <span>Domicilio:</span> 
-
-            if(Model.Receptor.Calle != ""){
-                <span> </span> @Model.Receptor.Calle  
-            }
-            if(Model.Receptor.Numext != ""){
-                @Model.Receptor.Numext  
-            }
-            if(Model.Receptor.Numint != ""){
-                <span>Num. int. </span> @Model.Receptor.Numint 
-            }
-            if(Model.Receptor.Colonia != ""){
-                <span>Col.</span> @Model.Receptor.Colonia
-            }
-            if(Model.Receptor.CP != ""){
-                <span>CP.</span> @Model.Receptor.CP
-            }
-
-            <br />
-        }
-
-        @if(Model.Receptor.Correo != "" | Model.Receptor.Telefono != ""){
-
-            if(Model.Receptor.Correo != ""){
-                <span>Correo:</span> @Model.Receptor.Correo <span>&nbsp; &nbsp;</span>
-            }
-            if(Model.Receptor.Telefono != ""){
-                <span>Teléfono:</span> @Model.Receptor.Telefono
-            }
-            
-            <span>&nbsp; &nbsp;</span> <b>Forma pago:</b> @Model.FormaPago
-        }
+    @if(Model.Receptor != null){
         
-        
-    </div>
+        <div class="txt-tipo-letra" style="width: 100%; margin-top: 1em; line-height: 1.4; font-size: .94em;">
+            @Model.Receptor.Nombre<br />
 
-    <div style="clear: both;"></div>
-    <br />
-    <br />
+            @if(Model.Receptor.Rfc != ""){
+                <b>RFC:</b> @Model.Receptor.Rfc<br />
+            }
+
+            @if(Model.Receptor.Calle != "" | Model.Receptor.Numext != "" | Model.Receptor.Numint != "" | Model.Receptor.Colonia != "" | Model.Receptor.CP != ""){
+                <span>Domicilio:</span>
+
+                if(Model.Receptor.Calle != ""){
+                    <span> </span> @Model.Receptor.Calle
+                }
+                if(Model.Receptor.Numext != ""){
+                    @Model.Receptor.Numext
+                }
+                if(Model.Receptor.Numint != ""){
+                    <span>Num. int. </span> @Model.Receptor.Numint
+                }
+                if(Model.Receptor.Colonia != ""){
+                    <span>Col.</span> @Model.Receptor.Colonia
+                }
+                if(Model.Receptor.CP != ""){
+                    <span>CP.</span> @Model.Receptor.CP
+                }
+
+                <br />
+            }
+
+            @if(Model.Receptor.Correo != "" | Model.Receptor.Telefono != ""){
+
+                if(Model.Receptor.Correo != ""){
+                    <span>Correo:</span> @Model.Receptor.Correo <span>&nbsp; &nbsp;</span>
+                }
+                if(Model.Receptor.Telefono != ""){
+                    <span>Teléfono:</span> @Model.Receptor.Telefono
+                }
+
+                <span>&nbsp; &nbsp;</span> <b>Forma pago:</b> @Model.FormaPago
+            }
+        </div>
+
+        <div style="clear: both;"></div>
+        <br />
+        <br />
+    }
 
 
 
