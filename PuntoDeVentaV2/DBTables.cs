@@ -1308,10 +1308,7 @@ namespace PuntoDeVentaV2
                                               Timbrada         INTEGER  DEFAULT (0),
                                               Cancelada        INTEGER  DEFAULT (0),
                                               FechaOperacion   DATETIME,
-                                              FormaPago        TEXT,
-                                              num_cuenta       TEXT,
-                                              moneda           TEXT,
-                                              tipo_cambio      DOUBLE);";
+                                              FormaPago        TEXT);";
         }
 
         public string QueryUpdateTablaVentas(string tabla)
