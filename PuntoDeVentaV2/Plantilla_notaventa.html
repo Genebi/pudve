@@ -33,10 +33,48 @@
 
         <!-- EMISOR -->
 
-        <div class="txt alineacion txt-tipo-letra" style="width: 42%; margin-left: 1em;">
+        <div class="txt alineacion txt-tipo-letra" style="width: 43%; margin-left: 1em;">
             <b>@Model.Emisor.Nombre </b> <br />
             <b>RFC:</b> @Model.Emisor.Rfc <br />
             <b>Régimen:</b> @Model.Emisor.RegimenFiscal <br />
+
+            @if(Model.Emisor.Calle != "" | Model.Emisor.Numext != "" | Model.Emisor.Numint != "" | Model.Emisor.Colonia != "" | Model.Emisor.CP != "" | Model.Emisor.Estado != "" | Model.Emisor.Municipio != ""){
+                <b>Domicilio:</b>
+
+                if(Model.Emisor.Calle != ""){
+                    <span> </span> @Model.Emisor.Calle
+                }
+                if(Model.Emisor.Numext != ""){
+                    @Model.Emisor.Numext
+                }
+                if(Model.Emisor.Numint != ""){
+                    <span>Num. int. </span> @Model.Emisor.Numint
+                }
+                if(Model.Emisor.Colonia != ""){
+                    <span>Col.</span> @Model.Emisor.Colonia
+                }
+                if(Model.Emisor.CP != ""){
+                    <span>CP.</span> @Model.Emisor.CP 
+                }
+                if(Model.Emisor.Municipio != ""){
+                    <span> </span>@Model.Emisor.Municipio
+                }
+                if(Model.Emisor.Estado != ""){
+                    <span> </span>@Model.Emisor.Estado
+                }
+
+                <br />
+            }
+
+            @if(Model.Emisor.Correo != "" | Model.Emisor.Telefono != ""){
+
+                if(Model.Emisor.Correo != ""){
+                    <span>Correo:</span> @Model.Emisor.Correo <span>&nbsp;</span>
+                }
+                if(Model.Emisor.Telefono != ""){
+                    <span>Tel.:</span> @Model.Emisor.Telefono
+                }
+            }
         </div>
 
         <!-- FECHAS -->
@@ -56,7 +94,12 @@
                     <td class="cfondo_fechas">Lugar expedición</td>
                 </tr>
                 <tr>
-                    <td></td>
+                    @if(Model.LugarExpedicion != ""){
+                        <td>@Model.LugarExpedicion</td>
+                    }
+                    else{
+                        <td style="text-align: center;">--</td>
+                    }
                 </tr>
             </table>
         </div>
@@ -67,12 +110,51 @@
     <div style="clear: both;"></div>
 
 
+
     <!-- RECEPTOR -->
 
     <div class="txt-tipo-letra" style="width: 100%; margin-top: 1em; line-height: 1.4; font-size: .94em;">
         @Model.Receptor.Nombre<br />
-        <b>RFC:</b> @Model.Receptor.Rfc<br />
-        <b>Forma pago:</b> @Model.FormaPago
+
+        @if(Model.Receptor.Rfc != ""){
+            <b>RFC:</b> @Model.Receptor.Rfc<br />
+        }
+
+        @if(Model.Receptor.Calle != "" | Model.Receptor.Numext != "" | Model.Receptor.Numint != "" | Model.Receptor.Colonia != "" | Model.Receptor.CP != ""){
+            <span>Domicilio:</span> 
+
+            if(Model.Receptor.Calle != ""){
+                <span> </span> @Model.Receptor.Calle  
+            }
+            if(Model.Receptor.Numext != ""){
+                @Model.Receptor.Numext  
+            }
+            if(Model.Receptor.Numint != ""){
+                <span>Num. int. </span> @Model.Receptor.Numint 
+            }
+            if(Model.Receptor.Colonia != ""){
+                <span>Col.</span> @Model.Receptor.Colonia
+            }
+            if(Model.Receptor.CP != ""){
+                <span>CP.</span> @Model.Receptor.CP
+            }
+
+            <br />
+        }
+
+        @if(Model.Receptor.Correo != "" | Model.Receptor.Telefono != ""){
+
+            if(Model.Receptor.Correo != ""){
+                <span>Correo:</span> @Model.Receptor.Correo <span>&nbsp; &nbsp;</span>
+            }
+            if(Model.Receptor.Telefono != ""){
+                <span>Teléfono:</span> @Model.Receptor.Telefono
+            }
+            
+            <span>&nbsp; &nbsp;</span> <b>Forma pago:</b> @Model.FormaPago
+        }
+        
+        
     </div>
 
     <div style="clear: both;"></div>
@@ -118,7 +200,7 @@
             <tr>
                 <td colspan="2">
                     Debo y pagaré a la orden @Model.Emisor.Nombre en esta ciudad _____________ ______________ antes del
-                    dia Jueves, 27 de septiembre del 2018, la cantidad de $@dos_decimales(@Model.Total) (@Model.monedacon_letra) valor de
+                    dia @fecha_conletra(@Model.Fecha), la cantidad de $@dos_decimales(@Model.Total) (@Model.monedacon_letra) valor de
                     la mercancía recibida a mi entera satisfacción. Este pagaré es mercantil y está regido por la Ley
                     General de Títulos y operaciones de Crédito en su artículo 173 y correlativo por no ser pagaré
                     domiciliado. Si este documento no es pagado en su vencimiento causará intereses moratorios del
@@ -281,13 +363,22 @@
             decimal cantidad = Decimal.Round(c, 0);
             return cantidad;
         }
+
+        string fecha_conletra(string fecha){
+            
+            string dia = Convert.ToDateTime(fecha).ToString("dddd") + " " + Convert.ToDateTime(fecha).ToString("dd");
+            string mes = Convert.ToDateTime(fecha).ToString("MMMM");
+            string anio = Convert.ToDateTime(fecha).ToString("yyyy");
+
+            return dia + " de " + mes + " de " + anio;
+        }
     }
 </html>
 
 
 <style>
     .txt {
-        font-size: 1em;
+        font-size: .91em;
         line-height: 1.5;
         letter-spacing: 1px;
     }
@@ -359,15 +450,6 @@
 
     /* Sellos */
 
-    .tam-letra-sellos {
-        font-size: .96em;
-        margin: 4px 0;
-    }
-
-    .tam-letra-sellos-m {
-        font-size: .65em;
-    }
-
     .saltos {
         -ms-word-wrap: break-word;
         word-wrap: break-word;
@@ -376,6 +458,5 @@
         -webkit-hyphens: auto;
         hyphens: auto;
     }
-
 
 </style>
