@@ -363,6 +363,12 @@
     <Compile Include="Complemento_pago.Designer.cs">
       <DependentUpon>Complemento_pago.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConceptosCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConceptosCaja.Designer.cs">
+      <DependentUpon>ConceptosCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionNet.cs" />
     <Compile Include="ConsultarProductoVentas.cs">
@@ -808,6 +814,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Complemento_pago.resx">
       <DependentUpon>Complemento_pago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConceptosCaja.resx">
+      <DependentUpon>ConceptosCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConsultarProductoVentas.resx">
       <DependentUpon>ConsultarProductoVentas.cs</DependentUpon>
