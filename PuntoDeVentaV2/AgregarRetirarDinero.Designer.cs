@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.btnAgregarConcepto = new System.Windows.Forms.Button();
+            this.cbConceptos = new System.Windows.Forms.ComboBox();
             this.lbCredito = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -41,7 +43,6 @@
             this.txtCredito = new System.Windows.Forms.TextBox();
             this.txtTrans = new System.Windows.Forms.TextBox();
             this.lbSubtitulo = new System.Windows.Forms.Label();
-            this.txtConcepto = new System.Windows.Forms.TextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.txtCheque = new System.Windows.Forms.TextBox();
@@ -51,6 +52,8 @@
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.btnAgregarConcepto);
+            this.gbContenedor.Controls.Add(this.cbConceptos);
             this.gbContenedor.Controls.Add(this.lbCredito);
             this.gbContenedor.Controls.Add(this.label9);
             this.gbContenedor.Controls.Add(this.label7);
@@ -63,7 +66,6 @@
             this.gbContenedor.Controls.Add(this.txtCredito);
             this.gbContenedor.Controls.Add(this.txtTrans);
             this.gbContenedor.Controls.Add(this.lbSubtitulo);
-            this.gbContenedor.Controls.Add(this.txtConcepto);
             this.gbContenedor.Controls.Add(this.btnCancelar);
             this.gbContenedor.Controls.Add(this.btnAceptar);
             this.gbContenedor.Controls.Add(this.txtCheque);
@@ -73,6 +75,32 @@
             this.gbContenedor.Size = new System.Drawing.Size(410, 315);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
+            // 
+            // btnAgregarConcepto
+            // 
+            this.btnAgregarConcepto.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnAgregarConcepto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarConcepto.FlatAppearance.BorderSize = 0;
+            this.btnAgregarConcepto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnAgregarConcepto.Location = new System.Drawing.Point(355, 218);
+            this.btnAgregarConcepto.Name = "btnAgregarConcepto";
+            this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
+            this.btnAgregarConcepto.TabIndex = 218;
+            this.btnAgregarConcepto.UseVisualStyleBackColor = false;
+            this.btnAgregarConcepto.Click += new System.EventHandler(this.btnAgregarConcepto_Click);
+            // 
+            // cbConceptos
+            // 
+            this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbConceptos.FormattingEnabled = true;
+            this.cbConceptos.Location = new System.Drawing.Point(56, 218);
+            this.cbConceptos.Name = "cbConceptos";
+            this.cbConceptos.Size = new System.Drawing.Size(293, 25);
+            this.cbConceptos.TabIndex = 217;
             // 
             // lbCredito
             // 
@@ -194,16 +222,6 @@
             this.lbSubtitulo.TabIndex = 210;
             this.lbSubtitulo.Text = "Concepto del depósito";
             // 
-            // txtConcepto
-            // 
-            this.txtConcepto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtConcepto.Location = new System.Drawing.Point(56, 208);
-            this.txtConcepto.Multiline = true;
-            this.txtConcepto.Name = "txtConcepto";
-            this.txtConcepto.Size = new System.Drawing.Size(327, 45);
-            this.txtConcepto.TabIndex = 7;
-            // 
             // btnCancelar
             // 
             this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -290,10 +308,11 @@
         private System.Windows.Forms.TextBox txtCredito;
         private System.Windows.Forms.TextBox txtTrans;
         private System.Windows.Forms.Label lbSubtitulo;
-        private System.Windows.Forms.TextBox txtConcepto;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.TextBox txtCheque;
         private System.Windows.Forms.Label lbTitulo;
+        private System.Windows.Forms.Button btnAgregarConcepto;
+        private System.Windows.Forms.ComboBox cbConceptos;
     }
 }

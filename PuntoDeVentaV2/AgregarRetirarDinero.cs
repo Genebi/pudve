@@ -173,7 +173,7 @@ namespace PuntoDeVentaV2
                 tipoOperacion = "corte";
             }
 
-            var concepto = txtConcepto.Text;
+            var concepto = "";// txtConcepto.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
 
@@ -541,6 +541,14 @@ namespace PuntoDeVentaV2
                 {
                     MensajeCantidad(totalCredito, sender);
                 }
+            }
+        }
+
+        private void btnAgregarConcepto_Click(object sender, EventArgs e)
+        {
+            using (var conceptos = new ConceptosCaja())
+            {
+                conceptos.ShowDialog();
             }
         }
     }
