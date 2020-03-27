@@ -704,14 +704,6 @@ namespace PuntoDeVentaV2
                 return consulta;
             }
 
-            public string InsertaDatoDinamicoFiltroDinamico(string claveAgregar, int claveValor, int idUsuario)
-            {
-                var consulta = "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, IDUsuario)";
-                consulta += $"VALUES ('{claveAgregar}', '{claveValor}', '{idUsuario}')";
-
-                return consulta;
-            }
-
             public string ActualizarDatoDinamico(string claveAntigua, string claveNueva, int idUsuario)
             {
                 var consulta = $"UPDATE appSettings SET concepto = '{claveNueva}', textComboBoxConcepto = 'chk{claveNueva}' WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
@@ -772,6 +764,13 @@ namespace PuntoDeVentaV2
         public string ActualizarDatoFiltroDinamico(string claveBuscar, int valueDato, int idUsuario)
         {
             var consulta = $"UPDATE FiltroDinamico SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
+
+        public string ActualizarNombreDatoFiltroDinamico(string claveAntigua, string claveNueva, int idUsuario)
+        {
+            var consulta = $"UPDATE FiltroDinamico SET concepto = '{claveNueva}', WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
 
             return consulta;
         }

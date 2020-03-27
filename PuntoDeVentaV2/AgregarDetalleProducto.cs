@@ -1748,7 +1748,7 @@ namespace PuntoDeVentaV2
                             //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             int nvoValorNumerico = 0;
                             int RegistroAgregado = -1;
-                            RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico("Proveedor", 0, FormPrincipal.userID));
+                            RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico("chkProveedor", 0, FormPrincipal.userID));
                             if (RegistroAgregado.Equals(1))
                             {
                                 //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1757,7 +1757,7 @@ namespace PuntoDeVentaV2
                             {
                                 MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-                            RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamicoFiltroDinamico("Proveedor", 0, FormPrincipal.userID));
+                            RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chkProveedor", 0, FormPrincipal.userID));
                             if (RegistroAgregado.Equals(1))
                             {
                                 //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -1943,7 +1943,7 @@ namespace PuntoDeVentaV2
                         {
                             MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamicoFiltroDinamico(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico(nvoDetalle, nvoValorNumerico, FormPrincipal.userID));
                         if (RegistroAgregado.Equals(1))
                         {
                             //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -2016,6 +2016,7 @@ namespace PuntoDeVentaV2
                         //RenameKey(editDetelle, editValor);
                         //RefreshAppSettings();
                         //loadFormConfig();
+
                         var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
                         if (UpdateDatoDinamico.Equals(1))
                         {
@@ -2025,6 +2026,17 @@ namespace PuntoDeVentaV2
                         {
                             MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+
+                        var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoFiltroDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        if (UpdateDatoFiltroDinamico.Equals(1))
+                        {
+                            //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (UpdateDatoFiltroDinamico.Equals(0))
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
                         loadFromConfigDB();
                         BuscarTextoListView(settingDatabases);
                     }
