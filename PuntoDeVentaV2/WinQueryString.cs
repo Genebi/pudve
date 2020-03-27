@@ -1750,8 +1750,8 @@ namespace PuntoDeVentaV2
             saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             path = saveDirectoryFile;
 
-            loadFormConfig();
-            //loadFromConfigDB();
+            //loadFormConfig();
+            loadFromConfigDB();
             BuscarChkBoxListView(chkDatabase);
             dictionaryLoad();
 

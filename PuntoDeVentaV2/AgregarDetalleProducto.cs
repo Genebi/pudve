@@ -460,10 +460,10 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < lstListView.Items.Count; i++)
             {
-                chkDetalleProductoTxt = lstListView.Items[i].Text.ToString();
-                chkDetalleProductoVal = lstListView.Items[i].SubItems[1].Text.ToString();
-                //chkDetalleProductoVal = lstListView.Items[i].Text.ToString();
-                //chkDetalleProductoTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                //chkDetalleProductoTxt = lstListView.Items[i].Text.ToString();
+                //chkDetalleProductoVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                chkDetalleProductoVal = lstListView.Items[i].Text.ToString();
+                chkDetalleProductoTxt = lstListView.Items[i].SubItems[1].Text.ToString();
 
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
@@ -508,10 +508,10 @@ namespace PuntoDeVentaV2
 
                     if (row < chkDatabase.Items.Count)
                     {
-                        chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
-                        chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
-                        //chkSettingVariableVal = chkDatabase.Items[row].Text.ToString();
-                        //chkSettingVariableTxt = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        //chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
+                        //chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        chkSettingVariableVal = chkDatabase.Items[row].Text.ToString();
+                        chkSettingVariableTxt = chkDatabase.Items[row].SubItems[1].Text.ToString();
 
                         CheckBox checkSetting = new CheckBox();
                         checkSetting.Name = chkSettingVariableTxt;
@@ -546,8 +546,8 @@ namespace PuntoDeVentaV2
                 ap.FormClosed += delegate
                 {
                     fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                 };
                 ap.ShowDialog();
@@ -558,8 +558,8 @@ namespace PuntoDeVentaV2
                 addDetailGral.FormClosed += delegate
                 {
                     fLPCentralDetalle.Controls.Clear();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                 };
                 addDetailGral.getChkName = textoBuscado;
@@ -817,24 +817,24 @@ namespace PuntoDeVentaV2
                 encontrarPanel("panelContenedor" + name);
             }
 
-            //int valorDatoDinamico = -1;
+            int valorDatoDinamico = -1;
 
-            //if (value.Equals("True"))
-            //{
-            //    valorDatoDinamico = 1;
-            //}
-            //else if (value.Equals("False"))
-            //{
-            //    valorDatoDinamico = 0;
-            //}
+            if (value.Equals("True"))
+            {
+                valorDatoDinamico = 1;
+            }
+            else if (value.Equals("False"))
+            {
+                valorDatoDinamico = 0;
+            }
 
-            //var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+            var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
 
-            //loadFromConfigDB();
+            loadFromConfigDB();
 
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
 
             //var servidor = Properties.Settings.Default.Hosting;
 
@@ -1309,24 +1309,41 @@ namespace PuntoDeVentaV2
                 value = checkBoxClickSetting.Checked.ToString();
             }
 
-            //int valorDatoDinamico = -1;
+            int valorDatoDinamico = -1;
 
-            //if (value.Equals("True"))
-            //{
-            //    valorDatoDinamico = 1;
-            //}
-            //else if (value.Equals("False"))
-            //{
-            //    valorDatoDinamico = 0;
-            //}
+            if (value.Equals("True"))
+            {
+                valorDatoDinamico = 1;
+            }
+            else if (value.Equals("False"))
+            {
+                valorDatoDinamico = 0;
+            }
 
-            //var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamicoShow(name, valorDatoDinamico, FormPrincipal.userID));
 
-            //loadFromConfigDB();
+            try
+            {
+                var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamicoShow(name, valorDatoDinamico, FormPrincipal.userID));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al intentar Actualizar " + name.Remove(0, 3) + "\nen la Base de Datos appSettings\nERROR: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
+            try
+            {
+                var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarDatoFiltroDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al intentar Actualizar " + name.Remove(0, 3) + "\nen la Base de Datos FiltroDinamico\nERROR: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            loadFromConfigDB();
+
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
 
             //var servidor = Properties.Settings.Default.Hosting;
 
@@ -1536,9 +1553,16 @@ namespace PuntoDeVentaV2
 
             finalIdProducto = getIdProducto;
 
-            loadFormConfig();
-            //loadFromConfigDB();
+            var servidor = Properties.Settings.Default.Hosting;
+
+            //loadFormConfig();
+            loadFromConfigDB();
             BuscarTextoListView(settingDatabases);
+
+            if (string.IsNullOrWhiteSpace(servidor))
+            {
+                VerificarFiltroDinamico();
+            }
 
             txtStockNecesario.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtStockMinimo.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -1594,6 +1618,77 @@ namespace PuntoDeVentaV2
             {
                 txtStockNecesario.Text = "0";
                 txtStockMinimo.Text = "0";
+            }
+        }
+
+        private void VerificarFiltroDinamico()
+        {
+            foreach (Control itemControl in fLPLateralConcepto.Controls)
+            {
+                if (itemControl is FlowLayoutPanel)
+                {
+                    foreach (Control subItemControl in itemControl.Controls)
+                    {
+                        if (subItemControl is Panel)
+                        {
+                            foreach (Control intoSubItemControl in subItemControl.Controls)
+                            {
+                                if (intoSubItemControl is CheckBox)
+                                {
+                                    CheckBox chkBox = (CheckBox)intoSubItemControl;
+                                    string nameChkBox = string.Empty, textSearch = string.Empty;
+                                    bool chkBoxValue, found;
+                                    int chkValueFound = -1;
+
+                                    textSearch = "chk";
+
+                                    nameChkBox = chkBox.Name;
+                                    chkBoxValue = chkBox.Checked;
+
+                                    found = nameChkBox.Contains(textSearch);
+
+                                    if (found.Equals(true))
+                                    {
+                                        if (chkBoxValue.Equals(true))
+                                        {
+                                            chkValueFound = 1;
+                                        }
+                                        else if (chkBoxValue.Equals(false))
+                                        {
+                                            chkValueFound = 0;
+                                        }
+
+                                        using (DataTable dtVerificarDatoFiltroDinamico = cn.CargarDatos(cs.VerificarDatoFiltroDinamico(nameChkBox, FormPrincipal.userID)))
+                                        {
+                                            if (!dtVerificarDatoFiltroDinamico.Rows.Count.Equals(0))
+                                            {
+                                                try
+                                                {
+                                                    var actualizarFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarDatoFiltroDinamico(nameChkBox, chkValueFound, FormPrincipal.userID));
+                                                }
+                                                catch(Exception ex)
+                                                {
+                                                    MessageBox.Show("Error al intentar Actualizar " + nameChkBox.Remove(0,3) + "\nen la Base de Datos\nERROR: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                            else if (dtVerificarDatoFiltroDinamico.Rows.Count.Equals(0))
+                                            {
+                                                try
+                                                {
+                                                    var insertFiltroDinamico = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico(nameChkBox, chkValueFound, FormPrincipal.userID));
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("Error al intentar Insertar " + nameChkBox.Remove(0, 3) + "\nen la Base de Datos\nERROR: " + ex.Message.ToString(), "Error al Insertar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -1719,9 +1814,9 @@ namespace PuntoDeVentaV2
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Detalle a Eliminar"))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -1732,61 +1827,61 @@ namespace PuntoDeVentaV2
                         var mensaje = deleteDetalle;
 
                         MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        RefreshAppSettings();
-                        loadFormConfig();
-                        //loadFromConfigDB();
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        loadFromConfigDB();
                         BuscarTextoListView(settingDatabases);
                     }
                     else
                     {
                         if (KeyExist(deleteDetalle))
                         {
-                            DeleteKey(deleteDetalle);
-                            RefreshAppSettings();
-                            loadFormConfig();
-                            var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
-                            if (DeleteDatoDinamico.Equals(1))
+                            //DeleteKey(deleteDetalle);
+                            //RefreshAppSettings();
+                            //loadFormConfig();
+                            var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                            if (DeleteDatoDinamicos.Equals(1))
                             {
                                 MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
-                            else if (DeleteDatoDinamico.Equals(0))
+                            else if (DeleteDatoDinamicos.Equals(0))
                             {
                                 MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-                            loadFormConfig();
-                            //loadFromConfigDB();
+                            //loadFormConfig();
+                            loadFromConfigDB();
                             BuscarTextoListView(settingDatabases);
                             deleteDetalle = string.Empty;
                         }
                         else
                         {
-                            RefreshAppSettings();
-                            loadFormConfig();
-                            //loadFromConfigDB();
+                            //RefreshAppSettings();
+                            //loadFormConfig();
+                            loadFromConfigDB();
                             BuscarTextoListView(settingDatabases);
                             MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                        //var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
-                        //if (DeleteDatoDinamico.Equals(1))
-                        //{
-                        //    //MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //}
-                        //else if (DeleteDatoDinamico.Equals(0))
-                        //{
-                        //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //}
-                        //loadFromConfigDB();
-                        //BuscarTextoListView(settingDatabases);
-                        //deleteDetalle = string.Empty;
+                        var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                        if (DeleteDatoDinamico.Equals(1))
+                        {
+                            //MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else if (DeleteDatoDinamico.Equals(0))
+                        {
+                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                        deleteDetalle = string.Empty;
                     }
                 }
             }
             catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
+                //RefreshAppSettings();
+                //loadFormConfig();
+                loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -1809,17 +1904,17 @@ namespace PuntoDeVentaV2
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!nvoDetalle.Equals(""))
                 {
-                    AddKey(nvoDetalle, nvoValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
+                    //AddKey(nvoDetalle, nvoValor);
+                    //RefreshAppSettings();
+                    //loadFormConfig();
                     using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
                     {
                         if (!dtItemDinamicos.Rows.Count.Equals(0))
@@ -1858,25 +1953,25 @@ namespace PuntoDeVentaV2
                             MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    //loadFromConfigDB();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
                 }
                 else if (nvoDetalle.Equals(""))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
+                //RefreshAppSettings();
+                //loadFormConfig();
+                loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -1887,112 +1982,112 @@ namespace PuntoDeVentaV2
             RenombrarDetalle renameDetail = new RenombrarDetalle();
             renameDetail.nombreDetalle += new RenombrarDetalle.pasarOldNameNewName(ejecutar);
             renameDetail.ShowDialog();
-            //try
-            //{
-            //    int found = -1;
-            //    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo, FormPrincipal.userID)))
-            //    {
-            //        if (dtItemDinamicos.Rows.Count.Equals(0))
-            //        {
-            //            found = 1;
-            //        }
-            //        else if (dtItemDinamicos.Rows.Count.Equals(0))
-            //        {
-            //            found = 0;
-            //        }
-            //    }
-            //    if (found.Equals(1))
-            //    {
-            //        if (editDetelle.Equals("Proveedor"))
-            //        {
-            //            var mensaje = editDetelle;
+            try
+            {
+                int found = -1;
+                using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo, FormPrincipal.userID)))
+                {
+                    if (dtItemDinamicos.Rows.Count.Equals(0))
+                    {
+                        found = 1;
+                    }
+                    else if (dtItemDinamicos.Rows.Count.Equals(0))
+                    {
+                        found = 0;
+                    }
+                }
+                if (found.Equals(1))
+                {
+                    if (editDetelle.Equals("Proveedor"))
+                    {
+                        var mensaje = editDetelle;
 
-            //            MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            fLPCentralDetalle.Controls.Clear();
-            //            RefreshAppSettings();
-            //            loadFormConfig();
-            //            //loadFromConfigDB();
-            //            BuscarTextoListView(settingDatabases);
-            //        }
-            //        else
-            //        {
-            //            fLPCentralDetalle.Controls.Clear();
-            //            ReadKey(editDetelle);
-            //            RenameKey(editDetelle, editValor);
-            //            RefreshAppSettings();
-            //            loadFormConfig();
-            //            var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-            //            if (UpdateDatoDinamico.Equals(1))
-            //            {
-            //                //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //            }
-            //            else if (UpdateDatoDinamico.Equals(0))
-            //            {
-            //                MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-            //            //loadFromConfigDB();
-            //            BuscarTextoListView(settingDatabases);
-            //        }
-            //    }
-            //    else if (found.Equals(0))
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        fLPCentralDetalle.Controls.Clear();
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                    }
+                    else
+                    {
+                        fLPCentralDetalle.Controls.Clear();
+                        //ReadKey(editDetelle);
+                        //RenameKey(editDetelle, editValor);
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        if (UpdateDatoDinamico.Equals(1))
+                        {
+                            //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (UpdateDatoDinamico.Equals(0))
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                    }
+                }
+                else if (found.Equals(0))
+                {
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
+                    BuscarTextoListView(settingDatabases);
+                    MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            editDetelle = string.Empty;
+            editDetalleNvo = string.Empty;
+            //if (!KeyExist(editDetalleNvo))
+            //{
+            //    if (editDetelle.Equals("Proveedor"))
             //    {
+            //        var mensaje = editDetelle;
+
+            //        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
+            //                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        fLPCentralDetalle.Controls.Clear();
             //        RefreshAppSettings();
             //        loadFormConfig();
             //        //loadFromConfigDB();
             //        BuscarTextoListView(settingDatabases);
-            //        MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else
+            //    {
+            //        fLPCentralDetalle.Controls.Clear();
+            //        ReadKey(editDetelle);
+            //        RenameKey(editDetelle, editValor);
+            //        RefreshAppSettings();
+            //        loadFormConfig();
+            //        //loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+            //        if (UpdateDatoDinamico.Equals(1))
+            //        {
+            //            //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        }
+            //        else if (UpdateDatoDinamico.Equals(0))
+            //        {
+            //            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
             //    }
             //}
-            //catch (Exception ex)
+            //else
             //{
-            //    MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    RefreshAppSettings();
+            //    loadFormConfig();
+            //    //loadFromConfigDB();
+            //    BuscarTextoListView(settingDatabases);
+            //    MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
             //editDetelle = string.Empty;
             //editDetalleNvo = string.Empty;
-            if (!KeyExist(editDetalleNvo))
-            {
-                if (editDetelle.Equals("Proveedor"))
-                {
-                    var mensaje = editDetelle;
-
-                    MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
-                                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    fLPCentralDetalle.Controls.Clear();
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                }
-                else
-                {
-                    fLPCentralDetalle.Controls.Clear();
-                    ReadKey(editDetelle);
-                    RenameKey(editDetelle, editValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                    var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-                    if (UpdateDatoDinamico.Equals(1))
-                    {
-                        //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else if (UpdateDatoDinamico.Equals(0))
-                    {
-                        MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            else
-            {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
-                BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            editDetelle = string.Empty;
-            editDetalleNvo = string.Empty;
         }
 
         private void ejecutar(string oldName, string newName)

@@ -746,10 +746,39 @@ namespace PuntoDeVentaV2
 
                 return consulta;
             }
+
+        public string VerificarContenidoFiltroDinamico(int idUsuario)
+        {
+            var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
+
+        public string VerificarDatoFiltroDinamico(string claveAgregar, int idUsuario)
+        {
+            var consulta = $"SELECT * FROM FiltroDinamico WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
+
+        public string InsertarDatoFiltroDinamico(string claveAgregar, int claveValor, int idUsuario)
+        {
+            var consulta =   "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, IDUsuario)";
+                consulta += $"VALUES ('{claveAgregar}', '{claveValor}', '{idUsuario}')";
+
+            return consulta;
+        }
+
+        public string ActualizarDatoFiltroDinamico(string claveBuscar, int valueDato, int idUsuario)
+        {
+            var consulta = $"UPDATE FiltroDinamico SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
         #endregion
 
         #region Procesos de Filtro de Stock, Precio, Revision, Tipo, Imagen
-            public string VerificarChk(string chkBoxConcepto, int idUsuario)
+        public string VerificarChk(string chkBoxConcepto, int idUsuario)
             {
                 var consulta = $"SELECT ID, concepto, checkBoxConcepto, IDUsuario FROM FiltroProducto WHERE concepto = '{chkBoxConcepto}' AND IDUsuario = '{idUsuario}'";
 

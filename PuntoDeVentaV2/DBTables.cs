@@ -2361,14 +2361,12 @@ namespace PuntoDeVentaV2
                                              IDUsuario,
                                              Nombre,
                                              DescuentoPorcentaje,
-                                             Habilitar,
-                                             FechaOperacion) 
+                                             Habilitar) 
                                       SELECT ID,
                                              IDUsuario,
                                              Nombre,
                                              DescuentoPorcentaje,
-                                             Habilitar,
-                                             FechaOperacion 
+                                             Habilitar 
                                         FROM '{tabla}_temp';";
         }
 

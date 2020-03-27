@@ -238,12 +238,12 @@ namespace PuntoDeVentaV2
 
             ObtenerDatosUsuario(userID);
 
-            var servidor = Properties.Settings.Default.Hosting;
+            //var servidor = Properties.Settings.Default.Hosting;
 
-            if (string.IsNullOrWhiteSpace(servidor))
-            {
-                loadFormConfig();
-            }
+            //if (string.IsNullOrWhiteSpace(servidor))
+            //{
+            //    loadFormConfig();
+            //}
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
 

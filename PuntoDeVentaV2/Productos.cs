@@ -1860,62 +1860,62 @@ namespace PuntoDeVentaV2
 
         private void filtroLoadProductos()
         {
-            //string queryFiltroProducto = string.Empty;
+            string queryFiltroProducto = string.Empty;
 
             filtroConSinFiltroAvanzado = $@"SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = u.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 1 {extra}";
 
-            //queryFiltroProducto = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{FormPrincipal.userID}'";
+            queryFiltroProducto = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{FormPrincipal.userID}'";
 
-            //using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
+            using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
+            {
+                if (!dtFiltroProducto.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow row in dtFiltroProducto.Rows)
+                    {
+                        if (row["checkBoxConcepto"].ToString().Equals("1"))
+                        {
+                            if (!row["textComboBoxConcepto"].ToString().Equals(""))
+                            {
+                                if (row["concepto"].ToString().Equals("chkBoxImagen"))
+                                {
+                                    filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}";
+                                }
+                                else if (row["concepto"].ToString().Equals("chkBoxTipo"))
+                                {
+                                    string[] words;
+                                    words = row["textComboBoxConcepto"].ToString().Split(' ');
+                                    filtroConSinFiltroAvanzado += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
+                                }
+                                else if (!row["concepto"].ToString().Equals("chkBoxImagen") || !row["concepto"].ToString().Equals("chkBoxTipo"))
+                                {
+                                    filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
             //{
-            //    if (!dtFiltroProducto.Rows.Count.Equals(0))
-            //    {
-            //        foreach (DataRow row in dtFiltroProducto.Rows)
-            //        {
-            //            if (row["checkBoxConcepto"].ToString().Equals("1"))
-            //            {
-            //                if (!row["textComboBoxConcepto"].ToString().Equals(""))
-            //                {
-            //                    if (row["concepto"].ToString().Equals("chkBoxImagen"))
-            //                    {
-            //                        filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}";
-            //                    }
-            //                    else if (row["concepto"].ToString().Equals("chkBoxTipo"))
-            //                    {
-            //                        string[] words;
-            //                        words = row["textComboBoxConcepto"].ToString().Split(' ');
-            //                        filtroConSinFiltroAvanzado += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
-            //                    }
-            //                    else if (!row["concepto"].ToString().Equals("chkBoxImagen") || !row["concepto"].ToString().Equals("chkBoxTipo"))
-            //                    {
-            //                        filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    }
+            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
             //}
-
-            if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-            {
-                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
-            }
-            if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-            {
-                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-            }
-            if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-            {
-                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-            }
-            if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-            {
-                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-            }
-            if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-            {
-                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-            }
+            //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
+            //{
+            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
+            //}
+            //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
+            //{
+            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
+            //}
+            //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+            //{
+            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
+            //}
+            //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
+            //{
+            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
+            //}
 
             p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
         }
