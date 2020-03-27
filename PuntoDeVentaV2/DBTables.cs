@@ -53,6 +53,7 @@ namespace PuntoDeVentaV2
         public static int Facturas_productos;
         public static int Facturas_complemento_pago;
         public static int FiltroDinamico;
+        public static int ConceptosDinamicos;
     #endregion Variables Tablas
 
         public DBTables()
@@ -102,6 +103,7 @@ namespace PuntoDeVentaV2
             Facturas_productos = 10;
             Facturas_complemento_pago = 13;
             FiltroDinamico = 5;
+            ConceptosDinamicos = 7;
         #endregion Inicializar Variables
         }
 
