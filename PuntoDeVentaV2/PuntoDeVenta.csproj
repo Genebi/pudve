@@ -409,6 +409,12 @@
     <Compile Include="DevolverAnticipo.Designer.cs">
       <DependentUpon>DevolverAnticipo.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditarConceptoDinamico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditarConceptoDinamico.Designer.cs">
+      <DependentUpon>EditarConceptoDinamico.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empleados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -835,6 +841,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DevolverAnticipo.resx">
       <DependentUpon>DevolverAnticipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditarConceptoDinamico.resx">
+      <DependentUpon>EditarConceptoDinamico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empleados.resx">
       <DependentUpon>Empleados.cs</DependentUpon>

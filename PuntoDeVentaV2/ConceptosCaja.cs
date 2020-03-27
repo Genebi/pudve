@@ -111,16 +111,36 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
+                var fila = DGVConceptos.CurrentCell.RowIndex;
+                var id = Convert.ToInt32(DGVConceptos.Rows[fila].Cells["ID"].Value);
+
                 // Editar
                 if (e.ColumnIndex == 3)
                 {
-                    MessageBox.Show("Editar");
+                    var concepto = DGVConceptos.Rows[fila].Cells["Concepto"].Value.ToString();
+
+                    using (var editar = new EditarConceptoDinamico(concepto))
+                    {
+                        var respuesta = editar.ShowDialog();
+
+                        if (respuesta == DialogResult.OK)
+                        {
+                            cn.EjecutarConsulta($"UPDATE ConceptosDinamicos SET Concepto = '{editar.nuevoConcepto}' WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}");
+                            CargarDatos();
+                        }
+                    }
                 }
 
                 // Eliminar
                 if (e.ColumnIndex == 4)
                 {
-                    MessageBox.Show("Eliminar");
+                    var respuesta = MessageBox.Show("¿Estás seguro de deshabilitar este concepto?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        cn.EjecutarConsulta($"UPDATE ConceptosDinamicos SET Status = 0 WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}");
+                        CargarDatos();
+                    }
                 }
 
                 DGVConceptos.ClearSelection();
