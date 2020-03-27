@@ -2719,5 +2719,58 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla FiltroDinamico
+
+        // Tabla de ConceptosDinamicos 45
+        #region Tabla ConceptosDinamicos
+        public int GetFiltroConceptosDinamicos()
+        {
+            return ConceptosDinamicos;
+        }
+
+        public string PragmaTablaFiltroConceptosDinamicos(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroConceptosDinamicos(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroConceptosDinamicos(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID             INTEGER  PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario      INTEGER  NOT NULL,
+                                              IDEmpleado     INTEGER  DEFAULT (0),
+                                              Concepto       TEXT,
+                                              Origen         TEXT,
+                                              Status         INTEGER  DEFAULT (1),
+                                              FechaOperacion DATETIME);";
+        }
+
+        public string QueryUpdateTablaFiltroConceptosDinamicos(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             IDEmpleado,
+                                             Concepto,
+                                             Origen,
+                                             Status,
+                                             FechaOperacion) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             IDEmpleado,
+                                             Concepto,
+                                             Origen,
+                                             Status,
+                                             FechaOperacion 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroConceptosDinamicos(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla ConceptosDinamicos
     }
 }
