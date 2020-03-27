@@ -739,41 +739,48 @@ namespace PuntoDeVentaV2
                 return consulta;
             }
 
-        public string VerificarContenidoFiltroDinamico(int idUsuario)
-        {
-            var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = '{idUsuario}'";
+            public string VerificarContenidoFiltroDinamico(int idUsuario)
+            {
+                var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = '{idUsuario}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string VerificarDatoFiltroDinamico(string claveAgregar, int idUsuario)
-        {
-            var consulta = $"SELECT * FROM FiltroDinamico WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
+            public string VerificarDatoFiltroDinamico(string claveAgregar, int idUsuario)
+            {
+                var consulta = $"SELECT * FROM FiltroDinamico WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string InsertarDatoFiltroDinamico(string claveAgregar, int claveValor, int idUsuario)
-        {
-            var consulta =   "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, IDUsuario)";
-                consulta += $"VALUES ('{claveAgregar}', '{claveValor}', '{idUsuario}')";
+            public string InsertarDatoFiltroDinamico(string claveAgregar, int claveValor, int idUsuario)
+            {
+                var consulta =   "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, IDUsuario)";
+                    consulta += $"VALUES ('{claveAgregar}', '{claveValor}', '{idUsuario}')";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string ActualizarDatoFiltroDinamico(string claveBuscar, int valueDato, int idUsuario)
-        {
-            var consulta = $"UPDATE FiltroDinamico SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+            public string ActualizarDatoFiltroDinamico(string claveBuscar, int valueDato, int idUsuario)
+            {
+                var consulta = $"UPDATE FiltroDinamico SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
 
-        public string ActualizarNombreDatoFiltroDinamico(string claveAntigua, string claveNueva, int idUsuario)
-        {
-            var consulta = $"UPDATE FiltroDinamico SET concepto = '{claveNueva}', WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
+            public string ActualizarNombreDatoFiltroDinamico(string claveAntigua, string claveNueva, int idUsuario)
+            {
+                var consulta = $"UPDATE FiltroDinamico SET concepto = 'chk{claveNueva}' WHERE concepto = 'chk{claveAntigua}' AND IDUsuario = '{idUsuario}'";
 
-            return consulta;
-        }
+                return consulta;
+            }
+
+            public string BorrarDatoFiltroDinamico(string claveBorrar, int idUsuario)
+            {
+                var consulta = $"DELETE FROM FiltroDinamico WHERE concepto = 'chk{claveBorrar}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
         #endregion
 
         #region Procesos de Filtro de Stock, Precio, Revision, Tipo, Imagen
