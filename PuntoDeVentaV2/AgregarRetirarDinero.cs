@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         // 0 = Depositar
         // 1 = Retirar
@@ -75,8 +76,18 @@ namespace PuntoDeVentaV2
             totalCheque = CajaN.totalCheque;
             totalTransferencia = CajaN.totalTransferencia;
             totalCredito = CajaN.totalCredito;
+
+            CargarConceptos();
         }
 
+        private void CargarConceptos()
+        {
+            var conceptos = mb.ObtenerConceptosDinamicos();
+
+            cbConceptos.DataSource = conceptos.ToArray();
+            cbConceptos.DisplayMember = "Value";
+            cbConceptos.ValueMember = "Key";
+        }
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
         {
@@ -173,7 +184,13 @@ namespace PuntoDeVentaV2
                 tipoOperacion = "corte";
             }
 
-            var concepto = "";// txtConcepto.Text;
+            var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
+
+            if (concepto.Equals("Seleccionar concepto..."))
+            {
+                concepto = string.Empty;
+            }
+
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
 
@@ -549,6 +566,8 @@ namespace PuntoDeVentaV2
             using (var conceptos = new ConceptosCaja())
             {
                 conceptos.ShowDialog();
+
+                CargarConceptos();
             }
         }
     }

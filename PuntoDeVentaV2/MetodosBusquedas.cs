@@ -1589,6 +1589,34 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
+        public Dictionary<int, string> ObtenerConceptosDinamicos(int tipo = 1)
+        {
+            Dictionary<int, string> lista = new Dictionary<int, string>();
+
+            DatosConexion($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {tipo}");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+
+            if (tipo == 1)
+            {
+                lista.Add(0, "Seleccionar concepto...");
+            }
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    var id = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
+                    var concepto = dr.GetValue(dr.GetOrdinal("Concepto")).ToString();
+
+                    lista.Add(id, concepto);
+                }
+            }
+
+            return lista;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
