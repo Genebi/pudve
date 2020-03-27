@@ -174,7 +174,7 @@ namespace PuntoDeVentaV2
 
         private void btnListaDescuentos_Click(object sender, EventArgs e)
         {
-            var existen = mb.ObtenerTipoClientes(tipo: 0);
+            var existen = mb.ObtenerTipoClientes();
 
             if (existen.Count > 0)
             {
