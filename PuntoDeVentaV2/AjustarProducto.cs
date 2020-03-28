@@ -109,6 +109,18 @@ namespace PuntoDeVentaV2
             txtAumentar.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtDisminuir.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
+
+            CargarConceptos();
+        }
+
+        private void CargarConceptos()
+        {
+            // Cargar combobox de conceptos
+            var conceptos = mb.ObtenerConceptosDinamicos(origen: "AJUSTAR");
+
+            cbConceptos.DataSource = conceptos.ToArray();
+            cbConceptos.DisplayMember = "Value";
+            cbConceptos.ValueMember = "Key";
         }
 
         private void rbProducto_CheckedChanged(object sender, EventArgs e)
@@ -484,6 +496,16 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Ingrese el precio del producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void btnAgregarConcepto_Click(object sender, EventArgs e)
+        {
+            using (var conceptos = new ConceptosCaja("AJUSTAR"))
+            {
+                conceptos.ShowDialog();
+
+                CargarConceptos();
             }
         }
     }

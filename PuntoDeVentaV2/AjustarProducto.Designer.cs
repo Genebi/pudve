@@ -61,6 +61,9 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lbEditarPrecio = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
+            this.lbConcepto = new System.Windows.Forms.Label();
+            this.btnAgregarConcepto = new System.Windows.Forms.Button();
+            this.cbConceptos = new System.Windows.Forms.ComboBox();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
             this.SuspendLayout();
@@ -115,7 +118,7 @@
             this.panelComprado.Controls.Add(this.txtPrecioCompra);
             this.panelComprado.Location = new System.Drawing.Point(13, 139);
             this.panelComprado.Name = "panelComprado";
-            this.panelComprado.Size = new System.Drawing.Size(610, 120);
+            this.panelComprado.Size = new System.Drawing.Size(610, 162);
             this.panelComprado.TabIndex = 3;
             // 
             // cantidadStockActual
@@ -224,6 +227,9 @@
             // 
             // panelAjustar
             // 
+            this.panelAjustar.Controls.Add(this.lbConcepto);
+            this.panelAjustar.Controls.Add(this.btnAgregarConcepto);
+            this.panelAjustar.Controls.Add(this.cbConceptos);
             this.panelAjustar.Controls.Add(this.txt_en_stock);
             this.panelAjustar.Controls.Add(this.lb_en_stock);
             this.panelAjustar.Controls.Add(this.lb_disminuir_stock_total);
@@ -236,7 +242,7 @@
             this.panelAjustar.Controls.Add(this.txtAumentar);
             this.panelAjustar.Location = new System.Drawing.Point(13, 139);
             this.panelAjustar.Name = "panelAjustar";
-            this.panelAjustar.Size = new System.Drawing.Size(610, 120);
+            this.panelAjustar.Size = new System.Drawing.Size(610, 162);
             this.panelAjustar.TabIndex = 4;
             this.panelAjustar.Visible = false;
             // 
@@ -354,7 +360,7 @@
             // txtComentarios
             // 
             this.txtComentarios.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtComentarios.Location = new System.Drawing.Point(20, 291);
+            this.txtComentarios.Location = new System.Drawing.Point(20, 328);
             this.txtComentarios.Name = "txtComentarios";
             this.txtComentarios.Size = new System.Drawing.Size(595, 22);
             this.txtComentarios.TabIndex = 5;
@@ -363,7 +369,7 @@
             // 
             this.lbComentarios.AutoSize = true;
             this.lbComentarios.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbComentarios.Location = new System.Drawing.Point(17, 271);
+            this.lbComentarios.Location = new System.Drawing.Point(17, 308);
             this.lbComentarios.Name = "lbComentarios";
             this.lbComentarios.Size = new System.Drawing.Size(149, 17);
             this.lbComentarios.TabIndex = 6;
@@ -394,7 +400,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(471, 350);
+            this.btnAceptar.Location = new System.Drawing.Point(471, 369);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(144, 28);
             this.btnAceptar.TabIndex = 29;
@@ -411,7 +417,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(323, 350);
+            this.btnCancelar.Location = new System.Drawing.Point(323, 369);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(144, 28);
             this.btnCancelar.TabIndex = 28;
@@ -443,11 +449,47 @@
             this.txtPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecio_KeyDown);
             // 
+            // lbConcepto
+            // 
+            this.lbConcepto.AutoSize = true;
+            this.lbConcepto.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbConcepto.Location = new System.Drawing.Point(4, 105);
+            this.lbConcepto.Name = "lbConcepto";
+            this.lbConcepto.Size = new System.Drawing.Size(69, 17);
+            this.lbConcepto.TabIndex = 224;
+            this.lbConcepto.Text = "Concepto";
+            // 
+            // btnAgregarConcepto
+            // 
+            this.btnAgregarConcepto.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnAgregarConcepto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarConcepto.FlatAppearance.BorderSize = 0;
+            this.btnAgregarConcepto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnAgregarConcepto.Location = new System.Drawing.Point(574, 125);
+            this.btnAgregarConcepto.Name = "btnAgregarConcepto";
+            this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
+            this.btnAgregarConcepto.TabIndex = 223;
+            this.btnAgregarConcepto.UseVisualStyleBackColor = false;
+            this.btnAgregarConcepto.Click += new System.EventHandler(this.btnAgregarConcepto_Click);
+            // 
+            // cbConceptos
+            // 
+            this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbConceptos.FormattingEnabled = true;
+            this.cbConceptos.Location = new System.Drawing.Point(7, 125);
+            this.cbConceptos.Name = "cbConceptos";
+            this.cbConceptos.Size = new System.Drawing.Size(563, 25);
+            this.cbConceptos.TabIndex = 222;
+            // 
             // AjustarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 411);
+            this.ClientSize = new System.Drawing.Size(634, 412);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lbEditarPrecio);
             this.Controls.Add(this.btnAceptar);
@@ -459,8 +501,8 @@
             this.Controls.Add(this.rbAjustar);
             this.Controls.Add(this.rbProducto);
             this.Controls.Add(this.lbProducto);
-            this.Controls.Add(this.panelComprado);
             this.Controls.Add(this.panelAjustar);
+            this.Controls.Add(this.panelComprado);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "AjustarProducto";
@@ -511,5 +553,8 @@
         private System.Windows.Forms.Label cantidadStockActual;
         private System.Windows.Forms.Label lbEditarPrecio;
         private System.Windows.Forms.TextBox txtPrecio;
+        private System.Windows.Forms.Label lbConcepto;
+        private System.Windows.Forms.Button btnAgregarConcepto;
+        private System.Windows.Forms.ComboBox cbConceptos;
     }
 }
