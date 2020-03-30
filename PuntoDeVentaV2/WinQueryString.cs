@@ -82,6 +82,7 @@ namespace PuntoDeVentaV2
         static public List<string> detalleProductoGeneral = new List<string>();
 
         Dictionary<string, Tuple<string, string, string, string>> diccionarioDetalleBasicos = new Dictionary<string, Tuple<string, string, string, string>>();
+        Dictionary<string, Tuple<string, string, string>> setUpFiltroDinamicos = new Dictionary<string, Tuple<string, string, string>>();
 
         string saveDirectoryFile;
 
@@ -1499,6 +1500,25 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void FiltroDinamicoLoad()
+        {
+            string strFiltro = string.Empty;
+            int num = 0;
+
+            setUpFiltroDinamicos.Clear();
+
+            strFiltro = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = '{FormPrincipal.userID}'";
+
+            using (DataTable dtFiltroDinamico = cn.CargarDatos(strFiltro))
+            {
+                foreach (DataRow dtRow in dtFiltroDinamico.Rows)
+                {
+                    setUpFiltroDinamicos.Add(Convert.ToString(num), new Tuple<string, string, string>(dtRow["concepto"].ToString(), dtRow["checkBoxConcepto"].ToString(), dtRow["textCantidad"].ToString()));
+                    num++;
+                }
+            }
+        }
+
         private void dictionaryLoad()
         {
             bool isEmpty = (diccionarioDetalleBasicos.Count == 0);
@@ -1750,10 +1770,19 @@ namespace PuntoDeVentaV2
             saveDirectoryFile = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\settings\Dictionary\";
             path = saveDirectoryFile;
 
-            //loadFormConfig();
-            loadFromConfigDB();
+            loadFormConfig();
+            //loadFromConfigDB();
             BuscarChkBoxListView(chkDatabase);
             dictionaryLoad();
+
+            //if (!servidor.Equals(""))
+            //{
+            //    dictionaryLoad();
+            //}
+            //else if (servidor.Equals(""))
+            //{
+            //    FiltroDinamicoLoad();
+            //}
 
             // Condiciones para valorar los procesos del CheckBox de Stock
             // Si esta activado
