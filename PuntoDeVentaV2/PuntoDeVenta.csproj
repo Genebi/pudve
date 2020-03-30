@@ -3655,7 +3655,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-<<<<<<< HEAD
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3664,8 +3663,6 @@
     <Content Include="wkhtmltopdf\include\wkhtmltox\image.h" />
     <Content Include="wkhtmltopdf\include\wkhtmltox\pdf.h" />
     <Content Include="wkhtmltopdf\uninstall.exe" />
-=======
->>>>>>> Facturacion4
     <None Include="Service References\ServiceReferenceTPrueba\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferenceTPrueba\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceTPrueba\Reference.svcmap">
