@@ -2746,7 +2746,17 @@ namespace PuntoDeVentaV2
                 producto.CargarDatos();
                 producto.cargarListaSetUpVaribale();
                 producto.borrarEtiquetasDinamicasSetUpDinamicos();
-                producto.dictionaryLoad();
+
+                var servidor = Properties.Settings.Default.Hosting;
+                if (!servidor.Equals(""))
+                {
+                    producto.dictionaryLoad();
+                }
+                else if (servidor.Equals(""))
+                {
+                    producto.FiltroDinamicoLoad();
+                }
+
                 producto.verificarBotonLimpiarTags();
             }
         }

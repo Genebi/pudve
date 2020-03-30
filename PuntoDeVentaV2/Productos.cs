@@ -113,6 +113,7 @@ namespace PuntoDeVentaV2
         List<Control> listVariables;
 
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
+        Dictionary<string, Tuple<string, string, string>> setUpFiltroDinamicos = new Dictionary<string, Tuple<string, string, string>>();
         Dictionary<int, int> listaCoincidenciasAux = new Dictionary<int, int>();
 
         public static iTextSharp.text.Image imgReporte;
@@ -1310,6 +1311,25 @@ namespace PuntoDeVentaV2
         private void linkLblPaginaActual_Click_1(object sender, EventArgs e)
         {
             actualizar();
+        }
+
+        public void FiltroDinamicoLoad()
+        {
+            string strFiltro = string.Empty;
+            int num = 0;
+
+            setUpFiltroDinamicos.Clear();
+
+            strFiltro = "SELECT * FROM FiltroDinamico WHERE IDUsuario = '11'";
+
+            using (DataTable dtFiltroDinamico = cn.CargarDatos(strFiltro))
+            {
+                foreach (DataRow dtRow in dtFiltroDinamico.Rows)
+                {
+                    setUpFiltroDinamicos.Add(Convert.ToString(num), new Tuple<string, string, string>(dtRow["concepto"].ToString(), dtRow["checkBoxConcepto"].ToString(), dtRow["textCantidad"].ToString()));
+                    num++;
+                }
+            }
         }
 
         public void dictionaryLoad()
