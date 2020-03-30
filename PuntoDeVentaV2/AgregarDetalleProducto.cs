@@ -2460,6 +2460,7 @@ namespace PuntoDeVentaV2
                                                                 // query para poder hacer la actualizacion
                                                                 cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
                                                                 infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                                cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chkProveedor", FormPrincipal.userID, idFound[2].ToString()));
                                                             }
                                                             catch (Exception ex)
                                                             {
@@ -2519,6 +2520,7 @@ namespace PuntoDeVentaV2
                                                                 // query para poder hacer la actualizacion
                                                                 cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
                                                                 infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                                cn.EjecutarConsulta(cs.GuardarTextConceptoFiltroDinamico("chkProveedor", 0, idFound[2].ToString(), FormPrincipal.userID));
                                                             }
                                                             catch (Exception ex)
                                                             {
