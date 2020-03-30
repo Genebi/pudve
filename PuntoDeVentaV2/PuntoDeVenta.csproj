@@ -167,6 +167,14 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TuesPechkin, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TuesPechkin.2.1.1\lib\net20\TuesPechkin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TuesPechkin.Wkhtmltox.Win32, Version=0.12.2.1, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\TuesPechkin.Wkhtmltox.Win32.0.12.2.1\lib\net20\TuesPechkin.Wkhtmltox.Win32.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgregarAnticipo.cs">
@@ -1072,7 +1080,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReference_produccion\timbrado_cfdi33.wsdl" />
-    <None Include="wkhtmltopdf\lib\wkhtmltox.lib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -3630,20 +3637,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltopdf\bin\wkhtmltox.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
-    <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
-    <Content Include="wkhtmltopdf\include\wkhtmltox\image.h" />
-    <Content Include="wkhtmltopdf\include\wkhtmltox\pdf.h" />
-    <Content Include="wkhtmltopdf\uninstall.exe" />
     <None Include="Service References\ServiceReferenceTPrueba\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferenceTPrueba\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceTPrueba\Reference.svcmap">

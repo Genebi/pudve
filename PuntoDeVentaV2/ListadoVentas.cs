@@ -8,9 +8,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using TuesPechkin;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Printing;
 
 namespace PuntoDeVentaV2
 {
@@ -1245,15 +1247,44 @@ namespace PuntoDeVentaV2
             string s_html = GetStringOfFile(ruta_plantilla_html);
             string result_html = "";
 
+
             result_html = RazorEngine.Razor.Parse(s_html, comprobanteventa);
 
-
-
             // Se crea archivo temporal
-            File.WriteAllText(ruta_html_temp, result_html);
+            //File.WriteAllText(ruta_html_temp, result_html);
+
+
+            var document = new HtmlToPdfDocument
+            {
+                GlobalSettings =
+                {
+                    ProduceOutline = true,
+                    DocumentTitle = "Nota de venta",
+                    PaperSize = PaperKind.Letter,
+                    Margins =
+                    {
+                        All = 1.375,
+                        Unit = Unit.Centimeters
+                    }
+                },
+                Objects = {
+                    new ObjectSettings { HtmlText = result_html }
+                }
+            };
+
+
+            // Convertir el documento
+            byte[] result = converter.Convert(document);
+
+            ByteArrayToFile(result, destino_pdf);
+
+
+
+            // .    CODIGO DE LA LIBRERIA WKHTMLTOPDF   .
+            // ..........................................
 
             // Ruta de archivo conversor
-            string ruta_wkhtml_topdf = Properties.Settings.Default.rutaDirectorio + @"\wkhtmltopdf\bin\wkhtmltopdf.exe";
+            /*string ruta_wkhtml_topdf = Properties.Settings.Default.rutaDirectorio + @"\wkhtmltopdf\bin\wkhtmltopdf.exe";
 
             ProcessStartInfo proc_start_info = new ProcessStartInfo();
             proc_start_info.UseShellExecute = false;
@@ -1270,12 +1301,44 @@ namespace PuntoDeVentaV2
             if (File.Exists(origen_pdf_temp))
             {
                 File.Copy(origen_pdf_temp, destino_pdf);
-            }
+            }*/
 
             // Eliminar archivo temporal
-            File.Delete(ruta_html_temp);
+            //File.Delete(ruta_html_temp);
             // Elimina el PDF creado
-            File.Delete(origen_pdf_temp);
+            //File.Delete(origen_pdf_temp);
+
+        }
+
+        public static IConverter converter =
+                new ThreadSafeConverter(
+                    new RemotingToolset<PdfToolset>(
+                        new Win32EmbeddedDeployment(
+                            new TempFolderDeployment()
+                        )
+                    )
+                );
+
+
+        public static bool ByteArrayToFile(byte[] _ByteArray, string _FileName)
+        {
+            try
+            {
+                // Abre el archivo
+                FileStream _FileStream = new FileStream(_FileName, FileMode.Create, FileAccess.Write);
+                // Escribe un bloque de bytes para este stream usando datos de una matriz de bytes
+                _FileStream.Write(_ByteArray, 0, _ByteArray.Length);
+
+                _FileStream.Close();
+
+                return true;
+            }
+            catch (Exception _Exception)
+            {
+                Console.WriteLine("Exception caught in process: {0}", _Exception.ToString());
+            }
+
+            return false;
         }
 
         private static string GetStringOfFile(string ruta_arch)
