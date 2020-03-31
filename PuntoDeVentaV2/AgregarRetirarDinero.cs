@@ -82,7 +82,7 @@ namespace PuntoDeVentaV2
 
         private void CargarConceptos()
         {
-            var conceptos = mb.ObtenerConceptosDinamicos();
+            var conceptos = mb.ObtenerConceptosDinamicos(origen: "CAJA");
 
             cbConceptos.DataSource = conceptos.ToArray();
             cbConceptos.DisplayMember = "Value";
@@ -563,7 +563,7 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarConcepto_Click(object sender, EventArgs e)
         {
-            using (var conceptos = new ConceptosCaja())
+            using (var conceptos = new ConceptosCaja("CAJA"))
             {
                 conceptos.ShowDialog();
 

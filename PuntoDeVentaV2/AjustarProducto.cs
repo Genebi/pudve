@@ -109,6 +109,18 @@ namespace PuntoDeVentaV2
             txtAumentar.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtDisminuir.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtPrecio.KeyPress += new KeyPressEventHandler(SoloDecimales);
+
+            CargarConceptos();
+        }
+
+        private void CargarConceptos()
+        {
+            // Cargar combobox de conceptos
+            var conceptos = mb.ObtenerConceptosDinamicos(origen: "AJUSTAR");
+
+            cbConceptos.DataSource = conceptos.ToArray();
+            cbConceptos.DisplayMember = "Value";
+            cbConceptos.ValueMember = "Key";
         }
 
         private void rbProducto_CheckedChanged(object sender, EventArgs e)
@@ -267,6 +279,13 @@ namespace PuntoDeVentaV2
                 var aumentar = txtAumentar.Text;
                 var disminuir = txtDisminuir.Text;
 
+                var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
+
+                if (concepto.Equals("Seleccionar concepto..."))
+                {
+                    concepto = string.Empty;
+                }
+
                 if (aumentar != "")
                 {
                     auxiliar = Convert.ToInt32(aumentar);
@@ -293,7 +312,13 @@ namespace PuntoDeVentaV2
                 }
 
                 //Datos para la tabla historial de compras
-                string[] datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString(), "Ajuste", "Ajuste", "Ajuste", fechaOperacion };
+                string[] datos = new string[] 
+                {
+                    producto, auxiliar.ToString(), precioProducto.ToString(),
+                    comentario, "2", fechaOperacion, IDProducto.ToString(),
+                    FormPrincipal.userID.ToString(), "Ajuste", "Ajuste",
+                    "Ajuste", fechaOperacion, concepto
+                };
 
                 int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
 
@@ -484,6 +509,16 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Ingrese el precio del producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void btnAgregarConcepto_Click(object sender, EventArgs e)
+        {
+            using (var conceptos = new ConceptosCaja("AJUSTAR"))
+            {
+                conceptos.ShowDialog();
+
+                CargarConceptos();
             }
         }
     }

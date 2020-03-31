@@ -15,9 +15,13 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
 
-        public ConceptosCaja()
+        private string origen;
+
+        public ConceptosCaja(string origen)
         {
             InitializeComponent();
+
+            this.origen = origen;
         }
 
         private void ConceptosCaja_Load(object sender, EventArgs e)
@@ -43,7 +47,7 @@ namespace PuntoDeVentaV2
             }
 
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY FechaOperacion ASC", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Origen = '{origen}' AND Status = 1 ORDER BY FechaOperacion ASC", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVConceptos.Rows.Clear();
@@ -82,7 +86,7 @@ namespace PuntoDeVentaV2
             }
 
             var consulta = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";
-                consulta += $"VALUES ('{FormPrincipal.userID}', '{concepto}', 'CAJA', '{fechaOperacion}')";
+                consulta += $"VALUES ('{FormPrincipal.userID}', '{concepto}', '{origen}', '{fechaOperacion}')";
 
             var resultado = cn.EjecutarConsulta(consulta);
 

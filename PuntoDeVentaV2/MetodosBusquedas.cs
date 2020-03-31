@@ -1589,11 +1589,11 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
-        public Dictionary<int, string> ObtenerConceptosDinamicos(int tipo = 1)
+        public Dictionary<int, string> ObtenerConceptosDinamicos(int tipo = 1, string origen = "")
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
-            DatosConexion($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {tipo}");
+            DatosConexion($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Origen = '{origen}' AND Status = {tipo}");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
