@@ -781,6 +781,21 @@ namespace PuntoDeVentaV2
 
                 return consulta;
             }
+
+            public string ActualizarTextConceptoFiltroDinamico(string textConcepto, int idUsuario, string textDescripcion)
+            {
+                var consulta = $"UPDATE FiltroDinamico SET textCantidad = '{textDescripcion}' WHERE concepto = '{textConcepto}' AND IDUsuario = '{idUsuario}'";
+
+                return consulta;
+            }
+
+            public string GuardarTextConceptoFiltroDinamico(string textConcepto, int chkValueConcepto, string textDescripcion, int idUsuario)
+            {
+                var consulta = "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, textCantidad, IDUsuario)";
+                consulta += $"VALUES ('{textConcepto}', '{chkValueConcepto}', '{textDescripcion}', '{idUsuario}')";
+
+                return consulta;
+            }
         #endregion
 
         #region Procesos de Filtro de Stock, Precio, Revision, Tipo, Imagen

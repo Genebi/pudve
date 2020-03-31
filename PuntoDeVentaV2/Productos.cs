@@ -113,6 +113,7 @@ namespace PuntoDeVentaV2
         List<Control> listVariables;
 
         Dictionary<string, Tuple<string, string, string, string>> setUpDinamicos = new Dictionary<string, Tuple<string, string, string, string>>();
+        Dictionary<string, Tuple<string, string, string>> setUpFiltroDinamicos = new Dictionary<string, Tuple<string, string, string>>();
         Dictionary<int, int> listaCoincidenciasAux = new Dictionary<int, int>();
 
         public static iTextSharp.text.Image imgReporte;
@@ -1312,6 +1313,25 @@ namespace PuntoDeVentaV2
             actualizar();
         }
 
+        public void FiltroDinamicoLoad()
+        {
+            string strFiltro = string.Empty;
+            int num = 0;
+
+            setUpFiltroDinamicos.Clear();
+
+            strFiltro = "SELECT * FROM FiltroDinamico WHERE IDUsuario = '11'";
+
+            using (DataTable dtFiltroDinamico = cn.CargarDatos(strFiltro))
+            {
+                foreach (DataRow dtRow in dtFiltroDinamico.Rows)
+                {
+                    setUpFiltroDinamicos.Add(Convert.ToString(num), new Tuple<string, string, string>(dtRow["concepto"].ToString(), dtRow["checkBoxConcepto"].ToString(), dtRow["textCantidad"].ToString()));
+                    num++;
+                }
+            }
+        }
+
         public void dictionaryLoad()
         {
             bool isEmpty = (setUpDinamicos.Count == 0);
@@ -1864,58 +1884,58 @@ namespace PuntoDeVentaV2
 
             filtroConSinFiltroAvanzado = $@"SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = u.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.Status = 1 {extra}";
 
-            queryFiltroProducto = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{FormPrincipal.userID}'";
+            //queryFiltroProducto = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{FormPrincipal.userID}'";
 
-            using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
+            //using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
+            //{
+            //    if (!dtFiltroProducto.Rows.Count.Equals(0))
+            //    {
+            //        foreach (DataRow row in dtFiltroProducto.Rows)
+            //        {
+            //            if (row["checkBoxConcepto"].ToString().Equals("1"))
+            //            {
+            //                if (!row["textComboBoxConcepto"].ToString().Equals(""))
+            //                {
+            //                    if (row["concepto"].ToString().Equals("chkBoxImagen"))
+            //                    {
+            //                        filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}";
+            //                    }
+            //                    else if (row["concepto"].ToString().Equals("chkBoxTipo"))
+            //                    {
+            //                        string[] words;
+            //                        words = row["textComboBoxConcepto"].ToString().Split(' ');
+            //                        filtroConSinFiltroAvanzado += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
+            //                    }
+            //                    else if (!row["concepto"].ToString().Equals("chkBoxImagen") || !row["concepto"].ToString().Equals("chkBoxTipo"))
+            //                    {
+            //                        filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+            if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
             {
-                if (!dtFiltroProducto.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow row in dtFiltroProducto.Rows)
-                    {
-                        if (row["checkBoxConcepto"].ToString().Equals("1"))
-                        {
-                            if (!row["textComboBoxConcepto"].ToString().Equals(""))
-                            {
-                                if (row["concepto"].ToString().Equals("chkBoxImagen"))
-                                {
-                                    filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}";
-                                }
-                                else if (row["concepto"].ToString().Equals("chkBoxTipo"))
-                                {
-                                    string[] words;
-                                    words = row["textComboBoxConcepto"].ToString().Split(' ');
-                                    filtroConSinFiltroAvanzado += $" AND P.{words[0].ToString()} {words[1].ToString()} '{words[2].ToString()}'";
-                                }
-                                else if (!row["concepto"].ToString().Equals("chkBoxImagen") || !row["concepto"].ToString().Equals("chkBoxTipo"))
-                                {
-                                    filtroConSinFiltroAvanzado += $" AND P.{row["textComboBoxConcepto"].ToString()}{row["textCantidad"].ToString()}";
-                                }
-                            }
-                        }
-                    }
-                }
+                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
             }
-
-            //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-            //{
-            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroStock}";
-            //}
-            //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-            //{
-            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-            //}
-            //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-            //{
-            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-            //}
-            //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-            //{
-            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-            //}
-            //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-            //{
-            //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-            //}
+            if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
+            {
+                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
+            }
+            if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
+            {
+                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
+            }
+            if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+            {
+                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
+            }
+            if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
+            {
+                filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
+            }
 
             p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
         }
