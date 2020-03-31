@@ -279,6 +279,13 @@ namespace PuntoDeVentaV2
                 var aumentar = txtAumentar.Text;
                 var disminuir = txtDisminuir.Text;
 
+                var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
+
+                if (concepto.Equals("Seleccionar concepto..."))
+                {
+                    concepto = string.Empty;
+                }
+
                 if (aumentar != "")
                 {
                     auxiliar = Convert.ToInt32(aumentar);
@@ -305,7 +312,13 @@ namespace PuntoDeVentaV2
                 }
 
                 //Datos para la tabla historial de compras
-                string[] datos = new string[] { producto, auxiliar.ToString(), precioProducto.ToString(), comentario, "2", fechaOperacion, IDProducto.ToString(), FormPrincipal.userID.ToString(), "Ajuste", "Ajuste", "Ajuste", fechaOperacion };
+                string[] datos = new string[] 
+                {
+                    producto, auxiliar.ToString(), precioProducto.ToString(),
+                    comentario, "2", fechaOperacion, IDProducto.ToString(),
+                    FormPrincipal.userID.ToString(), "Ajuste", "Ajuste",
+                    "Ajuste", fechaOperacion, concepto
+                };
 
                 int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
 
