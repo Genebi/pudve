@@ -40,7 +40,7 @@ namespace PuntoDeVentaV2
 
         public static int tipo_venta = 0;
         public static string[][] faltantes_productos;
-
+        private static WebSettings _webSettings;
         #region Variables Globales Para Paginar
         private Paginar p;
         string DataMemberDGV = "Ventas";
@@ -1254,21 +1254,45 @@ namespace PuntoDeVentaV2
             //File.WriteAllText(ruta_html_temp, result_html);
 
 
+
+            // Configuracion de footer y header
+            var _footerSettings = new FooterSettings
+            {
+                ContentSpacing = 10,
+                FontSize = 10,
+                RightText = "[page] / [topage]"
+            };
+            var _headerSettings = new HeaderSettings
+            {
+                ContentSpacing = 8,
+                FontSize = 9,
+                FontName = "Lucida Sans",
+                LeftText = "Folio " + comprobanteventa.Folio + " Serie " + comprobanteventa.Serie
+            };
+
+
             var document = new HtmlToPdfDocument
             {
                 GlobalSettings =
                 {
                     ProduceOutline = true,
-                    DocumentTitle = "Nota de venta",
                     PaperSize = PaperKind.Letter,
                     Margins =
                     {
-                        All = 1.375,
-                        Unit = Unit.Centimeters
+                        Top = 2.3,
+                        Right = 1.5,
+                        Bottom = 2.3,
+                        Left = 1.5,
+                        Unit = Unit.Centimeters,
                     }
                 },
-                Objects = {
-                    new ObjectSettings { HtmlText = result_html }
+                Objects = { 
+                    new ObjectSettings
+                    {
+                        HtmlText = result_html,
+                        HeaderSettings =_headerSettings,
+                        FooterSettings = _footerSettings
+                    }
                 }
             };
 

@@ -472,7 +472,6 @@
     <Compile Include="GenerarEtiqueta.Designer.cs">
       <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar_PDF_factura.cs" />
     <Compile Include="Generar_XML.cs" />
     <Compile Include="Genera_QR.cs" />
     <Compile Include="Genera_respaldos.cs" />
@@ -657,6 +656,11 @@
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceReferenceTPrueba\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceReference_cancelar_produccion\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1048,6 +1052,28 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReferenceTPrueba\timbrado_cfdi33.wsdl" />
+    <None Include="Service References\ServiceReference_cancelar_produccion\cancelacion.wsdl" />
+    <None Include="Service References\ServiceReference_cancelar_produccion\PuntoDeVentaV2.ServiceReference_cancelar_produccion.cancelar_cfdi_externo_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_cancelar_produccion\PuntoDeVentaV2.ServiceReference_cancelar_produccion.cancelar_cfdi_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_cancelar_produccion\PuntoDeVentaV2.ServiceReference_cancelar_produccion.cancelar_cfdi_seguro_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_cancelar_produccion\PuntoDeVentaV2.ServiceReference_cancelar_produccion.consultar_documento_relacionado_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_cancelar_produccion\PuntoDeVentaV2.ServiceReference_cancelar_produccion.consultar_estatus_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_cancelar_produccion\PuntoDeVentaV2.ServiceReference_cancelar_produccion.consultar_peticiones_pendientes_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServiceReference_cancelar_produccion\PuntoDeVentaV2.ServiceReference_cancelar_produccion.procesar_respuesta_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ServiceReference_cancelar_prueba\cancelacion.wsdl" />
     <None Include="Service References\ServiceReference_cancelar_prueba\PuntoDeVentaV2.ServiceReference_cancelar_prueba.cancelar_cfdi_externo_result.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -3655,6 +3681,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceReference_cancelar_produccion\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReference_cancelar_produccion\configuration.svcinfo" />
+    <None Include="Service References\ServiceReference_cancelar_produccion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -3676,6 +3708,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ServiceReferenceTPrueba\" />
+    <WCFMetadataStorage Include="Service References\ServiceReference_cancelar_produccion\" />
     <WCFMetadataStorage Include="Service References\ServiceReference_cancelar_prueba\" />
     <WCFMetadataStorage Include="Service References\ServiceReference_produccion\" />
   </ItemGroup>
