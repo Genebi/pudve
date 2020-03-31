@@ -68,7 +68,7 @@ namespace PuntoDeVentaV2
             DetallesFacturacionProductos = 8;
             DetallesProducto = 9;
             Empresas = 19;
-            HisotorialCompras = 17;
+            HisotorialCompras = 18;
             HistorialModificacionRecordProduct = 4;
             ProductoRelacionadoXML = 5;
             Productos = 23;
@@ -652,6 +652,7 @@ namespace PuntoDeVentaV2
                                               IDReporte INTEGER,
                                               IDProducto INTEGER,
                                               IDUsuario INTEGER,
+                                              ConceptoExtra TEXT,
                                               FOREIGN KEY (IDProducto) REFERENCES Productos (ID) ON DELETE CASCADE ON UPDATE CASCADE,
                                               FOREIGN KEY (IDUsuario) REFERENCES Usuarios (ID) ON DELETE CASCADE ON UPDATE CASCADE,
                                               UNIQUE (ID ASC));";
