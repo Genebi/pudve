@@ -3655,14 +3655,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
-    <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
-    <Content Include="wkhtmltopdf\include\wkhtmltox\image.h" />
-    <Content Include="wkhtmltopdf\include\wkhtmltox\pdf.h" />
-    <Content Include="wkhtmltopdf\uninstall.exe" />
     <None Include="Service References\ServiceReferenceTPrueba\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferenceTPrueba\configuration.svcinfo" />
     <None Include="Service References\ServiceReferenceTPrueba\Reference.svcmap">
