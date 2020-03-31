@@ -4,44 +4,13 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-
-    <script>
-        /*function subst() {
-
-            var vars = {};
-            var query_strings_from_url = document.location.search.substring(1).split('&');
-            for (var query_string in query_strings_from_url) {
-                if (query_strings_from_url.hasOwnProperty(query_string)) {
-                    var temp_var = query_strings_from_url[query_string].split('=', 2);
-                    vars[temp_var[0]] = decodeURI(temp_var[1]);
-                }
-            }
-            var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
-            for (var css_class in css_selector_classes) {
-                if (css_selector_classes.hasOwnProperty(css_class)) {
-                    var element = document.getElementsByClassName(css_selector_classes[css_class]);
-                    for (var j = 0; j < element.length; ++j) {
-                        element[j].textContent = vars[css_selector_classes[css_class]];
-
-                        document.getElementById('page').innerHTML = vars.page;
-                        document.getElementById('topage').innerHTML = vars.topage;
-                    }
-                }
-            }
-        }*/
-    </script>
-
-    <script> 
-        /*function substitutePdfVariables() { function getParameterByName(name) { var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search); return match && decodeURIComponent(match[1].replace(/\+/g, ' ')); } function substitute(name) { var value = getParameterByName(name); var elements = document.getElementsByClassName(name); for (var i = 0; elements && i < elements.length; i++) { elements[i].textContent = value; } } ['frompage', 'topage', 'page', 'webpage', 'section', 'subsection', 'subsubsection'].forEach(function (param) { substitute(param); }); } */
-        //substitutePdfVariables()
-    </script>
 </head>
 
-<body style="border:0; margin: 0;" onload="">
+<body style="border:0; margin: 0;">
 
     <!-- FOLIO, SERIE Y PÁGINA -->
 
-    <table class="txt-tipo-letra" style="width: 100%">
+    <!--<table class="txt-tipo-letra" style="width: 100%">
         <tr>
             <td style="width: 50%; font-size: 1em; color: red; font-weight: bold;">Folio: @Model.Folio &nbsp;  Serie: @Model.Serie</td>
             <td class="section"></td>
@@ -50,7 +19,7 @@
             </td>
         </tr>
     </table>
-    <br />
+    <br />-->
 
 
 
@@ -604,11 +573,9 @@
     .txt{
         font-size: 1em;
         line-height: 1.5;
-        letter-spacing: 1px;
     }
     .txt-tipo-letra{
         font-family: 'Lucida Sans';
-        letter-spacing: 1px;
     }
     .alineacion{
         float: left;
