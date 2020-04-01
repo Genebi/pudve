@@ -31,12 +31,14 @@
             this.DGVConceptos = new System.Windows.Forms.DataGridView();
             this.txtConcepto = new System.Windows.Forms.TextBox();
             this.btnAgregar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.rbHabilitados = new System.Windows.Forms.RadioButton();
+            this.rbDeshabilitados = new System.Windows.Forms.RadioButton();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.label1 = new System.Windows.Forms.Label();
+            this.Habilitar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVConceptos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,9 +51,9 @@
             this.ID,
             this.Concepto,
             this.Fecha,
-            this.Editar,
-            this.Eliminar});
-            this.DGVConceptos.Location = new System.Drawing.Point(12, 96);
+            this.Habilitar,
+            this.Deshabilitar});
+            this.DGVConceptos.Location = new System.Drawing.Point(12, 125);
             this.DGVConceptos.Name = "DGVConceptos";
             this.DGVConceptos.ReadOnly = true;
             this.DGVConceptos.RowHeadersVisible = false;
@@ -86,6 +88,42 @@
             this.btnAgregar.UseVisualStyleBackColor = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(13, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 17);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Concepto";
+            // 
+            // rbHabilitados
+            // 
+            this.rbHabilitados.AutoSize = true;
+            this.rbHabilitados.Checked = true;
+            this.rbHabilitados.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbHabilitados.Location = new System.Drawing.Point(137, 92);
+            this.rbHabilitados.Name = "rbHabilitados";
+            this.rbHabilitados.Size = new System.Drawing.Size(93, 21);
+            this.rbHabilitados.TabIndex = 11;
+            this.rbHabilitados.TabStop = true;
+            this.rbHabilitados.Text = "Habilitados";
+            this.rbHabilitados.UseVisualStyleBackColor = true;
+            this.rbHabilitados.CheckedChanged += new System.EventHandler(this.rbHabilitados_CheckedChanged);
+            // 
+            // rbDeshabilitados
+            // 
+            this.rbDeshabilitados.AutoSize = true;
+            this.rbDeshabilitados.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbDeshabilitados.Location = new System.Drawing.Point(262, 92);
+            this.rbDeshabilitados.Name = "rbDeshabilitados";
+            this.rbDeshabilitados.Size = new System.Drawing.Size(114, 21);
+            this.rbDeshabilitados.TabIndex = 12;
+            this.rbDeshabilitados.Text = "Deshabilitados";
+            this.rbDeshabilitados.UseVisualStyleBackColor = true;
+            this.rbDeshabilitados.CheckedChanged += new System.EventHandler(this.rbDeshabilitados_CheckedChanged);
+            // 
             // ID
             // 
             this.ID.HeaderText = "ID";
@@ -107,39 +145,31 @@
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 120;
             // 
-            // Editar
+            // Habilitar
             // 
-            this.Editar.HeaderText = "Editar";
-            this.Editar.Name = "Editar";
-            this.Editar.ReadOnly = true;
-            this.Editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Editar.Width = 50;
+            this.Habilitar.HeaderText = "Habilitar";
+            this.Habilitar.Name = "Habilitar";
+            this.Habilitar.ReadOnly = true;
+            this.Habilitar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Habilitar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Habilitar.Width = 65;
             // 
-            // Eliminar
+            // Deshabilitar
             // 
-            this.Eliminar.HeaderText = "Eliminar";
-            this.Eliminar.Name = "Eliminar";
-            this.Eliminar.ReadOnly = true;
-            this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Eliminar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Eliminar.Width = 50;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 44);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 17);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Concepto";
+            this.Deshabilitar.HeaderText = "Deshabilitar";
+            this.Deshabilitar.Name = "Deshabilitar";
+            this.Deshabilitar.ReadOnly = true;
+            this.Deshabilitar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Deshabilitar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Deshabilitar.Width = 70;
             // 
             // ConceptosCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 331);
+            this.Controls.Add(this.rbDeshabilitados);
+            this.Controls.Add(this.rbHabilitados);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.txtConcepto);
@@ -162,11 +192,13 @@
         private System.Windows.Forms.DataGridView DGVConceptos;
         private System.Windows.Forms.TextBox txtConcepto;
         private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton rbHabilitados;
+        private System.Windows.Forms.RadioButton rbDeshabilitados;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Concepto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewImageColumn Editar;
-        private System.Windows.Forms.DataGridViewImageColumn Eliminar;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewImageColumn Habilitar;
+        private System.Windows.Forms.DataGridViewImageColumn Deshabilitar;
     }
 }

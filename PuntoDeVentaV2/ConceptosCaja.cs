@@ -27,9 +27,14 @@ namespace PuntoDeVentaV2
         private void ConceptosCaja_Load(object sender, EventArgs e)
         {
             CargarDatos();
+
+            if (rbHabilitados.Checked)
+            {
+                DGVConceptos.Columns["Habilitar"].Visible = false;
+            }
         }
 
-        private void CargarDatos()
+        private void CargarDatos(int status = 1)
         {
             var servidor = Properties.Settings.Default.Hosting;
 
@@ -47,7 +52,7 @@ namespace PuntoDeVentaV2
             }
 
             sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Origen = '{origen}' AND Status = 1 ORDER BY FechaOperacion ASC", sql_con);
+            sql_cmd = new SQLiteCommand($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Origen = '{origen}' AND Status = {status} ORDER BY FechaOperacion ASC", sql_con);
             dr = sql_cmd.ExecuteReader();
 
             DGVConceptos.Rows.Clear();
@@ -58,14 +63,14 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVConceptos.Rows[rowId];
 
-                Image imgEditar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\pencil.png");
-                Image imgEliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+                Image imgHabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-up.png");
+                Image imgDeshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\level-down.png");
 
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["Concepto"].Value = dr.GetValue(dr.GetOrdinal("Concepto"));
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
-                row.Cells["Editar"].Value = imgEditar;
-                row.Cells["Eliminar"].Value = imgEliminar;
+                row.Cells["Habilitar"].Value = imgHabilitar;
+                row.Cells["Deshabilitar"].Value = imgDeshabilitar;
             }
 
             dr.Close();
@@ -118,24 +123,19 @@ namespace PuntoDeVentaV2
                 var fila = DGVConceptos.CurrentCell.RowIndex;
                 var id = Convert.ToInt32(DGVConceptos.Rows[fila].Cells["ID"].Value);
 
-                // Editar
+                // Habilitar
                 if (e.ColumnIndex == 3)
                 {
-                    var concepto = DGVConceptos.Rows[fila].Cells["Concepto"].Value.ToString();
+                    var respuesta = MessageBox.Show("¿Estás seguro de habilitar este concepto?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    using (var editar = new EditarConceptoDinamico(concepto))
+                    if (respuesta == DialogResult.Yes)
                     {
-                        var respuesta = editar.ShowDialog();
-
-                        if (respuesta == DialogResult.OK)
-                        {
-                            cn.EjecutarConsulta($"UPDATE ConceptosDinamicos SET Concepto = '{editar.nuevoConcepto}' WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}");
-                            CargarDatos();
-                        }
+                        cn.EjecutarConsulta($"UPDATE ConceptosDinamicos SET Status = 1 WHERE ID = {id} AND IDUsuario = {FormPrincipal.userID}");
+                        CargarDatos(0);
                     }
                 }
 
-                // Eliminar
+                // Deshabilitar
                 if (e.ColumnIndex == 4)
                 {
                     var respuesta = MessageBox.Show("¿Estás seguro de deshabilitar este concepto?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -160,6 +160,26 @@ namespace PuntoDeVentaV2
             else
             {
                 DGVConceptos.Cursor = Cursors.Default;
+            }
+        }
+
+        private void rbHabilitados_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbHabilitados.Checked)
+            {
+                DGVConceptos.Columns["Habilitar"].Visible = false;
+                DGVConceptos.Columns["Deshabilitar"].Visible = true;
+                CargarDatos();
+            }
+        }
+
+        private void rbDeshabilitados_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbDeshabilitados.Checked)
+            {
+                DGVConceptos.Columns["Deshabilitar"].Visible = false;
+                DGVConceptos.Columns["Habilitar"].Visible = true;
+                CargarDatos(0);
             }
         }
     }
