@@ -35,6 +35,7 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
+            this.cbConceptos = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // primerDatePicker
@@ -43,7 +44,7 @@
             this.primerDatePicker.CustomFormat = "yyyy-MM-dd";
             this.primerDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.primerDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.primerDatePicker.Location = new System.Drawing.Point(133, 30);
+            this.primerDatePicker.Location = new System.Drawing.Point(133, 59);
             this.primerDatePicker.Name = "primerDatePicker";
             this.primerDatePicker.Size = new System.Drawing.Size(181, 23);
             this.primerDatePicker.TabIndex = 0;
@@ -54,7 +55,7 @@
             this.segundoDatePicker.CustomFormat = "yyyy-MM-dd";
             this.segundoDatePicker.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.segundoDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.segundoDatePicker.Location = new System.Drawing.Point(133, 83);
+            this.segundoDatePicker.Location = new System.Drawing.Point(133, 92);
             this.segundoDatePicker.Name = "segundoDatePicker";
             this.segundoDatePicker.Size = new System.Drawing.Size(181, 23);
             this.segundoDatePicker.TabIndex = 1;
@@ -63,7 +64,7 @@
             // 
             this.lbPrimerDP.AutoSize = true;
             this.lbPrimerDP.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPrimerDP.Location = new System.Drawing.Point(60, 32);
+            this.lbPrimerDP.Location = new System.Drawing.Point(60, 61);
             this.lbPrimerDP.Name = "lbPrimerDP";
             this.lbPrimerDP.Size = new System.Drawing.Size(39, 20);
             this.lbPrimerDP.TabIndex = 2;
@@ -73,7 +74,7 @@
             // 
             this.lbSegundoDP.AutoSize = true;
             this.lbSegundoDP.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSegundoDP.Location = new System.Drawing.Point(60, 85);
+            this.lbSegundoDP.Location = new System.Drawing.Point(60, 94);
             this.lbSegundoDP.Name = "lbSegundoDP";
             this.lbSegundoDP.Size = new System.Drawing.Size(57, 20);
             this.lbSegundoDP.TabIndex = 3;
@@ -125,11 +126,22 @@
             this.primerSeparador.Text = "REPORTES";
             this.primerSeparador.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // cbConceptos
+            // 
+            this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbConceptos.FormattingEnabled = true;
+            this.cbConceptos.Location = new System.Drawing.Point(64, 23);
+            this.cbConceptos.Name = "cbConceptos";
+            this.cbConceptos.Size = new System.Drawing.Size(250, 25);
+            this.cbConceptos.TabIndex = 115;
+            // 
             // FechasReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 196);
+            this.Controls.Add(this.cbConceptos);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label primerSeparador;
+        private System.Windows.Forms.ComboBox cbConceptos;
     }
 }

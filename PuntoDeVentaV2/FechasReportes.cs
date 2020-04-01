@@ -12,6 +12,9 @@ namespace PuntoDeVentaV2
 {
     public partial class FechasReportes : Form
     {
+        MetodosBusquedas mb = new MetodosBusquedas();
+
+        public string concepto { get; set; }
         public string fechaInicial { get; set; }
         public string fechaFinal { get; set; }
 
@@ -23,6 +26,12 @@ namespace PuntoDeVentaV2
         private void FechasReportes_Load(object sender, EventArgs e)
         {
             primerDatePicker.Value = DateTime.Today.AddDays(-30);
+
+            var conceptos = mb.ObtenerConceptosDinamicos(origen: "CAJA");
+
+            cbConceptos.DataSource = conceptos.ToArray();
+            cbConceptos.DisplayMember = "Value";
+            cbConceptos.ValueMember = "Key";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -32,8 +41,10 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
             fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
             fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
+
             DialogResult = DialogResult.OK;
             Close();
         }

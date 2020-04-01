@@ -217,15 +217,16 @@ namespace PuntoDeVentaV2
             using (var fechas = new FechasReportes())
             {
                 var respuesta = fechas.ShowDialog();
+
                 if (respuesta == DialogResult.OK)
                 {
                     fechaInicial = fechas.fechaInicial;
                     fechaFinal = fechas.fechaFinal;
+
                     if (!string.IsNullOrWhiteSpace(fechaInicial))
                     {
                         if (!string.IsNullOrWhiteSpace(fechaFinal))
                         {
-                            //MessageBox.Show("Fecha inicial: " + fechaInicial.ToString() + "\nFecha final: " + fechaFinal.ToString());
                             GenerarReporteDineroAgregado();
                         }
                     }
