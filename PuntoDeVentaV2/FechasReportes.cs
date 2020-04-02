@@ -18,20 +18,28 @@ namespace PuntoDeVentaV2
         public string fechaInicial { get; set; }
         public string fechaFinal { get; set; }
 
-        public FechasReportes()
+        private string origen = string.Empty;
+
+        public FechasReportes(string origen = "")
         {
             InitializeComponent();
+
+            this.origen = origen;
         }
 
         private void FechasReportes_Load(object sender, EventArgs e)
         {
             primerDatePicker.Value = DateTime.Today.AddDays(-30);
 
-            var conceptos = mb.ObtenerConceptosDinamicos(origen: "CAJA");
+            if (!string.IsNullOrEmpty(origen))
+            {
+                var conceptos = mb.ObtenerConceptosDinamicos(origen: origen);
 
-            cbConceptos.DataSource = conceptos.ToArray();
-            cbConceptos.DisplayMember = "Value";
-            cbConceptos.ValueMember = "Key";
+                cbConceptos.Visible = true;
+                cbConceptos.DataSource = conceptos.ToArray();
+                cbConceptos.DisplayMember = "Value";
+                cbConceptos.ValueMember = "Key";
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

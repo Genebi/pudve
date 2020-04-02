@@ -135,6 +135,7 @@
             this.cbConceptos.Name = "cbConceptos";
             this.cbConceptos.Size = new System.Drawing.Size(250, 25);
             this.cbConceptos.TabIndex = 115;
+            this.cbConceptos.Visible = false;
             // 
             // FechasReportes
             // 

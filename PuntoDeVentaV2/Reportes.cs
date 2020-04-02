@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
 
+        private string concepto = string.Empty;
         private string fechaInicial = string.Empty;
         private string fechaFinal = string.Empty;
 
@@ -214,12 +215,13 @@ namespace PuntoDeVentaV2
 
         private void btnHistorialDineroAgregado_Click(object sender, EventArgs e)
         {
-            using (var fechas = new FechasReportes())
+            using (var fechas = new FechasReportes("CAJA"))
             {
                 var respuesta = fechas.ShowDialog();
 
                 if (respuesta == DialogResult.OK)
                 {
+                    concepto = fechas.concepto;
                     fechaInicial = fechas.fechaInicial;
                     fechaFinal = fechas.fechaFinal;
 
@@ -236,26 +238,47 @@ namespace PuntoDeVentaV2
 
         private void GenerarReporteDineroAgregado()
         {
-            string query = string.Empty;
-            List<string> fechas = new List<string>();
+            //var consultaFechas = string.Empty;
+            var consultaGeneral = string.Empty;
 
-            query = $"SELECT * FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'deposito' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion ASC";
+            if (concepto.Equals("Seleccionar concepto..."))
+            {
+                concepto = string.Empty;
+            }
 
-            using (DataTable dtDineroAgregadoResultado = cn.CargarDatos(query))
+            if (string.IsNullOrWhiteSpace(concepto))
+            {
+                //consultaFechas = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' GROUP BY strftime('%d', FechaOperacion)";
+                consultaGeneral = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion ASC";
+            }
+            else
+            {
+                //consultaFechas = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND Concepto = '{concepto}' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' GROUP BY strftime('%d', FechaOperacion)";
+                consultaGeneral = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND Concepto = '{concepto}' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion ASC";
+            }
+
+            /*List<string> fechas = new List<string>();
+
+            using (DataTable dtFechas = cn.CargarDatos(consultaFechas))
+            {
+                if (dtFechas.Rows.Count > 0)
+                {
+                    foreach (DataRow fila in dtFechas.Rows)
+                    {
+                        var fechaAux = Convert.ToDateTime(fila["FechaOperacion"].ToString());
+                        var fecha = fechaAux.ToString("yyyy-MM-dd");
+
+                        fechas.Add(fecha);
+                    }
+                }
+            }*/
+
+            //==================================================================================================
+
+            using (DataTable dtDineroAgregadoResultado = cn.CargarDatos(consultaGeneral))
             {
                 if (dtDineroAgregadoResultado.Rows.Count > 0)
                 {
-                    bool hasList;
-                    foreach (DataRow rowDate in dtDineroAgregadoResultado.Rows)
-                    {
-                        string strAuxDate = rowDate["FechaOperacion"].ToString().Remove(10);
-                        hasList = fechas.Any(x => x == strAuxDate);
-                        if (hasList.Equals(false))
-                        {
-                            fechas.Add(strAuxDate);
-                        }
-                    }
-
                     // Datos del usuario
                     var datos = FormPrincipal.datosUsuario;
 
@@ -270,9 +293,7 @@ namespace PuntoDeVentaV2
                     var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
 
                     // Ruta donde se creara el archivo PDF
-                    var rutaArchivo = string.Empty;
-
-                    rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_Dinero_Agregado_Por_Fechas_" + fechaInicial + "_Al_" + fechaFinal + ".pdf";
+                    var rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_Dinero_Agregado_Por_Fechas_" + fechaInicial + "_Al_" + fechaFinal + ".pdf";
 
                     Document reporte = new Document(PageSize.A3);
                     PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
@@ -358,117 +379,129 @@ namespace PuntoDeVentaV2
                                 totalCheque = 0,
                                 totalTransferencia = 0;
 
-                    foreach (var item in fechas)
+
+                    var fechaAuxiliar = "0000-00-00";
+
+                    foreach (DataRow row in dtDineroAgregadoResultado.Rows)
                     {
-                        foreach (DataRow row in dtDineroAgregadoResultado.Rows)
+                        totalEfectivo = 0;
+                        totalTarjeta = 0;
+                        totalVales = 0;
+                        totalCheque = 0;
+                        totalTransferencia = 0;
+
+                        string Empleado = string.Empty,
+                                Efectivo = string.Empty,
+                                Tarjeta = string.Empty,
+                                Vales = string.Empty,
+                                Cheque = string.Empty,
+                                Transferencia = string.Empty,
+                                Fecha = string.Empty;
+
+                        var fechaAux = Convert.ToDateTime(row["FechaOperacion"].ToString());
+                        var fecha = fechaAux.ToString("yyyy-MM-dd");
+
+                        if (fechaAuxiliar != "0000-00-00")
                         {
-                            totalEfectivo = 0;
-                            totalTarjeta = 0;
-                            totalVales = 0;
-                            totalCheque = 0;
-                            totalTransferencia = 0;
-
-                            string auxStrDate = string.Empty;
-
-                            string[] strDate;
-
-                            string Empleado = string.Empty,
-                                    Efectivo = string.Empty,
-                                    Tarjeta = string.Empty,
-                                    Vales = string.Empty,
-                                    Cheque = string.Empty,
-                                    Transferencia = string.Empty,
-                                    Fecha = string.Empty;
-
-                            auxStrDate = row["FechaOperacion"].ToString();
-
-                            strDate = auxStrDate.Split(' ');
-
-                            string fechaAComparar = string.Empty;
-
-                            fechaAComparar = row["FechaOperacion"].ToString().Remove(10);
-
-                            if (item.Equals(strDate[0]))
+                            Console.WriteLine("Entro aqui 1");
+                            if (fecha != fechaAuxiliar)
                             {
-                                Empleado = "ADMIN";
+                                Console.WriteLine("Entro aqui 2");
+                                fechaAuxiliar = fecha;
 
-                                Efectivo = row["Efectivo"].ToString();
-                                if (!Efectivo.Equals(""))
-                                {
-                                    totalEfectivo += (float)Convert.ToDouble(Efectivo);
-                                }
-
-                                Tarjeta = row["Tarjeta"].ToString();
-                                if (!Tarjeta.Equals(""))
-                                {
-                                    totalTarjeta += (float)Convert.ToDouble(Tarjeta);
-                                }
-
-                                Vales = row["Vales"].ToString();
-                                if (!Vales.Equals(""))
-                                {
-                                    totalVales += (float)Convert.ToDouble(Vales);
-                                }
-
-                                Cheque = row["Cheque"].ToString();
-                                if (!Cheque.Equals(""))
-                                {
-                                    totalCheque += (float)Convert.ToDouble(Cheque);
-                                }
-
-                                Transferencia = row["Transferencia"].ToString();
-                                if (!Transferencia.Equals(""))
-                                {
-                                    totalTransferencia += (float)Convert.ToDouble(Transferencia);
-                                }
-
-                                Fecha = row["FechaOperacion"].ToString();
-
-                                PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(Empleado, fuenteNormal));
-                                colEmpleadoTmp.BorderWidth = 0;
-                                colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                                PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$ " + Efectivo, fuenteNormal));
-                                colDepositoEfectivoTmp.BorderWidth = 0;
-                                colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                                PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$ " + Tarjeta, fuenteNormal));
-                                colDepositoTarjetaTmp.BorderWidth = 0;
-                                colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                                PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$ " + Vales, fuenteNormal));
-                                colDepositoValesTmp.BorderWidth = 0;
-                                colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                                PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$ " + Cheque, fuenteNormal));
-                                colDepositoChequeTmp.BorderWidth = 0;
-                                colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                                PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$ " + Transferencia, fuenteNormal));
-                                colDepositoTransTmp.BorderWidth = 0;
-                                colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                                PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(Fecha, fuenteNormal));
-                                colDepositoFechaTmp.BorderWidth = 0;
-                                colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
-
-                                tablaDineroAgregado.AddCell(colEmpleadoTmp);
-                                tablaDineroAgregado.AddCell(colDepositoEfectivoTmp);
-                                tablaDineroAgregado.AddCell(colDepositoTarjetaTmp);
-                                tablaDineroAgregado.AddCell(colDepositoValesTmp);
-                                tablaDineroAgregado.AddCell(colDepositoChequeTmp);
-                                tablaDineroAgregado.AddCell(colDepositoTransTmp);
-                                tablaDineroAgregado.AddCell(colDepositoFechaTmp);
-                                reporte.Add(tablaDineroAgregado);
+                                tablaDineroAgregado.AddCell(colEmpleado);
+                                tablaDineroAgregado.AddCell(colDepositoEfectivo);
+                                tablaDineroAgregado.AddCell(colDepositoTarjeta);
+                                tablaDineroAgregado.AddCell(colDepositoVales);
+                                tablaDineroAgregado.AddCell(colDepositoCheque);
+                                tablaDineroAgregado.AddCell(colDepositoTrans);
+                                tablaDineroAgregado.AddCell(colDepositoFecha);
                             }
                         }
+                        else
+                        {
+                            fechaAuxiliar = fecha;
+                        }
+
+                        Empleado = "ADMIN";
+
+                        Efectivo = row["Efectivo"].ToString();
+                        if (!Efectivo.Equals(""))
+                        {
+                            totalEfectivo += (float)Convert.ToDouble(Efectivo);
+                        }
+
+                        Tarjeta = row["Tarjeta"].ToString();
+                        if (!Tarjeta.Equals(""))
+                        {
+                            totalTarjeta += (float)Convert.ToDouble(Tarjeta);
+                        }
+
+                        Vales = row["Vales"].ToString();
+                        if (!Vales.Equals(""))
+                        {
+                            totalVales += (float)Convert.ToDouble(Vales);
+                        }
+
+                        Cheque = row["Cheque"].ToString();
+                        if (!Cheque.Equals(""))
+                        {
+                            totalCheque += (float)Convert.ToDouble(Cheque);
+                        }
+
+                        Transferencia = row["Transferencia"].ToString();
+                        if (!Transferencia.Equals(""))
+                        {
+                            totalTransferencia += (float)Convert.ToDouble(Transferencia);
+                        }
+
+                        Fecha = row["FechaOperacion"].ToString();
+
+                        PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase(Empleado, fuenteNormal));
+                        colEmpleadoTmp.BorderWidth = 0;
+                        colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$ " + Efectivo, fuenteNormal));
+                        colDepositoEfectivoTmp.BorderWidth = 0;
+                        colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$ " + Tarjeta, fuenteNormal));
+                        colDepositoTarjetaTmp.BorderWidth = 0;
+                        colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$ " + Vales, fuenteNormal));
+                        colDepositoValesTmp.BorderWidth = 0;
+                        colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$ " + Cheque, fuenteNormal));
+                        colDepositoChequeTmp.BorderWidth = 0;
+                        colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$ " + Transferencia, fuenteNormal));
+                        colDepositoTransTmp.BorderWidth = 0;
+                        colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(Fecha, fuenteNormal));
+                        colDepositoFechaTmp.BorderWidth = 0;
+                        colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                        tablaDineroAgregado.AddCell(colEmpleadoTmp);
+                        tablaDineroAgregado.AddCell(colDepositoEfectivoTmp);
+                        tablaDineroAgregado.AddCell(colDepositoTarjetaTmp);
+                        tablaDineroAgregado.AddCell(colDepositoValesTmp);
+                        tablaDineroAgregado.AddCell(colDepositoChequeTmp);
+                        tablaDineroAgregado.AddCell(colDepositoTransTmp);
+                        tablaDineroAgregado.AddCell(colDepositoFechaTmp);
                     }
+
+                    reporte.Add(tablaDineroAgregado);
+
                     PdfPTable tablaTotalesDineroAgregado = new PdfPTable(7);
                     tablaTotalesDineroAgregado.WidthPercentage = 100;
                     tablaTotalesDineroAgregado.SetWidths(anchoColumnas);
 
                     // Linea de TOTALES
-                    PdfPCell colEmpleadoTotal = new PdfPCell(new Phrase($"Total Dinero Agregado", fuenteTotales));
+                    PdfPCell colEmpleadoTotal = new PdfPCell(new Phrase($"TOTAL", fuenteTotales));
                     colEmpleadoTotal.BorderWidth = 0;
                     colEmpleadoTotal.HorizontalAlignment = Element.ALIGN_CENTER;
                     colEmpleadoTotal.Padding = 3;
@@ -535,8 +568,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (dtDineroAgregadoResultado.Rows.Count <= 0)
                 {
-                    MessageBox.Show("El rango de fechas que usted a seleccionado\nNo contiene información para generar el reporte\nDinero Agregado.", 
-                                    "Advertencia Reporte Dinero Agregado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("El rango de fechas que usted ha seleccionado\nNo contiene información para generar el reporte", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
