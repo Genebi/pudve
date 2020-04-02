@@ -238,7 +238,6 @@ namespace PuntoDeVentaV2
 
         private void GenerarReporteDineroAgregado()
         {
-            //var consultaFechas = string.Empty;
             var consultaGeneral = string.Empty;
 
             if (concepto.Equals("Seleccionar concepto..."))
@@ -248,30 +247,12 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(concepto))
             {
-                //consultaFechas = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' GROUP BY strftime('%d', FechaOperacion)";
                 consultaGeneral = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion ASC";
             }
             else
             {
-                //consultaFechas = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND Concepto = '{concepto}' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' GROUP BY strftime('%d', FechaOperacion)";
                 consultaGeneral = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'deposito' AND Concepto = '{concepto}' AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY FechaOperacion ASC";
             }
-
-            /*List<string> fechas = new List<string>();
-
-            using (DataTable dtFechas = cn.CargarDatos(consultaFechas))
-            {
-                if (dtFechas.Rows.Count > 0)
-                {
-                    foreach (DataRow fila in dtFechas.Rows)
-                    {
-                        var fechaAux = Convert.ToDateTime(fila["FechaOperacion"].ToString());
-                        var fecha = fechaAux.ToString("yyyy-MM-dd");
-
-                        fechas.Add(fecha);
-                    }
-                }
-            }*/
 
             //==================================================================================================
 
@@ -301,7 +282,7 @@ namespace PuntoDeVentaV2
                     reporte.Open();
 
                     Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
-                    Paragraph subTitulo = new Paragraph("DINERO AGREGADO\nFechas: " + fechaInicial + " al " + fechaFinal + "\n\n\n", fuenteNormal);
+                    Paragraph subTitulo = new Paragraph("DINERO AGREGADO\nFechas: " + fechaInicial + " al " + fechaFinal + "\n\n", fuenteNormal);
 
                     titulo.Alignment = Element.ALIGN_CENTER;
                     subTitulo.Alignment = Element.ALIGN_CENTER;
@@ -315,7 +296,7 @@ namespace PuntoDeVentaV2
                     #region Tabla de Dinero Agregado
                     float[] anchoColumnas = new float[] { 100f, 100f, 100f, 100f, 100f, 100f, 100f };
 
-                    Paragraph tituloDineroAgregado = new Paragraph("HISTORIAL DE DINERO AGREGADO\n\n", fuenteGrande);
+                    Paragraph tituloDineroAgregado = new Paragraph("HISTORIAL DE DINERO AGREGADO", fuenteGrande);
                     tituloDineroAgregado.Alignment = Element.ALIGN_CENTER;
 
                     reporte.Add(tituloDineroAgregado);
@@ -374,21 +355,24 @@ namespace PuntoDeVentaV2
 
                     //Varaibles para los Totales
                     float totalEfectivo = 0,
-                                totalTarjeta = 0,
-                                totalVales = 0,
-                                totalCheque = 0,
-                                totalTransferencia = 0;
+                          totalTarjeta = 0,
+                          totalVales = 0,
+                          totalCheque = 0,
+                          totalTransferencia = 0;
+
+                    float subEfectivo = 0,
+                          subTarjeta = 0,
+                          subVales = 0,
+                          subCheque = 0,
+                          subTransferencia = 0;
 
 
                     var fechaAuxiliar = "0000-00-00";
+                    var longitud = dtDineroAgregadoResultado.Rows.Count - 1;
+                    var contador = 0;
 
                     foreach (DataRow row in dtDineroAgregadoResultado.Rows)
                     {
-                        totalEfectivo = 0;
-                        totalTarjeta = 0;
-                        totalVales = 0;
-                        totalCheque = 0;
-                        totalTransferencia = 0;
 
                         string Empleado = string.Empty,
                                 Efectivo = string.Empty,
@@ -403,12 +387,20 @@ namespace PuntoDeVentaV2
 
                         if (fechaAuxiliar != "0000-00-00")
                         {
-                            Console.WriteLine("Entro aqui 1");
                             if (fecha != fechaAuxiliar)
                             {
-                                Console.WriteLine("Entro aqui 2");
                                 fechaAuxiliar = fecha;
 
+                                var cantidades = new float[] { subEfectivo, subTarjeta, subVales, subCheque, subTransferencia };
+
+                                ColumnaSubtotal(cantidades, fuenteTotales, tablaDineroAgregado);
+
+                                subEfectivo = 0;
+                                subTarjeta = 0;
+                                subVales = 0;
+                                subCheque = 0;
+                                subTransferencia = 0;
+                                
                                 tablaDineroAgregado.AddCell(colEmpleado);
                                 tablaDineroAgregado.AddCell(colDepositoEfectivo);
                                 tablaDineroAgregado.AddCell(colDepositoTarjeta);
@@ -423,37 +415,28 @@ namespace PuntoDeVentaV2
                             fechaAuxiliar = fecha;
                         }
 
+
                         Empleado = "ADMIN";
 
                         Efectivo = row["Efectivo"].ToString();
-                        if (!Efectivo.Equals(""))
-                        {
-                            totalEfectivo += (float)Convert.ToDouble(Efectivo);
-                        }
+                        totalEfectivo += float.Parse(Efectivo);
+                        subEfectivo += float.Parse(Efectivo);
 
                         Tarjeta = row["Tarjeta"].ToString();
-                        if (!Tarjeta.Equals(""))
-                        {
-                            totalTarjeta += (float)Convert.ToDouble(Tarjeta);
-                        }
-
+                        totalTarjeta += float.Parse(Tarjeta);
+                        subTarjeta += float.Parse(Tarjeta);
+                        
                         Vales = row["Vales"].ToString();
-                        if (!Vales.Equals(""))
-                        {
-                            totalVales += (float)Convert.ToDouble(Vales);
-                        }
+                        totalVales += float.Parse(Vales);
+                        subVales += float.Parse(Vales);
 
                         Cheque = row["Cheque"].ToString();
-                        if (!Cheque.Equals(""))
-                        {
-                            totalCheque += (float)Convert.ToDouble(Cheque);
-                        }
+                        totalCheque += float.Parse(Cheque);
+                        subCheque += float.Parse(Cheque);
 
                         Transferencia = row["Transferencia"].ToString();
-                        if (!Transferencia.Equals(""))
-                        {
-                            totalTransferencia += (float)Convert.ToDouble(Transferencia);
-                        }
+                        totalTransferencia += float.Parse(Transferencia);
+                        subTransferencia += float.Parse(Transferencia);
 
                         Fecha = row["FechaOperacion"].ToString();
 
@@ -492,12 +475,24 @@ namespace PuntoDeVentaV2
                         tablaDineroAgregado.AddCell(colDepositoChequeTmp);
                         tablaDineroAgregado.AddCell(colDepositoTransTmp);
                         tablaDineroAgregado.AddCell(colDepositoFechaTmp);
+
+
+                        if (contador == longitud)
+                        {
+                            var cantidades = new float[] { subEfectivo, subTarjeta, subVales, subCheque, subTransferencia };
+
+                            ColumnaSubtotal(cantidades, fuenteTotales, tablaDineroAgregado);
+                        }
+
+                        contador++;
                     }
 
                     reporte.Add(tablaDineroAgregado);
+                    reporte.Add(linea);
 
                     PdfPTable tablaTotalesDineroAgregado = new PdfPTable(7);
                     tablaTotalesDineroAgregado.WidthPercentage = 100;
+                    tablaTotalesDineroAgregado.SpacingBefore = 10;
                     tablaTotalesDineroAgregado.SetWidths(anchoColumnas);
 
                     // Linea de TOTALES
@@ -552,8 +547,6 @@ namespace PuntoDeVentaV2
                     tablaTotalesDineroAgregado.AddCell(colFechaTotal);
 
                     reporte.Add(tablaTotalesDineroAgregado);
-
-                    reporte.Add(linea);
                     #endregion Tabla de Dinero Agregado
                     //=====================================
                     //=== FIN TABLA DE DINERO AGREGADO  ===
@@ -571,6 +564,59 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("El rango de fechas que usted ha seleccionado\nNo contiene información para generar el reporte", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private void ColumnaSubtotal(float[] datos, iTextSharp.text.Font fuenteTotales, PdfPTable tabla)
+        {
+            PdfPCell colSubTotal = new PdfPCell(new Phrase($"SUBTOTAL", fuenteTotales));
+            colSubTotal.BorderWidth = 0;
+            colSubTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSubTotal.Padding = 3;
+            colSubTotal.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colSubEfectivo = new PdfPCell(new Phrase("$ " + datos[0].ToString("N2"), fuenteTotales));
+            colSubEfectivo.BorderWidth = 0;
+            colSubEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSubEfectivo.Padding = 3;
+            colSubEfectivo.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colSubTarjeta = new PdfPCell(new Phrase("$ " + datos[1].ToString("N2"), fuenteTotales));
+            colSubTarjeta.BorderWidth = 0;
+            colSubTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSubTarjeta.Padding = 3;
+            colSubTarjeta.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colSubVales = new PdfPCell(new Phrase("$ " + datos[2].ToString("N2"), fuenteTotales));
+            colSubVales.BorderWidth = 0;
+            colSubVales.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSubVales.Padding = 3;
+            colSubVales.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colSubCheque = new PdfPCell(new Phrase("$ " + datos[3].ToString("N2"), fuenteTotales));
+            colSubCheque.BorderWidth = 0;
+            colSubCheque.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSubCheque.Padding = 3;
+            colSubCheque.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colSubTrans = new PdfPCell(new Phrase("$ " + datos[4].ToString("N2"), fuenteTotales));
+            colSubTrans.BorderWidth = 0;
+            colSubTrans.HorizontalAlignment = Element.ALIGN_CENTER;
+            colSubTrans.Padding = 3;
+            colSubTrans.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell colAuxiliar = new PdfPCell(new Phrase("", fuenteTotales));
+            colAuxiliar.BorderWidth = 0;
+            colAuxiliar.HorizontalAlignment = Element.ALIGN_CENTER;
+            colAuxiliar.Padding = 3;
+            colAuxiliar.BackgroundColor = new BaseColor(Color.Red);
+
+            tabla.AddCell(colSubTotal);
+            tabla.AddCell(colSubEfectivo);
+            tabla.AddCell(colSubTarjeta);
+            tabla.AddCell(colSubVales);
+            tabla.AddCell(colSubCheque);
+            tabla.AddCell(colSubTrans);
+            tabla.AddCell(colAuxiliar);
         }
     }
 }
