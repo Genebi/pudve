@@ -107,13 +107,30 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
-                var ping = new Ping();
+                Ping pingSender = new Ping();
+
+                // Crea el buffer de 32 bytes de datos para ser transmitidos
+                string datos = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                byte[] buffer = Encoding.ASCII.GetBytes(datos);
+
+                // Espera 30 segundos por una respuesta
+                int tiempoEspera = 30000;
+
+                PingOptions opciones = new PingOptions(64, true);
+
+                // Envia la peticion
+                PingReply solicitud = pingSender.Send(servidor, tiempoEspera, buffer, opciones);
 
                 try
                 {
-                    if (ping.Send(servidor).Status == IPStatus.Success)
+                    if (solicitud.Status == IPStatus.Success)
                     {
                         respuesta = true;
+                    }
+
+                    if (solicitud.Status == IPStatus.TimedOut)
+                    {
+                        respuesta = false;
                     }
                 }
                 catch (PingException)
