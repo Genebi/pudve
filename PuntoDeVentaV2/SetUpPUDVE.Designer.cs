@@ -40,6 +40,8 @@
             this.lbNumeroRevision = new System.Windows.Forms.Label();
             this.btnLimpiarTabla = new System.Windows.Forms.Button();
             this.checkCBVenta = new System.Windows.Forms.CheckBox();
+            this.cbCorreoPrecioProducto = new System.Windows.Forms.CheckBox();
+            this.cbCorreoStockProducto = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -193,11 +195,37 @@
             this.checkCBVenta.UseVisualStyleBackColor = true;
             this.checkCBVenta.CheckedChanged += new System.EventHandler(this.checkCBVenta_CheckedChanged);
             // 
+            // cbCorreoPrecioProducto
+            // 
+            this.cbCorreoPrecioProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCorreoPrecioProducto.AutoSize = true;
+            this.cbCorreoPrecioProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(601, 123);
+            this.cbCorreoPrecioProducto.Name = "cbCorreoPrecioProducto";
+            this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(239, 21);
+            this.cbCorreoPrecioProducto.TabIndex = 111;
+            this.cbCorreoPrecioProducto.Text = "Enviar correo al modificar precio";
+            this.cbCorreoPrecioProducto.UseVisualStyleBackColor = true;
+            // 
+            // cbCorreoStockProducto
+            // 
+            this.cbCorreoStockProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbCorreoStockProducto.AutoSize = true;
+            this.cbCorreoStockProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbCorreoStockProducto.Location = new System.Drawing.Point(601, 162);
+            this.cbCorreoStockProducto.Name = "cbCorreoStockProducto";
+            this.cbCorreoStockProducto.Size = new System.Drawing.Size(232, 21);
+            this.cbCorreoStockProducto.TabIndex = 112;
+            this.cbCorreoStockProducto.Text = "Enviar correo al modificar stock";
+            this.cbCorreoStockProducto.UseVisualStyleBackColor = true;
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.cbCorreoStockProducto);
+            this.Controls.Add(this.cbCorreoPrecioProducto);
             this.Controls.Add(this.checkCBVenta);
             this.Controls.Add(this.btnLimpiarTabla);
             this.Controls.Add(this.btnGuardarRevision);
@@ -232,5 +260,7 @@
         private System.Windows.Forms.Label lbNumeroRevision;
         private System.Windows.Forms.Button btnLimpiarTabla;
         private System.Windows.Forms.CheckBox checkCBVenta;
+        private System.Windows.Forms.CheckBox cbCorreoPrecioProducto;
+        private System.Windows.Forms.CheckBox cbCorreoStockProducto;
     }
 }

@@ -258,7 +258,7 @@ namespace PuntoDeVentaV2
                 MailMessage mensaje = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
 
-                mensaje.From = new MailAddress("sifo.contacto@gmail.com", "PUDVE");
+                mensaje.From = new MailAddress("pudve.contacto@gmail.com", "PUDVE");
                 mensaje.To.Add(new MailAddress(email));
                 mensaje.Subject = "Información de registro PUDVE";
                 mensaje.IsBodyHtml = true; // para hacer el cuerpo del mensaje como html 
@@ -268,7 +268,7 @@ namespace PuntoDeVentaV2
                 smtp.Host = "smtp.gmail.com"; // para host gmail
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("sifo.contacto@gmail.com", "Steroids12");
+                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "Steroids12");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(mensaje);
             }
