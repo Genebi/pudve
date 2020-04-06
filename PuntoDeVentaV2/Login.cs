@@ -34,6 +34,7 @@ namespace PuntoDeVentaV2
         private string _pathSettignSound = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Sounds\";
         private string _pathPlantillaEtiqueta = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Plantillas\";
         private string _pathPlantillaEtiquetaTmp = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Plantillas\Tmp\";
+        private string _pathXSLTFiles = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\xslt\";
 
         private string _Assets = Directory.GetCurrentDirectory() + @"\PUDVE\assets\";
         private string _BarCode = Directory.GetCurrentDirectory() + @"\PUDVE\BarCode\";
@@ -51,6 +52,7 @@ namespace PuntoDeVentaV2
         private string _SetSettingSound = Directory.GetCurrentDirectory() + @"\PUDVE\Sounds\";
         private string _SetPlantillaEtiqueta = Directory.GetCurrentDirectory() + @"\PUDVE\Plantillas\";
         private string _SetPlantillaEtiquetaTmp = Directory.GetCurrentDirectory() + @"\PUDVE\Plantillas\Tmp\";
+        private string _SetXSLT = Directory.GetCurrentDirectory() + @"\PUDVE\xslt\";
 
         string[] pathsOrigen, pathsDestino;
 
@@ -420,7 +422,8 @@ namespace PuntoDeVentaV2
                                         _SetnoCheckStock,
                                         _SetSettingSound,
                                         _SetPlantillaEtiqueta,
-                                        _SetPlantillaEtiquetaTmp };
+                                        _SetPlantillaEtiquetaTmp,
+                                        _SetXSLT };
 
             pathsDestino = new string[] {   _pathAssets,
                                             _pathBarCode,
@@ -437,7 +440,8 @@ namespace PuntoDeVentaV2
                                             _pathnoCheckStock,
                                             _pathSettignSound,
                                             _pathPlantillaEtiqueta,
-                                            _pathPlantillaEtiquetaTmp };
+                                            _pathPlantillaEtiquetaTmp,
+                                            _pathXSLTFiles };
 
             createDir(pathsOrigen);
 
