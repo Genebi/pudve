@@ -1049,7 +1049,7 @@ namespace PuntoDeVentaV2
 
 
             string cadenaOriginal = string.Empty;
-            string rutaXSLT = Properties.Settings.Default.rutaDirectorio + @"\xslt\cadenaoriginal_3_3.xslt";
+            string rutaXSLT = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\xslt\cadenaoriginal_3_3.xslt";
             System.Xml.Xsl.XslCompiledTransform transformador = new System.Xml.Xsl.XslCompiledTransform(true);
             transformador.Load(rutaXSLT);
 
@@ -1074,14 +1074,16 @@ namespace PuntoDeVentaV2
 
             var bXML = File.ReadAllBytes(rutaXML);
             string usuario = "NUSN900420SS5";
-            string clave_u = "c.ofis09NSUNotcatno5SS0240";
-            //string clave_u = "pGoyQq-RHsaij_yNJfHp";
-            // Crear el objeto cliente
+            string clave_u = "pGoyQq-RHsaij_yNJfHp";
+
+            /*string clave_u = "c.ofis09NSUNotcatno5SS0240";
             ServiceReferenceTPrueba.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReferenceTPrueba.timbrado_cfdi33_portClient();
-            //ServiceReference_produccion.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReference_produccion.timbrado_cfdi33_portClient();
-            // Crear el objeto de la respuesta
             ServiceReferenceTPrueba.timbrar_cfdi_result respuesta = new ServiceReferenceTPrueba.timbrar_cfdi_result();
-            //ServiceReference_produccion.timbrar_cfdi_result respuesta = new ServiceReference_produccion.timbrar_cfdi_result();
+            */
+            // Crear el objeto cliente
+            ServiceReference_produccion.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReference_produccion.timbrado_cfdi33_portClient();
+            // Crear el objeto de la respuesta
+            ServiceReference_produccion.timbrar_cfdi_result respuesta = new ServiceReference_produccion.timbrar_cfdi_result();
             // Llamar al metodo de timbrado
             try
             {

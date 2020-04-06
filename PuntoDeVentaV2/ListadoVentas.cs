@@ -804,6 +804,10 @@ namespace PuntoDeVentaV2
             DataTable d_id_productos;
             DataTable d_claves;
 
+            string ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD\";
+            string arch_cer = "";
+            string arch_key = "";
+
             //int sin_cliente = 0;
             //int n_filas = 0;
             int i = 1;
@@ -869,9 +873,40 @@ namespace PuntoDeVentaV2
 
             // Abrir ventana para agregar los datos faltantes para la factura
 
-            Crear_factura crear_factura = new Crear_factura(id_cliente, n_filas, id_venta);
+            // Antes de abrir ventana se verificará que tenga los archivos digitales agregados.
 
-            crear_factura.ShowDialog();
+            /*if (Directory.Exists(ruta_carpeta_csd))
+            {
+                DirectoryInfo dir = new DirectoryInfo(ruta_carpeta_csd);
+
+                foreach (var arch in dir.GetFiles())
+                {
+                    // Obtiene extención del archivo
+                    string extencion = arch.Name.Substring(arch.Name.Length - 4, 4);
+
+                    if (extencion == ".cer")
+                    {
+                        arch_cer = ruta_carpeta_csd + arch.Name;
+                    }
+                    if (extencion == ".key")
+                    {
+                        arch_key = ruta_carpeta_csd + arch.Name;
+                    }
+                }
+            }
+            //.septu.default.rutadirectorio
+            if (arch_cer != "" & arch_key != "")
+            {*/
+                // Consulta que se halla guardado el número de certificado
+
+                Crear_factura crear_factura = new Crear_factura(id_cliente, n_filas, id_venta);
+
+                crear_factura.ShowDialog();
+            /*}
+            else
+            {
+                MessageBox.Show("Debe subir sus archivos digitales (CSD) para poder timbrar sus facturas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }*/
         }
 
         private void btnPrimeraPagina_Click(object sender, EventArgs e)

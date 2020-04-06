@@ -86,8 +86,8 @@ namespace PuntoDeVentaV2.CFDI
         // static byte[] pkcs8encprivatekey;
 
         static bool verbose = false;
-        /*
-            public static void Main(String[] args) {
+        
+        /*    public static void Main(String[] args) {
 
             if(args.Length == 1)
             if(args[0].ToUpper() == "V")
@@ -111,9 +111,9 @@ namespace PuntoDeVentaV2.CFDI
             else
                 DecodeDERKey(filename);
             }
+        */
 
-
-            */
+            
 
 
         // ------- Decode PEM pubic, private or pkcs8 key ----------------
@@ -259,15 +259,15 @@ namespace PuntoDeVentaV2.CFDI
                 return;
                 }
 
-                rsa =  DecodeEncryptedPrivateKeyInfo(keyblob);	//PKCS #8 encrypted
-                if(rsa !=null) {
-                    Console.WriteLine("\nA valid PKCS #8 EncryptedPrivateKeyInfo\n") ;
-                    Console.WriteLine("\nCreated an RSACryptoServiceProvider instance\n") ;
-                    String xmlprivatekey =rsa.ToXmlString(true) ;
-                    Console.WriteLine("\nXML RSA private key:  {0} bits\n{1}\n", rsa.KeySize, xmlprivatekey) ;
-                    ProcessRSA(rsa);
-                return;
-                }
+            rsa =  DecodeEncryptedPrivateKeyInfo(keyblob);	//PKCS #8 encrypted
+            if(rsa !=null) {
+                Console.WriteLine("\nA valid PKCS #8 EncryptedPrivateKeyInfo\n") ;
+                Console.WriteLine("\nCreated an RSACryptoServiceProvider instance\n") ;
+                String xmlprivatekey =rsa.ToXmlString(true) ;
+                Console.WriteLine("\nXML RSA private key:  {0} bits\n{1}\n", rsa.KeySize, xmlprivatekey) ;
+                ProcessRSA(rsa);
+            return;
+            }
             Console.WriteLine("Not a binary DER public, private or PKCS #8 key");
             return;
         }*/
@@ -583,6 +583,7 @@ namespace PuntoDeVentaV2.CFDI
                 //	showBytes("Decrypted PKCS #8", pkcs8) ;
                 //----- With a decrypted pkcs #8 PrivateKeyInfo blob, decode it to an RSA ---
                 RSACryptoServiceProvider rsa = DecodePrivateKeyInfo(pkcs8);
+                //Console.WriteLine("INFO==" + rsa);
                 return rsa;
             }
 
@@ -647,7 +648,7 @@ namespace PuntoDeVentaV2.CFDI
             const String pempubheader = "-----BEGIN PUBLIC KEY-----";
             const String pempubfooter = "-----END PUBLIC KEY-----";
             String pemstr = instr.Trim();
-            byte[] binkey;
+            byte[] binkey; 
             if (!pemstr.StartsWith(pempubheader) || !pemstr.EndsWith(pempubfooter))
                 return null;
             StringBuilder sb = new StringBuilder(pemstr);
@@ -672,6 +673,7 @@ namespace PuntoDeVentaV2.CFDI
         //------- Parses binary asn.1 X509 SubjectPublicKeyInfo; returns RSACryptoServiceProvider ---
         public static RSACryptoServiceProvider DecodeX509PublicKey(byte[] x509key)
         {
+            //Console.WriteLine("INICIO CER");
             // encoded OID sequence for  PKCS #1 rsaEncryption szOID_RSA_RSA = "1.2.840.113549.1.1.1"
             byte[] SeqOID = { 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00 };
             byte[] seq = new byte[15];
@@ -683,18 +685,22 @@ namespace PuntoDeVentaV2.CFDI
 
             try
             {
-
-                twobytes = binr.ReadUInt16();
+                Console.WriteLine("TRY CER");
+                twobytes = binr.ReadUInt16(); Console.WriteLine("TRY CER" + twobytes);
                 if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
                     binr.ReadByte();    //advance 1 byte
                 else if (twobytes == 0x8230)
-                    binr.ReadInt16();   //advance 2 bytes
+                    binr.ReadInt16();  //advance 2 bytes
+                    //Console.WriteLine("TRY 2 i CER");
                 else
-                    return null;
-
+                    Console.WriteLine("TRY 2 CER");
+                //return null;
+                
                 seq = binr.ReadBytes(15);       //read the Sequence OID
+                Console.WriteLine("TRY 3 i CER"+seq+ "||||||||||||||"+binr);
                 if (!CompareBytearrays(seq, SeqOID))    //make sure Sequence for OID is correct
-                    return null;
+                    Console.WriteLine("TRY 3 CER");
+                //return null;
 
                 twobytes = binr.ReadUInt16();
                 if (twobytes == 0x8103) //data read as little endian order (actual data order for Bit String is 03 81)
@@ -702,23 +708,26 @@ namespace PuntoDeVentaV2.CFDI
                 else if (twobytes == 0x8203)
                     binr.ReadInt16();   //advance 2 bytes
                 else
-                    return null;
+                    Console.WriteLine("TRY 4 CER");
+                //return null;
 
-                bt = binr.ReadByte();
+                bt = binr.ReadByte(); Console.WriteLine("TRY 4.1 CER"+bt);
                 if (bt != 0x00)     //expect null byte next
-                    return null;
+                    Console.WriteLine("TRY 5 CER");
+                //return null;
 
-                twobytes = binr.ReadUInt16();
+                twobytes = binr.ReadUInt16(); Console.WriteLine("TRY 5.1 CER"+twobytes);
                 if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
                     binr.ReadByte();    //advance 1 byte
                 else if (twobytes == 0x8230)
                     binr.ReadInt16();   //advance 2 bytes
                 else
-                    return null;
+                    Console.WriteLine("TRY 6 CER");
+                //return null;
 
                 twobytes = binr.ReadUInt16();
                 byte lowbyte = 0x00;
-                byte highbyte = 0x00;
+                byte highbyte = 0x00; Console.WriteLine("TRY 6.1 CER"+ twobytes);
 
                 if (twobytes == 0x8102) //data read as little endian order (actual data order for Integer is 02 81)
                     lowbyte = binr.ReadByte();  // read next bytes which is bytes in modulus
@@ -728,13 +737,14 @@ namespace PuntoDeVentaV2.CFDI
                     lowbyte = binr.ReadByte();
                 }
                 else
-                    return null;
+                    Console.WriteLine("TRY 7 CER");
+                //return null;
                 byte[] modint = { lowbyte, highbyte, 0x00, 0x00 };   //reverse byte order since asn.1 key uses big endian order
                 int modsize = BitConverter.ToInt32(modint, 0);
 
                 byte firstbyte = binr.ReadByte();
                 binr.BaseStream.Seek(-1, SeekOrigin.Current);
-
+                Console.WriteLine("TRY 8 CER "+ firstbyte);
                 if (firstbyte == 0x00)
                 {   //if first byte (highest order) of modulus is zero, don't include it
                     binr.ReadByte();    //skip this null byte
@@ -742,13 +752,13 @@ namespace PuntoDeVentaV2.CFDI
                 }
 
                 byte[] modulus = binr.ReadBytes(modsize);   //read the modulus bytes
-
-                if (binr.ReadByte() != 0x02)            //expect an Integer for the exponent data
-                    return null;
+                Console.WriteLine("TRY 9 CER " + binr.ReadByte());
+                //if (binr.ReadByte() != 0x02)            //expect an Integer for the exponent data
+                    //return null;
                 int expbytes = (int)binr.ReadByte();        // should only need one byte for actual exponent data (for all useful values)
                 byte[] exponent = binr.ReadBytes(expbytes);
 
-
+                Console.WriteLine("CASI FIN CER");
                 showBytes("\nExponent", exponent);
                 showBytes("\nModulus", modulus);
 
@@ -758,10 +768,12 @@ namespace PuntoDeVentaV2.CFDI
                 RSAKeyInfo.Modulus = modulus;
                 RSAKeyInfo.Exponent = exponent;
                 RSA.ImportParameters(RSAKeyInfo);
+                Console.WriteLine("FIN CER" + RSA);
                 return RSA;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message+" CODIGO= "+ex.StackTrace);
                 return null;
             }
 
