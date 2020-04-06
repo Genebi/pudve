@@ -58,6 +58,7 @@
             this.openfiled_archivos = new System.Windows.Forms.OpenFileDialog();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
+            this.btn_pem = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -387,11 +388,22 @@
             this.btn_cancelar.UseVisualStyleBackColor = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
+            // btn_pem
+            // 
+            this.btn_pem.Location = new System.Drawing.Point(5, 6);
+            this.btn_pem.Name = "btn_pem";
+            this.btn_pem.Size = new System.Drawing.Size(17, 20);
+            this.btn_pem.TabIndex = 17;
+            this.btn_pem.Text = "P";
+            this.btn_pem.UseVisualStyleBackColor = true;
+            this.btn_pem.Click += new System.EventHandler(this.btn_pem_Click);
+            // 
             // Subir_archivos_digitales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(783, 519);
+            this.Controls.Add(this.btn_pem);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.panel4);
@@ -453,5 +465,6 @@
         private System.Windows.Forms.OpenFileDialog openfiled_archivos;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Button btn_cancelar;
+        private System.Windows.Forms.Button btn_pem;
     }
 }

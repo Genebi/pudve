@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
-
+using System.Security;
+using System.Security.Cryptography;
 
 namespace PuntoDeVentaV2
 {
+
     public partial class Subir_archivos_digitales : Form
     {
         // Ruta donde se guardaran los archivos digitales
@@ -28,6 +30,11 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
 
         
+
+        public string error = "";
+        public string mensajeExito = "";
+
+
 
         public Subir_archivos_digitales()
         {
@@ -136,7 +143,9 @@ namespace PuntoDeVentaV2
                         nom_key = solo_nombre;
                         btn_subir_archivos.Enabled = false;
                     }
+                    
 
+                    // Guarda número de certificado y fecha de vencimiento
                     tipo_validacion(opc, ruta_destino);
 
 
@@ -225,6 +234,30 @@ namespace PuntoDeVentaV2
         {
             if(txt_password.Text != "")
             {
+                /*if(nom_cer != "" & nom_key != "")
+                {
+                    string cer = ruta_guardar_archivos + nom_cer;
+                    string key = ruta_guardar_archivos + nom_key;
+                    string clave = txt_password.Text;
+
+                    bool r = CFDI.SelloDigital.validarCERKEY(cer, key, clave);
+
+                    Console.WriteLine("RESULTADO" + r);
+                }*/
+                
+
+                // Genera archivos PEM
+                /*bool r= genera_pem(txt_password.Text);
+
+                if (r)
+                    Console.WriteLine("Archivo creado con éxito");
+                else
+                    Console.WriteLine(r);*/
+
+
+
+                // Guarda contraseña de los archivos
+
                 string[] datos = new string[]
                 {
                     FormPrincipal.userID.ToString(), txt_password.Text
@@ -248,6 +281,45 @@ namespace PuntoDeVentaV2
             }*/
         }
 
+        private void btn_pem_Click(object sender, EventArgs e)
+        {
+            string clave_privada = "House121";
+            string ruta_key = @"C:\Archivos PUDVE\MisDatos\CSD\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109.key";
+            string ruta_cer = @"C:\Archivos PUDVE\MisDatos\CSD\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer";
+            //byte[] ClavePrivada = ruta_key;
+            /*CFDI.SelloDigital selloDigital = new CFDI.SelloDigital();
+            selloDigital.Sellar("", ruta_key, clave_privada);*/
+
+            /*if (!File.Exists(ruta_key))
+            {
+                Console.WriteLine("File \"{0}\" does not exist!\n", ruta_key);
+            }*/
+
+            //StreamReader sr = File.OpenText(ruta_key);
+
+            //String pemstr = sr.ReadToEnd().Trim();
+            byte[] pemstr = File.ReadAllBytes(ruta_key);
+            //sr.Close();
+            /*if (pemstr.StartsWith("-----BEGIN"))
+            {
+                CFDI.OpenSSLKey.DecodePEMKey(pemstr);
+            }
+            else
+            {
+                CFDI.OpenSSLKey.DecodeDERKey(ruta_key);
+            }*/
+
+
+            /*
+
+            CFDI.SelloDigital selloDigital = new CFDI.SelloDigital();
+            selloDigital.Sellar("", ruta_key, clave_privada);
+
+            CFDI.OpenSSLKey.DecodeOpenSSLPublicKey(ruta_cer);*/
+
+        }
+
+        
         private void tipo_validacion(int opc, string ruta_destino)
         {
             if(opc == 1)
@@ -338,6 +410,89 @@ namespace PuntoDeVentaV2
                 txt_rfc.Text = string.Empty;
                 txt_rfc.ReadOnly = true;
             }
+        }
+
+        public bool genera_pem(string clave)
+        {
+           
+            string cer = ruta_guardar_archivos + nom_cer;
+            string key = ruta_guardar_archivos + nom_key;
+            string clavePrivada = clave;
+
+            string ArchivoKPEM = ruta_guardar_archivos + nom_key + ".pem";
+            string ArchivoCPEM = ruta_guardar_archivos + nom_cer + ".pem";
+            string ArchivoPFX = ruta_guardar_archivos;
+
+
+
+            bool exito = false;
+
+            //validaciones
+            if (!File.Exists(cer))
+            {
+                error = "No existe el archivo cer en el sistema";
+                return false;
+            }
+            if (!File.Exists(key))
+            {
+                error = "No existe el archivo key en el sistema";
+                return false;
+            }
+            if (clavePrivada.Trim().Equals(""))
+            {
+                error = "No existe una clave privada aun en el sistema";
+                return false;
+            }
+
+            //creamos objetos Process
+            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            System.Diagnostics.Process proc2 = new System.Diagnostics.Process();
+            System.Diagnostics.Process proc3 = new System.Diagnostics.Process();
+            proc.EnableRaisingEvents = false;
+            proc2.EnableRaisingEvents = false;
+            proc3.EnableRaisingEvents = false;
+
+            //openssl x509 -inform DER -in certificado.cer -out certificado.pem
+            proc.StartInfo.FileName = "openssl";
+            proc.StartInfo.Arguments = "x509 -inform DER -in \"" + cer + "\" -out \"" + ArchivoCPEM + "\"";
+            proc.StartInfo.WorkingDirectory = @"C:\openssl-win32\bin\";
+            proc.Start();
+            proc.WaitForExit();
+
+            //openssl pkcs8 -inform DER -in llave.key -passin pass:a0123456789 -out llave.pem
+            proc2.StartInfo.FileName = "openssl";
+            proc2.StartInfo.Arguments = "pkcs8 -inform DER -in \"" + key + "\" -passin pass:" + clavePrivada + " -out \"" + ArchivoKPEM + "\"";
+            proc2.StartInfo.WorkingDirectory = @"C:\openssl-win32\bin\";
+            proc2.Start();
+            proc2.WaitForExit();
+
+            //openssl pkcs12 -export -out archivopfx.pfx -inkey llave.pem -in certificado.pem -passout pass:clavedesalida
+            proc3.StartInfo.FileName = "openssl";
+            proc3.StartInfo.Arguments = "pkcs12 -export -out \"" + ArchivoPFX + "\" -inkey \"" + ArchivoKPEM + "\" -in \"" + ArchivoCPEM + "\" -passout pass:" + clavePrivada;
+            proc3.StartInfo.WorkingDirectory = @"C:\openssl-win32\bin\";
+            proc3.Start();
+            proc3.WaitForExit();
+
+            proc.Dispose();
+            proc2.Dispose();
+            proc3.Dispose();
+
+            //enviamos mensaje exitoso
+            if (System.IO.File.Exists(ArchivoPFX))
+                mensajeExito = "Se ha creado el archivo PFX ";
+            else
+            {
+                error = "Error al crear el archivo PFX, puede ser que el cer o el key no sean archivos con formato correcto";
+                return false;
+            }
+
+            //eliminamos los archivos pem
+            //if (System.IO.File.Exists(ArchivoCPEM)) System.IO.File.Delete(ArchivoCPEM);
+            //if (System.IO.File.Exists(ArchivoKPEM)) System.IO.File.Delete(ArchivoKPEM);
+
+            exito = true;
+
+            return exito;
         }
     }
 }
