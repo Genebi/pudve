@@ -91,6 +91,22 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:aieps=&quot;http://www.sat.gob.mx/acreditamiento&quot;&gt;
+        ///  &lt;xsl:template match=&quot;aieps:acreditamientoIEPS&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo Acreditación IEPS--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:call-template&gt;
+        ///    &lt;xsl:call- [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string AcreditamientoIEPS10 {
+            get {
+                return ResourceManager.GetString("AcreditamientoIEPS10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap address_book {
@@ -147,6 +163,24 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("adn", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:aerolineas=&quot;http://www.sat.gob.mx/aerolineas&quot;&gt;
+        /// 
+        ///  &lt;!-- Manejador de nodos tipo aerolineas:Aerolineas --&gt; 
+        ///  &lt;xsl:template match=&quot;aerolineas:Aerolineas&quot;&gt;
+        ///    
+        ///    &lt;!-- Iniciamos el tratamiento de los atributos de aerolineas:Aerolineas --&gt;
+        ///    
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string aerolineas {
+            get {
+                return ResourceManager.GetString("aerolineas", resourceCulture);
             }
         }
         
@@ -1190,6 +1224,16 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:cfdi=&quot;http://www.sat.gob.mx/cfd/3&quot; xmlns:cce11=&quot;http://www.sat.gob.mx/ComercioExterior11&quot; xmlns:donat=&quot;http://www.sat.gob.mx/donat&quot; xmlns:divisas=&quot;http://www.sat.gob.mx/divisas&quot; xmlns:implocal=&quot;http://www.sat.gob.mx/implocal&quot; xmlns:leyendasFisc=&quot;http://www.sat.gob.mx/leyendasFiscales&quot; xmlns:p [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string cadenaoriginal_3_3 {
+            get {
+                return ResourceManager.GetString("cadenaoriginal_3_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap calculator {
@@ -1480,12 +1524,43 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:destruccion=&quot;http://www.sat.gob.mx/certificadodestruccion&quot;&gt;
+        ///  &lt;xsl:template match=&quot;destruccion:certificadodedestruccion&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo certificadodedestruccion--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/x [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string certificadodedestruccion {
+            get {
+                return ResourceManager.GetString("certificadodedestruccion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap certificate {
             get {
                 object obj = ResourceManager.GetObject("certificate", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:registrofiscal=&quot;http://www.sat.gob.mx/registrofiscal&quot;&gt;
+        ///  &lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///
+        ///  &lt;!-- Manejador de nodos tipo nomina --&gt;
+        ///  &lt;xsl:template match=&quot;registrofiscal:CFDIRegistroFiscal&quot;&gt;
+        ///
+        ///    &lt;!--Iniciamos el tratamiento de los atributos de Reg [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string cfdiregistrofiscal {
+            get {
+                return ResourceManager.GetString("cfdiregistrofiscal", resourceCulture);
             }
         }
         
@@ -1940,6 +2015,40 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:cce=&quot;http://www.sat.gob.mx/ComercioExterior&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;cce:ComercioExterior&quot;&gt; 
+        ///    &lt;!--Manejador de nodos tipo ComercioExterior--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:call-template&gt;
+        ///    &lt;xsl:call-te [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ComercioExterior10 {
+            get {
+                return ResourceManager.GetString("ComercioExterior10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:cce11=&quot;http://www.sat.gob.mx/ComercioExterior11&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;cce11:ComercioExterior&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo ComercioExterior--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:call-template&gt;
+        ///    &lt;xsl:ca [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ComercioExterior11 {
+            get {
+                return ResourceManager.GetString("ComercioExterior11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap comment {
@@ -2026,6 +2135,36 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("connectdevelop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:consumodecombustibles=&quot;http://www.sat.gob.mx/consumodecombustibles&quot;&gt;  
+        ///  
+        ///  &lt;!-- Manejador de nodos tipo consumodecombustibles:ConsumoDeCombustibles --&gt; 
+        ///  &lt;xsl:template match=&quot;consumodecombustibles:ConsumoDeCombustibles&quot;&gt;
+        ///    
+        ///    &lt;!-- Iniciamos el tratamiento de los atributos de consum [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string consumodecombustibles {
+            get {
+                return ResourceManager.GetString("consumodecombustibles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:consumodecombustibles11=&quot;http://www.sat.gob.mx/ConsumoDeCombustibles11&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;consumodecombustibles11:ConsumoDeCombustibles&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo ConsumoDeCombustibles--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string consumodeCombustibles11 {
+            get {
+                return ResourceManager.GetString("consumodeCombustibles11", resourceCulture);
             }
         }
         
@@ -2250,6 +2389,20 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:detallista=&quot;http://www.sat.gob.mx/detallista&quot;&gt;
+        ///	&lt;!-- &lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt; --&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///&lt;!-- Manejador de nodos tipo detallista --&gt;
+        ///	&lt;xsl:template match=&quot;detallista:detallista&quot;&gt; [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string detallista {
+            get {
+                return ResourceManager.GetString("detallista", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap deviantart {
@@ -2280,12 +2433,42 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:divisas=&quot;http://www.sat.gob.mx/divisas&quot;&gt;
+        ///	&lt;!-- Manejador de nodos tipo divisas:Divisas --&gt;
+        ///	&lt;xsl:template match=&quot;divisas:Divisas&quot;&gt;
+        ///		&lt;!-- Iniciamos el tratamiento de los atributos de divisas:Divisas --&gt;
+        ///		&lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///			&lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@ver [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string divisas {
+            get {
+                return ResourceManager.GetString("divisas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap dollar {
             get {
                 object obj = ResourceManager.GetObject("dollar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:donat=&quot;http://www.sat.gob.mx/donat&quot;&gt;
+        ///&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	&lt;!-- Manejador de nodos tipo donat:Donatarias --&gt;
+        ///	&lt;xsl:template match=&quot;donat:Donatarias&quot;&gt;
+        ///		&lt;!-- Iniciamos el tratamiento de los atributos de donat:Donatarias --&gt;
+        ///		&lt;xsl:call-tem [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string donat11 {
+            get {
+                return ResourceManager.GetString("donat11", resourceCulture);
             }
         }
         
@@ -2356,6 +2539,68 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("drupal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:ecb=&quot;http://www.sat.gob.mx/ecb&quot;&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	&lt;!-- Manejador de nodos tipo ECB --&gt;
+        ///	&lt;xsl:template match=&quot;ecb:EstadoDeCuentaBancario&quot;&gt;
+        ///		&lt;!-- Iniciamos el tratamiento de los atributos de EstadoDeCuentaBancario --&gt;
+        ///		&lt;xsl:call-tem [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ecb {
+            get {
+                return ResourceManager.GetString("ecb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:ecc=&quot;http://www.sat.gob.mx/ecc&quot;&gt;
+        ///
+        ///	&lt;!-- Manejador de nodos tipo ecc:EstadoDeCuentaCombustible --&gt;
+        ///	&lt;xsl:template match=&quot;ecc:EstadoDeCuentaCombustible&quot;&gt;
+        ///		&lt;!-- Iniciamos el tratamiento de los atributos de ecc:EstadoDeCuentaCombustible --&gt;
+        ///		&lt;xsl:call-template name=&quot;Requerido&quot;&gt;&lt;xsl:with-pa [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ecc {
+            get {
+                return ResourceManager.GetString("ecc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:ecc11=&quot;http://www.sat.gob.mx/EstadoDeCuentaCombustible&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;ecc11:EstadoDeCuentaCombustible&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo EstadoDeCuentaCombustible--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:ca [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ecc11 {
+            get {
+                return ResourceManager.GetString("ecc11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:ecc12=&quot;http://www.sat.gob.mx/EstadoDeCuentaCombustible12&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;ecc12:EstadoDeCuentaCombustible&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo EstadoDeCuentaCombustible--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl: [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ecc12 {
+            get {
+                return ResourceManager.GetString("ecc12", resourceCulture);
             }
         }
         
@@ -3980,6 +4225,21 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:iedu=&quot;http://www.sat.gob.mx/iedu&quot;&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	&lt;!-- Manejador de nodos tipo iedu --&gt;
+        ///	&lt;xsl:template match=&quot;iedu:instEducativas&quot;&gt;
+        ///		&lt;!--Iniciamos el tratamiento de los atributos de instEducativas --&gt;
+        ///		&lt;xsl:call-template name=&quot;R [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string iedu {
+            get {
+                return ResourceManager.GetString("iedu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ils {
@@ -4030,6 +4290,21 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:implocal=&quot;http://www.sat.gob.mx/implocal&quot;&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	&lt;!-- Manejador de nodos tipo implocal --&gt;
+        ///	&lt;xsl:template match=&quot;implocal:ImpuestosLocales&quot;&gt;
+        ///		&lt;!--Iniciamos el tratamiento de los atributos de ImpuestosLocales --&gt;
+        ///		&lt;xsl:c [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string implocal {
+            get {
+                return ResourceManager.GetString("implocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap inbox {
@@ -4056,6 +4331,42 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("industry", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:ine=&quot;http://www.sat.gob.mx/ine&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;ine:INE&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo INE--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:call-template&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:wit [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ine10 {
+            get {
+                return ResourceManager.GetString("ine10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:ine=&quot;http://www.sat.gob.mx/ine&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;ine:INE&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo INE--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:call-template&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:wit [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ine11 {
+            get {
+                return ResourceManager.GetString("ine11", resourceCulture);
             }
         }
         
@@ -4306,6 +4617,20 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("level_up", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:leyendasFisc=&quot;http://www.sat.gob.mx/leyendasFiscales&quot;&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	&lt;!-- Manejador de nodos tipo leyendasFiscales --&gt;
+        ///	&lt;xsl:template match=&quot;leyendasFisc:LeyendasFiscales&quot;&gt;
+        ///		&lt;!--Iniciamos el tratamiento de los atributos del compl [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string leyendasFisc {
+            get {
+                return ResourceManager.GetString("leyendasFisc", resourceCulture);
             }
         }
         
@@ -4990,6 +5315,58 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:nomina=&quot;http://www.sat.gob.mx/nomina&quot;&gt;
+        ///  &lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///
+        ///  &lt;!-- Manejador de nodos tipo nomina --&gt;
+        ///  &lt;xsl:template match=&quot;nomina:Nomina&quot;&gt;
+        ///
+        ///    &lt;!--Iniciamos el tratamiento de los atributos de Nómina --&gt;
+        ///
+        ///    &lt;xsl:choose&gt;
+        ///              /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string nomina11 {
+            get {
+                return ResourceManager.GetString("nomina11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:nomina12=&quot;http://www.sat.gob.mx/nomina12&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;nomina12:Nomina&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo Nomina--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:call-template&gt;
+        ///    &lt;xsl:call-template name=&quot;Requer [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string nomina12 {
+            get {
+                return ResourceManager.GetString("nomina12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:notariospublicos=&quot;http://www.sat.gob.mx/notariospublicos&quot;&gt;
+        ///
+        ///  &lt;!-- Manejador de nodos tipo notariospublicos:NotariosPublicos --&gt; 
+        ///  &lt;xsl:template match=&quot;notariospublicos:NotariosPublicos&quot;&gt;
+        ///    
+        ///    &lt;!-- Iniciamos el tratamiento de los atributos --&gt;    
+        ///    &lt;xsl:call-template name=&quot;Reque [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string notariospublicos {
+            get {
+                return ResourceManager.GetString("notariospublicos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap object_group {
@@ -5006,6 +5383,21 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("object_ungroup", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:obrasarte=&quot;http://www.sat.gob.mx/arteantiguedades&quot;&gt;
+        ///  &lt;xsl:template match=&quot;obrasarte:obrasarteantiguedades&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo obrasarteantiguedades--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:call-template [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string obrasarteantiguedades {
+            get {
+                return ResourceManager.GetString("obrasarteantiguedades", resourceCulture);
             }
         }
         
@@ -5086,6 +5478,40 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("pagelines", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:pagoenespecie=&quot;http://www.sat.gob.mx/pagoenespecie&quot;&gt;
+        ///  &lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///
+        ///  &lt;!-- Manejador de nodos tipo pago en especie--&gt;
+        ///  &lt;xsl:template match=&quot;pagoenespecie:PagoEnEspecie&quot;&gt;
+        ///
+        ///    &lt;!--Iniciamos el tratamiento de los atributos de Pag [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string pagoenespecie {
+            get {
+                return ResourceManager.GetString("pagoenespecie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:pago10=&quot;http://www.sat.gob.mx/Pagos&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;pago10:Pagos&quot;&gt;
+        ///    &lt;!--Manejador de Atributos Pagos--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        ///    &lt;/xsl:call-template&gt;
+        ///
+        ///    &lt;!--  Iniciamos el manejo de los elemen [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Pagos10 {
+            get {
+                return ResourceManager.GetString("Pagos10", resourceCulture);
             }
         }
         
@@ -5274,6 +5700,20 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("percent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:pfic=&quot;http://www.sat.gob.mx/pfic&quot;&gt;
+        ///&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	&lt;!-- Manejador de nodos tipo pfic:PFintegranteCoordinado --&gt;
+        ///	&lt;xsl:template match=&quot;pfic:PFintegranteCoordinado&quot;&gt;
+        ///		&lt;!-- Iniciamos el tratamiento de los atributos de pfic:PFintegrante [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string pfic {
+            get {
+                return ResourceManager.GetString("pfic", resourceCulture);
             }
         }
         
@@ -5558,6 +5998,20 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:psgecfd=&quot;http://www.sat.gob.mx/psgecfd&quot;&gt;
+        ///	&lt;!-- Manejador de nodos tipo psgecfd:PrestadoresDeServiciosDeCFD --&gt;
+        ///	&lt;xsl:template match=&quot;psgecfd:PrestadoresDeServiciosDeCFD&quot;&gt;
+        ///		&lt;!-- Iniciamos el tratamiento de los atributos de psgecfd:PrestadoresDeServiciosDeCFD --&gt;
+        ///		&lt;xsl:call-template name= [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string psgecfd {
+            get {
+                return ResourceManager.GetString("psgecfd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] pudveDB {
@@ -5764,6 +6218,21 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("remove", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:decreto=&quot;http://www.sat.gob.mx/renovacionysustitucionvehiculos&quot;&gt;
+        ///
+        ///  &lt;xsl:template match=&quot;decreto:renovacionysustitucionvehiculos&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo renovacionysustitucionvehiculos--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Ver [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string renovacionysustitucionvehiculos {
+            get {
+                return ResourceManager.GetString("renovacionysustitucionvehiculos", resourceCulture);
             }
         }
         
@@ -6104,6 +6573,21 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("Servicio011", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:servicioparcial=&quot;http://www.sat.gob.mx/servicioparcialconstruccion&quot;&gt;
+        ///  &lt;xsl:template match=&quot;servicioparcial:parcialesconstruccion&quot;&gt;
+        ///    &lt;!--Manejador de nodos tipo parcialesconstruccion--&gt;
+        ///    &lt;xsl:call-template name=&quot;Requerido&quot;&gt;
+        ///      &lt;xsl:with-param name=&quot;valor&quot; select=&quot;./@Version&quot; /&gt;
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string servicioparcialconstruccion {
+            get {
+                return ResourceManager.GetString("servicioparcialconstruccion", resourceCulture);
             }
         }
         
@@ -6610,6 +7094,22 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:spei=&quot;http://www.sat.gob.mx/spei&quot;&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	
+        ///	&lt;!-- Manejador de nodos tipo Complemento_SPEI--&gt;
+        ///	&lt;xsl:template match=&quot;spei:Complemento_SPEI&quot;&gt;
+        ///		&lt;!--Iniciamos el tratamiento del complemento SPEI--&gt;
+        ///		&lt;xsl:for-each select=&quot;./s [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string spei {
+            get {
+                return ResourceManager.GetString("spei", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap spinner {
@@ -7056,6 +7556,20 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("tencent_weibo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:terceros=&quot;http://www.sat.gob.mx/terceros&quot;&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	&lt;!-- Manejador de nodos tipo PorCuentadeTerceros --&gt;
+        ///	&lt;xsl:template match=&quot;terceros:PorCuentadeTerceros&quot;&gt;
+        ///		&lt;!--Iniciamos el tratamiento de los atributos del complemento con [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string terceros11 {
+            get {
+                return ResourceManager.GetString("terceros11", resourceCulture);
             }
         }
         
@@ -7560,6 +8074,20 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:tpe=&quot;http://www.sat.gob.mx/TuristaPasajeroExtranjero&quot;&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///	&lt;!-- Manejador de nodos tipo tpe:TuristaPasajeroExtranjero --&gt;
+        ///	&lt;xsl:template match=&quot;tpe:TuristaPasajeroExtranjero&quot;&gt;
+        ///		&lt;!--Iniciamos el tratamiento de los atribu [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string TuristaPasajeroExtranjero {
+            get {
+                return ResourceManager.GetString("TuristaPasajeroExtranjero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap turkish_lira {
@@ -7829,6 +8357,42 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot;&gt;
+        ///
+        ///	&lt;!-- Manejador de datos requeridos --&gt;
+        ///	&lt;xsl:template name=&quot;Requerido&quot;&gt;
+        ///		&lt;xsl:param name=&quot;valor&quot;/&gt;|&lt;xsl:call-template name=&quot;ManejaEspacios&quot;&gt;
+        ///			&lt;xsl:with-param name=&quot;s&quot; select=&quot;$valor&quot;/&gt;
+        ///		&lt;/xsl:call-template&gt;
+        ///	&lt;/xsl:template&gt;
+        ///
+        ///	&lt;!-- Manejador de datos opcionales --&gt;
+        ///	&lt;xsl:template na [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string utilerias {
+            get {
+                return ResourceManager.GetString("utilerias", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:valesdedespensa=&quot;http://www.sat.gob.mx/valesdedespensa&quot;&gt;  
+        ///  
+        ///  &lt;!-- Manejador de nodos tipo valesdedespensa:ValesDeDespensa --&gt; 
+        ///  &lt;xsl:template match=&quot;valesdedespensa:ValesDeDespensa&quot;&gt;
+        ///    
+        ///    &lt;!-- Iniciamos el tratamiento de los atributos de valesdedespensa:ValesDeDespensa --&gt;
+        ///            /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string valesdedespensa {
+            get {
+                return ResourceManager.GetString("valesdedespensa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap vcard {
@@ -7845,6 +8409,38 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("vcard_o", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:vehiculousado=&quot;http://www.sat.gob.mx/vehiculousado&quot;&gt;
+        ///
+        ///  &lt;!-- Con el siguiente método se establece que la salida deberá ser en texto --&gt;
+        ///  &lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt; 
+        ///
+        ///  &lt;!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string vehiculousado {
+            get {
+                return ResourceManager.GetString("vehiculousado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:ventavehiculos=&quot;http://www.sat.gob.mx/ventavehiculos&quot;&gt;
+        ///	&lt;xsl:output method=&quot;text&quot; version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; indent=&quot;no&quot;/&gt;
+        ///   
+        ///	&lt;!-- Manejador de nodos tipo VentaVehiculos--&gt;
+        ///  
+        ///	&lt;xsl:template match=&quot;ventavehiculos:VentaVehiculos&quot;&gt;
+        ///    
+        ///		&lt;!--Iniciamos el tratamiento de los atribut [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ventavehiculos11 {
+            get {
+                return ResourceManager.GetString("ventavehiculos11", resourceCulture);
             }
         }
         

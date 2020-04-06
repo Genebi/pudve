@@ -2605,4 +2605,118 @@
   <data name="Servicio011" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\icon\black16\Servicio01.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="AcreditamientoIEPS10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\AcreditamientoIEPS10.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="aerolineas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\aerolineas.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="cadenaoriginal_3_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\cadenaoriginal_3_3.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="certificadodedestruccion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\certificadodedestruccion.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="cfdiregistrofiscal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\cfdiregistrofiscal.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ComercioExterior10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ComercioExterior10.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ComercioExterior11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ComercioExterior11.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="consumodecombustibles" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\consumodecombustibles.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="consumodeCombustibles11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\consumodeCombustibles11.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="detallista" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\detallista.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="divisas" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\divisas.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="donat11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\donat11.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ecb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ecb.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ecc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ecc.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ecc11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ecc11.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ecc12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ecc12.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="iedu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\iedu.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="implocal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\implocal.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ine10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ine10.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ine11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ine11.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="leyendasFisc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\leyendasFisc.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="nomina11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\nomina11.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="nomina12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\nomina12.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="notariospublicos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\notariospublicos.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="obrasarteantiguedades" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\obrasarteantiguedades.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="pagoenespecie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\pagoenespecie.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="Pagos10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\Pagos10.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="pfic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\pfic.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="psgecfd" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\psgecfd.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="renovacionysustitucionvehiculos" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\renovacionysustitucionvehiculos.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="servicioparcialconstruccion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\servicioparcialconstruccion.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="spei" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\spei.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="terceros11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\terceros11.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="TuristaPasajeroExtranjero" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\TuristaPasajeroExtranjero.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="utilerias" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\utilerias.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="valesdedespensa" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\valesdedespensa.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="vehiculousado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\vehiculousado.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="ventavehiculos11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\xslt\ventavehiculos11.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>
