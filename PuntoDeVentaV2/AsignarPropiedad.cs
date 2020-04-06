@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         string propiedad = string.Empty;
 
         Dictionary<int, string> productos;
+        Dictionary<string, string> clavesUnidades;
 
         public AsignarPropiedad(object propiedad)
         {
@@ -32,6 +33,8 @@ namespace PuntoDeVentaV2
         private void AsignarPropiedad_Load(object sender, EventArgs e)
         {
             lbNombrePropiedad.Text = $"ASIGNAR {propiedad.ToUpper()}";
+
+            clavesUnidades = mb.CargarClavesUnidades();
 
             CargarPropiedad();
         }
@@ -188,14 +191,13 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "ClaveUnidad")
             {
-                var claves = mb.CargarClavesUnidades();
-
                 TextBox tbClaveUnidad = new TextBox();
                 tbClaveUnidad.Name = "tb" + propiedad;
                 tbClaveUnidad.Width = 200;
                 tbClaveUnidad.Height = 40;
                 tbClaveUnidad.CharacterCasing = CharacterCasing.Upper;
                 tbClaveUnidad.Font = fuente;
+                tbClaveUnidad.KeyUp += CambioTexto;
                 tbClaveUnidad.Location = new Point(65, 50);
 
                 ComboBox cbClaves = new ComboBox();
@@ -204,9 +206,10 @@ namespace PuntoDeVentaV2
                 cbClaves.Height = 20;
                 cbClaves.Font = fuenteChica;
                 cbClaves.DropDownStyle = ComboBoxStyle.DropDownList;
-                cbClaves.DataSource = claves.ToArray();
+                cbClaves.DataSource = clavesUnidades.ToArray();
                 cbClaves.DisplayMember = "Value";
                 cbClaves.ValueMember = "Key";
+                cbClaves.SelectedValueChanged += new EventHandler(CambioComboBox);
                 cbClaves.Location = new Point(15, 80);
 
                 panelContenedor.Controls.Add(tbClaveUnidad);
@@ -551,7 +554,7 @@ namespace PuntoDeVentaV2
                 {
                     foreach (var producto in productos)
                     {
-                        cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUusuario = {FormPrincipal.userID}");
+                        cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
                     }
                 }
                 else
@@ -568,7 +571,18 @@ namespace PuntoDeVentaV2
                 var claveUnidad = txtClave.Text;
                 var claveCombo = combo.SelectedValue.ToString();
 
-                MessageBox.Show(claveUnidad + "||" + claveCombo);
+                if (claveUnidad.Equals(claveCombo))
+                {
+                    foreach (var producto in productos)
+                    {
+                        cn.EjecutarConsulta($"UPDATE Productos SET UnidadMedida = '{claveUnidad}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La clave de unidad no es válida", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
             else if (propiedad == "Proveedor")
             {
@@ -644,6 +658,37 @@ namespace PuntoDeVentaV2
         private void botonCancelar_Click(object sender, EventArgs e)
         {
             Dispose();
+        }
+
+
+        private void CambioTexto(object sender, KeyEventArgs e)
+        {
+            var txtClave = sender as TextBox;
+            var clave = txtClave.Text;
+
+            var combo = (ComboBox)this.Controls.Find("cbClaveUnidad", true).FirstOrDefault();
+
+            if (clavesUnidades.ContainsKey(clave))
+            {
+                combo.SelectedValue = clave;
+            }
+            else
+            {
+                combo.SelectedValue = "NoAplica";
+            }
+        }
+
+        private void CambioComboBox(object sender, EventArgs e)
+        {
+            var combo = sender as ComboBox;
+            var clave = combo.SelectedValue.ToString();
+
+            if (!clave.Equals("NoAplica"))
+            {
+                var txtClave = (TextBox)this.Controls.Find("tbClaveUnidad", true).FirstOrDefault();
+
+                txtClave.Text = clave;
+            }
         }
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
