@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
         private void CargarPropiedad()
         {
             Font fuente = new Font("Century Gothic", 10.0f);
+            Font fuenteChica = new Font("Century Gothic", 8.0f);
             
             if (propiedad == "Mensaje")
             {
@@ -146,6 +147,72 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(tbRevision);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarRevision"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarRevision"));
+            }
+            else if (propiedad == "TipoIVA")
+            {
+                Dictionary<string, string> listaIVA = new Dictionary<string, string>();
+                listaIVA.Add("0%", "IVA AL 0%");
+                listaIVA.Add("8%", "IVA AL 8%");
+                listaIVA.Add("16%", "IVA AL 16%");
+                listaIVA.Add("Exento", "IVA EXENTO");
+
+                ComboBox cbIVA = new ComboBox();
+                cbIVA.Name = "cb" + propiedad;
+                cbIVA.Width = 300;
+                cbIVA.Height = 20;
+                cbIVA.Font = fuente;
+                cbIVA.DropDownStyle = ComboBoxStyle.DropDownList;
+                cbIVA.DataSource = listaIVA.ToArray();
+                cbIVA.DisplayMember = "Value";
+                cbIVA.ValueMember = "Key";
+                cbIVA.Location = new Point(15, 70);
+
+                panelContenedor.Controls.Add(cbIVA);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarIVA"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarIVA"));
+            }
+            else if (propiedad == "ClaveProducto")
+            {
+                TextBox tbClaveProducto = new TextBox();
+                tbClaveProducto.Name = "tb" + propiedad;
+                tbClaveProducto.Width = 200;
+                tbClaveProducto.Height = 40;
+                tbClaveProducto.CharacterCasing = CharacterCasing.Upper;
+                tbClaveProducto.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                tbClaveProducto.Font = fuente;
+                tbClaveProducto.Location = new Point(65, 70);
+
+                panelContenedor.Controls.Add(tbClaveProducto);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveProducto"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveProducto"));
+            }
+            else if (propiedad == "ClaveUnidad")
+            {
+                var claves = mb.CargarClavesUnidades();
+
+                TextBox tbClaveUnidad = new TextBox();
+                tbClaveUnidad.Name = "tb" + propiedad;
+                tbClaveUnidad.Width = 200;
+                tbClaveUnidad.Height = 40;
+                tbClaveUnidad.CharacterCasing = CharacterCasing.Upper;
+                tbClaveUnidad.Font = fuente;
+                tbClaveUnidad.Location = new Point(65, 50);
+
+                ComboBox cbClaves = new ComboBox();
+                cbClaves.Name = "cb" + propiedad;
+                cbClaves.Width = 300;
+                cbClaves.Height = 20;
+                cbClaves.Font = fuenteChica;
+                cbClaves.DropDownStyle = ComboBoxStyle.DropDownList;
+                cbClaves.DataSource = claves.ToArray();
+                cbClaves.DisplayMember = "Value";
+                cbClaves.ValueMember = "Key";
+                cbClaves.Location = new Point(15, 80);
+
+                panelContenedor.Controls.Add(tbClaveUnidad);
+                panelContenedor.Controls.Add(cbClaves);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveUnidad"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveUnidad"));
             }
             else if (propiedad == "Proveedor")
             {
@@ -462,6 +529,46 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Ingrese el número de revisión para asignar", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+            }
+            else if (propiedad == "TipoIVA")
+            {
+                ComboBox combo = (ComboBox)this.Controls.Find("cbTipoIVA", true)[0];
+
+                var iva = combo.SelectedValue.ToString();
+
+                foreach (var producto in productos)
+                {
+                    cn.EjecutarConsulta($"UPDATE Productos SET Impuesto = '{iva}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                }
+            }
+            else if (propiedad == "ClaveProducto")
+            {
+                TextBox txtClave = (TextBox)this.Controls.Find("tbClaveProducto", true).FirstOrDefault();
+
+                var clave = txtClave.Text;
+
+                if (!string.IsNullOrWhiteSpace(clave))
+                {
+                    foreach (var producto in productos)
+                    {
+                        cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUusuario = {FormPrincipal.userID}");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese la clave de producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            else if (propiedad == "ClaveUnidad")
+            {
+                TextBox txtClave = (TextBox)this.Controls.Find("tbClaveUnidad", true).FirstOrDefault();
+                ComboBox combo = (ComboBox)this.Controls.Find("cbClaveUnidad", true).FirstOrDefault();
+
+                var claveUnidad = txtClave.Text;
+                var claveCombo = combo.SelectedValue.ToString();
+
+                MessageBox.Show(claveUnidad + "||" + claveCombo);
             }
             else if (propiedad == "Proveedor")
             {

@@ -1617,6 +1617,33 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
+        public Dictionary<string, string> CargarClavesUnidades()
+        {
+            Dictionary<string, string> clavesUnidades = new Dictionary<string, string>();
+
+            DatosConexion("SELECT * FROM CatalogoUnidadesMedida ORDER BY LOWER(Nombre) ASC");
+
+            SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                clavesUnidades.Add("NoAplica", "Seleccionar unidad de medida...");
+
+                while (dr.Read())
+                {
+                    var clave = dr["ClaveUnidad"].ToString();
+                    var nombreAux = dr["Nombre"].ToString();
+                    var nombre = $"{clave} - {nombreAux}";
+
+                    clavesUnidades.Add(clave, nombre);
+                }
+            }
+
+            dr.Close();
+
+            return clavesUnidades;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
