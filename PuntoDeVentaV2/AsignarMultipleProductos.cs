@@ -249,8 +249,88 @@ namespace PuntoDeVentaV2
             panelRevision.Controls.Add(btnRevision);
             panelContenedor.Controls.Add(panelRevision);
 
+            // PANEL TIPO DE IVA
+            FlowLayoutPanel panelIVA = new FlowLayoutPanel();
+            panelIVA.Name = "panelIVA";
+            panelIVA.Width = 350;
+            panelIVA.Height = 30;
+            panelIVA.FlowDirection = FlowDirection.LeftToRight;
+            panelIVA.Location = new Point(3, 255);
+            panelIVA.BorderStyle = BorderStyle.FixedSingle;
 
-            int alturaEjeY = 255;
+            Label lbIVA = new Label();
+            lbIVA.Text = "Tipo de IVA";
+            lbIVA.Name = "lbIVA";
+            lbIVA.Width = 100;
+            lbIVA.Height = 20;
+            lbIVA.TextAlign = ContentAlignment.MiddleCenter;
+
+            Button btnIVA = new Button();
+            btnIVA.Name = "btnIVA";
+            btnIVA.Text = "Asignar";
+            btnIVA.Cursor = Cursors.Hand;
+            btnIVA.Tag = "TipoIVA";
+            btnIVA.Click += new EventHandler(botonAsignar_Click);
+
+            panelIVA.Controls.Add(lbIVA);
+            panelIVA.Controls.Add(btnIVA);
+            panelContenedor.Controls.Add(panelIVA);
+
+            // PANEL CLAVE DE PRODUCTO (FACTURACION)
+            FlowLayoutPanel panelClaveProducto = new FlowLayoutPanel();
+            panelClaveProducto.Name = "panelClaveProducto";
+            panelClaveProducto.Width = 350;
+            panelClaveProducto.Height = 30;
+            panelClaveProducto.FlowDirection = FlowDirection.LeftToRight;
+            panelClaveProducto.Location = new Point(3, 290);
+            panelClaveProducto.BorderStyle = BorderStyle.FixedSingle;
+
+            Label lbClaveProducto = new Label();
+            lbClaveProducto.Text = "Clave de Producto";
+            lbClaveProducto.Name = "lbClaveProducto";
+            lbClaveProducto.Width = 100;
+            lbClaveProducto.Height = 20;
+            lbClaveProducto.TextAlign = ContentAlignment.MiddleCenter;
+
+            Button btnClaveProducto = new Button();
+            btnClaveProducto.Name = "btnClaveProducto";
+            btnClaveProducto.Text = "Asignar";
+            btnClaveProducto.Cursor = Cursors.Hand;
+            btnClaveProducto.Tag = "ClaveProducto";
+            btnClaveProducto.Click += new EventHandler(botonAsignar_Click);
+
+            panelClaveProducto.Controls.Add(lbClaveProducto);
+            panelClaveProducto.Controls.Add(btnClaveProducto);
+            panelContenedor.Controls.Add(panelClaveProducto);
+
+            // PANEL CLAVE UNIDAD MEDIDA (FACTURACION)
+            FlowLayoutPanel panelClaveUnidad = new FlowLayoutPanel();
+            panelClaveUnidad.Name = "panelClaveUnidad";
+            panelClaveUnidad.Width = 350;
+            panelClaveUnidad.Height = 30;
+            panelClaveUnidad.FlowDirection = FlowDirection.LeftToRight;
+            panelClaveUnidad.Location = new Point(3, 325);
+            panelClaveUnidad.BorderStyle = BorderStyle.FixedSingle;
+
+            Label lbClaveUnidad = new Label();
+            lbClaveUnidad.Text = "Clave de Unidad";
+            lbClaveUnidad.Name = "lbClaveUnidad";
+            lbClaveUnidad.Width = 100;
+            lbClaveUnidad.Height = 20;
+            lbClaveUnidad.TextAlign = ContentAlignment.MiddleCenter;
+
+            Button btnClaveUnidad = new Button();
+            btnClaveUnidad.Name = "btnClaveUnidad";
+            btnClaveUnidad.Text = "Asignar";
+            btnClaveUnidad.Cursor = Cursors.Hand;
+            btnClaveUnidad.Tag = "ClaveUnidad";
+            btnClaveUnidad.Click += new EventHandler(botonAsignar_Click);
+
+            panelClaveUnidad.Controls.Add(lbClaveUnidad);
+            panelClaveUnidad.Controls.Add(btnClaveUnidad);
+            panelContenedor.Controls.Add(panelClaveUnidad);
+
+            int alturaEjeY = 360;
 
             //======================================================================
             foreach (XmlNode childNode in appSettingsNode)
