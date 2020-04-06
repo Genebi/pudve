@@ -1932,6 +1932,16 @@ namespace PuntoDeVentaV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Combo011 {
+            get {
+                object obj = ResourceManager.GetObject("Combo011", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap comment {
             get {
                 object obj = ResourceManager.GetObject("comment", resourceCulture);
@@ -5538,6 +5548,16 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Producto011 {
+            get {
+                object obj = ResourceManager.GetObject("Producto011", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] pudveDB {
@@ -6078,7 +6098,17 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 7777000191
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Servicio011 {
+            get {
+                object obj = ResourceManager.GetObject("Servicio011", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 7777000213
         ///.
         /// </summary>
         internal static string setupCodBar {

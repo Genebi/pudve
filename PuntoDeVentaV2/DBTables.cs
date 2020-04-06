@@ -95,7 +95,7 @@ namespace PuntoDeVentaV2
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
             appSettings = 6;
-            Configuracion = 4;
+            Configuracion = 6;
             TipoClientes = 6;
             FiltroProducto = 6;
             Facturas = 51;
@@ -2306,10 +2306,12 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaConfiguracion(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID            INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              IDUsuario     INTEGER NOT NULL,
-                                              TicketVenta   INTEGER DEFAULT (0),
-                                              StockNegativo INTEGER DEFAULT (0));";
+            return $@"CREATE TABLE '{tabla}' (ID                   INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDUsuario            INTEGER NOT NULL,
+                                              TicketVenta          INTEGER DEFAULT (0),
+                                              StockNegativo        INTEGER DEFAULT (0),
+                                              CorreoPrecioProducto INTEGER DEFAULT (0),
+                                              CorreoStockProducto  INTEGER DEFAULT (0));";
         }
 
         public string QueryUpdateTablaConfiguracion(string tabla)
