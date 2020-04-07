@@ -199,5 +199,53 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
         }
+
+        private void cbCorreoPrecioProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (cbCorreoPrecioProducto.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void cbCorreoStockProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (cbCorreoStockProducto.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoStockProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void cbCorreoStockMinimo_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (cbCorreoStockMinimo.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoStockMinimo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void cbCorreoVenderProducto_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (cbCorreoVenderProducto.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
     }
 }
