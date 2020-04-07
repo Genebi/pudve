@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
         private string _pathPlantillaEtiqueta = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Plantillas\";
         private string _pathPlantillaEtiquetaTmp = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Plantillas\Tmp\";
         private string _pathXSLTFiles = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\xslt\";
+        private string _pathGifs = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\gifs\";
+        private string _pathTags = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\PUDVE\Tags\";
 
         private string _Assets = Directory.GetCurrentDirectory() + @"\PUDVE\assets\";
         private string _BarCode = Directory.GetCurrentDirectory() + @"\PUDVE\BarCode\";
@@ -53,6 +55,8 @@ namespace PuntoDeVentaV2
         private string _SetPlantillaEtiqueta = Directory.GetCurrentDirectory() + @"\PUDVE\Plantillas\";
         private string _SetPlantillaEtiquetaTmp = Directory.GetCurrentDirectory() + @"\PUDVE\Plantillas\Tmp\";
         private string _SetXSLT = Directory.GetCurrentDirectory() + @"\PUDVE\xslt\";
+        private string _SetGifs = Directory.GetCurrentDirectory() + @"\PUDVE\gifs\";
+        private string _SetTags = Directory.GetCurrentDirectory() + @"\PUDVE\Tags";
 
         string[] pathsOrigen, pathsDestino;
 
@@ -423,7 +427,9 @@ namespace PuntoDeVentaV2
                                         _SetSettingSound,
                                         _SetPlantillaEtiqueta,
                                         _SetPlantillaEtiquetaTmp,
-                                        _SetXSLT };
+                                        _SetXSLT,
+                                        _SetGifs,
+                                        _SetTags };
 
             pathsDestino = new string[] {   _pathAssets,
                                             _pathBarCode,
@@ -441,7 +447,9 @@ namespace PuntoDeVentaV2
                                             _pathSettignSound,
                                             _pathPlantillaEtiqueta,
                                             _pathPlantillaEtiquetaTmp,
-                                            _pathXSLTFiles };
+                                            _pathXSLTFiles,
+                                            _pathGifs,
+                                            _pathTags };
 
             createDir(pathsOrigen);
 
