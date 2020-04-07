@@ -2311,7 +2311,9 @@ namespace PuntoDeVentaV2
                                               TicketVenta          INTEGER DEFAULT (0),
                                               StockNegativo        INTEGER DEFAULT (0),
                                               CorreoPrecioProducto INTEGER DEFAULT (0),
-                                              CorreoStockProducto  INTEGER DEFAULT (0));";
+                                              CorreoStockProducto  INTEGER DEFAULT (0),
+                                              CorreoStockMinimo    INTEGER DEFAULT (0),
+                                              CorreoVentaProducto  INTEGER DEFAULT (0));";
         }
 
         public string QueryUpdateTablaConfiguracion(string tabla)
