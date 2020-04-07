@@ -188,6 +188,7 @@
             // 
             this.txtPrecioProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPrecioProducto.Location = new System.Drawing.Point(3, 15);
+            this.txtPrecioProducto.MaxLength = 12;
             this.txtPrecioProducto.Name = "txtPrecioProducto";
             this.txtPrecioProducto.Size = new System.Drawing.Size(94, 20);
             this.txtPrecioProducto.TabIndex = 4;
@@ -200,6 +201,7 @@
             // 
             this.txtStockProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtStockProducto.Location = new System.Drawing.Point(4, 16);
+            this.txtStockProducto.MaxLength = 12;
             this.txtStockProducto.Name = "txtStockProducto";
             this.txtStockProducto.Size = new System.Drawing.Size(131, 20);
             this.txtStockProducto.TabIndex = 2;
@@ -462,6 +464,7 @@
             // 
             this.txtPrecioCompra.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPrecioCompra.Location = new System.Drawing.Point(7, 16);
+            this.txtPrecioCompra.MaxLength = 12;
             this.txtPrecioCompra.Name = "txtPrecioCompra";
             this.txtPrecioCompra.Size = new System.Drawing.Size(104, 20);
             this.txtPrecioCompra.TabIndex = 3;
