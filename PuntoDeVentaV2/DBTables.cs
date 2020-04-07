@@ -1217,7 +1217,7 @@ namespace PuntoDeVentaV2
                                               Referencia_ID       TEXT,
                                               VerificacionNS      INTEGER DEFAULT (0),
                                               num_certificado     TEXT,
-                                              fecha_caducidad_cer DATETIME,
+                                              fecha_caducidad_cer TEXT,
                                               password_cer        TEXT);";
         }
 
