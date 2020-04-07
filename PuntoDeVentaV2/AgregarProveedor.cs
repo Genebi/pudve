@@ -67,16 +67,13 @@ namespace PuntoDeVentaV2
             var telefono = txtTelefono.Text;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
-
-            var respuestaValidacion = ValidarFormulario(datos);
-
-            if (respuestaValidacion != "")
+            if (string.IsNullOrWhiteSpace(nombre))
             {
-                MessageBox.Show(respuestaValidacion, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ingrese un nombre para el proveedor", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
 
             if (tipo == 1)
             {
@@ -103,24 +100,6 @@ namespace PuntoDeVentaV2
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private string ValidarFormulario(string[] datos)
-        {
-            //Verificar si el RFC ya esta registrado
-            if (VerificarRFC(datos[2]))
-            {
-                return "El RFC ya se encuentra registrado con otro proveedor";
-            }
-
-            return "";
-        }
-
-        private bool VerificarRFC(string rfc)
-        {
-            var respuesta = (bool)cn.EjecutarSelect($"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' AND Status = 1");
-
-            return respuesta;
         }
 
 
