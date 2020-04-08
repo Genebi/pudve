@@ -807,6 +807,7 @@ namespace PuntoDeVentaV2
             string ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD\";
             string arch_cer = "";
             string arch_key = "";
+            string numero_cer = "";
 
             //int sin_cliente = 0;
             //int n_filas = 0;
@@ -875,7 +876,7 @@ namespace PuntoDeVentaV2
 
             // Antes de abrir ventana se verificará que tenga los archivos digitales agregados.
 
-            /*if (Directory.Exists(ruta_carpeta_csd))
+            if (Directory.Exists(ruta_carpeta_csd))
             {
                 DirectoryInfo dir = new DirectoryInfo(ruta_carpeta_csd);
 
@@ -894,19 +895,33 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            //.septu.default.rutadirectorio
+            
             if (arch_cer != "" & arch_key != "")
-            {*/
+            {
                 // Consulta que se halla guardado el número de certificado
+                DataTable dcer = cn.CargarDatos(cs.cargar_info_certificado(FormPrincipal.userID.ToString()));
 
-                Crear_factura crear_factura = new Crear_factura(id_cliente, n_filas, id_venta);
+                if (dcer.Rows.Count > 0)
+                {
+                    DataRow r_dcer = dcer.Rows[0];
+                    numero_cer = r_dcer["num_certificado"].ToString();
+                }
 
-                crear_factura.ShowDialog();
-            /*}
+                if(numero_cer != "")
+                {
+                    Crear_factura crear_factura = new Crear_factura(id_cliente, n_filas, id_venta);
+
+                    crear_factura.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Se encontro un inconveniente derivado de sus archivos digitales CSD. Por favor vaya al apartado Mis Datos, elimine sus archivos actuales y vuelva a subirlos.  \n\n Esta acción es necesaria para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
             else
             {
                 MessageBox.Show("Debe subir sus archivos digitales (CSD) para poder timbrar sus facturas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
         }
 
         private void btnPrimeraPagina_Click(object sender, EventArgs e)
