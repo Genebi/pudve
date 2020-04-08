@@ -1477,6 +1477,9 @@ namespace PuntoDeVentaV2
                 listaAnticipos = string.Empty;
                 ventasGuardadas.Clear();
 
+                // Limpiar variables de cantidades asignadas en el form DetalleVenta
+                efectivo = tarjeta = vales = cheque = transferencia = credito = string.Empty;
+
                 // Limpiamos las variables y diccionarios relacionados a los descuentos
                 // de los productos en general
                 porcentajeGeneral = 0;
