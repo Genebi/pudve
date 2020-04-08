@@ -52,7 +52,6 @@ namespace PuntoDeVentaV2
             forma_pago.Add("28", "28 - Tarjeta de débito");
             forma_pago.Add("29", "29 - Tarjeta de servicios");
             forma_pago.Add("30", "30 - Aplicación de anticipos");
-            forma_pago.Add("99", "99 - Por definir");
 
             cmb_bx_forma_pago.DataSource = forma_pago.ToArray();
             cmb_bx_forma_pago.DisplayMember = "Value";
@@ -160,7 +159,7 @@ namespace PuntoDeVentaV2
                 {
                     arr_totales[t][2] = Convert.ToDecimal(panel.Text);
 
-                    if (panel.Text.Trim() == "" & Convert.ToDecimal(panel.Text) == 0)
+                    if (panel.Text.Trim() == "" | Convert.ToDecimal(panel.Text) == 0)
                     {
                         error++;
                     }
@@ -369,10 +368,6 @@ namespace PuntoDeVentaV2
                 if (clave == 06) // Dígitos. Dinero electrónico
                 {
                     txt_cuenta.MaxLength = 10;
-                }
-                if (clave == 99) // Alfanumérica. Por definir
-                {
-                    txt_cuenta.MaxLength = 30;
                 }
             }
         }
