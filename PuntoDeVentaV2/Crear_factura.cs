@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace PuntoDeVentaV2
         int n_filas = 0;
         int id_venta = 0;
         int p_incompletos = 0;
+        int paso = 1;
 
 
         public Crear_factura(int sin_cliente, int n_f, int id_v)
@@ -80,14 +82,9 @@ namespace PuntoDeVentaV2
             cmb_bx_metodo_pago.DataSource = metodo_pago.ToArray();
             cmb_bx_metodo_pago.DisplayMember = "Value";
             cmb_bx_metodo_pago.ValueMember = "Key";
-            //if(con_id_cliente > 0)
-            //{
+
             cmb_bx_clientes.SelectedIndex = 0;
-            /*}
-            else
-            {
-                cmb_bx_clientes.SelectedIndex = 0;
-            }*/
+
             
             
             // Forma de pago
@@ -144,16 +141,6 @@ namespace PuntoDeVentaV2
             cmb_bx_moneda.ValueMember = "Key";
             cmb_bx_moneda.SelectedIndex = 1;
 
-            // Tipo de venta
-
-            /*if(ListadoVentas.tipo_venta == 1)
-            {
-                cmb_bx_metodo_pago.SelectedIndex = 0;
-            }
-            if (ListadoVentas.tipo_venta == 4)
-            {
-                cmb_bx_metodo_pago.SelectedIndex = 1;
-            }*/
 
             // Productos
            
@@ -250,6 +237,8 @@ namespace PuntoDeVentaV2
             {
                 groupb_productos.Visible = false;
             }
+
+            groupb_pago.Visible = false;
         }
 
         private void ir_a_clientes(object sender, EventArgs e)
@@ -311,11 +300,15 @@ namespace PuntoDeVentaV2
                 cmb_bx_uso_cfdi.DisplayMember = "Value";
                 cmb_bx_uso_cfdi.ValueMember = "Key";
                 cmb_bx_uso_cfdi.SelectedValue = r_datos_clientes["UsoCFDI"];
+
+                btn_facturar.Enabled = true;
             }
             else
             {
                 pnl_datos_cliente.Visible = false;
                 limpiar_campos_dcliente();
+
+                btn_facturar.Enabled = false;
             }
         }
 
@@ -363,6 +356,7 @@ namespace PuntoDeVentaV2
             if (clave == "02" | clave == "03" | clave == "04" | clave == "28" | clave == "29" | clave == "05" | clave == "06" | clave == "99")
             {
                 txt_cuenta.ReadOnly = false;
+                txt_cuenta.Text = string.Empty;
 
                 if (clave == "02" | clave == "03") // Dígitos. Cheque y transferencia
                 {
@@ -560,300 +554,316 @@ namespace PuntoDeVentaV2
 
         private void btn_facturar_Click(object sender, EventArgs e)
         {
+            // MUESTRA DATOS DE FORMA DE PAGO Y PRODUCTOS
 
-            // .....................  
-            // .   Validar datos   .
-            // .....................
-
-
-            // Cliente
-
-            int cant_clientes = cmb_bx_clientes.Items.Count;
-            
-            if(cant_clientes > 0)
+            if (paso == 1)
             {
-                if (cmb_bx_clientes.SelectedValue.ToString() == "0")
+                tabPage1.Text = "Forma de pago y productos";
+
+                btn_facturar.Text = "Facturar";
+                btn_anterior.Enabled = true;
+
+                pnl_datos_cliente.Visible = false;
+                cmb_bx_clientes.Visible = false;
+                btn_crear_cliente.Visible = false;
+
+                groupb_pago.Visible = true;
+
+                if (ListadoVentas.faltantes_productos.Length > 0)
                 {
-                    MessageBox.Show("Se debe elegir un cliente para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    botones_visibles(2);
-                    return;
+                    if (p_incompletos == 0)
+                    {
+                        groupb_productos.Visible = false;
+                    }
+                    else
+                    {
+                        groupb_productos.Visible = true;
+                    }
                 }
                 else
                 {
-                    if(txt_razon_social.Text == "")
+                    groupb_productos.Visible = false;
+                } 
+            }
+
+
+            // CREAR LA FACTURA
+
+            if (paso == 2)
+            {
+                // .....................  
+                // .   Validar datos   .
+                // .....................
+
+
+                // Cliente
+
+                int cant_clientes = cmb_bx_clientes.Items.Count;
+
+                if (cant_clientes > 0)
+                {
+                    if (cmb_bx_clientes.SelectedValue.ToString() == "0")
                     {
-                        MessageBox.Show("La razón social no debe estar vacía.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Se debe elegir un cliente para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         botones_visibles(2);
                         return;
                     }
-                    if (txt_rfc.Text == "")
+                    else
                     {
-                        MessageBox.Show("El RCF no debe estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (txt_razon_social.Text == "")
+                        {
+                            MessageBox.Show("La razón social no debe estar vacía.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            botones_visibles(2);
+                            return;
+                        }
+
+                        if (txt_rfc.Text == "")
+                        {
+                            MessageBox.Show("El RCF no debe estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            botones_visibles(2);
+                            return;
+                        }
+                        else
+                        {
+                            string formato_rfc = "^[A-Z&Ñ]{3,4}[0-9]{2}(0[1-9]|1[012])(0[1-9]|[12][0-9]|3[01])[A-Z0-9]{2}[0-9A]$";
+
+                            Regex exp = new Regex(formato_rfc);
+
+                            if (exp.IsMatch(txt_rfc.Text))
+                            {
+                            }
+                            else
+                            {
+                                MessageBox.Show("El formato del RFC no es valido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tiene ningún cliente registrado para facturarle. Primero vaya al apartado de clientes a registrar uno, posterior regresar a timbrar la factura y elegir el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    botones_visibles(2);
+                    return;
+                }
+
+                // Tipo cambio
+
+                string clave = cmb_bx_moneda.SelectedValue.ToString();
+
+                if (clave != "MXN" & clave != "XXX")
+                {
+                    if (txt_tipo_cambio.Text == "")
+                    {
+                        MessageBox.Show("El tipo de cambio es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         botones_visibles(2);
                         return;
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("No tiene ningún cliente registrado para facturarle. Primero vaya al apartado de clientes a registrar uno, posterior regresar a timbrar la factura y elegir el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                botones_visibles(2);
-                return;
-            }
-            
-            // Tipo cambio
 
-            string clave = cmb_bx_moneda.SelectedValue.ToString();
+                // Productos
 
-            if (clave != "MXN" & clave != "XXX")
-            {
-                if (txt_tipo_cambio.Text == "")
+                string info_productos = "";
+                int clave_vacia = 0;
+                int clave_inc = 0;
+
+                if (p_incompletos > 0)
                 {
-                    MessageBox.Show("El tipo de cambio es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    botones_visibles(2);
-                    return;
-                }
-            }
-
-            // Productos
-
-            string info_productos = "";
-            int clave_vacia = 0;
-            int clave_inc = 0;
-
-            if(p_incompletos > 0)
-            {
-                if (n_filas > 0)
-                {
-                    foreach (Control panel in pnl_productos.Controls)
+                    if (n_filas > 0)
                     {
-                        if (panel.Name.Contains("txt_clave_u"))
+                        foreach (Control panel in pnl_productos.Controls)
                         {
-                            info_productos += "#" + panel.Text;
+                            if (panel.Name.Contains("txt_clave_u"))
+                            {
+                                info_productos += "#" + panel.Text;
 
-                            int r = valida_claves_producto_unidad(1, panel.Text);
+                                int r = valida_claves_producto_unidad(1, panel.Text);
 
-                            if (r == 1) { clave_vacia++; }
-                            if (r == 2) { clave_inc++; }
-                        }
-                        if (panel.Name.Contains("txt_clave_p"))
-                        {
-                            info_productos += "-" + panel.Text;
+                                if (r == 1) { clave_vacia++; }
+                                if (r == 2) { clave_inc++; }
+                            }
+                            if (panel.Name.Contains("txt_clave_p"))
+                            {
+                                info_productos += "-" + panel.Text;
 
-                            int r = valida_claves_producto_unidad(2, panel.Text);
+                                int r = valida_claves_producto_unidad(2, panel.Text);
 
-                            if (r == 1) { clave_vacia++; }
-                            if (r == 2) { clave_inc++; }
-                        }
-                        if (panel.Name.Contains("txt_idprod"))
-                        {
-                            info_productos += "-" + panel.Text;
+                                if (r == 1) { clave_vacia++; }
+                                if (r == 2) { clave_inc++; }
+                            }
+                            if (panel.Name.Contains("txt_idprod"))
+                            {
+                                info_productos += "-" + panel.Text;
+                            }
                         }
                     }
+                    if (clave_vacia > 0)
+                    {
+                        MessageBox.Show("Las claves de unidad y producto no deben estar vacías.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        botones_visibles(2);
+                        return;
+                    }
+                    if (clave_inc > 0)
+                    {
+                        MessageBox.Show("Alguna clave de unidad o producto es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        botones_visibles(2);
+                        return;
+                    }
                 }
-                if (clave_vacia > 0)
+
+
+
+                // .....................
+                // .   Crear factura   .
+                // .....................
+
+                string id_usuario = FormPrincipal.userID.ToString();
+                string id_empleado = FormPrincipal.id_empleado.ToString();
+
+                botones_visibles(1);
+
+
+                // Actualiza datos del cliente en tabla clientes
+
+                string id_cliente = cmb_bx_clientes.SelectedValue.ToString();
+                string uso_cfdi = cmb_bx_uso_cfdi.SelectedValue.ToString();
+
+                string[] datos_c = new string[]
                 {
-                    MessageBox.Show("Las claves de unidad y producto no deben estar vacías.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    botones_visibles(2);
-                    return;
-                }
-                if (clave_inc > 0)
-                {
-                    MessageBox.Show("Alguna clave de unidad o producto es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    botones_visibles(2);
-                    return;
-                }
-            }
-            
-
-
-            // .....................  
-            // .   Crear factura   .
-            // .....................
-
-            string id_usuario = FormPrincipal.userID.ToString();
-            string id_empleado = FormPrincipal.id_empleado.ToString();
-
-            botones_visibles(1);
-
-
-            // Actualiza datos del cliente en tabla clientes
-
-            string id_cliente = cmb_bx_clientes.SelectedValue.ToString();
-            string uso_cfdi = cmb_bx_uso_cfdi.SelectedValue.ToString();
-        
-            string[] datos_c = new string[]
-            {
                 id_cliente, txt_razon_social.Text, txt_rfc.Text, txt_telefono.Text, txt_correo.Text, txt_nombre_comercial.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text, uso_cfdi
-            };
+                };
 
-            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(1, datos_c));
-            
+                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(1, datos_c));
 
-            // Guarda datos cliente, sección forma de pago en nueva tabla (Facturas)
-            
-            // Consulta datos del emisor
-            DataTable d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, Convert.ToInt32(id_usuario)));
-            DataRow r_emisor = d_emisor.Rows[0];
-            // Consulta serie y folio
-            DataTable d_venta = cn.CargarDatos(cs.cargar_datos_venta_xml(9, id_venta, Convert.ToInt32(id_usuario)));
-            DataRow r_venta = d_venta.Rows[0];
 
-            Console.WriteLine("metodo="+cmb_bx_metodo_pago.SelectedValue.ToString());
-            string[] datos_f = new string[] 
-            {
+                // Guarda datos cliente, sección forma de pago en nueva tabla (Facturas)
+
+                // Consulta datos del emisor
+                DataTable d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, Convert.ToInt32(id_usuario)));
+                DataRow r_emisor = d_emisor.Rows[0];
+                // Consulta serie y folio
+                DataTable d_venta = cn.CargarDatos(cs.cargar_datos_venta_xml(9, id_venta, Convert.ToInt32(id_usuario)));
+                DataRow r_venta = d_venta.Rows[0];
+
+
+                string[] datos_f = new string[]
+                {
                 id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text,
                 cmb_bx_moneda.SelectedValue.ToString(), txt_tipo_cambio.Text, uso_cfdi,
                 r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
                 r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
                 txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
                 r_venta["Folio"].ToString(), r_venta["Serie"].ToString()
-            };
+                };
 
-            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
+                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
 
 
-            //  Guarda clave de unidad y producto, en tabla Productos
+                //  Guarda clave de unidad y producto, en tabla Productos
 
-            if (p_incompletos > 0)
-            {
-                string[] filas = info_productos.Split('#');
-                string[] datos_p;
-
-                for (int f = 1; f < filas.Length; f++)
+                if (p_incompletos > 0)
                 {
-                    string[] celda = filas[f].Split('-');
+                    string[] filas = info_productos.Split('#');
+                    string[] datos_p;
 
-                    datos_p = new string[]
+                    for (int f = 1; f < filas.Length; f++)
                     {
-                        celda[0], celda[1], celda[2]
-                    };
+                        string[] celda = filas[f].Split('-');
 
-                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(3, datos_p));
-                }
-            }
-
-
-            // Guarda produtos en nueva tabla "Facturas productos"
-
-            // Consulta el ultimo id de tabla facturas
-            int id_factura = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_venta='{id_venta}' ORDER BY ID DESC LIMIT 1", 1));
-            
-            // Busca los productos de la venta
-            DataTable d_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
-
-            if(d_productos.Rows.Count > 0)
-            {
-                foreach(DataRow r_productos in d_productos.Rows)
-                {
-                    int id_p = Convert.ToInt32(r_productos["IDProducto"]);
-
-                    // Busca los datos restantes en tabla principal de productos
-                    DataTable d_tb_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(5, id_p, 0));
-                    DataRow r_tb_producto = d_tb_productos.Rows[0];
-                    
-
-                    string[] datos_fp = new string[]
-                    {
-                        id_factura.ToString(), r_tb_producto["UnidadMedida"].ToString(), r_tb_producto["ClaveProducto"].ToString(), r_productos["Nombre"].ToString(), r_productos["Cantidad"].ToString(), r_productos["Precio"].ToString(), r_tb_producto["Base"].ToString(), r_tb_producto["Impuesto"].ToString(), r_tb_producto["IVA"].ToString()
-                    };
-
-                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
-
-                    // Consulta si tiene más de un impuesto
-                    // Si existen, los guarda en nueva tabla Facturas_impuestos
-                    DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, id_p, Convert.ToInt32(id_usuario)));
-
-                    if(d_impuestos.Rows.Count > 0)
-                    {
-                        // Consulta el ID del producto en curso
-                        int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
-
-                        foreach (DataRow r_impuestos in d_impuestos.Rows)
+                        datos_p = new string[]
                         {
-                            string[] datos_i = new string[]
-                            {
-                                id_fp.ToString(), r_impuestos["Tipo"].ToString(), r_impuestos["Impuesto"].ToString(), r_impuestos["TipoFactor"].ToString(), r_impuestos["TasaCuota"].ToString(), r_impuestos["Definir"].ToString(), r_impuestos["Importe"].ToString()
-                            };
+                        celda[0], celda[1], celda[2]
+                        };
 
-                            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(3, datos_p));
+                    }
+                }
+
+
+                // Guarda produtos en nueva tabla "Facturas productos"
+
+                // Consulta el ultimo id de tabla facturas
+                int id_factura = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas WHERE id_venta='{id_venta}' ORDER BY ID DESC LIMIT 1", 1));
+
+                // Busca los productos de la venta
+                DataTable d_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(4, id_venta, 0));
+
+                if (d_productos.Rows.Count > 0)
+                {
+                    foreach (DataRow r_productos in d_productos.Rows)
+                    {
+                        int id_p = Convert.ToInt32(r_productos["IDProducto"]);
+
+                        // Busca los datos restantes en tabla principal de productos
+                        DataTable d_tb_productos = cn.CargarDatos(cs.cargar_datos_venta_xml(5, id_p, 0));
+                        DataRow r_tb_producto = d_tb_productos.Rows[0];
+
+
+                        string[] datos_fp = new string[]
+                        {
+                        id_factura.ToString(), r_tb_producto["UnidadMedida"].ToString(), r_tb_producto["ClaveProducto"].ToString(), r_productos["Nombre"].ToString(), r_productos["Cantidad"].ToString(), r_productos["Precio"].ToString(), r_tb_producto["Base"].ToString(), r_tb_producto["Impuesto"].ToString(), r_tb_producto["IVA"].ToString()
+                        };
+
+                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
+
+                        // Consulta si tiene más de un impuesto
+                        // Si existen, los guarda en nueva tabla Facturas_impuestos
+                        DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, id_p, Convert.ToInt32(id_usuario)));
+
+                        if (d_impuestos.Rows.Count > 0)
+                        {
+                            // Consulta el ID del producto en curso
+                            int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
+
+                            foreach (DataRow r_impuestos in d_impuestos.Rows)
+                            {
+                                string[] datos_i = new string[]
+                                {
+                                id_fp.ToString(), r_impuestos["Tipo"].ToString(), r_impuestos["Impuesto"].ToString(), r_impuestos["TipoFactor"].ToString(), r_impuestos["TasaCuota"].ToString(), r_impuestos["Definir"].ToString(), r_impuestos["Importe"].ToString()
+                                };
+
+                                cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                            }
                         }
                     }
                 }
-            }
-
-
-            // Guarda id del cliente
-
-            /*string id_select = cmb_bx_clientes.SelectedValue.ToString();
-            string[] datos_s = id_select.Split('|');
-
-            string id_cliente = datos_s[0];
-            string nombre_cliente = datos_s[1];
-
-            string[] datos_c = new string[]
-            {
-                id_venta.ToString(), id_cliente, nombre_cliente
-            };
-
-            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(1, datos_c));*/
-
-
-            // Guarda forma y método de pago, moneda y tipo de cambio
-
-            /*string metodo_pago = "";
-
-            string forma_pago = cmb_bx_forma_pago.SelectedValue.ToString(); 
-            string num_cuenta = txt_cuenta.Text;
-
-            if (cmb_bx_metodo_pago.SelectedIndex == 0) { metodo_pago = "PUE";  }
-            if (cmb_bx_metodo_pago.SelectedIndex == 1) { metodo_pago = "PPD"; }
-            //if (ListadoVentas.tipo_venta == 1) { metodo_pago = "PUE"; }
-            //if (ListadoVentas.tipo_venta == 4) { metodo_pago = "PPD"; }
-
-            string moneda = cmb_bx_moneda.SelectedValue.ToString();
-            string tipo_cambio = txt_tipo_cambio.Text;
-
-
-            string[] datos_f = new string[]
-            {
-                id_venta.ToString(), metodo_pago, forma_pago, num_cuenta, moneda, tipo_cambio
-            };
-
-            cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(2, datos_f));*/
 
 
 
 
+                // ........................................ 
+                // .   Llamar al timbrado de la factura   .
+                // ........................................        
 
+                //Loading load = new Loading();
+                //load.Show();
+                decimal[][] vacio = new decimal[][] { };
 
-            // ........................................ 
-            // .   Llamar al timbrado de la factura   .
-            // ........................................        
+                Generar_XML xml = new Generar_XML();
+                string respuesta_xml = xml.obtener_datos_XML(id_factura, id_venta, 0, vacio);
 
-            //Loading load = new Loading();
-            //load.Show();
-            decimal[][] vacio = new decimal[][]{ };
-
-            Generar_XML xml = new Generar_XML();
-            string respuesta_xml = xml.obtener_datos_XML(id_factura, id_venta, 0, vacio);
-
-            if(respuesta_xml == "")
-            {
-                lb_facturando.Visible = false;
-
-                var r = MessageBox.Show("Su factura ha sido creada y timbrada con éxito.", "Éxito", MessageBoxButtons.OK);
-
-                if(r == DialogResult.OK)
+                if (respuesta_xml == "")
                 {
-                    this.Dispose();
+                    lb_facturando.Visible = false;
+
+                    var r = MessageBox.Show("Su factura ha sido creada y timbrada con éxito.", "Éxito", MessageBoxButtons.OK);
+
+                    if (r == DialogResult.OK)
+                    {
+                        this.Dispose();
+                    }
+                }
+                else
+                {
+                    botones_visibles(2);
+                    MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
                 }
             }
-            else
-            {
-                botones_visibles(2);
-                MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
-            }
+
+
+            if (paso == 1) { paso = 2; }
+
         }
 
         public void botones_visibles(int opc)
@@ -862,6 +872,7 @@ namespace PuntoDeVentaV2
             {
                 btn_cancelar.Visible = false;
                 btn_facturar.Visible = false;
+                btn_anterior.Visible = false;
                 lb_facturando.Visible = true;
                 //btn_facturando.Visible = true;
             }
@@ -871,9 +882,28 @@ namespace PuntoDeVentaV2
                 //btn_facturando.Visible = false;
                 btn_cancelar.Visible = true;
                 btn_facturar.Visible = true;
+                btn_anterior.Visible = true;
             }
         }
-        
-        
+
+        private void btn_anterior_Click(object sender, EventArgs e)
+        {
+            if(paso == 2)
+            {
+                tabPage1.Text = "Cliente";
+
+                btn_facturar.Text = "Siguiente";
+                btn_anterior.Enabled = false;
+
+                pnl_datos_cliente.Visible = true;
+                cmb_bx_clientes.Visible = true;
+                btn_crear_cliente.Visible = true;
+
+                groupb_pago.Visible = false;
+                groupb_productos.Visible = false;
+                
+                paso = 1;
+            }
+        }
     }
 }

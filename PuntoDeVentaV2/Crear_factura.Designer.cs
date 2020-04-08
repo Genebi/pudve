@@ -30,8 +30,6 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.cmb_bx_clientes = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.pnl_datos_cliente = new System.Windows.Forms.Panel();
             this.label26 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -67,6 +65,11 @@
             this.txt_razon_social = new System.Windows.Forms.TextBox();
             this.lb_razon = new System.Windows.Forms.Label();
             this.btn_crear_cliente = new System.Windows.Forms.Button();
+            this.btn_facturar = new System.Windows.Forms.Button();
+            this.btn_cancelar = new System.Windows.Forms.Button();
+            this.lb_facturando = new System.Windows.Forms.Label();
+            this.tab_control = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupb_pago = new System.Windows.Forms.GroupBox();
             this.txt_cuenta = new System.Windows.Forms.TextBox();
             this.txt_tipo_cambio = new System.Windows.Forms.TextBox();
@@ -75,24 +78,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cmb_bx_forma_pago = new System.Windows.Forms.ComboBox();
             this.cmb_bx_metodo_pago = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btn_anterior = new System.Windows.Forms.Button();
             this.groupb_productos = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.pnl_productos = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.btn_facturar = new System.Windows.Forms.Button();
-            this.btn_cancelar = new System.Windows.Forms.Button();
-            this.lb_facturando = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pnl_datos_cliente.SuspendLayout();
+            this.tab_control.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.groupb_pago.SuspendLayout();
             this.groupb_productos.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -117,28 +116,6 @@
             this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
             this.cmb_bx_clientes.TabIndex = 2;
             this.cmb_bx_clientes.SelectionChangeCommitted += new System.EventHandler(this.sel_clientes);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(6, 34);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(94, 17);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Método  pago";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(327, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 17);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Forma  pago";
             // 
             // pnl_datos_cliente
             // 
@@ -474,6 +451,75 @@
             this.btn_crear_cliente.UseVisualStyleBackColor = false;
             this.btn_crear_cliente.Click += new System.EventHandler(this.ir_a_clientes);
             // 
+            // btn_facturar
+            // 
+            this.btn_facturar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_facturar.BackColor = System.Drawing.Color.Green;
+            this.btn_facturar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_facturar.Enabled = false;
+            this.btn_facturar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_facturar.ForeColor = System.Drawing.Color.White;
+            this.btn_facturar.Location = new System.Drawing.Point(749, 507);
+            this.btn_facturar.Name = "btn_facturar";
+            this.btn_facturar.Size = new System.Drawing.Size(119, 30);
+            this.btn_facturar.TabIndex = 11;
+            this.btn_facturar.Text = "Siguiente";
+            this.btn_facturar.UseVisualStyleBackColor = false;
+            this.btn_facturar.Click += new System.EventHandler(this.btn_facturar_Click);
+            // 
+            // btn_cancelar
+            // 
+            this.btn_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_cancelar.BackColor = System.Drawing.Color.Red;
+            this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_cancelar.ForeColor = System.Drawing.Color.White;
+            this.btn_cancelar.Location = new System.Drawing.Point(479, 507);
+            this.btn_cancelar.Name = "btn_cancelar";
+            this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
+            this.btn_cancelar.TabIndex = 12;
+            this.btn_cancelar.Text = "Cancelar";
+            this.btn_cancelar.UseVisualStyleBackColor = false;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
+            // 
+            // lb_facturando
+            // 
+            this.lb_facturando.AutoSize = true;
+            this.lb_facturando.BackColor = System.Drawing.Color.Green;
+            this.lb_facturando.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_facturando.ForeColor = System.Drawing.Color.White;
+            this.lb_facturando.Location = new System.Drawing.Point(593, 501);
+            this.lb_facturando.Name = "lb_facturando";
+            this.lb_facturando.Padding = new System.Windows.Forms.Padding(80, 10, 80, 10);
+            this.lb_facturando.Size = new System.Drawing.Size(271, 39);
+            this.lb_facturando.TabIndex = 14;
+            this.lb_facturando.Text = "Facturando...";
+            this.lb_facturando.Visible = false;
+            // 
+            // tab_control
+            // 
+            this.tab_control.Controls.Add(this.tabPage1);
+            this.tab_control.Location = new System.Drawing.Point(12, 91);
+            this.tab_control.Name = "tab_control";
+            this.tab_control.SelectedIndex = 0;
+            this.tab_control.Size = new System.Drawing.Size(856, 400);
+            this.tab_control.TabIndex = 15;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupb_productos);
+            this.tabPage1.Controls.Add(this.groupb_pago);
+            this.tabPage1.Controls.Add(this.pnl_datos_cliente);
+            this.tabPage1.Controls.Add(this.btn_crear_cliente);
+            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
+            this.tabPage1.Location = new System.Drawing.Point(4, 26);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(848, 370);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Cliente";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
             // groupb_pago
             // 
             this.groupb_pago.Controls.Add(this.txt_cuenta);
@@ -487,12 +533,13 @@
             this.groupb_pago.Controls.Add(this.label3);
             this.groupb_pago.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupb_pago.ForeColor = System.Drawing.Color.Navy;
-            this.groupb_pago.Location = new System.Drawing.Point(8, 20);
+            this.groupb_pago.Location = new System.Drawing.Point(8, 33);
             this.groupb_pago.Name = "groupb_pago";
             this.groupb_pago.Size = new System.Drawing.Size(833, 121);
-            this.groupb_pago.TabIndex = 9;
+            this.groupb_pago.TabIndex = 10;
             this.groupb_pago.TabStop = false;
             this.groupb_pago.Text = "Forma de pago";
+            this.groupb_pago.Visible = false;
             // 
             // txt_cuenta
             // 
@@ -503,7 +550,6 @@
             this.txt_cuenta.ReadOnly = true;
             this.txt_cuenta.Size = new System.Drawing.Size(142, 22);
             this.txt_cuenta.TabIndex = 16;
-            this.txt_cuenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tipo_de_datos);
             // 
             // txt_tipo_cambio
             // 
@@ -516,7 +562,6 @@
             this.txt_tipo_cambio.Size = new System.Drawing.Size(118, 22);
             this.txt_tipo_cambio.TabIndex = 15;
             this.txt_tipo_cambio.Text = "1.000000";
-            this.txt_tipo_cambio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.solo_numeros_tcambio);
             // 
             // label5
             // 
@@ -578,6 +623,44 @@
             this.cmb_bx_metodo_pago.Size = new System.Drawing.Size(215, 25);
             this.cmb_bx_metodo_pago.TabIndex = 10;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(327, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(83, 17);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Forma  pago";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(6, 34);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 17);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Método  pago";
+            // 
+            // btn_anterior
+            // 
+            this.btn_anterior.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_anterior.BackColor = System.Drawing.Color.Green;
+            this.btn_anterior.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_anterior.Enabled = false;
+            this.btn_anterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_anterior.ForeColor = System.Drawing.Color.White;
+            this.btn_anterior.Location = new System.Drawing.Point(614, 507);
+            this.btn_anterior.Name = "btn_anterior";
+            this.btn_anterior.Size = new System.Drawing.Size(119, 30);
+            this.btn_anterior.TabIndex = 16;
+            this.btn_anterior.Text = "Anterior";
+            this.btn_anterior.UseVisualStyleBackColor = false;
+            this.btn_anterior.Click += new System.EventHandler(this.btn_anterior_Click);
+            // 
             // groupb_productos
             // 
             this.groupb_productos.BackColor = System.Drawing.Color.Transparent;
@@ -591,7 +674,7 @@
             this.groupb_productos.Location = new System.Drawing.Point(8, 168);
             this.groupb_productos.Name = "groupb_productos";
             this.groupb_productos.Size = new System.Drawing.Size(833, 196);
-            this.groupb_productos.TabIndex = 10;
+            this.groupb_productos.TabIndex = 17;
             this.groupb_productos.TabStop = false;
             this.groupb_productos.Text = "Productos";
             // 
@@ -649,95 +732,17 @@
             this.label6.TabIndex = 11;
             this.label6.Text = "Clave";
             // 
-            // btn_facturar
-            // 
-            this.btn_facturar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_facturar.BackColor = System.Drawing.Color.Green;
-            this.btn_facturar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_facturar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_facturar.ForeColor = System.Drawing.Color.White;
-            this.btn_facturar.Location = new System.Drawing.Point(749, 507);
-            this.btn_facturar.Name = "btn_facturar";
-            this.btn_facturar.Size = new System.Drawing.Size(119, 30);
-            this.btn_facturar.TabIndex = 11;
-            this.btn_facturar.Text = "Facturar";
-            this.btn_facturar.UseVisualStyleBackColor = false;
-            this.btn_facturar.Click += new System.EventHandler(this.btn_facturar_Click);
-            // 
-            // btn_cancelar
-            // 
-            this.btn_cancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_cancelar.BackColor = System.Drawing.Color.Red;
-            this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(614, 507);
-            this.btn_cancelar.Name = "btn_cancelar";
-            this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
-            this.btn_cancelar.TabIndex = 12;
-            this.btn_cancelar.Text = "Cancelar";
-            this.btn_cancelar.UseVisualStyleBackColor = false;
-            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
-            // 
-            // lb_facturando
-            // 
-            this.lb_facturando.AutoSize = true;
-            this.lb_facturando.BackColor = System.Drawing.Color.Green;
-            this.lb_facturando.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_facturando.ForeColor = System.Drawing.Color.White;
-            this.lb_facturando.Location = new System.Drawing.Point(593, 501);
-            this.lb_facturando.Name = "lb_facturando";
-            this.lb_facturando.Padding = new System.Windows.Forms.Padding(80, 10, 80, 10);
-            this.lb_facturando.Size = new System.Drawing.Size(271, 39);
-            this.lb_facturando.TabIndex = 14;
-            this.lb_facturando.Text = "Facturando...";
-            this.lb_facturando.Visible = false;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 91);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(856, 400);
-            this.tabControl1.TabIndex = 15;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.pnl_datos_cliente);
-            this.tabPage1.Controls.Add(this.btn_crear_cliente);
-            this.tabPage1.Controls.Add(this.cmb_bx_clientes);
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(848, 370);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Cliente";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.groupb_pago);
-            this.tabPage2.Controls.Add(this.groupb_productos);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(848, 370);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Forma de pago y productos";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // Crear_factura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(880, 549);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.lb_facturando);
+            this.Controls.Add(this.tab_control);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_facturar);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btn_anterior);
+            this.Controls.Add(this.lb_facturando);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -748,13 +753,12 @@
             this.Load += new System.EventHandler(this.Crear_factura_Load);
             this.pnl_datos_cliente.ResumeLayout(false);
             this.pnl_datos_cliente.PerformLayout();
+            this.tab_control.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.groupb_pago.ResumeLayout(false);
             this.groupb_pago.PerformLayout();
             this.groupb_productos.ResumeLayout(false);
             this.groupb_productos.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -764,24 +768,8 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmb_bx_clientes;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupb_pago;
-        private System.Windows.Forms.TextBox txt_tipo_cambio;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cmb_bx_moneda;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cmb_bx_forma_pago;
-        private System.Windows.Forms.ComboBox cmb_bx_metodo_pago;
-        private System.Windows.Forms.GroupBox groupb_productos;
-        private System.Windows.Forms.Panel pnl_productos;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btn_facturar;
         private System.Windows.Forms.Button btn_cancelar;
-        private System.Windows.Forms.TextBox txt_cuenta;
         private System.Windows.Forms.Button btn_crear_cliente;
         private System.Windows.Forms.Label lb_facturando;
         private System.Windows.Forms.Panel pnl_datos_cliente;
@@ -793,9 +781,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txt_nombre_comercial;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tab_control;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox txt_pais;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txt_estado;
@@ -821,5 +808,22 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.GroupBox groupb_pago;
+        private System.Windows.Forms.TextBox txt_cuenta;
+        private System.Windows.Forms.TextBox txt_tipo_cambio;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cmb_bx_moneda;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmb_bx_forma_pago;
+        private System.Windows.Forms.ComboBox cmb_bx_metodo_pago;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btn_anterior;
+        private System.Windows.Forms.GroupBox groupb_productos;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Panel pnl_productos;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label6;
     }
 }

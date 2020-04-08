@@ -164,6 +164,14 @@
                             guarda_retenciones(@i_retenido.Impuesto, @i_retenido.TipoFactor, @i_retenido.TasaOCuota, @i_retenido.Importe);
                         }
                     }
+                    if(concepto.Impuestos.Traslados != null){
+                        foreach(var i_traslado in concepto.Impuestos.Traslados){
+                
+                            if(i_traslado.TipoFactor == "Exento"){
+                                impuesto_exento++;
+                            }
+                        }
+                    }
                 }
             }
 
@@ -176,15 +184,30 @@
             </tr>
 
             @if(Model.Impuestos != null){
-                foreach(var impuesto_t in Model.Impuestos.Traslados){
+                if(Model.Impuestos.Traslados != null){
 
-                <tr>
-                    <td colspan="4" align="right">Traslado @t_impuesto(@impuesto_t.Impuesto)</td>
-                    <td class="negritas">
-                        @impuesto_t.TipoFactor  @tasacuota(@impuesto_t.TasaOCuota) %
-                    </td>
-                    <td>@impuesto_t.Importe</td>
-                </tr>
+                    foreach(var impuesto_t in Model.Impuestos.Traslados){
+
+                    <tr>
+                        <td colspan="4" align="right">Traslado @t_impuesto(@impuesto_t.Impuesto)</td>
+                        <td class="negritas">
+                            @impuesto_t.TipoFactor  @tasacuota(@impuesto_t.TasaOCuota) %
+                        </td>
+                        <td>@impuesto_t.Importe</td>
+                    </tr>
+                    }
+                }
+                else{
+
+                    if(impuesto_exento > 0){
+                        <tr>
+                            <td colspan="4" align="right">Traslado IVA</td>
+                            <td class="negritas">
+                                Exento
+                            </td>
+                            <td>0.0</td>
+                        </tr>
+                    }
                 }
             }
 
@@ -323,6 +346,7 @@
         List<string>list_porprod_impuestos_retenidos = new List<string>();
         int cant_list = 0;
         int l = 0;
+        int impuesto_exento = 0;
 
         decimal imp_anterior = 0;
         decimal imp_pagado = 0;

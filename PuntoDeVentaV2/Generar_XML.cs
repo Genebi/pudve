@@ -805,7 +805,10 @@ namespace PuntoDeVentaV2
                         nd_impuestos_g.TotalImpuestosTrasladadosSpecified = true;
                         nd_impuestos_g.TotalImpuestosTrasladados = dos_decimales(suma_impuesto_traslado);
 
-                        nd_impuestos_g.Traslados = list_impuestos_traslado.ToArray();
+                        if(list_impuestos_traslado.Count > 0)
+                        {
+                            nd_impuestos_g.Traslados = list_impuestos_traslado.ToArray();
+                        }
                     }
                     if (no_agrega_nodo_retenido == 0)
                     {
@@ -889,7 +892,10 @@ namespace PuntoDeVentaV2
             // Tipo cambio
             if(con_complemento_pg == 0)
             {
-                comprobante.TipoCambio = 1.000000m;// Convert.ToDecimal(tipo_cambio);
+                if(moneda != "XXX")
+                {
+                    comprobante.TipoCambio = Convert.ToDecimal(tipo_cambio);
+                }
             }
             // Total
             if(con_complemento_pg == 0)
@@ -1075,7 +1081,7 @@ namespace PuntoDeVentaV2
             var bXML = File.ReadAllBytes(rutaXML);
             string usuario = "NUSN900420SS5";
             string clave_u = "pGoyQq-RHsaij_yNJfHp";
-
+            
             /*string clave_u = "c.ofis09NSUNotcatno5SS0240";
             ServiceReferenceTPrueba.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReferenceTPrueba.timbrado_cfdi33_portClient();
             ServiceReferenceTPrueba.timbrar_cfdi_result respuesta = new ServiceReferenceTPrueba.timbrar_cfdi_result();
