@@ -95,7 +95,7 @@ namespace PuntoDeVentaV2
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
             appSettings = 6;
-            Configuracion = 6;
+            Configuracion = 8;
             TipoClientes = 6;
             FiltroProducto = 6;
             Facturas = 51;
@@ -2321,11 +2321,15 @@ namespace PuntoDeVentaV2
             return $@"INSERT INTO '{tabla}' (ID,
                                              IDUsuario,
                                              TicketVenta,
-                                             StockNegativo) 
+                                             StockNegativo,
+                                             CorreoPrecioProducto,
+                                             CorreoStockProducto) 
                                       SELECT ID,
                                              IDUsuario,
                                              TicketVenta,
-                                             StockNegativo 
+                                             StockNegativo,
+                                             CorreoPrecioProducto,
+                                             CorreoStockProducto 
                                         FROM '{tabla}_temp';";
         }
 
