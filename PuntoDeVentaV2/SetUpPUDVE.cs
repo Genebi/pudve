@@ -105,11 +105,11 @@ namespace PuntoDeVentaV2
                     File.Copy(archivoBD, copiaDB);
 
                     MessageBox.Show("Información respaldada exitosamente", 
-                                    "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -127,7 +127,7 @@ namespace PuntoDeVentaV2
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
-            MessageBox.Show("Información guardada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Información guardada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnGuardarRevision_Click(object sender, EventArgs e)
@@ -136,7 +136,7 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(numeroRevision))
             {
-                MessageBox.Show("Es necesario asignar un número de revisión", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Es necesario asignar un número de revisión", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -144,7 +144,7 @@ namespace PuntoDeVentaV2
 
             if (respuesta > 0)
             {
-                MessageBox.Show("Información guardada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Información guardada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -154,7 +154,7 @@ namespace PuntoDeVentaV2
 
             if (resultado > 0)
             {
-                MessageBox.Show("Operación terminada", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Operación terminada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
