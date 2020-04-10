@@ -54,6 +54,7 @@ namespace PuntoDeVentaV2
         public static int Facturas_complemento_pago;
         public static int FiltroDinamico;
         public static int ConceptosDinamicos;
+        public static int CorreosProducto;
     #endregion Variables Tablas
 
         public DBTables()
@@ -104,6 +105,7 @@ namespace PuntoDeVentaV2
             Facturas_complemento_pago = 13;
             FiltroDinamico = 5;
             ConceptosDinamicos = 7;
+            CorreosProducto = 8;
         #endregion Inicializar Variables
         }
 
@@ -2914,5 +2916,61 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla ConceptosDinamicos
+
+        // Tabla de CorreosProducto 46
+        #region Tabla CorreosProducto
+        public int GetFiltroCorreosProducto()
+        {
+            return CorreosProducto;
+        }
+
+        public string PragmaTablaFiltroCorreosProducto(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroCorreosProducto(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroCorreosProducto(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID                   INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                                              IDUsuario            INTEGER NOT NULL,
+                                              IDEmpleado           INTEGER DEFAULT (0),
+                                              IDProducto           INTEGER NOT NULL,
+                                              CorreoPrecioProducto INTEGER DEFAULT (0),
+                                              CorreoStockProducto  INTEGER DEFAULT (0),
+                                              CorreoStockMinimo    INTEGER DEFAULT (0),
+                                              CorreoVentaProducto  INTEGER DEFAULT (0));";
+        }
+
+        public string QueryUpdateTablaFiltroCorreosProducto(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDUsuario,
+                                             IDEmpleado,
+                                             IDProducto,
+                                             CorreoPrecioProducto,
+                                             CorreoStockProducto,
+                                             CorreoStockMinimo,
+                                             CorreoVentaProducto) 
+                                      SELECT ID,
+                                             IDUsuario,
+                                             IDEmpleado,
+                                             IDProducto,
+                                             CorreoPrecioProducto,
+                                             CorreoStockProducto,
+                                             CorreoStockMinimo,
+                                             CorreoVentaProducto 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroCorreosProducto(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla CorreosProducto
     }
 }
