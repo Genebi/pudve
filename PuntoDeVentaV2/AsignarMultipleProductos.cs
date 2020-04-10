@@ -89,35 +89,28 @@ namespace PuntoDeVentaV2
 
             // PANEL MENSAJE VENTAS
             AgregarOpcion("Mensaje", "Mensaje Ventas", 10);
-
             // PANEL MENSAJE INVENTARIO
             AgregarOpcion("MensajeInventario", "Mensaje Inventario", 45);
-
             // PANEL STOCK
             AgregarOpcion("Stock", "Stock", 80);
-
             // PANEL STOCK MINIMO
             AgregarOpcion("StockMinimo", "Stock Minimo", 115);
-
             // PANEL STOCK MAXIMO
             AgregarOpcion("StockMaximo", "Stock Maximo", 150);
-
             // PANEL PRECIO
             AgregarOpcion("Precio", "Precio", 185);
-
             // PANEL NUMERO DE REVISION
-            AgregarOpcion("Revision", "Número Revisión", 220);
-
+            AgregarOpcion("NumeroRevision", "Número Revisión", 220);
             // PANEL TIPO DE IVA
-            AgregarOpcion("IVA", "Tipo de IVA", 255);
-
+            AgregarOpcion("TipoIVA", "Tipo de IVA", 255);
             // PANEL CLAVE DE PRODUCTO (FACTURACION)
             AgregarOpcion("ClaveProducto", "Clave de Producto", 290);
-
             // PANEL CLAVE UNIDAD MEDIDA (FACTURACION)
             AgregarOpcion("ClaveUnidad", "Clave de Unidad", 325);
+            // PANEL CORREOS PRODUCTO
+            AgregarOpcion("CorreosProducto", "Correos", 360);
 
-            int alturaEjeY = 360;
+            int alturaEjeY = 395;
 
             //======================================================================
             foreach (XmlNode childNode in appSettingsNode)
@@ -137,64 +130,14 @@ namespace PuntoDeVentaV2
                     // Este valor de proveedor esta agregado por defecto
                     if (key == "Proveedor")
                     {
-                        FlowLayoutPanel panelHijo = new FlowLayoutPanel();
-                        panelHijo.Name = "panel" + key;
-                        panelHijo.Width = 350;
-                        panelHijo.Height = 30;
-                        panelHijo.FlowDirection = FlowDirection.LeftToRight;
-                        panelHijo.Location = new Point(3, alturaEjeY);
-                        panelHijo.BorderStyle = BorderStyle.FixedSingle;
-
-                        Label lbProveedor = new Label();
-                        lbProveedor.Text = key;
-                        lbProveedor.Name = "lb" + key;
-                        lbProveedor.Width = 100;
-                        lbProveedor.Height = 20;
-                        lbProveedor.TextAlign = ContentAlignment.MiddleCenter;
-
-                        Button btnPropiedad = new Button();
-                        btnPropiedad.Name = "btn" + key;
-                        btnPropiedad.Text = "Asignar";
-                        btnPropiedad.Cursor = Cursors.Hand;
-                        btnPropiedad.Tag = key;
-                        btnPropiedad.Click += new EventHandler(botonAsignar_Click);
-
-                        panelHijo.Controls.Add(lbProveedor);
-                        panelHijo.Controls.Add(btnPropiedad);
-
-                        panelContenedor.Controls.Add(panelHijo);
+                        AgregarOpcion(key, key, alturaEjeY);
 
                         alturaEjeY += 35;
                     }
                     else
                     {
                         // Aqui consultamos y agregamos todos los restantes
-                        FlowLayoutPanel panelHijo = new FlowLayoutPanel();
-                        panelHijo.Name = "panel" + key;
-                        panelHijo.Width = 350;
-                        panelHijo.Height = 30;
-                        panelHijo.FlowDirection = FlowDirection.TopDown;
-                        panelHijo.Location = new Point(3, alturaEjeY);
-                        panelHijo.BorderStyle = BorderStyle.FixedSingle;
-
-                        Label lbPropiedad = new Label();
-                        lbPropiedad.Text = key;
-                        lbPropiedad.Name = "lb" + key;
-                        lbPropiedad.Width = 100;
-                        lbPropiedad.Height = 20;
-                        lbPropiedad.TextAlign = ContentAlignment.MiddleCenter;
-
-                        Button btnPropiedad = new Button();
-                        btnPropiedad.Name = "btn" + key;
-                        btnPropiedad.Text = "Asignar";
-                        btnPropiedad.Cursor = Cursors.Hand;
-                        btnPropiedad.Tag = key;
-                        btnPropiedad.Click += new EventHandler(botonAsignar_Click);
-
-                        panelHijo.Controls.Add(lbPropiedad);
-                        panelHijo.Controls.Add(btnPropiedad);
-
-                        panelContenedor.Controls.Add(panelHijo);
+                        AgregarOpcion(key, key, alturaEjeY);
 
                         alturaEjeY += 35;
                     }

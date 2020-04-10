@@ -217,6 +217,42 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveUnidad"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveUnidad"));
             }
+            else if (propiedad == "CorreosProducto")
+            {
+                CheckBox primerCB = new CheckBox();
+                primerCB.Text = "Correo al modificar precio de producto";
+                primerCB.Location = new Point(40, 40);
+                primerCB.Name = "CorreoPrecioProducto";
+                primerCB.Width = 300;
+                primerCB.Font = fuenteChica;
+
+                CheckBox segundoCB = new CheckBox();
+                segundoCB.Text = "Correo al modificar stock de producto";
+                segundoCB.Location = new Point(40, 60);
+                segundoCB.Name = "CorreoStockProducto";
+                segundoCB.Width = 300;
+                segundoCB.Font = fuenteChica;
+
+                CheckBox tercerCB = new CheckBox();
+                tercerCB.Text = "Correo al llegar a stock minimo";
+                tercerCB.Location = new Point(40, 80);
+                tercerCB.Name = "CorreoStockMinimo";
+                tercerCB.Width = 300;
+                tercerCB.Font = fuenteChica;
+
+                CheckBox cuartoCB = new CheckBox();
+                cuartoCB.Text = "Correo al hacer venta de producto";
+                cuartoCB.Location = new Point(40, 100);
+                cuartoCB.Name = "CorreoVentaProducto";
+                cuartoCB.Width = 300;
+                cuartoCB.Font = fuenteChica;
+
+                var checkboxes = new CheckBox[] { primerCB, segundoCB, tercerCB, cuartoCB };
+
+                panelContenedor.Controls.AddRange(checkboxes);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarCorreos", 150));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarCorreos", 150));
+            }
             else if (propiedad == "Proveedor")
             {
                 var listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
@@ -310,7 +346,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private Button GenerarBoton(int tipo, string nombre)
+        private Button GenerarBoton(int tipo, string nombre, int ejeY = 125)
         {
             Button boton = new Button();
             Font fuenteBoton = new Font("Century Gothic", 9.5f);     
@@ -328,7 +364,7 @@ namespace PuntoDeVentaV2
                 btnCancelar.Width = 95;
                 btnCancelar.Height = 25;
                 btnCancelar.Click += new EventHandler(botonCancelar_Click);
-                btnCancelar.Location = new Point(65, 125);
+                btnCancelar.Location = new Point(65, ejeY);
 
                 boton = btnCancelar;
             }
@@ -346,7 +382,7 @@ namespace PuntoDeVentaV2
                 btnAceptar.Width = 95;
                 btnAceptar.Height = 25;
                 btnAceptar.Click += new EventHandler(botonAceptar_Click);
-                btnAceptar.Location = new Point(170, 125);
+                btnAceptar.Location = new Point(170, ejeY);
 
                 boton = btnAceptar;
             }
@@ -582,6 +618,35 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("La clave de unidad no es válida", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
+                }
+            }
+            else if (propiedad == "CorreosProducto")
+            {
+                var checkPrimero = (CheckBox)Controls.Find("CorreoPrecioProducto", true).First();
+                var checkSegundo = (CheckBox)Controls.Find("CorreoStockProducto", true).First();
+                var checkTercero = (CheckBox)Controls.Find("CorreoStockMinimo", true).First();
+                var checkCuarto  = (CheckBox)Controls.Find("CorreoVentaProducto", true).First();
+
+                var correoPrecioProducto = Convert.ToInt16(checkPrimero.Checked);
+                var correoStockProducto  = Convert.ToInt16(checkSegundo.Checked);
+                var correoStockMinimo    = Convert.ToInt16(checkTercero.Checked);
+                var correoVentaProducto  = Convert.ToInt16(checkCuarto.Checked);
+
+                foreach (var producto in productos)
+                {
+                    // Comprobar si existe registro en la tabla de correos
+                    var comprobar = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM CorreosProducto WHERE IDProducto = {producto.Key}"));
+
+                    if (comprobar > 0)
+                    {
+                        // UPDATE
+                        cn.EjecutarConsulta($"UPDATE CorreosProducto SET CorreoPrecioProducto = {correoPrecioProducto}, CorreoStockProducto = {correoStockProducto}, CorreoStockMinimo = {correoStockMinimo}, CorreoVentaProducto = {correoVentaProducto} WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {producto.Key}");
+                    }
+                    else
+                    {
+                        // INSERT
+                        cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo, CorreoVentaProducto) VALUES ('{FormPrincipal.userID}', '{producto.Key}', '{correoPrecioProducto}', '{correoStockProducto}', '{correoStockMinimo}', '{correoVentaProducto}')");
+                    }
                 }
             }
             else if (propiedad == "Proveedor")
