@@ -3981,6 +3981,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla ConceptosDinamicos
+            // 46 CorreosProducto
+            #region Tabla CorreosProducto
+            tabla = "CorreosProducto";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaFiltroCorreosProducto(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroCorreosProducto(tabla));
+                    if (dbTables.GetFiltroCorreosProducto() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroCorreosProducto(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroCorreosProducto())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroCorreosProducto(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroCorreosProducto(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroCorreosProducto(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroCorreosProducto(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroCorreosProducto(tabla));
+                    if (dbTables.GetFiltroCorreosProducto() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroCorreosProducto(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroCorreosProducto())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroCorreosProducto(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroCorreosProducto(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroCorreosProducto(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroCorreosProducto(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla CorreosProducto
         }
 
         private bool checkEmpty(object tabla)
