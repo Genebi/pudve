@@ -1644,6 +1644,58 @@ namespace PuntoDeVentaV2
             return clavesUnidades;
         }
 
+        public List<int> ComprobarConfiguracion()
+        {
+            var config = new List<int>();
+
+            DatosConexion($"SELECT * FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var correoPrecio = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoPrecioProducto")));
+                var correoStock = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoStockProducto")));
+                var correoStockMinimo = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoStockMinimo")));
+                var correoVentaProducto = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoVentaProducto")));
+
+                config.Add(correoPrecio);
+                config.Add(correoStock);
+                config.Add(correoStockMinimo);
+                config.Add(correoVentaProducto);
+            }
+
+            dr.Close();
+
+            return config;
+        }
+
+        public List<int> ComprobarCorreoProducto(int idProducto)
+        {
+            var config = new List<int>();
+
+            DatosConexion($"SELECT * FROM CorreosProducto WHERE IDUsuario = {FormPrincipal.userID} AND IDProducto = {idProducto}");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var correoPrecio = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoPrecioProducto")));
+                var correoStock = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoStockProducto")));
+                var correoStockMinimo = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoStockMinimo")));
+                var correoVentaProducto = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoVentaProducto")));
+
+                config.Add(correoPrecio);
+                config.Add(correoStock);
+                config.Add(correoStockMinimo);
+                config.Add(correoVentaProducto);
+            }
+
+            dr.Close();
+
+            return config;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);

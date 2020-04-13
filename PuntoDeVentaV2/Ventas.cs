@@ -93,6 +93,13 @@ namespace PuntoDeVentaV2
         DataTable dtProdMessg;
         DataRow drProdMessg;
 
+        // Variables para la configuracion de los correos que se enviaran
+        private int correoStockMinimo = 0;
+        private int correoVentaProducto = 0;
+        // Listas para guardar los ID's de los productos que se enviara correo
+        private List<string> enviarStockMinimo;
+        private List<string> enviarVentaProducto;
+
         public Ventas()
         {
             InitializeComponent();
@@ -124,6 +131,18 @@ namespace PuntoDeVentaV2
             {
                 imprimirCodigo = true;
             }
+
+
+            var configCorreos = mb.ComprobarConfiguracion();
+
+            if (configCorreos.Count > 0)
+            {
+                correoStockMinimo = configCorreos[2];
+                correoVentaProducto = configCorreos[3];
+            }
+
+            enviarStockMinimo = new List<string>();
+            enviarVentaProducto = new List<string>();
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)
@@ -1413,6 +1432,37 @@ namespace PuntoDeVentaV2
                                 var vendidos = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                                 var restantes = (stock - vendidos).ToString();
 
+                                // Comprobar si aplica para el envio de correo ya sea de stock minimo, de venta o ambos
+                                if (correoStockMinimo == 1 || correoVentaProducto == 1)
+                                {
+                                    var configProducto = mb.ComprobarCorreoProducto(Convert.ToInt32(IDProducto));
+
+                                    if (configProducto.Count > 0)
+                                    {
+                                        var datosProductoTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
+
+                                        // Correo de stock minimo
+                                        if (configProducto[2] == 1)
+                                        {
+                                            // Obtener el stock minimo del producto
+                                            var stockMinimo = Convert.ToInt32(datosProductoTmp[11]);
+                                            var stockTmp = Convert.ToInt32(stock);
+
+                                            if (stockTmp <= stockMinimo)
+                                            {
+                                                enviarStockMinimo.Add(datosProductoTmp[1]);
+                                            }
+                                        }
+
+                                        // Correo venta de producto
+                                        if (configProducto[3] == 1)
+                                        {
+                                            enviarVentaProducto.Add(datosProductoTmp[1]);
+                                        }
+                                    }
+                                }
+
+                                // Actualizar el stock
                                 guardar = new string[] { IDProducto, restantes, FormPrincipal.userID.ToString() };
 
                                 cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
@@ -1471,25 +1521,30 @@ namespace PuntoDeVentaV2
                     ImprimirTicket(idVenta);
                 }
 
-                ListadoVentas.abrirNuevaVenta = true;
-                ventaGuardada = false;
-                mostrarVenta = 0;
-                listaAnticipos = string.Empty;
-                ventasGuardadas.Clear();
-
-                // Limpiar variables de cantidades asignadas en el form DetalleVenta
-                efectivo = tarjeta = vales = cheque = transferencia = credito = string.Empty;
-
-                // Limpiamos las variables y diccionarios relacionados a los descuentos
-                // de los productos en general
-                porcentajeGeneral = 0;
-                descuentoCliente = 0;
-                txtDescuentoGeneral.Text = "% descuento";
-                productosDescuentoG.Clear();
-                descuentosDirectos.Clear();
+                LimpiarVariables();
 
                 this.Dispose();
             }
+        }
+
+        private void LimpiarVariables()
+        {
+            ListadoVentas.abrirNuevaVenta = true;
+            ventaGuardada = false;
+            mostrarVenta = 0;
+            listaAnticipos = string.Empty;
+            ventasGuardadas.Clear();
+
+            // Limpiar variables de cantidades asignadas en el form DetalleVenta
+            efectivo = tarjeta = vales = cheque = transferencia = credito = string.Empty;
+
+            // Limpiamos las variables y diccionarios relacionados a los descuentos
+            // de los productos en general
+            porcentajeGeneral = 0;
+            descuentoCliente = 0;
+            txtDescuentoGeneral.Text = "% descuento";
+            productosDescuentoG.Clear();
+            descuentosDirectos.Clear();
         }
 
         private void aumentoFolio()
@@ -2874,6 +2929,13 @@ namespace PuntoDeVentaV2
             }
 
             AgregarProducto(datosProducto);
+        }
+
+        private void EnviarEmails()
+        {
+            // Comprobar stock minimo
+
+            // Comprobar venta producto
         }
     }
 }
