@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -275,6 +277,38 @@ namespace PuntoDeVentaV2
             var logo = @"C:\Archivos PUDVE\MisDatos\Usuarios\MIRIIGUGM910427XX1.jpg";
 
             return logo;
+        }
+
+        public static void EnviarEmail(string html, string[] datos)
+        {
+            var asunto = datos[0];
+            var email = datos[1];
+
+            try
+            {
+                MailMessage mensaje = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+
+                mensaje.From = new MailAddress("pudve.contacto@gmail.com", "PUDVE");
+                mensaje.To.Add(new MailAddress(email));
+                mensaje.Subject = asunto;
+                mensaje.IsBodyHtml = true; // para hacer el cuerpo del mensaje como html 
+                mensaje.Body = html;
+
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com"; // para host gmail
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "Steroids12");
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(mensaje);
+            }
+            catch (Exception ex)
+            {
+                // Se comento el mensaje de exception ya que el usuario no sabe que se le enviara correo
+                // y que no aparezca el messagebox
+                //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
