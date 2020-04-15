@@ -348,7 +348,7 @@ namespace PuntoDeVentaV2
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
             ActualizarDatos();
-
+            FormPrincipal.datosUsuario = cn.DatosUsuario(IDUsuario: FormPrincipal.userID, tipo: 0);
             MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
