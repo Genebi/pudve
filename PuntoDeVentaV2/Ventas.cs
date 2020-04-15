@@ -97,8 +97,8 @@ namespace PuntoDeVentaV2
         private int correoStockMinimo = 0;
         private int correoVentaProducto = 0;
         // Listas para guardar los ID's de los productos que se enviara correo
-        private List<string> enviarStockMinimo;
-        private List<string> enviarVentaProducto;
+        private Dictionary<int, string> enviarStockMinimo;
+        private Dictionary<int, string> enviarVentaProducto;
 
         public Ventas()
         {
@@ -141,8 +141,8 @@ namespace PuntoDeVentaV2
                 correoVentaProducto = configCorreos[3];
             }
 
-            enviarStockMinimo = new List<string>();
-            enviarVentaProducto = new List<string>();
+            enviarStockMinimo = new Dictionary<int, string>();
+            enviarVentaProducto = new Dictionary<int, string>();
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)
@@ -1450,9 +1450,10 @@ namespace PuntoDeVentaV2
 
                                             if (stockTmp <= stockMinimo)
                                             {
-                                                if (!enviarStockMinimo.Contains(datosProductoTmp[1]))
+                                                if (!enviarStockMinimo.ContainsKey(Convert.ToInt32(IDProducto)))
                                                 {
-                                                    enviarStockMinimo.Add(datosProductoTmp[1]);
+                                                    var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                    enviarStockMinimo.Add(Convert.ToInt32(IDProducto), nombre);
                                                 }
                                             }
                                         }
@@ -1460,9 +1461,10 @@ namespace PuntoDeVentaV2
                                         // Correo venta de producto
                                         if (configProducto[3] == 1)
                                         {
-                                            if (!enviarVentaProducto.Contains(datosProductoTmp[1]))
+                                            if (!enviarVentaProducto.ContainsKey(Convert.ToInt32(IDProducto)))
                                             {
-                                                enviarVentaProducto.Add(datosProductoTmp[1]);
+                                                var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                enviarVentaProducto.Add(Convert.ToInt32(IDProducto), nombre);
                                             }
                                         }
                                     }
@@ -1505,9 +1507,10 @@ namespace PuntoDeVentaV2
 
                                                 if (stockTmp <= stockMinimo)
                                                 {
-                                                    if (!enviarStockMinimo.Contains(datosProductoTmp[1]))
+                                                    if (!enviarStockMinimo.ContainsKey(idProducto))
                                                     {
-                                                        enviarStockMinimo.Add(datosProductoTmp[1]);
+                                                        var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK MINIMO: {datosProductoTmp[10]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                        enviarStockMinimo.Add(idProducto, nombre);
                                                     }
                                                 }
                                             }
@@ -1515,9 +1518,10 @@ namespace PuntoDeVentaV2
                                             // Correo venta de producto
                                             if (configProducto[3] == 1)
                                             {
-                                                if (!enviarVentaProducto.Contains(datosProductoTmp[1]))
+                                                if (!enviarVentaProducto.ContainsKey(idProducto))
                                                 {
-                                                    enviarVentaProducto.Add(datosProductoTmp[1]);
+                                                    var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                    enviarVentaProducto.Add(idProducto, nombre);
                                                 }
                                             }
                                         }
@@ -2981,42 +2985,52 @@ namespace PuntoDeVentaV2
         private void CuerpoEmails()
         {
             var correo = FormPrincipal.datosUsuario[9];
-            var asuntoSM = "Lista de Productos con Stock Minimo";
-            var asuntoVP = "Lista de Productos Vendidos";
+            var asunto = "Información estado de Productos";
+            var html = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(correo))
             {
                 // Comprobar stock minimo
                 if (enviarStockMinimo.Count > 0)
                 {
-                    var html = "<ol style='color: red;'>";
+                    html = @"
+                    <div style='margin-bottom: 50px;'>
+                        <h4 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h4><hr>
+                        <ul style='color: red; font-size: 0.8em;'>";
 
                     foreach (var producto in enviarStockMinimo)
                     {
-                        html += $"<li>{producto}</li>";
+                        html += $"<li>{producto.Value}</li>";
                     }
 
-                    html += "</ol>";
-
-                    Utilidades.EnviarEmail(html, new string[] { asuntoSM, correo });
-                    //MessageBox.Show(html);
+                    html += @"
+                        </ul>
+                    </div>";
                 }
 
                 // Comprobar venta producto
                 if (enviarVentaProducto.Count > 0)
                 {
-                    var html = "<ol style='color: red;'>";
+                    html += @"
+                    <div>
+                        <h4 style='text-align: center;'>LISTADO PRODUCTOS VENDIDOS</h4><hr>
+                        <ul style='color: red; font-size: 0.8em;'>";
 
                     foreach (var producto in enviarVentaProducto)
                     {
-                        html += $"<li>{producto}</li>";
+                        html += $"<li>{producto.Value}</li>";
                     }
 
-                    html += "</ol>";
+                    html += @"
+                        </ul>
+                        <p style='font-size: 0.8em; text-align: center;'><b>NOTA:</b> Es posible que se hayan vendido otros artículos junto a estos productos en la misma venta,
+                        los productos aquí listados son sólo los que el usuario configuró para recibir notificaciones a través de correo electrónico.</p>
+                    </div>";
+                }
 
-                    //MessageBox.Show(html);
-
-                    Utilidades.EnviarEmail(html, new string[] { asuntoVP, correo });
+                if (!string.IsNullOrWhiteSpace(html))
+                {
+                    Utilidades.EnviarEmail(html, asunto, correo);
                 }
             }
         }

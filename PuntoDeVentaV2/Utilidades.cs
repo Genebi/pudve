@@ -279,11 +279,8 @@ namespace PuntoDeVentaV2
             return logo;
         }
 
-        public static void EnviarEmail(string html, string[] datos)
+        public static void EnviarEmail(string html, string asunto, string email)
         {
-            var asunto = datos[0];
-            var email = datos[1];
-
             try
             {
                 MailMessage mensaje = new MailMessage();
