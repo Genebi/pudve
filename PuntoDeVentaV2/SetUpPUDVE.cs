@@ -17,8 +17,6 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private int numeroRevision = 0;
-        private int checkTicketVenta = 0;
-        private int checkStockNegativo = 0;
 
         public static bool recargarDatos = false;
 
@@ -44,11 +42,6 @@ namespace PuntoDeVentaV2
 
             txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.Text = numeroRevision.ToString();
-
-            if (checkTicketVenta == 1)
-            {
-                checkCBVenta.Checked = true;
-            }
         }
 
         private void VerificarDatosInventario()
@@ -78,9 +71,13 @@ namespace PuntoDeVentaV2
 
             if (existe)
             {
-                var datosConfig = mb.DatosConfiguracion();
+                var datosConfig = mb.ComprobarConfiguracion();
 
-                checkTicketVenta = Convert.ToInt16(datosConfig[0]);
+                checkCBVenta.Checked = Convert.ToBoolean(datosConfig[4]);
+                cbCorreoPrecioProducto.Checked = Convert.ToBoolean(datosConfig[0]);
+                cbCorreoStockProducto.Checked = Convert.ToBoolean(datosConfig[1]);
+                cbCorreoStockMinimo.Checked = Convert.ToBoolean(datosConfig[2]);
+                cbCorreoVenderProducto.Checked = Convert.ToBoolean(datosConfig[3]);
             }
             else
             {
