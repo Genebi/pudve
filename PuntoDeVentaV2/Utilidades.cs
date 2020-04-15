@@ -307,5 +307,31 @@ namespace PuntoDeVentaV2
                 //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        public static void CambioPrecioProductoEmail(string[] datos)
+        {
+            var correo = FormPrincipal.datosUsuario[9];
+            var asunto = "Cambio de precio para producto";
+            var html = string.Empty;
+
+            var producto = datos[0];
+            var precioAnterior = datos[1];
+            var precioNuevo = datos[2];
+            var origen = datos[3];
+
+            if (!string.IsNullOrWhiteSpace(correo))
+            {
+                html = $@"
+                <div>
+                    <h4 style='text-align: center;'>PRECIO DE PRODUCTO MODIFICADO</h4><hr>
+                    <p>El precio del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
+                    {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue actualizado
+                    por el <b>nuevo</b> precio de <span style='color: red;'>${precioNuevo}</span>.</p>
+                    <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
+                </div>";
+
+                EnviarEmail(html, asunto, correo);
+            }
+        }
     }
 }

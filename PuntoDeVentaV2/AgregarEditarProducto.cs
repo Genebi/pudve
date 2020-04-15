@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -2690,10 +2691,23 @@ namespace PuntoDeVentaV2
                             "EDITAR PRODUCTO", fechaOperacion
                         };
 
+                        // Se guarda historial del cambio de precio
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));
+
+                        // Ejecutar hilo para enviar notificacion
+                        datos = new string[] {
+                            nombre, precioAnterior.ToString("N2"),
+                            precioNuevo.ToString("N2"), "editar producto"
+                        };
+
+                        Thread notificacion = new Thread(
+                            () => Utilidades.CambioPrecioProductoEmail(datos)
+                        );
+
+                        notificacion.Start();
                     }
 
-                    
+
                     if (descuentos.Any())
                     {
                         FormAgregar.Close();
