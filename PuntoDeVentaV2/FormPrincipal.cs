@@ -206,18 +206,21 @@ namespace PuntoDeVentaV2
             id_empleado = t_id_empleado;
         }
 
+        readonly ConnectionHandler _conHandler = new ConnectionHandler();
+
         public FormPrincipal()
         {
             InitializeComponent();
             this.WindowState = FormWindowState.Maximized;
+            _conHandler.HookMainForm(this);
 
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-            CargarSaldoInicial();
+           // CargarSaldoInicial();
             //Envio de datos de Caja con el Timer
-            ConvertirMinutos();
+           // ConvertirMinutos();
 
             //Se crea el directorio principal para almacenar todos los archivos generados y carpetas
             Directory.CreateDirectory(@"C:\Archivos PUDVE");
@@ -262,7 +265,8 @@ namespace PuntoDeVentaV2
                 permisos_empleado(datos_per);
             }
 
-            //InitializarTimerAndroid();
+            InitializarTimerAndroid();
+            //////////////////////////////////////////////////////////////////////
 
             // Verificar si existe registro de la tabla configuracion
             var existe = (bool)cn.EjecutarSelect($"SELECT * FROM Configuracion WHERE IDUsuario = {userID}");
@@ -273,10 +277,10 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void CargarSaldoInicial()
-        {
-            saldoInicial = mb.SaldoInicialCaja(userID);
-        }
+        //private void CargarSaldoInicial()
+        //{
+        //    saldoInicial = mb.SaldoInicialCaja(userID);
+        //}
 
         public void ConvertirMinutos()
         {
@@ -550,7 +554,7 @@ namespace PuntoDeVentaV2
         /****************************
         ****** CODIGO KEVIN *********
         /****************************/
-
+        /*
         public static float saldoInicial = 0f;
 
 
@@ -587,12 +591,12 @@ namespace PuntoDeVentaV2
         float cheque = 0f;
         float trans = 0f;
         float credito = 0f;
-
+        */
         private void temporizadorConsulta_Tick(object sender, EventArgs e)
         {
 
         }
-
+        /*
         float subtotal = 0f;
         float anticipos1 = 0f;
         float totalCaja = 0f;
@@ -622,10 +626,11 @@ namespace PuntoDeVentaV2
         string nickUsuarioC = "";
 
         public static DateTime fechaGeneral;
+        */
 
         public void InitializarTimerAndroid()
         {
-            actualizarCaja.Interval = 600000;
+            actualizarCaja.Interval = 60000;
             actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
             actualizarCaja.Enabled = true;
         }
@@ -640,145 +645,12 @@ namespace PuntoDeVentaV2
             return InternetGetConnectedState(out Desc, 0);
         }
 
-
-
-
-
-
         private void actualizarCaja_Tick(object sender, EventArgs e)
         {
-            if (ConectadoInternet())
-            {
-                var servidor = Properties.Settings.Default.Hosting;
-                if (string.IsNullOrWhiteSpace(servidor))
-                {
-
-                    MySqlConnection conexion = new MySqlConnection();
-                    conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
-
-                    CargarSaldoInicial();
-
-                    CargarSaldo();
-
-                    try
-                    {
-                        conexion.Open();
-                        MySqlCommand upDateUsr = conexion.CreateCommand();
-                        MySqlCommand agregar = conexion.CreateCommand();
-                        MySqlCommand eliminar = conexion.CreateCommand();
-
-                        //Actualizar IdUsuario en tabla Usuarios en MySQL
-                        upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
-                        int actualizarUsr = upDateUsr.ExecuteNonQuery();
-
-                        //Consulta Borrar de MySQL por ID de Usuario
-                        eliminar.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
-                        int borrrado = eliminar.ExecuteNonQuery();
-
-                        //Consulta Insertar de MySQL por ID de Usuario
-                        agregar.CommandText = $@"INSERT INTO seccionCaja (efectivoVentas, tarjetaVentas, valesVentas, chequeVentas, transferenciaVentas, creditoVentas, anticiposUtilizadosVentas, totalVentas,  
-                                                                  efectivoAnticipos, tarjetaAnticipos, valesAnticipos, chequeAnticipos, transferenciaAnticipos, totalAnticipos,   
-                                                                  efectivoDineroAgregado, tarjetaDineroAgregado, valesDineroAgregado, chequeDineroAgregado, transferenciaDineroAgregado, totalDineroAgregado,   
-                                                                  efectivoTotalCaja, tarjetaTotalCaja, valesTotalCaja, chequeTotalCaja, transferenciaTotalCaja, creditoTotalCaja, anticiposUtilizadosTotalCaja, saldoInicialTotalCaja, subtotalEnCajaTotalCaja, dineroRetiradoTotalCaja, totalEnCajaTotalCaja, 
-                                                                  fechaActualizacion, nickUsuario, idUsuario) 
-                                                         VALUES ('{vEfectivo}', '{vTarjeta}','{vVales}', '{vCheque}', '{vTrans}', '{vCredito}', '{vAnticipos}', '{totalVentas}',
-                                                                 '{aEfectivo}', '{aTarjeta}', '{aVales}', '{aCheque}', '{aTrans}', '{totalAnticipos}', 
-                                                                 '{dEfectivo}', '{dTarjeta}', '{dVales}', '{dCheque}', '{dTrans}', '{totalDineroAgregado}',  
-                                                                 '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{trans}', '{credito}', '{anticipos1}', '{saldoInicial}', '{subtotal}', '{dineroRetirado}', '{totalCaja}',
-                                                                 '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{userNickName}', '{FormPrincipal.userID.ToString()}')";
-                        int resultado = agregar.ExecuteNonQuery();
-                        if (resultado > 0)
-                        {
-                            //MessageBox.Show("Exito ");
-                            //iniciarVariablesWebService();
-                        }
-                        iniciarVariablesWebService();
-
-                        DataTable tablaProductos = new DataTable();
-                        string queryCargarDatosProductos = string.Empty;
-
-                        //Actualizar IdUsuario en tabla Usuarios en MySQL
-                        upDateUsr.CommandText = $"UPDATE usuarios SET idLocal ='{FormPrincipal.userID.ToString()}' WHERE usuario = '{userNickName}'";
-                        int actualizarUsr1 = upDateUsr.ExecuteNonQuery();
-
-
-
-                        //Consulta Insertar de MySQL por ID de Usuario
-                        queryCargarDatosProductos = $@"SELECT P.Nombre, P.NombreAlterno1, P.NombreAlterno2, P.Stock, P.Precio, P.NumeroRevision, P.ClaveInterna, P.CodigoBarras, P.Tipo 
-                                                    FROM productos AS P 
-                                                    WHERE Status = 1
-                                                    AND IDUsuario = {FormPrincipal.userID.ToString()}
-                                                    ORDER BY P.Nombre ASC";
-
-                        tablaProductos = cn.CargarDatos(queryCargarDatosProductos);
-
-                        //Consulta Borrar de MySQL por ID de Usuario
-                        eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}' LIMIT {tablaProductos.Rows.Count}  ";
-                        int borrrado1 = eliminar.ExecuteNonQuery();
-
-                        //Consulta Agregar de MySQL 
-                        StringBuilder sComand = new StringBuilder($@"INSERT INTO seccionProductos(idUsuario, nickUsuario, nombreProductos, nombreAlterno1, nombreAlterno2, 
-                                                                                              stockProductos, precioProductos, revisionProductos, claveProductos, 
-                                                                                              codigoProductos, historialProductos, tipoProductos, fechaUpdate)
-                                                          VALUES ");
-                        List<String> Rows = new List<string>();
-                        if (tablaProductos.Rows.Count > 0)
-                        {
-                            for (int i = 0; i < tablaProductos.Rows.Count; i++)
-                            {
-
-
-                                nickUsuario = userNickName;
-                                nombreP = tablaProductos.Rows[i]["Nombre"].ToString();
-                                nombreAlterno1P = tablaProductos.Rows[i]["NombreAlterno1"].ToString();
-                                nombreAlterno2P = tablaProductos.Rows[i]["NombreAlterno2"].ToString();
-                                stockP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Stock"].ToString());
-                                precioP = (float)Convert.ToDouble(tablaProductos.Rows[i]["Precio"].ToString());
-                                revisionP = (float)Convert.ToDouble(tablaProductos.Rows[i]["NumeroRevision"].ToString());
-                                claveP = tablaProductos.Rows[i]["ClaveInterna"].ToString();
-                                codigoP = tablaProductos.Rows[i]["CodigoBarras"].ToString();
-                                tipoP = tablaProductos.Rows[i]["Tipo"].ToString();
-                                
-
-
-
-                                Rows.Add(String.Format("('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}')",
-                                    MySqlHelper.EscapeString($"{FormPrincipal.userID.ToString()}"), MySqlHelper.EscapeString($"{nickUsuario}"), MySqlHelper.EscapeString($"{nombreP}"),
-                                    MySqlHelper.EscapeString($"{nombreAlterno1P}"), MySqlHelper.EscapeString($"{nombreAlterno2P}"), MySqlHelper.EscapeString($"{stockP}"), 
-                                    MySqlHelper.EscapeString($"{precioP}"), MySqlHelper.EscapeString($"{revisionP}"), MySqlHelper.EscapeString($"{claveP}"),
-                                    MySqlHelper.EscapeString($"{codigoP}"), MySqlHelper.EscapeString($"{historialP}"), MySqlHelper.EscapeString($"{tipoP}"),
-                                    MySqlHelper.EscapeString($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}")));
-                            }
-                            sComand.Append(String.Join(",", Rows));
-                            //  sComand.Append(":");
-                            // conexion.Open();
-                            string contenidoquery = sComand.ToString();
-                            try
-                            {
-                                using (MySqlCommand myCmd = new MySqlCommand(sComand.ToString(), conexion))
-                                {
-                                    myCmd.CommandType = CommandType.Text;
-                                    myCmd.ExecuteNonQuery();
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("" + ex.Message.ToString());
-                            }
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-
-                        //MessageBox.Show("No se pudo concretar correctamente: \n" + ex.Message.ToString(),
-                        //                "Fallo de conexion al dispositivo movil", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-            }
+            _conHandler.StartCheckConnectionState();
 
         }
-
+        /*
         private void iniciarVariablesWebService()
         {
             //  Apartado de Caja  //
@@ -825,9 +697,9 @@ namespace PuntoDeVentaV2
             codigoP = "";
             historialP = "";
             tipoP = "";
-
         }
-
+        */
+        /*
         private void CargarSaldo()
         {
             SQLiteConnection sql_con;
@@ -952,6 +824,7 @@ namespace PuntoDeVentaV2
             drDos.Close();
             sql_con.Close();
         }
+        */
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
