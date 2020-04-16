@@ -380,6 +380,7 @@
     </Compile>
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionNet.cs" />
+    <Compile Include="ConnectionHandler.cs" />
     <Compile Include="ConsultarProductoVentas.cs">
       <SubType>Form</SubType>
     </Compile>
