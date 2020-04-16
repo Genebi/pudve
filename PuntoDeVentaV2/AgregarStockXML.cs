@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -1160,7 +1161,7 @@ namespace PuntoDeVentaV2
             lblStockProd.Text = totalProd.ToString();   // mostramos el nvo stock del producto
         }
 
-        private void CompararPrecios(string idProducto, float precio)
+        private void CompararPrecios(string idProducto, float precio, string nombre)
         {
             // Comprobar precio del producto para saber si se edito
             var precioTmp = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
@@ -1176,7 +1177,20 @@ namespace PuntoDeVentaV2
                     "EDITAR CARGAR XML", fechaOperacion
                 };
 
+                // Se guarda historial del cambio de precio
                 cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));
+
+                // Ejecutar hilo para enviar notificacion
+                datos = new string[] {
+                    nombre, precioAnterior.ToString("N2"),
+                    precioNuevo.ToString("N2"), "editar al cargar XML"
+                };
+
+                Thread notificacion = new Thread(
+                    () => Utilidades.CambioPrecioProductoEmail(datos)
+                );
+
+                notificacion.Start();
             }
         }
 
@@ -1191,7 +1205,7 @@ namespace PuntoDeVentaV2
             // Es un PRODUCTO
             if (dtProductos.Rows[0]["Tipo"].ToString() == "P")
             {
-                CompararPrecios(idProducto, PrecioProd);
+                CompararPrecios(idProducto, PrecioProd, NombreProd);
                 // Hacemos el query para la actualizacion del Stock
                 query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{textBoxNoIdentificacion}', Precio = '{PrecioProd}' WHERE ID = '{idProducto}'";
                 // Aqui vemos el resultado de la consulta
