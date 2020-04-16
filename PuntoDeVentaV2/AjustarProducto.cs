@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -180,6 +181,17 @@ namespace PuntoDeVentaV2
                 // Guardamos los datos en la tabla historial de precios
                 cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
 
+                // Ejecutar hilo para enviar notificacion
+                info = new string[] {
+                    lbProducto.Text, precioProducto.ToString("N2"),
+                    precioAux.ToString("N2"), "ajustar producto"
+                };
+
+                Thread notificacion = new Thread(
+                    () => Utilidades.CambioPrecioProductoEmail(info)
+                );
+
+                notificacion.Start();
 
                 // Actualizamos el precio de la tabla Productos
                 precioProducto = precioAux;
