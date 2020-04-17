@@ -436,6 +436,12 @@
     <Compile Include="Empresas.Designer.cs">
       <DependentUpon>Empresas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Enviar_correo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Enviar_correo.Designer.cs">
+      <DependentUpon>Enviar_correo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Facturas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -868,6 +874,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Empresas.resx">
       <DependentUpon>Empresas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Enviar_correo.resx">
+      <DependentUpon>Enviar_correo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturas.resx">
       <DependentUpon>Facturas.cs</DependentUpon>
