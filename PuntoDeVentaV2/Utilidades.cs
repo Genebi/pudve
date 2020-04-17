@@ -308,10 +308,10 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public static void CambioPrecioProductoEmail(string[] datos)
+        public static void CambioPrecioProductoEmail(string[] datos, int tipo = 0)
         {
             var correo = FormPrincipal.datosUsuario[9];
-            var asunto = "Cambio de precio para producto";
+            var asunto = "Cambio de precio(s) para producto(s)";
             var html = string.Empty;
 
             var producto = datos[0];
@@ -321,12 +321,56 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(correo))
             {
+                if (tipo == 0)
+                {
+                    html = $@"
+                    <div>
+                        <h4 style='text-align: center;'>PRECIO DE PRODUCTO MODIFICADO</h4><hr>
+                        <p>El precio del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
+                        {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue actualizado
+                        por el <b>nuevo</b> precio de <span style='color: red;'>${precioNuevo}</span>.</p>
+                        <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
+                    </div>";
+                }
+                
+                if (tipo == 1)
+                {
+                    html = $@"
+                    <div>
+                        <h4 style='text-align: center;'>LISTA DE PRODUCTOS CON PRECIO MODIFICADO</h4><hr>
+                        <ul style='font-size: 0.8em;'>
+                            {producto}
+                        </ul>
+                        <p style='font-size: 0.8em;'>
+                            <span>NOTA: El precio de los productos fue modificado desde {origen}.</span><br>
+                            <span>Fecha de Modificación: <b>{DateTime.Now}</b></span>
+                        </p>
+                    </div>";
+                }
+
+                EnviarEmail(html, asunto, correo);
+            }
+        }
+
+        public static void CambioStockProductoEmail(string[] datos)
+        {
+            var correo = FormPrincipal.datosUsuario[9];
+            var asunto = "Cambio de stock para producto";
+            var html = string.Empty;
+
+            var producto = datos[0];
+            var stockAnterior = datos[1];
+            var stockNuevo = datos[2];
+            var origen = datos[3];
+
+            if (!string.IsNullOrWhiteSpace(correo))
+            {
                 html = $@"
                 <div>
-                    <h4 style='text-align: center;'>PRECIO DE PRODUCTO MODIFICADO</h4><hr>
-                    <p>El precio del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
-                    {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue actualizado
-                    por el <b>nuevo</b> precio de <span style='color: red;'>${precioNuevo}</span>.</p>
+                    <h4 style='text-align: center;'>STOCK DE PRODUCTO MODIFICADO</h4><hr>
+                    <p>El stock del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
+                    {origen}, su stock <b>anterior</b> era de <span style='color: red;'>${stockAnterior}</span> y fue actualizado
+                    por el <b>nuevo</b> stock de <span style='color: red;'>${stockNuevo}</span>.</p>
                     <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
                 </div>";
 
