@@ -49,6 +49,9 @@ namespace PuntoDeVentaV2
         int clickBoton = 0;
         #endregion Variables Globales Para Paginar
 
+        CheckBox header_checkb = null;
+
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -94,6 +97,9 @@ namespace PuntoDeVentaV2
             fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
 
             clickBoton = 0;
+
+            // Crea un checkbox en la cabecera de la tabla. Será para seleccionar todo.
+            ag_checkb_header();
 
             CargarDatos();
             actualizar();
@@ -312,6 +318,7 @@ namespace PuntoDeVentaV2
                     total += totalTmp;
 
                     row.Cells["ID"].Value = idVenta;
+                    row.Cells["col_checkbox"].Value = false;
                     row.Cells["Cliente"].Value = cliente;
                     row.Cells["RFC"].Value = rfc;
                     row.Cells["Subtotal"].Value = subtotalTmp.ToString("0.00");
@@ -368,6 +375,7 @@ namespace PuntoDeVentaV2
             fila.DefaultCellStyle.BackColor = Color.FromArgb(255, 207, 53, 20);
             fila.DefaultCellStyle.ForeColor = Color.White;
             fila.DefaultCellStyle.Font = new Font("Arial", 10f);
+            fila.Cells["col_checkbox"].Value = false;
             fila.Cells["Cliente"].Value = "TOTAL GENERAL";
             fila.Cells["Subtotal"].Value = subtotalGral.ToString("0.00");
             fila.Cells["IVA"].Value = ivaGral.ToString("0.00");
@@ -382,6 +390,8 @@ namespace PuntoDeVentaV2
             fila.DefaultCellStyle.BackColor = Color.FromArgb(255, 207, 53, 20);
             fila.DefaultCellStyle.ForeColor = Color.White;
             fila.DefaultCellStyle.Font = new Font("Arial", 10f);
+            fila.Cells["col_checkbox"].Value = false;
+            //DGVListadoVentas.Rows[0].Cells[0].Visible = false;
             fila.Cells["Cliente"].Value = "TOTAL";
             fila.Cells["Subtotal"].Value = subtotal.ToString("0.00");
             fila.Cells["IVA"].Value = iva.ToString("0.00");
@@ -447,14 +457,14 @@ namespace PuntoDeVentaV2
 
                 Rectangle cellRect = DGVListadoVentas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                 
-                if (e.ColumnIndex >= 10)
+                if (e.ColumnIndex >= 11)
                 {
                     var textoTT = string.Empty;
                     int coordenadaX = 0;
 
                     DGVListadoVentas.Cursor = Cursors.Hand;
 
-                    if (e.ColumnIndex == 10)
+                    if (e.ColumnIndex == 11)
                     {
                         textoTT = "Cancelar";
                         coordenadaX = 60;
@@ -462,19 +472,19 @@ namespace PuntoDeVentaV2
                         if (opcion == "VC") { permitir = false; }
                     }
 
-                    if (e.ColumnIndex == 11)
+                    if (e.ColumnIndex == 12)
                     {
                         textoTT = "Ver factura";
                         coordenadaX = 70;
                     }
 
-                    if (e.ColumnIndex == 12)
+                    if (e.ColumnIndex == 13)
                     {
                         textoTT = "Ver ticket";
                         coordenadaX = 62;
                     }
 
-                    if (e.ColumnIndex == 13)
+                    if (e.ColumnIndex == 14)
                     {
                         textoTT = "Abonos";
                         coordenadaX = 54;
@@ -482,7 +492,7 @@ namespace PuntoDeVentaV2
                         if (opcion != "VCC") { permitir = false; }
                     }
 
-                    if (e.ColumnIndex == 14)
+                    if (e.ColumnIndex == 15)
                     {
                         textoTT = "Timbrar";
                         coordenadaX = 56;
@@ -525,7 +535,7 @@ namespace PuntoDeVentaV2
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
 
                 //Cancelar
-                if (e.ColumnIndex == 10)
+                if (e.ColumnIndex == 11)
                 {
                     var mensaje = MessageBox.Show("¿Estás seguro de cancelar la venta?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -590,7 +600,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Ver factura
-                if (e.ColumnIndex == 11)
+                if (e.ColumnIndex == 12)
                 {
                     // Verifica si el PDF ya esta creado
 
@@ -618,7 +628,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Ver ticket
-                if (e.ColumnIndex == 12)
+                if (e.ColumnIndex == 13)
                 {
                     var servidor = Properties.Settings.Default.Hosting;
 
@@ -654,7 +664,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Abonos
-                if (e.ColumnIndex == 13)
+                if (e.ColumnIndex == 14)
                 {
                     //Verificamos si tiene seleccionada la opcion de ventas a credito
                     if (opcion == "VCC")
@@ -689,7 +699,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Timbrar
-                if (e.ColumnIndex == 14)
+                if (e.ColumnIndex == 15)
                 {
                     // Se valida que la nota no tenga ya una factura creada
                     int r = Convert.ToInt32(cn.EjecutarSelect($"SELECT Timbrada FROM Ventas WHERE ID={idVenta}", 8));
@@ -1045,7 +1055,7 @@ namespace PuntoDeVentaV2
         }
 
 
-        private void ver_factura(int id_venta)
+        public void ver_factura(int id_venta)
         {
             decimal suma_importe_concep = 0;
             decimal suma_importe_impuest = 0;
@@ -1420,6 +1430,119 @@ namespace PuntoDeVentaV2
             string cont = File.ReadAllText(ruta_arch);
 
             return cont;
+        }
+
+        private void ag_checkb_header()
+        {
+            header_checkb = new CheckBox();
+            header_checkb.Name = "cbox_seleccionar_todo";
+            header_checkb.Size = new Size(15, 15);
+            header_checkb.Location = new Point(12, 6);
+            header_checkb.CheckedChanged += new EventHandler(des_activa_t_checkbox);
+            DGVListadoVentas.Controls.Add(header_checkb);
+        }
+
+        private void des_activa_t_checkbox(object sender, EventArgs e)
+        {
+            int c = 0;
+            int t = DGVListadoVentas.Rows.Count - 2;
+
+            CheckBox headerBox = ((CheckBox)DGVListadoVentas.Controls.Find("cbox_seleccionar_todo", true)[0]);
+            
+            foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+            {
+                if(c < t)
+                {
+                    row.Cells["col_checkbox"].Value = headerBox.Checked;
+                }
+                
+                c++;
+            }
+        }
+
+        private void btn_enviar_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            int en = 0;
+            int c = 0;
+            int t = DGVListadoVentas.Rows.Count - 2;
+            string mnsj_error = "";
+            string[][] arr_id_env;
+            
+
+            foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+            {
+                if (c < t)
+                {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                    if (estado == true)
+                    {
+                        cont++;
+                    }
+                    else
+                    {
+                        mnsj_error = "No ha seleccionado alguna nota de venta para enviar.";
+                    }
+
+                    c++;
+                } 
+            }
+
+
+            // Obtener el id de la factura a enviar
+
+            if (cont > 0)
+            {
+                arr_id_env = new string[cont][];
+                c = 0;
+
+                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                {
+                    if (c < t)
+                    {
+                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                        if (estado == true)
+                        {
+                            arr_id_env[en] = new string[2];
+
+                            arr_id_env[en][0] = Convert.ToString(row.Cells["ID"].Value);
+                            arr_id_env[en][1] = "";
+                            en++;
+                        }
+                        c++;
+                    }   
+                }
+
+                // Formulario envío de correo
+
+                Enviar_correo correo = new Enviar_correo(arr_id_env, "nota de venta");
+                correo.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void clickcellc_checkbox(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == DGVListadoVentas.Columns[0].Index)
+            {
+                DataGridViewCheckBoxCell celda = (DataGridViewCheckBoxCell)this.DGVListadoVentas.Rows[e.RowIndex].Cells[0];
+
+                if (Convert.ToBoolean(celda.Value) == false)
+                {
+                    celda.Value = true;
+                    DGVListadoVentas.Rows[e.RowIndex].Selected = true;
+                }
+                else
+                {
+                    celda.Value = false;
+                    DGVListadoVentas.Rows[e.RowIndex].Selected = false;
+                }
+            }
         }
     }
 }

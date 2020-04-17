@@ -17,6 +17,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Drawing.Printing;
+using System.Net.Mail;
 
 namespace PuntoDeVentaV2
 {
@@ -381,7 +382,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void generar_PDF(string nombre_xml)
+        public void generar_PDF(string nombre_xml)
         {
             // ........................................
             // .    Deserealiza el XML ya timbrado    .
@@ -575,6 +576,63 @@ namespace PuntoDeVentaV2
             }
 
             return false;
+        }
+
+        private void btn_enviar_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            int en = 0;
+            string mnsj_error = "";
+            string[][] arr_id_env;
+
+            foreach (DataGridViewRow row in datagv_facturas.Rows)
+            {
+                bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                if (estado == true)
+                {
+                    cont++;
+                }
+                else
+                {
+                    mnsj_error = "No ha seleccionado alguna factura para enviar.";
+                }
+            }
+
+            // Obtener el id de la factura a enviar
+
+            if(cont > 0)
+            {
+                arr_id_env = new string[cont][];
+
+                foreach(DataGridViewRow row in datagv_facturas.Rows)
+                {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                    if(estado == true)
+                    {
+                        arr_id_env[en] = new string[2];
+
+                        arr_id_env[en][0] = Convert.ToString(row.Cells["col_id"].Value);
+                        arr_id_env[en][1] = Convert.ToString(row.Cells["col_t_comprobante"].Value);
+                        en++;
+                    }
+                }
+
+                // Formulario envío de correo
+                           
+                Enviar_correo correo = new Enviar_correo(arr_id_env, "factura");
+
+                correo.FormClosed += delegate
+                 {
+                     
+                 };
+                correo.ShowDialog();                
+            }
+            else
+            {
+                MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
