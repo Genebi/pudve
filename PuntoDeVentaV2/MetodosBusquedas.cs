@@ -1659,12 +1659,14 @@ namespace PuntoDeVentaV2
                 var correoStockMinimo = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoStockMinimo")));
                 var correoVentaProducto = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoVentaProducto")));
                 var ticketVenta = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("TicketVenta")));
+                var iniciarProceso = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("IniciarProceso")));
 
                 config.Add(correoPrecio);
                 config.Add(correoStock);
                 config.Add(correoStockMinimo);
                 config.Add(correoVentaProducto);
                 config.Add(ticketVenta);
+                config.Add(iniciarProceso);
             }
 
             dr.Close();

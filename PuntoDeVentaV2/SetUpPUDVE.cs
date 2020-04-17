@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     public partial class SetUpPUDVE : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private int numeroRevision = 0;
@@ -78,6 +79,7 @@ namespace PuntoDeVentaV2
                 cbCorreoStockProducto.Checked = Convert.ToBoolean(datosConfig[1]);
                 cbCorreoStockMinimo.Checked = Convert.ToBoolean(datosConfig[2]);
                 cbCorreoVenderProducto.Checked = Convert.ToBoolean(datosConfig[3]);
+                pagWeb.Checked = Convert.ToBoolean(datosConfig[5]);
             }
             else
             {
@@ -243,6 +245,18 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET CorreoVentaProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void pagWeb_CheckedChanged(object sender, EventArgs e)
+        {
+            var habilitado = 0;
+
+            if (pagWeb.Checked)
+            {
+                habilitado = 1;
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }

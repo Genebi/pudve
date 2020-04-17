@@ -44,6 +44,7 @@
             this.cbCorreoStockProducto = new System.Windows.Forms.CheckBox();
             this.cbCorreoStockMinimo = new System.Windows.Forms.CheckBox();
             this.cbCorreoVenderProducto = new System.Windows.Forms.CheckBox();
+            this.pagWeb = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -245,11 +246,24 @@
             this.cbCorreoVenderProducto.UseVisualStyleBackColor = true;
             this.cbCorreoVenderProducto.CheckedChanged += new System.EventHandler(this.cbCorreoVenderProducto_CheckedChanged);
             // 
+            // pagWeb
+            // 
+            this.pagWeb.AutoSize = true;
+            this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pagWeb.Location = new System.Drawing.Point(55, 442);
+            this.pagWeb.Name = "pagWeb";
+            this.pagWeb.Size = new System.Drawing.Size(267, 21);
+            this.pagWeb.TabIndex = 115;
+            this.pagWeb.Text = "Habilitar información en página web";
+            this.pagWeb.UseVisualStyleBackColor = true;
+            this.pagWeb.CheckedChanged += new System.EventHandler(this.pagWeb_CheckedChanged);
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.pagWeb);
             this.Controls.Add(this.cbCorreoVenderProducto);
             this.Controls.Add(this.cbCorreoStockMinimo);
             this.Controls.Add(this.cbCorreoStockProducto);
@@ -292,5 +306,6 @@
         private System.Windows.Forms.CheckBox cbCorreoStockProducto;
         private System.Windows.Forms.CheckBox cbCorreoStockMinimo;
         private System.Windows.Forms.CheckBox cbCorreoVenderProducto;
+        private System.Windows.Forms.CheckBox pagWeb;
     }
 }

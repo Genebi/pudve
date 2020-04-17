@@ -208,6 +208,12 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string verificarExistenciaUusario(int idUsuario)
+        {
+            var consulta = $"SELECT * FROM Configuracion WHERE IDUsuario = '{idUsuario}'";
+            return consulta;
+        }
+
         public string GuardarProveedorProducto(string[] datos, int tipo = 0)
         {
             string consulta = string.Empty;
