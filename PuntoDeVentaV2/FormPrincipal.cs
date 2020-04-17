@@ -65,6 +65,9 @@ namespace PuntoDeVentaV2
         public long NumberRegCheckStock { get; set; }
         public int t_id_empleado { get; set; }
 
+        ///Variables de SetUp
+        public static int pasar;
+
         // variables usasadas para que sea estatico los valores y asi en empresas
         // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
         public int TempIdUsuario { get; set; }
@@ -218,9 +221,9 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-           // CargarSaldoInicial();
+            // CargarSaldoInicial();
             //Envio de datos de Caja con el Timer
-           // ConvertirMinutos();
+            // ConvertirMinutos();
 
             //Se crea el directorio principal para almacenar todos los archivos generados y carpetas
             Directory.CreateDirectory(@"C:\Archivos PUDVE");
@@ -264,8 +267,22 @@ namespace PuntoDeVentaV2
 
                 permisos_empleado(datos_per);
             }
+            /*
+            if (pasar == 1)
+            {
+                InitializarTimerAndroid();
+            } else
+            {
+                MessageBox.Show("no entra al if");
+            }*/
+            //////////////////////////////////////////////////////////////////////  
+            var datosConfig = mb.ComprobarConfiguracion();
 
-            InitializarTimerAndroid();
+            if (pasar > 0)
+            {
+                InitializarTimerAndroid();
+            }
+
             //////////////////////////////////////////////////////////////////////
 
             // Verificar si existe registro de la tabla configuracion
