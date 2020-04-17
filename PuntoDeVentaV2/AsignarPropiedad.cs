@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -535,10 +536,35 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrWhiteSpace(precioTmp))
                 {
                     var precio = float.Parse(precioTmp);
+                    var html = string.Empty;
 
                     foreach (var producto in productos)
                     {
+                        // Obtenemos los datos del producto para el email
+                        var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+
+                        html += $@"<li>
+                                       <span style='color: red;'>{datosProducto[1]}</span> 
+                                       --- <b>PRECIO ANTERIOR:</b> 
+                                       <span style='color: red;'>${float.Parse(datosProducto[2]).ToString("N2")}</span> 
+                                       --- <b>PRECIO NUEVO:</b> 
+                                       <span style='color: red;'>${precio.ToString("N2")}</span>
+                                   </li>";
+
+                        // Actualizar el nuevo precio
                         cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(html))
+                    {
+                        // Ejecutar hilo para enviar notificacion
+                        datos = new string[] { html, "", "", "ASIGNAR"};
+
+                        Thread notificacion = new Thread(
+                            () => Utilidades.CambioPrecioProductoEmail(datos, 1)
+                        );
+
+                        notificacion.Start();
                     }
                 }
                 else
