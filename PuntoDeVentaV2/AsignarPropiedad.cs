@@ -540,16 +540,32 @@ namespace PuntoDeVentaV2
 
                     foreach (var producto in productos)
                     {
-                        // Obtenemos los datos del producto para el email
-                        var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+                        var datosConfig = mb.ComprobarConfiguracion();
 
-                        html += $@"<li>
-                                       <span style='color: red;'>{datosProducto[1]}</span> 
-                                       --- <b>PRECIO ANTERIOR:</b> 
-                                       <span style='color: red;'>${float.Parse(datosProducto[2]).ToString("N2")}</span> 
-                                       --- <b>PRECIO NUEVO:</b> 
-                                       <span style='color: red;'>${precio.ToString("N2")}</span>
-                                   </li>";
+                        if (datosConfig.Count > 0)
+                        {
+                            if (datosConfig[0] == 1)
+                            {
+                                var configProducto = mb.ComprobarCorreoProducto(producto.Key);
+
+                                if (configProducto.Count > 0)
+                                {
+                                    if (configProducto[0] == 1)
+                                    {
+                                        // Obtenemos los datos del producto para el email
+                                        var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+
+                                        html += $@"<li>
+                                                       <span style='color: red;'>{datosProducto[1]}</span> 
+                                                       --- <b>PRECIO ANTERIOR:</b> 
+                                                       <span style='color: red;'>${float.Parse(datosProducto[2]).ToString("N2")}</span> 
+                                                       --- <b>PRECIO NUEVO:</b> 
+                                                       <span style='color: red;'>${precio.ToString("N2")}</span>
+                                                   </li>";
+                                    }
+                                }
+                            }
+                        }
 
                         // Actualizar el nuevo precio
                         cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
