@@ -182,16 +182,32 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
 
                 // Ejecutar hilo para enviar notificacion
-                info = new string[] {
-                    lbProducto.Text, precioProducto.ToString("N2"),
-                    precioAux.ToString("N2"), "ajustar producto"
-                };
+                var datosConfig = mb.ComprobarConfiguracion();
 
-                Thread notificacion = new Thread(
-                    () => Utilidades.CambioPrecioProductoEmail(info)
-                );
+                if (datosConfig.Count > 0)
+                {
+                    if (datosConfig[0] == 1)
+                    {
+                        var configProducto = mb.ComprobarCorreoProducto(IDProducto);
 
-                notificacion.Start();
+                        if (configProducto.Count > 0)
+                        {
+                            if (configProducto[0] == 1)
+                            {
+                                info = new string[] {
+                                    lbProducto.Text, precioProducto.ToString("N2"),
+                                    precioAux.ToString("N2"), "ajustar producto"
+                                };
+
+                                Thread notificacion = new Thread(
+                                    () => Utilidades.CambioPrecioProductoEmail(info)
+                                );
+
+                                notificacion.Start();
+                            }
+                        }
+                    }
+                }
 
                 // Actualizamos el precio de la tabla Productos
                 precioProducto = precioAux;

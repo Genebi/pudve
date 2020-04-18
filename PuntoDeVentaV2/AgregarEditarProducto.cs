@@ -2695,16 +2695,32 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));
 
                         // Ejecutar hilo para enviar notificacion
-                        datos = new string[] {
-                            nombre, precioAnterior.ToString("N2"),
-                            precioNuevo.ToString("N2"), "editar producto"
-                        };
+                        var datosConfig = mb.ComprobarConfiguracion();
 
-                        Thread notificacion = new Thread(
-                            () => Utilidades.CambioPrecioProductoEmail(datos)
-                        );
+                        if (datosConfig.Count > 0)
+                        {
+                            if (datosConfig[0] == 1)
+                            {
+                                var configProducto = mb.ComprobarCorreoProducto(Convert.ToInt32(idProductoBuscado));
 
-                        notificacion.Start();
+                                if (configProducto.Count > 0)
+                                {
+                                    if (configProducto[0] == 1)
+                                    {
+                                        datos = new string[] {
+                                            nombre, precioAnterior.ToString("N2"),
+                                            precioNuevo.ToString("N2"), "editar producto"
+                                        };
+
+                                        Thread notificacion = new Thread(
+                                            () => Utilidades.CambioPrecioProductoEmail(datos)
+                                        );
+
+                                        notificacion.Start();
+                                    }
+                                }
+                            }
+                        }
                     }
 
 
