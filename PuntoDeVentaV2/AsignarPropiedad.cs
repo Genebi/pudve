@@ -460,6 +460,7 @@ namespace PuntoDeVentaV2
                 TextBox txtStock = (TextBox)this.Controls.Find("tbStock", true)[0];
 
                 var stock = txtStock.Text;
+                var html = string.Empty;
 
                 if (!string.IsNullOrWhiteSpace(stock))
                 {
@@ -467,10 +468,49 @@ namespace PuntoDeVentaV2
                     {
                         if (producto.Value == "P")
                         {
+                            var datosConfig = mb.ComprobarConfiguracion();
+
+                            if (datosConfig.Count > 0)
+                            {
+                                if (datosConfig[1] == 1)
+                                {
+                                    var configProducto = mb.ComprobarCorreoProducto(producto.Key);
+
+                                    if (configProducto.Count > 0)
+                                    {
+                                        if (configProducto[1] == 1)
+                                        {
+                                            // Obtenemos los datos del producto para el email
+                                            var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+
+                                            html += $@"<li>
+                                                       <span style='color: red;'>{datosProducto[1]}</span> 
+                                                       --- <b>STOCK ANTERIOR:</b> 
+                                                       <span style='color: red;'>{datosProducto[4]}</span> 
+                                                       --- <b>STOCK NUEVO:</b> 
+                                                       <span style='color: red;'>{stock}</span>
+                                                   </li>";
+                                        }
+                                    }
+                                }
+                            }
+
                             datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
 
                             cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
                         }
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(html))
+                    {
+                        // Ejecutar hilo para enviar notificacion
+                        datos = new string[] { html, "", "", "", "ASIGNAR", "" };
+
+                        Thread notificacion = new Thread(
+                            () => Utilidades.CambioStockProductoEmail(datos, 1)
+                        );
+
+                        notificacion.Start();
                     }
                 }
                 else

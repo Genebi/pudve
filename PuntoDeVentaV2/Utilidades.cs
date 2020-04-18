@@ -381,7 +381,17 @@ namespace PuntoDeVentaV2
                 
                 if (tipo == 1)
                 {
-
+                    html = $@"
+                    <div>
+                        <h4 style='text-align: center;'>LISTA DE PRODUCTOS CON STOCK MODIFICADO</h4><hr>
+                        <ul style='font-size: 0.8em;'>
+                            {producto}
+                        </ul>
+                        <p style='font-size: 0.8em;'>
+                            <span>NOTA: El stock de los productos fue modificado desde {origen}.</span><br>
+                            <span>Fecha de Modificación: <b>{DateTime.Now}</b></span>
+                        </p>
+                    </div>";
                 }
 
                 EnviarEmail(html, asunto, correo);
