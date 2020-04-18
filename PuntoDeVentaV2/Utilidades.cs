@@ -355,13 +355,15 @@ namespace PuntoDeVentaV2
         public static void CambioStockProductoEmail(string[] datos, int tipo = 0)
         {
             var correo = FormPrincipal.datosUsuario[9];
-            var asunto = "Cambio de stock para producto";
+            var asunto = "Cambio de stock para producto(s)";
             var html = string.Empty;
 
             var producto = datos[0];
             var stockAnterior = datos[1];
             var stockNuevo = datos[2];
-            var origen = datos[3];
+            var stockActual = datos[3];
+            var origen = datos[4];
+            var operacion = datos[5];
 
             if (!string.IsNullOrWhiteSpace(correo))
             {
@@ -371,8 +373,8 @@ namespace PuntoDeVentaV2
                     <div>
                         <h4 style='text-align: center;'>STOCK DE PRODUCTO MODIFICADO</h4><hr>
                         <p>El stock del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
-                        {origen}, su stock <b>anterior</b> era de <span style='color: red;'>${stockAnterior}</span> y fue actualizado
-                        por el <b>nuevo</b> stock de <span style='color: red;'>${stockNuevo}</span>.</p>
+                        {origen}, su stock <b>anterior</b> era de <span style='color: red;'>{stockAnterior}</span>, se {operacion} la cantidad
+                        de <span style='color: red;'>{stockNuevo}</span> y su stock <b>actual</b> es de <span style='color: red;'>{stockActual}</span>.</p>
                         <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
                     </div>";
                 }
