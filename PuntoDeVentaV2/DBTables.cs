@@ -96,7 +96,7 @@ namespace PuntoDeVentaV2
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
             appSettings = 6;
-            Configuracion = 8;
+            Configuracion = 9;
             TipoClientes = 6;
             FiltroProducto = 6;
             Facturas = 51;
@@ -2315,7 +2315,8 @@ namespace PuntoDeVentaV2
                                               CorreoPrecioProducto INTEGER DEFAULT (0),
                                               CorreoStockProducto  INTEGER DEFAULT (0),
                                               CorreoStockMinimo    INTEGER DEFAULT (0),
-                                              CorreoVentaProducto  INTEGER DEFAULT (0));";
+                                              CorreoVentaProducto  INTEGER DEFAULT (0),
+                                              IniciarProceso       INTEGER DEFAULT (0));";
         }
 
         public string QueryUpdateTablaConfiguracion(string tabla)
@@ -2325,13 +2326,17 @@ namespace PuntoDeVentaV2
                                              TicketVenta,
                                              StockNegativo,
                                              CorreoPrecioProducto,
-                                             CorreoStockProducto) 
+                                             CorreoStockProducto,
+                                             CorreoStockMinimo,
+                                             CorreoVentaProducto) 
                                       SELECT ID,
                                              IDUsuario,
                                              TicketVenta,
                                              StockNegativo,
                                              CorreoPrecioProducto,
-                                             CorreoStockProducto 
+                                             CorreoStockProducto,
+                                             CorreoStockMinimo,
+                                             CorreoVentaProducto 
                                         FROM '{tabla}_temp';";
         }
 
