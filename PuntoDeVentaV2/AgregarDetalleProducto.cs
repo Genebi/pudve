@@ -2043,124 +2043,132 @@ namespace PuntoDeVentaV2
             RenombrarDetalle renameDetail = new RenombrarDetalle();
             renameDetail.nombreDetalle += new RenombrarDetalle.pasarOldNameNewName(ejecutar);
             renameDetail.ShowDialog();
-            //try
-            //{
-            //    int found = -1;
-            //    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo, FormPrincipal.userID)))
-            //    {
-            //        if (dtItemDinamicos.Rows.Count.Equals(0))
-            //        {
-            //            found = 1;
-            //        }
-            //        else if (dtItemDinamicos.Rows.Count.Equals(0))
-            //        {
-            //            found = 0;
-            //        }
-            //    }
-            //    if (found.Equals(1))
-            //    {
-            //        if (editDetelle.Equals("Proveedor"))
-            //        {
-            //            var mensaje = editDetelle;
-
-            //            MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            fLPCentralDetalle.Controls.Clear();
-            //            //RefreshAppSettings();
-            //            //loadFormConfig();
-            //            loadFromConfigDB();
-            //            BuscarTextoListView(settingDatabases);
-            //        }
-            //        else
-            //        {
-            //            fLPCentralDetalle.Controls.Clear();
-            //            //ReadKey(editDetelle);
-            //            //RenameKey(editDetelle, editValor);
-            //            //RefreshAppSettings();
-            //            //loadFormConfig();
-
-            //            var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-            //            if (UpdateDatoDinamico.Equals(1))
-            //            {
-            //                //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //            }
-            //            else if (UpdateDatoDinamico.Equals(0))
-            //            {
-            //                MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-
-            //            var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoFiltroDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-            //            if (UpdateDatoFiltroDinamico.Equals(1))
-            //            {
-            //                //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //            }
-            //            else if (UpdateDatoFiltroDinamico.Equals(0))
-            //            {
-            //                MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-
-            //            loadFromConfigDB();
-            //            BuscarTextoListView(settingDatabases);
-            //        }
-            //    }
-            //    else if (found.Equals(0))
-            //    {
-            //        //RefreshAppSettings();
-            //        //loadFormConfig();
-            //        loadFromConfigDB();
-            //        BuscarTextoListView(settingDatabases);
-            //        MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //editDetelle = string.Empty;
-            //editDetalleNvo = string.Empty;
-            if (!KeyExist(editDetalleNvo))
+            try
             {
-                if (editDetelle.Equals("Proveedor"))
+                int found = -1;
+                using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo, FormPrincipal.userID)))
                 {
-                    var mensaje = editDetelle;
-
-                    MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
-                                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    fLPCentralDetalle.Controls.Clear();
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
+                    if (dtItemDinamicos.Rows.Count.Equals(0))
+                    {
+                        found = 1;
+                    }
+                    else if (dtItemDinamicos.Rows.Count.Equals(0))
+                    {
+                        found = 0;
+                    }
                 }
-                else
+                if (found.Equals(1))
                 {
-                    fLPCentralDetalle.Controls.Clear();
-                    ReadKey(editDetelle);
-                    RenameKey(editDetelle, editValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    if (editDetelle.Equals("Proveedor"))
+                    {
+                        var mensaje = editDetelle;
+
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        fLPCentralDetalle.Controls.Clear();
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                    }
+                    else
+                    {
+                        fLPCentralDetalle.Controls.Clear();
+                        //ReadKey(editDetelle);
+                        //RenameKey(editDetelle, editValor);
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+
+                        try
+                        {
+                            var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        try
+                        {
+                            var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoFiltroDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        try
+                        {
+                            var UpdateNombreDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoVentanaFiltros(editDetalleNvo, editDetelle, FormPrincipal.userID));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                    }
+                }
+                else if (found.Equals(0))
+                {
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
-                    var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-                    if (UpdateDatoDinamico.Equals(1))
-                    {
-                        //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else if (UpdateDatoDinamico.Equals(0))
-                    {
-                        MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
-                BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             editDetelle = string.Empty;
             editDetalleNvo = string.Empty;
+
+            //if (!KeyExist(editDetalleNvo))
+            //{
+            //    if (editDetelle.Equals("Proveedor"))
+            //    {
+            //        var mensaje = editDetelle;
+
+            //        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
+            //                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        fLPCentralDetalle.Controls.Clear();
+            //        RefreshAppSettings();
+            //        loadFormConfig();
+            //        //loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //    }
+            //    else
+            //    {
+            //        fLPCentralDetalle.Controls.Clear();
+            //        ReadKey(editDetelle);
+            //        RenameKey(editDetelle, editValor);
+            //        RefreshAppSettings();
+            //        loadFormConfig();
+            //        //loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+            //        if (UpdateDatoDinamico.Equals(1))
+            //        {
+            //            //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        }
+            //        else if (UpdateDatoDinamico.Equals(0))
+            //        {
+            //            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    RefreshAppSettings();
+            //    loadFormConfig();
+            //    //loadFromConfigDB();
+            //    BuscarTextoListView(settingDatabases);
+            //    MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //editDetelle = string.Empty;
+            //editDetalleNvo = string.Empty;
         }
 
         private void ejecutar(string oldName, string newName)
