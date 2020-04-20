@@ -76,6 +76,7 @@
             this.txtUsuario.Size = new System.Drawing.Size(190, 23);
             this.txtUsuario.TabIndex = 2;
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 
             // txtPassword
             // 

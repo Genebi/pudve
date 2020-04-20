@@ -49,6 +49,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.txtMensajeError = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -111,6 +112,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(217, 23);
             this.txtUsuario.TabIndex = 7;
+            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 
             // txtPassword
             // 
@@ -285,11 +287,23 @@
             this.txtTelefono.TabIndex = 12;
             this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.Red;
+            this.label14.Location = new System.Drawing.Point(177, 65);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(166, 17);
+            this.label14.TabIndex = 21;
+            this.label14.Text = "[Ejemplo: ABARROTES2020]";
+            // 
             // Registro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 473);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.txtMensajeError);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -343,5 +357,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label txtMensajeError;
         private System.Windows.Forms.TextBox txtTelefono;
+        private System.Windows.Forms.Label label14;
     }
 }

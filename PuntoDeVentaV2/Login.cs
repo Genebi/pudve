@@ -4154,6 +4154,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = (e.KeyChar == (char)Keys.Space);
+        }
+
         private void checkBoxRecordarDatos_CheckedChanged(object sender, EventArgs e)
         {
 
