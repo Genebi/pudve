@@ -55,6 +55,7 @@ namespace PuntoDeVentaV2
         public static int FiltroDinamico;
         public static int ConceptosDinamicos;
         public static int CorreosProducto;
+        public static int FiltrosDinamicosVetanaFiltros;
     #endregion Variables Tablas
 
         public DBTables()
@@ -106,6 +107,7 @@ namespace PuntoDeVentaV2
             FiltroDinamico = 5;
             ConceptosDinamicos = 7;
             CorreosProducto = 8;
+            FiltrosDinamicosVetanaFiltros = 5;
         #endregion Inicializar Variables
         }
 
@@ -2973,6 +2975,55 @@ namespace PuntoDeVentaV2
         }
 
         public string DropTablaFiltroCorreosProducto(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla CorreosProducto
+
+        // Tabla de FiltrosDinamicosVetanaFiltros 47
+        #region Tabla FiltrosDinamicosVetanaFiltros
+        public int GetFiltroFiltrosDinamicosVetanaFiltros()
+        {
+            return FiltrosDinamicosVetanaFiltros;
+        }
+
+        public string PragmaTablaFiltroFiltrosDinamicosVetanaFiltros(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroFiltrosDinamicosVetanaFiltros(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroFiltrosDinamicosVetanaFiltros(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID            INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              checkBoxValue INTEGER NOT NULL  DEFAULT (0),
+                                              concepto      TEXT,
+                                              strFiltro     TEXT,
+                                              IDUsuario     INTEGER NOT NULL,
+                                              FOREIGN KEY (IDUsuario)
+                                              REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE);";
+        }
+
+        public string QueryUpdateTablaFiltroFiltrosDinamicosVetanaFiltros(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             checkBoxValue,
+                                             concepto,
+                                             strFiltro,
+                                             IDUsuario) 
+                                      SELECT ID,
+                                             checkBoxValue,
+                                             concepto,
+                                             strFiltro,
+                                             IDUsuario 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroFiltrosDinamicosVetanaFiltros(string tabla)
         {
             return $"DROP TABLE '{tabla}_temp';";
         }
