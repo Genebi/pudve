@@ -688,159 +688,254 @@ namespace PuntoDeVentaV2
         }
 
         #region Procesos de Datos Dinamicos
-            public string VerificarContenidoDinamico(int idUsuario)
-            {
-                var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }    
+        public string VerificarContenidoDinamico(int idUsuario)
+        {
+            var consulta = $"SELECT * FROM appSettings WHERE IDUsuario = '{idUsuario}'";
 
-            public string VerificarDatoDinamico(string claveAgregar, int idUsuario)
-            {
-                var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
+            return consulta;
+        }
 
-                return consulta;
-            }
+        public string VerificarDatoDinamico(string claveAgregar, int idUsuario)
+        {
+            var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
 
-            public string InsertaDatoDinamico(string claveAgregar, int claveValor, int idUsuario)
-            {
-                var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";
-                    consulta += $"VALUES ('{claveAgregar}', '{claveValor}', 'chk{claveAgregar}', '{claveValor}', '{idUsuario}')";
+            return consulta;
+        }
 
-                return consulta;
-            }
+        public string InsertaDatoDinamico(string claveAgregar, int claveValor, int idUsuario)
+        {
+            var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";
+            consulta += $"VALUES ('{claveAgregar}', '{claveValor}', 'chk{claveAgregar}', '{claveValor}', '{idUsuario}')";
 
-            public string ActualizarDatoDinamico(string claveAntigua, string claveNueva, int idUsuario)
-            {
-                var consulta = $"UPDATE appSettings SET concepto = '{claveNueva}', textComboBoxConcepto = 'chk{claveNueva}' WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
+            return consulta;
+        }
 
-                return consulta;
-            }
+        public string ActualizarDatoDinamico(string claveAntigua, string claveNueva, int idUsuario)
+        {
+            var consulta = $"UPDATE appSettings SET concepto = '{claveNueva}', textComboBoxConcepto = 'chk{claveNueva}' WHERE concepto = '{claveAntigua}' AND IDUsuario = '{idUsuario}'";
 
-            public string ActualizarDatoDinamicoFiltroProducto(string claveBuscar, int valorClave, string textClaveBuscar, int idUsuario)
-            {
+            return consulta;
+        }
+
+        public string ActualizarDatoDinamicoFiltroProducto(string claveBuscar, int valorClave, string textClaveBuscar, int idUsuario)
+        {
             var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{valorClave}', textComboBoxConcepto = '{claveBuscar} = ''{textClaveBuscar}''' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string BorrarDatoDinamico(string claveBorrar, int idUsuario)
-            {
-                var consulta = $"DELETE FROM appSettings WHERE concepto = '{claveBorrar}' AND IDUsuario = '{idUsuario}'";
+        public string BorrarDatoDinamico(string claveBorrar, int idUsuario)
+        {
+            var consulta = $"DELETE FROM appSettings WHERE concepto = '{claveBorrar}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string ActualizarDatoValueDinamico(string claveBuscar, int valueDato, int idUsuario)
-            {
-                var consulta = $"UPDATE appSettings SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+        public string ActualizarDatoValueDinamico(string claveBuscar, int valueDato, int idUsuario)
+        {
+            var consulta = $"UPDATE appSettings SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string ActualizarDatoValueDinamicoShow(string claveBuscar, int valueDato, int idUsuario)
-            {
-                var consulta = $"UPDATE appSettings SET checkBoxComboBoxConcepto = '{valueDato}' WHERE textComboBoxConcepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+        public string ActualizarDatoValueDinamicoShow(string claveBuscar, int valueDato, int idUsuario)
+        {
+            var consulta = $"UPDATE appSettings SET checkBoxComboBoxConcepto = '{valueDato}' WHERE textComboBoxConcepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string VerificarContenidoFiltroDinamico(int idUsuario)
-            {
-                var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = '{idUsuario}'";
+        public string VerificarDatoFiltroDinamico(string claveAgregar, int idUsuario)
+        {
+            var consulta = $"SELECT * FROM FiltroDinamico WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string VerificarDatoFiltroDinamico(string claveAgregar, int idUsuario)
-            {
-                var consulta = $"SELECT * FROM FiltroDinamico WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
+        public string InsertarDatoFiltroDinamico(string claveAgregar, int claveValor, int idUsuario)
+        {
+            var consulta = "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, IDUsuario)";
+            consulta += $"VALUES ('{claveAgregar}', '{claveValor}', '{idUsuario}')";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string InsertarDatoFiltroDinamico(string claveAgregar, int claveValor, int idUsuario)
-            {
-                var consulta =   "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, IDUsuario)";
-                    consulta += $"VALUES ('{claveAgregar}', '{claveValor}', '{idUsuario}')";
+        public string InsertarDatoFiltroDinamicoCompleto(string claveAgregar, string textoConcepto, int idUsuario)
+        {
+            var consulta = "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, textCantidad, IDUsuario)";
+            consulta += $"VALUES ('{claveAgregar}', '{0}', '{textoConcepto}', '{idUsuario}')";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string ActualizarDatoFiltroDinamico(string claveBuscar, int valueDato, int idUsuario)
-            {
-                var consulta = $"UPDATE FiltroDinamico SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
+        public string ActualizarDatoFiltroDinamico(string claveBuscar, int valueDato, int idUsuario)
+        {
+            var consulta = $"UPDATE FiltroDinamico SET checkBoxConcepto = '{valueDato}' WHERE concepto = '{claveBuscar}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string ActualizarNombreDatoFiltroDinamico(string claveAntigua, string claveNueva, int idUsuario)
-            {
-                var consulta = $"UPDATE FiltroDinamico SET concepto = 'chk{claveNueva}' WHERE concepto = 'chk{claveAntigua}' AND IDUsuario = '{idUsuario}'";
+        public string ActualizarNombreDatoFiltroDinamico(string claveAntigua, string claveNueva, int idUsuario)
+        {
+            var consulta = $"UPDATE FiltroDinamico SET concepto = 'chk{claveNueva}' WHERE concepto = 'chk{claveAntigua}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string BorrarDatoFiltroDinamico(string claveBorrar, int idUsuario)
-            {
-                var consulta = $"DELETE FROM FiltroDinamico WHERE concepto = 'chk{claveBorrar}' AND IDUsuario = '{idUsuario}'";
+        public string BorrarDatoFiltroDinamico(string claveBorrar, int idUsuario)
+        {
+            var consulta = $"DELETE FROM FiltroDinamico WHERE concepto = '{claveBorrar}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string ActualizarTextConceptoFiltroDinamico(string textConcepto, int idUsuario, string textDescripcion)
-            {
-                var consulta = $"UPDATE FiltroDinamico SET textCantidad = '{textDescripcion}' WHERE concepto = '{textConcepto}' AND IDUsuario = '{idUsuario}'";
+        public string ActualizarTextConceptoFiltroDinamico(string textConcepto, int idUsuario, string textDescripcion)
+        {
+            var consulta = $"UPDATE FiltroDinamico SET textCantidad = '{textDescripcion}' WHERE concepto = '{textConcepto}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string GuardarTextConceptoFiltroDinamico(string textConcepto, int chkValueConcepto, string textDescripcion, int idUsuario)
-            {
-                var consulta = "INSERT INTO FiltroDinamico (concepto, checkBoxConcepto, textCantidad, IDUsuario)";
-                consulta += $"VALUES ('{textConcepto}', '{chkValueConcepto}', '{textDescripcion}', '{idUsuario}')";
+        public string ActualizarTextConceptoFiltroDinamicoGral(string idDetailGral, string idDetailProdGral)
+        {
+            var consulta = $"UPDATE DetallesProductoGenerales SET IDDetalleGral = '{idDetailGral}' WHERE ID = '{idDetailProdGral}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
+
+        public string VerificarTextoConceptoFiltroDinamico(string searchConcepto, int idUser)
+        {
+            var consulta = $"SELECT * FROM FiltroDinamico WHERE concepto = 'chk{searchConcepto}' AND IDUsuario = '{idUser}'";
+
+            return consulta;
+        }
+
+        public string ReiniciarFiltroDinamico(int userID, string searchFiltroDinamico)
+        {
+            var consulta = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{userID}' AND concepto = '{searchFiltroDinamico}'";
+
+            return consulta;
+        }
+
+        public string ReiniciarFiltroDinamicoTresCampos(int valueIntFiltroDinamico, string valueStrFiltroDinamico, int idUser, string searchFiltroDinamico)
+        {
+            var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{valueIntFiltroDinamico}', textComboBoxConcepto = '{valueStrFiltroDinamico}', textCantidad = '{valueIntFiltroDinamico}' WHERE IDUsuario = '{idUser}' AND concepto = '{searchFiltroDinamico}'";
+
+            return consulta;
+        }
+
+        public string ReiniciarFiltroDinamicoDosCampos(int valueIntFiltroDinamico, string valueStrFiltroDinamico, int idUser, string searchFiltroDinamico)
+        {
+            var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{valueIntFiltroDinamico}', textComboBoxConcepto = '{valueStrFiltroDinamico}' WHERE IDUsuario = '{idUser}' AND concepto = '{searchFiltroDinamico}'";
+
+            return consulta;
+        }
+
+        public string VerificarContenidoFiltroProducto(int idUsuario)
+        {
+            var consulta = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
+
+        public string IniciarFiltroConSinFiltroAvanzado(int userID)
+        {
+            var consulta = $@"SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = u.ID WHERE U.ID = '{userID}' AND P.Status = 1";
+
+            return consulta;
+        }
+
+        public string VerificarVentanaFiltros(int userID)
+        {
+            var consulta = $"SELECT * FROM FiltrosDinamicosVetanaFiltros WHERE IDUsuario = '{userID}'";
+
+            return consulta;
+        }
+
+        public string GuardarVentanaFiltros(string valueChkBox, string conceptoChkBox, string textComboBox, int idUsuario)
+        {
+            var consulta = "INSERT INTO FiltrosDinamicosVetanaFiltros (checkBoxValue, concepto, strFiltro, IDUsuario)";
+            consulta += $"VALUES ('{valueChkBox}', '{conceptoChkBox}', '{textComboBox}', '{idUsuario}')";
+
+            return consulta;
+        }
+
+        public string BuscarDatoEnVentanaFiltros(string strConcepto, int userID)
+        {
+            var consulta = $"SELECT * FROM FiltrosDinamicosVetanaFiltros WHERE concepto = '{strConcepto}' AND IDUsuario = '{userID}'";
+
+            return consulta;
+        }
+
+        public string ActualizarDatoVentanaFiltros(string valueChkBox, string conceptoChkBox, string textComboBox, int idUsuario)
+        {
+            var consulta = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{valueChkBox}', strFiltro = '{textComboBox}' WHERE concepto = '{conceptoChkBox}' AND IDUsuario = '{idUsuario}'";
+
+            return consulta;
+        }
+        public string ActualizarNombreDatoVentanaFiltros(string newNombreConcepto, string oldNombreConcepto, int userID)
+        {
+            var consulta = $"UPDATE FiltrosDinamicosVetanaFiltros SET concepto = '{newNombreConcepto}', strFiltro = 'Selecciona {newNombreConcepto}' WHERE concepto = '{oldNombreConcepto}' AND IDUsuario = '{userID}'";
+
+            return consulta;
+        }
+
+        public string BorrarDatoVentanaFiltros(string strConcepto, int userID)
+        {
+            var consulta = $"DELETE FROM FiltrosDinamicosVetanaFiltros WHERE concepto = '{strConcepto}' AND IDUsuario = '{userID}'";
+
+            return consulta;
+        }
+
         #endregion
 
         #region Procesos de Filtro de Stock, Precio, Revision, Tipo, Imagen
+
         public string VerificarChk(string chkBoxConcepto, int idUsuario)
-            {
-                var consulta = $"SELECT ID, concepto, checkBoxConcepto, IDUsuario FROM FiltroProducto WHERE concepto = '{chkBoxConcepto}' AND IDUsuario = '{idUsuario}'";
+        {
+            var consulta = $"SELECT ID, concepto, checkBoxConcepto, IDUsuario FROM FiltroProducto WHERE concepto = '{chkBoxConcepto}' AND IDUsuario = '{idUsuario}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string InsertarChk(string chkBoxConcepto, int chkBoxValor)
-            {
-                var consulta = "INSERT INTO FiltroProducto(concepto, checkBoxConcepto, IDUsuario) ";
-                consulta += $"VALUES('{chkBoxConcepto}', '{chkBoxValor}', '{FormPrincipal.userID}')";
+        public string InsertarChk(string chkBoxConcepto, int chkBoxValor)
+        {
+            var consulta = "INSERT INTO FiltroProducto(concepto, checkBoxConcepto, IDUsuario) ";
+            consulta += $"VALUES('{chkBoxConcepto}', '{chkBoxValor}', '{FormPrincipal.userID}')";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string ActualizarChk(string chkBoxConcepto, int chkBoxValor)
-            {
-                var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}' AND concepto = '{chkBoxConcepto}'";
+        public string ActualizarChk(string chkBoxConcepto, int chkBoxValor)
+        {
+            var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{chkBoxValor}' WHERE IDUsuario = '{FormPrincipal.userID}' AND concepto = '{chkBoxConcepto}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string InsertarTextCBConceptoCantidad(string txtCBConcepto, string txtCantidad)
-            {
-                var consulta = "INSERT INTO FiltroProducto(textComboBoxConcepto, textCantidad, IDUsuario) ";
-                consulta += $"VALUES('{txtCBConcepto}', '{txtCantidad}', '{FormPrincipal.userID}')";
+        public string BuscarFiltroProducto(int userID)
+        {
+            var consulta = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{userID}'";
 
-                return consulta;
-            }
+            return consulta;
+        }
 
-            public string ActualizarTextCBConceptoCantidad(int idFiltro, string txtCBConcepto, string txtCantidad)
-            {
-                var consulta = $"UPDATE FiltroProducto SET textComboBoxConcepto = '{txtCBConcepto}', textCantidad = '{txtCantidad}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idFiltro}'";
+        public string InsertarTextCBConceptoCantidad(string txtCBConcepto, string txtCantidad)
+        {
+            var consulta = "INSERT INTO FiltroProducto(textComboBoxConcepto, textCantidad, IDUsuario) ";
+            consulta += $"VALUES('{txtCBConcepto}', '{txtCantidad}', '{FormPrincipal.userID}')";
 
-                return consulta;
-            }
+            return consulta;
+        }
+
+        public string ActualizarTextCBConceptoCantidad(int idFiltro, string txtCBConcepto, string txtCantidad)
+        {
+            var consulta = $"UPDATE FiltroProducto SET textComboBoxConcepto = '{txtCBConcepto}', textCantidad = '{txtCantidad}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idFiltro}'";
+
+            return consulta;
+        }
+
         #endregion
 
         public string obtener_datos_para_gcpago(int opc, int dato)
