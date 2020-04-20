@@ -460,10 +460,10 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < lstListView.Items.Count; i++)
             {
-                chkDetalleProductoTxt = lstListView.Items[i].Text.ToString();
-                chkDetalleProductoVal = lstListView.Items[i].SubItems[1].Text.ToString();
-                //chkDetalleProductoVal = lstListView.Items[i].Text.ToString();
-                //chkDetalleProductoTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                //chkDetalleProductoTxt = lstListView.Items[i].Text.ToString();
+                //chkDetalleProductoVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                chkDetalleProductoVal = lstListView.Items[i].Text.ToString();
+                chkDetalleProductoTxt = lstListView.Items[i].SubItems[1].Text.ToString();
 
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
@@ -508,10 +508,10 @@ namespace PuntoDeVentaV2
 
                     if (row < chkDatabase.Items.Count)
                     {
-                        chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
-                        chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
-                        //chkSettingVariableVal = chkDatabase.Items[row].Text.ToString();
-                        //chkSettingVariableTxt = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        //chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
+                        //chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        chkSettingVariableVal = chkDatabase.Items[row].Text.ToString();
+                        chkSettingVariableTxt = chkDatabase.Items[row].SubItems[1].Text.ToString();
 
                         CheckBox checkSetting = new CheckBox();
                         checkSetting.Name = chkSettingVariableTxt;
@@ -520,7 +520,7 @@ namespace PuntoDeVentaV2
                         checkSetting.Location = new Point(155, 0);
                         checkSetting.CheckedChanged += checkBoxSetting_CheckedChanged;
 
-                        
+
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
                         {
                             checkSetting.Checked = Convert.ToBoolean(chkSettingVariableVal);
@@ -570,31 +570,78 @@ namespace PuntoDeVentaV2
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
+            #region Manejo del CheckBox segun sea al que cambiemos estado
+            /********************************************************
+            *   Al Control de CheckBox que cambiemos el estado      *
+            *   sea True ó False este le hacemos un Casting         *
+            *   para poder manejarlo                                *
+            ********************************************************/
             CheckBox chekBoxClickDetalle = sender as CheckBox;
-            FlowLayoutPanel panelContenedor = new FlowLayoutPanel();
-            Panel panelContenido = new Panel();
-            string name = string.Empty, value = string.Empty;
-            string nombrePanelContenedor = string.Empty;
-            string nombrePanelContenido = string.Empty;
+            #endregion Manejo del CheckBox segun sea al que cambiemos estado
 
+            #region Declaracion de variables
+            /************************************************************
+            *   Declaracion de variables que usaremos para el tratado   *
+            *   de los procesos de actalizacion o de insercion del      *
+            *   estado del CheckBox                                     *
+            ************************************************************/
+            string name = string.Empty,
+                    value = string.Empty,
+                    nombrePanelContenedor = string.Empty,
+                    nombrePanelContenido = string.Empty;
+            int valorDatoDinamico = -1;
+            var servidor = Properties.Settings.Default.Hosting;
+            #endregion  Declaracion de variables
+
+            #region Inicializacion de variables
             if (chekBoxClickDetalle.Checked == true)
             {
-                name = chekBoxClickDetalle.Name.ToString();
                 value = chekBoxClickDetalle.Checked.ToString();
-                nombrePanelContenedor = "panelContenedor" + name;
-                panelContenedor.Name = nombrePanelContenedor;
-                nombrePanelContenido = "panelContenido" + name;
+            }
+            else if (chekBoxClickDetalle.Checked == false)
+            {
+                value = chekBoxClickDetalle.Checked.ToString();
+            }
 
+            if (value.Equals("True"))
+            {
+                valorDatoDinamico = 1;
+            }
+            else if (value.Equals("False"))
+            {
+                valorDatoDinamico = 0;
+            }
+
+            name = chekBoxClickDetalle.Name.ToString();
+            nombrePanelContenedor = "panelContenedor" + name;
+            nombrePanelContenido = "panelContenido" + name;
+            #endregion Inicializacion de variables
+
+            #region Inicializacion de Panel's Dinamicos
+            FlowLayoutPanel panelContenedor = new FlowLayoutPanel();
+            panelContenedor.Name = nombrePanelContenedor;
+
+            Panel panelContenido = new Panel();
+            panelContenido.Name = nombrePanelContenido;
+            #endregion Inicializacion de Panel's Dinamicos
+
+            #region Verificacion del Estado de CheckBox
+            #region Si el CheckBox esta en true
+            if (chekBoxClickDetalle.Checked == true)
+            {
+                #region Si el Nombre del Panel es igual a panelContenedorProveedor
                 if (panelContenedor.Name == "panelContenedorProveedor")
                 {
+                    // Damos caracteristicas Panel Contenedor
                     panelContenedor.Width = 600;
                     panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
-                    panelContenido.Name = nombrePanelContenido;
+                    // Damos caracteristicas Panel Contenido
                     panelContenido.Width = 594;
                     panelContenido.Height = 55;
 
+                    // Damos Caracteristicas al Label Nombre Proveedor
                     Label lblNombreProveedor = new Label();
                     lblNombreProveedor.Name = "lblNombre" + name;
                     lblNombreProveedor.Width = 320;
@@ -603,6 +650,7 @@ namespace PuntoDeVentaV2
                     lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
                     lblNombreProveedor.BackColor = Color.White;
 
+                    // Damos Caracteristicas al Label RFC Proveedor
                     Label lblRFCProveedor = new Label();
                     lblRFCProveedor.Name = "lblRFC" + name;
                     lblRFCProveedor.Width = 110;
@@ -611,6 +659,7 @@ namespace PuntoDeVentaV2
                     lblRFCProveedor.TextAlign = ContentAlignment.MiddleCenter;
                     lblRFCProveedor.BackColor = Color.White;
 
+                    // Damos Caracteristicas al Label Teléfono Proveedor
                     Label lblTelProveedor = new Label();
                     lblTelProveedor.Name = "lblTel" + name;
                     lblTelProveedor.Width = 90;
@@ -619,11 +668,14 @@ namespace PuntoDeVentaV2
                     lblTelProveedor.TextAlign = ContentAlignment.MiddleCenter;
                     lblTelProveedor.BackColor = Color.White;
 
+                    // Variables para centrar el Panel 
                     int XcbProv = 0;
                     XcbProv = panelContenido.Width / 2;
 
+                    // Metodo para cargar todos los proveedores registrados y activos
                     CargarProveedores();
 
+                    //  Damos Caracteristicas al ComboBox Proveedor
                     ComboBox cbProveedor = new ComboBox();
                     cbProveedor.Name = "cb" + name;
                     cbProveedor.Width = 400;
@@ -631,8 +683,10 @@ namespace PuntoDeVentaV2
                     cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                     cbProveedor.SelectedIndexChanged += new System.EventHandler(cbProveedor_SelectValueChanged);
 
+                    // Verificamos que si la Lista Proveedor tiene registros
                     if (listaProveedores.Length > 0)
                     {
+                        // Recargamos la Lista del ComboBox con la de Proveedores
                         cbProveedor.DataSource = proveedores.ToArray();
                         cbProveedor.DisplayMember = "Value";
                         cbProveedor.ValueMember = "Key";
@@ -641,25 +695,60 @@ namespace PuntoDeVentaV2
                         // Cuando se da click en la opcion editar producto
                         if (AgregarEditarProducto.DatosSourceFinal == 2)
                         {
+                            // Obtenemos el idProducto
                             var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                            // Obtenemos la Lista del Detalles de Producto
                             var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
+                            // Obtenemos la cantidad de Detalles obtenidos
                             int cantidad = idProveedor.Length;
 
+                            // si cantidad es mayor que 0 "Si tiene registros Detalles de Producto"
                             if (cantidad > 0)
                             {
+                                // Si el ID DetallesProducto tiene algun registro
                                 if (!idProveedor[1].Equals(""))
                                 {
+                                    // Convertimos el ID DetallesProducto y compramos si es mayor que cero
                                     if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
                                     {
+                                        // Llamos metodo de Cargar Datos Proveedor
                                         cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
                                         if (!datosProveedor.Equals(null))
                                         {
+                                            // llenamos los Label de Nombre, RFC y Teléfono del Proveedor
                                             lblNombreProveedor.Text = datosProveedor[0];
                                             lblRFCProveedor.Text = datosProveedor[1];
                                             lblTelProveedor.Text = datosProveedor[10];
-                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
-                                            contadorIndex++;
+
+                                            try
+                                            {
+                                                // Hacemos el intento de hacer la actualización del Proveedor
+                                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                // Muestra un error al no poder hacer la actualizacion del Proveedor
+                                                MessageBox.Show("Error al actualizar Valor del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+
+                                            try
+                                            {
+                                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoFiltroDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al actualizar Valor del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+
+                                            /*if (servidor.Equals(""))
+                                            {
+                                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                            }
+                                            else if (!servidor.Equals(""))
+                                            {
+                                                diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
+                                                contadorIndex++;
+                                            }*/
                                         }
                                     }
                                 }
@@ -668,16 +757,22 @@ namespace PuntoDeVentaV2
                     }
                     else if (listaProveedores.Length < 0)
                     {
+                        // Si es que no tiene lista de Proveedores se le agrega
+                        // Proveedores...  al inicio y se muestra en la interfaz
                         cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
                     }
                     else if (cbProveedor.Items.Count == 0)
                     {
+                        // Si es que no tiene lista de Proveedores se le agrega
+                        // Proveedores...  al inicio y se muestra en la interfaz
                         cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
                     }
+                    // hacemos que el ComboBox no sea Editable solo sea de Lectura
                     cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
 
+                    // Agregamos el panel al principal de la interfaz
                     panelContenido.Controls.Add(cbProveedor);
                     panelContenido.Controls.Add(lblNombreProveedor);
                     panelContenido.Controls.Add(lblRFCProveedor);
@@ -686,21 +781,28 @@ namespace PuntoDeVentaV2
                     panelContenedor.Controls.Add(panelContenido);
                     fLPCentralDetalle.Controls.Add(panelContenedor);
                 }
+                #endregion Si el Nombre del Panel es igual a panelContenedorProveedor
+                #region Si el Nombre del Panel es diferente a panelContenedorProveedor
                 else
                 {
+                    // Obtenemos como sera el nombre del panel
                     nombrePanelContenido = "panelContenido" + name;
 
+                    // Damos Caracteristicas al panel Contenedor
                     panelContenedor.Width = 196;
                     panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
+                    // Damos Caracteristicas al panel Contenido
                     panelContenido.Name = nombrePanelContenido;
                     panelContenido.Width = 185;
                     panelContenido.Height = 55;
 
+                    // Variables para el centrado del panel
                     int XcbProv = 0;
                     XcbProv = panelContenido.Width / 2;
 
+                    // Iniciamos la Etiqueta Nombre
                     Label lblNombreDetalleGral = new Label();
                     lblNombreDetalleGral.Name = "lblNombre" + name;
                     lblNombreDetalleGral.Width = 170;
@@ -709,8 +811,11 @@ namespace PuntoDeVentaV2
                     lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
                     lblNombreDetalleGral.BackColor = Color.White;
 
+                    // Llamamos al metodo Cargar Detalles Generales
+                    // Para obtener una lista de ellos
                     CargarDetallesGral(name);
 
+                    // Iniciamos el ComboBox para cargar los Detalles Generales
                     ComboBox cbDetalleGral = new ComboBox();
                     cbDetalleGral.Name = "cb" + name;
                     cbDetalleGral.Width = 170;
@@ -719,6 +824,7 @@ namespace PuntoDeVentaV2
                     cbDetalleGral.SelectedIndexChanged += new System.EventHandler(cbDetalleGral_SelectIndexChanged);
                     cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
 
+                    // Verificamos si la Lista de Detalles Generales tiene algun registro
                     if (listaDetalleGral.Length > 0)
                     {
                         cbDetalleGral.DataSource = detallesGral.ToArray();
@@ -726,12 +832,14 @@ namespace PuntoDeVentaV2
                         cbDetalleGral.ValueMember = "Key";
                         cbDetalleGral.SelectedValue = "0";
                     }
+                    // Verificamos si la Lista de Detalles Generales no tiene algun registro
                     else if (cbDetalleGral.Items.Count == 0)
                     {
                         cbDetalleGral.Items.Add(chekBoxClickDetalle.Name.ToString() + "...");
                         cbDetalleGral.SelectedIndex = 0;
                     }
 
+                    // Agregamos al Panel Principal de la Interfaz
                     panelContenido.Controls.Add(cbDetalleGral);
                     panelContenido.Controls.Add(lblNombreDetalleGral);
                     panelContenedor.Controls.Add(panelContenido);
@@ -770,6 +878,7 @@ namespace PuntoDeVentaV2
                         }
 
                         idProductoDetalleGral = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+
                         var DetalleGralPorPanel = mb.DetallesProductoGralPorPanel(Descripcion, FormPrincipal.userID, idProductoDetalleGral);
 
                         int cantidad = DetalleGralPorPanel.Length;
@@ -794,13 +903,68 @@ namespace PuntoDeVentaV2
                                                 if (contItemSubHijo is Label)
                                                 {
                                                     contItemSubHijo.Text = idDetalleGral[2].ToString();
-                                                    diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string, string>(DetalleGralPorPanel[0].ToString(), nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
-                                                    contadorIndex++;
-                                                    break;
+
+                                                    //if (servidor.Equals(""))
+                                                    //{
+                                                    //    var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                                    //}
+                                                    //else if (!servidor.Equals(""))
+                                                    //{
+                                                    //    diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string, string>(DetalleGralPorPanel[0].ToString(), nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
+                                                    //    contadorIndex++;
+                                                    //}
+                                                    //break;
                                                 }
                                             }
-
                                             idDetalleGral = new string[] { };
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        try
+                        {
+                            var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error de Desactivar Concepto Dinamico: " + ex.Message.ToString(), "Error de Actulización", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                #endregion Si el Nombre del Panel es diferente a panelContenedorProveedor
+            }
+            #endregion Si el CheckBox esta en true
+            #region Si el CheckBox esta en false
+            else if (chekBoxClickDetalle.Checked == false)
+            {
+                foreach (Control itemPanelContenedor in fLPCentralDetalle.Controls)
+                {
+                    string namePanelContenedor = string.Empty;
+                    namePanelContenedor = itemPanelContenedor.Name.ToString();
+
+                    if (itemPanelContenedor is Panel)
+                    {
+                        if (namePanelContenedor == nombrePanelContenedor.ToString())
+                        {
+                            foreach (Control subItemPanelContenedor in itemPanelContenedor.Controls)
+                            {
+                                string namePanelContenido = string.Empty;
+                                namePanelContenido = subItemPanelContenedor.Name.ToString();
+
+                                if (subItemPanelContenedor is Panel)
+                                {
+                                    if (namePanelContenido == nombrePanelContenido.ToString())
+                                    {
+                                        fLPCentralDetalle.Controls.Remove(itemPanelContenedor);
+                                        itemPanelContenedor.Dispose();
+                                        try
+                                        {
+                                            var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show("Error de Desactivar Concepto Dinamico: " + ex.Message.ToString(), "Error de Actulización", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
                                     }
                                 }
@@ -809,32 +973,16 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else if (chekBoxClickDetalle.Checked == false)
-            {
-                name = chekBoxClickDetalle.Name.ToString();
-                value = chekBoxClickDetalle.Checked.ToString();
+            #endregion Si el CheckBox esta en false
+            #endregion Verificacion del Estado de CheckBox
 
-                encontrarPanel("panelContenedor" + name);
-            }
+            #region Recargar Registros Dinamicos
+            loadFromConfigDB();
+            #endregion Recargar Registros Dinamicos
 
-            //int valorDatoDinamico = -1;
-
-            //if (value.Equals("True"))
-            //{
-            //    valorDatoDinamico = 1;
-            //}
-            //else if (value.Equals("False"))
-            //{
-            //    valorDatoDinamico = 0;
-            //}
-
-            //var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
-
-            //loadFromConfigDB();
-
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
 
             //var servidor = Properties.Settings.Default.Hosting;
 
@@ -1320,7 +1468,6 @@ namespace PuntoDeVentaV2
                 valorDatoDinamico = 0;
             }
 
-
             try
             {
                 var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamicoShow(name, valorDatoDinamico, FormPrincipal.userID));
@@ -1339,11 +1486,40 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error al intentar Actualizar " + name.Remove(0, 3) + "\nen la Base de Datos FiltroDinamico\nERROR: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            //loadFromConfigDB();
+            if (valorDatoDinamico.Equals(0))
+            {
+                try
+                {
+                    var BorrarFiltro = cn.EjecutarConsulta(cs.BorrarDatoVentanaFiltros(name.Remove(0, 3), FormPrincipal.userID));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al Desactivar el Filtro Dinamico: " + ex.Message.ToString(), "Error al Desactivar Filtro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (valorDatoDinamico.Equals(1))
+            {
+                try
+                {
+                    using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(name.Remove(0, 3), FormPrincipal.userID)))
+                    {
+                        if (dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
+                        {
+                            var Guardarfiltro = cn.EjecutarConsulta(cs.GuardarVentanaFiltros("0", name.Remove(0, 3), "Selecciona " + name.Remove(0, 3), FormPrincipal.userID));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al Activar el Filtro Dinamico: " + ex.Message.ToString(), "Error al Activar Filtro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
 
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
+            loadFromConfigDB();
+
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
 
             //var servidor = Properties.Settings.Default.Hosting;
 
@@ -1555,8 +1731,8 @@ namespace PuntoDeVentaV2
 
             var servidor = Properties.Settings.Default.Hosting;
 
-            loadFormConfig();
-            //loadFromConfigDB();
+            //loadFormConfig();
+            loadFromConfigDB();
             BuscarTextoListView(settingDatabases);
 
             //if (string.IsNullOrWhiteSpace(servidor))
@@ -2534,7 +2710,7 @@ namespace PuntoDeVentaV2
                                                                 // query para poder hacer la actualizacion
                                                                 cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
                                                                 infoDetalle.Clear(); // limpiamos de informacion la Lista
-                                                                cn.EjecutarConsulta(cs.GuardarTextConceptoFiltroDinamico("chkProveedor", 0, idFound[2].ToString(), FormPrincipal.userID));
+                                                                //cn.EjecutarConsulta(cs.GuardarTextConceptoFiltroDinamico("chkProveedor", 0, idFound[2].ToString(), FormPrincipal.userID));
                                                             }
                                                             catch (Exception ex)
                                                             {
