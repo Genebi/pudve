@@ -1962,17 +1962,17 @@ namespace PuntoDeVentaV2
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!nvoDetalle.Equals(""))
                 {
-                    AddKey(nvoDetalle, nvoValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
+                    //AddKey(nvoDetalle, nvoValor);
+                    //RefreshAppSettings();
+                    //loadFormConfig();
                     using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
                     {
                         if (!dtItemDinamicos.Rows.Count.Equals(0))
@@ -2014,25 +2014,25 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    //loadFromConfigDB();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
                 }
                 else if (nvoDetalle.Equals(""))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
+                //RefreshAppSettings();
+                //loadFormConfig();
+                loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
