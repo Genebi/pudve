@@ -1814,9 +1814,9 @@ namespace PuntoDeVentaV2
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Detalle a Eliminar"))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -1827,58 +1827,95 @@ namespace PuntoDeVentaV2
                         var mensaje = deleteDetalle;
 
                         MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        RefreshAppSettings();
-                        loadFormConfig();
-                        //loadFromConfigDB();
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        loadFromConfigDB();
                         BuscarTextoListView(settingDatabases);
                     }
                     else
                     {
-                        //int found = -1;
-                        //using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(deleteDetalle, FormPrincipal.userID)))
-                        //{
-                        //    if (!dtItemDinamicos.Rows.Count.Equals(0))
-                        //    {
-                        //        found = 1;
-                        //    }
-                        //    else if (dtItemDinamicos.Rows.Count.Equals(0))
-                        //    {
-                        //        found = 0;
-                        //    }
-                        //}
+                        int found = -1;
+                        using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(deleteDetalle, FormPrincipal.userID)))
+                        {
+                            if (!dtItemDinamicos.Rows.Count.Equals(0))
+                            {
+                                found = 1;
+                            }
+                            else if (dtItemDinamicos.Rows.Count.Equals(0))
+                            {
+                                found = 0;
+                            }
+                        }
 
-                        //if (found.Equals(1))
+                        if (found.Equals(1))
+                        {
+                            fLPCentralDetalle.Controls.Clear();
+
+                            try
+                            {
+                                var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                var DeleteDatoFiltroDinamico = cn.EjecutarConsulta(cs.BorrarDatoFiltroDinamico("chk" + deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                var DeleteDatoFiltroDinamicoVentanaFiltros = cn.EjecutarConsulta(cs.BorrarDatoVentanaFiltros(deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            //loadFormConfig();
+                            loadFromConfigDB();
+                            BuscarTextoListView(settingDatabases);
+                            deleteDetalle = string.Empty;
+                        }
+                        else if (found.Equals(0))
+                        {
+                            //RefreshAppSettings();
+                            //loadFormConfig();
+                            loadFromConfigDB();
+                            BuscarTextoListView(settingDatabases);
+                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        //if (KeyExist(deleteDetalle))
                         //{
+                        //    DeleteKey(deleteDetalle);
+                        //    RefreshAppSettings();
+                        //    //loadFormConfig();
+
+                        //    //var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                        //    //if (DeleteDatoDinamicos.Equals(1))
+                        //    //{
+                        //    //    MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //    //}
+                        //    //else if (DeleteDatoDinamicos.Equals(0))
+                        //    //{
+                        //    //    //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    //}
+
                         //    fLPCentralDetalle.Controls.Clear();
-
-                        //    var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
-                        //    if (DeleteDatoDinamicos.Equals(1))
-                        //    {
-                        //        MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //    }
-                        //    else if (DeleteDatoDinamicos.Equals(0))
-                        //    {
-                        //        //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //        MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    }
-
-                        //    var DeleteDatoFiltroDinamico = cn.EjecutarConsulta(cs.BorrarDatoFiltroDinamico(deleteDetalle, FormPrincipal.userID));
-                        //    if (DeleteDatoFiltroDinamico.Equals(1))
-                        //    {
-                        //        MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //    }
-                        //    else if (DeleteDatoFiltroDinamico.Equals(0))
-                        //    {
-                        //        //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //        MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    }
-
                         //    loadFormConfig();
                         //    //loadFromConfigDB();
                         //    BuscarTextoListView(settingDatabases);
                         //    deleteDetalle = string.Empty;
                         //}
-                        //else if (found.Equals(0))
+                        //else
                         //{
                         //    RefreshAppSettings();
                         //    loadFormConfig();
@@ -1887,59 +1924,27 @@ namespace PuntoDeVentaV2
                         //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //}
 
-                        if (KeyExist(deleteDetalle))
-                        {
-                            DeleteKey(deleteDetalle);
-                            RefreshAppSettings();
-                            //loadFormConfig();
+                        ////var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                        ////if (DeleteDatoDinamico.Equals(1))
+                        ////{
+                        ////    //MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ////}
+                        ////else if (DeleteDatoDinamico.Equals(0))
+                        ////{
+                        ////    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ////}
 
-                            //var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
-                            //if (DeleteDatoDinamicos.Equals(1))
-                            //{
-                            //    MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            //}
-                            //else if (DeleteDatoDinamicos.Equals(0))
-                            //{
-                            //    //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            //}
-
-                            fLPCentralDetalle.Controls.Clear();
-                            loadFormConfig();
-                            //loadFromConfigDB();
-                            BuscarTextoListView(settingDatabases);
-                            deleteDetalle = string.Empty;
-                        }
-                        else
-                        {
-                            RefreshAppSettings();
-                            loadFormConfig();
-                            //loadFromConfigDB();
-                            BuscarTextoListView(settingDatabases);
-                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        //var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
-                        //if (DeleteDatoDinamico.Equals(1))
-                        //{
-                        //    //MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //}
-                        //else if (DeleteDatoDinamico.Equals(0))
-                        //{
-                        //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //}
-
-                        //loadFromConfigDB();
-                        //BuscarTextoListView(settingDatabases);
+                        ////loadFromConfigDB();
+                        ////BuscarTextoListView(settingDatabases);
                         deleteDetalle = string.Empty;
                     }
                 }
             }
             catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
+                //RefreshAppSettings();
+                //loadFormConfig();
+                loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
