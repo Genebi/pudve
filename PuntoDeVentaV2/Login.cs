@@ -4058,6 +4058,83 @@ namespace PuntoDeVentaV2
                 }
             }
             #endregion Tabla CorreosProducto
+            // 47 FiltrosDinamicosVetanaFiltros
+            #region Tabla FiltrosDinamicosVetanaFiltros
+            tabla = "FiltrosDinamicosVetanaFiltros";
+            try
+            {
+                checkEmpty(tabla);
+            }
+            catch (Exception ex)
+            {
+                queryTabla = dbTables.QueryNvaTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                cn.CrearTabla(queryTabla);
+            }
+            if (IsEmpty == true)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroFiltrosDinamicosVetanaFiltros(tabla));
+                    if (dbTables.GetFiltroFiltrosDinamicosVetanaFiltros() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroFiltrosDinamicosVetanaFiltros())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else if (IsEmpty == false)
+            {
+                try
+                {
+                    count = cn.CountColumnasTabla(dbTables.PragmaTablaFiltroFiltrosDinamicosVetanaFiltros(tabla));
+                    if (dbTables.GetFiltroFiltrosDinamicosVetanaFiltros() > count)
+                    {
+                        if (count == 0)
+                        {
+                            queryTabla = dbTables.QueryNvaTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.CrearTabla(queryTabla);
+                        }
+                        if (count > 0 && count < dbTables.GetFiltroFiltrosDinamicosVetanaFiltros())
+                        {
+                            cn.ForeginKeysOff();
+                            queryTabla = dbTables.QueryRenameFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.renameTable(queryTabla);
+                            queryTabla = dbTables.QueryNvaTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.CrearTabla(queryTabla);
+                            cn.ForeginKeysOn();
+                            queryTabla = dbTables.QueryUpdateTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.insertDataIntoTable(queryTabla);
+                            queryTabla = dbTables.DropTablaFiltroFiltrosDinamicosVetanaFiltros(tabla);
+                            cn.dropOldTable(queryTabla);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al checar la tabla: " + tabla + " error No: " + ex.Message.ToString(), "Error de Checar Tablas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            #endregion Tabla FiltrosDinamicosVetanaFiltros
         }
 
         private bool checkEmpty(object tabla)
