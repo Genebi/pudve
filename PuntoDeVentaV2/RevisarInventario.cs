@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -31,6 +32,8 @@ namespace PuntoDeVentaV2
         int cantidadFiltro = 0;
         int cantidadRegistros = 0;
         int cantidadRegistrosAux = 0;
+
+        Dictionary<int, string> listaProductos;
 
         public RevisarInventario(string[] datos)
         {
@@ -81,6 +84,8 @@ namespace PuntoDeVentaV2
 
                 buscarCodigoBarras();
             }
+
+            listaProductos = new Dictionary<int, string>();
         }
 
         private string AplicarFiltro(int idProducto)
@@ -295,6 +300,25 @@ namespace PuntoDeVentaV2
                         // Actualizar datos en RevisarInventario
                         cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
 
+                        // Para envio de correo
+                        if (listaProductos.ContainsKey(idProducto))
+                        {
+                            // Obtenemos los datos del producto para el email
+                            var datosProductoAux = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+                            var html = $@"<li>
+                                            <span style='color: red;'>{datosProductoAux[1]}</span> 
+                                            --- <b>STOCK ANTERIOR:</b> 
+                                            <span style='color: red;'>{datosProductoAux[4]}</span> 
+                                            --- <b>STOCK NUEVO:</b> 
+                                            <span style='color: red;'>{stockFisico}</span>
+                                        </li>";
+
+
+
+                            listaProductos[idProducto] = html;
+                        }
+
                         // Actualizar stock del producto
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
@@ -328,6 +352,39 @@ namespace PuntoDeVentaV2
 
                         // Guardamos la informacion en la tabla de RevisarInventario
                         cn.EjecutarConsulta(cs.GuardarRevisarInventario(datos));
+
+                        // Para envio de correo
+                        var datosConfig = mb.ComprobarConfiguracion();
+
+                        if (datosConfig.Count > 0)
+                        {
+                            if (datosConfig[1] == 1)
+                            {
+                                var configProducto = mb.ComprobarCorreoProducto(idProducto);
+
+                                if (configProducto.Count > 0)
+                                {
+                                    if (configProducto[1] == 1)
+                                    {
+                                        // Obtenemos los datos del producto para el email
+                                        var datosProducto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+                                        if (datosProducto[4] != stockFisico)
+                                        {
+                                            var html = $@"<li>
+                                                            <span style='color: red;'>{datosProducto[1]}</span> 
+                                                            --- <b>STOCK ANTERIOR:</b> 
+                                                            <span style='color: red;'>{datosProducto[4]}</span> 
+                                                            --- <b>STOCK NUEVO:</b> 
+                                                            <span style='color: red;'>{stockFisico}</span>
+                                                        </li>";
+
+                                            listaProductos.Add(idProducto, html);
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         // Actualizar stock del producto
                         cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
@@ -452,6 +509,27 @@ namespace PuntoDeVentaV2
 
             // Cambiamos el valor de la variable para eliminar los registros de la tabla RevisarInventario con el numero de revision
             Inventario.limpiarTabla = true;
+
+            if (listaProductos.Count > 0)
+            {
+                var html = string.Empty;
+
+                foreach (var producto in listaProductos)
+                {
+                    html += producto.Value;
+                }
+
+                // Ejecutar hilo para enviar notificacion
+                var datos = new string[] { html, "", "", "", "REVISAR INVENTARIO", "" };
+
+                Thread notificacion = new Thread(
+                    () => Utilidades.CambioStockProductoEmail(datos, 1)
+                );
+
+                notificacion.Start();
+
+                listaProductos.Clear();
+            }
 
             this.Hide();
             this.Close();
