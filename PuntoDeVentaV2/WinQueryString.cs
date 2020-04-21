@@ -1784,8 +1784,8 @@ namespace PuntoDeVentaV2
 
             validarCheckBoxFijos();
 
-            //loadFromConfigDB();
-            //BuscarChkBoxListView(chkDatabase);
+            loadFromConfigDB();
+            BuscarChkBoxListView(chkDatabase);
 
             //validarCheckBoxFiltrosDinamicos();
 
