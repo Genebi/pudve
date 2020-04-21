@@ -254,9 +254,11 @@ namespace PuntoDeVentaV2
             if (pagWeb.Checked)
             {
                 habilitado = 1;
+                
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+             FormPrincipal.pasar = habilitado;
         }
     }
 }
