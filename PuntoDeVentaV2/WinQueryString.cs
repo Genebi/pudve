@@ -228,9 +228,9 @@ namespace PuntoDeVentaV2
                     chkValor = 1;
                 }
 
-                Properties.Settings.Default.chkFiltroImagen = filtroImagen;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+                //Properties.Settings.Default.chkFiltroImagen = filtroImagen;
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
 
                 cbTipoFiltroImagen.Enabled = true;
                 cbTipoFiltroImagen.Focus();
@@ -244,9 +244,9 @@ namespace PuntoDeVentaV2
                     chkValor = 0;
                 }
 
-                Properties.Settings.Default.chkFiltroImagen = filtroImagen;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+                //Properties.Settings.Default.chkFiltroImagen = filtroImagen;
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
 
                 cbTipoFiltroImagen.SelectedIndex = 0;
                 cbTipoFiltroImagen.Enabled = false;
@@ -290,8 +290,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroImagen_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroImagen = Properties.Settings.Default.chkFiltroImagen;
-            //filtroImagen = chkBoxImagen.Checked;
+            //filtroImagen = Properties.Settings.Default.chkFiltroImagen;
+            filtroImagen = chkBoxImagen.Checked;
 
             if (filtroImagen.Equals(true))
             {
@@ -332,8 +332,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroRevision_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
-            //filtroRevision = chkBoxRevision.Checked;
+            //filtroRevision = Properties.Settings.Default.chkFiltroRevisionInventario;
+            filtroRevision = chkBoxRevision.Checked;
 
             if (filtroRevision.Equals(true))
             {
@@ -466,8 +466,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroCombProdServ_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
-            //filtroTipo = chkBoxTipo.Checked;
+            //filtroTipo = Properties.Settings.Default.chkFiltroCombProdServ;
+            filtroTipo = chkBoxTipo.Checked;
 
             if (filtroTipo.Equals(true))
             {
@@ -483,15 +483,15 @@ namespace PuntoDeVentaV2
                     }
                     else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Combo"))
                     {
-                        strFiltroCombProdServ += "= 'PQ'";
+                        strFiltroCombProdServ += "= PQ";
                     }
                     else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Producto"))
                     {
-                        strFiltroCombProdServ += "= 'P'";
+                        strFiltroCombProdServ += "= P";
                     }
                     else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals("Servicio"))
                     {
-                        strFiltroCombProdServ += "= 'S'";
+                        strFiltroCombProdServ += "= S";
                     }
                 }
                 else if (Convert.ToString(cbTipoFiltroCombProdServ.SelectedItem).Equals(""))
@@ -519,9 +519,9 @@ namespace PuntoDeVentaV2
                     chkValor = 1;
                 }
 
-                Properties.Settings.Default.chkFiltroCombProdServ = filtroTipo;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+                //Properties.Settings.Default.chkFiltroCombProdServ = filtroTipo;
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
 
                 cbTipoFiltroCombProdServ.Enabled = true;
                 cbTipoFiltroCombProdServ.Focus();
@@ -535,9 +535,9 @@ namespace PuntoDeVentaV2
                     chkValor = 0;
                 }
 
-                Properties.Settings.Default.chkFiltroCombProdServ = filtroTipo;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+                //Properties.Settings.Default.chkFiltroCombProdServ = filtroTipo;
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
 
                 cbTipoFiltroCombProdServ.SelectedIndex = 0;
                 cbTipoFiltroCombProdServ.Enabled = false;
@@ -1787,9 +1787,9 @@ namespace PuntoDeVentaV2
             loadFromConfigDB();
             BuscarChkBoxListView(chkDatabase);
 
-            //validarCheckBoxFiltrosDinamicos();
+            validarCheckBoxFiltrosDinamicos();
 
-            //LLenarFiltrosDinamicosDeVetanaFiltros();
+            LLenarFiltrosDinamicosDeVetanaFiltros();
 
             ////loadFormConfig();
             //loadFromConfigDB();
@@ -2515,6 +2515,7 @@ namespace PuntoDeVentaV2
             nameChkBox = chkBoxStock.Name;
 
             cbTipoFiltroStock.SelectedIndex = 0;
+
             if (chkBoxStock.Checked.Equals(true))
             {
                 filtroStock = Convert.ToBoolean(chkBoxStock.Checked);
@@ -2523,10 +2524,10 @@ namespace PuntoDeVentaV2
                 {
                     chkValor = 1;
                 }
-                
-                Properties.Settings.Default.chkFiltroStock = filtroStock;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+
+                //Properties.Settings.Default.chkFiltroStock = filtroStock;
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
 
                 txtCantStock.Enabled = true;
                 cbTipoFiltroStock.Enabled = true;
@@ -2542,14 +2543,14 @@ namespace PuntoDeVentaV2
                     chkValor = 0;
                 }
 
-                Properties.Settings.Default.chkFiltroStock = filtroStock;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+                //Properties.Settings.Default.chkFiltroStock = filtroStock;
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
 
+                txtCantStock.Text = "0.0";
                 txtCantStock.Enabled = false;
                 cbTipoFiltroStock.SelectedIndex = 0;
                 cbTipoFiltroStock.Enabled = false;
-                txtCantStock.Text = "0.0";
             }
 
             using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
@@ -3119,8 +3120,8 @@ namespace PuntoDeVentaV2
 
         private void cbTipoFiltroStock_SelectedIndexChanged(object sender, EventArgs e)
         {
-            filtroStock = Properties.Settings.Default.chkFiltroStock;
-            //filtroStock = chkBoxStock.Checked;
+            //filtroStock = Properties.Settings.Default.chkFiltroStock;
+            filtroStock = chkBoxStock.Checked;
 
             if (filtroStock.Equals(true))
             {
