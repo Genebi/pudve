@@ -224,7 +224,7 @@ namespace PuntoDeVentaV2
                 {
                     MySqlCommand eliminarCaja = conexion.CreateCommand();
                     conexion.Open();
-                    eliminarCaja.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
+                    eliminarCaja.CommandText = $@"DELETE FROM seccionCaja WHERE idUsuario ='{FormPrincipal.userID.ToString()}' AND nickUsuario = '{FormPrincipal.userNickName}'";
                     int delete = eliminarCaja.ExecuteNonQuery();
                     conexion.Close();
                 }
@@ -262,7 +262,7 @@ namespace PuntoDeVentaV2
                                                                  '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{userNickName}', '{FormPrincipal.userID.ToString()}')";
                 int add = agregar.ExecuteNonQuery();
                 conexion.Close();
-                
+
 
             }
         }
@@ -280,7 +280,7 @@ namespace PuntoDeVentaV2
                 {
                     MySqlCommand eliminar = conexion.CreateCommand();
                     conexion.Open();
-                    eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}'";
+                    eliminar.CommandText = $@"DELETE FROM seccionProductos WHERE idUsuario ='{FormPrincipal.userID.ToString()}' AND nickUsuario = '{FormPrincipal.userNickName}'";
                     int borrrado1 = eliminar.ExecuteNonQuery();
                     conexion.Close();
                 }
@@ -361,16 +361,19 @@ namespace PuntoDeVentaV2
                         }
                         comandS.Append(String.Join(",", Rows));
                         //sComand.Append(":");
+
+                        conexion.Open();
+                        //MessageBox.Show("Fin Insercion");
+                        string contenidoquery = comandS.ToString();
+                        using (MySqlCommand myCmd = new MySqlCommand(comandS.ToString(), conexion))
+                        {
+                            myCmd.CommandType = CommandType.Text;
+                            myCmd.ExecuteNonQuery();
+                        }
+
                     }
                 }
-                conexion.Open();
-                //MessageBox.Show("Fin Insercion");
-                string contenidoquery = comandS.ToString();
-                using (MySqlCommand myCmd = new MySqlCommand(comandS.ToString(), conexion))
-                {
-                    myCmd.CommandType = CommandType.Text;
-                    myCmd.ExecuteNonQuery();
-                }
+
                 conexion.Close();
             }
         }
