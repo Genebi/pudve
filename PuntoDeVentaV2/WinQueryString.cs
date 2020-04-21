@@ -3049,22 +3049,21 @@ namespace PuntoDeVentaV2
         {
             List<string> tuplaConfigDB = new List<string>();
 
-            string concepto = string.Empty, 
-                    checkBoxConcepto = string.Empty, 
-                    textComboBoxConcepto = string.Empty, 
-                    textCantidad = string.Empty;
+            string concepto = string.Empty,
+                    checkBoxConcepto = string.Empty,
+                    textComboBoxConcepto = string.Empty;
 
             foreach (Control controlHijo in fLPDetalleProducto.Controls)
             {
-                if ((controlHijo.Name.Equals("panelContenedorchkProveedor")) && (controlHijo is Panel))
+                if (controlHijo is Panel)
                 {
                     foreach (Control subControlHijo in controlHijo.Controls)
                     {
-                        if ((subControlHijo.Name.Equals("panelContenidochkProveedor")) && (subControlHijo is Panel))
+                        if (subControlHijo is Panel)
                         {
                             foreach (Control intoSubControlHijo in subControlHijo.Controls)
                             {
-                                if ((intoSubControlHijo.Name.Equals("chkBoxchkProveedor")) && (intoSubControlHijo is CheckBox))
+                                if (intoSubControlHijo is CheckBox)
                                 {
                                     CheckBox chkBox = (CheckBox)intoSubControlHijo;
                                     concepto = chkBox.Name;
@@ -3077,32 +3076,31 @@ namespace PuntoDeVentaV2
                                         checkBoxConcepto = "0";
                                     }
                                 }
-                                if ((intoSubControlHijo.Name.Equals("cbchkProveedor")) && (intoSubControlHijo is ComboBox))
+                                if (intoSubControlHijo is ComboBox)
                                 {
                                     ComboBox comBox = (ComboBox)intoSubControlHijo;
                                     textComboBoxConcepto = comBox.Text;
-                                    textCantidad = " ";
                                 }
                             }
-                            tuplaConfigDB.Add(concepto.Remove(0, 9) + "|" + checkBoxConcepto + "|" + textComboBoxConcepto + "|" + textCantidad);
+                            tuplaConfigDB.Add(checkBoxConcepto + "|" + concepto.Remove(0, 9) + "|" + textComboBoxConcepto + "|" + Convert.ToString(FormPrincipal.userID));
                         }
                     }
                 }
             }
-            foreach(var itemRow in tuplaConfigDB)
+            foreach (var itemRow in tuplaConfigDB)
             {
                 int foudDatoDinamico = -1;
                 string[] words;
 
                 words = itemRow.Split('|');
 
-                using (DataTable dtProveedor = cn.CargarDatos(cs.VerificarDatoDinamico(words[0].ToString(), FormPrincipal.userID)))
+                using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(words[1].ToString(), FormPrincipal.userID)))
                 {
-                    if (!dtProveedor.Rows.Count.Equals(0))
+                    if (!dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
                     {
                         foudDatoDinamico = 1;
                     }
-                    else if (dtProveedor.Rows.Count.Equals(0))
+                    else if (dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
                     {
                         foudDatoDinamico = 0;
                     }
@@ -3110,12 +3108,25 @@ namespace PuntoDeVentaV2
 
                 if (foudDatoDinamico.Equals(1))
                 {
-                    var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamicoFiltroProducto(words[0].ToString(), Convert.ToInt32(words[1].ToString()), words[2].ToString(), FormPrincipal.userID));
-
+                    try
+                    {
+                        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(words[0].ToString(), words[1].ToString(), words[2].ToString(), Convert.ToInt32(words[3].ToString())));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al Actualizar Filtros Dinamicos: Error: " + ex.Message.ToString(), "Error de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else if (foudDatoDinamico.Equals(0))
                 {
-
+                    try
+                    {
+                        var AgregarDatoDinamico = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(words[0].ToString(), words[1].ToString(), words[2].ToString(), Convert.ToInt32(words[3].ToString())));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al Agregar Filtros Dinamicos: Error: " + ex.Message.ToString(), "Error de Guardardo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

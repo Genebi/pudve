@@ -1334,76 +1334,107 @@ namespace PuntoDeVentaV2
 
         public void dictionaryLoad()
         {
-            bool isEmpty = (setUpDinamicos.Count == 0);
-            usrNo = FormPrincipal.userID;
-            fileName = "DiccionarioDetalleBasicos.txt";
-
-            if (!path.Equals(""))
+            using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID)))
             {
-                path = saveDirectoryFile + usrNo + @"\";
-            }
-            else if (path.Equals(""))
-            {
-                path = saveDirectoryFile + usrNo + @"\";
-            }
-
-            if (usrNo > 0)
-            {
-                if (!isEmpty)
+                if (dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
+                {
+                    borrarEtiquetasDinamicasSetUpDinamicos();
+                    setUpDinamicos.Clear();
+                }
+                else if (!dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
                 {
                     borrarEtiquetasDinamicasSetUpDinamicos();
                     setUpDinamicos.Clear();
 
-                    using (StreamReader file = new StreamReader(path + @"\" + fileName))
+                    foreach (DataRow drFiltrosDinamicos in dtFiltrosDinamicosVetanaFiltros.Rows)
                     {
-                        while ((line = file.ReadLine()) != null)
+                        string valueChkBox = string.Empty;
+
+                        if (drFiltrosDinamicos["checkBoxValue"].ToString().Equals("1"))
                         {
-                            words = line.Split(delimiter);
-                            setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+                            valueChkBox = "True";
                         }
-                        file.Close();
+                        else if (drFiltrosDinamicos["checkBoxValue"].ToString().Equals("0"))
+                        {
+                            valueChkBox = "False";
+                        }
+                        setUpDinamicos.Add(drFiltrosDinamicos["ID"].ToString(), new Tuple<string, string, string, string>("chkBoxchk" + drFiltrosDinamicos["concepto"].ToString(), valueChkBox.ToString(), drFiltrosDinamicos["strFiltro"].ToString(), "cbchk" + drFiltrosDinamicos["concepto"].ToString()));
                     }
+
                     crearEtiquetaDinamicaSetUpDinamicos();
                 }
-                else if (isEmpty)
-                {
-                    if (!System.IO.File.Exists(path + fileName))
-                    {
-                        Directory.CreateDirectory(path);
-                        using (System.IO.File.Create(path + fileName)) { }
-                    }
-                    if (new FileInfo(path + fileName).Length > 0)
-                    {
-                        borrarEtiquetasDinamicasSetUpDinamicos();
-                        setUpDinamicos.Clear();
-                        using (StreamReader file = new StreamReader(path + @"\" + fileName))
-                        {
-                            while ((line = file.ReadLine()) != null)
-                            {
-                                words = line.Split(delimiter);
-                                setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
-                            }
-                            file.Close();
-                        }
-                        crearEtiquetaDinamicaSetUpDinamicos();
-                    }
-                    else if (new FileInfo(path + fileName).Length < 0)
-                    {
-                        setUpDinamicos.Clear();
-                    }
-                }
-                verificarBotonLimpiarTags();
             }
-            else if (usrNo.Equals(0))
-            {
-                MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario",
-                                "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            //bool isEmpty = (setUpDinamicos.Count == 0);
+            //usrNo = FormPrincipal.userID;
+            //fileName = "DiccionarioDetalleBasicos.txt";
+
+            //if (!path.Equals(""))
+            //{
+            //    path = saveDirectoryFile + usrNo + @"\";
+            //}
+            //else if (path.Equals(""))
+            //{
+            //    path = saveDirectoryFile + usrNo + @"\";
+            //}
+
+            //if (usrNo > 0)
+            //{
+            //    if (!isEmpty)
+            //    {
+            //        borrarEtiquetasDinamicasSetUpDinamicos();
+            //        setUpDinamicos.Clear();
+
+            //        using (StreamReader file = new StreamReader(path + @"\" + fileName))
+            //        {
+            //            while ((line = file.ReadLine()) != null)
+            //            {
+            //                words = line.Split(delimiter);
+            //                setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+            //            }
+            //            file.Close();
+            //        }
+            //        crearEtiquetaDinamicaSetUpDinamicos();
+            //    }
+            //    else if (isEmpty)
+            //    {
+            //        if (!System.IO.File.Exists(path + fileName))
+            //        {
+            //            Directory.CreateDirectory(path);
+            //            using (System.IO.File.Create(path + fileName)) { }
+            //        }
+            //        if (new FileInfo(path + fileName).Length > 0)
+            //        {
+            //            borrarEtiquetasDinamicasSetUpDinamicos();
+            //            setUpDinamicos.Clear();
+            //            using (StreamReader file = new StreamReader(path + @"\" + fileName))
+            //            {
+            //                while ((line = file.ReadLine()) != null)
+            //                {
+            //                    words = line.Split(delimiter);
+            //                    setUpDinamicos.Add(words[0], new Tuple<string, string, string, string>(words[1], words[2], words[3], words[4]));
+            //                }
+            //                file.Close();
+            //            }
+            //            crearEtiquetaDinamicaSetUpDinamicos();
+            //        }
+            //        else if (new FileInfo(path + fileName).Length < 0)
+            //        {
+            //            setUpDinamicos.Clear();
+            //        }
+            //    }
+            //    verificarBotonLimpiarTags();
+            //}
+            //else if (usrNo.Equals(0))
+            //{
+            //    MessageBox.Show("Favor de Seleccionar un valor\ndiferente o Mayor a 0 en Campo Usuario",
+            //                    "Error de Lectura", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         public void borrarEtiquetasDinamicasSetUpDinamicos()
         {
-            string  nameTag = string.Empty,
+            string nameTag = string.Empty,
                     rutaCompletaFile = string.Empty;
 
             List<string> listDictionary = new List<string>();
@@ -1528,9 +1559,9 @@ namespace PuntoDeVentaV2
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
         {
             Button btnTag = (Button)sender;
-            string name = string.Empty, 
-                    newtext = string.Empty, 
-                    fileNameDictionary = "DiccionarioDetalleBasicos.txt", 
+            string name = string.Empty,
+                    newtext = string.Empty,
+                    fileNameDictionary = "DiccionarioDetalleBasicos.txt",
                     rutaCompletaFile = string.Empty;
 
             string[] words;
@@ -1567,21 +1598,39 @@ namespace PuntoDeVentaV2
 
                 if (listDictionary.Count > 0)
                 {
+                    string queryUpdateDatoDinamico = string.Empty;
                     foreach (var itemDicc in listDictionary)
                     {
                         words = itemDicc.Split('|');
                         setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
+
+                        if (words[2].ToString().Equals("False"))
+                        {
+                            queryUpdateDatoDinamico = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{0}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'";
+                        }
+                        else if (words[2].ToString().Equals("True"))
+                        {
+                            queryUpdateDatoDinamico = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{1}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'";
+                        }
+                    }
+                    try
+                    {
+                        var UpdateDatoDinamico = cn.EjecutarConsulta(queryUpdateDatoDinamico);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al Actualizar el Dato dinamico: " + ex.Message.ToString(), "Error de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     listDictionary.Clear();
-                    rutaCompletaFile = path + fileNameDictionary;
-                    using (StreamWriter file = new StreamWriter(rutaCompletaFile))
-                    {
-                        foreach (var entry in setUpDinamicos)
-                        {
-                            file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
-                        }
-                        file.Close();
-                    }
+                    //rutaCompletaFile = path + fileNameDictionary;
+                    //using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+                    //{
+                    //    foreach (var entry in setUpDinamicos)
+                    //    {
+                    //        file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                    //    }
+                    //    file.Close();
+                    //}
                     setUpDinamicos.Clear();
                 }
 
@@ -1614,43 +1663,95 @@ namespace PuntoDeVentaV2
 
         public void cargarListaSetUpVaribale()
         {
+            string queryFiltroProducto = string.Empty;
+
             setUpVariable.Clear();
-            if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+
+            queryFiltroProducto = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{FormPrincipal.userID}'";
+
+            using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
             {
-                if (!Properties.Settings.Default.strFiltroStock.Equals(""))
+                if (!dtFiltroProducto.Rows.Count.Equals(0))
                 {
-                    setUpVariable.Add(Properties.Settings.Default.strFiltroStock);
-                }
-            }
-            if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
-            {
-                if (!Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                {
-                    setUpVariable.Add(Properties.Settings.Default.strFiltroPrecio);
-                }
-            }
-            if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true))
-            {
-                if (!Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-                {
-                    setUpVariable.Add(Properties.Settings.Default.strFiltroRevisionInventario);
-                }
-            }
-            if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true))
-            {
-                if (!Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-                {
-                    setUpVariable.Add(Properties.Settings.Default.strFiltroCombProdServ);
-                }
-            }
-            if (Properties.Settings.Default.chkFiltroImagen.Equals(true))
-            {
-                if (!Properties.Settings.Default.strFiltroImagen.Equals(""))
-                {
-                    setUpVariable.Add(Properties.Settings.Default.strFiltroImagen);
+                    foreach (DataRow drFiltroProducto in dtFiltroProducto.Rows)
+                    {
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxStock"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
+                            }
+                        }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxPrecio"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
+                            }
+                        }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxRevision"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
+                            }
+                        }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxImagen"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString());
+                            }
+                        }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxTipo"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString());
+                            }
+                        }
+                    }
                 }
             }
             crearEtiquetaSetUpVariable();
+
+            //setUpVariable.Clear();
+            //if (Properties.Settings.Default.chkFiltroStock.Equals(true))
+            //{
+            //    if (!Properties.Settings.Default.strFiltroStock.Equals(""))
+            //    {
+            //        setUpVariable.Add(Properties.Settings.Default.strFiltroStock);
+            //    }
+            //}
+            //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true))
+            //{
+            //    if (!Properties.Settings.Default.strFiltroPrecio.Equals(""))
+            //    {
+            //        setUpVariable.Add(Properties.Settings.Default.strFiltroPrecio);
+            //    }
+            //}
+            //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true))
+            //{
+            //    if (!Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
+            //    {
+            //        setUpVariable.Add(Properties.Settings.Default.strFiltroRevisionInventario);
+            //    }
+            //}
+            //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true))
+            //{
+            //    if (!Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
+            //    {
+            //        setUpVariable.Add(Properties.Settings.Default.strFiltroCombProdServ);
+            //    }
+            //}
+            //if (Properties.Settings.Default.chkFiltroImagen.Equals(true))
+            //{
+            //    if (!Properties.Settings.Default.strFiltroImagen.Equals(""))
+            //    {
+            //        setUpVariable.Add(Properties.Settings.Default.strFiltroImagen);
+            //    }
+            //}
+            //crearEtiquetaSetUpVariable();
         }
 
         private void crearEtiquetaSetUpVariable()
@@ -1999,51 +2100,144 @@ namespace PuntoDeVentaV2
 
         private void reiniciarVariablesImagen()
         {
-            Properties.Settings.Default.chkFiltroImagen = false;
-            Properties.Settings.Default.strFiltroImagen = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            //Properties.Settings.Default.chkFiltroImagen = false;
+            //Properties.Settings.Default.strFiltroImagen = "";
+            //Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Reload();
+
+            string FiltroProducto = "chkBoxImagen";
+
+            reiniciarFiltroDinamicoDosCampos(FiltroProducto);
         }
 
         private void reiniciarVariablesDeSistemaNoRevision()
         {
-            Properties.Settings.Default.chkFiltroRevisionInventario = false;
-            Properties.Settings.Default.strFiltroRevisionInventario = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            //Properties.Settings.Default.chkFiltroRevisionInventario = false;
+            //Properties.Settings.Default.strFiltroRevisionInventario = "";
+            //Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Reload();
+
+            string FiltroProducto = "chkBoxRevision";
+
+            reiniciarFiltroDinamicoTresCampos(FiltroProducto);
         }
 
         private void reiniciarVariablesDeSistemaTipo()
         {
-            Properties.Settings.Default.chkFiltroCombProdServ = false;
-            Properties.Settings.Default.strFiltroCombProdServ = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            //Properties.Settings.Default.chkFiltroCombProdServ = false;
+            //Properties.Settings.Default.strFiltroCombProdServ = "";
+            //Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Reload();
+
+            string FiltroProducto = "chkBoxTipo";
+
+            reiniciarFiltroDinamicoDosCampos(FiltroProducto);
+        }
+
+        private void reiniciarFiltroDinamicoDosCampos(string filtroProducto)
+        {
+            string msgFiltroProducto = filtroProducto.Remove(0, 6);
+
+            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.ReiniciarFiltroDinamico(FormPrincipal.userID, filtroProducto)))
+            {
+                if (!dtFiltroProducto.Rows.Count.Equals(0))
+                {
+                    try
+                    {
+                        var updateFiltroProducto = cn.EjecutarConsulta(cs.ReiniciarFiltroDinamicoDosCampos(0, string.Empty, FormPrincipal.userID, filtroProducto));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al Reiniciar el filtro de " + msgFiltroProducto + ":" + ex.Message.ToString(), "Error al Reiniciar " + msgFiltroProducto, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         private void reiniciarVariablesDeSistemaStock()
         {
-            Properties.Settings.Default.chkFiltroStock = false;
-            Properties.Settings.Default.strFiltroStock = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            //Properties.Settings.Default.chkFiltroStock = false;
+            //Properties.Settings.Default.strFiltroStock = "";
+            //Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Reload();
+
+            string FiltroProducto = "chkBoxStock";
+
+            reiniciarFiltroDinamicoTresCampos(FiltroProducto);
         }
 
         private void reiniciarVariablesDeSistemaPrecio()
         {
-            Properties.Settings.Default.chkFiltroPrecio = false;
-            Properties.Settings.Default.strFiltroPrecio = "";
-            Properties.Settings.Default.Save();
-            Properties.Settings.Default.Reload();
+            //Properties.Settings.Default.chkFiltroPrecio = false;
+            //Properties.Settings.Default.strFiltroPrecio = "";
+            //Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Reload();
+
+            string FiltroProducto = "chkBoxPrecio";
+
+            reiniciarFiltroDinamicoTresCampos(FiltroProducto);
+        }
+
+        private void reiniciarFiltroDinamicoTresCampos(string filtroProducto)
+        {
+            string msgFiltroProducto = filtroProducto.Remove(0, 6);
+
+            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.ReiniciarFiltroDinamico(FormPrincipal.userID, filtroProducto)))
+            {
+                if (!dtFiltroProducto.Rows.Count.Equals(0))
+                {
+                    try
+                    {
+                        var updateFiltroProducto = cn.EjecutarConsulta(cs.ReiniciarFiltroDinamicoTresCampos(0, string.Empty, FormPrincipal.userID, filtroProducto));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al Reiniciar el filtro de " + msgFiltroProducto + ":" + ex.Message.ToString(), "Error al Reiniciar " + msgFiltroProducto, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         public void actualizarBtnFiltro()
         {
-            if (!Properties.Settings.Default.strFiltroStock.Equals(""))
+            //if (!Properties.Settings.Default.strFiltroStock.Equals(""))
+            //{
+            //    btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+            //}
+            //else if (Properties.Settings.Default.strFiltroStock.Equals(""))
+            //{
+            //    btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
+            //}
+
+            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.VerificarContenidoFiltroProducto(FormPrincipal.userID)))
             {
-                btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+                if (!dtFiltroProducto.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drFiltroProducto in dtFiltroProducto.Rows)
+                    {
+                        if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                        {
+                            btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+                        }
+                    }
+                }
             }
-            else if (Properties.Settings.Default.strFiltroStock.Equals(""))
+
+            using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID)))
+            {
+                if (!dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drVerificarVentanaFiltros in dtFiltrosDinamicosVetanaFiltros.Rows)
+                    {
+                        if (drVerificarVentanaFiltros["checkBoxValue"].ToString().Equals("1"))
+                        {
+                            btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.remove;
+                        }
+                    }
+                }
+            }
+
+            if (setUpVariable.Count.Equals(0))
             {
                 btnFilterSearch.Image = global::PuntoDeVentaV2.Properties.Resources.filter;
             }
