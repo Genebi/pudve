@@ -393,6 +393,7 @@ namespace PuntoDeVentaV2
                     quitarEspacioEnBlanco();
                     busquedaDelUsuario();
                 }
+                verificarBotonLimpiarTags();
             };
 
             if (!FiltroAvanzado.Visible)
