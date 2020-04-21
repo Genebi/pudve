@@ -3250,7 +3250,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
         }
     }
 }
