@@ -2068,7 +2068,7 @@ namespace PuntoDeVentaV2
                             {
                                 chkBoxStock.Checked = valueCheckBox;
 
-                                strOperadorAndCant = drFiltroProducto["textComboBoxConcepto"].ToString();
+                                strOperadorAndCant = drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString();
 
                                 if (!strOperadorAndCant.Equals(""))
                                 {
@@ -2100,7 +2100,7 @@ namespace PuntoDeVentaV2
                             {
                                 chkBoxPrecio.Checked = valueCheckBox;
 
-                                strOperadorAndCant = drFiltroProducto["textComboBoxConcepto"].ToString();
+                                strOperadorAndCant = drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString();
 
                                 if (!strOperadorAndCant.Equals(""))
                                 {
@@ -2136,7 +2136,7 @@ namespace PuntoDeVentaV2
                             {
                                 chkBoxRevision.Checked = valueCheckBox;
 
-                                strOperadorAndCant = drFiltroProducto["textComboBoxConcepto"].ToString();
+                                strOperadorAndCant = drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString();
 
                                 if (!strOperadorAndCant.Equals(""))
                                 {
@@ -2603,9 +2603,9 @@ namespace PuntoDeVentaV2
                     chkValor = 1;
                 }
 
-                Properties.Settings.Default.chkFiltroPrecio = filtroPrecio;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+                //Properties.Settings.Default.chkFiltroPrecio = filtroPrecio;
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
 
                 txtCantPrecio.Enabled = true;
                 cbTipoFiltroPrecio.Enabled = true;
@@ -2621,9 +2621,9 @@ namespace PuntoDeVentaV2
                     chkValor = 0;
                 }
 
-                Properties.Settings.Default.chkFiltroPrecio = filtroPrecio;
-                Properties.Settings.Default.Save();
-                Properties.Settings.Default.Reload();
+                //Properties.Settings.Default.chkFiltroPrecio = filtroPrecio;
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
 
                 txtCantPrecio.Enabled = false;
                 cbTipoFiltroPrecio.SelectedIndex = 0;
