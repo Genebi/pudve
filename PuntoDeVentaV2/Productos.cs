@@ -1016,7 +1016,11 @@ namespace PuntoDeVentaV2
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
         {
+            removeAllSystemTags(setUpVariable);
+            modificarDiccionarioEtiquetas(fLPDynamicTags);
+
             txtBusqueda.Text = string.Empty;
+
             if (txtBusqueda.Text.Equals(""))
             {
                 CargarDatos();
@@ -1026,8 +1030,8 @@ namespace PuntoDeVentaV2
                 quitarEspacioEnBlanco();
                 busquedaDelUsuario();
             }
-            removeAllSystemTags(setUpVariable);
-            modificarDiccionarioEtiquetas(fLPDynamicTags);
+
+            verificarBotonLimpiarTags();
         }
 
         private void modificarDiccionarioEtiquetas(Control contenedor)
