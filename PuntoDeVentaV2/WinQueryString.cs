@@ -788,10 +788,10 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < lstListView.Items.Count; i++)
             {
-                name = lstListView.Items[i].Text.ToString();
-                value = lstListView.Items[i].SubItems[1].Text.ToString();
-                //name = lstListView.Items[i].SubItems[1].Text.ToString();
-                //value = lstListView.Items[i].Text.ToString();
+                //name = lstListView.Items[i].Text.ToString();
+                //value = lstListView.Items[i].SubItems[1].Text.ToString();
+                name = lstListView.Items[i].SubItems[1].Text.ToString();
+                value = lstListView.Items[i].Text.ToString();
 
                 if (name.Equals("chkProveedor") && value.Equals("true"))
                 {
@@ -804,10 +804,10 @@ namespace PuntoDeVentaV2
                     panelContenedor.Name = nombrePanelContenedor;
                     //panelContenedor.BackColor = Color.Aqua;
 
-                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
-                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
-                    //chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
-                    //chkSettingVariableVal = lstListView.Items[i].Text.ToString();
+                    //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                    chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].Text.ToString();
 
                     if (chkSettingVariableVal.Equals("true"))
                     {
@@ -879,10 +879,10 @@ namespace PuntoDeVentaV2
                     panelContenedor.Height = 40;
                     panelContenedor.Name = nombrePanelContenedor;
 
-                    chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
-                    chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
-                    //chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
-                    //chkSettingVariableVal = lstListView.Items[i].Text.ToString();
+                    //chkSettingVariableTxt = lstListView.Items[i].Text.ToString();
+                    //chkSettingVariableVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                    chkSettingVariableTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                    chkSettingVariableVal = lstListView.Items[i].Text.ToString();
 
                     if (chkSettingVariableVal.Equals("true"))
                     {
@@ -967,8 +967,9 @@ namespace PuntoDeVentaV2
                                     if (intoSubControlHijo is ComboBox)
                                     {
                                         intoSubControlHijo.Enabled = true;
+                                        ComboBox ComBo = (ComboBox)intoSubControlHijo;
 
-                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID)))
                                         {
                                             if (!dtItemChckStok.Rows.Count.Equals(0))
                                             {
@@ -984,7 +985,8 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                                //var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, ComBo.Text, FormPrincipal.userID));
                                             }
                                             catch (Exception ex)
                                             {
@@ -995,7 +997,8 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                                //var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, ComBo.Text, FormPrincipal.userID));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1028,7 +1031,7 @@ namespace PuntoDeVentaV2
                                         comBox.SelectedIndex = 0;
                                         comBox.Enabled = false;
 
-                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID)))
                                         {
                                             if (!dtItemChckStok.Rows.Count.Equals(0))
                                             {
@@ -1044,7 +1047,7 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1055,7 +1058,7 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1094,9 +1097,15 @@ namespace PuntoDeVentaV2
                                 {
                                     if ((intoSubControlHijo.Name.Equals("cbchkProveedor")) && (intoSubControlHijo is ComboBox))
                                     {
+                                        string textoComboBox = string.Empty;
+
                                         intoSubControlHijo.Enabled = true;
 
-                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+                                        ComboBox ComBox = (ComboBox)intoSubControlHijo;
+
+                                        textoComboBox = ComBox.Text;
+
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID)))
                                         {
                                             if (!dtItemChckStok.Rows.Count.Equals(0))
                                             {
@@ -1112,7 +1121,8 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                                //var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, textoComboBox, FormPrincipal.userID));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1123,7 +1133,7 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, textoComboBox, FormPrincipal.userID));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1156,7 +1166,7 @@ namespace PuntoDeVentaV2
                                         comBox.SelectedIndex = 0;
                                         comBox.Enabled = false;
 
-                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.VerificarChk(nameChkBox, FormPrincipal.userID)))
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID)))
                                         {
                                             if (!dtItemChckStok.Rows.Count.Equals(0))
                                             {
@@ -1172,7 +1182,8 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                                //var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1183,7 +1194,8 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                                //var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID));
                                             }
                                             catch (Exception ex)
                                             {
