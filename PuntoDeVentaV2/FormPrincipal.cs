@@ -209,6 +209,8 @@ namespace PuntoDeVentaV2
             id_empleado = t_id_empleado;
         }
 
+      
+
         readonly ConnectionHandler _conHandler = new ConnectionHandler();
 
         public FormPrincipal()
@@ -575,12 +577,11 @@ namespace PuntoDeVentaV2
         
         public void InitializarTimerAndroid()
         {
-                if (pasar == 1)
-                {
+                
                     actualizarCaja.Interval = 60000;
                     actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
                     actualizarCaja.Enabled = true;
-                }
+                
             
         }
 
@@ -596,8 +597,10 @@ namespace PuntoDeVentaV2
 
         private void actualizarCaja_Tick(object sender, EventArgs e)
         {
-            _conHandler.StartCheckConnectionState();
-
+            if (pasar == 1)
+            {
+                _conHandler.StartCheckConnectionState();
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)

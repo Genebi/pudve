@@ -406,7 +406,6 @@
             // 
             // actualizarCaja
             // 
-           // this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick);
             // 
             // FormPrincipal
             // 
