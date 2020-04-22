@@ -1,4 +1,1 @@
-11|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
-12|chkBoxchkColor|False|Selecciona Color|cbchkColor
-13|chkBoxchkTalla|False|Selecciona Talla|cbchkTalla
-14|chkBoxchkMafufooo|False|Selecciona Mafufooo|cbchkMafufooo
+10|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor

@@ -1700,6 +1700,29 @@ namespace PuntoDeVentaV2
             return config;
         }
 
+        public List<string> ConceptosAppSettings()
+        {
+            var lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM appSettings WHERE IDUsuario = {FormPrincipal.userID} AND checkBoxConcepto = 1");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    var concepto = dr.GetValue(dr.GetOrdinal("concepto")).ToString();
+
+                    lista.Add(concepto);
+                }
+            }
+
+            dr.Close();
+
+            return lista;
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);
