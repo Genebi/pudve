@@ -4159,6 +4159,11 @@ namespace PuntoDeVentaV2
             e.Handled = (e.KeyChar == (char)Keys.Space);
         }
 
+        private void btnRecuperarPassword_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show("Test");
+        }
+
         private void checkBoxRecordarDatos_CheckedChanged(object sender, EventArgs e)
         {
 
