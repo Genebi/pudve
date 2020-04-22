@@ -4436,6 +4436,8 @@ namespace PuntoDeVentaV2
                     typeOfProduct = detallesProductoTmp[5];
                     txtPrecioCompra.Text = detallesProductoTmp[11];
                     logoTipo = detallesProductoTmp[9];      // Obtenemos el nuevo Path
+                    lbStockMaximo.Text = detallesProductoTmp[8];
+                    lbStockMinimo.Text = detallesProductoTmp[10];
                     if (pictureBoxProducto.Image != null)
                     {
                         pictureBoxProducto.Image.Dispose(); // Liberamos el pictureBox para poder borrar su imagen

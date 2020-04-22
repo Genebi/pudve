@@ -285,18 +285,18 @@ namespace PuntoDeVentaV2
 
             if (dr.Read())
             {
-                lista.Add(dr["ID"].ToString()); // ID producto
-                lista.Add(dr["Nombre"].ToString()); // Nombre
-                lista.Add(dr["Precio"].ToString()); // Precio
-                lista.Add(dr["TipoDescuento"].ToString()); // Tipo descuento
-                lista.Add(dr["Stock"].ToString()); // Stock
-                lista.Add(dr["Tipo"].ToString()); // Tipo (producto o servicio)
-                lista.Add(dr["ClaveInterna"].ToString()); // Clave
-                lista.Add(dr["CodigoBarras"].ToString()); // Codigo de barras
-                lista.Add(dr["StockNecesario"].ToString());
-                lista.Add(dr["ProdImage"].ToString()); // Imagen
-                lista.Add(dr["StockMinimo"].ToString());
-                lista.Add(dr["PrecioCompra"].ToString());
+                lista.Add(dr["ID"].ToString()); // ID producto  0
+                lista.Add(dr["Nombre"].ToString()); // Nombre   1
+                lista.Add(dr["Precio"].ToString()); // Precio   2
+                lista.Add(dr["TipoDescuento"].ToString()); // Tipo descuento    3
+                lista.Add(dr["Stock"].ToString()); // Stock 4
+                lista.Add(dr["Tipo"].ToString()); // Tipo (producto o servicio) 5
+                lista.Add(dr["ClaveInterna"].ToString()); // Clave  6
+                lista.Add(dr["CodigoBarras"].ToString()); // Codigo de barras   7
+                lista.Add(dr["StockNecesario"].ToString()); // Stock Maximo 8
+                lista.Add(dr["ProdImage"].ToString()); // Imagen    9
+                lista.Add(dr["StockMinimo"].ToString()); // Stock Minimo    10
+                lista.Add(dr["PrecioCompra"].ToString()); // Precio Compra  11
             }
 
             dr.Close();

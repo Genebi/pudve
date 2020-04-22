@@ -460,10 +460,10 @@ namespace PuntoDeVentaV2
 
             for (int i = 0; i < lstListView.Items.Count; i++)
             {
-                chkDetalleProductoTxt = lstListView.Items[i].Text.ToString();
-                chkDetalleProductoVal = lstListView.Items[i].SubItems[1].Text.ToString();
-                //chkDetalleProductoVal = lstListView.Items[i].Text.ToString();
-                //chkDetalleProductoTxt = lstListView.Items[i].SubItems[1].Text.ToString();
+                //chkDetalleProductoTxt = lstListView.Items[i].Text.ToString();
+                //chkDetalleProductoVal = lstListView.Items[i].SubItems[1].Text.ToString();
+                chkDetalleProductoVal = lstListView.Items[i].Text.ToString();
+                chkDetalleProductoTxt = lstListView.Items[i].SubItems[1].Text.ToString();
 
                 FlowLayoutPanel panelHijo = new FlowLayoutPanel();
                 panelHijo.Name = "panelGenerado" + id;
@@ -508,10 +508,10 @@ namespace PuntoDeVentaV2
 
                     if (row < chkDatabase.Items.Count)
                     {
-                        chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
-                        chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
-                        //chkSettingVariableVal = chkDatabase.Items[row].Text.ToString();
-                        //chkSettingVariableTxt = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        //chkSettingVariableTxt = chkDatabase.Items[row].Text.ToString();
+                        //chkSettingVariableVal = chkDatabase.Items[row].SubItems[1].Text.ToString();
+                        chkSettingVariableVal = chkDatabase.Items[row].Text.ToString();
+                        chkSettingVariableTxt = chkDatabase.Items[row].SubItems[1].Text.ToString();
 
                         CheckBox checkSetting = new CheckBox();
                         checkSetting.Name = chkSettingVariableTxt;
@@ -520,7 +520,7 @@ namespace PuntoDeVentaV2
                         checkSetting.Location = new Point(155, 0);
                         checkSetting.CheckedChanged += checkBoxSetting_CheckedChanged;
 
-                        
+
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
                         {
                             checkSetting.Checked = Convert.ToBoolean(chkSettingVariableVal);
@@ -570,31 +570,78 @@ namespace PuntoDeVentaV2
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
+            #region Manejo del CheckBox segun sea al que cambiemos estado
+            /********************************************************
+            *   Al Control de CheckBox que cambiemos el estado      *
+            *   sea True ó False este le hacemos un Casting         *
+            *   para poder manejarlo                                *
+            ********************************************************/
             CheckBox chekBoxClickDetalle = sender as CheckBox;
-            FlowLayoutPanel panelContenedor = new FlowLayoutPanel();
-            Panel panelContenido = new Panel();
-            string name = string.Empty, value = string.Empty;
-            string nombrePanelContenedor = string.Empty;
-            string nombrePanelContenido = string.Empty;
+            #endregion Manejo del CheckBox segun sea al que cambiemos estado
 
+            #region Declaracion de variables
+            /************************************************************
+            *   Declaracion de variables que usaremos para el tratado   *
+            *   de los procesos de actalizacion o de insercion del      *
+            *   estado del CheckBox                                     *
+            ************************************************************/
+            string name = string.Empty,
+                    value = string.Empty,
+                    nombrePanelContenedor = string.Empty,
+                    nombrePanelContenido = string.Empty;
+            int valorDatoDinamico = -1;
+            var servidor = Properties.Settings.Default.Hosting;
+            #endregion  Declaracion de variables
+
+            #region Inicializacion de variables
             if (chekBoxClickDetalle.Checked == true)
             {
-                name = chekBoxClickDetalle.Name.ToString();
                 value = chekBoxClickDetalle.Checked.ToString();
-                nombrePanelContenedor = "panelContenedor" + name;
-                panelContenedor.Name = nombrePanelContenedor;
-                nombrePanelContenido = "panelContenido" + name;
+            }
+            else if (chekBoxClickDetalle.Checked == false)
+            {
+                value = chekBoxClickDetalle.Checked.ToString();
+            }
 
+            if (value.Equals("True"))
+            {
+                valorDatoDinamico = 1;
+            }
+            else if (value.Equals("False"))
+            {
+                valorDatoDinamico = 0;
+            }
+
+            name = chekBoxClickDetalle.Name.ToString();
+            nombrePanelContenedor = "panelContenedor" + name;
+            nombrePanelContenido = "panelContenido" + name;
+            #endregion Inicializacion de variables
+
+            #region Inicializacion de Panel's Dinamicos
+            FlowLayoutPanel panelContenedor = new FlowLayoutPanel();
+            panelContenedor.Name = nombrePanelContenedor;
+
+            Panel panelContenido = new Panel();
+            panelContenido.Name = nombrePanelContenido;
+            #endregion Inicializacion de Panel's Dinamicos
+
+            #region Verificacion del Estado de CheckBox
+            #region Si el CheckBox esta en true
+            if (chekBoxClickDetalle.Checked == true)
+            {
+                #region Si el Nombre del Panel es igual a panelContenedorProveedor
                 if (panelContenedor.Name == "panelContenedorProveedor")
                 {
+                    // Damos caracteristicas Panel Contenedor
                     panelContenedor.Width = 600;
                     panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
-                    panelContenido.Name = nombrePanelContenido;
+                    // Damos caracteristicas Panel Contenido
                     panelContenido.Width = 594;
                     panelContenido.Height = 55;
 
+                    // Damos Caracteristicas al Label Nombre Proveedor
                     Label lblNombreProveedor = new Label();
                     lblNombreProveedor.Name = "lblNombre" + name;
                     lblNombreProveedor.Width = 320;
@@ -603,6 +650,7 @@ namespace PuntoDeVentaV2
                     lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
                     lblNombreProveedor.BackColor = Color.White;
 
+                    // Damos Caracteristicas al Label RFC Proveedor
                     Label lblRFCProveedor = new Label();
                     lblRFCProveedor.Name = "lblRFC" + name;
                     lblRFCProveedor.Width = 110;
@@ -611,6 +659,7 @@ namespace PuntoDeVentaV2
                     lblRFCProveedor.TextAlign = ContentAlignment.MiddleCenter;
                     lblRFCProveedor.BackColor = Color.White;
 
+                    // Damos Caracteristicas al Label Teléfono Proveedor
                     Label lblTelProveedor = new Label();
                     lblTelProveedor.Name = "lblTel" + name;
                     lblTelProveedor.Width = 90;
@@ -619,11 +668,14 @@ namespace PuntoDeVentaV2
                     lblTelProveedor.TextAlign = ContentAlignment.MiddleCenter;
                     lblTelProveedor.BackColor = Color.White;
 
+                    // Variables para centrar el Panel 
                     int XcbProv = 0;
                     XcbProv = panelContenido.Width / 2;
 
+                    // Metodo para cargar todos los proveedores registrados y activos
                     CargarProveedores();
 
+                    //  Damos Caracteristicas al ComboBox Proveedor
                     ComboBox cbProveedor = new ComboBox();
                     cbProveedor.Name = "cb" + name;
                     cbProveedor.Width = 400;
@@ -631,8 +683,10 @@ namespace PuntoDeVentaV2
                     cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                     cbProveedor.SelectedIndexChanged += new System.EventHandler(cbProveedor_SelectValueChanged);
 
+                    // Verificamos que si la Lista Proveedor tiene registros
                     if (listaProveedores.Length > 0)
                     {
+                        // Recargamos la Lista del ComboBox con la de Proveedores
                         cbProveedor.DataSource = proveedores.ToArray();
                         cbProveedor.DisplayMember = "Value";
                         cbProveedor.ValueMember = "Key";
@@ -641,25 +695,60 @@ namespace PuntoDeVentaV2
                         // Cuando se da click en la opcion editar producto
                         if (AgregarEditarProducto.DatosSourceFinal == 2)
                         {
+                            // Obtenemos el idProducto
                             var idProducto = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+                            // Obtenemos la Lista del Detalles de Producto
                             var idProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
-
+                            // Obtenemos la cantidad de Detalles obtenidos
                             int cantidad = idProveedor.Length;
 
+                            // si cantidad es mayor que 0 "Si tiene registros Detalles de Producto"
                             if (cantidad > 0)
                             {
+                                // Si el ID DetallesProducto tiene algun registro
                                 if (!idProveedor[1].Equals(""))
                                 {
+                                    // Convertimos el ID DetallesProducto y compramos si es mayor que cero
                                     if (Convert.ToInt32(idProveedor[1].ToString()) > 0)
                                     {
+                                        // Llamos metodo de Cargar Datos Proveedor
                                         cargarDatosProveedor(Convert.ToInt32(idProveedor[1]));
                                         if (!datosProveedor.Equals(null))
                                         {
+                                            // llenamos los Label de Nombre, RFC y Teléfono del Proveedor
                                             lblNombreProveedor.Text = datosProveedor[0];
                                             lblRFCProveedor.Text = datosProveedor[1];
                                             lblTelProveedor.Text = datosProveedor[10];
-                                            diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
-                                            contadorIndex++;
+
+                                            try
+                                            {
+                                                // Hacemos el intento de hacer la actualización del Proveedor
+                                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                // Muestra un error al no poder hacer la actualizacion del Proveedor
+                                                MessageBox.Show("Error al actualizar Valor del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+
+                                            try
+                                            {
+                                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoFiltroDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al actualizar Valor del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+
+                                            /*if (servidor.Equals(""))
+                                            {
+                                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                            }
+                                            else if (!servidor.Equals(""))
+                                            {
+                                                diccionarioDetalleBasicos.Add(contadorIndex, new Tuple<string, string, string, string>(idProveedor[0].ToString(), nombrePanelContenido, idProveedor[0].ToString(), datosProveedor[0].ToString()));
+                                                contadorIndex++;
+                                            }*/
                                         }
                                     }
                                 }
@@ -668,16 +757,22 @@ namespace PuntoDeVentaV2
                     }
                     else if (listaProveedores.Length < 0)
                     {
+                        // Si es que no tiene lista de Proveedores se le agrega
+                        // Proveedores...  al inicio y se muestra en la interfaz
                         cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
                     }
                     else if (cbProveedor.Items.Count == 0)
                     {
+                        // Si es que no tiene lista de Proveedores se le agrega
+                        // Proveedores...  al inicio y se muestra en la interfaz
                         cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
                     }
+                    // hacemos que el ComboBox no sea Editable solo sea de Lectura
                     cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
 
+                    // Agregamos el panel al principal de la interfaz
                     panelContenido.Controls.Add(cbProveedor);
                     panelContenido.Controls.Add(lblNombreProveedor);
                     panelContenido.Controls.Add(lblRFCProveedor);
@@ -686,21 +781,28 @@ namespace PuntoDeVentaV2
                     panelContenedor.Controls.Add(panelContenido);
                     fLPCentralDetalle.Controls.Add(panelContenedor);
                 }
+                #endregion Si el Nombre del Panel es igual a panelContenedorProveedor
+                #region Si el Nombre del Panel es diferente a panelContenedorProveedor
                 else
                 {
+                    // Obtenemos como sera el nombre del panel
                     nombrePanelContenido = "panelContenido" + name;
 
+                    // Damos Caracteristicas al panel Contenedor
                     panelContenedor.Width = 196;
                     panelContenedor.Height = 63;
                     panelContenedor.BackColor = Color.LightGray;
 
+                    // Damos Caracteristicas al panel Contenido
                     panelContenido.Name = nombrePanelContenido;
                     panelContenido.Width = 185;
                     panelContenido.Height = 55;
 
+                    // Variables para el centrado del panel
                     int XcbProv = 0;
                     XcbProv = panelContenido.Width / 2;
 
+                    // Iniciamos la Etiqueta Nombre
                     Label lblNombreDetalleGral = new Label();
                     lblNombreDetalleGral.Name = "lblNombre" + name;
                     lblNombreDetalleGral.Width = 170;
@@ -709,8 +811,11 @@ namespace PuntoDeVentaV2
                     lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
                     lblNombreDetalleGral.BackColor = Color.White;
 
+                    // Llamamos al metodo Cargar Detalles Generales
+                    // Para obtener una lista de ellos
                     CargarDetallesGral(name);
 
+                    // Iniciamos el ComboBox para cargar los Detalles Generales
                     ComboBox cbDetalleGral = new ComboBox();
                     cbDetalleGral.Name = "cb" + name;
                     cbDetalleGral.Width = 170;
@@ -719,6 +824,7 @@ namespace PuntoDeVentaV2
                     cbDetalleGral.SelectedIndexChanged += new System.EventHandler(cbDetalleGral_SelectIndexChanged);
                     cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
 
+                    // Verificamos si la Lista de Detalles Generales tiene algun registro
                     if (listaDetalleGral.Length > 0)
                     {
                         cbDetalleGral.DataSource = detallesGral.ToArray();
@@ -726,12 +832,14 @@ namespace PuntoDeVentaV2
                         cbDetalleGral.ValueMember = "Key";
                         cbDetalleGral.SelectedValue = "0";
                     }
+                    // Verificamos si la Lista de Detalles Generales no tiene algun registro
                     else if (cbDetalleGral.Items.Count == 0)
                     {
                         cbDetalleGral.Items.Add(chekBoxClickDetalle.Name.ToString() + "...");
                         cbDetalleGral.SelectedIndex = 0;
                     }
 
+                    // Agregamos al Panel Principal de la Interfaz
                     panelContenido.Controls.Add(cbDetalleGral);
                     panelContenido.Controls.Add(lblNombreDetalleGral);
                     panelContenedor.Controls.Add(panelContenido);
@@ -770,6 +878,7 @@ namespace PuntoDeVentaV2
                         }
 
                         idProductoDetalleGral = Convert.ToInt32(AgregarEditarProducto.idProductoFinal);
+
                         var DetalleGralPorPanel = mb.DetallesProductoGralPorPanel(Descripcion, FormPrincipal.userID, idProductoDetalleGral);
 
                         int cantidad = DetalleGralPorPanel.Length;
@@ -794,13 +903,68 @@ namespace PuntoDeVentaV2
                                                 if (contItemSubHijo is Label)
                                                 {
                                                     contItemSubHijo.Text = idDetalleGral[2].ToString();
-                                                    diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string, string>(DetalleGralPorPanel[0].ToString(), nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
-                                                    contadorIndex++;
-                                                    break;
+
+                                                    //if (servidor.Equals(""))
+                                                    //{
+                                                    //    var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                                    //}
+                                                    //else if (!servidor.Equals(""))
+                                                    //{
+                                                    //    diccionarioDetallesGeneral.Add(contadorIndex, new Tuple<string, string, string, string>(DetalleGralPorPanel[0].ToString(), nombrePanelContenido, idDetailGral.ToString(), idDetalleGral[2].ToString()));
+                                                    //    contadorIndex++;
+                                                    //}
+                                                    //break;
                                                 }
                                             }
-
                                             idDetalleGral = new string[] { };
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        try
+                        {
+                            var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error de Desactivar Concepto Dinamico: " + ex.Message.ToString(), "Error de Actulización", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                #endregion Si el Nombre del Panel es diferente a panelContenedorProveedor
+            }
+            #endregion Si el CheckBox esta en true
+            #region Si el CheckBox esta en false
+            else if (chekBoxClickDetalle.Checked == false)
+            {
+                foreach (Control itemPanelContenedor in fLPCentralDetalle.Controls)
+                {
+                    string namePanelContenedor = string.Empty;
+                    namePanelContenedor = itemPanelContenedor.Name.ToString();
+
+                    if (itemPanelContenedor is Panel)
+                    {
+                        if (namePanelContenedor == nombrePanelContenedor.ToString())
+                        {
+                            foreach (Control subItemPanelContenedor in itemPanelContenedor.Controls)
+                            {
+                                string namePanelContenido = string.Empty;
+                                namePanelContenido = subItemPanelContenedor.Name.ToString();
+
+                                if (subItemPanelContenedor is Panel)
+                                {
+                                    if (namePanelContenido == nombrePanelContenido.ToString())
+                                    {
+                                        fLPCentralDetalle.Controls.Remove(itemPanelContenedor);
+                                        itemPanelContenedor.Dispose();
+                                        try
+                                        {
+                                            var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show("Error de Desactivar Concepto Dinamico: " + ex.Message.ToString(), "Error de Actulización", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         }
                                     }
                                 }
@@ -809,32 +973,16 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else if (chekBoxClickDetalle.Checked == false)
-            {
-                name = chekBoxClickDetalle.Name.ToString();
-                value = chekBoxClickDetalle.Checked.ToString();
+            #endregion Si el CheckBox esta en false
+            #endregion Verificacion del Estado de CheckBox
 
-                encontrarPanel("panelContenedor" + name);
-            }
+            #region Recargar Registros Dinamicos
+            loadFromConfigDB();
+            #endregion Recargar Registros Dinamicos
 
-            //int valorDatoDinamico = -1;
-
-            //if (value.Equals("True"))
-            //{
-            //    valorDatoDinamico = 1;
-            //}
-            //else if (value.Equals("False"))
-            //{
-            //    valorDatoDinamico = 0;
-            //}
-
-            //var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
-
-            //loadFromConfigDB();
-
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
 
             //var servidor = Properties.Settings.Default.Hosting;
 
@@ -1320,7 +1468,6 @@ namespace PuntoDeVentaV2
                 valorDatoDinamico = 0;
             }
 
-
             try
             {
                 var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamicoShow(name, valorDatoDinamico, FormPrincipal.userID));
@@ -1339,11 +1486,40 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error al intentar Actualizar " + name.Remove(0, 3) + "\nen la Base de Datos FiltroDinamico\nERROR: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            //loadFromConfigDB();
+            if (valorDatoDinamico.Equals(0))
+            {
+                try
+                {
+                    var BorrarFiltro = cn.EjecutarConsulta(cs.BorrarDatoVentanaFiltros(name.Remove(0, 3), FormPrincipal.userID));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al Desactivar el Filtro Dinamico: " + ex.Message.ToString(), "Error al Desactivar Filtro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else if (valorDatoDinamico.Equals(1))
+            {
+                try
+                {
+                    using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(name.Remove(0, 3), FormPrincipal.userID)))
+                    {
+                        if (dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
+                        {
+                            var Guardarfiltro = cn.EjecutarConsulta(cs.GuardarVentanaFiltros("0", name.Remove(0, 3), "Selecciona " + name.Remove(0, 3), FormPrincipal.userID));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al Activar el Filtro Dinamico: " + ex.Message.ToString(), "Error al Activar Filtro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
 
-            UpdateKey(name, value);
-            RefreshAppSettings();
-            loadFormConfig();
+            loadFromConfigDB();
+
+            //UpdateKey(name, value);
+            //RefreshAppSettings();
+            //loadFormConfig();
 
             //var servidor = Properties.Settings.Default.Hosting;
 
@@ -1555,8 +1731,8 @@ namespace PuntoDeVentaV2
 
             var servidor = Properties.Settings.Default.Hosting;
 
-            loadFormConfig();
-            //loadFromConfigDB();
+            //loadFormConfig();
+            loadFromConfigDB();
             BuscarTextoListView(settingDatabases);
 
             //if (string.IsNullOrWhiteSpace(servidor))
@@ -1814,9 +1990,9 @@ namespace PuntoDeVentaV2
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Detalle a Eliminar"))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al eliminar detalle\nVerifique que el campo Eliminar Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -1827,58 +2003,95 @@ namespace PuntoDeVentaV2
                         var mensaje = deleteDetalle;
 
                         MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + deleteDetalle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        RefreshAppSettings();
-                        loadFormConfig();
-                        //loadFromConfigDB();
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        loadFromConfigDB();
                         BuscarTextoListView(settingDatabases);
                     }
                     else
                     {
-                        //int found = -1;
-                        //using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(deleteDetalle, FormPrincipal.userID)))
-                        //{
-                        //    if (!dtItemDinamicos.Rows.Count.Equals(0))
-                        //    {
-                        //        found = 1;
-                        //    }
-                        //    else if (dtItemDinamicos.Rows.Count.Equals(0))
-                        //    {
-                        //        found = 0;
-                        //    }
-                        //}
+                        int found = -1;
+                        using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(deleteDetalle, FormPrincipal.userID)))
+                        {
+                            if (!dtItemDinamicos.Rows.Count.Equals(0))
+                            {
+                                found = 1;
+                            }
+                            else if (dtItemDinamicos.Rows.Count.Equals(0))
+                            {
+                                found = 0;
+                            }
+                        }
 
-                        //if (found.Equals(1))
+                        if (found.Equals(1))
+                        {
+                            fLPCentralDetalle.Controls.Clear();
+
+                            try
+                            {
+                                var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                var DeleteDatoFiltroDinamico = cn.EjecutarConsulta(cs.BorrarDatoFiltroDinamico("chk" + deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                var DeleteDatoFiltroDinamicoVentanaFiltros = cn.EjecutarConsulta(cs.BorrarDatoVentanaFiltros(deleteDetalle, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            //loadFormConfig();
+                            loadFromConfigDB();
+                            BuscarTextoListView(settingDatabases);
+                            deleteDetalle = string.Empty;
+                        }
+                        else if (found.Equals(0))
+                        {
+                            //RefreshAppSettings();
+                            //loadFormConfig();
+                            loadFromConfigDB();
+                            BuscarTextoListView(settingDatabases);
+                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        //if (KeyExist(deleteDetalle))
                         //{
+                        //    DeleteKey(deleteDetalle);
+                        //    RefreshAppSettings();
+                        //    //loadFormConfig();
+
+                        //    //var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                        //    //if (DeleteDatoDinamicos.Equals(1))
+                        //    //{
+                        //    //    MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //    //}
+                        //    //else if (DeleteDatoDinamicos.Equals(0))
+                        //    //{
+                        //    //    //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    //}
+
                         //    fLPCentralDetalle.Controls.Clear();
-
-                        //    var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
-                        //    if (DeleteDatoDinamicos.Equals(1))
-                        //    {
-                        //        MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //    }
-                        //    else if (DeleteDatoDinamicos.Equals(0))
-                        //    {
-                        //        //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //        MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    }
-
-                        //    var DeleteDatoFiltroDinamico = cn.EjecutarConsulta(cs.BorrarDatoFiltroDinamico(deleteDetalle, FormPrincipal.userID));
-                        //    if (DeleteDatoFiltroDinamico.Equals(1))
-                        //    {
-                        //        MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //    }
-                        //    else if (DeleteDatoFiltroDinamico.Equals(0))
-                        //    {
-                        //        //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //        MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    }
-
                         //    loadFormConfig();
                         //    //loadFromConfigDB();
                         //    BuscarTextoListView(settingDatabases);
                         //    deleteDetalle = string.Empty;
                         //}
-                        //else if (found.Equals(0))
+                        //else
                         //{
                         //    RefreshAppSettings();
                         //    loadFormConfig();
@@ -1887,59 +2100,27 @@ namespace PuntoDeVentaV2
                         //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //}
 
-                        if (KeyExist(deleteDetalle))
-                        {
-                            DeleteKey(deleteDetalle);
-                            RefreshAppSettings();
-                            //loadFormConfig();
+                        ////var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
+                        ////if (DeleteDatoDinamico.Equals(1))
+                        ////{
+                        ////    //MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ////}
+                        ////else if (DeleteDatoDinamico.Equals(0))
+                        ////{
+                        ////    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        ////}
 
-                            //var DeleteDatoDinamicos = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
-                            //if (DeleteDatoDinamicos.Equals(1))
-                            //{
-                            //    MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            //}
-                            //else if (DeleteDatoDinamicos.Equals(0))
-                            //{
-                            //    //MessageBox.Show("Error al Borrar Dato de la base de datos", "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            //}
-
-                            fLPCentralDetalle.Controls.Clear();
-                            loadFormConfig();
-                            //loadFromConfigDB();
-                            BuscarTextoListView(settingDatabases);
-                            deleteDetalle = string.Empty;
-                        }
-                        else
-                        {
-                            RefreshAppSettings();
-                            loadFormConfig();
-                            //loadFromConfigDB();
-                            BuscarTextoListView(settingDatabases);
-                            MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        //var DeleteDatoDinamico = cn.EjecutarConsulta(cs.BorrarDatoDinamico(deleteDetalle, FormPrincipal.userID));
-                        //if (DeleteDatoDinamico.Equals(1))
-                        //{
-                        //    //MessageBox.Show("Dato Borrado con exito de la base de datos", "Dato Borrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        //}
-                        //else if (DeleteDatoDinamico.Equals(0))
-                        //{
-                        //    MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros", "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //}
-
-                        //loadFromConfigDB();
-                        //BuscarTextoListView(settingDatabases);
+                        ////loadFromConfigDB();
+                        ////BuscarTextoListView(settingDatabases);
                         deleteDetalle = string.Empty;
                     }
                 }
             }
             catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
+                //RefreshAppSettings();
+                //loadFormConfig();
+                loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al eliminar el Detalle: " + deleteDetalle + " en los registros", "Error Try Catch Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -1962,17 +2143,17 @@ namespace PuntoDeVentaV2
                 fLPCentralDetalle.Controls.Clear();
                 if (nvoDetalle.Equals("Escriba aquí su Nuevo Detalle"))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nTenga un nombre valido", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!nvoDetalle.Equals(""))
                 {
-                    AddKey(nvoDetalle, nvoValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
+                    //AddKey(nvoDetalle, nvoValor);
+                    //RefreshAppSettings();
+                    //loadFormConfig();
                     using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(nvoDetalle, FormPrincipal.userID)))
                     {
                         if (!dtItemDinamicos.Rows.Count.Equals(0))
@@ -2014,25 +2195,25 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    //loadFromConfigDB();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     editDetelle = string.Empty;
                     editDetalleNvo = string.Empty;
                 }
                 else if (nvoDetalle.Equals(""))
                 {
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                     MessageBox.Show("Error al intentar Agregar\nVerifique que el campo Agregar Nuevo Detalle a Mostrar\nNo este Vacio por favor", "Error al Agregar Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
+                //RefreshAppSettings();
+                //loadFormConfig();
+                loadFromConfigDB();
                 BuscarTextoListView(settingDatabases);
                 MessageBox.Show("Error al intentar Agregar: " + ex.Message.ToString(), "Error Try Catch Nuevo Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -2043,124 +2224,132 @@ namespace PuntoDeVentaV2
             RenombrarDetalle renameDetail = new RenombrarDetalle();
             renameDetail.nombreDetalle += new RenombrarDetalle.pasarOldNameNewName(ejecutar);
             renameDetail.ShowDialog();
-            //try
-            //{
-            //    int found = -1;
-            //    using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo, FormPrincipal.userID)))
-            //    {
-            //        if (dtItemDinamicos.Rows.Count.Equals(0))
-            //        {
-            //            found = 1;
-            //        }
-            //        else if (dtItemDinamicos.Rows.Count.Equals(0))
-            //        {
-            //            found = 0;
-            //        }
-            //    }
-            //    if (found.Equals(1))
-            //    {
-            //        if (editDetelle.Equals("Proveedor"))
-            //        {
-            //            var mensaje = editDetelle;
-
-            //            MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            fLPCentralDetalle.Controls.Clear();
-            //            //RefreshAppSettings();
-            //            //loadFormConfig();
-            //            loadFromConfigDB();
-            //            BuscarTextoListView(settingDatabases);
-            //        }
-            //        else
-            //        {
-            //            fLPCentralDetalle.Controls.Clear();
-            //            //ReadKey(editDetelle);
-            //            //RenameKey(editDetelle, editValor);
-            //            //RefreshAppSettings();
-            //            //loadFormConfig();
-
-            //            var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-            //            if (UpdateDatoDinamico.Equals(1))
-            //            {
-            //                //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //            }
-            //            else if (UpdateDatoDinamico.Equals(0))
-            //            {
-            //                MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-
-            //            var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoFiltroDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-            //            if (UpdateDatoFiltroDinamico.Equals(1))
-            //            {
-            //                //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            //            }
-            //            else if (UpdateDatoFiltroDinamico.Equals(0))
-            //            {
-            //                MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //            }
-
-            //            loadFromConfigDB();
-            //            BuscarTextoListView(settingDatabases);
-            //        }
-            //    }
-            //    else if (found.Equals(0))
-            //    {
-            //        //RefreshAppSettings();
-            //        //loadFormConfig();
-            //        loadFromConfigDB();
-            //        BuscarTextoListView(settingDatabases);
-            //        MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //editDetelle = string.Empty;
-            //editDetalleNvo = string.Empty;
-            if (!KeyExist(editDetalleNvo))
+            try
             {
-                if (editDetelle.Equals("Proveedor"))
+                int found = -1;
+                using (DataTable dtItemDinamicos = cn.CargarDatos(cs.VerificarDatoDinamico(editDetalleNvo, FormPrincipal.userID)))
                 {
-                    var mensaje = editDetelle;
-
-                    MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
-                                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    fLPCentralDetalle.Controls.Clear();
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
+                    if (dtItemDinamicos.Rows.Count.Equals(0))
+                    {
+                        found = 1;
+                    }
+                    else if (dtItemDinamicos.Rows.Count.Equals(0))
+                    {
+                        found = 0;
+                    }
                 }
-                else
+                if (found.Equals(1))
                 {
-                    fLPCentralDetalle.Controls.Clear();
-                    ReadKey(editDetelle);
-                    RenameKey(editDetelle, editValor);
-                    RefreshAppSettings();
-                    loadFormConfig();
-                    //loadFromConfigDB();
+                    if (editDetelle.Equals("Proveedor"))
+                    {
+                        var mensaje = editDetelle;
+
+                        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(), "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        fLPCentralDetalle.Controls.Clear();
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                    }
+                    else
+                    {
+                        fLPCentralDetalle.Controls.Clear();
+                        //ReadKey(editDetelle);
+                        //RenameKey(editDetelle, editValor);
+                        //RefreshAppSettings();
+                        //loadFormConfig();
+
+                        try
+                        {
+                            var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        try
+                        {
+                            var UpdateDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoFiltroDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        try
+                        {
+                            var UpdateNombreDatoFiltroDinamico = cn.EjecutarConsulta(cs.ActualizarNombreDatoVentanaFiltros(editDetalleNvo, editDetelle, FormPrincipal.userID));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error al Intentar Actualizar Registro de Filtro Dinamico...\nError: " + ex.Message.ToString(), "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                        loadFromConfigDB();
+                        BuscarTextoListView(settingDatabases);
+                    }
+                }
+                else if (found.Equals(0))
+                {
+                    //RefreshAppSettings();
+                    //loadFormConfig();
+                    loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
-                    var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
-                    if (UpdateDatoDinamico.Equals(1))
-                    {
-                        //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
-                    else if (UpdateDatoDinamico.Equals(0))
-                    {
-                        MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                RefreshAppSettings();
-                loadFormConfig();
-                //loadFromConfigDB();
-                BuscarTextoListView(settingDatabases);
-                MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al Intentar Renombrar un Concepto Dinamico:\n" + ex.Message.ToString(), "Error al Renombrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             editDetelle = string.Empty;
             editDetalleNvo = string.Empty;
+
+            //if (!KeyExist(editDetalleNvo))
+            //{
+            //    if (editDetelle.Equals("Proveedor"))
+            //    {
+            //        var mensaje = editDetelle;
+
+            //        MessageBox.Show("No se puede Renombrar ó Eliminar\n(" + mensaje + ")\nya que es la configuración basica\nUsted esta Intentando realizar dicha operacion\nsobre la configuración: " + editDetelle.ToString(),
+            //                        "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        fLPCentralDetalle.Controls.Clear();
+            //        RefreshAppSettings();
+            //        loadFormConfig();
+            //        //loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //    }
+            //    else
+            //    {
+            //        fLPCentralDetalle.Controls.Clear();
+            //        ReadKey(editDetelle);
+            //        RenameKey(editDetelle, editValor);
+            //        RefreshAppSettings();
+            //        loadFormConfig();
+            //        //loadFromConfigDB();
+            //        BuscarTextoListView(settingDatabases);
+            //        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoDinamico(editDetelle, editDetalleNvo, FormPrincipal.userID));
+            //        if (UpdateDatoDinamico.Equals(1))
+            //        {
+            //            //MessageBox.Show("Actualización de Detalle Dinamico\nExitoso...", "Actualización Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //        }
+            //        else if (UpdateDatoDinamico.Equals(0))
+            //        {
+            //            MessageBox.Show("Error al Intentar Actualizar Registro de Detalle Dinamico...", "Actualización Fallida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    RefreshAppSettings();
+            //    loadFormConfig();
+            //    //loadFromConfigDB();
+            //    BuscarTextoListView(settingDatabases);
+            //    MessageBox.Show("Error al intentar Renombrar\nVerifique que el Nombre del Detalle\nNo este en uso, por favor", "Error al Renombrar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //editDetelle = string.Empty;
+            //editDetalleNvo = string.Empty;
         }
 
         private void ejecutar(string oldName, string newName)
@@ -2185,7 +2374,7 @@ namespace PuntoDeVentaV2
                     stockNecesario = "0";
                 }
             }
-            
+
             if (string.IsNullOrWhiteSpace(stockMinimo))
             {
                 if (!string.IsNullOrWhiteSpace(stockNecesario))
@@ -2229,7 +2418,7 @@ namespace PuntoDeVentaV2
         {
             // Variables para poder hacer el control 
             // de registro y actualizacion de la tabla
-            string  Descripcion = string.Empty,
+            string Descripcion = string.Empty,
                     panel = string.Empty;
 
             // lista para almacenar los datos
@@ -2247,127 +2436,299 @@ namespace PuntoDeVentaV2
                     // Recorremos los controles en el PanelContenedor
                     foreach (Control contSubHijo in contHijo.Controls)
                     {
-                        // Verificamos si el PanelContenido ya existe en el Diccionario de Detalle General
-                        // sí ya esta el registro del PanelContenido la variable sera true
-                        // sí no esta el registro del PanelContenido la variable sera false
-                        bool alreadyStoredPanelConteido = diccionarioDetallesGeneral.Any(x => x.Value.Item2 == contSubHijo.Name);
-                        // sí es True
-                        if (alreadyStoredPanelConteido)
+                        var servidor = Properties.Settings.Default.Hosting;
+                        string nameConcepto = string.Empty, textoConcepto = string.Empty, namepanelContenido = string.Empty;
+                        infoDetailProdGral.Clear();
+
+                        foreach (Control contSubItemHijo in contSubHijo.Controls)
                         {
-                            infoDetailProdGral.Clear();
-                            // Recorremos los controles en el PanelContenido
-                            foreach (Control contSubItemHijo in contSubHijo.Controls)
+                            // Verificamos si el control es de tipo Label
+                            if (contSubItemHijo is Label)
                             {
-                                // Verificamos si el control es de tipo Label
-                                if (contSubItemHijo is Label)
+                                bool alreadyStoredDescripcion = false, alreadyStoredDescripcionGral = false;
+                                string IDDetalleGral = string.Empty;
+                                nameConcepto = contSubItemHijo.Name.ToString().Remove(0, 9);
+                                textoConcepto = contSubItemHijo.Text;
+                                namepanelContenido = contSubItemHijo.Name.ToString().Remove(0, 9);
+
+                                using (DataTable dtDynamicFilters = cn.CargarDatos(cs.VerificarTextoConceptoFiltroDinamico(nameConcepto, FormPrincipal.userID)))
                                 {
-                                    // Verificamos si la Descripcion ya existe en el Diccionario de Detalle General
-                                    // sí ya esta el registro de la Descripcion la variable sera true
-                                    // sí no esta el registro de la Descripcion la variable sera false
-                                    bool alreadyStoredDescripcion = diccionarioDetallesGeneral.Any(x => x.Value.Item4 == contSubItemHijo.Text);
-                                    // sí es True
-                                    if (alreadyStoredDescripcion)
+                                    if (!dtDynamicFilters.Rows.Count.Equals(0))
                                     {
-                                        // No se han detectado cambios en los registros
-                                        break;
+                                        alreadyStoredDescripcion = true;
                                     }
-                                    // sí es False
-                                    else if (!alreadyStoredDescripcion)
+                                    else if (dtDynamicFilters.Rows.Count.Equals(0))
                                     {
-                                        // Se han detectado cambios en alguno de los registros
-                                        Descripcion = contSubItemHijo.Text;
-                                        // recorremos el diccionario Detalles Generales
-                                        foreach (var item in diccionarioDetallesGeneral)
-                                        {
-                                            // comparamos si el nombre del Panel es el mismo que el del Diccionario
-                                            if (item.Value.Item2.Equals(contSubHijo.Name))
-                                            {
-                                                // verificamos que sea diferente la Descripcion
-                                                if (!item.Value.Item4.Equals(Descripcion))
-                                                {
-                                                    // agregamos el ID
-                                                    infoDetailProdGral.Add(item.Value.Item1.ToString());
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        // Obtenemos todos los datos del Detalle en General
-                                        var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                        // Obtenemos el ID del Detalle General
-                                        infoDetailProdGral.Add(idFound[0].ToString());
-                                        // Ejecutamos el proceso de guardado
-                                        try
-                                        {
-                                            guardar = infoDetailProdGral.ToArray();
-                                            cn.EjecutarConsulta(cs.ActualizarDetallesProductoGenerales(guardar));
-                                            infoDetailProdGral.Clear();
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        }
-                                        break;
+                                        alreadyStoredDescripcion = false;
                                     }
                                 }
-                            }
-                        }
-                        // sí es False
-                        else if (!alreadyStoredPanelConteido)
-                        {
-                            infoDetailProdGral.Clear();
-                            // Se ha detectado un nuevo Registro
-                            // Recorremos los controles en el PanelContenido
-                            foreach (Control contSubItemHijo in contSubHijo.Controls)
-                            {
-                                // Verificamos si el control es de tipo Label
-                                if (contSubItemHijo is Label)
+
+                                var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
+
+                                var idProductoBuscar = finalIdProducto;
+
+                                if (alreadyStoredDescripcion)
                                 {
-                                    if (!finalIdProducto.Equals(""))
+                                    try
                                     {
-                                        // Se almacenan los datos para 
-                                        // el posterior registro
-                                        infoDetailProdGral.Add(finalIdProducto);
-                                        infoDetailProdGral.Add(FormPrincipal.userID.ToString());
-                                        Descripcion = contSubItemHijo.Text;
-                                        var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                        if (idFound.Length > 0)
+                                        cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chk" + nameConcepto, FormPrincipal.userID, textoConcepto));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+
+                                    try
+                                    {
+                                        using (DataTable dtDetallesProductoGenerales = cn.CargarDatos($"SELECT * FROM DetallesProductoGenerales WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}' AND panelContenido = 'panelContenido{namepanelContenido}'"))
                                         {
-                                            infoDetailProdGral.Add(idFound[0].ToString());
-                                            infoDetailProdGral.Add("1");
-                                            infoDetailProdGral.Add("panelContenido" + idFound[2].ToString());
-                                            // Ejecutamos el proceso de guardado
+                                            if (!dtDetallesProductoGenerales.Rows.Count.Equals(0))
+                                            {
+                                                alreadyStoredDescripcionGral = true;
+                                                foreach (DataRow dtRow in dtDetallesProductoGenerales.Rows)
+                                                {
+                                                    IDDetalleGral = dtRow["ID"].ToString();
+                                                }
+                                            }
+                                            else if (dtDetallesProductoGenerales.Rows.Count.Equals(0))
+                                            {
+                                                alreadyStoredDescripcionGral = false;
+                                            }
+                                        }
+
+                                        var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
+
+                                        var idProductoBuscarGral = finalIdProducto;
+
+                                        if (alreadyStoredDescripcionGral)
+                                        {
                                             try
                                             {
-                                                guardar = infoDetailProdGral.ToArray();
-                                                cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
-                                                infoDetailProdGral.Clear();
+                                                cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamicoGral(idFoundGral[0].ToString(), IDDetalleGral));
                                             }
                                             catch (Exception ex)
                                             {
-                                                MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                             }
-                                            break;
                                         }
-                                    }
-                                    else if (finalIdProducto.Equals(""))
-                                    {
-                                        //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        infoDetailProdGral.Add(finalIdProducto);
-                                        infoDetailProdGral.Add(Convert.ToString(FormPrincipal.userID));
-                                        Descripcion = contSubItemHijo.Text;
-                                        var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-
-                                        if (idFound.Length > 0)
+                                        else if (!alreadyStoredDescripcionGral)
                                         {
-                                            infoDetailProdGral.Add(idFound[2].ToString()); // Obtenemos el ChckName Detalles Basicos
-                                            infoDetailProdGral.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                            infoDetailProdGral.Add(idFound[3].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                            AgregarEditarProducto.detalleProductoGeneral = infoDetailProdGral;
+                                            try
+                                            {
+                                                // Se almacenan los datos para 
+                                                // el posterior registro
+                                                infoDetailProdGral.Add(finalIdProducto);
+                                                infoDetailProdGral.Add(FormPrincipal.userID.ToString());
+                                                if (idFoundGral.Length > 0)
+                                                {
+                                                    infoDetailProdGral.Add(idFoundGral[0].ToString());
+                                                    infoDetailProdGral.Add("1");
+                                                    infoDetailProdGral.Add("panelContenido" + idFoundGral[2].ToString());
+                                                    // Ejecutamos el proceso de guardado
+                                                    try
+                                                    {
+                                                        guardar = infoDetailProdGral.ToArray();
+                                                        cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                                                        infoDetailProdGral.Clear();
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                }
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al agregar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Agregar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show("Error al actualizar Texto de DetallesProducto: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
+                                }
+                                else if (!alreadyStoredDescripcion)
+                                {
+                                    infoDetailProdGral.Clear();
+                                    // Verificamos si el control es de tipo Label
+                                    if (contSubItemHijo is Label)
+                                    {
+                                        if (!finalIdProducto.Equals(""))
+                                        {
+                                            // Se almacenan los datos para 
+                                            // el posterior registro
+                                            infoDetailProdGral.Add(finalIdProducto);
+                                            infoDetailProdGral.Add(FormPrincipal.userID.ToString());
+                                            Descripcion = contSubItemHijo.Text;
+                                            var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                                            if (idFoundNew.Length > 0)
+                                            {
+                                                infoDetailProdGral.Add(idFoundNew[0].ToString());
+                                                infoDetailProdGral.Add("1");
+                                                infoDetailProdGral.Add("panelContenido" + idFoundNew[2].ToString());
+                                                // Ejecutamos el proceso de guardado
+                                                try
+                                                {
+                                                    guardar = infoDetailProdGral.ToArray();
+                                                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                                                    infoDetailProdGral.Clear();
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                        }
+                                        else if (finalIdProducto.Equals(""))
+                                        {
+                                            //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            infoDetailProdGral.Add(finalIdProducto);
+                                            infoDetailProdGral.Add(Convert.ToString(FormPrincipal.userID));
+                                            Descripcion = contSubItemHijo.Text;
+                                            var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+
+                                            if (idFoundNew.Length > 0)
+                                            {
+                                                infoDetailProdGral.Add(idFoundNew[2].ToString()); // Obtenemos el ChckName Detalles Basicos
+                                                infoDetailProdGral.Add(idFoundNew[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                infoDetailProdGral.Add(idFoundNew[3].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                AgregarEditarProducto.detalleProductoGeneral = infoDetailProdGral;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                        //if (servidor.Equals(""))
+                        //{
+                        //
+                        //}
+                        //else if (!servidor.Equals(""))
+                        //{
+                        //    // Verificamos si el PanelContenido ya existe en el Diccionario de Detalle General
+                        //    // sí ya esta el registro del PanelContenido la variable sera true
+                        //    // sí no esta el registro del PanelContenido la variable sera false
+                        //    bool alreadyStoredPanelConteido = diccionarioDetallesGeneral.Any(x => x.Value.Item2 == contSubHijo.Name);
+                        //    // sí es True
+                        //    if (alreadyStoredPanelConteido)
+                        //    {
+                        //        infoDetailProdGral.Clear();
+                        //        // Recorremos los controles en el PanelContenido
+                        //        foreach (Control contSubItemHijo in contSubHijo.Controls)
+                        //        {
+                        //            // Verificamos si el control es de tipo Label
+                        //            if (contSubItemHijo is Label)
+                        //            {
+                        //                // Verificamos si la Descripcion ya existe en el Diccionario de Detalle General
+                        //                // sí ya esta el registro de la Descripcion la variable sera true
+                        //                // sí no esta el registro de la Descripcion la variable sera false
+                        //                bool alreadyStoredDescripcion = diccionarioDetallesGeneral.Any(x => x.Value.Item4 == contSubItemHijo.Text);
+                        //                // sí es True
+                        //                if (alreadyStoredDescripcion)
+                        //                {
+                        //                    // No se han detectado cambios en los registros
+                        //                    break;
+                        //                }
+                        //                // sí es False
+                        //                else if (!alreadyStoredDescripcion)
+                        //                {
+                        //                    // Se han detectado cambios en alguno de los registros
+                        //                    Descripcion = contSubItemHijo.Text;
+                        //                    // recorremos el diccionario Detalles Generales
+                        //                    foreach (var item in diccionarioDetallesGeneral)
+                        //                    {
+                        //                        // comparamos si el nombre del Panel es el mismo que el del Diccionario
+                        //                        if (item.Value.Item2.Equals(contSubHijo.Name))
+                        //                        {
+                        //                            // verificamos que sea diferente la Descripcion
+                        //                            if (!item.Value.Item4.Equals(Descripcion))
+                        //                            {
+                        //                                // agregamos el ID
+                        //                                infoDetailProdGral.Add(item.Value.Item1.ToString());
+                        //                                break;
+                        //                            }
+                        //                        }
+                        //                    }
+                        //                    // Obtenemos todos los datos del Detalle en General
+                        //                    var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                        //                    // Obtenemos el ID del Detalle General
+                        //                    infoDetailProdGral.Add(idFound[0].ToString());
+                        //                    // Ejecutamos el proceso de guardado
+                        //                    try
+                        //                    {
+                        //                        guardar = infoDetailProdGral.ToArray();
+                        //                        cn.EjecutarConsulta(cs.ActualizarDetallesProductoGenerales(guardar));
+                        //                        infoDetailProdGral.Clear();
+                        //                    }
+                        //                    catch (Exception ex)
+                        //                    {
+                        //                        MessageBox.Show("El proceso de actualizacion de Detalles Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //                    }
+                        //                    break;
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //    // sí es False
+                        //    else if (!alreadyStoredPanelConteido)
+                        //    {
+                        //        infoDetailProdGral.Clear();
+                        //        // Se ha detectado un nuevo Registro
+                        //        // Recorremos los controles en el PanelContenido
+                        //        foreach (Control contSubItemHijo in contSubHijo.Controls)
+                        //        {
+                        //            // Verificamos si el control es de tipo Label
+                        //            if (contSubItemHijo is Label)
+                        //            {
+                        //                if (!finalIdProducto.Equals(""))
+                        //                {
+                        //                    // Se almacenan los datos para 
+                        //                    // el posterior registro
+                        //                    infoDetailProdGral.Add(finalIdProducto);
+                        //                    infoDetailProdGral.Add(FormPrincipal.userID.ToString());
+                        //                    Descripcion = contSubItemHijo.Text;
+                        //                    var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                        //                    if (idFound.Length > 0)
+                        //                    {
+                        //                        infoDetailProdGral.Add(idFound[0].ToString());
+                        //                        infoDetailProdGral.Add("1");
+                        //                        infoDetailProdGral.Add("panelContenido" + idFound[2].ToString());
+                        //                        // Ejecutamos el proceso de guardado
+                        //                        try
+                        //                        {
+                        //                            guardar = infoDetailProdGral.ToArray();
+                        //                            cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                        //                            infoDetailProdGral.Clear();
+                        //                        }
+                        //                        catch (Exception ex)
+                        //                        {
+                        //                            MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //                        }
+                        //                        break;
+                        //                    }
+                        //                }
+                        //                else if (finalIdProducto.Equals(""))
+                        //                {
+                        //                    //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //                    infoDetailProdGral.Add(finalIdProducto);
+                        //                    infoDetailProdGral.Add(Convert.ToString(FormPrincipal.userID));
+                        //                    Descripcion = contSubItemHijo.Text;
+                        //                    var idFound = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+
+                        //                    if (idFound.Length > 0)
+                        //                    {
+                        //                        infoDetailProdGral.Add(idFound[2].ToString()); // Obtenemos el ChckName Detalles Basicos
+                        //                        infoDetailProdGral.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                        //                        infoDetailProdGral.Add(idFound[3].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                        //                        AgregarEditarProducto.detalleProductoGeneral = infoDetailProdGral;
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
                     }
                 }
             }
@@ -2377,7 +2738,7 @@ namespace PuntoDeVentaV2
         {
             // Variables para poder hacer el control 
             // de registro y actualizacion de la tabla
-            string  Descripcion = string.Empty,
+            string Descripcion = string.Empty,
                     panel = string.Empty;
 
             // lista para almacenar los datos
@@ -2395,12 +2756,9 @@ namespace PuntoDeVentaV2
                     // Recorremos los controles en el PanelContenedor
                     foreach (Control contSubHijo in contHijo.Controls)
                     {
-                        // Verificamos si el PanelContenido ya existe en el Diccionario de Detalles Basicos
-                        // sí ya esta el registro del PanelContenido la variable sera true
-                        // sí no esta el registro del PanelContenido la variable sera false
-                        bool alreadyStoredPanelConteido = diccionarioDetalleBasicos.Any(x => x.Value.Item2 == contSubHijo.Name);
-                        // sí es True
-                        if (alreadyStoredPanelConteido)
+                        var servidor = Properties.Settings.Default.Hosting;
+
+                        if (servidor.Equals(""))
                         {
                             // verificamos que sea el PanelContenido sea el de Proveedor
                             if (contSubHijo.Name.Equals("panelContenidoProveedor"))
@@ -2411,200 +2769,296 @@ namespace PuntoDeVentaV2
                                     // Verificamos si el control es de tipo Label
                                     if (contSubItemHijo is Label)
                                     {
-                                        // Verificamos si el nombre del label es lblNombreProveedor
+                                        // Verificamos si el nombre del Label es lbNombreProveedor
                                         // esto soló para que haga este proceso en el label del
                                         // nombre y no en el resto de los label
                                         if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
                                         {
+                                            bool alreadyStoredDescripcion = false;
+                                            string nameConcepto = string.Empty, textoConcepto = string.Empty;
+
+                                            nameConcepto = contSubItemHijo.Name.ToString().Remove(0, 9);
+                                            textoConcepto = contSubItemHijo.Text;
                                             // Verificamos si la Descripcion ya existe en el Diccionario de Detalles Basicos
                                             // sí ya esta el registro de la Descripcion la variable sera true
                                             // sí no esta el registro de la Descripcion la variable sera false
-                                            bool alreadyStoredDescripcion = diccionarioDetalleBasicos.Any(x => x.Value.Item4 == contSubItemHijo.Text);
-                                            // sí es True
+                                            using (DataTable dtDynamicFilters = cn.CargarDatos(cs.VerificarTextoConceptoFiltroDinamico(nameConcepto, FormPrincipal.userID)))
+                                            {
+                                                if (!dtDynamicFilters.Rows.Count.Equals(0))
+                                                {
+                                                    alreadyStoredDescripcion = true;
+                                                }
+                                                else if (dtDynamicFilters.Rows.Count.Equals(0))
+                                                {
+                                                    alreadyStoredDescripcion = false;
+                                                }
+                                            }
+
+                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
+
+                                            var idProductoBuscar = finalIdProducto;
+
                                             if (alreadyStoredDescripcion)
                                             {
-                                                // No se han detectado cambios en los registros
-                                                break;
+                                                try
+                                                {
+                                                    cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chk" + nameConcepto, FormPrincipal.userID, textoConcepto));
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                                try
+                                                {
+                                                    using (DataTable dtDetallesProducto = cn.CargarDatos($"SELECT * FROM DetallesProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}'"))
+                                                    {
+                                                        //infoDetalle.Add(FormPrincipal.userID.ToString());
+                                                        if (!dtDetallesProducto.Rows.Count.Equals(0))
+                                                        {
+                                                            foreach (DataRow dtRow in dtDetallesProducto.Rows)
+                                                            {
+                                                                infoDetalle.Add(dtRow["ID"].ToString());
+                                                            }
+                                                        }
+                                                    }
+                                                    infoDetalle.Add(idFound[0].ToString());
+                                                    infoDetalle.Add(idFound[2].ToString());
+                                                    guardar = infoDetalle.ToArray();
+                                                    cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                                                    infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("Error al actualizar Texto de DetallesProducto: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
                                             }
-                                            // sí es False
                                             else if (!alreadyStoredDescripcion)
                                             {
-                                                // recorremos el diccionario Detalles Basicos
-                                                foreach (var item in diccionarioDetalleBasicos)
+                                                try
                                                 {
-                                                    // verificamos que la descripcion no es igual
-                                                    if (!item.Value.Item4.Equals(contSubHijo.Text))
-                                                    {
-                                                        // Se han detectado cambios en alguno de los registros
-                                                        Descripcion = contSubItemHijo.Text;
-                                                        // comparamos si el nombre del Panel es el mismo que el del Diccionario
-                                                        if (item.Value.Item2.Equals(contSubHijo.Name))
-                                                        {
-                                                            // verificamos que sea diferente la Descripcion
-                                                            if (!item.Value.Item4.Equals(Descripcion))
-                                                            {
+                                                    cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamicoCompleto("chk" + nameConcepto, textoConcepto, FormPrincipal.userID));
+                                                }
+                                                catch (Exception ex)
+                                                {
+                                                    MessageBox.Show("Error al registrar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //else if (!servidor.Equals(""))
+                        //{
+                        //    // Verificamos si el PanelContenido ya existe en el Diccionario de Detalles Basicos
+                        //    // sí ya esta el registro del PanelContenido la variable sera true
+                        //    // sí no esta el registro del PanelContenido la variable sera false
+                        //    bool alreadyStoredPanelConteido = diccionarioDetalleBasicos.Any(x => x.Value.Item2 == contSubHijo.Name);
+                        //    // sí es True
+                        //    if (alreadyStoredPanelConteido)
+                        //    {
+                        //        // verificamos que sea el PanelContenido sea el de Proveedor
+                        //        if (contSubHijo.Name.Equals("panelContenidoProveedor"))
+                        //        {
+                        //            // Recorremos los controles en el PanelContenido
+                        //            foreach (Control contSubItemHijo in contSubHijo.Controls)
+                        //            {
+                        //                // Verificamos si el control es de tipo Label
+                        //                if (contSubItemHijo is Label)
+                        //                {
+                        //                    // Verificamos si el nombre del label es lblNombreProveedor
+                        //                    // esto soló para que haga este proceso en el label del
+                        //                    // nombre y no en el resto de los label
+                        //                    if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
+                        //                    {
+                        //                        // Verificamos si la Descripcion ya existe en el Diccionario de Detalles Basicos
+                        //                        // sí ya esta el registro de la Descripcion la variable sera true
+                        //                        // sí no esta el registro de la Descripcion la variable sera false
+                        //                        bool alreadyStoredDescripcion = diccionarioDetalleBasicos.Any(x => x.Value.Item4 == contSubItemHijo.Text);
+                        //                        // sí es True
+                        //                        if (alreadyStoredDescripcion)
+                        //                        {
+                        //                            // No se han detectado cambios en los registros
+                        //                            break;
+                        //                        }
+                        //                        // sí es False
+                        //                        else if (!alreadyStoredDescripcion)
+                        //                        {
+                        //                            // recorremos el diccionario Detalles Basicos
+                        //                            foreach (var item in diccionarioDetalleBasicos)
+                        //                            {
+                        //                                // verificamos que la descripcion no es igual
+                        //                                if (!item.Value.Item4.Equals(contSubHijo.Text))
+                        //                                {
+                        //                                    // Se han detectado cambios en alguno de los registros
+                        //                                    Descripcion = contSubItemHijo.Text;
+                        //                                    // comparamos si el nombre del Panel es el mismo que el del Diccionario
+                        //                                    if (item.Value.Item2.Equals(contSubHijo.Name))
+                        //                                    {
+                        //                                        // verificamos que sea diferente la Descripcion
+                        //                                        if (!item.Value.Item4.Equals(Descripcion))
+                        //                                        {
 
-                                                                // agregamos el ID
-                                                                infoDetalle.Add(item.Value.Item1.ToString());
-                                                            }
-                                                            // Obtenemos todos los datos del Detalles en Basicos
-                                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
-                                                            infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                            infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                            // Ejecutamos el proceso de guardado
-                                                            try
-                                                            {
-                                                                // Convertimos la Lista lo que tengan almacenado
-                                                                // a un Array para guardarlo en la variable guardar
-                                                                guardar = infoDetalle.ToArray();
-                                                                // usamos la variable guardar para hacer el
-                                                                // query para poder hacer la actualizacion
-                                                                cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
-                                                                infoDetalle.Clear(); // limpiamos de informacion la Lista
-                                                                cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chkProveedor", FormPrincipal.userID, idFound[2].ToString()));
-                                                            }
-                                                            catch (Exception ex)
-                                                            {
-                                                                // si hubo algun error de actualización se envia un mensaje al usuario
-                                                                MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                            }
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        // sí es False
-                        else if (!alreadyStoredPanelConteido)
-                        {
-                            bool resultadoConsulta;
-                            try
-                            {
-                                resultadoConsulta = (bool)cn.EjecutarSelect(cs.VerificarDetallesProducto(finalIdProducto, Convert.ToString(FormPrincipal.userID)));
-                                if (resultadoConsulta == false)
-                                {
-                                    // verificamos que sea el PanelContenido sea el de Proveedor
-                                    if (contSubHijo.Name.Equals("panelContenidoProveedor"))
-                                    {
-                                        // Recorremos los controles en el PanelContenido
-                                        foreach (Control contSubItemHijo in contSubHijo.Controls)
-                                        {
-                                            // Verificamos si el control es de tipo Label
-                                            if (contSubItemHijo is Label)
-                                            {
-                                                // Verificamos si el nombre del label es lblNombreProveedor
-                                                // esto soló para que haga este proceso en el label del
-                                                // nombre y no en el resto de los label
-                                                if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
-                                                {
-                                                    if (!contSubItemHijo.Text.Equals(""))
-                                                    {
-                                                        if (!finalIdProducto.Equals(""))
-                                                        {
-                                                            infoDetalle.Add(finalIdProducto);
-                                                            infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
-                                                            Descripcion = contSubItemHijo.Text;
-                                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
-                                                            infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                            infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                            // Ejecutamos el proceso de guardado
-                                                            try
-                                                            {
-                                                                // Convertimos la Lista lo que tengan almacenado
-                                                                // a un Array para guardarlo en la variable guardar
-                                                                guardar = infoDetalle.ToArray();
-                                                                // usamos la variable guardar para hacer el
-                                                                // query para poder hacer la actualizacion
-                                                                cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
-                                                                infoDetalle.Clear(); // limpiamos de informacion la Lista
-                                                                cn.EjecutarConsulta(cs.GuardarTextConceptoFiltroDinamico("chkProveedor", 0, idFound[2].ToString(), FormPrincipal.userID));
-                                                            }
-                                                            catch (Exception ex)
-                                                            {
-                                                                // si hubo algun error de actualización se envia un mensaje al usuario
-                                                                MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                            }
-                                                        }
-                                                        else if (finalIdProducto.Equals(""))
-                                                        {
-                                                            //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                            infoDetalle.Add(finalIdProducto);
-                                                            infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
-                                                            Descripcion = contSubItemHijo.Text;
-                                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
-                                                            infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                            infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                            AgregarEditarProducto.detalleProductoBasico = infoDetalle;
-                                                        }
-                                                    }
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                if (resultadoConsulta == true)
-                                {
-                                    // Verificamos si el nombre del PanelContenedor que sea Igual a panelContenedorProveedor
-                                    if (contHijo.Name.Equals("panelContenedorProveedor"))
-                                    {
-                                        // Recorremos los controles en el PanelContenedor
-                                        foreach (Control contSubHijoUpdate in contHijo.Controls)
-                                        {
-                                            // verificamos que sea el PanelContenido sea el de Proveedor
-                                            if (contSubHijo.Name.Equals("panelContenidoProveedor"))
-                                            {
-                                                // Recorremos los controles en el PanelContenido
-                                                foreach (Control contSubItemHijo in contSubHijo.Controls)
-                                                {
-                                                    // Verificamos si el control es de tipo Label
-                                                    if (contSubItemHijo is Label)
-                                                    {
-                                                        // Verificamos si el nombre del label es lblNombreProveedor
-                                                        // esto soló para que haga este proceso en el label del
-                                                        // nombre y no en el resto de los label
-                                                        if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
-                                                        {
-                                                            // recorremos el diccionario Detalles Basicos
-                                                            Descripcion = contSubItemHijo.Text;
-                                                            // Obtenemos todos los datos del Detalles en Basicos
-                                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
-                                                            infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                            infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                            try
-                                                            {
-                                                                // Convertimos la Lista lo que tengan almacenado
-                                                                // a un Array para guardarlo en la variable guardar
-                                                                guardar = infoDetalle.ToArray();
-                                                                // usamos la variable guardar para hacer el
-                                                                // query para poder hacer la actualizacion
-                                                                cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
-                                                                infoDetalle.Clear(); // limpiamos de informacion la Lista
-                                                            }
-                                                            catch (Exception ex)
-                                                            {
-                                                                // si hubo algun error de actualización se envia un mensaje al usuario
-                                                                MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                            }
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                // si hubo algun error de actualización se envia un mensaje al usuario
-                                MessageBox.Show("En el proceso de registrar Nuevo de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                        }
+                        //                                            // agregamos el ID
+                        //                                            infoDetalle.Add(item.Value.Item1.ToString());
+                        //                                        }
+                        //                                        // Obtenemos todos los datos del Detalles en Basicos
+                        //                                        var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
+                        //                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                        //                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                        //                                                                                // Ejecutamos el proceso de guardado
+                        //                                        try
+                        //                                        {
+                        //                                            // Convertimos la Lista lo que tengan almacenado
+                        //                                            // a un Array para guardarlo en la variable guardar
+                        //                                            guardar = infoDetalle.ToArray();
+                        //                                            // usamos la variable guardar para hacer el
+                        //                                            // query para poder hacer la actualizacion
+                        //                                            cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                        //                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
+                        //                                        }
+                        //                                        catch (Exception ex)
+                        //                                        {
+                        //                                            // si hubo algun error de actualización se envia un mensaje al usuario
+                        //                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //                                        }
+                        //                                        break;
+                        //                                    }
+                        //                                }
+                        //                            }
+                        //                        }
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //    // sí es False
+                        //    else if (!alreadyStoredPanelConteido)
+                        //    {
+                        //        bool resultadoConsulta;
+                        //        try
+                        //        {
+                        //            resultadoConsulta = (bool)cn.EjecutarSelect(cs.VerificarDetallesProducto(finalIdProducto, Convert.ToString(FormPrincipal.userID)));
+                        //            if (resultadoConsulta == false)
+                        //            {
+                        //                // verificamos que sea el PanelContenido sea el de Proveedor
+                        //                if (contSubHijo.Name.Equals("panelContenidoProveedor"))
+                        //                {
+                        //                    // Recorremos los controles en el PanelContenido
+                        //                    foreach (Control contSubItemHijo in contSubHijo.Controls)
+                        //                    {
+                        //                        // Verificamos si el control es de tipo Label
+                        //                        if (contSubItemHijo is Label)
+                        //                        {
+                        //                            // Verificamos si el nombre del label es lblNombreProveedor
+                        //                            // esto soló para que haga este proceso en el label del
+                        //                            // nombre y no en el resto de los label
+                        //                            if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
+                        //                            {
+                        //                                if (!contSubItemHijo.Text.Equals(""))
+                        //                                {
+                        //                                    if (!finalIdProducto.Equals(""))
+                        //                                    {
+                        //                                        infoDetalle.Add(finalIdProducto);
+                        //                                        infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
+                        //                                        Descripcion = contSubItemHijo.Text;
+                        //                                        var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
+                        //                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                        //                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                        //                                                                                // Ejecutamos el proceso de guardado
+                        //                                        try
+                        //                                        {
+                        //                                            // Convertimos la Lista lo que tengan almacenado
+                        //                                            // a un Array para guardarlo en la variable guardar
+                        //                                            guardar = infoDetalle.ToArray();
+                        //                                            // usamos la variable guardar para hacer el
+                        //                                            // query para poder hacer la actualizacion
+                        //                                            cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
+                        //                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
+                        //                                        }
+                        //                                        catch (Exception ex)
+                        //                                        {
+                        //                                            // si hubo algun error de actualización se envia un mensaje al usuario
+                        //                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //                                        }
+                        //                                    }
+                        //                                    else if (finalIdProducto.Equals(""))
+                        //                                    {
+                        //                                        //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //                                        infoDetalle.Add(finalIdProducto);
+                        //                                        infoDetalle.Add(Convert.ToString(FormPrincipal.userID));
+                        //                                        Descripcion = contSubItemHijo.Text;
+                        //                                        var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
+                        //                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                        //                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                        //                                        AgregarEditarProducto.detalleProductoBasico = infoDetalle;
+                        //                                    }
+                        //                                }
+                        //                            }
+                        //                            break;
+                        //                        }
+                        //                    }
+                        //                }
+                        //            }
+                        //            if (resultadoConsulta == true)
+                        //            {
+                        //                // Verificamos si el nombre del PanelContenedor que sea Igual a panelContenedorProveedor
+                        //                if (contHijo.Name.Equals("panelContenedorProveedor"))
+                        //                {
+                        //                    // Recorremos los controles en el PanelContenedor
+                        //                    foreach (Control contSubHijoUpdate in contHijo.Controls)
+                        //                    {
+                        //                        // verificamos que sea el PanelContenido sea el de Proveedor
+                        //                        if (contSubHijo.Name.Equals("panelContenidoProveedor"))
+                        //                        {
+                        //                            // Recorremos los controles en el PanelContenido
+                        //                            foreach (Control contSubItemHijo in contSubHijo.Controls)
+                        //                            {
+                        //                                // Verificamos si el control es de tipo Label
+                        //                                if (contSubItemHijo is Label)
+                        //                                {
+                        //                                    // Verificamos si el nombre del label es lblNombreProveedor
+                        //                                    // esto soló para que haga este proceso en el label del
+                        //                                    // nombre y no en el resto de los label
+                        //                                    if (contSubItemHijo.Name.Equals("lblNombreProveedor"))
+                        //                                    {
+                        //                                        // recorremos el diccionario Detalles Basicos
+                        //                                        Descripcion = contSubItemHijo.Text;
+                        //                                        // Obtenemos todos los datos del Detalles en Basicos
+                        //                                        var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, Descripcion);
+                        //                                        infoDetalle.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                        //                                        infoDetalle.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                        //                                        try
+                        //                                        {
+                        //                                            // Convertimos la Lista lo que tengan almacenado
+                        //                                            // a un Array para guardarlo en la variable guardar
+                        //                                            guardar = infoDetalle.ToArray();
+                        //                                            // usamos la variable guardar para hacer el
+                        //                                            // query para poder hacer la actualizacion
+                        //                                            cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                        //                                            infoDetalle.Clear(); // limpiamos de informacion la Lista
+                        //                                        }
+                        //                                        catch (Exception ex)
+                        //                                        {
+                        //                                            // si hubo algun error de actualización se envia un mensaje al usuario
+                        //                                            MessageBox.Show("El proceso de actualizacion de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //                                        }
+                        //                                        break;
+                        //                                    }
+                        //                                }
+                        //                            }
+                        //                        }
+                        //                    }
+                        //                }
+                        //            }
+                        //        }
+                        //        catch (Exception ex)
+                        //        {
+                        //            // si hubo algun error de actualización se envia un mensaje al usuario
+                        //            MessageBox.Show("En el proceso de registrar Nuevo de Detalles Del Producto\nocurrio un error:\n" + ex.Message.ToString(), "Error al actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //        }
+                        //    }
+                        //}
                     }
                 }
             }

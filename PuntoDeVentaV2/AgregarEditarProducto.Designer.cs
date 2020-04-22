@@ -52,6 +52,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
+            this.lbStockMaximo = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.lbStockMinimo = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.PTypeAndCantProd = new System.Windows.Forms.Panel();
             this.chkBoxConProductos = new System.Windows.Forms.CheckBox();
@@ -370,14 +374,60 @@
             // PDetalleProdcuto
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
+            this.PDetalleProdcuto.Controls.Add(this.lbStockMaximo);
+            this.PDetalleProdcuto.Controls.Add(this.label12);
+            this.PDetalleProdcuto.Controls.Add(this.lbStockMinimo);
+            this.PDetalleProdcuto.Controls.Add(this.label1);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
             this.PDetalleProdcuto.Controls.Add(this.txtNombreProducto);
             this.PDetalleProdcuto.Location = new System.Drawing.Point(2, 2);
             this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
-            this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 43);
+            this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 67);
             this.PDetalleProdcuto.TabIndex = 0;
+            // 
+            // lbStockMaximo
+            // 
+            this.lbStockMaximo.BackColor = System.Drawing.Color.White;
+            this.lbStockMaximo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStockMaximo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lbStockMaximo.Location = new System.Drawing.Point(481, 43);
+            this.lbStockMaximo.Name = "lbStockMaximo";
+            this.lbStockMaximo.Size = new System.Drawing.Size(125, 17);
+            this.lbStockMaximo.TabIndex = 33;
+            this.lbStockMaximo.Text = "0";
+            this.lbStockMaximo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(377, 45);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(77, 13);
+            this.label12.TabIndex = 32;
+            this.label12.Text = "Stock Maximo:";
+            // 
+            // lbStockMinimo
+            // 
+            this.lbStockMinimo.BackColor = System.Drawing.Color.White;
+            this.lbStockMinimo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbStockMinimo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lbStockMinimo.Location = new System.Drawing.Point(127, 43);
+            this.lbStockMinimo.Name = "lbStockMinimo";
+            this.lbStockMinimo.Size = new System.Drawing.Size(125, 17);
+            this.lbStockMinimo.TabIndex = 31;
+            this.lbStockMinimo.Text = "0";
+            this.lbStockMinimo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(36, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.TabIndex = 30;
+            this.label1.Text = "Stock Minimo:";
             // 
             // btnAdd
             // 
@@ -743,11 +793,12 @@
             // 
             // fLPDetalleProducto
             // 
+            this.fLPDetalleProducto.BackColor = System.Drawing.SystemColors.Control;
             this.fLPDetalleProducto.Controls.Add(this.PDetalleProdcuto);
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 66);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(841, 47);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(841, 71);
             this.fLPDetalleProducto.TabIndex = 36;
             // 
             // fLPContenidoProducto
@@ -755,7 +806,7 @@
             this.fLPContenidoProducto.Controls.Add(this.PConteidoProducto);
             this.fLPContenidoProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 184);
+            this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 208);
             this.fLPContenidoProducto.Name = "fLPContenidoProducto";
             this.fLPContenidoProducto.Size = new System.Drawing.Size(841, 111);
             this.fLPContenidoProducto.TabIndex = 37;
@@ -765,7 +816,7 @@
             this.fLPDetalle.Controls.Add(this.PDetalle);
             this.fLPDetalle.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPDetalle.Location = new System.Drawing.Point(0, 295);
+            this.fLPDetalle.Location = new System.Drawing.Point(0, 319);
             this.fLPDetalle.Name = "fLPDetalle";
             this.fLPDetalle.Size = new System.Drawing.Size(841, 292);
             this.fLPDetalle.TabIndex = 38;
@@ -775,7 +826,7 @@
             this.fLPAccion.Controls.Add(this.PAccion);
             this.fLPAccion.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPAccion.Location = new System.Drawing.Point(0, 587);
+            this.fLPAccion.Location = new System.Drawing.Point(0, 611);
             this.fLPAccion.Name = "fLPAccion";
             this.fLPAccion.Size = new System.Drawing.Size(841, 95);
             this.fLPAccion.TabIndex = 39;
@@ -784,7 +835,7 @@
             // 
             this.fLPDetallesProducto.Controls.Add(this.flowLayoutPanel3);
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 113);
+            this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 137);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
             this.fLPDetallesProducto.Size = new System.Drawing.Size(841, 71);
             this.fLPDetallesProducto.TabIndex = 31;
@@ -803,7 +854,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(841, 688);
+            this.ClientSize = new System.Drawing.Size(858, 688);
             this.Controls.Add(this.fLPAccion);
             this.Controls.Add(this.fLPDetalle);
             this.Controls.Add(this.fLPContenidoProducto);
@@ -921,5 +972,9 @@
         private System.Windows.Forms.Button btnImagenes;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbStockMaximo;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label lbStockMinimo;
     }
 }

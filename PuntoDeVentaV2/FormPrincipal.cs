@@ -196,6 +196,81 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void loadFromConfigDB()
+        {
+            string datosAppSetting = string.Empty;
+
+            if (Properties.Settings.Default.TipoEjecucion == 1)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            if (Properties.Settings.Default.TipoEjecucion == 2)
+            {
+                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
+            }
+
+            appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
+
+            try
+            {
+                appSettings = ConfigurationManager.AppSettings;
+                datosAppSettings = new List<string>();
+
+                if (appSettings.Count == 0)
+                {
+                    MessageBox.Show("Lectura de la Sección de AppSettings está vacia", "Archivo Vacio", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (appSettings.Count > 0)
+                {
+                    for (int i = 0; i < appSettings.Count; i++)
+                    {
+                        connStr = appSettings[i];
+                        keyName = appSettings.GetKey(i);
+                        found = keyName.IndexOf("chk", 0, 3);
+                        if (found >= 0)
+                        {
+                            datosAppSetting += connStr + "|" + keyName + "|" + userID.ToString() + "¬";
+                        }
+                        if (found <= -1)
+                        {
+                            datosAppSetting += connStr + "|" + keyName + "|";
+                        }
+                    }
+                    int borrar = 0;
+                    string deleteData = string.Empty;
+                    deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
+                    borrar = cn.EjecutarConsulta(deleteData);
+                    string auxAppSetting = string.Empty;
+                    string[] str;
+                    int insertar = 0;
+                    auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
+                    str = auxAppSetting.Split('¬');
+                    datosAppSettings.AddRange(str);
+                    foreach (var item in datosAppSettings)
+                    {
+                        datosAppSettingToDB = item.Split('|');
+                        for (int i = 0; i < datosAppSettingToDB.Length; i++)
+                        {
+                            if (datosAppSettingToDB[i].Equals("true"))
+                            {
+                                datosAppSettingToDB[i] = "1";
+                            }
+                            else if (datosAppSettingToDB[i].Equals("false"))
+                            {
+                                datosAppSettingToDB[i] = "0";
+                            }
+                        }
+                        insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
+                    }
+                }
+            }
+            catch (ConfigurationException e)
+            {
+                MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         #endregion Modifying Configuration Settings at Runtime
 
         // funcion para que podamos recargar variables desde otro formulario
@@ -250,7 +325,8 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(servidor))
             {
-                loadFormConfig();
+                //loadFormConfig();
+                loadFromConfigDB();
             }
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
