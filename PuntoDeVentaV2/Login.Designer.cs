@@ -44,6 +44,7 @@
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.desvincularPCMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importarBaseDeDatosMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRecuperarPassword = new System.Windows.Forms.Label();
             this.menuLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +77,7 @@
             this.txtUsuario.Size = new System.Drawing.Size(190, 23);
             this.txtUsuario.TabIndex = 2;
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 
             // txtPassword
             // 
@@ -100,7 +102,7 @@
             this.btnEntrar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntrar.ForeColor = System.Drawing.Color.White;
             this.btnEntrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEntrar.Location = new System.Drawing.Point(121, 150);
+            this.btnEntrar.Location = new System.Drawing.Point(121, 163);
             this.btnEntrar.Name = "btnEntrar";
             this.btnEntrar.Size = new System.Drawing.Size(190, 27);
             this.btnEntrar.TabIndex = 4;
@@ -114,7 +116,7 @@
             this.btnCrearCuenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCrearCuenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearCuenta.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnCrearCuenta.Location = new System.Drawing.Point(148, 261);
+            this.btnCrearCuenta.Location = new System.Drawing.Point(148, 268);
             this.btnCrearCuenta.Name = "btnCrearCuenta";
             this.btnCrearCuenta.Size = new System.Drawing.Size(139, 17);
             this.btnCrearCuenta.TabIndex = 6;
@@ -125,7 +127,7 @@
             // 
             this.txtMensaje.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMensaje.ForeColor = System.Drawing.Color.Red;
-            this.txtMensaje.Location = new System.Drawing.Point(12, 228);
+            this.txtMensaje.Location = new System.Drawing.Point(12, 241);
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.Size = new System.Drawing.Size(396, 20);
             this.txtMensaje.TabIndex = 7;
@@ -134,7 +136,7 @@
             // checkBoxRecordarDatos
             // 
             this.checkBoxRecordarDatos.AutoSize = true;
-            this.checkBoxRecordarDatos.Location = new System.Drawing.Point(167, 107);
+            this.checkBoxRecordarDatos.Location = new System.Drawing.Point(167, 141);
             this.checkBoxRecordarDatos.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRecordarDatos.Name = "checkBoxRecordarDatos";
             this.checkBoxRecordarDatos.Size = new System.Drawing.Size(101, 17);
@@ -148,7 +150,7 @@
             this.btnLimpiarDatos.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.btnLimpiarDatos.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnLimpiarDatos.ForeColor = System.Drawing.Color.Brown;
-            this.btnLimpiarDatos.Location = new System.Drawing.Point(120, 184);
+            this.btnLimpiarDatos.Location = new System.Drawing.Point(120, 197);
             this.btnLimpiarDatos.Margin = new System.Windows.Forms.Padding(2);
             this.btnLimpiarDatos.Name = "btnLimpiarDatos";
             this.btnLimpiarDatos.Size = new System.Drawing.Size(190, 27);
@@ -176,7 +178,7 @@
             this.opcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.desvincularPCMenuItem,
             this.importarBaseDeDatosMenuItem});
-            this.opcionesToolStripMenuItem.Image = global::PuntoDeVentaV2.Properties.Resources.bars;
+            this.opcionesToolStripMenuItem.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.opcionesToolStripMenuItem.Size = new System.Drawing.Size(28, 20);
@@ -195,11 +197,25 @@
             this.importarBaseDeDatosMenuItem.Text = "Importar base de datos";
             this.importarBaseDeDatosMenuItem.Click += new System.EventHandler(this.importarBaseDeDatosMenuItem_Click);
             // 
+            // btnRecuperarPassword
+            // 
+            this.btnRecuperarPassword.AutoSize = true;
+            this.btnRecuperarPassword.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRecuperarPassword.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecuperarPassword.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnRecuperarPassword.Location = new System.Drawing.Point(139, 100);
+            this.btnRecuperarPassword.Name = "btnRecuperarPassword";
+            this.btnRecuperarPassword.Size = new System.Drawing.Size(154, 16);
+            this.btnRecuperarPassword.TabIndex = 12;
+            this.btnRecuperarPassword.Text = "¿Olvidaste tu contraseña?";
+            this.btnRecuperarPassword.Click += new System.EventHandler(this.btnRecuperarPassword_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 292);
+            this.Controls.Add(this.btnRecuperarPassword);
             this.Controls.Add(this.btnLimpiarDatos);
             this.Controls.Add(this.checkBoxRecordarDatos);
             this.Controls.Add(this.txtMensaje);
@@ -240,5 +256,6 @@
         private System.Windows.Forms.ToolStripMenuItem opcionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem desvincularPCMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importarBaseDeDatosMenuItem;
+        private System.Windows.Forms.Label btnRecuperarPassword;
     }
 }
