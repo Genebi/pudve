@@ -73,7 +73,7 @@
             this.btnGuardarDetalles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarDetalles.Font = new System.Drawing.Font("Century Schoolbook", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarDetalles.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnGuardarDetalles.Location = new System.Drawing.Point(44, 15);
+            this.btnGuardarDetalles.Location = new System.Drawing.Point(44, 17);
             this.btnGuardarDetalles.Name = "btnGuardarDetalles";
             this.btnGuardarDetalles.Size = new System.Drawing.Size(201, 41);
             this.btnGuardarDetalles.TabIndex = 26;
