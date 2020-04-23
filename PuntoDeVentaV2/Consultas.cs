@@ -285,6 +285,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string VerificarDetallesProductoGenerales(string IDProducto, int IDUsuario, string panelContenido)
+        {
+            var consulta = $"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = '{IDProducto}' AND IDUsuario = '{IDUsuario}' AND panelContenido = '{panelContenido}'";
+
+            return consulta;
+        }
+
         public string GuardarDetallesProductoGenerales(string[] datos)
         {
             string consulta = string.Empty;
@@ -881,6 +888,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
         public string ActualizarNombreDatoVentanaFiltros(string newNombreConcepto, string oldNombreConcepto, int userID)
         {
             var consulta = $"UPDATE FiltrosDinamicosVetanaFiltros SET concepto = '{newNombreConcepto}', strFiltro = 'Selecciona {newNombreConcepto}' WHERE concepto = '{oldNombreConcepto}' AND IDUsuario = '{userID}'";
