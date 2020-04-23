@@ -2559,30 +2559,50 @@ namespace PuntoDeVentaV2
                                         {
                                             using (DataTable dtDetallesProductoGenerales = cn.CargarDatos(cs.VerificarDetallesProductoGenerales(Convert.ToString(finalIdProducto), FormPrincipal.userID, "panelContenido" + namepanelContenido)))
                                             {
-
-                                            }
-
-                                            // Se almacenan los datos para 
-                                            // el posterior registro
-                                            infoDetailProdGral.Add(finalIdProducto);
-                                            infoDetailProdGral.Add(FormPrincipal.userID.ToString());
-                                            Descripcion = contSubItemHijo.Text;
-                                            var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                            if (idFoundNew.Length > 0)
-                                            {
-                                                infoDetailProdGral.Add(idFoundNew[0].ToString());
-                                                infoDetailProdGral.Add("1");
-                                                infoDetailProdGral.Add("panelContenido" + idFoundNew[2].ToString());
-                                                // Ejecutamos el proceso de guardado
-                                                try
+                                                if (!dtDetallesProductoGenerales.Rows.Count.Equals(0))
                                                 {
-                                                    guardar = infoDetailProdGral.ToArray();
-                                                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
-                                                    infoDetailProdGral.Clear();
+                                                    foreach (DataRow drDetallesProductoGenerales in dtDetallesProductoGenerales.Rows)
+                                                    {
+                                                        var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
+                                                        try
+                                                        {
+                                                            infoDetailProdGral.Add(drDetallesProductoGenerales["ID"].ToString());
+                                                            infoDetailProdGral.Add(idFoundGral[0].ToString());
+                                                            guardar = infoDetailProdGral.ToArray();
+                                                            cn.EjecutarConsulta(cs.ActualizarDetallesProductoGenerales(guardar));
+                                                            infoDetailProdGral.Clear();
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            MessageBox.Show("Algo Ocurrio al Actualizar registro a la Tabla DetallesProductoGenerales\nError: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                        }
+                                                    }
                                                 }
-                                                catch (Exception ex)
+                                                else if (dtDetallesProductoGenerales.Rows.Count.Equals(0))
                                                 {
-                                                    MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    // Se almacenan los datos para 
+                                                    // el posterior registro
+                                                    infoDetailProdGral.Add(finalIdProducto);
+                                                    infoDetailProdGral.Add(FormPrincipal.userID.ToString());
+                                                    Descripcion = contSubItemHijo.Text;
+                                                    var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                                                    if (idFoundNew.Length > 0)
+                                                    {
+                                                        infoDetailProdGral.Add(idFoundNew[0].ToString());
+                                                        infoDetailProdGral.Add("1");
+                                                        infoDetailProdGral.Add("panelContenido" + idFoundNew[2].ToString());
+                                                        // Ejecutamos el proceso de guardado
+                                                        try
+                                                        {
+                                                            guardar = infoDetailProdGral.ToArray();
+                                                            cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                                                            infoDetailProdGral.Clear();
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
