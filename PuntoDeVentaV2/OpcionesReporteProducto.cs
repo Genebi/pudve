@@ -63,46 +63,18 @@ namespace PuntoDeVentaV2
 
         private void ObtenerDetalles()
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            var conceptos = mb.ConceptosAppSettings();
 
-            if (Properties.Settings.Default.TipoEjecucion == 1)
+            if (conceptos.Count > 0)
             {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            if (Properties.Settings.Default.TipoEjecucion == 2)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            // Obtenemos el nodo principal de las propiedades del archivo App.config
-            XmlNode appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
-
-            //======================================================================
-            //======================================================================
-            foreach (XmlNode childNode in appSettingsNode)
-            {
-                var key = childNode.Attributes["key"].Value;
-                var value = Convert.ToBoolean(childNode.Attributes["value"].Value);
-
-                // Ignoramos los checkbox secundarios de cada propiedad
-                if (key.Substring(0, 3) == "chk")
+                foreach (var concepto in conceptos)
                 {
-                    continue;
-                }
-
-                // Si el valor de la propiedad es true (esta habilitado)
-                if (value == true)
-                {
-                    // Este valor de proveedor esta agregado por defecto
-                    if (key == "Proveedor")
+                    if (concepto == "Proveedor")
                     {
                         continue;
                     }
-                    else
-                    {
-                        opcionesDefault.Add(key, new Tuple<string, float>(key, 80));
-                    }
+
+                    opcionesDefault.Add(concepto, new Tuple<string, float>(concepto, 80));
                 }
             }
         }
@@ -563,7 +535,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            // Cuando son los valores del App.config
+                            // Cuando son los valores de AppSettings
                             resultado = mb.DatosDetallesProducto(idProducto, opcion.Key);
                         }
 

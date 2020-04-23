@@ -404,7 +404,6 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            //DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
             DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDUsuario = '{idUsuario}' AND panelContenido = '{namePanel}' AND IDProducto = '{idProducto}'");
 
             SQLiteDataReader dr = sql_cmd.ExecuteReader();
@@ -1431,6 +1430,7 @@ namespace PuntoDeVentaV2
         public string DatosDetallesProducto(int idProducto, string propiedad)
         {
             var resultado = string.Empty;
+
             // Obtener ID del detalle general del producto
             DatosConexion($"SELECT * FROM DetallesProductoGenerales WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
 
@@ -1454,15 +1454,12 @@ namespace PuntoDeVentaV2
 
                         resultado = descripcion;
                     }
-                    else
-                    {
-                        resultado = "N/A";
-                    }
 
                     dr2.Close();
                 }
             }
-            else
+
+            if (string.IsNullOrEmpty(resultado))
             {
                 resultado = "N/A";
             }
@@ -1698,6 +1695,29 @@ namespace PuntoDeVentaV2
             dr.Close();
 
             return config;
+        }
+
+        public List<string> ConceptosAppSettings()
+        {
+            var lista = new List<string>();
+
+            DatosConexion($"SELECT * FROM appSettings WHERE IDUsuario = {FormPrincipal.userID} AND checkBoxConcepto = 1");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    var concepto = dr.GetValue(dr.GetOrdinal("concepto")).ToString();
+
+                    lista.Add(concepto);
+                }
+            }
+
+            dr.Close();
+
+            return lista;
         }
 
         private void DatosConexion(string consulta, bool ignorar = false)

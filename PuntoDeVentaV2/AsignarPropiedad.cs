@@ -784,7 +784,10 @@ namespace PuntoDeVentaV2
                     if (existe)
                     {
                         // UPDATE tabla DetallesProductoGenerales
-                        cn.EjecutarConsulta($"UPDATE DetallesProductoGenerales SET IDDetalleGral = {idPropiedad} WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                        var info = mb.DetallesProductoGralPorPanel(nombrePanel, FormPrincipal.userID, producto.Key);
+                        var idDetalle = info[3];
+
+                        cn.EjecutarConsulta($"UPDATE DetallesProductoGenerales SET IDDetalleGral = {idPropiedad} WHERE IDProducto = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND IDDetalleGral = {idDetalle}");
                     }
                     else
                     {
