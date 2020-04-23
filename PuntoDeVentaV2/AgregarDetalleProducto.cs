@@ -2557,6 +2557,11 @@ namespace PuntoDeVentaV2
                                     {
                                         if (!finalIdProducto.Equals(""))
                                         {
+                                            using (DataTable dtDetallesProductoGenerales = cn.CargarDatos(cs.VerificarDetallesProductoGenerales(Convert.ToString(finalIdProducto), FormPrincipal.userID, "panelContenido" + namepanelContenido)))
+                                            {
+
+                                            }
+
                                             // Se almacenan los datos para 
                                             // el posterior registro
                                             infoDetailProdGral.Add(finalIdProducto);

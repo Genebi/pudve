@@ -207,12 +207,10 @@ namespace PuntoDeVentaV2
             {
                 xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
             }
-
             if (Properties.Settings.Default.TipoEjecucion == 2)
             {
                 xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
             }
-
             appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
 
             try
@@ -277,32 +275,6 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    //int borrar = 0;
-                    //string deleteData = string.Empty;
-                    //deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
-                    //borrar = cn.EjecutarConsulta(deleteData);
-                    //string auxAppSetting = string.Empty;
-                    //string[] str;
-                    //int insertar = 0;
-                    //auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
-                    //str = auxAppSetting.Split('¬');
-                    //datosAppSettings.AddRange(str);
-                    //foreach (var item in datosAppSettings)
-                    //{
-                    //    datosAppSettingToDB = item.Split('|');
-                    //    for (int i = 0; i < datosAppSettingToDB.Length; i++)
-                    //    {
-                    //        if (datosAppSettingToDB[i].Equals("true"))
-                    //        {
-                    //            datosAppSettingToDB[i] = "1";
-                    //        }
-                    //        else if (datosAppSettingToDB[i].Equals("false"))
-                    //        {
-                    //            datosAppSettingToDB[i] = "0";
-                    //        }
-                    //    }
-                    //    insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
-                    //}
                 }
             }
             catch (ConfigurationException e)
