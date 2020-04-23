@@ -703,6 +703,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string VerificarDatoDinamicoCompleto(string claveConcepto, string textoConcepto, int userID)
+        {
+            var consulta = $"SELECT *  FROM appSettings WHERE concepto = '{claveConcepto}' AND textComboBoxConcepto = '{textoConcepto}' AND IDUsuario = '{userID}'";
+
+            return consulta;
+        }
+
         public string InsertaDatoDinamico(string claveAgregar, int claveValor, int idUsuario)
         {
             var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";

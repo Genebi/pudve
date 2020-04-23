@@ -199,7 +199,9 @@ namespace PuntoDeVentaV2
 
         private void loadFromConfigDB()
         {
-            string datosAppSetting = string.Empty;
+            string datosAppSetting = string.Empty, auxAppSetting = string.Empty;
+            int completo = 0, insertar = 0;
+            string[] str;
 
             if (Properties.Settings.Default.TipoEjecucion == 1)
             {
@@ -232,38 +234,75 @@ namespace PuntoDeVentaV2
                         if (found >= 0)
                         {
                             datosAppSetting += connStr + "|" + keyName + "|" + userID.ToString() + "¬";
+                            completo = 1;
                         }
                         if (found <= -1)
                         {
                             datosAppSetting += connStr + "|" + keyName + "|";
+                            completo = 0;
                         }
-                    }
-                    int borrar = 0;
-                    string deleteData = string.Empty;
-                    deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
-                    borrar = cn.EjecutarConsulta(deleteData);
-                    string auxAppSetting = string.Empty;
-                    string[] str;
-                    int insertar = 0;
-                    auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
-                    str = auxAppSetting.Split('¬');
-                    datosAppSettings.AddRange(str);
-                    foreach (var item in datosAppSettings)
-                    {
-                        datosAppSettingToDB = item.Split('|');
-                        for (int i = 0; i < datosAppSettingToDB.Length; i++)
+                        if (completo.Equals(1))
                         {
-                            if (datosAppSettingToDB[i].Equals("true"))
+                            auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
+                            str = auxAppSetting.Split('¬');
+                            datosAppSettings.AddRange(str);
+                            foreach (var item in datosAppSettings)
                             {
-                                datosAppSettingToDB[i] = "1";
-                            }
-                            else if (datosAppSettingToDB[i].Equals("false"))
-                            {
-                                datosAppSettingToDB[i] = "0";
+                                datosAppSettingToDB = item.Split('|');
+                                for (int j = 0; j < datosAppSettingToDB.Length; j++)
+                                {
+                                    if (datosAppSettingToDB[j].Equals("true"))
+                                    {
+                                        datosAppSettingToDB[j] = "1";
+                                    }
+                                    else if (datosAppSettingToDB[j].Equals("false"))
+                                    {
+                                        datosAppSettingToDB[j] = "0";
+                                    }
+                                }
+                                using (DataTable dtVerificarDatoDinamicoCompleto = cn.CargarDatos(cs.VerificarDatoDinamicoCompleto(datosAppSettingToDB[1].ToString(), datosAppSettingToDB[3].ToString(), FormPrincipal.userID)))
+                                {
+                                    if (dtVerificarDatoDinamicoCompleto.Rows.Count.Equals(0))
+                                    {
+                                        try
+                                        {
+                                            insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show("Error al Agregar Registro a la Tabla appSettings\nTipo de Error : {0}" + ex.Message.ToString(), "Error al Agregar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+                                    }
+                                }
                             }
                         }
-                        insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
                     }
+                    //int borrar = 0;
+                    //string deleteData = string.Empty;
+                    //deleteData = $"DELETE FROM appSettings WHERE IDUsuario = {userID.ToString()}";
+                    //borrar = cn.EjecutarConsulta(deleteData);
+                    //string auxAppSetting = string.Empty;
+                    //string[] str;
+                    //int insertar = 0;
+                    //auxAppSetting = datosAppSetting.TrimEnd('¬').TrimEnd();
+                    //str = auxAppSetting.Split('¬');
+                    //datosAppSettings.AddRange(str);
+                    //foreach (var item in datosAppSettings)
+                    //{
+                    //    datosAppSettingToDB = item.Split('|');
+                    //    for (int i = 0; i < datosAppSettingToDB.Length; i++)
+                    //    {
+                    //        if (datosAppSettingToDB[i].Equals("true"))
+                    //        {
+                    //            datosAppSettingToDB[i] = "1";
+                    //        }
+                    //        else if (datosAppSettingToDB[i].Equals("false"))
+                    //        {
+                    //            datosAppSettingToDB[i] = "0";
+                    //        }
+                    //    }
+                    //    insertar = cn.EjecutarConsulta(cs.GuardarAppSettings(datosAppSettingToDB));
+                    //}
                 }
             }
             catch (ConfigurationException e)
