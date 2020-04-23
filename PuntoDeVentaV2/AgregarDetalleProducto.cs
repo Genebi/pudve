@@ -2810,7 +2810,11 @@ namespace PuntoDeVentaV2
                                                 }
                                                 try
                                                 {
-                                                    using (DataTable dtDetallesProducto = cn.CargarDatos($"SELECT * FROM DetallesProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}'"))
+                                                    string queryCargarDatos = string.Empty;
+
+                                                    queryCargarDatos = $"SELECT * FROM DetallesProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}'";
+
+                                                    using (DataTable dtDetallesProducto = cn.CargarDatos(queryCargarDatos))
                                                     {
                                                         //infoDetalle.Add(FormPrincipal.userID.ToString());
                                                         if (!dtDetallesProducto.Rows.Count.Equals(0))
@@ -2819,12 +2823,17 @@ namespace PuntoDeVentaV2
                                                             {
                                                                 infoDetalle.Add(dtRow["ID"].ToString());
                                                             }
+                                                            infoDetalle.Add(idFound[0].ToString());
+                                                            infoDetalle.Add(idFound[2].ToString());
+                                                            guardar = infoDetalle.ToArray();
+                                                            cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                                                        }
+                                                        else if (dtDetallesProducto.Rows.Count.Equals(0))
+                                                        {
+                                                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
                                                         }
                                                     }
-                                                    infoDetalle.Add(idFound[0].ToString());
-                                                    infoDetalle.Add(idFound[2].ToString());
-                                                    guardar = infoDetalle.ToArray();
-                                                    cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                                                    
                                                     infoDetalle.Clear(); // limpiamos de informacion la Lista
                                                 }
                                                 catch (Exception ex)
@@ -2837,6 +2846,7 @@ namespace PuntoDeVentaV2
                                                 try
                                                 {
                                                     cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamicoCompleto("chk" + nameConcepto, textoConcepto, FormPrincipal.userID));
+                                                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
                                                 }
                                                 catch (Exception ex)
                                                 {
