@@ -13,6 +13,8 @@ namespace PuntoDeVentaV2
 {
     public partial class AsignarMultipleProductos : Form
     {
+        MetodosBusquedas mb = new MetodosBusquedas();
+
         public AsignarMultipleProductos()
         {
             InitializeComponent();
@@ -70,23 +72,6 @@ namespace PuntoDeVentaV2
 
         private void CargarPropiedades()
         {
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (Properties.Settings.Default.TipoEjecucion == 1)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            if (Properties.Settings.Default.TipoEjecucion == 2)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            // Obtenemos el nodo principal de las propiedades del archivo App.config
-            XmlNode appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
-
-            //======================================================================
-
             // PANEL MENSAJE VENTAS
             AgregarOpcion("Mensaje", "Mensaje Ventas", 10);
             // PANEL MENSAJE INVENTARIO
@@ -113,35 +98,25 @@ namespace PuntoDeVentaV2
             int alturaEjeY = 395;
 
             //======================================================================
-            foreach (XmlNode childNode in appSettingsNode)
+
+            var conceptos = mb.ConceptosAppSettings();
+
+            foreach (var concepto in conceptos)
             {
-                var key = childNode.Attributes["key"].Value;
-                var value = Convert.ToBoolean(childNode.Attributes["value"].Value);
-
-                // Ignoramos los checkbox secundarios de cada propiedad
-                if (key.Substring(0, 3) == "chk")
+                // Este valor de proveedor esta agregado por defecto
+                if (concepto == "Proveedor")
                 {
-                    continue;
-                }
+                    AgregarOpcion(concepto, concepto, alturaEjeY);
 
-                // Si el valor de la propiedad es true (esta habilitado)
-                if (value == true)
+                    alturaEjeY += 35;
+                }
+                else
                 {
-                    // Este valor de proveedor esta agregado por defecto
-                    if (key == "Proveedor")
-                    {
-                        AgregarOpcion(key, key, alturaEjeY);
+                    // Aqui consultamos y agregamos todos los restantes
+                    AgregarOpcion(concepto, concepto, alturaEjeY);
 
-                        alturaEjeY += 35;
-                    }
-                    else
-                    {
-                        // Aqui consultamos y agregamos todos los restantes
-                        AgregarOpcion(key, key, alturaEjeY);
-
-                        alturaEjeY += 35;
-                    }
-                }
+                    alturaEjeY += 35;
+                }   
             }
         }
     }

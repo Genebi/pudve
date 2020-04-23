@@ -535,7 +535,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            // Cuando son los valores del App.config
+                            // Cuando son los valores de AppSettings
                             resultado = mb.DatosDetallesProducto(idProducto, opcion.Key);
                         }
 
