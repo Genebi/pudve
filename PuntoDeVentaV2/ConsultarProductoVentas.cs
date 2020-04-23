@@ -30,51 +30,23 @@ namespace PuntoDeVentaV2
 
         private void GenerarColumnas()
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            var conceptos = mb.ConceptosAppSettings();
 
-            if (Properties.Settings.Default.TipoEjecucion == 1)
+            foreach (var concepto in conceptos)
             {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            if (Properties.Settings.Default.TipoEjecucion == 2)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            // Obtenemos el nodo principal de las propiedades del archivo App.config
-            XmlNode appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
-
-            //======================================================================
-            //======================================================================
-            foreach (XmlNode childNode in appSettingsNode)
-            {
-                var key = childNode.Attributes["key"].Value;
-                var value = Convert.ToBoolean(childNode.Attributes["value"].Value);
-
-                // Ignoramos los checkbox secundarios de cada propiedad
-                if (key.Substring(0, 3) == "chk")
+                if (concepto == "Proveedor")
                 {
                     continue;
                 }
 
-                // Si el valor de la propiedad es true (esta habilitado)
-                if (value == true)
-                {
-                    if (key == "Proveedor")
-                    {
-                        continue;
-                    }
+                // Este valor de proveedor esta agregado por defecto
+                DataGridViewColumn columna = new DataGridViewTextBoxColumn();
+                columna.HeaderText = concepto;
+                columna.Name = concepto;
+                DGVProductos.Columns.Add(columna);
 
-                    // Este valor de proveedor esta agregado por defecto
-                    DataGridViewColumn columna = new DataGridViewTextBoxColumn();
-                    columna.HeaderText = key;
-                    columna.Name = key;
-                    DGVProductos.Columns.Add(columna);
-
-                    // Guardamos los nombres de las propiedades en la lista
-                    propiedades.Add(key);
-                }
+                // Guardamos los nombres de las propiedades en la lista
+                propiedades.Add(concepto);
             }
         }
 

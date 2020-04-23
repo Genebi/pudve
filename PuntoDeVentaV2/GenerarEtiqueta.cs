@@ -15,6 +15,8 @@ namespace PuntoDeVentaV2
 {
     public partial class GenerarEtiqueta : Form
     {
+        MetodosBusquedas mb = new MetodosBusquedas();
+
         int alturaEjeY = 10;
         string labelConFocus = string.Empty;
         bool allowResize = false;
@@ -41,23 +43,6 @@ namespace PuntoDeVentaV2
 
         private void CargarPropiedades()
         {
-            XmlDocument xmlDoc = new XmlDocument();
-
-            if (Properties.Settings.Default.TipoEjecucion == 1)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            if (Properties.Settings.Default.TipoEjecucion == 2)
-            {
-                xmlDoc.Load(Properties.Settings.Default.baseDirectory + Properties.Settings.Default.archivo);
-            }
-
-            // Obtenemos el nodo principal de las propiedades del archivo App.config
-            XmlNode appSettingsNode = xmlDoc.SelectSingleNode("configuration/appSettings");
-
-            //======================================================================
-
             // PANEL NOMBRE PRODUCTO
             panelPropiedades.Controls.Add(GenerarPropiedad("Nombre", "Nombre"));
 
@@ -74,31 +59,21 @@ namespace PuntoDeVentaV2
             panelPropiedades.Controls.Add(GenerarPropiedad("Precio", "Precio"));
 
             //======================================================================
-            foreach (XmlNode childNode in appSettingsNode)
+
+            var conceptos = mb.ConceptosAppSettings();
+
+            foreach (var concepto in conceptos)
             {
-                var key = childNode.Attributes["key"].Value;
-                var value = Convert.ToBoolean(childNode.Attributes["value"].Value);
-
-                // Ignoramos los checkbox secundarios de cada propiedad
-                if (key.Substring(0, 3) == "chk")
+                // Este valor de proveedor esta agregado por defecto
+                if (concepto == "Proveedor")
                 {
-                    continue;
+                    panelPropiedades.Controls.Add(GenerarPropiedad("Proveedor", "Proveedor"));
                 }
-
-                // Si el valor de la propiedad es true (esta habilitado)
-                if (value == true)
+                else
                 {
-                    // Este valor de proveedor esta agregado por defecto
-                    if (key == "Proveedor")
-                    {
-                        panelPropiedades.Controls.Add(GenerarPropiedad("Proveedor", "Proveedor"));
-                    }
-                    else
-                    {
-                        // Aqui consultamos y agregamos todos los restantes
-                        panelPropiedades.Controls.Add(GenerarPropiedad(key, key));
-                    }
-                }
+                    // Aqui consultamos y agregamos todos los restantes
+                    panelPropiedades.Controls.Add(GenerarPropiedad(concepto, concepto));
+                }    
             }
         }
 
