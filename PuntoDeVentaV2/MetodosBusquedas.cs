@@ -1376,11 +1376,17 @@ namespace PuntoDeVentaV2
                                 {
                                     var descripcion = dr4["Descripcion"].ToString();
 
-                                    datos.Add(propiedad, descripcion);
+                                    if (!datos.ContainsKey(propiedad))
+                                    {
+                                        datos.Add(propiedad, descripcion);
+                                    }
                                 }
                                 else
                                 {
-                                    datos.Add(propiedad, "N/A");
+                                    if (!datos.ContainsKey(propiedad))
+                                    {
+                                        datos.Add(propiedad, "N/A");
+                                    }
                                 }
 
                                 dr4.Close();
