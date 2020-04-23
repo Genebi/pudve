@@ -2248,6 +2248,24 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                else if (dtFiltroProducto.Rows.Count.Equals(0))
+                {
+                    // CheckBox de Stock
+                    chkBoxStock.Checked = true;
+                    chkBoxStock.Checked = false;
+                    // CheckBox de Precio
+                    chkBoxPrecio.Checked = true;
+                    chkBoxPrecio.Checked = false;
+                    // CheckBox de Revision
+                    chkBoxRevision.Checked = true;
+                    chkBoxRevision.Checked = false;
+                    // CheckBox de Imagen
+                    chkBoxImagen.Checked = true;
+                    chkBoxImagen.Checked = false;
+                    // CheckBox de Tipo
+                    chkBoxTipo.Checked = true;
+                    chkBoxTipo.Checked = false;
+                }
                 #endregion Verificar CheckBox
             }
         }
