@@ -1735,6 +1735,8 @@ namespace PuntoDeVentaV2
             loadFromConfigDB();
             BuscarTextoListView(settingDatabases);
 
+            LimpiarTablaDetallesProductoGenerales();
+
             //if (string.IsNullOrWhiteSpace(servidor))
             //{
             //    VerificarFiltroDinamico();
@@ -1795,6 +1797,47 @@ namespace PuntoDeVentaV2
                 txtStockNecesario.Text = "0";
                 txtStockMinimo.Text = "0";
             }
+        }
+
+        private void LimpiarTablaDetallesProductoGenerales()
+        {
+            string nameControl = string.Empty;
+            List<string> ControlesPanelContenido = new List<string>();
+
+            foreach (Control panelContenido in fLPCentralDetalle.Controls)
+            {
+                nameControl = panelContenido.Name.ToString().Remove(0, 15);
+                if (!nameControl.Equals("Proveedor"))
+                {
+                    ControlesPanelContenido.Add("panelContenido" + nameControl);
+                }
+            }
+
+            if (ControlesPanelContenido.Count() != 0)
+            {
+                foreach (var item in ControlesPanelContenido)
+                {
+                    using (DataTable dtDetallesProductoGenerales = cn.CargarDatos(cs.AgruparDetallesProductoGenerales(item.ToString())))
+                    {
+                        if (!dtDetallesProductoGenerales.Rows.Count.Equals(0))
+                        {
+                            for (int i = 0; i < dtDetallesProductoGenerales.Rows.Count - 1; i++)
+                            {
+                                try
+                                {
+                                    var BorrarDetalleProductoGenerales = cn.EjecutarConsulta(cs.BorrarDetallesProductoGenerales(dtDetallesProductoGenerales.Rows[i]["ID"].ToString()));
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Error al Borrar el Filtro Dinamico Duplicado de la Tabla DetallesProductoGenerales:\n" + ex.Message.ToString(), "Error al Borrar Filtro Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            ControlesPanelContenido.Clear();
         }
 
         private void VerificarFiltroDinamico()
