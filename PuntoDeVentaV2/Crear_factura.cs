@@ -751,12 +751,12 @@ namespace PuntoDeVentaV2
 
                 string[] datos_f = new string[]
                 {
-                id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text,
-                cmb_bx_moneda.SelectedValue.ToString(), txt_tipo_cambio.Text, uso_cfdi,
-                r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
-                r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
-                txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
-                r_venta["Folio"].ToString(), r_venta["Serie"].ToString()
+                    id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text,
+                    cmb_bx_moneda.SelectedValue.ToString(), txt_tipo_cambio.Text, uso_cfdi,
+                    r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
+                    r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
+                    txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
+                    r_venta["Folio"].ToString(), r_venta["Serie"].ToString()
                 };
 
                 cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
@@ -820,9 +820,34 @@ namespace PuntoDeVentaV2
                             }
                         }
 
+                        // Obtiene IVA 
+                        // Solo aplica para los productos donde el IVA no fue agregado desde el botón "Detalles facturación"
+                        string mbase = "";
+                        string miva = "";
+                        string timpuesto = "";
+
+                        if (r_tb_producto["Base"].ToString() == "" | r_tb_producto["Impuesto"].ToString() == "")
+                        {
+                            decimal precio = Convert.ToDecimal(r_productos["Precio"].ToString());
+
+                            decimal b = precio / 1.16m; 
+                            decimal bs = precio - b;
+
+                            mbase = Convert.ToString(dos_decimales(b));
+                            miva = Convert.ToString(dos_decimales(bs));
+                            timpuesto = "16%";
+                        }
+                        else
+                        {
+                            mbase = r_tb_producto["Base"].ToString();
+                            miva = r_tb_producto["IVA"].ToString();
+                            timpuesto = r_tb_producto["Impuesto"].ToString();
+                        }
+
+
                         string[] datos_fp = new string[]
                         {
-                            id_factura.ToString(), r_tb_producto["UnidadMedida"].ToString(), r_tb_producto["ClaveProducto"].ToString(), r_productos["Nombre"].ToString(), r_productos["Cantidad"].ToString(), r_productos["Precio"].ToString(), r_tb_producto["Base"].ToString(), r_tb_producto["Impuesto"].ToString(), r_tb_producto["IVA"].ToString(), descuento_xproducto.Trim()
+                            id_factura.ToString(), r_tb_producto["UnidadMedida"].ToString(), r_tb_producto["ClaveProducto"].ToString(), r_productos["Nombre"].ToString(), r_productos["Cantidad"].ToString(), r_productos["Precio"].ToString(), mbase, timpuesto, miva, descuento_xproducto.Trim()
                         };
 
                         cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
@@ -924,6 +949,13 @@ namespace PuntoDeVentaV2
                 
                 paso = 1;
             }
+        }
+
+        private decimal dos_decimales(decimal c)
+        {
+            decimal cantidad = Decimal.Round(c, 2);
+
+            return cantidad;
         }
     }
 }
