@@ -1059,6 +1059,7 @@ namespace PuntoDeVentaV2
         {
             decimal suma_importe_concep = 0;
             decimal suma_importe_impuest = 0;
+            decimal suma_descuento = 0;
             List<string> list_porprod_impuestos_trasladados = new List<string>();
 
 
@@ -1195,7 +1196,14 @@ namespace PuntoDeVentaV2
                     concepto_v.ValorUnitario = Convert.ToDecimal(r_prodventa["Precio"]);
 
                     decimal importe_v = Convert.ToDecimal(r_prodventa["Cantidad"]) * Convert.ToDecimal(r_prodventa["Precio"]);
-                    decimal tasa_cuota = 0.000000m;
+
+                    /*if (r_prodventa["descuento"].ToString() != "")
+                    {
+                        decimal desc = Convert.ToDecimal(r_prodventa["descuento"]);
+                        importe_v = importe_v - desc;
+                    }*/
+
+                    /*decimal tasa_cuota = 0.000000m;
 
                     if (tipo_iva == "IVA16")
                     {
@@ -1206,16 +1214,36 @@ namespace PuntoDeVentaV2
                     {
                         importe_v = importe_v / 1.08m;
                         tasa_cuota = 0.080000m;
-                    }
+                    }*/
 
                     concepto_v.Importe = importe_v;
 
                     suma_importe_concep += importe_v;
 
+                    // Descuento
+                    if(r_prodventa["descuento"].ToString() != "")
+                    {
+                        var tdesc = (r_prodventa["descuento"].ToString()).IndexOf("-");
+
+                        if (tdesc > -1)
+                        {
+                            string d = r_prodventa["descuento"].ToString();
+                            string cdesc = d.Substring(0, tdesc);
+
+                            concepto_v.Descuento = Convert.ToDecimal(cdesc);
+                            suma_descuento += Convert.ToDecimal(cdesc);
+                        }
+                        else
+                        {
+                            concepto_v.Descuento = Convert.ToDecimal(r_prodventa["descuento"]);
+                            suma_descuento += Convert.ToDecimal(r_prodventa["descuento"]);
+                        }                            
+                    }                    
+
 
                     // Agrega impuestos
 
-                    List<ComprobanteConceptoImpuestosTrasladoVenta> list_concepto_impuestos_traslados_v = new List<ComprobanteConceptoImpuestosTrasladoVenta>();
+                    /*List<ComprobanteConceptoImpuestosTrasladoVenta> list_concepto_impuestos_traslados_v = new List<ComprobanteConceptoImpuestosTrasladoVenta>();
                     ComprobanteConceptoImpuestosTrasladoVenta concepto_traslado_v = new ComprobanteConceptoImpuestosTrasladoVenta();
 
                     concepto_traslado_v.Base = importe_v;
@@ -1229,35 +1257,12 @@ namespace PuntoDeVentaV2
                     suma_importe_impuest += importe_imp;
 
                     list_concepto_impuestos_traslados_v.Add(concepto_traslado_v);
-
-
-                    // Guarda en la lista el tipo de impuesto
-                    /*
-                    string cadena = "002-Tasa" + "-" + tasa_cuota;
-
-                    // Busca si la cadena existe en la lista
-                    var indice = list_porprod_impuestos_trasladados.IndexOf(cadena);
-
-                    // Si la cadena existe aumenta el importe del impuesto, de lo contrario la agrega como nueva
-                    if (indice >= 0)
-                    {
-                        indice = indice + 1;
-                        decimal monto_actual = Convert.ToDecimal(list_porprod_impuestos_trasladados[indice]);
-                        decimal monto_nuevo = monto_actual + importe_imp;
-
-                        list_porprod_impuestos_trasladados.RemoveAt(indice);
-                        list_porprod_impuestos_trasladados.Insert(indice, Convert.ToString(monto_nuevo));
-                    }
-                    else
-                    {
-                        list_porprod_impuestos_trasladados.Add(cadena);
-                        list_porprod_impuestos_trasladados.Add(importe_imp.ToString());
-                    }*/
+                    
 
 
                     concepto_v.Impuestos = new ComprobanteConceptoImpuestosVenta();
                     concepto_v.Impuestos.Traslados = list_concepto_impuestos_traslados_v.ToArray();
-
+                    */
 
                     listaconcepto_v.Add(concepto_v);
                 }
@@ -1268,13 +1273,14 @@ namespace PuntoDeVentaV2
 
             // Datos generales de la venta 
 
-            decimal total_general = suma_importe_concep + suma_importe_impuest;
+            decimal total_general = suma_importe_concep - suma_descuento; //+ suma_importe_impuest;
 
             comprobanteventa.Serie = serie;
             comprobanteventa.Folio = folio;
             comprobanteventa.Fecha = fecha.ToString("yyyy-MM-dd HH:mm:ss");
             comprobanteventa.FormaPago = forma_pago;
             comprobanteventa.SubTotal = suma_importe_concep;
+            comprobanteventa.Descuento = suma_descuento;
             comprobanteventa.Total = total_general;
             comprobanteventa.LugarExpedicion = lugar_expedicion;
 

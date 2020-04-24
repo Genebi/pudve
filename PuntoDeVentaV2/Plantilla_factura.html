@@ -78,7 +78,7 @@
 
         <!-- RECEPTOR -->
 
-        <div class="alineacion txt-tipo-letra" style="width: 49%; font-size: .94em;">
+        <div class="alineacion txt-tipo-letra" style="width: 48%; font-size: .94em;">
             @Model.Receptor.Nombre<br />
             <b>RFC:</b> @Model.Receptor.Rfc<br />
             <b>Uso CFDI:</b> @Model.Receptor.UsoCFDI - @uso_cfdi(@Model.Receptor.UsoCFDI)
@@ -86,7 +86,7 @@
 
         <!-- OTROS DATOS -->
 
-        <div class="alineacion txt-tipo-letra" style="width: 51%; font-size: .9em;">
+        <div class="alineacion txt-tipo-letra" style="width: 51%; font-size: .9em; padding-left: 0.5em;">
             <div><b>Folio fiscal:</b> @Model.timbre_fiscal_digital.UUID</div>
             <div>
                 <div class="alineacion" style="width: 50%">No. comprobante: @Model.Folio</div>
@@ -136,14 +136,27 @@
 
     <div>
         <table width="850" class="tab_conceptos txt-tipo-letra" align="center">
-            <tr>
-                <th width="55">Cantidad</th>
-                <th width="53">Clave prod/serv</th>
-                <th width="35">Clave unidad</th>
-                <th width="300">Descripción</th>
-                <th width="75">P/U</th>
-                <th width="82">Importe</th>
-            </tr>
+            @if(Model.Descuento == 0M){
+                <tr>
+                    <th width="55">Cantidad</th>
+                    <th width="53">Clave prod/serv</th>
+                    <th width="35">Clave unidad</th>
+                    <th width="300">Descripción</th>
+                    <th width="75">P/U</th>
+                    <th width="82">Importe</th>
+                </tr>
+            }
+            else{
+                <tr>
+                    <th width="53">Cantidad</th>
+                    <th width="45">Clave prod/serv</th>
+                    <th width="30">Clave unidad</th>
+                    <th width="290">Descripción</th>
+                    <th width="70">P/U</th>
+                    <th width="78">Importe</th>
+                    <th width="35">Descuento</th>
+                </tr>
+            }
 
             @foreach(var concepto in Model.Conceptos){
 
@@ -154,6 +167,10 @@
                     <td>@concepto.Descripcion</td>
                     <td>@dos_decimales(@concepto.ValorUnitario)</td>
                     <td>@dos_decimales(@concepto.Importe)</td>
+
+                    @if(Model.Descuento != 0M){
+                        <td>@dos_decimales(@concepto.Descuento)</td>
+                    }
                 </tr>
 
                 <!-- Obtención de solo impuestos retenidos -->
@@ -175,13 +192,32 @@
                 }
             }
 
-            <tr><td colspan="6" class="blanco">&nbsp;<br />&nbsp;</td></tr>
 
+            @if(Model.Descuento != 0M){
+                <tr><td colspan="7" class="blanco">&nbsp;<br />&nbsp;</td></tr>
+            }
+            else{
+                <tr><td colspan="6" class="blanco">&nbsp;<br />&nbsp;</td></tr>
+            }
+            
+           
             <tr>
                 <td colspan="4"></td>
                 <td class="negritas">Subtotal</td>
                 <td>@Model.SubTotal</td>
+                @if(Model.Descuento != 0M){
+                    <td></td>
+                }
             </tr>
+
+            @if(Model.Descuento != 0M){
+                <tr>
+                    <td colspan="4"></td>
+                    <td class="negritas">Descuento</td>
+                    <td></td>
+                    <td>@Model.Descuento</td>
+                </tr>
+            }
 
             @if(Model.Impuestos != null){
                 if(Model.Impuestos.Traslados != null){
@@ -194,6 +230,9 @@
                             @impuesto_t.TipoFactor  @tasacuota(@impuesto_t.TasaOCuota) %
                         </td>
                         <td>@impuesto_t.Importe</td>
+                        @if(Model.Descuento != 0M){
+                            <td></td>
+                        }
                     </tr>
                     }
                 }
@@ -206,6 +245,10 @@
                                 Exento
                             </td>
                             <td>0.0</td>
+
+                            @if(Model.Descuento != 0M){
+                                <td></td>
+                            }
                         </tr>
                     }
                 }
@@ -218,6 +261,10 @@
                     <td colspan="4" align="right">Retención @im_retenciones(l, 1)</td>
                     <td>@im_retenciones(l, 2)</td>
                     <td>@im_retenciones(l + 1, 3)</td>
+
+                    @if(Model.Descuento != 0M){
+                        <td></td>
+                    }
                 </tr>
 
                     l += 2;
@@ -227,7 +274,13 @@
             <tr>
                 <td colspan="4">@Model.monedacon_letra</td>
                 <td class="negritas">TOTAL</td>
-                <td>@Model.Total</td>
+                
+                @if(Model.Descuento != 0M){
+                    <td colspan="2" align="right">@Model.Total</td>
+                }
+                else{
+                    <td>@Model.Total</td>
+                }
             </tr>
         </table>
     </div>
