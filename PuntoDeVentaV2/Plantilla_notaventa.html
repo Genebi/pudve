@@ -153,12 +153,23 @@
 
     <div>
         <table width="850" class="tab_conceptos txt-tipo-letra" align="center">
-            <tr>
-                <th width="55">Cantidad</th>
-                <th width="375">Descripción</th>
-                <th width="80">P/U</th>
-                <th width="90">Importe</th>
-            </tr>
+            @if(Model.Descuento == 0M){
+                <tr>
+                    <th width="55">Cantidad</th>
+                    <th width="375">Descripción</th>
+                    <th width="80">P/U</th>
+                    <th width="90">Importe</th>
+                </tr>
+            }
+            else{
+                <tr>
+                    <th width="55">Cantidad</th>
+                    <th width="345">Descripción</th>
+                    <th width="75">P/U</th>
+                    <th width="85">Importe</th>
+                    <th width="40">Descuento</th>
+                </tr>
+            }
 
             @foreach(var concepto in Model.Conceptos){
 
@@ -167,6 +178,10 @@
                     <td>@concepto.Descripcion</td>
                     <td>@dos_decimales(@concepto.ValorUnitario)</td>
                     <td>@dos_decimales(@concepto.Importe)</td>
+
+                    @if(Model.Descuento != 0M){
+                        <td>@dos_decimales(@concepto.Descuento)</td>
+                    }
                 </tr>
                 
                 <!-- Obtención los impuestos -->
@@ -181,7 +196,13 @@
                 }
             }
 
-            <tr><td colspan="4" class="blanco">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</td></tr>
+            
+            @if(Model.Descuento != 0M){
+                <tr><td colspan="5" class="blanco">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</td></tr>
+            }
+            else{
+                <tr><td colspan="4" class="blanco">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;</td></tr>
+            }
 
             <tr>
                 <td colspan="2">
@@ -195,12 +216,28 @@
                 </td>
                 <td></td>
                 <td></td>
+                @if(Model.Descuento != 0M){
+                    <td></td>
+                }
             </tr>
             <tr>
                 <td colspan="2"></td>
                 <td class="negritas">Subtotal</td>
                 <td>@dos_decimales(@Model.SubTotal)</td>
+
+                @if(Model.Descuento != 0M){
+                    <td></td>
+                }
             </tr>
+
+            @if(Model.Descuento != 0M){
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="negritas">Descuento</td>
+                    <td></td>
+                    <td>@dos_decimales(@Model.Descuento)</td>
+                </tr>
+            }
             
             @if(cant_list > 0){
                 while(l < cant_list){
@@ -209,6 +246,10 @@
                         <td colspan="2" align="right">@im_traslados(l, 1)</td>
                         <td>@im_traslados(l, 2)</td>
                         <td>@im_traslados(l + 1, 3)</td>
+
+                        @if(Model.Descuento != 0M){
+                            <td></td>
+                        }
                     </tr>
 
                     l += 2;
@@ -218,7 +259,13 @@
             <tr>
                 <td colspan="2">@Model.monedacon_letra</td>
                 <td class="negritas">TOTAL</td>
-                <td>@dos_decimales(@Model.Total)</td>
+
+                @if(Model.Descuento != 0M){
+                    <td colspan="2" align="right">@dos_decimales(@Model.Total)</td>
+                }
+                else{
+                    <td>@dos_decimales(@Model.Total)</td>
+                }
             </tr>
 
         </table>

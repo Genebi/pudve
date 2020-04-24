@@ -225,6 +225,8 @@ namespace PuntoDeVentaV2
                                 txt_clave_unidad.ReadOnly = true;
                             }
                         }*/
+
+                        groupb_productos.Visible = false;
                     }
                 }
 
@@ -800,9 +802,27 @@ namespace PuntoDeVentaV2
                         DataRow r_tb_producto = d_tb_productos.Rows[0];
 
 
+                        // Obtiene descuento
+                        string descuento_xproducto = "";
+                        string descuento = r_productos["descuento"].ToString();
+
+                        if (descuento != "")
+                        {
+                            var tip_desc = (descuento).IndexOf("-");
+
+                            if(tip_desc >= 0)
+                            {
+                                descuento_xproducto = descuento.Substring(tip_desc + 1);
+                            }
+                            else
+                            {
+                                descuento_xproducto = descuento;
+                            }
+                        }
+
                         string[] datos_fp = new string[]
                         {
-                        id_factura.ToString(), r_tb_producto["UnidadMedida"].ToString(), r_tb_producto["ClaveProducto"].ToString(), r_productos["Nombre"].ToString(), r_productos["Cantidad"].ToString(), r_productos["Precio"].ToString(), r_tb_producto["Base"].ToString(), r_tb_producto["Impuesto"].ToString(), r_tb_producto["IVA"].ToString()
+                            id_factura.ToString(), r_tb_producto["UnidadMedida"].ToString(), r_tb_producto["ClaveProducto"].ToString(), r_productos["Nombre"].ToString(), r_productos["Cantidad"].ToString(), r_productos["Precio"].ToString(), r_tb_producto["Base"].ToString(), r_tb_producto["Impuesto"].ToString(), r_tb_producto["IVA"].ToString(), descuento_xproducto.Trim()
                         };
 
                         cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
@@ -831,7 +851,7 @@ namespace PuntoDeVentaV2
 
 
 
-
+                
                 // ........................................ 
                 // .   Llamar al timbrado de la factura   .
                 // ........................................        

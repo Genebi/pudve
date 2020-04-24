@@ -68,7 +68,7 @@ namespace PuntoDeVentaV2
             int agrega_nodo_concepto_traslado = 0;
             int agrega_nodo_concepto_retencion = 0;
             // Totales generales
-            double descuento_general = 0;
+            decimal descuento_general = 0;
             decimal suma_impuesto_traslado = 0;
             decimal suma_impuesto_retenido = 0;
             string mensaje = "";
@@ -268,6 +268,49 @@ namespace PuntoDeVentaV2
                     if (con_complemento_pg == 0)
                     {
                         concepto.Importe = seis_decimales(importe_p);
+
+                        // Descuento
+
+                        if (r_productos["descuento"].ToString() != "")
+                        {
+                            var desc = (r_productos["descuento"].ToString()).IndexOf("%");
+
+                            if (desc > -1)
+                            {
+                                string d = r_productos["descuento"].ToString();
+                                string porcentaje = d.Substring(0, (d.Length - 1));
+
+                                decimal p = Convert.ToDecimal(porcentaje);
+                                
+                                if (Convert.ToDecimal(porcentaje) > 1)
+                                {
+                                    p = Convert.ToDecimal(porcentaje) / 100;
+                                    
+                                }
+
+                                decimal descuent = seis_decimales(importe_p) * p;
+
+
+                                concepto.Descuento = seis_decimales(descuent);
+                                descuento_general += seis_decimales(descuent);
+                            }
+                            else
+                            {
+                                if(Convert.ToDecimal(r_productos["descuento"].ToString()) % 2 == 0)
+                                {
+                                    decimal descuentoo = Convert.ToDecimal(r_productos["descuento"].ToString());
+                                    int d = Convert.ToInt32(descuentoo);
+
+                                    concepto.Descuento = Convert.ToDecimal(d);
+                                    descuento_general += d;
+                                }
+                                else
+                                {
+                                    concepto.Descuento = seis_decimales(Convert.ToDecimal(r_productos["descuento"].ToString()));
+                                    descuento_general += seis_decimales(Convert.ToDecimal(r_productos["descuento"].ToString()));
+                                }
+                            }
+                        }
                     }
                     else
                     {
@@ -840,8 +883,8 @@ namespace PuntoDeVentaV2
             //---------------------------------------
 
 
-            decimal total_general = (suma_total_productos + dos_decimales(suma_impuesto_traslado)) - dos_decimales(suma_impuesto_retenido);
-
+            decimal total_general = (suma_total_productos + dos_decimales(suma_impuesto_traslado)) - (dos_decimales(suma_impuesto_retenido) + dos_decimales(descuento_general));
+           
 
             comprobante.Version = "3.3";
             // Serie
@@ -878,7 +921,7 @@ namespace PuntoDeVentaV2
             // Descuento general    
             if (descuento_general > 0)
             {
-                comprobante.Descuento = Convert.ToInt32(descuento_general);
+                comprobante.Descuento = dos_decimales(descuento_general);
             }
             // Moneda
             if(con_complemento_pg == 0)
@@ -1085,9 +1128,9 @@ namespace PuntoDeVentaV2
             /*string clave_u = "c.ofis09NSUNotcatno5SS0240";
             ServiceReferenceTPrueba.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReferenceTPrueba.timbrado_cfdi33_portClient();
             ServiceReferenceTPrueba.timbrar_cfdi_result respuesta = new ServiceReferenceTPrueba.timbrar_cfdi_result();
-            */
+           */
             // Crear el objeto cliente
-            ServiceReference_produccion.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReference_produccion.timbrado_cfdi33_portClient();
+           ServiceReference_produccion.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReference_produccion.timbrado_cfdi33_portClient();
             // Crear el objeto de la respuesta
             ServiceReference_produccion.timbrar_cfdi_result respuesta = new ServiceReference_produccion.timbrar_cfdi_result();
             // Llamar al metodo de timbrado
