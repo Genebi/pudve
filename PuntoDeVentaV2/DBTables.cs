@@ -75,7 +75,7 @@ namespace PuntoDeVentaV2
             ProductoRelacionadoXML = 5;
             Productos = 23;
             ProductosDeServicios = 6;
-            ProductosVenta = 6;
+            ProductosVenta = 7;
             Proveedores = 15;
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
@@ -986,6 +986,7 @@ namespace PuntoDeVentaV2
                                               Nombre     STRING,
                                               Cantidad   INTEGER DEFAULT (0),
                                               Precio     DECIMAL DEFAULT (0),
+                                              descuento  TEXT,
                                               FOREIGN KEY (IDVenta) REFERENCES Ventas (ID) ON DELETE CASCADE ON UPDATE CASCADE);";
         }
 
