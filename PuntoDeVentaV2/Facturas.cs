@@ -1,6 +1,4 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -54,7 +52,8 @@ namespace PuntoDeVentaV2
             ag_checkb_header();
             // Carga las facturas en la tabla 
             cargar_lista_facturas();
-            
+
+            datagv_facturas.ClearSelection();
         }
 
         public void cargar_lista_facturas(int tipo= 0)
@@ -279,6 +278,8 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("La factura ya fue cancelada con anterioridad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+
+                datagv_facturas.ClearSelection();
             }
         }
 
@@ -287,6 +288,16 @@ namespace PuntoDeVentaV2
             if(e.RowIndex >= 0 & e.ColumnIndex >= 8)
             {
                 datagv_facturas.Cursor = Cursors.Hand;
+
+                Rectangle cellRect = datagv_facturas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                
+
+                if (e.ColumnIndex == 8)
+                {
+                    var coordenadaX = 70;
+
+                    VerToolTip("Ver factura", cellRect.X, coordenadaX, cellRect.Y, true);
+                }
             }
         }
 
@@ -633,6 +644,21 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void VerToolTip(string texto, int cellRectX, int coordX, int cellRectY, bool mostrar)
+        {
+            if (mostrar)
+            {
+                TTMensaje.Show(texto, this, datagv_facturas.Location.X + cellRectX - coordX, datagv_facturas.Location.Y + cellRectY, 1500);
+            }
+        }
+
+        private void TTMensaje_Draw(object sender, DrawToolTipEventArgs e)
+        {
+            e.DrawBackground();
+            e.DrawBorder();
+            e.DrawText();
         }
     }
 }

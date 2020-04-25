@@ -474,7 +474,7 @@ namespace PuntoDeVentaV2
 
                     if (e.ColumnIndex == 12)
                     {
-                        textoTT = "Ver factura";
+                        textoTT = "Ver nota";
                         coordenadaX = 70;
                     }
 
@@ -599,7 +599,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                //Ver factura
+                //Ver nota
                 if (e.ColumnIndex == 12)
                 {
                     // Verifica si el PDF ya esta creado
