@@ -2718,7 +2718,8 @@ namespace PuntoDeVentaV2
                                               precio_u       DOUBLE,
                                               base           DOUBLE,
                                               tasa_cuota     VARCHAR,
-                                              importe_iva    DOUBLE);";
+                                              importe_iva    DOUBLE,
+                                              descuento      TEXT);";
         }
 
         public string QueryUpdateTablaFiltroFacturas_productos(string tabla)
