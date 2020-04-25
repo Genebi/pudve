@@ -279,8 +279,10 @@ namespace PuntoDeVentaV2
             return logo;
         }
 
-        public static void EnviarEmail(string html, string asunto, string email)
+        public static bool EnviarEmail(string html, string asunto, string email)
         {
+            var respuesta = false;
+
             try
             {
                 MailMessage mensaje = new MailMessage();
@@ -299,6 +301,8 @@ namespace PuntoDeVentaV2
                 smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "Steroids12");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(mensaje);
+
+                respuesta = true;
             }
             catch (Exception ex)
             {
@@ -306,6 +310,8 @@ namespace PuntoDeVentaV2
                 // y que no aparezca el messagebox
                 //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            return respuesta;
         }
 
         public static void CambioPrecioProductoEmail(string[] datos, int tipo = 0)

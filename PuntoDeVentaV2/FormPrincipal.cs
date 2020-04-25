@@ -356,15 +356,8 @@ namespace PuntoDeVentaV2
 
                 permisos_empleado(datos_per);
             }
-            /*
-            if (pasar == 1)
-            {
-                InitializarTimerAndroid();
-            } else
-            {
-                MessageBox.Show("no entra al if");
-            }*/
-            //////////////////////////////////////////////////////////////////////  
+
+            //====================================================================
             var datosConfig = mb.ComprobarConfiguracion();
 
             if (datosConfig.Count > 0)
@@ -372,7 +365,7 @@ namespace PuntoDeVentaV2
                 pasar = datosConfig[5];
             }
             InitializarTimerAndroid();
-            //////////////////////////////////////////////////////////////////////
+            //====================================================================
 
             // Verificar si existe registro de la tabla configuracion
             var existe = (bool)cn.EjecutarSelect($"SELECT * FROM Configuracion WHERE IDUsuario = {userID}");

@@ -1726,13 +1726,24 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
-        private void DatosConexion(string consulta, bool ignorar = false)
+        public string[] RecuperarPassword(string usuario)
         {
-            Conexion(ignorar);
-            sql_con.Open();
-            sql_cmd = sql_con.CreateCommand();
-            sql_cmd.CommandText = consulta;
-            sql_cmd.ExecuteNonQuery();
+            var datos = new string[] { };
+
+            DatosConexion($"SELECT * FROM Usuarios WHERE Usuario = '{usuario}'");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var razon = dr.GetValue(dr.GetOrdinal("RazonSocial")).ToString();
+                var email = dr.GetValue(dr.GetOrdinal("Email")).ToString();
+                var password = dr.GetValue(dr.GetOrdinal("Password")).ToString();
+
+                datos = new string[] { razon, email, password };
+            }
+
+            return datos;
         }
 
         public string[] obtener_permisos_empleado(int id_empleado, int id_usuario)
@@ -1749,14 +1760,14 @@ namespace PuntoDeVentaV2
                 list.Add(dr[8].ToString());
                 list.Add(dr[9].ToString());
                 list.Add(dr[10].ToString()); // empleado
-                list.Add(dr[11].ToString()); 
+                list.Add(dr[11].ToString());
                 list.Add(dr[12].ToString()); // factura
                 list.Add(dr[13].ToString());
-                list.Add(dr[14].ToString()); 
+                list.Add(dr[14].ToString());
                 list.Add(dr[15].ToString()); // producto
                 list.Add(dr[16].ToString());
                 list.Add(dr[17].ToString()); // reporte
-                list.Add(dr[18].ToString()); 
+                list.Add(dr[18].ToString());
                 list.Add(dr[19].ToString()); // venta
             }
 
@@ -1789,5 +1800,14 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
         #endregion
+
+        private void DatosConexion(string consulta, bool ignorar = false)
+        {
+            Conexion(ignorar);
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+        }
     }
 }

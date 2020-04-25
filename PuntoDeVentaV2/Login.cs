@@ -4238,7 +4238,10 @@ namespace PuntoDeVentaV2
 
         private void btnRecuperarPassword_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Test");
+            using (var recuperar = new RecuperarPassword())
+            {
+                recuperar.ShowDialog();
+            }
         }
 
         private void checkBoxRecordarDatos_CheckedChanged(object sender, EventArgs e)
