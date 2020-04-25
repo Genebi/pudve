@@ -360,6 +360,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string BorrarDetallesProductoGeneralesPorConcepto(string panelContenido, string IdProducto)
+        {
+            var consulta = $"DELETE FROM DetallesProductoGenerales WHERE panelContenido = '{panelContenido}' AND IDProducto = '{IdProducto}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+
         public string VerificarDetallesProducto(string idProducto, string idUsuario)
         {
             string consulta = string.Empty;

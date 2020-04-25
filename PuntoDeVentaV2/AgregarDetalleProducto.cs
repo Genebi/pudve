@@ -2097,6 +2097,15 @@ namespace PuntoDeVentaV2
                                 MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
 
+                            try
+                            {
+                                var DeleteDetallesProductoGenerales = cn.EjecutarConsulta(cs.BorrarDetallesProductoGeneralesPorConcepto("panelContenido" + deleteDetalle, finalIdProducto));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("El Detalle: " + deleteDetalle + " a eliminar no se encuentra en los registros\nError: " + ex.Message.ToString(), "Error al Eliminar Detalle", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
                             //loadFormConfig();
                             loadFromConfigDB();
                             BuscarTextoListView(settingDatabases);
