@@ -1817,7 +1817,7 @@ namespace PuntoDeVentaV2
             {
                 foreach (var item in ControlesPanelContenido)
                 {
-                    using (DataTable dtDetallesProductoGenerales = cn.CargarDatos(cs.AgruparDetallesProductoGenerales(item.ToString())))
+                    using (DataTable dtDetallesProductoGenerales = cn.CargarDatos(cs.AgruparDetallesProductoGenerales(item.ToString(), finalIdProducto)))
                     {
                         if (!dtDetallesProductoGenerales.Rows.Count.Equals(0))
                         {

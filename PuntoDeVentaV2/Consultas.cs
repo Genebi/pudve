@@ -346,9 +346,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string AgruparDetallesProductoGenerales(string panelContenido)
+        public string AgruparDetallesProductoGenerales(string panelContenido, string IdProducto)
         {
-            var consulta = $"SELECT * FROM DetallesProductoGenerales WHERE panelContenido IN(SELECT panelContenido FROM DetallesProductoGenerales WHERE panelContenido = '{panelContenido}' GROUP BY panelContenido HAVING COUNT(*) > 1) AND IDUsuario = '{FormPrincipal.userID}' ORDER BY panelContenido, ID ASC";
+            var consulta = $"SELECT * FROM DetallesProductoGenerales WHERE panelContenido IN( SELECT panelContenido FROM DetallesProductoGenerales WHERE panelContenido = '{panelContenido}' GROUP BY panelContenido HAVING COUNT(*) > 1) AND IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{IdProducto}' ORDER BY panelContenido, ID ASC";
 
             return consulta;
         }
