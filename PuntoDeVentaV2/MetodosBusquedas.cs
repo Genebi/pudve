@@ -1746,6 +1746,27 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
+        public bool TieneProductos()
+        {
+            var respuesta = false;
+
+            DatosConexion($"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID}");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                var total = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Total")));
+
+                if (total > 0)
+                {
+                    respuesta = true;
+                }
+            }
+
+            return respuesta;
+        }
+
         public string[] obtener_permisos_empleado(int id_empleado, int id_usuario)
         {
             List<string> list = new List<string>();

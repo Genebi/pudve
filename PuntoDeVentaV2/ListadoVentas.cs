@@ -34,6 +34,7 @@ namespace PuntoDeVentaV2
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
         private DateTime fechaUltimoCorte;
+        private bool existenProductos;
 
         public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
@@ -101,6 +102,7 @@ namespace PuntoDeVentaV2
             // Crea un checkbox en la cabecera de la tabla. Será para seleccionar todo.
             ag_checkb_header();
 
+            existenProductos = mb.TieneProductos();
             CargarDatos();
             actualizar();
             btnUltimaPagina.PerformClick();
@@ -405,15 +407,30 @@ namespace PuntoDeVentaV2
 
         private void btnNuevaVenta_Click(object sender, EventArgs e)
         {
-            Ventas venta = new Ventas();
-
-            venta.Disposed += delegate
+            if (existenProductos)
             {
-                AbrirVentanaVenta();
-                CargarDatos();
-            };
+                Ventas venta = new Ventas();
 
-            venta.ShowDialog();
+                venta.Disposed += delegate
+                {
+                    AbrirVentanaVenta();
+                    CargarDatos();
+                };
+
+                venta.ShowDialog();
+            }
+            else
+            {
+
+                var mensaje = string.Join(
+                    Environment.NewLine,
+                    "Para poder realizar una venta es necesario registrar",
+                    "productos, ya que actualmente el sistema ha detectado",
+                    "que no hay productos registrados."
+                );
+
+                MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
 
