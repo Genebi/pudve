@@ -13,6 +13,7 @@ using MySql.Data.MySqlClient;
 using System.Management;
 using System.Net.NetworkInformation;
 using System.Net.Mail;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -119,7 +120,11 @@ namespace PuntoDeVentaV2
                         if (respuesta > 0 && resultado > 0)
                         {
                             // Datos para el envio del correo de registro
-                            EnviarEmail(new string[] { usuario, password, email });
+                            Thread notificacion = new Thread(
+                                () => EnviarEmail(new string[] { usuario, password, email })
+                            );
+
+                            notificacion.Start();
 
                             // Datos para el inicio de sesion
                             int Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Usuarios WHERE Usuario = '{usuario}' AND Password = '{password}'", 1));
