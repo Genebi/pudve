@@ -45,6 +45,8 @@
             this.cbCorreoStockMinimo = new System.Windows.Forms.CheckBox();
             this.cbCorreoVenderProducto = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
+            this.cbMostrarPrecio = new System.Windows.Forms.CheckBox();
+            this.cbMostrarCB = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -258,11 +260,37 @@
             this.pagWeb.UseVisualStyleBackColor = true;
             this.pagWeb.CheckedChanged += new System.EventHandler(this.pagWeb_CheckedChanged);
             // 
+            // cbMostrarPrecio
+            // 
+            this.cbMostrarPrecio.AutoSize = true;
+            this.cbMostrarPrecio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbMostrarPrecio.Location = new System.Drawing.Point(348, 222);
+            this.cbMostrarPrecio.Name = "cbMostrarPrecio";
+            this.cbMostrarPrecio.Size = new System.Drawing.Size(277, 21);
+            this.cbMostrarPrecio.TabIndex = 116;
+            this.cbMostrarPrecio.Text = "Mostrar precio de productos en ventas";
+            this.cbMostrarPrecio.UseVisualStyleBackColor = true;
+            this.cbMostrarPrecio.CheckedChanged += new System.EventHandler(this.cbMostrarPrecio_CheckedChanged);
+            // 
+            // cbMostrarCB
+            // 
+            this.cbMostrarCB.AutoSize = true;
+            this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbMostrarCB.Location = new System.Drawing.Point(348, 258);
+            this.cbMostrarCB.Name = "cbMostrarCB";
+            this.cbMostrarCB.Size = new System.Drawing.Size(348, 21);
+            this.cbMostrarCB.TabIndex = 117;
+            this.cbMostrarCB.Text = "Mostrar código de barras de productos en ventas";
+            this.cbMostrarCB.UseVisualStyleBackColor = true;
+            this.cbMostrarCB.CheckedChanged += new System.EventHandler(this.cbMostrarCB_CheckedChanged);
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.cbMostrarCB);
+            this.Controls.Add(this.cbMostrarPrecio);
             this.Controls.Add(this.pagWeb);
             this.Controls.Add(this.cbCorreoVenderProducto);
             this.Controls.Add(this.cbCorreoStockMinimo);
@@ -307,5 +335,7 @@
         private System.Windows.Forms.CheckBox cbCorreoStockMinimo;
         private System.Windows.Forms.CheckBox cbCorreoVenderProducto;
         private System.Windows.Forms.CheckBox pagWeb;
+        private System.Windows.Forms.CheckBox cbMostrarPrecio;
+        private System.Windows.Forms.CheckBox cbMostrarCB;
     }
 }

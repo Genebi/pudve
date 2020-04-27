@@ -253,12 +253,27 @@ namespace PuntoDeVentaV2
 
             if (pagWeb.Checked)
             {
-                habilitado = 1;
-                
+                habilitado = 1; 
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-             FormPrincipal.pasar = habilitado;
+            FormPrincipal.pasar = habilitado;
+        }
+
+        private void cbMostrarPrecio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMostrarPrecio.Checked)
+            {
+                MessageBox.Show("Precio");
+            }
+        }
+
+        private void cbMostrarCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMostrarCB.Checked)
+            {
+                MessageBox.Show("Codigo");
+            }
         }
     }
 }
