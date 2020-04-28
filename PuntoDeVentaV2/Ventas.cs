@@ -2679,7 +2679,7 @@ namespace PuntoDeVentaV2
 
             // Regresa un diccionario
             //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
-            var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim());
+            var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), mostrarPrecioProducto, mostrarCBProducto);
             int coincidencias = resultados.Count;
 
             if (coincidencias > 0)

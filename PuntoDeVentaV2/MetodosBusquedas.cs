@@ -1032,7 +1032,18 @@ namespace PuntoDeVentaV2
                         {
                             var id = Convert.ToInt32(dr["ID"].ToString());
                             var precio = Convert.ToDouble(dr["Precio"].ToString());
-                            var nombre = dr["Nombre"].ToString() + " --- $" + precio.ToString("0.00");
+                            var codigo = dr["CodigoBarras"].ToString();
+                            var nombre = dr["Nombre"].ToString();
+
+                            if (mPrecio == 1 && !string.IsNullOrWhiteSpace(precio.ToString()))
+                            {
+                                nombre += $" --- ${precio.ToString("0.00")}";
+                            }
+
+                            if (mCB == 1 && !string.IsNullOrWhiteSpace(codigo))
+                            {
+                                nombre += $" --- CB: {codigo}";
+                            }
 
                             if (coincidencias.ContainsKey(id))
                             {
