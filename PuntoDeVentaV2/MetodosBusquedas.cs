@@ -1010,7 +1010,7 @@ namespace PuntoDeVentaV2
             return coincidencias;
         }
 
-        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase)
+        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, int mPrecio = 0, int mCB = 0)
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
@@ -1663,6 +1663,8 @@ namespace PuntoDeVentaV2
                 var correoVentaProducto = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("CorreoVentaProducto")));
                 var ticketVenta = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("TicketVenta")));
                 var iniciarProceso = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("IniciarProceso")));
+                var mostrarPrecio = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MostrarPrecioProducto")));
+                var mostrarCB = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MostrarCodigoProducto")));
 
                 config.Add(correoPrecio);
                 config.Add(correoStock);
@@ -1670,6 +1672,8 @@ namespace PuntoDeVentaV2
                 config.Add(correoVentaProducto);
                 config.Add(ticketVenta);
                 config.Add(iniciarProceso);
+                config.Add(mostrarPrecio);
+                config.Add(mostrarCB);
             }
 
             dr.Close();

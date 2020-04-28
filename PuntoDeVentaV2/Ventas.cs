@@ -96,6 +96,9 @@ namespace PuntoDeVentaV2
         // Variables para la configuracion de los correos que se enviaran
         private int correoStockMinimo = 0;
         private int correoVentaProducto = 0;
+        private int mostrarPrecioProducto = 0;
+        private int mostrarCBProducto = 0;
+
         // Listas para guardar los ID's de los productos que se enviara correo
         private Dictionary<int, string> enviarStockMinimo;
         private Dictionary<int, string> enviarVentaProducto;
@@ -139,6 +142,8 @@ namespace PuntoDeVentaV2
             {
                 correoStockMinimo = configCorreos[2];
                 correoVentaProducto = configCorreos[3];
+                mostrarPrecioProducto = configCorreos[6];
+                mostrarCBProducto = configCorreos[7];
             }
 
             enviarStockMinimo = new Dictionary<int, string>();

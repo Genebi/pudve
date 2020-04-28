@@ -80,6 +80,8 @@ namespace PuntoDeVentaV2
                 cbCorreoStockMinimo.Checked = Convert.ToBoolean(datosConfig[2]);
                 cbCorreoVenderProducto.Checked = Convert.ToBoolean(datosConfig[3]);
                 pagWeb.Checked = Convert.ToBoolean(datosConfig[5]);
+                cbMostrarPrecio.Checked = Convert.ToBoolean(datosConfig[6]);
+                cbMostrarCB.Checked = Convert.ToBoolean(datosConfig[7]);
             }
             else
             {
@@ -262,18 +264,26 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarPrecio_CheckedChanged(object sender, EventArgs e)
         {
+            var habilitado = 0;
+
             if (cbMostrarPrecio.Checked)
             {
-                MessageBox.Show("Precio");
+                habilitado = 1;
             }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
 
         private void cbMostrarCB_CheckedChanged(object sender, EventArgs e)
         {
+            var habilitado = 0;
+
             if (cbMostrarCB.Checked)
             {
-                MessageBox.Show("Codigo");
+                habilitado = 1;
             }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }
