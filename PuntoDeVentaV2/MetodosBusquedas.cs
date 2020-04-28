@@ -535,6 +535,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            datos.Close();
+
             return lista.ToArray();
         }
 
@@ -968,6 +970,8 @@ namespace PuntoDeVentaV2
                     lista.Add(Convert.ToInt32(dr["ID"]), dr["Descripcion"].ToString());
                 }
             }
+
+            dr.Close();
 
             return lista;
         }
@@ -1628,6 +1632,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            dr.Close();
+
             return lista;
         }
 
@@ -1758,6 +1764,8 @@ namespace PuntoDeVentaV2
                 datos = new string[] { razon, email, password };
             }
 
+            dr.Close();
+
             return datos;
         }
 
@@ -1778,6 +1786,8 @@ namespace PuntoDeVentaV2
                     respuesta = true;
                 }
             }
+
+            dr.Close();
 
             return respuesta;
         }

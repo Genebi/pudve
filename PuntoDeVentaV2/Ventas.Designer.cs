@@ -54,6 +54,7 @@
             this.EliminarIndividual = new System.Windows.Forms.DataGridViewImageColumn();
             this.NumeroColumna = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ImagenProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AplicarDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCancelarVenta = new System.Windows.Forms.Button();
             this.btnGuardarVenta = new System.Windows.Forms.Button();
             this.btnAnticipos = new System.Windows.Forms.Button();
@@ -88,7 +89,6 @@
             this.btnConsultar = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
             this.lbDatosCliente = new System.Windows.Forms.Label();
-            this.AplicarDescuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -318,6 +318,13 @@
             this.ImagenProducto.Name = "ImagenProducto";
             this.ImagenProducto.ReadOnly = true;
             this.ImagenProducto.Visible = false;
+            // 
+            // AplicarDescuento
+            // 
+            this.AplicarDescuento.HeaderText = "AplicarDescuento";
+            this.AplicarDescuento.Name = "AplicarDescuento";
+            this.AplicarDescuento.ReadOnly = true;
+            this.AplicarDescuento.Visible = false;
             // 
             // btnCancelarVenta
             // 
@@ -738,9 +745,9 @@
             this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClientes.Location = new System.Drawing.Point(224, 68);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(100, 23);
+            this.btnClientes.Size = new System.Drawing.Size(127, 23);
             this.btnClientes.TabIndex = 44;
-            this.btnClientes.Text = "Elegir cliente";
+            this.btnClientes.Text = "Descuento cliente";
             this.btnClientes.UseVisualStyleBackColor = true;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
@@ -748,18 +755,11 @@
             // 
             this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDatosCliente.ForeColor = System.Drawing.Color.Red;
-            this.lbDatosCliente.Location = new System.Drawing.Point(340, 68);
+            this.lbDatosCliente.Location = new System.Drawing.Point(357, 68);
             this.lbDatosCliente.Name = "lbDatosCliente";
-            this.lbDatosCliente.Size = new System.Drawing.Size(638, 23);
+            this.lbDatosCliente.Size = new System.Drawing.Size(621, 23);
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // AplicarDescuento
-            // 
-            this.AplicarDescuento.HeaderText = "AplicarDescuento";
-            this.AplicarDescuento.Name = "AplicarDescuento";
-            this.AplicarDescuento.ReadOnly = true;
-            this.AplicarDescuento.Visible = false;
             // 
             // Ventas
             // 
