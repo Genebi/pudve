@@ -1012,9 +1012,9 @@ namespace PuntoDeVentaV2
 
         public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, int mPrecio = 0, int mCB = 0)
         {
-            Dictionary<int, string> lista = new Dictionary<int, string>();
+            var lista = new Dictionary<int, string>();
 
-            Dictionary<int, Tuple<int, string>> coincidencias = new Dictionary<int, Tuple<int, string>>();
+            var coincidencias = new Dictionary<int, Tuple<int, string>>();
 
             string[] palabras = frase.Split(' ');
 
@@ -1024,7 +1024,7 @@ namespace PuntoDeVentaV2
                 {
                     DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
 
-                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+                    var dr = sql_cmd.ExecuteReader();
 
                     if (dr.HasRows)
                     {
