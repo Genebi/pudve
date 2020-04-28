@@ -97,7 +97,7 @@ namespace PuntoDeVentaV2
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
             appSettings = 6;
-            Configuracion = 9;
+            Configuracion = 11;
             TipoClientes = 6;
             FiltroProducto = 6;
             Facturas = 51;
@@ -2319,7 +2319,9 @@ namespace PuntoDeVentaV2
                                               CorreoStockProducto  INTEGER DEFAULT (0),
                                               CorreoStockMinimo    INTEGER DEFAULT (0),
                                               CorreoVentaProducto  INTEGER DEFAULT (0),
-                                              IniciarProceso       INTEGER DEFAULT (0));";
+                                              IniciarProceso       INTEGER DEFAULT (0),
+                                              MostrarPrecioProducto INTEGER DEFAULT (0),
+                                              MostrarCodigoProducto INTEGER DEFAULT (0));";
         }
 
         public string QueryUpdateTablaConfiguracion(string tabla)
@@ -2331,7 +2333,8 @@ namespace PuntoDeVentaV2
                                              CorreoPrecioProducto,
                                              CorreoStockProducto,
                                              CorreoStockMinimo,
-                                             CorreoVentaProducto) 
+                                             CorreoVentaProducto,
+                                             IniciarProceso) 
                                       SELECT ID,
                                              IDUsuario,
                                              TicketVenta,
@@ -2339,7 +2342,8 @@ namespace PuntoDeVentaV2
                                              CorreoPrecioProducto,
                                              CorreoStockProducto,
                                              CorreoStockMinimo,
-                                             CorreoVentaProducto 
+                                             CorreoVentaProducto,
+                                             IniciarProceso 
                                         FROM '{tabla}_temp';";
         }
 
@@ -2416,12 +2420,12 @@ namespace PuntoDeVentaV2
 
         public string QueryNvaTablaFiltroProducto(string tabla)
         {
-            return $@"CREATE TABLE '{tabla}' (ID                       INTEGER PRIMARY KEY AUTOINCREMENT,
-                                              concepto                 TEXT,
-                                              checkBoxConcepto         INTEGER NOT NULL DEFAULT (0),
-                                              textComboBoxConcepto     TEXT,
-                                              checkBoxComboBoxConcepto INTEGER NOT NULL DEFAULT (0),
-                                              IDUsuario                INTEGER NOT NULL,
+            return $@"CREATE TABLE '{tabla}' (ID                   INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              concepto             TEXT,
+                                              checkBoxConcepto     INTEGER NOT NULL DEFAULT (0),
+                                              textComboBoxConcepto TEXT,
+                                              textCantidad         TEXT    DEFAULT (0),
+                                              IDUsuario            INTEGER NOT NULL,
                                               FOREIGN KEY (IDUsuario)
                                               REFERENCES Usuarios (ID) ON UPDATE CASCADE ON DELETE CASCADE);";
         }
@@ -2432,13 +2436,13 @@ namespace PuntoDeVentaV2
                                              concepto,
                                              checkBoxConcepto,
                                              textComboBoxConcepto,
-                                             checkBoxComboBoxConcepto,
+                                             textCantidad,
                                              IDUsuario) 
                                       SELECT ID,
                                              concepto,
                                              checkBoxConcepto,
                                              textComboBoxConcepto,
-                                             checkBoxComboBoxConcepto,
+                                             textCantidad,
                                              IDUsuario 
                                         FROM '{tabla}_temp';";
         }
