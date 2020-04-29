@@ -914,6 +914,32 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+
+                        if (estado == 0)
+                        {
+                            // Comprobar si esta vinculado a un servicio o combo
+                            var vinculado = (bool)cn.EjecutarSelect($"SELECT * FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+
+                            if (vinculado)
+                            {
+                                var mensaje = string.Join(
+                                    Environment.NewLine,
+                                    "Este producto se encuentra vinculado a un servicio",
+                                    "o combo, al deshabilitar este producto se perderá la",
+                                    "vinculación, ¿Estás seguro de deshabilitar el producto?"
+                                );
+
+                                var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                if (respuesta == DialogResult.No)
+                                {
+                                    return;
+                                }
+
+                                cn.EjecutarConsulta($"DELETE FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+                            } 
+                        }
+
                         cn.EjecutarConsulta(cs.ActualizarStatusProducto(estado, idProducto, FormPrincipal.userID));
                     }
                 }
