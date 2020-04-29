@@ -504,6 +504,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ActualizarClienteVenta(string[] datos)
+        {
+            var consulta = $"UPDATE Ventas SET Cliente = '{datos[0]}', RFC = '{datos[1]}' WHERE ID = {datos[2]} AND IDUsuario = {datos[3]}";
+
+            return consulta;
+        }
+
         public string guardar_editar_empleado(string[] datos, int opc= 0)
         {
             string cons = "";

@@ -1305,25 +1305,38 @@ namespace PuntoDeVentaV2
         //Se procesa la informacion de los detalles de la venta para guardarse
         private void DetallesVenta(string IDVenta)
         {
-            string[] info = new string[] { IDVenta, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales, cheque, transferencia, credito, referencia, idCliente, cliente };
+            string[] info = new string[] {
+                IDVenta, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales,
+                cheque, transferencia, credito, referencia, idCliente, cliente
+            };
 
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(info));
         }
 
-        private float CantidadDecimal(string cantidad)
+        private void DetallesCliente(string idVenta)
         {
-            float resultado = 0f;
-
-            if (string.IsNullOrWhiteSpace(cantidad))
+            if (!string.IsNullOrWhiteSpace(idCliente))
             {
-                resultado = 0;
-            }
-            else
-            {
-                resultado = float.Parse(cantidad);
-            }
+                if (idCliente != "0")
+                {
+                    var datos = mb.ObtenerDatosCliente(Convert.ToInt32(idCliente), FormPrincipal.userID);
+                    var cliente = datos[0];
+                    var rfc = datos[1];
 
-            return resultado;
+                    var info = new string[] { cliente, rfc, idVenta, FormPrincipal.userID.ToString() };
+
+                    cn.EjecutarConsulta(cs.ActualizarClienteVenta(info));
+                }
+                else
+                {
+                    var info = new string[] {
+                        "PUBLICO GENERAL", "XAXX010101000", idVenta,
+                        FormPrincipal.userID.ToString()
+                    };
+
+                    cn.EjecutarConsulta(cs.ActualizarClienteVenta(info));
+                }
+            }
         }
 
         private void DatosVenta()
@@ -1355,10 +1368,13 @@ namespace PuntoDeVentaV2
                 idClienteTmp = "0";
             }
 
-            string[] guardar = null;
             aumentoFolio();
             Folio = Contenido;
-            guardar = new string[] { IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion };
+
+            var guardar = new string[] {
+                IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
+                DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion
+            };
 
 
             if (VerificarStockProducto())
@@ -1547,6 +1563,11 @@ namespace PuntoDeVentaV2
 
                             // Guardar detalles de la venta
                             DetallesVenta(idVenta);
+                            DetallesCliente(idVenta);
+                        }
+                        else
+                        {
+                            DetallesCliente(idVenta);
                         }
                     }
 
