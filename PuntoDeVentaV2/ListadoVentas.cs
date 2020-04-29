@@ -66,6 +66,7 @@ namespace PuntoDeVentaV2
             // Placeholder del campo buscador
             txtBuscador.GotFocus += new EventHandler(BuscarTieneFoco);
             txtBuscador.LostFocus += new EventHandler(BuscarPierdeFoco);
+            dpFechaInicial.Value = DateTime.Today.AddDays(-30);
 
             // Opciones para el combobox
             Dictionary<string, string> ventas = new Dictionary<string, string>();
@@ -151,6 +152,7 @@ namespace PuntoDeVentaV2
 
                 if (busqueda)
                 {
+                    var buscador = txtBuscador.Text.Trim();
                     var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
                     var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
                     var opcion = cbTipoVentas.SelectedValue.ToString();
@@ -168,7 +170,35 @@ namespace PuntoDeVentaV2
                     // Presupuestos
                     if (opcion == "PRE") { estado = 6; }
 
-                    consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
+
+                    if (buscador.Equals("BUSCAR POR RFC, CLIENTE O FOLIO..."))
+                    {
+                        buscador = string.Empty;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(buscador))
+                    {
+                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}'";
+                    }
+                    else
+                    {
+                        int n;
+                        var extra = string.Empty;
+                        var esNumero = int.TryParse(buscador, out n);
+
+                        if (esNumero)
+                        {
+                            extra = $"AND Folio = {buscador}";
+                        }
+                        else
+                        {
+                            extra = $"AND (Cliente LIKE '%{buscador}%' OR RFC LIKE '%{buscador}%')";
+                        }
+
+                        consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra}";
+
+                        txtBuscador.Text = string.Empty;
+                    }
                 }
                 else
                 {
@@ -1447,6 +1477,14 @@ namespace PuntoDeVentaV2
             if (string.IsNullOrWhiteSpace(txtBuscador.Text))
             {
                 txtBuscador.Text = "BUSCAR POR RFC, CLIENTE O FOLIO...";
+            }
+        }
+
+        private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnBuscarVentas.PerformClick();
             }
         }
     }

@@ -48,6 +48,7 @@
             this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
             this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.txtBuscador = new System.Windows.Forms.TextBox();
             this.btn_enviar = new System.Windows.Forms.Button();
             this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
             this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
@@ -66,7 +67,6 @@
             this.linkLblPaginaSiguiente = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
-            this.txtBuscador = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -245,6 +245,18 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(886, 76);
             this.panelBotones.TabIndex = 6;
+            // 
+            // txtBuscador
+            // 
+            this.txtBuscador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBuscador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscador.Location = new System.Drawing.Point(3, 45);
+            this.txtBuscador.Name = "txtBuscador";
+            this.txtBuscador.Size = new System.Drawing.Size(375, 23);
+            this.txtBuscador.TabIndex = 9;
+            this.txtBuscador.Text = "BUSCAR POR RFC, CLIENTE O FOLIO...";
+            this.txtBuscador.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
             // 
             // btn_enviar
             // 
@@ -490,17 +502,6 @@
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
-            // 
-            // txtBuscador
-            // 
-            this.txtBuscador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBuscador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscador.Location = new System.Drawing.Point(3, 45);
-            this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(375, 23);
-            this.txtBuscador.TabIndex = 9;
-            this.txtBuscador.Text = "BUSCAR POR RFC, CLIENTE O FOLIO...";
-            this.txtBuscador.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ListadoVentas
             // 
