@@ -120,6 +120,8 @@ namespace PuntoDeVentaV2
                 while (sql_dr.Read())
                 {
                     int fila_id = datagv_facturas.Rows.Add();
+                    DateTime fecha = Convert.ToDateTime(sql_dr.GetValue(sql_dr.GetOrdinal("fecha_certificacion")));
+                    string fecha_cert = fecha.ToString("yyyy-MM-dd");
 
                     DataGridViewRow fila = datagv_facturas.Rows[fila_id];
 
@@ -131,6 +133,7 @@ namespace PuntoDeVentaV2
                     fila.Cells["col_rfc"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("r_rfc"));
                     fila.Cells["col_razon_social"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("r_razon_social"));
                     fila.Cells["col_total"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("total"));
+                    fila.Cells["col_fecha"].Value = fecha_cert;
 
                     System.Drawing.Image img_pdf = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
                     System.Drawing.Image img_cancelar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");

@@ -1058,7 +1058,6 @@ namespace PuntoDeVentaV2
         public void ver_factura(int id_venta)
         {
             decimal suma_importe_concep = 0;
-            decimal suma_importe_impuest = 0;
             decimal suma_descuento = 0;
             List<string> list_porprod_impuestos_trasladados = new List<string>();
 
@@ -1077,10 +1076,10 @@ namespace PuntoDeVentaV2
             string serie = r_venta["Serie"].ToString();
             DateTime fecha = Convert.ToDateTime(r_venta["FechaOperacion"]);
 
-            string tipo_iva = "";
+            /*string tipo_iva = "";
 
             if (Convert.ToDecimal(r_venta["IVA16"]) > 0) {  tipo_iva = "IVA16";  }
-            if (Convert.ToDecimal(r_venta["IVA8"]) > 0) {  tipo_iva = "IVA8";  }
+            if (Convert.ToDecimal(r_venta["IVA8"]) > 0) {  tipo_iva = "IVA8";  }*/
 
             // Consulta tabla DetallesVenta
 
@@ -1239,30 +1238,7 @@ namespace PuntoDeVentaV2
                             suma_descuento += Convert.ToDecimal(r_prodventa["descuento"]);
                         }                            
                     }                    
-
-
-                    // Agrega impuestos
-
-                    /*List<ComprobanteConceptoImpuestosTrasladoVenta> list_concepto_impuestos_traslados_v = new List<ComprobanteConceptoImpuestosTrasladoVenta>();
-                    ComprobanteConceptoImpuestosTrasladoVenta concepto_traslado_v = new ComprobanteConceptoImpuestosTrasladoVenta();
-
-                    concepto_traslado_v.Base = importe_v;
-                    concepto_traslado_v.Impuesto = "002";
-                    concepto_traslado_v.TipoFactor = "Tasa";
-                    concepto_traslado_v.TasaOCuota = tasa_cuota;
-
-                    decimal importe_imp = importe_v * tasa_cuota;
-                    concepto_traslado_v.Importe = importe_imp;
-
-                    suma_importe_impuest += importe_imp;
-
-                    list_concepto_impuestos_traslados_v.Add(concepto_traslado_v);
                     
-
-
-                    concepto_v.Impuestos = new ComprobanteConceptoImpuestosVenta();
-                    concepto_v.Impuestos.Traslados = list_concepto_impuestos_traslados_v.ToArray();
-                    */
 
                     listaconcepto_v.Add(concepto_v);
                 }

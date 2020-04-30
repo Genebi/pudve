@@ -136,34 +136,6 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            //Consulta datos emisor
-
-            /*d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, id_usuario));
-
-            if(d_emisor.Rows.Count > 0)
-            {
-                r_emisor = d_emisor.Rows[0];
-
-                rfc_e = r_emisor["RFC"].ToString();
-                nombre_e = r_emisor["RazonSocial"].ToString();
-                regimen = r_emisor["Regimen"].ToString();
-            }
-
-            //Consulta datos receptor
-
-            int id_cliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM DetallesVenta WHERE IDVenta='{id_venta}'", 6));
-
-            d_receptor = cn.CargarDatos(cs.cargar_datos_venta_xml(3, id_cliente, id_usuario));
-
-            if (d_receptor.Rows.Count > 0)
-            {
-                r_receptor = d_receptor.Rows[0];
-
-                rfc_r = r_receptor["RFC"].ToString();
-                nombre_r = r_receptor["RazonSocial"].ToString();
-                uso_cfdi = r_receptor["UsoCFDI"].ToString();
-            }*/
-
 
 
 
@@ -239,92 +211,17 @@ namespace PuntoDeVentaV2
             {
                 foreach (DataRow r_productos in d_productos.Rows)
                 {
-                    int id_producto = Convert.ToInt32(r_productos["ID"]);
-
                     ComprobanteConcepto concepto = new ComprobanteConcepto();
 
-                    //Consulta claves
-                    //string claves = Convert.ToString(cn.EjecutarSelect($"SELECT ClaveProducto, UnidadMedida FROM Productos WHERE ID='{id_producto}'", 7));
-                    //string[] clave = claves.Split('-'); 
-
-                    concepto.ClaveProdServ = r_productos["clave_producto"].ToString();
-                    //concepto.NoIdentificacion = "151515"; //En duda si se pondrá
-                    concepto.Cantidad = seis_decimales(Convert.ToDecimal(r_productos["cantidad"]));
-                    concepto.ClaveUnidad = r_productos["clave_unidad"].ToString();
-                    //concepto.Unidad = "Numero de paquetes"; //no creo que se agregue
-                    concepto.Descripcion = r_productos["descripcion"].ToString();
-
-                    if(con_complemento_pg == 0)
-                    {
-                        concepto.ValorUnitario = seis_decimales(Convert.ToDecimal(r_productos["precio_u"]));
-                    }
-                    else
-                    {
-                        concepto.ValorUnitario = 0;
-                    }
-
-                    decimal importe_p = Convert.ToDecimal(r_productos["cantidad"]) * Convert.ToDecimal(r_productos["precio_u"]);
-
-                    if (con_complemento_pg == 0)
-                    {
-                        concepto.Importe = seis_decimales(importe_p);
-
-                        // Descuento
-
-                        decimal des = Convert.ToDecimal(r_productos["descuento"].ToString());
-
-                        if (des > 0)
-                        {
-                            var desc = (r_productos["descuento"].ToString()).IndexOf("%");
-
-                            if (desc > -1)
-                            {
-                                string d = r_productos["descuento"].ToString();
-                                string porcentaje = d.Substring(0, (d.Length - 1));
-
-                                decimal p = Convert.ToDecimal(porcentaje);
-                                
-                                if (Convert.ToDecimal(porcentaje) > 1)
-                                {
-                                    p = Convert.ToDecimal(porcentaje) / 100;
-                                    
-                                }
-
-                                decimal descuent = seis_decimales(importe_p) * p;
-
-
-                                concepto.Descuento = seis_decimales(descuent);
-                                descuento_general += seis_decimales(descuent);
-                            }
-                            else
-                            {
-                                if(Convert.ToDecimal(r_productos["descuento"].ToString()) % 2 == 0)
-                                {
-                                    decimal descuentoo = Convert.ToDecimal(r_productos["descuento"].ToString());
-                                    int d = Convert.ToInt32(descuentoo);
-
-                                    concepto.Descuento = Convert.ToDecimal(d);
-                                    descuento_general += d;
-                                }
-                                else
-                                {
-                                    concepto.Descuento = seis_decimales(Convert.ToDecimal(r_productos["descuento"].ToString()));
-                                    descuento_general += seis_decimales(Convert.ToDecimal(r_productos["descuento"].ToString()));
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        concepto.Importe = 0;
-                    }
-                    //concepto.Descuento = 2; //De donde se tomará el descuento??
-
-                    suma_total_productos += importe_p;
-
-
                     string d_tasa_c = "";
-                    decimal d_base_i = 0,  d_imp_iva = 0,  cantidad = 0;
+                    decimal d_base_i = 0, d_imp_iva = 0, cantidad = 0;
+                    decimal descuento_xproducto_xml = 0;
+                    decimal precio_unitario_xml = 0;
+
+                    int id_producto = Convert.ToInt32(r_productos["ID"]);
+                    decimal precio_unitario = Convert.ToDecimal(r_productos["precio_u"]);
+                    decimal cantidad_xproducto_xml = Convert.ToDecimal(r_productos["cantidad"]);
+                    
 
                     if (con_complemento_pg == 0)
                     {
@@ -334,7 +231,93 @@ namespace PuntoDeVentaV2
                         cantidad = seis_decimales(Convert.ToDecimal(r_productos["cantidad"]));
                     }
 
+                    // Obtención del: 
+                    //  - Descuento
+                    //  - Base
+                    string des = r_productos["descuento"].ToString();
 
+                    if (des != "" & des != "0")
+                    {
+                        var desc = (r_productos["descuento"].ToString()).IndexOf("%");
+
+                        if (desc > -1)
+                        {
+                            // Descuento en porcentaje
+
+                            string d = r_productos["descuento"].ToString();
+                            string porcentaje = d.Substring(0, (d.Length - 1));
+                            decimal p = Convert.ToDecimal(porcentaje);
+
+                            if (Convert.ToDecimal(porcentaje) > 1)
+                            {
+                                p = Convert.ToDecimal(porcentaje) / 100;
+                            }
+
+                            decimal descuento_xunidad = seis_decimales(precio_unitario) * p;
+                            descuento_xproducto_xml = descuento_xunidad * cantidad_xproducto_xml;
+                            precio_unitario_xml = d_base_i + descuento_xunidad;
+
+                            var x = Convert.ToString(descuento_xproducto_xml).IndexOf(".");
+                            if (x <= -1)
+                            {
+                                string idsc = Convert.ToString(descuento_xproducto_xml) + ".000000";
+                                descuento_xproducto_xml = Convert.ToDecimal(idsc);
+                            }
+                        }
+                        else
+                        {
+                            // Descuento en cantidad $
+
+                            descuento_xproducto_xml = Convert.ToDecimal(r_productos["descuento"].ToString());
+                            decimal descuento_xunidad = descuento_xproducto_xml / cantidad_xproducto_xml;
+                            precio_unitario_xml = d_base_i + descuento_xunidad;
+
+                            var x = Convert.ToString(descuento_xproducto_xml).IndexOf(".");
+                            if (x <= -1)
+                            {
+                                string idsc = Convert.ToString(descuento_xproducto_xml) + ".000000";
+                                descuento_xproducto_xml = Convert.ToDecimal(idsc);
+                            }
+                        }
+                    }
+                    
+
+                    // Agrega datos al nodo concepto
+
+                    concepto.ClaveProdServ = r_productos["clave_producto"].ToString();
+                    concepto.Cantidad = seis_decimales(cantidad_xproducto_xml);
+                    concepto.ClaveUnidad = r_productos["clave_unidad"].ToString();
+                    concepto.Descripcion = r_productos["descripcion"].ToString();
+                    // Precio unitario e importe
+                    decimal importe_p = cantidad_xproducto_xml * precio_unitario_xml;
+
+                    if (con_complemento_pg == 0)
+                    {
+                        var x = Convert.ToString(importe_p).IndexOf(".");
+                        if (x <= -1)
+                        {
+                            string ip = Convert.ToString(importe_p) + ".000000";
+                            importe_p = Convert.ToDecimal(ip);
+                        }
+
+                        concepto.ValorUnitario = seis_decimales(precio_unitario_xml);
+                        concepto.Importe = seis_decimales(importe_p);
+                    }
+                    else
+                    {
+                        concepto.ValorUnitario = 0;
+                        concepto.Importe = 0;
+                    }
+                    // Descuento
+                    if(descuento_xproducto_xml > 0)
+                    {
+                        concepto.Descuento = seis_decimales(descuento_xproducto_xml);
+                    }
+
+
+                    suma_total_productos += importe_p;
+                    descuento_general += seis_decimales(descuento_xproducto_xml);
+                    
                     
 
 
@@ -366,7 +349,31 @@ namespace PuntoDeVentaV2
                             agrega_nodo_concepto_traslado = 1;
 
 
-                            importe_base = d_base_i;
+                            // Si el producto tiene descuento
+                            /*if(importe_menosdesc > 0)
+                            {
+                                if (d_tasa_c == "16%" | d_tasa_c == "8%")
+                                {
+                                    decimal xunidad = importe_menosdesc / cantidad;
+                                    if(d_tasa_c == "16%")
+                                    {
+                                        importe_base = xunidad / 1.16m;
+                                    }
+                                    if (d_tasa_c == "8%")
+                                    {
+                                        importe_base = xunidad / 1.08m;
+                                    }
+                                }
+                                else
+                                {
+                                    importe_base = importe_menosdesc / cantidad;
+                                }
+                            }
+                            else
+                            {*/
+                                importe_base = d_base_i;
+                            //}
+                            
 
                             if (d_tasa_c == "16%") { tasacuota = 0.160000m; }
                             if (d_tasa_c == "8%") { tasacuota = 0.080000m; }
@@ -382,6 +389,7 @@ namespace PuntoDeVentaV2
 
                             ComprobanteConceptoImpuestosTraslado concepto_traslado = new ComprobanteConceptoImpuestosTraslado();
 
+                             
                             concepto_traslado.Base = seis_decimales(importe_base * cantidad);
                             concepto_traslado.Impuesto = "002";
                             concepto_traslado.TipoFactor = tipo_factor;
@@ -887,7 +895,6 @@ namespace PuntoDeVentaV2
             // DATOS DEL NODO PRINCIPAL "COMPROBANTE"
             //---------------------------------------
 
-
             decimal total_general = (suma_total_productos + dos_decimales(suma_impuesto_traslado)) - (dos_decimales(suma_impuesto_retenido) + dos_decimales(descuento_general));
            
 
@@ -1129,8 +1136,8 @@ namespace PuntoDeVentaV2
             var bXML = File.ReadAllBytes(rutaXML);
             string usuario = "NUSN900420SS5";
             string clave_u = "pGoyQq-RHsaij_yNJfHp";
-            /*
-            string clave_u = "c.ofis09NSUNotcatno5SS0240";
+           
+            /*string clave_u = "c.ofis09NSUNotcatno5SS0240";
             ServiceReferenceTPrueba.timbrado_cfdi33_portClient cliente_timbrar = new ServiceReferenceTPrueba.timbrado_cfdi33_portClient();
             ServiceReferenceTPrueba.timbrar_cfdi_result respuesta = new ServiceReferenceTPrueba.timbrar_cfdi_result();
            */

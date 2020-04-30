@@ -29,6 +29,14 @@
         private void InitializeComponent()
         {
             this.datagv_facturas = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmb_bx_tipo_factura = new System.Windows.Forms.ComboBox();
+            this.datetp_fecha_inicial = new System.Windows.Forms.DateTimePicker();
+            this.datetp_fecha_final = new System.Windows.Forms.DateTimePicker();
+            this.btn_buscar = new System.Windows.Forms.Button();
+            this.btn_cpago = new System.Windows.Forms.Button();
+            this.btn_enviar = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,14 +48,6 @@
             this.col_pdf = new System.Windows.Forms.DataGridViewImageColumn();
             this.col_cancelar = new System.Windows.Forms.DataGridViewImageColumn();
             this.col_t_comprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmb_bx_tipo_factura = new System.Windows.Forms.ComboBox();
-            this.datetp_fecha_inicial = new System.Windows.Forms.DateTimePicker();
-            this.datetp_fecha_final = new System.Windows.Forms.DateTimePicker();
-            this.btn_buscar = new System.Windows.Forms.Button();
-            this.btn_cpago = new System.Windows.Forms.Button();
-            this.btn_enviar = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -84,84 +84,6 @@
             this.datagv_facturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
             this.datagv_facturas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
             this.datagv_facturas.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_no_icono);
-            // 
-            // col_checkbox
-            // 
-            this.col_checkbox.Frozen = true;
-            this.col_checkbox.HeaderText = "";
-            this.col_checkbox.Name = "col_checkbox";
-            this.col_checkbox.ReadOnly = true;
-            this.col_checkbox.Width = 35;
-            // 
-            // col_id
-            // 
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
-            this.col_id.Width = 50;
-            // 
-            // col_folio
-            // 
-            this.col_folio.HeaderText = "Folio";
-            this.col_folio.Name = "col_folio";
-            this.col_folio.ReadOnly = true;
-            this.col_folio.Width = 45;
-            // 
-            // col_serie
-            // 
-            this.col_serie.HeaderText = "Serie";
-            this.col_serie.Name = "col_serie";
-            this.col_serie.ReadOnly = true;
-            this.col_serie.Width = 45;
-            // 
-            // col_rfc
-            // 
-            this.col_rfc.HeaderText = "RFC";
-            this.col_rfc.Name = "col_rfc";
-            this.col_rfc.ReadOnly = true;
-            this.col_rfc.Width = 120;
-            // 
-            // col_razon_social
-            // 
-            this.col_razon_social.HeaderText = "Razon social";
-            this.col_razon_social.Name = "col_razon_social";
-            this.col_razon_social.ReadOnly = true;
-            this.col_razon_social.Width = 410;
-            // 
-            // col_total
-            // 
-            this.col_total.HeaderText = "Total";
-            this.col_total.Name = "col_total";
-            this.col_total.ReadOnly = true;
-            // 
-            // col_fecha
-            // 
-            this.col_fecha.HeaderText = "Fecha";
-            this.col_fecha.Name = "col_fecha";
-            this.col_fecha.ReadOnly = true;
-            // 
-            // col_pdf
-            // 
-            this.col_pdf.HeaderText = "PDF";
-            this.col_pdf.Name = "col_pdf";
-            this.col_pdf.ReadOnly = true;
-            this.col_pdf.Width = 50;
-            // 
-            // col_cancelar
-            // 
-            this.col_cancelar.HeaderText = "Cancelar";
-            this.col_cancelar.Name = "col_cancelar";
-            this.col_cancelar.ReadOnly = true;
-            this.col_cancelar.Width = 70;
-            // 
-            // col_t_comprobante
-            // 
-            this.col_t_comprobante.HeaderText = "tc";
-            this.col_t_comprobante.Name = "col_t_comprobante";
-            this.col_t_comprobante.ReadOnly = true;
-            this.col_t_comprobante.Visible = false;
-            this.col_t_comprobante.Width = 10;
             // 
             // label1
             // 
@@ -266,6 +188,84 @@
             this.panel1.Size = new System.Drawing.Size(585, 50);
             this.panel1.TabIndex = 8;
             // 
+            // col_checkbox
+            // 
+            this.col_checkbox.Frozen = true;
+            this.col_checkbox.HeaderText = "";
+            this.col_checkbox.Name = "col_checkbox";
+            this.col_checkbox.ReadOnly = true;
+            this.col_checkbox.Width = 35;
+            // 
+            // col_id
+            // 
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            this.col_id.Width = 50;
+            // 
+            // col_folio
+            // 
+            this.col_folio.HeaderText = "Folio";
+            this.col_folio.Name = "col_folio";
+            this.col_folio.ReadOnly = true;
+            this.col_folio.Width = 45;
+            // 
+            // col_serie
+            // 
+            this.col_serie.HeaderText = "Serie";
+            this.col_serie.Name = "col_serie";
+            this.col_serie.ReadOnly = true;
+            this.col_serie.Width = 45;
+            // 
+            // col_rfc
+            // 
+            this.col_rfc.HeaderText = "RFC";
+            this.col_rfc.Name = "col_rfc";
+            this.col_rfc.ReadOnly = true;
+            this.col_rfc.Width = 120;
+            // 
+            // col_razon_social
+            // 
+            this.col_razon_social.HeaderText = "Razon social";
+            this.col_razon_social.Name = "col_razon_social";
+            this.col_razon_social.ReadOnly = true;
+            this.col_razon_social.Width = 440;
+            // 
+            // col_total
+            // 
+            this.col_total.HeaderText = "Total";
+            this.col_total.Name = "col_total";
+            this.col_total.ReadOnly = true;
+            // 
+            // col_fecha
+            // 
+            this.col_fecha.HeaderText = "Fecha";
+            this.col_fecha.Name = "col_fecha";
+            this.col_fecha.ReadOnly = true;
+            // 
+            // col_pdf
+            // 
+            this.col_pdf.HeaderText = "PDF";
+            this.col_pdf.Name = "col_pdf";
+            this.col_pdf.ReadOnly = true;
+            this.col_pdf.Width = 50;
+            // 
+            // col_cancelar
+            // 
+            this.col_cancelar.HeaderText = "Cancelar";
+            this.col_cancelar.Name = "col_cancelar";
+            this.col_cancelar.ReadOnly = true;
+            this.col_cancelar.Width = 70;
+            // 
+            // col_t_comprobante
+            // 
+            this.col_t_comprobante.HeaderText = "tc";
+            this.col_t_comprobante.Name = "col_t_comprobante";
+            this.col_t_comprobante.ReadOnly = true;
+            this.col_t_comprobante.Visible = false;
+            this.col_t_comprobante.Width = 10;
+            // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -297,6 +297,8 @@
         private System.Windows.Forms.DateTimePicker datetp_fecha_final;
         private System.Windows.Forms.Button btn_buscar;
         private System.Windows.Forms.Button btn_cpago;
+        private System.Windows.Forms.Button btn_enviar;
+        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_checkbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_folio;
@@ -308,7 +310,5 @@
         private System.Windows.Forms.DataGridViewImageColumn col_pdf;
         private System.Windows.Forms.DataGridViewImageColumn col_cancelar;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_t_comprobante;
-        private System.Windows.Forms.Button btn_enviar;
-        private System.Windows.Forms.Panel panel1;
     }
 }
