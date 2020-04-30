@@ -844,6 +844,66 @@ namespace PuntoDeVentaV2
                             timpuesto = r_tb_producto["Impuesto"].ToString();
                         }
 
+                        // Si el producto tiene descuento, se hará una modificación del valor del campo base
+                        if(descuento_xproducto != "")
+                        {
+                            var tip_desc = (descuento_xproducto).IndexOf("%");
+                            decimal cantidad = Convert.ToDecimal(r_productos["Cantidad"].ToString());
+                            decimal precio_unit = Convert.ToDecimal(r_productos["Precio"].ToString());
+                            
+                            if (tip_desc >= 0)
+                            {
+                                // Descuento en porcentaje
+
+                                string porc_desc = descuento_xproducto.Substring(0, (descuento_xproducto.Length - 1));
+                                decimal porcent_desc = Convert.ToDecimal(porc_desc);
+
+                                if (porcent_desc > 1)
+                                {
+                                    porcent_desc = porcent_desc / 100;
+                                }
+
+                                decimal desc_encant = precio_unit * porcent_desc;
+                                decimal pu_desc = precio_unit - desc_encant;
+                                decimal nbase = pu_desc;
+
+                                if (timpuesto == "16%")
+                                {
+                                    nbase = pu_desc / 1.16m;
+                                }
+                                if (timpuesto == "8%")
+                                {
+                                    nbase = pu_desc / 1.08m;
+                                }
+                                
+                                nbase = dos_decimales(nbase);
+
+                                mbase = Convert.ToString(nbase);
+                            }
+                            else
+                            {
+                                // Descuento en cantidad $
+                                
+                                decimal descuento_xcantidad = Convert.ToDecimal(descuento_xproducto) / cantidad;
+                                
+                                decimal pu_desc = precio_unit - dos_decimales(descuento_xcantidad);
+                                decimal nbase = pu_desc;
+
+                                if (timpuesto == "16%")
+                                {
+                                    nbase = pu_desc / 1.16m;
+                                }
+                                if (timpuesto == "8%")
+                                {
+                                    nbase = pu_desc / 1.08m;
+                                }
+                                
+                                nbase = dos_decimales(nbase);
+
+                                mbase = Convert.ToString(nbase);
+                            }
+                        }
+
 
                         string[] datos_fp = new string[]
                         {
