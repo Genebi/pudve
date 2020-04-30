@@ -282,6 +282,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Lectura App.Config/AppSettings: {0}" + e.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         #endregion Modifying Configuration Settings at Runtime
 
         // funcion para que podamos recargar variables desde otro formulario
