@@ -80,7 +80,7 @@ namespace PuntoDeVentaV2
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
             Usuarios = 23;
-            Ventas = 24;
+            Ventas = 26;
             Clientes = 23;
             RevisarInventario = 17;
             DetallesVenta = 14;
@@ -1316,7 +1316,12 @@ namespace PuntoDeVentaV2
                                               Timbrada         INTEGER  DEFAULT (0),
                                               Cancelada        INTEGER  DEFAULT (0),
                                               FechaOperacion   DATETIME,
-                                              FormaPago        TEXT);";
+                                              FormaPago        TEXT,
+                                              num_cuenta       TEXT,
+                                              moneda           TEXT,
+                                              tipo_cambio      DOUBLE,
+                                              Cliente          TEXT,
+                                              RFC              TEXT);";
         }
 
         public string QueryUpdateTablaVentas(string tabla)
