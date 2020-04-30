@@ -49,10 +49,8 @@
             this.col_pdf = new System.Windows.Forms.DataGridViewImageColumn();
             this.col_cancelar = new System.Windows.Forms.DataGridViewImageColumn();
             this.col_t_comprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-<<<<<<< HEAD
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
-=======
->>>>>>> Facturacion17
+
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -232,17 +230,14 @@
             // 
             // col_razon_social
             // 
-<<<<<<< HEAD
             this.col_razon_social.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.col_razon_social.HeaderText = "Razon social";
             this.col_razon_social.Name = "col_razon_social";
             this.col_razon_social.ReadOnly = true;
-=======
             this.col_razon_social.HeaderText = "Razon social";
             this.col_razon_social.Name = "col_razon_social";
             this.col_razon_social.ReadOnly = true;
             this.col_razon_social.Width = 440;
->>>>>>> Facturacion17
             // 
             // col_total
             // 
@@ -278,7 +273,6 @@
             this.col_t_comprobante.Visible = false;
             this.col_t_comprobante.Width = 10;
             // 
-<<<<<<< HEAD
             // TTMensaje
             // 
             this.TTMensaje.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
@@ -286,8 +280,6 @@
             this.TTMensaje.OwnerDraw = true;
             this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
             // 
-=======
->>>>>>> Facturacion17
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -332,9 +324,6 @@
         private System.Windows.Forms.DataGridViewImageColumn col_pdf;
         private System.Windows.Forms.DataGridViewImageColumn col_cancelar;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_t_comprobante;
-<<<<<<< HEAD
         private System.Windows.Forms.ToolTip TTMensaje;
-=======
->>>>>>> Facturacion17
     }
 }
