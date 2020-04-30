@@ -922,21 +922,27 @@ namespace PuntoDeVentaV2
 
                             if (vinculado)
                             {
+                                var datos = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+                                var producto = datos[1];
+
                                 var mensaje = string.Join(
                                     Environment.NewLine,
-                                    "Este producto se encuentra vinculado a un servicio",
-                                    "o combo, al deshabilitar este producto se perderá la",
-                                    "vinculación, ¿Estás seguro de deshabilitar el producto?"
+                                    $"El producto {producto}",
+                                    "se encuentra vinculado a un servicio o combo, al",
+                                    "deshabilitar este producto se perderá la vinculación,",
+                                    "¿Estás seguro de deshabilitar el producto?"
                                 );
 
                                 var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                                if (respuesta == DialogResult.No)
+                                if (respuesta == DialogResult.Yes)
                                 {
-                                    return;
+                                    cn.EjecutarConsulta($"DELETE FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
                                 }
-
-                                cn.EjecutarConsulta($"DELETE FROM ProductosDeServicios WHERE IDProducto = {idProducto}");
+                                else
+                                {
+                                    continue;
+                                }
                             } 
                         }
 
@@ -3934,7 +3940,6 @@ namespace PuntoDeVentaV2
 
                 if (txtBusqueda.Text.Equals(""))
                 {
-                    //btnCleanFilter.PerformClick();
                     CargarDatos();
                 }
 
