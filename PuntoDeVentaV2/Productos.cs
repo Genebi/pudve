@@ -1045,6 +1045,8 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
+
+            recargarBusqueda();
         }
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
@@ -1054,15 +1056,17 @@ namespace PuntoDeVentaV2
 
             txtBusqueda.Text = string.Empty;
 
-            if (txtBusqueda.Text.Equals(""))
-            {
-                CargarDatos();
-            }
-            else if (!txtBusqueda.Text.Equals(""))
-            {
-                quitarEspacioEnBlanco();
-                busquedaDelUsuario();
-            }
+            //if (txtBusqueda.Text.Equals(""))
+            //{
+            //    CargarDatos();
+            //}
+            //else if (!txtBusqueda.Text.Equals(""))
+            //{
+            //    quitarEspacioEnBlanco();
+            //    busquedaDelUsuario();
+            //}
+
+            recargarBusqueda();
 
             verificarBotonLimpiarTags();
         }
@@ -1091,7 +1095,8 @@ namespace PuntoDeVentaV2
                             try
                             {
                                 var myKey = setUpDinamicos.FirstOrDefault(x => x.Value.Item1 == "chkBoxchk" + nameTag).Key;
-                                listDictionary.Add(myKey + "|" + itemSetUpDinamicos.Value.Item1 + "|False|Selecciona " + nameTag + "|" + itemSetUpDinamicos.Value.Item4);
+                                //listDictionary.Add(myKey + "|" + itemSetUpDinamicos.Value.Item1 + "|False|Selecciona " + nameTag + "|" + itemSetUpDinamicos.Value.Item4);
+                                listDictionary.Add(myKey + "|chkBoxchk" + nameTag + "|False|Selecciona " + nameTag + "|cbchk" + nameTag);
                             }
                             catch (Exception ex)
                             {
@@ -1110,23 +1115,45 @@ namespace PuntoDeVentaV2
 
             if (listDictionary.Count > 0)
             {
+                string queryUpdateDatoDinamico = string.Empty;
+
                 foreach (var itemDicc in listDictionary)
                 {
                     words = itemDicc.Split('|');
+
                     setUpDinamicos[words[0]] = Tuple.Create(words[1], words[2], words[3], words[4]);
+
+                    if (words[2].ToString().Equals("False"))
+                    {
+                        queryUpdateDatoDinamico += $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{0}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'; ";
+                    }
+                    else if (words[2].ToString().Equals("True"))
+                    {
+                        queryUpdateDatoDinamico += $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{1}', strFiltro = 'Selecciona {words[3].ToString().Remove(0, 9)}' WHERE ID = '{words[0].ToString()}'; ";
+                    }
+                }
+
+                try
+                {
+                    var UpdateDatoDinamico = cn.EjecutarConsulta(queryUpdateDatoDinamico);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al Actualizar el Dato dinamico: " + ex.Message.ToString(), "Error de Actualización", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 listDictionary.Clear();
-                rutaCompletaFile = path + fileNameDictionary;
 
-                using (StreamWriter file = new StreamWriter(rutaCompletaFile))
-                {
-                    foreach (var entry in setUpDinamicos)
-                    {
-                        file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
-                    }
-                    file.Close();
-                }
+                //rutaCompletaFile = path + fileNameDictionary;
+                //using (StreamWriter file = new StreamWriter(rutaCompletaFile))
+                //{
+                //    foreach (var entry in setUpDinamicos)
+                //    {
+                //        file.WriteLine("{0}|{1}|{2}|{3}|{4}", entry.Key, entry.Value.Item1, entry.Value.Item2, entry.Value.Item3, entry.Value.Item4);
+                //    }
+                //    file.Close();
+                //}
+
                 setUpDinamicos.Clear();
             }
         }
@@ -1269,17 +1296,22 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyChar == (int) Keys.Enter)
             {
-                if (txtBusqueda.Text.Equals(""))
-                {
-                    //CargarDatos();
-                    busquedaDelUsuario();
-                }
-                else if (!txtBusqueda.Text.Equals(""))
-                {
-                    quitarEspacioEnBlanco();
-                    busquedaDelUsuario();
-                    agregarEspacioAlFinal();
-                }
+                recargarBusqueda();
+            }
+        }
+
+        private void recargarBusqueda()
+        {
+            if (txtBusqueda.Text.Equals(""))
+            {
+                //CargarDatos();
+                busquedaDelUsuario();
+            }
+            else if (!txtBusqueda.Text.Equals(""))
+            {
+                quitarEspacioEnBlanco();
+                busquedaDelUsuario();
+                agregarEspacioAlFinal();
             }
         }
 
