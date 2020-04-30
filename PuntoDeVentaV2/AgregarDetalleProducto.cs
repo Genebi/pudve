@@ -1917,81 +1917,81 @@ namespace PuntoDeVentaV2
 
             //if (string.IsNullOrWhiteSpace(servidor))
             //{
-                chkDatabase.Items.Clear();
-                settingDatabases.Items.Clear();
+            chkDatabase.Items.Clear();
+            settingDatabases.Items.Clear();
 
-                lvi = new ListViewItem();
+            lvi = new ListViewItem();
 
-                try
+            try
+            {
+                chkDatabase.Clear();
+                settingDatabases.Clear();
+
+                using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {
-                    chkDatabase.Clear();
-                    settingDatabases.Clear();
-                    
-                    using (DataTable dtChecarSihayDatosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+                    if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
                     {
-                        if (dtChecarSihayDatosDinamicos.Rows.Count > 0)
+                        foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
                         {
-                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            connStr = row["textComboBoxConcepto"].ToString();
+                            if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
                             {
-                                connStr = row["textComboBoxConcepto"].ToString();
-                                if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
-                                {
-                                    keyName = "true";
-                                }
-                                else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
-                                {
-                                    keyName = "false";
-                                }
-                                lvi = new ListViewItem(keyName);
-                                lvi.SubItems.Add(connStr);
-                                chkDatabase.Items.Add(lvi);
+                                keyName = "true";
                             }
-                            foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
+                            else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
                             {
-                                connStr = row["concepto"].ToString();
-                                if (row["checkBoxConcepto"].ToString().Equals("1"))
-                                {
-                                    keyName = "true";
-                                }
-                                else if (row["checkBoxConcepto"].ToString().Equals("0"))
-                                {
-                                    keyName = "false";
-                                }
-                                lvi = new ListViewItem(keyName);
-                                lvi.SubItems.Add(connStr);
-                                settingDatabases.Items.Add(lvi);
+                                keyName = "false";
                             }
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            chkDatabase.Items.Add(lvi);
                         }
-                        else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                        foreach (DataRow row in dtChecarSihayDatosDinamicos.Rows)
                         {
-                            //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            int nvoValorNumerico = 0;
-                            int RegistroAgregado = -1;
-                            RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico("chkProveedor", 0, FormPrincipal.userID));
-                            if (RegistroAgregado.Equals(1))
+                            connStr = row["concepto"].ToString();
+                            if (row["checkBoxConcepto"].ToString().Equals("1"))
                             {
-                                //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                keyName = "true";
                             }
-                            else if (RegistroAgregado.Equals(0))
+                            else if (row["checkBoxConcepto"].ToString().Equals("0"))
                             {
-                                MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                keyName = "false";
                             }
-                            RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chkProveedor", 0, FormPrincipal.userID));
-                            if (RegistroAgregado.Equals(1))
-                            {
-                                //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            }
-                            else if (RegistroAgregado.Equals(0))
-                            {
-                                MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
+                            lvi = new ListViewItem(keyName);
+                            lvi.SubItems.Add(connStr);
+                            settingDatabases.Items.Add(lvi);
+                        }
+                    }
+                    else if (dtChecarSihayDatosDinamicos.Rows.Count == 0)
+                    {
+                        //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        int nvoValorNumerico = 0;
+                        int RegistroAgregado = -1;
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico("chkProveedor", 0, FormPrincipal.userID));
+                        if (RegistroAgregado.Equals(1))
+                        {
+                            //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (RegistroAgregado.Equals(0))
+                        {
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamico("chkProveedor", 0, FormPrincipal.userID));
+                        if (RegistroAgregado.Equals(1))
+                        {
+                            //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else if (RegistroAgregado.Equals(0))
+                        {
+                            MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error de lectura de los Datos Dinamicos: {0}" + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error de lectura de los Datos Dinamicos: {0}" + ex.Message.ToString(), "Error de Lecturas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             //}
         }
 
@@ -2692,7 +2692,7 @@ namespace PuntoDeVentaV2
                                                             cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
                                                         }
                                                     }
-                                                    
+
                                                     infoDetalle.Clear(); // limpiamos de informacion la Lista
                                                 }
                                                 catch (Exception ex)
