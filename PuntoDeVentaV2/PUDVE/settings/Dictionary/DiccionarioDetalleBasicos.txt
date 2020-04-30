@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 10|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
-=======
-11|chkBoxchkProveedor|False|Selecciona Proveedor|cbchkProveedor
-12|chkBoxchkColor|False|Selecciona Color|cbchkColor
-13|chkBoxchkTalla|False|Selecciona Talla|cbchkTalla
->>>>>>> master
+11|chkBoxchkColor|False|Selecciona Color|cbchkColor
+12|chkBoxchkTalla|False|Selecciona Talla|cbchkTalla
+13|chkBoxchkPeso|False|Selecciona Peso|cbchkPeso

@@ -1927,6 +1927,46 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void btnCambiarTipo_Click(object sender, EventArgs e)
+        {
+            int contador = 0;
+            int idProducto = 0;
+            var tipo = string.Empty;
+
+            foreach (DataGridViewRow row in DGVProductos.Rows)
+            {
+                if ((bool)row.Cells["CheckProducto"].Value == true)
+                {
+                    idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
+                    tipo = row.Cells["TipoProducto"].Value.ToString();
+                    contador++;
+                }
+            }
+
+            if (contador == 1)
+            {
+                // Es servicio
+                if (tipo.Equals("S") || tipo.Equals("PQ"))
+                {
+                    btnAgregarProducto.PerformClick();
+                }
+
+                // Es un producto
+                if (tipo.Equals("P"))
+                {
+                    btnAgregarServicio.PerformClick();
+                }
+            }
+            else if (contador > 1)
+            {
+                MessageBox.Show("No se puede cambiar el tipo de 2\nelementos o más al mismo tiempo", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un elemento para activar esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private void btnRightSetUpVariable_Click(object sender, EventArgs e)
         {
             Button btnTag = (Button)sender;
