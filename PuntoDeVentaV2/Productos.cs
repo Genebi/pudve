@@ -1219,7 +1219,7 @@ namespace PuntoDeVentaV2
 
             //reloadTags();
 
-            creacionEtiquetasDinamicas();
+            //creacionEtiquetasDinamicas();
         }
 
         private void reloadTags()
@@ -3951,6 +3951,8 @@ namespace PuntoDeVentaV2
 
                 // Calcular capital temporalmente (informativo)
                 lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
+
+                creacionEtiquetasDinamicas();
             }
         }
 
