@@ -1804,6 +1804,25 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
+            // Condiciones para saber si se realiza el cambio de un producto a servicio y viceversa
+            if (cambioProducto)
+            {
+                if (idProductoCambio > 0)
+                {
+                    var respuesta = MessageBox.Show("¿Estás seguro de realizar el cambio?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        // Va a deshabilitar
+                        cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE ID = {idProductoCambio} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+
             /****************************
 			*	codigo de Alejandro		*
 			****************************/
