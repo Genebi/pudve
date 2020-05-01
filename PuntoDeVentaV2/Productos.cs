@@ -46,6 +46,9 @@ namespace PuntoDeVentaV2
         // Este array es para guardar los productos seleccionados que seran tomados
         // en cuenta para el boton de "Asignar"
         public static Dictionary<int, string> productosSeleccionados;
+        // Variables para saber si uso el boton de cambiar tipo
+        public int idProductoCambio { get; set; }
+        public bool cambioProducto { get; set; }
 
         //public AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
         public AgregarStockXML FormXML = new AgregarStockXML();
@@ -1945,15 +1948,19 @@ namespace PuntoDeVentaV2
 
             if (contador == 1)
             {
-                // Es servicio
+                // Es un servicio
                 if (tipo.Equals("S") || tipo.Equals("PQ"))
                 {
+                    idProductoCambio = idProducto;
+                    cambioProducto = true;
                     btnAgregarProducto.PerformClick();
                 }
 
                 // Es un producto
                 if (tipo.Equals("P"))
                 {
+                    idProductoCambio = idProducto;
+                    cambioProducto = true;
                     btnAgregarServicio.PerformClick();
                 }
             }
@@ -3171,11 +3178,14 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
+            var FormAgregar = new AgregarEditarProducto("Agregar");
+
             if (origenDeLosDatos == 0)
             {
                 FormAgregar.DatosSource = 1;
                 FormAgregar.Titulo = "Agregar Producto";
+                FormAgregar.idProductoCambio = idProductoCambio;
+                FormAgregar.cambioProducto = cambioProducto;
             }
             else if (origenDeLosDatos == 2)
             {
@@ -3277,7 +3287,8 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
-            AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
+            var FormAgregar = new AgregarEditarProducto("Agregar");
+
             if (origenDeLosDatos == 0)
             {
                 FormAgregar.DatosSource = 1;
@@ -3299,6 +3310,7 @@ namespace PuntoDeVentaV2
                 //actualizarDatosDespuesDeAgregarProducto();
                 linkLblPaginaActual_Click_1(sender, e);
             };
+
             if (!FormAgregar.Visible)
             {
                 if (seleccionadoDato == 0)
@@ -3345,6 +3357,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.ShowDialog();
                 }
             }
+
             if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
             {
                 actualizar();
@@ -3360,16 +3373,20 @@ namespace PuntoDeVentaV2
                     actualizarDatosDespuesDeAgregarProducto();
                 }
             }
+
             origenDeLosDatos = 0;
         }
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
-            AgregarEditarProducto FormAgregar = new AgregarEditarProducto("Agregar");
+            var FormAgregar = new AgregarEditarProducto("Agregar");
+
             if (origenDeLosDatos == 0)
             {
                 FormAgregar.DatosSource = 1;
                 FormAgregar.Titulo = "Agregar Servicio";
+                FormAgregar.idProductoCambio = idProductoCambio;
+                FormAgregar.cambioProducto = cambioProducto;
             }
             else if (origenDeLosDatos == 2)
             {
@@ -3387,6 +3404,7 @@ namespace PuntoDeVentaV2
                 //actualizarDatosDespuesDeAgregarProducto();
                 linkLblPaginaActual_Click_1(sender, e);
             };
+
             if (!FormAgregar.Visible)
             {
                 if (seleccionadoDato == 0)
@@ -3448,6 +3466,7 @@ namespace PuntoDeVentaV2
                     actualizarDatosDespuesDeAgregarProducto();
                 }
             }
+
             origenDeLosDatos = 0;
         }
 

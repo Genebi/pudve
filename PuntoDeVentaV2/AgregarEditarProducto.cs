@@ -61,11 +61,13 @@ namespace PuntoDeVentaV2
         public CantidadProdServicio CantidadPordServPaq = new CantidadProdServicio();
         
         int idProducto;
+        public int idProductoCambio { get; set; }
+        public bool cambioProducto { get; set; }
 
         /****************************
 		*   Codigo de Emmanuel      *
 		****************************/
-        
+
         #region Variables Globales
 
         List<string>    infoDetalle,
@@ -1462,7 +1464,7 @@ namespace PuntoDeVentaV2
         }
         /* Fin del codigo de Emmanuel */
 
-        public AgregarEditarProducto(string titulo)
+        public AgregarEditarProducto(string titulo = "")
         {
             InitializeComponent();
         }
@@ -4473,6 +4475,19 @@ namespace PuntoDeVentaV2
                 PCantidadPaqServ.Visible = true;
                 button1.Visible = true;
                 txtPrecioCompra.Enabled = true;
+
+                
+                if (cambioProducto)
+                {
+                    MessageBox.Show("Test");
+                    if (idProductoCambio > 0)
+                    {
+                        MessageBox.Show(idProductoCambio.ToString());
+                    }
+
+                    cambioProducto = false;
+                    idProductoCambio = 0;
+                }
             }
 
             if (cadAux == "Producto")           // si es un Producto
