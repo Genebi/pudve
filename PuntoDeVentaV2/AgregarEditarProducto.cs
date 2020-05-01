@@ -1462,6 +1462,33 @@ namespace PuntoDeVentaV2
             txtClaveProducto.Text = "";
             txtCodigoBarras.Text = "";
         }
+
+        private void AgregarEditarProducto_Shown(object sender, EventArgs e)
+        {
+            if (DatosSourceFinal == 1)
+            {
+                // Obtenemos los datos del producto, servicio o paquete cuando se hace click
+                // en el boton cambiar tipo del apartado Productos
+                if (cambioProducto)
+                {
+                    if (idProductoCambio > 0)
+                    {
+                        var detallesProducto = cn.BuscarProducto(idProductoCambio, FormPrincipal.userID);
+
+                        if (detallesProducto.Length > 0)
+                        {
+                            txtNombreProducto.Text = detallesProducto[1];
+                            txtPrecioCompra.Text = detallesProducto[11];
+                            txtPrecioProducto.Text = detallesProducto[2];
+                            txtCategoriaProducto.Text = string.Empty;
+                            txtClaveProducto.Text = detallesProducto[6];
+                            txtCodigoBarras.Text = detallesProducto[7];
+                        }
+                    }
+                }
+            }
+        }
+
         /* Fin del codigo de Emmanuel */
 
         public AgregarEditarProducto(string titulo = "")
@@ -1907,7 +1934,7 @@ namespace PuntoDeVentaV2
                     string query = string.Empty;
                     List<string> datosProductos = new List<string>(), datosProductoRelacionado = new List<string>();
 
-                    query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.CodigoBarras = {codigoB}";
+                    query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.CodigoBarras = '{codigoB}'";
 
                     using (DataTable dtProductoRegistrado = cn.CargarDatos(query))
                     {
@@ -4475,19 +4502,6 @@ namespace PuntoDeVentaV2
                 PCantidadPaqServ.Visible = true;
                 button1.Visible = true;
                 txtPrecioCompra.Enabled = true;
-
-                
-                if (cambioProducto)
-                {
-                    MessageBox.Show("Test");
-                    if (idProductoCambio > 0)
-                    {
-                        MessageBox.Show(idProductoCambio.ToString());
-                    }
-
-                    cambioProducto = false;
-                    idProductoCambio = 0;
-                }
             }
 
             if (cadAux == "Producto")           // si es un Producto

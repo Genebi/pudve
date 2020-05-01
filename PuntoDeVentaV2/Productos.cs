@@ -1963,6 +1963,9 @@ namespace PuntoDeVentaV2
                     cambioProducto = true;
                     btnAgregarServicio.PerformClick();
                 }
+
+                idProductoCambio = 0;
+                cambioProducto = false;
             }
             else if (contador > 1)
             {
