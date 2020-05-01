@@ -100,6 +100,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnCambiarTipo = new System.Windows.Forms.Button();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -211,10 +212,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelShowDGVProductosView.Controls.Add(this.DGVProductos);
-            this.panelShowDGVProductosView.Location = new System.Drawing.Point(13, 196);
+            this.panelShowDGVProductosView.Location = new System.Drawing.Point(13, 225);
             this.panelShowDGVProductosView.Margin = new System.Windows.Forms.Padding(2);
             this.panelShowDGVProductosView.Name = "panelShowDGVProductosView";
-            this.panelShowDGVProductosView.Size = new System.Drawing.Size(940, 354);
+            this.panelShowDGVProductosView.Size = new System.Drawing.Size(940, 325);
             this.panelShowDGVProductosView.TabIndex = 13;
             // 
             // DGVProductos
@@ -250,12 +251,12 @@
             this.Impuesto,
             this.TipoProducto,
             this.Categoria});
-            this.DGVProductos.Location = new System.Drawing.Point(10, 15);
+            this.DGVProductos.Location = new System.Drawing.Point(10, 3);
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVProductos.Size = new System.Drawing.Size(918, 325);
+            this.DGVProductos.Size = new System.Drawing.Size(918, 316);
             this.DGVProductos.TabIndex = 2;
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
@@ -439,10 +440,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelShowPhotoView.Controls.Add(this.fLPShowPhoto);
-            this.panelShowPhotoView.Location = new System.Drawing.Point(12, 198);
+            this.panelShowPhotoView.Location = new System.Drawing.Point(12, 225);
             this.panelShowPhotoView.Margin = new System.Windows.Forms.Padding(2);
             this.panelShowPhotoView.Name = "panelShowPhotoView";
-            this.panelShowPhotoView.Size = new System.Drawing.Size(939, 403);
+            this.panelShowPhotoView.Size = new System.Drawing.Size(939, 376);
             this.panelShowPhotoView.TabIndex = 14;
             // 
             // fLPShowPhoto
@@ -451,16 +452,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fLPShowPhoto.AutoScroll = true;
-            this.fLPShowPhoto.Location = new System.Drawing.Point(10, 15);
+            this.fLPShowPhoto.Location = new System.Drawing.Point(10, 27);
             this.fLPShowPhoto.Margin = new System.Windows.Forms.Padding(2);
             this.fLPShowPhoto.Name = "fLPShowPhoto";
-            this.fLPShowPhoto.Size = new System.Drawing.Size(917, 374);
+            this.fLPShowPhoto.Size = new System.Drawing.Size(917, 335);
             this.fLPShowPhoto.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.btnCambiarTipo);
             this.panel1.Controls.Add(this.btnPedido);
             this.panel1.Controls.Add(this.btnCleanFilter);
             this.panel1.Controls.Add(this.label2);
@@ -481,7 +483,7 @@
             this.panel1.Location = new System.Drawing.Point(12, 6);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(942, 195);
+            this.panel1.Size = new System.Drawing.Size(942, 215);
             this.panel1.TabIndex = 15;
             // 
             // btnPedido
@@ -989,6 +991,22 @@
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnCambiarTipo
+            // 
+            this.btnCambiarTipo.BackColor = System.Drawing.Color.Green;
+            this.btnCambiarTipo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCambiarTipo.FlatAppearance.BorderSize = 0;
+            this.btnCambiarTipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCambiarTipo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCambiarTipo.ForeColor = System.Drawing.Color.White;
+            this.btnCambiarTipo.Location = new System.Drawing.Point(11, 182);
+            this.btnCambiarTipo.Name = "btnCambiarTipo";
+            this.btnCambiarTipo.Size = new System.Drawing.Size(205, 28);
+            this.btnCambiarTipo.TabIndex = 23;
+            this.btnCambiarTipo.Text = "Cambiar tipo";
+            this.btnCambiarTipo.UseVisualStyleBackColor = false;
+            this.btnCambiarTipo.Click += new System.EventHandler(this.btnCambiarTipo_Click);
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1092,5 +1110,6 @@
         private System.Windows.Forms.Button btnCleanFilter;
         private System.Windows.Forms.Button btnPedido;
         private System.Windows.Forms.Label lbCapital;
+        private System.Windows.Forms.Button btnCambiarTipo;
     }
 }

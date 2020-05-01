@@ -61,11 +61,13 @@ namespace PuntoDeVentaV2
         public CantidadProdServicio CantidadPordServPaq = new CantidadProdServicio();
         
         int idProducto;
+        public int idProductoCambio { get; set; }
+        public bool cambioProducto { get; set; }
 
         /****************************
 		*   Codigo de Emmanuel      *
 		****************************/
-        
+
         #region Variables Globales
 
         List<string>    infoDetalle,
@@ -1460,9 +1462,36 @@ namespace PuntoDeVentaV2
             txtClaveProducto.Text = "";
             txtCodigoBarras.Text = "";
         }
+
+        private void AgregarEditarProducto_Shown(object sender, EventArgs e)
+        {
+            if (DatosSourceFinal == 1)
+            {
+                // Obtenemos los datos del producto, servicio o paquete cuando se hace click
+                // en el boton cambiar tipo del apartado Productos
+                if (cambioProducto)
+                {
+                    if (idProductoCambio > 0)
+                    {
+                        var detallesProducto = cn.BuscarProducto(idProductoCambio, FormPrincipal.userID);
+
+                        if (detallesProducto.Length > 0)
+                        {
+                            txtNombreProducto.Text = detallesProducto[1];
+                            txtPrecioCompra.Text = detallesProducto[11];
+                            txtPrecioProducto.Text = detallesProducto[2];
+                            txtCategoriaProducto.Text = string.Empty;
+                            txtClaveProducto.Text = detallesProducto[6];
+                            txtCodigoBarras.Text = detallesProducto[7];
+                        }
+                    }
+                }
+            }
+        }
+
         /* Fin del codigo de Emmanuel */
 
-        public AgregarEditarProducto(string titulo)
+        public AgregarEditarProducto(string titulo = "")
         {
             InitializeComponent();
         }
@@ -1775,6 +1804,25 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarProducto_Click(object sender, EventArgs e)
         {
+            // Condiciones para saber si se realiza el cambio de un producto a servicio y viceversa
+            if (cambioProducto)
+            {
+                if (idProductoCambio > 0)
+                {
+                    var respuesta = MessageBox.Show("¿Estás seguro de realizar el cambio?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        // Va a deshabilitar
+                        cn.EjecutarConsulta($"UPDATE Productos SET Status = 0 WHERE ID = {idProductoCambio} AND IDUsuario = {FormPrincipal.userID}");
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            }
+
             /****************************
 			*	codigo de Alejandro		*
 			****************************/
@@ -1905,7 +1953,7 @@ namespace PuntoDeVentaV2
                     string query = string.Empty;
                     List<string> datosProductos = new List<string>(), datosProductoRelacionado = new List<string>();
 
-                    query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.CodigoBarras = {codigoB}";
+                    query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.CodigoBarras = '{codigoB}'";
 
                     using (DataTable dtProductoRegistrado = cn.CargarDatos(query))
                     {
