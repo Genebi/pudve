@@ -78,9 +78,9 @@
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(117, 228);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(89, 17);
+            this.label3.Size = new System.Drawing.Size(159, 17);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Razón social";
+            this.label3.Text = "Nombre o Razón social";
             // 
             // label4
             // 
@@ -237,7 +237,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Red;
-            this.label11.Location = new System.Drawing.Point(202, 230);
+            this.label11.Location = new System.Drawing.Point(272, 228);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(14, 17);
             this.label11.TabIndex = 17;
