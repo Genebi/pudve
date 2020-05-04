@@ -4236,17 +4236,20 @@ namespace PuntoDeVentaV2
             e.Handled = (e.KeyChar == (char)Keys.Space);
         }
 
+        private void vincularPCEnRedMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var vincular = new VincularPC())
+            {
+                vincular.ShowDialog();
+            }
+        }
+
         private void btnRecuperarPassword_Click(object sender, EventArgs e)
         {
             using (var recuperar = new RecuperarPassword())
             {
                 recuperar.ShowDialog();
             }
-        }
-
-        private void checkBoxRecordarDatos_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

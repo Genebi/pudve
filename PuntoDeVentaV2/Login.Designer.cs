@@ -44,6 +44,7 @@
             this.opcionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.desvincularPCMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importarBaseDeDatosMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vincularPCEnRedMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRecuperarPassword = new System.Windows.Forms.Label();
             this.menuLogin.SuspendLayout();
             this.SuspendLayout();
@@ -143,7 +144,6 @@
             this.checkBoxRecordarDatos.TabIndex = 8;
             this.checkBoxRecordarDatos.Text = "Recordar Datos";
             this.checkBoxRecordarDatos.UseVisualStyleBackColor = true;
-            this.checkBoxRecordarDatos.CheckedChanged += new System.EventHandler(this.checkBoxRecordarDatos_CheckedChanged);
             // 
             // btnLimpiarDatos
             // 
@@ -177,7 +177,8 @@
             // 
             this.opcionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.desvincularPCMenuItem,
-            this.importarBaseDeDatosMenuItem});
+            this.importarBaseDeDatosMenuItem,
+            this.vincularPCEnRedMenuItem});
             this.opcionesToolStripMenuItem.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
             this.opcionesToolStripMenuItem.Name = "opcionesToolStripMenuItem";
             this.opcionesToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -196,6 +197,13 @@
             this.importarBaseDeDatosMenuItem.Size = new System.Drawing.Size(195, 22);
             this.importarBaseDeDatosMenuItem.Text = "Importar base de datos";
             this.importarBaseDeDatosMenuItem.Click += new System.EventHandler(this.importarBaseDeDatosMenuItem_Click);
+            // 
+            // vincularPCEnRedMenuItem
+            // 
+            this.vincularPCEnRedMenuItem.Name = "vincularPCEnRedMenuItem";
+            this.vincularPCEnRedMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.vincularPCEnRedMenuItem.Text = "Vincular PC en red";
+            this.vincularPCEnRedMenuItem.Click += new System.EventHandler(this.vincularPCEnRedMenuItem_Click);
             // 
             // btnRecuperarPassword
             // 
@@ -257,5 +265,6 @@
         private System.Windows.Forms.ToolStripMenuItem desvincularPCMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importarBaseDeDatosMenuItem;
         private System.Windows.Forms.Label btnRecuperarPassword;
+        private System.Windows.Forms.ToolStripMenuItem vincularPCEnRedMenuItem;
     }
 }
