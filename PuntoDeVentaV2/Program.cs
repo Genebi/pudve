@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,9 +15,17 @@ namespace PuntoDeVentaV2
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            bool nuevaInstancia = true;
+
+            using (Mutex mutex = new Mutex(true, "PUDVE190590", out nuevaInstancia))
+            {
+                if (nuevaInstancia)
+                {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new Login());
+                }
+            }
         }
     }
 }
