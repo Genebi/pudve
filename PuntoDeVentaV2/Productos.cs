@@ -3021,13 +3021,9 @@ namespace PuntoDeVentaV2
                         row.Cells["Column2"].Value = filaDatos["Stock"].ToString();
                     }
                 }
-                else if (TipoProd == "S")
+                else if (TipoProd == "S" || TipoProd == "PQ")
                 {
-                    row.Cells["Column2"].Value = "0";
-                }
-                else if (TipoProd == "PQ")
-                {
-                    row.Cells["Column2"].Value = "0";
+                    row.Cells["Column2"].Value = "N/A";
                 }
 
                 row.Cells["Column3"].Value = decimal.Parse(filaDatos["Precio"].ToString());
