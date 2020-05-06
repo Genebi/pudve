@@ -269,6 +269,8 @@ namespace PuntoDeVentaV2
         public static bool ejecutarMetodos = false;
         private object cbProveedor_SelectValueChanged;
 
+        private float porcentajeGanancia = 1.60f;
+
         #region Modifying Configuration Settings at Runtime
 
         XmlDocument xmlDoc = new XmlDocument();
@@ -4065,7 +4067,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Enter)
             {
                 precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
-                PrecioRecomendado = precioOriginalConIVA * (float)1.60;
+                PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia;
                 txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
                 txtPrecioProducto.Focus();
                 txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
@@ -4093,7 +4095,7 @@ namespace PuntoDeVentaV2
                 }
             }
             precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
-            PrecioRecomendado = precioOriginalConIVA * (float)1.60;
+            PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia;
             txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
             txtPrecioProducto.Focus();
             txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
@@ -4645,6 +4647,13 @@ namespace PuntoDeVentaV2
                 {
                     tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
                 }
+            }
+
+            var config = mb.ComprobarConfiguracion();
+
+            if (config.Count > 0)
+            {
+                porcentajeGanancia = float.Parse(config[8].ToString());
             }
         }
 

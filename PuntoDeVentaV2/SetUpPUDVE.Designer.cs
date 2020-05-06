@@ -340,9 +340,9 @@
             this.lbPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPorcentajeProducto.Location = new System.Drawing.Point(447, 91);
             this.lbPorcentajeProducto.Name = "lbPorcentajeProducto";
-            this.lbPorcentajeProducto.Size = new System.Drawing.Size(164, 17);
+            this.lbPorcentajeProducto.Size = new System.Drawing.Size(180, 17);
             this.lbPorcentajeProducto.TabIndex = 118;
-            this.lbPorcentajeProducto.Text = "Porcentaje de producto";
+            this.lbPorcentajeProducto.Text = "Porcentaje % de ganancia";
             // 
             // SetUpPUDVE
             // 

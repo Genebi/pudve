@@ -220,6 +220,7 @@ namespace PuntoDeVentaV2
         float importeReal;                      // calculamos importe real (cantidad * precioOriginalConIVA)
         float PrecioProd;                       // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
         float PrecioProdToCompare;              // almacenamos el precio sugerido para hacer la comparacion
+        private float porcentajeGanancia = 1.60f;
 
         DialogResult dialogResult;              // creamos el objeto para poder abrir el cuadro de dialogo
 
@@ -1028,7 +1029,7 @@ namespace PuntoDeVentaV2
                 }
             }
             lblNoIdentificacionXML.Text = ClaveInterna;
-            PrecioRecomendado = precioOriginalConIVA * (float)1.60; // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
+            PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia; // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
             try
             {
@@ -2238,6 +2239,13 @@ namespace PuntoDeVentaV2
             seleccionarSugerido = 1;
             seleccionarDefault = 0;
             seleccionSugeridoNomb = "";
+
+            var config = mb.ComprobarConfiguracion();
+            
+            if (config.Count > 0)
+            {
+                porcentajeGanancia = float.Parse(config[8].ToString());
+            }
         }
 
         private void DGVSugeridos_CellClick(object sender, DataGridViewCellEventArgs e)
