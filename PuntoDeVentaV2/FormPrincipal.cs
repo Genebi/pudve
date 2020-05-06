@@ -363,7 +363,7 @@ namespace PuntoDeVentaV2
 
             if (datosConfig.Count > 0)
             {
-                pasar = datosConfig[5];
+                pasar = Convert.ToInt16(datosConfig[5]);
             }
             InitializarTimerAndroid();
             //====================================================================

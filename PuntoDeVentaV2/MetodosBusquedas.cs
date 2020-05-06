@@ -1664,9 +1664,9 @@ namespace PuntoDeVentaV2
             return clavesUnidades;
         }
 
-        public List<int> ComprobarConfiguracion()
+        public ArrayList ComprobarConfiguracion()
         {
-            var config = new List<int>();
+            var config = new ArrayList();
 
             DatosConexion($"SELECT * FROM Configuracion WHERE IDUsuario = {FormPrincipal.userID}");
 
@@ -1682,6 +1682,7 @@ namespace PuntoDeVentaV2
                 var iniciarProceso = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("IniciarProceso")));
                 var mostrarPrecio = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MostrarPrecioProducto")));
                 var mostrarCB = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MostrarCodigoProducto")));
+                var porcentajeProducto = dr.GetValue(dr.GetOrdinal("PorcentajePrecio")).ToString();
 
                 config.Add(correoPrecio);
                 config.Add(correoStock);
@@ -1691,6 +1692,7 @@ namespace PuntoDeVentaV2
                 config.Add(iniciarProceso);
                 config.Add(mostrarPrecio);
                 config.Add(mostrarCB);
+                config.Add(porcentajeProducto);
             }
 
             dr.Close();

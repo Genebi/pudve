@@ -358,7 +358,7 @@ namespace PuntoDeVentaV2
 
                         if (datosConfig.Count > 0)
                         {
-                            if (datosConfig[1] == 1)
+                            if (Convert.ToInt16(datosConfig[1]) == 1)
                             {
                                 var configProducto = mb.ComprobarCorreoProducto(idProducto);
 

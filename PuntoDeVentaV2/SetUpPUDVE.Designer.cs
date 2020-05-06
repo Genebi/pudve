@@ -47,13 +47,17 @@
             this.pagWeb = new System.Windows.Forms.CheckBox();
             this.cbMostrarPrecio = new System.Windows.Forms.CheckBox();
             this.cbMostrarCB = new System.Windows.Forms.CheckBox();
+            this.btnGuardarPorcentaje = new System.Windows.Forms.Button();
+            this.txtPorcentajeProducto = new System.Windows.Forms.TextBox();
+            this.lbPorcentajeProducto = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbStockNegativo
             // 
+            this.cbStockNegativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStockNegativo.AutoSize = true;
             this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStockNegativo.Location = new System.Drawing.Point(55, 222);
+            this.cbStockNegativo.Location = new System.Drawing.Point(322, 218);
             this.cbStockNegativo.Name = "cbStockNegativo";
             this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
             this.cbStockNegativo.TabIndex = 1;
@@ -63,6 +67,7 @@
             // 
             // btnRespaldo
             // 
+            this.btnRespaldo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnRespaldo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnRespaldo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRespaldo.FlatAppearance.BorderSize = 0;
@@ -71,7 +76,7 @@
             this.btnRespaldo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRespaldo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRespaldo.ForeColor = System.Drawing.Color.White;
-            this.btnRespaldo.Location = new System.Drawing.Point(569, 120);
+            this.btnRespaldo.Location = new System.Drawing.Point(670, 119);
             this.btnRespaldo.Name = "btnRespaldo";
             this.btnRespaldo.Size = new System.Drawing.Size(190, 25);
             this.btnRespaldo.TabIndex = 101;
@@ -98,8 +103,9 @@
             // 
             // txtNombreServidor
             // 
+            this.txtNombreServidor.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtNombreServidor.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombreServidor.Location = new System.Drawing.Point(55, 121);
+            this.txtNombreServidor.Location = new System.Drawing.Point(15, 121);
             this.txtNombreServidor.Name = "txtNombreServidor";
             this.txtNombreServidor.Size = new System.Drawing.Size(190, 23);
             this.txtNombreServidor.TabIndex = 104;
@@ -107,6 +113,7 @@
             // 
             // btnGuardarServidor
             // 
+            this.btnGuardarServidor.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnGuardarServidor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnGuardarServidor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarServidor.FlatAppearance.BorderSize = 0;
@@ -115,7 +122,7 @@
             this.btnGuardarServidor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarServidor.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarServidor.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarServidor.Location = new System.Drawing.Point(55, 159);
+            this.btnGuardarServidor.Location = new System.Drawing.Point(15, 159);
             this.btnGuardarServidor.Name = "btnGuardarServidor";
             this.btnGuardarServidor.Size = new System.Drawing.Size(190, 25);
             this.btnGuardarServidor.TabIndex = 105;
@@ -125,9 +132,10 @@
             // 
             // lbNombreServidor
             // 
+            this.lbNombreServidor.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbNombreServidor.AutoSize = true;
             this.lbNombreServidor.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNombreServidor.Location = new System.Drawing.Point(52, 91);
+            this.lbNombreServidor.Location = new System.Drawing.Point(12, 91);
             this.lbNombreServidor.Name = "lbNombreServidor";
             this.lbNombreServidor.Size = new System.Drawing.Size(158, 17);
             this.lbNombreServidor.TabIndex = 103;
@@ -135,6 +143,7 @@
             // 
             // btnGuardarRevision
             // 
+            this.btnGuardarRevision.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnGuardarRevision.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnGuardarRevision.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarRevision.FlatAppearance.BorderSize = 0;
@@ -143,7 +152,7 @@
             this.btnGuardarRevision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarRevision.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarRevision.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarRevision.Location = new System.Drawing.Point(315, 159);
+            this.btnGuardarRevision.Location = new System.Drawing.Point(233, 159);
             this.btnGuardarRevision.Name = "btnGuardarRevision";
             this.btnGuardarRevision.Size = new System.Drawing.Size(190, 25);
             this.btnGuardarRevision.TabIndex = 108;
@@ -153,8 +162,9 @@
             // 
             // txtNumeroRevision
             // 
+            this.txtNumeroRevision.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtNumeroRevision.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNumeroRevision.Location = new System.Drawing.Point(315, 121);
+            this.txtNumeroRevision.Location = new System.Drawing.Point(233, 121);
             this.txtNumeroRevision.Name = "txtNumeroRevision";
             this.txtNumeroRevision.Size = new System.Drawing.Size(190, 23);
             this.txtNumeroRevision.TabIndex = 107;
@@ -162,9 +172,10 @@
             // 
             // lbNumeroRevision
             // 
+            this.lbNumeroRevision.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbNumeroRevision.AutoSize = true;
             this.lbNumeroRevision.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNumeroRevision.Location = new System.Drawing.Point(312, 91);
+            this.lbNumeroRevision.Location = new System.Drawing.Point(230, 91);
             this.lbNumeroRevision.Name = "lbNumeroRevision";
             this.lbNumeroRevision.Size = new System.Drawing.Size(181, 17);
             this.lbNumeroRevision.TabIndex = 106;
@@ -172,6 +183,7 @@
             // 
             // btnLimpiarTabla
             // 
+            this.btnLimpiarTabla.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnLimpiarTabla.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnLimpiarTabla.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLimpiarTabla.FlatAppearance.BorderSize = 0;
@@ -180,7 +192,7 @@
             this.btnLimpiarTabla.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiarTabla.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiarTabla.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiarTabla.Location = new System.Drawing.Point(569, 159);
+            this.btnLimpiarTabla.Location = new System.Drawing.Point(670, 158);
             this.btnLimpiarTabla.Name = "btnLimpiarTabla";
             this.btnLimpiarTabla.Size = new System.Drawing.Size(190, 25);
             this.btnLimpiarTabla.TabIndex = 109;
@@ -190,9 +202,10 @@
             // 
             // checkCBVenta
             // 
+            this.checkCBVenta.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkCBVenta.AutoSize = true;
             this.checkCBVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCBVenta.Location = new System.Drawing.Point(55, 258);
+            this.checkCBVenta.Location = new System.Drawing.Point(322, 255);
             this.checkCBVenta.Name = "checkCBVenta";
             this.checkCBVenta.Size = new System.Drawing.Size(245, 21);
             this.checkCBVenta.TabIndex = 110;
@@ -202,9 +215,10 @@
             // 
             // cbCorreoPrecioProducto
             // 
+            this.cbCorreoPrecioProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoPrecioProducto.AutoSize = true;
             this.cbCorreoPrecioProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(55, 295);
+            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(15, 218);
             this.cbCorreoPrecioProducto.Name = "cbCorreoPrecioProducto";
             this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(239, 21);
             this.cbCorreoPrecioProducto.TabIndex = 111;
@@ -214,9 +228,10 @@
             // 
             // cbCorreoStockProducto
             // 
+            this.cbCorreoStockProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoStockProducto.AutoSize = true;
             this.cbCorreoStockProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockProducto.Location = new System.Drawing.Point(55, 331);
+            this.cbCorreoStockProducto.Location = new System.Drawing.Point(15, 254);
             this.cbCorreoStockProducto.Name = "cbCorreoStockProducto";
             this.cbCorreoStockProducto.Size = new System.Drawing.Size(232, 21);
             this.cbCorreoStockProducto.TabIndex = 112;
@@ -226,9 +241,10 @@
             // 
             // cbCorreoStockMinimo
             // 
+            this.cbCorreoStockMinimo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoStockMinimo.AutoSize = true;
             this.cbCorreoStockMinimo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(55, 367);
+            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(15, 290);
             this.cbCorreoStockMinimo.Name = "cbCorreoStockMinimo";
             this.cbCorreoStockMinimo.Size = new System.Drawing.Size(259, 21);
             this.cbCorreoStockMinimo.TabIndex = 113;
@@ -238,9 +254,10 @@
             // 
             // cbCorreoVenderProducto
             // 
+            this.cbCorreoVenderProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoVenderProducto.AutoSize = true;
             this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(55, 404);
+            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(15, 327);
             this.cbCorreoVenderProducto.Name = "cbCorreoVenderProducto";
             this.cbCorreoVenderProducto.Size = new System.Drawing.Size(255, 21);
             this.cbCorreoVenderProducto.TabIndex = 114;
@@ -250,9 +267,10 @@
             // 
             // pagWeb
             // 
+            this.pagWeb.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pagWeb.AutoSize = true;
             this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagWeb.Location = new System.Drawing.Point(55, 442);
+            this.pagWeb.Location = new System.Drawing.Point(322, 291);
             this.pagWeb.Name = "pagWeb";
             this.pagWeb.Size = new System.Drawing.Size(267, 21);
             this.pagWeb.TabIndex = 115;
@@ -262,9 +280,10 @@
             // 
             // cbMostrarPrecio
             // 
+            this.cbMostrarPrecio.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbMostrarPrecio.AutoSize = true;
             this.cbMostrarPrecio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarPrecio.Location = new System.Drawing.Point(348, 222);
+            this.cbMostrarPrecio.Location = new System.Drawing.Point(322, 328);
             this.cbMostrarPrecio.Name = "cbMostrarPrecio";
             this.cbMostrarPrecio.Size = new System.Drawing.Size(277, 21);
             this.cbMostrarPrecio.TabIndex = 116;
@@ -274,21 +293,65 @@
             // 
             // cbMostrarCB
             // 
+            this.cbMostrarCB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbMostrarCB.AutoSize = true;
             this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarCB.Location = new System.Drawing.Point(348, 258);
+            this.cbMostrarCB.Location = new System.Drawing.Point(322, 365);
             this.cbMostrarCB.Name = "cbMostrarCB";
-            this.cbMostrarCB.Size = new System.Drawing.Size(348, 21);
+            this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
             this.cbMostrarCB.TabIndex = 117;
-            this.cbMostrarCB.Text = "Mostrar código de barras de productos en ventas";
+            this.cbMostrarCB.Text = "Mostrar código de productos en ventas";
             this.cbMostrarCB.UseVisualStyleBackColor = true;
             this.cbMostrarCB.CheckedChanged += new System.EventHandler(this.cbMostrarCB_CheckedChanged);
+            // 
+            // btnGuardarPorcentaje
+            // 
+            this.btnGuardarPorcentaje.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnGuardarPorcentaje.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnGuardarPorcentaje.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardarPorcentaje.FlatAppearance.BorderSize = 0;
+            this.btnGuardarPorcentaje.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnGuardarPorcentaje.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnGuardarPorcentaje.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarPorcentaje.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarPorcentaje.ForeColor = System.Drawing.Color.White;
+            this.btnGuardarPorcentaje.Location = new System.Drawing.Point(450, 159);
+            this.btnGuardarPorcentaje.Name = "btnGuardarPorcentaje";
+            this.btnGuardarPorcentaje.Size = new System.Drawing.Size(190, 25);
+            this.btnGuardarPorcentaje.TabIndex = 120;
+            this.btnGuardarPorcentaje.Text = "Guardar";
+            this.btnGuardarPorcentaje.UseVisualStyleBackColor = false;
+            this.btnGuardarPorcentaje.Click += new System.EventHandler(this.btnGuardarPorcentaje_Click);
+            // 
+            // txtPorcentajeProducto
+            // 
+            this.txtPorcentajeProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPorcentajeProducto.Location = new System.Drawing.Point(450, 121);
+            this.txtPorcentajeProducto.Name = "txtPorcentajeProducto";
+            this.txtPorcentajeProducto.Size = new System.Drawing.Size(190, 23);
+            this.txtPorcentajeProducto.TabIndex = 119;
+            this.txtPorcentajeProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lbPorcentajeProducto
+            // 
+            this.lbPorcentajeProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbPorcentajeProducto.AutoSize = true;
+            this.lbPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPorcentajeProducto.Location = new System.Drawing.Point(447, 91);
+            this.lbPorcentajeProducto.Name = "lbPorcentajeProducto";
+            this.lbPorcentajeProducto.Size = new System.Drawing.Size(164, 17);
+            this.lbPorcentajeProducto.TabIndex = 118;
+            this.lbPorcentajeProducto.Text = "Porcentaje de producto";
             // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.btnGuardarPorcentaje);
+            this.Controls.Add(this.txtPorcentajeProducto);
+            this.Controls.Add(this.lbPorcentajeProducto);
             this.Controls.Add(this.cbMostrarCB);
             this.Controls.Add(this.cbMostrarPrecio);
             this.Controls.Add(this.pagWeb);
@@ -337,5 +400,8 @@
         private System.Windows.Forms.CheckBox pagWeb;
         private System.Windows.Forms.CheckBox cbMostrarPrecio;
         private System.Windows.Forms.CheckBox cbMostrarCB;
+        private System.Windows.Forms.Button btnGuardarPorcentaje;
+        private System.Windows.Forms.TextBox txtPorcentajeProducto;
+        private System.Windows.Forms.Label lbPorcentajeProducto;
     }
 }

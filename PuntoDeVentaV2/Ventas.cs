@@ -140,10 +140,10 @@ namespace PuntoDeVentaV2
 
             if (configCorreos.Count > 0)
             {
-                correoStockMinimo = configCorreos[2];
-                correoVentaProducto = configCorreos[3];
-                mostrarPrecioProducto = configCorreos[6];
-                mostrarCBProducto = configCorreos[7];
+                correoStockMinimo = Convert.ToInt16(configCorreos[2]);
+                correoVentaProducto = Convert.ToInt16(configCorreos[3]);
+                mostrarPrecioProducto = Convert.ToInt16(configCorreos[6]);
+                mostrarCBProducto = Convert.ToInt16(configCorreos[7]);
             }
 
             enviarStockMinimo = new Dictionary<int, string>();

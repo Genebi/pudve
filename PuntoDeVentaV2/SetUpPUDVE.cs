@@ -41,6 +41,7 @@ namespace PuntoDeVentaV2
             VerificarDatosInventario();
             VerificarConfiguracion();
 
+            txtPorcentajeProducto.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.Text = numeroRevision.ToString();
         }
@@ -82,6 +83,7 @@ namespace PuntoDeVentaV2
                 pagWeb.Checked = Convert.ToBoolean(datosConfig[5]);
                 cbMostrarPrecio.Checked = Convert.ToBoolean(datosConfig[6]);
                 cbMostrarCB.Checked = Convert.ToBoolean(datosConfig[7]);
+                txtPorcentajeProducto.Text = datosConfig[8].ToString();
             }
             else
             {
@@ -284,6 +286,25 @@ namespace PuntoDeVentaV2
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void btnGuardarPorcentaje_Click(object sender, EventArgs e)
+        {
+            var porcentaje = txtPorcentajeProducto.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(porcentaje))
+            {
+                MessageBox.Show("Ingrese la cantidad de porcentaje", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtPorcentajeProducto.Focus();
+                return;
+            }
+
+            var respuesta = cn.EjecutarConsulta($"UPDATE Configuracion SET PorcentajePrecio = {porcentaje} WHERE IDUsuario = {FormPrincipal.userID}");
+
+            if (respuesta > 0)
+            {
+                MessageBox.Show("Información guardada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
