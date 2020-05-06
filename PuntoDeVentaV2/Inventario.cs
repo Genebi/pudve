@@ -52,8 +52,32 @@ namespace PuntoDeVentaV2
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
         }
 
+        private bool ExistenProductos(string nombre)
+        {
+            var tieneProductos = mb.TieneProductos();
+
+            if (!tieneProductos)
+            {
+                var mensaje = string.Join(
+                    Environment.NewLine,
+                    $"Para poder {nombre} inventario es necesario registrar",
+                    "productos, ya que actualmente el sistema ha detectado",
+                    "que no hay productos registrados."
+                );
+
+                MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            return tieneProductos;
+        }
+
         private void btnRevisar_Click(object sender, EventArgs e)
         {
+            if (!ExistenProductos("revisar"))
+            {
+                return;
+            }
+
             using (var filtro = new FiltroRevisarInventario())
             {
                 var respuesta = filtro.ShowDialog();
@@ -82,6 +106,11 @@ namespace PuntoDeVentaV2
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
+            if (!ExistenProductos("actualizar"))
+            {
+                return;
+            }
+
             panelContenedor.Visible = true;
 
             txtBusqueda.Focus();
