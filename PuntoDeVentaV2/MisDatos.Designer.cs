@@ -67,14 +67,22 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnActualizarDatos = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label29 = new System.Windows.Forms.Label();
             this.btnBorrarImg = new System.Windows.Forms.Button();
             this.TxtBoxNombreArchivo = new System.Windows.Forms.TextBox();
             this.btnSubirArchivo = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label14 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnActualizarPassword = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lb_fvencimiento = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -90,6 +98,7 @@
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -573,13 +582,14 @@
             // btnActualizarDatos
             // 
             this.btnActualizarDatos.BackColor = System.Drawing.Color.Green;
-            this.btnActualizarDatos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizarDatos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualizarDatos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarDatos.ForeColor = System.Drawing.Color.SeaShell;
             this.btnActualizarDatos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnActualizarDatos.Location = new System.Drawing.Point(411, 508);
+            this.btnActualizarDatos.Location = new System.Drawing.Point(226, 467);
             this.btnActualizarDatos.Margin = new System.Windows.Forms.Padding(2);
             this.btnActualizarDatos.Name = "btnActualizarDatos";
-            this.btnActualizarDatos.Size = new System.Drawing.Size(165, 45);
+            this.btnActualizarDatos.Size = new System.Drawing.Size(165, 36);
             this.btnActualizarDatos.TabIndex = 2;
             this.btnActualizarDatos.Text = "Guardar";
             this.btnActualizarDatos.UseVisualStyleBackColor = false;
@@ -587,28 +597,39 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label29);
             this.panel2.Controls.Add(this.btnBorrarImg);
-            this.panel2.Controls.Add(this.TxtBoxNombreArchivo);
             this.panel2.Controls.Add(this.btnSubirArchivo);
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.TxtBoxNombreArchivo);
             this.panel2.Location = new System.Drawing.Point(581, 7);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(386, 447);
+            this.panel2.Size = new System.Drawing.Size(386, 303);
             this.panel2.TabIndex = 3;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(154, 11);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(73, 18);
+            this.label29.TabIndex = 82;
+            this.label29.Text = "Logotipo";
             // 
             // btnBorrarImg
             // 
             this.btnBorrarImg.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnBorrarImg.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBorrarImg.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBorrarImg.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBorrarImg.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBorrarImg.Location = new System.Drawing.Point(203, 385);
+            this.btnBorrarImg.Location = new System.Drawing.Point(211, 234);
             this.btnBorrarImg.Margin = new System.Windows.Forms.Padding(2);
             this.btnBorrarImg.Name = "btnBorrarImg";
-            this.btnBorrarImg.Size = new System.Drawing.Size(146, 50);
+            this.btnBorrarImg.Size = new System.Drawing.Size(146, 37);
             this.btnBorrarImg.TabIndex = 5;
-            this.btnBorrarImg.Text = "Imagen";
+            this.btnBorrarImg.Text = "Eliminar imagen";
             this.btnBorrarImg.UseVisualStyleBackColor = true;
             this.btnBorrarImg.Click += new System.EventHandler(this.btnBorrarImg_Click);
             // 
@@ -617,25 +638,27 @@
             this.TxtBoxNombreArchivo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtBoxNombreArchivo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBoxNombreArchivo.Location = new System.Drawing.Point(22, 343);
+            this.TxtBoxNombreArchivo.Location = new System.Drawing.Point(22, 231);
             this.TxtBoxNombreArchivo.Margin = new System.Windows.Forms.Padding(2);
             this.TxtBoxNombreArchivo.Name = "TxtBoxNombreArchivo";
             this.TxtBoxNombreArchivo.ReadOnly = true;
-            this.TxtBoxNombreArchivo.Size = new System.Drawing.Size(336, 26);
+            this.TxtBoxNombreArchivo.Size = new System.Drawing.Size(335, 26);
             this.TxtBoxNombreArchivo.TabIndex = 3;
+            this.TxtBoxNombreArchivo.Visible = false;
             // 
             // btnSubirArchivo
             // 
             this.btnSubirArchivo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnSubirArchivo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnSubirArchivo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubirArchivo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSubirArchivo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubirArchivo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSubirArchivo.Location = new System.Drawing.Point(30, 385);
+            this.btnSubirArchivo.Location = new System.Drawing.Point(22, 234);
             this.btnSubirArchivo.Margin = new System.Windows.Forms.Padding(2);
             this.btnSubirArchivo.Name = "btnSubirArchivo";
-            this.btnSubirArchivo.Size = new System.Drawing.Size(146, 50);
+            this.btnSubirArchivo.Size = new System.Drawing.Size(146, 37);
             this.btnSubirArchivo.TabIndex = 2;
-            this.btnSubirArchivo.Text = "Imagen";
+            this.btnSubirArchivo.Text = "Subir imagen";
             this.btnSubirArchivo.UseVisualStyleBackColor = false;
             this.btnSubirArchivo.Click += new System.EventHandler(this.btnSubirArchivo_Click);
             // 
@@ -644,24 +667,13 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Location = new System.Drawing.Point(22, 45);
+            this.pictureBox1.Location = new System.Drawing.Point(22, 35);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(335, 280);
+            this.pictureBox1.Size = new System.Drawing.Size(335, 192);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(19, 20);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(55, 16);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "Logotipo";
             // 
             // openFileDialog2
             // 
@@ -671,12 +683,110 @@
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.btnActualizarPassword);
+            this.panel3.Controls.Add(this.panel5);
+            this.panel3.Controls.Add(this.label14);
             this.panel3.Controls.Add(this.panel1);
             this.panel3.Controls.Add(this.panel2);
+            this.panel3.Controls.Add(this.btnActualizarDatos);
             this.panel3.Location = new System.Drawing.Point(12, 41);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(974, 462);
+            this.panel3.Size = new System.Drawing.Size(974, 517);
             this.panel3.TabIndex = 4;
+            // 
+            // btnActualizarPassword
+            // 
+            this.btnActualizarPassword.BackColor = System.Drawing.Color.Green;
+            this.btnActualizarPassword.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualizarPassword.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizarPassword.ForeColor = System.Drawing.Color.SeaShell;
+            this.btnActualizarPassword.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnActualizarPassword.Location = new System.Drawing.Point(725, 467);
+            this.btnActualizarPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.btnActualizarPassword.Name = "btnActualizarPassword";
+            this.btnActualizarPassword.Size = new System.Drawing.Size(165, 36);
+            this.btnActualizarPassword.TabIndex = 23;
+            this.btnActualizarPassword.Text = "Actualizar";
+            this.btnActualizarPassword.UseVisualStyleBackColor = false;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel5.Controls.Add(this.textBox2);
+            this.panel5.Controls.Add(this.label28);
+            this.panel5.Controls.Add(this.textBox1);
+            this.panel5.Controls.Add(this.label27);
+            this.panel5.Controls.Add(this.label25);
+            this.panel5.Location = new System.Drawing.Point(603, 319);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(335, 135);
+            this.panel5.TabIndex = 22;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textBox2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(135, 93);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox2.MaxLength = 12;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(187, 23);
+            this.textBox2.TabIndex = 81;
+            // 
+            // label28
+            // 
+            this.label28.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(11, 98);
+            this.label28.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(111, 16);
+            this.label28.TabIndex = 80;
+            this.label28.Text = "Nueva contraseña";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(135, 49);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.MaxLength = 12;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(187, 23);
+            this.textBox1.TabIndex = 79;
+            // 
+            // label27
+            // 
+            this.label27.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(11, 54);
+            this.label27.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(111, 16);
+            this.label27.TabIndex = 79;
+            this.label27.Text = "Contraseña actual";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(94, 11);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(160, 18);
+            this.label25.TabIndex = 9;
+            this.label25.Text = "Cambiar contraseña";
+            // 
+            // label14
+            // 
+            this.label14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label14.Location = new System.Drawing.Point(605, 314);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(330, 2);
+            this.label14.TabIndex = 21;
             // 
             // panel4
             // 
@@ -720,9 +830,9 @@
             this.btn_vnt_subir_archivos.BackColor = System.Drawing.Color.Green;
             this.btn_vnt_subir_archivos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_vnt_subir_archivos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_vnt_subir_archivos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_vnt_subir_archivos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_vnt_subir_archivos.ForeColor = System.Drawing.Color.White;
-            this.btn_vnt_subir_archivos.Location = new System.Drawing.Point(811, 67);
+            this.btn_vnt_subir_archivos.Location = new System.Drawing.Point(554, 73);
             this.btn_vnt_subir_archivos.Name = "btn_vnt_subir_archivos";
             this.btn_vnt_subir_archivos.Size = new System.Drawing.Size(119, 30);
             this.btn_vnt_subir_archivos.TabIndex = 6;
@@ -794,7 +904,6 @@
             this.Controls.Add(this.lbSeparador1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.btnActualizarDatos);
             this.Controls.Add(this.label1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MisDatos";
@@ -808,6 +917,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.ResumeLayout(false);
@@ -847,7 +958,6 @@
         private System.Windows.Forms.TextBox TxtBoxNombreArchivo;
         private System.Windows.Forms.Button btnSubirArchivo;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnBorrarImg;
         public System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -874,5 +984,14 @@
         private System.Windows.Forms.Button btn_vnt_subir_archivos;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label lb_fvencimiento;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Button btnActualizarPassword;
     }
 }

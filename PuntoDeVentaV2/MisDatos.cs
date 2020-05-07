@@ -326,19 +326,6 @@ namespace PuntoDeVentaV2
             consulta();
             // usamos la variable File para abrir el archivo de imagen, poder leerlo y agregarlo al boton
             // despues de agregado se libera la imagen para su posterior manipulacion si asi fuera
-            using (IconoBtnActualizarDatos = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\save.png", FileMode.Open, FileAccess.Read))
-            {
-                // Asignamos la imagen al BtnRegistrar
-                btnActualizarDatos.Image = Image.FromStream(IconoBtnActualizarDatos);
-            }
-            using (IconoBtnSubirArchivo = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\cloud-upload.png", FileMode.Open, FileAccess.Read))
-            {
-                btnSubirArchivo.Image = Image.FromStream(IconoBtnSubirArchivo);
-            }
-            using (IconoBtnBorrarImg = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\close.png", FileMode.Open, FileAccess.Read))
-            {
-                btnBorrarImg.Image = Image.FromStream(IconoBtnBorrarImg);
-            }
 
             // Asignar evento para solo permitir numeros enteros
             txtCodPost.KeyPress += new KeyPressEventHandler(SoloNumeros);
