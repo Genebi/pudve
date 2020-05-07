@@ -507,6 +507,36 @@ namespace PuntoDeVentaV2
             cargarComboBox();
         }
 
+        private void btnActualizarPassword_Click(object sender, EventArgs e)
+        {
+            var passwordActual = string.Empty;
+
+            var datos = cn.DatosUsuario(IDUsuario: FormPrincipal.userID);
+
+            if (datos.Length > 0)
+            {
+                passwordActual = datos[14];
+            }
+
+            var password = txtPassword.Text.Trim();
+            var passwordNuevo = txtPasswordNuevo.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(password) && !string.IsNullOrWhiteSpace(passwordNuevo))
+            {
+                if (passwordActual.Equals(password))
+                {
+                    // actualizar password en sqlite y mysql
+                    MessageBox.Show("Actualizar");
+                }
+                else
+                {
+                    MessageBox.Show("La contraseña actual es incorrecta", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    txtPassword.Focus();
+                }
+            }
+        }
+
         private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
             using (f = new OpenFileDialog())	// abrimos el opneDialog para seleccionar la imagen
@@ -624,18 +654,21 @@ namespace PuntoDeVentaV2
 
         private void btnBorrarImg_Click(object sender, EventArgs e)
         {
-            // borramos el archivo de la imagen
-            System.IO.File.Delete(logoTipo);
-            // ponemos la ruta del logoTipo en null
-            logoTipo = null;
-            // hacemos la nueva cadena de consulta para hacer el update
-            string consultaUpdate = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
-            // hacemos que se ejecute la consulta
-            cn.EjecutarConsulta(consultaUpdate);
-            //ponemos la imagen en limpio
-            pictureBox1.Image = null;
-            // Llamamos a la Funcion consulta
-            consulta();
+            if (!string.IsNullOrWhiteSpace(logoTipo))
+            {
+                // borramos el archivo de la imagen
+                System.IO.File.Delete(logoTipo);
+                // ponemos la ruta del logoTipo en null
+                logoTipo = null;
+                // hacemos la nueva cadena de consulta para hacer el update
+                string consultaUpdate = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
+                // hacemos que se ejecute la consulta
+                cn.EjecutarConsulta(consultaUpdate);
+                //ponemos la imagen en limpio
+                pictureBox1.Image = null;
+                // Llamamos a la Funcion consulta
+                consulta();
+            }
         }
 
         private bool ValidarEmail(string email)

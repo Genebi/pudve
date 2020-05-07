@@ -69,17 +69,17 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label29 = new System.Windows.Forms.Label();
             this.btnBorrarImg = new System.Windows.Forms.Button();
-            this.TxtBoxNombreArchivo = new System.Windows.Forms.TextBox();
             this.btnSubirArchivo = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.TxtBoxNombreArchivo = new System.Windows.Forms.TextBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnActualizarPassword = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtPasswordNuevo = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -633,19 +633,6 @@
             this.btnBorrarImg.UseVisualStyleBackColor = true;
             this.btnBorrarImg.Click += new System.EventHandler(this.btnBorrarImg_Click);
             // 
-            // TxtBoxNombreArchivo
-            // 
-            this.TxtBoxNombreArchivo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TxtBoxNombreArchivo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBoxNombreArchivo.Location = new System.Drawing.Point(22, 231);
-            this.TxtBoxNombreArchivo.Margin = new System.Windows.Forms.Padding(2);
-            this.TxtBoxNombreArchivo.Name = "TxtBoxNombreArchivo";
-            this.TxtBoxNombreArchivo.ReadOnly = true;
-            this.TxtBoxNombreArchivo.Size = new System.Drawing.Size(335, 26);
-            this.TxtBoxNombreArchivo.TabIndex = 3;
-            this.TxtBoxNombreArchivo.Visible = false;
-            // 
             // btnSubirArchivo
             // 
             this.btnSubirArchivo.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -674,6 +661,19 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            // 
+            // TxtBoxNombreArchivo
+            // 
+            this.TxtBoxNombreArchivo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtBoxNombreArchivo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBoxNombreArchivo.Location = new System.Drawing.Point(22, 231);
+            this.TxtBoxNombreArchivo.Margin = new System.Windows.Forms.Padding(2);
+            this.TxtBoxNombreArchivo.Name = "TxtBoxNombreArchivo";
+            this.TxtBoxNombreArchivo.ReadOnly = true;
+            this.TxtBoxNombreArchivo.Size = new System.Drawing.Size(335, 26);
+            this.TxtBoxNombreArchivo.TabIndex = 3;
+            this.TxtBoxNombreArchivo.Visible = false;
             // 
             // openFileDialog2
             // 
@@ -708,13 +708,14 @@
             this.btnActualizarPassword.TabIndex = 23;
             this.btnActualizarPassword.Text = "Actualizar";
             this.btnActualizarPassword.UseVisualStyleBackColor = false;
+            this.btnActualizarPassword.Click += new System.EventHandler(this.btnActualizarPassword_Click);
             // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.panel5.Controls.Add(this.textBox2);
+            this.panel5.Controls.Add(this.txtPasswordNuevo);
             this.panel5.Controls.Add(this.label28);
-            this.panel5.Controls.Add(this.textBox1);
+            this.panel5.Controls.Add(this.txtPassword);
             this.panel5.Controls.Add(this.label27);
             this.panel5.Controls.Add(this.label25);
             this.panel5.Location = new System.Drawing.Point(603, 319);
@@ -722,17 +723,17 @@
             this.panel5.Size = new System.Drawing.Size(335, 135);
             this.panel5.TabIndex = 22;
             // 
-            // textBox2
+            // txtPasswordNuevo
             // 
-            this.textBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBox2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(135, 93);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox2.MaxLength = 12;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(187, 23);
-            this.textBox2.TabIndex = 81;
+            this.txtPasswordNuevo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtPasswordNuevo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPasswordNuevo.Location = new System.Drawing.Point(135, 93);
+            this.txtPasswordNuevo.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPasswordNuevo.MaxLength = 100;
+            this.txtPasswordNuevo.Name = "txtPasswordNuevo";
+            this.txtPasswordNuevo.PasswordChar = '*';
+            this.txtPasswordNuevo.Size = new System.Drawing.Size(187, 23);
+            this.txtPasswordNuevo.TabIndex = 81;
             // 
             // label28
             // 
@@ -746,17 +747,17 @@
             this.label28.TabIndex = 80;
             this.label28.Text = "Nueva contraseña";
             // 
-            // textBox1
+            // txtPassword
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.textBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(135, 49);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.MaxLength = 12;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(187, 23);
-            this.textBox1.TabIndex = 79;
+            this.txtPassword.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtPassword.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Location = new System.Drawing.Point(135, 49);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPassword.MaxLength = 100;
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(187, 23);
+            this.txtPassword.TabIndex = 79;
             // 
             // label27
             // 
@@ -987,9 +988,9 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtPasswordNuevo;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Button btnActualizarPassword;

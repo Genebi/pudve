@@ -440,6 +440,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[17].ToString()); //Logo
                 lista.Add(dr["VerificacionNS"].ToString());
                 lista.Add(dr["ID"].ToString());
+                lista.Add(dr["Password"].ToString());
             }
 
             dr.Close();
