@@ -34,7 +34,7 @@ namespace PuntoDeVentaV2
         private Paginar p;
         string DataMemberDGV = "Productos";
         string extra = string.Empty;
-        int maximo_x_pagina = 18;
+        int maximo_x_pagina = 17;
         int clickBoton = 0;
 
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -2007,6 +2007,55 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Seleccione un elemento para activar esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void txtIrPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // para obligar a que solo se introduzcan números
+            if (Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                // permitir teclas de control como retroceso
+                if (Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = false;
+                }
+                // el resto de teclas pulsadas se desactivan
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void txtIrPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                irToPageNumber(Convert.ToInt32(txtIrPagina.Text));
+            }
+        }
+
+        private void irToPageNumber(int pageNumber)
+        {
+            //int origen, destino, clicks, i;
+
+            //origen = Convert.ToInt32(linkLblPaginaActual.Text);
+            //destino = pageNumber;
+
+            //clicks = destino - origen;
+
+            //for (i = 0; i < clicks; i++)
+            //{
+            //    btnSiguiente.PerformClick();
+            //}
+            p.irAPagina(pageNumber);
+            clickBoton = 1;
+            CargarDatos();
+            actualizar();
         }
 
         private void btnRightSetUpVariable_Click(object sender, EventArgs e)
