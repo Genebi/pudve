@@ -1032,6 +1032,7 @@
             this.txtIrPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtIrPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIrPagina_KeyDown);
             this.txtIrPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIrPagina_KeyPress);
+            this.txtIrPagina.Leave += new System.EventHandler(this.txtIrPagina_Leave);
             // 
             // Productos
             // 

@@ -133,7 +133,14 @@ namespace PuntoDeVentaV2
                 return _datos;
             }
 
-            this._numeroPagina = num_pagina;
+            if ((num_pagina <= 0) || (num_pagina > _ultimaPagina))
+            {
+                MessageBox.Show("Número de página\nno valido.", "Error de Rango", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if ((num_pagina > 0) || (num_pagina < _ultimaPagina))
+            {
+                this._numeroPagina = num_pagina;
+            }
 
             this._inicio = _inicio + _tope;
             this._datos.Clear();

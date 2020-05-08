@@ -2045,6 +2045,12 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            txtIrPagina.Text = string.Empty;
+        }
+
+        private void txtIrPagina_Leave(object sender, EventArgs e)
+        {
+            txtIrPagina.Text = string.Empty;
         }
 
         private void btnRightSetUpVariable_Click(object sender, EventArgs e)
