@@ -30,14 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.datagv_facturas = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmb_bx_tipo_factura = new System.Windows.Forms.ComboBox();
-            this.datetp_fecha_inicial = new System.Windows.Forms.DateTimePicker();
-            this.datetp_fecha_final = new System.Windows.Forms.DateTimePicker();
-            this.btn_buscar = new System.Windows.Forms.Button();
-            this.btn_cpago = new System.Windows.Forms.Button();
-            this.btn_enviar = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,10 +39,20 @@
             this.col_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_pdf = new System.Windows.Forms.DataGridViewImageColumn();
+            this.col_descargar = new System.Windows.Forms.DataGridViewImageColumn();
             this.col_cancelar = new System.Windows.Forms.DataGridViewImageColumn();
             this.col_t_comprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmb_bx_tipo_factura = new System.Windows.Forms.ComboBox();
+            this.datetp_fecha_inicial = new System.Windows.Forms.DateTimePicker();
+            this.datetp_fecha_final = new System.Windows.Forms.DateTimePicker();
+            this.btn_buscar = new System.Windows.Forms.Button();
+            this.btn_cpago = new System.Windows.Forms.Button();
+            this.btn_enviar = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
-
+            this.pBar1 = new System.Windows.Forms.ProgressBar();
+            this.lb_texto_descarga = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -73,6 +75,7 @@
             this.col_total,
             this.col_fecha,
             this.col_pdf,
+            this.col_descargar,
             this.col_cancelar,
             this.col_t_comprobante});
             this.datagv_facturas.Location = new System.Drawing.Point(12, 161);
@@ -87,6 +90,92 @@
             this.datagv_facturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
             this.datagv_facturas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
             this.datagv_facturas.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_no_icono);
+            // 
+            // col_checkbox
+            // 
+            this.col_checkbox.Frozen = true;
+            this.col_checkbox.HeaderText = "";
+            this.col_checkbox.Name = "col_checkbox";
+            this.col_checkbox.ReadOnly = true;
+            this.col_checkbox.Width = 35;
+            // 
+            // col_id
+            // 
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            this.col_id.Width = 50;
+            // 
+            // col_folio
+            // 
+            this.col_folio.HeaderText = "Folio";
+            this.col_folio.Name = "col_folio";
+            this.col_folio.ReadOnly = true;
+            this.col_folio.Width = 60;
+            // 
+            // col_serie
+            // 
+            this.col_serie.HeaderText = "Serie";
+            this.col_serie.Name = "col_serie";
+            this.col_serie.ReadOnly = true;
+            this.col_serie.Width = 45;
+            // 
+            // col_rfc
+            // 
+            this.col_rfc.HeaderText = "RFC";
+            this.col_rfc.Name = "col_rfc";
+            this.col_rfc.ReadOnly = true;
+            this.col_rfc.Width = 120;
+            // 
+            // col_razon_social
+            // 
+            this.col_razon_social.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_razon_social.HeaderText = "Razon social";
+            this.col_razon_social.Name = "col_razon_social";
+            this.col_razon_social.ReadOnly = true;
+            // 
+            // col_total
+            // 
+            this.col_total.HeaderText = "Total";
+            this.col_total.Name = "col_total";
+            this.col_total.ReadOnly = true;
+            // 
+            // col_fecha
+            // 
+            this.col_fecha.HeaderText = "Fecha";
+            this.col_fecha.Name = "col_fecha";
+            this.col_fecha.ReadOnly = true;
+            this.col_fecha.Width = 90;
+            // 
+            // col_pdf
+            // 
+            this.col_pdf.HeaderText = "PDF";
+            this.col_pdf.Name = "col_pdf";
+            this.col_pdf.ReadOnly = true;
+            this.col_pdf.Width = 50;
+            // 
+            // col_descargar
+            // 
+            this.col_descargar.HeaderText = "Descargar";
+            this.col_descargar.Name = "col_descargar";
+            this.col_descargar.ReadOnly = true;
+            this.col_descargar.Width = 70;
+            // 
+            // col_cancelar
+            // 
+            this.col_cancelar.HeaderText = "Cancelar";
+            this.col_cancelar.Name = "col_cancelar";
+            this.col_cancelar.ReadOnly = true;
+            this.col_cancelar.Width = 65;
+            // 
+            // col_t_comprobante
+            // 
+            this.col_t_comprobante.HeaderText = "tc";
+            this.col_t_comprobante.Name = "col_t_comprobante";
+            this.col_t_comprobante.ReadOnly = true;
+            this.col_t_comprobante.Visible = false;
+            this.col_t_comprobante.Width = 10;
             // 
             // label1
             // 
@@ -191,88 +280,6 @@
             this.panel1.Size = new System.Drawing.Size(585, 50);
             this.panel1.TabIndex = 8;
             // 
-            // col_checkbox
-            // 
-            this.col_checkbox.Frozen = true;
-            this.col_checkbox.HeaderText = "";
-            this.col_checkbox.Name = "col_checkbox";
-            this.col_checkbox.ReadOnly = true;
-            this.col_checkbox.Width = 35;
-            // 
-            // col_id
-            // 
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
-            this.col_id.Width = 50;
-            // 
-            // col_folio
-            // 
-            this.col_folio.HeaderText = "Folio";
-            this.col_folio.Name = "col_folio";
-            this.col_folio.ReadOnly = true;
-            this.col_folio.Width = 45;
-            // 
-            // col_serie
-            // 
-            this.col_serie.HeaderText = "Serie";
-            this.col_serie.Name = "col_serie";
-            this.col_serie.ReadOnly = true;
-            this.col_serie.Width = 45;
-            // 
-            // col_rfc
-            // 
-            this.col_rfc.HeaderText = "RFC";
-            this.col_rfc.Name = "col_rfc";
-            this.col_rfc.ReadOnly = true;
-            this.col_rfc.Width = 120;
-            // 
-            // col_razon_social
-            // 
-            this.col_razon_social.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_razon_social.HeaderText = "Razon social";
-            this.col_razon_social.Name = "col_razon_social";
-            this.col_razon_social.ReadOnly = true;
-            this.col_razon_social.HeaderText = "Razon social";
-            this.col_razon_social.Name = "col_razon_social";
-            this.col_razon_social.ReadOnly = true;
-            this.col_razon_social.Width = 440;
-            // 
-            // col_total
-            // 
-            this.col_total.HeaderText = "Total";
-            this.col_total.Name = "col_total";
-            this.col_total.ReadOnly = true;
-            // 
-            // col_fecha
-            // 
-            this.col_fecha.HeaderText = "Fecha";
-            this.col_fecha.Name = "col_fecha";
-            this.col_fecha.ReadOnly = true;
-            // 
-            // col_pdf
-            // 
-            this.col_pdf.HeaderText = "PDF";
-            this.col_pdf.Name = "col_pdf";
-            this.col_pdf.ReadOnly = true;
-            this.col_pdf.Width = 50;
-            // 
-            // col_cancelar
-            // 
-            this.col_cancelar.HeaderText = "Cancelar";
-            this.col_cancelar.Name = "col_cancelar";
-            this.col_cancelar.ReadOnly = true;
-            this.col_cancelar.Width = 70;
-            // 
-            // col_t_comprobante
-            // 
-            this.col_t_comprobante.HeaderText = "tc";
-            this.col_t_comprobante.Name = "col_t_comprobante";
-            this.col_t_comprobante.ReadOnly = true;
-            this.col_t_comprobante.Visible = false;
-            this.col_t_comprobante.Width = 10;
-            // 
             // TTMensaje
             // 
             this.TTMensaje.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
@@ -280,11 +287,39 @@
             this.TTMensaje.OwnerDraw = true;
             this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
             // 
+            // pBar1
+            // 
+            this.pBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pBar1.Location = new System.Drawing.Point(129, 448);
+            this.pBar1.Name = "pBar1";
+            this.pBar1.Size = new System.Drawing.Size(668, 23);
+            this.pBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.pBar1.TabIndex = 9;
+            this.pBar1.Value = 2;
+            this.pBar1.Visible = false;
+            // 
+            // lb_texto_descarga
+            // 
+            this.lb_texto_descarga.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lb_texto_descarga.AutoSize = true;
+            this.lb_texto_descarga.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_texto_descarga.ForeColor = System.Drawing.Color.Red;
+            this.lb_texto_descarga.Location = new System.Drawing.Point(399, 474);
+            this.lb_texto_descarga.Name = "lb_texto_descarga";
+            this.lb_texto_descarga.Size = new System.Drawing.Size(174, 19);
+            this.lb_texto_descarga.TabIndex = 10;
+            this.lb_texto_descarga.Text = "Descargando factura";
+            this.lb_texto_descarga.Visible = false;
+            // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 519);
+            this.Controls.Add(this.lb_texto_descarga);
+            this.Controls.Add(this.pBar1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn_enviar);
             this.Controls.Add(this.btn_cpago);
@@ -313,6 +348,7 @@
         private System.Windows.Forms.Button btn_cpago;
         private System.Windows.Forms.Button btn_enviar;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolTip TTMensaje;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_checkbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_folio;
@@ -322,8 +358,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_total;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_fecha;
         private System.Windows.Forms.DataGridViewImageColumn col_pdf;
+        private System.Windows.Forms.DataGridViewImageColumn col_descargar;
         private System.Windows.Forms.DataGridViewImageColumn col_cancelar;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_t_comprobante;
-        private System.Windows.Forms.ToolTip TTMensaje;
+        private System.Windows.Forms.ProgressBar pBar1;
+        private System.Windows.Forms.Label lb_texto_descarga;
     }
 }
