@@ -2041,6 +2041,7 @@ namespace PuntoDeVentaV2
 
         private void goToPageNumber(int pageNumber)
         {
+            p.primerPagina();
             p.irAPagina(pageNumber);
             clickBoton = 1;
             CargarDatos();
