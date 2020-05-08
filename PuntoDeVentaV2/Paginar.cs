@@ -132,7 +132,9 @@ namespace PuntoDeVentaV2
             {
                 return _datos;
             }
-            this._numeroPagina = _numeroPagina + (num_pagina - 1);
+
+            this._numeroPagina = num_pagina;
+
             this._inicio = _inicio + _tope;
             this._datos.Clear();
             this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
