@@ -97,7 +97,7 @@ namespace PuntoDeVentaV2
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
             appSettings = 6;
-            Configuracion = 11;
+            Configuracion = 12;
             TipoClientes = 6;
             FiltroProducto = 6;
             Facturas = 51;
@@ -2326,7 +2326,8 @@ namespace PuntoDeVentaV2
                                               CorreoVentaProducto  INTEGER DEFAULT (0),
                                               IniciarProceso       INTEGER DEFAULT (0),
                                               MostrarPrecioProducto INTEGER DEFAULT (0),
-                                              MostrarCodigoProducto INTEGER DEFAULT (0));";
+                                              MostrarCodigoProducto INTEGER DEFAULT (0),
+                                              PorcentajePrecio      DECIMAL DEFAULT (1.6));";
         }
 
         public string QueryUpdateTablaConfiguracion(string tabla)
@@ -2339,7 +2340,9 @@ namespace PuntoDeVentaV2
                                              CorreoStockProducto,
                                              CorreoStockMinimo,
                                              CorreoVentaProducto,
-                                             IniciarProceso) 
+                                             IniciarProceso,
+                                             MostrarPrecioProducto,
+                                             MostrarCodigoProducto) 
                                       SELECT ID,
                                              IDUsuario,
                                              TicketVenta,
@@ -2348,7 +2351,9 @@ namespace PuntoDeVentaV2
                                              CorreoStockProducto,
                                              CorreoStockMinimo,
                                              CorreoVentaProducto,
-                                             IniciarProceso 
+                                             IniciarProceso,
+                                             MostrarPrecioProducto,
+                                             MostrarCodigoProducto 
                                         FROM '{tabla}_temp';";
         }
 
