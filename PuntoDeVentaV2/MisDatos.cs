@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -509,15 +511,8 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarPassword_Click(object sender, EventArgs e)
         {
-            var passwordActual = string.Empty;
-
             var datos = cn.DatosUsuario(IDUsuario: FormPrincipal.userID);
-
-            if (datos.Length > 0)
-            {
-                passwordActual = datos[14];
-            }
-
+            var passwordActual = datos[14];
             var password = txtPassword.Text.Trim();
             var passwordNuevo = txtPasswordNuevo.Text.Trim();
 
@@ -525,14 +520,48 @@ namespace PuntoDeVentaV2
             {
                 if (passwordActual.Equals(password))
                 {
-                    // actualizar password en sqlite y mysql
-                    MessageBox.Show("Actualizar");
+                    // Actualizar password en SQLite y MySQL
+                    var respuesta = cn.EjecutarConsulta($"UPDATE Usuarios SET Password = '{passwordNuevo}' WHERE ID = {FormPrincipal.userID}");
+
+                    if (respuesta > 0)
+                    {
+                        Thread hilo = new Thread(
+                            () => ActualizarPasswordMySQL(passwordNuevo)
+                        );
+
+                        hilo.Start();
+
+                        txtPassword.Text = string.Empty;
+                        txtPasswordNuevo.Text = string.Empty;
+                        MessageBox.Show("La contraseña ha sido actualizada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {
                     MessageBox.Show("La contraseña actual es incorrecta", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     txtPassword.Focus();
+                }
+            }
+        }
+
+        private void ActualizarPasswordMySQL(string password)
+        {
+            using (var conexion = new MySqlConnection())
+            {
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    var consulta = conexion.CreateCommand();
+                    consulta.CommandText = $"UPDATE usuarios SET password = '{password}' WHERE usuario = '{FormPrincipal.userNickName}'";
+                    var resultado = consulta.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
