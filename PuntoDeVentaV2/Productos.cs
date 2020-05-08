@@ -2035,23 +2035,12 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                irToPageNumber(Convert.ToInt32(txtIrPagina.Text));
+                goToPageNumber(Convert.ToInt32(txtIrPagina.Text));
             }
         }
 
-        private void irToPageNumber(int pageNumber)
+        private void goToPageNumber(int pageNumber)
         {
-            //int origen, destino, clicks, i;
-
-            //origen = Convert.ToInt32(linkLblPaginaActual.Text);
-            //destino = pageNumber;
-
-            //clicks = destino - origen;
-
-            //for (i = 0; i < clicks; i++)
-            //{
-            //    btnSiguiente.PerformClick();
-            //}
             p.irAPagina(pageNumber);
             clickBoton = 1;
             CargarDatos();
