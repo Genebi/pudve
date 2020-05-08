@@ -128,10 +128,10 @@ namespace PuntoDeVentaV2
 
         public DataSet irAPagina(int num_pagina)
         {
-            if (this._ultimaPagina == this._numeroPagina)
-            {
-                return _datos;
-            }
+            //if (this._ultimaPagina == this._numeroPagina)
+            //{
+            //    return _datos;
+            //}
 
             if ((num_pagina <= 0) || (num_pagina > _ultimaPagina))
             {
