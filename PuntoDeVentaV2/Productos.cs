@@ -4086,6 +4086,8 @@ namespace PuntoDeVentaV2
                 // Calcular capital temporalmente (informativo)
                 lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString("N2");
 
+                borrarAuxWordTags();
+
                 creacionEtiquetasDinamicas();
             }
         }
