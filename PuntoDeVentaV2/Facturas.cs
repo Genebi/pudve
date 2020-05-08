@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using TuesPechkin;
 using System.Text;
@@ -26,6 +27,7 @@ namespace PuntoDeVentaV2
 
         int id_usuario = FormPrincipal.userID;
         public static int[] arr_id_facturas;
+        bool ban = false;
 
         CheckBox header_checkb = null;
 
@@ -134,10 +136,12 @@ namespace PuntoDeVentaV2
                     fila.Cells["col_total"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("total"));
                     fila.Cells["col_fecha"].Value = fecha_cert;
 
-                    System.Drawing.Image img_pdf = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
-                    System.Drawing.Image img_cancelar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");
-
+                    Image img_pdf = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
+                    Image img_descargar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\download.png");
+                    Image img_cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");
+                    
                     fila.Cells["col_pdf"].Value = img_pdf;
+                    fila.Cells["col_descargar"].Value = img_descargar;
                     fila.Cells["col_cancelar"].Value = img_cancelar;
 
 
@@ -178,10 +182,12 @@ namespace PuntoDeVentaV2
                                     filac.Cells["col_razon_social"].Value = r_cpago_f["r_razon_social"].ToString();
                                     filac.Cells["col_total"].Value = importe_pagado.ToString();
 
-                                    System.Drawing.Image img_pdfc = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
-                                    System.Drawing.Image img_cancelarc = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");
+                                    Image img_pdfc = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
+                                    Image img_descargarc = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\download.png");
+                                    Image img_cancelarc = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");
 
                                     filac.Cells["col_pdf"].Value = img_pdfc;
+                                    filac.Cells["col_descargar"].Value = img_descargarc;
                                     filac.Cells["col_cancelar"].Value = img_cancelarc;
 
                                     //filac.Cells["col_razon_social"].Style.ForeColor = Color.Aqua;
@@ -234,15 +240,16 @@ namespace PuntoDeVentaV2
                 int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
                 string t_comprobante = Convert.ToString(datagv_facturas.Rows[e.RowIndex].Cells["col_t_comprobante"].Value);
 
+                
 
                 // Ver PDF
 
                 if (e.ColumnIndex == 8)
                 {
-                    string nombre_xml = "";
                     string ruta_archivo = "";
+                    string nombre_xml = "";
 
-                    if(t_comprobante == "P")
+                    if (t_comprobante == "P")
                     {
                         nombre_xml = "XML_PAGO_" + id_factura;
                     }
@@ -250,7 +257,7 @@ namespace PuntoDeVentaV2
                     {
                         nombre_xml = "XML_INGRESOS_" + id_factura;
                     }
-                    
+
                     // Verifica si el archivo pdf ya esta creado, de no ser así lo crea
                     ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
 
@@ -272,9 +279,27 @@ namespace PuntoDeVentaV2
                     ver_fct.ShowDialog();
                 }
 
+                // Descargar factura
+
+                if(e.ColumnIndex == 9)
+                {
+                    string nombre_xml = "";
+
+                    if (t_comprobante == "P")
+                    {
+                        nombre_xml = "PAGO_" + id_factura;
+                    }
+                    if (t_comprobante == "I")
+                    {
+                        nombre_xml = "INGRESOS_" + id_factura;
+                    }
+
+                    inicia_descargaf(nombre_xml);
+                }
+
                 // Cancelar factura
 
-                if (e.ColumnIndex == 9)
+                if (e.ColumnIndex == 10)
                 {
                     if (opc_tipo_factura == 3)
                     {
@@ -383,15 +408,19 @@ namespace PuntoDeVentaV2
 
         private void clickcellc_checkbox(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == datagv_facturas.Columns[0].Index)
             {
-                if ((bool)datagv_facturas.SelectedRows[e.ColumnIndex].Cells["col_checkbox"].Value == false)
+                DataGridViewCheckBoxCell celda = (DataGridViewCheckBoxCell)this.datagv_facturas.Rows[e.RowIndex].Cells[0];
+
+                if (Convert.ToBoolean(celda.Value) == false)
                 {
-                    datagv_facturas.SelectedRows[e.ColumnIndex].Cells["col_checkbox"].Value = true;
+                    celda.Value = true;
+                    datagv_facturas.Rows[e.RowIndex].Selected = true;
                 }
                 else
                 {
-                    datagv_facturas.SelectedRows[e.ColumnIndex].Cells["col_checkbox"].Value = false;
+                    celda.Value = false;
+                    datagv_facturas.Rows[e.RowIndex].Selected = false;
                 }
             }
         }
@@ -662,6 +691,100 @@ namespace PuntoDeVentaV2
             e.DrawBackground();
             e.DrawBorder();
             e.DrawText();
+        }
+
+        private bool descargar_factura(string nombrexml, int opc)
+        {
+            string n_user = Environment.UserName;
+            string ruta_archivos = @"C:\Archivos PUDVE\Facturas\XML_" + nombrexml;
+            string ruta_new_carpeta = @"C:\Archivos PUDVE\Facturas\XML_" + nombrexml;
+
+
+            if (ban == false)
+            {
+                MessageBox.Show("El archivo comprimido con su XML y PDF seran descargados en el escritorio.", "Mensaje del sistema", MessageBoxButtons.OK);
+
+                ban = true;
+            }
+
+
+            // Crear carpeta a comprimir
+            
+            if (opc == 3)
+            {
+                if (!Directory.Exists(ruta_new_carpeta))
+                {
+                    Directory.CreateDirectory(ruta_new_carpeta);
+                }
+            }
+
+            // Verifica que el PDF ya este creado, de no ser así lo crea
+
+            if (opc == 4)
+            {
+                if (!File.Exists(ruta_archivos + ".pdf"))
+                {
+                    generar_PDF("XML_" + nombrexml);
+                }
+            }
+
+            // Copiar archivos a la carpeta
+
+            if (opc == 5)
+            {
+                if (!File.Exists(ruta_new_carpeta + "\\XML_" + nombrexml + ".pdf"))
+                {
+                    File.Copy(ruta_archivos + ".pdf", ruta_new_carpeta + "\\XML_" + nombrexml + ".pdf");
+                }
+                if (!File.Exists(ruta_new_carpeta + "\\XML_" + nombrexml + ".xml"))
+                {
+                    File.Copy(ruta_archivos + ".xml", ruta_new_carpeta + "\\XML_" + nombrexml + ".xml");
+                }
+            }
+
+            // Comprimir carpeta
+
+            if(opc == 6)
+            {
+                DateTime fecha_actual = DateTime.UtcNow;
+                string fech = fecha_actual.ToString("yyyyMMddhhmmss");
+                Console.WriteLine(fech);
+
+                string ruta_carpet_comprimida = "C:\\Users\\" + n_user + "\\Desktop\\" + nombrexml + "_" + fech + ".zip";
+
+
+                ZipFile.CreateFromDirectory(ruta_new_carpeta, ruta_carpet_comprimida);
+            }
+            
+
+            return true;
+        }
+
+        private void inicia_descargaf(string nom_archivo)
+        {
+            pBar1.Visible = true;
+            lb_texto_descarga.Visible = true;
+            
+            pBar1.Minimum = 1;
+            pBar1.Maximum = 6;
+            pBar1.Value = 2; // Valor inicial
+            pBar1.Step = 1;
+
+            for (int x = 3; x <= 6; x++)
+            {
+                if (descargar_factura(nom_archivo, x) == true)
+                {
+                    // Incrementa la barra
+                    pBar1.PerformStep(); 
+                }
+            }
+
+            ban = false;
+            
+            MessageBox.Show("La factura ha sido descargada.", "Mensaje del sistema", MessageBoxButtons.OK);
+
+            pBar1.Visible = false;
+            lb_texto_descarga.Visible = false;
         }
     }
 }
