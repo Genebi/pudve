@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -326,19 +328,6 @@ namespace PuntoDeVentaV2
             consulta();
             // usamos la variable File para abrir el archivo de imagen, poder leerlo y agregarlo al boton
             // despues de agregado se libera la imagen para su posterior manipulacion si asi fuera
-            using (IconoBtnActualizarDatos = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\save.png", FileMode.Open, FileAccess.Read))
-            {
-                // Asignamos la imagen al BtnRegistrar
-                btnActualizarDatos.Image = Image.FromStream(IconoBtnActualizarDatos);
-            }
-            using (IconoBtnSubirArchivo = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\cloud-upload.png", FileMode.Open, FileAccess.Read))
-            {
-                btnSubirArchivo.Image = Image.FromStream(IconoBtnSubirArchivo);
-            }
-            using (IconoBtnBorrarImg = new FileStream(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\close.png", FileMode.Open, FileAccess.Read))
-            {
-                btnBorrarImg.Image = Image.FromStream(IconoBtnBorrarImg);
-            }
 
             // Asignar evento para solo permitir numeros enteros
             txtCodPost.KeyPress += new KeyPressEventHandler(SoloNumeros);
@@ -520,6 +509,63 @@ namespace PuntoDeVentaV2
             cargarComboBox();
         }
 
+        private void btnActualizarPassword_Click(object sender, EventArgs e)
+        {
+            var datos = cn.DatosUsuario(IDUsuario: FormPrincipal.userID);
+            var passwordActual = datos[14];
+            var password = txtPassword.Text.Trim();
+            var passwordNuevo = txtPasswordNuevo.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(password) && !string.IsNullOrWhiteSpace(passwordNuevo))
+            {
+                if (passwordActual.Equals(password))
+                {
+                    // Actualizar password en SQLite y MySQL
+                    var respuesta = cn.EjecutarConsulta($"UPDATE Usuarios SET Password = '{passwordNuevo}' WHERE ID = {FormPrincipal.userID}");
+
+                    if (respuesta > 0)
+                    {
+                        Thread hilo = new Thread(
+                            () => ActualizarPasswordMySQL(passwordNuevo)
+                        );
+
+                        hilo.Start();
+
+                        txtPassword.Text = string.Empty;
+                        txtPasswordNuevo.Text = string.Empty;
+                        MessageBox.Show("La contraseña ha sido actualizada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("La contraseña actual es incorrecta", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPassword.Focus();
+                }
+            }
+        }
+
+        private void ActualizarPasswordMySQL(string password)
+        {
+            using (var conexion = new MySqlConnection())
+            {
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    var consulta = conexion.CreateCommand();
+                    consulta.CommandText = $"UPDATE usuarios SET password = '{password}' WHERE usuario = '{FormPrincipal.userNickName}'";
+                    var resultado = consulta.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
             using (f = new OpenFileDialog())	// abrimos el opneDialog para seleccionar la imagen
@@ -637,18 +683,21 @@ namespace PuntoDeVentaV2
 
         private void btnBorrarImg_Click(object sender, EventArgs e)
         {
-            // borramos el archivo de la imagen
-            System.IO.File.Delete(logoTipo);
-            // ponemos la ruta del logoTipo en null
-            logoTipo = null;
-            // hacemos la nueva cadena de consulta para hacer el update
-            string consultaUpdate = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
-            // hacemos que se ejecute la consulta
-            cn.EjecutarConsulta(consultaUpdate);
-            //ponemos la imagen en limpio
-            pictureBox1.Image = null;
-            // Llamamos a la Funcion consulta
-            consulta();
+            if (!string.IsNullOrWhiteSpace(logoTipo))
+            {
+                // borramos el archivo de la imagen
+                System.IO.File.Delete(logoTipo);
+                // ponemos la ruta del logoTipo en null
+                logoTipo = null;
+                // hacemos la nueva cadena de consulta para hacer el update
+                string consultaUpdate = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
+                // hacemos que se ejecute la consulta
+                cn.EjecutarConsulta(consultaUpdate);
+                //ponemos la imagen en limpio
+                pictureBox1.Image = null;
+                // Llamamos a la Funcion consulta
+                consulta();
+            }
         }
 
         private bool ValidarEmail(string email)

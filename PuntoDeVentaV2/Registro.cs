@@ -150,12 +150,12 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("No hay conexión a Internet", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No hay conexión a Internet", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
