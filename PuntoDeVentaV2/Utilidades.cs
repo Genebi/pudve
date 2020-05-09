@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -402,6 +403,25 @@ namespace PuntoDeVentaV2
 
                 EnviarEmail(html, asunto, correo);
             }
+        }
+
+        public static bool AdobeReaderInstalado()
+        {
+            var instalado = false;
+
+            var adobePath = Registry.GetValue(@"HKEY_CLASSES_ROOT\Software\Adobe\Acrobat\Exe", string.Empty, string.Empty);
+
+            if (adobePath != null)
+            {
+                instalado = true;
+            }
+
+            return instalado;
+        }
+
+        public static void MensajeAdobeReader()
+        {
+            MessageBox.Show("Se requiere instalar Adobe Reader", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

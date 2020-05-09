@@ -576,6 +576,13 @@ namespace PuntoDeVentaV2
                 //Ver nota
                 if (e.ColumnIndex == 12)
                 {
+                    // Comprobar si adobe esta instalado
+                    if (!Utilidades.AdobeReaderInstalado())
+                    {
+                        Utilidades.MensajeAdobeReader();
+                        return;
+                    }
+
                     // Verifica si el PDF ya esta creado
 
                     string ruta_archivo = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idVenta + ".pdf";
@@ -604,6 +611,13 @@ namespace PuntoDeVentaV2
                 //Ver ticket
                 if (e.ColumnIndex == 13)
                 {
+                    // Comprobar si adobe esta instalado
+                    if (!Utilidades.AdobeReaderInstalado())
+                    {
+                        Utilidades.MensajeAdobeReader();
+                        return;
+                    }
+
                     var servidor = Properties.Settings.Default.Hosting;
 
                     ticketGenerado = $"ticket_venta_{idVenta}.pdf";
@@ -693,55 +707,6 @@ namespace PuntoDeVentaV2
                         // Verifica que la venta tenga todos los datos para facturar
                         comprobar_venta_f(idVenta);
                     }
-                    
-
-                    //Comprobamos que la venta tenga cliente
-                    /*var clienteRFC = DGVListadoVentas.Rows[fila].Cells["RFC"].Value.ToString();
-
-                    if (!string.IsNullOrWhiteSpace(clienteRFC) && !clienteRFC.Equals("XAXX010101000"))
-                    {
-                        InformacionVenta info = new InformacionVenta(idVenta);
-
-                        info.FormClosed += delegate
-                        {
-
-                        };
-
-                        info.ShowDialog();
-                    }
-                    else
-                    {
-                        var respuesta = MessageBox.Show("Es necesario asignar un cliente a esta venta para poder timbrarla, haga click en Aceptar para seleccionar un cliente", "Mensaje del Sistema", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-
-                        if (respuesta == DialogResult.OK)
-                        {
-                            //Comprobamos si tiene clientes registrados
-                            var existenClientes = (bool)cn.EjecutarSelect($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID}");
-
-                            if (existenClientes)
-                            {
-                                ListaClientes clientes = new ListaClientes(idVenta);
-
-                                clientes.FormClosed += delegate
-                                {
-                                    CargarDatos();
-                                };
-
-                                clientes.ShowDialog();
-                            }
-                            else
-                            {
-                                AgregarCliente nuevo = new AgregarCliente(1, 0, idVenta);
-
-                                nuevo.FormClosed += delegate
-                                {
-                                    CargarDatos();
-                                };
-
-                                nuevo.ShowDialog();
-                            }
-                        }
-                    }*/
                 }
 
                 DGVListadoVentas.ClearSelection();
