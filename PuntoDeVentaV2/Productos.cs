@@ -2035,7 +2035,14 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Enter)
             {
-                goToPageNumber(Convert.ToInt32(txtIrPagina.Text));
+                if (!txtIrPagina.Text.Equals(""))
+                {
+                    goToPageNumber(Convert.ToInt32(txtIrPagina.Text));
+                }
+                else if (txtIrPagina.Text.Equals(""))
+                {
+                    MessageBox.Show("Favor de verificar que\nel campo de ir a Página\nno este vacio ó su teclado\nnúmerico este activo", "Favor de verificar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
