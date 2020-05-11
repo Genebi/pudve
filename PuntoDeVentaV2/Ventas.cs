@@ -1591,7 +1591,15 @@ namespace PuntoDeVentaV2
                     }
 
                     GenerarTicket(infoProductos);
-                    ImprimirTicket(idVenta);
+
+                    if (Utilidades.AdobeReaderInstalado())
+                    {
+                        ImprimirTicket(idVenta);
+                    }
+                    else
+                    {
+                        Utilidades.MensajeAdobeReader();
+                    }
                 }
 
                 LimpiarVariables();
@@ -2376,7 +2384,14 @@ namespace PuntoDeVentaV2
         {
             var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
 
-            ImprimirTicket(idVenta);
+            if (Utilidades.AdobeReaderInstalado())
+            {
+                ImprimirTicket(idVenta);
+            }
+            else
+            {
+                Utilidades.MensajeAdobeReader();
+            }
         }
 
         private void btnPresupuesto_Click(object sender, EventArgs e)
@@ -2831,7 +2846,14 @@ namespace PuntoDeVentaV2
 
         private void btnAbrirCaja_Click(object sender, EventArgs e)
         {
-            GenerarTicketCaja();
+            if (Utilidades.AdobeReaderInstalado())
+            {
+                GenerarTicketCaja();
+            }
+            else
+            {
+                Utilidades.MensajeAdobeReader();
+            }
         }
 
         private void listaProductos_KeyDown(object sender, KeyEventArgs e)

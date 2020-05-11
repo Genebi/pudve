@@ -43,7 +43,14 @@ namespace PuntoDeVentaV2
                     {
                         if (!string.IsNullOrWhiteSpace(fechaFinal))
                         {
-                            GenerarReportePrecios();
+                            if (Utilidades.AdobeReaderInstalado())
+                            {
+                                GenerarReportePrecios();
+                            }
+                            else
+                            {
+                                Utilidades.MensajeAdobeReader();
+                            }
                         }
                     }
                 }
@@ -229,7 +236,14 @@ namespace PuntoDeVentaV2
                     {
                         if (!string.IsNullOrWhiteSpace(fechaFinal))
                         {
-                            GenerarReporteDineroAgregado();
+                            if (Utilidades.AdobeReaderInstalado())
+                            {
+                                GenerarReporteDineroAgregado();
+                            }
+                            else
+                            {
+                                Utilidades.MensajeAdobeReader();
+                            }
                         }
                     }
                 }

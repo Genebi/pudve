@@ -114,7 +114,14 @@ namespace PuntoDeVentaV2
             {
                 if (botones == true)
                 {
-                    GenerarReporte();
+                    if (Utilidades.AdobeReaderInstalado())
+                    {
+                        GenerarReporte();
+                    }
+                    else
+                    {
+                        Utilidades.MensajeAdobeReader();
+                    }
 
                     botones = false;
                 }
@@ -1396,6 +1403,12 @@ namespace PuntoDeVentaV2
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
+            if (!Utilidades.AdobeReaderInstalado())
+            {
+                Utilidades.MensajeAdobeReader();
+                return;
+            }
+
             Utilidades.GenerarTicketCaja();
         }
     }

@@ -246,8 +246,14 @@ namespace PuntoDeVentaV2
 
                 if (e.ColumnIndex == 8)
                 {
-                    string ruta_archivo = "";
+                    if (!Utilidades.AdobeReaderInstalado())
+                    {
+                        Utilidades.MensajeAdobeReader();
+                        return;
+                    }
+
                     string nombre_xml = "";
+                    string ruta_archivo = "";
 
                     if (t_comprobante == "P")
                     {

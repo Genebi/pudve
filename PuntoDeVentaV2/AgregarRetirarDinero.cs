@@ -239,13 +239,27 @@ namespace PuntoDeVentaV2
                 // Para generar Ticket al depositar dinero
                 if (operacion == 0)
                 {
-                    GenerarTicket(datos);
+                    if (Utilidades.AdobeReaderInstalado())
+                    {
+                        GenerarTicket(datos);
+                    }
+                    else
+                    {
+                        Utilidades.MensajeAdobeReader();
+                    }
                 }
 
                 // Para generar Ticket al retirar dinero
                 if (operacion == 1)
                 {
-                    GenerarTicket(datos);
+                    if (Utilidades.AdobeReaderInstalado())
+                    {
+                        GenerarTicket(datos);
+                    }
+                    else
+                    {
+                        Utilidades.MensajeAdobeReader();
+                    }
                 }
 
                 // Corte

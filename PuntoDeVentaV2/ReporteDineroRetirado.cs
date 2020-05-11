@@ -89,6 +89,12 @@ namespace PuntoDeVentaV2
 
         private void btnImprimirReporte_Click(object sender, EventArgs e)
         {
+            if (!Utilidades.AdobeReaderInstalado())
+            {
+                Utilidades.MensajeAdobeReader();
+                return;
+            }
+
             if (DGVRetiros.RowCount > 0)
             {
                 // Variables para los Totales

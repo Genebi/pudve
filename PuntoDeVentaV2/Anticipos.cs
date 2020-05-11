@@ -236,6 +236,12 @@ namespace PuntoDeVentaV2
                 // Generar ticket
                 if (e.ColumnIndex == 6)
                 {
+                    if (!Utilidades.AdobeReaderInstalado())
+                    {
+                        Utilidades.MensajeAdobeReader();
+                        return;
+                    }
+
                     rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
                     ticketGenerado = $"ticket_anticipo_{idAnticipo}.pdf";
 
