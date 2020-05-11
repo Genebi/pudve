@@ -88,6 +88,12 @@ namespace PuntoDeVentaV2
 
         private void btnImprimirReporte_Click(object sender, EventArgs e)
         {
+            if (!Utilidades.AdobeReaderInstalado())
+            {
+                Utilidades.MensajeAdobeReader();
+                return;
+            }
+
             if (DGVDepositos.RowCount > 0)
             {
                 //MessageBox.Show("Fecha: " + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss"));

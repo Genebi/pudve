@@ -63,7 +63,15 @@ namespace PuntoDeVentaV2
             if (limpiarTabla)
             {
                 VaciarTabla();
-                GenerarReporte();
+
+                if (Utilidades.AdobeReaderInstalado())
+                {
+                    GenerarReporte();
+                }
+                else
+                {
+                    Utilidades.MensajeAdobeReader();
+                }
             }
         }
 
@@ -71,7 +79,14 @@ namespace PuntoDeVentaV2
         {
             if (DGVRevisionStock.RowCount > 0)
             {
-                GenerarReporte();
+                if (Utilidades.AdobeReaderInstalado())
+                {
+                    GenerarReporte();
+                }
+                else
+                {
+                    Utilidades.MensajeAdobeReader();
+                }
             }
         }
 

@@ -603,7 +603,14 @@ namespace PuntoDeVentaV2
 
         private void bntTerminar_Click(object sender, EventArgs e)
         {
-            GenerarReporte(idReporte);
+            if (Utilidades.AdobeReaderInstalado())
+            {
+                GenerarReporte(idReporte);
+            }
+            else
+            {
+                Utilidades.MensajeAdobeReader();
+            }
 
             DGVInventario.Rows.Clear();
 
