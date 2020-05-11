@@ -1251,7 +1251,10 @@ namespace PuntoDeVentaV2
 
                         if (tb[1] == "2")
                         {
-                            importe = float.Parse(item.Text);
+                            if (!string.IsNullOrWhiteSpace(item.Text))
+                            {
+                                importe = float.Parse(item.Text);
+                            }
                         }
                     }
                 }
