@@ -294,12 +294,67 @@ namespace PuntoDeVentaV2
 
         private void btnExtra_Click(object sender, EventArgs e)
         {
-            GenerarCampos(1);
+            if (panelContenedor.Controls.Count > 0)
+            {
+                ComprobarImpuestos(1);
+            }
+            else
+            {
+                GenerarCampos(1);
+            }
         }
 
         private void btnImpLocal_Click(object sender, EventArgs e)
         {
-            GenerarCampos(2);
+            if (panelContenedor.Controls.Count > 0)
+            {
+                ComprobarImpuestos(2);
+            }
+            else
+            {
+                GenerarCampos(2);
+            }
+        }
+
+        private void ComprobarImpuestos(int operacion)
+        {
+            var tipo = string.Empty;
+            var importe = string.Empty;
+
+            foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+            {
+                foreach (Control item in panel.Controls.OfType<Control>())
+                {
+                    if (item.Name.Contains("cbLinea"))
+                    {
+                        var info = item.Name.Split('_');
+
+                        if (info[1].Equals("1"))
+                        {
+                            tipo = item.Text;
+                        }
+                    }
+
+                    if (item.Name.Contains("tbLinea"))
+                    {
+                        var info = item.Name.Split('_');
+
+                        if (info[1].Equals("2"))
+                        {
+                            importe = item.Text;
+                        }
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(tipo) && !string.IsNullOrWhiteSpace(importe))
+            {
+                GenerarCampos(operacion);
+            }
+            else
+            {
+                MessageBox.Show("Para agregar otro impuesto se requiere que\ncomplete la información del impuesto anterior", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         //Genera los campos dinamicamente dependiendo de la opcion seleccionada
