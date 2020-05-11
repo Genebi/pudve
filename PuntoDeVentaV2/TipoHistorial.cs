@@ -50,7 +50,14 @@ namespace PuntoDeVentaV2
                     fechaInicial = fechas.fechaInicial;
                     fechaFinal = fechas.fechaFinal;
 
-                    GenerarReporte();
+                    if (Utilidades.AdobeReaderInstalado())
+                    {
+                        GenerarReporte();
+                    }
+                    else
+                    {
+                        Utilidades.MensajeAdobeReader();
+                    }
                 }
             }
         }

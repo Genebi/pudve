@@ -129,6 +129,12 @@ namespace PuntoDeVentaV2
         {
             if (seleccionados.Count > 0)
             {
+                if (!Utilidades.AdobeReaderInstalado())
+                {
+                    Utilidades.MensajeAdobeReader();
+                    return;
+                }
+
                 Dictionary<string, Tuple<string, float>> opcionesFinales = new Dictionary<string, Tuple<string, float>>();
 
                 foreach (var opcion in seleccionados)
