@@ -439,9 +439,9 @@ namespace PuntoDeVentaV2
             {
                 if (panel.Name == nombrePanel)
                 {
-                    panelContenedor.Controls.Remove(panel);
-
                     RecalcularTotal();
+
+                    panelContenedor.Controls.Remove(panel);
                 }
             }
 
@@ -1261,11 +1261,13 @@ namespace PuntoDeVentaV2
 
                 if (tipo == 1)
                 {
-                    totalFinal += importe;
+                    //totalFinal += importe;
+                    totalFinal -= importe;
                 }
                 else
                 {
-                    totalFinal -= importe;
+                    //totalFinal -= importe;
+                    totalFinal += importe;
                 }
             }
 
