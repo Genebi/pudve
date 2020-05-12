@@ -1484,7 +1484,7 @@ namespace PuntoDeVentaV2
                                         {
                                             if (!enviarVentaProducto.ContainsKey(Convert.ToInt32(IDProducto)))
                                             {
-                                                var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {restantes}";
                                                 enviarVentaProducto.Add(Convert.ToInt32(IDProducto), nombre);
                                             }
                                         }
@@ -1509,6 +1509,18 @@ namespace PuntoDeVentaV2
                                     var datosProducto = producto.Split('|');
                                     var idProducto = Convert.ToInt32(datosProducto[0]);
                                     var stockRequerido = Convert.ToDecimal(datosProducto[1]) * vendidos;
+
+                                    // Actualizar el stock de los productos de los servicios o paquetes
+                                    datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
+                                    datosProducto = datosProducto[0].Split('|');
+                                    var stockActual = Convert.ToDecimal(datosProducto[1]);
+
+                                    var restantes = (stockActual - stockRequerido).ToString();
+
+                                    guardar = new string[] { idProducto.ToString(), restantes, FormPrincipal.userID.ToString() };
+
+                                    cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
+
 
                                     // Comprobar si aplica para el envio de correo ya sea de stock minimo, de venta o ambos
                                     if (correoStockMinimo == 1 || correoVentaProducto == 1)
@@ -1541,23 +1553,12 @@ namespace PuntoDeVentaV2
                                             {
                                                 if (!enviarVentaProducto.ContainsKey(idProducto))
                                                 {
-                                                    var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {datosProductoTmp[4]}";
+                                                    var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {restantes}";
                                                     enviarVentaProducto.Add(idProducto, nombre);
                                                 }
                                             }
                                         }
                                     }
-
-                                    // Actualizar el stock de los productos de los servicios o paquetes
-                                    datosProducto = cn.VerificarStockProducto(idProducto, FormPrincipal.userID);
-                                    datosProducto = datosProducto[0].Split('|');
-                                    var stockActual = Convert.ToDecimal(datosProducto[1]);
-
-                                    var restantes = (stockActual - stockRequerido).ToString();
-
-                                    guardar = new string[] { idProducto.ToString(), restantes, FormPrincipal.userID.ToString() };
-
-                                    cn.EjecutarConsulta(cs.ActualizarStockProductos(guardar));
                                 }
                             }
 
