@@ -128,21 +128,26 @@ namespace PuntoDeVentaV2
 
         public DataSet irAPagina(int num_pagina)
         {
-            //if (this._ultimaPagina == this._numeroPagina)
-            //{
-            //    return _datos;
-            //}
-
-            if ((num_pagina <= 0) || (num_pagina > _ultimaPagina))
+            if ((num_pagina <= 0) || (num_pagina > this._ultimaPagina))
             {
                 MessageBox.Show("Número de página\nno valido.", "Error de Rango", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (num_pagina <= 0)
+                {
+                    this._numeroPagina = 1;
+                    this._inicio = 0;
+                }
+                else if (num_pagina > this._ultimaPagina)
+                {
+                    this._numeroPagina = _ultimaPagina;
+                    this._inicio = (_ultimaPagina - 1) * _tope;
+                }
             }
-            else if ((num_pagina > 0) || (num_pagina < _ultimaPagina))
+            else if ((num_pagina > 0) || (num_pagina < this._ultimaPagina))
             {
                 this._numeroPagina = num_pagina;
+                this._inicio = _inicio + _tope;
             }
-
-            this._inicio = _inicio + _tope;
+            
             this._datos.Clear();
             this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
             return _datos;
