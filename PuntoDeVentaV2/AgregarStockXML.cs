@@ -555,7 +555,7 @@ namespace PuntoDeVentaV2
             dtSugeridos = cn.CargarDatos(queryBuscarSugeridos);             // realizamos la consulta a la Base de Datos
             dtSugeridos.Columns.Add("Coincidencias");                       // agregamos la columna de Coincidencias
             DGVSugeridos.DataSource = dtSugeridos;
-
+            DGVSugeridos.Columns["Nombre"].SortMode = DataGridViewColumnSortMode.NotSortable;
 
             if (DGVSugeridos.Rows.Count == 0)       // si el DataGridView no tiene registros
             {
@@ -566,6 +566,11 @@ namespace PuntoDeVentaV2
                 if (dtSugeridosGral.Rows.Count == 0)
                 {
                     DGVSugeridos.Enabled = false;
+                    DGVSugeridos.Columns["ID"].Visible = false;                     // Columna 0 de ID la ocultamos para el usuario solamente
+                    DGVSugeridos.Columns["Nombre"].Visible = true;                  // Columna 1 de Nombre la dejamos visible para el usuario
+                    DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2 de Existencia la ocultamos para el usuario solamente
+                    DGVSugeridos.Columns["Coincidencias"].Visible = false;          // Columna 3 de Coincidencia la ocultamos para el usuario solamente
+
                 }
                 else if (dtSugeridosGral.Rows.Count != 0)
                 {
@@ -575,7 +580,7 @@ namespace PuntoDeVentaV2
                     DGVSugeridos.Columns["Nombre"].Visible = true;                  // Columna 1 de Nombre la dejamos visible para el usuario
                     DGVSugeridos.Columns["Existencia"].Visible = false;             // Columna 2 de Existencia la ocultamos para el usuario solamente
                     DGVSugeridos.Columns["Coincidencias"].Visible = false;          // Columna 3 de Coincidencia la ocultamos para el usuario solamente
-
+                    
                     for (int Fila = 0; Fila < DGVSugeridos.Rows.Count; Fila++)  // hacemos el recorrido del DataGridView
                     {
                         FraseStock = DGVSugeridos.Rows[Fila].Cells["Nombre"].Value.ToString();  // almacenamos el nombre del concepto del DataGridView que son el Stock de Productos
