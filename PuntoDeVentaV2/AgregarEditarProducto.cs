@@ -1828,11 +1828,13 @@ namespace PuntoDeVentaV2
             /****************************
 			*	codigo de Alejandro		*
 			****************************/
+            double valorDePrecioVenta;
             string filtroTipoSerPaq = Convert.ToString(cbTipo.SelectedItem);
             var tipoServPaq = filtroTipoSerPaq;
             var nombre = txtNombreProducto.Text;
             var stock = txtStockProducto.Text;
-            var precio = txtPrecioProducto.Text;
+            valorDePrecioVenta = Convert.ToDouble(txtPrecioProducto.Text);
+            var precio = valorDePrecioVenta.ToString();
             var categoria = txtCategoriaProducto.Text;
             var claveIn = txtClaveProducto.Text.Trim();
             var codigoB = txtCodigoBarras.Text.Trim();
@@ -3040,7 +3042,8 @@ namespace PuntoDeVentaV2
 			        ****************************/
                     var nombreNvoInsert = txtNombreProducto.Text;
                     var stockNvoInsert = txtStockProducto.Text;
-                    var precioNvoInsert = txtPrecioProducto.Text;
+                    valorDePrecioVenta = Convert.ToDouble(txtPrecioProducto.Text);
+                    var precioNvoInsert = valorDePrecioVenta.ToString();
                     var categoriaNvoInsert = txtCategoriaProducto.Text;
                     var claveInNvoInsert = txtClaveProducto.Text.Trim();
                     var codigoBNvoInsert = txtCodigoBarras.Text.Trim();
