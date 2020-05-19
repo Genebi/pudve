@@ -74,6 +74,7 @@ namespace PuntoDeVentaV2
                 mensajeDetalleProducto = string.Empty;
 
         public string getIdProducto { get; set; }
+        public int origenProdServCombo { get; set; }
 
         public static string finalIdProducto = string.Empty;
 

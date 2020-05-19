@@ -4254,6 +4254,7 @@ namespace PuntoDeVentaV2
                 {
                     FormDetalleProducto = new AgregarDetalleProducto();
                     //FormDetalleProducto.typeDatoProveedor = 1;
+                    FormDetalleProducto.origenProdServCombo = DatosSourceFinal;
                     FormDetalleProducto.getIdProducto = idProductoFinal;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
@@ -4261,6 +4262,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     //FormDetalleProducto.typeDatoProveedor = 1;
+                    FormDetalleProducto.origenProdServCombo = DatosSourceFinal;
                     FormDetalleProducto.getIdProducto = idProductoFinal;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
@@ -4272,12 +4274,14 @@ namespace PuntoDeVentaV2
                 if (FormDetalleProducto == null)
                 {
                     FormDetalleProducto = new AgregarDetalleProducto();
+                    FormDetalleProducto.origenProdServCombo = DatosSourceFinal;
                     FormDetalleProducto.getIdProducto = idProductoFinal;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
                 }
                 else
                 {
+                    FormDetalleProducto.origenProdServCombo = DatosSourceFinal;
                     FormDetalleProducto.getIdProducto = idProductoFinal;
                     FormDetalleProducto.Show();
                     FormDetalleProducto.BringToFront();
