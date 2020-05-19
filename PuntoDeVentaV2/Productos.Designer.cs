@@ -84,6 +84,8 @@
             this.TTipButtonText = new System.Windows.Forms.ToolTip(this.components);
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtIrPagina = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.lbCapital = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkLblUltimaPagina = new System.Windows.Forms.LinkLabel();
@@ -101,8 +103,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtIrPagina = new System.Windows.Forms.TextBox();
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -266,6 +266,7 @@
             this.DGVProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellDoubleClick);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             this.DGVProductos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseLeave);
+            this.DGVProductos.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.DGVProductos_DataBindingComplete);
             // 
             // CheckProducto
             // 
@@ -789,6 +790,29 @@
             this.panel2.Size = new System.Drawing.Size(941, 65);
             this.panel2.TabIndex = 17;
             // 
+            // txtIrPagina
+            // 
+            this.txtIrPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtIrPagina.ForeColor = System.Drawing.Color.Blue;
+            this.txtIrPagina.Location = new System.Drawing.Point(432, 40);
+            this.txtIrPagina.Name = "txtIrPagina";
+            this.txtIrPagina.Size = new System.Drawing.Size(53, 20);
+            this.txtIrPagina.TabIndex = 24;
+            this.txtIrPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtIrPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIrPagina_KeyDown);
+            this.txtIrPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIrPagina_KeyPress);
+            this.txtIrPagina.Leave += new System.EventHandler(this.txtIrPagina_Leave);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(361, 44);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 13);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Ir a Página:";
+            // 
             // lbCapital
             // 
             this.lbCapital.AutoSize = true;
@@ -1010,29 +1034,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(361, 44);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 13);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Ir a Página:";
-            // 
-            // txtIrPagina
-            // 
-            this.txtIrPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtIrPagina.ForeColor = System.Drawing.Color.Blue;
-            this.txtIrPagina.Location = new System.Drawing.Point(432, 40);
-            this.txtIrPagina.Name = "txtIrPagina";
-            this.txtIrPagina.Size = new System.Drawing.Size(53, 20);
-            this.txtIrPagina.TabIndex = 24;
-            this.txtIrPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtIrPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtIrPagina_KeyDown);
-            this.txtIrPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIrPagina_KeyPress);
-            this.txtIrPagina.Leave += new System.EventHandler(this.txtIrPagina_Leave);
             // 
             // Productos
             // 

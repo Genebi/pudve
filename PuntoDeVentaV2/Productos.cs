@@ -1250,6 +1250,14 @@ namespace PuntoDeVentaV2
             //reloadTags();
 
             //creacionEtiquetasDinamicas();
+
+            seleccionPersonalizadaDataGridView();
+        }
+
+        private void seleccionPersonalizadaDataGridView()
+        {
+            DGVProductos.DefaultCellStyle.SelectionBackColor = DGVProductos.DefaultCellStyle.BackColor;
+            DGVProductos.DefaultCellStyle.SelectionForeColor = DGVProductos.DefaultCellStyle.ForeColor;
         }
 
         private void reloadTags()
@@ -2059,6 +2067,12 @@ namespace PuntoDeVentaV2
         private void txtIrPagina_Leave(object sender, EventArgs e)
         {
             txtIrPagina.Text = string.Empty;
+        }
+
+        private void DGVProductos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            //DGVProductos.DefaultCellStyle.SelectionBackColor = DGVProductos.DefaultCellStyle.BackColor;
+            //DGVProductos.DefaultCellStyle.SelectionForeColor = DGVProductos.DefaultCellStyle.ForeColor;
         }
 
         private void btnRightSetUpVariable_Click(object sender, EventArgs e)
@@ -4097,6 +4111,8 @@ namespace PuntoDeVentaV2
                 borrarAuxWordTags();
 
                 creacionEtiquetasDinamicas();
+
+                seleccionPersonalizadaDataGridView();
             }
         }
 
