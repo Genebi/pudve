@@ -1556,12 +1556,7 @@ namespace PuntoDeVentaV2
         {
             txtPrecioCompra.SelectAll();
         }
-
-        private void PType_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+        
         public void LimpiarDatos()
         {
             stockNecesario = string.Empty;
@@ -4762,6 +4757,8 @@ namespace PuntoDeVentaV2
 
             actualizarDetallesProducto();
 
+            mostrarOcultarfLPDetallesProducto();
+
             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
                 cbTipo.SelectedIndex = 0;
@@ -4955,6 +4952,20 @@ namespace PuntoDeVentaV2
             if (config.Count > 0)
             {
                 porcentajeGanancia = float.Parse(config[8].ToString());
+            }
+        }
+
+        private void mostrarOcultarfLPDetallesProducto()
+        {
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+            {
+                fLPDetallesProducto.Visible = false;
+                this.Height = 660;
+            }
+            else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+            {
+                fLPDetallesProducto.Visible = true;
+                this.Height = 731;
             }
         }
 

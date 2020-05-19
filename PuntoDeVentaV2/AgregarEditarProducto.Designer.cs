@@ -769,7 +769,6 @@
             this.PType.Name = "PType";
             this.PType.Size = new System.Drawing.Size(838, 23);
             this.PType.TabIndex = 34;
-            this.PType.Paint += new System.Windows.Forms.PaintEventHandler(this.PType_Paint);
             // 
             // fLPTitulo
             // 
@@ -778,7 +777,7 @@
             this.fLPTitulo.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPTitulo.Location = new System.Drawing.Point(0, 0);
             this.fLPTitulo.Name = "fLPTitulo";
-            this.fLPTitulo.Size = new System.Drawing.Size(858, 37);
+            this.fLPTitulo.Size = new System.Drawing.Size(841, 37);
             this.fLPTitulo.TabIndex = 22;
             // 
             // fLPType
@@ -788,7 +787,7 @@
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 37);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(858, 29);
+            this.fLPType.Size = new System.Drawing.Size(841, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -798,7 +797,7 @@
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 66);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(858, 71);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(841, 71);
             this.fLPDetalleProducto.TabIndex = 36;
             // 
             // fLPContenidoProducto
@@ -808,7 +807,7 @@
             this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 208);
             this.fLPContenidoProducto.Name = "fLPContenidoProducto";
-            this.fLPContenidoProducto.Size = new System.Drawing.Size(858, 111);
+            this.fLPContenidoProducto.Size = new System.Drawing.Size(841, 111);
             this.fLPContenidoProducto.TabIndex = 37;
             // 
             // fLPDetalle
@@ -818,7 +817,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 319);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(858, 292);
+            this.fLPDetalle.Size = new System.Drawing.Size(841, 292);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -828,7 +827,7 @@
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPAccion.Location = new System.Drawing.Point(0, 611);
             this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(858, 95);
+            this.fLPAccion.Size = new System.Drawing.Size(841, 95);
             this.fLPAccion.TabIndex = 39;
             // 
             // fLPDetallesProducto
@@ -837,7 +836,7 @@
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 137);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(858, 71);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(841, 71);
             this.fLPDetallesProducto.TabIndex = 31;
             // 
             // flowLayoutPanel3
@@ -854,7 +853,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(875, 688);
+            this.ClientSize = new System.Drawing.Size(858, 688);
             this.Controls.Add(this.fLPAccion);
             this.Controls.Add(this.fLPDetalle);
             this.Controls.Add(this.fLPContenidoProducto);
