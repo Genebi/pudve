@@ -257,14 +257,17 @@
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
+            this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVProductos.Size = new System.Drawing.Size(918, 308);
             this.DGVProductos.TabIndex = 2;
             this.DGVProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellClick);
             this.DGVProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentClick);
             this.DGVProductos.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellContentDoubleClick);
             this.DGVProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellDoubleClick);
+            this.DGVProductos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGVProductos_CellFormatting);
             this.DGVProductos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseEnter);
             this.DGVProductos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductos_CellMouseLeave);
+            this.DGVProductos.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DGVProductos_RowPostPaint);
             // 
             // CheckProducto
             // 

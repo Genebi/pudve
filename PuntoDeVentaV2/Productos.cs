@@ -135,26 +135,8 @@ namespace PuntoDeVentaV2
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                 }
             }
-
-            if (DGVProductos.SelectedRows.Count > 0)
-            {
-                CambiarColorCelda();
-                
-            }
         }
-
-        private void CambiarColorCelda()
-        {
-            int numFila, numCol;
-
-            numFila = DGVProductos.CurrentRow.Index;
-            numCol = 1;
-
-            //DGVProductos.ClearSelection();
-            //DGVProductos.Rows[numFila].Cells[numCol].Style.BackColor = Color.Blue;
-            //DGVProductos.CurrentRow.Cells["Column1"].Selected = true;
-        }
-
+        
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
         {
             e.DrawBackground();
@@ -703,8 +685,6 @@ namespace PuntoDeVentaV2
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
-                CambiarColorCelda();
-
                 // CheckBox del producto
                 if (e.ColumnIndex == 0)
                 {
@@ -1270,21 +1250,8 @@ namespace PuntoDeVentaV2
             //reloadTags();
 
             //creacionEtiquetasDinamicas();
-
-            //seleccionPersonalizadaDataGridView();
         }
-
-        private void seleccionPersonalizadaDataGridView()
-        {
-            DGVProductos.DefaultCellStyle.SelectionBackColor = DGVProductos.DefaultCellStyle.BackColor;
-            DGVProductos.DefaultCellStyle.SelectionForeColor = DGVProductos.DefaultCellStyle.ForeColor;
-        }
-
-        private void reloadTags()
-        {
-            
-        }
-
+        
         private void btnPedido_Click(object sender, EventArgs e)
         {
             using (var opciones = new OpcionesReporteProducto())
@@ -2088,10 +2055,39 @@ namespace PuntoDeVentaV2
         {
             txtIrPagina.Text = string.Empty;
         }
-
-        private void DGVProductos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        
+        private void DGVProductos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            
+            // for the Name cell paint, paint the background as highligth and text as white in case of slection
+            if (e.ColumnIndex == 1)
+            {
+                e.CellStyle.SelectionBackColor = SystemColors.Highlight;
+                e.CellStyle.SelectionForeColor = Color.White;
+            }
+            else
+            {
+                e.CellStyle.SelectionBackColor = e.CellStyle.BackColor;
+                e.CellStyle.SelectionForeColor = e.CellStyle.ForeColor;
+            }
+        }
+
+        private void DGVProductos_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            var dgv = (DataGridView)sender;
+
+            // run this pice of code only for the selected row
+            if (dgv.Rows[e.RowIndex].Selected)
+            {
+                int width = DGVProductos.Width;
+                System.Drawing.Rectangle r = dgv.GetRowDisplayRectangle(e.RowIndex, false);
+                var rect = new System.Drawing.Rectangle(r.X, r.Y, width - 1, r.Height - 1);
+                // draw the border around the selected row using the highlight color and using a border width of 2
+                ControlPaint.DrawBorder(e.Graphics, rect,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid);
+            }
         }
 
         private void btnRightSetUpVariable_Click(object sender, EventArgs e)
