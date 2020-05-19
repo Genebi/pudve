@@ -366,15 +366,22 @@ namespace PuntoDeVentaV2
         {
             if (existenProductos)
             {
-                Ventas venta = new Ventas();
-
-                venta.Disposed += delegate
+                if (Application.OpenForms.OfType<Ventas>().Count() == 1)
                 {
-                    AbrirVentanaVenta();
-                    CargarDatos();
-                };
+                    Application.OpenForms.OfType<Ventas>().First().BringToFront();
+                }
+                else
+                {
+                    Ventas venta = new Ventas();
 
-                venta.ShowDialog();
+                    venta.Disposed += delegate
+                    {
+                        AbrirVentanaVenta();
+                        CargarDatos();
+                    };
+
+                    venta.Show();
+                }
             }
             else
             {
