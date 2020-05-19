@@ -204,5 +204,12 @@ namespace PuntoDeVentaV2
         {
             txtBuscador.Focus();
         }
+
+        private void btnPublicoG_Click(object sender, EventArgs e)
+        {
+            Ventas.idCliente = "0";
+
+            Dispose();
+        }
     }
 }
