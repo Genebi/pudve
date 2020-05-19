@@ -135,6 +135,24 @@ namespace PuntoDeVentaV2
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
                 }
             }
+
+            if (DGVProductos.SelectedRows.Count > 0)
+            {
+                CambiarColorCelda();
+                
+            }
+        }
+
+        private void CambiarColorCelda()
+        {
+            int numFila, numCol;
+
+            numFila = DGVProductos.CurrentRow.Index;
+            numCol = 1;
+
+            //DGVProductos.ClearSelection();
+            //DGVProductos.Rows[numFila].Cells[numCol].Style.BackColor = Color.Blue;
+            //DGVProductos.CurrentRow.Cells["Column1"].Selected = true;
         }
 
         private void TTipButtonText_Draw(object sender, DrawToolTipEventArgs e)
@@ -685,6 +703,8 @@ namespace PuntoDeVentaV2
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
+                CambiarColorCelda();
+
                 // CheckBox del producto
                 if (e.ColumnIndex == 0)
                 {
@@ -1251,7 +1271,7 @@ namespace PuntoDeVentaV2
 
             //creacionEtiquetasDinamicas();
 
-            seleccionPersonalizadaDataGridView();
+            //seleccionPersonalizadaDataGridView();
         }
 
         private void seleccionPersonalizadaDataGridView()
@@ -2071,8 +2091,7 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            //DGVProductos.DefaultCellStyle.SelectionBackColor = DGVProductos.DefaultCellStyle.BackColor;
-            //DGVProductos.DefaultCellStyle.SelectionForeColor = DGVProductos.DefaultCellStyle.ForeColor;
+            
         }
 
         private void btnRightSetUpVariable_Click(object sender, EventArgs e)
@@ -4112,7 +4131,7 @@ namespace PuntoDeVentaV2
 
                 creacionEtiquetasDinamicas();
 
-                seleccionPersonalizadaDataGridView();
+                //seleccionPersonalizadaDataGridView();
             }
         }
 
