@@ -36,8 +36,8 @@ namespace PuntoDeVentaV2
         static public string infoProveedor = string.Empty;
         static public string infoCategoria = string.Empty;
         static public string infoUbicacion = string.Empty;
-        static public string stockNecesario = "0";
-        static public string stockMinimo = "0";
+        static public string stockNecesario = string.Empty;
+        static public string stockMinimo = string.Empty;
         static public string typeOfProduct = string.Empty;
 
 
@@ -1564,6 +1564,9 @@ namespace PuntoDeVentaV2
 
         public void LimpiarDatos()
         {
+            stockNecesario = string.Empty;
+            stockMinimo = string.Empty;
+
             DatosSourceFinal = 0;
             ProdNombreFinal = "";
             ProdStockFinal = "";

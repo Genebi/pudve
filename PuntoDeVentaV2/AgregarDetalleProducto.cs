@@ -1727,12 +1727,31 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleProducto_Load(object sender, EventArgs e)
         {
-            limpiarStockMinimoMaximo();
-
             finalOrigenProdServCombo = origenProdServCombo;
             finalIdProducto = getIdProducto;
 
             var servidor = Properties.Settings.Default.Hosting;
+
+            if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(3))
+            {
+                limpiarStockMinimoMaximo();
+            }
+            else if (finalOrigenProdServCombo.Equals(2) || finalOrigenProdServCombo.Equals(4))
+            {
+                string queryStockMinMax = string.Empty;
+                queryStockMinMax = $"SELECT ID, StockNecesario, StockMinimo FROM Productos WHERE ID = {finalIdProducto}";
+                using (DataTable dtStockMinimoMaximo = cn.CargarDatos(queryStockMinMax))
+                {
+                    txtStockMinimo.Text = string.Empty;
+                    txtStockNecesario.Text = string.Empty;
+
+                    foreach (DataRow drStockMinimoMaximo in dtStockMinimoMaximo.Rows)
+                    {
+                        txtStockMinimo.Text = drStockMinimoMaximo["StockMinimo"].ToString();
+                        txtStockNecesario.Text = drStockMinimoMaximo["StockNecesario"].ToString();
+                    }
+                }
+            }
 
             //loadFormConfig();
             loadFromConfigDB();
@@ -1794,11 +1813,6 @@ namespace PuntoDeVentaV2
                 }
 
                 eventoMensajeInventario = true;
-            }
-            else if (finalIdProducto.Equals(""))
-            {
-                txtStockNecesario.Text = "0";
-                txtStockMinimo.Text = "0";
             }
         }
 
@@ -2001,7 +2015,9 @@ namespace PuntoDeVentaV2
         private void limpiarStockMinimoMaximo()
         {
             txtStockMinimo.Text = string.Empty;
+            txtStockMinimo.Text = "0";
             txtStockNecesario.Text = string.Empty;
+            txtStockNecesario.Text = "0";
         }
 
         private void verificarProductMessage()
