@@ -903,6 +903,77 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void AgregarEditarProducto_Activated(object sender, EventArgs e)
+        {
+            nombreAddNvoProveedor();
+            conceptoAddNvoDetalleGral();
+        }
+
+        private void nombreAddNvoProveedor()
+        {
+            bool isEmpty = !detalleProductoBasico.Any();
+            if (!isEmpty)
+            {
+                foreach (Control item in flowLayoutPanel3.Controls)
+                {
+                    if (item.Name.Equals("panelContenedorchkProveedor"))
+                    {
+                        foreach (Control subItem in item.Controls)
+                        {
+                            if (subItem.Name.Equals("panelContenidochkProveedor"))
+                            {
+                                foreach (Control intoSubItem in subItem.Controls)
+                                {
+                                    if (intoSubItem is Label)
+                                    {
+                                        if (intoSubItem.Name.Equals("lblNombrechkProveedor"))
+                                        {
+                                            intoSubItem.Text = detalleProductoBasico[2].ToString();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void conceptoAddNvoDetalleGral()
+        {
+            string nombreDetalle = string.Empty;
+            string[] words;
+            char delimeter = '|';
+            bool isEmpty = !detalleProductoGeneral.Any();
+            if (!isEmpty)
+            {
+                foreach (var itemDetalleGral in detalleProductoGeneral)
+                {
+                    words = itemDetalleGral.Split(delimeter);
+                    nombreDetalle = words[4].ToString().Remove(0, 14);
+                    foreach (Control itemPanel in flowLayoutPanel3.Controls)
+                    {
+                        if (itemPanel.Name.Equals("panelContenedor" + nombreDetalle))
+                        {
+                            foreach (Control subItemPanel in itemPanel.Controls)
+                            {
+                                if (subItemPanel.Name.Equals("panelContenido" + nombreDetalle))
+                                {
+                                    foreach (Control intoSubItemPanel in subItemPanel.Controls)
+                                    {
+                                        if (intoSubItemPanel is Label)
+                                        {
+                                            intoSubItemPanel.Text = words[5].ToString();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void cargarDatosProveedor(int idProveedor)
         {
             // Para que no de error ya que nunca va a existir un proveedor en ID = 0

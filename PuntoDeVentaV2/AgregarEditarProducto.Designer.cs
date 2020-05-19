@@ -868,6 +868,7 @@
             this.Name = "AgregarEditarProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar producto";
+            this.Activated += new System.EventHandler(this.AgregarEditarProducto_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AgregarEditarProducto_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AgregarEditarProducto_FormClosed);
             this.Load += new System.EventHandler(this.AgregarEditarProducto_Load);
