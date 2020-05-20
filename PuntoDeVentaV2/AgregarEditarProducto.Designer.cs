@@ -94,6 +94,7 @@
             this.fLPAccion = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetallesProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.PDetalleProdcuto.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.PStock.SuspendLayout();
@@ -118,6 +119,7 @@
             this.fLPDetalle.SuspendLayout();
             this.fLPAccion.SuspendLayout();
             this.fLPDetallesProducto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvAgregarEditarProducto)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTipoProdPaq
@@ -187,6 +189,8 @@
             this.txtNombreProducto.Size = new System.Drawing.Size(722, 20);
             this.txtNombreProducto.TabIndex = 1;
             this.txtNombreProducto.Enter += new System.EventHandler(this.txtNombreProducto_Enter);
+            this.txtNombreProducto.Validating += new System.ComponentModel.CancelEventHandler(this.txtNombreProducto_Validating);
+            this.txtNombreProducto.Validated += new System.EventHandler(this.txtNombreProducto_Validated);
             // 
             // txtPrecioProducto
             // 
@@ -200,6 +204,8 @@
             this.txtPrecioProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioProducto_KeyPress);
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
             this.txtPrecioProducto.Leave += new System.EventHandler(this.txtPrecioProducto_Leave);
+            this.txtPrecioProducto.Validating += new System.ComponentModel.CancelEventHandler(this.txtPrecioProducto_Validating);
+            this.txtPrecioProducto.Validated += new System.EventHandler(this.txtPrecioProducto_Validated);
             // 
             // txtStockProducto
             // 
@@ -497,17 +503,17 @@
             this.PStock.Location = new System.Drawing.Point(2, 2);
             this.PStock.Margin = new System.Windows.Forms.Padding(2);
             this.PStock.Name = "PStock";
-            this.PStock.Size = new System.Drawing.Size(140, 40);
+            this.PStock.Size = new System.Drawing.Size(150, 40);
             this.PStock.TabIndex = 0;
             // 
             // PPrecioOriginal
             // 
             this.PPrecioOriginal.Controls.Add(this.txtPrecioCompra);
             this.PPrecioOriginal.Controls.Add(this.label7);
-            this.PPrecioOriginal.Location = new System.Drawing.Point(146, 2);
+            this.PPrecioOriginal.Location = new System.Drawing.Point(156, 2);
             this.PPrecioOriginal.Margin = new System.Windows.Forms.Padding(2);
             this.PPrecioOriginal.Name = "PPrecioOriginal";
-            this.PPrecioOriginal.Size = new System.Drawing.Size(118, 39);
+            this.PPrecioOriginal.Size = new System.Drawing.Size(133, 39);
             this.PPrecioOriginal.TabIndex = 1;
             // 
             // txtPrecioCompra
@@ -527,30 +533,30 @@
             // 
             this.PPrecio.Controls.Add(this.label4);
             this.PPrecio.Controls.Add(this.txtPrecioProducto);
-            this.PPrecio.Location = new System.Drawing.Point(268, 2);
+            this.PPrecio.Location = new System.Drawing.Point(293, 2);
             this.PPrecio.Margin = new System.Windows.Forms.Padding(2);
             this.PPrecio.Name = "PPrecio";
-            this.PPrecio.Size = new System.Drawing.Size(103, 38);
+            this.PPrecio.Size = new System.Drawing.Size(116, 38);
             this.PPrecio.TabIndex = 2;
             // 
             // PCategoria
             // 
             this.PCategoria.Controls.Add(this.label3);
             this.PCategoria.Controls.Add(this.txtCategoriaProducto);
-            this.PCategoria.Location = new System.Drawing.Point(375, 2);
+            this.PCategoria.Location = new System.Drawing.Point(413, 2);
             this.PCategoria.Margin = new System.Windows.Forms.Padding(2);
             this.PCategoria.Name = "PCategoria";
-            this.PCategoria.Size = new System.Drawing.Size(111, 37);
+            this.PCategoria.Size = new System.Drawing.Size(115, 37);
             this.PCategoria.TabIndex = 3;
             // 
             // PClaveInterna
             // 
             this.PClaveInterna.Controls.Add(this.label5);
             this.PClaveInterna.Controls.Add(this.txtClaveProducto);
-            this.PClaveInterna.Location = new System.Drawing.Point(490, 2);
+            this.PClaveInterna.Location = new System.Drawing.Point(532, 2);
             this.PClaveInterna.Margin = new System.Windows.Forms.Padding(2);
             this.PClaveInterna.Name = "PClaveInterna";
-            this.PClaveInterna.Size = new System.Drawing.Size(138, 40);
+            this.PClaveInterna.Size = new System.Drawing.Size(149, 40);
             this.PClaveInterna.TabIndex = 4;
             // 
             // PCodigoBarras
@@ -562,7 +568,7 @@
             this.PCodigoBarras.Location = new System.Drawing.Point(2, 46);
             this.PCodigoBarras.Margin = new System.Windows.Forms.Padding(2);
             this.PCodigoBarras.Name = "PCodigoBarras";
-            this.PCodigoBarras.Size = new System.Drawing.Size(268, 124);
+            this.PCodigoBarras.Size = new System.Drawing.Size(276, 124);
             this.PCodigoBarras.TabIndex = 5;
             // 
             // btnGenerarCB
@@ -575,7 +581,7 @@
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
             this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGenerarCB.Location = new System.Drawing.Point(149, 7);
+            this.btnGenerarCB.Location = new System.Drawing.Point(156, 7);
             this.btnGenerarCB.Name = "btnGenerarCB";
             this.btnGenerarCB.Size = new System.Drawing.Size(112, 29);
             this.btnGenerarCB.TabIndex = 8;
@@ -590,7 +596,7 @@
             this.PCantidadPaqServ.Controls.Add(this.button1);
             this.PCantidadPaqServ.Controls.Add(this.txtCantPaqServ);
             this.PCantidadPaqServ.Controls.Add(this.lblCantPaqServ);
-            this.PCantidadPaqServ.Location = new System.Drawing.Point(275, 47);
+            this.PCantidadPaqServ.Location = new System.Drawing.Point(283, 47);
             this.PCantidadPaqServ.Name = "PCantidadPaqServ";
             this.PCantidadPaqServ.Size = new System.Drawing.Size(175, 120);
             this.PCantidadPaqServ.TabIndex = 6;
@@ -632,7 +638,7 @@
             // PImagen
             // 
             this.PImagen.Controls.Add(this.groupBox1);
-            this.PImagen.Location = new System.Drawing.Point(455, 46);
+            this.PImagen.Location = new System.Drawing.Point(463, 46);
             this.PImagen.Margin = new System.Windows.Forms.Padding(2);
             this.PImagen.Name = "PImagen";
             this.PImagen.Size = new System.Drawing.Size(204, 147);
@@ -848,6 +854,10 @@
             this.flowLayoutPanel3.Size = new System.Drawing.Size(837, 64);
             this.flowLayoutPanel3.TabIndex = 1;
             // 
+            // errorProvAgregarEditarProducto
+            // 
+            this.errorProvAgregarEditarProducto.ContainerControl = this;
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -907,6 +917,7 @@
             this.fLPDetalle.ResumeLayout(false);
             this.fLPAccion.ResumeLayout(false);
             this.fLPDetallesProducto.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvAgregarEditarProducto)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -977,5 +988,6 @@
         private System.Windows.Forms.Label lbStockMaximo;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label lbStockMinimo;
+        private System.Windows.Forms.ErrorProvider errorProvAgregarEditarProducto;
     }
 }
