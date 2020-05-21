@@ -54,6 +54,7 @@ namespace PuntoDeVentaV2
             fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
 
             DialogResult = DialogResult.OK;
+            Reportes.botonAceptar = true;
             Close();
         }
     }

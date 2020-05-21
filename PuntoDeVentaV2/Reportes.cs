@@ -23,6 +23,8 @@ namespace PuntoDeVentaV2
         private string fechaInicial = string.Empty;
         private string fechaFinal = string.Empty;
 
+        public static bool botonAceptar = false;
+
         public Reportes()
         {
             InitializeComponent();
@@ -30,30 +32,41 @@ namespace PuntoDeVentaV2
 
         private void btnHistorialPrecios_Click(object sender, EventArgs e)
         {
-            using (var fechas = new FechasReportes())
+            if (Application.OpenForms.OfType<FechasReportes>().Count() == 1)
             {
-                var respuesta = fechas.ShowDialog();
+                Application.OpenForms.OfType<FechasReportes>().First().BringToFront();
+            }
+            else
+            {
+                var fechas = new FechasReportes();
 
-                if (respuesta == DialogResult.OK)
+                fechas.FormClosed += delegate
                 {
-                    fechaInicial = fechas.fechaInicial;
-                    fechaFinal = fechas.fechaFinal;
-
-                    if (!string.IsNullOrWhiteSpace(fechaInicial))
+                    if (botonAceptar)
                     {
-                        if (!string.IsNullOrWhiteSpace(fechaFinal))
+                        botonAceptar = false;
+
+                        fechaInicial = fechas.fechaInicial;
+                        fechaFinal = fechas.fechaFinal;
+
+                        if (!string.IsNullOrWhiteSpace(fechaInicial))
                         {
-                            if (Utilidades.AdobeReaderInstalado())
+                            if (!string.IsNullOrWhiteSpace(fechaFinal))
                             {
-                                GenerarReportePrecios();
-                            }
-                            else
-                            {
-                                Utilidades.MensajeAdobeReader();
+                                if (Utilidades.AdobeReaderInstalado())
+                                {
+                                    GenerarReportePrecios();
+                                }
+                                else
+                                {
+                                    Utilidades.MensajeAdobeReader();
+                                }
                             }
                         }
                     }
-                }
+                };
+
+                fechas.Show();
             }
         }
 
@@ -222,31 +235,42 @@ namespace PuntoDeVentaV2
 
         private void btnHistorialDineroAgregado_Click(object sender, EventArgs e)
         {
-            using (var fechas = new FechasReportes("CAJA"))
+            if (Application.OpenForms.OfType<FechasReportes>().Count() == 1)
             {
-                var respuesta = fechas.ShowDialog();
+                Application.OpenForms.OfType<FechasReportes>().First().BringToFront();
+            }
+            else
+            {
+                var fechas = new FechasReportes("CAJA");
 
-                if (respuesta == DialogResult.OK)
+                fechas.FormClosed += delegate
                 {
-                    concepto = fechas.concepto;
-                    fechaInicial = fechas.fechaInicial;
-                    fechaFinal = fechas.fechaFinal;
-
-                    if (!string.IsNullOrWhiteSpace(fechaInicial))
+                    if (botonAceptar)
                     {
-                        if (!string.IsNullOrWhiteSpace(fechaFinal))
+                        botonAceptar = false;
+
+                        concepto = fechas.concepto;
+                        fechaInicial = fechas.fechaInicial;
+                        fechaFinal = fechas.fechaFinal;
+
+                        if (!string.IsNullOrWhiteSpace(fechaInicial))
                         {
-                            if (Utilidades.AdobeReaderInstalado())
+                            if (!string.IsNullOrWhiteSpace(fechaFinal))
                             {
-                                GenerarReporteDineroAgregado();
-                            }
-                            else
-                            {
-                                Utilidades.MensajeAdobeReader();
+                                if (Utilidades.AdobeReaderInstalado())
+                                {
+                                    GenerarReporteDineroAgregado();
+                                }
+                                else
+                                {
+                                    Utilidades.MensajeAdobeReader();
+                                }
                             }
                         }
                     }
-                }
+                };
+
+                fechas.Show();
             }
         }
 
