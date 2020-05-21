@@ -199,7 +199,6 @@ namespace PuntoDeVentaV2
                     var listado = new ListadoTipoClientes();
 
                     listado.Show();
-                    
                 }
                 else
                 {

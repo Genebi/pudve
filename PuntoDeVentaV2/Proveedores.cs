@@ -70,14 +70,21 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoProveedor_Click(object sender, EventArgs e)
         {
-            AgregarProveedor ap = new AgregarProveedor();
-
-            ap.FormClosed += delegate
+            if (Application.OpenForms.OfType<AgregarProveedor>().Count() == 1)
             {
-                CargarDatos();
-            };
+                Application.OpenForms.OfType<AgregarProveedor>().First().BringToFront();
+            }
+            else
+            {
+                AgregarProveedor ap = new AgregarProveedor();
 
-            ap.ShowDialog();
+                ap.FormClosed += delegate
+                {
+                    CargarDatos();
+                };
+
+                ap.Show();
+            }
         }
 
         private void DGVProveedores_CellClick(object sender, DataGridViewCellEventArgs e)

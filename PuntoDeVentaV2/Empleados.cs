@@ -71,14 +71,21 @@ namespace PuntoDeVentaV2
 
         private void btn_agregar_empleado_Click(object sender, EventArgs e)
         {
-            Agregar_empleado agregar_emp = new Agregar_empleado();
-
-            agregar_emp.FormClosed += delegate
+            if (Application.OpenForms.OfType<Agregar_empleado>().Count() == 1)
             {
-                cargar_lista_empleados();
-            };
+                Application.OpenForms.OfType<Agregar_empleado>().First().BringToFront();
+            }
+            else
+            {
+                Agregar_empleado agregar_emp = new Agregar_empleado();
 
-            agregar_emp.ShowDialog();
+                agregar_emp.FormClosed += delegate
+                {
+                    cargar_lista_empleados();
+                };
+
+                agregar_emp.Show();
+            }
         }
 
         private void cursor_en_icono(object sender, DataGridViewCellEventArgs e)
