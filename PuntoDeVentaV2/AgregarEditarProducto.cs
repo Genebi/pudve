@@ -908,8 +908,16 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Activated(object sender, EventArgs e)
         {
-            nombreAddNvoProveedor();
-            conceptoAddNvoDetalleGral();
+            if ((detalleProductoBasico.Count().Equals(0)) && (detalleProductoGeneral.Count().Equals(0)))
+            {
+                mostrarOcultarfLPDetallesProducto();
+            }
+            else if ((detalleProductoBasico.Count() != 0) || (detalleProductoGeneral.Count() != 0))
+            {
+                fLPDetallesProducto.Visible = true;
+                nombreAddNvoProveedor();
+                conceptoAddNvoDetalleGral();
+            }
         }
 
         private void nombreAddNvoProveedor()
@@ -983,7 +991,7 @@ namespace PuntoDeVentaV2
             {
                 e.Cancel = true;
                 txtNombreProducto.Select(0, txtNombreProducto.Text.Length);
-                errorProvAgregarEditarProducto.SetError(txtNombreProducto, "Debe introducir el nombre");
+                errorProvAgregarEditarProducto.SetError(txtNombreProducto, "Debe introducir el Nombre de Producto\npara poder continuar el proceso.");
             }
         }
 
@@ -998,7 +1006,7 @@ namespace PuntoDeVentaV2
             {
                 e.Cancel = true;
                 txtPrecioProducto.Select(0, txtPrecioProducto.Text.Length);
-                errorProvAgregarEditarProducto.SetError(txtPrecioProducto, "Debe tener un precio");
+                errorProvAgregarEditarProducto.SetError(txtPrecioProducto, "Debe tener un Precio de Venta\npara poder continuar el proceso.");
             }
         }
 
