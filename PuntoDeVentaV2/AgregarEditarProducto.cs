@@ -2127,6 +2127,8 @@ namespace PuntoDeVentaV2
             idUsrNvo = FormPrincipal.userID.ToString();
             fechaCompra = DateTime.Now.ToString("yyyy-MM-dd");
             fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            stockMinimo = txtStockMinimo.Text;
+            stockNecesario = txtStockMaximo.Text;
             /*	Fin del codigo de Alejandro	*/
             #endregion Final de Variables de Alejandro
 
