@@ -240,6 +240,7 @@ namespace PuntoDeVentaV2
 
         int resultadoSearchNoIdentificacion;    // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchClavIntProd()
         int resultadoSearchCodBar;  // sirve para ver si el producto existe en los campos CodigoBarras y ClaveInterna en la funcion searchCodBar()
+        int resultadoSearchCodBarExtra; // sirve para ver si el producto existe en Código de Barra extra en la funcion productoRegistradoCodigoBarrasExtra()
 
         string filtro;
 
@@ -279,6 +280,8 @@ namespace PuntoDeVentaV2
         int     respuesta = 0,
                 idHistorialCompraProducto = 0,
                 found = 10;
+
+        bool foundClaveInterna, foundCodigoBarras;
 
         double valorDePrecioVenta;
 
@@ -1991,9 +1994,14 @@ namespace PuntoDeVentaV2
 	        *  iniciamos las variables a 0     *
 	        *	codigo de Emmanuel				*
 	        ************************************/
+
+            foundClaveInterna = false;
+            foundCodigoBarras = false;
+
             resultadoSearchNoIdentificacion = 0; // ponemos los valores en 0
             resultadoSearchCodBar = 0; // ponemos los valores en 0
-                                       /* Fin de iniciamos las variables a 0 */
+
+            /* Fin de iniciamos las variables a 0 */
             #endregion Final de Variables a Cero
 
             #region Inicio de Sección Origen (Forma Manual / XML), (Editar) ó ( Hacer Copia)
@@ -2008,6 +2016,7 @@ namespace PuntoDeVentaV2
                 if (Convert.ToDouble(precio) < Convert.ToDouble(txtPrecioCompra.Text))
                 {
                     MessageBox.Show("El precio no puede ser mayor al precio original", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtPrecioProducto.Focus();
                     return;
                 }
                 #endregion Final Sección que el precio no sea menor al precio original del producto servicio/combo
@@ -2021,10 +2030,11 @@ namespace PuntoDeVentaV2
                     datosProductosBtnGuardar = new List<string>();
                     datosProductoRelacionado = new List<string>();
 
-                    query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.ClaveInterna = {claveIn}";
-
                     // Cargar procuto registrado con esa Clave Interna
-                    productoRegistradoClaveInterna(query);
+                    productoRegistradoClaveInterna(claveIn);
+
+                    // Buscamos Producto con codigo de barras
+                    productoRegistradoCodigoBarras(claveIn);
                 }
                 #endregion Final Sección busqueda que no se repita la ClaveInterna
 
@@ -2036,10 +2046,11 @@ namespace PuntoDeVentaV2
                     string query = string.Empty;
                     List<string> datosProductos = new List<string>(), datosProductoRelacionado = new List<string>();
 
-                    query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.Status = 1 AND P.CodigoBarras = '{codigoB}'";
-
                     // Buscamos Producto con codigo de barras
-                    productoRegistradoCodigoBarras(query);
+                    productoRegistradoCodigoBarras(codigoB);
+
+                    // Cargar procuto registrado con esa Clave Interna
+                    productoRegistradoClaveInterna(codigoB);
                 }
                 #endregion Final Sección busqueda que no se repita en CodigoBarra
 
@@ -2077,9 +2088,16 @@ namespace PuntoDeVentaV2
                 }
                 #endregion Final Seccion Código de Barras Extras
 
-                if (resultadoSearchNoIdentificacion == 1 || resultadoSearchCodBar == 1)
+                if (resultadoSearchNoIdentificacion == 1 || resultadoSearchCodBar == 1 || resultadoSearchCodBarExtra == 1)
                 {
-                    //MessageBox.Show("El número de identificación ya se esta utilizando\ncomo clave interna o código de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (!txtClaveProducto.Text.Equals(""))
+                    {
+                        txtClaveProducto.Focus();
+                    }
+                    else if (!txtCodigoBarras.Text.Equals(""))
+                    {
+                        txtCodigoBarras.Focus();
+                    }
                 }
                 else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                 {
@@ -2277,7 +2295,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            MessageBox.Show("La Clave Interna ó Código de Barras\nNO DEBE ESTAR EN BLANCO", "Advertencia de llenado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("El Precio Venta, La Clave Interna ó Código de Barras\nNO DEBE ESTAR EN BLANCO", "Advertencia de llenado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             
                         }
                     }
@@ -3365,8 +3383,11 @@ namespace PuntoDeVentaV2
             datosImpuestos = null;
         }
 
-        private void productoRegistradoCodigoBarras(string query)
+        private void productoRegistradoCodigoBarras(string codigoB)
         {
+            datosProductosBtnGuardar = new List<string>();
+            string query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.CodigoBarras = '{codigoB}'";
+
             using (DataTable dtProductoRegistrado = cn.CargarDatos(query))
             {
                 if (dtProductoRegistrado.Rows.Count > 0)
@@ -3393,63 +3414,25 @@ namespace PuntoDeVentaV2
                             datosProductosBtnGuardar.Add("El Status es: Activo");
                         }
                     }
-                    MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductosBtnGuardar[0].ToString()}\n{datosProductosBtnGuardar[1].ToString()}\n{datosProductosBtnGuardar[2].ToString()}\n{datosProductosBtnGuardar[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando en algún producto\n\n{datosProductosBtnGuardar[0].ToString()}\n{datosProductosBtnGuardar[1].ToString()}\n{datosProductosBtnGuardar[2].ToString()}\n{datosProductosBtnGuardar[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     datosProductosBtnGuardar.Clear();
+                    resultadoSearchCodBar = 1;
                     return;
                 }
                 else if (dtProductoRegistrado.Rows.Count.Equals(0))
                 {
                     query = string.Empty;
 
-                    query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = 11 AND CB.CodigoBarraExtra = {claveIn}";
-
-                    using (DataTable dtCodigosBarraExtraProductos = cn.CargarDatos(query))
-                    {
-                        if (dtCodigosBarraExtraProductos.Rows.Count > 0)
-                        {
-                            foreach (DataRow row in dtCodigosBarraExtraProductos.Rows)
-                            {
-                                datosProductosBtnGuardar.Add(row["IDProducto"].ToString());
-                            }
-                            using (DataTable dtProductoRelacionado = cn.CargarDatos($"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.ID = {datosProductosBtnGuardar[0].ToString()}"))
-                            {
-                                if (dtProductoRelacionado.Rows.Count > 0)
-                                {
-                                    foreach (DataRow row in dtProductoRelacionado.Rows)
-                                    {
-                                        datosProductoRelacionado.Add("Nombre: " + row["Nombre"].ToString());
-                                        datosProductoRelacionado.Add("Código buscado: " + row["ClaveInterna"].ToString());
-                                        if (row["Tipo"].ToString().Equals("P"))
-                                        {
-                                            datosProductoRelacionado.Add("El artículo es: Producto");
-                                        }
-                                        else if (row["Tipo"].ToString().Equals("PQ"))
-                                        {
-                                            datosProductoRelacionado.Add("El artículo es: Combo");
-                                        }
-                                        else if (row["Tipo"].ToString().Equals("S"))
-                                        {
-                                            datosProductoRelacionado.Add("El artículo es: Servicio");
-                                        }
-
-                                        if (row["Status"].ToString().Equals("1"))
-                                        {
-                                            datosProductoRelacionado.Add("El Status es: Activo");
-                                        }
-                                    }
-                                    MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductoRelacionado[0].ToString()}\n{datosProductoRelacionado[1].ToString()}\n{datosProductoRelacionado[2].ToString()}\n{datosProductoRelacionado[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    datosProductosBtnGuardar.Clear();
-                                    return;
-                                }
-                            }
-                        }
-                    }
+                    // Cargar procuto registrado con esa Código de Barras Extra
+                    productoRegistradoCodigoBarrasExtra(FormPrincipal.userID, codigoB);
                 }
             }
         }
 
-        private void productoRegistradoClaveInterna(string query)
+        private void productoRegistradoClaveInterna(string claveIn)
         {
+            datosProductosBtnGuardar = new List<string>();
+            string query = $"SELECT P.Nombre, P.ClaveInterna, P.CodigoBarras, P.Tipo, P.Status FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.ClaveInterna = {claveIn}";
             using (DataTable dtProductoRegistrado = cn.CargarDatos(query))
             {
                 if (dtProductoRegistrado.Rows.Count > 0)
@@ -3478,22 +3461,25 @@ namespace PuntoDeVentaV2
                     }
                     MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\nComo Clave Interna, Código de Barras ó Codigo de Barras Extra\n\n{datosProductosBtnGuardar[0].ToString()}\n{datosProductosBtnGuardar[1].ToString()}\n{datosProductosBtnGuardar[2].ToString()}\n{datosProductosBtnGuardar[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     datosProductosBtnGuardar.Clear();
+                    resultadoSearchNoIdentificacion = 1;
                     return;
                 }
                 else if (dtProductoRegistrado.Rows.Count.Equals(0))
                 {
                     query = string.Empty;
 
-                    query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = 11 AND CB.CodigoBarraExtra = {claveIn}";
+                    query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {FormPrincipal.userID} AND CB.CodigoBarraExtra = {claveIn}";
 
                     // Cargar procuto registrado con esa Código de Barras Extra
-                    productoRegistradoCodigoBarrasExtra(query);
+                    productoRegistradoCodigoBarrasExtra(FormPrincipal.userID, claveIn);
                 }
             }
         }
 
-        private void productoRegistradoCodigoBarrasExtra(string query)
+        private void productoRegistradoCodigoBarrasExtra(int userID, string claveBuscar)
         {
+            datosProductosBtnGuardar = new List<string>();
+            string query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {userID} AND CB.CodigoBarraExtra = {claveBuscar}";
             using (DataTable dtCodigosBarraExtraProductos = cn.CargarDatos(query))
             {
                 if (dtCodigosBarraExtraProductos.Rows.Count > 0)
@@ -3508,28 +3494,30 @@ namespace PuntoDeVentaV2
                         {
                             foreach (DataRow row in dtProductoRelacionado.Rows)
                             {
-                                datosProductoRelacionado.Add("Nombre: " + row["Nombre"].ToString());
-                                datosProductoRelacionado.Add("Código buscado: " + row["ClaveInterna"].ToString());
+                                datosProductoRelacionado.Add("Nombre: " + row["Nombre"].ToString());                                // datosProductoRelacionado[0]
+                                datosProductoRelacionado.Add("Clave Interna buscada: " + row["ClaveInterna"].ToString());           // datosProductoRelacionado[1]
+                                datosProductoRelacionado.Add("Código de Barras buscado: " + row["CodigoBarras"].ToString());        // datosProductoRelacionado[2]
                                 if (row["Tipo"].ToString().Equals("P"))
                                 {
-                                    datosProductoRelacionado.Add("El artículo es: Producto");
+                                    datosProductoRelacionado.Add("El artículo es: Producto");                                       // datosProductoRelacionado[3]
                                 }
                                 else if (row["Tipo"].ToString().Equals("PQ"))
                                 {
-                                    datosProductoRelacionado.Add("El artículo es: Combo");
+                                    datosProductoRelacionado.Add("El artículo es: Combo");                                          // datosProductoRelacionado[3]
                                 }
                                 else if (row["Tipo"].ToString().Equals("S"))
                                 {
-                                    datosProductoRelacionado.Add("El artículo es: Servicio");
+                                    datosProductoRelacionado.Add("El artículo es: Servicio");                                       // datosProductoRelacionado[3]
                                 }
 
                                 if (row["Status"].ToString().Equals("1"))
                                 {
-                                    datosProductoRelacionado.Add("El Status es: Activo");
+                                    datosProductoRelacionado.Add("El Status es: Activo");                                           // datosProductoRelacionado[4]
                                 }
                             }
-                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductoRelacionado[0].ToString()}\n{datosProductoRelacionado[1].ToString()}\n{datosProductoRelacionado[2].ToString()}\n{datosProductoRelacionado[3].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            datosProductos.Clear();
+                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductoRelacionado[0].ToString()}\n{datosProductoRelacionado[1].ToString()}\n{datosProductoRelacionado[2].ToString()}\n{datosProductoRelacionado[3].ToString()}\n{datosProductoRelacionado[4].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            datosProductosBtnGuardar.Clear();
+                            resultadoSearchCodBarExtra = 1;
                             return;
                         }
                     }
