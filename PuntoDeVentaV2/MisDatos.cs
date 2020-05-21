@@ -493,14 +493,21 @@ namespace PuntoDeVentaV2
 
             if (ValidarDatos())
             {
-                Subir_archivos_digitales subir_arch = new Subir_archivos_digitales();
-
-                subir_arch.FormClosed += delegate
+                if (Application.OpenForms.OfType<Subir_archivos_digitales>().Count() == 1)
                 {
-                    cargar_archivos();
-                };
+                    Application.OpenForms.OfType<Subir_archivos_digitales>().First().BringToFront();
+                }
+                else
+                {
+                    Subir_archivos_digitales subir_arch = new Subir_archivos_digitales();
 
-                subir_arch.ShowDialog();
+                    subir_arch.FormClosed += delegate
+                    {
+                        cargar_archivos();
+                    };
+
+                    subir_arch.Show();
+                } 
             }
         }
 
