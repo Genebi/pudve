@@ -91,14 +91,21 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoCliente_Click(object sender, EventArgs e)
         {
-            AgregarCliente cliente = new AgregarCliente();
-
-            cliente.FormClosed += delegate
+            if (Application.OpenForms.OfType<AgregarCliente>().Count() == 1)
             {
-                CargarDatos();
-            };
+                Application.OpenForms.OfType<AgregarCliente>().First().BringToFront();
+            }
+            else
+            {
+                AgregarCliente cliente = new AgregarCliente();
 
-            cliente.ShowDialog();
+                cliente.FormClosed += delegate
+                {
+                    CargarDatos();
+                };
+
+                cliente.Show();
+            }
         }
 
         private void DGVClientes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -166,27 +173,39 @@ namespace PuntoDeVentaV2
 
         private void btnTipoCliente_Click(object sender, EventArgs e)
         {
-            using (var tipoCliente = new AgregarTipoCliente())
+            if (Application.OpenForms.OfType<AgregarTipoCliente>().Count() == 1)
             {
-                tipoCliente.ShowDialog();
+                Application.OpenForms.OfType<AgregarTipoCliente>().First().BringToFront();
+            }
+            else
+            {
+                var tipoCliente = new AgregarTipoCliente();
+                tipoCliente.Show();
             }
         }
 
         private void btnListaDescuentos_Click(object sender, EventArgs e)
         {
-            var existen = mb.ObtenerTipoClientes();
-
-            if (existen.Count > 0)
+            if (Application.OpenForms.OfType<ListadoTipoClientes>().Count() == 1)
             {
-                using (var listado = new ListadoTipoClientes())
-                {
-                    var respuesta = listado.ShowDialog();
-                }
+                Application.OpenForms.OfType<ListadoTipoClientes>().First().BringToFront();
             }
             else
             {
-                MessageBox.Show("No hay información disponible actualmente\n\nNOTA: No hay registros para tipo de clientes", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                var existen = mb.ObtenerTipoClientes();
+
+                if (existen.Count > 0)
+                {
+                    var listado = new ListadoTipoClientes();
+
+                    listado.Show();
+                    
+                }
+                else
+                {
+                    MessageBox.Show("No hay información disponible actualmente\n\nNOTA: No hay registros para tipo de clientes", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            } 
         }
     }
 }
