@@ -66,73 +66,108 @@ namespace PuntoDeVentaV2
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
         {
-            ReporteDineroAgregado agregado = new ReporteDineroAgregado(fechaGeneral);
+            if (Application.OpenForms.OfType<ReporteDineroAgregado>().Count() == 1)
+            {
+                Application.OpenForms.OfType<ReporteDineroAgregado>().First().BringToFront();
+            }
+            else
+            {
+                var agregado = new ReporteDineroAgregado(fechaGeneral);
 
-            agregado.ShowDialog();
+                agregado.Show();
+            }
         }
 
         private void btnReporteRetirar_Click(object sender, EventArgs e)
         {
-            ReporteDineroRetirado retirado = new ReporteDineroRetirado(fechaGeneral);
+            if (Application.OpenForms.OfType<ReporteDineroRetirado>().Count() == 1)
+            {
+                Application.OpenForms.OfType<ReporteDineroRetirado>().First().BringToFront();
+            }
+            else
+            {
+                var retirado = new ReporteDineroRetirado(fechaGeneral);
 
-            retirado.ShowDialog();
+                retirado.Show();
+            }
         }
 
         private void btnAgregarDinero_Click(object sender, EventArgs e)
         {
-            AgregarRetirarDinero agregar = new AgregarRetirarDinero();
-
-            agregar.FormClosed += delegate
+            if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
             {
-                CargarSaldoInicial();
-                CargarSaldo();
-            };
+                Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
+            }
+            else
+            {
+                AgregarRetirarDinero agregar = new AgregarRetirarDinero();
 
-            agregar.ShowDialog();
+                agregar.FormClosed += delegate
+                {
+                    CargarSaldoInicial();
+                    CargarSaldo();
+                };
+
+                agregar.Show();
+            }
         }
 
         private void btnRetirarDinero_Click(object sender, EventArgs e)
         {
-            AgregarRetirarDinero retirar = new AgregarRetirarDinero(1);
-
-            retirar.FormClosed += delegate
+            if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
             {
-                CargarSaldoInicial();
-                CargarSaldo();
-            };
+                Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
+            }
+            else
+            {
+                AgregarRetirarDinero retirar = new AgregarRetirarDinero(1);
 
-            retirar.ShowDialog();
+                retirar.FormClosed += delegate
+                {
+                    CargarSaldoInicial();
+                    CargarSaldo();
+                };
+
+                retirar.Show();
+            }
         }
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
-            cantidadesReporte = ObtenerCantidades();
-
-            AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
-
-            corte.FormClosed += delegate
+            if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
             {
-                if (botones == true)
+                Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
+            }
+            else
+            {
+                cantidadesReporte = ObtenerCantidades();
+
+                AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
+
+                corte.FormClosed += delegate
                 {
-                    if (Utilidades.AdobeReaderInstalado())
+                    if (botones == true)
                     {
-                        GenerarReporte();
+                        if (Utilidades.AdobeReaderInstalado())
+                        {
+                            GenerarReporte();
+                        }
+                        else
+                        {
+                            Utilidades.MensajeAdobeReader();
+                        }
+
+                        botones = false;
                     }
-                    else
-                    {
-                        Utilidades.MensajeAdobeReader();
-                    }
 
-                    botones = false;
-                }
+                    CargarSaldoInicial();
+                    CargarSaldo();
+                };
 
-                CargarSaldoInicial();
-                CargarSaldo();
-            };
+                corte.Show();
 
-            corte.ShowDialog();
-
-            //GenerarTicket();
+                //GenerarTicket();
+            }
         }
 
         private string[] ObtenerCantidades()
