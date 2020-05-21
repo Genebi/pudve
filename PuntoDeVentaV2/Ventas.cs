@@ -1764,7 +1764,14 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = false;
                 }
-            }           
+            }
+            else
+            {
+                if (DGVentas.Rows.Count == 0)
+                {
+                    respuesta = false;
+                }
+            }
 
             return respuesta;
         }
