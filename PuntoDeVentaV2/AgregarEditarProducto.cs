@@ -1995,11 +1995,9 @@ namespace PuntoDeVentaV2
 	        *	codigo de Emmanuel				*
 	        ************************************/
 
-            foundClaveInterna = false;
-            foundCodigoBarras = false;
-
-            resultadoSearchNoIdentificacion = 0; // ponemos los valores en 0
-            resultadoSearchCodBar = 0; // ponemos los valores en 0
+            resultadoSearchNoIdentificacion = 0;    // ponemos los valores en 0
+            resultadoSearchCodBar = 0;              // ponemos los valores en 0
+            resultadoSearchCodBarExtra = 0;         // ponemos los valores en 0
 
             /* Fin de iniciamos las variables a 0 */
             #endregion Final de Variables a Cero
@@ -2296,114 +2294,233 @@ namespace PuntoDeVentaV2
                         else
                         {
                             MessageBox.Show("El Precio Venta, La Clave Interna ó Código de Barras\nNO DEBE ESTAR EN BLANCO", "Advertencia de llenado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            
                         }
                     }
                     #endregion Final de Sección de Productos
                     #region Inicio de Sección de Combos y Servicios
                     else if (this.Text.Trim() == "Combos" || this.Text.Trim() == "Servicios")
                     {
-                        #region Inicio Saber si es Servicio ó Combo
-                        string FuenteServPaq = string.Empty;
-
-                        if (this.Text.Trim() == "Servicios")
+                        if (!claveIn.Equals("") || !codigoB.Equals(""))
                         {
-                            ProdServPaq = "S";
-                            FuenteServPaq = "Servicio";
-                        }
-                        else if (this.Text.Trim() == "Combos")
-                        {
-                            ProdServPaq = "PQ";
-                            FuenteServPaq = "Combo";
-                        }
-                        #endregion Final Saber si es Servicio ó Combo
+                            #region Inicio Saber si es Servicio ó Combo
+                            string FuenteServPaq = string.Empty;
 
-                        stock = "0";
-
-                        guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, "0", txtPrecioCompra.Text };
-
-                        #region Inicio de guardado de los datos principales del Servicios o Combos
-                        //Se guardan los datos principales del producto
-                        try
-                        {
-                            respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
-
-                            //Se obtiene la ID del último producto agregado
-                            idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-
-                            if (respuesta > 0)
+                            if (this.Text.Trim() == "Servicios")
                             {
-                                bool isEmpty = !detalleProductoBasico.Any();
+                                ProdServPaq = "S";
+                                FuenteServPaq = "Servicio";
+                            }
+                            else if (this.Text.Trim() == "Combos")
+                            {
+                                ProdServPaq = "PQ";
+                                FuenteServPaq = "Combo";
+                            }
+                            #endregion Final Saber si es Servicio ó Combo
 
-                                #region Inicio Guardar Datos Basicos Detalle Producto
-                                // para guardar los detalles del producto
-                                if (!isEmpty)
+                            stock = "0";
+
+                            guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, "0", txtPrecioCompra.Text };
+
+                            #region Inicio de guardado de los datos principales del Servicios o Combos
+                            //Se guardan los datos principales del producto
+                            try
+                            {
+                                respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
+
+                                //Se obtiene la ID del último producto agregado
+                                idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+
+                                if (respuesta > 0)
                                 {
-                                    // Para guardar los detalles del producto
-                                    // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
-                                    guardarDetallesProductoBasico(detalleProductoBasico);
-                                }
-                                #endregion Final Guardar Datos Basico Detalles Producto
+                                    bool isEmpty = !detalleProductoBasico.Any();
 
-                                isEmpty = !detalleProductoGeneral.Any();
-
-                                #region Inicio Guardar Datos Generales Detalle Producto
-                                if (!isEmpty)
-                                {
-                                    guardarDetallesProductoDinamicos(detalleProductoGeneral);
-                                }
-                                #endregion Final  Guardar Datos Generales Detalle Producto
-
-                                #region Inicio Seccion de Agregar desde Boton Producto y de Editar Producto
-                                if (DatosSourceFinal == 1 || DatosSourceFinal == 2)
-                                {
-                                    var conceptoProveedor = string.Empty;
-                                    var rfcProveedor = string.Empty;
-
-                                    //Datos para la tabla historial de compras
-                                    if (idProveedorBtnGuardar != null)
+                                    #region Inicio Guardar Datos Basicos Detalle Producto
+                                    // para guardar los detalles del producto
+                                    if (!isEmpty)
                                     {
-                                        var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedorBtnGuardar), FormPrincipal.userID);
-                                        conceptoProveedor = proveedorTmp[0];
-                                        rfcProveedor = proveedorTmp[1];
+                                        // Para guardar los detalles del producto
+                                        // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                                        guardarDetallesProductoBasico(detalleProductoBasico);
                                     }
+                                    #endregion Final Guardar Datos Basico Detalles Producto
 
-                                    guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+                                    isEmpty = !detalleProductoGeneral.Any();
 
-                                    cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
-
-                                    int foundServicio = 10;
-                                    DateTime dateServ = DateTime.Now;
-                                    string fechaCompletaServ = dateServ.ToString("s");
-                                    string YearServ = fechaCompletaServ.Substring(0, foundServicio);
-                                    string DateServ = fechaCompletaServ.Substring(foundServicio + 1);
-                                    string FechaRegistradaServ = YearServ + " " + DateServ;
-                                    string queryRecordHistorialServ = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistradaServ}')";
-                                    cn.EjecutarConsulta(queryRecordHistorialServ);
-
-
-                                    int found = 10;
-                                    DateTime date1 = DateTime.Now;
-                                    string fechaCompleta = date1.ToString("s");
-                                    string Year = fechaCompleta.Substring(0, found);
-                                    string Date = fechaCompleta.Substring(found + 1);
-                                    string FechaRegistrada = Year + " " + Date;
-                                    string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
-                                    cn.EjecutarConsulta(queryRecordHistorialProd);
-
-                                    /*if (flowLayoutPanel2.Controls.Count == 0)
+                                    #region Inicio Guardar Datos Generales Detalle Producto
+                                    if (!isEmpty)
                                     {
-                                        string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
-                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                                    }*/
+                                        guardarDetallesProductoDinamicos(detalleProductoGeneral);
+                                    }
+                                    #endregion Final  Guardar Datos Generales Detalle Producto
 
-                                    // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
-                                    if (ProductosDeServicios.Count >= 0)
+                                    #region Inicio Seccion de Agregar desde Boton Producto y de Editar Producto
+                                    if (DatosSourceFinal == 1 || DatosSourceFinal == 2)
                                     {
-                                        ProductosDeServicios.Clear();
+                                        var conceptoProveedor = string.Empty;
+                                        var rfcProveedor = string.Empty;
 
-                                        if (flowLayoutPanel2.Controls.Count > 0)
+                                        //Datos para la tabla historial de compras
+                                        if (idProveedorBtnGuardar != null)
                                         {
+                                            var proveedorTmp = mb.ObtenerDatosProveedor(Convert.ToInt32(idProveedorBtnGuardar), FormPrincipal.userID);
+                                            conceptoProveedor = proveedorTmp[0];
+                                            rfcProveedor = proveedorTmp[1];
+                                        }
+
+                                        guardar = new string[] { nombre, stock, precio, txtPrecioCompra.Text, fechaCompra, rfcProveedor, conceptoProveedor, "", "1", fechaOperacion, "", idProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                                        cn.EjecutarConsulta(cs.AjustarProducto(guardar, 1));
+
+                                        int foundServicio = 10;
+                                        DateTime dateServ = DateTime.Now;
+                                        string fechaCompletaServ = dateServ.ToString("s");
+                                        string YearServ = fechaCompletaServ.Substring(0, foundServicio);
+                                        string DateServ = fechaCompletaServ.Substring(foundServicio + 1);
+                                        string FechaRegistradaServ = YearServ + " " + DateServ;
+                                        string queryRecordHistorialServ = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistradaServ}')";
+                                        cn.EjecutarConsulta(queryRecordHistorialServ);
+
+
+                                        int found = 10;
+                                        DateTime date1 = DateTime.Now;
+                                        string fechaCompleta = date1.ToString("s");
+                                        string Year = fechaCompleta.Substring(0, found);
+                                        string Date = fechaCompleta.Substring(found + 1);
+                                        string FechaRegistrada = Year + " " + Date;
+                                        string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
+                                        cn.EjecutarConsulta(queryRecordHistorialProd);
+
+                                        /*if (flowLayoutPanel2.Controls.Count == 0)
+                                        {
+                                            string[] tmp = { $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}", $"{idProducto}", "", "", $"{txtCantPaqServ.Text}" };
+                                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                        }*/
+
+                                        // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
+                                        if (ProductosDeServicios.Count >= 0)
+                                        {
+                                            ProductosDeServicios.Clear();
+
+                                            if (flowLayoutPanel2.Controls.Count > 0)
+                                            {
+                                                // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
+                                                foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                                                {
+                                                    // agregamos la variable para egregar los procutos
+                                                    string prodSerPaq = null;
+                                                    DataTable dtProductos;
+                                                    foreach (Control item in panel.Controls)
+                                                    {
+                                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                        if (item is ComboBox)
+                                                        {
+                                                            if (item.Text != "Por favor selecciona un Producto")
+                                                            {
+                                                                string buscar = null;
+                                                                string comboBoxText = item.Text;
+                                                                string comboBoxValue = null;
+                                                                buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                                                                dtProductos = cn.CargarDatos(buscar);
+                                                                comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
+                                                                prodSerPaq += fech + "|";
+                                                                prodSerPaq += idProducto + "|";
+                                                                prodSerPaq += comboBoxValue + "|";
+                                                                prodSerPaq += comboBoxText + "|";
+                                                            }
+                                                        }
+                                                        if (item is TextBox)
+                                                        {
+                                                            var tb = item.Text;
+                                                            if (item.Text == "0")
+                                                            {
+                                                                tb = "0";
+                                                                prodSerPaq += tb;
+                                                            }
+                                                            else
+                                                            {
+                                                                prodSerPaq += tb;
+                                                            }
+                                                        }
+                                                    }
+                                                    ProductosDeServicios.Add(prodSerPaq);
+                                                    prodSerPaq = null;
+                                                }
+                                                //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                                                if (ProductosDeServicios.Any())
+                                                {
+                                                    string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+                                                    cn.EjecutarConsulta(queryBorrarProductosDeServicios);
+                                                    foreach (var productosSP in ProductosDeServicios)
+                                                    {
+                                                        string[] tmp = productosSP.Split('|');
+                                                        if (tmp.Length == 5)
+                                                        {
+                                                            cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                                        }
+                                                    }
+                                                    ProductosDeServicios.Clear();
+                                                }
+                                            }
+                                        }
+                                        flowLayoutPanel2.Controls.Clear();
+                                    }
+                                    #endregion Final Seccion de Agregar desde Boton Producto y de Editar Producto
+                                    #region  Inicio Seccion de Agregar desde XML
+                                    if (DatosSourceFinal == 3)
+                                    {
+                                        idHistorialCompraProducto = 0;
+                                        found = 10;
+                                        fechaXML = FechaXMLNvoProd;
+                                        fecha = fechaXML.Substring(0, found);
+                                        hora = fechaXML.Substring(found + 1);
+                                        fechaCompleta = fecha + " " + hora;
+                                        folio = FolioXMLNvoProd;
+                                        RFCEmisor = RFCXMLNvoProd;
+                                        nombreEmisor = NobEmisorXMLNvoProd;
+                                        claveProdEmisor = ClaveProdEmisorXMLNvoProd;
+                                        descuentoXML = DescuentoXMLNvoProd;
+                                        PrecioCompraXMLNvoProd = txtPrecioCompra.Text;
+
+                                        //Se obtiene la ID del último producto agregado
+                                        idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+
+                                        try
+                                        {
+                                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, nameProveedorXML.ToString(), Convert.ToInt32(idProveedorXML.ToString())));
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show("Error al Agregar Detalles del " + FuenteServPaq + " Basico\n" + origen, "Error Agregar " + FuenteServPaq, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        }
+
+                                        //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}', datetime('now', 'localtime'), '{Inventario.idReporte}', '{idProducto}','{FormPrincipal.userID}')";
+
+                                        //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
+
+                                        string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{precio}','{descuentoXML}','{PrecioCompraXMLNvoProd}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}',datetime('now', 'localtime'),'{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
+
+                                        try
+                                        {
+                                            cn.EjecutarConsulta(query);
+                                            idHistorialCompraProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
+                                            //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show("Error :" + ex);
+                                        }
+
+                                        DateTime date1 = DateTime.Now;
+                                        fechaCompleta = date1.ToString("s");
+                                        string Year = fechaCompleta.Substring(0, found);
+                                        string Date = fechaCompleta.Substring(found + 1);
+                                        string FechaRegistrada = Year + " " + Date;
+                                        string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
+                                        cn.EjecutarConsulta(queryRecordHistorialProd);
+
+                                        if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
+                                        {
+                                            ProductosDeServicios.Clear();
                                             // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
                                             foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
                                             {
@@ -2422,7 +2539,8 @@ namespace PuntoDeVentaV2
                                                             string comboBoxValue = null;
                                                             buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
                                                             dtProductos = cn.CargarDatos(buscar);
-                                                            comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
+                                                            DataRow row = dtProductos.Rows[0];
+                                                            comboBoxValue = row["ID"].ToString();
                                                             prodSerPaq += fech + "|";
                                                             prodSerPaq += idProducto + "|";
                                                             prodSerPaq += comboBoxValue + "|";
@@ -2446,11 +2564,10 @@ namespace PuntoDeVentaV2
                                                 ProductosDeServicios.Add(prodSerPaq);
                                                 prodSerPaq = null;
                                             }
+
                                             //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
                                             if (ProductosDeServicios.Any())
                                             {
-                                                string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
-                                                cn.EjecutarConsulta(queryBorrarProductosDeServicios);
                                                 foreach (var productosSP in ProductosDeServicios)
                                                 {
                                                     string[] tmp = productosSP.Split('|');
@@ -2462,219 +2579,106 @@ namespace PuntoDeVentaV2
                                                 ProductosDeServicios.Clear();
                                             }
                                         }
+                                        flowLayoutPanel2.Controls.Clear();
                                     }
-                                    flowLayoutPanel2.Controls.Clear();
-                                }
-                                #endregion Final Seccion de Agregar desde Boton Producto y de Editar Producto
-                                #region  Inicio Seccion de Agregar desde XML
-                                if (DatosSourceFinal == 3)
-                                {
-                                    idHistorialCompraProducto = 0;
-                                    found = 10;
-                                    fechaXML = FechaXMLNvoProd;
-                                    fecha = fechaXML.Substring(0, found);
-                                    hora = fechaXML.Substring(found + 1);
-                                    fechaCompleta = fecha + " " + hora;
-                                    folio = FolioXMLNvoProd;
-                                    RFCEmisor = RFCXMLNvoProd;
-                                    nombreEmisor = NobEmisorXMLNvoProd;
-                                    claveProdEmisor = ClaveProdEmisorXMLNvoProd;
-                                    descuentoXML = DescuentoXMLNvoProd;
-                                    PrecioCompraXMLNvoProd = txtPrecioCompra.Text;
+                                    #endregion  Final Seccion de Agregar desde XML
 
                                     //Se obtiene la ID del último producto agregado
                                     idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
-                                    try
+                                    #region Inicio Sección proceso para guardar los detalles de facturación del producto
+                                    //Se realiza el proceso para guardar los detalles de facturación del producto
+                                    if (datosImpuestos != null)
                                     {
-                                        cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(idProducto, FormPrincipal.userID, nameProveedorXML.ToString(), Convert.ToInt32(idProveedorXML.ToString())));
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        MessageBox.Show("Error al Agregar Detalles del " + FuenteServPaq + " Basico\n" + origen, "Error Agregar " + FuenteServPaq, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-
-                                    //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}', datetime('now', 'localtime'), '{Inventario.idReporte}', '{idProducto}','{FormPrincipal.userID}')";
-
-                                    //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
-
-                                    string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{precio}','{descuentoXML}','{PrecioCompraXMLNvoProd}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}',datetime('now', 'localtime'),'{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
-
-                                    try
-                                    {
-                                        cn.EjecutarConsulta(query);
-                                        idHistorialCompraProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
-                                        //MessageBox.Show("Registrado Intento 1", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        MessageBox.Show("Error :" + ex);
-                                    }
-
-                                    DateTime date1 = DateTime.Now;
-                                    fechaCompleta = date1.ToString("s");
-                                    string Year = fechaCompleta.Substring(0, found);
-                                    string Date = fechaCompleta.Substring(found + 1);
-                                    string FechaRegistrada = Year + " " + Date;
-                                    string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
-                                    cn.EjecutarConsulta(queryRecordHistorialProd);
-
-                                    if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
-                                    {
-                                        ProductosDeServicios.Clear();
-                                        // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
-                                        foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                                        //Cerramos la ventana donde se eligen los impuestos
+                                        FormDetalle.Close();
+                                        string[] listaImpuestos = datosImpuestos.Split('|');
+                                        int longitud = listaImpuestos.Length;
+                                        if (longitud > 0)
                                         {
-                                            // agregamos la variable para egregar los procutos
-                                            string prodSerPaq = null;
-                                            DataTable dtProductos;
-                                            foreach (Control item in panel.Controls)
+                                            for (int i = 0; i < longitud; i++)
                                             {
-                                                string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                if (item is ComboBox)
-                                                {
-                                                    if (item.Text != "Por favor selecciona un Producto")
-                                                    {
-                                                        string buscar = null;
-                                                        string comboBoxText = item.Text;
-                                                        string comboBoxValue = null;
-                                                        buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
-                                                        dtProductos = cn.CargarDatos(buscar);
-                                                        DataRow row = dtProductos.Rows[0];
-                                                        comboBoxValue = row["ID"].ToString();
-                                                        prodSerPaq += fech + "|";
-                                                        prodSerPaq += idProducto + "|";
-                                                        prodSerPaq += comboBoxValue + "|";
-                                                        prodSerPaq += comboBoxText + "|";
-                                                    }
-                                                }
-                                                if (item is TextBox)
-                                                {
-                                                    var tb = item.Text;
-                                                    if (item.Text == "0")
-                                                    {
-                                                        tb = "0";
-                                                        prodSerPaq += tb;
-                                                    }
-                                                    else
-                                                    {
-                                                        prodSerPaq += tb;
-                                                    }
-                                                }
+                                                string[] imp = listaImpuestos[i].Split(',');
+                                                if (imp[3] == " - ") { imp[3] = "0"; }
+                                                if (imp[4] == " - ") { imp[4] = "0"; }
+                                                if (imp[5] == " - ") { imp[5] = "0"; }
+                                                guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
+                                                cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
                                             }
-                                            ProductosDeServicios.Add(prodSerPaq);
-                                            prodSerPaq = null;
                                         }
+                                        datosImpuestos = null;
+                                    }
+                                    #endregion Final Sección proceso para guardar los detalles de facturación del producto
 
-                                        //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                                        if (ProductosDeServicios.Any())
+                                    #region Inicio Sección proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                                    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                                    if (descuentos.Any())
+                                    {
+                                        //Descuento por Cliente
+                                        if (descuentos[0] == "1")
                                         {
-                                            foreach (var productosSP in ProductosDeServicios)
+                                            guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
+
+                                            cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                        }
+                                        //Descuento por Mayoreo
+                                        if (descuentos[0] == "2")
+                                        {
+                                            foreach (var descuento in descuentos)
                                             {
-                                                string[] tmp = productosSP.Split('|');
-                                                if (tmp.Length == 5)
-                                                {
-                                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                                                }
+                                                if (descuento == "2") { continue; }
+
+                                                string[] tmp = descuento.Split('-');
+
+                                                cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
                                             }
-                                            ProductosDeServicios.Clear();
                                         }
                                     }
-                                    flowLayoutPanel2.Controls.Clear();
+                                    #endregion Final Sección proceso para guardar el descuento del producto en caso de que se haya agregado uno
                                 }
-                                #endregion  Final Seccion de Agregar desde XML
 
-                                //Se obtiene la ID del último producto agregado
-                                idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
-
-                                #region Inicio Sección proceso para guardar los detalles de facturación del producto
-                                //Se realiza el proceso para guardar los detalles de facturación del producto
-                                if (datosImpuestos != null)
+                                #region Inicio Sección Código de Barras Extras
+                                // recorrido para FlowLayoutPanel para ver cuantos TextBox
+                                foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                                 {
-                                    //Cerramos la ventana donde se eligen los impuestos
-                                    FormDetalle.Close();
-                                    string[] listaImpuestos = datosImpuestos.Split('|');
-                                    int longitud = listaImpuestos.Length;
-                                    if (longitud > 0)
+                                    // hacemos un objeto para ver que tipo control es
+                                    foreach (Control item in panel.Controls)
                                     {
-                                        for (int i = 0; i < longitud; i++)
+                                        // ver si el control es TextBox
+                                        if (item is TextBox)
                                         {
-                                            string[] imp = listaImpuestos[i].Split(',');
-                                            if (imp[3] == " - ") { imp[3] = "0"; }
-                                            if (imp[4] == " - ") { imp[4] = "0"; }
-                                            if (imp[5] == " - ") { imp[5] = "0"; }
-                                            guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
-                                            cn.EjecutarConsulta(cs.GuardarDetallesProducto(guardar, idProducto));
-                                        }
-                                    }
-                                    datosImpuestos = null;
-                                }
-                                #endregion Final Sección proceso para guardar los detalles de facturación del producto
-
-                                #region Inicio Sección proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                                //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                                if (descuentos.Any())
-                                {
-                                    //Descuento por Cliente
-                                    if (descuentos[0] == "1")
-                                    {
-                                        guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
-
-                                        cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
-                                    }
-                                    //Descuento por Mayoreo
-                                    if (descuentos[0] == "2")
-                                    {
-                                        foreach (var descuento in descuentos)
-                                        {
-                                            if (descuento == "2") { continue; }
-
-                                            string[] tmp = descuento.Split('-');
-
-                                            cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                            var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                                            codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
                                         }
                                     }
                                 }
-                                #endregion Final Sección proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                            }
-
-                            #region Inicio Sección Código de Barras Extras
-                            // recorrido para FlowLayoutPanel para ver cuantos TextBox
-                            foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
-                            {
-                                // hacemos un objeto para ver que tipo control es
-                                foreach (Control item in panel.Controls)
+                                // verificamos si el List esta con algun registro 
+                                if (codigosBarrras != null || codigosBarrras.Count != 0)
                                 {
-                                    // ver si el control es TextBox
-                                    if (item is TextBox)
+                                    // hacemos recorrido del List para gregarlos en los codigos de barras extras
+                                    for (int pos = 0; pos < codigosBarrras.Count; pos++)
                                     {
-                                        var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
-                                        codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                                        // preparamos el Query
+                                        string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos].Trim()}','{idProducto}')";
+                                        cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
                                     }
                                 }
-                            }
-                            // verificamos si el List esta con algun registro 
-                            if (codigosBarrras != null || codigosBarrras.Count != 0)
-                            {
-                                // hacemos recorrido del List para gregarlos en los codigos de barras extras
-                                for (int pos = 0; pos < codigosBarrras.Count; pos++)
-                                {
-                                    // preparamos el Query
-                                    string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos].Trim()}','{idProducto}')";
-                                    cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
-                                }
-                            }
-                            codigosBarrras.Clear();
-                            #endregion Final Sección Código de Barras Extras
+                                codigosBarrras.Clear();
+                                #endregion Final Sección Código de Barras Extras
 
-                            //Cierra la ventana donde se agregan los datos del producto
-                            this.Close();
+                                //Cierra la ventana donde se agregan los datos del producto
+                                this.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error al Agregar " + FuenteServPaq + "\n" + origen, "Error Agregar " + FuenteServPaq, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            #endregion Final de guardado de los datos principales del Servicios o Combos
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            MessageBox.Show("Error al Agregar " + FuenteServPaq + "\n" + origen, "Error Agregar " + FuenteServPaq, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("El Precio Venta, La Clave Interna ó Código de Barras\nNO DEBE ESTAR EN BLANCO", "Advertencia de llenado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
-                        #endregion Final de guardado de los datos principales del Servicios o Combos
                     }
                     #endregion Final de Sección de Combos y Servicios
                     #region Inicio de Sección de si NO ES Producto Combos y Servicios
@@ -3479,7 +3483,10 @@ namespace PuntoDeVentaV2
         private void productoRegistradoCodigoBarrasExtra(int userID, string claveBuscar)
         {
             datosProductosBtnGuardar = new List<string>();
+            datosProductoRelacionado = new List<string>();
+
             string query = $"SELECT CB.IDProducto FROM CodigoBarrasExtras CB INNER JOIN Productos P ON P.ID = CB.IDProducto WHERE P.IDUsuario = {userID} AND CB.CodigoBarraExtra = {claveBuscar}";
+
             using (DataTable dtCodigosBarraExtraProductos = cn.CargarDatos(query))
             {
                 if (dtCodigosBarraExtraProductos.Rows.Count > 0)
@@ -3492,33 +3499,37 @@ namespace PuntoDeVentaV2
                     {
                         if (dtProductoRelacionado.Rows.Count > 0)
                         {
-                            foreach (DataRow row in dtProductoRelacionado.Rows)
+                            if (resultadoSearchCodBarExtra.Equals(0))
                             {
-                                datosProductoRelacionado.Add("Nombre: " + row["Nombre"].ToString());                                // datosProductoRelacionado[0]
-                                datosProductoRelacionado.Add("Clave Interna buscada: " + row["ClaveInterna"].ToString());           // datosProductoRelacionado[1]
-                                datosProductoRelacionado.Add("Código de Barras buscado: " + row["CodigoBarras"].ToString());        // datosProductoRelacionado[2]
-                                if (row["Tipo"].ToString().Equals("P"))
+                                foreach (DataRow row in dtProductoRelacionado.Rows)
                                 {
-                                    datosProductoRelacionado.Add("El artículo es: Producto");                                       // datosProductoRelacionado[3]
-                                }
-                                else if (row["Tipo"].ToString().Equals("PQ"))
-                                {
-                                    datosProductoRelacionado.Add("El artículo es: Combo");                                          // datosProductoRelacionado[3]
-                                }
-                                else if (row["Tipo"].ToString().Equals("S"))
-                                {
-                                    datosProductoRelacionado.Add("El artículo es: Servicio");                                       // datosProductoRelacionado[3]
-                                }
+                                    datosProductoRelacionado.Add("Nombre: " + row["Nombre"].ToString());                                // datosProductoRelacionado[0]
+                                    datosProductoRelacionado.Add("Clave Interna buscada: " + row["ClaveInterna"].ToString());           // datosProductoRelacionado[1]
+                                    datosProductoRelacionado.Add("Código de Barras buscado: " + row["CodigoBarras"].ToString());        // datosProductoRelacionado[2]
+                                    if (row["Tipo"].ToString().Equals("P"))
+                                    {
+                                        datosProductoRelacionado.Add("El artículo es: Producto");                                       // datosProductoRelacionado[3]
+                                    }
+                                    else if (row["Tipo"].ToString().Equals("PQ"))
+                                    {
+                                        datosProductoRelacionado.Add("El artículo es: Combo");                                          // datosProductoRelacionado[3]
+                                    }
+                                    else if (row["Tipo"].ToString().Equals("S"))
+                                    {
+                                        datosProductoRelacionado.Add("El artículo es: Servicio");                                       // datosProductoRelacionado[3]
+                                    }
 
-                                if (row["Status"].ToString().Equals("1"))
-                                {
-                                    datosProductoRelacionado.Add("El Status es: Activo");                                           // datosProductoRelacionado[4]
+                                    if (row["Status"].ToString().Equals("1"))
+                                    {
+                                        datosProductoRelacionado.Add("El Status es: Activo");                                           // datosProductoRelacionado[4]
+                                    }
                                 }
+                                MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductoRelacionado[0].ToString()}\n{datosProductoRelacionado[1].ToString()}\n{datosProductoRelacionado[2].ToString()}\n{datosProductoRelacionado[3].ToString()}\n{datosProductoRelacionado[4].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                datosProductosBtnGuardar.Clear();
+                                datosProductoRelacionado.Clear();
+                                resultadoSearchCodBarExtra = 1;
+                                return;
                             }
-                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando en algún producto\n\n{datosProductoRelacionado[0].ToString()}\n{datosProductoRelacionado[1].ToString()}\n{datosProductoRelacionado[2].ToString()}\n{datosProductoRelacionado[3].ToString()}\n{datosProductoRelacionado[4].ToString()}", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            datosProductosBtnGuardar.Clear();
-                            resultadoSearchCodBarExtra = 1;
-                            return;
                         }
                     }
                 }
