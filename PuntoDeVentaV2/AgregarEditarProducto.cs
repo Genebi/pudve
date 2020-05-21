@@ -1950,17 +1950,18 @@ namespace PuntoDeVentaV2
 
         private void btnDetalleFacturacion_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show("Entro aqui precio | " + precioProducto);
-            if (txtPrecioProducto.Text == "")
+            if (string.IsNullOrWhiteSpace(txtPrecioProducto.Text))
             {
                 MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                if (DatosSourceFinal == 2)
-                {
-                    precioProducto = txtPrecioProducto.Text;
-                }
+                //if (DatosSourceFinal == 2)
+                //{
+                //    precioProducto = txtPrecioProducto.Text;
+                //}
+
+                precioProducto = txtPrecioProducto.Text;
 
                 //Verifica que el formulario ya tenga una instancia creada, de lo contrario la crea
                 if (FormDetalle != null)
