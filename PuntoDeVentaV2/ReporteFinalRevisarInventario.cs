@@ -437,7 +437,7 @@ namespace PuntoDeVentaV2
             writer.Close();
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.ShowDialog();
+            vr.Show();
         }
     }
 }

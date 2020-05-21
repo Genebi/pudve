@@ -1282,23 +1282,30 @@ namespace PuntoDeVentaV2
         {
             if (VerificarStockProducto())
             {
-                var totalVenta = float.Parse(cTotal.Text);
-
-                DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
-
-                detalle.FormClosed += delegate
+                if (Application.OpenForms.OfType<DetalleVenta>().Count() == 1)
                 {
-                    if (botonAceptar)
-                    {
-                        DatosVenta();
-                    }
-                    else
-                    {
-                        idCliente = string.Empty;
-                    }
-                };
+                    Application.OpenForms.OfType<DetalleVenta>().First().BringToFront();
+                }
+                else
+                {
+                    var totalVenta = float.Parse(cTotal.Text);
 
-                detalle.ShowDialog();
+                    DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
+
+                    detalle.Disposed += delegate
+                    {
+                        if (botonAceptar)
+                        {
+                            DatosVenta();
+                        }
+                        else
+                        {
+                            idCliente = string.Empty;
+                        }
+                    };
+
+                    detalle.Show();
+                }
             }
         }
 
@@ -1764,21 +1771,28 @@ namespace PuntoDeVentaV2
 
         private void btnVentasGuardadas_Click(object sender, EventArgs e)
         {
-            ListadoVentasGuardadas venta = new ListadoVentasGuardadas();
-
-            venta.FormClosed += delegate
+            if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
-                if (mostrarVenta > 0)
+                Application.OpenForms.OfType<ListadoVentasGuardadas>().First().BringToFront();
+            }
+            else
+            {
+                ListadoVentasGuardadas venta = new ListadoVentasGuardadas();
+
+                venta.FormClosed += delegate
                 {
-                    CargarVentaGuardada();
+                    if (mostrarVenta > 0)
+                    {
+                        CargarVentaGuardada();
 
-                    ventasGuardadas.Add(mostrarVenta);
+                        ventasGuardadas.Add(mostrarVenta);
 
-                    mostrarVenta = 0;
-                }
-            };
+                        mostrarVenta = 0;
+                    }
+                };
 
-            venta.ShowDialog();
+                venta.Show();
+            }
         }
 
 
@@ -2367,18 +2381,25 @@ namespace PuntoDeVentaV2
 
         private void btnAnticipos_Click(object sender, EventArgs e)
         {
-            ListadoAnticipos anticipo = new ListadoAnticipos();
+            if (Application.OpenForms.OfType<ListadoAnticipos>().Count() == 1)
+            {
+                Application.OpenForms.OfType<ListadoAnticipos>().First().BringToFront();
+            }
+            else
+            {
+                ListadoAnticipos anticipo = new ListadoAnticipos();
 
-            anticipo.FormClosed += delegate {
-
-                if (importeAnticipo > 0)
+                anticipo.FormClosed += delegate
                 {
-                    CantidadesFinalesVenta();
-                    importeAnticipo = 0f;
-                }
-            };
+                    if (importeAnticipo > 0)
+                    {
+                        CantidadesFinalesVenta();
+                        importeAnticipo = 0f;
+                    }
+                };
 
-            anticipo.ShowDialog();
+                anticipo.Show();
+            }   
         }
 
         private void btnUltimoTicket_Click(object sender, EventArgs e)
@@ -2874,9 +2895,15 @@ namespace PuntoDeVentaV2
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
-            using (var consultar = new ConsultarProductoVentas())
+            if (Application.OpenForms.OfType<ConsultarProductoVentas>().Count() == 1)
             {
-                consultar.ShowDialog();
+                Application.OpenForms.OfType<ConsultarProductoVentas>().First().BringToFront();
+            }
+            else
+            {
+                var consulta = new ConsultarProductoVentas();
+
+                consulta.Show();
             }
         }
 
