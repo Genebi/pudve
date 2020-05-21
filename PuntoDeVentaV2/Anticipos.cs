@@ -138,14 +138,21 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoAnticipo_Click(object sender, EventArgs e)
         {
-            AgregarAnticipo anticipo = new AgregarAnticipo();
-
-            anticipo.FormClosed += delegate
+            if (Application.OpenForms.OfType<AgregarAnticipo>().Count() == 1)
             {
-                CargarDatos(1);
-            };
+                Application.OpenForms.OfType<AgregarAnticipo>().First().BringToFront();
+            }
+            else
+            {
+                AgregarAnticipo anticipo = new AgregarAnticipo();
 
-            anticipo.ShowDialog();
+                anticipo.FormClosed += delegate
+                {
+                    CargarDatos(1);
+                };
+
+                anticipo.Show();
+            }  
         }
 
         private void DGVAnticipos_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
