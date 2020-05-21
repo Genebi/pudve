@@ -90,7 +90,9 @@ namespace PuntoDeVentaV2
                 cantidadFiltro = Convert.ToInt32(cantidad);
             }
 
-            DialogResult = DialogResult.OK;
+            //DialogResult = DialogResult.OK;
+            Inventario.aceptarFiltro = true;
+            Close();
         }
 
         private void cbFiltro_SelectionChangeCommitted(object sender, EventArgs e)

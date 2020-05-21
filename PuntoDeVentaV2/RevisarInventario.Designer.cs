@@ -32,6 +32,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnVerCBExtra = new System.Windows.Forms.Button();
+            this.txtCodigoBarras = new System.Windows.Forms.TextBox();
             this.txtNombreProducto = new System.Windows.Forms.TextBox();
             this.lblStockMaximo = new System.Windows.Forms.Label();
             this.lblStockMinimo = new System.Windows.Forms.Label();
@@ -47,6 +49,7 @@
             this.btnAumentarStock = new System.Windows.Forms.Button();
             this.btnReducirStock = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.lbBackground = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnTerminar = new System.Windows.Forms.Button();
             this.btnSiguiente = new System.Windows.Forms.Button();
@@ -54,9 +57,6 @@
             this.lblNoRevision = new System.Windows.Forms.Label();
             this.timerBusqueda = new System.Windows.Forms.Timer(this.components);
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
-            this.txtCodigoBarras = new System.Windows.Forms.TextBox();
-            this.lbBackground = new System.Windows.Forms.Label();
-            this.btnVerCBExtra = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -111,6 +111,32 @@
             this.groupBox2.Size = new System.Drawing.Size(420, 371);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
+            // 
+            // btnVerCBExtra
+            // 
+            this.btnVerCBExtra.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.info_circle;
+            this.btnVerCBExtra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnVerCBExtra.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVerCBExtra.Location = new System.Drawing.Point(196, 130);
+            this.btnVerCBExtra.Name = "btnVerCBExtra";
+            this.btnVerCBExtra.Size = new System.Drawing.Size(24, 32);
+            this.btnVerCBExtra.TabIndex = 20;
+            this.btnVerCBExtra.UseVisualStyleBackColor = true;
+            this.btnVerCBExtra.Click += new System.EventHandler(this.btnVerCBExtra_Click);
+            // 
+            // txtCodigoBarras
+            // 
+            this.txtCodigoBarras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtCodigoBarras.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCodigoBarras.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.txtCodigoBarras.Location = new System.Drawing.Point(18, 137);
+            this.txtCodigoBarras.Name = "txtCodigoBarras";
+            this.txtCodigoBarras.ReadOnly = true;
+            this.txtCodigoBarras.Size = new System.Drawing.Size(176, 20);
+            this.txtCodigoBarras.TabIndex = 18;
+            this.txtCodigoBarras.TabStop = false;
+            this.txtCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtNombreProducto
             // 
@@ -271,6 +297,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nombre : ";
             // 
+            // lbBackground
+            // 
+            this.lbBackground.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lbBackground.Location = new System.Drawing.Point(18, 130);
+            this.lbBackground.Name = "lbBackground";
+            this.lbBackground.Size = new System.Drawing.Size(176, 32);
+            this.lbBackground.TabIndex = 19;
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnTerminar);
@@ -337,40 +371,6 @@
             this.lbCantidadFiltro.TabIndex = 5;
             this.lbCantidadFiltro.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtCodigoBarras
-            // 
-            this.txtCodigoBarras.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.txtCodigoBarras.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtCodigoBarras.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCodigoBarras.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            this.txtCodigoBarras.Location = new System.Drawing.Point(18, 137);
-            this.txtCodigoBarras.Name = "txtCodigoBarras";
-            this.txtCodigoBarras.ReadOnly = true;
-            this.txtCodigoBarras.Size = new System.Drawing.Size(176, 20);
-            this.txtCodigoBarras.TabIndex = 18;
-            this.txtCodigoBarras.TabStop = false;
-            this.txtCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // lbBackground
-            // 
-            this.lbBackground.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.lbBackground.Location = new System.Drawing.Point(18, 130);
-            this.lbBackground.Name = "lbBackground";
-            this.lbBackground.Size = new System.Drawing.Size(176, 32);
-            this.lbBackground.TabIndex = 19;
-            // 
-            // btnVerCBExtra
-            // 
-            this.btnVerCBExtra.BackgroundImage = global::PuntoDeVentaV2.Properties.Resources.info_circle;
-            this.btnVerCBExtra.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnVerCBExtra.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnVerCBExtra.Location = new System.Drawing.Point(196, 130);
-            this.btnVerCBExtra.Name = "btnVerCBExtra";
-            this.btnVerCBExtra.Size = new System.Drawing.Size(24, 32);
-            this.btnVerCBExtra.TabIndex = 20;
-            this.btnVerCBExtra.UseVisualStyleBackColor = true;
-            this.btnVerCBExtra.Click += new System.EventHandler(this.btnVerCBExtra_Click);
-            // 
             // RevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,7 +388,7 @@
             this.Name = "RevisarInventario";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Revisar Stock Fisico";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RevisarInventario_FormClosing);
             this.Load += new System.EventHandler(this.RevisarInventario_Load);

@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
         public static string proveedorElegido = string.Empty;
         public static int idReporte = 0;
         public static bool botonAceptar = false;
+        public static bool aceptarFiltro = false;
 
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;
@@ -78,29 +79,39 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            using (var filtro = new FiltroRevisarInventario())
+            if (Application.OpenForms.OfType<FiltroRevisarInventario>().Count() == 1)
             {
-                var respuesta = filtro.ShowDialog();
+                Application.OpenForms.OfType<FiltroRevisarInventario>().First().BringToFront();
+            }
+            else
+            {
+                var filtro = new FiltroRevisarInventario();
 
-                if (respuesta == DialogResult.OK)
+                filtro.FormClosed += delegate
                 {
-                    var datos = new string[] { filtro.tipoFiltro, filtro.operadorFiltro, filtro.cantidadFiltro.ToString() };
-
-                    panelContenedor.Visible = false;
-
-                    RevisarInventario revisar = new RevisarInventario(datos);
-
-                    revisar.FormClosed += delegate
+                    if (aceptarFiltro)
                     {
-                        ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
-                        reporte.GetFilterNumActiveRecord = NumRevActivo;
-                        reporte.limpiarTabla = limpiarTabla;
-                        limpiarTabla = false;
-                        reporte.ShowDialog();
-                    };
+                        var datos = new string[] { filtro.tipoFiltro, filtro.operadorFiltro, filtro.cantidadFiltro.ToString() };
 
-                    revisar.ShowDialog();
-                }
+                        panelContenedor.Visible = false;
+                        aceptarFiltro = false;
+
+                        RevisarInventario revisar = new RevisarInventario(datos);
+
+                        revisar.FormClosed += delegate
+                        {
+                            ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                            reporte.GetFilterNumActiveRecord = NumRevActivo;
+                            reporte.limpiarTabla = limpiarTabla;
+                            limpiarTabla = false;
+                            reporte.Show();
+                        };
+
+                        revisar.Show();
+                    }
+                };
+
+                filtro.Show();
             }
         }
 
@@ -118,18 +129,25 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarXML_Click(object sender, EventArgs e)
         {
-            panelContenedor.Visible = false;
-
-            AgregarStockXML inventarioXML = new AgregarStockXML();
-
-            inventarioXML.FormClosed += delegate
+            if (Application.OpenForms.OfType<AgregarStockXML>().Count() == 1)
             {
-                GenerarReporte(idReporte);
+                Application.OpenForms.OfType<AgregarStockXML>().First().BringToFront();
+            }
+            else
+            {
+                panelContenedor.Visible = false;
 
-                idReporte++;
-            };
+                AgregarStockXML inventarioXML = new AgregarStockXML();
 
-            inventarioXML.ShowDialog();
+                inventarioXML.FormClosed += delegate
+                {
+                    GenerarReporte(idReporte);
+
+                    idReporte++;
+                };
+
+                inventarioXML.Show();
+            }
         }
 
         private void txtBusqueda_KeyUp(object sender, KeyEventArgs e)
