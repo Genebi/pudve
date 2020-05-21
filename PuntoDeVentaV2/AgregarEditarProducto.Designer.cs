@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarEditarProducto));
             this.lblTipoProdPaq = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,9 +53,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
-            this.lbStockMaximo = new System.Windows.Forms.Label();
+            this.txtStockMaximo = new System.Windows.Forms.TextBox();
+            this.txtStockMinimo = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.lbStockMinimo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.PTypeAndCantProd = new System.Windows.Forms.Panel();
@@ -380,9 +381,9 @@
             // PDetalleProdcuto
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
-            this.PDetalleProdcuto.Controls.Add(this.lbStockMaximo);
+            this.PDetalleProdcuto.Controls.Add(this.txtStockMaximo);
+            this.PDetalleProdcuto.Controls.Add(this.txtStockMinimo);
             this.PDetalleProdcuto.Controls.Add(this.label12);
-            this.PDetalleProdcuto.Controls.Add(this.lbStockMinimo);
             this.PDetalleProdcuto.Controls.Add(this.label1);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
@@ -393,17 +394,35 @@
             this.PDetalleProdcuto.Size = new System.Drawing.Size(838, 67);
             this.PDetalleProdcuto.TabIndex = 0;
             // 
-            // lbStockMaximo
+            // txtStockMaximo
             // 
-            this.lbStockMaximo.BackColor = System.Drawing.Color.White;
-            this.lbStockMaximo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbStockMaximo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbStockMaximo.Location = new System.Drawing.Point(481, 43);
-            this.lbStockMaximo.Name = "lbStockMaximo";
-            this.lbStockMaximo.Size = new System.Drawing.Size(125, 17);
-            this.lbStockMaximo.TabIndex = 33;
-            this.lbStockMaximo.Text = "0";
-            this.lbStockMaximo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtStockMaximo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold);
+            this.txtStockMaximo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtStockMaximo.Location = new System.Drawing.Point(470, 42);
+            this.txtStockMaximo.Name = "txtStockMaximo";
+            this.txtStockMaximo.Size = new System.Drawing.Size(144, 23);
+            this.txtStockMaximo.TabIndex = 34;
+            this.txtStockMaximo.Text = "0";
+            this.txtStockMaximo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtStockMaximo.Enter += new System.EventHandler(this.txtStockMaximo_Enter);
+            this.txtStockMaximo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMaximo_KeyPress);
+            this.txtStockMaximo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtStockMaximo_KeyUp);
+            this.txtStockMaximo.Leave += new System.EventHandler(this.txtStockMaximo_Leave);
+            // 
+            // txtStockMinimo
+            // 
+            this.txtStockMinimo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold);
+            this.txtStockMinimo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.txtStockMinimo.Location = new System.Drawing.Point(124, 42);
+            this.txtStockMinimo.Name = "txtStockMinimo";
+            this.txtStockMinimo.Size = new System.Drawing.Size(144, 23);
+            this.txtStockMinimo.TabIndex = 33;
+            this.txtStockMinimo.Text = "0";
+            this.txtStockMinimo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtStockMinimo.Enter += new System.EventHandler(this.txtStockMinimo_Enter);
+            this.txtStockMinimo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStockMinimo_KeyPress);
+            this.txtStockMinimo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtStockMinimo_KeyUp);
+            this.txtStockMinimo.Leave += new System.EventHandler(this.txtStockMinimo_Leave);
             // 
             // label12
             // 
@@ -413,18 +432,6 @@
             this.label12.Size = new System.Drawing.Size(77, 13);
             this.label12.TabIndex = 32;
             this.label12.Text = "Stock Maximo:";
-            // 
-            // lbStockMinimo
-            // 
-            this.lbStockMinimo.BackColor = System.Drawing.Color.White;
-            this.lbStockMinimo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbStockMinimo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lbStockMinimo.Location = new System.Drawing.Point(127, 43);
-            this.lbStockMinimo.Name = "lbStockMinimo";
-            this.lbStockMinimo.Size = new System.Drawing.Size(125, 17);
-            this.lbStockMinimo.TabIndex = 31;
-            this.lbStockMinimo.Text = "0";
-            this.lbStockMinimo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -857,6 +864,7 @@
             // errorProvAgregarEditarProducto
             // 
             this.errorProvAgregarEditarProducto.ContainerControl = this;
+            this.errorProvAgregarEditarProducto.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvAgregarEditarProducto.Icon")));
             // 
             // AgregarEditarProducto
             // 
@@ -985,9 +993,9 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label lbStockMaximo;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label lbStockMinimo;
         private System.Windows.Forms.ErrorProvider errorProvAgregarEditarProducto;
+        private System.Windows.Forms.TextBox txtStockMinimo;
+        private System.Windows.Forms.TextBox txtStockMaximo;
     }
 }

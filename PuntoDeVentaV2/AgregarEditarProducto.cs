@@ -1002,6 +1002,139 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtStockMinimo_Enter(object sender, EventArgs e)
+        {
+            txtStockMinimo.SelectAll();
+            _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
+        }
+
+        private void txtStockMinimo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            //Si deseas, puedes permitir numeros decimales (o float)
+            //If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStockMinimo_KeyUp(object sender, KeyEventArgs e)
+        {
+            stockMinimo = txtStockMinimo.Text;
+        }
+
+        private void txtStockMinimo_Leave(object sender, EventArgs e)
+        {
+            string[] words;
+
+            if (txtStockMinimo.Text.Equals(""))
+            {
+                txtStockMinimo.Text = "0";
+            }
+            else if (!txtStockMinimo.Text.Equals(""))
+            {
+                words = txtStockMinimo.Text.Split('.');
+                if (words[0].Equals(""))
+                {
+                    words[0] = "0";
+                }
+                if (words.Length > 1)
+                {
+                    if (words[1].Equals(""))
+                    {
+                        words[1] = "0";
+                    }
+                    txtStockMinimo.Text = words[0] + "." + words[1];
+                }
+            }
+        }
+
+        private void txtStockMaximo_Enter(object sender, EventArgs e)
+        {
+            txtStockMaximo.SelectAll();
+            _lastEnteredControl = (Control)sender;      // capturamos el ultimo control en el que estaba el Focus
+        }
+
+        private void txtStockMaximo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            //Si deseas, puedes permitir numeros decimales (o float)
+            //If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtStockMaximo_KeyUp(object sender, KeyEventArgs e)
+        {
+            stockNecesario = txtStockMaximo.Text;
+        }
+
+        private void txtStockMaximo_Leave(object sender, EventArgs e)
+        {
+            string[] words;
+
+            if (txtStockMaximo.Text.Equals(""))
+            {
+                txtStockMaximo.Text = "0";
+            }
+            else if (!txtStockMaximo.Text.Equals(""))
+            {
+                words = txtStockMaximo.Text.Split('.');
+                if (words[0].Equals(""))
+                {
+                    words[0] = "0";
+                }
+                if (words.Length > 1)
+                {
+                    if (words[1].Equals(""))
+                    {
+                        words[1] = "0";
+                    }
+                    txtStockMaximo.Text = words[0] + "." + words[1];
+                }
+            }
+
+            ValidarStockMaximo();
+        }
+
+        private void ValidarStockMaximo()
+        {
+            var minimoAux = txtStockMinimo.Text.Trim();
+            var maximoAux = txtStockMaximo.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(minimoAux))
+            {
+                if (!string.IsNullOrWhiteSpace(maximoAux))
+                {
+                    var minimo = float.Parse(minimoAux);
+                    var maximo = float.Parse(maximoAux);
+
+                    if (maximo <= minimo)
+                    {
+                        MessageBox.Show("El stock máximo no puede ser menor \no igual que stock mínimo", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        txtStockMaximo.Focus();
+                    }
+                    else if (maximo > minimo)
+                    {
+                        stockMinimo = minimo.ToString();
+                        stockNecesario = maximo.ToString();
+                    }
+                }
+            }
+        }
+
         private void txtPrecioProducto_Validated(object sender, EventArgs e)
         {
             errorProvAgregarEditarProducto.SetError(txtPrecioProducto, "");
@@ -1528,6 +1661,10 @@ namespace PuntoDeVentaV2
                 }
                 if (words.Length > 1)
                 {
+                    if (words[1].Equals(""))
+                    {
+                        words[1] = "0";
+                    }
                     txtStockProducto.Text = words[0] + "." + words[1];
                 }
             }
@@ -1580,6 +1717,10 @@ namespace PuntoDeVentaV2
                 }
                 if (words.Length > 1)
                 {
+                    if (words[1].Equals(""))
+                    {
+                        words[1] = "0";
+                    }
                     txtPrecioProducto.Text = words[0] + "." + words[1];
                 }
             }
@@ -2696,295 +2837,302 @@ namespace PuntoDeVentaV2
             {
                 if (SearchProdResult.Rows.Count != 0)
                 {
-                    #region Inicio existencia de codigo de barra al actualizar
-                    // Verificar existencia de codigo de barra al actualizar
-                    if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID, Convert.ToInt32(idProductoBuscado)))
+                    if (!claveIn.Equals("") || !codigoB.Equals(""))
                     {
-                        MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    #endregion Final existencia de codigo de barra al actualizar
-
-                    #region Inicio existencia de clave interna al actualizar
-                    // Verificar existencia de codigo de barra al actualizar
-                    if (mb.ComprobarCodigoClave(claveIn, FormPrincipal.userID, Convert.ToInt32(idProductoBuscado)))
-                    {
-                        MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    #endregion Final existencia de clave interna al actualizar
-
-                    #region Inicio Codigo de barras extras
-                    // recorrido para FlowLayoutPanel para ver cuantos TextBox
-                    foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
-                    {
-                        // hacemos un objeto para ver que tipo control es
-                        foreach (Control item in panel.Controls)
+                        #region Inicio existencia de codigo de barra al actualizar
+                        // Verificar existencia de codigo de barra al actualizar
+                        if (mb.ComprobarCodigoClave(codigoB, FormPrincipal.userID, Convert.ToInt32(idProductoBuscado)))
                         {
-                            // ver si el control es TextBox
-                            if (item is TextBox)
+                            MessageBox.Show($"El número de identificación {codigoB}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        #endregion Final existencia de codigo de barra al actualizar
+
+                        #region Inicio existencia de clave interna al actualizar
+                        // Verificar existencia de codigo de barra al actualizar
+                        if (mb.ComprobarCodigoClave(claveIn, FormPrincipal.userID, Convert.ToInt32(idProductoBuscado)))
+                        {
+                            MessageBox.Show($"El número de identificación {claveIn}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        #endregion Final existencia de clave interna al actualizar
+
+                        #region Inicio Codigo de barras extras
+                        // recorrido para FlowLayoutPanel para ver cuantos TextBox
+                        foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
+                        {
+                            // hacemos un objeto para ver que tipo control es
+                            foreach (Control item in panel.Controls)
                             {
-                                var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
-                                codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                                // ver si el control es TextBox
+                                if (item is TextBox)
+                                {
+                                    var tb = item.Text;         // almacenamos en la variable tb el texto de cada TextBox
+                                    codigosBarrras.Add(tb);     // almacenamos en el List los codigos de barras
+                                }
                             }
                         }
-                    }
 
-                    // Verificar si los codigos de barra extra ya existen al actualizar producto, servicio o paquete
-                    if (codigosBarrras != null || codigosBarrras.Count != 0)
-                    {
-                        for (int pos = 0; pos < codigosBarrras.Count; pos++)
+                        // Verificar si los codigos de barra extra ya existen al actualizar producto, servicio o paquete
+                        if (codigosBarrras != null || codigosBarrras.Count != 0)
                         {
-                            var existe = mb.ComprobarCodigoClave(codigosBarrras[pos], FormPrincipal.userID, Convert.ToInt32(idProductoBuscado));
-
-                            if (existe)
+                            for (int pos = 0; pos < codigosBarrras.Count; pos++)
                             {
-                                MessageBox.Show($"El número de identificación {codigosBarrras[pos]}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                codigosBarrras.Clear();
-                                return;
+                                var existe = mb.ComprobarCodigoClave(codigosBarrras[pos], FormPrincipal.userID, Convert.ToInt32(idProductoBuscado));
+
+                                if (existe)
+                                {
+                                    MessageBox.Show($"El número de identificación {codigosBarrras[pos]}\nya se esta utilizando como clave interna o\ncódigo de barras de algún producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    codigosBarrras.Clear();
+                                    return;
+                                }
                             }
                         }
-                    }
 
-                    //label10.Text = idProductoBuscado;
-                    if (SearchCodBarExtResult.Rows.Count != 0)
-                    {
-                        string deleteCodBarExt = $"DELETE FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
-                        cn.EjecutarConsulta(deleteCodBarExt);
-                    }
-
-                    // verificamos si el List esta con algun registro 
-                    if (codigosBarrras != null || codigosBarrras.Count != 0)
-                    {
-                        // hacemos recorrido del List para gregarlos en los codigos de barras extras
-                        for (int pos = 0; pos < codigosBarrras.Count; pos++)
+                        //label10.Text = idProductoBuscado;
+                        if (SearchCodBarExtResult.Rows.Count != 0)
                         {
-                            // preparamos el Query
-                            string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos].Trim()}','{idProductoBuscado}')";
-                            cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
+                            string deleteCodBarExt = $"DELETE FROM CodigoBarrasExtras WHERE IDProducto = '{idProductoBuscado}'";
+                            cn.EjecutarConsulta(deleteCodBarExt);
                         }
-                    }
 
-                    codigosBarrras.Clear();
-                    #endregion Final Codigo de barras extras
+                        // verificamos si el List esta con algun registro 
+                        if (codigosBarrras != null || codigosBarrras.Count != 0)
+                        {
+                            // hacemos recorrido del List para gregarlos en los codigos de barras extras
+                            for (int pos = 0; pos < codigosBarrras.Count; pos++)
+                            {
+                                // preparamos el Query
+                                string insert = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto)VALUES('{codigosBarrras[pos].Trim()}','{idProductoBuscado}')";
+                                cn.EjecutarConsulta(insert);    // Realizamos el insert en la base de datos
+                            }
+                        }
 
-                    // Comprobar precio del producto para saber si se edito
-                    var precioTmp = cn.BuscarProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
-                    var precioNuevo = float.Parse(precio);
-                    var precioAnterior = float.Parse(precioTmp[2]);
+                        codigosBarrras.Clear();
+                        #endregion Final Codigo de barras extras
 
-                    #region Incio Seccion Cambio de Precio
-                    if (precioNuevo != precioAnterior)
-                    {
-                        var datos = new string[] {
+                        // Comprobar precio del producto para saber si se edito
+                        var precioTmp = cn.BuscarProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+                        var precioNuevo = float.Parse(precio);
+                        var precioAnterior = float.Parse(precioTmp[2]);
+
+                        #region Incio Seccion Cambio de Precio
+                        if (precioNuevo != precioAnterior)
+                        {
+                            var datos = new string[] {
                             FormPrincipal.userID.ToString(), "0", idProductoBuscado,
                             precioAnterior.ToString("N2"), precioNuevo.ToString("N2"),
                             "EDITAR PRODUCTO", fechaOperacion
                         };
 
-                        // Se guarda historial del cambio de precio
-                        cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));
+                            // Se guarda historial del cambio de precio
+                            cn.EjecutarConsulta(cs.GuardarHistorialPrecios(datos));
 
-                        // Ejecutar hilo para enviar notificacion
-                        var datosConfig = mb.ComprobarConfiguracion();
+                            // Ejecutar hilo para enviar notificacion
+                            var datosConfig = mb.ComprobarConfiguracion();
 
-                        if (datosConfig.Count > 0)
-                        {
-                            if (Convert.ToInt16(datosConfig[0]) == 1)
+                            if (datosConfig.Count > 0)
                             {
-                                var configProducto = mb.ComprobarCorreoProducto(Convert.ToInt32(idProductoBuscado));
-
-                                if (configProducto.Count > 0)
+                                if (Convert.ToInt16(datosConfig[0]) == 1)
                                 {
-                                    if (configProducto[0] == 1)
+                                    var configProducto = mb.ComprobarCorreoProducto(Convert.ToInt32(idProductoBuscado));
+
+                                    if (configProducto.Count > 0)
                                     {
-                                        datos = new string[] {
+                                        if (configProducto[0] == 1)
+                                        {
+                                            datos = new string[] {
                                             nombre, precioAnterior.ToString("N2"),
                                             precioNuevo.ToString("N2"), "editar producto"
                                         };
 
-                                        Thread notificacion = new Thread(
-                                            () => Utilidades.CambioPrecioProductoEmail(datos)
-                                        );
+                                            Thread notificacion = new Thread(
+                                                () => Utilidades.CambioPrecioProductoEmail(datos)
+                                            );
 
-                                        notificacion.Start();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    #endregion Final Seccion Cambio de Precio
-
-                    #region Inicio Seccion Descuentos
-                    if (descuentos.Any())
-                    {
-                        FormAgregar.Close();
-                        tipoDescuento = descuentos[0];
-                    }
-
-                    //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                    if (descuentos.Any())
-                    {
-                        // Se borra de las dos tablas en caso de que haya tenido un tipo de descuento diferente al que se actualizo
-                        string deleteDescuentoCLiente = $"DELETE FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
-                        cn.EjecutarConsulta(deleteDescuentoCLiente);
-
-                        string deleteDescuentoMayoreo = $"DELETE FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
-                        cn.EjecutarConsulta(deleteDescuentoMayoreo);
-
-                        //Descuento por Cliente
-                        if (descuentos[0] == "1")
-                        {
-                            string[] guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
-                            cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, Convert.ToInt32(idProductoBuscado)));
-                        }
-                        //Descuento por Mayoreo
-                        if (descuentos[0] == "2")
-                        {
-                            foreach (var descuento in descuentos)
-                            {
-                                if (descuento == "2") { continue; }
-
-                                string[] tmp = descuento.Split('-');
-
-                                cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, Convert.ToInt32(idProductoBuscado)));
-                            }
-                        }
-                    }
-                    #endregion Final Seccion Descuentos
-
-                    queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
-
-                    respuesta = cn.EjecutarConsulta(queryUpdateProd);
-
-                    #region Inicio De Detalle Producto Basicos
-                    bool isEmpty = !detalleProductoBasico.Any();
-
-                    if (!isEmpty)
-                    {
-                        // Para guardar los detalles del producto
-                        // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
-                        guardar = detalleProductoBasico.ToArray();
-                        guardar[0] = idProductoBuscado.ToString();
-                        cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
-                    }
-                    #endregion Final De Detalle Producto Basicos
-
-                    #region Inicio de Seccion Productos
-                    if (this.Text.Trim().Equals("Productos"))
-                    {
-                        if (!CBNombProd.Equals("") || !CBIdProd.Equals(""))
-                        {
-                            DateTime today = DateTime.Now;
-                            DataTable dtSearchServPaq;
-                            DataRow rowServPaq;
-                            dtSearchServPaq = cn.CargarDatos(cs.ProductosDeServicios(Convert.ToInt32(CBIdProd)));
-
-                            if (dtSearchServPaq.Rows.Count > 0)
-                            {
-                                rowServPaq = dtSearchServPaq.Rows[0];
-                                string[] tmp = { $"{today.ToString("yyyy-MM-dd hh:mm:ss")}", $"{CBIdProd}", $"{idProductoBuscado}", $"{nombre}", $"{rowServPaq["Cantidad"].ToString()}" };
-                                
-                                try
-                                {
-                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
-                                }
-                                catch(Exception ex)
-                                {
-                                    MessageBox.Show("Algo ocurrio al tratar de guardar Productos que contienen los Combos/Servicios\n" + ex.Message.ToString(), "Advertencia del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                }
-
-                                string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBIdProd}' AND (IDProducto = '' AND NombreProducto = '')";
-                                int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
-                                if (DeleteProdAtPQS > 0)
-                                {
-                                    //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                                else
-                                {
-                                    //MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                            }
-
-                            // Limpiar para evitar error de relacionar producto a servicio 
-                            // y despues editar cualquier producto cualquiera
-                            CBIdProd = string.Empty;
-                            CBNombProd = string.Empty;
-                        }
-                    }
-                    #endregion Final de Seccion Productos
-
-                    #region Inicio de Seccion Combos y Servicios
-                    else if (this.Text.Trim().Equals("Combos") || this.Text.Trim().Equals("Servicios"))
-                    {
-                        // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
-                        if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
-                        {
-                            ProductosDeServicios.Clear();
-                            // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
-                            foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
-                            {
-                                // agregamos la variable para egregar los procutos
-                                string prodSerPaq = null;
-                                DataTable dtProductos;
-                                foreach (Control item in panel.Controls)
-                                {
-                                    string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                    if (item is ComboBox)
-                                    {
-                                        if (item.Text != "Por favor selecciona un Producto")
-                                        {
-                                            string buscar = null;
-                                            string comboBoxText = item.Text;
-                                            string comboBoxValue = null;
-                                            buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
-                                            dtProductos = cn.CargarDatos(buscar);
-                                            comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
-                                            prodSerPaq += fech + "|";
-                                            prodSerPaq += idProductoBuscado + "|";
-                                            prodSerPaq += comboBoxValue + "|";
-                                            prodSerPaq += comboBoxText + "|";
-                                        }
-                                    }
-                                    if (item is TextBox)
-                                    {
-                                        var tb = item.Text;
-                                        if (item.Text == "0")
-                                        {
-                                            tb = "0";
-                                            prodSerPaq += tb;
-                                        }
-                                        else
-                                        {
-                                            prodSerPaq += tb;
+                                            notificacion.Start();
                                         }
                                     }
                                 }
-                                ProductosDeServicios.Add(prodSerPaq);
-                                prodSerPaq = null;
                             }
                         }
+                        #endregion Final Seccion Cambio de Precio
+
+                        #region Inicio Seccion Descuentos
+                        if (descuentos.Any())
+                        {
+                            FormAgregar.Close();
+                            tipoDescuento = descuentos[0];
+                        }
+
                         //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
-                        if (ProductosDeServicios.Any())
+                        if (descuentos.Any())
                         {
-                            string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
-                            cn.EjecutarConsulta(queryBorrarProductosDeServicios);
-                            foreach (var productosSP in ProductosDeServicios)
+                            // Se borra de las dos tablas en caso de que haya tenido un tipo de descuento diferente al que se actualizo
+                            string deleteDescuentoCLiente = $"DELETE FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
+                            cn.EjecutarConsulta(deleteDescuentoCLiente);
+
+                            string deleteDescuentoMayoreo = $"DELETE FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
+                            cn.EjecutarConsulta(deleteDescuentoMayoreo);
+
+                            //Descuento por Cliente
+                            if (descuentos[0] == "1")
                             {
-                                string[] tmp = productosSP.Split('|');
-                                if (tmp.Length == 5)
+                                string[] guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
+                                cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, Convert.ToInt32(idProductoBuscado)));
+                            }
+                            //Descuento por Mayoreo
+                            if (descuentos[0] == "2")
+                            {
+                                foreach (var descuento in descuentos)
                                 {
-                                    cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                    if (descuento == "2") { continue; }
+
+                                    string[] tmp = descuento.Split('-');
+
+                                    cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, Convert.ToInt32(idProductoBuscado)));
                                 }
                             }
-                            ProductosDeServicios.Clear();
                         }
-                        flowLayoutPanel2.Controls.Clear();
-                    }
-                    #endregion Final de Seccion Combos y Servicios
+                        #endregion Final Seccion Descuentos
 
-                    // Cierra la ventana donde se agregan los datos del producto
-                    this.Close();
+                        queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+
+                        respuesta = cn.EjecutarConsulta(queryUpdateProd);
+
+                        #region Inicio De Detalle Producto Basicos
+                        bool isEmpty = !detalleProductoBasico.Any();
+
+                        if (!isEmpty)
+                        {
+                            // Para guardar los detalles del producto
+                            // Ejemplo: Proveedor, Categoria, Ubicacion, etc.
+                            guardar = detalleProductoBasico.ToArray();
+                            guardar[0] = idProductoBuscado.ToString();
+                            cn.EjecutarConsulta(cs.GuardarProveedorDetallesDelProducto(guardar));
+                        }
+                        #endregion Final De Detalle Producto Basicos
+
+                        #region Inicio de Seccion Productos
+                        if (this.Text.Trim().Equals("Productos"))
+                        {
+                            if (!CBNombProd.Equals("") || !CBIdProd.Equals(""))
+                            {
+                                DateTime today = DateTime.Now;
+                                DataTable dtSearchServPaq;
+                                DataRow rowServPaq;
+                                dtSearchServPaq = cn.CargarDatos(cs.ProductosDeServicios(Convert.ToInt32(CBIdProd)));
+
+                                if (dtSearchServPaq.Rows.Count > 0)
+                                {
+                                    rowServPaq = dtSearchServPaq.Rows[0];
+                                    string[] tmp = { $"{today.ToString("yyyy-MM-dd hh:mm:ss")}", $"{CBIdProd}", $"{idProductoBuscado}", $"{nombre}", $"{rowServPaq["Cantidad"].ToString()}" };
+
+                                    try
+                                    {
+                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        MessageBox.Show("Algo ocurrio al tratar de guardar Productos que contienen los Combos/Servicios\n" + ex.Message.ToString(), "Advertencia del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
+
+                                    string DeleteProdAtService = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{CBIdProd}' AND (IDProducto = '' AND NombreProducto = '')";
+                                    int DeleteProdAtPQS = cn.EjecutarConsulta(DeleteProdAtService);
+                                    if (DeleteProdAtPQS > 0)
+                                    {
+                                        //MessageBox.Show("Productos Agregado al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    else
+                                    {
+                                        //MessageBox.Show("Algo salio mal al intentar Agregar el\nProducto al Paquete o Servicio", "Confirmacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                }
+
+                                // Limpiar para evitar error de relacionar producto a servicio 
+                                // y despues editar cualquier producto cualquiera
+                                CBIdProd = string.Empty;
+                                CBNombProd = string.Empty;
+                            }
+                        }
+                        #endregion Final de Seccion Productos
+
+                        #region Inicio de Seccion Combos y Servicios
+                        else if (this.Text.Trim().Equals("Combos") || this.Text.Trim().Equals("Servicios"))
+                        {
+                            // recorrido para FlowLayoutPanel2 para ver cuantos TextBox
+                            if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
+                            {
+                                ProductosDeServicios.Clear();
+                                // recorrido del panel de Prodcutos de Productos para ver cuantos Productos fueron seleccionados
+                                foreach (Control panel in flowLayoutPanel2.Controls.OfType<FlowLayoutPanel>())
+                                {
+                                    // agregamos la variable para egregar los procutos
+                                    string prodSerPaq = null;
+                                    DataTable dtProductos;
+                                    foreach (Control item in panel.Controls)
+                                    {
+                                        string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                        if (item is ComboBox)
+                                        {
+                                            if (item.Text != "Por favor selecciona un Producto")
+                                            {
+                                                string buscar = null;
+                                                string comboBoxText = item.Text;
+                                                string comboBoxValue = null;
+                                                buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{comboBoxText}' AND IDUsuario = '{FormPrincipal.userID}'";
+                                                dtProductos = cn.CargarDatos(buscar);
+                                                comboBoxValue = dtProductos.Rows[0]["ID"].ToString();
+                                                prodSerPaq += fech + "|";
+                                                prodSerPaq += idProductoBuscado + "|";
+                                                prodSerPaq += comboBoxValue + "|";
+                                                prodSerPaq += comboBoxText + "|";
+                                            }
+                                        }
+                                        if (item is TextBox)
+                                        {
+                                            var tb = item.Text;
+                                            if (item.Text == "0")
+                                            {
+                                                tb = "0";
+                                                prodSerPaq += tb;
+                                            }
+                                            else
+                                            {
+                                                prodSerPaq += tb;
+                                            }
+                                        }
+                                    }
+                                    ProductosDeServicios.Add(prodSerPaq);
+                                    prodSerPaq = null;
+                                }
+                            }
+                            //Se realiza el proceso para guardar el descuento del producto en caso de que se haya agregado uno
+                            if (ProductosDeServicios.Any())
+                            {
+                                string queryBorrarProductosDeServicios = $"DELETE FROM ProductosDeServicios WHERE IDServicio = '{idProductoBuscado}'";
+                                cn.EjecutarConsulta(queryBorrarProductosDeServicios);
+                                foreach (var productosSP in ProductosDeServicios)
+                                {
+                                    string[] tmp = productosSP.Split('|');
+                                    if (tmp.Length == 5)
+                                    {
+                                        cn.EjecutarConsulta(cs.GuardarProductosServPaq(tmp));
+                                    }
+                                }
+                                ProductosDeServicios.Clear();
+                            }
+                            flowLayoutPanel2.Controls.Clear();
+                        }
+                        #endregion Final de Seccion Combos y Servicios
+
+                        // Cierra la ventana donde se agregan los datos del producto
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Precio Venta, La Clave Interna ó Código de Barras\nNO DEBE ESTAR EN BLANCO", "Advertencia de llenado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
             #endregion Final Sección De Editar Producto
@@ -4424,6 +4572,10 @@ namespace PuntoDeVentaV2
                 }
                 if (words.Length > 1)
                 {
+                    if (words[1].Equals(""))
+                    {
+                        words[1] = "0";
+                    }
                     txtPrecioCompra.Text = words[0] + "." + words[1];
                 }
             }
@@ -4821,8 +4973,8 @@ namespace PuntoDeVentaV2
                     typeOfProduct = detallesProductoTmp[5];
                     txtPrecioCompra.Text = detallesProductoTmp[11];
                     logoTipo = detallesProductoTmp[9];      // Obtenemos el nuevo Path
-                    lbStockMaximo.Text = detallesProductoTmp[8];
-                    lbStockMinimo.Text = detallesProductoTmp[10];
+                    txtStockMaximo.Text = detallesProductoTmp[8];
+                    txtStockMinimo.Text = detallesProductoTmp[10];
                     if (pictureBoxProducto.Image != null)
                     {
                         pictureBoxProducto.Image.Dispose(); // Liberamos el pictureBox para poder borrar su imagen
