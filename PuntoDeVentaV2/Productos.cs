@@ -228,6 +228,11 @@ namespace PuntoDeVentaV2
                     e.ColumnIndex == 5 ||
                     e.ColumnIndex == 6)
                 {
+                    if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
+                    {
+                        Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
+                    }
+
                     if (seleccionadoDato == 0)
                     {
                         seleccionadoDato = 1;
@@ -235,8 +240,11 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila);
                         origenDeLosDatos = 2;
                     }
+
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), Convert.ToInt32(id));
+
                     string typeProduct = producto[5];
+
                     if (typeProduct == "S")
                     {
                         btnAgregarServicio.PerformClick();
@@ -3290,6 +3298,11 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
+            if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
+            {
+                Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
+            }
+
             var FormAgregar = new AgregarEditarProducto("Agregar");
 
             if (origenDeLosDatos == 0)
@@ -3322,7 +3335,8 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
+
                 }
                 else if (seleccionadoDato == 1)
                 {
@@ -3337,7 +3351,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.idEditarProducto = idProductoEditar;
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
             }
             else
@@ -3345,7 +3359,7 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
                 else if (seleccionadoDato == 1)
                 {
@@ -3360,7 +3374,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.idEditarProducto = idProductoEditar;
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
             }
 
@@ -3399,6 +3413,11 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
+            if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
+            {
+                Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
+            }
+
             var FormAgregar = new AgregarEditarProducto("Agregar");
 
             if (origenDeLosDatos == 0)
@@ -3428,7 +3447,7 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
                 else if (seleccionadoDato == 1)
                 {
@@ -3443,7 +3462,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.idEditarProducto = idProductoEditar;
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
             }
             else
@@ -3451,7 +3470,7 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
                 else if (seleccionadoDato == 1)
                 {
@@ -3466,7 +3485,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.idEditarProducto = idProductoEditar;
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
             }
 
@@ -3491,6 +3510,11 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
+            if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
+            {
+                Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
+            }
+
             var FormAgregar = new AgregarEditarProducto("Agregar");
 
             if (origenDeLosDatos == 0)
@@ -3522,7 +3546,7 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
                 else if (seleccionadoDato == 1)
                 {
@@ -3537,7 +3561,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.idEditarProducto = idProductoEditar;
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
             }
             else
@@ -3545,7 +3569,7 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
                 else if (seleccionadoDato == 1)
                 {
@@ -3560,7 +3584,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.claveUnidadMedidaxml = UnidadMedida;
                     FormAgregar.idEditarProducto = idProductoEditar;
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
-                    FormAgregar.ShowDialog();
+                    FormAgregar.Show();
                 }
             }
             if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
