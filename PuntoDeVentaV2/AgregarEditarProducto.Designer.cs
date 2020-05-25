@@ -191,7 +191,6 @@
             this.txtNombreProducto.TabIndex = 1;
             this.txtNombreProducto.Enter += new System.EventHandler(this.txtNombreProducto_Enter);
             this.txtNombreProducto.Validating += new System.ComponentModel.CancelEventHandler(this.txtNombreProducto_Validating);
-            this.txtNombreProducto.Validated += new System.EventHandler(this.txtNombreProducto_Validated);
             // 
             // txtPrecioProducto
             // 
@@ -206,7 +205,6 @@
             this.txtPrecioProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPrecioProducto_KeyUp);
             this.txtPrecioProducto.Leave += new System.EventHandler(this.txtPrecioProducto_Leave);
             this.txtPrecioProducto.Validating += new System.ComponentModel.CancelEventHandler(this.txtPrecioProducto_Validating);
-            this.txtPrecioProducto.Validated += new System.EventHandler(this.txtPrecioProducto_Validated);
             // 
             // txtStockProducto
             // 
@@ -228,6 +226,7 @@
             this.txtClaveProducto.Size = new System.Drawing.Size(126, 20);
             this.txtClaveProducto.TabIndex = 6;
             this.txtClaveProducto.Enter += new System.EventHandler(this.txtClaveProducto_Enter);
+            this.txtClaveProducto.Validating += new System.ComponentModel.CancelEventHandler(this.txtClaveProducto_Validating);
             // 
             // txtCategoriaProducto
             // 
@@ -248,6 +247,7 @@
             this.txtCodigoBarras.TabIndex = 7;
             this.txtCodigoBarras.Enter += new System.EventHandler(this.txtCodigoBarras_Enter);
             this.txtCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoBarras_KeyDown);
+            this.txtCodigoBarras.Validating += new System.ComponentModel.CancelEventHandler(this.txtCodigoBarras_Validating);
             // 
             // panelContenedor
             // 
@@ -575,7 +575,7 @@
             this.PCodigoBarras.Location = new System.Drawing.Point(2, 46);
             this.PCodigoBarras.Margin = new System.Windows.Forms.Padding(2);
             this.PCodigoBarras.Name = "PCodigoBarras";
-            this.PCodigoBarras.Size = new System.Drawing.Size(276, 124);
+            this.PCodigoBarras.Size = new System.Drawing.Size(287, 124);
             this.PCodigoBarras.TabIndex = 5;
             // 
             // btnGenerarCB
@@ -588,7 +588,7 @@
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
             this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
             this.btnGenerarCB.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGenerarCB.Location = new System.Drawing.Point(156, 7);
+            this.btnGenerarCB.Location = new System.Drawing.Point(164, 7);
             this.btnGenerarCB.Name = "btnGenerarCB";
             this.btnGenerarCB.Size = new System.Drawing.Size(112, 29);
             this.btnGenerarCB.TabIndex = 8;
@@ -603,7 +603,7 @@
             this.PCantidadPaqServ.Controls.Add(this.button1);
             this.PCantidadPaqServ.Controls.Add(this.txtCantPaqServ);
             this.PCantidadPaqServ.Controls.Add(this.lblCantPaqServ);
-            this.PCantidadPaqServ.Location = new System.Drawing.Point(283, 47);
+            this.PCantidadPaqServ.Location = new System.Drawing.Point(294, 47);
             this.PCantidadPaqServ.Name = "PCantidadPaqServ";
             this.PCantidadPaqServ.Size = new System.Drawing.Size(175, 120);
             this.PCantidadPaqServ.TabIndex = 6;
@@ -645,7 +645,7 @@
             // PImagen
             // 
             this.PImagen.Controls.Add(this.groupBox1);
-            this.PImagen.Location = new System.Drawing.Point(463, 46);
+            this.PImagen.Location = new System.Drawing.Point(474, 46);
             this.PImagen.Margin = new System.Windows.Forms.Padding(2);
             this.PImagen.Name = "PImagen";
             this.PImagen.Size = new System.Drawing.Size(204, 147);
