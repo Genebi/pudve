@@ -391,29 +391,30 @@ namespace PuntoDeVentaV2
 
         private void btnFilterSearch_Click(object sender, EventArgs e)
         {
-            WinQueryString FiltroAvanzado = new WinQueryString();
-
-            FiltroAvanzado.FormClosed += delegate
+            if (Application.OpenForms.OfType<WinQueryString>().Count() == 1)
             {
-                if (txtBusqueda.Text.Equals(""))
-                {
-                    CargarDatos();
-                }
-                else if (!txtBusqueda.Text.Equals(""))
-                {
-                    quitarEspacioEnBlanco();
-                    busquedaDelUsuario();
-                }
-                verificarBotonLimpiarTags();
-            };
-
-            if (!FiltroAvanzado.Visible)
-            {
-                FiltroAvanzado.ShowDialog();
+                Application.OpenForms.OfType<WinQueryString>().First().BringToFront();
             }
             else
             {
-                FiltroAvanzado.BringToFront();
+                WinQueryString FiltroAvanzado = new WinQueryString();
+
+                FiltroAvanzado.FormClosed += delegate
+                {
+                    if (txtBusqueda.Text.Equals(""))
+                    {
+                        CargarDatos();
+                    }
+                    else if (!txtBusqueda.Text.Equals(""))
+                    {
+                        quitarEspacioEnBlanco();
+                        busquedaDelUsuario();
+                    }
+
+                    verificarBotonLimpiarTags();
+                };
+
+                FiltroAvanzado.Show();
             }
         }
 
@@ -1214,6 +1215,8 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            productosSeleccionados = new Dictionary<int, string>();
+
             listVariables = new List<Control>();
 
             auxWord = new List<string>();
@@ -1262,9 +1265,15 @@ namespace PuntoDeVentaV2
         
         private void btnPedido_Click(object sender, EventArgs e)
         {
-            using (var opciones = new OpcionesReporteProducto())
+            if (Application.OpenForms.OfType<OpcionesReporteProducto>().Count() == 1)
             {
-                opciones.ShowDialog();
+                Application.OpenForms.OfType<OpcionesReporteProducto>().First().BringToFront();
+            }
+            else
+            {
+                var opciones = new OpcionesReporteProducto();
+
+                opciones.Show();
             }
         }
 
@@ -3086,6 +3095,15 @@ namespace PuntoDeVentaV2
                 string TipoProd = filaDatos["Tipo"].ToString();
                 row.Cells["CheckProducto"].Value = false;
 
+                if (productosSeleccionados.Count > 0)
+                {
+                    if (productosSeleccionados.ContainsKey(idProducto))
+                    {
+                        row.Cells["CheckProducto"].Value = true;
+                    }
+                }
+
+
                 row.Cells["Column1"].Value = filaDatos["Nombre"].ToString();
 
                 if (TipoProd == "P")
@@ -4176,16 +4194,33 @@ namespace PuntoDeVentaV2
 
             if (productosSeleccionados.Count > 0)
             {
-                AsignarMultipleProductos am = new AsignarMultipleProductos();
-
-                am.FormClosed += delegate
+                if (Application.OpenForms.OfType<AsignarMultipleProductos>().Count() == 1)
                 {
-                    //CargarDatos();
-                    //actualizarDatosDespuesDeAgregarProducto();
-                    linkLblPaginaActual_Click_1(sender, e);
-                };
+                    Application.OpenForms.OfType<AsignarMultipleProductos>().First().BringToFront();
+                }
+                else
+                {
+                    AsignarMultipleProductos am = new AsignarMultipleProductos();
 
-                am.ShowDialog();
+                    am.FormClosed += delegate
+                    {
+                        //CargarDatos();
+                        //actualizarDatosDespuesDeAgregarProducto();
+                        linkLblPaginaActual_Click_1(sender, e);
+
+                        productosSeleccionados.Clear();
+
+                        foreach (DataGridViewRow row in DGVProductos.Rows)
+                        {
+                            if ((bool)row.Cells["CheckProducto"].Value == true)
+                            {
+                                row.Cells["CheckProducto"].Value = false;
+                            }
+                        }
+                    };
+
+                    am.Show();
+                }
             }
             else
             {
