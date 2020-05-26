@@ -23,14 +23,14 @@ namespace PuntoDeVentaV2
         string num_certificado, x, fecha_caducidad, z;
         // 
         string nom_cer = "", nom_key = "";
+        string nom_cer_pem = "", nom_key_pem = "";
 
         OpenFileDialog ofd = new OpenFileDialog();
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
-
         
-
+    
         public string error = "";
         public string mensajeExito = "";
 
@@ -45,8 +45,8 @@ namespace PuntoDeVentaV2
         {
             if (Directory.Exists(ruta_guardar_archivos))
             {
-                string[] nombres = new string[2];
-                int i = 0;
+                //string[] nombres = new string[2];
+                //int i = 0;
                 string[] id_usuario = new string[] { FormPrincipal.userID.ToString() };
                 DataTable result;
                 DataRow row;
@@ -56,21 +56,40 @@ namespace PuntoDeVentaV2
 
                 foreach (var arch in dir.GetFiles())
                 {
-                    nombres[i]= arch.Name;
+                    string extencion = arch.Name.Substring(arch.Name.Length - 4, 4);
+                    string extencion_pem = arch.Name.Substring(arch.Name.Length - 8, 8);
 
-                    i++;
+                    if (extencion == ".cer")
+                    {
+                        txt_certificado.Text = arch.Name;
+                    }
+                    if (extencion == ".key")
+                    {
+                        txt_llave.Text = arch.Name;
+                    }
+                    if (extencion_pem == ".cer.pem")
+                    {
+                        txt_certificado_pem.Text = arch.Name;
+                    }
+                    if (extencion_pem == ".key.pem")
+                    {
+                        txt_llave_pem.Text = arch.Name;
+                    }
+                    /*nombres[i]= arch.Name;
+
+                    i++;*/
                 }
 
-                txt_certificado.Text = nombres[0];
-                txt_llave.Text = nombres[1];
-
-                if(nombres[0] == "" & nombres[1] == "")
+                Console.WriteLine(txt_certificado.Text + "=" + txt_llave.Text);
+                if (txt_certificado.Text == "" & txt_llave.Text == "")
                 {
-                    btn_subir_archivos.Enabled = false;
+                    Console.WriteLine("IF");
+                    btn_subir_archivos.Enabled = true;
                 }
                 else
                 {
-                    btn_subir_archivos.Enabled = true;
+                    Console.WriteLine("ELSE");
+                    btn_subir_archivos.Enabled = false;
                 }
 
 
@@ -94,7 +113,6 @@ namespace PuntoDeVentaV2
                         lb_fecha_caducidad.Text = fech;
                     }
                 }
-                
             }
         }
 
@@ -130,8 +148,9 @@ namespace PuntoDeVentaV2
                     // Obtiene extención del archivo elegido para determinar el tipo de acción a realizar
 
                     string extencion = solo_nombre.Substring(solo_nombre.Length - 4, 4);
+                    string extencion_pem = solo_nombre.Substring(solo_nombre.Length -8 , 8);
 
-                    if(extencion == ".cer")
+                    if (extencion == ".cer")
                     {
                         opc = 1;
                         nom_cer = solo_nombre;
@@ -141,17 +160,33 @@ namespace PuntoDeVentaV2
                     {
                         opc = 2;
                         nom_key = solo_nombre;
+                        //btn_subir_archivos.Enabled = false;
+                        openfiled_archivos.Filter = "Archivo CER.PEM(*.cer.pem) | *.cer.pem";
+                    }
+                    if (extencion_pem == ".cer.pem")
+                    {
+                        nom_cer_pem = solo_nombre;
+                        openfiled_archivos.Filter = "Archivo KEY.PEM(*.key.pem) | *.key.pem";
+                    }
+                    if (extencion_pem == ".key.pem")
+                    {
+                        nom_key_pem = solo_nombre;
                         btn_subir_archivos.Enabled = false;
                     }
-                    
+
 
                     // Guarda número de certificado y fecha de vencimiento
-                    tipo_validacion(opc, ruta_destino);
+                    if(opc > 0)
+                    {
+                        tipo_validacion(opc, ruta_destino);
+                    }                    
 
 
                     txt_certificado.Text = nom_cer;
                     txt_llave.Text = nom_key;
-                    
+                    txt_certificado_pem.Text = nom_cer_pem;
+                    txt_llave_pem.Text = nom_key_pem;
+
 
                     MessageBox.Show("Archivo subido corrrectamente.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -185,7 +220,7 @@ namespace PuntoDeVentaV2
 
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
-            var r = MessageBox.Show("Los cambios realizados se perderán si cancela, ¿desea continuar?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            /*var r = MessageBox.Show("Los cambios realizados se perderán si cancela, ¿desea continuar?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (r == DialogResult.Yes)
             {
@@ -195,7 +230,7 @@ namespace PuntoDeVentaV2
                 }
 
                 this.Dispose();
-            }
+            }*/
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)
@@ -227,6 +262,18 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show(mnsj, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ir_a_sifo(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("https://sifo.com.mx/pudve_genpem.php");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrio un error al abrir el enlace: " + ex, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -280,46 +327,7 @@ namespace PuntoDeVentaV2
                 Console.WriteLine("RESULTADO" + r); //'C:\Users\Miri\Documents\Visual Studio 2015\Projects\pudve\PuntoDeVentaV2\bin\Debug\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer
             }*/
         }
-
-        private void btn_pem_Click(object sender, EventArgs e)
-        {
-            string clave_privada = "House121";
-            string ruta_key = @"C:\Archivos PUDVE\MisDatos\CSD\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109.key";
-            string ruta_cer = @"C:\Archivos PUDVE\MisDatos\CSD\CSD_NESTOR_DAVID_NUEZ_SOTO_NUSN900420SS5_20190316_134109s.cer";
-            //byte[] ClavePrivada = ruta_key;
-            /*CFDI.SelloDigital selloDigital = new CFDI.SelloDigital();
-            selloDigital.Sellar("", ruta_key, clave_privada);*/
-
-            /*if (!File.Exists(ruta_key))
-            {
-                Console.WriteLine("File \"{0}\" does not exist!\n", ruta_key);
-            }*/
-
-            //StreamReader sr = File.OpenText(ruta_key);
-
-            //String pemstr = sr.ReadToEnd().Trim();
-            byte[] pemstr = File.ReadAllBytes(ruta_key);
-            //sr.Close();
-            /*if (pemstr.StartsWith("-----BEGIN"))
-            {
-                CFDI.OpenSSLKey.DecodePEMKey(pemstr);
-            }
-            else
-            {
-                CFDI.OpenSSLKey.DecodeDERKey(ruta_key);
-            }*/
-
-
-            /*
-
-            CFDI.SelloDigital selloDigital = new CFDI.SelloDigital();
-            selloDigital.Sellar("", ruta_key, clave_privada);
-
-            CFDI.OpenSSLKey.DecodeOpenSSLPublicKey(ruta_cer);*/
-
-        }
-
-        
+                
         private void tipo_validacion(int opc, string ruta_destino)
         {
             if(opc == 1)
@@ -399,8 +407,10 @@ namespace PuntoDeVentaV2
             // Limpiar campos
 
             txt_certificado.Text = string.Empty;
+            txt_certificado_pem.Text = string.Empty;
             lb_fecha_caducidad.Text = string.Empty;
             txt_llave.Text = string.Empty;
+            txt_llave_pem.Text = string.Empty;
             txt_password.Text = string.Empty;
             txt_password.ReadOnly = true;
             btn_subir_archivos.Enabled = true;
@@ -412,7 +422,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        public bool genera_pem(string clave)
+        /*public bool genera_pem(string clave)
         {
            
             string cer = ruta_guardar_archivos + nom_cer;
@@ -493,6 +503,6 @@ namespace PuntoDeVentaV2
             exito = true;
 
             return exito;
-        }
+        }*/
     }
 }

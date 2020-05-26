@@ -291,6 +291,7 @@ namespace PuntoDeVentaV2.CFDI
             Serie = objCert.SerialNumber.ToString();
 
             objSB.AppendLine("Hash = " + objCert.Thumbprint);
+ 
             //Numero = "?";
             string tNumero = "", rNumero = "", tNumero2 = "";
 
@@ -430,8 +431,8 @@ namespace PuntoDeVentaV2.CFDI
 
 
 
-        /*
-        private static void ExportPrivateKey(RSACryptoServiceProvider csp )
+        
+        /*private static void ExportPrivateKey(RSACryptoServiceProvider csp )
         {
             Console.WriteLine("HOLA");
             TextWriter outputStream = new StringWriter();
