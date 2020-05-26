@@ -1683,6 +1683,8 @@ namespace PuntoDeVentaV2
                 var mostrarPrecio = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MostrarPrecioProducto")));
                 var mostrarCB = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MostrarCodigoProducto")));
                 var porcentajeProducto = dr.GetValue(dr.GetOrdinal("PorcentajePrecio")).ToString();
+                var precioMayoreo = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("PrecioMayoreo")));
+                var minimoMayoreo = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("MinimoMayoreo")));
 
                 config.Add(correoPrecio);
                 config.Add(correoStock);
@@ -1693,6 +1695,8 @@ namespace PuntoDeVentaV2
                 config.Add(mostrarPrecio);
                 config.Add(mostrarCB);
                 config.Add(porcentajeProducto);
+                config.Add(precioMayoreo);
+                config.Add(minimoMayoreo);
             }
 
             dr.Close();

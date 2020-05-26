@@ -41,6 +41,7 @@ namespace PuntoDeVentaV2
             VerificarDatosInventario();
             VerificarConfiguracion();
 
+            txtMinimoMayoreo.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtPorcentajeProducto.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.Text = numeroRevision.ToString();
@@ -84,6 +85,8 @@ namespace PuntoDeVentaV2
                 cbMostrarPrecio.Checked = Convert.ToBoolean(datosConfig[6]);
                 cbMostrarCB.Checked = Convert.ToBoolean(datosConfig[7]);
                 txtPorcentajeProducto.Text = datosConfig[8].ToString();
+                checkMayoreo.Checked = Convert.ToBoolean(datosConfig[9]);
+                txtMinimoMayoreo.Text = datosConfig[10].ToString();
             }
             else
             {
@@ -309,15 +312,33 @@ namespace PuntoDeVentaV2
 
         private void checkMayoreo_CheckedChanged(object sender, EventArgs e)
         {
+            var habilitado = 0;
+
             if (checkMayoreo.Checked)
             {
+                habilitado = 1;
                 txtMinimoMayoreo.Enabled = true;
+                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
             }
             else
             {
                 txtMinimoMayoreo.Enabled = false;
                 txtMinimoMayoreo.Text = string.Empty;
+                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                cn.EjecutarConsulta($"UPDATE Configuracion SET MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+            } 
+        }
+
+        private void txtMinimoMayoreo_KeyUp(object sender, KeyEventArgs e)
+        {
+            var cantidad = txtMinimoMayoreo.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(cantidad))
+            {
+                return;
             }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET MinimoMayoreo = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }

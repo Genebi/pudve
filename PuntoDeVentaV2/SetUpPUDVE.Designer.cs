@@ -369,6 +369,8 @@
             this.txtMinimoMayoreo.Name = "txtMinimoMayoreo";
             this.txtMinimoMayoreo.Size = new System.Drawing.Size(69, 21);
             this.txtMinimoMayoreo.TabIndex = 122;
+            this.txtMinimoMayoreo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
             // 
             // label1
             // 
