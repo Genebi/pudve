@@ -306,5 +306,18 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Información guardada", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void checkMayoreo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkMayoreo.Checked)
+            {
+                txtMinimoMayoreo.Enabled = true;
+            }
+            else
+            {
+                txtMinimoMayoreo.Enabled = false;
+                txtMinimoMayoreo.Text = string.Empty;
+            }
+        }
     }
 }
