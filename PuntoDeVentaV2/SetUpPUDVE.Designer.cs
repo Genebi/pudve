@@ -50,6 +50,9 @@
             this.btnGuardarPorcentaje = new System.Windows.Forms.Button();
             this.txtPorcentajeProducto = new System.Windows.Forms.TextBox();
             this.lbPorcentajeProducto = new System.Windows.Forms.Label();
+            this.checkMayoreo = new System.Windows.Forms.CheckBox();
+            this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbStockNegativo
@@ -57,7 +60,7 @@
             this.cbStockNegativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStockNegativo.AutoSize = true;
             this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStockNegativo.Location = new System.Drawing.Point(322, 218);
+            this.cbStockNegativo.Location = new System.Drawing.Point(15, 365);
             this.cbStockNegativo.Name = "cbStockNegativo";
             this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
             this.cbStockNegativo.TabIndex = 1;
@@ -205,7 +208,7 @@
             this.checkCBVenta.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.checkCBVenta.AutoSize = true;
             this.checkCBVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCBVenta.Location = new System.Drawing.Point(322, 255);
+            this.checkCBVenta.Location = new System.Drawing.Point(322, 218);
             this.checkCBVenta.Name = "checkCBVenta";
             this.checkCBVenta.Size = new System.Drawing.Size(245, 21);
             this.checkCBVenta.TabIndex = 110;
@@ -270,7 +273,7 @@
             this.pagWeb.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pagWeb.AutoSize = true;
             this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagWeb.Location = new System.Drawing.Point(322, 291);
+            this.pagWeb.Location = new System.Drawing.Point(322, 254);
             this.pagWeb.Name = "pagWeb";
             this.pagWeb.Size = new System.Drawing.Size(267, 21);
             this.pagWeb.TabIndex = 115;
@@ -283,7 +286,7 @@
             this.cbMostrarPrecio.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbMostrarPrecio.AutoSize = true;
             this.cbMostrarPrecio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarPrecio.Location = new System.Drawing.Point(322, 328);
+            this.cbMostrarPrecio.Location = new System.Drawing.Point(322, 291);
             this.cbMostrarPrecio.Name = "cbMostrarPrecio";
             this.cbMostrarPrecio.Size = new System.Drawing.Size(277, 21);
             this.cbMostrarPrecio.TabIndex = 116;
@@ -296,7 +299,7 @@
             this.cbMostrarCB.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbMostrarCB.AutoSize = true;
             this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarCB.Location = new System.Drawing.Point(322, 365);
+            this.cbMostrarCB.Location = new System.Drawing.Point(322, 328);
             this.cbMostrarCB.Name = "cbMostrarCB";
             this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
             this.cbMostrarCB.TabIndex = 117;
@@ -344,11 +347,48 @@
             this.lbPorcentajeProducto.TabIndex = 118;
             this.lbPorcentajeProducto.Text = "Porcentaje % de ganancia";
             // 
+            // checkMayoreo
+            // 
+            this.checkMayoreo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.checkMayoreo.AutoSize = true;
+            this.checkMayoreo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMayoreo.Location = new System.Drawing.Point(322, 365);
+            this.checkMayoreo.Name = "checkMayoreo";
+            this.checkMayoreo.Size = new System.Drawing.Size(273, 21);
+            this.checkMayoreo.TabIndex = 121;
+            this.checkMayoreo.Text = "Activar precio por mayoreo en ventas";
+            this.checkMayoreo.UseVisualStyleBackColor = true;
+            this.checkMayoreo.CheckedChanged += new System.EventHandler(this.checkMayoreo_CheckedChanged);
+            // 
+            // txtMinimoMayoreo
+            // 
+            this.txtMinimoMayoreo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.txtMinimoMayoreo.Enabled = false;
+            this.txtMinimoMayoreo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMinimoMayoreo.Location = new System.Drawing.Point(474, 386);
+            this.txtMinimoMayoreo.Name = "txtMinimoMayoreo";
+            this.txtMinimoMayoreo.Size = new System.Drawing.Size(69, 21);
+            this.txtMinimoMayoreo.TabIndex = 122;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(336, 388);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(132, 17);
+            this.label1.TabIndex = 123;
+            this.label1.Text = "- Cantidad mínima";
+            // 
             // SetUpPUDVE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 561);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtMinimoMayoreo);
+            this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.btnGuardarPorcentaje);
             this.Controls.Add(this.txtPorcentajeProducto);
             this.Controls.Add(this.lbPorcentajeProducto);
@@ -403,5 +443,8 @@
         private System.Windows.Forms.Button btnGuardarPorcentaje;
         private System.Windows.Forms.TextBox txtPorcentajeProducto;
         private System.Windows.Forms.Label lbPorcentajeProducto;
+        private System.Windows.Forms.CheckBox checkMayoreo;
+        private System.Windows.Forms.TextBox txtMinimoMayoreo;
+        private System.Windows.Forms.Label label1;
     }
 }
