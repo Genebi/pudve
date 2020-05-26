@@ -37,6 +37,10 @@
             this.txt_password = new System.Windows.Forms.TextBox();
             this.txt_rfc = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txt_llave_pem = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txt_certificado_pem = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.lb_fecha_caducidad = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -58,12 +62,18 @@
             this.openfiled_archivos = new System.Windows.Forms.OpenFileDialog();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
-            this.btn_pem = new System.Windows.Forms.Button();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -78,7 +88,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 86);
+            this.label2.Location = new System.Drawing.Point(8, 122);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 17);
             this.label2.TabIndex = 1;
@@ -87,7 +97,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 140);
+            this.label3.Location = new System.Drawing.Point(8, 215);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 17);
             this.label3.TabIndex = 2;
@@ -96,7 +106,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 194);
+            this.label4.Location = new System.Drawing.Point(8, 262);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(30, 17);
             this.label4.TabIndex = 3;
@@ -105,7 +115,7 @@
             // txt_certificado
             // 
             this.txt_certificado.Cursor = System.Windows.Forms.Cursors.No;
-            this.txt_certificado.Location = new System.Drawing.Point(11, 32);
+            this.txt_certificado.Location = new System.Drawing.Point(11, 31);
             this.txt_certificado.Name = "txt_certificado";
             this.txt_certificado.ReadOnly = true;
             this.txt_certificado.Size = new System.Drawing.Size(343, 22);
@@ -115,7 +125,7 @@
             // txt_llave
             // 
             this.txt_llave.Cursor = System.Windows.Forms.Cursors.No;
-            this.txt_llave.Location = new System.Drawing.Point(11, 106);
+            this.txt_llave.Location = new System.Drawing.Point(11, 141);
             this.txt_llave.Name = "txt_llave";
             this.txt_llave.ReadOnly = true;
             this.txt_llave.Size = new System.Drawing.Size(343, 22);
@@ -125,7 +135,7 @@
             // txt_password
             // 
             this.txt_password.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_password.Location = new System.Drawing.Point(11, 160);
+            this.txt_password.Location = new System.Drawing.Point(11, 234);
             this.txt_password.Name = "txt_password";
             this.txt_password.PasswordChar = '*';
             this.txt_password.ReadOnly = true;
@@ -136,7 +146,7 @@
             // txt_rfc
             // 
             this.txt_rfc.Cursor = System.Windows.Forms.Cursors.No;
-            this.txt_rfc.Location = new System.Drawing.Point(11, 214);
+            this.txt_rfc.Location = new System.Drawing.Point(11, 281);
             this.txt_rfc.MaxLength = 13;
             this.txt_rfc.Name = "txt_rfc";
             this.txt_rfc.ReadOnly = true;
@@ -147,6 +157,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.txt_llave_pem);
+            this.panel1.Controls.Add(this.label21);
+            this.panel1.Controls.Add(this.txt_certificado_pem);
+            this.panel1.Controls.Add(this.label20);
             this.panel1.Controls.Add(this.lb_fecha_caducidad);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label6);
@@ -157,16 +171,52 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.txt_llave);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Location = new System.Drawing.Point(12, 73);
+            this.panel1.Location = new System.Drawing.Point(12, 151);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(367, 255);
+            this.panel1.Size = new System.Drawing.Size(367, 313);
             this.panel1.TabIndex = 8;
+            // 
+            // txt_llave_pem
+            // 
+            this.txt_llave_pem.Cursor = System.Windows.Forms.Cursors.No;
+            this.txt_llave_pem.Location = new System.Drawing.Point(11, 188);
+            this.txt_llave_pem.Name = "txt_llave_pem";
+            this.txt_llave_pem.ReadOnly = true;
+            this.txt_llave_pem.Size = new System.Drawing.Size(343, 22);
+            this.txt_llave_pem.TabIndex = 13;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 169);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(133, 17);
+            this.label21.TabIndex = 12;
+            this.label21.Text = "Llave PEM (.key.pem)";
+            // 
+            // txt_certificado_pem
+            // 
+            this.txt_certificado_pem.Cursor = System.Windows.Forms.Cursors.No;
+            this.txt_certificado_pem.Location = new System.Drawing.Point(11, 95);
+            this.txt_certificado_pem.Name = "txt_certificado_pem";
+            this.txt_certificado_pem.ReadOnly = true;
+            this.txt_certificado_pem.Size = new System.Drawing.Size(343, 22);
+            this.txt_certificado_pem.TabIndex = 11;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 76);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(168, 17);
+            this.label20.TabIndex = 10;
+            this.label20.Text = "Certificado PEM (.cer.pem)";
             // 
             // lb_fecha_caducidad
             // 
             this.lb_fecha_caducidad.AutoSize = true;
             this.lb_fecha_caducidad.ForeColor = System.Drawing.Color.Blue;
-            this.lb_fecha_caducidad.Location = new System.Drawing.Point(223, 59);
+            this.lb_fecha_caducidad.Location = new System.Drawing.Point(223, 55);
             this.lb_fecha_caducidad.Name = "lb_fecha_caducidad";
             this.lb_fecha_caducidad.Size = new System.Drawing.Size(11, 17);
             this.lb_fecha_caducidad.TabIndex = 9;
@@ -176,7 +226,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.Color.Blue;
-            this.label6.Location = new System.Drawing.Point(8, 59);
+            this.label6.Location = new System.Drawing.Point(8, 55);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(206, 17);
             this.label6.TabIndex = 8;
@@ -184,9 +234,11 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(286, 25);
+            this.label5.Location = new System.Drawing.Point(286, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(227, 25);
             this.label5.TabIndex = 9;
@@ -221,7 +273,7 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.txt_subir_archivos);
             this.panel2.Controls.Add(this.btn_subir_archivos);
-            this.panel2.Location = new System.Drawing.Point(410, 105);
+            this.panel2.Location = new System.Drawing.Point(410, 169);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(361, 78);
             this.panel2.TabIndex = 12;
@@ -239,7 +291,7 @@
             this.panel3.Controls.Add(this.label8);
             this.panel3.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel3.ForeColor = System.Drawing.Color.DarkRed;
-            this.panel3.Location = new System.Drawing.Point(410, 195);
+            this.panel3.Location = new System.Drawing.Point(410, 269);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(361, 151);
             this.panel3.TabIndex = 13;
@@ -312,7 +364,7 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.panel5);
-            this.panel4.Location = new System.Drawing.Point(12, 375);
+            this.panel4.Location = new System.Drawing.Point(12, 470);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(759, 55);
             this.panel4.TabIndex = 14;
@@ -364,7 +416,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(652, 477);
+            this.btn_aceptar.Location = new System.Drawing.Point(652, 541);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(119, 30);
             this.btn_aceptar.TabIndex = 15;
@@ -380,30 +432,92 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(517, 477);
+            this.btn_cancelar.Location = new System.Drawing.Point(517, 541);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
             this.btn_cancelar.TabIndex = 16;
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = false;
+            this.btn_cancelar.Visible = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
-            // btn_pem
+            // panel6
             // 
-            this.btn_pem.Location = new System.Drawing.Point(5, 6);
-            this.btn_pem.Name = "btn_pem";
-            this.btn_pem.Size = new System.Drawing.Size(17, 20);
-            this.btn_pem.TabIndex = 17;
-            this.btn_pem.Text = "P";
-            this.btn_pem.UseVisualStyleBackColor = true;
-            this.btn_pem.Click += new System.EventHandler(this.btn_pem_Click);
+            this.panel6.BackColor = System.Drawing.Color.Lavender;
+            this.panel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panel6.Controls.Add(this.label19);
+            this.panel6.Controls.Add(this.label18);
+            this.panel6.Controls.Add(this.label17);
+            this.panel6.Controls.Add(this.label16);
+            this.panel6.Controls.Add(this.label7);
+            this.panel6.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.panel6.Location = new System.Drawing.Point(12, 65);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(759, 82);
+            this.panel6.TabIndex = 17;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label19.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.Red;
+            this.label19.Location = new System.Drawing.Point(405, 4);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(242, 16);
+            this.label19.TabIndex = 4;
+            this.label19.Text = "\"Generar archivos PEM y validar mi CSD\"";
+            this.label19.Click += new System.EventHandler(this.ir_a_sifo);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.ForeColor = System.Drawing.Color.Navy;
+            this.label18.Location = new System.Drawing.Point(6, 61);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(652, 17);
+            this.label18.TabIndex = 3;
+            this.label18.Text = "Una vez realizado lo anterior descomprimir el archivo descargado y proceder a sub" +
+    "ir los archivos solicitados.";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.ForeColor = System.Drawing.Color.Navy;
+            this.label17.Location = new System.Drawing.Point(6, 41);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(575, 17);
+            this.label17.TabIndex = 2;
+            this.label17.Text = "2 archivos a partir de los CSD, estos nuevos serán utilizados para la cancelación" +
+    " de sus facturas.";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.ForeColor = System.Drawing.Color.Navy;
+            this.label16.Location = new System.Drawing.Point(6, 24);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(747, 17);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Le mandará a una página en donde deberá subir su certificado y llave (CSD), los m" +
+    "ismos serán validados y le generaran otros";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Navy;
+            this.label7.Location = new System.Drawing.Point(6, 4);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(400, 17);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Antes de subir sus archivos digitales, de clic en el siguinete enlace";
             // 
             // Subir_archivos_digitales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(783, 519);
-            this.Controls.Add(this.btn_pem);
+            this.ClientSize = new System.Drawing.Size(783, 583);
+            this.Controls.Add(this.panel6);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.panel4);
@@ -428,6 +542,8 @@
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -465,6 +581,15 @@
         private System.Windows.Forms.OpenFileDialog openfiled_archivos;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Button btn_cancelar;
-        private System.Windows.Forms.Button btn_pem;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txt_certificado_pem;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txt_llave_pem;
     }
 }

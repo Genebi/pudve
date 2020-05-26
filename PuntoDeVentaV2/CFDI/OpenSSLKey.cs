@@ -86,13 +86,11 @@ namespace PuntoDeVentaV2.CFDI
         // static byte[] pkcs8encprivatekey;
 
         static bool verbose = false;
-        
-        /*    public static void Main(String[] args) {
 
+        /*    public static void Main(String[] args) {
             if(args.Length == 1)
             if(args[0].ToUpper() == "V")
                 verbose = true;
-
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.Write("\nRSA public, private or PKCS #8  key file to decode: ");
             String filename = Console.ReadLine().Trim();
@@ -102,7 +100,6 @@ namespace PuntoDeVentaV2.CFDI
                     Console.WriteLine("File \"{0}\" does not exist!\n", filename);
                     return;	
                 }
-
             StreamReader sr = File.OpenText(filename);
             String pemstr = sr.ReadToEnd().Trim();
             sr.Close();
@@ -113,7 +110,7 @@ namespace PuntoDeVentaV2.CFDI
             }
         */
 
-            
+
 
 
         // ------- Decode PEM pubic, private or pkcs8 key ----------------
@@ -123,7 +120,6 @@ namespace PuntoDeVentaV2.CFDI
             byte[] pemprivatekey;
             byte[] pkcs8privatekey;
             byte[] pkcs8encprivatekey;
-
             if(pemstr.StartsWith(pempubheader) && pemstr.EndsWith(pempubfooter))
             {
                 Console.WriteLine("Trying to decode and parse a PEM public key ..");
@@ -139,10 +135,6 @@ namespace PuntoDeVentaV2.CFDI
                     Console.WriteLine("\nXML RSA public key:  {0} bits\n{1}\n", rsa.KeySize, xmlpublickey) ;
                 }		
             }
-
-
-
-
             else if(pemstr.StartsWith(pemprivheader) && pemstr.EndsWith(pemprivfooter))
             {
                 Console.WriteLine("Trying to decrypt and parse a PEM private key ..");
@@ -159,9 +151,6 @@ namespace PuntoDeVentaV2.CFDI
                     ProcessRSA(rsa);
                 }
             }
-
-
-
             else if(pemstr.StartsWith(pemp8header) && pemstr.EndsWith(pemp8footer))
             {
                 Console.WriteLine("Trying to decode and parse as PEM PKCS #8 PrivateKeyInfo ..");
@@ -183,8 +172,6 @@ namespace PuntoDeVentaV2.CFDI
                     Console.WriteLine("\nFailed to create an RSACryptoServiceProvider");
                 }		
             }
-
-
             else if(pemstr.StartsWith(pemp8encheader) && pemstr.EndsWith(pemp8encfooter))
             {
                 Console.WriteLine("Trying to decode and parse as PEM PKCS #8 EncryptedPrivateKeyInfo ..");
@@ -206,8 +193,6 @@ namespace PuntoDeVentaV2.CFDI
                     Console.WriteLine("\nFailed to create an RSACryptoServiceProvider");
                 }		
             }
-
-
             else
             {
                 Console.WriteLine("Not a PEM public, private key or a PKCS #8");
@@ -226,7 +211,6 @@ namespace PuntoDeVentaV2.CFDI
             byte[] keyblob = GetFileBytes(filename);
             if(keyblob == null)
                 return;
-
                 rsa =  DecodeX509PublicKey(keyblob);
                 if(rsa !=null)
                 {
@@ -236,7 +220,6 @@ namespace PuntoDeVentaV2.CFDI
                     Console.WriteLine("\nXML RSA public key:  {0} bits\n{1}\n", rsa.KeySize, xmlpublickey) ;
                     return;
                 }		
-
                 rsa =  DecodeRSAPrivateKey(keyblob);
                 if(rsa != null)
                 {
@@ -247,7 +230,6 @@ namespace PuntoDeVentaV2.CFDI
                     ProcessRSA(rsa) ;
                 return;
                 }
-
                 rsa =  DecodePrivateKeyInfo(keyblob);	//PKCS #8 unencrypted
                 if(rsa !=null) 
                 {
@@ -258,7 +240,6 @@ namespace PuntoDeVentaV2.CFDI
                     ProcessRSA(rsa);
                 return;
                 }
-
             rsa =  DecodeEncryptedPrivateKeyInfo(keyblob);	//PKCS #8 encrypted
             if(rsa !=null) {
                 Console.WriteLine("\nA valid PKCS #8 EncryptedPrivateKeyInfo\n") ;
@@ -648,7 +629,7 @@ namespace PuntoDeVentaV2.CFDI
             const String pempubheader = "-----BEGIN PUBLIC KEY-----";
             const String pempubfooter = "-----END PUBLIC KEY-----";
             String pemstr = instr.Trim();
-            byte[] binkey; 
+            byte[] binkey;
             if (!pemstr.StartsWith(pempubheader) || !pemstr.EndsWith(pempubfooter))
                 return null;
             StringBuilder sb = new StringBuilder(pemstr);
@@ -691,13 +672,13 @@ namespace PuntoDeVentaV2.CFDI
                     binr.ReadByte();    //advance 1 byte
                 else if (twobytes == 0x8230)
                     binr.ReadInt16();  //advance 2 bytes
-                    //Console.WriteLine("TRY 2 i CER");
+                                       //Console.WriteLine("TRY 2 i CER");
                 else
                     Console.WriteLine("TRY 2 CER");
                 //return null;
-                
+
                 seq = binr.ReadBytes(15);       //read the Sequence OID
-                Console.WriteLine("TRY 3 i CER"+seq+ "||||||||||||||"+binr);
+                Console.WriteLine("TRY 3 i CER" + seq + "||||||||||||||" + binr);
                 if (!CompareBytearrays(seq, SeqOID))    //make sure Sequence for OID is correct
                     Console.WriteLine("TRY 3 CER");
                 //return null;
@@ -711,12 +692,12 @@ namespace PuntoDeVentaV2.CFDI
                     Console.WriteLine("TRY 4 CER");
                 //return null;
 
-                bt = binr.ReadByte(); Console.WriteLine("TRY 4.1 CER"+bt);
+                bt = binr.ReadByte(); Console.WriteLine("TRY 4.1 CER" + bt);
                 if (bt != 0x00)     //expect null byte next
                     Console.WriteLine("TRY 5 CER");
                 //return null;
 
-                twobytes = binr.ReadUInt16(); Console.WriteLine("TRY 5.1 CER"+twobytes);
+                twobytes = binr.ReadUInt16(); Console.WriteLine("TRY 5.1 CER" + twobytes);
                 if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
                     binr.ReadByte();    //advance 1 byte
                 else if (twobytes == 0x8230)
@@ -727,7 +708,7 @@ namespace PuntoDeVentaV2.CFDI
 
                 twobytes = binr.ReadUInt16();
                 byte lowbyte = 0x00;
-                byte highbyte = 0x00; Console.WriteLine("TRY 6.1 CER"+ twobytes);
+                byte highbyte = 0x00; Console.WriteLine("TRY 6.1 CER" + twobytes);
 
                 if (twobytes == 0x8102) //data read as little endian order (actual data order for Integer is 02 81)
                     lowbyte = binr.ReadByte();  // read next bytes which is bytes in modulus
@@ -744,7 +725,7 @@ namespace PuntoDeVentaV2.CFDI
 
                 byte firstbyte = binr.ReadByte();
                 binr.BaseStream.Seek(-1, SeekOrigin.Current);
-                Console.WriteLine("TRY 8 CER "+ firstbyte);
+                Console.WriteLine("TRY 8 CER " + firstbyte);
                 if (firstbyte == 0x00)
                 {   //if first byte (highest order) of modulus is zero, don't include it
                     binr.ReadByte();    //skip this null byte
@@ -754,7 +735,7 @@ namespace PuntoDeVentaV2.CFDI
                 byte[] modulus = binr.ReadBytes(modsize);   //read the modulus bytes
                 Console.WriteLine("TRY 9 CER " + binr.ReadByte());
                 //if (binr.ReadByte() != 0x02)            //expect an Integer for the exponent data
-                    //return null;
+                //return null;
                 int expbytes = (int)binr.ReadByte();        // should only need one byte for actual exponent data (for all useful values)
                 byte[] exponent = binr.ReadBytes(expbytes);
 
@@ -773,7 +754,7 @@ namespace PuntoDeVentaV2.CFDI
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message+" CODIGO= "+ex.StackTrace);
+                Console.WriteLine(ex.Message + " CODIGO= " + ex.StackTrace);
                 return null;
             }
 

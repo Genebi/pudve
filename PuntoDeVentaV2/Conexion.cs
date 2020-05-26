@@ -164,6 +164,10 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["CodigoRegimen"];
                 }
+                if (tipo == 13)
+                {
+                    respuesta = dr["UUID"];
+                }
             }
 
             if (tipo == 0)

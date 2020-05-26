@@ -728,8 +728,8 @@ namespace PuntoDeVentaV2
         {
             if (Directory.Exists(ruta_archivos_guadados))
             {
-                string[] nombres = new string[2];
-                int i = 0;
+                //string[] nombres = new string[2];
+                //int i = 0;
                 string[] id_usuario = new string[] { FormPrincipal.userID.ToString() };
                 DataTable result;
                 DataRow row;
@@ -739,13 +739,23 @@ namespace PuntoDeVentaV2
 
                 foreach (var arch in dir.GetFiles())
                 {
-                    nombres[i] = arch.Name;
+                    string extencion = arch.Name.Substring(arch.Name.Length - 4, 4);
+                    
+                    if (extencion == ".cer")
+                    {
+                        txt_certificado.Text = arch.Name;
+                    }
+                    if (extencion == ".key")
+                    {
+                        txt_llave.Text = arch.Name;
+                    }
+                    /*nombres[i] = arch.Name;
 
-                    i++;
+                    i++;*/
                 }
 
-                txt_certificado.Text = nombres[0];
-                txt_llave.Text = nombres[1];
+                //txt_certificado.Text = nombres[0];
+                //txt_llave.Text = nombres[1];
 
 
                 // Obtiene fecha de caducidad
