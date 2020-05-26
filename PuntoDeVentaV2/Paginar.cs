@@ -11,33 +11,36 @@ namespace PuntoDeVentaV2
 {
     class Paginar
     {
-        //private String ps_cadena = "Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;";
-        private string ps_cadena = string.Empty;
-        private int _inicio = 0;
-        private int _tope = 0;
+        #region Inicio Declaracion de Variables Globales
+        private string ps_cadena = string.Empty;    // Almacena ruta de la DB SQLite
+        private int _inicio = 0;                    // Valor desde que registro de la DB inicia a mostrar
+        private int _tope = 0;                      // Valor hasta que registro de la DB finaliza a mostrar
 
-        private int _numeroPagina = 1;
-        private int _cantidadRegistros = 0;
-        private int _ultimaPagina = 0;
+        private int _numeroPagina = 1;              // Número de página la que se esta mostrando
+        private int _cantidadRegistros = 0;         // Cantidad de Filas segun la Consulta de la DB
+        private int _ultimaPagina = 0;              // Almacena cantidad paginas a mostrar
 
-        private String _datamember;
-        private SQLiteDataAdapter _adapter;
-        private DataSet _datos;
+        private String _datamember;                 // Sera a que tabla nos vamos a dirigir
+        private SQLiteDataAdapter _adapter;         // Adaptador para manejo de SQLite
+        private DataSet _datos;                     // DataSet donde se va almacenar la informacion
 
-        private String _query;
+        private String _query;                      // Almacena la Consulta a SQLite
+        #endregion Final Declaracion de Variables Globales
 
-        // s_query              =   El query de conexion
+        // s_query              =   El query que proviene del sistema
         // s_datamember         =   Se asigna al datagridview despues del datasource
         // i_cantidadxpagina    =   Cantidad de registros por pagina
         public Paginar(String s_query, String s_datamember, int i_cantidadxpagina)
         {
-            this._query = s_query;
-            this._inicio = 0;
-            this._tope = i_cantidadxpagina;
-            this._datamember = s_datamember;
+            this._query = s_query;              // le asignamos la consulta que se le paso del sistema
+            this._datamember = s_datamember;    // le asignamos a que tabla se va dirigir la consulta
+            this._tope = i_cantidadxpagina;     // le asignamos la cantidad de productos que se va mostrar por pagina
 
-            DataTable auxiliar;
+            this._inicio = 0;                   // le asignamos el valor inicial desde que registro iniciara a mostrar
+            
+            DataTable auxiliar;                 // Tabla auxiliar para el manejo de la informcion
 
+            #region Inicio Path de la DB de SQLite
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
                 ps_cadena = "Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;";
@@ -46,58 +49,74 @@ namespace PuntoDeVentaV2
             {
                 ps_cadena = "Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;";
             }
+            #endregion Final Path de la DB de SQLite
 
-            SQLiteConnection connection = new SQLiteConnection(ps_cadena);
-            this._adapter = new SQLiteDataAdapter(_query, connection);
-            this._datos = new DataSet();
+            SQLiteConnection connection = new SQLiteConnection(ps_cadena);  // Iniciamos la conexion SQLite
+            this._adapter = new SQLiteDataAdapter(_query, connection);      // Iniciamos el adaptador SQLite
+            this._datos = new DataSet();                                    // Iniciamos el DataSet SQLite
             auxiliar = new DataTable();
 
-            connection.Open();
-            this._adapter.Fill(_datos, _inicio, _tope, _datamember);
-            _adapter.Fill(auxiliar);
-            connection.Close();
-            this._cantidadRegistros = auxiliar.Rows.Count;
+            connection.Open();                                              // Abrimos conexion connection hacia SQLite
+            this._adapter.Fill(_datos, _inicio, _tope, _datamember);        // Almacenamos en el Adapter el resultdo de
+                                                                            // la consulta pero solo mostranndo los rangos
+                                                                            // Mostrar desde Inicio hasta el Tope asignado
+                                                                            // configurado desde el sistema
+            _adapter.Fill(auxiliar);                                        // Llenamos la tabla auxiliar con el Adapter
+            connection.Close();                                             // Cerramos la conexion SQLite
+            this._cantidadRegistros = auxiliar.Rows.Count;                  // Le asignamos la cantidad de registros que tiene la consulta
 
-            asignarTope();
+            asignarTope();                                                  // Mandamos llamar al metodo asignarTope()
         }
 
         private void asignarTope()
         {
-            _ultimaPagina = _cantidadRegistros / _tope;
+            _ultimaPagina = _cantidadRegistros / _tope;     // Asignamos la cantidad de paginas que tiene la
+                                                            // DB pero hay que ver si la division de _cantidadRegistro
+                                                            // entre _tope es exacta para saber usaremos el
+                                                            // modulo que es la siguiente linea de código
 
-            int aux = _cantidadRegistros % _tope;
-            if (_ultimaPagina == 0)
+            int aux = _cantidadRegistros % _tope;           // Asignamos si al usar el modulo da un residuo
+
+            if (_ultimaPagina == 0)                         // si la division de _ultimaPagina da 0
             {
-                this._ultimaPagina = 1;
+                this._ultimaPagina = 1;                     // Asignamos valor de _ultimaPagina = 1
             }
-            else if (_ultimaPagina >= 1 && (aux > 0))
+            else if (_ultimaPagina >= 1 && (aux > 0))       // Si la division de _ultimaPagina es mayor igual a 1
+                                                            // y la variable aux es mayor que 0 entonces
             {
-                this._ultimaPagina = _ultimaPagina + 1;
+                this._ultimaPagina = _ultimaPagina + 1;     // agregamos un 1 o amentamos en 1 el valor de _ultimaPagina
             }
-            this._numeroPagina = 1;
+
+            this._numeroPagina = 1;                         // Asignamos el numero 1 a _ultimaPagina
         }
 
         public DataSet cargar()
         {
-            return _datos;
+            return _datos;          // Retorna el DataSet
         }
 
         public DataSet primerPagina()
         {
-            this._numeroPagina = 1;
-            this._inicio = 0;
-            this._datos.Clear();
-            this._adapter.Fill(this._datos, this._inicio, this._tope, this._datamember);
-            return _datos;
+            this._numeroPagina = 1;     // Asignamos a _numeroPagina el numero 1
+            this._inicio = 0;           // Asignamos a _inicio el numero 0
+            this._datos.Clear();        // Borramos el DataSet
+            this._adapter.Fill(this._datos, this._inicio, this._tope, this._datamember);    // Almacenamos en el Adapter el resultdo de
+                                                                                            // la consulta pero solo mostranndo los rangos
+                                                                                            // Mostrar desde Inicio hasta el Tope asignado
+                                                                                            // configurado desde el sistema
+            return _datos;              // Retorna el DataSet
         }
 
         public DataSet ultimaPagina()
         {
-            this._numeroPagina = _ultimaPagina;
-            this._inicio = (_ultimaPagina - 1) * _tope;
-            this._datos.Clear();
-            this._adapter.Fill(this._datos, this._inicio, this._tope, this._datamember);
-            return _datos;
+            this._numeroPagina = _ultimaPagina;             // Asignamos _numeroPagina lo que tiene _ultimaPagina
+            this._inicio = (_ultimaPagina - 1) * _tope;     // Asignamos a _inicio lo que resulte (_ultimaPagina-1)*_tope
+            this._datos.Clear();                            // Borramos el DataSet 
+            this._adapter.Fill(this._datos, this._inicio, this._tope, this._datamember);   // Almacenamos en el Adapter el resultdo de
+                                                                                           // la consulta pero solo mostranndo los rangos
+                                                                                           // Mostrar desde Inicio hasta el Tope asignado
+                                                                                           // configurado desde el sistema 
+            return _datos;      // Retorna el DataSet
         }
 
         public DataSet atras()
