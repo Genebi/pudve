@@ -908,6 +908,11 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Activated(object sender, EventArgs e)
         {
+            VerificarDatosDeDetalleProducto();
+        }
+
+        private void VerificarDatosDeDetalleProducto()
+        {
             if ((detalleProductoBasico.Count().Equals(0)) && (detalleProductoGeneral.Count().Equals(0)))
             {
                 mostrarOcultarfLPDetallesProducto();
@@ -5157,6 +5162,9 @@ namespace PuntoDeVentaV2
                 PCantidadPaqServ.Visible = true;
                 button1.Visible = true;
                 txtPrecioCompra.Enabled = true;
+                detalleProductoBasico.Clear();
+                detalleProductoGeneral.Clear();
+                VerificarDatosDeDetalleProducto();
             }
 
             if (cadAux == "Producto")           // si es un Producto
