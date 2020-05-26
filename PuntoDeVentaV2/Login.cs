@@ -402,6 +402,13 @@ namespace PuntoDeVentaV2
         {
             //iniciarVariablesSistema();
 
+            var pathPUDVESistema = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            // Varaiable para cuando hacemos el instalador
+            Properties.Settings.Default.pathPUDVE = pathPUDVESistema;
+            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
+            Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
+
             // Cuando estemos en Release Descomenta la siguiente linea
             //modoRelease();
 
@@ -467,13 +474,6 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error al enviar parametro error: " + ex.Message, "Error al pasar parametro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            var pathPUDVESistema = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-            // Varaiable para cuando hacemos el instalador
-            Properties.Settings.Default.pathPUDVE = pathPUDVESistema;
-            Properties.Settings.Default.Save();                 // Guardamos los dos Datos de las variables del sistema
-            Properties.Settings.Default.Reload();               // Recargamos los datos de las variables del Sistema
-            
             //RevisarTablas();
 
             txtUsuario.Text = Properties.Settings.Default.Usuario;

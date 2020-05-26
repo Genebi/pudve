@@ -102,7 +102,7 @@ namespace PuntoDeVentaV2
             FiltroProducto = 6;
             Facturas = 51;
             Facturas_impuestos = 8;
-            Facturas_productos = 10;
+            Facturas_productos = 11;
             Facturas_complemento_pago = 13;
             FiltroDinamico = 5;
             ConceptosDinamicos = 7;
