@@ -121,78 +121,100 @@ namespace PuntoDeVentaV2
 
         public DataSet atras()
         {
-            if (this._numeroPagina == 1)
+            if (this._numeroPagina == 1)    // Si _numeroPagina es igual a 1
             {
-                return _datos;
+                return _datos;      // Se retorna _datos
             }
-            this._numeroPagina--;
-            this._inicio = _inicio - _tope;
-            this._datos.Clear();
-            this._adapter.Fill(this._datos, this._inicio, this._tope, this._datamember);
-            return _datos;
+            else    // Si _numeroPagina es diferente a 1
+            {
+                this._numeroPagina--;               // Se disminuye _numeroPagina
+                this._inicio = _inicio - _tope;     // Se asigna a _inicio el valor en funcion a la siguiente resta _inicio - _tope
+                this._datos.Clear();                // Borramos el DataSet
+                this._adapter.Fill(this._datos, this._inicio, this._tope, this._datamember);    // Almacenamos en el Adapter el resultdo de
+                                                                                                // la consulta pero solo mostranndo los rangos
+                                                                                                // Mostrar desde Inicio hasta el Tope asignado
+                                                                                                // configurado desde el sistema 
+                return _datos;                      // Retorna el DataSet
+            }
         }
 
         public DataSet adelante()
         {
-            if (this._ultimaPagina == this._numeroPagina)
+            if (this._ultimaPagina == this._numeroPagina)       // Si _ultimaPagina es igual a _numeroPagina
             {
-                return _datos;
+                return _datos;      // Se retorna _datos
             }
-            this._numeroPagina++;
-            this._inicio = _inicio + _tope;
-            this._datos.Clear();
-            this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
-            return _datos;
+            else    // Si _ultimaPagina es diferente a _numeroPagina
+            {
+                this._numeroPagina++;               // Se aumenta _numeroPagina
+                this._inicio = _inicio + _tope;     // Se asigna a _inicio el valor en funcion a la siguiente resta _inicio + _tope
+                this._datos.Clear();                // Borramos el DataSet
+                this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);     // Almacenamos en el Adapter el resultdo de
+                                                                                            // la consulta pero solo mostranndo los rangos
+                                                                                            // Mostrar desde Inicio hasta el Tope asignado
+                                                                                            // configurado desde el sistema 
+                return _datos;                      // Retorna el DataSet
+            }
         }
 
         public DataSet irAPagina(int num_pagina)
         {
-            if ((num_pagina <= 0) || (num_pagina > this._ultimaPagina))
+            if ((num_pagina <= 0) || (num_pagina > this._ultimaPagina))     // Si num_pagina es menor igual que 0 ó num_pagina es mayor que _ultimaPagina
             {
                 MessageBox.Show("Número de página\nno valido.", "Error de Rango", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (num_pagina <= 0)
+                if (num_pagina <= 0)    // Si num_Pagina es menor igual que 0 
                 {
-                    this._numeroPagina = 1;
-                    this._inicio = 0;
+                    this._numeroPagina = 1;     // Le asignamos _numeroPagina igual a 1
+                    this._inicio = 0;           // Le asignamos _inicio igual a 0
                 }
-                else if (num_pagina > this._ultimaPagina)
+                else if (num_pagina > this._ultimaPagina)   // Si num_pagina es mayor que _ultimaPagina
                 {
-                    this._numeroPagina = _ultimaPagina;
-                    this._inicio = (_ultimaPagina - 1) * _tope;
+                    this._numeroPagina = _ultimaPagina;             // Le asignamos _numeroPagina es igual que _ultimaPagina
+                    this._inicio = (_ultimaPagina - 1) * _tope;     // Le asignamos _inicio es igual a la resta _ultimaPagina - 1
+                                                                    // esto multiplicado por _tope
                 }
             }
-            else if ((num_pagina > 0) || (num_pagina < this._ultimaPagina))
+            else if ((num_pagina > 0) || (num_pagina < this._ultimaPagina))     // Si no y num_pagina es mayor que 0 ó num_pagina es menor que _ultimaPagina
             {
-                this._numeroPagina = num_pagina;
-                this._inicio = _inicio + _tope;
+                this._numeroPagina = num_pagina;    // Le asignamos _numeroPagina igual num_pagina
+                this._inicio = _inicio + _tope;     // Le asignamos _inicio igual a la resta
             }
             
-            this._datos.Clear();
-            this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
-            return _datos;
+            this._datos.Clear();    // Borramos el DataSet
+            this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);     // Almacenamos en el Adapter el resultdo de
+                                                                                        // la consulta pero solo mostranndo los rangos
+                                                                                        // Mostrar desde Inicio hasta el Tope asignado
+                                                                                        // configurado desde el sistema
+            return _datos;           // Retorna el DataSet
         }
 
         public DataSet actualizarTope(int i_tope)
         {
-            this._tope = i_tope;
-            this._inicio = 0;
-            asignarTope();
-            _datos.Clear();
-            this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
-            return _datos;
+            this._tope = i_tope;    // Le asignamos _tope igual a i_tope
+            this._inicio = 0;       // Le asignamos _inicio igual a 0
+            asignarTope();          // Mandamos llamar al metodo asignarTope()
+            _datos.Clear();         // Borramos el DataSet
+            this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);     // Almacenamos en el Adapter el resultdo de
+                                                                                        // la consulta pero solo mostranndo los rangos
+                                                                                        // Mostrar desde Inicio hasta el Tope asignado
+                                                                                        // configurado desde el sistema
+            return _datos;          // Retorna el DataSet
         }
         
         public DataSet actualizarPagina()
         {
-            DataTable auxiliar;
+            DataTable auxiliar;     // Tabla auxiliar para el manejo de la informcion
 
-            SQLiteConnection connection = new SQLiteConnection(ps_cadena);
-            this._adapter = new SQLiteDataAdapter(_query, connection);
-            this._datos = new DataSet();
-            auxiliar = new DataTable();
+            SQLiteConnection connection = new SQLiteConnection(ps_cadena);      // Iniciamos la conexion SQLite
+            this._adapter = new SQLiteDataAdapter(_query, connection);          // Iniciamos el adaptador SQLite
+            this._datos = new DataSet();                                        // Iniciamos el DataSet SQLite
+            auxiliar = new DataTable();                                         
 
-            connection.Open();
-            this._adapter.Fill(_datos, _inicio, _tope, _datamember);
+            connection.Open();                                          // Abrimos conexop SQLite
+            this._adapter.Fill(_datos, _inicio, _tope, _datamember);    // Almacenamos en el Adapter el resultdo de
+                                                                        // la consulta pero solo mostranndo los rangos
+                                                                        // Mostrar desde Inicio hasta el Tope asignado
+                                                                        // configurado desde el sistema
             _adapter.Fill(auxiliar);
             connection.Close();
 
