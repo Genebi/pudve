@@ -73,7 +73,7 @@ namespace PuntoDeVentaV2
             HisotorialCompras = 18;
             HistorialModificacionRecordProduct = 4;
             ProductoRelacionadoXML = 5;
-            Productos = 23;
+            Productos = 24;
             ProductosDeServicios = 6;
             ProductosVenta = 7;
             Proveedores = 15;
@@ -847,6 +847,7 @@ namespace PuntoDeVentaV2
                                               StockNecesario INTEGER DEFAULT (0),
                                               StockMinimo    INTEGER DEFAULT (0),
                                               PrecioCompra   REAL    DEFAULT (0),
+                                              PrecioMayoreo  REAL    DEFAULT (0),
                                               FOREIGN KEY (IDUsuario)
                                               REFERENCES USuarios (ID));";
         }
@@ -874,7 +875,8 @@ namespace PuntoDeVentaV2
                                              NombreAlterno2,
                                              NumeroRevision,
                                              StockNecesario,
-                                             StockMinimo) 
+                                             StockMinimo,
+                                             PrecioCompra) 
                                       SELECT ID,
                                              Nombre,
                                              Stock,
@@ -896,7 +898,8 @@ namespace PuntoDeVentaV2
                                              NombreAlterno2,
                                              NumeroRevision,
                                              StockNecesario,
-                                             StockMinimo 
+                                             StockMinimo,
+                                             PrecioCompra 
                                        FROM '{tabla}_temp';";
         }
 
