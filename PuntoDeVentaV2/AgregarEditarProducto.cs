@@ -1175,6 +1175,21 @@ namespace PuntoDeVentaV2
             return bStatus;
         }
 
+        private void txtPrecioMayoreo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+            //Si deseas, puedes permitir numeros decimales (o float)
+            //If you want, you can allow decimal (float) numbers
+            if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
         private void ValidarStockMaximo()
         {
             var minimoAux = txtStockMinimo.Text.Trim();
@@ -2193,6 +2208,13 @@ namespace PuntoDeVentaV2
             fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             stockMinimo = txtStockMinimo.Text;
             stockNecesario = txtStockMaximo.Text;
+            var precioMayoreo = txtPrecioMayoreo.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(precioMayoreo))
+            {
+                precioMayoreo = "0";
+            }
+
             /*	Fin del codigo de Alejandro	*/
             #endregion Final de Variables de Alejandro
 
@@ -2334,7 +2356,11 @@ namespace PuntoDeVentaV2
                                 errorProvAgregarEditarProducto.SetError(txtClaveProducto, "");
                                 errorProvAgregarEditarProducto.SetError(txtCodigoBarras, "");
 
-                                guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo, txtPrecioCompra.Text };
+                                guardar = new string[] {
+                                    nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
+                                    tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto,
+                                    mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo,
+                                    txtPrecioCompra.Text, precioMayoreo };
 
                                 #region Inicio Se guardan los datos principales del Producto
                                 //Se guardan los datos principales del producto
@@ -2566,7 +2592,12 @@ namespace PuntoDeVentaV2
 
                                 stock = "0";
 
-                                guardar = new string[] { nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida, tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, "0", txtPrecioCompra.Text };
+                                guardar = new string[] {
+                                    nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
+                                    tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto,
+                                    ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),
+                                    stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo
+                                };
 
                                 #region Inicio de guardado de los datos principales del Servicios o Combos
                                 //Se guardan los datos principales del producto
@@ -3131,7 +3162,16 @@ namespace PuntoDeVentaV2
                             }
                             #endregion Final Seccion Descuentos
 
-                            queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                            queryUpdateProd = $@"UPDATE Productos SET Nombre = '{nombre}', 
+                                                Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}',
+                                                TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', 
+                                                CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', 
+                                                UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}',
+                                                NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', 
+                                                NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', 
+                                                StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}',
+                                                PrecioMayoreo = '{precioMayoreo}'
+                                                WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
 
                             respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
@@ -3347,7 +3387,12 @@ namespace PuntoDeVentaV2
                     }
                     #endregion Final Busqueda Codigo de Barras
                     
-                    guardar = new string[] { nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert, codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert, logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert), mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text };
+                    guardar = new string[] {
+                        nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert,
+                        codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert,
+                        logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert),
+                        mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo
+                    };
 
                     #region Inicio de Guardado de Producto
                     try
@@ -3357,6 +3402,8 @@ namespace PuntoDeVentaV2
 
                         if (respuesta > 0)
                         {
+
+
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
@@ -5128,6 +5175,8 @@ namespace PuntoDeVentaV2
                     logoTipo = detallesProductoTmp[9];      // Obtenemos el nuevo Path
                     txtStockMaximo.Text = detallesProductoTmp[8];
                     txtStockMinimo.Text = detallesProductoTmp[10];
+                    txtPrecioMayoreo.Text = detallesProductoTmp[12];
+
                     if (pictureBoxProducto.Image != null)
                     {
                         pictureBoxProducto.Image.Dispose(); // Liberamos el pictureBox para poder borrar su imagen
