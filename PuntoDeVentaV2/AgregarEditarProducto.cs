@@ -1291,6 +1291,7 @@ namespace PuntoDeVentaV2
             txtStockProducto.Text = "0";
             txtPrecioCompra.Text = "0";
             txtPrecioProducto.Text = "0";
+            txtPrecioMayoreo.Text = "0";
             txtCategoriaProducto.Text = "";
             txtClaveProducto.Text = "";
             txtCodigoBarras.Text = "";

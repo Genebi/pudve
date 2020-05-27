@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarEditarProducto));
             this.lblTipoProdPaq = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -66,7 +65,9 @@
             this.PPrecioOriginal = new System.Windows.Forms.Panel();
             this.txtPrecioCompra = new System.Windows.Forms.TextBox();
             this.PPrecio = new System.Windows.Forms.Panel();
-            this.PCategoria = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtPrecioMayoreo = new System.Windows.Forms.TextBox();
             this.PClaveInterna = new System.Windows.Forms.Panel();
             this.PCodigoBarras = new System.Windows.Forms.Panel();
             this.btnGenerarCB = new System.Windows.Forms.Button();
@@ -78,12 +79,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.pictureBoxProducto = new System.Windows.Forms.PictureBox();
             this.btnImagenes = new System.Windows.Forms.Button();
+            this.PCategoria = new System.Windows.Forms.Panel();
             this.timerProdPaqSer = new System.Windows.Forms.Timer(this.components);
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
             this.PAccion = new System.Windows.Forms.Panel();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnProdUpdate = new System.Windows.Forms.Button();
             this.Ptitulo = new System.Windows.Forms.Panel();
             this.PType = new System.Windows.Forms.Panel();
@@ -101,13 +102,14 @@
             this.PStock.SuspendLayout();
             this.PPrecioOriginal.SuspendLayout();
             this.PPrecio.SuspendLayout();
-            this.PCategoria.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.PClaveInterna.SuspendLayout();
             this.PCodigoBarras.SuspendLayout();
             this.PCantidadPaqServ.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).BeginInit();
+            this.PCategoria.SuspendLayout();
             this.PConteidoProducto.SuspendLayout();
             this.PDetalle.SuspendLayout();
             this.PAccion.SuspendLayout();
@@ -141,16 +143,6 @@
             this.label2.Size = new System.Drawing.Size(121, 17);
             this.label2.TabIndex = 10;
             this.label2.Text = "Código de Barras";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, -3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 17);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Categoría";
             // 
             // label4
             // 
@@ -231,7 +223,7 @@
             // txtCategoriaProducto
             // 
             this.txtCategoriaProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCategoriaProducto.Location = new System.Drawing.Point(3, 14);
+            this.txtCategoriaProducto.Location = new System.Drawing.Point(13, 7);
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
             this.txtCategoriaProducto.Size = new System.Drawing.Size(99, 20);
             this.txtCategoriaProducto.TabIndex = 5;
@@ -492,7 +484,7 @@
             this.flowLayoutPanel1.Controls.Add(this.PStock);
             this.flowLayoutPanel1.Controls.Add(this.PPrecioOriginal);
             this.flowLayoutPanel1.Controls.Add(this.PPrecio);
-            this.flowLayoutPanel1.Controls.Add(this.PCategoria);
+            this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Controls.Add(this.PClaveInterna);
             this.flowLayoutPanel1.Controls.Add(this.PCodigoBarras);
             this.flowLayoutPanel1.Controls.Add(this.PCantidadPaqServ);
@@ -546,21 +538,39 @@
             this.PPrecio.Size = new System.Drawing.Size(116, 38);
             this.PPrecio.TabIndex = 2;
             // 
-            // PCategoria
+            // panel1
             // 
-            this.PCategoria.Controls.Add(this.label3);
-            this.PCategoria.Controls.Add(this.txtCategoriaProducto);
-            this.PCategoria.Location = new System.Drawing.Point(413, 2);
-            this.PCategoria.Margin = new System.Windows.Forms.Padding(2);
-            this.PCategoria.Name = "PCategoria";
-            this.PCategoria.Size = new System.Drawing.Size(115, 37);
-            this.PCategoria.TabIndex = 3;
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.txtPrecioMayoreo);
+            this.panel1.Location = new System.Drawing.Point(414, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(134, 39);
+            this.panel1.TabIndex = 10;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(5, -2);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 17);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Precio Mayoreo";
+            // 
+            // txtPrecioMayoreo
+            // 
+            this.txtPrecioMayoreo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtPrecioMayoreo.Location = new System.Drawing.Point(8, 16);
+            this.txtPrecioMayoreo.MaxLength = 12;
+            this.txtPrecioMayoreo.Name = "txtPrecioMayoreo";
+            this.txtPrecioMayoreo.Size = new System.Drawing.Size(94, 20);
+            this.txtPrecioMayoreo.TabIndex = 5;
             // 
             // PClaveInterna
             // 
             this.PClaveInterna.Controls.Add(this.label5);
             this.PClaveInterna.Controls.Add(this.txtClaveProducto);
-            this.PClaveInterna.Location = new System.Drawing.Point(532, 2);
+            this.PClaveInterna.Location = new System.Drawing.Point(553, 2);
             this.PClaveInterna.Margin = new System.Windows.Forms.Padding(2);
             this.PClaveInterna.Name = "PClaveInterna";
             this.PClaveInterna.Size = new System.Drawing.Size(149, 40);
@@ -572,7 +582,7 @@
             this.PCodigoBarras.Controls.Add(this.panelContenedor);
             this.PCodigoBarras.Controls.Add(this.btnGenerarCB);
             this.PCodigoBarras.Controls.Add(this.txtCodigoBarras);
-            this.PCodigoBarras.Location = new System.Drawing.Point(2, 46);
+            this.PCodigoBarras.Location = new System.Drawing.Point(2, 47);
             this.PCodigoBarras.Margin = new System.Windows.Forms.Padding(2);
             this.PCodigoBarras.Name = "PCodigoBarras";
             this.PCodigoBarras.Size = new System.Drawing.Size(287, 124);
@@ -603,7 +613,7 @@
             this.PCantidadPaqServ.Controls.Add(this.button1);
             this.PCantidadPaqServ.Controls.Add(this.txtCantPaqServ);
             this.PCantidadPaqServ.Controls.Add(this.lblCantPaqServ);
-            this.PCantidadPaqServ.Location = new System.Drawing.Point(294, 47);
+            this.PCantidadPaqServ.Location = new System.Drawing.Point(294, 48);
             this.PCantidadPaqServ.Name = "PCantidadPaqServ";
             this.PCantidadPaqServ.Size = new System.Drawing.Size(175, 120);
             this.PCantidadPaqServ.TabIndex = 6;
@@ -645,7 +655,7 @@
             // PImagen
             // 
             this.PImagen.Controls.Add(this.groupBox1);
-            this.PImagen.Location = new System.Drawing.Point(474, 46);
+            this.PImagen.Location = new System.Drawing.Point(474, 47);
             this.PImagen.Margin = new System.Windows.Forms.Padding(2);
             this.PImagen.Name = "PImagen";
             this.PImagen.Size = new System.Drawing.Size(204, 147);
@@ -686,6 +696,15 @@
             this.btnImagenes.UseVisualStyleBackColor = true;
             this.btnImagenes.Click += new System.EventHandler(this.btnImagenes_Click);
             // 
+            // PCategoria
+            // 
+            this.PCategoria.Controls.Add(this.txtCategoriaProducto);
+            this.PCategoria.Location = new System.Drawing.Point(49, 50);
+            this.PCategoria.Margin = new System.Windows.Forms.Padding(2);
+            this.PCategoria.Name = "PCategoria";
+            this.PCategoria.Size = new System.Drawing.Size(115, 32);
+            this.PCategoria.TabIndex = 3;
+            // 
             // timerProdPaqSer
             // 
             this.timerProdPaqSer.Tick += new System.EventHandler(this.timerProdPaqSer_Tick);
@@ -724,10 +743,10 @@
             // 
             // PAccion
             // 
-            this.PAccion.Controls.Add(this.linkLabel1);
             this.PAccion.Controls.Add(this.btnProdUpdate);
             this.PAccion.Controls.Add(this.btnAgregarDescuento);
             this.PAccion.Controls.Add(this.btnDetalleProducto);
+            this.PAccion.Controls.Add(this.PCategoria);
             this.PAccion.Controls.Add(this.btnDetalleFacturacion);
             this.PAccion.Controls.Add(this.btnGuardarProducto);
             this.PAccion.Controls.Add(this.label9);
@@ -738,18 +757,6 @@
             this.PAccion.Name = "PAccion";
             this.PAccion.Size = new System.Drawing.Size(838, 88);
             this.PAccion.TabIndex = 32;
-            // 
-            // linkLabel1
-            // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(41, 62);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(40, 13);
-            this.linkLabel1.TabIndex = 21;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Pedido";
-            this.linkLabel1.Visible = false;
-            this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_Click);
             // 
             // btnProdUpdate
             // 
@@ -900,8 +907,8 @@
             this.PPrecioOriginal.PerformLayout();
             this.PPrecio.ResumeLayout(false);
             this.PPrecio.PerformLayout();
-            this.PCategoria.ResumeLayout(false);
-            this.PCategoria.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.PClaveInterna.ResumeLayout(false);
             this.PClaveInterna.PerformLayout();
             this.PCodigoBarras.ResumeLayout(false);
@@ -911,10 +918,11 @@
             this.PImagen.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProducto)).EndInit();
+            this.PCategoria.ResumeLayout(false);
+            this.PCategoria.PerformLayout();
             this.PConteidoProducto.ResumeLayout(false);
             this.PDetalle.ResumeLayout(false);
             this.PAccion.ResumeLayout(false);
-            this.PAccion.PerformLayout();
             this.Ptitulo.ResumeLayout(false);
             this.PType.ResumeLayout(false);
             this.PType.PerformLayout();
@@ -933,7 +941,6 @@
         #endregion
         private System.Windows.Forms.Label lblTipoProdPaq;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -991,11 +998,13 @@
         private System.Windows.Forms.PictureBox pictureBoxProducto;
         private System.Windows.Forms.Button btnImagenes;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ErrorProvider errorProvAgregarEditarProducto;
         private System.Windows.Forms.TextBox txtStockMinimo;
         private System.Windows.Forms.TextBox txtStockMaximo;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox txtPrecioMayoreo;
     }
 }
