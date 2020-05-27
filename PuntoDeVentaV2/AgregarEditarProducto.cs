@@ -5057,6 +5057,13 @@ namespace PuntoDeVentaV2
         private void AgregarEditarProducto_FormClosed(object sender, FormClosedEventArgs e)
         {
             LimpiarDatos();
+
+            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+
+            if (producto != null)
+            {
+                producto.recargarDGV();
+            }
         }
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)

@@ -174,10 +174,23 @@ namespace PuntoDeVentaV2
                                                                     // esto multiplicado por _tope
                 }
             }
-            else if ((num_pagina > 0) || (num_pagina < this._ultimaPagina))     // Si no y num_pagina es mayor que 0 ó num_pagina es menor que _ultimaPagina
+            else if ((num_pagina > 0) || (num_pagina <= this._ultimaPagina))     // Si no y num_pagina es mayor que 0 ó num_pagina es menor que _ultimaPagina
             {
-                this._numeroPagina = num_pagina;    // Le asignamos _numeroPagina igual num_pagina
-                this._inicio = _inicio + _tope;     // Le asignamos _inicio igual a la resta
+                if (num_pagina.Equals(1))
+                {
+                    this._numeroPagina = 1;     // Asignamos a _numeroPagina el numero 1
+                    this._inicio = 0;           // Asignamos a _inicio el numero 0
+                }
+                else if (num_pagina.Equals(_ultimaPagina))
+                {
+                    this._numeroPagina = _ultimaPagina;             // Asignamos _numeroPagina lo que tiene _ultimaPagina
+                    this._inicio = (_ultimaPagina - 1) * _tope;     // Asignamos a _inicio lo que resulte (_ultimaPagina-1)*_tope
+                }
+                else
+                {
+                    this._numeroPagina = num_pagina;    // Le asignamos _numeroPagina igual num_pagina
+                    this._inicio = (num_pagina - 1) * _tope;     // Le asignamos _inicio igual a la resta
+                }
             }
             
             this._datos.Clear();    // Borramos el DataSet
@@ -185,7 +198,7 @@ namespace PuntoDeVentaV2
                                                                                         // la consulta pero solo mostranndo los rangos
                                                                                         // Mostrar desde Inicio hasta el Tope asignado
                                                                                         // configurado desde el sistema
-            return _datos;           // Retorna el DataSet
+            return _datos;                      // Retorna el DataSet
         }
 
         public DataSet actualizarTope(int i_tope)

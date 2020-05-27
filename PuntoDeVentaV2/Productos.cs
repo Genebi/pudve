@@ -121,6 +121,8 @@ namespace PuntoDeVentaV2
 
         public static iTextSharp.text.Image imgReporte;
 
+        Timer actualizarDGVProductos = new Timer();
+
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1261,8 +1263,22 @@ namespace PuntoDeVentaV2
             //reloadTags();
 
             //creacionEtiquetasDinamicas();
+
+            //actualizarDGVProductos.Interval = 3000;
+            //actualizarDGVProductos.Tick += actualizar_automatico_Tick;
+            //actualizarDGVProductos.Enabled = true;
         }
-        
+
+        private void actualizar_automatico_Tick(object sender, EventArgs e)
+        {
+            recargarDGV();
+        }
+
+        public void recargarDGV()
+        {
+            goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
+        }
+
         private void btnPedido_Click(object sender, EventArgs e)
         {
             if (Application.OpenForms.OfType<OpcionesReporteProducto>().Count() == 1)
@@ -2050,6 +2066,7 @@ namespace PuntoDeVentaV2
                 if (!txtIrPagina.Text.Equals(""))
                 {
                     goToPageNumber(Convert.ToInt32(txtIrPagina.Text));
+                    txtIrPagina.Text = string.Empty;
                 }
                 else if (txtIrPagina.Text.Equals(""))
                 {
@@ -2062,10 +2079,10 @@ namespace PuntoDeVentaV2
         {
             p.primerPagina();
             p.irAPagina(pageNumber);
+            p.cargar();
             clickBoton = 1;
             CargarDatos();
             actualizar();
-            txtIrPagina.Text = string.Empty;
         }
 
         private void txtIrPagina_Leave(object sender, EventArgs e)
@@ -3344,8 +3361,8 @@ namespace PuntoDeVentaV2
             FormAgregar.FormClosed += delegate
             {
                 //actualizarDatosDespuesDeAgregarProducto();
-                linkLblPaginaActual_Click_1(sender, e);
-                int posicionInicial = p.inicio();
+                //linkLblPaginaActual_Click_1(sender, e);
+                //MessageBox.Show("Super mega Dislike");
                 AgregarEditarProducto.stockNecesario = "0";
             };
 
@@ -3399,6 +3416,7 @@ namespace PuntoDeVentaV2
 
             if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
             {
+                goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
                 actualizar();
             }
             else if (origenDeLosDatos == 0)
@@ -3411,6 +3429,7 @@ namespace PuntoDeVentaV2
                 {
                     actualizarDatosDespuesDeAgregarProducto();
                 }
+                goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
             }
 
             origenDeLosDatos = 0;
