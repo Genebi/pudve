@@ -1276,7 +1276,19 @@ namespace PuntoDeVentaV2
 
         public void recargarDGV()
         {
-            goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
+            //goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
+            int ultimaPagina = p.countPag(), currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
+
+            if (currentPage.Equals(ultimaPagina))
+            {
+                CargarDatos();
+                ultimaPagina = p.countPag();
+                goToPageNumber(ultimaPagina);
+            }
+            else if (currentPage < ultimaPagina)
+            {
+                goToPageNumber(currentPage);
+            }
         }
 
         private void btnPedido_Click(object sender, EventArgs e)
@@ -3429,7 +3441,20 @@ namespace PuntoDeVentaV2
                 {
                     actualizarDatosDespuesDeAgregarProducto();
                 }
-                goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
+
+                int ultimaPagina = p.countPag(), currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
+
+                if (currentPage.Equals(ultimaPagina))
+                {
+                    CargarDatos();
+                    ultimaPagina = p.countPag();
+                    goToPageNumber(ultimaPagina);
+                }
+                else if (currentPage < ultimaPagina)
+                {
+                    goToPageNumber(currentPage);
+                }
+                
             }
 
             origenDeLosDatos = 0;
