@@ -97,7 +97,7 @@ namespace PuntoDeVentaV2
             Catalogo_monedas = 3;
             HistorialPrecios = 7;
             appSettings = 6;
-            Configuracion = 12;
+            Configuracion = 14;
             TipoClientes = 6;
             FiltroProducto = 6;
             Facturas = 51;
@@ -2327,7 +2327,9 @@ namespace PuntoDeVentaV2
                                               IniciarProceso       INTEGER DEFAULT (0),
                                               MostrarPrecioProducto INTEGER DEFAULT (0),
                                               MostrarCodigoProducto INTEGER DEFAULT (0),
-                                              PorcentajePrecio      DECIMAL DEFAULT (1.6));";
+                                              PorcentajePrecio      DECIMAL DEFAULT (1.6),
+                                              PrecioMayoreo         INTEGER DEFAULT (0),
+                                              MinimoMayoreo         INTEGER DEFAULT (0));";
         }
 
         public string QueryUpdateTablaConfiguracion(string tabla)
@@ -2342,7 +2344,8 @@ namespace PuntoDeVentaV2
                                              CorreoVentaProducto,
                                              IniciarProceso,
                                              MostrarPrecioProducto,
-                                             MostrarCodigoProducto) 
+                                             MostrarCodigoProducto,
+                                             PorcentajePrecio) 
                                       SELECT ID,
                                              IDUsuario,
                                              TicketVenta,
@@ -2353,7 +2356,8 @@ namespace PuntoDeVentaV2
                                              CorreoVentaProducto,
                                              IniciarProceso,
                                              MostrarPrecioProducto,
-                                             MostrarCodigoProducto 
+                                             MostrarCodigoProducto,
+                                             PorcentajePrecio 
                                         FROM '{tabla}_temp';";
         }
 
