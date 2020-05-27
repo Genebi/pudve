@@ -565,6 +565,7 @@
             this.txtPrecioMayoreo.Name = "txtPrecioMayoreo";
             this.txtPrecioMayoreo.Size = new System.Drawing.Size(94, 20);
             this.txtPrecioMayoreo.TabIndex = 5;
+            this.txtPrecioMayoreo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioMayoreo_KeyPress);
             // 
             // PClaveInterna
             // 

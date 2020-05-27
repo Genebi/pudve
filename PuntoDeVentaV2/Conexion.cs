@@ -301,6 +301,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["ProdImage"].ToString()); // Imagen    9
                 lista.Add(dr["StockMinimo"].ToString()); // Stock Minimo    10
                 lista.Add(dr["PrecioCompra"].ToString()); // Precio Compra  11
+                lista.Add(dr["PrecioMayoreo"].ToString()); //12
             }
 
             dr.Close();
