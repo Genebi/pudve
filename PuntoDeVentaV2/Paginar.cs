@@ -215,36 +215,47 @@ namespace PuntoDeVentaV2
                                                                         // la consulta pero solo mostranndo los rangos
                                                                         // Mostrar desde Inicio hasta el Tope asignado
                                                                         // configurado desde el sistema
-            _adapter.Fill(auxiliar);
-            connection.Close();
+            _adapter.Fill(auxiliar);    // Llenamos la tabla auxiliar con el Adapter 
+            connection.Close();         // Cerramos la conexion SQLite
 
-            if (this._ultimaPagina == this._numeroPagina)
+            if (this._ultimaPagina == this._numeroPagina)   // Si _ultimaPagina es igual a _numeroPagina
             {
-                return _datos;
+                return _datos;      // Retorna el DataSet
             }
-            this._datos.Clear();
-            this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember);
-            return _datos;
+            else
+            {
+                this._datos.Clear();    // Borramos contenido DataSet
+                this._adapter.Fill(this._datos, this._inicio, _tope, this._datamember); // Almacenamos en el Adapter el resultdo de
+                                                                                        // la consulta pero solo mostranndo los rangos
+                                                                                        // Mostrar desde Inicio hasta el Tope asignado
+                                                                                        // configurado desde el sistema
+                return _datos;  // Retorna el DataSet
+            }
         }
 
         public int countRow()
         {
-            return _cantidadRegistros;
+            return _cantidadRegistros;  // Retorna la cantidad de registros (Productos, Servicios y Combos)
         }
 
         public int countPag()
         {
-            return _ultimaPagina;
+            return _ultimaPagina;   // Retorna el numero de la ultima pagina
         }
 
         public int numPag()
         {
-            return _numeroPagina;
+            return _numeroPagina;   // Retorna el numero de pagina en que se encuentra actualmente
         }
 
         public int limitRow()
         {
-            return _tope;
+            return _tope;   // Retorna el numero de tope a mostrar por pagina
+        }
+
+        public int inicio()
+        {
+            return _inicio;     // Retorna el numero donde inicio de registro a mostrar
         }
     }
 }

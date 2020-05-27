@@ -3345,6 +3345,7 @@ namespace PuntoDeVentaV2
             {
                 //actualizarDatosDespuesDeAgregarProducto();
                 linkLblPaginaActual_Click_1(sender, e);
+                int posicionInicial = p.inicio();
                 AgregarEditarProducto.stockNecesario = "0";
             };
 
