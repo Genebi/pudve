@@ -59,7 +59,7 @@ namespace PuntoDeVentaV2
         public static string idCliente = string.Empty;
         public static string credito = string.Empty;
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
-        public static bool botonAceptar = true;
+        public static bool botonAceptar = false;
 
         // Lista para almacenar los IDs de las ventas guardadas que se han cargado
         public static List<int> ventasGuardadas = new List<int>();
@@ -1297,6 +1297,7 @@ namespace PuntoDeVentaV2
                         if (botonAceptar)
                         {
                             DatosVenta();
+                            botonAceptar = false;
                         }
                         else
                         {

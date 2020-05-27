@@ -318,14 +318,14 @@ namespace PuntoDeVentaV2
             {
                 habilitado = 1;
                 txtMinimoMayoreo.Enabled = true;
+                txtMinimoMayoreo.Focus();
                 cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
             }
             else
             {
                 txtMinimoMayoreo.Enabled = false;
                 txtMinimoMayoreo.Text = string.Empty;
-                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-                cn.EjecutarConsulta($"UPDATE Configuracion SET MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
             } 
         }
 
