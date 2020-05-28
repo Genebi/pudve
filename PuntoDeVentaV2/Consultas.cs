@@ -996,7 +996,11 @@ namespace PuntoDeVentaV2
             {
                 cons = $"SELECT * FROM Facturas_complemento_pago WHERE id_factura='{dato}' AND timbrada=0";
             }
-            
+            if(opc == 3)
+            {
+                cons = $"SELECT importe_pagado FROM Facturas_complemento_pago WHERE id_factura_principal='{dato}' AND timbrada=1 AND cancelada=0";
+            }
+
             return cons;
         }
 
@@ -1051,7 +1055,7 @@ namespace PuntoDeVentaV2
 
             if (opc == 1)
             {
-                cons = $"SELECT f.total, fp.id_factura, fp.importe_pagado FROM Facturas AS f INNER JOIN Facturas_complemento_pago AS fp ON f.ID=fp.id_factura_principal WHERE fp.id_factura_principal='{idf}' AND fp.timbrada=1 AND f.cancelada=0";
+                cons = $"SELECT f.total, fp.id_factura, fp.importe_pagado, f.fecha_certificacion FROM Facturas AS f INNER JOIN Facturas_complemento_pago AS fp ON f.ID=fp.id_factura_principal WHERE fp.id_factura_principal='{idf}' AND fp.timbrada=1 AND fp.cancelada=0";
             }
             if (opc == 2)
             {

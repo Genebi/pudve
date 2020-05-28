@@ -23,7 +23,8 @@ namespace PuntoDeVentaV2
         public string[] cancelar(int idf, string tipof)
         {
             string ruta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD\";
-            
+            string ruta_acuse = @"C:\Archivos PUDVE\Facturas\";
+
             // Proveedor
             string usuario = "NUSN900420SS5";
             //string clave_u = "c.ofis09NSUNotcatno5SS0240";
@@ -41,6 +42,15 @@ namespace PuntoDeVentaV2
             string[] rsp = new string[2];
 
 
+
+            // Nombre del xml
+
+            string nombre_xml = "INGRESOS_" + idf;
+            if (tipof == "P")
+            {
+                nombre_xml = "XML_PAGO_" + idf;
+            }
+            ruta_acuse = ruta_acuse + nombre_xml + ".xml";
 
             // Consulta datos
 
@@ -106,12 +116,10 @@ namespace PuntoDeVentaV2
 
                 response = cliente_cancelar.cancelar_cfdi(usuario, clave_u, rfc_emisor, folios_datos, cer_pem, key_pem);
 
-
                 // Obtener datos de la respuesta
-
                 XmlDocument acuse_cancelacion = new XmlDocument();
                 acuse_cancelacion.LoadXml(response.folios_cancelacion);
-                                
+                
 
                 foreach (XmlNode node in acuse_cancelacion.DocumentElement.ChildNodes)
                 {
@@ -144,6 +152,13 @@ namespace PuntoDeVentaV2
                 rsp[0] = r;
                 rsp[1] = r_codigo;
 
+                // Guarda el acuse recibido solo cuando la factura ya fue cancelada
+
+                if(r_codigo == "201")
+                {
+                    File.WriteAllText(ruta_acuse, response.acuse_cancelacion);
+                }
+                
 
                 return rsp;
             }

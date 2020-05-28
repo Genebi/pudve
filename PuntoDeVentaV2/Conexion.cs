@@ -148,10 +148,6 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["Timbrada"];
                 }
-                if (tipo == 9)
-                {
-                    respuesta = dr["saldo_insoluto"];
-                }
                 if(tipo == 10)
                 {
                     respuesta = dr["uuid"];
@@ -167,6 +163,10 @@ namespace PuntoDeVentaV2
                 if (tipo == 13)
                 {
                     respuesta = dr["UUID"];
+                }
+                if (tipo == 14)
+                {
+                    respuesta = dr["id_factura_principal"];
                 }
             }
 
