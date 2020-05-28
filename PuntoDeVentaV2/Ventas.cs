@@ -3075,7 +3075,7 @@ namespace PuntoDeVentaV2
 
         private void btnMayoreo_Click(object sender, EventArgs e)
         {
-            /*int contadorMayoreo = 0;
+            int contadorMayoreo = 0;
             // Si la casilla de mayoreo de config esta activa
             if (mayoreoActivo)
             {
@@ -3103,8 +3103,7 @@ namespace PuntoDeVentaV2
                                 var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
                                 var importe = cantidad * precio;
 
-                                //MessageBox.Show(importe.ToString());
-
+                                fila.Cells["PrecioOriginal"].Value = precio;
                                 fila.Cells["Precio"].Value = precio;
                                 fila.Cells["Importe"].Value = importe;
                             }
@@ -3113,7 +3112,7 @@ namespace PuntoDeVentaV2
                         CantidadesFinalesVenta();
                     }
                 }
-            }*/
+            }
         }
 
         private void CuerpoEmails()
