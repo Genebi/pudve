@@ -293,8 +293,8 @@ namespace PuntoDeVentaV2
 
                     CajaN.botones = true;
                 }
-                
-                Dispose();
+
+                Close();
             }
         }
 
