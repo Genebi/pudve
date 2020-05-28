@@ -98,6 +98,9 @@ namespace PuntoDeVentaV2
         private int correoVentaProducto = 0;
         private int mostrarPrecioProducto = 0;
         private int mostrarCBProducto = 0;
+        // Variables para la configuracion referente a los productos con mayoreo
+        private bool mayoreoActivo = false;
+        private int contadorMayoreo = 0;
 
         // Listas para guardar los ID's de los productos que se enviara correo
         private Dictionary<int, string> enviarStockMinimo;
@@ -144,6 +147,9 @@ namespace PuntoDeVentaV2
                 correoVentaProducto = Convert.ToInt16(configCorreos[3]);
                 mostrarPrecioProducto = Convert.ToInt16(configCorreos[6]);
                 mostrarCBProducto = Convert.ToInt16(configCorreos[7]);
+                mayoreoActivo = Convert.ToBoolean(configCorreos[9]);
+
+                MessageBox.Show(mayoreoActivo.ToString());
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
