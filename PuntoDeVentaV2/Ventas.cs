@@ -100,7 +100,7 @@ namespace PuntoDeVentaV2
         private int mostrarCBProducto = 0;
         // Variables para la configuracion referente a los productos con mayoreo
         private bool mayoreoActivo = false;
-        private int contadorMayoreo = 0;
+        private int cantidadMayoreo = 0;
 
         // Listas para guardar los ID's de los productos que se enviara correo
         private Dictionary<int, string> enviarStockMinimo;
@@ -148,8 +148,7 @@ namespace PuntoDeVentaV2
                 mostrarPrecioProducto = Convert.ToInt16(configCorreos[6]);
                 mostrarCBProducto = Convert.ToInt16(configCorreos[7]);
                 mayoreoActivo = Convert.ToBoolean(configCorreos[9]);
-
-                MessageBox.Show(mayoreoActivo.ToString());
+                cantidadMayoreo = Convert.ToInt32(configCorreos[10]);
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
@@ -573,6 +572,7 @@ namespace PuntoDeVentaV2
                 row.Cells["DescuentoTipo"].Value = datosProducto[3]; // Este campo tampoco es visible
                 row.Cells["Stock"].Value = datosProducto[4]; // Este campo no es visible
                 row.Cells["TipoPS"].Value = datosProducto[5]; // Este campo no es visible
+                row.Cells["PrecioMayoreo"].Value = datosProducto[12]; // Este campo no es visible
                 row.Cells["Cantidad"].Value = datosProducto[6];
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
@@ -611,6 +611,7 @@ namespace PuntoDeVentaV2
                 row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
                 row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
                 row.Cells["TipoPS"].Value = datosProducto[5]; //Este campo no es visible
+                row.Cells["PrecioMayoreo"].Value = datosProducto[12]; // Este campo no es visible
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
                 row.Cells["Descripcion"].Value = datosProducto[1];
@@ -3070,6 +3071,49 @@ namespace PuntoDeVentaV2
             }
 
             AgregarProducto(datosProducto);
+        }
+
+        private void btnMayoreo_Click(object sender, EventArgs e)
+        {
+            /*int contadorMayoreo = 0;
+            // Si la casilla de mayoreo de config esta activa
+            if (mayoreoActivo)
+            {
+                // Si la cantidad minima es mayor a cero
+                if (cantidadMayoreo > 0)
+                {
+                    foreach (DataGridViewRow fila in DGVentas.Rows)
+                    {
+                        var mayoreo = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
+
+                        if (mayoreo > 0)
+                        {
+                            contadorMayoreo++;
+                        }
+                    }
+
+                    if (contadorMayoreo >= cantidadMayoreo)
+                    {
+                        foreach (DataGridViewRow fila in DGVentas.Rows)
+                        {
+                            var precio = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
+
+                            if (precio > 0)
+                            {
+                                var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+                                var importe = cantidad * precio;
+
+                                //MessageBox.Show(importe.ToString());
+
+                                fila.Cells["Precio"].Value = precio;
+                                fila.Cells["Importe"].Value = importe;
+                            }
+                        }
+
+                        CantidadesFinalesVenta();
+                    }
+                }
+            }*/
         }
 
         private void CuerpoEmails()
