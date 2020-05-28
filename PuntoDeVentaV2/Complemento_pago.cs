@@ -86,13 +86,14 @@ namespace PuntoDeVentaV2
 
                         if (Convert.ToInt32(r_factura["con_complementos"]) == 1)
                         {
-                            decimal tf_apagar = Convert.ToDecimal(cn.EjecutarSelect($"SELECT saldo_insoluto FROM Facturas_complemento_pago WHERE id_factura_principal='{id_f}' AND timbrada=1 AND cancelada=0 ORDER BY ID DESC LIMIT 1", 9));
-                            total_f = tf_apagar.ToString();
+                            //decimal tf_apagar = Convert.ToDecimal(cn.EjecutarSelect($"SELECT importe_pagado FROM Facturas_complemento_pago WHERE id_factura_principal='{id_f}' AND timbrada=1 AND cancelada=0 ORDER BY ID DESC LIMIT 1", 9));
+                            DataTable d_comp_pago = cn.CargarDatos(cs.obtener_datos_para_gcpago(3, id_f));
+                            /*total_f = tf_apagar.ToString();
                             
                             if(total_f == "0")
                             {
                                 total_f = r_factura["total"].ToString();
-                            }
+                            }*/
                         }
 
                         Label lb_c_folio_serie = new Label();
@@ -199,6 +200,12 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("El abono en alguna factura es mayor al total restante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+
+            MessageBox.Show("El complemento de pago tardará 10 segundos (aproximadamente) en ser creado y timbrado, un momento por favor.", "Mensaje del sistema", MessageBoxButtons.OK);
+
+            btn_aceptar.Visible = false;
+            btn_cancelar.Visible = false;
 
 
 
@@ -316,6 +323,9 @@ namespace PuntoDeVentaV2
 
             Generar_XML xml_complemento = new Generar_XML();
             string respuesta_xml = xml_complemento.obtener_datos_XML(id_factura_pago, 0, 1, arr_idf_principal_pago);
+
+            btn_aceptar.Visible = true;
+            btn_cancelar.Visible = true;
 
             if (respuesta_xml == "")
             {

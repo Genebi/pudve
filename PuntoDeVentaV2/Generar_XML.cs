@@ -222,8 +222,8 @@ namespace PuntoDeVentaV2
                     int id_producto = Convert.ToInt32(r_productos["ID"]);
                     decimal precio_unitario = Convert.ToDecimal(r_productos["precio_u"]);
                     decimal cantidad_xproducto_xml = Convert.ToDecimal(r_productos["cantidad"]);
-                    
-
+                    precio_unitario_xml = precio_unitario;
+                    Console.WriteLine("precio_unitario=" + precio_unitario);
                     if (con_complemento_pg == 0)
                     {
                         d_base_i = Convert.ToDecimal(r_productos["base"]);
@@ -240,7 +240,7 @@ namespace PuntoDeVentaV2
                     if (des != "" & des != "0")
                     {
                         var desc = (r_productos["descuento"].ToString()).IndexOf("%");
-
+                        Console.WriteLine("ENTRA A DESCUENTO");
                         if (desc > -1)
                         {
                             // Descuento en porcentaje
@@ -281,17 +281,17 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    
+
 
                     // Agrega datos al nodo concepto
-
+                    Console.WriteLine("precio_unitario 2 =" + precio_unitario);
                     concepto.ClaveProdServ = r_productos["clave_producto"].ToString();
                     concepto.Cantidad = seis_decimales(cantidad_xproducto_xml);
                     concepto.ClaveUnidad = r_productos["clave_unidad"].ToString();
                     concepto.Descripcion = r_productos["descripcion"].ToString();
                     // Precio unitario e importe
                     decimal importe_p = cantidad_xproducto_xml * precio_unitario_xml;
-
+                    
                     if (con_complemento_pg == 0)
                     {
                         var x = Convert.ToString(importe_p).IndexOf(".");

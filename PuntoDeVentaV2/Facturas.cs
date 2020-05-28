@@ -163,13 +163,16 @@ namespace PuntoDeVentaV2
                                 int id_fcp = Convert.ToInt32(r_cpago["id_factura"]);
                                 decimal importe_pagado = Convert.ToDecimal(r_cpago["importe_pagado"]);
 
+                                DateTime fechacp = Convert.ToDateTime(r_cpago["fecha_certificacion"].ToString());
+                                string fecha_certcp = fechacp.ToString("yyyy-MM-dd");
+
                                 // Obtiene datos pertenecientes a cada complemento
                                 DataTable d_cpago_f = cn.CargarDatos(cs.obtiene_cpagos_dfactura_princ(id_fcp, 2));
 
                                 foreach (DataRow r_cpago_f in d_cpago_f.Rows)
                                 {
                                     int fila_idc = datagv_facturas.Rows.Add();
-
+                                    
                                     DataGridViewRow filac = datagv_facturas.Rows[fila_idc];
                                     filac.DefaultCellStyle.ForeColor = Color.Blue;
 
@@ -181,6 +184,7 @@ namespace PuntoDeVentaV2
                                     filac.Cells["col_rfc"].Value = r_cpago_f["r_rfc"].ToString();
                                     filac.Cells["col_razon_social"].Value = r_cpago_f["r_razon_social"].ToString();
                                     filac.Cells["col_total"].Value = importe_pagado.ToString();
+                                    fila.Cells["col_fecha"].Value = fecha_certcp;
 
                                     Image img_pdfc = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
                                     Image img_descargarc = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\download.png");
@@ -322,7 +326,7 @@ namespace PuntoDeVentaV2
 
                         if(Convert.ToBoolean(existe_complemento) == true)
                         {
-                            MessageBox.Show("La factura no puede ser cancelada porque tiene complementos de pago timbrados. Primero debe cancelar los complementos de pago pertenecientes a esta factura y posterior cancelarla", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("La factura no puede ser cancelada porque tiene complementos de pago timbrados. \n Primero debe cancelar los complementos de pago pertenecientes a esta factura y posterior cancelarla", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {
@@ -339,6 +343,23 @@ namespace PuntoDeVentaV2
 
                                     // Cambiar a canceladas
                                     cn.EjecutarConsulta($"UPDATE Facturas SET cancelada=1 WHERE ID='{id_factura}'");
+
+                                    if (t_comprobante == "P")
+                                    {
+                                        cn.EjecutarConsulta($"UPDATE Facturas_complemento_pago SET cancelada=1 WHERE id_factura='{id_factura}'");
+
+                                        // Obtener el id de la factura a la que se le hace el abono
+                                        var id_factura_princ = cn.EjecutarSelect($"SELECT id_factura_principal FROM Facturas_complemento_pago WHERE id_factura='{id_factura}'", 14);
+
+                                        // Verificar el comprobante para ver si no era el único que estaba por cancelar
+                                        var exi_complement = cn.EjecutarConsulta($"SELECT ID FROM Facturas_complemento_pago WHERE id='{id_factura_princ}' AND timbrada=1 AND cancelada=0");
+
+                                        if(Convert.ToBoolean(existe_complemento) == false)
+                                        {
+                                            cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0 WHERE ID='{id_factura_princ}'");
+                                        }
+                                    }
+
                                     // Cargar consulta
                                     int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
                                     cargar_lista_facturas(tipo_factura);
