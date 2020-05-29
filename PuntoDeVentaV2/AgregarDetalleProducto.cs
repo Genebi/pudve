@@ -2002,6 +2002,43 @@ namespace PuntoDeVentaV2
                         {
                             MessageBox.Show("Error al Intentar Agregar Registro de Detalle Dinamico...\nEn la tabla FiltroPrducto", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+
+                        using (DataTable dtChecarSihayDatosDinamicosRegistrados = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+                        {
+                            if (dtChecarSihayDatosDinamicosRegistrados.Rows.Count > 0)
+                            {
+                                foreach (DataRow row in dtChecarSihayDatosDinamicosRegistrados.Rows)
+                                {
+                                    connStr = row["textComboBoxConcepto"].ToString();
+                                    if (row["checkBoxComboBoxConcepto"].ToString().Equals("1"))
+                                    {
+                                        keyName = "true";
+                                    }
+                                    else if (row["checkBoxComboBoxConcepto"].ToString().Equals("0"))
+                                    {
+                                        keyName = "false";
+                                    }
+                                    lvi = new ListViewItem(keyName);
+                                    lvi.SubItems.Add(connStr);
+                                    chkDatabase.Items.Add(lvi);
+                                }
+                                foreach (DataRow row in dtChecarSihayDatosDinamicosRegistrados.Rows)
+                                {
+                                    connStr = row["concepto"].ToString();
+                                    if (row["checkBoxConcepto"].ToString().Equals("1"))
+                                    {
+                                        keyName = "true";
+                                    }
+                                    else if (row["checkBoxConcepto"].ToString().Equals("0"))
+                                    {
+                                        keyName = "false";
+                                    }
+                                    lvi = new ListViewItem(keyName);
+                                    lvi.SubItems.Add(connStr);
+                                    settingDatabases.Items.Add(lvi);
+                                }
+                            }
+                        }
                     }
                 }
             }
