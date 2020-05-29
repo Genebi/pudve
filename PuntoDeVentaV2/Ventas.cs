@@ -826,6 +826,8 @@ namespace PuntoDeVentaV2
                     {
                         descuentosDirectos.Remove(idProducto);
                     }
+
+                    CalculoMayoreo();
                 }
             }
             catch (Exception)
@@ -833,9 +835,7 @@ namespace PuntoDeVentaV2
                 
             }
             
-
             DGVentas.ClearSelection();
-            CalculoMayoreo();
             CantidadesFinalesVenta();
         }
 
@@ -3111,9 +3111,11 @@ namespace PuntoDeVentaV2
 
                             if (precio > 0)
                             {
+                                var nombre = fila.Cells["Descripcion"].Value.ToString() + "***";
                                 var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
                                 var importe = cantidad * precio;
 
+                                fila.Cells["Descripcion"].Value = nombre;
                                 fila.Cells["PrecioOriginal"].Value = precio;
                                 fila.Cells["Precio"].Value = precio;
                                 fila.Cells["Importe"].Value = importe;
@@ -3128,8 +3130,21 @@ namespace PuntoDeVentaV2
 
                             if (precio > 0)
                             {
+                                var nombre = fila.Cells["Descripcion"].Value.ToString();
                                 var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
                                 var importe = cantidad * precio;
+
+                                if (nombre.Length > 3)
+                                {
+                                    var caracteres = nombre.Substring(nombre.Length - 3);
+
+                                    if (caracteres.Equals("***"))
+                                    {
+                                        nombre = nombre.Remove(nombre.Length - 3);
+
+                                        fila.Cells["Descripcion"].Value = nombre;
+                                    }
+                                }
 
                                 fila.Cells["PrecioOriginal"].Value = precio;
                                 fila.Cells["Precio"].Value = precio;
