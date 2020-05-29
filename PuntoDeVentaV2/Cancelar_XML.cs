@@ -45,10 +45,10 @@ namespace PuntoDeVentaV2
 
             // Nombre del xml
 
-            string nombre_xml = "INGRESOS_" + idf;
+            string nombre_xml = "XML_INGRESOS_ACUSE_" + idf;
             if (tipof == "P")
             {
-                nombre_xml = "XML_PAGO_" + idf;
+                nombre_xml = "XML_PAGO_ACUSE_" + idf;
             }
             ruta_acuse = ruta_acuse + nombre_xml + ".xml";
 

@@ -336,7 +336,7 @@ namespace PuntoDeVentaV2
                             {
                                 Cancelar_XML cancela = new Cancelar_XML();
                                 string[] respuesta = cancela.cancelar(id_factura, t_comprobante);
-
+                               
                                 if (respuesta[1] == "201")
                                 {
                                     MessageBox.Show(respuesta[0], "Mensaje del sistema", MessageBoxButtons.OK);
@@ -348,15 +348,26 @@ namespace PuntoDeVentaV2
                                     {
                                         cn.EjecutarConsulta($"UPDATE Facturas_complemento_pago SET cancelada=1 WHERE id_factura='{id_factura}'");
 
-                                        // Obtener el id de la factura a la que se le hace el abono
-                                        var id_factura_princ = cn.EjecutarSelect($"SELECT id_factura_principal FROM Facturas_complemento_pago WHERE id_factura='{id_factura}'", 14);
+                                        // Obtener el id de la factura principal a la que se le hace el abono
+                                        DataTable d_datos_cp = cn.CargarDatos(cs.obtener_datos_para_gcpago(4, id_factura));
+                                        DataRow r_datos_cp = d_datos_cp.Rows[0];
+
+                                        int id_factura_princ = Convert.ToInt32(r_datos_cp["id_factura_principal"].ToString());
+                                        decimal importe_pg = Convert.ToDecimal(r_datos_cp["importe_pagado"].ToString());
 
                                         // Verificar el comprobante para ver si no era el único que estaba por cancelar
-                                        var exi_complement = cn.EjecutarConsulta($"SELECT ID FROM Facturas_complemento_pago WHERE id='{id_factura_princ}' AND timbrada=1 AND cancelada=0");
+                                        DataTable d_exi_complement = cn.CargarDatos(cs.obtener_datos_para_gcpago(5, id_factura_princ));
+                                        int cant_exi_complement = d_exi_complement.Rows.Count;
 
-                                        if(Convert.ToBoolean(existe_complemento) == false)
+
+                                        // Ver si el campo resta_pago se modifica una vez se timbra la factura rpincipal
+                                        if(cant_exi_complement == 0)
                                         {
-                                            cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0 WHERE ID='{id_factura_princ}'");
+                                            cn.EjecutarConsulta($"UPDATE Facturas SET con_complementos=0, resta_cpago=0 WHERE ID='{id_factura_princ}'");
+                                        }
+                                        else
+                                        {
+                                            cn.EjecutarConsulta($"UPDATE Facturas SET resta_cpago=resta_cpago+'{importe_pg}' WHERE ID='{id_factura_princ}'");
                                         }
                                     }
 
@@ -457,11 +468,11 @@ namespace PuntoDeVentaV2
                         }
                     }
 
+                    int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
                     Complemento_pago c_pago = new Complemento_pago();
   
                     c_pago.FormClosed += delegate
                     {
-                        int tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
                         cargar_lista_facturas(tipo_factura);
                     };
 
@@ -816,7 +827,6 @@ namespace PuntoDeVentaV2
             {
                 DateTime fecha_actual = DateTime.UtcNow;
                 string fech = fecha_actual.ToString("yyyyMMddhhmmss");
-                Console.WriteLine(fech);
 
                 string ruta_carpet_comprimida = "C:\\Users\\" + n_user + "\\Desktop\\" + nombrexml + "_" + fech + ".zip";
 

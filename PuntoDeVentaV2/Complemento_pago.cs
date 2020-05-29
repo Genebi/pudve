@@ -83,11 +83,25 @@ namespace PuntoDeVentaV2
                         DataRow r_factura = d_factura.Rows[0];
 
                         string total_f = r_factura["total"].ToString();
+                        decimal suma_importe_pagado = 0;
 
                         if (Convert.ToInt32(r_factura["con_complementos"]) == 1)
                         {
                             //decimal tf_apagar = Convert.ToDecimal(cn.EjecutarSelect($"SELECT importe_pagado FROM Facturas_complemento_pago WHERE id_factura_principal='{id_f}' AND timbrada=1 AND cancelada=0 ORDER BY ID DESC LIMIT 1", 9));
                             DataTable d_comp_pago = cn.CargarDatos(cs.obtener_datos_para_gcpago(3, id_f));
+                            
+                            if(d_comp_pago.Rows.Count > 0)
+                            {
+                                foreach(DataRow r_comp_pago in d_comp_pago.Rows)
+                                {
+                                    suma_importe_pagado += Convert.ToDecimal(r_comp_pago["importe_pagado"].ToString());
+                                }
+                            }
+                            if(suma_importe_pagado > 0)
+                            {
+                                decimal restan = Convert.ToDecimal(total_f) - suma_importe_pagado;
+                                total_f = Convert.ToString(restan);
+                            }
                             /*total_f = tf_apagar.ToString();
                             
                             if(total_f == "0")

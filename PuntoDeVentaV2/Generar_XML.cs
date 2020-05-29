@@ -45,7 +45,7 @@ namespace PuntoDeVentaV2
             string folio = "",           serie = "";
             string fecha = "",           moneda = "";
             string forma_pago = "",      tipo_cambio = "";     
-            string metodo_pago = "",     lugar_expedicion = "49000";
+            string metodo_pago = "",     lugar_expedicion = "";
             string tipo_comprobante = "";
             // Emisor
             string rfc_e = "";
@@ -116,7 +116,7 @@ namespace PuntoDeVentaV2
                 tipo_cambio = r_facturas["tipo_cambio"].ToString();
                 metodo_pago = r_facturas["metodo_pago"].ToString();
                 tipo_comprobante = r_facturas["tipo_comprobante"].ToString();
-                //lugar_expedicion = r_ventas[""].ToString();
+                lugar_expedicion = r_facturas["e_cp"].ToString();
 
                 rfc_e = r_facturas["e_rfc"].ToString();
                 nombre_e = r_facturas["e_razon_social"].ToString();
@@ -223,7 +223,7 @@ namespace PuntoDeVentaV2
                     decimal precio_unitario = Convert.ToDecimal(r_productos["precio_u"]);
                     decimal cantidad_xproducto_xml = Convert.ToDecimal(r_productos["cantidad"]);
                     precio_unitario_xml = precio_unitario;
-                    Console.WriteLine("precio_unitario=" + precio_unitario);
+   
                     if (con_complemento_pg == 0)
                     {
                         d_base_i = Convert.ToDecimal(r_productos["base"]);
@@ -240,7 +240,7 @@ namespace PuntoDeVentaV2
                     if (des != "" & des != "0")
                     {
                         var desc = (r_productos["descuento"].ToString()).IndexOf("%");
-                        Console.WriteLine("ENTRA A DESCUENTO");
+                       
                         if (desc > -1)
                         {
                             // Descuento en porcentaje
@@ -284,7 +284,7 @@ namespace PuntoDeVentaV2
 
 
                     // Agrega datos al nodo concepto
-                    Console.WriteLine("precio_unitario 2 =" + precio_unitario);
+
                     concepto.ClaveProdServ = r_productos["clave_producto"].ToString();
                     concepto.Cantidad = seis_decimales(cantidad_xproducto_xml);
                     concepto.ClaveUnidad = r_productos["clave_unidad"].ToString();
