@@ -2370,6 +2370,9 @@ namespace PuntoDeVentaV2
 
                                     if (respuesta > 0)
                                     {
+                                        claveProducto = string.Empty;
+                                        claveUnidadMedida = string.Empty;
+
                                         //Se obtiene la ID del último producto agregado
                                         idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
 
@@ -2610,6 +2613,9 @@ namespace PuntoDeVentaV2
 
                                     if (respuesta > 0)
                                     {
+                                        claveProducto = string.Empty;
+                                        claveUnidadMedida = string.Empty;
+
                                         bool isEmpty = !detalleProductoBasico.Any();
 
                                         #region Inicio Guardar Datos Basicos Detalle Producto
@@ -3175,6 +3181,9 @@ namespace PuntoDeVentaV2
 
                             respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
+                            claveProducto = string.Empty;
+                            claveUnidadMedida = string.Empty;
+
                             #region Inicio De Detalle Producto Basicos
                             bool isEmpty = !detalleProductoBasico.Any();
 
@@ -3402,7 +3411,8 @@ namespace PuntoDeVentaV2
 
                         if (respuesta > 0)
                         {
-
+                            claveProducto = string.Empty;
+                            claveUnidadMedida = string.Empty;
 
                             //Se obtiene la ID del último producto agregado
                             idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
