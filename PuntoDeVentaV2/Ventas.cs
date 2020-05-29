@@ -569,6 +569,7 @@ namespace PuntoDeVentaV2
                 row.Cells["NumeroColumna"].Value = indiceColumna;
                 row.Cells["IDProducto"].Value = datosProducto[0]; // Este campo no es visible
                 row.Cells["PrecioOriginal"].Value = datosProducto[2]; // Este campo no es visible
+                row.Cells["PrecioAuxiliar"].Value = datosProducto[2]; // Este campo no es visible
                 row.Cells["DescuentoTipo"].Value = datosProducto[3]; // Este campo tampoco es visible
                 row.Cells["Stock"].Value = datosProducto[4]; // Este campo no es visible
                 row.Cells["TipoPS"].Value = datosProducto[5]; // Este campo no es visible
@@ -606,11 +607,12 @@ namespace PuntoDeVentaV2
 
                 //Agregamos la información
                 row.Cells["NumeroColumna"].Value = indiceColumna;
-                row.Cells["IDProducto"].Value = datosProducto[0]; //Este campo no es visible
-                row.Cells["PrecioOriginal"].Value = datosProducto[2]; //Este campo no es visible
-                row.Cells["DescuentoTipo"].Value = datosProducto[3]; //Este campo tampoco es visible
-                row.Cells["Stock"].Value = datosProducto[4]; //Este campo no es visible
-                row.Cells["TipoPS"].Value = datosProducto[5]; //Este campo no es visible
+                row.Cells["IDProducto"].Value = datosProducto[0]; // Este campo no es visible
+                row.Cells["PrecioOriginal"].Value = datosProducto[2]; // Este campo no es visible
+                row.Cells["PrecioAuxiliar"].Value = datosProducto[2]; // Este campo no es visible
+                row.Cells["DescuentoTipo"].Value = datosProducto[3]; // Este campo tampoco es visible
+                row.Cells["Stock"].Value = datosProducto[4]; // Este campo no es visible
+                row.Cells["TipoPS"].Value = datosProducto[5]; // Este campo no es visible
                 row.Cells["PrecioMayoreo"].Value = datosProducto[12]; // Este campo no es visible
                 row.Cells["Cantidad"].Value = cantidad;
                 row.Cells["Precio"].Value = datosProducto[2];
@@ -833,6 +835,7 @@ namespace PuntoDeVentaV2
             
 
             DGVentas.ClearSelection();
+            CalculoMayoreo();
             CantidadesFinalesVenta();
         }
 
@@ -1262,7 +1265,8 @@ namespace PuntoDeVentaV2
                 {
                     descuentosDirectos.Remove(id);
                 }
-                
+
+                CalculoMayoreo();
                 CantidadesFinalesVenta();
             }
         }
@@ -1275,6 +1279,7 @@ namespace PuntoDeVentaV2
             // Guarda los datos de los descuentos directos que se han aplicado
             descuentosDirectos.Clear();
 
+            CalculoMayoreo();
             CantidadesFinalesVenta();
         }
 
@@ -3075,6 +3080,12 @@ namespace PuntoDeVentaV2
 
         private void btnMayoreo_Click(object sender, EventArgs e)
         {
+            CalculoMayoreo();
+            CantidadesFinalesVenta();
+        }
+
+        private void CalculoMayoreo()
+        {
             int contadorMayoreo = 0;
             // Si la casilla de mayoreo de config esta activa
             if (mayoreoActivo)
@@ -3108,8 +3119,23 @@ namespace PuntoDeVentaV2
                                 fila.Cells["Importe"].Value = importe;
                             }
                         }
+                    }
+                    else
+                    {
+                        foreach (DataGridViewRow fila in DGVentas.Rows)
+                        {
+                            var precio = float.Parse(fila.Cells["PrecioAuxiliar"].Value.ToString());
 
-                        CantidadesFinalesVenta();
+                            if (precio > 0)
+                            {
+                                var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+                                var importe = cantidad * precio;
+
+                                fila.Cells["PrecioOriginal"].Value = precio;
+                                fila.Cells["Precio"].Value = precio;
+                                fila.Cells["Importe"].Value = importe;
+                            }
+                        }
                     }
                 }
             }
