@@ -1984,7 +1984,7 @@ namespace PuntoDeVentaV2
                         //MessageBox.Show("No cuenta con Cofiguración en su sistema", "Sin Configuracion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         int nvoValorNumerico = 0;
                         int RegistroAgregado = -1;
-                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico("chkProveedor", 0, FormPrincipal.userID));
+                        RegistroAgregado = cn.EjecutarConsulta(cs.InsertaDatoDinamico("Proveedor", 0, FormPrincipal.userID));
                         if (RegistroAgregado.Equals(1))
                         {
                             //MessageBox.Show("Registro de Detalle Dinamico\nExitoso...", "Registro Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

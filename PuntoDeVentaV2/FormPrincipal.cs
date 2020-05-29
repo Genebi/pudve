@@ -339,7 +339,7 @@ namespace PuntoDeVentaV2
             if (string.IsNullOrWhiteSpace(servidor))
             {
                 //loadFormConfig();
-                loadFromConfigDB();
+                //loadFromConfigDB();
             }
 
             this.Text = "PUDVE - Punto de Venta | " + userNickName;
