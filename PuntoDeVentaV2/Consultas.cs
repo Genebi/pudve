@@ -1000,6 +1000,14 @@ namespace PuntoDeVentaV2
             {
                 cons = $"SELECT importe_pagado FROM Facturas_complemento_pago WHERE id_factura_principal='{dato}' AND timbrada=1 AND cancelada=0";
             }
+            if(opc == 4)
+            {
+                cons= $"SELECT id_factura_principal, importe_pagado FROM Facturas_complemento_pago WHERE id_factura='{dato}'";
+            }
+            if(opc == 5)
+            {
+                cons = $"SELECT ID FROM Facturas_complemento_pago WHERE id_factura_principal='{dato}' AND timbrada=1 AND cancelada=0";
+            }
 
             return cons;
         }

@@ -164,10 +164,6 @@ namespace PuntoDeVentaV2
                 {
                     respuesta = dr["UUID"];
                 }
-                if (tipo == 14)
-                {
-                    respuesta = dr["id_factura_principal"];
-                }
             }
 
             if (tipo == 0)
