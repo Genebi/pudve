@@ -65,7 +65,7 @@
             this.PPrecioOriginal = new System.Windows.Forms.Panel();
             this.txtPrecioCompra = new System.Windows.Forms.TextBox();
             this.PPrecio = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelMayoreo = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.txtPrecioMayoreo = new System.Windows.Forms.TextBox();
             this.PClaveInterna = new System.Windows.Forms.Panel();
@@ -102,7 +102,7 @@
             this.PStock.SuspendLayout();
             this.PPrecioOriginal.SuspendLayout();
             this.PPrecio.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelMayoreo.SuspendLayout();
             this.PClaveInterna.SuspendLayout();
             this.PCodigoBarras.SuspendLayout();
             this.PCantidadPaqServ.SuspendLayout();
@@ -484,7 +484,7 @@
             this.flowLayoutPanel1.Controls.Add(this.PStock);
             this.flowLayoutPanel1.Controls.Add(this.PPrecioOriginal);
             this.flowLayoutPanel1.Controls.Add(this.PPrecio);
-            this.flowLayoutPanel1.Controls.Add(this.panel1);
+            this.flowLayoutPanel1.Controls.Add(this.panelMayoreo);
             this.flowLayoutPanel1.Controls.Add(this.PClaveInterna);
             this.flowLayoutPanel1.Controls.Add(this.PCodigoBarras);
             this.flowLayoutPanel1.Controls.Add(this.PCantidadPaqServ);
@@ -538,14 +538,14 @@
             this.PPrecio.Size = new System.Drawing.Size(116, 38);
             this.PPrecio.TabIndex = 2;
             // 
-            // panel1
+            // panelMayoreo
             // 
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.txtPrecioMayoreo);
-            this.panel1.Location = new System.Drawing.Point(414, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(134, 39);
-            this.panel1.TabIndex = 10;
+            this.panelMayoreo.Controls.Add(this.label3);
+            this.panelMayoreo.Controls.Add(this.txtPrecioMayoreo);
+            this.panelMayoreo.Location = new System.Drawing.Point(414, 3);
+            this.panelMayoreo.Name = "panelMayoreo";
+            this.panelMayoreo.Size = new System.Drawing.Size(134, 39);
+            this.panelMayoreo.TabIndex = 10;
             // 
             // label3
             // 
@@ -908,8 +908,8 @@
             this.PPrecioOriginal.PerformLayout();
             this.PPrecio.ResumeLayout(false);
             this.PPrecio.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelMayoreo.ResumeLayout(false);
+            this.panelMayoreo.PerformLayout();
             this.PClaveInterna.ResumeLayout(false);
             this.PClaveInterna.PerformLayout();
             this.PCodigoBarras.ResumeLayout(false);
@@ -1004,7 +1004,7 @@
         private System.Windows.Forms.ErrorProvider errorProvAgregarEditarProducto;
         private System.Windows.Forms.TextBox txtStockMinimo;
         private System.Windows.Forms.TextBox txtStockMaximo;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelMayoreo;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox txtPrecioMayoreo;
     }

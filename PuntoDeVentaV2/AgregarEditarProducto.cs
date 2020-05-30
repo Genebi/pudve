@@ -5363,6 +5363,7 @@ namespace PuntoDeVentaV2
             if (config.Count > 0)
             {
                 porcentajeGanancia = float.Parse(config[8].ToString());
+                panelMayoreo.Visible = Convert.ToBoolean(config[9]);
             }
         }
 
