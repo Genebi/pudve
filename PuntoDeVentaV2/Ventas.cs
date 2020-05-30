@@ -3131,6 +3131,8 @@ namespace PuntoDeVentaV2
                                 fila.Cells["Importe"].Value = importe;
                             }
                         }
+
+                        lbMayoreo.Visible = true;
                     }
                     else
                     {
@@ -3161,6 +3163,8 @@ namespace PuntoDeVentaV2
                                 fila.Cells["Importe"].Value = importe;
                             }
                         }
+
+                        lbMayoreo.Visible = false;
                     }
                 }
             }
