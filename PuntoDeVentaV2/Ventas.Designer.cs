@@ -78,7 +78,6 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnMayoreo = new System.Windows.Forms.Button();
             this.btnEliminarDescuentos = new System.Windows.Forms.Button();
             this.btnAplicarDescuento = new System.Windows.Forms.Button();
             this.PBImagen = new System.Windows.Forms.PictureBox();
@@ -589,7 +588,6 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.listaProductos);
-            this.panel1.Controls.Add(this.btnMayoreo);
             this.panel1.Controls.Add(this.btnEliminarDescuentos);
             this.panel1.Controls.Add(this.btnAplicarDescuento);
             this.panel1.Controls.Add(this.PBImagen);
@@ -628,18 +626,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1221, 354);
             this.panel1.TabIndex = 34;
-            // 
-            // btnMayoreo
-            // 
-            this.btnMayoreo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMayoreo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMayoreo.Location = new System.Drawing.Point(431, 80);
-            this.btnMayoreo.Name = "btnMayoreo";
-            this.btnMayoreo.Size = new System.Drawing.Size(79, 28);
-            this.btnMayoreo.TabIndex = 45;
-            this.btnMayoreo.Text = "Mayoreo";
-            this.btnMayoreo.UseVisualStyleBackColor = true;
-            this.btnMayoreo.Click += new System.EventHandler(this.btnMayoreo_Click);
             // 
             // btnEliminarDescuentos
             // 
@@ -886,6 +872,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AplicarDescuento;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioMayoreo;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioAuxiliar;
-        private System.Windows.Forms.Button btnMayoreo;
     }
 }

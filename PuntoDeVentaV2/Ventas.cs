@@ -550,6 +550,7 @@ namespace PuntoDeVentaV2
                 AgregarProductoLista(datosProducto);
             }
 
+            CalculoMayoreo();
             CantidadesFinalesVenta();
         }
 
@@ -3078,12 +3079,6 @@ namespace PuntoDeVentaV2
             AgregarProducto(datosProducto);
         }
 
-        private void btnMayoreo_Click(object sender, EventArgs e)
-        {
-            CalculoMayoreo();
-            CantidadesFinalesVenta();
-        }
-
         private void CalculoMayoreo()
         {
             int contadorMayoreo = 0;
@@ -3111,9 +3106,24 @@ namespace PuntoDeVentaV2
 
                             if (precio > 0)
                             {
-                                var nombre = fila.Cells["Descripcion"].Value.ToString() + "***";
+                                var nombre = fila.Cells["Descripcion"].Value.ToString();
                                 var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
                                 var importe = cantidad * precio;
+
+                                if (nombre.Length > 3)
+                                {
+                                    var caracteres = nombre.Substring(0, 3);
+
+                                    if (caracteres.Equals("***"))
+                                    {
+                                        nombre = nombre.Remove(0, 3);
+                                        nombre = "***" + nombre;
+                                    }
+                                    else
+                                    {
+                                        nombre = "***" + nombre;
+                                    }
+                                }
 
                                 fila.Cells["Descripcion"].Value = nombre;
                                 fila.Cells["PrecioOriginal"].Value = precio;
@@ -3136,11 +3146,11 @@ namespace PuntoDeVentaV2
 
                                 if (nombre.Length > 3)
                                 {
-                                    var caracteres = nombre.Substring(nombre.Length - 3);
+                                    var caracteres = nombre.Substring(0, 3);
 
                                     if (caracteres.Equals("***"))
                                     {
-                                        nombre = nombre.Remove(nombre.Length - 3);
+                                        nombre = nombre.Remove(0, 3);
 
                                         fila.Cells["Descripcion"].Value = nombre;
                                     }
