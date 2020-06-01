@@ -2760,18 +2760,24 @@ namespace PuntoDeVentaV2
                                                         //infoDetalle.Add(FormPrincipal.userID.ToString());
                                                         if (!dtDetallesProducto.Rows.Count.Equals(0))
                                                         {
-                                                            foreach (DataRow dtRow in dtDetallesProducto.Rows)
+                                                            if (idFound.Count() > 0)
                                                             {
-                                                                infoDetalle.Add(dtRow["ID"].ToString());
+                                                                foreach (DataRow dtRow in dtDetallesProducto.Rows)
+                                                                {
+                                                                    infoDetalle.Add(dtRow["ID"].ToString());
+                                                                }
+                                                                infoDetalle.Add(idFound[0].ToString());
+                                                                infoDetalle.Add(idFound[2].ToString());
+                                                                guardar = infoDetalle.ToArray();
+                                                                cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
                                                             }
-                                                            infoDetalle.Add(idFound[0].ToString());
-                                                            infoDetalle.Add(idFound[2].ToString());
-                                                            guardar = infoDetalle.ToArray();
-                                                            cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
                                                         }
                                                         else if (dtDetallesProducto.Rows.Count.Equals(0))
                                                         {
-                                                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
+                                                            if (idFound.Count() > 0)
+                                                            {
+                                                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
+                                                            }
                                                         }
                                                     }
 
@@ -2803,18 +2809,24 @@ namespace PuntoDeVentaV2
                                                         //infoDetalle.Add(FormPrincipal.userID.ToString());
                                                         if (!dtDetallesProducto.Rows.Count.Equals(0))
                                                         {
-                                                            foreach (DataRow dtRow in dtDetallesProducto.Rows)
+                                                            if (idFound.Count() > 0)
                                                             {
-                                                                infoDetalle.Add(dtRow["ID"].ToString());
+                                                                foreach (DataRow dtRow in dtDetallesProducto.Rows)
+                                                                {
+                                                                    infoDetalle.Add(dtRow["ID"].ToString());
+                                                                }
+                                                                infoDetalle.Add(idFound[0].ToString());
+                                                                infoDetalle.Add(idFound[2].ToString());
+                                                                guardar = infoDetalle.ToArray();
+                                                                cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
                                                             }
-                                                            infoDetalle.Add(idFound[0].ToString());
-                                                            infoDetalle.Add(idFound[2].ToString());
-                                                            guardar = infoDetalle.ToArray();
-                                                            cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
                                                         }
                                                         else if (dtDetallesProducto.Rows.Count.Equals(0))
                                                         {
-                                                            cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
+                                                            if (idFound.Count() > 0)
+                                                            {
+                                                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
+                                                            }
                                                         }
                                                     }
                                                     infoDetalle.Clear(); // limpiamos de informacion la Lista
