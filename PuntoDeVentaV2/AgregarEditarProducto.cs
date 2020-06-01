@@ -5145,6 +5145,7 @@ namespace PuntoDeVentaV2
             }
 
             detalleProductoBasico.Clear();
+            detalleProductoGeneral.Clear();
             seleccionListaStock = 0;
             string cadAux = string.Empty;
             fLPType.Visible = false;
@@ -5371,13 +5372,19 @@ namespace PuntoDeVentaV2
         {
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
-                fLPDetallesProducto.Visible = false;
-                this.Height = 660;
+                if (detalleProductoBasico.Count.Equals(0) && detalleProductoGeneral.Count.Equals(0))
+                {
+                    fLPDetallesProducto.Visible = false;
+                    this.Height = 660;
+                }
             }
             else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
             {
-                fLPDetallesProducto.Visible = true;
-                this.Height = 731;
+                if (detalleProductoBasico.Count > 0 || detalleProductoGeneral.Count > 0)
+                {
+                    fLPDetallesProducto.Visible = true;
+                    this.Height = 731;
+                }
             }
         }
 
