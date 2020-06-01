@@ -22,8 +22,9 @@ namespace PuntoDeVentaV2
         int i = 1;
         string[][] arr_ids_f_enviar;
         string tipo = "";
+        int tipo_factura = 0;
 
-        public Enviar_correo(string[][] arr_ids, string titulo)
+        public Enviar_correo(string[][] arr_ids, string titulo, int tp_factura)
         {
             InitializeComponent();
 
@@ -35,6 +36,7 @@ namespace PuntoDeVentaV2
             cargar_correos_default();
 
             tipo = titulo;
+            tipo_factura = tp_factura;
         }
 
         private void cargar_correos_default()
@@ -209,7 +211,14 @@ namespace PuntoDeVentaV2
             // Asunto
             if(tipo == "factura")
             {
-                correo.Subject = "PUDVE - Factura de " + fecha_cfdi.ToString("MMMM yyyy");
+                if (tipo_factura == 3)
+                {
+                    correo.Subject = "PUDVE - Acuse de cancelación de factura";
+                }
+                else
+                {
+                    correo.Subject = "PUDVE - Factura de " + fecha_cfdi.ToString("MMMM yyyy");
+                }
             }
             else
             {
@@ -227,14 +236,26 @@ namespace PuntoDeVentaV2
             {
                 if(tipo == "factura")
                 {
+                    string sin_con_acuse = "";
+
+                    if(tipo_factura == 3)
+                    {
+                        sin_con_acuse = "ACUSE_";
+                    }
                     string tipo_comprobante = "INGRESOS_";
 
                     if (arr_ids_f_enviar[i][1] == "P")
                     {
                         tipo_comprobante = "PAGO_";
                     }
+                    tipo_comprobante += sin_con_acuse;
 
-                    correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".pdf"));
+                   
+                    if(tipo_factura != 3)
+                    {
+                        correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".pdf"));
+                    }
+                    
                     correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".xml"));
                 }
 
@@ -284,23 +305,27 @@ namespace PuntoDeVentaV2
 
 
             // Genera los PDF en caso de que no lo esten
+            // Solo se generara si la factura no esta cancelada
 
-            for (int i = 0; i < arr_ids_f_enviar.Length; i++)
+            if (tipo_factura != 3)
             {
-                string nom = "XML_INGRESOS_" + arr_ids_f_enviar[i][0];
-
-                if (arr_ids_f_enviar[i][1] == "P")
+                for (int i = 0; i < arr_ids_f_enviar.Length; i++)
                 {
-                    nom = "XML_PAGO_" + arr_ids_f_enviar[i][0];
-                }
+                    string nom = "XML_INGRESOS_" + arr_ids_f_enviar[i][0];
 
-                // Verifica si el archivo pdf ya esta creado, de no ser así lo crea
-                string ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nom + ".pdf";
+                    if (arr_ids_f_enviar[i][1] == "P")
+                    {
+                        nom = "XML_PAGO_" + arr_ids_f_enviar[i][0];
+                    }
 
-                if (!File.Exists(ruta_archivo))
-                {
-                    Facturas f = new Facturas();
-                    f.generar_PDF(nom);
+                    // Verifica si el archivo pdf ya esta creado, de no ser así lo crea
+                    string ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nom + ".pdf";
+
+                    if (!File.Exists(ruta_archivo))
+                    {
+                        Facturas f = new Facturas();
+                        f.generar_PDF(nom);
+                    }
                 }
             }
 
@@ -317,6 +342,8 @@ namespace PuntoDeVentaV2
 
 
             // Obtiene fechas de las facturas
+            // Las fechas serán obtenidas solo si la factura esta vigente
+
 
             arr_fechas = new DateTime[arr_ids_f_enviar.Length];
 
@@ -338,7 +365,14 @@ namespace PuntoDeVentaV2
 
             if (arr_fechas.Length > 1)
             {
-                cadena_fechas += "Le envía sus CFDI por las compras del día: ";
+                if (tipo_factura == 3)
+                {
+                    cadena_fechas = "Le envía el acuse de cancelación de su CFDI por la compra del día " + arr_fechas[0].ToString("dd/MMMM/yyyy");
+                }
+                else
+                {
+                    cadena_fechas += "Le envía sus CFDI por las compras del día: ";
+                }
                 cadena_fechas += "<ul>";
 
                 for (int ii = 0; ii < arr_fechas.Length; ii++)
@@ -350,7 +384,14 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cadena_fechas = "Le envía su CFDI por la compra del día " + arr_fechas[0].ToString("dd/MMMM/yyyy");
+                if (tipo_factura == 3)
+                {
+                    cadena_fechas = "Le envía el acuse de cancelación de su CFDI por la compra del día " + arr_fechas[0].ToString("dd/MMMM/yyyy");
+                }
+                else
+                {
+                    cadena_fechas = "Le envía su CFDI por la compra del día " + arr_fechas[0].ToString("dd/MMMM/yyyy");
+                }
             }
 
 

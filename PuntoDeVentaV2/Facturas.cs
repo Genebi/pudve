@@ -295,16 +295,29 @@ namespace PuntoDeVentaV2
                 {
                     string nombre_xml = "";
 
+                    string tipo = "INGRESOS_";
+                    string estatus = "";
+                    int idf = id_factura;
+
                     if (t_comprobante == "P")
+                    {
+                        tipo = "PAGO_";
+                    }
+                    if(opc_tipo_factura == 3)
+                    {
+                        estatus = "ACUSE_";
+                    }
+                    /*if (t_comprobante == "P")
                     {
                         nombre_xml = "PAGO_" + id_factura;
                     }
                     if (t_comprobante == "I")
                     {
                         nombre_xml = "INGRESOS_" + id_factura;
-                    }
+                    }*/
 
-                    inicia_descargaf(nombre_xml);
+                    //inicia_descargaf(nombre_xml);
+                    inicia_descargaf(tipo, idf, estatus);
                 }
 
                 // Cancelar factura
@@ -706,6 +719,8 @@ namespace PuntoDeVentaV2
             int en = 0;
             string mnsj_error = "";
             string[][] arr_id_env;
+            int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+
 
             foreach (DataGridViewRow row in datagv_facturas.Rows)
             {
@@ -743,7 +758,7 @@ namespace PuntoDeVentaV2
 
                 // Formulario envío de correo
                            
-                Enviar_correo correo = new Enviar_correo(arr_id_env, "factura");
+                Enviar_correo correo = new Enviar_correo(arr_id_env, "factura", opc_tipo_factura);
 
                 correo.FormClosed += delegate
                  {
@@ -772,11 +787,13 @@ namespace PuntoDeVentaV2
             e.DrawText();
         }
 
-        private bool descargar_factura(string nombrexml, int opc)
+        private bool descargar_factura(string tipo, int idf, string estatus, int opc)
         {
-            string n_user = Environment.UserName;
+            string nombrexml = tipo + idf;
+            string n_user = Environment.UserName; 
             string ruta_archivos = @"C:\Archivos PUDVE\Facturas\XML_" + nombrexml;
             string ruta_new_carpeta = @"C:\Archivos PUDVE\Facturas\XML_" + nombrexml;
+            int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
 
 
             if (ban == false)
@@ -795,11 +812,23 @@ namespace PuntoDeVentaV2
                 {
                     Directory.CreateDirectory(ruta_new_carpeta);
                 }
+                else
+                {
+                    if(opc_tipo_factura == 3)
+                    {
+                        DirectoryInfo dir_arch = new DirectoryInfo(ruta_new_carpeta);
+
+                        foreach (FileInfo f in dir_arch.GetFiles())
+                        {
+                            f.Delete();
+                        }
+                    }
+                }
             }
 
             // Verifica que el PDF ya este creado, de no ser así lo crea
 
-            if (opc == 4)
+            if (opc == 4 & opc_tipo_factura != 3)
             {
                 if (!File.Exists(ruta_archivos + ".pdf"))
                 {
@@ -811,13 +840,23 @@ namespace PuntoDeVentaV2
 
             if (opc == 5)
             {
-                if (!File.Exists(ruta_new_carpeta + "\\XML_" + nombrexml + ".pdf"))
+                if(opc_tipo_factura < 3)
                 {
-                    File.Copy(ruta_archivos + ".pdf", ruta_new_carpeta + "\\XML_" + nombrexml + ".pdf");
+                    if (!File.Exists(ruta_new_carpeta + "\\XML_" + nombrexml + ".pdf"))
+                    {
+                        File.Copy(ruta_archivos + ".pdf", ruta_new_carpeta + "\\XML_" + nombrexml + ".pdf");
+                    }
+                    if (!File.Exists(ruta_new_carpeta + "\\XML_" + nombrexml + ".xml"))
+                    {
+                        File.Copy(ruta_archivos + ".xml", ruta_new_carpeta + "\\XML_" + nombrexml + ".xml");
+                    }
                 }
-                if (!File.Exists(ruta_new_carpeta + "\\XML_" + nombrexml + ".xml"))
+                else
                 {
-                    File.Copy(ruta_archivos + ".xml", ruta_new_carpeta + "\\XML_" + nombrexml + ".xml");
+                    if (!File.Exists(ruta_new_carpeta + "\\XML_" + tipo + estatus + idf + ".xml"))
+                    {
+                        File.Copy(ruta_archivos + ".xml", ruta_new_carpeta + "\\XML_" + tipo + estatus + idf + ".xml");
+                    }
                 }
             }
 
@@ -838,9 +877,9 @@ namespace PuntoDeVentaV2
             return true;
         }
 
-        private void inicia_descargaf(string nom_archivo)
+        private void inicia_descargaf(string tipo, int idf, string estatus)
         {
-            pBar1.Visible = true;
+            pBar1.Visible = true; 
             lb_texto_descarga.Visible = true;
             
             pBar1.Minimum = 1;
@@ -850,7 +889,7 @@ namespace PuntoDeVentaV2
 
             for (int x = 3; x <= 6; x++)
             {
-                if (descargar_factura(nom_archivo, x) == true)
+                if (descargar_factura(tipo, idf, estatus, x) == true)
                 {
                     // Incrementa la barra
                     pBar1.PerformStep(); 
