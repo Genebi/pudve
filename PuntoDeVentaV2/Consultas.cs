@@ -575,7 +575,7 @@ namespace PuntoDeVentaV2
 
         public string cargar_info_certificado(string id_usuario)
         {
-            string cons = $"SELECT num_certificado, password_cer FROM Usuarios WHERE ID='{id_usuario}'";
+            string cons = $"SELECT num_certificado, password_cer, CodigoPostal FROM Usuarios WHERE ID='{id_usuario}'";
 
             return cons;
         }

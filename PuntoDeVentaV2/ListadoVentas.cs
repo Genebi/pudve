@@ -764,6 +764,7 @@ namespace PuntoDeVentaV2
             string arch_cer = "";
             string arch_key = "";
             string numero_cer = "";
+            string cp = "";
 
             //int sin_cliente = 0;
             //int n_filas = 0;
@@ -861,9 +862,10 @@ namespace PuntoDeVentaV2
                 {
                     DataRow r_dcer = dcer.Rows[0];
                     numero_cer = r_dcer["num_certificado"].ToString();
+                    cp = r_dcer["CodigoPostal"].ToString();
                 }
 
-                if(numero_cer != "")
+                if(numero_cer != "" & cp != "")
                 {
                     Crear_factura crear_factura = new Crear_factura(id_cliente, n_filas, id_venta);
 
@@ -871,7 +873,14 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("Se encontro un inconveniente derivado de sus archivos digitales CSD. Por favor vaya al apartado Mis Datos, elimine sus archivos actuales y vuelva a subirlos.  \n\n Esta acción es necesaria para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if(cp == "")
+                    {
+                        MessageBox.Show("No ha ingresado su código postal, por favor vaya al apartado Mis Datos para agregarlo.  \n\n Esta acción es necesaria para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Se encontro un inconveniente derivado de sus archivos digitales CSD. Por favor vaya al apartado Mis Datos, elimine sus archivos actuales y vuelva a subirlos.  \n\n Esta acción es necesaria para poder facturar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
@@ -1383,7 +1392,7 @@ namespace PuntoDeVentaV2
 
                 // Formulario envío de correo
 
-                Enviar_correo correo = new Enviar_correo(arr_id_env, "nota de venta");
+                Enviar_correo correo = new Enviar_correo(arr_id_env, "nota de venta", 4);
                 correo.ShowDialog();
             }
             else

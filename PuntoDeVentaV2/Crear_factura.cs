@@ -700,7 +700,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    /*if (clave_vacia > 0)
+                    if (clave_vacia > 0)
                     {
                         MessageBox.Show("Las claves de unidad y producto no deben estar vacías.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         botones_visibles(2);
@@ -711,7 +711,7 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("Alguna clave de unidad o producto es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         botones_visibles(2);
                         return;
-                    }*/
+                    }
                 }
 
 
