@@ -42,6 +42,7 @@ namespace PuntoDeVentaV2
             VerificarConfiguracion();
 
             txtMinimoMayoreo.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtNoVendidos.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtPorcentajeProducto.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.Text = numeroRevision.ToString();
@@ -335,10 +336,38 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(cantidad))
             {
-                return;
+                cantidad = "0";
             }
 
             cn.EjecutarConsulta($"UPDATE Configuracion SET MinimoMayoreo = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
+        }
+
+        private void checkNoVendidos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkNoVendidos.Checked)
+            {
+                txtNoVendidos.Enabled = true;
+                txtNoVendidos.Focus();
+                cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+            }
+            else
+            {
+                txtNoVendidos.Enabled = false;
+                txtNoVendidos.Text = string.Empty;
+                cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+            }
+        }
+
+        private void txtNoVendidos_KeyUp(object sender, KeyEventArgs e)
+        {
+            var cantidad = txtNoVendidos.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(cantidad))
+            {
+                cantidad = "0";
+            }
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET diasNoVendidos = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }
 }
