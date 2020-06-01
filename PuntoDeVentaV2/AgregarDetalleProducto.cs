@@ -484,7 +484,8 @@ namespace PuntoDeVentaV2
                 check.Width = 110;
                 check.Height = 24;
                 check.Location = new Point(0, 0);
-                check.CheckedChanged += checkBox_CheckedChanged;
+                //check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
+                check.CheckedChanged += new EventHandler(checkBox_CheckedChanged);
 
                 if (chkDetalleProductoVal.Equals("true") || chkDetalleProductoVal.Equals("false"))
                 {
@@ -520,7 +521,7 @@ namespace PuntoDeVentaV2
                         checkSetting.Width = 20;
                         checkSetting.Height = 24;
                         checkSetting.Location = new Point(155, 0);
-                        checkSetting.CheckedChanged += checkBoxSetting_CheckedChanged;
+                        checkSetting.CheckedChanged += new EventHandler(checkBoxSetting_CheckedChanged);
 
 
                         if (chkSettingVariableVal.Equals("true") || chkSettingVariableVal.Equals("false"))
@@ -533,40 +534,6 @@ namespace PuntoDeVentaV2
                     }
                 }
                 fLPLateralConcepto.Controls.Add(panelHijo);
-            }
-        }
-
-        private void bt_Click(object sender, EventArgs e)
-        {
-            Button botonPrecionado = sender as Button;
-            string nameBt = string.Empty, textoBuscado = string.Empty;
-            nameBt = botonPrecionado.Name;
-            textoBuscado = nameBt.Remove(0, 2);
-            if (textoBuscado.Equals("Proveedor"))
-            {
-                AgregarProveedor ap = new AgregarProveedor();
-                ap.FormClosed += delegate
-                {
-                    fLPCentralDetalle.Controls.Clear();
-                    //loadFormConfig();
-                    loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                };
-                ap.ShowDialog();
-            }
-            else
-            {
-                AgregarDetalleGeneral addDetailGral = new AgregarDetalleGeneral();
-                addDetailGral.FormClosed += delegate
-                {
-                    fLPCentralDetalle.Controls.Clear();
-                    //loadFormConfig();
-                    loadFromConfigDB();
-                    BuscarTextoListView(settingDatabases);
-                };
-                addDetailGral.getChkName = textoBuscado;
-                addDetailGral.getIdUsr = FormPrincipal.userID.ToString();
-                addDetailGral.ShowDialog();
             }
         }
 
@@ -763,6 +730,28 @@ namespace PuntoDeVentaV2
                         // Proveedores...  al inicio y se muestra en la interfaz
                         cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
+                        if (AgregarEditarProducto.DatosSourceFinal.Equals(1) || AgregarEditarProducto.DatosSourceFinal.Equals(2))
+                        {
+                            try
+                            {
+                                // Hacemos el intento de hacer la actualización del Proveedor
+                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                // Muestra un error al no poder hacer la actualizacion del Proveedor
+                                MessageBox.Show("Error al actualizar Valor del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoFiltroDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error al actualizar Valor del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
                     }
                     else if (cbProveedor.Items.Count == 0)
                     {
@@ -770,6 +759,28 @@ namespace PuntoDeVentaV2
                         // Proveedores...  al inicio y se muestra en la interfaz
                         cbProveedor.Items.Add("Proveedores...");
                         cbProveedor.SelectedIndex = 0;
+                        if (AgregarEditarProducto.DatosSourceFinal.Equals(1) || AgregarEditarProducto.DatosSourceFinal.Equals(2))
+                        {
+                            try
+                            {
+                                // Hacemos el intento de hacer la actualización del Proveedor
+                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoValueDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                // Muestra un error al no poder hacer la actualizacion del Proveedor
+                                MessageBox.Show("Error al actualizar Valor del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            try
+                            {
+                                var UpdateDatoValueDinamico = cn.EjecutarConsulta(cs.ActualizarDatoFiltroDinamico(name, valorDatoDinamico, FormPrincipal.userID));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Error al actualizar Valor del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
                     }
                     // hacemos que el ComboBox no sea Editable solo sea de Lectura
                     cbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -992,6 +1003,40 @@ namespace PuntoDeVentaV2
             //{
             //    saveConfigIntoDB();
             //}
+        }
+
+        private void bt_Click(object sender, EventArgs e)
+        {
+            Button botonPrecionado = sender as Button;
+            string nameBt = string.Empty, textoBuscado = string.Empty;
+            nameBt = botonPrecionado.Name;
+            textoBuscado = nameBt.Remove(0, 2);
+            if (textoBuscado.Equals("Proveedor"))
+            {
+                AgregarProveedor ap = new AgregarProveedor();
+                ap.FormClosed += delegate
+                {
+                    fLPCentralDetalle.Controls.Clear();
+                    //loadFormConfig();
+                    loadFromConfigDB();
+                    BuscarTextoListView(settingDatabases);
+                };
+                ap.ShowDialog();
+            }
+            else
+            {
+                AgregarDetalleGeneral addDetailGral = new AgregarDetalleGeneral();
+                addDetailGral.FormClosed += delegate
+                {
+                    fLPCentralDetalle.Controls.Clear();
+                    //loadFormConfig();
+                    loadFromConfigDB();
+                    BuscarTextoListView(settingDatabases);
+                };
+                addDetailGral.getChkName = textoBuscado;
+                addDetailGral.getIdUsr = FormPrincipal.userID.ToString();
+                addDetailGral.ShowDialog();
+            }
         }
 
         private void cbDetalleGral_SelectIndexChanged(object sender, EventArgs e)
