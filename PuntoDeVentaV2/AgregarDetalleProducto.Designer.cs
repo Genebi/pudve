@@ -196,7 +196,7 @@
             this.btnAddDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnAddDetalle.ForeColor = System.Drawing.Color.White;
-            this.btnAddDetalle.Location = new System.Drawing.Point(10, 28);
+            this.btnAddDetalle.Location = new System.Drawing.Point(10, 30);
             this.btnAddDetalle.Name = "btnAddDetalle";
             this.btnAddDetalle.Size = new System.Drawing.Size(266, 28);
             this.btnAddDetalle.TabIndex = 29;
@@ -224,7 +224,7 @@
             this.btnDeleteDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnDeleteDetalle.ForeColor = System.Drawing.Color.White;
-            this.btnDeleteDetalle.Location = new System.Drawing.Point(146, 68);
+            this.btnDeleteDetalle.Location = new System.Drawing.Point(146, 65);
             this.btnDeleteDetalle.Name = "btnDeleteDetalle";
             this.btnDeleteDetalle.Size = new System.Drawing.Size(130, 28);
             this.btnDeleteDetalle.TabIndex = 31;
@@ -240,7 +240,7 @@
             this.btnRenameDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRenameDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnRenameDetalle.ForeColor = System.Drawing.Color.White;
-            this.btnRenameDetalle.Location = new System.Drawing.Point(10, 68);
+            this.btnRenameDetalle.Location = new System.Drawing.Point(10, 65);
             this.btnRenameDetalle.Name = "btnRenameDetalle";
             this.btnRenameDetalle.Size = new System.Drawing.Size(130, 28);
             this.btnRenameDetalle.TabIndex = 30;
