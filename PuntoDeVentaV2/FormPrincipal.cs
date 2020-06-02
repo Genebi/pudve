@@ -296,7 +296,32 @@ namespace PuntoDeVentaV2
             id_empleado = t_id_empleado;
         }
 
-      
+        private void btnSesion_Click(object sender, EventArgs e)
+        {
+            FormCollection formulariosApp = Application.OpenForms;
+            List<Form> formularioCerrar = new List<Form>();
+
+            foreach (Form f in formulariosApp)
+            {
+                if (f.Name != "FormPrincipal" && f.Name != "Login")
+                {
+                    formularioCerrar.Add(f);
+                }
+            }
+
+            for (int i = 0; i <= formularioCerrar.Count - 1; i++)
+            {
+                Form toClose = formularioCerrar[i];
+                string name = toClose.Name;
+                toClose.Close();
+                formularioCerrar.RemoveAt(i);
+            }
+
+            this.Hide();
+
+            Login VentanaLogin = new Login();
+            VentanaLogin.ShowDialog();
+        }
 
         readonly ConnectionHandler _conHandler = new ConnectionHandler();
 
@@ -687,25 +712,31 @@ namespace PuntoDeVentaV2
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            cerrarAplicacion = true;
-            Application.Exit();
+            //cerrarAplicacion = true;
+            
+            var respuesta = MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            cerrarAplicacion = true;
+            //cerrarAplicacion = true;
 
-            if (cerrarAplicacion)
-            {
-                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            //if (cerrarAplicacion)
+            //{
+            //    var respuesta = MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (respuesta == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
+            //    if (respuesta == DialogResult.No)
+            //    {
+            //        e.Cancel = true;
+            //    }
+            //}
 
-            cerrarAplicacion = false;
+            //cerrarAplicacion = false;
         }
     }
 }
