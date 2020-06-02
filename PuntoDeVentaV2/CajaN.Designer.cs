@@ -1038,7 +1038,7 @@
             this.lbCreditoC.Name = "lbCreditoC";
             this.lbCreditoC.Size = new System.Drawing.Size(53, 17);
             this.lbCreditoC.TabIndex = 5;
-            this.lbCreditoC.Text = "Crédito";
+            this.lbCreditoC.Text = "Abonos";
             // 
             // lbTransC
             // 
