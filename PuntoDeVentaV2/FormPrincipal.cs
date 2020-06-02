@@ -680,10 +680,10 @@ namespace PuntoDeVentaV2
 
         private void timerProductos_Tick(object sender, EventArgs e)
         {
-            if (checkNoVendidos == 1)
-            {
-                MessageBox.Show(diasNoVendidos.ToString());
-            }
+            //if (checkNoVendidos == 1)
+            //{
+            //    //MessageBox.Show(diasNoVendidos.ToString());
+            //}
         }
     }
 }
