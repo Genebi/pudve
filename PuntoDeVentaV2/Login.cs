@@ -402,6 +402,8 @@ namespace PuntoDeVentaV2
         {
             //iniciarVariablesSistema();
 
+            verificarVentanasAbiertas();
+
             var pathPUDVESistema = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
             // Varaiable para cuando hacemos el instalador
@@ -484,6 +486,17 @@ namespace PuntoDeVentaV2
                 btnEntrar.Focus();
                 checkBoxRecordarDatos.Checked = true;
             }
+        }
+
+        public void verificarVentanasAbiertas()
+        {
+            //foreach (Form frm in Application.OpenForms)
+            //{
+            //    if (frm.Name != "Login")    //Cerramos todos los formularios menos el formulario principal que contiene el menú
+            //    {
+            //        frm.Dispose();
+            //    }
+            //}
         }
 
         private void modoDebug()
