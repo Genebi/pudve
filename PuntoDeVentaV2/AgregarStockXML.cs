@@ -1885,25 +1885,21 @@ namespace PuntoDeVentaV2
         private void button2_Click(object sender, EventArgs e)
         {
             // Iniciamos las variables a 0
-
             resultadoSearchNoIdentificacion = 0;
             resultadoSearchCodBar = 0;
-            // Tomamos el valor del TextBox para hacer la comparacion
+
+            // Tomamos el valor del
+            // TextBox para hacer la comparacion
             textBoxNoIdentificacion = txtBoxClaveInternaProd.Text;
 
-            // Si el producto es seleccionado desde la lista del Producto
-            if (consultListProd == 1)       
+            if (consultListProd == 1)       // Si el producto es seleccionado desde la lista del Producto
             {
-                // Almacenamos el precio que tiene la caja de texto
-                PrecioProd = float.Parse(txtBoxPrecioProd.Text);
-                // Almacenamos el precio sugerido para hacer la comparacion                  
-                PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);
-                // Llamamos la funsion para comparar el precio del producto con el sugerido  
-                comprobarPrecioMayorIgualRecomendado();
-                // Almacenamos el contenido del TextBox
-                NombreProd = txtBoxDescripcionProd.Text;
-                // Funcion para ver el nvo stock
-                verNvoStock();
+                PrecioProd = float.Parse(txtBoxPrecioProd.Text);    // Almacenamos el precio que tiene la caja de texto
+                PrecioProdToCompare = float.Parse(lblPrecioRecomendadoProd.Text);   // Almacenamos el precio sugerido para hacer la comparacion
+                comprobarPrecioMayorIgualRecomendado();     // Llamamos la funsion para comparar el precio del producto con el sugerido
+                NombreProd = txtBoxDescripcionProd.Text;    // Almacenamos el contenido del TextBox
+                
+                verNvoStock();  // Funcion para ver el nvo stock
 
                 if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                 {
@@ -1913,8 +1909,7 @@ namespace PuntoDeVentaV2
                 {
                     if (ListProd.opcionGuardarFin == 1 || ListProd.opcionGuardarFin == 2)
                     {
-                        // En caso que alguno de los dos campos esten en blanco
-                        RelacionarStockClaveInterna();
+                        RelacionarStockClaveInterna();  // En caso que alguno de los dos campos esten en blanco
                     }
                     else if (ListProd.opcionGuardarFin == 3)
                     {
@@ -1939,43 +1934,35 @@ namespace PuntoDeVentaV2
             }
             else if (seleccionarSugerido == 3 && txtBoxDescripcionProd.Text != "")
             {
-                // llamamos el metodo relacionar por XML
-                prodRelacionadoXML();
-                // recorrer el archivo XML  
-                RecorrerXML();
+                prodRelacionadoXML();   // llamamos el metodo relacionar por XML
+                RecorrerXML();          // recorrer el archivo XML
             }
             else if (seleccionarSugerido == 2 && seleccionSugeridoNomb != "")
             {
-                // llamamos el metodo relacionar por XML
-                prodRelacionadoXML();
-                // recorrer el archivo XML
-                RecorrerXML();
-                
+                prodRelacionadoXML();   // llamamos el metodo relacionar por XML
+                RecorrerXML();          // recorrer el archivo XML
+
             }
             else if (seleccionarSugerido == 1 && seleccionSugeridoNomb != "")
             {
-                // llamamos el metodo relacionar por XML
-                prodRelacionadoXML();
-                // recorrer el archivo XML
-                RecorrerXML();
+                prodRelacionadoXML();   // llamamos el metodo relacionar por XML
+                RecorrerXML();          // recorrer el archivo XML
 
             }
             else if (consultListProd == 0)
             {
-                // si la busqueda del producto da negativo (No esta el producto registrado asi con esa Clave Interna)
+                // si la busqueda del producto da negativo
+                // (No esta el producto registrado asi con esa Clave Interna)
                 if (resultadoSearchProd == 0)
                 {
-                    // si el TextBox esta sin contenido
-                    if (txtBoxPrecioProd.Text == "")
+                    if (txtBoxPrecioProd.Text == "")    // si el TextBox esta sin contenido
                     {
-                        // la variable PrecioProd la iniciamos a 0
-                        PrecioProd = 0;     
+                        PrecioProd = 0;     // la variable PrecioProd la iniciamos a 0
                     }
-                    // si el Label esta sin contenido
-                    if (lblPrecioRecomendadoProd.Text == "")    
+                    
+                    if (lblPrecioRecomendadoProd.Text == "")    // si el Label esta sin contenido
                     {
-                        // la variable la ponemos en 1
-                        PrecioProdToCompare = 1;
+                        PrecioProdToCompare = 1;    // la variable la ponemos en 1
                         // asignamos el valor del lblPrecioRecomendado
                         lblPrecioRecomendadoProd.Text = PrecioRecomendado.ToString("N2");
                     }
@@ -1983,23 +1970,17 @@ namespace PuntoDeVentaV2
                     // Llamamos la funcion para comparar el precio del producto con el sugerido
                     comprobarPrecioMayorIgualRecomendado();
 
-                    // si el label esta sin contenido
-                    if (lblStockProd.Text == "")    
+                    if (lblStockProd.Text == "")    // si el label esta sin contenido
                     {
-                        // la variable la ponemos a 0
-                        stockProd = 0;
+                        stockProd = 0;  // la variable la ponemos a 0
                     }
 
-                    // funcion para ver el nvo stock
-                    verNvoStock();
+                    verNvoStock();  // funcion para ver el nvo stock
 
-                    // si son diferentes los datos osea hubo un cambio
-                    if (NoClaveInterna != textBoxNoIdentificacion)
+                    if (NoClaveInterna != textBoxNoIdentificacion)  // si son diferentes los datos osea hubo un cambio
                     {
-                        // hacemos la busqueda que no se repita en CalveInterna
-                        searchClavIntProd();
-                        // hacemos la busqueda que no se repita en CodigoBarra       
-                        searchCodBar();
+                        searchClavIntProd();    // hacemos la busqueda que no se repita en CalveInterna
+                        searchCodBar();         // hacemos la busqueda que no se repita en CodigoBarra
 
                         if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                         {
@@ -2007,39 +1988,28 @@ namespace PuntoDeVentaV2
                         }
                         else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                         {
-                            // realizamos la actualizacion
-                            ActualizarStock();
-                            // recorrer el archivo XML
-                            RecorrerXML();
+                            ActualizarStock();      // realizamos la actualizacion
+                            RecorrerXML();          // recorrer el archivo XML
                         }
                     }
-                    // si no hubo un cambio
-                    else
+                    else    // si no hubo un cambio
                     {
 
                     }
                 }
-                // si la busqueda del producto da positivo
-                else if (resultadoSearchProd == 1)
+                else if (resultadoSearchProd == 1)  // si la busqueda del producto da positivo
                 {
-                    // Llamamos la funcion para comparar el precio del producto con el sugerido
-                    comprobarPrecioMayorIgualRecomendado();
-                    // funcion para ver el nvo stock                
-                    verNvoStock();
-                    // si son diferentes los datos osea hubo un cambio
-                    if (NoClaveInterna != textBoxNoIdentificacion)
+                    comprobarPrecioMayorIgualRecomendado();     // Llamamos la funcion para comparar el precio del producto con el sugerido
+                    verNvoStock();                              // funcion para ver el nvo stock
+                    
+                    if (NoClaveInterna != textBoxNoIdentificacion)      // si son diferentes los datos osea hubo un cambio
                     {
-                        // hacemos la busqueda que no se repita en CalveInterna
-                        searchClavIntProd();
-                        // hacemos la busqueda que no se repita en CodigoBarra
-                        searchCodBar();
-                        // realizamos la actualizacion
-                        ActualizarStock();
-                        // recorrer el archivo XML
-                        RecorrerXML();
+                        searchClavIntProd();    // hacemos la busqueda que no se repita en CalveInterna
+                        searchCodBar();         // hacemos la busqueda que no se repita en CodigoBarra
+                        ActualizarStock();      // realizamos la actualizacion
+                        RecorrerXML();          // recorrer el archivo XML
                     }
-                    // si no hubo un cambio
-                    else
+                    else    // si no hubo un cambio
                     {
                         if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                         {
@@ -2047,10 +2017,8 @@ namespace PuntoDeVentaV2
                         }
                         else if (resultadoSearchNoIdentificacion == 0 || resultadoSearchCodBar == 0)
                         {
-                            // realizamos la actualizacion
-                            ActualizarStock();
-                            // recorrer el archivo XML
-                            RecorrerXML();
+                            ActualizarStock();  // realizamos la actualizacion
+                            RecorrerXML();      // recorrer el archivo XML
                         }
                     }
                 }
