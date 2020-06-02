@@ -67,6 +67,8 @@ namespace PuntoDeVentaV2
 
         ///Variables de SetUp
         public static int pasar = 0;
+        private int checkNoVendidos = 0;
+        private int diasNoVendidos = 0;
 
         // variables usasadas para que sea estatico los valores y asi en empresas
         // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
@@ -288,8 +290,8 @@ namespace PuntoDeVentaV2
         // funcion para que podamos recargar variables desde otro formulario
         public void recargarDatos()
         {
-            userID = IdUsuario; Console.WriteLine("userID" + userID);
-            userNickName = nickUsuario; Console.WriteLine("userNickName" + userNickName);
+            userID = IdUsuario;
+            userNickName = nickUsuario;
             userPass = passwordUsuario;
             FechaCheckStock = DateCheckStock;
             NoRegCheckStock = NumberRegCheckStock;
@@ -365,7 +367,10 @@ namespace PuntoDeVentaV2
             if (datosConfig.Count > 0)
             {
                 pasar = Convert.ToInt16(datosConfig[5]);
+                checkNoVendidos = Convert.ToInt16(datosConfig[11]);
+                diasNoVendidos = Convert.ToInt32(datosConfig[12]);
             }
+
             InitializarTimerAndroid();
             //====================================================================
 
@@ -376,23 +381,6 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{userID}')");
             }
-        }
-
-
-        public void ConvertirMinutos()
-        {
-            if (!Properties.Settings.Default.tiempoTimerAndroid.Equals(0))
-            {
-                actualizarCaja.Interval = Properties.Settings.Default.tiempoTimerAndroid;
-                actualizarCaja.Tick += new EventHandler(controlar_Tick);
-                actualizarCaja.Enabled = true;
-            }
-
-        }
-
-        private void controlar_Tick(object sender, EventArgs e)
-        {
-            //  MessageBox.Show("Mensaje de prueba");
         }
 
         private void obtenerDatosCheckStock()
@@ -652,29 +640,11 @@ namespace PuntoDeVentaV2
         ****** CODIGO KEVIN *********
         /****************************/
         
-        private void temporizadorConsulta_Tick(object sender, EventArgs e)
-        {
-
-        }
-        
         public void InitializarTimerAndroid()
         {
-                
-                    actualizarCaja.Interval = 60000;
-                    actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
-                    actualizarCaja.Enabled = true;
-                
-            
-        }
-
-        //Se necesita para saber si la computadora tiene conexion a internet
-        [DllImport("wininet.dll")]
-        public extern static bool InternetGetConnectedState(out int Descripcion, int ValorReservado);
-
-        public static bool ConectadoInternet()
-        {
-            int Desc;
-            return InternetGetConnectedState(out Desc, 0);
+            actualizarCaja.Interval = 60000;
+            actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
+            actualizarCaja.Enabled = true;
         }
 
         private void actualizarCaja_Tick(object sender, EventArgs e)
@@ -706,6 +676,14 @@ namespace PuntoDeVentaV2
             }
 
             cerrarAplicacion = false;
+        }
+
+        private void timerProductos_Tick(object sender, EventArgs e)
+        {
+            //if (checkNoVendidos == 1)
+            //{
+            //    //MessageBox.Show(diasNoVendidos.ToString());
+            //}
         }
     }
 }
