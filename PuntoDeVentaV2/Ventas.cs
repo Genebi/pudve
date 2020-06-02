@@ -1827,7 +1827,7 @@ namespace PuntoDeVentaV2
             cDescuento.Text = datos[3];
 
             //Descuento general
-            if (Convert.ToInt32(datos[4]) > 0)
+            if (float.Parse(datos[4]) > 0)
             {
                 txtDescuentoGeneral.Text = datos[4];
             }

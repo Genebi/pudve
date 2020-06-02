@@ -50,6 +50,7 @@
             this.btnProductos = new System.Windows.Forms.Button();
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
+            this.timerProductos = new System.Windows.Forms.Timer(this.components);
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -399,6 +400,12 @@
             this.temporizador_respaldo.Interval = 900000;
             this.temporizador_respaldo.Tick += new System.EventHandler(this.temporizador_respaldo_Tick);
             // 
+            // timerProductos
+            // 
+            this.timerProductos.Enabled = true;
+            this.timerProductos.Interval = 3000;
+            this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,6 +446,7 @@
         private System.Windows.Forms.Timer temporizador_respaldo;
         private System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Button btnSalir;
+        private System.Windows.Forms.Timer timerProductos;
     }
 }
 

@@ -67,6 +67,8 @@ namespace PuntoDeVentaV2
 
         ///Variables de SetUp
         public static int pasar = 0;
+        private int checkNoVendidos = 0;
+        private int diasNoVendidos = 0;
 
         // variables usasadas para que sea estatico los valores y asi en empresas
         // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
@@ -365,7 +367,10 @@ namespace PuntoDeVentaV2
             if (datosConfig.Count > 0)
             {
                 pasar = Convert.ToInt16(datosConfig[5]);
+                checkNoVendidos = Convert.ToInt16(datosConfig[11]);
+                diasNoVendidos = Convert.ToInt32(datosConfig[12]);
             }
+
             InitializarTimerAndroid();
             //====================================================================
 
@@ -671,6 +676,14 @@ namespace PuntoDeVentaV2
             }
 
             cerrarAplicacion = false;
+        }
+
+        private void timerProductos_Tick(object sender, EventArgs e)
+        {
+            if (checkNoVendidos == 1)
+            {
+                MessageBox.Show(diasNoVendidos.ToString());
+            }
         }
     }
 }
