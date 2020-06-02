@@ -1685,6 +1685,8 @@ namespace PuntoDeVentaV2
                 var porcentajeProducto = dr.GetValue(dr.GetOrdinal("PorcentajePrecio")).ToString();
                 var precioMayoreo = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("PrecioMayoreo")));
                 var minimoMayoreo = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("MinimoMayoreo")));
+                var checkNoVendidos = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("checkNoVendidos")));
+                var diasNoVendidos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("diasNoVendidos")));
 
                 config.Add(correoPrecio);
                 config.Add(correoStock);
@@ -1697,6 +1699,8 @@ namespace PuntoDeVentaV2
                 config.Add(porcentajeProducto);
                 config.Add(precioMayoreo);
                 config.Add(minimoMayoreo);
+                config.Add(checkNoVendidos);
+                config.Add(diasNoVendidos);
             }
 
             dr.Close();

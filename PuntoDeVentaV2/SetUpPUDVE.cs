@@ -88,6 +88,8 @@ namespace PuntoDeVentaV2
                 txtPorcentajeProducto.Text = datosConfig[8].ToString();
                 checkMayoreo.Checked = Convert.ToBoolean(datosConfig[9]);
                 txtMinimoMayoreo.Text = datosConfig[10].ToString();
+                checkNoVendidos.Checked = Convert.ToBoolean(datosConfig[11]);
+                txtNoVendidos.Text = datosConfig[12].ToString();
             }
             else
             {
