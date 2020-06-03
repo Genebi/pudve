@@ -1003,6 +1003,7 @@ namespace PuntoDeVentaV2
             UnidadMedida = DGVProductos.Rows[fila].Cells["_ClavUnidMedXML"].Value.ToString();
             id = FormPrincipal.userID.ToString();
             idProductoEditar = DGVProductos.Rows[fila].Cells["_IDProducto"].Value.ToString();
+            //MessageBox.Show("ID: " + idProductoEditar + "\nProducto: " + Nombre, "Alerta Del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             impuestoProducto = DGVProductos.Rows[fila].Cells["Impuesto"].Value.ToString();
         }
 
@@ -1276,19 +1277,28 @@ namespace PuntoDeVentaV2
 
         public void recargarDGV()
         {
-            //goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
             int ultimaPagina = p.countPag(), currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
 
-            if (currentPage.Equals(ultimaPagina))
+            if (!txtBusqueda.Text.Equals(""))
             {
-                CargarDatos();
-                ultimaPagina = p.countPag();
-                goToPageNumber(ultimaPagina);
+                actualizarDatosDespuesDeAgregarProducto();
             }
-            else if (currentPage < ultimaPagina)
+            else if (txtBusqueda.Text.Equals(""))
             {
-                goToPageNumber(currentPage);
+                //goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
+                //actualizar();
+                if (currentPage.Equals(ultimaPagina))
+                {
+                    CargarDatos();
+                    ultimaPagina = p.countPag();
+                    goToPageNumber(ultimaPagina);
+                }
+                else if (currentPage < ultimaPagina)
+                {
+                    goToPageNumber(currentPage);
+                }
             }
+            //goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
         }
 
         private void btnPedido_Click(object sender, EventArgs e)
@@ -3428,8 +3438,15 @@ namespace PuntoDeVentaV2
 
             if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
             {
-                goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
-                actualizar();
+                if (!txtBusqueda.Text.Equals(""))
+                {
+                    actualizarDatosDespuesDeAgregarProducto();
+                }
+                else if (txtBusqueda.Text.Equals(""))
+                {
+                    goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
+                    actualizar();
+                }
             }
             else if (origenDeLosDatos == 0)
             {
