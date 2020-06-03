@@ -43,6 +43,9 @@
             this.txtCantidadCompra = new System.Windows.Forms.TextBox();
             this.txtPrecioCompra = new System.Windows.Forms.TextBox();
             this.panelAjustar = new System.Windows.Forms.Panel();
+            this.lbConcepto = new System.Windows.Forms.Label();
+            this.btnAgregarConcepto = new System.Windows.Forms.Button();
+            this.cbConceptos = new System.Windows.Forms.ComboBox();
             this.txt_en_stock = new System.Windows.Forms.TextBox();
             this.lb_en_stock = new System.Windows.Forms.Label();
             this.lb_disminuir_stock_total = new System.Windows.Forms.Label();
@@ -61,9 +64,6 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lbEditarPrecio = new System.Windows.Forms.Label();
             this.txtPrecio = new System.Windows.Forms.TextBox();
-            this.lbConcepto = new System.Windows.Forms.Label();
-            this.btnAgregarConcepto = new System.Windows.Forms.Button();
-            this.cbConceptos = new System.Windows.Forms.ComboBox();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
             this.SuspendLayout();
@@ -245,6 +245,42 @@
             this.panelAjustar.Size = new System.Drawing.Size(610, 162);
             this.panelAjustar.TabIndex = 4;
             this.panelAjustar.Visible = false;
+            // 
+            // lbConcepto
+            // 
+            this.lbConcepto.AutoSize = true;
+            this.lbConcepto.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbConcepto.Location = new System.Drawing.Point(4, 105);
+            this.lbConcepto.Name = "lbConcepto";
+            this.lbConcepto.Size = new System.Drawing.Size(69, 17);
+            this.lbConcepto.TabIndex = 224;
+            this.lbConcepto.Text = "Concepto";
+            // 
+            // btnAgregarConcepto
+            // 
+            this.btnAgregarConcepto.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.btnAgregarConcepto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarConcepto.FlatAppearance.BorderSize = 0;
+            this.btnAgregarConcepto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnAgregarConcepto.Location = new System.Drawing.Point(574, 125);
+            this.btnAgregarConcepto.Name = "btnAgregarConcepto";
+            this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
+            this.btnAgregarConcepto.TabIndex = 223;
+            this.btnAgregarConcepto.UseVisualStyleBackColor = false;
+            this.btnAgregarConcepto.Click += new System.EventHandler(this.btnAgregarConcepto_Click);
+            // 
+            // cbConceptos
+            // 
+            this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbConceptos.FormattingEnabled = true;
+            this.cbConceptos.Location = new System.Drawing.Point(7, 125);
+            this.cbConceptos.Name = "cbConceptos";
+            this.cbConceptos.Size = new System.Drawing.Size(563, 25);
+            this.cbConceptos.TabIndex = 222;
             // 
             // txt_en_stock
             // 
@@ -448,42 +484,6 @@
             this.txtPrecio.TabIndex = 32;
             this.txtPrecio.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtPrecio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecio_KeyDown);
-            // 
-            // lbConcepto
-            // 
-            this.lbConcepto.AutoSize = true;
-            this.lbConcepto.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbConcepto.Location = new System.Drawing.Point(4, 105);
-            this.lbConcepto.Name = "lbConcepto";
-            this.lbConcepto.Size = new System.Drawing.Size(69, 17);
-            this.lbConcepto.TabIndex = 224;
-            this.lbConcepto.Text = "Concepto";
-            // 
-            // btnAgregarConcepto
-            // 
-            this.btnAgregarConcepto.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btnAgregarConcepto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarConcepto.FlatAppearance.BorderSize = 0;
-            this.btnAgregarConcepto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarConcepto.Location = new System.Drawing.Point(574, 125);
-            this.btnAgregarConcepto.Name = "btnAgregarConcepto";
-            this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
-            this.btnAgregarConcepto.TabIndex = 223;
-            this.btnAgregarConcepto.UseVisualStyleBackColor = false;
-            this.btnAgregarConcepto.Click += new System.EventHandler(this.btnAgregarConcepto_Click);
-            // 
-            // cbConceptos
-            // 
-            this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbConceptos.FormattingEnabled = true;
-            this.cbConceptos.Location = new System.Drawing.Point(7, 125);
-            this.cbConceptos.Name = "cbConceptos";
-            this.cbConceptos.Size = new System.Drawing.Size(563, 25);
-            this.cbConceptos.TabIndex = 222;
             // 
             // AjustarProducto
             // 

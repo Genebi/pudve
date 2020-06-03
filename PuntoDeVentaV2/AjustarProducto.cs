@@ -565,6 +565,7 @@ namespace PuntoDeVentaV2
                     if (Invent != null)
                     {
                         Invent.getSuma = aumentar;
+                        Invent.getStockAnterior = Convert.ToInt32(txt_en_stock.Text);
                     }
                 }
 
@@ -579,6 +580,7 @@ namespace PuntoDeVentaV2
                     if (Invent != null)
                     {
                         Invent.getResta = disminuir;
+                        Invent.getStockAnterior = Convert.ToInt32(txt_en_stock.Text);
                     }
                 }
 

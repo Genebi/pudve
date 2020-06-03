@@ -33,8 +33,12 @@ namespace PuntoDeVentaV2
 
         public int getSuma { get; set; }
         public static int suma = 0;
+
         public int getResta { get; set; }
         public static int resta = 0;
+
+        public int getStockAnterior { get; set; }
+        public static int stockAnterior = 0;
 
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;
@@ -604,6 +608,7 @@ namespace PuntoDeVentaV2
 
                     suma = getSuma;
                     resta = getResta;
+                    stockAnterior = getStockAnterior;
 
                     AgregarProductoDGV(producto);
                     botonAceptar = false;
@@ -617,9 +622,9 @@ namespace PuntoDeVentaV2
         {
             var id = producto[0];
             var nombre = producto[1];
-            var stockActual = producto[4];
+            var stockActual = Convert.ToString(stockAnterior);
             var diferenciaUnidades = string.Empty;
-            var nuevoStock = string.Empty;
+            var nuevoStock = producto[4];
             var precio = producto[2];
             var clave = producto[6];
             var codigo = producto[7];
@@ -642,12 +647,13 @@ namespace PuntoDeVentaV2
             DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
             if (!aumentar.Equals("0"))
             {
-                DGVInventario.CurrentRow.Cells[3].Style.ForeColor = Color.Blue;
+                DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
             }
             else if (!decrementar.Equals("0"))
             {
-                DGVInventario.CurrentRow.Cells[3].Style.ForeColor = Color.Red;
+                DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
             }
+            DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
             DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             DGVInventario.ClearSelection(); 
         }
