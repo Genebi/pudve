@@ -608,13 +608,15 @@ namespace PuntoDeVentaV2
         {
             var id = producto[0];
             var nombre = producto[1];
-            var stock = producto[4];
+            var stockActual = producto[4];
+            var diferenciaUnidades = string.Empty;
+            var nuevoStock = string.Empty;
             var precio = producto[2];
             var clave = producto[6];
             var codigo = producto[7];
             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-            DGVInventario.Rows.Add(id, nombre, stock, precio, clave, codigo, fecha);
+            DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
             DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             DGVInventario.ClearSelection(); 
         }
