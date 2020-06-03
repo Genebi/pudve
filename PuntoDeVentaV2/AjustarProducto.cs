@@ -262,6 +262,17 @@ namespace PuntoDeVentaV2
 
                 string[] datos = new string[] { producto, cantidadCompra, precioCompra, precioProducto.ToString(), fechaCompra, rfc, proveedor, comentario, "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
+                Inventario Invent = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
+
+                if (Invent != null)
+                {
+                    Invent.getSuma = 0;
+                    Invent.getResta = 0;
+
+                    Invent.getSuma = Convert.ToInt32(cantidadCompra);
+                    Invent.getStockAnterior = Convert.ToInt32(stockProducto);
+                }
+
                 var stockOriginal = stockProducto;
                 var stockAgregado = cantidadCompra;
 
