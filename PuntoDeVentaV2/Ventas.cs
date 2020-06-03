@@ -827,8 +827,6 @@ namespace PuntoDeVentaV2
                     {
                         descuentosDirectos.Remove(idProducto);
                     }
-
-                    CalculoMayoreo();
                 }
             }
             catch (Exception)
@@ -837,6 +835,7 @@ namespace PuntoDeVentaV2
             }
             
             DGVentas.ClearSelection();
+            CalculoMayoreo();
             CantidadesFinalesVenta();
         }
 
@@ -993,6 +992,11 @@ namespace PuntoDeVentaV2
                 float importe = float.Parse(DGVentas.Rows[fila].Cells["Importe"].Value.ToString());
                 float descuentoFinal = importe - totalImporte;
 
+                if (descuentoFinal < 0)
+                {
+                    descuentoFinal = 0;
+                }
+
                 DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal;
                 DGVentas.Rows[fila].Cells["Importe"].Value = totalImporte;
             }
@@ -1017,6 +1021,11 @@ namespace PuntoDeVentaV2
                 // Obtenemos el descuento individual y lo convertimos en array para dividir la cantidad
                 // y el texto del porcentaje aplicado a ese producto en caso de que tenga descuento
                 var descuentoIndividual = fila.Cells["Descuento"].Value.ToString().Split('-');
+
+                if (string.IsNullOrWhiteSpace(descuentoIndividual[0]))
+                {
+                    descuentoIndividual[0] = "0";
+                }
 
                 // Si el producto tiene un descuento directo aplicado respaldamos el valor de los descuentos en variables auxiliares
                 // de esa manera no tomara en cuenta ese producto con los otros descuentos y aplicara solamente el directo
@@ -2549,6 +2558,7 @@ namespace PuntoDeVentaV2
                                     CalcularDescuento(datosDescuento, tipoDescuento, cantidad, 0);
                                 }
 
+                                CalculoMayoreo();
                                 CantidadesFinalesVenta();
 
                                 cantidadExtra = 0;
@@ -2618,6 +2628,7 @@ namespace PuntoDeVentaV2
                                     DGVentas.Rows.RemoveAt(0);
                                 }
 
+                                CalculoMayoreo();
                                 CantidadesFinalesVenta();
 
                                 cantidadExtra = 0;
@@ -3091,10 +3102,11 @@ namespace PuntoDeVentaV2
                     foreach (DataGridViewRow fila in DGVentas.Rows)
                     {
                         var mayoreo = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
+                        var cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value.ToString());
 
                         if (mayoreo > 0)
                         {
-                            contadorMayoreo++;
+                            contadorMayoreo += cantidad;
                         }
                     }
 
