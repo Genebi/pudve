@@ -547,6 +547,14 @@ namespace PuntoDeVentaV2
 
         private void suma_resta_stock(int opc)
         {
+            Inventario Invent = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
+
+            if (Invent != null)
+            {
+                Invent.getSuma = 0;
+                Invent.getResta = 0;
+            }
+
             int suma = 0, resta = 0, aumentar = 0, disminuir = 0;
 
             if (opc == 1)
@@ -554,6 +562,10 @@ namespace PuntoDeVentaV2
                 if(txtAumentar.Text != "")
                 {
                     aumentar = Convert.ToInt32(txtAumentar.Text);
+                    if (Invent != null)
+                    {
+                        Invent.getSuma = aumentar;
+                    }
                 }
 
                 suma = Convert.ToInt32(txt_en_stock.Text) + aumentar;
@@ -564,6 +576,10 @@ namespace PuntoDeVentaV2
                 if(txtDisminuir.Text != "")
                 {
                     disminuir = Convert.ToInt32(txtDisminuir.Text);
+                    if (Invent != null)
+                    {
+                        Invent.getResta = disminuir;
+                    }
                 }
 
                 resta = Convert.ToInt32(txt_en_stock.Text) - disminuir; 

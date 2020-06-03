@@ -31,6 +31,11 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool aceptarFiltro = false;
 
+        public int getSuma { get; set; }
+        public static int suma = 0;
+        public int getResta { get; set; }
+        public static int resta = 0;
+
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;
 
@@ -596,6 +601,10 @@ namespace PuntoDeVentaV2
                 if (botonAceptar)
                 {
                     var producto = cn.BuscarProducto(idProducto, FormPrincipal.userID);
+
+                    suma = getSuma;
+                    resta = getResta;
+
                     AgregarProductoDGV(producto);
                     botonAceptar = false;
                 }
@@ -615,8 +624,30 @@ namespace PuntoDeVentaV2
             var clave = producto[6];
             var codigo = producto[7];
             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            
+            var decrementar = string.Empty;
+            decrementar = Convert.ToString(resta);
+            var aumentar = string.Empty;
+            aumentar = Convert.ToString(suma);
+
+            if (!aumentar.Equals("0"))
+            {
+                diferenciaUnidades = aumentar;
+            }
+            else if (!decrementar.Equals("0"))
+            {
+                diferenciaUnidades = decrementar;
+            }
 
             DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
+            if (!aumentar.Equals("0"))
+            {
+                DGVInventario.CurrentRow.Cells[3].Style.ForeColor = Color.Blue;
+            }
+            else if (!decrementar.Equals("0"))
+            {
+                DGVInventario.CurrentRow.Cells[3].Style.ForeColor = Color.Red;
+            }
             DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             DGVInventario.ClearSelection(); 
         }
