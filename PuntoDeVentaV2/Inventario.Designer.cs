@@ -43,6 +43,7 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DiferenciaUnidades = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Clave = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -239,6 +240,7 @@
             this.ID,
             this.Nombre,
             this.Stock,
+            this.DiferenciaUnidades,
             this.Precio,
             this.Clave,
             this.Codigo,
@@ -270,6 +272,12 @@
             this.Stock.Name = "Stock";
             this.Stock.ReadOnly = true;
             this.Stock.Width = 135;
+            // 
+            // DiferenciaUnidades
+            // 
+            this.DiferenciaUnidades.HeaderText = "Diferencia de Unidades";
+            this.DiferenciaUnidades.Name = "DiferenciaUnidades";
+            this.DiferenciaUnidades.ReadOnly = true;
             // 
             // Precio
             // 
@@ -339,6 +347,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn Stock;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DiferenciaUnidades;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Clave;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
