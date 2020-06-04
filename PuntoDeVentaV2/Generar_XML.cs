@@ -33,6 +33,7 @@ namespace PuntoDeVentaV2
             int id_usuario = Convert.ToInt32(FormPrincipal.userID);
             // Variables para los archivos
             string ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD\";
+            var servidor = Properties.Settings.Default.Hosting;
             string ruta_cer = "";
             string ruta_key = "";
             string clave_privada = "";
@@ -78,9 +79,7 @@ namespace PuntoDeVentaV2
             string pg_fecha_pago = "";
             decimal monto_cpago = 0;
 
-
-
-
+            
 
 
             // .................................
@@ -145,6 +144,11 @@ namespace PuntoDeVentaV2
             // ..................................
             // .   Obtener archivos digitales   .
             // ..................................
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                ruta_carpeta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD\";
+            }
 
             if (Directory.Exists(ruta_carpeta_archivos))
             {
@@ -1090,14 +1094,25 @@ namespace PuntoDeVentaV2
 
             string ruta_carpeta = @"C:\Archivos PUDVE\Facturas\";
 
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                ruta_carpeta = $@"\\{servidor}\Archivos PUDVE\Facturas\";
+            }
+
             if (!Directory.Exists(ruta_carpeta))
             {
                 Directory.CreateDirectory(ruta_carpeta);
             }
 
+
             string rutaXML = @"C:\Archivos PUDVE\Facturas\XML_" + nombre_xml + id_factura + ".xml";
 
-            
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaXML = $@"\\{servidor}\Archivos PUDVE\Facturas\XML_" + nombre_xml + id_factura + ".xml";
+            }
+
+
 
 
             GenerarXML(comprobante, rutaXML);

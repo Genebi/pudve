@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
         string tipo = "";
         int tipo_factura = 0;
 
+
         public Enviar_correo(string[][] arr_ids, string titulo, int tp_factura)
         {
             InitializeComponent();
@@ -138,6 +139,7 @@ namespace PuntoDeVentaV2
         {
             List<string> list_correos = new List<string>();
             string[] arr_obtiene_datos_correo = new string[3];
+            var servidor = Properties.Settings.Default.Hosting;
 
 
             MessageBox.Show("La envío tardará 8 segundos (aproximadamente) en ser enviado. \n Por favor no cierre la ventana. \n\n Un momento por favor...", "Mensaje del sistema", MessageBoxButtons.OK);
@@ -250,18 +252,38 @@ namespace PuntoDeVentaV2
                     }
                     tipo_comprobante += sin_con_acuse;
 
-                   
-                    if(tipo_factura != 3)
+
+                    // Verifica
+                    if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".pdf"));
+                        if (tipo_factura != 3)
+                        {
+                            correo.Attachments.Add(new Attachment($@"\\{servidor}\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".pdf"));
+                        }
+
+                        correo.Attachments.Add(new Attachment($@"\\{servidor}\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".xml"));
                     }
-                    
-                    correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".xml"));
+                    else
+                    {
+                        if (tipo_factura != 3)
+                        {
+                            correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".pdf"));
+                        }
+
+                        correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".xml"));
+                    }
                 }
 
                 if (tipo == "nota de venta")
                 {
-                    correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf"));
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        correo.Attachments.Add(new Attachment($@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf"));
+                    }
+                    else
+                    {
+                        correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf"));
+                    }
                 }
             }
 
@@ -302,7 +324,7 @@ namespace PuntoDeVentaV2
             DateTime fecha_factura_p = DateTime.Now;
             DateTime[] arr_fechas;
             string cadena_fechas = "";
-
+            var servidor = Properties.Settings.Default.Hosting;
 
             // Genera los PDF en caso de que no lo esten
             // Solo se generara si la factura no esta cancelada
@@ -319,7 +341,13 @@ namespace PuntoDeVentaV2
                     }
 
                     // Verifica si el archivo pdf ya esta creado, de no ser así lo crea
+
                     string ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nom + ".pdf";
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nom + ".pdf";
+                    }
 
                     if (!File.Exists(ruta_archivo))
                     {
@@ -441,6 +469,7 @@ namespace PuntoDeVentaV2
             DateTime fecha_venta_p = DateTime.Now;
             DateTime[] arr_fechas;
             string cadena_fechas = "";
+            var servidor = Properties.Settings.Default.Hosting;
 
 
             // Genera los PDF en caso de que no lo esten
@@ -449,6 +478,11 @@ namespace PuntoDeVentaV2
             {
                 // Verifica si el archivo pdf ya esta creado, de no ser así lo crea
                 string ruta_archivo = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf";
+
+                if (!string.IsNullOrWhiteSpace(servidor))
+                {
+                    ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf";
+                }
 
                 if (!File.Exists(ruta_archivo))
                 {
