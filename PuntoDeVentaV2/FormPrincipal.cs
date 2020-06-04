@@ -300,6 +300,12 @@ namespace PuntoDeVentaV2
 
         private void btnSesion_Click(object sender, EventArgs e)
         {
+            cerrarAplicacion = true;
+            this.Close();
+        }
+
+        private void cerrarSesion()
+        {
             FormCollection formulariosApp = Application.OpenForms;
             List<Form> formularioCerrar = new List<Form>();
 
@@ -664,7 +670,7 @@ namespace PuntoDeVentaV2
         /****************************
         ****** CODIGO KEVIN *********
         /****************************/
-        
+
         public void InitializarTimerAndroid()
         {
             actualizarCaja.Interval = 60000;
@@ -680,33 +686,45 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //cerrarAplicacion = true;
-            
-            var respuesta = MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (cerrarAplicacion.Equals(true) && this.Visible.Equals(true))
+            {
+                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
-            if (respuesta == DialogResult.Yes)
+                if (respuesta == DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                    cerrarSesion();
+                    cerrarAplicacion = false;
+                }
+                else if (respuesta == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    cerrarAplicacion = false;
+                }
+            }
+            else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(true))
+            {
+                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                    cerrarSesion();
+                    cerrarAplicacion = false;
+                }
+                else if (respuesta == DialogResult.No)
+                {
+                    e.Cancel = true;
+                    cerrarAplicacion = false;
+                }
+            }
+            else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(false))
             {
                 Application.Exit();
             }
-        }
-
-        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //cerrarAplicacion = true;
-
-            //if (cerrarAplicacion)
-            //{
-            //    var respuesta = MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            //    if (respuesta == DialogResult.No)
-            //    {
-            //        e.Cancel = true;
-            //    }
-            //}
-
-            //cerrarAplicacion = false;
+            cerrarAplicacion = false;
         }
 
         private void timerProductos_Tick(object sender, EventArgs e)

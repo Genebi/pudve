@@ -33,7 +33,7 @@
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.menuVertical = new System.Windows.Forms.Panel();
-            this.btnSalir = new System.Windows.Forms.Button();
+            this.btnSesion = new System.Windows.Forms.Button();
             this.btnEmpresas = new System.Windows.Forms.Button();
             this.btnMisDatos = new System.Windows.Forms.Button();
             this.btnInventario = new System.Windows.Forms.Button();
@@ -51,7 +51,6 @@
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
             this.timerProductos = new System.Windows.Forms.Timer(this.components);
-            this.btnSesion = new System.Windows.Forms.Button();
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -78,7 +77,6 @@
             // 
             this.menuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
             this.menuVertical.Controls.Add(this.btnSesion);
-            this.menuVertical.Controls.Add(this.btnSalir);
             this.menuVertical.Controls.Add(this.btnEmpresas);
             this.menuVertical.Controls.Add(this.btnMisDatos);
             this.menuVertical.Controls.Add(this.btnInventario);
@@ -99,24 +97,20 @@
             this.menuVertical.Size = new System.Drawing.Size(230, 602);
             this.menuVertical.TabIndex = 0;
             // 
-            // btnSalir
+            // btnSesion
             // 
-            this.btnSalir.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnSalir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.ForeColor = System.Drawing.Color.White;
-            this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalir.Location = new System.Drawing.Point(20, 544);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(95, 47);
-            this.btnSalir.TabIndex = 109;
-            this.btnSalir.Text = "SALIR DEL PROGRAMA";
-            this.btnSalir.UseVisualStyleBackColor = false;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            this.btnSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnSesion.FlatAppearance.BorderSize = 0;
+            this.btnSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSesion.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSesion.ForeColor = System.Drawing.Color.White;
+            this.btnSesion.Location = new System.Drawing.Point(25, 544);
+            this.btnSesion.Name = "btnSesion";
+            this.btnSesion.Size = new System.Drawing.Size(175, 30);
+            this.btnSesion.TabIndex = 110;
+            this.btnSesion.Text = "Cerrar  Sesión";
+            this.btnSesion.UseVisualStyleBackColor = false;
+            this.btnSesion.Click += new System.EventHandler(this.btnSesion_Click);
             // 
             // btnEmpresas
             // 
@@ -407,20 +401,6 @@
             this.timerProductos.Enabled = true;
             this.timerProductos.Interval = 3000;
             this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
-            // btnSesion
-            // 
-            this.btnSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.btnSesion.FlatAppearance.BorderSize = 0;
-            this.btnSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSesion.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnSesion.ForeColor = System.Drawing.Color.White;
-            this.btnSesion.Location = new System.Drawing.Point(123, 544);
-            this.btnSesion.Name = "btnSesion";
-            this.btnSesion.Size = new System.Drawing.Size(95, 47);
-            this.btnSesion.TabIndex = 110;
-            this.btnSesion.Text = "CERRAR  SESION";
-            this.btnSesion.UseVisualStyleBackColor = false;
-            this.btnSesion.Click += new System.EventHandler(this.btnSesion_Click);
             // 
             // FormPrincipal
             // 
@@ -461,7 +441,6 @@
         private System.Windows.Forms.Button btnEmpresas;
         private System.Windows.Forms.Timer temporizador_respaldo;
         private System.Windows.Forms.Timer actualizarCaja;
-        private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Timer timerProductos;
         private System.Windows.Forms.Button btnSesion;
     }
