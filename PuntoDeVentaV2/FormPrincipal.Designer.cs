@@ -33,6 +33,7 @@
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.menuVertical = new System.Windows.Forms.Panel();
+            this.btnSesion = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnEmpresas = new System.Windows.Forms.Button();
             this.btnMisDatos = new System.Windows.Forms.Button();
@@ -51,7 +52,6 @@
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
             this.timerProductos = new System.Windows.Forms.Timer(this.components);
-            this.btnSesion = new System.Windows.Forms.Button();
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -98,6 +98,21 @@
             this.menuVertical.Name = "menuVertical";
             this.menuVertical.Size = new System.Drawing.Size(230, 602);
             this.menuVertical.TabIndex = 0;
+            // 
+            // btnSesion
+            // 
+            this.btnSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnSesion.FlatAppearance.BorderSize = 0;
+            this.btnSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSesion.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnSesion.ForeColor = System.Drawing.Color.White;
+            this.btnSesion.Location = new System.Drawing.Point(123, 544);
+            this.btnSesion.Name = "btnSesion";
+            this.btnSesion.Size = new System.Drawing.Size(95, 47);
+            this.btnSesion.TabIndex = 110;
+            this.btnSesion.Text = "CERRAR  SESION";
+            this.btnSesion.UseVisualStyleBackColor = false;
+            this.btnSesion.Click += new System.EventHandler(this.btnSesion_Click);
             // 
             // btnSalir
             // 
@@ -405,22 +420,8 @@
             // timerProductos
             // 
             this.timerProductos.Enabled = true;
-            this.timerProductos.Interval = 3000;
+            this.timerProductos.Interval = 1000;
             this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
-            // btnSesion
-            // 
-            this.btnSesion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
-            this.btnSesion.FlatAppearance.BorderSize = 0;
-            this.btnSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSesion.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnSesion.ForeColor = System.Drawing.Color.White;
-            this.btnSesion.Location = new System.Drawing.Point(123, 544);
-            this.btnSesion.Name = "btnSesion";
-            this.btnSesion.Size = new System.Drawing.Size(95, 47);
-            this.btnSesion.TabIndex = 110;
-            this.btnSesion.Text = "CERRAR  SESION";
-            this.btnSesion.UseVisualStyleBackColor = false;
-            this.btnSesion.Click += new System.EventHandler(this.btnSesion_Click);
             // 
             // FormPrincipal
             // 
