@@ -300,6 +300,17 @@ namespace PuntoDeVentaV2
 
         private void btnSesion_Click(object sender, EventArgs e)
         {
+            //cerrarSesion();
+            var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion de: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                cerrarSesion();
+            }
+        }
+
+        private void cerrarSesion()
+        {
             FormCollection formulariosApp = Application.OpenForms;
             List<Form> formularioCerrar = new List<Form>();
 
@@ -682,14 +693,7 @@ namespace PuntoDeVentaV2
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            //cerrarAplicacion = true;
             
-            var respuesta = MessageBox.Show("¿Estás seguro de cerrar la aplicación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (respuesta == DialogResult.Yes)
-            {
-                Application.Exit();
-            }
         }
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
@@ -707,6 +711,13 @@ namespace PuntoDeVentaV2
             //}
 
             //cerrarAplicacion = false;
+            
+            var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion de: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                cerrarSesion();
+            }
         }
 
         private void timerProductos_Tick(object sender, EventArgs e)
