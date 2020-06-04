@@ -15,6 +15,7 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -729,10 +730,28 @@ namespace PuntoDeVentaV2
 
         private void timerProductos_Tick(object sender, EventArgs e)
         {
-            //if (checkNoVendidos == 1)
-            //{
-            //    //MessageBox.Show(diasNoVendidos.ToString());
-            //}
+            if (checkNoVendidos == 1)
+            {
+                //Thread hilo = new Thread(() => RealizarProcesoProductos());
+
+                //if (!hilo.IsAlive)
+                //{
+                //    hilo.Start();
+                //}
+            }
+        }
+
+        private void RealizarProcesoProductos()
+        {
+            // Obtener ID de los productos habilitados
+            // Buscarlos en la tabla HistorialCompras
+            // Si los encuentra obtener la primer fecha (registro del producto)
+            // Despues buscar los ID de productos en la tabla ProductosVenta
+            // Buscar el ultimo registro que aparece en esa tabla del producto en especifico
+            // Obtener el ID de la venta y buscarlo en la tabla Ventas
+            // 
+
+            //MessageBox.Show("Test");
         }
     }
 }

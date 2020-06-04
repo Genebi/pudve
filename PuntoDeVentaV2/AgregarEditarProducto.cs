@@ -1368,8 +1368,9 @@ namespace PuntoDeVentaV2
 
         public void cargarDatosExtra()
         {
-            queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND IDUsuario = '{FormPrincipal.userID}'";
+            queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND Status = 1 AND IDUsuario = '{FormPrincipal.userID}'";
             SearchProdResult = cn.CargarDatos(queryBuscarProd);
+
             if (SearchProdResult.Rows.Count > 0)
             {
                 idProductoBuscado = SearchProdResult.Rows[0]["ID"].ToString();

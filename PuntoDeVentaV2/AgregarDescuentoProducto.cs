@@ -945,5 +945,25 @@ namespace PuntoDeVentaV2
             }
             return porcentaje;
         }
+
+        private void btnEliminarDescuentos_Click(object sender, EventArgs e)
+        {
+            var respuesta = MessageBox.Show("¿Estás seguro de eliminar los descuentos?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta == DialogResult.Yes)
+            {
+                var idProducto = AgregarEditarProducto.idProductoFinal;
+
+                if (!string.IsNullOrWhiteSpace(idProducto))
+                {
+                    cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {idProducto}");
+                    cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idProducto}");
+
+                    
+                    
+                    this.Hide();
+                }
+            }
+        }
     }
 }
