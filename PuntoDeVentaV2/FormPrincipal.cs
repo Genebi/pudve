@@ -300,15 +300,8 @@ namespace PuntoDeVentaV2
 
         private void btnSesion_Click(object sender, EventArgs e)
         {
-            //cerrarSesion();
-            //var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion de: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-            //if (respuesta == DialogResult.Yes)
-            //{
-            //    cerrarSesion();
-            //}
             cerrarAplicacion = true;
-            Application.Exit();
+            this.Close();
         }
 
         private void cerrarSesion()
@@ -697,7 +690,7 @@ namespace PuntoDeVentaV2
         {
             if (cerrarAplicacion.Equals(true) && this.Visible.Equals(true))
             {
-                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion de: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (respuesta == DialogResult.Yes)
                 {
@@ -713,7 +706,7 @@ namespace PuntoDeVentaV2
             }
             else if (cerrarAplicacion.Equals(false) && this.Visible.Equals(true))
             {
-                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion de: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                var respuesta = MessageBox.Show("¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                 if (respuesta == DialogResult.Yes)
                 {
@@ -731,6 +724,7 @@ namespace PuntoDeVentaV2
             {
                 Application.Exit();
             }
+            cerrarAplicacion = false;
         }
 
         private void timerProductos_Tick(object sender, EventArgs e)
