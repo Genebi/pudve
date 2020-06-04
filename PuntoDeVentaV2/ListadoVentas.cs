@@ -761,6 +761,7 @@ namespace PuntoDeVentaV2
             DataTable d_claves;
 
             string ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD\";
+            var servidor = Properties.Settings.Default.Hosting;
             string arch_cer = "";
             string arch_key = "";
             string numero_cer = "";
@@ -769,7 +770,13 @@ namespace PuntoDeVentaV2
             //int sin_cliente = 0;
             //int n_filas = 0;
             int i = 1;
+
             
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                ruta_carpeta_csd = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD\";
+            }
 
             // Consulta IDCliente
             int id_cliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDCliente FROM DetallesVenta WHERE IDVenta='{id_venta}'", 6));

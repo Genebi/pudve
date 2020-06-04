@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
         {
             string ruta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD\";
             string ruta_acuse = @"C:\Archivos PUDVE\Facturas\";
+            var servidor = Properties.Settings.Default.Hosting;
 
             // Proveedor
             string usuario = "NUSN900420SS5";
@@ -50,7 +51,16 @@ namespace PuntoDeVentaV2
             {
                 nombre_xml = "XML_PAGO_ACUSE_" + idf;
             }
-            ruta_acuse = ruta_acuse + nombre_xml + ".xml";
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                ruta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD\";
+                ruta_acuse = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
+            }
+            else
+            {
+                ruta_acuse = ruta_acuse + nombre_xml + ".xml";
+            }
 
             // Consulta datos
 

@@ -34,6 +34,7 @@
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_rfc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_razon_social = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,6 +71,7 @@
             this.col_id,
             this.col_folio,
             this.col_serie,
+            this.col_empleado,
             this.col_rfc,
             this.col_razon_social,
             this.col_total,
@@ -121,6 +123,13 @@
             this.col_serie.ReadOnly = true;
             this.col_serie.Width = 45;
             // 
+            // col_empleado
+            // 
+            this.col_empleado.HeaderText = "Empleado";
+            this.col_empleado.Name = "col_empleado";
+            this.col_empleado.ReadOnly = true;
+            this.col_empleado.Width = 80;
+            // 
             // col_rfc
             // 
             this.col_rfc.HeaderText = "RFC";
@@ -146,14 +155,14 @@
             this.col_fecha.HeaderText = "Fecha";
             this.col_fecha.Name = "col_fecha";
             this.col_fecha.ReadOnly = true;
-            this.col_fecha.Width = 90;
+            this.col_fecha.Width = 80;
             // 
             // col_pdf
             // 
             this.col_pdf.HeaderText = "PDF";
             this.col_pdf.Name = "col_pdf";
             this.col_pdf.ReadOnly = true;
-            this.col_pdf.Width = 50;
+            this.col_pdf.Width = 45;
             // 
             // col_descargar
             // 
@@ -179,6 +188,8 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(388, 28);
@@ -349,10 +360,13 @@
         private System.Windows.Forms.Button btn_enviar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolTip TTMensaje;
+        private System.Windows.Forms.ProgressBar pBar1;
+        private System.Windows.Forms.Label lb_texto_descarga;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_checkbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_folio;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_serie;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_empleado;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_rfc;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_razon_social;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_total;
@@ -361,7 +375,5 @@
         private System.Windows.Forms.DataGridViewImageColumn col_descargar;
         private System.Windows.Forms.DataGridViewImageColumn col_cancelar;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_t_comprobante;
-        private System.Windows.Forms.ProgressBar pBar1;
-        private System.Windows.Forms.Label lb_texto_descarga;
     }
 }

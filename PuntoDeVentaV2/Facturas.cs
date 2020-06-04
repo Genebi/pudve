@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
 
         int id_usuario = FormPrincipal.userID;
+        int id_empleado = FormPrincipal.id_empleado;
         public static int[] arr_id_facturas;
         bool ban = false;
 
@@ -66,6 +67,7 @@ namespace PuntoDeVentaV2
 
             string cons = "";
             string condicional_fecha_i_f = "";
+            string condicional_xempleado = "";
 
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
             var fecha_inicial = datetp_fecha_inicial.Value.ToString("yyyy-MM-dd");
@@ -83,6 +85,13 @@ namespace PuntoDeVentaV2
             sql_cn.Open();
 
 
+            // Comprueba si la sesión esta activa por un empleado o no
+
+            if(id_empleado != 0)
+            {
+                condicional_xempleado = " AND id_empleado='"+id_empleado+"'";
+            }
+
             // Se agregan fechas de busqueda cuando es desde el botón buscar
             if(tipo == 1)
             {
@@ -92,22 +101,22 @@ namespace PuntoDeVentaV2
             // Por pagar
             if(opc_tipo_factura == 0)
             {
-                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PPD' OR forma_pago='99') AND con_complementos=0 " + condicional_fecha_i_f;
+                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PPD' OR forma_pago='99') AND con_complementos=0 " + condicional_fecha_i_f;
             }
             // Abonadas
             if (opc_tipo_factura == 1)
             {
-                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND con_complementos=1 AND resta_cpago>0 " + condicional_fecha_i_f;
+                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND con_complementos=1 AND resta_cpago>0 " + condicional_fecha_i_f;
             }
             // Pagadas
             if (opc_tipo_factura == 2)
             {
-                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) " + condicional_fecha_i_f;
+                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) " + condicional_fecha_i_f;
             }
             // Canceladas
             if(opc_tipo_factura == 3)
             {
-                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f;
+                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f;
             }
 
             sql_cmd = new SQLiteCommand(cons, sql_cn);
@@ -126,11 +135,39 @@ namespace PuntoDeVentaV2
 
                     DataGridViewRow fila = datagv_facturas.Rows[fila_id];
 
+                    // Nombre de empleado
+                    string user_empleado = "";
+
+                    if (id_empleado == 0)
+                    {
+                        string id_empleado_fct = sql_dr.GetValue(sql_dr.GetOrdinal("id_empleado")).ToString();
+                        string[] r = new string[] { id_empleado_fct };
+                        DataTable d_emp = cn.CargarDatos(cs.guardar_editar_empleado(r, 3));
+
+                        if (d_emp.Rows.Count > 0)
+                        {
+                            DataRow r_emp = d_emp.Rows[0];
+                            user_empleado = r_emp["usuario"].ToString();
+
+                            var pos = user_empleado.IndexOf("@");
+                            user_empleado = user_empleado.Substring(pos + 1, user_empleado.Length - (pos + 1));
+                        }
+                    }
+                                        
+
                     fila.Cells["col_id"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("ID"));
                     fila.Cells["col_t_comprobante"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("tipo_comprobante"));
                     fila.Cells["col_checkbox"].Value = false;
                     fila.Cells["col_folio"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("folio"));
                     fila.Cells["col_serie"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("serie"));
+                    if (id_empleado > 0)
+                    {
+                        this.datagv_facturas.Columns["col_empleado"].Visible = false;
+                    }
+                    else
+                    {
+                        fila.Cells["col_empleado"].Value = user_empleado;
+                    }
                     fila.Cells["col_rfc"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("r_rfc"));
                     fila.Cells["col_razon_social"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("r_razon_social"));
                     fila.Cells["col_total"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("total"));
@@ -166,6 +203,26 @@ namespace PuntoDeVentaV2
                                 DateTime fechacp = Convert.ToDateTime(r_cpago["fecha_certificacion"].ToString());
                                 string fecha_certcp = fechacp.ToString("yyyy-MM-dd");
 
+                                // Nombre del empleado
+                                string idemp = "";
+
+                                if (id_empleado == 0)
+                                {
+                                    string id_empleado_fct = r_cpago["id_empleado"].ToString();
+
+                                    string[] rr = new string[] { id_empleado_fct };
+                                    DataTable d_empl = cn.CargarDatos(cs.guardar_editar_empleado(rr, 3));
+
+                                    if(d_empl.Rows.Count > 0)
+                                    {
+                                        DataRow r_empl = d_empl.Rows[0];
+                                        idemp = r_empl["id_empleado"].ToString();
+
+                                        var pos = idemp.IndexOf("@");
+                                        idemp = idemp.Substring(pos + 1, idemp.Length - (pos + 1));
+                                    }
+                                }                                    
+
                                 // Obtiene datos pertenecientes a cada complemento
                                 DataTable d_cpago_f = cn.CargarDatos(cs.obtiene_cpagos_dfactura_princ(id_fcp, 2));
 
@@ -181,6 +238,14 @@ namespace PuntoDeVentaV2
                                     filac.Cells["col_checkbox"].Value = false;
                                     filac.Cells["col_folio"].Value = r_cpago_f["folio"].ToString();
                                     filac.Cells["col_serie"].Value = r_cpago_f["serie"].ToString();
+                                    if(id_empleado > 0)
+                                    {
+                                        this.datagv_facturas.Columns["col_empleado"].Visible = false;
+                                    }
+                                    else
+                                    {
+                                        filac.Cells["col_empleado"].Value = idemp;
+                                    }
                                     filac.Cells["col_rfc"].Value = r_cpago_f["r_rfc"].ToString();
                                     filac.Cells["col_razon_social"].Value = r_cpago_f["r_razon_social"].ToString();
                                     filac.Cells["col_total"].Value = importe_pagado.ToString();
@@ -243,12 +308,12 @@ namespace PuntoDeVentaV2
                 int id_factura = Convert.ToInt16(datagv_facturas.Rows[e.RowIndex].Cells["col_id"].Value);
                 int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
                 string t_comprobante = Convert.ToString(datagv_facturas.Rows[e.RowIndex].Cells["col_t_comprobante"].Value);
+                var servidor = Properties.Settings.Default.Hosting;
 
-                
 
                 // Ver PDF
 
-                if (e.ColumnIndex == 8)
+                if (e.ColumnIndex == 9)
                 {
                     if (!Utilidades.AdobeReaderInstalado())
                     {
@@ -271,6 +336,11 @@ namespace PuntoDeVentaV2
                     // Verifica si el archivo pdf ya esta creado, de no ser así lo crea
                     ruta_archivo = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
 
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
+                    }
+
                     if (!File.Exists(ruta_archivo))
                     {
                         MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
@@ -291,9 +361,9 @@ namespace PuntoDeVentaV2
 
                 // Descargar factura
 
-                if(e.ColumnIndex == 9)
+                if(e.ColumnIndex == 10)
                 {
-                    string nombre_xml = "";
+                    //string nombre_xml = "";
 
                     string tipo = "INGRESOS_";
                     string estatus = "";
@@ -322,7 +392,7 @@ namespace PuntoDeVentaV2
 
                 // Cancelar factura
 
-                if (e.ColumnIndex == 10)
+                if (e.ColumnIndex == 11)
                 {
                     if (opc_tipo_factura == 3)
                     {
@@ -405,14 +475,14 @@ namespace PuntoDeVentaV2
 
         private void cursor_en_icono(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0 & e.ColumnIndex >= 8)
+            if(e.RowIndex >= 0 & e.ColumnIndex >= 9)
             {
                 datagv_facturas.Cursor = Cursors.Hand;
 
                 Rectangle cellRect = datagv_facturas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
                 
 
-                if (e.ColumnIndex == 8)
+                if (e.ColumnIndex == 9)
                 {
                     var coordenadaX = 70;
 
@@ -423,7 +493,7 @@ namespace PuntoDeVentaV2
 
         private void cursor_no_icono(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 & e.ColumnIndex >= 8)
+            if (e.RowIndex >= 0 & e.ColumnIndex >= 9)
             {
                 datagv_facturas.Cursor = Cursors.Default;
             }
@@ -519,6 +589,8 @@ namespace PuntoDeVentaV2
 
         public void generar_PDF(string nombre_xml)
         {
+            var servidor = Properties.Settings.Default.Hosting;
+
             // ........................................
             // .    Deserealiza el XML ya timbrado    .
             // ........................................
@@ -526,6 +598,12 @@ namespace PuntoDeVentaV2
 
             Comprobante comprobante;
             string ruta_xml = @"C:\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                ruta_xml = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".xml";
+            }
+
 
             XmlSerializer serializer = new XmlSerializer(typeof(Comprobante));
 
@@ -593,6 +671,13 @@ namespace PuntoDeVentaV2
             string result_html = "";
 
             result_html = RazorEngine.Razor.Parse(s_html, comprobante);
+
+
+            // La ruta cambiará si la variable servidor tiene algo
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                destino_pdf = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_xml + ".pdf";
+            }
 
 
             // Configuracion de footer y header
@@ -794,7 +879,7 @@ namespace PuntoDeVentaV2
             string ruta_archivos = @"C:\Archivos PUDVE\Facturas\XML_" + nombrexml;
             string ruta_new_carpeta = @"C:\Archivos PUDVE\Facturas\XML_" + nombrexml;
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
-
+            var servidor = Properties.Settings.Default.Hosting;
 
             if (ban == false)
             {
@@ -804,8 +889,15 @@ namespace PuntoDeVentaV2
             }
 
 
+            // Si la conexión es en red cambia ruta de guardado
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                ruta_new_carpeta = $@"\\{servidor}\Archivos PUDVE\Facturas\XML_" + nombrexml;
+                ruta_archivos = $@"\\{servidor}\Archivos PUDVE\Facturas\XML_" + nombrexml;
+            }
+
             // Crear carpeta a comprimir
-            
+
             if (opc == 3)
             {
                 if (!Directory.Exists(ruta_new_carpeta))
@@ -868,8 +960,7 @@ namespace PuntoDeVentaV2
                 string fech = fecha_actual.ToString("yyyyMMddhhmmss");
 
                 string ruta_carpet_comprimida = "C:\\Users\\" + n_user + "\\Desktop\\" + nombrexml + "_" + fech + ".zip";
-
-
+                
                 ZipFile.CreateFromDirectory(ruta_new_carpeta, ruta_carpet_comprimida);
             }
             
