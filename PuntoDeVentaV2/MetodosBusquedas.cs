@@ -1802,6 +1802,84 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
+        public List<int> ProductosActivos()
+        {
+            var lista = new List<int>();
+
+            DatosConexion($"SELECT ID FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    var id = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
+
+                    lista.Add(id);
+                }
+            }
+
+            dr.Close();
+
+            return lista;
+        }
+
+        public DateTime ObtenerFechaProductoRegistro(int idProducto)
+        {
+            DateTime fecha = new DateTime();
+
+            DatosConexion($"SELECT FechaLarga FROM HistorialCompras WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND TipoAjuste = 1 LIMIT 1");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaLarga")));
+            }
+
+            dr.Close();
+
+            return fecha;
+        }
+
+        public int ObtenerIDVentas(int idProducto)
+        {
+            var venta = 0;
+
+            DatosConexion($"SELECT IDVenta FROM ProductosVenta WHERE IDProducto = {idProducto} ORDER BY ID DESC LIMIT 1");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                venta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDVenta")));
+            }
+
+            dr.Close();
+
+            return venta;
+        }
+
+
+        public DateTime ObtenerFechaVentaProducto(int idVenta)
+        {
+            DateTime fecha = new DateTime();
+
+            DatosConexion($"SELECT FechaOperacion FROM Ventas WHERE ID = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                fecha = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion")));
+            }
+
+            dr.Close();
+
+            return fecha;
+        }
+
         public string[] obtener_permisos_empleado(int id_empleado, int id_usuario)
         {
             List<string> list = new List<string>();

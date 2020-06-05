@@ -350,12 +350,14 @@ namespace PuntoDeVentaV2
                 txtNoVendidos.Enabled = true;
                 txtNoVendidos.Focus();
                 cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+                FormPrincipal.checkNoVendidos = 1;
             }
             else
             {
                 txtNoVendidos.Enabled = false;
                 txtNoVendidos.Text = string.Empty;
                 cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                FormPrincipal.checkNoVendidos = 0;
             }
         }
 
