@@ -33,7 +33,7 @@ namespace PuntoDeVentaV2
 
         private Paginar p;
         string DataMemberDGV = "Productos";
-        string extra = string.Empty;
+        string extra = string.Empty, extra2 = string.Empty;
         int maximo_x_pagina = 17;
         int clickBoton = 0;
 
@@ -2531,7 +2531,8 @@ namespace PuntoDeVentaV2
         public void CargarDatos(int status = 1, string busqueda = "")
         {
             int idProducto = 0, 
-                countSetUpDinamicos = 0;
+                countSetUpDinamicos = 0,
+                contadorTmp = 0;
 
             string queryHead = string.Empty,
                    queryWhereAnd = string.Empty,
@@ -2542,7 +2543,12 @@ namespace PuntoDeVentaV2
                    queryResultOtherTags = string.Empty,
                    queryAndAdvancedOtherTagsBegin = string.Empty,
                    queryAndAdvancedOtherTags = string.Empty,
-                   queryAndAdvancedOtherTagsEnd = string.Empty;
+                   queryAndAdvancedOtherTagsEnd = string.Empty,
+                   buscarCodigosBarraExtra = string.Empty,
+                   nuevosCodigos = string.Empty,
+                   theNumberAsAString = string.Empty;
+
+            long theNumber;
 
             dictionaryLoad();
 
@@ -2603,15 +2609,35 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                var coincidencias = mb.BusquedaCoincidencias(busqueda);
+                string txtBusqueda = string.Empty;
+                string numBusqueda = string.Empty;
+                string[] separatingStrings = { ") ORDER BY CASE P.ID ", "END " };
+                string[] words;
+
+                words = busqueda.Split(' ');
+
+                foreach (var item in words)
+                {
+                    theNumberAsAString = item;
+                    if (long.TryParse(theNumberAsAString, out theNumber))
+                    {
+                        numBusqueda += theNumberAsAString + " ";
+                    }
+                    else
+                    {
+                        txtBusqueda += theNumberAsAString + " ";
+                    }
+                }
+
+                var coincidencias = mb.BusquedaCoincidencias(txtBusqueda.Trim());
                 // Si hay concidencias de la busqueda de la palabra
                 if (coincidencias.Count > 0)
                 {
                     extra = string.Empty;
                     // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
                     // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
-                    var extra2 = string.Empty;
-                    int contadorTmp = 1;
+                    extra2 = string.Empty;
+                    contadorTmp = 1;
                     var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
                     listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
                     extra += "AND P.ID IN (";
@@ -2631,10 +2657,84 @@ namespace PuntoDeVentaV2
                 else
                 {
                     // Original
-                    extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR P.ClaveInterna LIKE '%{busqueda}%')";
+                    extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
                 }
+
+                // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
+                var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(numBusqueda.Trim());
+
+                if (resultadoCodBarClavInt.Length > 0)
+                {
+                    bool isEmpty = (listaCoincidenciasAux.Count == 0);
+                    if (!isEmpty)
+                    {
+                        foreach (var infoId in resultadoCodBarClavInt)
+                        {
+                            string[] palabras = infoId.Split('|');
+
+                            if (palabras[0].Equals("1"))
+                            {
+                                // Verificar que el ID del producto pertenezca al usuasio
+                                var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(palabras[1].ToString()), FormPrincipal.userID);
+
+                                // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
+                                // se busca directamente con base en su ID sobreescribiendo la variable "extra"
+                                if (verificarUsuario.Length > 0)
+                                {
+                                    bool contieneIDProducto = listaCoincidenciasAux.Contains(new KeyValuePair<int, int>(Convert.ToInt32(palabras[1].ToString()), 1));
+
+                                    if (!contieneIDProducto)
+                                    {
+                                        listaCoincidenciasAux.Add(Convert.ToInt32(palabras[1].ToString()), 1);
+                                    }
+                                }
+                            }
+                            else if (palabras[0].Equals("0"))
+                            {
+                                buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                            }
+                        }
+                        extra = string.Empty;
+                        // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
+                        // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
+                        extra2 = string.Empty;
+                        contadorTmp = 1;
+                        var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
+                        extra += "AND P.ID IN (";
+                        foreach (var producto in listaCoincidencias)
+                        {
+                            extra += $"{producto.Key},";
+                            extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+                            contadorTmp++;
+                        }
+                        // Eliminamos el último caracter que es una coma (,)
+                        extra = extra.Remove(extra.Length - 1);
+                        extra += ") ORDER BY CASE P.ID ";
+                        extra2 += "END ";
+                        // Concatenamos las dos variables para formar por completo la sentencia sql
+                        extra += extra2;
+                        //listaCoincidenciasAux.Clear();
+                    }
+                    else if (isEmpty)
+                    {
+                        listaCoincidenciasAux.Clear();
+                        foreach (var infoId in resultadoCodBarClavInt)
+                        {
+                            string[] palabras = infoId.Split('|');
+
+                            if (palabras[0].Equals("1")) {
+                                extra = $" AND P.ID {palabras[1].ToString()}";
+                            }
+                            else if (palabras[0].Equals("0"))
+                            {
+                                buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                            }
+                        }
+                    }
+                }
+
                 // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
-                var infoProducto = mb.BuscarCodigoBarrasExtra(busqueda.Trim());
+                var infoProducto = mb.BuscarCodigoBarrasExtraFormProductos(buscarCodigosBarraExtra.Trim());
 
                 if (infoProducto.Length > 0)
                 {
@@ -2643,27 +2743,35 @@ namespace PuntoDeVentaV2
                     {
                         foreach (var id in infoProducto)
                         {
-                            // Verificar que el ID del producto pertenezca al usuasio
-                            var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(id), FormPrincipal.userID);
-                            // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
-                            // se busca directamente con base en su ID sobreescribiendo la variable "extra"
-                            if (verificarUsuario.Length > 0)
+                            string[] palabras = id.Split('|');
+                            if (palabras[0].Equals("1"))
                             {
-                                if (!isEmpty)
+                                // Verificar que el ID del producto pertenezca al usuasio
+                                var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(palabras[1].ToString()), FormPrincipal.userID);
+                                // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
+                                // se busca directamente con base en su ID sobreescribiendo la variable "extra"
+                                if (verificarUsuario.Length > 0)
                                 {
-                                    bool contieneIDProducto = listaCoincidenciasAux.Contains(new KeyValuePair<int, int>(Convert.ToInt32(id), 1));
-                                    if (!contieneIDProducto)
+                                    if (!isEmpty)
                                     {
-                                        listaCoincidenciasAux.Add(Convert.ToInt32(id), 1);
+                                        bool contieneIDProducto = listaCoincidenciasAux.Contains(new KeyValuePair<int, int>(Convert.ToInt32(palabras[1].ToString()), 1));
+                                        if (!contieneIDProducto)
+                                        {
+                                            listaCoincidenciasAux.Add(Convert.ToInt32(palabras[1].ToString()), 1);
+                                        }
                                     }
                                 }
+                            }
+                            else if (palabras[0].Equals("0"))
+                            {
+                                nuevosCodigos += palabras[1].ToString() + " ";
                             }
                         }
                         extra = string.Empty;
                         // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
                         // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
-                        var extra2 = string.Empty;
-                        int contadorTmp = 1;
+                        extra2 = string.Empty;
+                        contadorTmp = 1;
                         var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
                         extra += "AND P.ID IN (";
                         foreach (var producto in listaCoincidencias)
@@ -2685,7 +2793,35 @@ namespace PuntoDeVentaV2
                         listaCoincidenciasAux.Clear();
                         foreach (var id in infoProducto)
                         {
-                            extra = $" AND P.ID = {id}";
+                            string[] palabras = id.Split('|');
+                            if (palabras[0].Equals("1"))
+                            {
+                                extra = $" AND P.ID = {id}";
+                            }
+                            else if (palabras[0].Equals("0"))
+                            {
+                                nuevosCodigos += palabras[1].ToString() + " ";
+                            }
+                        }
+                    }
+                }
+
+                if (!nuevosCodigos.Equals(""))
+                {
+                    theNumberAsAString = string.Empty;
+                    theNumber = 0;
+                    string[] nvoCodBar;
+                    nvoCodBar = nuevosCodigos.Split(' ');
+                    foreach (var item in nvoCodBar)
+                    {
+                        theNumberAsAString = item;
+                        if (long.TryParse(theNumberAsAString, out theNumber))
+                        {
+                            var respuesta = MessageBox.Show("El código escaneado: " + theNumberAsAString + "\nno pertenece a un producto existente,\n\t¿Desea Registrarlo?", "Advertencia del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                            if (respuesta == DialogResult.Yes)
+                            {
+                                MessageBox.Show("Iniciando Agregado");
+                            }
                         }
                     }
                 }
@@ -2723,31 +2859,6 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-                        //}
-
                         ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
@@ -2778,31 +2889,6 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
-
-                        //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-                        //}
 
                         ChecarFiltroDinamicoDelSistema();
 
@@ -2844,31 +2930,6 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-                        //}
-
                         ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
@@ -2899,31 +2960,6 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
-
-                        //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-                        //}
 
                         ChecarFiltroDinamicoDelSistema();
 
@@ -2958,31 +2994,6 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
-
-                        //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-                        //}
 
                         ChecarFiltroDinamicoDelSistema();
 
@@ -3023,31 +3034,6 @@ namespace PuntoDeVentaV2
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
 
-                        //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-                        //}
-
                         ChecarFiltroDinamicoDelSistema();
 
                         p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
@@ -3081,31 +3067,6 @@ namespace PuntoDeVentaV2
                         {
                             filtroConSinFiltroAvanzado += queryResultOtherTags;
                         }
-
-                        //if (Properties.Settings.Default.chkFiltroStock.Equals(true) && !Properties.Settings.Default.strFiltroStock.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroStock} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $"AND P.{Properties.Settings.Default.strFiltroPrecio} ";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroPrecio.Equals(true) && !Properties.Settings.Default.strFiltroPrecio.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroPrecio}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroRevisionInventario.Equals(true) && !Properties.Settings.Default.strFiltroRevisionInventario.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroRevisionInventario}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroCombProdServ.Equals(true) && !Properties.Settings.Default.strFiltroCombProdServ.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroCombProdServ}";
-                        //}
-                        //if (Properties.Settings.Default.chkFiltroImagen.Equals(true) && !Properties.Settings.Default.strFiltroImagen.Equals(""))
-                        //{
-                        //    filtroConSinFiltroAvanzado += $" AND P.{Properties.Settings.Default.strFiltroImagen}";
-                        //}
 
                         ChecarFiltroDinamicoDelSistema();
 

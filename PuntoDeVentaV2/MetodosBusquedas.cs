@@ -902,6 +902,44 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] BuscarCodigoBarrasExtraFormProductos(string codigo)
+        {
+            List<string> lista = new List<string>();
+            string[] codigosABuscar;
+
+            if (!string.IsNullOrWhiteSpace(codigo))
+            {
+                codigosABuscar = codigo.Split(' ');
+
+                foreach (var searchCodBar in codigosABuscar)
+                {
+                    //DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{codigo}'");
+                    DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{searchCodBar}'");
+
+                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            if (!string.IsNullOrWhiteSpace(dr["IDProducto"].ToString()))
+                            {
+                                lista.Add("1|" + dr["IDProducto"].ToString());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        lista.Add("0|" + searchCodBar);
+                    }
+
+                    dr.Close();
+                }
+            }
+
+            return lista.ToArray();
+        }
+
         public string ObtenerCBGenerado(int idUsuario)
         {
             string codigo = string.Empty;
@@ -980,13 +1018,14 @@ namespace PuntoDeVentaV2
         {
             Dictionary<int, int> coincidencias = new Dictionary<int, int>();
 
-            string[] palabras = frase.Split(' ');
+            string[] palabras = frase.TrimEnd().Split(' ');
 
             if (palabras.Length > 0)
             {
                 foreach (var palabra in palabras)
                 {
-                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
+                    //DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
+                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
 
                     SQLiteDataReader dr = sql_cmd.ExecuteReader();
 
@@ -1012,6 +1051,43 @@ namespace PuntoDeVentaV2
             }
 
             return coincidencias;
+        }
+
+        public string[] BusquedaCodigosBarrasClaveInterna(string codigo)
+        {
+            List<string> lista = new List<string>();
+
+            string[] palabras = codigo.TrimEnd().Split(' ');
+
+            if (palabras.Length > 0)
+            {
+                foreach (var palabra in palabras)
+                {
+                    //DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
+                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
+
+                    SQLiteDataReader dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            if (!string.IsNullOrWhiteSpace(dr["ID"].ToString()))
+                            {
+                                lista.Add("1|" + dr["ID"].ToString());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        lista.Add("0|" + palabra);
+                    }
+
+                    dr.Close();
+                }
+            }
+
+            return lista.ToArray();
         }
 
         public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, int mPrecio = 0, int mCB = 0)
