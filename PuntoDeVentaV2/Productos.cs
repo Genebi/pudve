@@ -2609,7 +2609,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                string txtBusqueda = string.Empty;
+                string txtBusquedaString = string.Empty;
                 string numBusqueda = string.Empty;
                 string[] separatingStrings = { ") ORDER BY CASE P.ID ", "END " };
                 string[] words;
@@ -2625,11 +2625,11 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        txtBusqueda += theNumberAsAString + " ";
+                        txtBusquedaString += theNumberAsAString + " ";
                     }
                 }
 
-                var coincidencias = mb.BusquedaCoincidencias(txtBusqueda.Trim());
+                var coincidencias = mb.BusquedaCoincidencias(txtBusquedaString.Trim());
                 // Si hay concidencias de la busqueda de la palabra
                 if (coincidencias.Count > 0)
                 {
@@ -2821,6 +2821,15 @@ namespace PuntoDeVentaV2
                             if (respuesta == DialogResult.Yes)
                             {
                                 MessageBox.Show("Iniciando Agregado");
+                            }
+                            else if (respuesta == DialogResult.No)
+                            {
+                                busqueda = txtBusqueda.Text.ToString().Replace(theNumberAsAString, "");
+                                busqueda.Trim();
+                                busqueda.Replace("\\s{2,}", " ");
+                                quitarEspacioEnBlanco();
+                                agregarEspacioAlFinal();
+                                txtBusqueda.Text = busqueda.Trim();
                             }
                         }
                     }
