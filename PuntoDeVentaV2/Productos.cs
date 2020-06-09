@@ -123,6 +123,8 @@ namespace PuntoDeVentaV2
 
         Timer actualizarDGVProductos = new Timer();
 
+        string nuevoCodigoBarrasDeProducto = string.Empty;
+
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -2820,7 +2822,11 @@ namespace PuntoDeVentaV2
                             var respuesta = MessageBox.Show("El código escaneado: " + theNumberAsAString + "\nno pertenece a un producto existente,\n\t¿Desea Registrarlo?", "Advertencia del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                             if (respuesta == DialogResult.Yes)
                             {
-                                MessageBox.Show("Iniciando Agregado");
+                                //MessageBox.Show("Iniciando Agregado");
+                                origenDeLosDatos = 5;
+                                seleccionadoDato = 2;
+                                nuevoCodigoBarrasDeProducto = theNumberAsAString;
+                                btnAgregarProducto.PerformClick();
                             }
                             else if (respuesta == DialogResult.No)
                             {
@@ -3349,6 +3355,11 @@ namespace PuntoDeVentaV2
                 FormAgregar.DatosSource = 4;
                 FormAgregar.Titulo = "Copiar Producto";
             }
+            else if (origenDeLosDatos == 5)
+            {
+                FormAgregar.DatosSource = 5;
+                FormAgregar.Titulo = "Agregar Producto";
+            }
 
             FormAgregar.FormClosed += delegate
             {
@@ -3381,6 +3392,21 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.Show();
                 }
+                else if (seleccionadoDato == 2)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ProdStock = "";
+                    FormAgregar.ProdPrecio = "";
+                    FormAgregar.ProdCategoria = "";
+                    FormAgregar.ProdClaveInterna = "";
+                    FormAgregar.ProdCodBarras = nuevoCodigoBarrasDeProducto;
+                    FormAgregar.claveProductoxml = "";
+                    FormAgregar.claveUnidadMedidaxml = "";
+                    FormAgregar.idEditarProducto = "";
+                    FormAgregar.impuestoSeleccionado = "";
+                    FormAgregar.Show();
+                }
             }
             else
             {
@@ -3404,45 +3430,60 @@ namespace PuntoDeVentaV2
                     FormAgregar.impuestoSeleccionado = impuestoProducto;
                     FormAgregar.Show();
                 }
+                else if (seleccionadoDato == 2)
+                {
+                    seleccionadoDato = 0;
+                    FormAgregar.ProdNombre = "";
+                    FormAgregar.ProdStock = "0";
+                    FormAgregar.ProdPrecio = "0";
+                    FormAgregar.ProdCategoria = "";
+                    FormAgregar.ProdClaveInterna = "";
+                    FormAgregar.ProdCodBarras = nuevoCodigoBarrasDeProducto;
+                    FormAgregar.claveProductoxml = "";
+                    FormAgregar.claveUnidadMedidaxml = "";
+                    FormAgregar.idEditarProducto = "";
+                    FormAgregar.impuestoSeleccionado = "";
+                    FormAgregar.Show();
+                }
             }
 
-            if (origenDeLosDatos == 2 || origenDeLosDatos == 4)
-            {
-                if (!txtBusqueda.Text.Equals(""))
-                {
-                    actualizarDatosDespuesDeAgregarProducto();
-                }
-                else if (txtBusqueda.Text.Equals(""))
-                {
-                    goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
-                    actualizar();
-                }
-            }
-            else if (origenDeLosDatos == 0)
-            {
-                if (txtBusqueda.Text.Equals(""))
-                {
-                    btnUltimaPagina.PerformClick();
-                }
-                else
-                {
-                    actualizarDatosDespuesDeAgregarProducto();
-                }
+            //if (origenDeLosDatos == 2 || origenDeLosDatos == 4 || origenDeLosDatos == 5)
+            //{
+            //    if (!txtBusqueda.Text.Equals(""))
+            //    {
+            //        actualizarDatosDespuesDeAgregarProducto();
+            //    }
+            //    else if (txtBusqueda.Text.Equals(""))
+            //    {
+            //        goToPageNumber(Convert.ToInt32(linkLblPaginaActual.Text));
+            //        actualizar();
+            //    }
+            //}
+            //else if (origenDeLosDatos == 0)
+            //{
+            //    if (txtBusqueda.Text.Equals(""))
+            //    {
+            //        btnUltimaPagina.PerformClick();
+            //    }
+            //    else
+            //    {
+            //        actualizarDatosDespuesDeAgregarProducto();
+            //    }
 
-                int ultimaPagina = p.countPag(), currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
+            //    int ultimaPagina = p.countPag(), currentPage = Convert.ToInt32(linkLblPaginaActual.Text);
 
-                if (currentPage.Equals(ultimaPagina))
-                {
-                    CargarDatos();
-                    ultimaPagina = p.countPag();
-                    goToPageNumber(ultimaPagina);
-                }
-                else if (currentPage < ultimaPagina)
-                {
-                    goToPageNumber(currentPage);
-                }
+            //    if (currentPage.Equals(ultimaPagina))
+            //    {
+            //        CargarDatos();
+            //        ultimaPagina = p.countPag();
+            //        goToPageNumber(ultimaPagina);
+            //    }
+            //    else if (currentPage < ultimaPagina)
+            //    {
+            //        goToPageNumber(currentPage);
+            //    }
                 
-            }
+            //}
 
             origenDeLosDatos = 0;
         }

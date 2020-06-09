@@ -1670,6 +1670,14 @@ namespace PuntoDeVentaV2
                 PrecioCompraXMLNvoProd = PrecioCompraXML;
                 txtPrecioCompra.Text = PrecioCompraXMLNvoProd;
             }
+            else if (DatosSourceFinal == 4)
+            {
+                cargarDatosExtra();
+            }
+            else if (DatosSourceFinal.Equals(5))
+            {
+                txtCodigoBarras.Text = ProdCodBarrasFinal.Trim();
+            }
             else if (!DatosSourceFinal.Equals(3))
             {
                 dtHistorialCompras = cn.CargarDatos(cs.CargarHistorialDeCompras(idProductoFinal));
@@ -1683,10 +1691,6 @@ namespace PuntoDeVentaV2
                 {
                     txtPrecioCompra.Text = "";
                 }
-            }
-            else if (DatosSourceFinal == 4)
-            {
-                cargarDatosExtra();
             }
         }
 
@@ -2237,7 +2241,7 @@ namespace PuntoDeVentaV2
             #endregion Final de Sección Origen (Forma Manual / XML), (Editar) ó ( Hacer Copia)
 
             #region Inicio Sección De Agregar Producto, Combo ó Servicio Desde XML / Botón manual
-            if (DatosSourceFinal == 3 || DatosSourceFinal == 1)
+            if (DatosSourceFinal == 3 || DatosSourceFinal == 1 || DatosSourceFinal == 5)
             {
                 #region Inicio Sección que el precio no sea menor al precio original del producto servicio/combo
                 //Validar que el precio no sea menor al precio original del producto/servicio
@@ -5235,6 +5239,17 @@ namespace PuntoDeVentaV2
                 detalleProductoGeneral.Clear();
                 VerificarDatosDeDetalleProducto();
             }
+            else if (DatosSourceFinal == 5)
+            {
+                txtStockProducto.Enabled = true;
+                cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
+                PCantidadPaqServ.Visible = true;
+                button1.Visible = true;
+                txtPrecioCompra.Enabled = true;
+                detalleProductoBasico.Clear();
+                detalleProductoGeneral.Clear();
+                VerificarDatosDeDetalleProducto();
+            }
 
             if (cadAux == "Producto")           // si es un Producto
             {
@@ -5251,7 +5266,14 @@ namespace PuntoDeVentaV2
                 else if (ProdNombre.Equals(""))
                 {
                     LimpiarCampos();
-                    cargarDatosNvoProd();
+                    if (DatosSourceFinal == 5)
+                    {
+                        cargarDatos();
+                    }
+                    else
+                    {
+                        cargarDatosNvoProd();
+                    }
                     cbTipo.Text = "Producto";
                     btnAdd.Visible = false;
                     ocultarPanel();
@@ -5264,7 +5286,7 @@ namespace PuntoDeVentaV2
                 typeOfProduct = "P";
                 lblTipoProdPaq.Text = "Nombre del Producto";
                 txtCategoriaProducto.Text = cadAux + "s";
-                if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
+                if (DatosSourceFinal == 1 || DatosSourceFinal == 3 || DatosSourceFinal == 5)
                 {
                     tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
                 }
@@ -5305,7 +5327,7 @@ namespace PuntoDeVentaV2
                 typeOfProduct = "PQ";
                 lblTipoProdPaq.Text = "Nombre del Combo";
                 txtCategoriaProducto.Text = cadAux + "s";
-                if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
+                if (DatosSourceFinal == 1 || DatosSourceFinal == 3 || DatosSourceFinal == 5)
                 {
                     tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
                 }
@@ -5346,7 +5368,7 @@ namespace PuntoDeVentaV2
                 typeOfProduct = "S";
                 lblTipoProdPaq.Text = "Nombre del Servicio";
                 txtCategoriaProducto.Text = cadAux + "s";
-                if (DatosSourceFinal == 1 || DatosSourceFinal == 3)
+                if (DatosSourceFinal == 1 || DatosSourceFinal == 3 || DatosSourceFinal == 5)
                 {
                     tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
                 }
