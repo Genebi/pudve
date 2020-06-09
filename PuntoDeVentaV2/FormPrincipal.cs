@@ -69,7 +69,7 @@ namespace PuntoDeVentaV2
         ///Variables de SetUp
         public static int pasar = 0;
         public static int checkNoVendidos = 0;
-        private int diasNoVendidos = 0;
+        public static int diasNoVendidos = 0;
 
         // variables usasadas para que sea estatico los valores y asi en empresas
         // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
@@ -301,8 +301,9 @@ namespace PuntoDeVentaV2
 
         private void btnSesion_Click(object sender, EventArgs e)
         {
-            cerrarAplicacion = true;
-            this.Close();
+            /*cerrarAplicacion = true;
+            this.Close();*/
+            RealizarProcesoProductos();
         }
 
         private void cerrarSesion()
@@ -746,48 +747,61 @@ namespace PuntoDeVentaV2
 
         private void RealizarProcesoProductos()
         {
-            // Comparar la fecha de la ultima venta de ese producto con la fecha de registro
-            // Obtener la diferencia en dias y compararlo con lo de configuracion
-            // Enviar correo
-
-            // Obtener ID de los productos habilitados y buscarlos en la tabla HistorialCompras
-            var productos = mb.ProductosActivos();
-
-            if (productos.Count > 0)
+            try
             {
-                foreach (var producto in productos)
+                var fechaHoy = DateTime.Now;
+                var vendidosTotales = new Dictionary<int, int>();
+
+                // Obtener ID de los productos habilitados y buscarlos en la tabla HistorialCompras
+                var productos = mb.ProductosActivos();
+
+                if (productos.Count > 0)
                 {
-                    if (producto > 0)
+                    foreach (var producto in productos)
                     {
-                        // Si los encuentra obtener la primer fecha (registro del producto)
-                        var fechaRegistro = mb.ObtenerFechaProductoRegistro(producto);
-
-                        // Despues buscar los ID de productos en la tabla ProductosVenta
-                        // Buscar el ultimo registro que aparece en esa tabla del producto en especifico
-                        var idVenta = mb.ObtenerIDVentas(producto);
-
-                        if (fechaRegistro > DateTime.MinValue)
+                        if (producto > 0)
                         {
-                            // Obtener el ID de la venta y buscarlo en la tabla Ventas y obtener la fecha de esa venta
-                            var fechaVenta = mb.ObtenerFechaVentaProducto(idVenta);
+                            // Si los encuentra obtener la primer fecha (registro del producto)
+                            var fechaRegistro = mb.ObtenerFechaProductoRegistro(producto);
 
-                            var dias = 0;
-
-                            if (fechaVenta > DateTime.MinValue)
+                            // Despues buscar los ID de productos en la tabla ProductosVenta
+                            // Buscar el ultimo registro que aparece en esa tabla del producto en especifico
+                            if (fechaRegistro > DateTime.MinValue)
                             {
-                                dias = (fechaVenta - fechaRegistro).Days;
-                            }
-                            else
-                            {
-                                dias = (fechaRegistro - fechaVenta).Days;
-                            }
+                                var ventas = mb.ObtenerIDVentas(producto);
+                                var vendidos = 0;
 
-                            Console.WriteLine($"Registro: {fechaRegistro} --- Venta: {fechaVenta} --- Dias: {dias}");
+                                if (ventas.Count > 0)
+                                {
+                                    foreach (var venta in ventas)
+                                    {
+                                        // Obtener el ID de la venta y buscarlo en la tabla Ventas y obtener la fecha de esa venta
+                                        var fechaVenta = mb.ObtenerFechaVentaProducto(venta);
+
+                                        if (fechaVenta >= fechaRegistro && fechaVenta <= fechaHoy)
+                                        {
+                                            vendidos++;
+                                        }
+                                    }
+
+                                    vendidosTotales.Add(producto, vendidos);
+                                }
+                            }
                         }
                     }
-                }
 
-                MessageBox.Show("Listo");
+                    // Enviar correo
+                    foreach (var vendido in vendidosTotales)
+                    {
+                        Console.WriteLine($"ID Producto: {vendido.Key} | Vendidos: {vendido.Value}");
+                    }
+
+                    MessageBox.Show("Listo");
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

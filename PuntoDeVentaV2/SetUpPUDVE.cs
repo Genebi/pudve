@@ -370,6 +370,8 @@ namespace PuntoDeVentaV2
                 cantidad = "0";
             }
 
+            FormPrincipal.diasNoVendidos = Convert.ToInt32(cantidad);
+
             cn.EjecutarConsulta($"UPDATE Configuracion SET diasNoVendidos = {cantidad} WHERE IDUsuario = {FormPrincipal.userID}");
         }
     }

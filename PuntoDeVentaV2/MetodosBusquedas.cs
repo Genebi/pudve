@@ -1806,7 +1806,7 @@ namespace PuntoDeVentaV2
         {
             var lista = new List<int>();
 
-            DatosConexion($"SELECT ID FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1");
+            DatosConexion($"SELECT ID FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P'");
 
             var dr = sql_cmd.ExecuteReader();
 
@@ -1829,7 +1829,7 @@ namespace PuntoDeVentaV2
         {
             DateTime fecha = new DateTime();
 
-            DatosConexion($"SELECT FechaLarga FROM HistorialCompras WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND TipoAjuste = 1 LIMIT 1");
+            DatosConexion($"SELECT FechaLarga FROM HistorialCompras WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND (TipoAjuste = 0 OR TIpoAjuste = 1) LIMIT 1");
 
             var dr = sql_cmd.ExecuteReader();
 
@@ -1843,22 +1843,30 @@ namespace PuntoDeVentaV2
             return fecha;
         }
 
-        public int ObtenerIDVentas(int idProducto)
+        public List<int> ObtenerIDVentas(int idProducto)
         {
-            var venta = 0;
+            var lista = new List<int>();
 
-            DatosConexion($"SELECT IDVenta FROM ProductosVenta WHERE IDProducto = {idProducto} ORDER BY ID DESC LIMIT 1");
+            DatosConexion($"SELECT IDVenta FROM ProductosVenta WHERE IDProducto = {idProducto}");
 
             var dr = sql_cmd.ExecuteReader();
 
-            if (dr.Read())
+            if (dr.HasRows)
             {
-                venta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDVenta")));
+                while (dr.Read())
+                {
+                    var venta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDVenta")));
+
+                    if (venta > 0)
+                    {
+                        lista.Add(venta);
+                    }
+                }
             }
 
             dr.Close();
 
-            return venta;
+            return lista;
         }
 
 
