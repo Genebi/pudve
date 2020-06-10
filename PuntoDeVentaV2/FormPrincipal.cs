@@ -804,33 +804,14 @@ namespace PuntoDeVentaV2
 
                     if (vendidosTotales.Count > 0)
                     {
-                        // Enviar correo
-                        var vendidosFinales = vendidosTotales.OrderBy(pair => pair.Value.Item1).Take(30);
+                        // Enviar correo de los mas y menos vendidos
+                        string[] datos;
 
-                        var asunto = "Top 30 productos menos vendidos";
-                        var email = datosUsuario[9];
+                        datos = new string[] { "menos", "MENOS" };
+                        CorreoVendidos(datos, vendidosTotales, 1);
 
-                        var html = @"
-                        <div>
-                            <h4 style='text-align: center;'>TOP 30 PRODUCTOS MENOS VENDIDOS</h4><hr>
-                            <ol style='color: red; font-size: 0.8em;'>";
-
-                        foreach (var vendido in vendidosFinales)
-                        {
-                            var producto = cn.BuscarProducto(vendido.Key, userID);
-
-                            html += $@"<li>
-                                            {producto[1]} <span style='color: black'>--- 
-                                            VENDIDOS:</span> {vendido.Value.Item1} <span style='color: black'>--- 
-                                            ULTIMA VENTA:</span> {vendido.Value.Item2}
-                                       </li>";
-                        }
-
-                        html += @"
-                            </ol>
-                        </div>";
-
-                        Utilidades.EnviarEmail(html, asunto, email);
+                        datos = new string[] { "más", "MAS" };
+                        CorreoVendidos(datos, vendidosTotales, 2);
                     }
                 }
             }
@@ -838,6 +819,59 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void CorreoVendidos(string[] datos, Dictionary<int, Tuple<int, string>> vendidos, int tipo)
+        {
+            IEnumerable<KeyValuePair<int, Tuple<int, string>>> vendidosFinales;
+
+            var asunto = $"Top 30 productos {datos[0]} vendidos";
+            var email = datosUsuario[9];
+
+            var html = $@"
+                        <div>
+                            <h4 style='text-align: center;'>TOP 30 PRODUCTOS {datos[1]} VENDIDOS</h4><hr>
+                            <ol style='color: red; font-size: 0.8em;'>";
+
+            // Menos vendidos
+            if (tipo == 1)
+            {
+                vendidosFinales = vendidos.OrderBy(pair => pair.Value.Item1).Take(30);
+
+                foreach (var vendido in vendidosFinales)
+                {
+                    var producto = cn.BuscarProducto(vendido.Key, userID);
+
+                    html += $@"<li>
+                            {producto[1]} <span style='color: black'>--- 
+                            VENDIDOS:</span> {vendido.Value.Item1} <span style='color: black'>--- 
+                            ULTIMA VENTA:</span> {vendido.Value.Item2}
+                        </li>";
+                }
+            }
+
+            // Mas vendidos
+            if (tipo == 2)
+            {
+                vendidosFinales = vendidos.OrderByDescending(pair => pair.Value.Item1).Take(30);
+
+                foreach (var vendido in vendidosFinales)
+                {
+                    var producto = cn.BuscarProducto(vendido.Key, userID);
+
+                    html += $@"<li>
+                            {producto[1]} <span style='color: black'>--- 
+                            VENDIDOS:</span> {vendido.Value.Item1} <span style='color: black'>--- 
+                            ULTIMA VENTA:</span> {vendido.Value.Item2}
+                        </li>";
+                }
+            }
+
+            html += @"
+                    </ol>
+                </div>";
+
+            Utilidades.EnviarEmail(html, asunto, email);
         }
     }
 }
