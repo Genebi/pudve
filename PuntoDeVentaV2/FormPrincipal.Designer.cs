@@ -399,7 +399,7 @@
             // timerProductos
             // 
             this.timerProductos.Enabled = true;
-            this.timerProductos.Interval = 60000;
+            this.timerProductos.Interval = 180000;
             this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
             // 
             // FormPrincipal
