@@ -301,9 +301,8 @@ namespace PuntoDeVentaV2
 
         private void btnSesion_Click(object sender, EventArgs e)
         {
-            /*cerrarAplicacion = true;
-            this.Close();*/
-            RealizarProcesoProductos();
+            cerrarAplicacion = true;
+            this.Close();
         }
 
         private void cerrarSesion()
@@ -733,13 +732,24 @@ namespace PuntoDeVentaV2
         {
             if (checkNoVendidos == 1)
             {
-                if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-                {
-                    Thread hilo = new Thread(() => RealizarProcesoProductos());
+                var ultimaFecha = datosUsuario[15];
+                var fechaHoy = DateTime.Now.ToString("yyyy-MM-dd");
 
-                    if (!hilo.IsAlive)
+                if (!ultimaFecha.Equals(fechaHoy))
+                {
+                    if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
                     {
-                        hilo.Start();
+                        Thread hilo = new Thread(() => RealizarProcesoProductos());
+
+                        if (!hilo.IsAlive)
+                        {
+                            hilo.Start();
+                        }
+
+                        // Actualizar fecha y variable de datos de usuario
+                        cn.EjecutarConsulta($"UPDATE Usuarios SET FechaHoy = '{fechaHoy}' WHERE ID = {userID}");
+
+                        datosUsuario[15] = fechaHoy;
                     }
                 }
             }
@@ -750,7 +760,7 @@ namespace PuntoDeVentaV2
             try
             {
                 var fechaHoy = DateTime.Now;
-                var vendidosTotales = new Dictionary<int, int>();
+                var vendidosTotales = new Dictionary<int, Tuple<int, string>>();
 
                 // Obtener ID de los productos habilitados y buscarlos en la tabla HistorialCompras
                 var productos = mb.ProductosActivos();
@@ -770,36 +780,61 @@ namespace PuntoDeVentaV2
                             {
                                 var ventas = mb.ObtenerIDVentas(producto);
                                 var vendidos = 0;
+                                var fechaUltimaVenta = "N/A";
 
                                 if (ventas.Count > 0)
                                 {
                                     foreach (var venta in ventas)
                                     {
                                         // Obtener el ID de la venta y buscarlo en la tabla Ventas y obtener la fecha de esa venta
-                                        var fechaVenta = mb.ObtenerFechaVentaProducto(venta);
+                                        var fechaVenta = mb.ObtenerFechaVentaProducto(venta.Key);
 
                                         if (fechaVenta >= fechaRegistro && fechaVenta <= fechaHoy)
                                         {
-                                            vendidos++;
+                                            vendidos += venta.Value;
+                                            fechaUltimaVenta = fechaVenta.ToString();
                                         }
                                     }
-
-                                    vendidosTotales.Add(producto, vendidos);
                                 }
+
+                                vendidosTotales.Add(producto, new Tuple<int, string>(vendidos, fechaUltimaVenta));
                             }
                         }
                     }
 
-                    // Enviar correo
-                    foreach (var vendido in vendidosTotales)
+                    if (vendidosTotales.Count > 0)
                     {
-                        Console.WriteLine($"ID Producto: {vendido.Key} | Vendidos: {vendido.Value}");
-                    }
+                        // Enviar correo
+                        var vendidosFinales = vendidosTotales.OrderBy(pair => pair.Value.Item1).Take(30);
 
-                    MessageBox.Show("Listo");
+                        var asunto = "Top 30 productos menos vendidos";
+                        var email = datosUsuario[9];
+
+                        var html = @"
+                        <div>
+                            <h4 style='text-align: center;'>TOP 30 PRODUCTOS MENOS VENDIDOS</h4><hr>
+                            <ol style='color: red; font-size: 0.8em;'>";
+
+                        foreach (var vendido in vendidosFinales)
+                        {
+                            var producto = cn.BuscarProducto(vendido.Key, userID);
+
+                            html += $@"<li>
+                                            {producto[1]} <span style='color: black'>--- 
+                                            VENDIDOS:</span> {vendido.Value.Item1} <span style='color: black'>--- 
+                                            ULTIMA VENTA:</span> {vendido.Value.Item2}
+                                       </li>";
+                        }
+
+                        html += @"
+                            </ol>
+                        </div>";
+
+                        Utilidades.EnviarEmail(html, asunto, email);
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

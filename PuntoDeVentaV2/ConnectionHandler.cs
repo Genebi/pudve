@@ -204,11 +204,10 @@ namespace PuntoDeVentaV2
                     int actualizarUsr = upDateUsr.ExecuteNonQuery();
                     conexion.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    MessageBox.Show("Error al Tratar de Actualizar Usuarios; Causa: " + ex.Message.ToString(), "Error de Update Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error al Tratar de Actualizar Usuarios; Causa: " + ex.Message.ToString(), "Error de Update Usuarios", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
         }
 

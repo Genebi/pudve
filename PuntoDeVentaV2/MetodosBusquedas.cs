@@ -1843,11 +1843,11 @@ namespace PuntoDeVentaV2
             return fecha;
         }
 
-        public List<int> ObtenerIDVentas(int idProducto)
+        public List<KeyValuePair<int, int>> ObtenerIDVentas(int idProducto)
         {
-            var lista = new List<int>();
+            var lista = new List<KeyValuePair<int, int>>();
 
-            DatosConexion($"SELECT IDVenta FROM ProductosVenta WHERE IDProducto = {idProducto}");
+            DatosConexion($"SELECT IDVenta, Cantidad FROM ProductosVenta WHERE IDProducto = {idProducto}");
 
             var dr = sql_cmd.ExecuteReader();
 
@@ -1856,10 +1856,11 @@ namespace PuntoDeVentaV2
                 while (dr.Read())
                 {
                     var venta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDVenta")));
+                    var cantidad = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Cantidad")));
 
                     if (venta > 0)
                     {
-                        lista.Add(venta);
+                        lista.Add(new KeyValuePair<int, int>(venta, cantidad));
                     }
                 }
             }
