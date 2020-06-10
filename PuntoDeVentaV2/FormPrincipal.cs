@@ -68,8 +68,8 @@ namespace PuntoDeVentaV2
 
         ///Variables de SetUp
         public static int pasar = 0;
-        private int checkNoVendidos = 0;
-        private int diasNoVendidos = 0;
+        public static int checkNoVendidos = 0;
+        public static int diasNoVendidos = 0;
 
         // variables usasadas para que sea estatico los valores y asi en empresas
         // se agrege tambien la cuenta principal y poder hacer que regresemos a ella
@@ -732,26 +732,112 @@ namespace PuntoDeVentaV2
         {
             if (checkNoVendidos == 1)
             {
-                //Thread hilo = new Thread(() => RealizarProcesoProductos());
+                var ultimaFecha = datosUsuario[15];
+                var fechaHoy = DateTime.Now.ToString("yyyy-MM-dd");
 
-                //if (!hilo.IsAlive)
-                //{
-                //    hilo.Start();
-                //}
+                if (!ultimaFecha.Equals(fechaHoy))
+                {
+                    if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+                    {
+                        Thread hilo = new Thread(() => RealizarProcesoProductos());
+
+                        if (!hilo.IsAlive)
+                        {
+                            hilo.Start();
+                        }
+
+                        // Actualizar fecha y variable de datos de usuario
+                        cn.EjecutarConsulta($"UPDATE Usuarios SET FechaHoy = '{fechaHoy}' WHERE ID = {userID}");
+
+                        datosUsuario[15] = fechaHoy;
+                    }
+                }
             }
         }
 
         private void RealizarProcesoProductos()
         {
-            // Obtener ID de los productos habilitados
-            // Buscarlos en la tabla HistorialCompras
-            // Si los encuentra obtener la primer fecha (registro del producto)
-            // Despues buscar los ID de productos en la tabla ProductosVenta
-            // Buscar el ultimo registro que aparece en esa tabla del producto en especifico
-            // Obtener el ID de la venta y buscarlo en la tabla Ventas
-            // 
+            try
+            {
+                var fechaHoy = DateTime.Now;
+                var vendidosTotales = new Dictionary<int, Tuple<int, string>>();
 
-            //MessageBox.Show("Test");
+                // Obtener ID de los productos habilitados y buscarlos en la tabla HistorialCompras
+                var productos = mb.ProductosActivos();
+
+                if (productos.Count > 0)
+                {
+                    foreach (var producto in productos)
+                    {
+                        if (producto > 0)
+                        {
+                            // Si los encuentra obtener la primer fecha (registro del producto)
+                            var fechaRegistro = mb.ObtenerFechaProductoRegistro(producto);
+
+                            // Despues buscar los ID de productos en la tabla ProductosVenta
+                            // Buscar el ultimo registro que aparece en esa tabla del producto en especifico
+                            if (fechaRegistro > DateTime.MinValue)
+                            {
+                                var ventas = mb.ObtenerIDVentas(producto);
+                                var vendidos = 0;
+                                var fechaUltimaVenta = "N/A";
+
+                                if (ventas.Count > 0)
+                                {
+                                    foreach (var venta in ventas)
+                                    {
+                                        // Obtener el ID de la venta y buscarlo en la tabla Ventas y obtener la fecha de esa venta
+                                        var fechaVenta = mb.ObtenerFechaVentaProducto(venta.Key);
+
+                                        if (fechaVenta >= fechaRegistro && fechaVenta <= fechaHoy)
+                                        {
+                                            vendidos += venta.Value;
+                                            fechaUltimaVenta = fechaVenta.ToString();
+                                        }
+                                    }
+                                }
+
+                                vendidosTotales.Add(producto, new Tuple<int, string>(vendidos, fechaUltimaVenta));
+                            }
+                        }
+                    }
+
+                    if (vendidosTotales.Count > 0)
+                    {
+                        // Enviar correo
+                        var vendidosFinales = vendidosTotales.OrderBy(pair => pair.Value.Item1).Take(30);
+
+                        var asunto = "Top 30 productos menos vendidos";
+                        var email = datosUsuario[9];
+
+                        var html = @"
+                        <div>
+                            <h4 style='text-align: center;'>TOP 30 PRODUCTOS MENOS VENDIDOS</h4><hr>
+                            <ol style='color: red; font-size: 0.8em;'>";
+
+                        foreach (var vendido in vendidosFinales)
+                        {
+                            var producto = cn.BuscarProducto(vendido.Key, userID);
+
+                            html += $@"<li>
+                                            {producto[1]} <span style='color: black'>--- 
+                                            VENDIDOS:</span> {vendido.Value.Item1} <span style='color: black'>--- 
+                                            ULTIMA VENTA:</span> {vendido.Value.Item2}
+                                       </li>";
+                        }
+
+                        html += @"
+                            </ol>
+                        </div>";
+
+                        Utilidades.EnviarEmail(html, asunto, email);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                //MessageBox.Show(ex.Message.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

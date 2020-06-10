@@ -442,6 +442,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["VerificacionNS"].ToString());
                 lista.Add(dr["ID"].ToString());
                 lista.Add(dr["Password"].ToString());
+                lista.Add(dr["FechaHoy"].ToString());
             }
 
             dr.Close();
