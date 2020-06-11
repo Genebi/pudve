@@ -149,5 +149,17 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            var busqueda = txtBuscador.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(busqueda))
+            {
+                return;
+            }
+
+            MessageBox.Show(busqueda);
+        }
     }
 }
