@@ -38,10 +38,10 @@
             this.Editar = new System.Windows.Forms.DataGridViewImageColumn();
             this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnBuscar = new System.Windows.Forms.Button();
+            this.txtBuscador = new System.Windows.Forms.TextBox();
             this.btnNuevoProveedor = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
-            this.txtBuscador = new System.Windows.Forms.TextBox();
-            this.btnBuscar = new System.Windows.Forms.Button();
             this.panelAbajo = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkLblUltimaPagina = new System.Windows.Forms.LinkLabel();
@@ -156,6 +156,33 @@
             this.panelBotones.Size = new System.Drawing.Size(845, 50);
             this.panelBotones.TabIndex = 10;
             // 
+            // btnBuscar
+            // 
+            this.btnBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscar.FlatAppearance.BorderSize = 0;
+            this.btnBuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnBuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscar.ForeColor = System.Drawing.Color.White;
+            this.btnBuscar.Location = new System.Drawing.Point(393, 18);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 24);
+            this.btnBuscar.TabIndex = 7;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
+            // 
+            // txtBuscador
+            // 
+            this.txtBuscador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtBuscador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscador.Location = new System.Drawing.Point(4, 18);
+            this.txtBuscador.Name = "txtBuscador";
+            this.txtBuscador.Size = new System.Drawing.Size(383, 23);
+            this.txtBuscador.TabIndex = 6;
+            // 
             // btnNuevoProveedor
             // 
             this.btnNuevoProveedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -186,33 +213,6 @@
             this.tituloSeccion.TabIndex = 9;
             this.tituloSeccion.Text = "PROVEEDORES";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // txtBuscador
-            // 
-            this.txtBuscador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBuscador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscador.Location = new System.Drawing.Point(4, 18);
-            this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(383, 23);
-            this.txtBuscador.TabIndex = 6;
-            // 
-            // btnBuscar
-            // 
-            this.btnBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnBuscar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBuscar.FlatAppearance.BorderSize = 0;
-            this.btnBuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnBuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Location = new System.Drawing.Point(393, 18);
-            this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(75, 24);
-            this.btnBuscar.TabIndex = 7;
-            this.btnBuscar.Text = "Buscar";
-            this.btnBuscar.UseVisualStyleBackColor = false;
-            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // panelAbajo
             // 
@@ -263,6 +263,7 @@
             this.btnSiguiente.TabIndex = 11;
             this.btnSiguiente.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnSiguiente.UseVisualStyleBackColor = false;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
             // btnUltimaPagina
             // 
@@ -278,6 +279,7 @@
             this.btnUltimaPagina.TabIndex = 12;
             this.btnUltimaPagina.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnUltimaPagina.UseVisualStyleBackColor = false;
+            this.btnUltimaPagina.Click += new System.EventHandler(this.btnUltimaPagina_Click);
             // 
             // panel3
             // 
@@ -304,6 +306,7 @@
             this.btnPrimeraPagina.TabIndex = 9;
             this.btnPrimeraPagina.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPrimeraPagina.UseVisualStyleBackColor = false;
+            this.btnPrimeraPagina.Click += new System.EventHandler(this.btnPrimeraPagina_Click);
             // 
             // btnAnterior
             // 
@@ -319,6 +322,7 @@
             this.btnAnterior.TabIndex = 10;
             this.btnAnterior.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAnterior.UseVisualStyleBackColor = false;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
             // linkLblPrimeraPagina
             // 
@@ -343,6 +347,7 @@
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "4";
+            this.linkLblPaginaSiguiente.Click += new System.EventHandler(this.linkLblPaginaSiguiente_Click);
             // 
             // linkLblPaginaActual
             // 
@@ -356,6 +361,7 @@
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "3";
+            this.linkLblPaginaActual.Click += new System.EventHandler(this.linkLblPaginaActual_Click);
             // 
             // linkLblPaginaAnterior
             // 
@@ -369,6 +375,7 @@
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
+            this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
             // 
             // Proveedores
             // 

@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
         // s_query              =   El query que proviene del sistema
         // s_datamember         =   Se asigna al datagridview despues del datasource
         // i_cantidadxpagina    =   Cantidad de registros por pagina
-        public Paginar(String s_query, String s_datamember, int i_cantidadxpagina)
+        public Paginar(string s_query, string s_datamember, int i_cantidadxpagina)
         {
             this._query = s_query;              // le asignamos la consulta que se le paso del sistema
             this._datamember = s_datamember;    // le asignamos a que tabla se va dirigir la consulta

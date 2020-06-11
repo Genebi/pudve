@@ -16,6 +16,10 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
+        private Paginar p;
+        string DataMemberDGV = "Proveedores";
+        int maximo_x_pagina = 4;
+
         public Proveedores()
         {
             InitializeComponent();
@@ -24,48 +28,92 @@ namespace PuntoDeVentaV2
         private void Proveedores_Load(object sender, EventArgs e)
         {
             CargarDatos();
+            ActualizarPaginador();
         }
 
         private void CargarDatos()
         {
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
-
-            sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            sql_con.Open();
-
             var consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
 
-            sql_cmd = new SQLiteCommand(consulta, sql_con);
+            p = new Paginar(consulta, DataMemberDGV, maximo_x_pagina);
 
-            dr = sql_cmd.ExecuteReader();
+            DGVProveedores.Rows.Clear();
+
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
 
             Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
             Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
 
-            DGVProveedores.Rows.Clear();
-
-            while (dr.Read())
+            foreach (DataRow fila in dtDatos.Rows)
             {
                 int rowId = DGVProveedores.Rows.Add();
 
                 DataGridViewRow row = DGVProveedores.Rows[rowId];
 
-                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-                row.Cells["Nombre"].Value = dr.GetValue(dr.GetOrdinal("Nombre"));
-                row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
-                row.Cells["Email"].Value = dr.GetValue(dr.GetOrdinal("Email"));
-                row.Cells["Telefono"].Value = dr.GetValue(dr.GetOrdinal("Telefono"));
-                row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                row.Cells["ID"].Value = fila["ID"].ToString();
+                row.Cells["Nombre"].Value = fila["Nombre"].ToString();
+                row.Cells["RFC"].Value = fila["RFC"].ToString();
+                row.Cells["Email"].Value = fila["Email"].ToString();
+                row.Cells["Telefono"].Value = fila["Telefono"].ToString();
+                row.Cells["Fecha"].Value = Convert.ToDateTime(fila["FechaOperacion"]).ToString("yyyy-MM-dd HH:mm:ss");
                 row.Cells["Editar"].Value = editar;
                 row.Cells["Eliminar"].Value = eliminar;
             }
 
-            DGVProveedores.ClearSelection();
+            //DGVProveedores.ClearSelection();
 
-            dr.Close();
-            sql_con.Close();
+            ActualizarPaginador();
+        }
+
+
+        private void ActualizarPaginador()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = Color.White;
+            linkLblPaginaActual.BackColor = Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
         }
 
         private void btnNuevoProveedor_Click(object sender, EventArgs e)
@@ -160,6 +208,53 @@ namespace PuntoDeVentaV2
             }
 
             MessageBox.Show(busqueda);
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            ActualizarPaginador();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            CargarDatos();
+            ActualizarPaginador();
         }
     }
 }
