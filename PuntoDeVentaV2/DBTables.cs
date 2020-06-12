@@ -79,7 +79,7 @@ namespace PuntoDeVentaV2
             Proveedores = 15;
             RegimenDeUsuarios = 2;
             RegimenFiscal = 7;
-            Usuarios = 23;
+            Usuarios = 24;
             Ventas = 26;
             Clientes = 23;
             RevisarInventario = 17;
@@ -1226,7 +1226,8 @@ namespace PuntoDeVentaV2
                                               VerificacionNS      INTEGER DEFAULT (0),
                                               num_certificado     TEXT,
                                               fecha_caducidad_cer TEXT,
-                                              password_cer        TEXT);";
+                                              password_cer        TEXT,
+                                              FechaHoy            TEXT    DEFAULT [0000-00-00]);";
         }
 
         public string QueryUpdateTablaUsuarios(string tabla)
@@ -1250,7 +1251,10 @@ namespace PuntoDeVentaV2
                                              TipoPersona,
                                              LogoTipo,
                                              Referencia_ID,
-                                             VerificacionNS) 
+                                             VerificacionNS,
+                                             num_certificado,
+                                             fecha_caducidad_cer,
+                                             password_cer) 
                                       SELECT ID,
                                              Usuario,
                                              Password,
@@ -1270,7 +1274,10 @@ namespace PuntoDeVentaV2
                                              TipoPersona,
                                              LogoTipo,
                                              Referencia_ID,
-                                             VerificacionNS 
+                                             VerificacionNS,
+                                             num_certificado,
+                                             fecha_caducidad_cer,
+                                             password_cer 
                                         FROM '{tabla}_temp';";
         }
 

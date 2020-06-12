@@ -2662,147 +2662,154 @@ namespace PuntoDeVentaV2
                     extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
                 }
 
-                // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
-                var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(numBusqueda.Trim());
-
-                if (resultadoCodBarClavInt.Length > 0)
+                if (!numBusqueda.Equals(""))
                 {
-                    bool isEmpty = (listaCoincidenciasAux.Count == 0);
-                    if (!isEmpty)
+                    // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
+                    var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(numBusqueda.Trim());
+
+                    if (resultadoCodBarClavInt.Length > 0)
                     {
-                        foreach (var infoId in resultadoCodBarClavInt)
+                        bool isEmpty = (listaCoincidenciasAux.Count == 0);
+                        if (!isEmpty)
                         {
-                            string[] palabras = infoId.Split('|');
-
-                            if (palabras[0].Equals("1"))
+                            foreach (var infoId in resultadoCodBarClavInt)
                             {
-                                // Verificar que el ID del producto pertenezca al usuasio
-                                var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(palabras[1].ToString()), FormPrincipal.userID);
+                                string[] palabras = infoId.Split('|');
 
-                                // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
-                                // se busca directamente con base en su ID sobreescribiendo la variable "extra"
-                                if (verificarUsuario.Length > 0)
+                                if (palabras[0].Equals("1"))
                                 {
-                                    bool contieneIDProducto = listaCoincidenciasAux.Contains(new KeyValuePair<int, int>(Convert.ToInt32(palabras[1].ToString()), 1));
+                                    // Verificar que el ID del producto pertenezca al usuasio
+                                    var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(palabras[1].ToString()), FormPrincipal.userID);
 
-                                    if (!contieneIDProducto)
-                                    {
-                                        listaCoincidenciasAux.Add(Convert.ToInt32(palabras[1].ToString()), 1);
-                                    }
-                                }
-                            }
-                            else if (palabras[0].Equals("0"))
-                            {
-                                buscarCodigosBarraExtra += palabras[1].ToString() + " ";
-                            }
-                        }
-                        extra = string.Empty;
-                        // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
-                        // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
-                        extra2 = string.Empty;
-                        contadorTmp = 1;
-                        var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
-                        extra += "AND P.ID IN (";
-                        foreach (var producto in listaCoincidencias)
-                        {
-                            extra += $"{producto.Key},";
-                            extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
-                            contadorTmp++;
-                        }
-                        // Eliminamos el último caracter que es una coma (,)
-                        extra = extra.Remove(extra.Length - 1);
-                        extra += ") ORDER BY CASE P.ID ";
-                        extra2 += "END ";
-                        // Concatenamos las dos variables para formar por completo la sentencia sql
-                        extra += extra2;
-                        //listaCoincidenciasAux.Clear();
-                    }
-                    else if (isEmpty)
-                    {
-                        listaCoincidenciasAux.Clear();
-                        foreach (var infoId in resultadoCodBarClavInt)
-                        {
-                            string[] palabras = infoId.Split('|');
-
-                            if (palabras[0].Equals("1")) {
-                                extra = $" AND P.ID {palabras[1].ToString()}";
-                            }
-                            else if (palabras[0].Equals("0"))
-                            {
-                                buscarCodigosBarraExtra += palabras[1].ToString() + " ";
-                            }
-                        }
-                    }
-                }
-
-                // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
-                var infoProducto = mb.BuscarCodigoBarrasExtraFormProductos(buscarCodigosBarraExtra.Trim());
-
-                if (infoProducto.Length > 0)
-                {
-                    bool isEmpty = (listaCoincidenciasAux.Count == 0);
-                    if (!isEmpty)
-                    {
-                        foreach (var id in infoProducto)
-                        {
-                            string[] palabras = id.Split('|');
-                            if (palabras[0].Equals("1"))
-                            {
-                                // Verificar que el ID del producto pertenezca al usuasio
-                                var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(palabras[1].ToString()), FormPrincipal.userID);
-                                // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
-                                // se busca directamente con base en su ID sobreescribiendo la variable "extra"
-                                if (verificarUsuario.Length > 0)
-                                {
-                                    if (!isEmpty)
+                                    // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
+                                    // se busca directamente con base en su ID sobreescribiendo la variable "extra"
+                                    if (verificarUsuario.Length > 0)
                                     {
                                         bool contieneIDProducto = listaCoincidenciasAux.Contains(new KeyValuePair<int, int>(Convert.ToInt32(palabras[1].ToString()), 1));
+
                                         if (!contieneIDProducto)
                                         {
                                             listaCoincidenciasAux.Add(Convert.ToInt32(palabras[1].ToString()), 1);
                                         }
                                     }
                                 }
+                                else if (palabras[0].Equals("0"))
+                                {
+                                    buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                                }
                             }
-                            else if (palabras[0].Equals("0"))
+                            extra = string.Empty;
+                            // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
+                            // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
+                            extra2 = string.Empty;
+                            contadorTmp = 1;
+                            var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
+                            extra += "AND P.ID IN (";
+                            foreach (var producto in listaCoincidencias)
                             {
-                                nuevosCodigos += palabras[1].ToString() + " ";
+                                extra += $"{producto.Key},";
+                                extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+                                contadorTmp++;
+                            }
+                            // Eliminamos el último caracter que es una coma (,)
+                            extra = extra.Remove(extra.Length - 1);
+                            extra += ") ORDER BY CASE P.ID ";
+                            extra2 += "END ";
+                            // Concatenamos las dos variables para formar por completo la sentencia sql
+                            extra += extra2;
+                            //listaCoincidenciasAux.Clear();
+                        }
+                        else if (isEmpty)
+                        {
+                            listaCoincidenciasAux.Clear();
+                            foreach (var infoId in resultadoCodBarClavInt)
+                            {
+                                string[] palabras = infoId.Split('|');
+
+                                if (palabras[0].Equals("1"))
+                                {
+                                    extra = $" AND P.ID {palabras[1].ToString()}";
+                                }
+                                else if (palabras[0].Equals("0"))
+                                {
+                                    buscarCodigosBarraExtra += palabras[1].ToString() + " ";
+                                }
                             }
                         }
-                        extra = string.Empty;
-                        // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
-                        // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
-                        extra2 = string.Empty;
-                        contadorTmp = 1;
-                        var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
-                        extra += "AND P.ID IN (";
-                        foreach (var producto in listaCoincidencias)
-                        {
-                            extra += $"{producto.Key},";
-                            extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
-                            contadorTmp++;
-                        }
-                        // Eliminamos el último caracter que es una coma (,)
-                        extra = extra.Remove(extra.Length - 1);
-                        extra += ") ORDER BY CASE P.ID ";
-                        extra2 += "END ";
-                        // Concatenamos las dos variables para formar por completo la sentencia sql
-                        extra += extra2;
-                        listaCoincidenciasAux.Clear();
                     }
-                    else if (isEmpty)
+                }
+
+                if (!buscarCodigosBarraExtra.Equals(""))
+                {
+                    // Verificar si la variable busqueda es un codigo de barras y existe en la tabla CodigoBarrasExtras
+                    var infoProducto = mb.BuscarCodigoBarrasExtraFormProductos(buscarCodigosBarraExtra.Trim());
+
+                    if (infoProducto.Length > 0)
                     {
-                        listaCoincidenciasAux.Clear();
-                        foreach (var id in infoProducto)
+                        bool isEmpty = (listaCoincidenciasAux.Count == 0);
+                        if (!isEmpty)
                         {
-                            string[] palabras = id.Split('|');
-                            if (palabras[0].Equals("1"))
+                            foreach (var id in infoProducto)
                             {
-                                extra = $" AND P.ID = {id}";
+                                string[] palabras = id.Split('|');
+                                if (palabras[0].Equals("1"))
+                                {
+                                    // Verificar que el ID del producto pertenezca al usuasio
+                                    var verificarUsuario = cn.BuscarProducto(Convert.ToInt32(palabras[1].ToString()), FormPrincipal.userID);
+                                    // Si el producto pertenece a este usuario con el que se tiene la sesion iniciada en la consulta
+                                    // se busca directamente con base en su ID sobreescribiendo la variable "extra"
+                                    if (verificarUsuario.Length > 0)
+                                    {
+                                        if (!isEmpty)
+                                        {
+                                            bool contieneIDProducto = listaCoincidenciasAux.Contains(new KeyValuePair<int, int>(Convert.ToInt32(palabras[1].ToString()), 1));
+                                            if (!contieneIDProducto)
+                                            {
+                                                listaCoincidenciasAux.Add(Convert.ToInt32(palabras[1].ToString()), 1);
+                                            }
+                                        }
+                                    }
+                                }
+                                else if (palabras[0].Equals("0"))
+                                {
+                                    nuevosCodigos += palabras[1].ToString() + " ";
+                                }
                             }
-                            else if (palabras[0].Equals("0"))
+                            extra = string.Empty;
+                            // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
+                            // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
+                            extra2 = string.Empty;
+                            contadorTmp = 1;
+                            var listaCoincidencias = from entry in listaCoincidenciasAux orderby entry.Value descending select entry;
+                            extra += "AND P.ID IN (";
+                            foreach (var producto in listaCoincidencias)
                             {
-                                nuevosCodigos += palabras[1].ToString() + " ";
+                                extra += $"{producto.Key},";
+                                extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+                                contadorTmp++;
+                            }
+                            // Eliminamos el último caracter que es una coma (,)
+                            extra = extra.Remove(extra.Length - 1);
+                            extra += ") ORDER BY CASE P.ID ";
+                            extra2 += "END ";
+                            // Concatenamos las dos variables para formar por completo la sentencia sql
+                            extra += extra2;
+                            listaCoincidenciasAux.Clear();
+                        }
+                        else if (isEmpty)
+                        {
+                            listaCoincidenciasAux.Clear();
+                            foreach (var id in infoProducto)
+                            {
+                                string[] palabras = id.Split('|');
+                                if (palabras[0].Equals("1"))
+                                {
+                                    extra = $" AND P.ID = {id}";
+                                }
+                                else if (palabras[0].Equals("0"))
+                                {
+                                    nuevosCodigos += palabras[1].ToString() + " ";
+                                }
                             }
                         }
                     }
