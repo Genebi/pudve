@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         private Paginar p;
         string DataMemberDGV = "Proveedores";
         int maximo_x_pagina = 4;
+        int clickBoton = 0;
 
         public Proveedores()
         {
@@ -35,8 +36,11 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
 
-            p = new Paginar(consulta, DataMemberDGV, maximo_x_pagina);
-
+            if (DGVProveedores.Rows.Count.Equals(0) && clickBoton.Equals(0))
+            {
+                p = new Paginar(consulta, DataMemberDGV, maximo_x_pagina);
+            }
+            
             DGVProveedores.Rows.Clear();
 
             DataSet datos = p.cargar();
@@ -60,6 +64,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Editar"].Value = editar;
                 row.Cells["Eliminar"].Value = eliminar;
             }
+
+            clickBoton = 0;
 
             //DGVProveedores.ClearSelection();
 
@@ -213,6 +219,7 @@ namespace PuntoDeVentaV2
         private void btnPrimeraPagina_Click(object sender, EventArgs e)
         {
             p.primerPagina();
+            clickBoton = 1;
             CargarDatos();
             ActualizarPaginador();
         }
@@ -220,6 +227,7 @@ namespace PuntoDeVentaV2
         private void btnAnterior_Click(object sender, EventArgs e)
         {
             p.atras();
+            clickBoton = 1;
             CargarDatos();
             ActualizarPaginador();
         }
@@ -227,6 +235,7 @@ namespace PuntoDeVentaV2
         private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
         {
             p.atras();
+            clickBoton = 1;
             CargarDatos();
             ActualizarPaginador();
         }
@@ -239,6 +248,7 @@ namespace PuntoDeVentaV2
         private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
         {
             p.adelante();
+            clickBoton = 1;
             CargarDatos();
             ActualizarPaginador();
         }
@@ -246,6 +256,7 @@ namespace PuntoDeVentaV2
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
             p.adelante();
+            clickBoton = 1;
             CargarDatos();
             ActualizarPaginador();
         }
@@ -253,6 +264,7 @@ namespace PuntoDeVentaV2
         private void btnUltimaPagina_Click(object sender, EventArgs e)
         {
             p.ultimaPagina();
+            clickBoton = 1;
             CargarDatos();
             ActualizarPaginador();
         }
