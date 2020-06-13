@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
 
         private Paginar p;
         string DataMemberDGV = "Proveedores";
-        int maximo_x_pagina = 4;
+        int maximo_x_pagina = 17;
         int clickBoton = 0;
 
         public Proveedores()
@@ -32,11 +32,22 @@ namespace PuntoDeVentaV2
             ActualizarPaginador();
         }
 
-        private void CargarDatos()
+        private void CargarDatos(string busqueda = "")
         {
-            var consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+            var consulta = string.Empty;
 
-            if (DGVProveedores.Rows.Count.Equals(0) && clickBoton.Equals(0))
+            if (string.IsNullOrWhiteSpace(busqueda))
+            {
+                consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+            }
+            else
+            {
+                var extra = $"AND (Nombre LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR Email LIKE '%{busqueda}%' OR Telefono LIKE '%{busqueda}%')";
+
+                consulta = $"SELECT * FROM Proveedores WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 {extra}";
+            }
+
+            if (DGVProveedores.Rows.Count.Equals(0) || clickBoton.Equals(0))
             {
                 p = new Paginar(consulta, DataMemberDGV, maximo_x_pagina);
             }
@@ -67,7 +78,7 @@ namespace PuntoDeVentaV2
 
             clickBoton = 0;
 
-            //DGVProveedores.ClearSelection();
+            DGVProveedores.ClearSelection();
 
             ActualizarPaginador();
         }
@@ -208,12 +219,13 @@ namespace PuntoDeVentaV2
         {
             var busqueda = txtBuscador.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(busqueda))
+            if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                return;
+                txtBuscador.SelectionStart = 0;
+                txtBuscador.SelectionLength = txtBuscador.Text.Length;
             }
 
-            MessageBox.Show(busqueda);
+            CargarDatos(busqueda);
         }
 
         private void btnPrimeraPagina_Click(object sender, EventArgs e)
@@ -267,6 +279,14 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             ActualizarPaginador();
+        }
+
+        private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+            }
         }
     }
 }
