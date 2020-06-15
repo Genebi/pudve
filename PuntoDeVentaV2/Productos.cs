@@ -2631,35 +2631,38 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                var coincidencias = mb.BusquedaCoincidencias(txtBusquedaString.Trim());
-                // Si hay concidencias de la busqueda de la palabra
-                if (coincidencias.Count > 0)
+                if (!txtBusquedaString.Equals(""))
                 {
-                    extra = string.Empty;
-                    // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
-                    // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
-                    extra2 = string.Empty;
-                    contadorTmp = 1;
-                    var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
-                    listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
-                    extra += "AND P.ID IN (";
-                    foreach (var producto in listaCoincidencias)
+                    var coincidencias = mb.BusquedaCoincidencias(txtBusquedaString.Trim());
+                    // Si hay concidencias de la busqueda de la palabra
+                    if (coincidencias.Count > 0)
                     {
-                        extra += $"{producto.Key},";
-                        extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
-                        contadorTmp++;
+                        extra = string.Empty;
+                        // Declaramos estas variables, extra2 es para concatenar los valores para la clausula WHEN
+                        // Y contadorTmp es para indicar el orden de prioridad que tendra al momento de mostrarse
+                        extra2 = string.Empty;
+                        contadorTmp = 1;
+                        var listaCoincidencias = from entry in coincidencias orderby entry.Value descending select entry;
+                        listaCoincidenciasAux = listaCoincidenciasAux.Concat(coincidencias).GroupBy(d => d.Key).ToDictionary(d => d.Key, d => d.First().Value);
+                        extra += "AND P.ID IN (";
+                        foreach (var producto in listaCoincidencias)
+                        {
+                            extra += $"{producto.Key},";
+                            extra2 += $"WHEN {producto.Key} THEN {contadorTmp} ";
+                            contadorTmp++;
+                        }
+                        // Eliminamos el último caracter que es una coma (,)
+                        extra = extra.Remove(extra.Length - 1);
+                        extra += ") ORDER BY CASE P.ID ";
+                        extra2 += "END ";
+                        // Concatenamos las dos variables para formar por completo la sentencia sql
+                        extra += extra2;
                     }
-                    // Eliminamos el último caracter que es una coma (,)
-                    extra = extra.Remove(extra.Length - 1);
-                    extra += ") ORDER BY CASE P.ID ";
-                    extra2 += "END ";
-                    // Concatenamos las dos variables para formar por completo la sentencia sql
-                    extra += extra2;
-                }
-                else
-                {
-                    // Original
-                    extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                    else
+                    {
+                        // Original
+                        extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
+                    }
                 }
 
                 string txtAndNumSearch = txtBusquedaString + numBusqueda;
