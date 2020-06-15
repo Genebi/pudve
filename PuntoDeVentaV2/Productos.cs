@@ -2662,10 +2662,12 @@ namespace PuntoDeVentaV2
                     extra = $" AND (P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%')";
                 }
 
-                if (!numBusqueda.Equals(""))
+                string txtAndNumSearch = txtBusquedaString + numBusqueda;
+
+                if (!txtAndNumSearch.Equals(""))
                 {
                     // Verificar si la variable numBusqueda es un codigo de barras ó clave Interna en la tabla Prodcutos
-                    var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(numBusqueda.Trim());
+                    var resultadoCodBarClavInt = mb.BusquedaCodigosBarrasClaveInterna(txtAndNumSearch.Trim());
 
                     if (resultadoCodBarClavInt.Length > 0)
                     {
@@ -2728,10 +2730,11 @@ namespace PuntoDeVentaV2
 
                                 if (palabras[0].Equals("1"))
                                 {
-                                    extra = $" AND P.ID {palabras[1].ToString()}";
+                                    extra += $" AND P.ID = {palabras[1].ToString()} ";
                                 }
                                 else if (palabras[0].Equals("0"))
                                 {
+
                                     buscarCodigosBarraExtra += palabras[1].ToString() + " ";
                                 }
                             }
