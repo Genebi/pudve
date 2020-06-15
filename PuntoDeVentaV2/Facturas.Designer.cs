@@ -30,19 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.datagv_facturas = new System.Windows.Forms.DataGridView();
-            this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_rfc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_razon_social = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_pdf = new System.Windows.Forms.DataGridViewImageColumn();
-            this.col_descargar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.col_cancelar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.col_t_comprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.cmb_bx_tipo_factura = new System.Windows.Forms.ComboBox();
             this.datetp_fecha_inicial = new System.Windows.Forms.DateTimePicker();
@@ -54,8 +41,36 @@
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.pBar1 = new System.Windows.Forms.ProgressBar();
             this.lb_texto_descarga = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.btn_pag_siguiente = new System.Windows.Forms.Button();
+            this.btn_ultima_pag = new System.Windows.Forms.Button();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btn_anterior = new System.Windows.Forms.Button();
+            this.btn_primera_pag = new System.Windows.Forms.Button();
+            this.linklb_pag_siguiente = new System.Windows.Forms.LinkLabel();
+            this.linklb_pag_actual = new System.Windows.Forms.LinkLabel();
+            this.linklb_pag_anterior = new System.Windows.Forms.LinkLabel();
+            this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_rfc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_razon_social = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_cpago = new System.Windows.Forms.DataGridViewImageColumn();
+            this.col_pdf = new System.Windows.Forms.DataGridViewImageColumn();
+            this.col_descargar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.col_cancelar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.col_t_comprobante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_conpago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // datagv_facturas
@@ -76,115 +91,24 @@
             this.col_razon_social,
             this.col_total,
             this.col_fecha,
+            this.col_cpago,
             this.col_pdf,
             this.col_descargar,
             this.col_cancelar,
-            this.col_t_comprobante});
+            this.col_t_comprobante,
+            this.col_conpago});
             this.datagv_facturas.Location = new System.Drawing.Point(12, 161);
             this.datagv_facturas.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.datagv_facturas.Name = "datagv_facturas";
             this.datagv_facturas.ReadOnly = true;
             this.datagv_facturas.RowHeadersVisible = false;
             this.datagv_facturas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.datagv_facturas.Size = new System.Drawing.Size(927, 267);
+            this.datagv_facturas.Size = new System.Drawing.Size(927, 235);
             this.datagv_facturas.TabIndex = 0;
             this.datagv_facturas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.click_en_icono);
             this.datagv_facturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
             this.datagv_facturas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
             this.datagv_facturas.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_no_icono);
-            // 
-            // col_checkbox
-            // 
-            this.col_checkbox.Frozen = true;
-            this.col_checkbox.HeaderText = "";
-            this.col_checkbox.Name = "col_checkbox";
-            this.col_checkbox.ReadOnly = true;
-            this.col_checkbox.Width = 35;
-            // 
-            // col_id
-            // 
-            this.col_id.HeaderText = "ID";
-            this.col_id.Name = "col_id";
-            this.col_id.ReadOnly = true;
-            this.col_id.Visible = false;
-            this.col_id.Width = 50;
-            // 
-            // col_folio
-            // 
-            this.col_folio.HeaderText = "Folio";
-            this.col_folio.Name = "col_folio";
-            this.col_folio.ReadOnly = true;
-            this.col_folio.Width = 60;
-            // 
-            // col_serie
-            // 
-            this.col_serie.HeaderText = "Serie";
-            this.col_serie.Name = "col_serie";
-            this.col_serie.ReadOnly = true;
-            this.col_serie.Width = 45;
-            // 
-            // col_empleado
-            // 
-            this.col_empleado.HeaderText = "Empleado";
-            this.col_empleado.Name = "col_empleado";
-            this.col_empleado.ReadOnly = true;
-            this.col_empleado.Width = 80;
-            // 
-            // col_rfc
-            // 
-            this.col_rfc.HeaderText = "RFC";
-            this.col_rfc.Name = "col_rfc";
-            this.col_rfc.ReadOnly = true;
-            this.col_rfc.Width = 120;
-            // 
-            // col_razon_social
-            // 
-            this.col_razon_social.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_razon_social.HeaderText = "Razon social";
-            this.col_razon_social.Name = "col_razon_social";
-            this.col_razon_social.ReadOnly = true;
-            // 
-            // col_total
-            // 
-            this.col_total.HeaderText = "Total";
-            this.col_total.Name = "col_total";
-            this.col_total.ReadOnly = true;
-            // 
-            // col_fecha
-            // 
-            this.col_fecha.HeaderText = "Fecha";
-            this.col_fecha.Name = "col_fecha";
-            this.col_fecha.ReadOnly = true;
-            this.col_fecha.Width = 80;
-            // 
-            // col_pdf
-            // 
-            this.col_pdf.HeaderText = "PDF";
-            this.col_pdf.Name = "col_pdf";
-            this.col_pdf.ReadOnly = true;
-            this.col_pdf.Width = 45;
-            // 
-            // col_descargar
-            // 
-            this.col_descargar.HeaderText = "Descargar";
-            this.col_descargar.Name = "col_descargar";
-            this.col_descargar.ReadOnly = true;
-            this.col_descargar.Width = 70;
-            // 
-            // col_cancelar
-            // 
-            this.col_cancelar.HeaderText = "Cancelar";
-            this.col_cancelar.Name = "col_cancelar";
-            this.col_cancelar.ReadOnly = true;
-            this.col_cancelar.Width = 65;
-            // 
-            // col_t_comprobante
-            // 
-            this.col_t_comprobante.HeaderText = "tc";
-            this.col_t_comprobante.Name = "col_t_comprobante";
-            this.col_t_comprobante.ReadOnly = true;
-            this.col_t_comprobante.Visible = false;
-            this.col_t_comprobante.Width = 10;
             // 
             // label1
             // 
@@ -302,7 +226,7 @@
             // 
             this.pBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pBar1.Location = new System.Drawing.Point(129, 448);
+            this.pBar1.Location = new System.Drawing.Point(136, 465);
             this.pBar1.Name = "pBar1";
             this.pBar1.Size = new System.Drawing.Size(668, 23);
             this.pBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -317,18 +241,268 @@
             this.lb_texto_descarga.AutoSize = true;
             this.lb_texto_descarga.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_texto_descarga.ForeColor = System.Drawing.Color.Red;
-            this.lb_texto_descarga.Location = new System.Drawing.Point(399, 474);
+            this.lb_texto_descarga.Location = new System.Drawing.Point(389, 491);
             this.lb_texto_descarga.Name = "lb_texto_descarga";
             this.lb_texto_descarga.Size = new System.Drawing.Size(174, 19);
             this.lb_texto_descarga.TabIndex = 10;
             this.lb_texto_descarga.Text = "Descargando factura";
             this.lb_texto_descarga.Visible = false;
             // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Controls.Add(this.panel3);
+            this.panel2.Controls.Add(this.linklb_pag_siguiente);
+            this.panel2.Controls.Add(this.linklb_pag_actual);
+            this.panel2.Controls.Add(this.linklb_pag_anterior);
+            this.panel2.Location = new System.Drawing.Point(12, 410);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(927, 49);
+            this.panel2.TabIndex = 11;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel4.Controls.Add(this.btn_pag_siguiente);
+            this.panel4.Controls.Add(this.btn_ultima_pag);
+            this.panel4.Location = new System.Drawing.Point(524, 6);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(78, 40);
+            this.panel4.TabIndex = 12;
+            // 
+            // btn_pag_siguiente
+            // 
+            this.btn_pag_siguiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_pag_siguiente.BackColor = System.Drawing.Color.Brown;
+            this.btn_pag_siguiente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_pag_siguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_pag_siguiente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_pag_siguiente.ForeColor = System.Drawing.Color.White;
+            this.btn_pag_siguiente.Location = new System.Drawing.Point(3, 9);
+            this.btn_pag_siguiente.Name = "btn_pag_siguiente";
+            this.btn_pag_siguiente.Size = new System.Drawing.Size(33, 25);
+            this.btn_pag_siguiente.TabIndex = 5;
+            this.btn_pag_siguiente.Text = ">";
+            this.btn_pag_siguiente.UseVisualStyleBackColor = false;
+            this.btn_pag_siguiente.Click += new System.EventHandler(this.btn_siguiente_Click);
+            // 
+            // btn_ultima_pag
+            // 
+            this.btn_ultima_pag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ultima_pag.BackColor = System.Drawing.Color.Brown;
+            this.btn_ultima_pag.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_ultima_pag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ultima_pag.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_ultima_pag.ForeColor = System.Drawing.Color.White;
+            this.btn_ultima_pag.Location = new System.Drawing.Point(41, 9);
+            this.btn_ultima_pag.Name = "btn_ultima_pag";
+            this.btn_ultima_pag.Size = new System.Drawing.Size(34, 25);
+            this.btn_ultima_pag.TabIndex = 6;
+            this.btn_ultima_pag.Text = ">>";
+            this.btn_ultima_pag.UseVisualStyleBackColor = false;
+            this.btn_ultima_pag.Click += new System.EventHandler(this.btn_ultima_pag_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel3.Controls.Add(this.btn_anterior);
+            this.panel3.Controls.Add(this.btn_primera_pag);
+            this.panel3.Location = new System.Drawing.Point(327, 6);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(78, 40);
+            this.panel3.TabIndex = 7;
+            // 
+            // btn_anterior
+            // 
+            this.btn_anterior.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_anterior.BackColor = System.Drawing.Color.Brown;
+            this.btn_anterior.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_anterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_anterior.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_anterior.ForeColor = System.Drawing.Color.White;
+            this.btn_anterior.Location = new System.Drawing.Point(43, 9);
+            this.btn_anterior.Name = "btn_anterior";
+            this.btn_anterior.Size = new System.Drawing.Size(33, 25);
+            this.btn_anterior.TabIndex = 1;
+            this.btn_anterior.Text = "<";
+            this.btn_anterior.UseVisualStyleBackColor = false;
+            this.btn_anterior.Click += new System.EventHandler(this.btn_anterior_Click);
+            // 
+            // btn_primera_pag
+            // 
+            this.btn_primera_pag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_primera_pag.BackColor = System.Drawing.Color.Brown;
+            this.btn_primera_pag.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_primera_pag.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_primera_pag.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_primera_pag.ForeColor = System.Drawing.Color.White;
+            this.btn_primera_pag.Location = new System.Drawing.Point(3, 9);
+            this.btn_primera_pag.Name = "btn_primera_pag";
+            this.btn_primera_pag.Size = new System.Drawing.Size(34, 25);
+            this.btn_primera_pag.TabIndex = 0;
+            this.btn_primera_pag.Text = "<<";
+            this.btn_primera_pag.UseVisualStyleBackColor = false;
+            this.btn_primera_pag.Click += new System.EventHandler(this.btn_primera_pag_Click);
+            // 
+            // linklb_pag_siguiente
+            // 
+            this.linklb_pag_siguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linklb_pag_siguiente.AutoSize = true;
+            this.linklb_pag_siguiente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linklb_pag_siguiente.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linklb_pag_siguiente.Location = new System.Drawing.Point(490, 17);
+            this.linklb_pag_siguiente.Name = "linklb_pag_siguiente";
+            this.linklb_pag_siguiente.Size = new System.Drawing.Size(17, 20);
+            this.linklb_pag_siguiente.TabIndex = 4;
+            this.linklb_pag_siguiente.TabStop = true;
+            this.linklb_pag_siguiente.Text = "3";
+            this.linklb_pag_siguiente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_siguiente_LinkClicked);
+            // 
+            // linklb_pag_actual
+            // 
+            this.linklb_pag_actual.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linklb_pag_actual.AutoSize = true;
+            this.linklb_pag_actual.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linklb_pag_actual.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linklb_pag_actual.Location = new System.Drawing.Point(455, 17);
+            this.linklb_pag_actual.Name = "linklb_pag_actual";
+            this.linklb_pag_actual.Size = new System.Drawing.Size(17, 20);
+            this.linklb_pag_actual.TabIndex = 3;
+            this.linklb_pag_actual.TabStop = true;
+            this.linklb_pag_actual.Text = "2";
+            this.linklb_pag_actual.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_actual_LinkClicked);
+            // 
+            // linklb_pag_anterior
+            // 
+            this.linklb_pag_anterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linklb_pag_anterior.AutoSize = true;
+            this.linklb_pag_anterior.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linklb_pag_anterior.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linklb_pag_anterior.Location = new System.Drawing.Point(422, 17);
+            this.linklb_pag_anterior.Name = "linklb_pag_anterior";
+            this.linklb_pag_anterior.Size = new System.Drawing.Size(17, 20);
+            this.linklb_pag_anterior.TabIndex = 2;
+            this.linklb_pag_anterior.TabStop = true;
+            this.linklb_pag_anterior.Text = "1";
+            this.linklb_pag_anterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklb_pag_anterior_LinkClicked);
+            // 
+            // col_checkbox
+            // 
+            this.col_checkbox.Frozen = true;
+            this.col_checkbox.HeaderText = "";
+            this.col_checkbox.Name = "col_checkbox";
+            this.col_checkbox.ReadOnly = true;
+            this.col_checkbox.Width = 35;
+            // 
+            // col_id
+            // 
+            this.col_id.HeaderText = "ID";
+            this.col_id.Name = "col_id";
+            this.col_id.ReadOnly = true;
+            this.col_id.Visible = false;
+            this.col_id.Width = 50;
+            // 
+            // col_folio
+            // 
+            this.col_folio.HeaderText = "Folio";
+            this.col_folio.Name = "col_folio";
+            this.col_folio.ReadOnly = true;
+            this.col_folio.Width = 60;
+            // 
+            // col_serie
+            // 
+            this.col_serie.HeaderText = "Serie";
+            this.col_serie.Name = "col_serie";
+            this.col_serie.ReadOnly = true;
+            this.col_serie.Width = 45;
+            // 
+            // col_empleado
+            // 
+            this.col_empleado.HeaderText = "Empleado";
+            this.col_empleado.Name = "col_empleado";
+            this.col_empleado.ReadOnly = true;
+            this.col_empleado.Width = 80;
+            // 
+            // col_rfc
+            // 
+            this.col_rfc.HeaderText = "RFC";
+            this.col_rfc.Name = "col_rfc";
+            this.col_rfc.ReadOnly = true;
+            this.col_rfc.Width = 120;
+            // 
+            // col_razon_social
+            // 
+            this.col_razon_social.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.col_razon_social.HeaderText = "Razon social";
+            this.col_razon_social.Name = "col_razon_social";
+            this.col_razon_social.ReadOnly = true;
+            // 
+            // col_total
+            // 
+            this.col_total.HeaderText = "Total";
+            this.col_total.Name = "col_total";
+            this.col_total.ReadOnly = true;
+            // 
+            // col_fecha
+            // 
+            this.col_fecha.HeaderText = "Fecha";
+            this.col_fecha.Name = "col_fecha";
+            this.col_fecha.ReadOnly = true;
+            this.col_fecha.Width = 80;
+            // 
+            // col_cpago
+            // 
+            this.col_cpago.HeaderText = "Ver pagos";
+            this.col_cpago.Name = "col_cpago";
+            this.col_cpago.ReadOnly = true;
+            this.col_cpago.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_cpago.Width = 70;
+            // 
+            // col_pdf
+            // 
+            this.col_pdf.HeaderText = "";
+            this.col_pdf.Name = "col_pdf";
+            this.col_pdf.ReadOnly = true;
+            this.col_pdf.Width = 30;
+            // 
+            // col_descargar
+            // 
+            this.col_descargar.HeaderText = "";
+            this.col_descargar.Name = "col_descargar";
+            this.col_descargar.ReadOnly = true;
+            this.col_descargar.Width = 30;
+            // 
+            // col_cancelar
+            // 
+            this.col_cancelar.HeaderText = "";
+            this.col_cancelar.Name = "col_cancelar";
+            this.col_cancelar.ReadOnly = true;
+            this.col_cancelar.Width = 30;
+            // 
+            // col_t_comprobante
+            // 
+            this.col_t_comprobante.HeaderText = "tc";
+            this.col_t_comprobante.Name = "col_t_comprobante";
+            this.col_t_comprobante.ReadOnly = true;
+            this.col_t_comprobante.Visible = false;
+            this.col_t_comprobante.Width = 10;
+            // 
+            // col_conpago
+            // 
+            this.col_conpago.HeaderText = "";
+            this.col_conpago.Name = "col_conpago";
+            this.col_conpago.ReadOnly = true;
+            this.col_conpago.Visible = false;
+            this.col_conpago.Width = 10;
+            // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 519);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.lb_texto_descarga);
             this.Controls.Add(this.pBar1);
             this.Controls.Add(this.panel1);
@@ -343,6 +517,10 @@
             this.Load += new System.EventHandler(this.Facturas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -362,6 +540,16 @@
         private System.Windows.Forms.ToolTip TTMensaje;
         private System.Windows.Forms.ProgressBar pBar1;
         private System.Windows.Forms.Label lb_texto_descarga;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btn_primera_pag;
+        private System.Windows.Forms.Button btn_anterior;
+        private System.Windows.Forms.Button btn_ultima_pag;
+        private System.Windows.Forms.Button btn_pag_siguiente;
+        private System.Windows.Forms.LinkLabel linklb_pag_siguiente;
+        private System.Windows.Forms.LinkLabel linklb_pag_actual;
+        private System.Windows.Forms.LinkLabel linklb_pag_anterior;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_checkbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_folio;
@@ -371,9 +559,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_razon_social;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_total;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_fecha;
+        private System.Windows.Forms.DataGridViewImageColumn col_cpago;
         private System.Windows.Forms.DataGridViewImageColumn col_pdf;
         private System.Windows.Forms.DataGridViewImageColumn col_descargar;
         private System.Windows.Forms.DataGridViewImageColumn col_cancelar;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_t_comprobante;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_conpago;
     }
 }

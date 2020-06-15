@@ -544,6 +544,12 @@
     <Compile Include="ListaProductos.Designer.cs">
       <DependentUpon>ListaProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lista_complementos_pago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Lista_complementos_pago.Designer.cs">
+      <DependentUpon>Lista_complementos_pago.cs</DependentUpon>
+    </Compile>
     <Compile Include="Loading.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -939,6 +945,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListaProductos.resx">
       <DependentUpon>ListaProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Lista_complementos_pago.resx">
+      <DependentUpon>Lista_complementos_pago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Loading.resx">
       <DependentUpon>Loading.cs</DependentUpon>

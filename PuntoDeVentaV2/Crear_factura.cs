@@ -117,6 +117,11 @@ namespace PuntoDeVentaV2
             cmb_bx_forma_pago.ValueMember = "Key";
             cmb_bx_forma_pago.SelectedIndex = 0;
 
+            // Número de cuenta
+
+            txt_cuenta.GotFocus += new EventHandler(encampo_cuenta);
+            txt_cuenta.LostFocus += new EventHandler(scampo_cuenta);
+
             // Moneda
 
             Dictionary<string, string> moneda = new Dictionary<string, string>();
@@ -344,6 +349,7 @@ namespace PuntoDeVentaV2
 
             txt_cuenta.ReadOnly = true;
             txt_cuenta.Text = string.Empty;
+            txt_cuenta.Text = "(Opcional) No. cuenta";
             txt_tipo_cambio.ReadOnly = true;
             txt_tipo_cambio.Text = "1.000000";
 
@@ -384,6 +390,7 @@ namespace PuntoDeVentaV2
             else
             {
                 txt_cuenta.Text = string.Empty;
+                txt_cuenta.Text = "(Opcional) No. cuenta";
                 txt_cuenta.ReadOnly = true;
             }
         }
@@ -1016,6 +1023,22 @@ namespace PuntoDeVentaV2
             decimal cantidad = Decimal.Round(c, 2);
 
             return cantidad;
+        }
+        
+        private void encampo_cuenta(object sender, EventArgs e)
+        {
+            if (txt_cuenta.Text == "(Opcional) No. cuenta")
+            {
+                txt_cuenta.Text = "";
+            }
+        }
+
+        private void scampo_cuenta(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txt_cuenta.Text))
+            {
+                txt_cuenta.Text = "(Opcional) No. cuenta";
+            }
         }
     }
 }
