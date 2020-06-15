@@ -10,13 +10,10 @@ using System.IO.Compression;
 using System.Linq;
 using TuesPechkin;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Drawing.Printing;
-using System.Net.Mail;
+
 
 namespace PuntoDeVentaV2
 {
@@ -31,6 +28,12 @@ namespace PuntoDeVentaV2
         bool ban = false;
 
         CheckBox header_checkb = null;
+
+        private Paginar p;
+        string DataMemberDGV = "Facturas";
+        int maximo_x_pagina = 16;
+        string FiltroAvanzado = string.Empty;
+        int clickBoton = 0;
 
 
         public Facturas()
@@ -56,81 +59,77 @@ namespace PuntoDeVentaV2
             // Carga las facturas en la tabla 
             cargar_lista_facturas();
 
-            datagv_facturas.ClearSelection();
+            //datagv_facturas.ClearSelection();
+            clickBoton = 0;
+            actualizar();
+            btn_ultima_pag.PerformClick();
         }
 
         public void cargar_lista_facturas(int tipo= 0)
         {
-            SQLiteConnection sql_cn;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader sql_dr;
-
-            string cons = "";
-            string condicional_fecha_i_f = "";
-            string condicional_xempleado = "";
-
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
             var fecha_inicial = datetp_fecha_inicial.Value.ToString("yyyy-MM-dd");
             var fecha_final = datetp_fecha_final.Value.ToString("yyyy-MM-dd");
-            
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                sql_cn = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-            else
-            {
-                sql_cn = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
 
-            sql_cn.Open();
-
-
-            // Comprueba si la sesión esta activa por un empleado o no
-
-            if(id_empleado != 0)
+            if (clickBoton == 0)
             {
-                condicional_xempleado = " AND id_empleado='"+id_empleado+"'";
-            }
+                string cons = "";
+                string condicional_fecha_i_f = "";
+                string condicional_xempleado = "";
+                                
+                // Comprueba si la sesión esta activa por un empleado o no
 
-            // Se agregan fechas de busqueda cuando es desde el botón buscar
-            if(tipo == 1)
-            {
-                condicional_fecha_i_f = "AND DATE(fecha_certificacion) BETWEEN '"+fecha_inicial+"' AND '"+fecha_final+"'";
-            }
+                if (id_empleado != 0)
+                {
+                    condicional_xempleado = " AND id_empleado='" + id_empleado + "'";
+                }
 
-            // Por pagar
-            if(opc_tipo_factura == 0)
-            {
-                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PPD' OR forma_pago='99') AND con_complementos=0 " + condicional_fecha_i_f;
-            }
-            // Abonadas
-            if (opc_tipo_factura == 1)
-            {
-                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND con_complementos=1 AND resta_cpago>0 " + condicional_fecha_i_f;
-            }
-            // Pagadas
-            if (opc_tipo_factura == 2)
-            {
-                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) " + condicional_fecha_i_f;
-            }
-            // Canceladas
-            if(opc_tipo_factura == 3)
-            {
-                cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f;
-            }
+                // Se agregan fechas de busqueda cuando es desde el botón buscar
 
-            sql_cmd = new SQLiteCommand(cons, sql_cn);
-            sql_dr = sql_cmd.ExecuteReader();
-            
+                if (tipo == 1)
+                {
+                    condicional_fecha_i_f = "AND DATE(fecha_certificacion) BETWEEN '" + fecha_inicial + "' AND '" + fecha_final + "'";
+                }
+
+                // Por pagar
+                if (opc_tipo_factura == 0)
+                {
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PPD' OR forma_pago='99') AND con_complementos=0 " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                }
+                // Abonadas
+                if (opc_tipo_factura == 1)
+                {
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND con_complementos=1 AND resta_cpago>0 " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                }
+                // Pagadas
+                if (opc_tipo_factura == 2)
+                {
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND tipo_comprobante='I' AND timbrada=1 AND cancelada=0 AND (metodo_pago='PUE' AND forma_pago!='99') OR (resta_cpago=0 AND (metodo_pago='PPD' OR forma_pago='99')) " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                }
+                // Canceladas
+                if (opc_tipo_factura == 3)
+                {
+                    cons = $"SELECT * FROM Facturas WHERE id_usuario='{id_usuario}' " + condicional_xempleado + " AND timbrada=1 AND cancelada=1 " + condicional_fecha_i_f + " ORDER BY ID DESC";
+                }
+
+                FiltroAvanzado = cons;
+
+                p = new Paginar(FiltroAvanzado, DataMemberDGV, maximo_x_pagina);
+            }
 
             datagv_facturas.Rows.Clear();
 
-            if (sql_dr.HasRows)
+            DataSet datos = p.cargar();
+            DataTable d_facturas = datos.Tables[0];
+            
+
+            if (d_facturas.Rows.Count > 0)
             {
-                while (sql_dr.Read())
+                foreach (DataRow r_facturas in d_facturas.Rows)
                 {
                     int fila_id = datagv_facturas.Rows.Add();
-                    DateTime fecha = Convert.ToDateTime(sql_dr.GetValue(sql_dr.GetOrdinal("fecha_certificacion")));
+
+                    DateTime fecha = Convert.ToDateTime(r_facturas["fecha_certificacion"]);
                     string fecha_cert = fecha.ToString("yyyy-MM-dd");
 
                     DataGridViewRow fila = datagv_facturas.Rows[fila_id];
@@ -140,7 +139,8 @@ namespace PuntoDeVentaV2
 
                     if (id_empleado == 0)
                     {
-                        string id_empleado_fct = sql_dr.GetValue(sql_dr.GetOrdinal("id_empleado")).ToString();
+                        string id_empleado_fct = r_facturas["id_empleado"].ToString();
+
                         string[] r = new string[] { id_empleado_fct };
                         DataTable d_emp = cn.CargarDatos(cs.guardar_editar_empleado(r, 3));
 
@@ -153,13 +153,13 @@ namespace PuntoDeVentaV2
                             user_empleado = user_empleado.Substring(pos + 1, user_empleado.Length - (pos + 1));
                         }
                     }
-                                        
 
-                    fila.Cells["col_id"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("ID"));
-                    fila.Cells["col_t_comprobante"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("tipo_comprobante"));
+
+                    fila.Cells["col_id"].Value = r_facturas["ID"].ToString();
+                    fila.Cells["col_t_comprobante"].Value = r_facturas["tipo_comprobante"].ToString();
                     fila.Cells["col_checkbox"].Value = false;
-                    fila.Cells["col_folio"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("folio"));
-                    fila.Cells["col_serie"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("serie"));
+                    fila.Cells["col_folio"].Value = r_facturas["folio"].ToString();
+                    fila.Cells["col_serie"].Value = r_facturas["serie"].ToString();
                     if (id_empleado > 0)
                     {
                         this.datagv_facturas.Columns["col_empleado"].Visible = false;
@@ -168,107 +168,36 @@ namespace PuntoDeVentaV2
                     {
                         fila.Cells["col_empleado"].Value = user_empleado;
                     }
-                    fila.Cells["col_rfc"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("r_rfc"));
-                    fila.Cells["col_razon_social"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("r_razon_social"));
-                    fila.Cells["col_total"].Value = sql_dr.GetValue(sql_dr.GetOrdinal("total"));
+                    fila.Cells["col_rfc"].Value = r_facturas["r_rfc"].ToString();
+                    fila.Cells["col_razon_social"].Value = r_facturas["r_razon_social"].ToString();
+                    fila.Cells["col_total"].Value = r_facturas["total"].ToString();
                     fila.Cells["col_fecha"].Value = fecha_cert;
+                    fila.Cells["col_conpago"].Value = "0";
+
+                    Image img_cpago = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black\blanco.png");
+
+                    if (opc_tipo_factura == 1 | (opc_tipo_factura == 2 & (r_facturas["metodo_pago"].ToString() == "PPD" | r_facturas["forma_pago"].ToString() == "99")) )
+                    {
+                        img_cpago = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\eye.png");
+                        
+
+                        if (opc_tipo_factura == 2 & (r_facturas["metodo_pago"].ToString() == "PPD" | r_facturas["forma_pago"].ToString() == "99"))
+                        {
+                            fila.Cells["col_conpago"].Value = "1";
+                        }
+                    }
 
                     Image img_pdf = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
                     Image img_descargar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\download.png");
                     Image img_cancelar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");
-                    
+
+                    fila.Cells["col_cpago"].Value = img_cpago;
                     fila.Cells["col_pdf"].Value = img_pdf;
                     fila.Cells["col_descargar"].Value = img_descargar;
                     fila.Cells["col_cancelar"].Value = img_cancelar;
-
-
-
-                    // Busca los complementos de pago
-                    // No aplicará para las facturas por pagar 
-
-                    if (opc_tipo_factura > 0)
-                    {
-                        int idf = Convert.ToInt32(sql_dr.GetValue(sql_dr.GetOrdinal("ID")));
-
-                        // Busca si tiene complementos de pago para mostrar
-                        DataTable d_cpago = cn.CargarDatos(cs.obtiene_cpagos_dfactura_princ(idf, 1));
-
-                        if(d_cpago.Rows.Count > 0)
-                        {
-                            foreach (DataRow r_cpago in d_cpago.Rows)
-                            {
-                                int id_fcp = Convert.ToInt32(r_cpago["id_factura"]);
-                                decimal importe_pagado = Convert.ToDecimal(r_cpago["importe_pagado"]);
-
-                                DateTime fechacp = Convert.ToDateTime(r_cpago["fecha_certificacion"].ToString());
-                                string fecha_certcp = fechacp.ToString("yyyy-MM-dd");
-
-                                // Nombre del empleado
-                                string idemp = "";
-
-                                if (id_empleado == 0)
-                                {
-                                    string id_empleado_fct = r_cpago["id_empleado"].ToString();
-
-                                    string[] rr = new string[] { id_empleado_fct };
-                                    DataTable d_empl = cn.CargarDatos(cs.guardar_editar_empleado(rr, 3));
-
-                                    if(d_empl.Rows.Count > 0)
-                                    {
-                                        DataRow r_empl = d_empl.Rows[0];
-                                        idemp = r_empl["id_empleado"].ToString();
-
-                                        var pos = idemp.IndexOf("@");
-                                        idemp = idemp.Substring(pos + 1, idemp.Length - (pos + 1));
-                                    }
-                                }                                    
-
-                                // Obtiene datos pertenecientes a cada complemento
-                                DataTable d_cpago_f = cn.CargarDatos(cs.obtiene_cpagos_dfactura_princ(id_fcp, 2));
-
-                                foreach (DataRow r_cpago_f in d_cpago_f.Rows)
-                                {
-                                    int fila_idc = datagv_facturas.Rows.Add();
-                                    
-                                    DataGridViewRow filac = datagv_facturas.Rows[fila_idc];
-                                    filac.DefaultCellStyle.ForeColor = Color.Blue;
-
-                                    filac.Cells["col_id"].Value = r_cpago_f["ID"].ToString();
-                                    filac.Cells["col_t_comprobante"].Value = "P";
-                                    filac.Cells["col_checkbox"].Value = false;
-                                    filac.Cells["col_folio"].Value = r_cpago_f["folio"].ToString();
-                                    filac.Cells["col_serie"].Value = r_cpago_f["serie"].ToString();
-                                    if(id_empleado > 0)
-                                    {
-                                        this.datagv_facturas.Columns["col_empleado"].Visible = false;
-                                    }
-                                    else
-                                    {
-                                        filac.Cells["col_empleado"].Value = idemp;
-                                    }
-                                    filac.Cells["col_rfc"].Value = r_cpago_f["r_rfc"].ToString();
-                                    filac.Cells["col_razon_social"].Value = r_cpago_f["r_razon_social"].ToString();
-                                    filac.Cells["col_total"].Value = importe_pagado.ToString();
-                                    fila.Cells["col_fecha"].Value = fecha_certcp;
-
-                                    Image img_pdfc = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\file-pdf-o.png");
-                                    Image img_descargarc = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\download.png");
-                                    Image img_cancelarc = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell-slash.png");
-
-                                    filac.Cells["col_pdf"].Value = img_pdfc;
-                                    filac.Cells["col_descargar"].Value = img_descargarc;
-                                    filac.Cells["col_cancelar"].Value = img_cancelarc;
-
-                                    //filac.Cells["col_razon_social"].Style.ForeColor = Color.Aqua;
-                                }
-                            }
-                        }                        
-                    }
+                    
                 }
-                
             }
-
-            sql_cn.Close();
         }
 
         private void ag_checkb_header()
@@ -307,13 +236,26 @@ namespace PuntoDeVentaV2
             {
                 int id_factura = Convert.ToInt16(datagv_facturas.Rows[e.RowIndex].Cells["col_id"].Value);
                 int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+                int con_cpago = Convert.ToInt16(datagv_facturas.Rows[e.RowIndex].Cells["col_conpago"].Value);
                 string t_comprobante = Convert.ToString(datagv_facturas.Rows[e.RowIndex].Cells["col_t_comprobante"].Value);
                 var servidor = Properties.Settings.Default.Hosting;
 
 
+                // Lista complementos de pago
+
+                if(e.ColumnIndex == 9)
+                {
+                    if(opc_tipo_factura == 1 | (opc_tipo_factura == 2 & con_cpago == 1))
+                    {
+                        Lista_complementos_pago ver_cpago = new Lista_complementos_pago(id_factura, id_empleado);
+
+                        ver_cpago.ShowDialog();
+                    }
+                }
+
                 // Ver PDF
 
-                if (e.ColumnIndex == 9)
+                if (e.ColumnIndex == 10)
                 {
                     if (!Utilidades.AdobeReaderInstalado())
                     {
@@ -361,10 +303,8 @@ namespace PuntoDeVentaV2
 
                 // Descargar factura
 
-                if(e.ColumnIndex == 10)
+                if(e.ColumnIndex == 11)
                 {
-                    //string nombre_xml = "";
-
                     string tipo = "INGRESOS_";
                     string estatus = "";
                     int idf = id_factura;
@@ -377,22 +317,13 @@ namespace PuntoDeVentaV2
                     {
                         estatus = "ACUSE_";
                     }
-                    /*if (t_comprobante == "P")
-                    {
-                        nombre_xml = "PAGO_" + id_factura;
-                    }
-                    if (t_comprobante == "I")
-                    {
-                        nombre_xml = "INGRESOS_" + id_factura;
-                    }*/
-
-                    //inicia_descargaf(nombre_xml);
+                    
                     inicia_descargaf(tipo, idf, estatus);
                 }
 
                 // Cancelar factura
 
-                if (e.ColumnIndex == 11)
+                if (e.ColumnIndex == 12)
                 {
                     if (opc_tipo_factura == 3)
                     {
@@ -480,14 +411,41 @@ namespace PuntoDeVentaV2
                 datagv_facturas.Cursor = Cursors.Hand;
 
                 Rectangle cellRect = datagv_facturas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
-                
+
+
+                var txt_toolt = string.Empty;
+                int coordenadaX = 0;
+                var permitir = true;
 
                 if (e.ColumnIndex == 9)
                 {
-                    var coordenadaX = 70;
+                    coordenadaX = 140;
+                    txt_toolt = "Ver complementos de pago";
 
-                    VerToolTip("Ver factura", cellRect.X, coordenadaX, cellRect.Y, true);
+                    int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
+
+                    if(opc_tipo_factura == 0 | opc_tipo_factura == 3)
+                    {
+                        permitir = false;
+                    }
                 }
+                if (e.ColumnIndex == 10)
+                {
+                    coordenadaX = 70;
+                    txt_toolt = "Ver factura";
+                }
+                if (e.ColumnIndex == 11)
+                {
+                    coordenadaX = 105;
+                    txt_toolt = "Descargar factura";
+                }
+                if (e.ColumnIndex == 12)
+                {
+                    coordenadaX = 100;
+                    txt_toolt = "Cancelar factura";
+                }
+
+                VerToolTip(txt_toolt, cellRect.X, coordenadaX, cellRect.Y, permitir);
             }
         }
 
@@ -865,7 +823,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void TTMensaje_Draw(object sender, DrawToolTipEventArgs e)
+        public void TTMensaje_Draw(object sender, DrawToolTipEventArgs e)
         {
             e.DrawBackground();
             e.DrawBorder();
@@ -968,7 +926,7 @@ namespace PuntoDeVentaV2
             return true;
         }
 
-        private void inicia_descargaf(string tipo, int idf, string estatus)
+        public void inicia_descargaf(string tipo, int idf, string estatus)
         {
             pBar1.Visible = true; 
             lb_texto_descarga.Visible = true;
@@ -993,6 +951,113 @@ namespace PuntoDeVentaV2
 
             pBar1.Visible = false;
             lb_texto_descarga.Visible = false;
+        }
+
+        private void btn_primera_pag_Click(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            cargar_lista_facturas();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void btn_anterior_Click(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            cargar_lista_facturas();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void btn_siguiente_Click(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            cargar_lista_facturas();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void btn_ultima_pag_Click(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            cargar_lista_facturas();
+            actualizar();
+            clickBoton = 0;
+        }
+        
+        private void linklb_pag_anterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            cargar_lista_facturas();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void linklb_pag_actual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            actualizar();
+        }
+
+        private void linklb_pag_siguiente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            cargar_lista_facturas();
+            actualizar();
+            clickBoton = 0;
+        }
+
+        private void actualizar()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linklb_pag_anterior.Visible = false;
+            linklb_pag_siguiente.Visible = false;
+
+            linklb_pag_actual.Text = p.numPag().ToString();
+            linklb_pag_actual.LinkColor = System.Drawing.Color.White;
+            linklb_pag_actual.BackColor = System.Drawing.Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linklb_pag_actual.Text) >= 2)
+            {
+                linklb_pag_anterior.Text = BeforePage.ToString();
+                linklb_pag_anterior.Visible = true;
+
+                if (AfterPage <= LastPage)
+                {
+                    linklb_pag_siguiente.Text = AfterPage.ToString();
+                    linklb_pag_siguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linklb_pag_siguiente.Text = AfterPage.ToString();
+                    linklb_pag_siguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linklb_pag_anterior.Visible = false;
+
+                if (AfterPage <= LastPage)
+                {
+                    linklb_pag_siguiente.Text = AfterPage.ToString();
+                    linklb_pag_siguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linklb_pag_siguiente.Text = AfterPage.ToString();
+                    linklb_pag_siguiente.Visible = false;
+                }
+            }
         }
     }
 }

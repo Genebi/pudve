@@ -218,8 +218,11 @@ namespace PuntoDeVentaV2
 
             MessageBox.Show("El complemento de pago tardará 10 segundos (aproximadamente) en ser creado y timbrado, un momento por favor.", "Mensaje del sistema", MessageBoxButtons.OK);
 
-            btn_aceptar.Visible = false;
-            btn_cancelar.Visible = false;
+            btn_aceptar.Cursor = Cursors.No;
+            btn_cancelar.Cursor = Cursors.No;
+            btn_aceptar.Enabled = false;
+            btn_cancelar.Enabled = false;
+            
 
 
 
@@ -338,8 +341,10 @@ namespace PuntoDeVentaV2
             Generar_XML xml_complemento = new Generar_XML();
             string respuesta_xml = xml_complemento.obtener_datos_XML(id_factura_pago, 0, 1, arr_idf_principal_pago);
 
-            btn_aceptar.Visible = true;
-            btn_cancelar.Visible = true;
+            btn_aceptar.Enabled = true;
+            btn_aceptar.Cursor = Cursors.Hand;
+            btn_cancelar.Enabled = true;
+            btn_cancelar.Cursor = Cursors.Hand;
 
             if (respuesta_xml == "")
             {
