@@ -88,5 +88,10 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void btnCaja_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Test");
+        }
     }
 }
