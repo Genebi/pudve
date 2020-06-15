@@ -845,7 +845,9 @@ namespace PuntoDeVentaV2
                     html += $@"<li>
                             {producto[1]} <span style='color: black'>--- 
                             VENDIDOS:</span> {vendido.Value.Item1} <span style='color: black'>--- 
-                            ULTIMA VENTA:</span> {vendido.Value.Item2}
+                            ULTIMA VENTA:</span> {vendido.Value.Item2} <span style='color: black'>---
+                            STOCK:</span> {producto[4]} <span style='color: black'>---
+                            PRECIO:</span> ${float.Parse(producto[2]).ToString("N2")}
                         </li>";
                 }
             }
@@ -862,7 +864,9 @@ namespace PuntoDeVentaV2
                     html += $@"<li>
                             {producto[1]} <span style='color: black'>--- 
                             VENDIDOS:</span> {vendido.Value.Item1} <span style='color: black'>--- 
-                            ULTIMA VENTA:</span> {vendido.Value.Item2}
+                            ULTIMA VENTA:</span> {vendido.Value.Item2} <span style='color: black'>---
+                            STOCK:</span> {producto[4]} <span style='color: black'>---
+                            PRECIO:</span> ${float.Parse(producto[2]).ToString("N2")}
                         </li>";
                 }
             }
