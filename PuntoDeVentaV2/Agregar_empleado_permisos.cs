@@ -91,7 +91,16 @@ namespace PuntoDeVentaV2
 
         private void btnCaja_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Test");
+            if (Application.OpenForms.OfType<SeccionPermisos>().Count() == 1)
+            {
+                Application.OpenForms.OfType<SeccionPermisos>().First().BringToFront();
+            }
+            else
+            {
+                var permisos = new SeccionPermisos("Caja");
+
+                permisos.Show();
+            }
         }
     }
 }

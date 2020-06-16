@@ -669,6 +669,12 @@
     <Compile Include="RevisarInventario.Designer.cs">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeccionPermisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeccionPermisos.Designer.cs">
+      <DependentUpon>SeccionPermisos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service References\ServiceReferenceTPrueba\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1001,6 +1007,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeccionPermisos.resx">
+      <DependentUpon>SeccionPermisos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetUpPUDVE.resx">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
