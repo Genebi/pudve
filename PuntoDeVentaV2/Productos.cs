@@ -1353,6 +1353,10 @@ namespace PuntoDeVentaV2
             {
                 recargarBusqueda();
             }
+            else if (txtBusqueda.Text.Equals(""))
+            {
+                recargarBusqueda();
+            }
         }
 
         private void recargarBusqueda()
@@ -2614,6 +2618,8 @@ namespace PuntoDeVentaV2
                 extra = string.Empty;
                 extra2 = string.Empty;
 
+                listaCoincidenciasAux.Clear();
+
                 string txtBusquedaString = string.Empty;
                 string numBusqueda = string.Empty;
                 string[] separatingStrings = { ") ORDER BY CASE P.ID ", "END " };
@@ -2905,6 +2911,11 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+            }
+            else if (string.IsNullOrWhiteSpace(busqueda))
+            {
+                extra = string.Empty;
+                extra2 = string.Empty;
             }
             // Status 2 es poner el listado en todos los 
             // productos y servecios sin importar es activo o desactivado
