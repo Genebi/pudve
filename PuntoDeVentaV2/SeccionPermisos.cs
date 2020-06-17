@@ -44,6 +44,11 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(80, 180, 200, "Botón Historial Dinero Retirado", datos[3]);
             GenerarCheckbox(120, 20, 150, "Botón Abrir Caja", datos[4]);
             GenerarCheckbox(120, 180, 200, "Botón Corte Caja", datos[5]);
+            GenerarCheckbox(160, 20, 150, "Mostrar Saldo Inicial", datos[6]);
+            GenerarCheckbox(160, 180, 200, "Mostrar Panel Ventas", datos[7]);
+            GenerarCheckbox(200, 20, 150, "Mostrar Panel Anticipos", datos[8]);
+            GenerarCheckbox(200, 180, 200, "Mostrar Panel Dinero Agregado", datos[9]);
+            GenerarCheckbox(240, 20, 150, "Mostrar Panel Total Caja", datos[10]);
         }
 
         private void GenerarCheckbox(int top, int left, int ancho, string texto, int estado)

@@ -47,6 +47,19 @@ namespace PuntoDeVentaV2
         public static float saldoInicial = 0f;
         private string[] cantidadesReporte;
 
+        // Permisos de los botones
+        int opcion1 = 1; // Boton agregar dinero 
+        int opcion2 = 1; // Boton historial dinero agregado
+        int opcion3 = 1; // Boton retirar dinero
+        int opcion4 = 1; // Boton historial dinero retirado
+        int opcion5 = 1; // Boton abrir caja
+        int opcion6 = 1; // Boton corte caja
+        int opcion7 = 1; // Mostrar saldo inicial
+        int opcion8 = 1; // Mostrar panel ventas
+        int opcion9 = 1; // Mostrar panel anticipos
+        int opcion10 = 1; // Mostrar panel dinero agregado
+        int opcion11 = 1; // Mostrar panel total caja
+
         public CajaN()
         {
             InitializeComponent();
@@ -56,6 +69,29 @@ namespace PuntoDeVentaV2
         {
             // Obtener saldo inicial
             CargarSaldoInicial();
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Caja");
+
+                opcion1 = datos[0];
+                opcion2 = datos[1];
+                opcion3 = datos[2];
+                opcion4 = datos[3];
+                opcion5 = datos[4];
+                opcion6 = datos[5];
+                opcion7 = datos[6];
+                opcion8 = datos[7];
+                opcion9 = datos[8];
+                opcion10 = datos[9];
+                opcion11 = datos[10];
+            }
+
+            tituloSeccion.Visible = Convert.ToBoolean(opcion7);
+            panelVentas.Visible = Convert.ToBoolean(opcion8);
+            panelAnticipos.Visible = Convert.ToBoolean(opcion9);
+            panelDineroAgregado.Visible = Convert.ToBoolean(opcion10);
+            panelTotales.Visible = Convert.ToBoolean(opcion11);
         }
 
         private void CargarSaldoInicial()
@@ -66,6 +102,12 @@ namespace PuntoDeVentaV2
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (Application.OpenForms.OfType<ReporteDineroAgregado>().Count() == 1)
             {
                 Application.OpenForms.OfType<ReporteDineroAgregado>().First().BringToFront();
@@ -80,6 +122,12 @@ namespace PuntoDeVentaV2
 
         private void btnReporteRetirar_Click(object sender, EventArgs e)
         {
+            if (opcion4 == 0)
+            {
+                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (Application.OpenForms.OfType<ReporteDineroRetirado>().Count() == 1)
             {
                 Application.OpenForms.OfType<ReporteDineroRetirado>().First().BringToFront();
@@ -94,6 +142,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarDinero_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
@@ -114,6 +168,12 @@ namespace PuntoDeVentaV2
 
         private void btnRetirarDinero_Click(object sender, EventArgs e)
         {
+            if (opcion3 == 0)
+            {
+                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
@@ -134,6 +194,12 @@ namespace PuntoDeVentaV2
 
         private void btnCorteCaja_Click(object sender, EventArgs e)
         {
+            if (opcion6 == 0)
+            {
+                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
@@ -1438,6 +1504,12 @@ namespace PuntoDeVentaV2
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
+            if (opcion5 == 0)
+            {
+                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (!Utilidades.AdobeReaderInstalado())
             {
                 Utilidades.MensajeAdobeReader();
