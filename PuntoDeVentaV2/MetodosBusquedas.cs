@@ -2020,6 +2020,43 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
+        public int[] ObtenerPermisosEmpleado(int idEmpleado, string seccion)
+        {
+            var lista = new List<int>();
+
+            DatosConexion($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {idEmpleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{seccion}'");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion1"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion2"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion3"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion4"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion5"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion6"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion7"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion8"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion9"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion10"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion11"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion12"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion13"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion14"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion15"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion16"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion17"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion18"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion19"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion20"))));
+            }
+
+            dr.Close();
+
+            return lista.ToArray();
+        }
+
         private void DatosConexion(string consulta, bool ignorar = false)
         {
             Conexion(ignorar);

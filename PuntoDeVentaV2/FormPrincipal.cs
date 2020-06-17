@@ -391,6 +391,13 @@ namespace PuntoDeVentaV2
                 var datos_per = mb.obtener_permisos_empleado(id_empleado, userID);
 
                 permisos_empleado(datos_per);
+
+                var existenPermisos = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDUsuario = {userID}");
+
+                if (!existenPermisos)
+                {
+                    InsertarPermisosDefault(id_empleado);
+                }
             }
 
             //====================================================================
@@ -413,6 +420,11 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{userID}')");
             }
+        }
+
+        private void InsertarPermisosDefault(int idEmpleado)
+        {
+            cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', 'Caja')");
         }
 
         private void obtenerDatosCheckStock()

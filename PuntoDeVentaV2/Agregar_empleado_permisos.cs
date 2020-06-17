@@ -97,7 +97,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                var permisos = new SeccionPermisos("Caja");
+                var permisos = new SeccionPermisos("Caja", id_empleado);
 
                 permisos.Show();
             }
