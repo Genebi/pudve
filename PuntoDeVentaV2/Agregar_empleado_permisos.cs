@@ -88,5 +88,19 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void btnCaja_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms.OfType<SeccionPermisos>().Count() == 1)
+            {
+                Application.OpenForms.OfType<SeccionPermisos>().First().BringToFront();
+            }
+            else
+            {
+                var permisos = new SeccionPermisos("Caja");
+
+                permisos.Show();
+            }
+        }
     }
 }
