@@ -56,6 +56,7 @@ namespace PuntoDeVentaV2
         public static int ConceptosDinamicos;
         public static int CorreosProducto;
         public static int FiltrosDinamicosVetanaFiltros;
+        public static int EmpleadosPermisos;
     #endregion Variables Tablas
 
         public DBTables()
