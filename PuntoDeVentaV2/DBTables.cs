@@ -109,6 +109,7 @@ namespace PuntoDeVentaV2
             ConceptosDinamicos = 7;
             CorreosProducto = 8;
             FiltrosDinamicosVetanaFiltros = 5;
+            EmpleadosPermisos = 24;
         #endregion Inicializar Variables
         }
 
