@@ -2725,4 +2725,7 @@
   <data name="Registered_problem" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\assets\Registered problem.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="blanco" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\icon\black\blanco.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

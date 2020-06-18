@@ -3665,6 +3665,9 @@
     <Content Include="PUDVE\icon\black16\youtube-square.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\blanco.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\close.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
