@@ -3066,5 +3066,109 @@ namespace PuntoDeVentaV2
             return $"DROP TABLE '{tabla}_temp';";
         }
         #endregion Tabla CorreosProducto
+
+        // Tabla de EmpleadosPermisos 48
+        #region Tabla EmpleadosPermisos
+        public int GetFiltroEmpleadosPermisos()
+        {
+            return EmpleadosPermisos;
+        }
+
+        public string PragmaTablaFiltroEmpleadosPermisos(string tabla)
+        {
+            return $"PRAGMA table_info('{tabla}');";
+        }
+
+        public string QueryRenameFiltroEmpleadosPermisos(string tabla)
+        {
+            return $"ALTER TABLE '{tabla}' RENAME TO '{tabla}_temp';";
+        }
+
+        public string QueryNvaTablaFiltroEmpleadosPermisos(string tabla)
+        {
+            return $@"CREATE TABLE '{tabla}' (ID         INTEGER PRIMARY KEY AUTOINCREMENT,
+                                              IDEmpleado INTEGER NOT NULL,
+                                              IDUsuario  INTEGER NOT NULL,
+                                              Seccion    TEXT,
+                                              Opcion1    INTEGER DEFAULT (1),
+                                              Opcion2    INTEGER DEFAULT (1),
+                                              Opcion3    INTEGER DEFAULT (1),
+                                              Opcion4    INTEGER DEFAULT (1),
+                                              Opcion5    INTEGER DEFAULT (1),
+                                              Opcion6    INTEGER DEFAULT (1),
+                                              Opcion7    INTEGER DEFAULT (1),
+                                              Opcion8    INTEGER DEFAULT (1),
+                                              Opcion9    INTEGER DEFAULT (1),
+                                              Opcion10   INTEGER DEFAULT (1),
+                                              Opcion11   INTEGER DEFAULT (1),
+                                              Opcion12   INTEGER DEFAULT (1),
+                                              Opcion13   INTEGER DEFAULT (1),
+                                              Opcion14   INTEGER DEFAULT (1),
+                                              Opcion15   INTEGER DEFAULT (1),
+                                              Opcion16   INTEGER DEFAULT (1),
+                                              Opcion17   INTEGER DEFAULT (1),
+                                              Opcion18   INTEGER DEFAULT (1),
+                                              Opcion19   INTEGER DEFAULT (1),
+                                              Opcion20   INTEGER DEFAULT (1));";
+        }
+
+        public string QueryUpdateTablaFiltroEmpleadosPermisos(string tabla)
+        {
+            return $@"INSERT INTO '{tabla}' (ID,
+                                             IDEmpleado,
+                                             IDUsuario,
+                                             Seccion,
+                                             Opcion1,
+                                             Opcion2,
+                                             Opcion3,
+                                             Opcion4,
+                                             Opcion5,
+                                             Opcion6,
+                                             Opcion7,
+                                             Opcion8,
+                                             Opcion9,
+                                             Opcion10,
+                                             Opcion11,
+                                             Opcion12,
+                                             Opcion13,
+                                             Opcion14,
+                                             Opcion15,
+                                             Opcion16,
+                                             Opcion17,
+                                             Opcion18,
+                                             Opcion19,
+                                             Opcion20) 
+                                      SELECT ID,
+                                             IDEmpleado,
+                                             IDUsuario,
+                                             Seccion,
+                                             Opcion1,
+                                             Opcion2,
+                                             Opcion3,
+                                             Opcion4,
+                                             Opcion5,
+                                             Opcion6,
+                                             Opcion7,
+                                             Opcion8,
+                                             Opcion9,
+                                             Opcion10,
+                                             Opcion11,
+                                             Opcion12,
+                                             Opcion13,
+                                             Opcion14,
+                                             Opcion15,
+                                             Opcion16,
+                                             Opcion17,
+                                             Opcion18,
+                                             Opcion19,
+                                             Opcion20 
+                                        FROM '{tabla}_temp';";
+        }
+
+        public string DropTablaFiltroEmpleadosPermisos(string tabla)
+        {
+            return $"DROP TABLE '{tabla}_temp';";
+        }
+        #endregion Tabla EmpleadosPermisos
     }
 }
