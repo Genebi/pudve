@@ -55,7 +55,7 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.btnVentas = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
@@ -346,15 +346,16 @@
             this.button9.TabIndex = 26;
             this.button9.UseVisualStyleBackColor = true;
             // 
-            // button10
+            // btnVentas
             // 
-            this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button10.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button10.Location = new System.Drawing.Point(150, 246);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(20, 20);
-            this.button10.TabIndex = 27;
-            this.button10.UseVisualStyleBackColor = true;
+            this.btnVentas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVentas.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
+            this.btnVentas.Location = new System.Drawing.Point(150, 246);
+            this.btnVentas.Name = "btnVentas";
+            this.btnVentas.Size = new System.Drawing.Size(20, 20);
+            this.btnVentas.TabIndex = 27;
+            this.btnVentas.UseVisualStyleBackColor = true;
+            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
             // 
             // button11
             // 
@@ -420,7 +421,7 @@
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
-            this.Controls.Add(this.button10);
+            this.Controls.Add(this.btnVentas);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
@@ -491,7 +492,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;

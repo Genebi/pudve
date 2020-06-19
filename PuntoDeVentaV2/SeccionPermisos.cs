@@ -30,6 +30,9 @@ namespace PuntoDeVentaV2
         {
             if (seccion == "Caja")
                 GenerarCaja();
+
+            if (seccion == "Ventas")
+                GenerarVentas();
         }
 
         private void GenerarCaja()
@@ -49,6 +52,38 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(200, 20, 150, "Mostrar Panel Anticipos", datos[8]);
             GenerarCheckbox(200, 180, 200, "Mostrar Panel Dinero Agregado", datos[9]);
             GenerarCheckbox(240, 20, 150, "Mostrar Panel Total Caja", datos[10]);
+        }
+
+        private void GenerarVentas()
+        {
+            this.Text = "PUDVE - Permisos Ventas";
+
+            GenerarCheckbox(20, 10, 110, "Cancelar Venta", 1);
+            GenerarCheckbox(20, 130, 110, "Ver Nota Venta", 1);
+            GenerarCheckbox(20, 250, 125, "Ver Ticket Venta", 1);
+
+            GenerarCheckbox(50, 10, 110, "Ver Info Venta", 1);
+            GenerarCheckbox(50, 130, 110, "Timbrar Factura", 1);
+            GenerarCheckbox(50, 250, 125, "Botón Enviar Nota", 1);
+
+            GenerarCheckbox(80, 10, 110, "Buscar Venta", 1);
+            GenerarCheckbox(80, 130, 110, "Nueva Venta", 1);
+            GenerarCheckbox(80, 250, 125, "Botón Cancelar", 1);
+
+            GenerarCheckbox(110, 10, 110, "Guardar Venta", 1);
+            GenerarCheckbox(110, 130, 110, "Botón Anticipos", 1);
+            GenerarCheckbox(110, 250, 125, "Abrir Caja", 1);
+
+            GenerarCheckbox(140, 10, 115, "Ventas Guardadas", 1);
+            GenerarCheckbox(140, 130, 110, "Ver Último Ticket", 1);
+            GenerarCheckbox(140, 250, 135, "Guardar Presupuesto", 1);
+
+            GenerarCheckbox(170, 10, 115, "Descuento Cliente", 1);
+            GenerarCheckbox(170, 130, 110, "Elimininar Último", 1);
+            GenerarCheckbox(170, 250, 135, "Eliminar Todos", 1);
+
+            GenerarCheckbox(200, 10, 115, "Aplicar Descuento", 1);
+            GenerarCheckbox(200, 130, 110, "Terminar Venta", 1);
         }
 
         private void GenerarCheckbox(int top, int left, int ancho, string texto, int estado)
