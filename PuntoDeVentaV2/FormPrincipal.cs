@@ -425,6 +425,7 @@ namespace PuntoDeVentaV2
         private void InsertarPermisosDefault(int idEmpleado)
         {
             cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', 'Caja')");
+            cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', 'Ventas')");
         }
 
         private void obtenerDatosCheckStock()

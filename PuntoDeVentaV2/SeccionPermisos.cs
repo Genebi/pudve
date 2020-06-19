@@ -105,7 +105,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (seccion == "Caja")
+            if (seccion.Equals("Caja"))
             {
                 var existe = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Caja'");
 
@@ -120,6 +120,26 @@ namespace PuntoDeVentaV2
                 foreach (var opcion in datos)
                 {
                     cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion{numero} = {opcion} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Caja'");
+
+                    numero++;
+                }
+            }
+
+            if (seccion.Equals("Ventas"))
+            {
+                var existe = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Ventas'");
+
+                if (!existe)
+                {
+                    cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_empleado}', '{FormPrincipal.userID}', 'Ventas')");
+                }
+
+                var datos = PermisosElegidos();
+                var numero = 1;
+
+                foreach (var opcion in datos)
+                {
+                    cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion{numero} = {opcion} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Ventas'");
 
                     numero++;
                 }
