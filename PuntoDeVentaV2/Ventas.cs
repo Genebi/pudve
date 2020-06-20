@@ -106,6 +106,20 @@ namespace PuntoDeVentaV2
         private Dictionary<int, string> enviarStockMinimo;
         private Dictionary<int, string> enviarVentaProducto;
 
+        // Permisos de los botones
+        int opcion9 = 1; // Boton cancelar
+        int opcion10 = 1; // Guardar venta
+        int opcion11 = 1; // Boton anticipos
+        int opcion12 = 1; // Abrir caja
+        int opcion13 = 1; // Ventas guardadas
+        int opcion14 = 1; // Ver ultimo ticket
+        int opcion15 = 1; // Guardar presupuesto
+        int opcion16 = 1; // Descuento cliente
+        int opcion17 = 1; // Eliminar ultimo
+        int opcion18 = 1; // Eliminar todos
+        int opcion19 = 1; // Aplicar descuento
+        int opcion20 = 1; // Terminar venta
+
         public Ventas()
         {
             InitializeComponent();
@@ -153,6 +167,25 @@ namespace PuntoDeVentaV2
 
             enviarStockMinimo = new Dictionary<int, string>();
             enviarVentaProducto = new Dictionary<int, string>();
+
+            // Si es un empleado obtiene los permisos de los botones
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+
+                opcion9 = permisos[8];
+                opcion10 = permisos[9];
+                opcion11 = permisos[10];
+                opcion12 = permisos[11];
+                opcion13 = permisos[12];
+                opcion14 = permisos[13];
+                opcion15 = permisos[14];
+                opcion16 = permisos[15];
+                opcion17 = permisos[16];
+                opcion18 = permisos[17];
+                opcion19 = permisos[18];
+                opcion20 = permisos[19];
+            }
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)
@@ -1260,6 +1293,12 @@ namespace PuntoDeVentaV2
 
         private void btnEliminarUltimo_Click(object sender, EventArgs e)
         {
+            if (opcion17 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (DGVentas.Rows.Count > 0)
             {
                 var id = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
@@ -1283,6 +1322,12 @@ namespace PuntoDeVentaV2
 
         private void btnEliminarTodos_Click(object sender, EventArgs e)
         {
+            if (opcion18 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             DGVentas.Rows.Clear();
             // Almacena los ID de los productos a los que se aplica descuento general
             productosDescuentoG.Clear();
@@ -1295,6 +1340,12 @@ namespace PuntoDeVentaV2
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
         {
+            if (opcion9 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             mostrarVenta = 0;
 
             this.Dispose();
@@ -1302,6 +1353,12 @@ namespace PuntoDeVentaV2
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
+            if (opcion20 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (VerificarStockProducto())
             {
                 if (Application.OpenForms.OfType<DetalleVenta>().Count() == 1)
@@ -1697,6 +1754,12 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarVenta_Click(object sender, EventArgs e)
         {
+            if (opcion10 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             ListaClientes cliente = new ListaClientes();
 
             cliente.FormClosed += delegate
@@ -1801,6 +1864,12 @@ namespace PuntoDeVentaV2
 
         private void btnVentasGuardadas_Click(object sender, EventArgs e)
         {
+            if (opcion13 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
                 Application.OpenForms.OfType<ListadoVentasGuardadas>().First().BringToFront();
@@ -2411,6 +2480,12 @@ namespace PuntoDeVentaV2
 
         private void btnAnticipos_Click(object sender, EventArgs e)
         {
+            if (opcion11 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<ListadoAnticipos>().Count() == 1)
             {
                 Application.OpenForms.OfType<ListadoAnticipos>().First().BringToFront();
@@ -2434,6 +2509,12 @@ namespace PuntoDeVentaV2
 
         private void btnUltimoTicket_Click(object sender, EventArgs e)
         {
+            if (opcion14 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
 
             if (Utilidades.AdobeReaderInstalado())
@@ -2448,6 +2529,12 @@ namespace PuntoDeVentaV2
 
         private void btnPresupuesto_Click(object sender, EventArgs e)
         {
+            if (opcion15 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             //Sin acciones
         }
 
@@ -2900,6 +2987,12 @@ namespace PuntoDeVentaV2
 
         private void btnAbrirCaja_Click(object sender, EventArgs e)
         {
+            if (opcion12 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Utilidades.AdobeReaderInstalado())
             {
                 GenerarTicketCaja();
@@ -2941,6 +3034,12 @@ namespace PuntoDeVentaV2
 
         private void btnClientes_Click(object sender, EventArgs e)
         {
+            if (opcion16 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             using (var clientes = new ListaClientes(tipo: 1))
             {
                 var respuesta = clientes.ShowDialog();
@@ -3018,6 +3117,12 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
+            if (opcion19 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             DescuentoGeneral();
 
             var mensaje = "¿Desea aplicar este descuento a los siguientes\nproductos que se agreguen a esta venta?";

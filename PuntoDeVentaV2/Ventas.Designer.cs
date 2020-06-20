@@ -78,6 +78,7 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbMayoreo = new System.Windows.Forms.Label();
             this.btnEliminarDescuentos = new System.Windows.Forms.Button();
             this.btnAplicarDescuento = new System.Windows.Forms.Button();
             this.PBImagen = new System.Windows.Forms.PictureBox();
@@ -91,7 +92,6 @@
             this.btnConsultar = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
             this.lbDatosCliente = new System.Windows.Forms.Label();
-            this.lbMayoreo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -588,7 +588,6 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.lbMayoreo);
             this.panel1.Controls.Add(this.btnEliminarDescuentos);
             this.panel1.Controls.Add(this.btnAplicarDescuento);
@@ -624,10 +623,24 @@
             this.panel1.Controls.Add(this.btnUltimoTicket);
             this.panel1.Controls.Add(this.lbNumeroArticulos);
             this.panel1.Controls.Add(this.btnPresupuesto);
+            this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Location = new System.Drawing.Point(5, 93);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1221, 354);
             this.panel1.TabIndex = 34;
+            // 
+            // lbMayoreo
+            // 
+            this.lbMayoreo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMayoreo.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lbMayoreo.Image = global::PuntoDeVentaV2.Properties.Resources.check1;
+            this.lbMayoreo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbMayoreo.Location = new System.Drawing.Point(3, 95);
+            this.lbMayoreo.Name = "lbMayoreo";
+            this.lbMayoreo.Size = new System.Drawing.Size(138, 16);
+            this.lbMayoreo.TabIndex = 45;
+            this.lbMayoreo.Text = "Mayoreo aplicado";
+            this.lbMayoreo.Visible = false;
             // 
             // btnEliminarDescuentos
             // 
@@ -780,19 +793,6 @@
             this.lbDatosCliente.Size = new System.Drawing.Size(621, 23);
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbMayoreo
-            // 
-            this.lbMayoreo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMayoreo.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lbMayoreo.Image = global::PuntoDeVentaV2.Properties.Resources.check1;
-            this.lbMayoreo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbMayoreo.Location = new System.Drawing.Point(3, 95);
-            this.lbMayoreo.Name = "lbMayoreo";
-            this.lbMayoreo.Size = new System.Drawing.Size(138, 16);
-            this.lbMayoreo.TabIndex = 45;
-            this.lbMayoreo.Text = "Mayoreo aplicado";
-            this.lbMayoreo.Visible = false;
             // 
             // Ventas
             // 
