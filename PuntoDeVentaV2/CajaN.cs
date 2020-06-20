@@ -104,7 +104,7 @@ namespace PuntoDeVentaV2
         {
             if (opcion2 == 0)
             {
-                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Utilidades.MensajePermiso();
                 return;
             }
 
@@ -124,7 +124,7 @@ namespace PuntoDeVentaV2
         {
             if (opcion4 == 0)
             {
-                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Utilidades.MensajePermiso();
                 return;
             }
 
@@ -144,7 +144,7 @@ namespace PuntoDeVentaV2
         {
             if (opcion1 == 0)
             {
-                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Utilidades.MensajePermiso();
                 return;
             }
 
@@ -170,7 +170,7 @@ namespace PuntoDeVentaV2
         {
             if (opcion3 == 0)
             {
-                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Utilidades.MensajePermiso();
                 return;
             }
 
@@ -196,7 +196,7 @@ namespace PuntoDeVentaV2
         {
             if (opcion6 == 0)
             {
-                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Utilidades.MensajePermiso();
                 return;
             }
 
@@ -1506,7 +1506,7 @@ namespace PuntoDeVentaV2
         {
             if (opcion5 == 0)
             {
-                MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Utilidades.MensajePermiso();
                 return;
             }
 

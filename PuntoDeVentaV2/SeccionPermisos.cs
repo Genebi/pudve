@@ -58,32 +58,34 @@ namespace PuntoDeVentaV2
         {
             this.Text = "PUDVE - Permisos Ventas";
 
-            GenerarCheckbox(20, 10, 110, "Cancelar Venta", 1);
-            GenerarCheckbox(20, 130, 110, "Ver Nota Venta", 1);
-            GenerarCheckbox(20, 250, 125, "Ver Ticket Venta", 1);
+            var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Ventas");
 
-            GenerarCheckbox(50, 10, 110, "Ver Info Venta", 1);
-            GenerarCheckbox(50, 130, 110, "Timbrar Factura", 1);
-            GenerarCheckbox(50, 250, 125, "Botón Enviar Nota", 1);
+            GenerarCheckbox(20, 10, 110, "Cancelar Venta", datos[0]);
+            GenerarCheckbox(20, 130, 110, "Ver Nota Venta", datos[1]);
+            GenerarCheckbox(20, 250, 125, "Ver Ticket Venta", datos[2]);
 
-            GenerarCheckbox(80, 10, 110, "Buscar Venta", 1);
-            GenerarCheckbox(80, 130, 110, "Nueva Venta", 1);
-            GenerarCheckbox(80, 250, 125, "Botón Cancelar", 1);
+            GenerarCheckbox(50, 10, 110, "Ver Info Venta", datos[3]);
+            GenerarCheckbox(50, 130, 110, "Timbrar Factura", datos[4]);
+            GenerarCheckbox(50, 250, 125, "Botón Enviar Nota", datos[5]);
 
-            GenerarCheckbox(110, 10, 110, "Guardar Venta", 1);
-            GenerarCheckbox(110, 130, 110, "Botón Anticipos", 1);
-            GenerarCheckbox(110, 250, 125, "Abrir Caja", 1);
+            GenerarCheckbox(80, 10, 110, "Buscar Venta", datos[6]);
+            GenerarCheckbox(80, 130, 110, "Nueva Venta", datos[7]);
+            GenerarCheckbox(80, 250, 125, "Botón Cancelar", datos[8]);
 
-            GenerarCheckbox(140, 10, 115, "Ventas Guardadas", 1);
-            GenerarCheckbox(140, 130, 110, "Ver Último Ticket", 1);
-            GenerarCheckbox(140, 250, 135, "Guardar Presupuesto", 1);
+            GenerarCheckbox(110, 10, 110, "Guardar Venta", datos[9]);
+            GenerarCheckbox(110, 130, 110, "Botón Anticipos", datos[10]);
+            GenerarCheckbox(110, 250, 125, "Abrir Caja", datos[11]);
 
-            GenerarCheckbox(170, 10, 115, "Descuento Cliente", 1);
-            GenerarCheckbox(170, 130, 110, "Elimininar Último", 1);
-            GenerarCheckbox(170, 250, 135, "Eliminar Todos", 1);
+            GenerarCheckbox(140, 10, 115, "Ventas Guardadas", datos[12]);
+            GenerarCheckbox(140, 130, 110, "Ver Último Ticket", datos[13]);
+            GenerarCheckbox(140, 250, 135, "Guardar Presupuesto", datos[14]);
 
-            GenerarCheckbox(200, 10, 115, "Aplicar Descuento", 1);
-            GenerarCheckbox(200, 130, 110, "Terminar Venta", 1);
+            GenerarCheckbox(170, 10, 115, "Descuento Cliente", datos[15]);
+            GenerarCheckbox(170, 130, 110, "Elimininar Último", datos[16]);
+            GenerarCheckbox(170, 250, 135, "Eliminar Todos", datos[17]);
+
+            GenerarCheckbox(200, 10, 115, "Aplicar Descuento", datos[18]);
+            GenerarCheckbox(200, 130, 110, "Terminar Venta", datos[19]);
         }
 
         private void GenerarCheckbox(int top, int left, int ancho, string texto, int estado)

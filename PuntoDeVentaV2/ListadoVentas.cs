@@ -52,6 +52,15 @@ namespace PuntoDeVentaV2
 
         CheckBox header_checkb = null;
 
+        // Permisos de los botones
+        int opcion1 = 1; // Cancelar venta
+        int opcion2 = 1; // Ver nota venta
+        int opcion3 = 1; // Ver ticket venta
+        int opcion4 = 1; // Ver info venta
+        int opcion5 = 1; // Timbrar factura
+        int opcion6 = 1; // Enviar nota
+        int opcion7 = 1; // Buscar venta
+        int opcion8 = 1; // Nueva venta
 
         public ListadoVentas()
         {
@@ -95,6 +104,21 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             btnUltimaPagina.PerformClick();
+
+            // Si es un empleado obtiene los permisos de los botones
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
+                opcion5 = permisos[4];
+                opcion6 = permisos[5];
+                opcion7 = permisos[6];
+                opcion8 = permisos[7];
+            }
         }
 
         private void actualizar()
@@ -359,11 +383,23 @@ namespace PuntoDeVentaV2
 
         private void btnBuscarVentas_Click(object sender, EventArgs e)
         {
+            if (opcion7 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             CargarDatos(busqueda: true);
         }
 
         private void btnNuevaVenta_Click(object sender, EventArgs e)
         {
+            if (opcion8 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (existenProductos)
             {
                 if (Application.OpenForms.OfType<Ventas>().Count() == 1)
@@ -518,6 +554,12 @@ namespace PuntoDeVentaV2
                 //Cancelar
                 if (e.ColumnIndex == 11)
                 {
+                    if (opcion1 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     var mensaje = MessageBox.Show("¿Estás seguro de cancelar la venta?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (mensaje == DialogResult.Yes)
@@ -583,6 +625,12 @@ namespace PuntoDeVentaV2
                 //Ver nota
                 if (e.ColumnIndex == 12)
                 {
+                    if (opcion2 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Comprobar si adobe esta instalado
                     if (!Utilidades.AdobeReaderInstalado())
                     {
@@ -618,6 +666,12 @@ namespace PuntoDeVentaV2
                 //Ver ticket
                 if (e.ColumnIndex == 13)
                 {
+                    if (opcion3 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Comprobar si adobe esta instalado
                     if (!Utilidades.AdobeReaderInstalado())
                     {
@@ -661,6 +715,12 @@ namespace PuntoDeVentaV2
                 //Abonos
                 if (e.ColumnIndex == 14)
                 {
+                    if (opcion4 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     //Verificamos si tiene seleccionada la opcion de ventas a credito
                     if (opcion == "VCC")
                     {
@@ -696,6 +756,12 @@ namespace PuntoDeVentaV2
                 //Timbrar
                 if (e.ColumnIndex == 15)
                 {
+                    if (opcion5 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Se valida que la nota no tenga ya una factura creada
                     int r = Convert.ToInt32(cn.EjecutarSelect($"SELECT Timbrada FROM Ventas WHERE ID={idVenta}", 8));
                     
@@ -743,7 +809,11 @@ namespace PuntoDeVentaV2
             if (abrirNuevaVenta)
             {
                 abrirNuevaVenta = false;
-                btnNuevaVenta.PerformClick();
+
+                if (opcion8 == 1)
+                {
+                    btnNuevaVenta.PerformClick();
+                }
             }
         }
 
@@ -1344,6 +1414,12 @@ namespace PuntoDeVentaV2
 
         private void btn_enviar_Click(object sender, EventArgs e)
         {
+            if (opcion6 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             int cont = 0;
             int en = 0;
             int c = 0;
@@ -1448,7 +1524,10 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyData == Keys.Enter)
             {
-                btnBuscarVentas.PerformClick();
+                if (opcion7 == 1)
+                {
+                    btnBuscarVentas.PerformClick();
+                }
             }
         }
     }

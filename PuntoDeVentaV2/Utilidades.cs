@@ -423,5 +423,10 @@ namespace PuntoDeVentaV2
         {
             MessageBox.Show("Se requiere instalar Adobe Reader", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        public static void MensajePermiso()
+        {
+            MessageBox.Show("No tiene permiso de realizar esta operación\nConsulte al administrador del sistema", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
