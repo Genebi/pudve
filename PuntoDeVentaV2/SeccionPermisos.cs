@@ -28,6 +28,8 @@ namespace PuntoDeVentaV2
 
         private void SeccionPermisos_Load(object sender, EventArgs e)
         {
+            VerificarSecciones();
+
             if (seccion == "Caja")
                 GenerarCaja();
 
@@ -105,17 +107,29 @@ namespace PuntoDeVentaV2
             Close();
         }
 
+        private void VerificarSecciones()
+        {
+            var existe = false;
+
+            existe = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Caja'");
+
+            if (!existe)
+            {
+                cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_empleado}', '{FormPrincipal.userID}', 'Caja')");
+            }
+
+            existe = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Ventas'");
+
+            if (!existe)
+            {
+                cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_empleado}', '{FormPrincipal.userID}', 'Ventas')");
+            }
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (seccion.Equals("Caja"))
             {
-                var existe = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Caja'");
-
-                if (!existe)
-                {
-                    cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_empleado}', '{FormPrincipal.userID}', 'Caja')");
-                }
-
                 var datos = PermisosElegidos();
                 var numero = 1;
 
@@ -129,13 +143,6 @@ namespace PuntoDeVentaV2
 
             if (seccion.Equals("Ventas"))
             {
-                var existe = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Ventas'");
-
-                if (!existe)
-                {
-                    cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_empleado}', '{FormPrincipal.userID}', 'Ventas')");
-                }
-
                 var datos = PermisosElegidos();
                 var numero = 1;
 
