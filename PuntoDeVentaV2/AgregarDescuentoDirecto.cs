@@ -106,7 +106,7 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
-                lbCantidadProducto.Visible = false;
+                lbCantidadProducto.Visible = true;
                 txtPorcentaje.Enabled = false;
                 txtPorcentaje.Text = string.Empty;
 
@@ -118,17 +118,17 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                if (cantidad < precioProducto)
+                if (cantidad < (precioProducto * cantidadProducto))
                 {
                     lbTotalDescuento.Text = cantidad.ToString("0.00");
-                    lbTotalFinal.Text = (precioProducto - cantidad).ToString("0.00");
+                    lbTotalFinal.Text = ((precioProducto * cantidadProducto) - cantidad).ToString("0.00");
                 }
                 else
                 {
-                    txtCantidad.Text = (precioProducto - 1).ToString("0.00");
+                    txtCantidad.Text = ((precioProducto * cantidadProducto) - 1).ToString("0.00");
                     cantidad = Convert.ToDouble(txtCantidad.Text);
                     lbTotalDescuento.Text = cantidad.ToString("0.00");
-                    lbTotalFinal.Text = (precioProducto - cantidad).ToString("0.00");
+                    lbTotalFinal.Text = ((precioProducto * cantidadProducto) - cantidad).ToString("0.00");
 
                     txtCantidad.SelectionStart = txtCantidad.Text.Length;
                     txtCantidad.SelectionLength = 0;
@@ -139,6 +139,7 @@ namespace PuntoDeVentaV2
                 txtPorcentaje.Enabled = true;
                 lbTotalDescuento.Text = "0.00";
                 lbTotalFinal.Text = "0.00";
+                lbCantidadProducto.Visible = false;
             }
         }
 
