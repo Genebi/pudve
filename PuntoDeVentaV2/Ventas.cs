@@ -826,20 +826,24 @@ namespace PuntoDeVentaV2
                     {
                         int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
                         int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
+                        var precio = float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
 
-                        float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
+                        float importe = cantidad * precio;
 
                         // Verificar si tiene descuento directo
                         if (descuentosDirectos.ContainsKey(idProducto))
                         {
                             var tipoDescuentoDirecto = descuentosDirectos[idProducto].Item1;
 
+                            // Si el descuento directo es el de cantidad
                             if (tipoDescuentoDirecto == 1)
                             {
                                 var descuento = float.Parse(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString());
 
+                                // Cuando cantidad de producto sea igual a 1 hara esto
                                 if (cantidad == 1)
                                 {
+                                    // Si el importe es menor al descuento debe terminar la operacion
                                     if (importe < descuento)
                                     {
                                         DGVentas.ClearSelection();
@@ -847,6 +851,18 @@ namespace PuntoDeVentaV2
                                         return;
                                     }
                                 }
+                            }
+
+                            // Si el descuento directo es por descuento
+                            if (tipoDescuentoDirecto == 2)
+                            {
+                                var porcentaje = descuentosDirectos[idProducto].Item2;
+
+                                var descuentoTmp = (precio * cantidad) * (porcentaje / 100);
+                                var importeTmp = (precio * cantidad) - descuentoTmp;
+
+                                importe = importeTmp;
+                                DGVentas.Rows[celda].Cells["Descuento"].Value = $"{descuentoTmp.ToString("N2")} - {porcentaje}%";
                             }
                         }
 
