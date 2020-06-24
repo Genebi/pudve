@@ -942,14 +942,33 @@ namespace PuntoDeVentaV2
 
         private void AgregarMultiplesProductos()
         {
+            int idProducto = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["IDProducto"].Value);
+            int tipoDescuento = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["DescuentoTipo"].Value);
+            var precio = float.Parse(DGVentas.Rows[indiceFila].Cells["Precio"].Value.ToString());
             int cantidad = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["Cantidad"].Value) + cantidadFila;
-            float importe = cantidad * float.Parse(DGVentas.Rows[indiceFila].Cells["Precio"].Value.ToString());
+
+            float importe = cantidad * precio;
+
+            // Verificar si tiene descuento directo
+            if (descuentosDirectos.ContainsKey(idProducto))
+            {
+                var tipoDescuentoDirecto = descuentosDirectos[idProducto].Item1;
+
+                // Si el descuento directo es por descuento
+                if (tipoDescuentoDirecto == 2)
+                {
+                    var porcentaje = descuentosDirectos[idProducto].Item2;
+
+                    var descuentoTmp = (precio * cantidad) * (porcentaje / 100);
+                    var importeTmp = (precio * cantidad) - descuentoTmp;
+
+                    importe = importeTmp;
+                    DGVentas.Rows[indiceFila].Cells["Descuento"].Value = $"{descuentoTmp.ToString("N2")} - {porcentaje}%";
+                }
+            }
 
             DGVentas.Rows[indiceFila].Cells["Cantidad"].Value = cantidad;
             DGVentas.Rows[indiceFila].Cells["Importe"].Value = importe;
-
-            int idProducto = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["IDProducto"].Value);
-            int tipoDescuento = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["DescuentoTipo"].Value);
 
             if (tipoDescuento > 0)
             {
