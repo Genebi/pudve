@@ -824,13 +824,34 @@ namespace PuntoDeVentaV2
 
                     if (cantidad > 0)
                     {
+                        int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+                        int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
+
                         float importe = cantidad * float.Parse(DGVentas.Rows[celda].Cells["Precio"].Value.ToString());
+
+                        // Verificar si tiene descuento directo
+                        if (descuentosDirectos.ContainsKey(idProducto))
+                        {
+                            var tipoDescuentoDirecto = descuentosDirectos[idProducto].Item1;
+
+                            if (tipoDescuentoDirecto == 1)
+                            {
+                                var descuento = float.Parse(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString());
+
+                                if (cantidad == 1)
+                                {
+                                    if (importe < descuento)
+                                    {
+                                        DGVentas.ClearSelection();
+                                        MessageBox.Show("El descuento no puede ser mayor al precio del producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
 
                         DGVentas.Rows[celda].Cells["Cantidad"].Value = cantidad;
                         DGVentas.Rows[celda].Cells["Importe"].Value = importe;
-
-                        int idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
-                        int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celda].Cells["DescuentoTipo"].Value);
 
                         if (tipoDescuento > 0)
                         {
