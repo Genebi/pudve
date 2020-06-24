@@ -840,8 +840,8 @@ namespace PuntoDeVentaV2
                             decimal b = precio / 1.16m; 
                             decimal bs = precio - b;
 
-                            mbase = Convert.ToString(dos_decimales(b));
-                            miva = Convert.ToString(dos_decimales(bs));
+                            mbase = Convert.ToString(dos_seis_decimales(b, 2));
+                            miva = Convert.ToString(dos_seis_decimales(bs, 2));
                             timpuesto = "16%";
                         }
                         else
@@ -871,7 +871,7 @@ namespace PuntoDeVentaV2
                                 }
 
                                 decimal desc_encant = precio_unit * porcent_desc;
-                                decimal pu_desc = precio_unit - desc_encant;
+                                decimal pu_desc = precio_unit - dos_seis_decimales(desc_encant, 6);
                                 decimal nbase = pu_desc;
 
                                 if (timpuesto == "16%")
@@ -883,7 +883,7 @@ namespace PuntoDeVentaV2
                                     nbase = pu_desc / 1.08m;
                                 }
                                 
-                                nbase = dos_decimales(nbase);
+                                nbase = dos_seis_decimales(nbase, 2);
 
                                 mbase = Convert.ToString(nbase);
                             }
@@ -893,7 +893,7 @@ namespace PuntoDeVentaV2
                                 
                                 decimal descuento_xcantidad = Convert.ToDecimal(descuento_xproducto) / cantidad;
                                 
-                                decimal pu_desc = precio_unit - dos_decimales(descuento_xcantidad);
+                                decimal pu_desc = precio_unit - dos_seis_decimales(descuento_xcantidad, 2);
                                 decimal nbase = pu_desc;
 
                                 if (timpuesto == "16%")
@@ -904,8 +904,8 @@ namespace PuntoDeVentaV2
                                 {
                                     nbase = pu_desc / 1.08m;
                                 }
-                                
-                                nbase = dos_decimales(nbase);
+
+                                nbase = dos_seis_decimales(nbase, 2);
 
                                 mbase = Convert.ToString(nbase);
                             }
@@ -1018,9 +1018,9 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private decimal dos_decimales(decimal c)
+        private decimal dos_seis_decimales(decimal c, int cant)
         {
-            decimal cantidad = Decimal.Round(c, 2);
+            decimal cantidad = Decimal.Round(c, cant);
 
             return cantidad;
         }

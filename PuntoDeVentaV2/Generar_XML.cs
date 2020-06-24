@@ -354,30 +354,7 @@ namespace PuntoDeVentaV2
                             agrega_nodo_concepto_traslado = 1;
 
 
-                            // Si el producto tiene descuento
-                            /*if(importe_menosdesc > 0)
-                            {
-                                if (d_tasa_c == "16%" | d_tasa_c == "8%")
-                                {
-                                    decimal xunidad = importe_menosdesc / cantidad;
-                                    if(d_tasa_c == "16%")
-                                    {
-                                        importe_base = xunidad / 1.16m;
-                                    }
-                                    if (d_tasa_c == "8%")
-                                    {
-                                        importe_base = xunidad / 1.08m;
-                                    }
-                                }
-                                else
-                                {
-                                    importe_base = importe_menosdesc / cantidad;
-                                }
-                            }
-                            else
-                            {*/
-                                importe_base = d_base_i;
-                            //}
+                            importe_base = d_base_i;
                             
 
                             if (d_tasa_c == "16%") { tasacuota = 0.160000m; }
@@ -412,8 +389,21 @@ namespace PuntoDeVentaV2
                                 {
                                     importe = (importe_base * cantidad) * tasacuota;
                                 }
+
+                                // Verifica que el importe se encuentre dentro de los limites
+                                decimal env_base = seis_decimales(importe_base * cantidad);
+                                string[] res = calculo_limites(env_base, 6, tasacuota, seis_decimales(importe));
                                 
-                                concepto_traslado.Importe = seis_decimales(importe);
+                                if (res[0] == "true")
+                                {
+                                    concepto_traslado.Importe = seis_decimales(importe);
+                                }
+                                else
+                                {
+                                    decimal nuevo_importe= recalcular_datos_impuestos(id_producto, seis_decimales(importe), cantidad, res[1], res[2]);
+
+                                    concepto_traslado.Importe = nuevo_importe;
+                                }
                             }
 
                             list_concepto_impuestos_traslados.Add(concepto_traslado);
@@ -1238,12 +1228,18 @@ namespace PuntoDeVentaV2
                 var codigo = fex.Code.ToString();
 
                 mensaje = "CODIGO ERROR= " + codigo + " --- " + fex.Message;
+
+                // Elimina la factura que fue creada
+                //error_eliminar_factura(id_factura, con_complemento_pg);
             }
             catch (XmlException e_xml)
             {
                 mensaje = e_xml.Message;
+
+                // Elimina la factura que fue creada
+                //error_eliminar_factura(id_factura, con_complemento_pg);
             }
-            
+
 
             return mensaje;
         }
@@ -1295,5 +1291,74 @@ namespace PuntoDeVentaV2
 
             return cantidad;
         }
+
+        private string[] calculo_limites(decimal ibase, int ndecimal, decimal tcuota, decimal imp_impuesto)
+        {
+            string[] r = new string[3];
+
+            double limiteI = Math.Pow(10, -(ndecimal)) / 2;
+            limiteI = (Convert.ToDouble(ibase) - limiteI ) * Convert.ToDouble(tcuota);
+            
+            double limiteS = Math.Pow(10, -(ndecimal))  /  (2 - Math.Pow(10, -(12)));
+            limiteS = (Convert.ToDouble(ibase) + limiteS) * Convert.ToDouble(tcuota);
+
+
+            decimal limite_i = seis_decimales(Convert.ToDecimal(limiteI));
+            decimal limite_s = seis_decimales(Convert.ToDecimal(limiteS));
+
+            if(imp_impuesto >= limite_i  &  imp_impuesto <= limite_s)
+            {
+                r[0] = "true";
+            }
+            r[1] = Convert.ToString(limite_i);
+            r[2] = Convert.ToString(limite_s);
+
+            return r;
+        }
+
+        private decimal recalcular_datos_impuestos(int idp, decimal importe, decimal cantp, string limI, string limS)
+        {
+            decimal importe_li = Convert.ToDecimal(limI);
+            decimal importe_ls = Convert.ToDecimal(limS);
+            decimal media = (importe_li + importe_ls) / 2;
+
+            if (importe < importe_li | importe > importe_ls)
+            {
+                media = media / cantp;
+                media = seis_decimales(media);
+
+                cn.EjecutarConsulta($"UPDATE Facturas_productos SET importe_iva='{media}' WHERE ID='{idp}'");
+            }
+            
+            return media;
+        }
+
+        /*private void error_eliminar_factura(int idf, int complemento)
+        {
+            // Complemento pago
+            if(complemento == 1)
+            {
+                cn.EjecutarConsulta($"DELETE Facturas_complemento_pago WHERE id_factura='{idf}'");
+            }
+
+            // Impuestos extras
+            DataTable d_product = cn.CargarDatos(cs.cargar_datos_venta_xml(10, idf, 0));
+
+            if(d_product.Rows.Count > 0)
+            {
+                foreach(DataRow r_product in d_product.Rows)
+                {
+                    int id_fact_producto = Convert.ToInt32(r_product["ID"].ToString());
+
+                    cn.EjecutarConsulta($"DELETE Facturas_impuestos WHERE id_factura_producto='{id_fact_producto}'");
+                }
+            }
+            
+            //Productos
+            cn.EjecutarConsulta($"DELETE Facturas_productos WHERE id_factura='{idf}'");
+
+            //Factura principal
+            cn.EjecutarConsulta($"DELETE Facturas WHERE ID='{idf}'");
+        }*/
     }
 }
