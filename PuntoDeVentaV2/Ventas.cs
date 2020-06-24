@@ -840,7 +840,19 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        var idProducto = Convert.ToInt32(DGVentas.Rows[celda].Cells["IDProducto"].Value);
+
                         DGVentas.Rows.RemoveAt(celda);
+
+                        if (productosDescuentoG.ContainsKey(idProducto))
+                        {
+                            productosDescuentoG.Remove(idProducto);
+                        }
+
+                        if (descuentosDirectos.ContainsKey(idProducto))
+                        {
+                            descuentosDirectos.Remove(idProducto);
+                        }
                     }
                 }
 
@@ -1947,6 +1959,7 @@ namespace PuntoDeVentaV2
                     mostrarVenta = 0;
                     listaAnticipos = string.Empty;
                     ventasGuardadas.Clear();
+                    descuentosDirectos.Clear();
                 }
             }
             else
@@ -1954,6 +1967,7 @@ namespace PuntoDeVentaV2
                 mostrarVenta = 0;
                 listaAnticipos = string.Empty;
                 ventasGuardadas.Clear();
+                descuentosDirectos.Clear();
             }
         }
 
