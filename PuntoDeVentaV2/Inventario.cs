@@ -20,9 +20,6 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        //RevisarInventario checkInventory = new RevisarInventario();
-        //ReporteFinalRevisarInventario FinalReportReviewInventory = new ReporteFinalRevisarInventario();
-        
         public static int NumRevActivo = 0;
         public static bool limpiarTabla = false;
 
@@ -47,10 +44,12 @@ namespace PuntoDeVentaV2
 
         public int GetNumRevActive { get; set; }
 
-        private void CargarNumRevActivo()
-        {
-            //NumRevActivo = GetNumRevActive;
-        }
+        // Permisos de los botones
+        int opcion1 = 1; // Boton revisar inventario
+        int opcion2 = 1; // Boton actualizar inventario
+        int opcion3 = 1; // Boton actualizar inventario XML
+        int opcion4 = 1; // Boton buscar
+        int opcion5 = 1; // Boton terminar
 
         public Inventario()
         {
@@ -60,6 +59,17 @@ namespace PuntoDeVentaV2
         private void Inventario_Load(object sender, EventArgs e)
         {
             idReporte = cn.ObtenerUltimoIdReporte(FormPrincipal.userID) + 1;
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Inventario");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
+                opcion5 = permisos[4];
+            }
         }
 
         private bool ExistenProductos(string nombre)
@@ -83,6 +93,12 @@ namespace PuntoDeVentaV2
 
         private void btnRevisar_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (!ExistenProductos("revisar"))
             {
                 return;
@@ -126,6 +142,12 @@ namespace PuntoDeVentaV2
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (!ExistenProductos("actualizar"))
             {
                 return;
@@ -138,6 +160,12 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarXML_Click(object sender, EventArgs e)
         {
+            if (opcion3 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarStockXML>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarStockXML>().First().BringToFront();
@@ -526,6 +554,12 @@ namespace PuntoDeVentaV2
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            if (opcion4 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             RealizarBusqueda();
             txtBusqueda.Text = string.Empty;
 
@@ -645,6 +679,7 @@ namespace PuntoDeVentaV2
             }
 
             DGVInventario.Rows.Add(id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha);
+
             if (!aumentar.Equals("0"))
             {
                 DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.DodgerBlue;
@@ -653,6 +688,7 @@ namespace PuntoDeVentaV2
             {
                 DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.ForeColor = Color.OrangeRed;
             }
+
             DGVInventario.Rows[DGVInventario.RowCount - 1].Cells[3].Style.Font = new System.Drawing.Font(DGVInventario.Font, FontStyle.Bold);
             DGVInventario.Sort(DGVInventario.Columns["Fecha"], ListSortDirection.Descending);
             DGVInventario.ClearSelection(); 
@@ -660,6 +696,12 @@ namespace PuntoDeVentaV2
 
         private void bntTerminar_Click(object sender, EventArgs e)
         {
+            if (opcion5 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Utilidades.AdobeReaderInstalado())
             {
                 GenerarReporte(idReporte);

@@ -365,7 +365,10 @@ namespace PuntoDeVentaV2
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
 
-            cargarDatosXML();   // metodo para cargar los datos del XML
+            if (dt.Rows.Count > 0)
+            {
+                cargarDatosXML();   // metodo para cargar los datos del XML
+            }
         }
 
         // funcion para ocultar el panel en el que
