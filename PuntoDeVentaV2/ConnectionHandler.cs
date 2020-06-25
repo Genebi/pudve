@@ -229,7 +229,7 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al Tratar de borrar Seccion Caja; Causa: " + ex.Message.ToString(), "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error al Tratar de borrar Seccion Caja; Causa: " + ex.Message.ToString(), "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -285,7 +285,7 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error al Tratar de borrar Seccion Productos; Causa: " + ex.Message.ToString(), "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show("Error al Tratar de borrar Seccion Productos; Causa: " + ex.Message.ToString(), "Error de Borrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
