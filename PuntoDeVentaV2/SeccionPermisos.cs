@@ -35,6 +35,9 @@ namespace PuntoDeVentaV2
 
             if (seccion == "Ventas")
                 GenerarVentas();
+
+            if (seccion == "Inventario")
+                GenerarInventario();
         }
 
         private void GenerarCaja()
@@ -90,6 +93,19 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(200, 130, 110, "Terminar Venta", datos[19]);
         }
 
+        private void GenerarInventario()
+        {
+            this.Text = "PUDVE - Permisos Inventario";
+
+            var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Inventario");
+
+            GenerarCheckbox(40, 130, 120, "Revisar Inventario", datos[0]);
+            GenerarCheckbox(80, 130, 125, "Actualizar Inventario", datos[1]);
+            GenerarCheckbox(120, 130, 150, "Actualizar Inventario XML", datos[2]);
+            GenerarCheckbox(160, 130, 100, "Botón Buscar", datos[3]);
+            GenerarCheckbox(200, 130, 120, "Botón Terminar", datos[4]);
+        }
+
         private void GenerarCheckbox(int top, int left, int ancho, string texto, int estado)
         {
             var checkbox = new CheckBox();
@@ -124,6 +140,13 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_empleado}', '{FormPrincipal.userID}', 'Ventas')");
             }
+
+            existe = (bool)cn.EjecutarSelect($"SELECT * FROM EmpleadosPermisos WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Inventario'");
+
+            if (!existe)
+            {
+                cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_empleado}', '{FormPrincipal.userID}', 'Inventario')");
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -149,6 +172,19 @@ namespace PuntoDeVentaV2
                 foreach (var opcion in datos)
                 {
                     cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion{numero} = {opcion} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Ventas'");
+
+                    numero++;
+                }
+            }
+
+            if (seccion.Equals("Inventario"))
+            {
+                var datos = PermisosElegidos();
+                var numero = 1;
+
+                foreach (var opcion in datos)
+                {
+                    cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion{numero} = {opcion} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = 'Inventario'");
 
                     numero++;
                 }

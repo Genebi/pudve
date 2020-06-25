@@ -116,5 +116,19 @@ namespace PuntoDeVentaV2
                 permisos.Show();
             }
         }
+
+        private void btnInventario_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms.OfType<SeccionPermisos>().Count() == 1)
+            {
+                Application.OpenForms.OfType<SeccionPermisos>().First().BringToFront();
+            }
+            else
+            {
+                var permisos = new SeccionPermisos("Inventario", id_empleado);
+
+                permisos.Show();
+            }
+        }
     }
 }
