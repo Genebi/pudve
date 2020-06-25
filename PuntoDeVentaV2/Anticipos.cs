@@ -21,11 +21,19 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         public static bool recargarDatos = false;
 
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
+
+        // Permisos para botones
+        int opcion1 = 1; // Generar ticket
+        int opcion2 = 1; // Habilitar/deshabilitar
+        int opcion3 = 1; // Devolver anticipo
+        int opcion4 = 1; // Boton buscar
+        int opcion5 = 1; // Nuevo anticipo
 
         public Anticipos()
         {
@@ -40,6 +48,17 @@ namespace PuntoDeVentaV2
             cbAnticipos.SelectedIndex = 0;
             cbAnticipos.DropDownStyle = ComboBoxStyle.DropDownList;
             CargarDatos(1);
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Anticipos");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
+                opcion5 = permisos[4];
+            }
         }
 
         private void CargarDatos(int estado = 1, int tipo = 0)
@@ -138,6 +157,12 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoAnticipo_Click(object sender, EventArgs e)
         {
+            if (opcion5 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarAnticipo>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarAnticipo>().First().BringToFront();
@@ -243,6 +268,12 @@ namespace PuntoDeVentaV2
                 // Generar ticket
                 if (e.ColumnIndex == 6)
                 {
+                    if (opcion1 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     if (!Utilidades.AdobeReaderInstalado())
                     {
                         Utilidades.MensajeAdobeReader();
@@ -275,6 +306,12 @@ namespace PuntoDeVentaV2
                 // Habilitar/Deshabilitar
                 if (e.ColumnIndex == 7)
                 {
+                    if (opcion2 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     if (indice < 2)
                     {
                         // Deshabilitar
@@ -305,6 +342,12 @@ namespace PuntoDeVentaV2
                 // Devolver anticipo
                 if (e.ColumnIndex == 8)
                 {
+                    if (opcion3 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     if (indice == 0)
                     {
                         var respuesta = MessageBox.Show("¿Estás seguro de realizar esta acción?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -341,6 +384,12 @@ namespace PuntoDeVentaV2
 
         private void btnBuscarAnticipos_Click(object sender, EventArgs e)
         {
+            if (opcion4 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             var status = cbAnticipos.SelectedIndex;
 
             CargarDatos(status + 1, 1);
