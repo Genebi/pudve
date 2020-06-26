@@ -130,6 +130,12 @@ namespace PuntoDeVentaV2
             Text = "PUDVE - Permisos Mis Datos";
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "MisDatos");
+
+            GenerarCheckbox(40, 130, 150, "Guardar Datos", datos[0]);
+            GenerarCheckbox(80, 130, 150, "Subir Imagen", datos[1]);
+            GenerarCheckbox(120, 130, 150, "Eliminar Imagen", datos[2]);
+            GenerarCheckbox(160, 130, 150, "Actualizar Contraseña", datos[3]);
+            GenerarCheckbox(200, 130, 150, "Actualizar Archivos", datos[4]);
         }
 
         private void GenerarCheckbox(int top, int left, int ancho, string texto, int estado)
