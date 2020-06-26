@@ -21,6 +21,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         int id_usuario = FormPrincipal.userID;
         int id_empleado = FormPrincipal.id_empleado;
@@ -35,6 +36,14 @@ namespace PuntoDeVentaV2
         string FiltroAvanzado = string.Empty;
         int clickBoton = 0;
 
+        // Permisos botones
+        int opcion1 = 1; // Ver factura
+        int opcion2 = 1; // Descargar factura
+        int opcion3 = 1; // Cancelar factura
+        int opcion4 = 1; // Ver pagos
+        int opcion5 = 1; // Buscar facturas
+        int opcion6 = 1; // Enviar facturas
+        int opcion7 = 1; // Generar complemento
 
         public Facturas()
         {
@@ -63,6 +72,20 @@ namespace PuntoDeVentaV2
             clickBoton = 0;
             actualizar();
             btn_ultima_pag.PerformClick();
+
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Facturas");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
+                opcion5 = permisos[4];
+                opcion6 = permisos[5];
+                opcion7 = permisos[6];
+            }
         }
 
         public void cargar_lista_facturas(int tipo= 0)
@@ -222,6 +245,12 @@ namespace PuntoDeVentaV2
 
         private void btn_buscar_Click(object sender, EventArgs e)
         {
+            if (opcion5 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             cargar_lista_facturas(1);
         }
 
@@ -242,9 +271,14 @@ namespace PuntoDeVentaV2
 
 
                 // Lista complementos de pago
-
-                if(e.ColumnIndex == 9)
+                if (e.ColumnIndex == 9)
                 {
+                    if (opcion4 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     if(opc_tipo_factura == 1 | (opc_tipo_factura == 2 & con_cpago == 1))
                     {
                         Lista_complementos_pago ver_cpago = new Lista_complementos_pago(id_factura, id_empleado);
@@ -254,9 +288,14 @@ namespace PuntoDeVentaV2
                 }
 
                 // Ver PDF
-
                 if (e.ColumnIndex == 10)
                 {
+                    if (opcion1 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     if (!Utilidades.AdobeReaderInstalado())
                     {
                         Utilidades.MensajeAdobeReader();
@@ -302,9 +341,14 @@ namespace PuntoDeVentaV2
                 }
 
                 // Descargar factura
-
-                if(e.ColumnIndex == 11)
+                if (e.ColumnIndex == 11)
                 {
+                    if (opcion2 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     string tipo = "INGRESOS_";
                     string estatus = "";
                     int idf = id_factura;
@@ -322,9 +366,14 @@ namespace PuntoDeVentaV2
                 }
 
                 // Cancelar factura
-
                 if (e.ColumnIndex == 12)
                 {
+                    if (opcion3 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     if (opc_tipo_factura == 3)
                     {
                         MessageBox.Show("La factura ya fue cancelada con anterioridad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -459,6 +508,12 @@ namespace PuntoDeVentaV2
 
         private void btn_cpago_Click(object sender, EventArgs e)
         {
+            if (opcion7 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             int cont = 0;
             int cont_pg = 0;
             string mnsj_error = "";
@@ -758,6 +813,12 @@ namespace PuntoDeVentaV2
 
         private void btn_enviar_Click(object sender, EventArgs e)
         {
+            if (opcion6 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             int cont = 0;
             int en = 0;
             string mnsj_error = "";
