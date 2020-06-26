@@ -813,7 +813,7 @@ namespace PuntoDeVentaV2
                         string descuento_xproducto = "";
                         string descuento = r_productos["descuento"].ToString();
 
-                        if (descuento != "")
+                        if (Convert.ToDecimal(descuento) > 0) //!= ""
                         {
                             var tip_desc = (descuento).IndexOf("-");
 
@@ -827,8 +827,7 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        // Obtiene IVA 
-                        // Solo aplica para los productos donde el IVA no fue agregado desde el botón "Detalles facturación"
+                        // Realiza calculos para obtener base, precio unitario, IVA
                         string mbase = "";
                         string miva = "";
                         string timpuesto = "";
@@ -840,15 +839,36 @@ namespace PuntoDeVentaV2
                             decimal b = precio / 1.16m; 
                             decimal bs = precio - b;
 
-                            mbase = Convert.ToString(dos_seis_decimales(b, 2));
-                            miva = Convert.ToString(dos_seis_decimales(bs, 2));
-                            timpuesto = "16%";
+                            mbase = Convert.ToString(dos_seis_decimales(b, 6));
+                            miva = Convert.ToString(dos_seis_decimales(bs, 6));
+                            timpuesto = "16%"; 
                         }
                         else
                         {
-                            mbase = r_tb_producto["Base"].ToString();
-                            miva = r_tb_producto["IVA"].ToString();
+                            /*mbase = r_tb_producto["Base"].ToString();
+                            miva = r_tb_producto["IVA"].ToString();*/
                             timpuesto = r_tb_producto["Impuesto"].ToString();
+
+                            decimal precio = Convert.ToDecimal(r_productos["Precio"].ToString());
+                            decimal tasacuota = 0;
+                            decimal b = 0;
+                            decimal bs = 0;
+
+                            if (timpuesto == "16%" | timpuesto == "8%")
+                            {
+                                if (timpuesto == "16%") { tasacuota = 1.16m; }
+                                if (timpuesto == "8%") { tasacuota = 1.08m; }
+
+                                b = precio / tasacuota;
+                                bs = precio - b;
+                            }
+                            else
+                            {
+                                b = precio;
+                            }
+
+                            mbase = Convert.ToString(dos_seis_decimales(b, 6));
+                            miva = Convert.ToString(dos_seis_decimales(bs, 6));
                         }
 
                         // Si el producto tiene descuento, se hará una modificación del valor del campo base
@@ -883,7 +903,7 @@ namespace PuntoDeVentaV2
                                     nbase = pu_desc / 1.08m;
                                 }
                                 
-                                nbase = dos_seis_decimales(nbase, 2);
+                                nbase = dos_seis_decimales(nbase, 6);
 
                                 mbase = Convert.ToString(nbase);
                             }
@@ -905,7 +925,7 @@ namespace PuntoDeVentaV2
                                     nbase = pu_desc / 1.08m;
                                 }
 
-                                nbase = dos_seis_decimales(nbase, 2);
+                                nbase = dos_seis_decimales(nbase, 6);
 
                                 mbase = Convert.ToString(nbase);
                             }

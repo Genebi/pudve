@@ -226,7 +226,7 @@ namespace PuntoDeVentaV2
                     int id_producto = Convert.ToInt32(r_productos["ID"]);
                     decimal precio_unitario = Convert.ToDecimal(r_productos["precio_u"]);
                     decimal cantidad_xproducto_xml = Convert.ToDecimal(r_productos["cantidad"]);
-                    precio_unitario_xml = precio_unitario;
+                    
    
                     if (con_complemento_pg == 0)
                     {
@@ -236,12 +236,14 @@ namespace PuntoDeVentaV2
                         cantidad = seis_decimales(Convert.ToDecimal(r_productos["cantidad"]));
                     }
 
+                    precio_unitario_xml = d_base_i;
+
                     // Obtención del: 
                     //  - Descuento
                     //  - Base
                     string des = r_productos["descuento"].ToString();
 
-                    if (des != "" & des != "0")
+                    if (des != "" & des != "0" & des != "0.00")
                     {
                         var desc = (r_productos["descuento"].ToString()).IndexOf("%");
                        
