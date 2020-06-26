@@ -32,11 +32,20 @@ namespace PuntoDeVentaV2
             CargarDatos();
         }
 
-        private void CargarDatos()
+        private void CargarDatos(string busqueda = "")
         {
             var consulta = string.Empty;
 
-            consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+            if (string.IsNullOrWhiteSpace(busqueda))
+            {
+                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+            }
+            else
+            {
+                var extra = $"AND (RazonSocial LIKE '%{busqueda}%' OR NombreComercial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%')";
+
+                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 {extra}";
+            }
 
             if (DGVClientes.Rows.Count.Equals(0) || clickBoton.Equals(0))
             {
@@ -44,7 +53,6 @@ namespace PuntoDeVentaV2
             }
 
             DGVClientes.Rows.Clear();
-
 
             DataSet datos = paginar.cargar();
             DataTable dtDatos = datos.Tables[0];
@@ -309,6 +317,27 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             ActualizarPaginador();
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            var busqueda = txtBuscador.Text.Trim();
+
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                txtBuscador.SelectionStart = 0;
+                txtBuscador.SelectionLength = txtBuscador.Text.Length;
+            }
+
+            CargarDatos(busqueda);
+        }
+
+        private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnBuscar.PerformClick();
+            }
         }
     }
 }
