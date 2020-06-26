@@ -17,6 +17,11 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        private Paginar paginar;
+        string DataMemberDGV = "Clientes";
+        int maximo_x_pagina = 17;
+        int clickBoton = 0;
+
         public Clientes()
         {
             InitializeComponent();
@@ -29,32 +34,28 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos()
         {
-            SQLiteConnection sql_con;
-            SQLiteCommand sql_cmd;
-            SQLiteDataReader dr;
+            var consulta = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+
+            if (DGVClientes.Rows.Count.Equals(0) || clickBoton.Equals(0))
             {
-                sql_con = new SQLiteConnection("Data source=//" + Properties.Settings.Default.Hosting + @"\BD\pudveDB.db; Version=3; New=False;Compress=True;");
+                paginar = new Paginar(consulta, DataMemberDGV, maximo_x_pagina);
             }
-            else
-            {
-                sql_con = new SQLiteConnection("Data source=" + Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\pudveDB.db; Version=3; New=False;Compress=True;");
-            }
-            
-            sql_con.Open();
-            sql_cmd = new SQLiteCommand($"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1", sql_con);
-            dr = sql_cmd.ExecuteReader();
 
             DGVClientes.Rows.Clear();
 
-            while (dr.Read())
+
+            DataSet datos = paginar.cargar();
+            DataTable dtDatos = datos.Tables[0];
+
+            foreach (DataRow fila in dtDatos.Rows)
             {
                 int rowId = DGVClientes.Rows.Add();
 
                 DataGridViewRow row = DGVClientes.Rows[rowId];
 
-                var tipoClienteAux = Convert.ToInt16(dr.GetValue(dr.GetOrdinal("TipoCliente")).ToString());
+                var tipoClienteAux = Convert.ToInt16(fila["TipoCliente"]);
                 var tipoCliente = string.Empty;
 
                 var datosTipoCliente = mb.ObtenerTipoCliente(tipoClienteAux);
@@ -68,13 +69,13 @@ namespace PuntoDeVentaV2
                     tipoCliente = "N/A";
                 }
 
-                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-                row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
-                row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
-                row.Cells["NombreComercial"].Value = dr.GetValue(dr.GetOrdinal("NombreComercial"));
+                row.Cells["ID"].Value = fila["ID"];
+                row.Cells["RFC"].Value = fila["RFC"];
+                row.Cells["Cliente"].Value = fila["RazonSocial"];
+                row.Cells["NombreComercial"].Value = fila["NombreComercial"];
                 row.Cells["Tipo"].Value = tipoCliente;
-                row.Cells["NoCliente"].Value = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
-                row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
+                row.Cells["NoCliente"].Value = fila["NumeroCliente"];
+                row.Cells["Fecha"].Value = Convert.ToDateTime(fila["FechaOperacion"]).ToString("yyyy-MM-dd HH:mm:ss");
 
                 Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
                 Image eliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\remove.png");
@@ -83,10 +84,11 @@ namespace PuntoDeVentaV2
                 row.Cells["Eliminar"].Value = eliminar;
             }
 
+            clickBoton = 0;
+
             DGVClientes.ClearSelection();
 
-            dr.Close();
-            sql_con.Close();
+            ActualizarPaginador();
         }
 
         private void btnNuevoCliente_Click(object sender, EventArgs e)
@@ -205,6 +207,108 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("No hay información disponible actualmente\n\nNOTA: No hay registros para tipo de clientes", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             } 
+        }
+
+        private void ActualizarPaginador()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            linkLblPaginaActual.Text = paginar.numPag().ToString();
+            linkLblPaginaActual.LinkColor = Color.White;
+            linkLblPaginaActual.BackColor = Color.Black;
+
+            BeforePage = paginar.numPag() - 1;
+            AfterPage = paginar.numPag() + 1;
+            LastPage = paginar.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+            paginar.primerPagina();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            paginar.atras();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
+        {
+            paginar.atras();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void linkLblPaginaActual_Click(object sender, EventArgs e)
+        {
+            ActualizarPaginador();
+        }
+
+        private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
+        {
+            paginar.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            paginar.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+            paginar.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
         }
     }
 }
