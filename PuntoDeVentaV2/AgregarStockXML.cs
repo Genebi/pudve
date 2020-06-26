@@ -359,8 +359,8 @@ namespace PuntoDeVentaV2
         {
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            buscar = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE u.Usuario = '{userName}' AND u.Password = '{passwordUser}'";
-
+            //buscar = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE u.Usuario = '{userName}' AND u.Password = '{passwordUser}'";
+            buscar = $"SELECT u.ID, u.Usuario, u.Password, u.RFC FROM Usuarios u WHERE u.ID = {FormPrincipal.userID}";
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);

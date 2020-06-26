@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
         // creamos un objeto para poder usar las  
         // consultas que estan en esta clase 
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         // declaramos la variable que almacenara el valor de userNickName
         public string userName;
@@ -77,6 +78,13 @@ namespace PuntoDeVentaV2
         string NvoFileName;
 
         OpenFileDialog f;
+
+        // Permisos botones
+        int opcion1 = 1;
+        int opcion2 = 1;
+        int opcion3 = 1;
+        int opcion4 = 1;
+        int opcion5 = 1;
 
         public MisDatos()
         {
@@ -291,8 +299,8 @@ namespace PuntoDeVentaV2
 
             // String para hacer la consulta filtrada sobre
             // el usuario que inicia la sesion
-            buscar = $"SELECT * FROM Usuarios WHERE Usuario = '{userName}' AND Password = '{passwordUser}'";
-
+            //buscar = $"SELECT * FROM Usuarios WHERE Usuario = '{userName}' AND Password = '{passwordUser}'";
+            buscar = $"SELECT * FROM Usuarios WHERE ID = {FormPrincipal.userID}";
             // almacenamos el resultado de la Funcion CargarDatos
             // que esta en la calse Consultas
             dt = cn.CargarDatos(buscar);
@@ -301,21 +309,21 @@ namespace PuntoDeVentaV2
             if (dt.Rows.Count > 0)
             {
                 row = dt.Rows[0];
+
+                // almacenamos el resultado de la Funcion ConsultaRegimenFiscal
+                // que esta en la calse Consultas
+                dtcb = cn.ConsultaRegimenFiscal();
+
+                // almacenamos el resultado de la consulta en el dtcb
+                while (index < dtcb.Rows.Count)
+                {
+                    rows = dtcb.Rows[index];
+                    index++;
+                }
+
+                // llamamos la funcion data()
+                data();
             }
-
-            // almacenamos el resultado de la Funcion ConsultaRegimenFiscal
-            // que esta en la calse Consultas
-            dtcb = cn.ConsultaRegimenFiscal();
-
-            // almacenamos el resultado de la consulta en el dtcb
-            while (index < dtcb.Rows.Count)
-            {
-                rows = dtcb.Rows[index];
-                index++;
-            }
-
-            // llamamos la funcion data()
-            data();
         }
 
         private void MisDatos_Load(object sender, EventArgs e)
@@ -332,10 +340,28 @@ namespace PuntoDeVentaV2
             // Asignar evento para solo permitir numeros enteros
             txtCodPost.KeyPress += new KeyPressEventHandler(SoloNumeros);
             txtTelefono.KeyPress += new KeyPressEventHandler(SoloNumeros);
+
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "MisDatos");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
+                opcion5 = permisos[4];
+            }
         }
 
         private void btnActualizarDatos_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             ActualizarDatos();
             FormPrincipal.datosUsuario = cn.DatosUsuario(IDUsuario: FormPrincipal.userID, tipo: 0);
             MessageBox.Show("Datos actualizados correctamente", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -487,6 +513,12 @@ namespace PuntoDeVentaV2
 
         private void btn_vnt_subir_archivos_Click(object sender, EventArgs e)
         {
+            if (opcion5 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             // Actualizamos los datos del usuario antes en caso de que haya agregado
             // nueva informacion en los campos requeridos
             ActualizarDatos(1);
@@ -518,6 +550,12 @@ namespace PuntoDeVentaV2
 
         private void btnActualizarPassword_Click(object sender, EventArgs e)
         {
+            if (opcion4 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             var datos = cn.DatosUsuario(IDUsuario: FormPrincipal.userID);
             var passwordActual = datos[14];
             var password = txtPassword.Text.Trim();
@@ -575,6 +613,12 @@ namespace PuntoDeVentaV2
 
         private void btnSubirArchivo_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             using (f = new OpenFileDialog())	// abrimos el opneDialog para seleccionar la imagen
             {
                 // le aplicamos un filtro para solo ver 
@@ -690,6 +734,12 @@ namespace PuntoDeVentaV2
 
         private void btnBorrarImg_Click(object sender, EventArgs e)
         {
+            if (opcion3 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (!string.IsNullOrWhiteSpace(logoTipo))
             {
                 // borramos el archivo de la imagen
