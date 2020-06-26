@@ -2868,7 +2868,7 @@ namespace PuntoDeVentaV2
                                 string[] palabras = id.Split('|');
                                 if (palabras[0].Equals("1"))
                                 {
-                                    extra = $" AND P.ID = {id}";
+                                    extra = $" AND P.ID = {palabras[1].ToString()}";
                                 }
                                 else if (palabras[0].Equals("0"))
                                 {
