@@ -424,10 +424,12 @@ namespace PuntoDeVentaV2
 
         private void InsertarPermisosDefault(int idEmpleado)
         {
-            cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', 'Caja')");
-            cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', 'Ventas')");
-            cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', 'Inventario')");
-            cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', 'Anticipos')");
+            var secciones = new string[] {"Caja", "Ventas", "Inventario","Anticipos", "MisDatos" };
+
+            foreach (var seccion in secciones)
+            {
+                cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{idEmpleado}', '{userID}', '{seccion}')");
+            }
         }
 
         private void obtenerDatosCheckStock()

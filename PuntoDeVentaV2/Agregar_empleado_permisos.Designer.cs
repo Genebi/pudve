@@ -57,7 +57,7 @@
             this.button9 = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
+            this.btnMisDatos = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -369,15 +369,16 @@
             this.button11.TabIndex = 28;
             this.button11.UseVisualStyleBackColor = true;
             // 
-            // button12
+            // btnMisDatos
             // 
-            this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button12.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button12.Location = new System.Drawing.Point(282, 159);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(20, 20);
-            this.button12.TabIndex = 29;
-            this.button12.UseVisualStyleBackColor = true;
+            this.btnMisDatos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnMisDatos.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
+            this.btnMisDatos.Location = new System.Drawing.Point(282, 159);
+            this.btnMisDatos.Name = "btnMisDatos";
+            this.btnMisDatos.Size = new System.Drawing.Size(20, 20);
+            this.btnMisDatos.TabIndex = 29;
+            this.btnMisDatos.UseVisualStyleBackColor = true;
+            this.btnMisDatos.Click += new System.EventHandler(this.btnMisDatos_Click);
             // 
             // button13
             // 
@@ -421,7 +422,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.button13);
-            this.Controls.Add(this.button12);
+            this.Controls.Add(this.btnMisDatos);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.btnVentas);
             this.Controls.Add(this.button9);
@@ -496,7 +497,7 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button btnMisDatos;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.Label label2;
