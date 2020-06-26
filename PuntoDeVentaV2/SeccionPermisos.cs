@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
 
         private string seccion = string.Empty;
         private int id_empleado = 0;
+        private string[] secciones;
 
         public SeccionPermisos(string seccion, int id_empleado)
         {
@@ -28,6 +29,11 @@ namespace PuntoDeVentaV2
 
         private void SeccionPermisos_Load(object sender, EventArgs e)
         {
+            secciones = new string[] {
+                "Caja", "Ventas", "Inventario", "Anticipos",
+                "MisDatos", "Facturas"
+            };
+
             VerificarSecciones();
 
             if (seccion.Equals("Caja"))
@@ -44,6 +50,9 @@ namespace PuntoDeVentaV2
 
             if (seccion.Equals("MisDatos"))
                 GenerarMisDatos();
+
+            if (seccion.Equals("Facturas"))
+                GenerarFacturas();
         }
 
         private void GenerarCaja()
@@ -74,27 +83,27 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(20, 10, 110, "Cancelar Venta", datos[0]);
             GenerarCheckbox(20, 130, 110, "Ver Nota Venta", datos[1]);
             GenerarCheckbox(20, 250, 125, "Ver Ticket Venta", datos[2]);
-
+            //=============================================================
             GenerarCheckbox(50, 10, 110, "Ver Info Venta", datos[3]);
             GenerarCheckbox(50, 130, 110, "Timbrar Factura", datos[4]);
             GenerarCheckbox(50, 250, 125, "Botón Enviar Nota", datos[5]);
-
+            //=============================================================
             GenerarCheckbox(80, 10, 110, "Buscar Venta", datos[6]);
             GenerarCheckbox(80, 130, 110, "Nueva Venta", datos[7]);
             GenerarCheckbox(80, 250, 125, "Botón Cancelar", datos[8]);
-
+            //=============================================================
             GenerarCheckbox(110, 10, 110, "Guardar Venta", datos[9]);
             GenerarCheckbox(110, 130, 110, "Botón Anticipos", datos[10]);
             GenerarCheckbox(110, 250, 125, "Abrir Caja", datos[11]);
-
+            //=============================================================
             GenerarCheckbox(140, 10, 115, "Ventas Guardadas", datos[12]);
             GenerarCheckbox(140, 130, 110, "Ver Último Ticket", datos[13]);
             GenerarCheckbox(140, 250, 135, "Guardar Presupuesto", datos[14]);
-
+            //=============================================================
             GenerarCheckbox(170, 10, 115, "Descuento Cliente", datos[15]);
             GenerarCheckbox(170, 130, 110, "Elimininar Último", datos[16]);
             GenerarCheckbox(170, 250, 135, "Eliminar Todos", datos[17]);
-
+            //=============================================================
             GenerarCheckbox(200, 10, 115, "Aplicar Descuento", datos[18]);
             GenerarCheckbox(200, 130, 110, "Terminar Venta", datos[19]);
         }
@@ -138,6 +147,23 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(200, 130, 150, "Actualizar Archivos", datos[4]);
         }
 
+        private void GenerarFacturas()
+        {
+            Text = "PUDVE - Permisos Facturas";
+
+            var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Facturas");
+
+            GenerarCheckbox(40, 10, 100, "Ver Factura", datos[0]);
+            GenerarCheckbox(40, 120, 120, "Descargar Factura", datos[1]);
+            GenerarCheckbox(40, 240, 130, "Cancelar Factura", datos[2]);
+            //=============================================================
+            GenerarCheckbox(80, 10, 100, "Ver Pagos", datos[3]);
+            GenerarCheckbox(80, 120, 120, "Buscar Factura", datos[4]);
+            GenerarCheckbox(80, 240, 130, "Enviar Factura", datos[5]);
+            //=============================================================
+            GenerarCheckbox(120, 10, 150, "Generar Complemento", datos[6]);
+        }
+
         private void GenerarCheckbox(int top, int left, int ancho, string texto, int estado)
         {
             var checkbox = new CheckBox();
@@ -157,8 +183,6 @@ namespace PuntoDeVentaV2
 
         private void VerificarSecciones()
         {
-            var secciones = new string[] { "Caja", "Ventas", "Inventario", "Anticipos", "MisDatos" };
-
             var existe = false;
 
             foreach (var apartado in secciones)
@@ -174,8 +198,6 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            var secciones = new string[] { "Caja", "Ventas", "Inventario", "Anticipos", "MisDatos" };
-
             foreach (var apartado in secciones)
             {
                 if (seccion.Equals(apartado))

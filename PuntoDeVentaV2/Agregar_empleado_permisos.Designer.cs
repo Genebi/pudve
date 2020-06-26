@@ -49,7 +49,7 @@
             this.btnAnticipos = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnFacturas = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
@@ -287,15 +287,16 @@
             this.button3.TabIndex = 20;
             this.button3.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnFacturas
             // 
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button4.Location = new System.Drawing.Point(8, 159);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(20, 20);
-            this.button4.TabIndex = 21;
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnFacturas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFacturas.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
+            this.btnFacturas.Location = new System.Drawing.Point(8, 159);
+            this.btnFacturas.Name = "btnFacturas";
+            this.btnFacturas.Size = new System.Drawing.Size(20, 20);
+            this.btnFacturas.TabIndex = 21;
+            this.btnFacturas.UseVisualStyleBackColor = true;
+            this.btnFacturas.Click += new System.EventHandler(this.btnFacturas_Click);
             // 
             // button5
             // 
@@ -430,7 +431,7 @@
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btnFacturas);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnAnticipos);
@@ -489,7 +490,7 @@
         private System.Windows.Forms.Button btnAnticipos;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnFacturas;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
