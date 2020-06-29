@@ -2884,7 +2884,7 @@ namespace PuntoDeVentaV2
                     theNumberAsAString = string.Empty;
                     theNumber = 0;
                     string[] nvoCodBar;
-                    nvoCodBar = nuevosCodigos.Split(' ');
+                    nvoCodBar = nuevosCodigos.Trim().Split(' ');
                     foreach (var item in nvoCodBar)
                     {
                         theNumberAsAString = item;
@@ -2898,6 +2898,7 @@ namespace PuntoDeVentaV2
                                 seleccionadoDato = 2;
                                 nuevoCodigoBarrasDeProducto = theNumberAsAString;
                                 btnAgregarProducto.PerformClick();
+                                clickBoton = 1;
                             }
                             else if (respuesta == DialogResult.No)
                             {
@@ -3443,6 +3444,7 @@ namespace PuntoDeVentaV2
                 //linkLblPaginaActual_Click_1(sender, e);
                 //MessageBox.Show("Super mega Dislike");
                 AgregarEditarProducto.stockNecesario = "0";
+                clickBoton = 0;
             };
 
             if (!FormAgregar.Visible)
