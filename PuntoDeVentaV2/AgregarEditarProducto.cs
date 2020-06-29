@@ -5393,7 +5393,7 @@ namespace PuntoDeVentaV2
 
         private void mostrarOcultarfLPDetallesProducto()
         {
-            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3) || DatosSourceFinal.Equals(5))
             {
                 if (detalleProductoBasico.Count.Equals(0) && detalleProductoGeneral.Count.Equals(0))
                 {

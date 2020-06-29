@@ -3445,6 +3445,7 @@ namespace PuntoDeVentaV2
                 //MessageBox.Show("Super mega Dislike");
                 AgregarEditarProducto.stockNecesario = "0";
                 clickBoton = 0;
+                agregarEspacioAlFinal();
             };
 
             if (!FormAgregar.Visible)
