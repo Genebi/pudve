@@ -54,7 +54,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.btnInventario = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.btnProveedores = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.btnMisDatos = new System.Windows.Forms.Button();
@@ -341,15 +341,16 @@
             this.btnInventario.UseVisualStyleBackColor = true;
             this.btnInventario.Click += new System.EventHandler(this.btnInventario_Click);
             // 
-            // button9
+            // btnProveedores
             // 
-            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button9.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button9.Location = new System.Drawing.Point(150, 204);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(20, 20);
-            this.button9.TabIndex = 26;
-            this.button9.UseVisualStyleBackColor = true;
+            this.btnProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProveedores.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
+            this.btnProveedores.Location = new System.Drawing.Point(150, 204);
+            this.btnProveedores.Name = "btnProveedores";
+            this.btnProveedores.Size = new System.Drawing.Size(20, 20);
+            this.btnProveedores.TabIndex = 26;
+            this.btnProveedores.UseVisualStyleBackColor = true;
+            this.btnProveedores.Click += new System.EventHandler(this.btnProveedores_Click);
             // 
             // btnVentas
             // 
@@ -429,7 +430,7 @@
             this.Controls.Add(this.btnMisDatos);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.btnVentas);
-            this.Controls.Add(this.button9);
+            this.Controls.Add(this.btnProveedores);
             this.Controls.Add(this.btnInventario);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
@@ -498,7 +499,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button btnInventario;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button btnProveedores;
         private System.Windows.Forms.Button btnVentas;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button btnMisDatos;

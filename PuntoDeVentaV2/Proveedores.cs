@@ -15,11 +15,16 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         private Paginar p;
         string DataMemberDGV = "Proveedores";
         int maximo_x_pagina = 17;
         int clickBoton = 0;
+
+        // Permisos botones
+        int opcion1 = 1; // Boton buscar
+        int opcion2 = 1; // Nuevo proveedor
 
         public Proveedores()
         {
@@ -30,6 +35,14 @@ namespace PuntoDeVentaV2
         {
             CargarDatos();
             ActualizarPaginador();
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Proveedores");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+            }
         }
 
         private void CargarDatos(string busqueda = "")
@@ -135,6 +148,12 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoProveedor_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarProveedor>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarProveedor>().First().BringToFront();
@@ -217,6 +236,12 @@ namespace PuntoDeVentaV2
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             var busqueda = txtBuscador.Text.Trim();
 
             if (!string.IsNullOrWhiteSpace(busqueda))
