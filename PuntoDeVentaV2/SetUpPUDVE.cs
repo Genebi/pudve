@@ -21,6 +21,35 @@ namespace PuntoDeVentaV2
 
         public static bool recargarDatos = false;
 
+        // Permiso de botones
+        int opcion1 = 1; // Servidor
+        int opcion2 = 1; // Numero revision
+        int opcion3 = 1; // Porcentaje ganancia
+        int opcion4 = 1; // Respaldar informacion
+        int opcion5 = 1; // Correo modificar precio
+        int opcion6 = 1; // Correo modificar stock
+        int opcion7 = 1; // Correo stock minimo
+        int opcion8 = 1; // Correo vender producto
+        int opcion9 = 1; // Permitir stock negativo
+        int opcion10 = 1; // Codigo barra ticket
+        int opcion11 = 1; // Informacion pagina web
+        int opcion12 = 1; // Mostrar precio de producto
+        int opcion13 = 1; // Mostrar codigo de producto
+        int opcion14 = 1; // Activar precio mayoreo
+        int opcion15 = 1; // Avisar productos no vendidos
+
+        bool check5 = false;
+        bool check6 = false;
+        bool check7 = false;
+        bool check8 = false;
+        bool check9 = false;
+        bool check10 = false;
+        bool check11 = false;
+        bool check12 = false;
+        bool check13 = false;
+        bool check14 = false;
+        bool check15 = false;
+
         public SetUpPUDVE()
         {
             InitializeComponent();
@@ -46,6 +75,27 @@ namespace PuntoDeVentaV2
             txtPorcentajeProducto.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtNumeroRevision.Text = numeroRevision.ToString();
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Configuracion");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
+                opcion5 = permisos[4];
+                opcion6 = permisos[5];
+                opcion7 = permisos[6];
+                opcion8 = permisos[7];
+                opcion9 = permisos[8];
+                opcion10 = permisos[9];
+                opcion11 = permisos[10];
+                opcion12 = permisos[11];
+                opcion13 = permisos[12];
+                opcion14 = permisos[13];
+                opcion15 = permisos[14];
+            }
         }
 
         private void VerificarDatosInventario()
@@ -78,17 +128,37 @@ namespace PuntoDeVentaV2
                 var datosConfig = mb.ComprobarConfiguracion();
 
                 checkCBVenta.Checked = Convert.ToBoolean(datosConfig[4]);
+                check10 = checkCBVenta.Checked;
+
                 cbCorreoPrecioProducto.Checked = Convert.ToBoolean(datosConfig[0]);
+                check5 = cbCorreoPrecioProducto.Checked;
+
                 cbCorreoStockProducto.Checked = Convert.ToBoolean(datosConfig[1]);
+                check6 = cbCorreoStockProducto.Checked;
+
                 cbCorreoStockMinimo.Checked = Convert.ToBoolean(datosConfig[2]);
+                check7 = cbCorreoStockMinimo.Checked;
+
                 cbCorreoVenderProducto.Checked = Convert.ToBoolean(datosConfig[3]);
+                check8 = cbCorreoVenderProducto.Checked;
+
                 pagWeb.Checked = Convert.ToBoolean(datosConfig[5]);
+                check11 = pagWeb.Checked;
+
                 cbMostrarPrecio.Checked = Convert.ToBoolean(datosConfig[6]);
+                check12 = cbMostrarPrecio.Checked;
+
                 cbMostrarCB.Checked = Convert.ToBoolean(datosConfig[7]);
+                check13 = cbMostrarCB.Checked;
+
                 txtPorcentajeProducto.Text = datosConfig[8].ToString();
+
                 checkMayoreo.Checked = Convert.ToBoolean(datosConfig[9]);
+                check14 = checkMayoreo.Checked;
                 txtMinimoMayoreo.Text = datosConfig[10].ToString();
+
                 checkNoVendidos.Checked = Convert.ToBoolean(datosConfig[11]);
+                check15 = checkNoVendidos.Checked;
                 txtNoVendidos.Text = datosConfig[12].ToString();
             }
             else
@@ -99,6 +169,12 @@ namespace PuntoDeVentaV2
 
         private void btnRespaldo_Click(object sender, EventArgs e)
         {
+            if (opcion4 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             guardarArchivo.Filter = "SQL (*.db)|*.db";
             guardarArchivo.FilterIndex = 1;
             guardarArchivo.RestoreDirectory = true;
@@ -124,6 +200,15 @@ namespace PuntoDeVentaV2
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion9 == 0)
+            {
+                cbStockNegativo.CheckedChanged -= cbStockNegativo_CheckedChanged;
+                cbStockNegativo.Checked = Properties.Settings.Default.StockNegativo;
+                Utilidades.MensajePermiso();
+                cbStockNegativo.CheckedChanged += cbStockNegativo_CheckedChanged;
+                return;
+            }
+
             Properties.Settings.Default.StockNegativo = cbStockNegativo.Checked;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
@@ -131,6 +216,12 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarServidor_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             Properties.Settings.Default.Hosting = txtNombreServidor.Text;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
@@ -140,6 +231,12 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarRevision_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             var numeroRevision = txtNumeroRevision.Text;
 
             if (string.IsNullOrWhiteSpace(numeroRevision))
@@ -198,6 +295,15 @@ namespace PuntoDeVentaV2
 
         private void checkCBVenta_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion10 == 0)
+            {
+                checkCBVenta.CheckedChanged -= checkCBVenta_CheckedChanged;
+                checkCBVenta.Checked = check10;
+                Utilidades.MensajePermiso();
+                checkCBVenta.CheckedChanged += checkCBVenta_CheckedChanged;
+                return;
+            }
+
             var ticketVenta = 0;
 
             if (checkCBVenta.Checked)
@@ -210,6 +316,15 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoPrecioProducto_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion5 == 0)
+            {
+                cbCorreoPrecioProducto.CheckedChanged -= cbCorreoPrecioProducto_CheckedChanged;
+                cbCorreoPrecioProducto.Checked = check5;
+                Utilidades.MensajePermiso();
+                cbCorreoPrecioProducto.CheckedChanged += cbCorreoPrecioProducto_CheckedChanged;
+                return;
+            }
+
             var habilitado = 0;
 
             if (cbCorreoPrecioProducto.Checked)
@@ -222,6 +337,15 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoStockProducto_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion6 == 0)
+            {
+                cbCorreoStockProducto.CheckedChanged -= cbCorreoStockProducto_CheckedChanged;
+                cbCorreoStockProducto.Checked = check6;
+                Utilidades.MensajePermiso();
+                cbCorreoStockProducto.CheckedChanged += cbCorreoStockProducto_CheckedChanged;
+                return;
+            }
+
             var habilitado = 0;
 
             if (cbCorreoStockProducto.Checked)
@@ -234,6 +358,15 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoStockMinimo_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion7 == 0)
+            {
+                cbCorreoStockMinimo.CheckedChanged -= cbCorreoStockMinimo_CheckedChanged;
+                cbCorreoStockMinimo.Checked = check7;
+                Utilidades.MensajePermiso();
+                cbCorreoStockMinimo.CheckedChanged += cbCorreoStockMinimo_CheckedChanged;
+                return;
+            }
+
             var habilitado = 0;
 
             if (cbCorreoStockMinimo.Checked)
@@ -246,6 +379,15 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoVenderProducto_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion8 == 0)
+            {
+                cbCorreoVenderProducto.CheckedChanged -= cbCorreoVenderProducto_CheckedChanged;
+                cbCorreoVenderProducto.Checked = check8;
+                Utilidades.MensajePermiso();
+                cbCorreoVenderProducto.CheckedChanged += cbCorreoVenderProducto_CheckedChanged;
+                return;
+            }
+
             var habilitado = 0;
 
             if (cbCorreoVenderProducto.Checked)
@@ -258,6 +400,15 @@ namespace PuntoDeVentaV2
 
         private void pagWeb_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion11 == 0)
+            {
+                pagWeb.CheckedChanged -= pagWeb_CheckedChanged;
+                pagWeb.Checked = check11;
+                Utilidades.MensajePermiso();
+                pagWeb.CheckedChanged += pagWeb_CheckedChanged;
+                return;
+            }
+
             var habilitado = 0;
 
             if (pagWeb.Checked)
@@ -271,6 +422,15 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarPrecio_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion12 == 0)
+            {
+                cbMostrarPrecio.CheckedChanged -= cbMostrarPrecio_CheckedChanged;
+                cbMostrarPrecio.Checked = check12;
+                Utilidades.MensajePermiso();
+                cbMostrarPrecio.CheckedChanged += cbMostrarPrecio_CheckedChanged;
+                return;
+            }
+
             var habilitado = 0;
 
             if (cbMostrarPrecio.Checked)
@@ -283,6 +443,15 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarCB_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion13 == 0)
+            {
+                cbMostrarCB.CheckedChanged -= cbMostrarCB_CheckedChanged;
+                cbMostrarCB.Checked = check13;
+                Utilidades.MensajePermiso();
+                cbMostrarCB.CheckedChanged += cbMostrarCB_CheckedChanged;
+                return;
+            }
+
             var habilitado = 0;
 
             if (cbMostrarCB.Checked)
@@ -295,6 +464,12 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarPorcentaje_Click(object sender, EventArgs e)
         {
+            if (opcion3 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             var porcentaje = txtPorcentajeProducto.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(porcentaje))
@@ -314,6 +489,15 @@ namespace PuntoDeVentaV2
 
         private void checkMayoreo_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion14 == 0)
+            {
+                checkMayoreo.CheckedChanged -= checkMayoreo_CheckedChanged;
+                checkMayoreo.Checked = check14;
+                Utilidades.MensajePermiso();
+                checkMayoreo.CheckedChanged += checkMayoreo_CheckedChanged;
+                return;
+            }
+
             var habilitado = 0;
 
             if (checkMayoreo.Checked)
@@ -345,6 +529,15 @@ namespace PuntoDeVentaV2
 
         private void checkNoVendidos_CheckedChanged(object sender, EventArgs e)
         {
+            if (opcion15 == 0)
+            {
+                checkNoVendidos.CheckedChanged -= checkNoVendidos_CheckedChanged;
+                checkNoVendidos.Checked = check15;
+                Utilidades.MensajePermiso();
+                checkNoVendidos.CheckedChanged += checkNoVendidos_CheckedChanged;
+                return;
+            }
+
             if (checkNoVendidos.Checked)
             {
                 txtNoVendidos.Enabled = true;
