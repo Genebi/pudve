@@ -200,5 +200,19 @@ namespace PuntoDeVentaV2
                 permisos.Show();
             }
         }
+
+        private void btnClientes_Click(object sender, EventArgs e)
+        {
+            if (Application.OpenForms.OfType<SeccionPermisos>().Count() == 1)
+            {
+                Application.OpenForms.OfType<SeccionPermisos>().First().BringToFront();
+            }
+            else
+            {
+                var permisos = new SeccionPermisos("Clientes", id_empleado);
+
+                permisos.Show();
+            }
+        }
     }
 }

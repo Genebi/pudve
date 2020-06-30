@@ -31,7 +31,8 @@ namespace PuntoDeVentaV2
         {
             secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
-                "MisDatos", "Facturas", "Configuracion", "Reportes"
+                "MisDatos", "Facturas", "Configuracion", "Reportes",
+                "Clientes"
             };
 
             VerificarSecciones();
@@ -59,6 +60,21 @@ namespace PuntoDeVentaV2
 
             if (seccion.Equals("Reportes"))
                 GenerarReportes();
+
+            if (seccion.Equals("Clientes"))
+                GenerarClientes();
+        }
+
+        private void GenerarClientes()
+        {
+            Text = "PUDVE - Permisos Clientes";
+
+            var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Clientes");
+
+            GenerarCheckbox(40, 130, 150, "Botón Buscar", datos[0]);
+            GenerarCheckbox(80, 130, 150, "Nuevo Tipo Cliente", datos[1]);
+            GenerarCheckbox(120, 130, 150, "Listado Tipo Cliente", datos[2]);
+            GenerarCheckbox(160, 130, 150, "Nuevo Cliente", datos[3]);
         }
 
         private void GenerarReportes()
@@ -67,8 +83,8 @@ namespace PuntoDeVentaV2
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Reportes");
 
-            GenerarCheckbox(50, 80, 150, "Historial de Precios", datos[0]);
-            GenerarCheckbox(80, 80, 150, "Historial Dinero Agregado", datos[1]);
+            GenerarCheckbox(50, 130, 150, "Historial de Precios", datos[0]);
+            GenerarCheckbox(90, 130, 150, "Historial Dinero Agregado", datos[1]);
         }
 
         private void GenerarConfiguracion()

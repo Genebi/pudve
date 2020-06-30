@@ -22,6 +22,12 @@ namespace PuntoDeVentaV2
         int maximo_x_pagina = 17;
         int clickBoton = 0;
 
+        // Permisos botones
+        int opcion1 = 1; // Boton buscar
+        int opcion2 = 1; // Nuevo tipo cliente
+        int opcion3 = 1; // Listado tipo cliente
+        int opcion4 = 1; // Nuevo cliente
+
         public Clientes()
         {
             InitializeComponent();
@@ -30,6 +36,16 @@ namespace PuntoDeVentaV2
         private void Clientes_Load(object sender, EventArgs e)
         {
             CargarDatos();
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Clientes");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
+            }
         }
 
         private void CargarDatos(string busqueda = "")
@@ -101,6 +117,12 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoCliente_Click(object sender, EventArgs e)
         {
+            if (opcion4 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarCliente>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarCliente>().First().BringToFront();
@@ -183,6 +205,12 @@ namespace PuntoDeVentaV2
 
         private void btnTipoCliente_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarTipoCliente>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarTipoCliente>().First().BringToFront();
@@ -196,6 +224,12 @@ namespace PuntoDeVentaV2
 
         private void btnListaDescuentos_Click(object sender, EventArgs e)
         {
+            if (opcion3 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<ListadoTipoClientes>().Count() == 1)
             {
                 Application.OpenForms.OfType<ListadoTipoClientes>().First().BringToFront();
@@ -321,6 +355,12 @@ namespace PuntoDeVentaV2
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             var busqueda = txtBuscador.Text.Trim();
 
             if (!string.IsNullOrWhiteSpace(busqueda))

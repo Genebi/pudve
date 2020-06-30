@@ -47,7 +47,7 @@
             this.btn_cancelar = new System.Windows.Forms.Button();
             this.btnCaja = new System.Windows.Forms.Button();
             this.btnAnticipos = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnClientes = new System.Windows.Forms.Button();
             this.btnConfig = new System.Windows.Forms.Button();
             this.btnFacturas = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -267,15 +267,16 @@
             this.btnAnticipos.UseVisualStyleBackColor = true;
             this.btnAnticipos.Click += new System.EventHandler(this.btnAnticipos_Click);
             // 
-            // button2
+            // btnClientes
             // 
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button2.Location = new System.Drawing.Point(282, 72);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(20, 20);
-            this.button2.TabIndex = 19;
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
+            this.btnClientes.Location = new System.Drawing.Point(282, 72);
+            this.btnClientes.Name = "btnClientes";
+            this.btnClientes.Size = new System.Drawing.Size(20, 20);
+            this.btnClientes.TabIndex = 19;
+            this.btnClientes.UseVisualStyleBackColor = true;
+            this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
             // btnConfig
             // 
@@ -435,7 +436,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.btnFacturas);
             this.Controls.Add(this.btnConfig);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnClientes);
             this.Controls.Add(this.btnAnticipos);
             this.Controls.Add(this.btnCaja);
             this.Controls.Add(this.btn_cancelar);
@@ -490,7 +491,7 @@
         private System.Windows.Forms.Button btn_cancelar;
         private System.Windows.Forms.Button btnCaja;
         private System.Windows.Forms.Button btnAnticipos;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnClientes;
         private System.Windows.Forms.Button btnConfig;
         private System.Windows.Forms.Button btnFacturas;
         private System.Windows.Forms.Button button5;
