@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         {
             secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
-                "MisDatos", "Facturas"
+                "MisDatos", "Facturas", "Configuracion"
             };
 
             VerificarSecciones();
@@ -53,6 +53,39 @@ namespace PuntoDeVentaV2
 
             if (seccion.Equals("Facturas"))
                 GenerarFacturas();
+
+            if (seccion.Equals("Configuracion"))
+                GenerarConfiguracion();
+        }
+
+        private void GenerarConfiguracion()
+        {
+            Text = "PUDVE - Permisos Configuración";
+
+            var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Configuracion");
+
+            GenerarCheckbox(20, 20, 150, "Guardar Servidor", datos[0]);
+            GenerarCheckbox(20, 180, 150, "Número de Revisión", datos[1]);
+            //=============================================================
+            GenerarCheckbox(50, 20, 150, "Porcentaje Ganancia", datos[2]);
+            GenerarCheckbox(50, 180, 150, "Respaldar Información", datos[3]);
+            //=============================================================
+            GenerarCheckbox(80, 20, 150, "Correo Modificar Precio", datos[4]);
+            GenerarCheckbox(80, 180, 150, "Correo Modificar Stock", datos[5]);
+            //=============================================================
+            GenerarCheckbox(110, 20, 150, "Correo Stock Mínimo", datos[6]);
+            GenerarCheckbox(110, 180, 150, "Correo Vender Producto", datos[7]);
+            //=============================================================
+            GenerarCheckbox(140, 20, 150, "Permitir Stock Negativo", datos[8]);
+            GenerarCheckbox(140, 180, 150, "Código Barras Ticket", datos[9]);
+            //=============================================================
+            GenerarCheckbox(170, 20, 150, "Información Página Web", datos[10]);
+            GenerarCheckbox(170, 180, 150, "Precio Productos Ventas", datos[11]);
+            //=============================================================
+            GenerarCheckbox(200, 20, 150, "Código Producto Venta", datos[12]);
+            GenerarCheckbox(200, 180, 150, "Precio Mayoreo Ventas", datos[13]);
+            //=============================================================
+            GenerarCheckbox(230, 20, 150, "Producto No Vendido", datos[14]);
         }
 
         private void GenerarCaja()
