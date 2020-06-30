@@ -90,6 +90,7 @@
             // btnHistorialDineroAgregado
             // 
             this.btnHistorialDineroAgregado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnHistorialDineroAgregado.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnHistorialDineroAgregado.FlatAppearance.BorderSize = 0;
             this.btnHistorialDineroAgregado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHistorialDineroAgregado.Font = new System.Drawing.Font("Century Gothic", 9.75F);
@@ -113,6 +114,7 @@
             this.Controls.Add(this.primerSeparador);
             this.Name = "Reportes";
             this.Text = "Reportes";
+            this.Load += new System.EventHandler(this.Reportes_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

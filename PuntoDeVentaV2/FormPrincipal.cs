@@ -425,8 +425,9 @@ namespace PuntoDeVentaV2
         private void InsertarPermisosDefault(int idEmpleado)
         {
             var secciones = new string[] {
-                "Caja", "Ventas", "Inventario","Anticipos",
-                "MisDatos", "Facturas", "Configuracion"
+                "Caja", "Ventas", "Inventario", "Anticipos",
+                "MisDatos", "Facturas", "Configuracion",
+                "Reportes"
             };
 
             foreach (var seccion in secciones)

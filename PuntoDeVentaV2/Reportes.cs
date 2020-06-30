@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
     public partial class Reportes : Form
     {
         Conexion cn = new Conexion();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
         private string concepto = string.Empty;
         private string fechaInicial = string.Empty;
@@ -25,13 +26,34 @@ namespace PuntoDeVentaV2
 
         public static bool botonAceptar = false;
 
+        // Permisos botones
+        int opcion1 = 1; // Historial precios
+        int opcion2 = 1; // Historial dinero agregado
+
         public Reportes()
         {
             InitializeComponent();
         }
 
+        private void Reportes_Load(object sender, EventArgs e)
+        {
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Reportes");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+            }
+        }
+
         private void btnHistorialPrecios_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<FechasReportes>().Count() == 1)
             {
                 Application.OpenForms.OfType<FechasReportes>().First().BringToFront();
@@ -235,6 +257,12 @@ namespace PuntoDeVentaV2
 
         private void btnHistorialDineroAgregado_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<FechasReportes>().Count() == 1)
             {
                 Application.OpenForms.OfType<FechasReportes>().First().BringToFront();
