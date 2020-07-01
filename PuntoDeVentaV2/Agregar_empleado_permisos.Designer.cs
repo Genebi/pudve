@@ -52,7 +52,7 @@
             this.btnFacturas = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.btnEmpleados = new System.Windows.Forms.Button();
             this.btnInventario = new System.Windows.Forms.Button();
             this.btnProveedores = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
@@ -320,15 +320,16 @@
             this.button6.TabIndex = 23;
             this.button6.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // btnEmpleados
             // 
-            this.button7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button7.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button7.Location = new System.Drawing.Point(150, 115);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(20, 20);
-            this.button7.TabIndex = 24;
-            this.button7.UseVisualStyleBackColor = true;
+            this.btnEmpleados.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEmpleados.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
+            this.btnEmpleados.Location = new System.Drawing.Point(150, 115);
+            this.btnEmpleados.Name = "btnEmpleados";
+            this.btnEmpleados.Size = new System.Drawing.Size(20, 20);
+            this.btnEmpleados.TabIndex = 24;
+            this.btnEmpleados.UseVisualStyleBackColor = true;
+            this.btnEmpleados.Click += new System.EventHandler(this.btnEmpleados_Click);
             // 
             // btnInventario
             // 
@@ -432,7 +433,7 @@
             this.Controls.Add(this.btnVentas);
             this.Controls.Add(this.btnProveedores);
             this.Controls.Add(this.btnInventario);
-            this.Controls.Add(this.button7);
+            this.Controls.Add(this.btnEmpleados);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.btnFacturas);
@@ -497,7 +498,7 @@
         private System.Windows.Forms.Button btnFacturas;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button btnEmpleados;
         private System.Windows.Forms.Button btnInventario;
         private System.Windows.Forms.Button btnProveedores;
         private System.Windows.Forms.Button btnVentas;

@@ -13,6 +13,13 @@ namespace PuntoDeVentaV2
 {
     public partial class Empleados : Form
     {
+        MetodosBusquedas mb = new MetodosBusquedas();
+
+        // Permisos botones
+        int opcion1 = 1; // Nuevo empleado
+        int opcion2 = 1; // Editar empleado
+        int opcion3 = 1; // Permisos empleado
+
         public Empleados()
         {
             InitializeComponent();
@@ -21,6 +28,15 @@ namespace PuntoDeVentaV2
         private void cargar_empleados(object sender, EventArgs e)
         {
             cargar_lista_empleados();
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Empleados");
+
+                opcion1 = permisos[0];
+                opcion2 = permisos[1];
+                opcion3 = permisos[2];
+            }
         }
 
         public void cargar_lista_empleados()
@@ -73,6 +89,12 @@ namespace PuntoDeVentaV2
 
         private void btn_agregar_empleado_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<Agregar_empleado>().Count() == 1)
             {
                 Application.OpenForms.OfType<Agregar_empleado>().First().BringToFront();
@@ -115,6 +137,12 @@ namespace PuntoDeVentaV2
                 // Editar empleado
                 if (e.ColumnIndex == 3)
                 {
+                    if (opcion2 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     var empleado = new Agregar_empleado(2, id_empleado);
 
                     empleado.FormClosed += delegate
@@ -128,6 +156,12 @@ namespace PuntoDeVentaV2
                 // Asignar permisos
                 if (e.ColumnIndex == 4) 
                 {
+                    if (opcion3 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     Agregar_empleado_permisos permisos = new Agregar_empleado_permisos(id_empleado);
 
                     permisos.ShowDialog();
