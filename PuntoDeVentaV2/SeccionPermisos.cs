@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
             secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
                 "MisDatos", "Facturas", "Configuracion", "Reportes",
-                "Clientes", "Proveedores", "Empleados"
+                "Clientes", "Proveedores", "Empleados", "Productos"
             };
 
             VerificarSecciones();
@@ -69,6 +69,37 @@ namespace PuntoDeVentaV2
 
             if (seccion.Equals("Empleados"))
                 GenerarEmpleados();
+
+            if (seccion.Equals("Productos"))
+                GenerarProductos();
+        }
+
+        private void GenerarProductos()
+        {
+            Text = "PUDVE - Permisos Productos";
+
+            var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Productos");
+
+            GenerarCheckbox(20, 20, 100, "Agregar XML", 1);
+            GenerarCheckbox(20, 200, 200, "Deshabilitar Seleccionados", 1);
+
+            GenerarCheckbox(50, 20, 150, "Cambiar Tipo", 1);
+            GenerarCheckbox(50, 200, 150, "Mostrar en Lista", 1);
+
+            GenerarCheckbox(80, 20, 150, "Botón Asignar", 1);
+            GenerarCheckbox(80, 200, 150, "Mostrar en Mosaico", 1);
+
+            GenerarCheckbox(110, 20, 150, "Botón Etiqueta", 1);
+            GenerarCheckbox(110, 200, 150, "Botón Reporte", 1);
+
+            GenerarCheckbox(140, 20, 150, "Botón Imprimir", 1);
+            GenerarCheckbox(140, 200, 150, "Agregar Producto", 1);
+
+            GenerarCheckbox(170, 20, 150, "Agregar Combo", 1);
+            GenerarCheckbox(170, 200, 150, "Agregar Servicio", 1);
+
+            GenerarCheckbox(200, 20, 150, "Botón Filtro", 1);
+            GenerarCheckbox(200, 200, 150, "Botón Borrar Filtro", 1);
         }
 
         private void GenerarEmpleados()

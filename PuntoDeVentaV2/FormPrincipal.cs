@@ -432,9 +432,8 @@ namespace PuntoDeVentaV2
         {
             var secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
-                "MisDatos", "Facturas", "Configuracion",
-                "Reportes", "Clientes", "Proveedores",
-                "Empleados"
+                "MisDatos", "Facturas", "Configuracion", "Reportes",
+                "Clientes", "Proveedores", "Empleados", "Productos"
             };
 
             foreach (var seccion in secciones)
