@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbTitulo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -41,23 +41,23 @@
             this.btn_cancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // lbTitulo
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lbTitulo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(95, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(189, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nuevo Empleado";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbTitulo.AutoSize = true;
+            this.lbTitulo.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTitulo.Location = new System.Drawing.Point(95, 25);
+            this.lbTitulo.Name = "lbTitulo";
+            this.lbTitulo.Size = new System.Drawing.Size(203, 25);
+            this.lbTitulo.TabIndex = 0;
+            this.lbTitulo.Text = "NUEVO EMPLEADO";
+            this.lbTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(52, 96);
+            this.label2.Location = new System.Drawing.Point(43, 80);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label2.Size = new System.Drawing.Size(56, 17);
@@ -67,7 +67,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(57, 141);
+            this.label3.Location = new System.Drawing.Point(48, 123);
             this.label3.Name = "label3";
             this.label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label3.Size = new System.Drawing.Size(51, 17);
@@ -77,7 +77,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(31, 203);
+            this.label4.Location = new System.Drawing.Point(22, 164);
             this.label4.Name = "label4";
             this.label4.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label4.Size = new System.Drawing.Size(77, 17);
@@ -86,7 +86,8 @@
             // 
             // txt_nombre
             // 
-            this.txt_nombre.Location = new System.Drawing.Point(115, 96);
+            this.txt_nombre.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txt_nombre.Location = new System.Drawing.Point(115, 77);
             this.txt_nombre.MaxLength = 100;
             this.txt_nombre.Name = "txt_nombre";
             this.txt_nombre.Size = new System.Drawing.Size(190, 22);
@@ -96,7 +97,7 @@
             // txt_usuario
             // 
             this.txt_usuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_usuario.Location = new System.Drawing.Point(115, 139);
+            this.txt_usuario.Location = new System.Drawing.Point(115, 120);
             this.txt_usuario.MaxLength = 30;
             this.txt_usuario.Name = "txt_usuario";
             this.txt_usuario.Size = new System.Drawing.Size(190, 22);
@@ -110,7 +111,7 @@
             // 
             this.lb_usuario.AutoSize = true;
             this.lb_usuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario.Location = new System.Drawing.Point(116, 167);
+            this.lb_usuario.Location = new System.Drawing.Point(45, 203);
             this.lb_usuario.Name = "lb_usuario";
             this.lb_usuario.Size = new System.Drawing.Size(51, 17);
             this.lb_usuario.TabIndex = 6;
@@ -119,9 +120,10 @@
             // 
             // txt_conttraseña
             // 
-            this.txt_conttraseña.Location = new System.Drawing.Point(115, 201);
+            this.txt_conttraseña.Location = new System.Drawing.Point(115, 161);
             this.txt_conttraseña.MaxLength = 15;
             this.txt_conttraseña.Name = "txt_conttraseña";
+            this.txt_conttraseña.PasswordChar = '*';
             this.txt_conttraseña.Size = new System.Drawing.Size(190, 22);
             this.txt_conttraseña.TabIndex = 7;
             this.txt_conttraseña.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -131,7 +133,7 @@
             // 
             this.lb_usuario_completo.AutoSize = true;
             this.lb_usuario_completo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario_completo.Location = new System.Drawing.Point(173, 167);
+            this.lb_usuario_completo.Location = new System.Drawing.Point(112, 203);
             this.lb_usuario_completo.Name = "lb_usuario_completo";
             this.lb_usuario_completo.Size = new System.Drawing.Size(18, 17);
             this.lb_usuario_completo.TabIndex = 8;
@@ -146,7 +148,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(226, 266);
+            this.btn_aceptar.Location = new System.Drawing.Point(195, 247);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(119, 30);
             this.btn_aceptar.TabIndex = 9;
@@ -162,7 +164,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(95, 266);
+            this.btn_cancelar.Location = new System.Drawing.Point(48, 247);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
             this.btn_cancelar.TabIndex = 10;
@@ -174,7 +176,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 313);
+            this.ClientSize = new System.Drawing.Size(362, 289);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.lb_usuario_completo);
@@ -185,7 +187,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lbTitulo);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -194,6 +196,7 @@
             this.Name = "Agregar_empleado";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar Empleado";
+            this.Load += new System.EventHandler(this.Agregar_empleado_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -201,7 +204,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbTitulo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;

@@ -516,26 +516,27 @@ namespace PuntoDeVentaV2
             string cons = "";
 
             // Guardar
-
-            if(opc == 1)
+            if (opc == 1)
             {
                 cons = "INSERT INTO Empleados (IDUsuario, nombre, usuario, contrasena)";
                 cons += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}')";
             }
 
             // Ajustar permisos
-
-            if(opc == 2)
+            if (opc == 2)
             {
                 cons = $"UPDATE Empleados SET p_anticipo='{datos[2]}', p_caja='{datos[3]}', p_cliente='{datos[4]}', p_config='{datos[5]}', p_empleado='{datos[6]}', p_empresa='{datos[7]}', p_factura='{datos[8]}', p_inventario='{datos[9]}', p_mdatos='{datos[10]}', p_producto='{datos[11]}', p_proveedor='{datos[12]}', p_reporte='{datos[13]}', p_servicio='{datos[14]}', p_venta='{datos[15]}' WHERE ID='{datos[1]}' AND IDUsuario='{datos[0]}'";
-
             }
 
             // Obtener usuario
-
-            if(opc == 3)
+            if (opc == 3)
             {
                 cons = $"SELECT nombre, usuario FROM Empleados WHERE ID='{datos[0]}'";
+            }
+
+            if (opc == 4)
+            {
+                cons = $"UPDATE Empleados SET nombre = '{datos[1]}', usuario = '{datos[2]}', contrasena = '{datos[3]}' WHERE ID = {datos[0]} AND IDUsuario = {FormPrincipal.userID}";
             }
 
             return cons;

@@ -60,8 +60,10 @@ namespace PuntoDeVentaV2
                 fila.Cells["nombre"].Value = dr.GetValue(dr.GetOrdinal("nombre"));
                 fila.Cells["usuario"].Value = dr.GetValue(dr.GetOrdinal("usuario"));
 
+                Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
                 Image permisos = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\unlock-alt.png");
-                
+
+                fila.Cells["editar"].Value = editar;
                 fila.Cells["Permisos"].Value = permisos; 
             }
 
@@ -110,14 +112,26 @@ namespace PuntoDeVentaV2
             {
                 int id_empleado = Convert.ToInt32(dgv_empleados.Rows[e.RowIndex].Cells["id"].Value);
 
-                // Asignar permisos
+                // Editar empleado
+                if (e.ColumnIndex == 3)
+                {
+                    var empleado = new Agregar_empleado(2, id_empleado);
 
+                    empleado.FormClosed += delegate
+                    {
+                        cargar_lista_empleados();
+                    };
+
+                    empleado.Show();
+                }
+
+                // Asignar permisos
                 if (e.ColumnIndex == 4) 
                 {
                     Agregar_empleado_permisos permisos = new Agregar_empleado_permisos(id_empleado);
+
                     permisos.ShowDialog();
                 }
-
 
                 dgv_empleados.ClearSelection();
             }
