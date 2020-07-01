@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
             secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
                 "MisDatos", "Facturas", "Configuracion", "Reportes",
-                "Clientes", "Proveedores"
+                "Clientes", "Proveedores", "Empleados"
             };
 
             VerificarSecciones();
@@ -66,6 +66,20 @@ namespace PuntoDeVentaV2
 
             if (seccion.Equals("Proveedores"))
                 GenerarProveedores();
+
+            if (seccion.Equals("Empleados"))
+                GenerarEmpleados();
+        }
+
+        private void GenerarEmpleados()
+        {
+            Text = "PUDVE - Permisos Empleados";
+
+            var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Empleados");
+
+            GenerarCheckbox(50, 130, 150, "Nuevo Empleado", datos[0]);
+            GenerarCheckbox(90, 130, 150, "Editar Empleado", datos[1]);
+            GenerarCheckbox(130, 130, 150, "Permisos Empleado", datos[2]);
         }
 
         private void GenerarProveedores()
