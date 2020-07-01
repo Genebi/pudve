@@ -80,26 +80,41 @@ namespace PuntoDeVentaV2
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Productos");
 
-            GenerarCheckbox(20, 20, 100, "Agregar XML", 1);
-            GenerarCheckbox(20, 200, 200, "Deshabilitar Seleccionados", 1);
-
-            GenerarCheckbox(50, 20, 150, "Cambiar Tipo", 1);
-            GenerarCheckbox(50, 200, 150, "Mostrar en Lista", 1);
-
-            GenerarCheckbox(80, 20, 150, "Botón Asignar", 1);
-            GenerarCheckbox(80, 200, 150, "Mostrar en Mosaico", 1);
-
-            GenerarCheckbox(110, 20, 150, "Botón Etiqueta", 1);
-            GenerarCheckbox(110, 200, 150, "Botón Reporte", 1);
-
-            GenerarCheckbox(140, 20, 150, "Botón Imprimir", 1);
-            GenerarCheckbox(140, 200, 150, "Agregar Producto", 1);
-
-            GenerarCheckbox(170, 20, 150, "Agregar Combo", 1);
-            GenerarCheckbox(170, 200, 150, "Agregar Servicio", 1);
-
-            GenerarCheckbox(200, 20, 150, "Botón Filtro", 1);
-            GenerarCheckbox(200, 200, 150, "Botón Borrar Filtro", 1);
+            GenerarCheckbox(0, 20, 100, "Agregar XML", 1);
+            GenerarCheckbox(0, 200, 200, "Deshabilitar Seleccionados", 1);
+            //=============================================================
+            GenerarCheckbox(20, 20, 150, "Cambiar Tipo", 1);
+            GenerarCheckbox(20, 200, 150, "Mostrar en Lista", 1);
+            //=============================================================
+            GenerarCheckbox(40, 20, 150, "Botón Asignar", 1);
+            GenerarCheckbox(40, 200, 150, "Mostrar en Mosaico", 1);
+            //=============================================================
+            GenerarCheckbox(60, 20, 150, "Botón Etiqueta", 1);
+            GenerarCheckbox(60, 200, 150, "Botón Reporte", 1);
+            //=============================================================
+            GenerarCheckbox(80, 20, 150, "Botón Imprimir", 1);
+            GenerarCheckbox(80, 200, 150, "Agregar Producto", 1);
+            //=============================================================
+            GenerarCheckbox(100, 20, 150, "Agregar Combo", 1);
+            GenerarCheckbox(100, 200, 150, "Agregar Servicio", 1);
+            //=============================================================
+            GenerarCheckbox(120, 20, 150, "Botón Filtro", 1);
+            GenerarCheckbox(120, 200, 150, "Botón Borrar Filtro", 1);
+            //=============================================================
+            GenerarCheckbox(140, 20, 150, "Botón Filtro", 1);
+            GenerarCheckbox(140, 200, 150, "Botón Borrar Filtro", 1);
+            //=============================================================
+            GenerarCheckbox(160, 20, 150, "Opción Editar", 1);
+            GenerarCheckbox(160, 200, 150, "Opción Estado", 1);
+            //=============================================================
+            GenerarCheckbox(180, 20, 150, "Opción Historal", 1);
+            GenerarCheckbox(180, 200, 150, "Generar Código Barras", 1);
+            //=============================================================
+            GenerarCheckbox(200, 20, 150, "Cargar Imagen", 1);
+            GenerarCheckbox(200, 200, 150, "Opción Etiqueta", 1);
+            //=============================================================
+            GenerarCheckbox(220, 20, 150, "Opción Copiar", 1);
+            GenerarCheckbox(220, 200, 150, "Opción Ajustar", 1);
         }
 
         private void GenerarEmpleados()
