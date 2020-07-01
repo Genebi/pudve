@@ -318,13 +318,17 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            Form toClose = new Form();
+            string name = string.Empty;
+
             for (int i = 0; i <= formularioCerrar.Count - 1; i++)
             {
-                Form toClose = formularioCerrar[i];
-                string name = toClose.Name;
+                toClose = formularioCerrar[i];
+                name = toClose.Name;
                 toClose.Close();
-                formularioCerrar.RemoveAt(i);
             }
+
+            formularioCerrar.Clear();
 
             this.Hide();
 
