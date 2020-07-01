@@ -15,17 +15,61 @@ namespace PuntoDeVentaV2
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        MetodosBusquedas mb = new MetodosBusquedas();
 
+        private int tipo = 0;
+        private int empleado = 0;
 
+        private string nombre;
+        private string usuario;
+        private string password;
 
-        public Agregar_empleado()
+        public Agregar_empleado(int tipo = 1, int empleado = 0)
         {
             InitializeComponent();
+
+            this.tipo = tipo;
+            this.empleado = empleado;
+        }
+
+        private void Agregar_empleado_Load(object sender, EventArgs e)
+        {
+            if (tipo == 1)
+            {
+                Text = "PUDVE - Agregar Empleado";
+                lbTitulo.Text = "NUEVO EMPLEADO";
+            }
+
+            if (tipo == 2)
+            {
+                Text = "PUDVE - Editar Empleado";
+                lbTitulo.Text = "EDITAR EMPLEADO";
+
+                var datos = mb.obtener_permisos_empleado(empleado, FormPrincipal.userID);
+
+                if (datos.Length > 0)
+                {
+                    var tmp = datos[15].Split('@');
+
+                    nombre = datos[14];
+                    usuario = tmp[1];
+                    password = datos[16];
+
+                    txt_nombre.Text = nombre;
+                    txt_usuario.Text = usuario;
+                    txt_conttraseña.Text = password;
+
+                    lb_usuario.Visible = true;
+
+                    lb_usuario_completo.Text = FormPrincipal.userNickName + "@" + usuario;
+                    lb_usuario_completo.Visible = true;
+                }
+            }
         }
 
         private void solo_letras_digitos(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsLetterOrDigit(e.KeyChar) | Char.IsControl(e.KeyChar))
+            if (char.IsLetterOrDigit(e.KeyChar) | char.IsControl(e.KeyChar))
             {
                 e.Handled = false;
             }
@@ -71,17 +115,36 @@ namespace PuntoDeVentaV2
 
             if (error == "0")
             {
-                string[] datos = new string[]
+                if (tipo == 1)
                 {
-                    FormPrincipal.userID.ToString(), txt_nombre.Text, lb_usuario_completo.Text, txt_conttraseña.Text
-                };
+                    string[] datos = new string[]
+                    {
+                        FormPrincipal.userID.ToString(), txt_nombre.Text, lb_usuario_completo.Text, txt_conttraseña.Text
+                    };
 
-                int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 1));
+                    int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 1));
 
-                if(r > 0)
-                {
-                    this.Close();
+                    if (r > 0)
+                    {
+                        this.Close();
+                    }
                 }
+
+                if (tipo == 2)
+                {
+                    string[] datos = new string[] {
+                        empleado.ToString(), txt_nombre.Text.Trim(),
+                        lb_usuario_completo.Text.Trim(), txt_conttraseña.Text.Trim()
+                    };
+
+                    int resultado = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 4));
+
+                    if (resultado > 0)
+                    {
+                        Close();
+                    }
+                }
+                
             }
             else
             {
@@ -130,9 +193,20 @@ namespace PuntoDeVentaV2
         {
             bool existe = (bool)cn.EjecutarSelect($"SELECT * FROM Empleados WHERE usuario='{lb_usuario_completo.Text}' AND IDUsuario='{FormPrincipal.userID}'");
 
-            if(existe == true)
+            if (existe == true)
             {
-                MessageBox.Show("Ya existe ese nombre de usuario, elegir otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (tipo == 1)
+                {
+                    MessageBox.Show("Ya existe ese nombre de usuario, elegir otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                if (tipo == 2)
+                {
+                    if (!usuario.Equals(txt_usuario.Text.Trim()))
+                    {
+                        MessageBox.Show("Ya existe ese nombre de usuario, elegir otro.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
     }
