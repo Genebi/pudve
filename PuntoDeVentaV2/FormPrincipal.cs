@@ -321,6 +321,8 @@ namespace PuntoDeVentaV2
             Form toClose = new Form();
             string name = string.Empty;
 
+            formularioCerrar.Reverse();
+
             for (int i = 0; i <= formularioCerrar.Count - 1; i++)
             {
                 toClose = formularioCerrar[i];
