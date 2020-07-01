@@ -125,6 +125,33 @@ namespace PuntoDeVentaV2
 
         string nuevoCodigoBarrasDeProducto = string.Empty;
 
+
+        // Permisos botones
+        int opcion1 = 1; // Agregar XML
+        int opcion2 = 1; // Deshabilitar seleccionados
+        int opcion3 = 1; // Cambiar tipo
+        int opcion4 = 1; // Mostrar en lista
+        int opcion5 = 1; // Boton asignar
+        int opcion6 = 1; // Mostrar en mosaico
+        int opcion7 = 1; // Boton etiqueta
+        int opcion8 = 1; // Boton reporte
+        int opcion9 = 1; // Boton imprimir
+
+        int opcion10 = 1; // Agregar producto
+        int opcion11 = 1; // Agregar combo
+        int opcion12 = 1; // Agregar servicio
+        int opcion13 = 1; // Boton filtro
+        int opcion14 = 1; // Boton borrar filtro
+        int opcion15 = 1; // Opcion editar
+        int opcion16 = 1; // Opcion estado
+        int opcion17 = 1; // Opcion historial
+        int opcion18 = 1; // Generar codigo barras
+        int opcion19 = 1; // Cargar imagen
+        int opcion20 = 1; // Opcion etiqueta
+        int opcion21 = 1; // Opcion copiar
+        int opcion22 = 1; // Opcion ajustar
+
+
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -395,6 +422,12 @@ namespace PuntoDeVentaV2
 
         private void btnFilterSearch_Click(object sender, EventArgs e)
         {
+            if (opcion13 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<WinQueryString>().Count() == 1)
             {
                 Application.OpenForms.OfType<WinQueryString>().First().BringToFront();
@@ -566,6 +599,12 @@ namespace PuntoDeVentaV2
 
         private void btnPhotoView_Click(object sender, EventArgs e)
         {
+            if (opcion6 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             fileSavePath = saveDirectoryImg;
             if (panelShowDGVProductosView.Visible == true || panelShowDGVProductosView.Visible == false)
             {
@@ -587,6 +626,12 @@ namespace PuntoDeVentaV2
 
         private void btnListView_Click(object sender, EventArgs e)
         {
+            if (opcion4 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (panelShowDGVProductosView.Visible == true || panelShowDGVProductosView.Visible == false)
             {
                 panelShowPhotoView.Visible = false;
@@ -705,6 +750,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 7)
                 {
+                    if (opcion15 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Editar el producto
                     if (seleccionadoDato == 0)
                     {
@@ -732,6 +783,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 8)
                 {
+                    if (opcion16 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Estado del producto
                     index = 0;
 
@@ -746,6 +803,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 9)
                 {
+                    if (opcion17 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     using (var historial = new TipoHistorial(idProducto))
                     {
                         var respuesta = historial.ShowDialog();
@@ -764,6 +827,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 10)
                 {
+                    if (opcion18 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Generar Codigo de Barras del Producto
                     string codiBarProd = "";
                     numfila = e.RowIndex;
@@ -804,6 +873,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 11)
                 {
+                    if (opcion19 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Imagen del Producto
                     numfila = e.RowIndex;
                     obtenerDatosDGVProductos(numfila);
@@ -825,6 +900,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 12)
                 {
+                    if (opcion20 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Etiqueta del Producto
                     numerofila = e.RowIndex;
                     obtenerDatosDGVProductos(numerofila);
@@ -846,6 +927,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 13)
                 {
+                    if (opcion21 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Copiar el Producto
                     if (seleccionadoDato == 0)
                     {
@@ -858,6 +945,12 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 17)
                 {
+                    if (opcion22 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+
                     // Ajustar el Producto
 
                     // La opcion ajustar solo debe funcionar para los tipo Producto
@@ -894,6 +987,12 @@ namespace PuntoDeVentaV2
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             int estado = 2;
 
             if (cbMostrar.Text == "Habilitados")
@@ -1068,6 +1167,12 @@ namespace PuntoDeVentaV2
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
         {
+            if (opcion14 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             removeAllSystemTags(setUpVariable);
             modificarDiccionarioEtiquetas(fLPDynamicTags);
 
@@ -1270,6 +1375,20 @@ namespace PuntoDeVentaV2
             //actualizarDGVProductos.Interval = 3000;
             //actualizarDGVProductos.Tick += actualizar_automatico_Tick;
             //actualizarDGVProductos.Enabled = true;
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Productos");
+
+                opcion1 = permisos[0]; opcion2 = permisos[1]; opcion3 = permisos[2];
+                opcion4 = permisos[3]; opcion5 = permisos[4]; opcion6 = permisos[5];
+                opcion7 = permisos[6]; opcion8 = permisos[7]; opcion9 = permisos[8];
+                opcion10 = permisos[9]; opcion11 = permisos[10]; opcion12 = permisos[11];
+                opcion13 = permisos[12]; opcion14 = permisos[13]; opcion15 = permisos[14];
+                opcion16 = permisos[15]; opcion17 = permisos[16]; opcion18 = permisos[17];
+                opcion19 = permisos[18]; opcion20 = permisos[19]; opcion21 = permisos[20];
+                opcion22 = permisos[21];
+            }
         }
 
         private void actualizar_automatico_Tick(object sender, EventArgs e)
@@ -1305,6 +1424,12 @@ namespace PuntoDeVentaV2
 
         private void btnPedido_Click(object sender, EventArgs e)
         {
+            if (opcion8 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<OpcionesReporteProducto>().Count() == 1)
             {
                 Application.OpenForms.OfType<OpcionesReporteProducto>().First().BringToFront();
@@ -2020,6 +2145,12 @@ namespace PuntoDeVentaV2
 
         private void btnCambiarTipo_Click(object sender, EventArgs e)
         {
+            if (opcion3 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             int contador = 0;
             int idProducto = 0;
             var tipo = string.Empty;
@@ -3408,6 +3539,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
+            if (opcion10 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
@@ -3583,6 +3720,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
+            if (opcion11 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
@@ -3680,6 +3823,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
+            if (opcion12 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
@@ -4010,6 +4159,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarXML_Click(object sender, EventArgs e)
         {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             FormXML.FormClosed += delegate
             {
                 //CargarDatos();
@@ -4327,6 +4482,12 @@ namespace PuntoDeVentaV2
 
         private void btnAsignarMultiple_Click(object sender, EventArgs e)
         {
+            if (opcion5 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
             // Obtener ID de los productos seleccionados
@@ -4384,6 +4545,12 @@ namespace PuntoDeVentaV2
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
+            if (opcion9 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
             // Obtener ID de los productos seleccionados
@@ -4414,6 +4581,12 @@ namespace PuntoDeVentaV2
 
         private void btnEtiqueta_Click(object sender, EventArgs e)
         {
+            if (opcion7 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
             GenerarEtiqueta ge = new GenerarEtiqueta();
 
             ge.ShowDialog();

@@ -2053,6 +2053,10 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion18"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion19"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion20"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion21"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion22"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion23"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion24"))));
             }
 
             dr.Close();
