@@ -47,12 +47,12 @@ namespace PuntoDeVentaV2
             //Se obtienen los proveedores del usuario
             listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
 
+            Dictionary<string, string> proveedores = new Dictionary<string, string>();
+
+            proveedores.Add("0", "Seleccionar un proveedor...");
+
             if (listaProveedores.Length > 0)
             {
-                Dictionary<string, string> proveedores = new Dictionary<string, string>();
-
-                proveedores.Add("0", "Seleccionar un proveedor...");
-
                 foreach (var proveedor in listaProveedores)
                 {
                     var tmp = proveedor.Split('-');
@@ -84,8 +84,9 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cbProveedores.Items.Add("Seleccionar un proveedor...");
-                cbProveedores.SelectedIndex = 0;
+                cbProveedores.DataSource = proveedores.ToArray();
+                cbProveedores.DisplayMember = "Value";
+                cbProveedores.ValueMember = "Key";
             }
             
 

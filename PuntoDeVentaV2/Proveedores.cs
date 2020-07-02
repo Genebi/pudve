@@ -164,7 +164,9 @@ namespace PuntoDeVentaV2
 
                 ap.FormClosed += delegate
                 {
+                    //clickBoton = 0;
                     CargarDatos();
+                    //ActualizarPaginador();
                 };
 
                 ap.Show();
