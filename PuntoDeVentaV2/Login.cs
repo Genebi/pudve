@@ -185,7 +185,8 @@ namespace PuntoDeVentaV2
                 string usuario_empleado = "";
                 string password_empleado = "";
 
-                string formato_usuario = "^[A-Z&Ñ]+@[A-Z&Ñ0-9]+$";
+                //"^[A-Z&Ñ]+@[A-Z&Ñ0-9]+$";
+                string formato_usuario = "^[A-Z&Ñ&0-9]+@[A-Z&Ñ0-9]+$";
 
                 Regex exp = new Regex(formato_usuario);
                 
