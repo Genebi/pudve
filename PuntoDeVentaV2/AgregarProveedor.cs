@@ -82,7 +82,7 @@ namespace PuntoDeVentaV2
 
                 if (respuesta > 0)
                 {
-                    this.Dispose();
+                    Close();
                 }
             }
             else
@@ -92,7 +92,7 @@ namespace PuntoDeVentaV2
 
                 if (respuesta > 0)
                 {
-                    this.Dispose();
+                    Close();
                 }
             }
         }
