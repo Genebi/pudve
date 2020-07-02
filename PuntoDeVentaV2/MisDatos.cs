@@ -753,7 +753,7 @@ namespace PuntoDeVentaV2
                 //ponemos la imagen en limpio
                 pictureBox1.Image = null;
                 // Llamamos a la Funcion consulta
-                consulta();
+                //consulta();
             }
         }
 
