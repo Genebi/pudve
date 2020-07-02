@@ -299,6 +299,12 @@ namespace PuntoDeVentaV2
             id_empleado = t_id_empleado;
         }
 
+        private void btnCalculadora_Click(object sender, EventArgs e)
+        {
+            calculadora calculadora = new calculadora();
+            calculadora.Show();
+        }
+
         private void btnSesion_Click(object sender, EventArgs e)
         {
             cerrarAplicacion = true;
