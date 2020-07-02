@@ -109,7 +109,7 @@ namespace PuntoDeVentaV2
             ConceptosDinamicos = 7;
             CorreosProducto = 8;
             FiltrosDinamicosVetanaFiltros = 5;
-            EmpleadosPermisos = 24;
+            EmpleadosPermisos = 28;
         #endregion Inicializar Variables
         }
 
@@ -3109,7 +3109,11 @@ namespace PuntoDeVentaV2
                                               Opcion17   INTEGER DEFAULT (1),
                                               Opcion18   INTEGER DEFAULT (1),
                                               Opcion19   INTEGER DEFAULT (1),
-                                              Opcion20   INTEGER DEFAULT (1));";
+                                              Opcion20   INTEGER DEFAULT (1),
+                                              Opcion21   INTEGER DEFAULT (1),
+                                              Opcion22   INTEGER DEFAULT (1),
+                                              Opcion23   INTEGER DEFAULT (1),
+                                              Opcion24   INTEGER DEFAULT (1));";
         }
 
         public string QueryUpdateTablaFiltroEmpleadosPermisos(string tabla)
