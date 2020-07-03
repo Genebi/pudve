@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
+            this.btnCalculadora = new System.Windows.Forms.Button();
             this.menuVertical = new System.Windows.Forms.Panel();
             this.btnSesion = new System.Windows.Forms.Button();
             this.btnEmpresas = new System.Windows.Forms.Button();
@@ -51,7 +52,6 @@
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
             this.timerProductos = new System.Windows.Forms.Timer(this.components);
-            this.btnCalculadora = new System.Windows.Forms.Button();
             this.panelMaestro.SuspendLayout();
             this.panelContenedor.SuspendLayout();
             this.menuVertical.SuspendLayout();
@@ -75,6 +75,17 @@
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(854, 602);
             this.panelContenedor.TabIndex = 2;
+            // 
+            // btnCalculadora
+            // 
+            this.btnCalculadora.Location = new System.Drawing.Point(525, 338);
+            this.btnCalculadora.Name = "btnCalculadora";
+            this.btnCalculadora.Size = new System.Drawing.Size(75, 23);
+            this.btnCalculadora.TabIndex = 1;
+            this.btnCalculadora.Text = "Calculadora";
+            this.btnCalculadora.UseVisualStyleBackColor = true;
+            this.btnCalculadora.Visible = false;
+            this.btnCalculadora.Click += new System.EventHandler(this.btnCalculadora_Click);
             // 
             // menuVertical
             // 
@@ -404,16 +415,6 @@
             this.timerProductos.Enabled = true;
             this.timerProductos.Interval = 180000;
             this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
-            // 
-            // btnCalculadora
-            // 
-            this.btnCalculadora.Location = new System.Drawing.Point(525, 338);
-            this.btnCalculadora.Name = "btnCalculadora";
-            this.btnCalculadora.Size = new System.Drawing.Size(75, 23);
-            this.btnCalculadora.TabIndex = 1;
-            this.btnCalculadora.Text = "Calculadora";
-            this.btnCalculadora.UseVisualStyleBackColor = true;
-            this.btnCalculadora.Click += new System.EventHandler(this.btnCalculadora_Click);
             // 
             // FormPrincipal
             // 

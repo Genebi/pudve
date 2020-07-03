@@ -64,6 +64,10 @@ namespace PuntoDeVentaV2
         public int idProductoCambio { get; set; }
         public bool cambioProducto { get; set; }
 
+        //Variables para calculadora
+        int calcu = 0;
+        ///////////////////////////
+
         /****************************
 		*   Codigo de Emmanuel      *
 		****************************/
@@ -1106,6 +1110,16 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+
+            //if (e.KeyChar==Convert.ToChar(Keys.Enter))
+            //{
+            //    calcu++;
+            //    if (calcu==2)
+            //    {
+            //        calculadora calculadora = new calculadora();
+            //        calculadora.Show();
+            //    }
+            //}
         }
 
         private void txtStockMaximo_KeyUp(object sender, KeyEventArgs e)
@@ -5133,7 +5147,7 @@ namespace PuntoDeVentaV2
                 producto.recargarDGV();
             }
         }
-
+        
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
             var servidor = Properties.Settings.Default.Hosting;

@@ -888,6 +888,7 @@
             this.Controls.Add(this.fLPType);
             this.Controls.Add(this.fLPTitulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(858, 539);
             this.Name = "AgregarEditarProducto";

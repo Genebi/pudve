@@ -47,19 +47,20 @@
             this.btn2 = new System.Windows.Forms.Button();
             this.btn1 = new System.Windows.Forms.Button();
             this.tbCalculadora = new System.Windows.Forms.TextBox();
+            this.cboResultado = new System.Windows.Forms.ComboBox();
+            this.lCalculadora = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnResultado
             // 
             this.btnResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResultado.Location = new System.Drawing.Point(280, 301);
+            this.btnResultado.Location = new System.Drawing.Point(180, 351);
             this.btnResultado.Name = "btnResultado";
             this.btnResultado.Size = new System.Drawing.Size(79, 44);
             this.btnResultado.TabIndex = 38;
             this.btnResultado.Text = "=";
             this.btnResultado.UseVisualStyleBackColor = true;
             this.btnResultado.Click += new System.EventHandler(this.btnResultado_Click);
-            this.btnResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnResultado_KeyPress);
             // 
             // btnAC
             // 
@@ -104,7 +105,6 @@
             this.btnSumar.Text = "+";
             this.btnSumar.UseVisualStyleBackColor = true;
             this.btnSumar.Click += new System.EventHandler(this.btnSumar_Click);
-            this.btnSumar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnSumar_KeyPress);
             // 
             // btnPunto
             // 
@@ -127,7 +127,6 @@
             this.btnRestar.Text = "-";
             this.btnRestar.UseVisualStyleBackColor = true;
             this.btnRestar.Click += new System.EventHandler(this.btnRestar_Click);
-            this.btnRestar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnRestar_KeyPress);
             // 
             // btn9
             // 
@@ -172,7 +171,6 @@
             this.btnMultiplicar.Text = "x";
             this.btnMultiplicar.UseVisualStyleBackColor = true;
             this.btnMultiplicar.Click += new System.EventHandler(this.btnMultiplicar_Click);
-            this.btnMultiplicar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnMultiplicar_KeyPress);
             // 
             // btn6
             // 
@@ -217,7 +215,6 @@
             this.btnDividir.Text = "÷";
             this.btnDividir.UseVisualStyleBackColor = true;
             this.btnDividir.Click += new System.EventHandler(this.btnDividir_Click);
-            this.btnDividir.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnDividir_KeyPress);
             // 
             // btn3
             // 
@@ -255,22 +252,52 @@
             // tbCalculadora
             // 
             this.tbCalculadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbCalculadora.Location = new System.Drawing.Point(25, 31);
+            this.tbCalculadora.Location = new System.Drawing.Point(25, 401);
             this.tbCalculadora.Multiline = true;
             this.tbCalculadora.Name = "tbCalculadora";
             this.tbCalculadora.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.tbCalculadora.Size = new System.Drawing.Size(334, 44);
+            this.tbCalculadora.Size = new System.Drawing.Size(289, 44);
             this.tbCalculadora.TabIndex = 20;
             this.tbCalculadora.Text = "0";
             this.tbCalculadora.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbCalculadora.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCalculadora_KeyPress);
+            // 
+            // cboResultado
+            // 
+            this.cboResultado.AllowDrop = true;
+            this.cboResultado.BackColor = System.Drawing.SystemColors.Control;
+            this.cboResultado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboResultado.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.cboResultado.FormattingEnabled = true;
+            this.cboResultado.Items.AddRange(new object[] {
+            "    =",
+            "    !"});
+            this.cboResultado.Location = new System.Drawing.Point(280, 302);
+            this.cboResultado.Name = "cboResultado";
+            this.cboResultado.Size = new System.Drawing.Size(79, 40);
+            this.cboResultado.TabIndex = 39;
+            this.cboResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboResultado_KeyPress);
+            // 
+            // lCalculadora
+            // 
+            this.lCalculadora.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lCalculadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lCalculadora.Location = new System.Drawing.Point(25, 33);
+            this.lCalculadora.Name = "lCalculadora";
+            this.lCalculadora.Size = new System.Drawing.Size(334, 44);
+            this.lCalculadora.TabIndex = 40;
+            this.lCalculadora.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lCalculadora.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.lCalculadora_PreviewKeyDown);
             // 
             // calculadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(381, 399);
+            this.ClientSize = new System.Drawing.Size(381, 454);
+            this.Controls.Add(this.lCalculadora);
+            this.Controls.Add(this.cboResultado);
             this.Controls.Add(this.btnResultado);
             this.Controls.Add(this.btnAC);
             this.Controls.Add(this.btnC);
@@ -323,5 +350,7 @@
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btn1;
         private System.Windows.Forms.TextBox tbCalculadora;
+        private System.Windows.Forms.ComboBox cboResultado;
+        private System.Windows.Forms.Label lCalculadora;
     }
 }
