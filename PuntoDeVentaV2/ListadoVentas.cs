@@ -62,6 +62,8 @@ namespace PuntoDeVentaV2
         int opcion7 = 1; // Buscar venta
         int opcion8 = 1; // Nueva venta
 
+        IEnumerable<Ventas> FormVenta = Application.OpenForms.OfType<Ventas>();
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -402,9 +404,17 @@ namespace PuntoDeVentaV2
 
             if (existenProductos)
             {
-                if (Application.OpenForms.OfType<Ventas>().Count() == 1)
+                if (FormVenta.Count() == 1)
                 {
-                    Application.OpenForms.OfType<Ventas>().First().BringToFront();
+                    if (FormVenta.First().WindowState == FormWindowState.Normal)
+                    {
+                        FormVenta.First().BringToFront();
+                    }
+
+                    if (FormVenta.First().WindowState == FormWindowState.Minimized)
+                    {
+                        FormVenta.First().WindowState = FormWindowState.Normal;
+                    }
                 }
                 else
                 {
@@ -421,7 +431,6 @@ namespace PuntoDeVentaV2
             }
             else
             {
-
                 var mensaje = string.Join(
                     Environment.NewLine,
                     "Para poder realizar una venta es necesario registrar",
