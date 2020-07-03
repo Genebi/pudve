@@ -61,6 +61,12 @@ namespace PuntoDeVentaV2
             txtCheque.KeyDown += new KeyEventHandler(TerminarVenta);
             txtTransferencia.KeyDown += new KeyEventHandler(TerminarVenta);
 
+            txtEfectivo.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtTarjeta.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtVales.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtCheque.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtTransferencia.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+
             txtTarjeta.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
@@ -319,6 +325,37 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Escape)
             {
                 Close();
+            }
+        }
+
+
+        private void EventoTab(object sender, PreviewKeyDownEventArgs e)
+        {
+            var campos = new string[] {
+                "txtEfectivo", "txtTarjeta", "txtVales",
+                "txtCheque", "txtTransferencia"
+            };
+
+            if (e.KeyData == Keys.Tab)
+            {
+                var actual = (TextBox)sender;
+
+                if (actual.SelectionLength > 0)
+                {
+                    if (campos.Contains(actual.Name))
+                    {
+                        var posicion = Array.IndexOf(campos, actual.Name);
+
+                        if ((posicion + 1) >= 0 & (posicion + 1) <= 4)
+                        {
+                            var cantidad = actual.Text.Trim();
+                            var siguiente = (TextBox)Controls.Find(campos[posicion + 1], true).First();
+
+                            actual.Text = string.Empty;
+                            siguiente.Text = cantidad;
+                        }
+                    }
+                }
             }
         }
     }
