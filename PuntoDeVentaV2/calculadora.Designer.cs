@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnBorrar = new System.Windows.Forms.Button();
             this.btnResultado = new System.Windows.Forms.Button();
             this.btnAC = new System.Windows.Forms.Button();
             this.btnC = new System.Windows.Forms.Button();
@@ -50,16 +49,6 @@
             this.tbCalculadora = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // btnBorrar
-            // 
-            this.btnBorrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBorrar.Location = new System.Drawing.Point(195, 101);
-            this.btnBorrar.Name = "btnBorrar";
-            this.btnBorrar.Size = new System.Drawing.Size(79, 44);
-            this.btnBorrar.TabIndex = 39;
-            this.btnBorrar.Text = "⌂";
-            this.btnBorrar.UseVisualStyleBackColor = true;
-            // 
             // btnResultado
             // 
             this.btnResultado.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -70,13 +59,14 @@
             this.btnResultado.Text = "=";
             this.btnResultado.UseVisualStyleBackColor = true;
             this.btnResultado.Click += new System.EventHandler(this.btnResultado_Click);
+            this.btnResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnResultado_KeyPress);
             // 
             // btnAC
             // 
             this.btnAC.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAC.Location = new System.Drawing.Point(25, 101);
             this.btnAC.Name = "btnAC";
-            this.btnAC.Size = new System.Drawing.Size(79, 44);
+            this.btnAC.Size = new System.Drawing.Size(164, 44);
             this.btnAC.TabIndex = 37;
             this.btnAC.Text = "AC";
             this.btnAC.UseVisualStyleBackColor = true;
@@ -85,12 +75,13 @@
             // btnC
             // 
             this.btnC.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnC.Location = new System.Drawing.Point(110, 101);
+            this.btnC.Location = new System.Drawing.Point(195, 101);
             this.btnC.Name = "btnC";
             this.btnC.Size = new System.Drawing.Size(79, 44);
             this.btnC.TabIndex = 36;
             this.btnC.Text = "C";
             this.btnC.UseVisualStyleBackColor = true;
+            this.btnC.Click += new System.EventHandler(this.btnC_Click);
             // 
             // btn0
             // 
@@ -113,6 +104,7 @@
             this.btnSumar.Text = "+";
             this.btnSumar.UseVisualStyleBackColor = true;
             this.btnSumar.Click += new System.EventHandler(this.btnSumar_Click);
+            this.btnSumar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnSumar_KeyPress);
             // 
             // btnPunto
             // 
@@ -135,6 +127,7 @@
             this.btnRestar.Text = "-";
             this.btnRestar.UseVisualStyleBackColor = true;
             this.btnRestar.Click += new System.EventHandler(this.btnRestar_Click);
+            this.btnRestar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnRestar_KeyPress);
             // 
             // btn9
             // 
@@ -179,6 +172,7 @@
             this.btnMultiplicar.Text = "x";
             this.btnMultiplicar.UseVisualStyleBackColor = true;
             this.btnMultiplicar.Click += new System.EventHandler(this.btnMultiplicar_Click);
+            this.btnMultiplicar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnMultiplicar_KeyPress);
             // 
             // btn6
             // 
@@ -223,6 +217,7 @@
             this.btnDividir.Text = "÷";
             this.btnDividir.UseVisualStyleBackColor = true;
             this.btnDividir.Click += new System.EventHandler(this.btnDividir_Click);
+            this.btnDividir.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnDividir_KeyPress);
             // 
             // btn3
             // 
@@ -259,23 +254,23 @@
             // 
             // tbCalculadora
             // 
-            this.tbCalculadora.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbCalculadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbCalculadora.Location = new System.Drawing.Point(25, 31);
             this.tbCalculadora.Multiline = true;
             this.tbCalculadora.Name = "tbCalculadora";
-            this.tbCalculadora.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.tbCalculadora.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbCalculadora.Size = new System.Drawing.Size(334, 44);
             this.tbCalculadora.TabIndex = 20;
             this.tbCalculadora.Text = "0";
+            this.tbCalculadora.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbCalculadora.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCalculadora_KeyPress);
             // 
             // calculadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(381, 399);
-            this.Controls.Add(this.btnBorrar);
             this.Controls.Add(this.btnResultado);
             this.Controls.Add(this.btnAC);
             this.Controls.Add(this.btnC);
@@ -295,17 +290,20 @@
             this.Controls.Add(this.btn2);
             this.Controls.Add(this.btn1);
             this.Controls.Add(this.tbCalculadora);
+            this.KeyPreview = true;
+            this.MaximizeBox = false;
             this.Name = "calculadora";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "calculadora";
             this.Load += new System.EventHandler(this.calculadora_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.calculadora_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.calculadora_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnBorrar;
         private System.Windows.Forms.Button btnResultado;
         private System.Windows.Forms.Button btnAC;
         private System.Windows.Forms.Button btnC;
