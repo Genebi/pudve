@@ -176,6 +176,15 @@ namespace PuntoDeVentaV2
         {
             float suma = SumaMetodos();
 
+            // Se valida que si se pone solo un punto sin nada mas
+            // lo elimine y deje el campo en blanco
+            var campo = (TextBox)sender;
+
+            if (campo.Text.Length == 1 && campo.Text.Equals("."))
+            {
+                campo.Text = string.Empty;
+            }
+
             //Si es mayor al total a pagar vuelve a calcular las cantidades pero sin tomar en cuenta
             //el campo que hizo que fuera mayor a la cantidad a pagar
             if (suma > total)
@@ -216,6 +225,11 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (cantidad.Length == 1 && cantidad.Equals("."))
+                {
+                    return 0;
+                }
+
                 resultado = float.Parse(cantidad);
             }
 
@@ -243,6 +257,11 @@ namespace PuntoDeVentaV2
 
         private void txtEfectivo_KeyUp(object sender, KeyEventArgs e)
         {
+            if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
+            {
+                txtEfectivo.Text = string.Empty;
+            }
+
             CalcularCambio();
         }
 
