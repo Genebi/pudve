@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
             switch (c)
             {
                 case "+":
-                    this.tbCalculadora.Text = Convert.ToString(b + a);
+                    this.tbCalculadora.Text = Convert.ToString(a + b);
                     break;
 
                 case "-":
@@ -40,7 +40,7 @@ namespace PuntoDeVentaV2
                     break;
 
                 case "*":
-                    this.tbCalculadora.Text = Convert.ToString(b * a);
+                    this.tbCalculadora.Text = Convert.ToString(a * b);
                     break;
 
                 case "/":
@@ -176,6 +176,13 @@ namespace PuntoDeVentaV2
             b = Convert.ToDouble(0);
             this.tbCalculadora.Text = "";
         }
+
+        private void btnC_Click(object sender, EventArgs e)
+        {
+            b = Convert.ToDouble(0);
+            this.tbCalculadora.Text = "";
+        }
+
         //Boton punto
         private void btnPunto_Click(object sender, EventArgs e)
         {
@@ -212,6 +219,7 @@ namespace PuntoDeVentaV2
 
         private void btnDividir_Click(object sender, EventArgs e)
         {
+            //try pars
             a = Convert.ToDouble(this.tbCalculadora.Text);
             c = "/";
             this.tbCalculadora.Clear();
@@ -220,6 +228,7 @@ namespace PuntoDeVentaV2
         //TextBox
         private void tbCalculadora_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //No escribir letras
             if (char.IsDigit(e.KeyChar))
             {
                 e.Handled = false;
@@ -232,47 +241,100 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+
+            //Enter
+            //if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            //{
+            //    b = Convert.ToDouble(this.tbCalculadora.Text);
+            //    switch (c)
+            //    {
+            //        case "+":
+            //            this.tbCalculadora.Text = Convert.ToString(b + a);
+            //            break;
+
+            //        case "-":
+            //            this.tbCalculadora.Text = Convert.ToString(a - b);
+            //            break;
+
+            //        case "*":
+            //            this.tbCalculadora.Text = Convert.ToString(b * a);
+            //            break;
+
+            //        case "/":
+            //            this.tbCalculadora.Text = Convert.ToString(a / b);
+            //            break;
+            //    }
+            //}
+
+
         }
+
         //Eventos de KeyPress
         private void btnSumar_KeyPress(object sender, KeyPressEventArgs e)
         {
-            a = Convert.ToDouble(this.tbCalculadora.Text);
-            c = "+";
-            this.tbCalculadora.Clear();
-            this.tbCalculadora.Focus();
+            
         }
 
         private void btnRestar_KeyPress(object sender, KeyPressEventArgs e)
         {
-            a = Convert.ToDouble(this.tbCalculadora.Text);
-            c = "-";
-            this.tbCalculadora.Clear();
-            this.tbCalculadora.Focus();
+            
         }
 
         private void btnMultiplicar_KeyPress(object sender, KeyPressEventArgs e)
         {
-            a = Convert.ToDouble(this.tbCalculadora.Text);
-            c = "*";
-            this.tbCalculadora.Clear();
-            this.tbCalculadora.Focus();
+           
         }
 
         private void btnDividir_KeyPress(object sender, KeyPressEventArgs e)
         {
-            a = Convert.ToDouble(this.tbCalculadora.Text);
-            c = "/";
-            this.tbCalculadora.Clear();
-            this.tbCalculadora.Focus();
+            
+        }
+
+        private void calculadora_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 43)//SUMAR
+            {
+                btnSumar.PerformClick();
+            }
+            else if (e.KeyChar == 45)//RESTAR
+            {
+                btnRestar.PerformClick();
+            }
+            else if (e.KeyChar == 42)//MULTIPLICAR
+            {
+                btnMultiplicar.PerformClick();
+            }
+            else if (e.KeyChar == 47)//DIVIDIR
+            {
+                btnDividir.PerformClick();
+            }
+            else if(e.KeyChar == Convert.ToChar(Keys.Enter))//ENTER
+            {
+                btnResultado.PerformClick();
+            }
+            else if (e.KeyChar == 27)//ESC
+            {
+                btnC.PerformClick();
+            }
+            
+        }
+
+        private void calculadora_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)//SUPRIMIR
+            {
+                btnAC.PerformClick();
+            }
+            //else if (e.KeyCode == Keys.Clear)//RETROCESO
+            //{
+
+            //}
         }
 
         //Boton de Resultado
         private void btnResultado_KeyPress(object sender, KeyPressEventArgs e)
         {
-            a = Convert.ToDouble(this.tbCalculadora.Text);
-            c = "+";
-            this.tbCalculadora.Clear();
-            this.tbCalculadora.Focus();
+            
         }
 
     }
