@@ -61,6 +61,12 @@ namespace PuntoDeVentaV2
             txtCheque.KeyDown += new KeyEventHandler(TerminarVenta);
             txtTransferencia.KeyDown += new KeyEventHandler(TerminarVenta);
 
+            txtEfectivo.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtTarjeta.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtVales.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtCheque.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtTransferencia.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+
             txtTarjeta.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
             txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
@@ -176,6 +182,15 @@ namespace PuntoDeVentaV2
         {
             float suma = SumaMetodos();
 
+            // Se valida que si se pone solo un punto sin nada mas
+            // lo elimine y deje el campo en blanco
+            var campo = (TextBox)sender;
+
+            if (campo.Text.Length == 1 && campo.Text.Equals("."))
+            {
+                campo.Text = string.Empty;
+            }
+
             //Si es mayor al total a pagar vuelve a calcular las cantidades pero sin tomar en cuenta
             //el campo que hizo que fuera mayor a la cantidad a pagar
             if (suma > total)
@@ -216,6 +231,11 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (cantidad.Length == 1 && cantidad.Equals("."))
+                {
+                    return 0;
+                }
+
                 resultado = float.Parse(cantidad);
             }
 
@@ -243,6 +263,11 @@ namespace PuntoDeVentaV2
 
         private void txtEfectivo_KeyUp(object sender, KeyEventArgs e)
         {
+            if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
+            {
+                txtEfectivo.Text = string.Empty;
+            }
+
             CalcularCambio();
         }
 
@@ -250,6 +275,11 @@ namespace PuntoDeVentaV2
         {
             //El total del campo efecto + la suma de los otros metodos de pago - total de venta
             double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos + credito) - total);
+
+            if (cambio < 0)
+            {
+                cambio = 0;
+            }
 
             lbTotalCambio.Text = "$" + cambio.ToString("0.00");
         }
@@ -295,6 +325,37 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Escape)
             {
                 Close();
+            }
+        }
+
+
+        private void EventoTab(object sender, PreviewKeyDownEventArgs e)
+        {
+            var campos = new string[] {
+                "txtEfectivo", "txtTarjeta", "txtVales",
+                "txtCheque", "txtTransferencia"
+            };
+
+            if (e.KeyData == Keys.Tab)
+            {
+                var actual = (TextBox)sender;
+
+                if (actual.SelectionLength > 0)
+                {
+                    if (campos.Contains(actual.Name))
+                    {
+                        var posicion = Array.IndexOf(campos, actual.Name);
+
+                        if ((posicion + 1) >= 0 & (posicion + 1) <= 4)
+                        {
+                            var cantidad = actual.Text.Trim();
+                            var siguiente = (TextBox)Controls.Find(campos[posicion + 1], true).First();
+
+                            actual.Text = string.Empty;
+                            siguiente.Text = cantidad;
+                        }
+                    }
+                }
             }
         }
     }
