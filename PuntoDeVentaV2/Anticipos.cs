@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
         int opcion4 = 1; // Boton buscar
         int opcion5 = 1; // Nuevo anticipo
 
+        IEnumerable<AgregarAnticipo> FormAnticipo = Application.OpenForms.OfType<AgregarAnticipo>();
+
         public Anticipos()
         {
             InitializeComponent();
@@ -163,9 +165,17 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (Application.OpenForms.OfType<AgregarAnticipo>().Count() == 1)
+            if (FormAnticipo.Count() == 1)
             {
-                Application.OpenForms.OfType<AgregarAnticipo>().First().BringToFront();
+                if (FormAnticipo.First().WindowState == FormWindowState.Normal)
+                {
+                    FormAnticipo.First().BringToFront();
+                }
+
+                if (FormAnticipo.First().WindowState == FormWindowState.Minimized)
+                {
+                    FormAnticipo.First().WindowState = FormWindowState.Normal;
+                }
             }
             else
             {

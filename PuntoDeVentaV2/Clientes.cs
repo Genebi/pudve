@@ -28,6 +28,8 @@ namespace PuntoDeVentaV2
         int opcion3 = 1; // Listado tipo cliente
         int opcion4 = 1; // Nuevo cliente
 
+        IEnumerable<AgregarCliente> FormCliente = Application.OpenForms.OfType<AgregarCliente>();
+
         public Clientes()
         {
             InitializeComponent();
@@ -123,9 +125,17 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (Application.OpenForms.OfType<AgregarCliente>().Count() == 1)
+            if (FormCliente.Count() == 1)
             {
-                Application.OpenForms.OfType<AgregarCliente>().First().BringToFront();
+                if (FormCliente.First().WindowState == FormWindowState.Normal)
+                {
+                    FormCliente.First().BringToFront();
+                }
+
+                if (FormCliente.First().WindowState == FormWindowState.Minimized)
+                {
+                    FormCliente.First().WindowState = FormWindowState.Normal;
+                }
             }
             else
             {

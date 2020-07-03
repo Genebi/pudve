@@ -17,8 +17,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
-        private int id_empleado = 0; 
-
+        private int id_empleado = 0;
 
         public Agregar_empleado_permisos(int id_emp)
         {
