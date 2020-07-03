@@ -251,6 +251,11 @@ namespace PuntoDeVentaV2
             //El total del campo efecto + la suma de los otros metodos de pago - total de venta
             double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos + credito) - total);
 
+            if (cambio < 0)
+            {
+                cambio = 0;
+            }
+
             lbTotalCambio.Text = "$" + cambio.ToString("0.00");
         }
 
