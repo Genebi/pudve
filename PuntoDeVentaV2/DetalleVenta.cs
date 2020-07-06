@@ -268,6 +268,31 @@ namespace PuntoDeVentaV2
                 txtEfectivo.Text = string.Empty;
             }
 
+
+            var totalVenta = float.Parse(txtTotalVenta.Text.Remove(0, 1));
+            var totalEfectivo = 0f;
+            
+            if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.Trim()))
+            {
+                totalEfectivo = float.Parse(txtEfectivo.Text.Trim());
+            }
+
+            if (totalVenta != totalEfectivo)
+            {
+                var totalTarjeta = totalVenta - totalEfectivo;
+
+                txtTarjeta.Text = totalTarjeta.ToString();
+
+                if (totalEfectivo > totalVenta)
+                {
+                    txtTarjeta.Text = string.Empty;
+                }
+            }
+            else
+            {
+                txtTarjeta.Text = string.Empty;
+            }
+
             CalcularCambio();
         }
 
@@ -332,8 +357,8 @@ namespace PuntoDeVentaV2
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
         {
             var campos = new string[] {
-                "txtEfectivo", "txtTarjeta", "txtVales",
-                "txtCheque", "txtTransferencia"
+                "txtEfectivo", "txtTarjeta", "txtTransferencia",
+                "txtCheque", "txtVales"
             };
 
             if (e.KeyData == Keys.Tab)

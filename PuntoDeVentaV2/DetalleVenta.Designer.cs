@@ -214,10 +214,10 @@
             // 
             this.lbTransferencia.AutoSize = true;
             this.lbTransferencia.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTransferencia.Location = new System.Drawing.Point(391, 95);
+            this.lbTransferencia.Location = new System.Drawing.Point(202, 95);
             this.lbTransferencia.Name = "lbTransferencia";
             this.lbTransferencia.Size = new System.Drawing.Size(79, 16);
-            this.lbTransferencia.TabIndex = 111;
+            this.lbTransferencia.TabIndex = 109;
             this.lbTransferencia.Text = "Transferencia";
             // 
             // lbCheque
@@ -234,10 +234,10 @@
             // 
             this.lbVales.AutoSize = true;
             this.lbVales.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbVales.Location = new System.Drawing.Point(227, 95);
+            this.lbVales.Location = new System.Drawing.Point(415, 95);
             this.lbVales.Name = "lbVales";
             this.lbVales.Size = new System.Drawing.Size(36, 16);
-            this.lbVales.TabIndex = 109;
+            this.lbVales.TabIndex = 111;
             this.lbVales.Text = "Vales";
             // 
             // lbTarjeta
@@ -263,10 +263,10 @@
             // txtTransferencia
             // 
             this.txtTransferencia.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTransferencia.Location = new System.Drawing.Point(393, 126);
+            this.txtTransferencia.Location = new System.Drawing.Point(204, 126);
             this.txtTransferencia.Name = "txtTransferencia";
             this.txtTransferencia.Size = new System.Drawing.Size(80, 22);
-            this.txtTransferencia.TabIndex = 100;
+            this.txtTransferencia.TabIndex = 98;
             this.txtTransferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtCheque
@@ -281,10 +281,10 @@
             // txtVales
             // 
             this.txtVales.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVales.Location = new System.Drawing.Point(205, 126);
+            this.txtVales.Location = new System.Drawing.Point(393, 126);
             this.txtVales.Name = "txtVales";
             this.txtVales.Size = new System.Drawing.Size(80, 22);
-            this.txtVales.TabIndex = 98;
+            this.txtVales.TabIndex = 100;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtTarjeta
