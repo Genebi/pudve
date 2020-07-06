@@ -84,7 +84,6 @@
             this.btnCalculadora.TabIndex = 1;
             this.btnCalculadora.Text = "Calculadora";
             this.btnCalculadora.UseVisualStyleBackColor = true;
-            this.btnCalculadora.Visible = false;
             this.btnCalculadora.Click += new System.EventHandler(this.btnCalculadora_Click);
             // 
             // menuVertical

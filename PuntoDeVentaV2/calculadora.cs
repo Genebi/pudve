@@ -27,48 +27,48 @@ namespace PuntoDeVentaV2
 
         public void operaciones()
         {
-            b = Convert.ToDouble(this.tbCalculadora.Text);
+            b = Convert.ToDouble(this.lCalculadora.Text);
             switch (c)
             {
                 case "+":
-                    this.tbCalculadora.Text = Convert.ToString(a + b);
+                    this.lCalculadora.Text = Convert.ToString(a + b);
                     break;
 
                 case "-":
-                    this.tbCalculadora.Text = Convert.ToString(a - b);
+                    this.lCalculadora.Text = Convert.ToString(a - b);
                     break;
 
                 case "*":
-                    this.tbCalculadora.Text = Convert.ToString(a * b);
+                    this.lCalculadora.Text = Convert.ToString(a * b);
                     break;
 
                 case "/":
-                    this.tbCalculadora.Text = Convert.ToString(a / b);
+                    this.lCalculadora.Text = Convert.ToString(a / b);
                     break;
             }
         }
 
         private void btnResultado_Click(object sender, EventArgs e)
         {
-            //b = Convert.ToDouble(this.tbCalculadora.Text);
-            //switch (c)
-            //{
-            //    case "+":
-            //        this.tbCalculadora.Text = Convert.ToString(a + b);
-            //        break;
+            b = Convert.ToDouble(this.lCalculadora.Text);
+            switch (c)
+            {
+                case "+":
+                    this.lCalculadora.Text = Convert.ToString(a + b);
+                    break;
 
-            //    case "-":
-            //        this.tbCalculadora.Text = Convert.ToString(a - b);
-            //        break;
+                case "-":
+                    this.lCalculadora.Text = Convert.ToString(a - b);
+                    break;
 
-            //    case "*":
-            //        this.tbCalculadora.Text = Convert.ToString(a * b);
-            //        break;
+                case "*":
+                    this.lCalculadora.Text = Convert.ToString(a * b);
+                    break;
 
-            //    case "/":
-            //        this.tbCalculadora.Text = Convert.ToString(a / b);
-            //        break;
-            //}
+                case "/":
+                    this.lCalculadora.Text = Convert.ToString(a / b);
+                    break;
+            }
         }
         //Botones del 0 al 9
         private void btn0_Click(object sender, EventArgs e)
@@ -196,21 +196,21 @@ namespace PuntoDeVentaV2
         {
             a = Convert.ToDouble(0);
             b = Convert.ToDouble(0);
-            this.tbCalculadora.Text = "";
+            this.lCalculadora.Text = "";
         }
 
         private void btnC_Click(object sender, EventArgs e)
         {
             b = Convert.ToDouble(0);
-            this.tbCalculadora.Text = "";
+            this.lCalculadora.Text = "";
         }
 
         //Boton punto
         private void btnPunto_Click(object sender, EventArgs e)
         {
-            if (this.tbCalculadora.Text.Contains('.') == false)
+            if (this.lCalculadora.Text.Contains('.') == false)
             {
-                this.tbCalculadora.Text = this.tbCalculadora.Text + ".";
+                this.lCalculadora.Text = this.tbCalculadora.Text + ".";
             }
         }
 
@@ -317,7 +317,52 @@ namespace PuntoDeVentaV2
             {
                 btnC.PerformClick();
             }
+            else if(e.KeyChar == 8)//Retroceso
+            {
+                lCalculadora.Text = lCalculadora.Text.Substring(0, lCalculadora.Text.Count()-1);
+            }
+            else if (e.KeyChar == 48)//0
+            {
+                btn0.PerformClick();
+            }
+            else if (e.KeyChar == 49)//1
+            {
+                btn1.PerformClick();
+            }
+            else if (e.KeyChar == 50)//2
+            {
+                btn2.PerformClick();
+            }
+            else if (e.KeyChar == 51)//3
+            {
+                btn3.PerformClick();
+            }
+            else if (e.KeyChar == 52)//4
+            {
+                btn4.PerformClick();
+            }
+            else if (e.KeyChar == 53)//5
+            {
+                btn5.PerformClick();
+            }
+            else if (e.KeyChar == 54)//6
+            {
+                btn6.PerformClick();
+            }
+            else if (e.KeyChar == 55)//7
+            {
+                btn7.PerformClick();
+            }
+            else if (e.KeyChar == 56)//8
+            {
+                btn8.PerformClick();
+            }
+            else if (e.KeyChar == 57)//9
+            {
+                btn9.PerformClick();
+            }
             
+
         }
 
         private void calculadora_KeyDown(object sender, KeyEventArgs e)
@@ -326,6 +371,7 @@ namespace PuntoDeVentaV2
             {
                 btnAC.PerformClick();
             }
+            
             //else if (e.KeyCode == Keys.Clear)//RETROCESO
             //{
 
@@ -337,11 +383,30 @@ namespace PuntoDeVentaV2
            
         }
 
+        private void cboResultado_TextChanged(object sender, EventArgs e)
+        {
+            //if (cboResultado.Text.Equals("="))
+            //{
+            //    btnResultado.PerformClick();
+            //}
+        }
+
+        private void cboResultado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Test1");
+            if (cboResultado.SelectedIndex.ToString() == "=")
+            {
+                MessageBox.Show("Test2");
+                operaciones();
+            }
+        }
+
         private void cboResultado_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))//ENTER
             {
-                btnResultado.PerformClick();
+                operaciones();
+                //btnResultado.PerformClick();
             }
         }
 

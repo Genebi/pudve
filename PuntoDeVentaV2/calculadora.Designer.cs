@@ -277,6 +277,8 @@
             this.cboResultado.Name = "cboResultado";
             this.cboResultado.Size = new System.Drawing.Size(79, 40);
             this.cboResultado.TabIndex = 39;
+            this.cboResultado.SelectedIndexChanged += new System.EventHandler(this.cboResultado_SelectedIndexChanged);
+            this.cboResultado.TextChanged += new System.EventHandler(this.cboResultado_TextChanged);
             this.cboResultado.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboResultado_KeyPress);
             // 
             // lCalculadora
