@@ -1111,15 +1111,22 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
 
-            //if (e.KeyChar==Convert.ToChar(Keys.Enter))
-            //{
-            //    calcu++;
-            //    if (calcu==2)
-            //    {
-            //        calculadora calculadora = new calculadora();
-            //        calculadora.Show();
-            //    }
-            //}
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 2)
+                {
+                    calculadora calculadora = new calculadora();
+                    calculadora.Show();
+
+                    if (calcu == 2)
+                    {
+                        calcu = 0;
+                    }
+                }
+            }
+            
         }
 
         private void txtStockMaximo_KeyUp(object sender, KeyEventArgs e)
