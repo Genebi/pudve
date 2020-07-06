@@ -1115,15 +1115,28 @@ namespace PuntoDeVentaV2
             {
                 calcu++;
 
-                if (calcu == 2)
+                if (calcu == 1)
                 {
                     calculadora calculadora = new calculadora();
-                    calculadora.Show();
 
-                    if (calcu == 2)
+                    calculadora.FormClosed += delegate
                     {
+                        txtStockMaximo.Text = calculadora.lCalculadora.Text;
                         calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
                     }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
                 }
             }
             

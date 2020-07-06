@@ -1004,9 +1004,9 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ErrorProvider errorProvAgregarEditarProducto;
         private System.Windows.Forms.TextBox txtStockMinimo;
-        private System.Windows.Forms.TextBox txtStockMaximo;
         private System.Windows.Forms.Panel panelMayoreo;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox txtPrecioMayoreo;
+        public System.Windows.Forms.TextBox txtStockMaximo;
     }
 }

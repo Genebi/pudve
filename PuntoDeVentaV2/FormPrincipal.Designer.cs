@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
-            this.btnCalculadora = new System.Windows.Forms.Button();
             this.menuVertical = new System.Windows.Forms.Panel();
             this.btnSesion = new System.Windows.Forms.Button();
             this.btnEmpresas = new System.Windows.Forms.Button();
@@ -53,7 +52,6 @@
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
             this.timerProductos = new System.Windows.Forms.Timer(this.components);
             this.panelMaestro.SuspendLayout();
-            this.panelContenedor.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,22 +67,11 @@
             // 
             // panelContenedor
             // 
-            this.panelContenedor.Controls.Add(this.btnCalculadora);
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(230, 0);
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(854, 602);
             this.panelContenedor.TabIndex = 2;
-            // 
-            // btnCalculadora
-            // 
-            this.btnCalculadora.Location = new System.Drawing.Point(525, 338);
-            this.btnCalculadora.Name = "btnCalculadora";
-            this.btnCalculadora.Size = new System.Drawing.Size(75, 23);
-            this.btnCalculadora.TabIndex = 1;
-            this.btnCalculadora.Text = "Calculadora";
-            this.btnCalculadora.UseVisualStyleBackColor = true;
-            this.btnCalculadora.Click += new System.EventHandler(this.btnCalculadora_Click);
             // 
             // menuVertical
             // 
@@ -428,7 +415,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormPrincipal_FormClosing);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.panelMaestro.ResumeLayout(false);
-            this.panelContenedor.ResumeLayout(false);
             this.menuVertical.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -457,7 +443,6 @@
         private System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer timerProductos;
         private System.Windows.Forms.Button btnSesion;
-        private System.Windows.Forms.Button btnCalculadora;
     }
 }
 

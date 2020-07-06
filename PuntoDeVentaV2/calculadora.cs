@@ -13,7 +13,8 @@ namespace PuntoDeVentaV2
     public partial class calculadora : Form
     {
         double a = 0, b = 0;
-        string c = "";
+        string c = "", result="";
+        
 
         public calculadora()
         {
@@ -22,7 +23,7 @@ namespace PuntoDeVentaV2
 
         private void calculadora_Load(object sender, EventArgs e)
         {
-            tbCalculadora.Visible = false;
+
         }
 
         public void operaciones()
@@ -210,7 +211,7 @@ namespace PuntoDeVentaV2
         {
             if (this.lCalculadora.Text.Contains('.') == false)
             {
-                this.lCalculadora.Text = this.tbCalculadora.Text + ".";
+                this.lCalculadora.Text = this.lCalculadora.Text + ".";
             }
         }
 
@@ -246,6 +247,29 @@ namespace PuntoDeVentaV2
             c = "/";
             this.lCalculadora.Text = "";
             this.lCalculadora.Focus();
+        }
+
+        private void btnResultado_Click_1(object sender, EventArgs e)
+        {
+            b = Convert.ToDouble(this.lCalculadora.Text);
+            switch (c)
+            {
+                case "+":
+                    this.lCalculadora.Text = Convert.ToString(a + b);
+                    break;
+
+                case "-":
+                    this.lCalculadora.Text = Convert.ToString(a - b);
+                    break;
+
+                case "*":
+                    this.lCalculadora.Text = Convert.ToString(a * b);
+                    break;
+
+                case "/":
+                    this.lCalculadora.Text = Convert.ToString(a / b);
+                    break;
+            }
         }
         //TextBox
         private void tbCalculadora_KeyPress(object sender, KeyPressEventArgs e)
@@ -311,7 +335,7 @@ namespace PuntoDeVentaV2
             }
             else if(e.KeyChar == Convert.ToChar(Keys.Enter))//ENTER
             {
-                operaciones();
+                btnResultado.PerformClick();
             }
             else if (e.KeyChar == 27)//ESC
             {
@@ -320,6 +344,14 @@ namespace PuntoDeVentaV2
             else if(e.KeyChar == 8)//Retroceso
             {
                 lCalculadora.Text = lCalculadora.Text.Substring(0, lCalculadora.Text.Count()-1);
+            }
+            else if (e.KeyChar == 32)//ESPACIO
+            {
+                this.Close();
+            }
+            else if (e.KeyChar == 46)//0
+            {
+                btnPunto.PerformClick();
             }
             else if (e.KeyChar == 48)//0
             {
@@ -360,9 +392,7 @@ namespace PuntoDeVentaV2
             else if (e.KeyChar == 57)//9
             {
                 btn9.PerformClick();
-            }
-            
-
+            }    
         }
 
         private void calculadora_KeyDown(object sender, KeyEventArgs e)
@@ -378,37 +408,21 @@ namespace PuntoDeVentaV2
             //}
         }
 
-        private void lCalculadora_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private void btnEnviar_Click(object sender, EventArgs e)
         {
-           
+            this.Close();
         }
 
-        private void cboResultado_TextChanged(object sender, EventArgs e)
+        private void calculadora_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //if (cboResultado.Text.Equals("="))
-            //{
-            //    btnResultado.PerformClick();
-            //}
+            //AgregarEditarProducto stockMaximoAgregarEditarProductos = new AgregarEditarProducto();
+            //stockMaximoAgregarEditarProductos.txtStockMaximo.Text = lCalculadora.Text;
+
         }
 
-        private void cboResultado_SelectedIndexChanged(object sender, EventArgs e)
+        private void cboResultado_MouseClick(object sender, MouseEventArgs e)
         {
-            MessageBox.Show("Test1");
-            if (cboResultado.SelectedIndex.ToString() == "=")
-            {
-                MessageBox.Show("Test2");
-                operaciones();
-            }
-        }
 
-        private void cboResultado_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))//ENTER
-            {
-                operaciones();
-                //btnResultado.PerformClick();
-            }
         }
-
     }
 }
