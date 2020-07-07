@@ -1058,6 +1058,36 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtStockMinimo.Text = calculadora.lCalculadora.Text;
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
+            }
+
         }
 
         private void txtStockMinimo_KeyUp(object sender, KeyEventArgs e)
@@ -1221,6 +1251,35 @@ namespace PuntoDeVentaV2
             if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
             {
                 e.Handled = true;
+            }
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtPrecioMayoreo.Text = calculadora.lCalculadora.Text;
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
             }
         }
 
@@ -1760,6 +1819,35 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtStockProducto.Text = calculadora.lCalculadora.Text;
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
+            }
         }
 
         private void txtStockProducto_Leave(object sender, EventArgs e)
@@ -1800,6 +1888,35 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtPrecioCompra.Text = calculadora.lCalculadora.Text;
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
+            }
         }
 
         private void txtPrecioProducto_KeyPress(object sender, KeyPressEventArgs e)
@@ -1814,6 +1931,35 @@ namespace PuntoDeVentaV2
             if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
             {
                 e.Handled = true;
+            }
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtPrecioProducto.Text = calculadora.lCalculadora.Text;
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
             }
         }
 

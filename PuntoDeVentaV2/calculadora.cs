@@ -13,7 +13,7 @@ namespace PuntoDeVentaV2
     public partial class calculadora : Form
     {
         double a = 0, b = 0;
-        string c = "", result="";
+        string c = "";
         
 
         public calculadora()
@@ -218,35 +218,50 @@ namespace PuntoDeVentaV2
         //Botones de operaciones al dar click
         private void btnSumar_Click(object sender, EventArgs e)
         {
-            a = Convert.ToDouble(this.lCalculadora.Text);
-            c = "+";
-            this.lCalculadora.Text = "";
-            this.lCalculadora.Focus();
+            if (!string.IsNullOrEmpty(lCalculadora.Text))
+            {
+                a = Convert.ToDouble(this.lCalculadora.Text);
+                c = "+";
+                this.lCalculadora.Text = "";
+                this.lCalculadora.Focus();
+            }
+            
         }
 
         private void btnRestar_Click(object sender, EventArgs e)
         {
-            a = Convert.ToDouble(this.lCalculadora.Text);
-            c = "-";
-            this.lCalculadora.Text = "";
-            this.lCalculadora.Focus();
+            if (!string.IsNullOrEmpty(lCalculadora.Text))
+            {
+                a = Convert.ToDouble(this.lCalculadora.Text);
+                c = "-";
+                this.lCalculadora.Text = "";
+                this.lCalculadora.Focus();
+            }
+            
         }
 
         private void btnMultiplicar_Click(object sender, EventArgs e)
         {
-            a = Convert.ToDouble(this.lCalculadora.Text);
-            c = "*";
-            this.lCalculadora.Text = "";
-            this.lCalculadora.Focus();
+            if (!string.IsNullOrEmpty(lCalculadora.Text))
+            {
+                a = Convert.ToDouble(this.lCalculadora.Text);
+                c = "*";
+                this.lCalculadora.Text = "";
+                this.lCalculadora.Focus();
+            }
+            
         }
 
         private void btnDividir_Click(object sender, EventArgs e)
         {
-            //try pars
-            a = Convert.ToDouble(this.lCalculadora.Text);
-            c = "/";
-            this.lCalculadora.Text = "";
-            this.lCalculadora.Focus();
+            if (!string.IsNullOrEmpty(lCalculadora.Text))
+            {
+                a = Convert.ToDouble(this.lCalculadora.Text);
+                c = "/";
+                this.lCalculadora.Text = "";
+                this.lCalculadora.Focus();
+            }
+            
         }
 
         private void btnResultado_Click_1(object sender, EventArgs e)
@@ -267,7 +282,15 @@ namespace PuntoDeVentaV2
                     break;
 
                 case "/":
-                    this.lCalculadora.Text = Convert.ToString(a / b);
+                    if (b != 0)
+                    {
+                        this.lCalculadora.Text = Convert.ToString(a / b);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede dividir entre 0");
+                        btnAC.PerformClick();
+                    }
                     break;
             }
         }
@@ -343,7 +366,10 @@ namespace PuntoDeVentaV2
             }
             else if(e.KeyChar == 8)//Retroceso
             {
-                lCalculadora.Text = lCalculadora.Text.Substring(0, lCalculadora.Text.Count()-1);
+                if (!string.IsNullOrEmpty(lCalculadora.Text))
+                {
+                    lCalculadora.Text = lCalculadora.Text.Substring(0, lCalculadora.Text.Count() - 1);
+                }
             }
             else if (e.KeyChar == 32)//ESPACIO
             {

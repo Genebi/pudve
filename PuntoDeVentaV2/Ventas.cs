@@ -2929,6 +2929,12 @@ namespace PuntoDeVentaV2
             {
                 Close();
             }
+
+            //Teclas con control
+            if (e.Control)
+            {
+
+            }
         }
 
         private void OperacionBusqueda(int tipo = 0)
@@ -3373,6 +3379,57 @@ namespace PuntoDeVentaV2
                         lbMayoreo.Visible = false;
                     }
                 }
+            }
+        }
+
+        private void Ventas_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27)//ESC
+            {
+                // btnCancelarVenta.PerformClick();
+                MessageBox.Show("ESC");
+            }
+            else if(e.KeyChar == 32)//ESPACIO
+            {
+                // btnAbrirCaja.PerformClick();
+                MessageBox.Show("ESPACIO");
+            }
+            else if (e.KeyChar == 0)//FIN
+            {
+
+            }
+            
+        }
+
+        private void Ventas_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            int cont = 0;
+            if (e.KeyChar == 27)//ESC
+            {
+                // btnCancelarVenta.PerformClick();
+                MessageBox.Show("ESC");
+            }
+            else if (e.KeyChar == 32)//ESPACIO
+            {
+                // btnAbrirCaja.PerformClick();
+                if (cont == 2)
+                {
+                    MessageBox.Show("ESPACIO");
+                }
+                cont = 0;
+            }
+            else if (e.KeyChar == 0)//FIN
+            {
+
+            }
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))//ENTER
+            {
+                //int contador = 0;
+                //contador++;
+                //if (contador==2)
+                //{
+                //    MessageBox.Show("ABRE LA CAJA");
+                //}
             }
         }
 

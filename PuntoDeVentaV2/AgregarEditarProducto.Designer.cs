@@ -798,7 +798,7 @@
             this.fLPTitulo.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPTitulo.Location = new System.Drawing.Point(0, 0);
             this.fLPTitulo.Name = "fLPTitulo";
-            this.fLPTitulo.Size = new System.Drawing.Size(858, 37);
+            this.fLPTitulo.Size = new System.Drawing.Size(875, 37);
             this.fLPTitulo.TabIndex = 22;
             // 
             // fLPType
@@ -808,7 +808,7 @@
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 37);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(858, 29);
+            this.fLPType.Size = new System.Drawing.Size(875, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -818,7 +818,7 @@
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 66);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(858, 71);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(875, 71);
             this.fLPDetalleProducto.TabIndex = 36;
             // 
             // fLPContenidoProducto
@@ -828,7 +828,7 @@
             this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 208);
             this.fLPContenidoProducto.Name = "fLPContenidoProducto";
-            this.fLPContenidoProducto.Size = new System.Drawing.Size(858, 111);
+            this.fLPContenidoProducto.Size = new System.Drawing.Size(875, 111);
             this.fLPContenidoProducto.TabIndex = 37;
             // 
             // fLPDetalle
@@ -838,7 +838,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 319);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(858, 292);
+            this.fLPDetalle.Size = new System.Drawing.Size(875, 292);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -848,7 +848,7 @@
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPAccion.Location = new System.Drawing.Point(0, 611);
             this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(858, 95);
+            this.fLPAccion.Size = new System.Drawing.Size(875, 95);
             this.fLPAccion.TabIndex = 39;
             // 
             // fLPDetallesProducto
@@ -857,7 +857,7 @@
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 137);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(858, 71);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(875, 71);
             this.fLPDetallesProducto.TabIndex = 31;
             // 
             // flowLayoutPanel3
@@ -879,7 +879,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(875, 688);
+            this.ClientSize = new System.Drawing.Size(892, 688);
             this.Controls.Add(this.fLPAccion);
             this.Controls.Add(this.fLPDetalle);
             this.Controls.Add(this.fLPContenidoProducto);
@@ -1003,10 +1003,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ErrorProvider errorProvAgregarEditarProducto;
-        private System.Windows.Forms.TextBox txtStockMinimo;
         private System.Windows.Forms.Panel panelMayoreo;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox txtPrecioMayoreo;
         public System.Windows.Forms.TextBox txtStockMaximo;
+        public System.Windows.Forms.TextBox txtStockMinimo;
     }
 }
