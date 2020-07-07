@@ -12,7 +12,7 @@ namespace PuntoDeVentaV2
 {
     public partial class calculadora : Form
     {
-        double a = 0, b = 0;
+        double a = 0, b = 0, resultado = 0, d = 0;
         string c = "";
         
 
@@ -74,7 +74,21 @@ namespace PuntoDeVentaV2
         //Botones del 0 al 9
         private void btn0_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "0";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "0";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "0";
             }
@@ -82,11 +96,25 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "0";
             }
+            d = 0;
         }
 
         private void btn1_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "1";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "1";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "1";
             }
@@ -94,11 +122,25 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "1";
             }
+            d = 0;
         }
 
         private void btn2_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "2";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "2";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "2";
             }
@@ -106,11 +148,25 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "2";
             }
+            d = 0;
         }
 
         private void btn3_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "3";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "3";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "3";
             }
@@ -118,11 +174,25 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "3";
             }
+            d = 0;
         }
 
         private void btn4_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "4";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "4";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "4";
             }
@@ -130,11 +200,25 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "4";
             }
+            d = 0;
         }
 
         private void btn5_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "5";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "5";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "5";
             }
@@ -142,10 +226,24 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "5";
             }
+            d = 0;
         }
 
         private void btn6_Click(object sender, EventArgs e)
         {
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "6";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "6";
+                }
+            }
             if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "6";
@@ -154,11 +252,25 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "6";
             }
+            d = 0;
         }
 
         private void btn7_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "7";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "7";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "7";
             }
@@ -166,11 +278,25 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "7";
             }
+            d = 0;
         }
 
         private void btn8_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "8";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "8";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "8";
             }
@@ -178,11 +304,25 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "8";
             }
+            d = 0;
         }
 
         private void btn9_Click(object sender, EventArgs e)
         {
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+                {
+                    lCalculadora.Text = "9";
+                }
+                else
+                {
+                    lCalculadora.Text = lCalculadora.Text + "9";
+                }
+            }
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "9";
             }
@@ -190,16 +330,10 @@ namespace PuntoDeVentaV2
             {
                 lCalculadora.Text = lCalculadora.Text + "9";
             }
+            d = 0;
         }
 
-        //Boton AC
-        private void btnAC_Click(object sender, EventArgs e)
-        {
-            a = Convert.ToDouble(0);
-            b = Convert.ToDouble(0);
-            this.lCalculadora.Text = "";
-        }
-
+        //Boton C
         private void btnC_Click(object sender, EventArgs e)
         {
             b = Convert.ToDouble(0);
@@ -209,10 +343,20 @@ namespace PuntoDeVentaV2
         //Boton punto
         private void btnPunto_Click(object sender, EventArgs e)
         {
-            if (this.lCalculadora.Text.Contains('.') == false)
+            if (d > 0)
+            {
+                btnC.PerformClick();
+
+                if (this.lCalculadora.Text.Contains('.') == false)
+                {
+                    this.lCalculadora.Text = this.lCalculadora.Text + ".";
+                }
+            }
+            else if (this.lCalculadora.Text.Contains('.') == false)
             {
                 this.lCalculadora.Text = this.lCalculadora.Text + ".";
             }
+            d = 0;
         }
 
         //Botones de operaciones al dar click
@@ -266,33 +410,52 @@ namespace PuntoDeVentaV2
 
         private void btnResultado_Click_1(object sender, EventArgs e)
         {
-            b = Convert.ToDouble(this.lCalculadora.Text);
+            
+            if (b == 0)
+            {
+                b = Convert.ToDouble(this.lCalculadora.Text);
+            }
+            else if (!this.lCalculadora.Text.Equals(resultado.ToString()))
+            {
+                b = Convert.ToDouble(this.lCalculadora.Text);
+            }
+
+            d++;
             switch (c)
             {
                 case "+":
-                    this.lCalculadora.Text = Convert.ToString(a + b);
+                    resultado = (a + b);
+                    this.lCalculadora.Text = Convert.ToString(resultado);
+                    a = resultado;
                     break;
 
                 case "-":
-                    this.lCalculadora.Text = Convert.ToString(a - b);
+                    resultado = (a - b);
+                    this.lCalculadora.Text = Convert.ToString(resultado);
+                    a = resultado;
                     break;
 
                 case "*":
-                    this.lCalculadora.Text = Convert.ToString(a * b);
+                    resultado = (a * b);
+                    this.lCalculadora.Text = Convert.ToString(resultado);
+                    a = resultado;
                     break;
 
                 case "/":
                     if (b != 0)
                     {
-                        this.lCalculadora.Text = Convert.ToString(a / b);
+                        resultado = (a / b);
+                        this.lCalculadora.Text = Convert.ToString(resultado);
+                        a = resultado;
                     }
                     else
                     {
                         MessageBox.Show("No se puede dividir entre 0");
-                        btnAC.PerformClick();
+                        btnC.PerformClick();
                     }
                     break;
             }
+            
         }
         //TextBox
         private void tbCalculadora_KeyPress(object sender, KeyPressEventArgs e)
@@ -338,6 +501,7 @@ namespace PuntoDeVentaV2
 
         }
 
+        //FUNCIONALIDAD DE LAS TECLAS
         private void calculadora_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 43)//SUMAR
@@ -356,15 +520,18 @@ namespace PuntoDeVentaV2
             {
                 btnDividir.PerformClick();
             }
-            else if(e.KeyChar == Convert.ToChar(Keys.Enter))//ENTER
+            else if (e.KeyChar == Convert.ToChar(Keys.Enter))//ENTER
             {
-                btnResultado.PerformClick();
+                if (!string.IsNullOrEmpty(lCalculadora.Text))
+                {
+                    btnResultado.PerformClick();
+                }
             }
             else if (e.KeyChar == 27)//ESC
             {
-                btnC.PerformClick();
+                this.Hide();
             }
-            else if(e.KeyChar == 8)//Retroceso
+            else if (e.KeyChar == 8)//Retroceso
             {
                 if (!string.IsNullOrEmpty(lCalculadora.Text))
                 {
@@ -418,20 +585,20 @@ namespace PuntoDeVentaV2
             else if (e.KeyChar == 57)//9
             {
                 btn9.PerformClick();
-            }    
+            }
+            else if (e.KeyChar == 99)//C
+            {
+                btnC.PerformClick();
+            }
+                   
         }
 
         private void calculadora_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)//SUPRIMIR
             {
-                btnAC.PerformClick();
+                btnC.PerformClick();
             }
-            
-            //else if (e.KeyCode == Keys.Clear)//RETROCESO
-            //{
-
-            //}
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
@@ -446,9 +613,12 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void cboResultado_MouseClick(object sender, MouseEventArgs e)
+        private void btnRetroceso_Click(object sender, EventArgs e)
         {
-
+            if (!string.IsNullOrEmpty(lCalculadora.Text))
+            {
+                lCalculadora.Text = lCalculadora.Text.Substring(0, lCalculadora.Text.Count() - 1);
+            }
         }
     }
 }
