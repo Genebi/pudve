@@ -97,7 +97,7 @@ namespace PuntoDeVentaV2
 
                 DetalleVenta.credito = credito;
 
-                this.Dispose();
+                this.Close();
             }
         }
 

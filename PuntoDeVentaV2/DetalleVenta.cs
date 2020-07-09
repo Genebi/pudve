@@ -122,7 +122,8 @@ namespace PuntoDeVentaV2
                 Ventas.credito = credito.ToString();
                 Ventas.botonAceptar = true;
 
-                this.Dispose();
+                this.Hide();
+                this.Close();
             }
         }
 
@@ -268,6 +269,31 @@ namespace PuntoDeVentaV2
                 txtEfectivo.Text = string.Empty;
             }
 
+
+            var totalVenta = float.Parse(txtTotalVenta.Text.Remove(0, 1));
+            var totalEfectivo = 0f;
+            
+            if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.Trim()))
+            {
+                totalEfectivo = float.Parse(txtEfectivo.Text.Trim());
+            }
+
+            if (totalVenta != totalEfectivo)
+            {
+                var totalTarjeta = totalVenta - totalEfectivo;
+
+                txtTarjeta.Text = totalTarjeta.ToString();
+
+                if (totalEfectivo > totalVenta)
+                {
+                    txtTarjeta.Text = string.Empty;
+                }
+            }
+            else
+            {
+                txtTarjeta.Text = string.Empty;
+            }
+
             CalcularCambio();
         }
 
@@ -297,14 +323,16 @@ namespace PuntoDeVentaV2
 
         private void DetalleVenta_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!Ventas.botonAceptar)
-            {
-                // Se limpian las variables
-                lbTotalCredito.Text = "0.00";
-                idCliente = 0;
-                cliente = string.Empty;
-                credito = 0;
-            }
+            //if (!Ventas.botonAceptar)
+            //{
+
+            //}
+
+            // Se limpian las variables
+            lbTotalCredito.Text = "0.00";
+            idCliente = 0;
+            cliente = string.Empty;
+            credito = 0;
         }
 
         private void TerminarVenta(object sender, KeyEventArgs e)
@@ -332,8 +360,8 @@ namespace PuntoDeVentaV2
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
         {
             var campos = new string[] {
-                "txtEfectivo", "txtTarjeta", "txtVales",
-                "txtCheque", "txtTransferencia"
+                "txtEfectivo", "txtTarjeta", "txtTransferencia",
+                "txtCheque", "txtVales"
             };
 
             if (e.KeyData == Keys.Tab)

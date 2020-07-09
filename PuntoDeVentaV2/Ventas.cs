@@ -1458,16 +1458,25 @@ namespace PuntoDeVentaV2
 
                     DetalleVenta detalle = new DetalleVenta(totalVenta, idCliente);
 
-                    detalle.Disposed += delegate
+                    detalle.FormClosed += delegate
                     {
                         if (botonAceptar)
                         {
                             DatosVenta();
                             botonAceptar = false;
+                            idCliente = string.Empty;
+                            DetalleVenta.idCliente = 0;
+                            DetalleVenta.cliente = string.Empty;
+                            AsignarCreditoVenta.idCliente = 0;
+                            AsignarCreditoVenta.cliente = string.Empty;
                         }
                         else
                         {
                             idCliente = string.Empty;
+                            DetalleVenta.idCliente = 0;
+                            DetalleVenta.cliente = string.Empty;
+                            AsignarCreditoVenta.idCliente = 0;
+                            AsignarCreditoVenta.cliente = string.Empty;
                         }
                     };
 
