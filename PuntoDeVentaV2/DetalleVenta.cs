@@ -122,7 +122,8 @@ namespace PuntoDeVentaV2
                 Ventas.credito = credito.ToString();
                 Ventas.botonAceptar = true;
 
-                this.Dispose();
+                this.Hide();
+                this.Close();
             }
         }
 
@@ -322,14 +323,16 @@ namespace PuntoDeVentaV2
 
         private void DetalleVenta_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!Ventas.botonAceptar)
-            {
-                // Se limpian las variables
-                lbTotalCredito.Text = "0.00";
-                idCliente = 0;
-                cliente = string.Empty;
-                credito = 0;
-            }
+            //if (!Ventas.botonAceptar)
+            //{
+
+            //}
+
+            // Se limpian las variables
+            lbTotalCredito.Text = "0.00";
+            idCliente = 0;
+            cliente = string.Empty;
+            credito = 0;
         }
 
         private void TerminarVenta(object sender, KeyEventArgs e)
