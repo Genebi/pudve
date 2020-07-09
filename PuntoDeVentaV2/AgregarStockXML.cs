@@ -63,6 +63,9 @@ namespace PuntoDeVentaV2
             public TImpuestos Impuestos;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public class TEmisor
         {
             [XmlAttributeAttribute()]
@@ -73,12 +76,18 @@ namespace PuntoDeVentaV2
             public TRegimenFiscal Regimen;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public class TRegimenFiscal
         {
             [XmlAttributeAttribute()]
             public string RegimenFiscal;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public class TReceptor
         {
             [XmlAttributeAttribute()]
@@ -87,6 +96,9 @@ namespace PuntoDeVentaV2
             public string Nombre;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public class TConcepto
         {
             [XmlAttributeAttribute()]
@@ -109,12 +121,18 @@ namespace PuntoDeVentaV2
             public string Descuento;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public class TImpuestos
         {
             [XmlArrayItem("Traslado")]
             public TTraslado[] Traslados;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public class TTraslado
         {
             [XmlAttributeAttribute()]
@@ -256,17 +274,26 @@ namespace PuntoDeVentaV2
         DataTable dtSearchProveedor;
         DataRow drSearchProveedor;
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void ActivarBtnSi()
         {
             button2.Enabled = true;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void DesactivarBtnSi()
         {
             button2.Enabled = false;
         }
 
         // funcion para poder asignar los datos del XML a la ventana de Nvo Producto
+        /// <summary>
+        /// 
+        /// </summary>
         public void datosAgregarNvoProd()
         {
             if (index == 0)
@@ -320,6 +347,12 @@ namespace PuntoDeVentaV2
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="archivo"></param>
+        /// <param name="indice"></param>
+        /// <returns></returns>
         private string ObtenerImpuestos(string archivo, int indice)
         {
             XDocument doc = XDocument.Load(archivo);
@@ -342,6 +375,9 @@ namespace PuntoDeVentaV2
         }
 
         // funcion para poder saber que cliente es el que esta iniciando sesion en el sistema
+        /// <summary>
+        /// 
+        /// </summary>
         public void cargarDatosXML()
         {
             index = 0;
@@ -355,6 +391,9 @@ namespace PuntoDeVentaV2
 
         // funcion para hacer la consulta del cliente que inicio sesion y esto
         // para posteriormente tener sus datos por separado
+        /// <summary>
+        /// 
+        /// </summary>
         public void consulta()
         {
             // String para hacer la consulta filtrada sobre
@@ -374,6 +413,9 @@ namespace PuntoDeVentaV2
         // funcion para ocultar el panel en el que
         // esta el label que dice click cargar XML 
         // y el boton de XML
+        /// <summary>
+        /// 
+        /// </summary>
         public void OcultarPanelCarga()
         {
             panel1.Hide();
@@ -439,6 +481,9 @@ namespace PuntoDeVentaV2
         // funcion para Mostrar el panel en el que
         // esta el label que dice click cargar XML 
         // y el boton de XML
+        /// <summary>
+        /// 
+        /// </summary>
         public void MostrarPanelCarga()
         {
             panel1.Show();
@@ -446,17 +491,21 @@ namespace PuntoDeVentaV2
             this.CenterToScreen();
         }
 
-        // funcion para mostrar el panel:
-        // No. 6, este se muestra solo si
-        // es que no hay registro del Producto
+        /// <summary>
+        /// funcion para mostrar el panel:
+        /// No. 6, este se muestra solo si
+        /// es que no hay registro del Producto
+        /// </summary>
         public void MostarPanelSinRegistro()
         {
             panel6.Show();
         }
 
-        // funcion para ocultar los paneles:
-        // 17, 2, 12 y el boton de XML esta hace
-        // que se muestren los datos del XML
+        /// <summary>
+        /// funcion para ocultar los paneles:
+        /// 17, 2, 12 y el boton de XML esta hace
+        /// que se muestren los datos del XML
+        /// </summary>
         public void OcultarPanelRegistro()
         {
             panel17.Hide();
@@ -468,6 +517,9 @@ namespace PuntoDeVentaV2
         // funcion para ocultar el panel:
         // No. 6, este se muestra solo si
         // es que no hay registro del Producto
+        /// <summary>
+        /// 
+        /// </summary>
         public void OcultarPanelSinRegistro()
         {
             panel6.Hide();
@@ -476,6 +528,9 @@ namespace PuntoDeVentaV2
         // funcion para Muestra los paneles:
         // 17, 2, 12 y el boton de XML esta hace
         // que se muestren los datos del XML
+        /// <summary>
+        /// 
+        /// </summary>
         public void MostrarPanelRegistro()
         {
             panel17.Show();
@@ -489,6 +544,9 @@ namespace PuntoDeVentaV2
         // funcion para limpiar los datos que
         // provienen del archivo XML en los campos
         // que pretenecen al XML
+        /// <summary>
+        /// 
+        /// </summary>
         public void limpiarLblXNL()
         {
             lblDescripcionXML.Text = "";
@@ -505,6 +563,9 @@ namespace PuntoDeVentaV2
         // funcion para limpiar los datos que
         // provienen del del Stock en los campos
         // que pretenecen al stock del producto
+        /// <summary>
+        /// 
+        /// </summary>
         public void limpiarLblProd()
         {
             lblStockProd.Text = "";
@@ -517,6 +578,9 @@ namespace PuntoDeVentaV2
         }
 
         // metodo para buscar los sugeridos
+        /// <summary>
+        /// 
+        /// </summary>
         public void buscarSugeridos()
         {
             DataTable table = new DataTable();                              // creamos una tabla 
@@ -778,6 +842,9 @@ namespace PuntoDeVentaV2
         // funsion para poder buscar los productos 
         // que coincidan con los campos de de ClaveInterna o el CodigoBarras
         // respecto al archivo XML en su campo de NoIdentificacion
+        /// <summary>
+        /// 
+        /// </summary>
         public void searchProd()
         {
             // preparamos el Query
@@ -852,6 +919,9 @@ namespace PuntoDeVentaV2
         // funsion para poder buscar en los productos 
         // si coincide con los campos de de ClaveInterna
         // respecto al stock del producto en su campo de NoIdentificacion
+        /// <summary>
+        /// 
+        /// </summary>
         public void searchClavIntProd()
         {
             // preparamos el Query
@@ -887,6 +957,9 @@ namespace PuntoDeVentaV2
         // funsion para poder buscar en los productos 
         // si coincide con los campos de de CodigoBarras
         // respecto al stock del producto en su campo de NoIdentificacion
+        /// <summary>
+        /// 
+        /// </summary>
         public void searchCodBar()
         {
             // preparamos el Query
@@ -906,6 +979,9 @@ namespace PuntoDeVentaV2
 
         // funsion para cargar los datos XML
         // que provienen del archivo XML
+        /// <summary>
+        /// 
+        /// </summary>
         public void datosXML()
         {
             descuento = 0;
@@ -1073,6 +1149,9 @@ namespace PuntoDeVentaV2
 
         // funsion para cargar los datos del Producto
         // que provienen del stock del producto
+        /// <summary>
+        /// 
+        /// </summary>
         public void datosProductos()
         {
             idProducto = dtProductos.Rows[0]["ID"].ToString();
@@ -1087,6 +1166,9 @@ namespace PuntoDeVentaV2
         }
 
         // funsion para hacer la lectura del Archivo XML 
+        /// <summary>
+        /// 
+        /// </summary>
         public void RecorrerXML()
         {
             int totalRegistroXML;                           // variable para saber cuantos concepctos tiene el XML
@@ -1129,6 +1211,9 @@ namespace PuntoDeVentaV2
 
         // funsion para comprobar que el precio del stock sea
         // mayor o igual al que esta sugerido por el XML
+        /// <summary>
+        /// 
+        /// </summary>
         public void comprobarPrecioMayorIgualRecomendado()
         {
             if (PrecioProd >= 0)
@@ -1165,12 +1250,21 @@ namespace PuntoDeVentaV2
         }
 
         // funsion para ver cuanto aumentario el stock 
+        /// <summary>
+        /// 
+        /// </summary>
         public void verNvoStock()
         {
             totalProd = stockProd + stockProdXML;       // realizamos el caulculo del nvo stock 
             lblStockProd.Text = totalProd.ToString();   // mostramos el nvo stock del producto
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idProducto"></param>
+        /// <param name="precio"></param>
+        /// <param name="nombre"></param>
         private void CompararPrecios(string idProducto, float precio, string nombre)
         {
             // Comprobar precio del producto para saber si se edito
@@ -1221,6 +1315,9 @@ namespace PuntoDeVentaV2
         }
 
         // funcion para actualizar el Stock
+        /// <summary>
+        /// 
+        /// </summary>
         public void ActualizarStock()
         {
             // Almacenamos el resultado sea 1 o 0
@@ -1364,6 +1461,9 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void RelacionarStockClaveInterna()
         {
             query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', ClaveInterna = '{txtBoxClaveInternaProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
@@ -1419,6 +1519,9 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void RelacionarStockCodigoBarras()
         {
             query = $"UPDATE Productos SET Nombre = '{NombreProd}', Stock = '{totalProd}', CodigoBarras = '{lblCodigoBarrasProd.Text}', Precio = '{PrecioProd}' WHERE ID = '{idListProd}'";
@@ -1474,6 +1577,9 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void CodigoBarrasExtras()
         {
             query = $"INSERT INTO CodigoBarrasExtras(CodigoBarraExtra, IDProducto) VALUES('{ClaveInterna}','{idListProd}')";
@@ -1530,6 +1636,9 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(queryRecordHistorialProd);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void prodRelacionadoXML()
         {
             if (seleccionarSugerido == 0)   // si no selecciono ningun producto sugerido
