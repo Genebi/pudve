@@ -2940,10 +2940,12 @@ namespace PuntoDeVentaV2
             }
 
             //Teclas con control
-            if (e.Control)
+            if (e.KeyCode == Keys.Control && e.KeyCode == Keys.B)
             {
-
+                //btnConsultar.PerformClick();
+                MessageBox.Show("Test");
             }
+
         }
 
         private void OperacionBusqueda(int tipo = 0)
@@ -3391,24 +3393,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void Ventas_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 27)//ESC
-            {
-                // btnCancelarVenta.PerformClick();
-                MessageBox.Show("ESC");
-            }
-            else if(e.KeyChar == 32)//ESPACIO
-            {
-                // btnAbrirCaja.PerformClick();
-                MessageBox.Show("ESPACIO");
-            }
-            else if (e.KeyChar == 0)//FIN
-            {
-
-            }
-            
-        }
+        
 
         private void Ventas_KeyPress_1(object sender, KeyPressEventArgs e)
         {
@@ -3427,18 +3412,18 @@ namespace PuntoDeVentaV2
                 }
                 cont = 0;
             }
-            else if (e.KeyChar == 0)//FIN
-            {
+            //else if (e.KeyCode == Keys.Control && e.KeyCode == Keys.B)
+            //{
+            //    //btnConsultar.PerformClick();
+            //    MessageBox.Show("Test");
+            //}
+        }
 
-            }
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))//ENTER
+        private void Ventas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode==Keys.)
             {
-                //int contador = 0;
-                //contador++;
-                //if (contador==2)
-                //{
-                //    MessageBox.Show("ABRE LA CAJA");
-                //}
+                MessageBox.Show("control");
             }
         }
 
