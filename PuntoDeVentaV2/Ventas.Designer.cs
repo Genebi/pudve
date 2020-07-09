@@ -78,6 +78,7 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbDatosCliente = new System.Windows.Forms.Label();
             this.lbMayoreo = new System.Windows.Forms.Label();
             this.btnEliminarDescuentos = new System.Windows.Forms.Button();
             this.btnAplicarDescuento = new System.Windows.Forms.Button();
@@ -91,7 +92,17 @@
             this.checkCancelar = new System.Windows.Forms.CheckBox();
             this.btnConsultar = new System.Windows.Forms.Button();
             this.btnClientes = new System.Windows.Forms.Button();
-            this.lbDatosCliente = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -103,7 +114,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(537, 22);
+            this.tituloSeccion.Location = new System.Drawing.Point(537, 14);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(157, 25);
             this.tituloSeccion.TabIndex = 4;
@@ -146,9 +157,9 @@
             // 
             this.btnUltimoTicket.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(1143, 31);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(784, 47);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
-            this.btnUltimoTicket.Size = new System.Drawing.Size(37, 23);
+            this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
             this.tituloBoton.SetToolTip(this.btnUltimoTicket, "Imprimir último ticket");
             this.btnUltimoTicket.UseVisualStyleBackColor = true;
@@ -158,9 +169,9 @@
             // 
             this.btnPresupuesto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPresupuesto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPresupuesto.Location = new System.Drawing.Point(1181, 31);
+            this.btnPresupuesto.Location = new System.Drawing.Point(843, 47);
             this.btnPresupuesto.Name = "btnPresupuesto";
-            this.btnPresupuesto.Size = new System.Drawing.Size(37, 23);
+            this.btnPresupuesto.Size = new System.Drawing.Size(37, 40);
             this.btnPresupuesto.TabIndex = 19;
             this.tituloBoton.SetToolTip(this.btnPresupuesto, "Guardar como presupuesto");
             this.btnPresupuesto.UseVisualStyleBackColor = true;
@@ -350,11 +361,14 @@
             this.btnCancelarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelarVenta.Location = new System.Drawing.Point(655, 31);
+            this.btnCancelarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.window_close;
+            this.btnCancelarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancelarVenta.Location = new System.Drawing.Point(242, 47);
             this.btnCancelarVenta.Name = "btnCancelarVenta";
-            this.btnCancelarVenta.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelarVenta.Size = new System.Drawing.Size(87, 40);
             this.btnCancelarVenta.TabIndex = 13;
             this.btnCancelarVenta.Text = "Cancelar";
+            this.btnCancelarVenta.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnCancelarVenta.UseVisualStyleBackColor = true;
             this.btnCancelarVenta.Click += new System.EventHandler(this.btnCancelarVenta_Click);
             // 
@@ -363,11 +377,14 @@
             this.btnGuardarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGuardarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarVenta.Location = new System.Drawing.Point(736, 31);
+            this.btnGuardarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.save;
+            this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGuardarVenta.Location = new System.Drawing.Point(335, 47);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
-            this.btnGuardarVenta.Size = new System.Drawing.Size(75, 23);
+            this.btnGuardarVenta.Size = new System.Drawing.Size(80, 40);
             this.btnGuardarVenta.TabIndex = 14;
             this.btnGuardarVenta.Text = "Guardar";
+            this.btnGuardarVenta.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnGuardarVenta.UseVisualStyleBackColor = true;
             this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
             // 
@@ -376,11 +393,14 @@
             this.btnAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnticipos.Location = new System.Drawing.Point(817, 31);
+            this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.handshake_o;
+            this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAnticipos.Location = new System.Drawing.Point(421, 47);
             this.btnAnticipos.Name = "btnAnticipos";
-            this.btnAnticipos.Size = new System.Drawing.Size(75, 23);
+            this.btnAnticipos.Size = new System.Drawing.Size(89, 40);
             this.btnAnticipos.TabIndex = 15;
             this.btnAnticipos.Text = "Anticipos";
+            this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnAnticipos.UseVisualStyleBackColor = true;
             this.btnAnticipos.Click += new System.EventHandler(this.btnAnticipos_Click);
             // 
@@ -389,11 +409,14 @@
             this.btnAbrirCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAbrirCaja.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAbrirCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbrirCaja.Location = new System.Drawing.Point(898, 31);
+            this.btnAbrirCaja.Image = global::PuntoDeVentaV2.Properties.Resources.hdd_o;
+            this.btnAbrirCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAbrirCaja.Location = new System.Drawing.Point(515, 47);
             this.btnAbrirCaja.Name = "btnAbrirCaja";
-            this.btnAbrirCaja.Size = new System.Drawing.Size(75, 23);
+            this.btnAbrirCaja.Size = new System.Drawing.Size(90, 40);
             this.btnAbrirCaja.TabIndex = 16;
             this.btnAbrirCaja.Text = "Abrir Caja";
+            this.btnAbrirCaja.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnAbrirCaja.UseVisualStyleBackColor = true;
             this.btnAbrirCaja.Click += new System.EventHandler(this.btnAbrirCaja_Click);
             // 
@@ -402,11 +425,14 @@
             this.btnVentasGuardadas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVentasGuardadas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(980, 31);
+            this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard;
+            this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(611, 47);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
-            this.btnVentasGuardadas.Size = new System.Drawing.Size(157, 23);
+            this.btnVentasGuardadas.Size = new System.Drawing.Size(157, 40);
             this.btnVentasGuardadas.TabIndex = 17;
             this.btnVentasGuardadas.Text = "Ventas guardadas";
+            this.btnVentasGuardadas.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnVentasGuardadas.UseVisualStyleBackColor = true;
             this.btnVentasGuardadas.Click += new System.EventHandler(this.btnVentasGuardadas_Click);
             // 
@@ -588,6 +614,11 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label11);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.lbDatosCliente);
             this.panel1.Controls.Add(this.listaProductos);
             this.panel1.Controls.Add(this.lbMayoreo);
             this.panel1.Controls.Add(this.btnEliminarDescuentos);
@@ -611,23 +642,26 @@
             this.panel1.Controls.Add(this.cIVA);
             this.panel1.Controls.Add(this.cSubtotal);
             this.panel1.Controls.Add(this.cNumeroArticulos);
-            this.panel1.Controls.Add(this.btnCancelarVenta);
             this.panel1.Controls.Add(this.lbTotal);
-            this.panel1.Controls.Add(this.btnGuardarVenta);
             this.panel1.Controls.Add(this.lbDescuento);
-            this.panel1.Controls.Add(this.btnAnticipos);
             this.panel1.Controls.Add(this.lbAnticipo);
-            this.panel1.Controls.Add(this.btnAbrirCaja);
             this.panel1.Controls.Add(this.lbIVA);
-            this.panel1.Controls.Add(this.btnVentasGuardadas);
             this.panel1.Controls.Add(this.lbSubtotal);
-            this.panel1.Controls.Add(this.btnUltimoTicket);
             this.panel1.Controls.Add(this.lbNumeroArticulos);
-            this.panel1.Controls.Add(this.btnPresupuesto);
             this.panel1.Location = new System.Drawing.Point(5, 93);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1221, 354);
+            this.panel1.Size = new System.Drawing.Size(1221, 372);
             this.panel1.TabIndex = 34;
+            // 
+            // lbDatosCliente
+            // 
+            this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDatosCliente.ForeColor = System.Drawing.Color.Red;
+            this.lbDatosCliente.Location = new System.Drawing.Point(271, 5);
+            this.lbDatosCliente.Name = "lbDatosCliente";
+            this.lbDatosCliente.Size = new System.Drawing.Size(621, 23);
+            this.lbDatosCliente.TabIndex = 45;
+            this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbMayoreo
             // 
@@ -648,9 +682,10 @@
             this.btnEliminarDescuentos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarDescuentos.Location = new System.Drawing.Point(383, 321);
             this.btnEliminarDescuentos.Name = "btnEliminarDescuentos";
-            this.btnEliminarDescuentos.Size = new System.Drawing.Size(79, 23);
+            this.btnEliminarDescuentos.Size = new System.Drawing.Size(79, 40);
             this.btnEliminarDescuentos.TabIndex = 44;
             this.btnEliminarDescuentos.Text = "Eliminar";
+            this.btnEliminarDescuentos.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnEliminarDescuentos.UseVisualStyleBackColor = true;
             this.btnEliminarDescuentos.Click += new System.EventHandler(this.btnEliminarDescuentos_Click);
             // 
@@ -660,9 +695,10 @@
             this.btnAplicarDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicarDescuento.Location = new System.Drawing.Point(574, 322);
             this.btnAplicarDescuento.Name = "btnAplicarDescuento";
-            this.btnAplicarDescuento.Size = new System.Drawing.Size(75, 23);
+            this.btnAplicarDescuento.Size = new System.Drawing.Size(75, 40);
             this.btnAplicarDescuento.TabIndex = 43;
             this.btnAplicarDescuento.Text = "APLICAR";
+            this.btnAplicarDescuento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAplicarDescuento.UseVisualStyleBackColor = true;
             this.btnAplicarDescuento.Click += new System.EventHandler(this.btnAplicarDescuento_Click);
             // 
@@ -728,9 +764,10 @@
             this.btnTerminarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTerminarVenta.Location = new System.Drawing.Point(793, 295);
             this.btnTerminarVenta.Name = "btnTerminarVenta";
-            this.btnTerminarVenta.Size = new System.Drawing.Size(75, 23);
+            this.btnTerminarVenta.Size = new System.Drawing.Size(75, 40);
             this.btnTerminarVenta.TabIndex = 37;
             this.btnTerminarVenta.Text = "Terminar";
+            this.btnTerminarVenta.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnTerminarVenta.UseVisualStyleBackColor = true;
             this.btnTerminarVenta.Click += new System.EventHandler(this.btnTerminarVenta_Click);
             // 
@@ -753,7 +790,7 @@
             // 
             this.checkCancelar.AutoSize = true;
             this.checkCancelar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCancelar.Location = new System.Drawing.Point(5, 70);
+            this.checkCancelar.Location = new System.Drawing.Point(1080, 47);
             this.checkCancelar.Name = "checkCancelar";
             this.checkCancelar.Size = new System.Drawing.Size(123, 21);
             this.checkCancelar.TabIndex = 35;
@@ -764,11 +801,14 @@
             // 
             this.btnConsultar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConsultar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultar.Location = new System.Drawing.Point(134, 68);
+            this.btnConsultar.Image = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnConsultar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConsultar.Location = new System.Drawing.Point(5, 47);
             this.btnConsultar.Name = "btnConsultar";
-            this.btnConsultar.Size = new System.Drawing.Size(75, 23);
+            this.btnConsultar.Size = new System.Drawing.Size(85, 40);
             this.btnConsultar.TabIndex = 43;
             this.btnConsultar.Text = "Consultar";
+            this.btnConsultar.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnConsultar.UseVisualStyleBackColor = true;
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
@@ -776,35 +816,140 @@
             // 
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClientes.Location = new System.Drawing.Point(224, 68);
+            this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.download;
+            this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClientes.Location = new System.Drawing.Point(96, 47);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(127, 23);
+            this.btnClientes.Size = new System.Drawing.Size(140, 40);
             this.btnClientes.TabIndex = 44;
             this.btnClientes.Text = "Descuento cliente";
+            this.btnClientes.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnClientes.UseVisualStyleBackColor = true;
             this.btnClientes.Click += new System.EventHandler(this.btnClientes_Click);
             // 
-            // lbDatosCliente
+            // label1
             // 
-            this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDatosCliente.ForeColor = System.Drawing.Color.Red;
-            this.lbDatosCliente.Location = new System.Drawing.Point(357, 68);
-            this.lbDatosCliente.Name = "lbDatosCliente";
-            this.lbDatosCliente.Size = new System.Drawing.Size(621, 23);
-            this.lbDatosCliente.TabIndex = 45;
-            this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(33, 68);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 45;
+            this.label1.Text = "Ctrl + B";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(148, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 46;
+            this.label2.Text = "Ctrl + D";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(278, 68);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(28, 13);
+            this.label3.TabIndex = 47;
+            this.label3.Text = "ESC";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(361, 68);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(42, 13);
+            this.label4.TabIndex = 48;
+            this.label4.Text = "Ctrl + G";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(450, 68);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 49;
+            this.label5.Text = "Ctrl + A";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(547, 68);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(37, 13);
+            this.label6.TabIndex = 50;
+            this.label6.Text = "2 ESP";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(673, 68);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 13);
+            this.label7.TabIndex = 51;
+            this.label7.Text = "Ctrl + M";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(402, 342);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 13);
+            this.label8.TabIndex = 52;
+            this.label8.Text = "Alt + 1";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(500, 347);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(40, 13);
+            this.label9.TabIndex = 53;
+            this.label9.Text = "Ctrl + 2";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(593, 342);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(37, 13);
+            this.label10.TabIndex = 52;
+            this.label10.Text = "Alt + 3";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(814, 316);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(31, 13);
+            this.label11.TabIndex = 54;
+            this.label11.Text = "\"Fin\"";
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 596);
-            this.Controls.Add(this.lbDatosCliente);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnClientes);
             this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.checkCancelar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tituloSeccion);
+            this.Controls.Add(this.btnCancelarVenta);
+            this.Controls.Add(this.btnGuardarVenta);
+            this.Controls.Add(this.btnAnticipos);
+            this.Controls.Add(this.btnAbrirCaja);
+            this.Controls.Add(this.btnVentasGuardadas);
+            this.Controls.Add(this.btnUltimoTicket);
+            this.Controls.Add(this.btnPresupuesto);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1027, 597);
@@ -814,6 +959,7 @@
             this.Load += new System.EventHandler(this.Ventas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Ventas_KeyPress_1);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.Ventas_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -889,5 +1035,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioMayoreo;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioAuxiliar;
         private System.Windows.Forms.Label lbMayoreo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }
