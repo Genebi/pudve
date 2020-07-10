@@ -37,7 +37,6 @@
             this.btnBuscarAnticipos = new System.Windows.Forms.Button();
             this.cbAnticipos = new System.Windows.Forms.ComboBox();
             this.DGVAnticipos = new System.Windows.Forms.DataGridView();
-            this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +49,7 @@
             this.Info = new System.Windows.Forms.DataGridViewImageColumn();
             this.IDVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
@@ -144,7 +144,8 @@
             this.cbAnticipos.Items.AddRange(new object[] {
             "Por usar",
             "Inhabilitados",
-            "Usados"});
+            "Usados",
+            "Parciales"});
             this.cbAnticipos.Location = new System.Drawing.Point(3, 16);
             this.cbAnticipos.Name = "cbAnticipos";
             this.cbAnticipos.Size = new System.Drawing.Size(185, 24);
@@ -180,13 +181,6 @@
             this.DGVAnticipos.TabIndex = 8;
             this.DGVAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellClick);
             this.DGVAnticipos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellMouseEnter);
-            // 
-            // TTMensaje
-            // 
-            this.TTMensaje.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.TTMensaje.ForeColor = System.Drawing.Color.White;
-            this.TTMensaje.OwnerDraw = true;
-            this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
             // 
             // ID
             // 
@@ -271,6 +265,13 @@
             this.FormaPago.Name = "FormaPago";
             this.FormaPago.ReadOnly = true;
             this.FormaPago.Visible = false;
+            // 
+            // TTMensaje
+            // 
+            this.TTMensaje.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.TTMensaje.ForeColor = System.Drawing.Color.White;
+            this.TTMensaje.OwnerDraw = true;
+            this.TTMensaje.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.TTMensaje_Draw);
             // 
             // Anticipos
             // 
