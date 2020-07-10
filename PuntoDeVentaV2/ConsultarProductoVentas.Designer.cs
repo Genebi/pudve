@@ -119,6 +119,7 @@
             this.txtBuscar.Size = new System.Drawing.Size(609, 22);
             this.txtBuscar.TabIndex = 1;
             this.txtBuscar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyDown);
             this.txtBuscar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyUp);
             // 
             // timerBusqueda
@@ -153,6 +154,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ConsultarProductoVentas_Load);
             this.Shown += new System.EventHandler(this.ConsultarProductoVentas_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConsultarProductoVentas_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

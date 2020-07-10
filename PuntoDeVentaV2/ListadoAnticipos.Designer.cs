@@ -129,6 +129,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Lista de Anticipos";
             this.Shown += new System.EventHandler(this.ListadoAnticipos_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListadoAnticipos_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaAnticipos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

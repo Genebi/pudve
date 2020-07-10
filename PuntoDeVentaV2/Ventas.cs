@@ -1420,20 +1420,29 @@ namespace PuntoDeVentaV2
 
         private void btnEliminarTodos_Click(object sender, EventArgs e)
         {
-            if (opcion18 == 0)
+            DialogResult dialogoResult = MessageBox.Show("¿Desea remover todos los artículos?", "!Advertencia¡", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogoResult == DialogResult.Yes)
             {
-                Utilidades.MensajePermiso();
-                return;
+                if (opcion18 == 0)
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+
+                DGVentas.Rows.Clear();
+                // Almacena los ID de los productos a los que se aplica descuento general
+                productosDescuentoG.Clear();
+                // Guarda los datos de los descuentos directos que se han aplicado
+                descuentosDirectos.Clear();
+
+                CalculoMayoreo();
+                CantidadesFinalesVenta();
+            }
+            else if (dialogoResult == DialogResult.No)
+            {
+
             }
 
-            DGVentas.Rows.Clear();
-            // Almacena los ID de los productos a los que se aplica descuento general
-            productosDescuentoG.Clear();
-            // Guarda los datos de los descuentos directos que se han aplicado
-            descuentosDirectos.Clear();
-
-            CalculoMayoreo();
-            CantidadesFinalesVenta();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
@@ -3261,6 +3270,32 @@ namespace PuntoDeVentaV2
                         CantidadesFinalesVenta();
                     }
                 }
+                else if (words.Count() == 0)
+                {
+                    var descuentoG = float.Parse(words[0].ToString());
+
+                    if (descuentoG > 0)
+                    {
+                        // Reiniciamos a su valor por defecto la variable del descuento por cliente
+                        descuentoCliente = 0;
+
+                        porcentajeGeneral = descuentoG / 100;
+
+                        productosDescuentoG.Clear();
+
+                        foreach (DataGridViewRow fila in DGVentas.Rows)
+                        {
+                            var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+
+                            if (!productosDescuentoG.ContainsKey(idProducto))
+                            {
+                                productosDescuentoG.Add(idProducto, true);
+                            }
+                        }
+
+                        CantidadesFinalesVenta();
+                    }
+                }
 
                 //var descuentoG = float.Parse(txtDescuentoGeneral.Text);
 
@@ -3493,8 +3528,27 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_Enter(object sender, EventArgs e)
         {
-            txtDescuentoGeneral.Text = "%";
+            txtDescuentoGeneral.Text = "";
             txtDescuentoGeneral.Select(0, 0);
+        }
+
+        private void checkCancelar_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (checkCancelar.Checked)
+            {
+                lFolio.Visible = true;
+            }
+            else
+            {
+                lFolio.Visible = false;
+            }
+
+        }
+
+        private void lFolio_Enter(object sender, EventArgs e)
+        {
+            string folioAEliminar = "";
+            folioAEliminar = lFolio.Text;
         }
 
         private void CuerpoEmails()

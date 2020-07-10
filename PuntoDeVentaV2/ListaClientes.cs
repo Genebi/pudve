@@ -198,6 +198,10 @@ namespace PuntoDeVentaV2
                 txtBuscador.Text = string.Empty;
                 txtBuscador.Focus();
             }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
 
         private void ListaClientes_Shown(object sender, EventArgs e)
@@ -210,6 +214,14 @@ namespace PuntoDeVentaV2
             Ventas.idCliente = "0";
 
             Dispose();
+        }
+
+        private void ListaClientes_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
     }
 }

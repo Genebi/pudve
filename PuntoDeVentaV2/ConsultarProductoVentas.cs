@@ -117,5 +117,21 @@ namespace PuntoDeVentaV2
             timerBusqueda.Stop();
             timerBusqueda.Start();
         }
+
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
+
+        private void ConsultarProductoVentas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
     }
 }

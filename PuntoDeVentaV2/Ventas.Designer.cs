@@ -102,7 +102,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lFolio = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -823,6 +823,7 @@
             this.checkCancelar.TabIndex = 35;
             this.checkCancelar.Text = "Cancelar VENTA";
             this.checkCancelar.UseVisualStyleBackColor = true;
+            this.checkCancelar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkCancelar_MouseClick);
             // 
             // btnConsultar
             // 
@@ -917,20 +918,21 @@
             this.label7.TabIndex = 51;
             this.label7.Text = "Ctrl + M";
             // 
-            // textBox1
+            // lFolio
             // 
-            this.textBox1.Location = new System.Drawing.Point(1097, 67);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(123, 20);
-            this.textBox1.TabIndex = 52;
-            this.textBox1.Visible = false;
+            this.lFolio.Location = new System.Drawing.Point(1097, 67);
+            this.lFolio.Name = "lFolio";
+            this.lFolio.Size = new System.Drawing.Size(123, 20);
+            this.lFolio.TabIndex = 52;
+            this.lFolio.Visible = false;
+            this.lFolio.Enter += new System.EventHandler(this.lFolio_Enter);
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 596);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lFolio);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -1045,6 +1047,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox lFolio;
     }
 }

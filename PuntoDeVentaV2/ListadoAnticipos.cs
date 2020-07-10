@@ -141,5 +141,13 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void ListadoAnticipos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
     }
 }
