@@ -2967,7 +2967,7 @@ namespace PuntoDeVentaV2
             {
                 btnAnticipos.PerformClick();
             }
-            else if (e.KeyCode == Keys.F2)
+            else if (e.KeyCode == Keys.F2)//Boton Abrir Caja
             {
                 btnAbrirCaja.PerformClick();
             }
@@ -2975,11 +2975,11 @@ namespace PuntoDeVentaV2
             {
                 btnVentasGuardadas.PerformClick();
             }
-            else if (e.KeyCode == Keys.NumPad1 && (e.Alt))//Boton Eliminar
+            else if (e.KeyCode == Keys.NumPad1 && (e.Alt) || e.KeyCode == Keys.D1 && (e.Alt))//Boton Eliminar
             {
                 btnEliminarDescuentos.PerformClick();
             }
-            else if (e.KeyCode == Keys.NumPad3 && (e.Alt))//Boton Aplicar
+            else if (e.KeyCode == Keys.NumPad3 && (e.Alt) || e.KeyCode == Keys.D3 && (e.Alt))//Boton Aplicar
             {
                 btnAplicarDescuento.PerformClick();
             }

@@ -157,7 +157,7 @@
             // 
             this.btnUltimoTicket.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(765, 47);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(770, 47);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
             this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
@@ -169,7 +169,7 @@
             // 
             this.btnPresupuesto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPresupuesto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPresupuesto.Location = new System.Drawing.Point(808, 47);
+            this.btnPresupuesto.Location = new System.Drawing.Point(813, 47);
             this.btnPresupuesto.Name = "btnPresupuesto";
             this.btnPresupuesto.Size = new System.Drawing.Size(37, 40);
             this.btnPresupuesto.TabIndex = 19;
@@ -363,7 +363,7 @@
             this.btnCancelarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.reply1;
             this.btnCancelarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelarVenta.Location = new System.Drawing.Point(851, 47);
+            this.btnCancelarVenta.Location = new System.Drawing.Point(856, 47);
             this.btnCancelarVenta.Name = "btnCancelarVenta";
             this.btnCancelarVenta.Size = new System.Drawing.Size(105, 40);
             this.btnCancelarVenta.TabIndex = 13;
@@ -379,7 +379,7 @@
             this.btnGuardarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
             this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardarVenta.Location = new System.Drawing.Point(501, 47);
+            this.btnGuardarVenta.Location = new System.Drawing.Point(506, 47);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
             this.btnGuardarVenta.Size = new System.Drawing.Size(97, 40);
             this.btnGuardarVenta.TabIndex = 14;
@@ -395,7 +395,7 @@
             this.btnAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.handshake_o1;
             this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAnticipos.Location = new System.Drawing.Point(272, 47);
+            this.btnAnticipos.Location = new System.Drawing.Point(277, 47);
             this.btnAnticipos.Name = "btnAnticipos";
             this.btnAnticipos.Size = new System.Drawing.Size(112, 40);
             this.btnAnticipos.TabIndex = 15;
@@ -411,7 +411,7 @@
             this.btnAbrirCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAbrirCaja.Image = global::PuntoDeVentaV2.Properties.Resources.hdd_o1;
             this.btnAbrirCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAbrirCaja.Location = new System.Drawing.Point(390, 47);
+            this.btnAbrirCaja.Location = new System.Drawing.Point(395, 47);
             this.btnAbrirCaja.Name = "btnAbrirCaja";
             this.btnAbrirCaja.Size = new System.Drawing.Size(105, 40);
             this.btnAbrirCaja.TabIndex = 16;
@@ -427,7 +427,7 @@
             this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard1;
             this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(604, 47);
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(609, 47);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
             this.btnVentasGuardadas.Size = new System.Drawing.Size(155, 40);
             this.btnVentasGuardadas.TabIndex = 17;
@@ -842,11 +842,11 @@
             // 
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.download1;
+            this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.discount;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClientes.Location = new System.Drawing.Point(111, 47);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(155, 40);
+            this.btnClientes.Size = new System.Drawing.Size(160, 40);
             this.btnClientes.TabIndex = 44;
             this.btnClientes.Text = "Descuento cliente";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -874,7 +874,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(902, 68);
+            this.label3.Location = new System.Drawing.Point(907, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 13);
             this.label3.TabIndex = 47;
@@ -883,7 +883,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(542, 68);
+            this.label4.Location = new System.Drawing.Point(547, 68);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 48;
@@ -892,7 +892,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(325, 68);
+            this.label5.Location = new System.Drawing.Point(330, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 49;
@@ -901,7 +901,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(450, 68);
+            this.label6.Location = new System.Drawing.Point(455, 68);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(19, 13);
             this.label6.TabIndex = 50;
@@ -910,7 +910,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(671, 68);
+            this.label7.Location = new System.Drawing.Point(676, 68);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(43, 13);
             this.label7.TabIndex = 51;
