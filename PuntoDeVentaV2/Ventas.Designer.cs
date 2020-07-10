@@ -78,6 +78,9 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.lbDatosCliente = new System.Windows.Forms.Label();
             this.lbMayoreo = new System.Windows.Forms.Label();
             this.btnEliminarDescuentos = new System.Windows.Forms.Button();
@@ -99,10 +102,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBImagen)).BeginInit();
@@ -157,7 +157,7 @@
             // 
             this.btnUltimoTicket.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUltimoTicket.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(784, 47);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(765, 47);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
             this.btnUltimoTicket.Size = new System.Drawing.Size(37, 40);
             this.btnUltimoTicket.TabIndex = 18;
@@ -169,7 +169,7 @@
             // 
             this.btnPresupuesto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPresupuesto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPresupuesto.Location = new System.Drawing.Point(843, 47);
+            this.btnPresupuesto.Location = new System.Drawing.Point(808, 47);
             this.btnPresupuesto.Name = "btnPresupuesto";
             this.btnPresupuesto.Size = new System.Drawing.Size(37, 40);
             this.btnPresupuesto.TabIndex = 19;
@@ -183,7 +183,7 @@
             this.txtBuscadorProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 31);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
-            this.txtBuscadorProducto.Size = new System.Drawing.Size(555, 23);
+            this.txtBuscadorProducto.Size = new System.Drawing.Size(855, 23);
             this.txtBuscadorProducto.TabIndex = 5;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
@@ -361,14 +361,14 @@
             this.btnCancelarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.window_close;
+            this.btnCancelarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.reply1;
             this.btnCancelarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelarVenta.Location = new System.Drawing.Point(242, 47);
+            this.btnCancelarVenta.Location = new System.Drawing.Point(851, 47);
             this.btnCancelarVenta.Name = "btnCancelarVenta";
-            this.btnCancelarVenta.Size = new System.Drawing.Size(87, 40);
+            this.btnCancelarVenta.Size = new System.Drawing.Size(105, 40);
             this.btnCancelarVenta.TabIndex = 13;
-            this.btnCancelarVenta.Text = "Cancelar";
-            this.btnCancelarVenta.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.btnCancelarVenta.Text = "        Salir";
+            this.btnCancelarVenta.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnCancelarVenta.UseVisualStyleBackColor = true;
             this.btnCancelarVenta.Click += new System.EventHandler(this.btnCancelarVenta_Click);
             // 
@@ -377,11 +377,11 @@
             this.btnGuardarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGuardarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.save;
+            this.btnGuardarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
             this.btnGuardarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardarVenta.Location = new System.Drawing.Point(335, 47);
+            this.btnGuardarVenta.Location = new System.Drawing.Point(501, 47);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
-            this.btnGuardarVenta.Size = new System.Drawing.Size(80, 40);
+            this.btnGuardarVenta.Size = new System.Drawing.Size(97, 40);
             this.btnGuardarVenta.TabIndex = 14;
             this.btnGuardarVenta.Text = "Guardar";
             this.btnGuardarVenta.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -393,11 +393,11 @@
             this.btnAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.handshake_o;
+            this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.handshake_o1;
             this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAnticipos.Location = new System.Drawing.Point(421, 47);
+            this.btnAnticipos.Location = new System.Drawing.Point(272, 47);
             this.btnAnticipos.Name = "btnAnticipos";
-            this.btnAnticipos.Size = new System.Drawing.Size(89, 40);
+            this.btnAnticipos.Size = new System.Drawing.Size(112, 40);
             this.btnAnticipos.TabIndex = 15;
             this.btnAnticipos.Text = "Anticipos";
             this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -409,11 +409,11 @@
             this.btnAbrirCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAbrirCaja.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAbrirCaja.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbrirCaja.Image = global::PuntoDeVentaV2.Properties.Resources.hdd_o;
+            this.btnAbrirCaja.Image = global::PuntoDeVentaV2.Properties.Resources.hdd_o1;
             this.btnAbrirCaja.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAbrirCaja.Location = new System.Drawing.Point(515, 47);
+            this.btnAbrirCaja.Location = new System.Drawing.Point(390, 47);
             this.btnAbrirCaja.Name = "btnAbrirCaja";
-            this.btnAbrirCaja.Size = new System.Drawing.Size(90, 40);
+            this.btnAbrirCaja.Size = new System.Drawing.Size(105, 40);
             this.btnAbrirCaja.TabIndex = 16;
             this.btnAbrirCaja.Text = "Abrir Caja";
             this.btnAbrirCaja.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -425,14 +425,14 @@
             this.btnVentasGuardadas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnVentasGuardadas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVentasGuardadas.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard;
+            this.btnVentasGuardadas.Image = global::PuntoDeVentaV2.Properties.Resources.clipboard1;
             this.btnVentasGuardadas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentasGuardadas.Location = new System.Drawing.Point(611, 47);
+            this.btnVentasGuardadas.Location = new System.Drawing.Point(604, 47);
             this.btnVentasGuardadas.Name = "btnVentasGuardadas";
-            this.btnVentasGuardadas.Size = new System.Drawing.Size(157, 40);
+            this.btnVentasGuardadas.Size = new System.Drawing.Size(155, 40);
             this.btnVentasGuardadas.TabIndex = 17;
             this.btnVentasGuardadas.Text = "Ventas guardadas";
-            this.btnVentasGuardadas.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnVentasGuardadas.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnVentasGuardadas.UseVisualStyleBackColor = true;
             this.btnVentasGuardadas.Click += new System.EventHandler(this.btnVentasGuardadas_Click);
             // 
@@ -443,7 +443,7 @@
             this.listaProductos.ItemHeight = 17;
             this.listaProductos.Location = new System.Drawing.Point(94, 53);
             this.listaProductos.Name = "listaProductos";
-            this.listaProductos.Size = new System.Drawing.Size(555, 55);
+            this.listaProductos.Size = new System.Drawing.Size(855, 21);
             this.listaProductos.TabIndex = 9;
             this.listaProductos.Visible = false;
             this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
@@ -454,10 +454,10 @@
             // 
             this.lbNumeroArticulos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbNumeroArticulos.AutoSize = true;
-            this.lbNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNumeroArticulos.Location = new System.Drawing.Point(673, 114);
+            this.lbNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNumeroArticulos.Location = new System.Drawing.Point(672, 114);
             this.lbNumeroArticulos.Name = "lbNumeroArticulos";
-            this.lbNumeroArticulos.Size = new System.Drawing.Size(143, 17);
+            this.lbNumeroArticulos.Size = new System.Drawing.Size(198, 22);
             this.lbNumeroArticulos.TabIndex = 20;
             this.lbNumeroArticulos.Text = "Número de artículos:";
             // 
@@ -465,10 +465,10 @@
             // 
             this.lbSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSubtotal.AutoSize = true;
-            this.lbSubtotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbSubtotal.Location = new System.Drawing.Point(673, 136);
             this.lbSubtotal.Name = "lbSubtotal";
-            this.lbSubtotal.Size = new System.Drawing.Size(66, 17);
+            this.lbSubtotal.Size = new System.Drawing.Size(91, 22);
             this.lbSubtotal.TabIndex = 21;
             this.lbSubtotal.Text = "Subtotal:";
             // 
@@ -476,10 +476,10 @@
             // 
             this.lbIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbIVA.AutoSize = true;
-            this.lbIVA.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbIVA.Location = new System.Drawing.Point(673, 158);
             this.lbIVA.Name = "lbIVA";
-            this.lbIVA.Size = new System.Drawing.Size(61, 17);
+            this.lbIVA.Size = new System.Drawing.Size(92, 22);
             this.lbIVA.TabIndex = 22;
             this.lbIVA.Text = "IVA 16%:";
             // 
@@ -487,10 +487,10 @@
             // 
             this.lbAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbAnticipo.AutoSize = true;
-            this.lbAnticipo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticipo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAnticipo.Location = new System.Drawing.Point(673, 202);
             this.lbAnticipo.Name = "lbAnticipo";
-            this.lbAnticipo.Size = new System.Drawing.Size(66, 17);
+            this.lbAnticipo.Size = new System.Drawing.Size(92, 22);
             this.lbAnticipo.TabIndex = 23;
             this.lbAnticipo.Text = "Anticipo:";
             this.lbAnticipo.Visible = false;
@@ -499,10 +499,10 @@
             // 
             this.lbDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDescuento.AutoSize = true;
-            this.lbDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDescuento.Location = new System.Drawing.Point(673, 224);
             this.lbDescuento.Name = "lbDescuento";
-            this.lbDescuento.Size = new System.Drawing.Size(81, 17);
+            this.lbDescuento.Size = new System.Drawing.Size(115, 22);
             this.lbDescuento.TabIndex = 24;
             this.lbDescuento.Text = "Descuento:";
             this.lbDescuento.Visible = false;
@@ -522,10 +522,10 @@
             // 
             this.cNumeroArticulos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cNumeroArticulos.AutoSize = true;
-            this.cNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cNumeroArticulos.Location = new System.Drawing.Point(835, 116);
+            this.cNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNumeroArticulos.Location = new System.Drawing.Point(877, 116);
             this.cNumeroArticulos.Name = "cNumeroArticulos";
-            this.cNumeroArticulos.Size = new System.Drawing.Size(15, 17);
+            this.cNumeroArticulos.Size = new System.Drawing.Size(21, 22);
             this.cNumeroArticulos.TabIndex = 26;
             this.cNumeroArticulos.Text = "0";
             // 
@@ -533,10 +533,10 @@
             // 
             this.cSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cSubtotal.AutoSize = true;
-            this.cSubtotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cSubtotal.Location = new System.Drawing.Point(835, 136);
+            this.cSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSubtotal.Location = new System.Drawing.Point(877, 136);
             this.cSubtotal.Name = "cSubtotal";
-            this.cSubtotal.Size = new System.Drawing.Size(33, 17);
+            this.cSubtotal.Size = new System.Drawing.Size(48, 22);
             this.cSubtotal.TabIndex = 27;
             this.cSubtotal.Text = "0.00";
             // 
@@ -544,10 +544,10 @@
             // 
             this.cIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cIVA.AutoSize = true;
-            this.cIVA.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cIVA.Location = new System.Drawing.Point(835, 158);
+            this.cIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIVA.Location = new System.Drawing.Point(877, 158);
             this.cIVA.Name = "cIVA";
-            this.cIVA.Size = new System.Drawing.Size(33, 17);
+            this.cIVA.Size = new System.Drawing.Size(48, 22);
             this.cIVA.TabIndex = 28;
             this.cIVA.Text = "0.00";
             // 
@@ -555,10 +555,10 @@
             // 
             this.cAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cAnticipo.AutoSize = true;
-            this.cAnticipo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cAnticipo.Location = new System.Drawing.Point(835, 202);
+            this.cAnticipo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipo.Location = new System.Drawing.Point(877, 202);
             this.cAnticipo.Name = "cAnticipo";
-            this.cAnticipo.Size = new System.Drawing.Size(33, 17);
+            this.cAnticipo.Size = new System.Drawing.Size(48, 22);
             this.cAnticipo.TabIndex = 29;
             this.cAnticipo.Text = "0.00";
             this.cAnticipo.Visible = false;
@@ -567,10 +567,10 @@
             // 
             this.cDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cDescuento.AutoSize = true;
-            this.cDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cDescuento.Location = new System.Drawing.Point(835, 224);
+            this.cDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cDescuento.Location = new System.Drawing.Point(877, 224);
             this.cDescuento.Name = "cDescuento";
-            this.cDescuento.Size = new System.Drawing.Size(33, 17);
+            this.cDescuento.Size = new System.Drawing.Size(48, 22);
             this.cDescuento.TabIndex = 30;
             this.cDescuento.Text = "0.00";
             this.cDescuento.Visible = false;
@@ -590,10 +590,10 @@
             // 
             this.lbIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbIVA8.AutoSize = true;
-            this.lbIVA8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbIVA8.Location = new System.Drawing.Point(673, 180);
             this.lbIVA8.Name = "lbIVA8";
-            this.lbIVA8.Size = new System.Drawing.Size(54, 17);
+            this.lbIVA8.Size = new System.Drawing.Size(81, 22);
             this.lbIVA8.TabIndex = 32;
             this.lbIVA8.Text = "IVA 8%:";
             this.lbIVA8.Visible = false;
@@ -602,10 +602,10 @@
             // 
             this.cIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cIVA8.AutoSize = true;
-            this.cIVA8.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cIVA8.Location = new System.Drawing.Point(835, 180);
+            this.cIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIVA8.Location = new System.Drawing.Point(877, 180);
             this.cIVA8.Name = "cIVA8";
-            this.cIVA8.Size = new System.Drawing.Size(33, 17);
+            this.cIVA8.Size = new System.Drawing.Size(48, 22);
             this.cIVA8.TabIndex = 33;
             this.cIVA8.Text = "0.00";
             this.cIVA8.Visible = false;
@@ -616,7 +616,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.lbDatosCliente);
             this.panel1.Controls.Add(this.listaProductos);
@@ -648,10 +647,37 @@
             this.panel1.Controls.Add(this.lbIVA);
             this.panel1.Controls.Add(this.lbSubtotal);
             this.panel1.Controls.Add(this.lbNumeroArticulos);
-            this.panel1.Location = new System.Drawing.Point(5, 93);
+            this.panel1.Location = new System.Drawing.Point(7, 93);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1221, 372);
             this.panel1.TabIndex = 34;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(814, 316);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(31, 13);
+            this.label11.TabIndex = 54;
+            this.label11.Text = "\"Fin\"";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(593, 342);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(37, 13);
+            this.label10.TabIndex = 52;
+            this.label10.Text = "Alt + 3";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(402, 342);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(37, 13);
+            this.label8.TabIndex = 52;
+            this.label8.Text = "Alt + 1";
             // 
             // lbDatosCliente
             // 
@@ -790,7 +816,7 @@
             // 
             this.checkCancelar.AutoSize = true;
             this.checkCancelar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCancelar.Location = new System.Drawing.Point(1080, 47);
+            this.checkCancelar.Location = new System.Drawing.Point(1097, 47);
             this.checkCancelar.Name = "checkCancelar";
             this.checkCancelar.Size = new System.Drawing.Size(123, 21);
             this.checkCancelar.TabIndex = 35;
@@ -801,11 +827,11 @@
             // 
             this.btnConsultar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConsultar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultar.Image = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnConsultar.Image = global::PuntoDeVentaV2.Properties.Resources.search1;
             this.btnConsultar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConsultar.Location = new System.Drawing.Point(5, 47);
             this.btnConsultar.Name = "btnConsultar";
-            this.btnConsultar.Size = new System.Drawing.Size(85, 40);
+            this.btnConsultar.Size = new System.Drawing.Size(100, 40);
             this.btnConsultar.TabIndex = 43;
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -816,11 +842,11 @@
             // 
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClientes.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.download;
+            this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.download1;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnClientes.Location = new System.Drawing.Point(96, 47);
+            this.btnClientes.Location = new System.Drawing.Point(111, 47);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(140, 40);
+            this.btnClientes.Size = new System.Drawing.Size(155, 40);
             this.btnClientes.TabIndex = 44;
             this.btnClientes.Text = "Descuento cliente";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -830,7 +856,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(33, 68);
+            this.label1.Location = new System.Drawing.Point(49, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 13);
             this.label1.TabIndex = 45;
@@ -839,7 +865,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(148, 68);
+            this.label2.Location = new System.Drawing.Point(177, 68);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 46;
@@ -848,7 +874,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(278, 68);
+            this.label3.Location = new System.Drawing.Point(902, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 13);
             this.label3.TabIndex = 47;
@@ -857,7 +883,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(361, 68);
+            this.label4.Location = new System.Drawing.Point(542, 68);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 13);
             this.label4.TabIndex = 48;
@@ -866,7 +892,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(450, 68);
+            this.label5.Location = new System.Drawing.Point(325, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 49;
@@ -875,62 +901,35 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(547, 68);
+            this.label6.Location = new System.Drawing.Point(450, 68);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 13);
+            this.label6.Size = new System.Drawing.Size(19, 13);
             this.label6.TabIndex = 50;
-            this.label6.Text = "2 ESP";
+            this.label6.Text = "F2";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(673, 68);
+            this.label7.Location = new System.Drawing.Point(671, 68);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(43, 13);
             this.label7.TabIndex = 51;
             this.label7.Text = "Ctrl + M";
             // 
-            // label8
+            // textBox1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(402, 342);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(37, 13);
-            this.label8.TabIndex = 52;
-            this.label8.Text = "Alt + 1";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(500, 347);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 13);
-            this.label9.TabIndex = 53;
-            this.label9.Text = "Ctrl + 2";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(593, 342);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(37, 13);
-            this.label10.TabIndex = 52;
-            this.label10.Text = "Alt + 3";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(814, 316);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(31, 13);
-            this.label11.TabIndex = 54;
-            this.label11.Text = "\"Fin\"";
+            this.textBox1.Location = new System.Drawing.Point(1097, 67);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(123, 20);
+            this.textBox1.TabIndex = 52;
+            this.textBox1.Visible = false;
             // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 596);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -1044,7 +1043,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
