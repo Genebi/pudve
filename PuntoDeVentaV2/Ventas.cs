@@ -3233,29 +3233,58 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                var descuentoG = float.Parse(txtDescuentoGeneral.Text);
+                string[] words = txtDescuentoGeneral.Text.ToString().Split('%');
 
-                if (descuentoG > 0)
+                if (words.Count() > 0)
                 {
-                    // Reiniciamos a su valor por defecto la variable del descuento por cliente
-                    descuentoCliente = 0;
+                    var descuentoG = float.Parse(words[0].ToString());
 
-                    porcentajeGeneral = descuentoG / 100;
-
-                    productosDescuentoG.Clear();
-
-                    foreach (DataGridViewRow fila in DGVentas.Rows)
+                    if (descuentoG > 0)
                     {
-                        var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+                        // Reiniciamos a su valor por defecto la variable del descuento por cliente
+                        descuentoCliente = 0;
 
-                        if (!productosDescuentoG.ContainsKey(idProducto))
+                        porcentajeGeneral = descuentoG / 100;
+
+                        productosDescuentoG.Clear();
+
+                        foreach (DataGridViewRow fila in DGVentas.Rows)
                         {
-                            productosDescuentoG.Add(idProducto, true);
-                        }
-                    }
+                            var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
 
-                    CantidadesFinalesVenta();
+                            if (!productosDescuentoG.ContainsKey(idProducto))
+                            {
+                                productosDescuentoG.Add(idProducto, true);
+                            }
+                        }
+
+                        CantidadesFinalesVenta();
+                    }
                 }
+
+                //var descuentoG = float.Parse(txtDescuentoGeneral.Text);
+
+                //if (descuentoG > 0)
+                //{
+                //    // Reiniciamos a su valor por defecto la variable del descuento por cliente
+                //    descuentoCliente = 0;
+
+                //    porcentajeGeneral = descuentoG / 100;
+
+                //    productosDescuentoG.Clear();
+
+                //    foreach (DataGridViewRow fila in DGVentas.Rows)
+                //    {
+                //        var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+
+                //        if (!productosDescuentoG.ContainsKey(idProducto))
+                //        {
+                //            productosDescuentoG.Add(idProducto, true);
+                //        }
+                //    }
+
+                //    CantidadesFinalesVenta();
+                //}
             }
         }
 
@@ -3460,6 +3489,12 @@ namespace PuntoDeVentaV2
         private void Ventas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             
+        }
+
+        private void txtDescuentoGeneral_Enter(object sender, EventArgs e)
+        {
+            txtDescuentoGeneral.Text = "%";
+            txtDescuentoGeneral.Select(0, 0);
         }
 
         private void CuerpoEmails()
