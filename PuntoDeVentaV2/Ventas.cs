@@ -3536,7 +3536,7 @@ namespace PuntoDeVentaV2
         {
             if (checkCancelar.Checked)
             {
-                lFolio.Visible = true;
+                lFolio.Visible = false;
             }
             else
             {
