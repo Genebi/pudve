@@ -252,11 +252,11 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 // Verificar si se selecciono el check para cancelar venta
-                if (checkCancelar.Checked)
-                {
-                    CancelarVenta();
-                    return;
-                }
+                //if (checkCancelar.Checked)
+                //{
+                //    CancelarVenta();
+                //    return;
+                //}
 
                 if (listaProductos.Visible)
                 {
@@ -308,7 +308,8 @@ namespace PuntoDeVentaV2
 
         private void CancelarVenta()
         {
-            var folio = txtBuscadorProducto.Text.Trim();
+           // var folio = txtBuscadorProducto.Text.Trim();
+            var folio = lFolio.Text.Trim();
 
             if (!string.IsNullOrWhiteSpace(folio))
             {
@@ -3499,26 +3500,21 @@ namespace PuntoDeVentaV2
 
         private void Ventas_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            int cont = 0;
             if (e.KeyChar == 27)//ESC
             {
                 // btnCancelarVenta.PerformClick();
-                MessageBox.Show("ESC");
+                //MessageBox.Show("ESC");
             }
-            else if (e.KeyChar == 32)//ESPACIO
+
+            if (Char.IsDigit(e.KeyChar))
             {
-                // btnAbrirCaja.PerformClick();
-                if (cont == 2)
-                {
-                    MessageBox.Show("ESPACIO");
-                }
-                cont = 0;
+                e.Handled = false;
             }
-            //else if (e.KeyCode == Keys.Control && e.KeyCode == Keys.B)
-            //{
-            //    //btnConsultar.PerformClick();
-            //    MessageBox.Show("Test");
-            //}
+            else if(Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            
         }
 
         private void Ventas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -3536,7 +3532,8 @@ namespace PuntoDeVentaV2
         {
             if (checkCancelar.Checked)
             {
-                lFolio.Visible = false;
+                lFolio.Visible = true;
+                lFolio.Text = "";
             }
             else
             {
@@ -3545,10 +3542,23 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void lFolio_Enter(object sender, EventArgs e)
+        private void lFolio_KeyDown(object sender, KeyEventArgs e)
         {
-            string folioAEliminar = "";
-            folioAEliminar = lFolio.Text;
+            
+            if (e.KeyCode == Keys.Enter)
+            {
+                CancelarVenta();
+                lFolio.Text = "";
+            }
+        }
+
+        private void lFolio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsNumber(e.KeyChar) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+            
         }
 
         private void CuerpoEmails()
