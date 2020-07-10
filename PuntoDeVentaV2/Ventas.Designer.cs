@@ -925,7 +925,8 @@
             this.lFolio.Size = new System.Drawing.Size(123, 20);
             this.lFolio.TabIndex = 52;
             this.lFolio.Visible = false;
-            this.lFolio.Enter += new System.EventHandler(this.lFolio_Enter);
+            this.lFolio.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lFolio_KeyDown);
+            this.lFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lFolio_KeyPress);
             // 
             // Ventas
             // 
