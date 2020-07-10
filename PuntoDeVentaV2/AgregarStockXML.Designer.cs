@@ -454,7 +454,7 @@
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Location = new System.Drawing.Point(8, 73);
+            this.panel2.Location = new System.Drawing.Point(9, 73);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(920, 212);
@@ -781,7 +781,7 @@
             this.panel6.Controls.Add(this.groupBox2);
             this.panel6.Controls.Add(this.groupBox1);
             this.panel6.Controls.Add(this.label1);
-            this.panel6.Location = new System.Drawing.Point(8, 284);
+            this.panel6.Location = new System.Drawing.Point(9, 285);
             this.panel6.Margin = new System.Windows.Forms.Padding(2);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(920, 272);
@@ -921,8 +921,8 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel17);
             this.Controls.Add(this.panel6);
+            this.Controls.Add(this.panel17);
             this.Controls.Add(this.panel12);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLoadXML);
