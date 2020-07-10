@@ -4543,6 +4543,16 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap discount {
+            get {
+                object obj = ResourceManager.GetObject("discount", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
         ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:divisas=&quot;http://www.sat.gob.mx/divisas&quot;&gt;
         ///	&lt;!-- Manejador de nodos tipo divisas:Divisas --&gt;

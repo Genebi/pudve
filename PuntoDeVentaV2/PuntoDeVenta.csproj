@@ -4298,6 +4298,9 @@
     <Content Include="PUDVE\icon\black\digg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\discount.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\dollar.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
