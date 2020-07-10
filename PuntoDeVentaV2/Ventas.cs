@@ -127,6 +127,17 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            label1.BackColor = Color.FromArgb(229, 231, 233);
+            label2.BackColor = Color.FromArgb(229, 231, 233);
+            label3.BackColor = Color.FromArgb(229, 231, 233);
+            label4.BackColor = Color.FromArgb(229, 231, 233);
+            label5.BackColor = Color.FromArgb(229, 231, 233);
+            label6.BackColor = Color.FromArgb(229, 231, 233);
+            label7.BackColor = Color.FromArgb(229, 231, 233);
+            label8.BackColor = Color.FromArgb(229, 231, 233);
+            label10.BackColor = Color.FromArgb(229, 231, 233);
+            label11.BackColor = Color.FromArgb(229, 231, 233);
+
             txtBuscadorProducto.GotFocus  += new EventHandler(BuscarTieneFoco);
             txtBuscadorProducto.LostFocus += new EventHandler(BuscarPierdeFoco);
             txtDescuentoGeneral.GotFocus  += new EventHandler(DescuentoTieneFoco);
@@ -2939,11 +2950,38 @@ namespace PuntoDeVentaV2
                 Close();
             }
 
-            //Teclas con control
-            if (e.KeyCode == Keys.Control && e.KeyCode == Keys.B)
+            
+            if (e.KeyCode == Keys.B && (e.Control))// Boton Consultar
             {
-                //btnConsultar.PerformClick();
-                MessageBox.Show("Test");
+                btnConsultar.PerformClick();
+            }
+            else if (e.KeyCode == Keys.D && (e.Control))//Boton Descuento Cliente
+            {
+                btnClientes.PerformClick();
+            }
+            else if (e.KeyCode == Keys.G && (e.Control))//Boton Guardar
+            {
+                btnGuardarVenta.PerformClick();
+            }
+            else if (e.KeyCode == Keys.A && (e.Control))//Boton Anticipos
+            {
+                btnAnticipos.PerformClick();
+            }
+            else if (e.KeyCode == Keys.F2)
+            {
+                btnAbrirCaja.PerformClick();
+            }
+            else if (e.KeyCode == Keys.M && (e.Control))//Boton Ventas Guardadas
+            {
+                btnVentasGuardadas.PerformClick();
+            }
+            else if (e.KeyCode == Keys.NumPad1 && (e.Alt))//Boton Eliminar
+            {
+                btnEliminarDescuentos.PerformClick();
+            }
+            else if (e.KeyCode == Keys.NumPad3 && (e.Alt))//Boton Aplicar
+            {
+                btnAplicarDescuento.PerformClick();
             }
 
         }
@@ -3421,10 +3459,7 @@ namespace PuntoDeVentaV2
 
         private void Ventas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode==Keys.)
-            {
-                MessageBox.Show("control");
-            }
+            
         }
 
         private void CuerpoEmails()
