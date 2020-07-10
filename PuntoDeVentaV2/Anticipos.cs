@@ -17,7 +17,8 @@ namespace PuntoDeVentaV2
         //Status 1 = Por usar
         //Status 2 = Deshabilitado
         //Status 3 = Usado
-        //Status 4 = Devuelto
+        //Status 4 = Devuelto = Este no se muestra como opcion
+        //Status 4 = Parciales
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -255,9 +256,14 @@ namespace PuntoDeVentaV2
         {
             ComboBox cb = sender as ComboBox;
 
-            if (cb.SelectedIndex >= 0)
+            int opcion = cb.SelectedIndex;
+
+            if (opcion >= 0)
             {
-                CargarDatos(cb.SelectedIndex + 1);
+                if ((opcion + 1) == 4)
+                    opcion = opcion + 1;
+
+                CargarDatos(opcion + 1);
             }
         }
 
