@@ -170,6 +170,7 @@
             this.txtVales.Size = new System.Drawing.Size(103, 23);
             this.txtVales.TabIndex = 3;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtVales_KeyPress);
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
             // txtTarjeta
@@ -180,6 +181,7 @@
             this.txtTarjeta.Size = new System.Drawing.Size(103, 23);
             this.txtTarjeta.TabIndex = 2;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTarjeta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTarjeta_KeyPress);
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
             // txtEfectivo
@@ -190,6 +192,7 @@
             this.txtEfectivo.Size = new System.Drawing.Size(103, 23);
             this.txtEfectivo.TabIndex = 1;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEfectivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEfectivo_KeyPress);
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
             // txtCredito

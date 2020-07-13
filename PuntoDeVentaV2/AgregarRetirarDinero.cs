@@ -25,6 +25,7 @@ namespace PuntoDeVentaV2
         // 1 = Retirar
         // 2 = Corte
         int operacion = 0;
+        
 
         private float totalEfectivo = 0f;
         private float totalTarjeta = 0f;
@@ -584,5 +585,94 @@ namespace PuntoDeVentaV2
                 CargarConceptos();
             }
         }
+
+        private void txtEfectivo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int calcu = 0;
+
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtEfectivo.Text = calculadora.lCalculadora.Text;
+                    };
+
+                    calcu = 0;
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtTarjeta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtTarjeta.Text = calculadora.lCalculadora.Text;
+                    };
+
+                    calcu = 0;
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtVales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtVales.Text = calculadora.lCalculadora.Text;
+                    };
+
+                    calcu = 0;
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
     }
 }
