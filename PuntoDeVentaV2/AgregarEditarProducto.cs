@@ -4134,6 +4134,7 @@ namespace PuntoDeVentaV2
                 }
                 TituloForm = Titulo;
                 tituloSeccion.Text = TituloForm;
+                //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
                 if (PStock.Visible == false)
                 {
@@ -4160,6 +4161,7 @@ namespace PuntoDeVentaV2
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Paquete)
                 tituloSeccion.Text = TituloForm;
+                //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
                 if (PStock.Visible == true)
                 {
@@ -4187,6 +4189,7 @@ namespace PuntoDeVentaV2
                 TituloForm = Titulo;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Servicio)
                 tituloSeccion.Text = TituloForm;
+                //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
                 if (PStock.Visible == true)
                 {
@@ -5465,14 +5468,17 @@ namespace PuntoDeVentaV2
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3 || DatosSourceFinal == 5)
                 {
                     tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
                 else if (DatosSourceFinal == 2)
                 {
                     tituloSeccion.Text = "Editar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
                 else if (DatosSourceFinal == 4)
                 {
                     tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
             }
             else if (cadAux == "Combo")       // si es un Paquete
@@ -5506,14 +5512,17 @@ namespace PuntoDeVentaV2
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3 || DatosSourceFinal == 5)
                 {
                     tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
                 else if (DatosSourceFinal == 2)
                 {
                     tituloSeccion.Text = "Editar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
                 else if (DatosSourceFinal == 4)
                 {
                     tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
             }
             else if (cadAux == "Servicio")      // si es un Servicio
@@ -5547,14 +5556,17 @@ namespace PuntoDeVentaV2
                 if (DatosSourceFinal == 1 || DatosSourceFinal == 3 || DatosSourceFinal == 5)
                 {
                     tituloSeccion.Text = "Agregar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
                 else if (DatosSourceFinal == 2)
                 {
                     tituloSeccion.Text = "Editar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
                 else if (DatosSourceFinal == 4)
                 {
                     tituloSeccion.Text = "Copiar " + cadAux + "s";    // Ponemos el Text del label TituloSeccion
+                    //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 }
             }
 
@@ -5565,6 +5577,7 @@ namespace PuntoDeVentaV2
                 porcentajeGanancia = float.Parse(config[8].ToString());
                 panelMayoreo.Visible = Convert.ToBoolean(config[9]);
             }
+            tituloSeccion.Text = tituloSeccion.Text.ToUpper();
         }
 
         private void mostrarOcultarfLPDetallesProducto()
