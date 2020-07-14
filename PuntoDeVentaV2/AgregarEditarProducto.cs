@@ -1339,6 +1339,24 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+            //if ((e.Column + e.Row) % 2 == 1)
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+            //    {
+            //        e.Graphics.FillRectangle(brush, e.CellBounds);
+            //    }
+            //}
+            //else
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+            //    {
+            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+            //    }
+            //}
+        }
+
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -4136,24 +4154,24 @@ namespace PuntoDeVentaV2
                 tituloSeccion.Text = TituloForm;
                 //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
-                if (PStock.Visible == false)
-                {
-                    PStock.Visible = true;
-                }
-                if (PPrecioOriginal.Visible == false)
-                {
-                    PPrecioOriginal.Visible = true;
-                }
-                if (PStock.Visible == true && PPrecioOriginal.Visible == true)
-                {
-                    lblTipoProdPaq.Text = "Producto";
-                    btnAdd.Visible = false;
-                    Hided = false;
-                    ocultarPanel();
-                    chkBoxConProductos.Checked = false;
-                    chkBoxConProductos.Visible = false;
-                    txtCategoriaProducto.Text = "Productos";
-                }
+                //if (PStock.Visible == false)
+                //{
+                //    PStock.Visible = true;
+                //}
+                //if (PPrecioOriginal.Visible == false)
+                //{
+                //    PPrecioOriginal.Visible = true;
+                //}
+                //if (PStock.Visible == true && PPrecioOriginal.Visible == true)
+                //{
+                //    lblTipoProdPaq.Text = "Producto";
+                //    btnAdd.Visible = false;
+                //    Hided = false;
+                //    ocultarPanel();
+                //    chkBoxConProductos.Checked = false;
+                //    chkBoxConProductos.Visible = false;
+                //    txtCategoriaProducto.Text = "Productos";
+                //}
             }
             else if (filtro == "Combo")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
@@ -4163,25 +4181,25 @@ namespace PuntoDeVentaV2
                 tituloSeccion.Text = TituloForm;
                 //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
-                if (PStock.Visible == true)
-                {
-                    PStock.Visible = false;
-                }
-                if (PPrecioOriginal.Visible == true)
-                {
-                    PPrecioOriginal.Visible = false;
-                }
-                if (PStock.Visible == false && PPrecioOriginal.Visible == false)
-                {
-                    lblTipoProdPaq.Text = "Combo";
-                    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
-                    Hided = false;
-                    btnAdd.Visible = true;
-                    btnAdd.PerformClick();
-                    chkBoxConProductos.Checked = false;
-                    chkBoxConProductos.Visible = true;
-                    txtCategoriaProducto.Text = "Combos";
-                }
+                //if (PStock.Visible == true)
+                //{
+                //    PStock.Visible = false;
+                //}
+                //if (PPrecioOriginal.Visible == true)
+                //{
+                //    PPrecioOriginal.Visible = false;
+                //}
+                //if (PStock.Visible == false && PPrecioOriginal.Visible == false)
+                //{
+                //    lblTipoProdPaq.Text = "Combo";
+                //    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
+                //    Hided = false;
+                //    btnAdd.Visible = true;
+                //    btnAdd.PerformClick();
+                //    chkBoxConProductos.Checked = false;
+                //    chkBoxConProductos.Visible = true;
+                //    txtCategoriaProducto.Text = "Combos";
+                //}
             }
             else if (filtro == "Servicio")                    // comparamos si el valor a filtrar es Servicio / Paquete ó Combo
             {
@@ -4191,28 +4209,28 @@ namespace PuntoDeVentaV2
                 tituloSeccion.Text = TituloForm;
                 //tituloSeccion.Text = tituloSeccion.Text.ToUpper();
                 this.Text = cadAux + "s";
-                if (PStock.Visible == true)
-                {
-                    PStock.Visible = false;
-                }
-                if (PPrecioOriginal.Visible == true)
-                {
-                    PPrecioOriginal.Visible = false;
-                }
-                if (PStock.Visible == false && PPrecioOriginal.Visible == false)
-                {
-                    lblTipoProdPaq.Text = "Servicio";
-                    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
-                    Hided = false;
-                    btnAdd.Visible = true;
-                    btnAdd.PerformClick();
-                    chkBoxConProductos.Checked = false;
-                    chkBoxConProductos.Visible = true;
-                    txtCategoriaProducto.Text = "Servicios";
-                }
+                //if (PStock.Visible == true)
+                //{
+                //    PStock.Visible = false;
+                //}
+                //if (PPrecioOriginal.Visible == true)
+                //{
+                //    PPrecioOriginal.Visible = false;
+                //}
+                //if (PStock.Visible == false && PPrecioOriginal.Visible == false)
+                //{
+                //    lblTipoProdPaq.Text = "Servicio";
+                //    btnAdd.Image = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\angle-double-down.png");
+                //    Hided = false;
+                //    btnAdd.Visible = true;
+                //    btnAdd.PerformClick();
+                //    chkBoxConProductos.Checked = false;
+                //    chkBoxConProductos.Visible = true;
+                //    txtCategoriaProducto.Text = "Servicios";
+                //}
             }
         }
-
+        
         private void ocultarPanel()
         {
             if (Hided)  // Si su valor es True
@@ -5353,7 +5371,7 @@ namespace PuntoDeVentaV2
             if (DatosSourceFinal == 3)      // si el llamado de la ventana proviene del Archivo XML
             {
                 cbTipo.SelectedIndex = 0;
-                PCantidadPaqServ.Visible = false;
+                //PCantidadPaqServ.Visible = false;
                 fLPType.Visible = true;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 cargarDatos();
@@ -5411,7 +5429,7 @@ namespace PuntoDeVentaV2
             {
                 txtStockProducto.Enabled = true;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
-                PCantidadPaqServ.Visible = true;
+                //PCantidadPaqServ.Visible = true;
                 button1.Visible = true;
                 txtPrecioCompra.Enabled = true;
                 detalleProductoBasico.Clear();
@@ -5422,22 +5440,23 @@ namespace PuntoDeVentaV2
             {
                 txtStockProducto.Enabled = true;
                 cadAux = TituloForm.Substring(8);   // extraemos que tipo es (Producto, Paquete, Servicio)
-                PCantidadPaqServ.Visible = true;
+                //PCantidadPaqServ.Visible = true;
                 button1.Visible = true;
                 txtPrecioCompra.Enabled = true;
                 detalleProductoBasico.Clear();
                 detalleProductoGeneral.Clear();
                 VerificarDatosDeDetalleProducto();
             }
-
+            
             if (cadAux == "Producto")           // si es un Producto
             {
+                agregarProducto();
                 if (!ProdNombre.Equals(""))
                 {
                     cargarDatos();
                     ocultarPanel();
                     //cargarCBProductos();
-                    PStock.Visible = true;
+                    //PStock.Visible = true;
                     txtCantPaqServ.Visible = false;
                     lblCantPaqServ.Text = "Relacionar con \nPaquete/Servicio";
                     button1.Text = "Combo/Servicio";
@@ -5456,7 +5475,7 @@ namespace PuntoDeVentaV2
                     cbTipo.Text = "Producto";
                     btnAdd.Visible = false;
                     ocultarPanel();
-                    PStock.Visible = true;
+                    //PStock.Visible = true;
                     txtCantPaqServ.Visible = false;
                     lblCantPaqServ.Text = "Relacionar con \nCombo/Servicio";
                     button1.Text = "Combo/Servicio";
@@ -5483,12 +5502,13 @@ namespace PuntoDeVentaV2
             }
             else if (cadAux == "Combo")       // si es un Paquete
             {
+                agregarCombo();
                 if (!ProdNombre.Equals(""))
                 {
                     cargarDatos();
                     ocultarPanel();
                     cargarCBProductos(idEditarProducto);
-                    PStock.Visible = false;
+                    //PStock.Visible = false;
                     txtCantPaqServ.Visible = true;
                     lblCantPaqServ.Text = "Cantidad por combo";
                     button1.Text = "Productos";
@@ -5500,7 +5520,7 @@ namespace PuntoDeVentaV2
                     cbTipo.Text = "Producto";
                     btnAdd.Visible = false;
                     ocultarPanel();
-                    PStock.Visible = false;
+                    //PStock.Visible = false;
                     txtCantPaqServ.Visible = true;
                     lblCantPaqServ.Text = "Cantidad por combo";
                     button1.Text = "Productos";
@@ -5527,12 +5547,13 @@ namespace PuntoDeVentaV2
             }
             else if (cadAux == "Servicio")      // si es un Servicio
             {
+                agregarServicio();
                 if (!ProdNombre.Equals(""))
                 {
                     cargarDatos();
                     ocultarPanel();
                     cargarCBProductos(idEditarProducto);
-                    PStock.Visible = false;
+                    //PStock.Visible = false;
                     txtCantPaqServ.Visible = true;
                     lblCantPaqServ.Text = "Cantidad por servicio";
                     button1.Text = "Productos";
@@ -5544,7 +5565,7 @@ namespace PuntoDeVentaV2
                     cbTipo.Text = "Producto";
                     btnAdd.Visible = false;
                     ocultarPanel();
-                    PStock.Visible = false;
+                    //PStock.Visible = false;
                     txtCantPaqServ.Visible = true;
                     lblCantPaqServ.Text = "Cantidad por servicio";
                     button1.Text = "Productos";
@@ -5575,9 +5596,145 @@ namespace PuntoDeVentaV2
             if (config.Count > 0)
             {
                 porcentajeGanancia = float.Parse(config[8].ToString());
-                panelMayoreo.Visible = Convert.ToBoolean(config[9]);
+                //panelMayoreo.Visible = Convert.ToBoolean(config[9]);
             }
             tituloSeccion.Text = tituloSeccion.Text.ToUpper();
+        }
+
+        private void agregarProducto()
+        {
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.ColumnCount = 0;
+            tableLayoutPanel1.ColumnStyles.Clear();
+            tableLayoutPanel1.RowCount = 0;
+            tableLayoutPanel1.RowStyles.Clear();
+
+            for (int i = 0; i <= 5; i++)
+            {
+                tableLayoutPanel1.ColumnCount++;
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134.16F));
+            }
+
+            for (int i = 0; i <= 6; i++)
+            {
+                tableLayoutPanel1.RowCount++;
+                tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 40.83F));
+            }
+
+            // Primera Fila del TableLayoutPanel
+            label1.Visible = true;
+            label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtStockMinimo.Visible = true;
+            txtStockMinimo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label12.Visible = true;
+            label12.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label12.TextAlign = ContentAlignment.MiddleCenter;
+            txtStockMaximo.Visible = true;
+            txtStockMaximo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label6.Visible = true;
+            label6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            txtStockProducto.Visible = true;
+            txtStockProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);               // Stock Minimo Label
+            tableLayoutPanel1.Controls.Add(txtStockMinimo, 1, 0);       // Stock Minimo TextBox
+            tableLayoutPanel1.Controls.Add(label12, 2, 0);              // Stock Maximo Label
+            tableLayoutPanel1.Controls.Add(txtStockMaximo, 3, 0);       // Stock Maximo TextBox
+            tableLayoutPanel1.Controls.Add(label6, 4, 0);               // Stock Label
+            tableLayoutPanel1.Controls.Add(txtStockProducto, 5, 0);     // Stock TextBox
+
+            // Segunda Fila del TableLayoutPanel
+
+            label7.Visible = true;
+            label7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtPrecioCompra.Visible = true;
+            txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label4.Visible = true;
+            label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            txtPrecioProducto.Visible = true;
+            txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label5.Visible = true;
+            label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            txtClaveProducto.Visible = true;
+            txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            tableLayoutPanel1.Controls.Add(label7, 0, 1);               // Precio Compra Label
+            tableLayoutPanel1.Controls.Add(txtPrecioCompra, 1, 1);      // Precio Compra TextBox
+            tableLayoutPanel1.Controls.Add(label4, 2, 1);               // Precio Venta Label
+            tableLayoutPanel1.Controls.Add(txtPrecioProducto, 3, 1);    // Precio Venta TextBox
+            tableLayoutPanel1.Controls.Add(label5, 4, 1);               // Clave Interna Label
+            tableLayoutPanel1.Controls.Add(txtClaveProducto, 5, 1);     // Clave Interna TextBox
+
+            // Tercera Fila del TableLayoutPanel
+
+            label2.Visible = true;
+            label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtCodigoBarras.Visible = true;
+            txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            btnGenerarCB.Visible = true;
+            btnGenerarCB.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            PImagen.Visible = true;
+
+            tableLayoutPanel1.Controls.Add(label2, 0, 2);               // Código de Barras Label
+            tableLayoutPanel1.Controls.Add(txtCodigoBarras, 1, 2);      // Código de Barras TextBox
+            tableLayoutPanel1.Controls.Add(btnGenerarCB, 2, 2);         // Generar Button
+            tableLayoutPanel1.Controls.Add(PImagen, 3, 2);              // Cuadro para agregar Imagen Panel
+            tableLayoutPanel1.SetRowSpan(PImagen, 4);                   // Filas hacia abajo
+            tableLayoutPanel1.SetColumnSpan(PImagen, 3);                // Columnas hacia derecha
+
+            // Cuarta Fila del TableLayoutPanel
+
+            panelContenedor.Visible = true;
+            panelContenedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            tableLayoutPanel1.Controls.Add(panelContenedor, 1, 3);
+            tableLayoutPanel1.SetColumnSpan(panelContenedor, 2);
+            tableLayoutPanel1.SetRowSpan(panelContenedor, 2);
+
+            // Sexta Fila del TableLayoutPanel
+
+            lblCantPaqServ.Visible = true;
+            lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            button1.Visible = true;
+            button1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            tableLayoutPanel1.Controls.Add(lblCantPaqServ, 4, 6);       // Relacionar Combo/Servicio Label9
+            tableLayoutPanel1.Controls.Add(button1, 5, 6);              // Combo / Servicio Button2
+        }
+
+        private void agregarCombo()
+        {
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.ColumnCount = 0;
+            tableLayoutPanel1.ColumnStyles.Clear();
+            tableLayoutPanel1.RowCount = 0;
+            tableLayoutPanel1.RowStyles.Clear();
+
+            for (int i = 0; i < 5; i++)
+            {
+                tableLayoutPanel1.ColumnCount++;
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                tableLayoutPanel1.RowCount++;
+                tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66F));
+            }
+
+
+        }
+
+        private void agregarServicio()
+        {
+            tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.ColumnCount = 0;
+            tableLayoutPanel1.ColumnStyles.Clear();
+            tableLayoutPanel1.RowCount = 0;
+            tableLayoutPanel1.RowStyles.Clear();
         }
 
         private void mostrarOcultarfLPDetallesProducto()
