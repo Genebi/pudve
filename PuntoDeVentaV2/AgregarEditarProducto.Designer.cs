@@ -52,11 +52,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.txtStockMaximo = new System.Windows.Forms.TextBox();
             this.txtStockMinimo = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.Button();
             this.PTypeAndCantProd = new System.Windows.Forms.Panel();
             this.chkBoxConProductos = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -76,6 +76,7 @@
             this.PConteidoProducto = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.PDetalle = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.PAccion = new System.Windows.Forms.Panel();
             this.btnProdUpdate = new System.Windows.Forms.Button();
             this.Ptitulo = new System.Windows.Forms.Panel();
@@ -89,7 +90,6 @@
             this.fLPDetallesProducto = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -385,6 +385,16 @@
             this.PDetalleProdcuto.Size = new System.Drawing.Size(868, 50);
             this.PDetalleProdcuto.TabIndex = 0;
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(840, 16);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(26, 25);
+            this.btnAdd.TabIndex = 29;
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // txtStockMaximo
             // 
             this.txtStockMaximo.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Bold);
@@ -436,16 +446,6 @@
             this.label1.TabIndex = 30;
             this.label1.Text = "Stock Minimo:";
             this.label1.Visible = false;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(840, 16);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(26, 25);
-            this.btnAdd.TabIndex = 29;
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // PTypeAndCantProd
             // 
@@ -689,6 +689,18 @@
             this.PDetalle.Size = new System.Drawing.Size(838, 287);
             this.PDetalle.TabIndex = 2;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(805, 281);
+            this.tableLayoutPanel1.TabIndex = 23;
+            this.tableLayoutPanel1.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
+            // 
             // PAccion
             // 
             this.PAccion.Controls.Add(this.btnProdUpdate);
@@ -821,19 +833,6 @@
             // 
             this.errorProvAgregarEditarProducto.ContainerControl = this;
             this.errorProvAgregarEditarProducto.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvAgregarEditarProducto.Icon")));
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(20, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(805, 281);
-            this.tableLayoutPanel1.TabIndex = 23;
-            this.tableLayoutPanel1.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
             // 
             // AgregarEditarProducto
             // 

@@ -5622,6 +5622,7 @@ namespace PuntoDeVentaV2
             }
 
             // Primera Fila del TableLayoutPanel
+
             label1.Visible = true;
             label1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtStockMinimo.Visible = true;
@@ -5725,7 +5726,68 @@ namespace PuntoDeVentaV2
                 tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66F));
             }
 
+            // Primera Fila del TableLayoutPanel
 
+            label7.Visible = true;
+            label7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtPrecioCompra.Visible = true;
+            txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label4.Visible = true;
+            label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            txtPrecioProducto.Visible = true;
+            txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            tableLayoutPanel1.Controls.Add(label7, 0, 0);               // Precio Compra Label
+            tableLayoutPanel1.Controls.Add(txtPrecioCompra, 1, 0);      // Precio Compra TextBox
+            tableLayoutPanel1.Controls.Add(label4, 2, 0);               // Precio Venta Label
+            tableLayoutPanel1.Controls.Add(txtPrecioProducto, 3, 0);    // Precio Venta TextBox
+
+            // Segunda Fila del TableLayoutPanel
+
+            label5.Visible = true;
+            label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtClaveProducto.Visible = true;
+            txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label2.Visible = true;
+            label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            txtCodigoBarras.Visible = true;
+            txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            btnGenerarCB.Visible = true;
+            btnGenerarCB.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            tableLayoutPanel1.Controls.Add(label5, 0, 1);               // Clave Interna Label
+            tableLayoutPanel1.Controls.Add(txtClaveProducto, 1, 1);     // Clave Interna TextBox
+            tableLayoutPanel1.Controls.Add(label2, 2, 1);               // Código de Barras Label
+            tableLayoutPanel1.Controls.Add(txtCodigoBarras, 3, 1);      // Código de Barras TextBox
+            tableLayoutPanel1.Controls.Add(btnGenerarCB, 4, 1);         // Código de Barras Button
+
+            // Tercera Fila del TableLayoutPanel
+
+            lblCantPaqServ.Visible = true;
+            lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
+            txtCantPaqServ.Visible = true;
+            txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            button1.Visible = true;
+            button1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panelContenedor.Visible = true;
+
+            tableLayoutPanel1.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
+            tableLayoutPanel1.Controls.Add(txtCantPaqServ, 1, 2);       // Clave Interna TextBox
+            tableLayoutPanel1.Controls.Add(button1, 2, 2);              // Código de Barras Label
+            tableLayoutPanel1.Controls.Add(panelContenedor, 3, 2);      // Código de Barras TextBox
+            tableLayoutPanel1.SetColumnSpan(panelContenedor, 2);
+            tableLayoutPanel1.SetRowSpan(panelContenedor, 2);
+
+            // Cuarta Fila del TableLayoutPanel
+
+            PImagen.Visible = true;
+
+            tableLayoutPanel1.Controls.Add(PImagen, 0, 3);              // Imagen del Producto Panel
+            tableLayoutPanel1.SetColumnSpan(PImagen, 2);
+            tableLayoutPanel1.SetRowSpan(PImagen, 4);
         }
 
         private void agregarServicio()
@@ -5735,6 +5797,81 @@ namespace PuntoDeVentaV2
             tableLayoutPanel1.ColumnStyles.Clear();
             tableLayoutPanel1.RowCount = 0;
             tableLayoutPanel1.RowStyles.Clear();
+
+            for (int i = 0; i < 5; i++)
+            {
+                tableLayoutPanel1.ColumnCount++;
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                tableLayoutPanel1.RowCount++;
+                tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 16.66F));
+            }
+
+            // Primera Fila del TableLayoutPanel
+
+            label7.Visible = true;
+            label7.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtPrecioCompra.Visible = true;
+            txtPrecioCompra.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label4.Visible = true;
+            label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            txtPrecioProducto.Visible = true;
+            txtPrecioProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            tableLayoutPanel1.Controls.Add(label7, 0, 0);               // Precio Compra Label
+            tableLayoutPanel1.Controls.Add(txtPrecioCompra, 1, 0);      // Precio Compra TextBox
+            tableLayoutPanel1.Controls.Add(label4, 2, 0);               // Precio Venta Label
+            tableLayoutPanel1.Controls.Add(txtPrecioProducto, 3, 0);    // Precio Venta TextBox
+
+            // Segunda Fila del TableLayoutPanel
+
+            label5.Visible = true;
+            label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtClaveProducto.Visible = true;
+            txtClaveProducto.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label2.Visible = true;
+            label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            txtCodigoBarras.Visible = true;
+            txtCodigoBarras.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            btnGenerarCB.Visible = true;
+            btnGenerarCB.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            tableLayoutPanel1.Controls.Add(label5, 0, 1);               // Clave Interna Label
+            tableLayoutPanel1.Controls.Add(txtClaveProducto, 1, 1);     // Clave Interna TextBox
+            tableLayoutPanel1.Controls.Add(label2, 2, 1);               // Código de Barras Label
+            tableLayoutPanel1.Controls.Add(txtCodigoBarras, 3, 1);      // Código de Barras TextBox
+            tableLayoutPanel1.Controls.Add(btnGenerarCB, 4, 1);         // Código de Barras Button
+
+            // Tercera Fila del TableLayoutPanel
+
+            lblCantPaqServ.Visible = true;
+            lblCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
+            txtCantPaqServ.Visible = true;
+            txtCantPaqServ.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            button1.Visible = true;
+            button1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panelContenedor.Visible = true;
+
+            tableLayoutPanel1.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
+            tableLayoutPanel1.Controls.Add(txtCantPaqServ, 1, 2);       // Clave Interna TextBox
+            tableLayoutPanel1.Controls.Add(button1, 2, 2);              // Código de Barras Label
+            tableLayoutPanel1.Controls.Add(panelContenedor, 3, 2);      // Código de Barras TextBox
+            tableLayoutPanel1.SetColumnSpan(panelContenedor, 2);
+            tableLayoutPanel1.SetRowSpan(panelContenedor, 2);
+
+            // Cuarta Fila del TableLayoutPanel
+
+            PImagen.Visible = true;
+
+            tableLayoutPanel1.Controls.Add(PImagen, 0, 3);              // Imagen del Producto Panel
+            tableLayoutPanel1.SetColumnSpan(PImagen, 2);
+            tableLayoutPanel1.SetRowSpan(PImagen, 4);
         }
 
         private void mostrarOcultarfLPDetallesProducto()
