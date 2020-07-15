@@ -589,6 +589,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.pictureBoxProducto);
             this.groupBox1.Controls.Add(this.btnImagenes);
             this.groupBox1.Location = new System.Drawing.Point(5, 0);
@@ -602,6 +605,7 @@
             // 
             // pictureBoxProducto
             // 
+            this.pictureBoxProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBoxProducto.Location = new System.Drawing.Point(39, 17);
             this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBoxProducto.Name = "pictureBoxProducto";
@@ -612,6 +616,8 @@
             // 
             // btnImagenes
             // 
+            this.btnImagenes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImagenes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImagenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImagenes.Location = new System.Drawing.Point(7, 104);

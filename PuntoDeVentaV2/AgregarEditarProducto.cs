@@ -2090,12 +2090,23 @@ namespace PuntoDeVentaV2
             panelHijo.Name = "panelGenerado" + id;
             panelHijo.Height = 25;
             panelHijo.Width = 200;
+            //panelHijo.BackColor = Color.AliceBlue;
+            //panelHijo.Location = new Point(0, 0);
             panelHijo.HorizontalScroll.Visible = false;
 
             TextBox tb = new TextBox();
             tb.Name = "textboxGenerado" + id;
-            tb.Width = 165;
+            if (this.Text.Equals("Productos"))
+            {
+                tb.Width = 122;
+            }
+            else
+            {
+                tb.Width = 160;
+            }
             tb.Height = 20;
+            //tb.BackColor = Color.Red;
+            //tb.Location = new Point(0, 0);
             tb.Enter += new EventHandler(TextBox_Enter);
             tb.KeyDown += new KeyEventHandler(TextBox_Keydown);
 
@@ -5678,18 +5689,20 @@ namespace PuntoDeVentaV2
             btnGenerarCB.Visible = true;
             btnGenerarCB.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             PImagen.Visible = true;
+            PImagen.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
             tableLayoutPanel1.Controls.Add(label2, 0, 2);               // Código de Barras Label
             tableLayoutPanel1.Controls.Add(txtCodigoBarras, 1, 2);      // Código de Barras TextBox
             tableLayoutPanel1.Controls.Add(btnGenerarCB, 2, 2);         // Generar Button
-            tableLayoutPanel1.Controls.Add(PImagen, 3, 2);              // Cuadro para agregar Imagen Panel
+            tableLayoutPanel1.Controls.Add(PImagen, 4, 2);              // Cuadro para agregar Imagen Panel
             tableLayoutPanel1.SetRowSpan(PImagen, 4);                   // Filas hacia abajo
-            tableLayoutPanel1.SetColumnSpan(PImagen, 3);                // Columnas hacia derecha
+            tableLayoutPanel1.SetColumnSpan(PImagen, 2);                // Columnas hacia derecha
 
             // Cuarta Fila del TableLayoutPanel
 
             panelContenedor.Visible = true;
-            panelContenedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            panelContenedor.Anchor = AnchorStyles.Left;
+
 
             tableLayoutPanel1.Controls.Add(panelContenedor, 1, 3);
             tableLayoutPanel1.SetColumnSpan(panelContenedor, 2);
@@ -5774,10 +5787,10 @@ namespace PuntoDeVentaV2
             button1.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             panelContenedor.Visible = true;
 
-            tableLayoutPanel1.Controls.Add(lblCantPaqServ, 0, 2);       // Clave Interna Label
-            tableLayoutPanel1.Controls.Add(txtCantPaqServ, 1, 2);       // Clave Interna TextBox
-            tableLayoutPanel1.Controls.Add(button1, 2, 2);              // Código de Barras Label
-            tableLayoutPanel1.Controls.Add(panelContenedor, 3, 2);      // Código de Barras TextBox
+            tableLayoutPanel1.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
+            tableLayoutPanel1.Controls.Add(txtCantPaqServ, 1, 2);       // Relacionar con Combo/Servicio TextBox
+            tableLayoutPanel1.Controls.Add(button1, 2, 2);              // Combo/Servicio Button
+            tableLayoutPanel1.Controls.Add(panelContenedor, 3, 2);      // Contenedor de Código Barras extra Panel
             tableLayoutPanel1.SetColumnSpan(panelContenedor, 2);
             tableLayoutPanel1.SetRowSpan(panelContenedor, 2);
 
