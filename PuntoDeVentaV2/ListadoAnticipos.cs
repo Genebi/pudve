@@ -18,9 +18,17 @@ namespace PuntoDeVentaV2
 
         string[] anticipos = new string[] { };
 
-        public ListadoAnticipos()
+        int numeroProductos = 0;
+
+        public ListadoAnticipos(int numeroProductos)
         {
             InitializeComponent();
+
+            this.numeroProductos = numeroProductos;
+        }
+
+        private void ListadoAnticipos_Load(object sender, EventArgs e)
+        {
             CargarDatos();
         }
 
@@ -102,11 +110,18 @@ namespace PuntoDeVentaV2
                 //Si el anticipo no ha sido aplicado se hace la operacion normalmente
                 if (seleccionado < 0)
                 {
-                    Ventas.listaAnticipos += idAnticipo + "-";
+                    if (numeroProductos > 0)
+                    {
+                        Ventas.listaAnticipos += idAnticipo + "-";
 
-                    Ventas.importeAnticipo = float.Parse(DGVListaAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
+                        Ventas.importeAnticipo = float.Parse(DGVListaAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
 
-                    this.Close();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede aplicar un anticipo a la venta\nya que no hay productos agregados", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
 

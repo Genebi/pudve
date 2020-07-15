@@ -1355,7 +1355,15 @@ namespace PuntoDeVentaV2
 
             if (totalImporte > 0)
             {
-                totalImporte -= totalAnticipos;
+                //totalImporte -= totalAnticipos;
+                totalImporte = Math.Abs(totalImporte - totalAnticipos);
+
+                if (totalAnticipos > totalImporte)
+                {
+                    var diferencia = totalAnticipos - totalImporte;
+
+                    cAnticipoUtilizado.Text = diferencia.ToString("0.00");
+                }
             }
 
             cIVA.Text = totalIVA16.ToString("0.00");
@@ -1366,12 +1374,16 @@ namespace PuntoDeVentaV2
             if (totalAnticipos > 0)
             {
                 lbAnticipo.Visible = true;
+                lbAnticipoUtilizado.Visible = true;
                 cAnticipo.Visible = true;
+                cAnticipoUtilizado.Visible = true;
             }
             else
             {
                 lbAnticipo.Visible = false;
+                lbAnticipoUtilizado.Visible = false;
                 cAnticipo.Visible = false;
+                cAnticipoUtilizado.Visible = false;
             }
 
             if (totalDescuento > 0)
@@ -2611,7 +2623,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                ListadoAnticipos anticipo = new ListadoAnticipos();
+                ListadoAnticipos anticipo = new ListadoAnticipos(DGVentas.Rows.Count);
 
                 anticipo.FormClosed += delegate
                 {
@@ -3500,25 +3512,14 @@ namespace PuntoDeVentaV2
 
         private void Ventas_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 27)//ESC
-            {
-                // btnCancelarVenta.PerformClick();
-                //MessageBox.Show("ESC");
-            }
-
-            if (Char.IsDigit(e.KeyChar))
+            if (char.IsDigit(e.KeyChar))
             {
                 e.Handled = false;
             }
-            else if(Char.IsControl(e.KeyChar))
+            else if (char.IsControl(e.KeyChar))
             {
                 e.Handled = false;
             }
-            
-        }
-
-        private void Ventas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
             
         }
 
@@ -3559,6 +3560,11 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
             
+        }
+
+        private void Ventas_Shown(object sender, EventArgs e)
+        {
+            txtBuscadorProducto.Focus();
         }
 
         private void CuerpoEmails()
