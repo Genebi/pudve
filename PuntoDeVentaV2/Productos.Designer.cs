@@ -64,6 +64,7 @@
             this.panelShowPhotoView = new System.Windows.Forms.Panel();
             this.fLPShowPhoto = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lAtajo = new System.Windows.Forms.Label();
             this.btnCambiarTipo = new System.Windows.Forms.Button();
             this.btnPedido = new System.Windows.Forms.Button();
             this.btnCleanFilter = new System.Windows.Forms.Button();
@@ -103,6 +104,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelShowDGVProductosView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panelShowPhotoView.SuspendLayout();
@@ -170,6 +172,7 @@
             this.txtBusqueda.Size = new System.Drawing.Size(755, 23);
             this.txtBusqueda.TabIndex = 5;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBusqueda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyDown);
             this.txtBusqueda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBusqueda_KeyPress);
             // 
             // cbOrden
@@ -466,6 +469,7 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.lAtajo);
             this.panel1.Controls.Add(this.btnCambiarTipo);
             this.panel1.Controls.Add(this.btnPedido);
             this.panel1.Controls.Add(this.btnCleanFilter);
@@ -489,6 +493,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(942, 215);
             this.panel1.TabIndex = 15;
+            // 
+            // lAtajo
+            // 
+            this.lAtajo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lAtajo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lAtajo.Location = new System.Drawing.Point(839, 7);
+            this.lAtajo.Name = "lAtajo";
+            this.lAtajo.Size = new System.Drawing.Size(100, 23);
+            this.lAtajo.TabIndex = 24;
+            this.lAtajo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lAtajo.Visible = false;
             // 
             // btnCambiarTipo
             // 
@@ -1036,6 +1051,11 @@
             this.label1.Text = "Total de productos \r\nregistrados :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Productos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1049,6 +1069,7 @@
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Productos_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Productos_KeyDown);
             this.Resize += new System.EventHandler(this.Productos_Resize);
             this.panelShowDGVProductosView.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).EndInit();
@@ -1142,5 +1163,7 @@
         private System.Windows.Forms.Button btnCambiarTipo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtIrPagina;
+        private System.Windows.Forms.Label lAtajo;
+        private System.Windows.Forms.Timer timer1;
     }
 }
