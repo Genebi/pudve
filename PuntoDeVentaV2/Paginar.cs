@@ -184,7 +184,14 @@ namespace PuntoDeVentaV2
                 else if (num_pagina.Equals(_ultimaPagina))
                 {
                     this._numeroPagina = _ultimaPagina;             // Asignamos _numeroPagina lo que tiene _ultimaPagina
-                    this._inicio = (_ultimaPagina - 1) * _tope;     // Asignamos a _inicio lo que resulte (_ultimaPagina-1)*_tope
+                    if (_ultimaPagina > 2)
+                    {
+                        this._inicio = (_ultimaPagina - 1) * _tope;     // Asignamos a _inicio lo que resulte (_ultimaPagina-1)*_tope
+                    }
+                    else if (_ultimaPagina <= 2)
+                    {
+                        this._inicio = _tope;     // Asignamos a _inicio lo que resulte (_ultimaPagina-1)*_tope
+                    }
                 }
                 else
                 {
