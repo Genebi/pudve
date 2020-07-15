@@ -9,7 +9,6 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace PuntoDeVentaV2
 {
     public partial class Productos : Form
@@ -983,6 +982,14 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            ///////////////////////////////////////////////
+            ////if (DGVProductos.SelectedRows.Count == 0)
+            ////{
+
+            ////}
+                
+                  
         }
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
@@ -2262,6 +2269,82 @@ namespace PuntoDeVentaV2
                 e.CellStyle.SelectionBackColor = e.CellStyle.BackColor;
                 e.CellStyle.SelectionForeColor = e.CellStyle.ForeColor;
             }
+        }
+
+        private void Productos_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+            if (e.KeyCode == Keys.F2)//Editar
+            {
+                //if (DGVProductos.SelectedRows.Count == 0)
+                //{
+                //}
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F2";
+            }
+            
+        }
+        //Atajos para el DataGridView
+        private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)//Editar
+            {
+                var selected = DGVProductos.SelectedCells[7];
+
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F2";
+            }
+            else if (e.KeyCode==Keys.H && (e.Alt))//Historial
+            {
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + H";
+            }
+            else if (e.KeyCode==Keys.G && (e.Alt))//Generar Codigo de Barras
+            {
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + G";
+            }
+            else if(e.KeyCode==Keys.I && (e.Alt))//Imagen
+            {
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + I";
+            }
+            else if (e.KeyCode==Keys.E && (e.Alt))//Etiqueta
+            {
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + E";
+            }
+            else if (e.KeyCode==Keys.F3)//Ajustar
+            {
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F3";
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            int conteo = 0;
+            conteo++;
+            
+            if (conteo == 1)
+            {
+                lAtajo.Visible = false;
+                timer1.Enabled = false;
+            }
+            conteo = 0;
         }
 
         private void DGVProductos_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -4448,7 +4531,8 @@ namespace PuntoDeVentaV2
 
         private void quitarEspacioEnBlanco()
         {
-            txtBusqueda.Text = txtBusqueda.Text.TrimEnd();
+            //txtBusqueda.Text = txtBusqueda.Text.TrimEnd();
+            txtBusqueda.Text = txtBusqueda.Text.Trim();
             txtBusqueda.Select(txtBusqueda.Text.Length, 0);
         }
 

@@ -34,7 +34,7 @@ namespace PuntoDeVentaV2
             }
 
         }
-
+        //Bloquear las teclas de dirección
         private void control_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode==Keys.Up || e.KeyCode==Keys.Down || e.KeyCode==Keys.Left || e.KeyCode==Keys.Right)
@@ -392,7 +392,7 @@ namespace PuntoDeVentaV2
             }
             this.lvista.Text = a.ToString() + c;
         }
-
+        
         private void btnRestar_Click(object sender, EventArgs e)
         {
             c = "-";
@@ -488,7 +488,7 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-        //TextBox
+       
         private void tbCalculadora_KeyPress(object sender, KeyPressEventArgs e)
         {
             //No escribir letras
@@ -616,25 +616,7 @@ namespace PuntoDeVentaV2
             {
                 btnC.PerformClick();
             }
-            else if (e.KeyChar == 30)
-            {
-                /// e.Handled = true;
-                MessageBox.Show("Arriba Press");
-            }
-            
-            //else if (e.KeyChar == 38)
-            //{
-            //    e.Handled = true;
-            //}
-            //else if (e.KeyChar == 39)
-            //{
-            //    e.Handled = true;
-            //}
-            //else if (e.KeyChar == 40)
-            //{
-            //    e.Handled = true;
-            //}
-
+   
         }
 
         private void calculadora_KeyDown(object sender, KeyEventArgs e)
@@ -643,17 +625,6 @@ namespace PuntoDeVentaV2
             {
                 btnC.PerformClick();
             } 
-        }
-
-        private void calculadora_KeyUp(object sender, KeyEventArgs e)
-        {
-           
-            
-        }
-
-        private void calculadora_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
-        {
-            
         }
 
         private void btnEnviar_Click(object sender, EventArgs e)
