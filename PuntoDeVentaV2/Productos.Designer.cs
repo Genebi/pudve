@@ -498,7 +498,7 @@
             // 
             this.lAtajo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lAtajo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lAtajo.Location = new System.Drawing.Point(839, 7);
+            this.lAtajo.Location = new System.Drawing.Point(839, 3);
             this.lAtajo.Name = "lAtajo";
             this.lAtajo.Size = new System.Drawing.Size(100, 23);
             this.lAtajo.TabIndex = 24;
@@ -1092,7 +1092,6 @@
         private System.Windows.Forms.Button btnAgregarProducto;
         private System.Windows.Forms.Label tituloSeccion;
         private System.Windows.Forms.Label tituloBusqueda;
-        private System.Windows.Forms.TextBox txtBusqueda;
         private System.Windows.Forms.ComboBox cbOrden;
         private System.Windows.Forms.ComboBox cbMostrar;
         private System.Windows.Forms.Button btnAgregarXML;
@@ -1165,5 +1164,6 @@
         private System.Windows.Forms.TextBox txtIrPagina;
         private System.Windows.Forms.Label lAtajo;
         private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.TextBox txtBusqueda;
     }
 }

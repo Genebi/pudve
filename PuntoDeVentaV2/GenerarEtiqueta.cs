@@ -397,5 +397,10 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Error al generar código de barras para la etiqueta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void GenerarEtiqueta_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
     }
 }

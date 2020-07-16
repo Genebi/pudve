@@ -572,6 +572,7 @@ namespace PuntoDeVentaV2
                     photoShow();
                 }
             }
+            txtBusqueda.Focus();
         }
 
         // Metodo creado para manejo de mostrar ventana
@@ -612,6 +613,7 @@ namespace PuntoDeVentaV2
                 panelShowPhotoView.Visible = true;
                 searchPhotoProd();
                 photoShow();
+                txtBusqueda.Focus();
             }
             else if (panelShowPhotoView.Visible == true || panelShowPhotoView.Visible == false)
             {
@@ -620,6 +622,7 @@ namespace PuntoDeVentaV2
                 panelShowPhotoView.Visible = true;
                 searchPhotoProd();
                 photoShow();
+                txtBusqueda.Focus();
             }
         }
 
@@ -637,6 +640,7 @@ namespace PuntoDeVentaV2
                 panelShowDGVProductosView.Visible = true;
                 panel2.Visible = true;
                 searchToProdGral();
+                txtBusqueda.Focus();
             }
             else if (panelShowPhotoView.Visible == true || panelShowPhotoView.Visible == false)
             {
@@ -644,6 +648,7 @@ namespace PuntoDeVentaV2
                 panelShowDGVProductosView.Visible = true;
                 panel2.Visible = true;
                 searchToProdGral();
+                txtBusqueda.Focus();
             }
             actualizarDatosDespuesDeAgregarProducto();
         }
@@ -1080,6 +1085,7 @@ namespace PuntoDeVentaV2
                 clickBoton = 1;
                 CargarDatos();
                 actualizar();
+                txtBusqueda.Focus();
             }
 
             if (estado == 1)
@@ -1089,6 +1095,7 @@ namespace PuntoDeVentaV2
                 clickBoton = 1;
                 CargarDatos();
                 actualizar();
+                txtBusqueda.Focus();
             }
 
             CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
@@ -1170,6 +1177,7 @@ namespace PuntoDeVentaV2
             }
 
             recargarBusqueda();
+            txtBusqueda.Focus();
         }
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
@@ -1446,7 +1454,14 @@ namespace PuntoDeVentaV2
                 var opciones = new OpcionesReporteProducto();
 
                 opciones.Show();
+
+                opciones.FormClosed += delegate
+                {
+                    txtBusqueda.Focus(); 
+                };
             }
+
+            
         }
 
         private void AddPageNumber()
@@ -2196,10 +2211,12 @@ namespace PuntoDeVentaV2
             else if (contador > 1)
             {
                 MessageBox.Show("No se puede cambiar el tipo de 2\nelementos o más al mismo tiempo", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBusqueda.Focus();
             }
             else
             {
                 MessageBox.Show("Seleccione un elemento para activar esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBusqueda.Focus();
             }
         }
 
@@ -2271,6 +2288,8 @@ namespace PuntoDeVentaV2
             }
         }
 
+       
+
         private void Productos_KeyDown(object sender, KeyEventArgs e)
         {
             
@@ -2285,34 +2304,44 @@ namespace PuntoDeVentaV2
             }
             
         }
-        //Atajos para el DataGridView
+        //Atajos para el DataGridView y Botones
         private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F2)//Editar
             {
-                var selected = DGVProductos.SelectedCells[7];
-
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
 
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "F2";
             }
+            else if (e.KeyCode==Keys.D && (e.Alt))//Estado
+            {
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + D";
+            }
             else if (e.KeyCode==Keys.H && (e.Alt))//Historial
             {
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(9, 0));
 
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Alt + H";
             }
-            else if (e.KeyCode==Keys.G && (e.Alt))//Generar Codigo de Barras
+            else if(e.KeyCode==Keys.G && (e.Alt))//Generar codigo de barras
             {
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(10, 0));
 
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Alt + G";
             }
-            else if(e.KeyCode==Keys.I && (e.Alt))//Imagen
+            else if (e.KeyCode==Keys.I && (e.Alt))//Imagen
             {
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(11, 0));
 
                 timer1.Start();
                 lAtajo.Visible = true;
@@ -2320,6 +2349,7 @@ namespace PuntoDeVentaV2
             }
             else if (e.KeyCode==Keys.E && (e.Alt))//Etiqueta
             {
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(12, 0));
 
                 timer1.Start();
                 lAtajo.Visible = true;
@@ -2327,10 +2357,83 @@ namespace PuntoDeVentaV2
             }
             else if (e.KeyCode==Keys.F3)//Ajustar
             {
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(15, 0));
 
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "F3";
+            }
+            else if (e.KeyCode==Keys.N && (e.Control))//Agregar Producto
+            {
+                btnAgregarProducto.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + N";
+            }
+            else if (e.KeyCode==Keys.C && (e.Alt))//Agregar Combo
+            {
+                btnAgregarPaquete.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + C";
+            }
+            else if (e.KeyCode==Keys.S && (e.Control))//Agregar Servicio
+            {
+                btnAgregarServicio.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + S";
+            }
+            else if (e.KeyCode==Keys.F && (e.Control))//Filtro
+            {
+                btnFilterSearch.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + F";
+            }
+            else if (e.KeyCode==Keys.Escape)//Borrar
+            {
+                btnCleanFilter.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "ESC";
+            }
+            else if(e.KeyCode==Keys.X && (e.Control))//Agregar XML
+            {
+                btnAgregarXML.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + X";
+            }
+            else if (e.KeyCode==Keys.R && (e.Control))//Reporte
+            {
+                btnPedido.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + R";
+            }
+            else if (e.KeyCode==Keys.L && (e.Control))//Lista
+            {
+                btnListView.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + L";
+            }
+            else if(e.KeyCode==Keys.M && (e.Control))//Mosaico
+            {
+                btnPhotoView.PerformClick();
+
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + M";
             }
         }
 
@@ -3666,6 +3769,7 @@ namespace PuntoDeVentaV2
                 AgregarEditarProducto.stockNecesario = "0";
                 clickBoton = 0;
                 agregarEspacioAlFinal();
+                txtBusqueda.Focus();
             };
 
             if (!FormAgregar.Visible)
@@ -3836,6 +3940,7 @@ namespace PuntoDeVentaV2
             {
                 //actualizarDatosDespuesDeAgregarProducto();
                 linkLblPaginaActual_Click_1(sender, e);
+                txtBusqueda.Focus();
             };
 
             if (!FormAgregar.Visible)
@@ -3941,6 +4046,7 @@ namespace PuntoDeVentaV2
             {
                 //actualizarDatosDespuesDeAgregarProducto();
                 linkLblPaginaActual_Click_1(sender, e);
+                txtBusqueda.Focus();
             };
 
             if (!FormAgregar.Visible)
@@ -4258,6 +4364,7 @@ namespace PuntoDeVentaV2
             {
                 FormXML.OcultarPanelRegistro();
                 FormXML.ShowDialog();
+                txtBusqueda.Focus();
             }
             else
             {
@@ -4614,6 +4721,7 @@ namespace PuntoDeVentaV2
                                 row.Cells["CheckProducto"].Value = false;
                             }
                         }
+                        txtBusqueda.Focus();
                     };
 
                     am.Show();
@@ -4624,6 +4732,7 @@ namespace PuntoDeVentaV2
                 var mensaje = "Seleccione al menos un producto para habilitar esta opción";
 
                 MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBusqueda.Focus();
             }
         }
 
@@ -4655,11 +4764,14 @@ namespace PuntoDeVentaV2
                 using (var formImprimir = new ImprimirEtiqueta(lista))
                 {
                     var resultado = formImprimir.ShowDialog();
+                    txtBusqueda.Focus();
                 }
+                
             }
             else
             {
                 MessageBox.Show("Seleccione al menos un producto para habilitar esta opción", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtBusqueda.Focus();
             }
         }
 
@@ -4674,6 +4786,7 @@ namespace PuntoDeVentaV2
             GenerarEtiqueta ge = new GenerarEtiqueta();
 
             ge.ShowDialog();
+            txtBusqueda.Focus();
         }
 
         private void Productos_Resize(object sender, EventArgs e)
