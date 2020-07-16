@@ -421,6 +421,12 @@ namespace PuntoDeVentaV2
 
         private void btnFilterSearch_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + F";
+            ///
+
             if (opcion13 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -599,6 +605,12 @@ namespace PuntoDeVentaV2
 
         private void btnPhotoView_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + M";
+            ///
+
             if (opcion6 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -628,6 +640,12 @@ namespace PuntoDeVentaV2
 
         private void btnListView_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + L";
+            ///
+
             if (opcion4 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -674,37 +692,37 @@ namespace PuntoDeVentaV2
                     DGVProductos.Cursor = Cursors.Hand;
                     if (e.ColumnIndex == 7)
                     {
-                        textoTTipButtonMsg = "Editar el Producto";
+                        textoTTipButtonMsg = "Editar el Producto (F2)";
                         coordenadaX = 90;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 8)
                     {
-                        textoTTipButtonMsg = "Modificar estado del Producto";
+                        textoTTipButtonMsg = "Modificar estado del Producto (ALt + E)";
                         coordenadaX = 160;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 9)
                     {
-                        textoTTipButtonMsg = "Historial de Compra";
+                        textoTTipButtonMsg = "Historial de Compra (Alt + H)";
                         coordenadaX = 105;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 10)
                     {
-                        textoTTipButtonMsg = "Generar Código de Barras";
+                        textoTTipButtonMsg = "Generar Código de Barras (Alt + G)";
                         coordenadaX = 130;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 11)
                     {
-                        textoTTipButtonMsg = "Imagen del Producto";
+                        textoTTipButtonMsg = "Imagen del Producto (Alt + I)";
                         coordenadaX = 110;
                         coordenadaY = -200;
                     }
                     if (e.ColumnIndex == 12)
                     {
-                        textoTTipButtonMsg = "Generar Etiqueta de Producto";
+                        textoTTipButtonMsg = "Generar Etiqueta de Producto (Alt + E)";
                         coordenadaX = 155;
                         coordenadaY = -200;
                     }
@@ -999,6 +1017,12 @@ namespace PuntoDeVentaV2
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + D";
+            ///
+
             if (opcion2 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -1182,6 +1206,12 @@ namespace PuntoDeVentaV2
 
         private void btnCleanFilter_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "ESC";
+            ///
+
             if (opcion14 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -1439,6 +1469,12 @@ namespace PuntoDeVentaV2
 
         private void btnPedido_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + R";
+            ///
+
             if (opcion8 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -2167,6 +2203,12 @@ namespace PuntoDeVentaV2
 
         private void btnCambiarTipo_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + T";
+            ///
+
             if (opcion3 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -2288,152 +2330,350 @@ namespace PuntoDeVentaV2
             }
         }
 
-       
+
 
         private void Productos_KeyDown(object sender, KeyEventArgs e)
         {
-            
             if (e.KeyCode == Keys.F2)//Editar
             {
-                //if (DGVProductos.SelectedRows.Count == 0)
-                //{
-                //}
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "F2";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
             }
-            
+            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + D";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            }
+            else if (e.KeyCode == Keys.H && (e.Alt))//Historial
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + H";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(9, 0));
+            }
+            else if (e.KeyCode == Keys.G && (e.Alt))//Generar codigo de barras
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + G";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(10, 0));
+            }
+            else if (e.KeyCode == Keys.I && (e.Alt))//Imagen
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + I";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(11, 0));
+            }
+            else if (e.KeyCode == Keys.E && (e.Alt))//Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + E";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(12, 0));
+            }
+            else if (e.KeyCode == Keys.F3)//Ajustar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F3";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(15, 0));
+            }
+            else if (e.KeyCode == Keys.N && (e.Control))//Agregar Producto
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + N";
+
+                btnAgregarProducto.PerformClick();
+            }
+            else if (e.KeyCode == Keys.C && (e.Alt))//Agregar Combo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + C";
+
+                btnAgregarPaquete.PerformClick();
+            }
+            else if (e.KeyCode == Keys.S && (e.Control))//Agregar Servicio
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + S";
+
+                btnAgregarServicio.PerformClick();
+            }
+            else if (e.KeyCode == Keys.F && (e.Control))//Filtro
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + F";
+
+                btnFilterSearch.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)//Borrar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "ESC";
+
+                btnCleanFilter.PerformClick();
+            }
+            else if (e.KeyCode == Keys.X && (e.Control))//Agregar XML
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + X";
+
+                btnAgregarXML.PerformClick();
+            }
+            else if (e.KeyCode == Keys.R && (e.Control))//Reporte
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + R";
+
+                btnPedido.PerformClick();
+            }
+            else if (e.KeyCode == Keys.L && (e.Control))//Lista
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + L";
+
+                btnListView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.M && (e.Control))//Mosaico
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + M";
+
+                btnPhotoView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.P && (e.Control))//Imprimir
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + P";
+
+                btnImprimir.PerformClick();
+            }
+            else if (e.KeyCode == Keys.E && (e.Control))//Boton Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + E";
+
+                btnEtiqueta.PerformClick();
+            }
+            else if(e.KeyCode==Keys.A && (e.Control))//Boton Asignar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + A";
+
+                btnAsignarMultiple.PerformClick();
+            }
+            else if (e.KeyCode==Keys.T && (e.Control))//Boton Cmbiar Tipo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + T";
+
+                btnCambiarTipo.PerformClick();
+            }
+            else if (e.KeyCode==Keys.D && (e.Control))//Boton Deshabilitar Seleccionado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + D";
+
+                btnModificarEstado.PerformClick();
+            }
+
         }
         //Atajos para el DataGridView y Botones
         private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F2)//Editar
             {
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
-
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "F2";
-            }
-            else if (e.KeyCode==Keys.D && (e.Alt))//Estado
-            {
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
 
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
+            }
+            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Alt + D";
-            }
-            else if (e.KeyCode==Keys.H && (e.Alt))//Historial
-            {
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(9, 0));
 
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            }
+            else if (e.KeyCode == Keys.H && (e.Alt))//Historial
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Alt + H";
-            }
-            else if(e.KeyCode==Keys.G && (e.Alt))//Generar codigo de barras
-            {
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(10, 0));
 
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(9, 0));
+            }
+            else if (e.KeyCode == Keys.G && (e.Alt))//Generar codigo de barras
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Alt + G";
-            }
-            else if (e.KeyCode==Keys.I && (e.Alt))//Imagen
-            {
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(11, 0));
 
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(10, 0));
+            }
+            else if (e.KeyCode == Keys.I && (e.Alt))//Imagen
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Alt + I";
-            }
-            else if (e.KeyCode==Keys.E && (e.Alt))//Etiqueta
-            {
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(12, 0));
 
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(11, 0));
+            }
+            else if (e.KeyCode == Keys.E && (e.Alt))//Etiqueta
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Alt + E";
-            }
-            else if (e.KeyCode==Keys.F3)//Ajustar
-            {
-                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(15, 0));
 
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(12, 0));
+            }
+            else if (e.KeyCode == Keys.F3)//Ajustar
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "F3";
-            }
-            else if (e.KeyCode==Keys.N && (e.Control))//Agregar Producto
-            {
-                btnAgregarProducto.PerformClick();
 
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(15, 0));
+            }
+            else if (e.KeyCode == Keys.N && (e.Control))//Agregar Producto
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Ctrl + N";
-            }
-            else if (e.KeyCode==Keys.C && (e.Alt))//Agregar Combo
-            {
-                btnAgregarPaquete.PerformClick();
 
+                btnAgregarProducto.PerformClick();
+            }
+            else if (e.KeyCode == Keys.C && (e.Alt))//Agregar Combo
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Alt + C";
-            }
-            else if (e.KeyCode==Keys.S && (e.Control))//Agregar Servicio
-            {
-                btnAgregarServicio.PerformClick();
 
+                btnAgregarPaquete.PerformClick();
+            }
+            else if (e.KeyCode == Keys.S && (e.Control))//Agregar Servicio
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Ctrl + S";
-            }
-            else if (e.KeyCode==Keys.F && (e.Control))//Filtro
-            {
-                btnFilterSearch.PerformClick();
 
+                btnAgregarServicio.PerformClick();
+            }
+            else if (e.KeyCode == Keys.F && (e.Control))//Filtro
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Ctrl + F";
-            }
-            else if (e.KeyCode==Keys.Escape)//Borrar
-            {
-                btnCleanFilter.PerformClick();
 
+                btnFilterSearch.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)//Borrar
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "ESC";
-            }
-            else if(e.KeyCode==Keys.X && (e.Control))//Agregar XML
-            {
-                btnAgregarXML.PerformClick();
 
+                btnCleanFilter.PerformClick();
+            }
+            else if (e.KeyCode == Keys.X && (e.Control))//Agregar XML
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Ctrl + X";
-            }
-            else if (e.KeyCode==Keys.R && (e.Control))//Reporte
-            {
-                btnPedido.PerformClick();
 
+                btnAgregarXML.PerformClick();
+            }
+            else if (e.KeyCode == Keys.R && (e.Control))//Reporte
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Ctrl + R";
-            }
-            else if (e.KeyCode==Keys.L && (e.Control))//Lista
-            {
-                btnListView.PerformClick();
 
+                btnPedido.PerformClick();
+            }
+            else if (e.KeyCode == Keys.L && (e.Control))//Lista
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Ctrl + L";
-            }
-            else if(e.KeyCode==Keys.M && (e.Control))//Mosaico
-            {
-                btnPhotoView.PerformClick();
 
+                btnListView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.M && (e.Control))//Mosaico
+            {
                 timer1.Start();
                 lAtajo.Visible = true;
                 lAtajo.Text = "Ctrl + M";
+
+                btnPhotoView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.P && (e.Control))//Imprimir
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + P";
+
+                btnImprimir.PerformClick();
+            }
+            else if (e.KeyCode == Keys.E && (e.Control))//Boton Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + E";
+
+                btnEtiqueta.PerformClick();
+            }
+            else if (e.KeyCode == Keys.A && (e.Control))//Boton Asignar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + A";
+
+                btnAsignarMultiple.PerformClick();
+            }
+            else if (e.KeyCode == Keys.T && (e.Control))//Boton Cmbiar Tipo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + T";
+
+                btnCambiarTipo.PerformClick();
+            }
+            else if (e.KeyCode == Keys.D && (e.Control))//Boton Deshabilitar Seleccionado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + D";
+
+                btnModificarEstado.PerformClick();
             }
         }
 
@@ -2448,6 +2688,178 @@ namespace PuntoDeVentaV2
                 timer1.Enabled = false;
             }
             conteo = 0;
+        }
+
+        private void DGVProductos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)//Editar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F2";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(7, 0));
+            }
+            else if (e.KeyCode == Keys.D && (e.Alt))//Estado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + D";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(8, 0));
+            }
+            else if (e.KeyCode == Keys.H && (e.Alt))//Historial
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + H";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(9, 0));
+            }
+            else if (e.KeyCode == Keys.G && (e.Alt))//Generar codigo de barras
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + G";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(10, 0));
+            }
+            else if (e.KeyCode == Keys.I && (e.Alt))//Imagen
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + I";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(11, 0));
+            }
+            else if (e.KeyCode == Keys.E && (e.Alt))//Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + E";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(12, 0));
+            }
+            else if (e.KeyCode == Keys.F3)//Ajustar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "F3";
+
+                DGVProductos_CellClick(this, new DataGridViewCellEventArgs(15, 0));
+            }
+            else if (e.KeyCode == Keys.N && (e.Control))//Agregar Producto
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + N";
+
+                btnAgregarProducto.PerformClick();
+            }
+            else if (e.KeyCode == Keys.C && (e.Alt))//Agregar Combo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Alt + C";
+
+                btnAgregarPaquete.PerformClick();
+            }
+            else if (e.KeyCode == Keys.S && (e.Control))//Agregar Servicio
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + S";
+
+                btnAgregarServicio.PerformClick();
+            }
+            else if (e.KeyCode == Keys.F && (e.Control))//Filtro
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + F";
+
+                btnFilterSearch.PerformClick();
+            }
+            else if (e.KeyCode == Keys.Escape)//Borrar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "ESC";
+
+                btnCleanFilter.PerformClick();
+            }
+            else if (e.KeyCode == Keys.X && (e.Control))//Agregar XML
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + X";
+
+                btnAgregarXML.PerformClick();
+            }
+            else if (e.KeyCode == Keys.R && (e.Control))//Reporte
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + R";
+
+                btnPedido.PerformClick();
+            }
+            else if (e.KeyCode == Keys.L && (e.Control))//Lista
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + L";
+
+                btnListView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.M && (e.Control))//Mosaico
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + M";
+
+                btnPhotoView.PerformClick();
+            }
+            else if (e.KeyCode == Keys.P && (e.Control))//Imprimir
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + P";
+
+                btnImprimir.PerformClick();
+            }
+            else if (e.KeyCode == Keys.E && (e.Control))//Boton Etiqueta
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + E";
+
+                btnEtiqueta.PerformClick();
+            }
+            else if (e.KeyCode == Keys.A && (e.Control))//Boton Asignar
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + A";
+
+                btnAsignarMultiple.PerformClick();
+            }
+            else if (e.KeyCode == Keys.T && (e.Control))//Boton Cmbiar Tipo
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + T";
+
+                btnCambiarTipo.PerformClick();
+            }
+            else if (e.KeyCode == Keys.D && (e.Control))//Boton Deshabilitar Seleccionado
+            {
+                timer1.Start();
+                lAtajo.Visible = true;
+                lAtajo.Text = "Ctrl + D";
+
+                btnModificarEstado.PerformClick();
+            }
         }
 
         private void DGVProductos_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -3725,6 +4137,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + N";
+            ///
+
             if (opcion10 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -3907,6 +4325,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarPaquete_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + C";
+            ///
+
             if (opcion11 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4011,6 +4435,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarServicio_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + S";
+            ///
+
             if (opcion12 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4348,6 +4778,12 @@ namespace PuntoDeVentaV2
 
         private void btnAgregarXML_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + X";
+            ///
+
             if (opcion1 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4673,6 +5109,12 @@ namespace PuntoDeVentaV2
 
         private void btnAsignarMultiple_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + A";
+            ///
+
             if (opcion5 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4738,6 +5180,12 @@ namespace PuntoDeVentaV2
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + P";
+            ///
+
             if (opcion9 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4777,6 +5225,12 @@ namespace PuntoDeVentaV2
 
         private void btnEtiqueta_Click(object sender, EventArgs e)
         {
+            ///Mostrar Mensaje ne la etiqueta de atajos
+            timer1.Start();
+            lAtajo.Visible = true;
+            lAtajo.Text = "Ctrl + E";
+            ///
+
             if (opcion7 == 0)
             {
                 Utilidades.MensajePermiso();
