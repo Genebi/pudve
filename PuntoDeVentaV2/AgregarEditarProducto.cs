@@ -1070,8 +1070,9 @@ namespace PuntoDeVentaV2
                     calculadora.FormClosed += delegate
                     {
                         txtStockMinimo.Text = calculadora.lCalculadora.Text;
-                        calcu = 0;
                     };
+
+                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -1080,11 +1081,6 @@ namespace PuntoDeVentaV2
                     {
                         calculadora.Show();
                     }
-
-                    //if ()
-                    //{
-                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
-                    //}
                 }
             }
 

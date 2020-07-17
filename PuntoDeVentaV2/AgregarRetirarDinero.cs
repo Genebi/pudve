@@ -674,5 +674,91 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtCheque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtCheque.Text = calculadora.lCalculadora.Text;
+                    };
+
+                    calcu = 0;
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtTrans_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtTrans.Text = calculadora.lCalculadora.Text;
+                    };
+
+                    calcu = 0;
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtCredito_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        txtCredito.Text = calculadora.lCalculadora.Text;
+                    };
+
+                    calcu = 0;
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
     }
 }

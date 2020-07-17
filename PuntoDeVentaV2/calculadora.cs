@@ -535,6 +535,8 @@ namespace PuntoDeVentaV2
         //FUNCIONALIDAD DE LAS TECLAS
         private void calculadora_KeyPress(object sender, KeyPressEventArgs e)
         {
+            int subCerrarCalculadra=0;
+
             if (e.KeyChar == 43)//SUMAR
             {
                 btnSumar.PerformClick();
