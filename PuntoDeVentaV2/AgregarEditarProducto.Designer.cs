@@ -735,7 +735,6 @@
             this.btnProdUpdate.TabIndex = 20;
             this.btnProdUpdate.Text = "Actualizar Producto";
             this.btnProdUpdate.UseVisualStyleBackColor = false;
-            this.btnProdUpdate.Visible = false;
             this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
             // 
             // Ptitulo
